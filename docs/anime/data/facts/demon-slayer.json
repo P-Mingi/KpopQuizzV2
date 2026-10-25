@@ -640,7 +640,7 @@
    "ED 2: Kamado Tanjiro no Uta - Go Shiina feat. Nami Nakagawa (season 1)"
   ],
   "category": "music",
-  "load_bearing": false,
+  "load_bearing": true,
   "spoiler": {
    "arc": 0,
    "scope": "both"
@@ -651,10 +651,16 @@
     "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1",
     "ref": "1374154710",
     "fetched_at": "2026-10-20T16:42:43Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q65278185",
+    "ref": "Q65278185",
+    "fetched_at": "2026-10-25T21:12:01Z"
    }
   ],
   "status": "verified",
-  "verified_at": "2026-10-23T17:38:18.790Z",
+  "verified_at": "2026-10-25T21:12:01.000Z",
   "excerpt": "while the ending theme is \"from the edge\" by FictionJunction feat. LiSA"
  },
  {
@@ -2840,7 +2846,7 @@
   ],
   "text": "Inosuke Hashibira is voiced in Japanese by Yoshitsugu Matsuoka.",
   "category": "members",
-  "load_bearing": false,
+  "load_bearing": true,
   "spoiler": {
    "arc": 0,
    "scope": "both"
@@ -2851,10 +2857,16 @@
     "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
     "ref": "1381843197",
     "fetched_at": "2026-10-25T19:02:36Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q109321822",
+    "ref": "Q109321822",
+    "fetched_at": "2026-10-25T21:12:01Z"
    }
   ],
   "status": "verified",
-  "verified_at": "2026-10-25T19:04:36.000Z",
+  "verified_at": "2026-10-25T21:12:01.000Z",
   "excerpt": "Voiced by: Yoshitsugu Matsuoka (Japanese)"
  }
 ]

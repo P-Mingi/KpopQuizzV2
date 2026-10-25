@@ -1060,5 +1060,71 @@
     "status": "verified",
     "verified_at": "2026-10-25T18:56:18.000Z",
     "excerpt": "tries to assassinate King Canute, but is sentenced to a life of enslavement"
+  },
+  {
+    "id": "vinland-saga-jmaf-grand-prize-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "award",
+    "value": "Japan Media Arts Festival, 13th edition (2009), Manga Division Grand Prize",
+    "text": "In 2009 the manga won the Grand Prize of the 13th Japan Media Arts Festival.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.bunka.go.jp/j-mediaarts-festival/award/previous/13th/manga/index.html",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "The series won the 13th Japan Media Arts Festival's Grand Prize in 2009"
+  },
+  {
+    "id": "vinland-saga-jmaf-year-043",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "awards",
+    "value": "13th Japan Media Arts Festival = fiscal year 2009",
+    "text": "The 13th Japan Media Arts Festival is the one of the 2009 fiscal year.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-25T21:28:58Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.bunka.go.jp/j-mediaarts-festival/award/previous/",
+        "fetched_at": "2026-10-25T21:28:58Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:28:58.000Z",
+    "excerpt": "13th Japan Media Arts Festival's Grand Prize in 2009"
   }
 ]

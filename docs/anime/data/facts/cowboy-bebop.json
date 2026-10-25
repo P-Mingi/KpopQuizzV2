@@ -396,7 +396,7 @@
     "value": "First anime shown on Adult Swim's launch night, September 2, 2001",
     "text": "When Adult Swim launched on 2 September 2001, Cowboy Bebop was the first anime on its schedule, at midnight Eastern.",
     "category": "fun",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -407,10 +407,16 @@
         "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
         "ref": "1381153866",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q379052",
+        "ref": "Q379052",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "being the first anime shown on the block that night at midnight ET"
   },
   {
@@ -845,7 +851,7 @@
     "value": "27 years old",
     "text": "Spike Spiegel is 27 years old, a lanky bounty hunter who was born on Mars.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -856,10 +862,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
         "ref": "1374374792",
         "fetched_at": "2026-10-25T18:49:54Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.cowboy-bebop.net/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:51:54.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "is a tall, lean, and slightly muscular 27-year-old bounty hunter born on Mars"
   },
   {
@@ -874,7 +885,7 @@
     "value": "36 years old",
     "text": "Jet Black, the ex-cop from Ganymede who owns the Bebop, is 36 years old.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -885,10 +896,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
         "ref": "1374374792",
         "fetched_at": "2026-10-25T18:49:54Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.cowboy-bebop.net/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:51:54.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "is a 36-year-old former cop from Ganymede"
   },
   {
@@ -903,7 +919,7 @@
     "value": "about 13 years old",
     "text": "Radical Edward, the whiz-kid hacker, is a girl of roughly 13 years.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -914,10 +930,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
         "ref": "1374374792",
         "fetched_at": "2026-10-25T18:49:54Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.cowboy-bebop.net/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:51:54.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "teenage girl of around thirteen years of age"
   },
   {
@@ -961,7 +982,7 @@
     "value": "session 17, Mushroom Samba",
     "text": "Ein shows he can talk with other animals in session 17, Mushroom Samba, where he swaps words with a cow.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 1,
       "scope": "both"
@@ -972,10 +993,16 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
         "ref": "1374374792",
         "fetched_at": "2026-10-25T18:49:54Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q75037237",
+        "ref": "Q75037237",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:51:54.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Session 17: \"Mushroom Samba\" (he speaks to a cow"
   },
   {
@@ -1017,7 +1044,7 @@
     "value": "300 million woolongs",
     "text": "In the film, Mars puts up a reward of 300 million woolongs to catch the culprit behind the pathogen attack.",
     "category": "fun",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 2,
       "scope": "both"
@@ -1028,10 +1055,15 @@
         "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie",
         "ref": "1381555070",
         "fetched_at": "2026-10-25T18:50:15Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.cowboy-bebop.net/story/movie.html",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:52:15.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "offers an astounding 300 million Woolong bounty for the culprit's capture"
   },
   {
@@ -1048,7 +1080,7 @@
     ],
     "text": "Faye Valentine is voiced in Japanese by Megumi Hayashibara.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -1059,10 +1091,21 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
         "ref": "1374374792",
         "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1411547",
+        "ref": "Q1411547",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.cowboy-bebop.net/world/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T19:04:36.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Megumi Hayashibara (Japanese)"
   },
   {
@@ -1079,7 +1122,7 @@
     ],
     "text": "Spike Spiegel is voiced in Japanese by Kōichi Yamadera.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -1090,10 +1133,55 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
         "ref": "1374374792",
         "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2570349",
+        "ref": "Q2570349",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.cowboy-bebop.net/world/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T19:04:36.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Kōichi Yamadera (Japanese)"
+  },
+  {
+    "id": "cowboy-bebop-faye-official-age-23-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "faye-valentine"
+    },
+    "field": "background",
+    "value": "23 on the official character page",
+    "text": "The official character page lists Faye Valentine at 23 years old, the age she seems to be.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T21:14:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.cowboy-bebop.net/character/",
+        "fetched_at": "2026-10-25T21:14:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:14:01.000Z",
+    "excerpt": "Although appearing to be no more than 22"
   }
 ]

@@ -2,14 +2,14 @@
  "site": "anime",
  "account": "oq_creator_20",
  "group_slug": "tower-of-god",
- "title": "The Tower by the Numbers: Floors, Families and Years",
+ "title": "The Tower by the Numbers: Years, Episodes and Floors",
  "slug": "the-tower-by-the-numbers-floors-families-and-years",
- "description": "Ten numeric questions about the Tower of God webtoon and anime: launch and release years, team roles, floor layers, ruling families and one deep floor number. No real spoilers: only arc names and one Irregular's feat.",
+ "description": "Ten numeric questions about the Tower of God webtoon and anime: launch and release years, episode counts, the day the webtoon began and one deep floor number. No real spoilers: only arc names and one Irregular's feat.",
  "quiz_type": "multiple_choice",
  "difficulty": "medium",
  "language": "en",
  "title_gives_nothing_away": true,
- "notes": "Numbers format: every answer is a number taken from the webtoon, the world of the Tower or the anime release.",
+ "notes": "Numbers format: every answer is a number taken from the webtoon launch, the anime release or the world of the Tower.",
  "sources": [
   {
    "id": "S1",
@@ -20,6 +20,11 @@
    "id": "S2",
    "title": "Wikipedia: Tower of God season 2",
    "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Tower of God season 1",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
   }
  ],
  "questions": [
@@ -43,61 +48,61 @@
    "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
   },
   {
-   "question": "How many layers does every floor of the Tower have?",
+   "question": "How many episodes does the first season of the Tower of God anime have?",
    "options": [
-    "3",
-    "2",
-    "4",
-    "5"
-   ],
-   "correct": 0,
-   "kind": "lore",
-   "spoiler": {
-    "arc": 0,
-    "scope": "both"
-   },
-   "fact_ids": [
-    "tower-of-god-floor-layers-three-042"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
-  },
-  {
-   "question": "In which year did the first official English translation of the webtoon start on Line Webtoon?",
-   "options": [
-    "2011",
-    "2014",
-    "2018",
-    "2016"
+    "12",
+    "13",
+    "24",
+    "26"
    ],
    "correct": 1,
-   "kind": "manga",
+   "kind": "episode",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "tower-of-god-english-release-006"
+    "tower-of-god-anime-season-one-008"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
   },
   {
-   "question": "Teams in the Tower give each fighter a role, such as spear-bearer or scout. How many basic positions are there?",
+   "question": "In which year did the first season of the anime air in Japan?",
    "options": [
-    "5",
-    "4",
-    "7",
-    "3"
+    "2018",
+    "2019",
+    "2020",
+    "2021"
    ],
-   "correct": 0,
-   "kind": "lore",
+   "correct": 2,
+   "kind": "production",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "tower-of-god-team-positions-five-041"
+    "tower-of-god-anime-season-one-008"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
+  },
+  {
+   "question": "The second season of the anime ended in December. On which day of the month?",
+   "options": [
+    "15",
+    "22",
+    "29",
+    "31"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-season-two-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
   },
   {
    "question": "In which year was the anime first revealed, at Seoul Comic-Con?",
@@ -119,23 +124,23 @@
    "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
   },
   {
-   "question": "How many Great Families sit at the top of the Tower as its governing body?",
+   "question": "Counting from the first season on, which episode begins the Return of the Prince arc?",
    "options": [
-    "5",
     "12",
-    "10",
-    "7"
+    "13",
+    "14",
+    "27"
    ],
    "correct": 2,
-   "kind": "lore",
+   "kind": "episode",
    "spoiler": {
-    "arc": 0,
+    "arc": 4,
     "scope": "both"
    },
    "fact_ids": [
-    "tower-of-god-great-families-ten-043"
+    "tower-of-god-arc-structure-014"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
   },
   {
    "question": "In which year did the second season of the anime air in Japan, from July to December?",
@@ -176,12 +181,12 @@
    "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
   },
   {
-   "question": "The author is said to plan big events and characters sometimes more than how many years before they show up?",
+   "question": "The webtoon began on Naver Webtoon in June of its launch year. On which day of the month?",
    "options": [
-    "15",
-    "12",
     "10",
-    "8"
+    "15",
+    "20",
+    "30"
    ],
    "correct": 3,
    "kind": "manga",
@@ -190,7 +195,7 @@
     "scope": "both"
    },
    "fact_ids": [
-    "tower-of-god-long-term-planning-020"
+    "tower-of-god-webtoon-launch-003"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
   },

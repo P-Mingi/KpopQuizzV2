@@ -72,23 +72,23 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
   },
   {
-   "question": "The director called his series a blend of serious story and humour. What percent is the serious story?",
+   "question": "TV Tokyo aired the show first, in a run that began in April 1998. On which day of April did it begin?",
    "options": [
-    "90 percent",
-    "65 percent",
-    "50 percent",
-    "80 percent"
+    "3",
+    "10",
+    "17",
+    "24"
    ],
-   "correct": 3,
-   "kind": "lore",
+   "correct": 0,
+   "kind": "production",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "cowboy-bebop-watanabe-80-20-033"
+    "cowboy-bebop-tv-tokyo-run-005"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes"
   },
   {
    "question": "About how old is the young hacker Ed?",
@@ -129,21 +129,21 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
   },
   {
-   "question": "Faye looks young, but about how old is she in truth?",
+   "question": "The official character page of the series lists Faye Valentine at which age?",
    "options": [
-    "77",
-    "54",
-    "91",
-    "65"
+    "19",
+    "23",
+    "27",
+    "77"
    ],
-   "correct": 0,
+   "correct": 1,
    "kind": "character",
    "spoiler": {
-    "arc": 1,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "cowboy-bebop-faye-real-age-77-031"
+    "cowboy-bebop-faye-official-age-23-037"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
   },

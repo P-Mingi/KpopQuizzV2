@@ -1,0 +1,4102 @@
+[
+  {
+    "quiz": "quizzes/anime-mix/count-them-up-ten-anime-and-manga-in-numbers.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Cowboy_Bebop?oldid=1381153866",
+      "https://www.wikidata.org/wiki/Q101244908",
+      "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=41"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/count-them-up-ten-anime-and-manga-in-numbers.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Death_Note?oldid=1379383524",
+      "https://www.wikidata.org/wiki/Q718624"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/count-them-up-ten-anime-and-manga-in-numbers.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)?oldid=1379368186",
+      "https://www.wikidata.org/wiki/Q704353"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/count-them-up-ten-anime-and-manga-in-numbers.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)?oldid=1381884191",
+      "https://www.wikidata.org/wiki/Q16510277",
+      "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes?oldid=1381404148",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=10942"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/count-them-up-ten-anime-and-manga-in-numbers.json",
+    "index": 4,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama_(TV_series)?oldid=1375554499",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236"
+    ],
+    "reason": "Gintama total 367 had one Wikipedia source and Wikidata gives 353 for the anime item; replaced by the 201 episodes of the 2006 series (Wikipedia, Wikidata, ANN)"
+  },
+  {
+    "quiz": "quizzes/anime-mix/count-them-up-ten-anime-and-manga-in-numbers.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen?oldid=1381182639",
+      "https://www.wikidata.org/wiki/Q55522899",
+      "https://www.shonenjump.com/j/rensai/jujutsu/"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/count-them-up-ten-anime-and-manga-in-numbers.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes?oldid=1379123132",
+      "https://www.wikidata.org/wiki/Q67144604"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/count-them-up-ten-anime-and-manga-in-numbers.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bleach_(manga)?oldid=1372127035",
+      "https://www.wikidata.org/wiki/Q904"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/count-them-up-ten-anime-and-manga-in-numbers.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://ja.wikipedia.org/wiki/%E9%80%B2%E6%92%83%E3%81%AE%E5%B7%A8%E4%BA%BA?oldid=111292624",
+      "https://www.wikidata.org/wiki/Q586025"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/count-them-up-ten-anime-and-manga-in-numbers.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters?oldid=1378686023",
+      "https://www.wikidata.org/wiki/Q930990"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/not-in-that-magazine-manga-odd-one-out.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Blue_Lock?oldid=1380484703",
+      "https://www.wikidata.org/wiki/Q62414782",
+      "https://en.wikipedia.org/wiki/Death_Note?oldid=1379383524",
+      "https://www.wikidata.org/wiki/Q1834",
+      "https://en.wikipedia.org/wiki/Haikyu!!?oldid=1380484279",
+      "https://www.wikidata.org/wiki/Q326642",
+      "https://shonenjump.com/j/rensai/haikyu.html",
+      "https://en.wikipedia.org/wiki/Bleach_(manga)?oldid=1372127035",
+      "https://www.wikidata.org/wiki/Q904"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/not-in-that-magazine-manga-odd-one-out.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama?oldid=1380552228",
+      "https://www.wikidata.org/wiki/Q764135",
+      "https://www.shonenjump.com/j/rensai/gintama.html",
+      "https://en.wikipedia.org/wiki/Fairy_Tail?oldid=1381103857",
+      "https://www.wikidata.org/wiki/Q18796",
+      "https://en.wikipedia.org/wiki/Blue_Lock?oldid=1380484703",
+      "https://www.wikidata.org/wiki/Q62414782",
+      "https://en.wikipedia.org/wiki/Tokyo_Revengers?oldid=1381518809",
+      "https://www.wikidata.org/wiki/Q63981675"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q18796, Wikidata Q63981675"
+  },
+  {
+    "quiz": "quizzes/anime-mix/not-in-that-magazine-manga-odd-one-out.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Case_Closed?oldid=1380847138",
+      "https://www.wikidata.org/wiki/Q3853685",
+      "https://www.tms-e.co.jp/global/alltitles/conan/087101.html",
+      "https://en.wikipedia.org/wiki/Fairy_Tail?oldid=1381103857",
+      "https://www.wikidata.org/wiki/Q18796",
+      "https://en.wikipedia.org/wiki/Attack_on_Titan?oldid=1379110502",
+      "https://www.wikidata.org/wiki/Q586025",
+      "https://www.kodansha.co.jp/comic/products/0000352102",
+      "https://en.wikipedia.org/wiki/Sailor_Moon?oldid=1380981876",
+      "https://www.wikidata.org/wiki/Q1643098"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q18796"
+  },
+  {
+    "quiz": "quizzes/anime-mix/not-in-that-magazine-manga-odd-one-out.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket?oldid=1379854325",
+      "https://www.wikidata.org/wiki/Q216204",
+      "https://fruba.jp/caststaff/",
+      "https://en.wikipedia.org/wiki/Death_Note?oldid=1379383524",
+      "https://www.wikidata.org/wiki/Q1834",
+      "https://en.wikipedia.org/wiki/Gintama?oldid=1380552228",
+      "https://www.wikidata.org/wiki/Q764135",
+      "https://www.tv-tokyo.co.jp/anime/gintama/",
+      "https://en.wikipedia.org/wiki/Tokyo_Ghoul?oldid=1381849149",
+      "https://www.wikidata.org/wiki/Q11102941"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/not-in-that-magazine-manga-odd-one-out.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Mob_Psycho_100?oldid=1380373905",
+      "https://www.wikidata.org/wiki/Q11344543",
+      "https://en.wikipedia.org/wiki/Oshi_no_Ko?oldid=1377608811",
+      "https://www.wikidata.org/wiki/Q97310775",
+      "https://youngjump.jp/oshinoko/",
+      "https://en.wikipedia.org/wiki/Tokyo_Ghoul?oldid=1381849149",
+      "https://www.wikidata.org/wiki/Q11102941",
+      "https://en.wikipedia.org/wiki/One-Punch_Man?oldid=1379606340",
+      "https://onepunchman-anime.net/staff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/not-in-that-magazine-manga-odd-one-out.json",
+    "index": 5,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dandadan?oldid=1380355741",
+      "https://www.wikidata.org/wiki/Q108069627",
+      "https://en.wikipedia.org/wiki/Black_Clover?oldid=1381706424",
+      "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=17059",
+      "https://www.wikidata.org/wiki/Q20638503",
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen?oldid=1381182639",
+      "https://www.shonenjump.com/j/rensai/jujutsu/",
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1380968841",
+      "https://www.wikidata.org/wiki/Q122713274",
+      "https://www.shonenjump.com/j/rensai/kagurabachi.html"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q20638503"
+  },
+  {
+    "quiz": "quizzes/anime-mix/not-in-that-magazine-manga-odd-one-out.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Death_Note?oldid=1379383524",
+      "https://www.wikidata.org/wiki/Q1834",
+      "https://en.wikipedia.org/wiki/Fullmetal_Alchemist?oldid=1379208505",
+      "https://www.wikidata.org/wiki/Q189562",
+      "https://en.wikipedia.org/wiki/Attack_on_Titan?oldid=1379110502",
+      "https://www.wikidata.org/wiki/Q586025",
+      "https://www.kodansha.co.jp/comic/products/0000352102",
+      "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime?oldid=1381575839",
+      "https://www.wikidata.org/wiki/Q61779948",
+      "https://www.ten-sura.com/anime/tensura/staffcast"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/not-in-that-magazine-manga-odd-one-out.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071",
+      "https://www.wikidata.org/wiki/Q65235667",
+      "https://en.wikipedia.org/wiki/Haikyu!!?oldid=1380484279",
+      "https://www.wikidata.org/wiki/Q326642",
+      "https://shonenjump.com/j/rensai/haikyu.html",
+      "https://en.wikipedia.org/wiki/Bleach_(manga)?oldid=1372127035",
+      "https://www.wikidata.org/wiki/Q904",
+      "https://en.wikipedia.org/wiki/One_Piece?oldid=1379784013",
+      "https://www.wikidata.org/wiki/Q28667972"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/not-in-that-magazine-manga-odd-one-out.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bleach_(manga)?oldid=1372127035",
+      "https://www.wikidata.org/wiki/Q904",
+      "https://en.wikipedia.org/wiki/Naruto?oldid=1379758694",
+      "https://www.wikidata.org/wiki/Q26971382",
+      "https://en.wikipedia.org/wiki/One_Piece?oldid=1379784013",
+      "https://www.wikidata.org/wiki/Q28667972",
+      "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter?oldid=1381097044",
+      "https://www.wikidata.org/wiki/Q696071"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/not-in-that-magazine-manga-odd-one-out.json",
+    "index": 9,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters?oldid=1377041414",
+      "https://en.wikipedia.org/wiki/Fairy_Tail?oldid=1381103857",
+      "https://www.wikidata.org/wiki/Q18796",
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen?oldid=1381182639",
+      "https://www.wikidata.org/wiki/Q55522899",
+      "https://shonenjumpplus.com/episode/13933686331762212128",
+      "https://en.wikipedia.org/wiki/Tokyo_Revengers?oldid=1381518809",
+      "https://www.wikidata.org/wiki/Q63981675",
+      "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=22854"
+    ],
+    "reason": "the Chainsaw Man end date (March 25, 2026) is on Wikipedia and Wikidata only in its start; replaced the option by Kaiju No. 8 (run to July 18, 2025: Wikipedia, Wikidata, Shonen Jump+ official page)"
+  },
+  {
+    "quiz": "quizzes/anime-mix/release-race-which-anime-manga-or-novel-came-first.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)?oldid=1380734049",
+      "https://www.wikidata.org/wiki/Q5363072",
+      "https://en.wikipedia.org/wiki/Naruto_(TV_series)?oldid=1381022376",
+      "https://www.wikidata.org/wiki/Q25929253",
+      "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes?oldid=1381404148",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=10942",
+      "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)?oldid=1379816935",
+      "https://www.wikidata.org/wiki/Q22126305"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/release-race-which-anime-manga-or-novel-came-first.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Death_Note?oldid=1379383524",
+      "https://www.wikidata.org/wiki/Q718624",
+      "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)?oldid=1375534085",
+      "https://www.wikidata.org/wiki/Q20590069",
+      "https://en.wikipedia.org/wiki/Tokyo_Ghoul?oldid=1381849149",
+      "https://www.wikidata.org/wiki/Q40239998",
+      "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_episodes?oldid=1373429137",
+      "https://www.wikidata.org/wiki/Q114009808"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/release-race-which-anime-manga-or-novel-came-first.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes?oldid=1368905328",
+      "https://www.wikidata.org/wiki/Q101244908",
+      "https://en.wikipedia.org/wiki/Code_Geass?oldid=1381032911",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6704",
+      "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)?oldid=1377881862",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=17360",
+      "https://www.wikidata.org/wiki/Q65086934",
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q57390937"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/release-race-which-anime-manga-or-novel-came-first.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Haikyu!!?oldid=1380484279",
+      "https://www.wikidata.org/wiki/Q67144604",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=15683",
+      "https://en.wikipedia.org/wiki/One-Punch_Man_season_1?oldid=1376949985",
+      "https://onepunchman-anime.net/staff/",
+      "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)?oldid=1381745541",
+      "https://www.wikidata.org/wiki/Q70331950",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=19743",
+      "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)?oldid=1381889048",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20736",
+      "https://www.wikidata.org/wiki/Q61779950"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: ANN"
+  },
+  {
+    "quiz": "quizzes/anime-mix/release-race-which-anime-manga-or-novel-came-first.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes?oldid=1374283835",
+      "https://www.wikidata.org/wiki/Q117353182",
+      "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)?oldid=1377042192",
+      "https://www.wikidata.org/wiki/Q63350570",
+      "https://kimetsu.com/anime/about/",
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)?oldid=1378637114",
+      "https://www.wikidata.org/wiki/Q98836216",
+      "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes?oldid=1381408214",
+      "https://www.wikidata.org/wiki/Q100255568",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23847"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/release-race-which-anime-manga-or-novel-came-first.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Death_Note?oldid=1379383524",
+      "https://www.wikidata.org/wiki/Q1834",
+      "https://en.wikipedia.org/wiki/Fairy_Tail?oldid=1381103857",
+      "https://www.wikidata.org/wiki/Q18796",
+      "https://en.wikipedia.org/wiki/Attack_on_Titan?oldid=1379110502",
+      "https://www.wikidata.org/wiki/Q586025",
+      "https://en.wikipedia.org/wiki/Haikyu!!?oldid=1380484279",
+      "https://www.wikidata.org/wiki/Q326642",
+      "https://shonenjump.com/j/rensai/haikyu.html"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/release-race-which-anime-manga-or-novel-came-first.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Chainsaw_Man?oldid=1381105424",
+      "https://www.wikidata.org/wiki/Q65240543",
+      "https://en.wikipedia.org/wiki/Tokyo_Revengers?oldid=1381518809",
+      "https://www.wikidata.org/wiki/Q63981675",
+      "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=22854",
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071",
+      "https://www.wikidata.org/wiki/Q65235667",
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen?oldid=1381182639",
+      "https://www.wikidata.org/wiki/Q55522899"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/release-race-which-anime-manga-or-novel-came-first.json",
+    "index": 7,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tower_of_God?oldid=1378030268",
+      "https://www.wikidata.org/wiki/Q487202",
+      "https://en.wikipedia.org/wiki/Re:Zero?oldid=1381439544",
+      "https://ncode.syosetu.com/n2267be/",
+      "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime?oldid=1381575839",
+      "https://ncode.syosetu.com/n6316bn/",
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint?oldid=1380159721",
+      "https://www.wikidata.org/wiki/Q124338944"
+    ],
+    "reason": "all four began online before any print release, so the stem asked nothing precise; it now asks which went online earliest (Tower of God, June 30, 2010)"
+  },
+  {
+    "quiz": "quizzes/anime-mix/release-race-which-anime-manga-or-novel-came-first.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sword_Art_Online?oldid=1380954173",
+      "https://www.wikidata.org/wiki/Q27863",
+      "https://en.wikipedia.org/wiki/Re:Zero?oldid=1381439544",
+      "https://www.wikidata.org/wiki/Q20718351",
+      "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime?oldid=1381575839",
+      "https://www.wikidata.org/wiki/Q22100530",
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q22101190"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/release-race-which-anime-manga-or-novel-came-first.json",
+    "index": 9,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes?oldid=1378501554",
+      "https://anime-dandadan.com/news/182/",
+      "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes?oldid=1379822538",
+      "https://www.wikidata.org/wiki/Q120055455",
+      "https://en.wikipedia.org/wiki/Frieren_(TV_series)?oldid=1381164237",
+      "https://www.wikidata.org/wiki/Q115792176",
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes?oldid=1380822865",
+      "https://www.wikidata.org/wiki/Q116787865",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=27141"
+    ],
+    "reason": "\"newest\" was ambiguous since later seasons of the other shows aired after Dandadan premiered; the stem now compares first-season premieres"
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-studio-same-length-anime-odd-one-out.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Mob_Psycho_100?oldid=1380373905",
+      "https://www.wikidata.org/wiki/Q66313196",
+      "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)?oldid=1381745541",
+      "https://www.wikidata.org/wiki/Q70331950",
+      "https://bclover.jp/staffcast/",
+      "https://en.wikipedia.org/wiki/Tokyo_Ghoul?oldid=1381849149",
+      "https://www.wikidata.org/wiki/Q40239998",
+      "https://en.wikipedia.org/wiki/Bleach_(TV_series)?oldid=1377360344",
+      "https://www.wikidata.org/wiki/Q5362638"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-studio-same-length-anime-odd-one-out.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Haikyu!!?oldid=1380484279",
+      "https://www.wikidata.org/wiki/Q67144604",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=15683",
+      "https://en.wikipedia.org/wiki/One-Punch_Man_season_1?oldid=1376949985",
+      "https://onepunchman-anime.net/staff/",
+      "https://en.wikipedia.org/wiki/Frieren_(TV_series)?oldid=1381164237",
+      "https://www.wikidata.org/wiki/Q115792176",
+      "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter?oldid=1381097044",
+      "https://www.wikidata.org/wiki/Q70209136"
+    ],
+    "reason": "One-Punch Man season 2 was made by J.C.Staff and Hunter x Hunter also has a 1999 series by another studio; the stem now says first season and the 2011 series"
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-studio-same-length-anime-odd-one-out.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion?oldid=1380009223",
+      "https://www.wikidata.org/wiki/Q662",
+      "https://en.wikipedia.org/wiki/Code_Geass?oldid=1381032911",
+      "https://www.wikidata.org/wiki/Q4384067",
+      "https://www.geass.jp/first/",
+      "https://en.wikipedia.org/wiki/Cowboy_Bebop?oldid=1381153866",
+      "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=41",
+      "https://en.wikipedia.org/wiki/Gintama_(TV_series)?oldid=1375554499",
+      "https://www.tv-tokyo.co.jp/anime/gintama/",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236",
+      "https://www.wikidata.org/wiki/Q709716"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-studio-same-length-anime-odd-one-out.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dandadan?oldid=1380355741",
+      "https://anime-dandadan.com/staffcast/",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=30869",
+      "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)?oldid=1376900824",
+      "https://swordart-online.net/aincrad/",
+      "https://en.wikipedia.org/wiki/Solo_Leveling?oldid=1379866104",
+      "https://www.wikidata.org/wiki/Q112898063",
+      "https://sololeveling-anime.net/",
+      "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes?oldid=1381404148",
+      "https://www.wikidata.org/wiki/Q16510277"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-studio-same-length-anime-odd-one-out.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes?oldid=1374283835",
+      "https://www.wikidata.org/wiki/Q117353182",
+      "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_episodes?oldid=1373429137",
+      "https://www.wikidata.org/wiki/Q114009808",
+      "https://en.wikipedia.org/wiki/One-Punch_Man_season_1?oldid=1376949985",
+      "https://onepunchman-anime.net/staff/",
+      "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes?oldid=1379446981",
+      "https://www.wikidata.org/wiki/Q108230373"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-studio-same-length-anime-odd-one-out.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes?oldid=1379822538",
+      "https://www.wikidata.org/wiki/Q120055455",
+      "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes?oldid=1381408214",
+      "https://www.wikidata.org/wiki/Q100255568",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23847",
+      "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)?oldid=1375534085",
+      "https://www.wikidata.org/wiki/Q20590069",
+      "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)?oldid=1381889048",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20736",
+      "https://www.wikidata.org/wiki/Q61779950"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-studio-same-length-anime-odd-one-out.json",
+    "index": 6,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q57390937",
+      "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)?oldid=1379816935",
+      "https://www.wikidata.org/wiki/Q22126305",
+      "https://en.wikipedia.org/wiki/Haikyu!!?oldid=1380484279",
+      "https://www.wikidata.org/wiki/Q67144604",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=15683",
+      "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)?oldid=1377881862",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=17360",
+      "https://www.wikidata.org/wiki/Q65086934"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: ANN"
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-studio-same-length-anime-odd-one-out.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes?oldid=1379822538",
+      "https://www.wikidata.org/wiki/Q120055455",
+      "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)?oldid=1379031004",
+      "https://www.wikidata.org/wiki/Q109333365",
+      "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes?oldid=1379446981",
+      "https://www.wikidata.org/wiki/Q108230373",
+      "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes?oldid=1374283835",
+      "https://www.wikidata.org/wiki/Q117353182"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-studio-same-length-anime-odd-one-out.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)?oldid=1379816935",
+      "https://www.wikidata.org/wiki/Q22126305",
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)?oldid=1378637114",
+      "https://www.wikidata.org/wiki/Q98836216",
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes?oldid=1378501554",
+      "https://anime-dandadan.com/news/182/",
+      "https://en.wikipedia.org/wiki/One-Punch_Man_season_1?oldid=1376949985",
+      "https://onepunchman-anime.net/staff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-studio-same-length-anime-odd-one-out.json",
+    "index": 9,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)?oldid=1379368186",
+      "https://www.wikidata.org/wiki/Q704353",
+      "https://en.wikipedia.org/wiki/Haikyu!!?oldid=1380484279",
+      "https://www.wikidata.org/wiki/Q67144604",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=15683",
+      "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)?oldid=1381745541",
+      "https://www.wikidata.org/wiki/Q70331950",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=19743",
+      "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)?oldid=1377042192",
+      "https://www.wikidata.org/wiki/Q63350570",
+      "https://kimetsu.com/anime/about/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: ANN"
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-voice-different-anime-japanese-voice-actors-across-series.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)?oldid=1381705742",
+      "https://www.wikidata.org/wiki/Q843545",
+      "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)?oldid=1381908034",
+      "https://www.wikidata.org/wiki/Q3936121"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q843545, Wikidata Q3936121"
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-voice-different-anime-japanese-voice-actors-across-series.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters?oldid=1374374792",
+      "https://www.wikidata.org/wiki/Q1411547",
+      "https://www.cowboy-bebop.net/world/",
+      "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters?oldid=1380470607",
+      "https://www.wikidata.org/wiki/Q1140524"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q1411547, official cowboy-bebop.net, Wikidata Q1140524"
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-voice-different-anime-japanese-voice-actors-across-series.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters?oldid=1381202233",
+      "https://www.wikidata.org/wiki/Q65152123",
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_characters?oldid=1381762207",
+      "https://anime-dandadan.com/character/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q65152123, official anime-dandadan.com"
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-voice-different-anime-japanese-voice-actors-across-series.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters?oldid=1381937587",
+      "https://www.geass.jp/first/cast.html",
+      "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters?oldid=1370251193",
+      "https://www.wikidata.org/wiki/Q125343442"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: official geass.jp, Wikidata Q125343442"
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-voice-different-anime-japanese-voice-actors-across-series.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters?oldid=1373964762",
+      "https://www.wikidata.org/wiki/Q110177683",
+      "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters?oldid=1374413860",
+      "https://tog-anime.com/1st/caststaff/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q110177683, official tog-anime.com"
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-voice-different-anime-japanese-voice-actors-across-series.json",
+    "index": 5,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters?oldid=1374374792",
+      "https://www.wikidata.org/wiki/Q2570349",
+      "https://www.cowboy-bebop.net/world/",
+      "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters?oldid=1380470607",
+      "https://www.wikidata.org/wiki/Q1183669"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q2570349, official cowboy-bebop.net, Wikidata Q1183669"
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-voice-different-anime-japanese-voice-actors-across-series.json",
+    "index": 6,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters?oldid=1381937587",
+      "https://www.wikidata.org/wiki/Q952328",
+      "https://www.geass.jp/first/cast.html",
+      "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters?oldid=1381757229",
+      "https://bclover.jp/staffcast/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q952328, official geass.jp, official bclover.jp"
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-voice-different-anime-japanese-voice-actors-across-series.json",
+    "index": 7,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters?oldid=1381319484",
+      "https://www.wikidata.org/wiki/Q105037685",
+      "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters?oldid=1381757229",
+      "https://bclover.jp/staffcast/",
+      "https://www.wikidata.org/wiki/Q110895968",
+      "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters?oldid=1380243025",
+      "https://www.wikidata.org/wiki/Q141681672"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q105037685, Wikidata Q110895968, Wikidata Q141681672"
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-voice-different-anime-japanese-voice-actors-across-series.json",
+    "index": 8,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398",
+      "https://www.wikidata.org/wiki/Q4921911",
+      "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)?oldid=1381884191",
+      "https://a1p.jp/works/fairytail/",
+      "https://www.wikidata.org/wiki/Q10922148"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q4921911, Wikidata Q10922148"
+  },
+  {
+    "quiz": "quizzes/anime-mix/same-voice-different-anime-japanese-voice-actors-across-series.json",
+    "index": 9,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters?oldid=1380067261",
+      "https://www.wikidata.org/wiki/Q18468944",
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters?oldid=1381843197",
+      "https://www.wikidata.org/wiki/Q109321822"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q18468944, Wikidata Q109321822"
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-clues-one-anime-studio-year-and-plot-hint.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)?oldid=1381745541",
+      "https://www.wikidata.org/wiki/Q70331950",
+      "https://bclover.jp/staffcast/",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=19743",
+      "https://en.wikipedia.org/wiki/Black_Clover?oldid=1381706424"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-clues-one-anime-studio-year-and-plot-hint.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071",
+      "https://www.wikidata.org/wiki/Q108230373",
+      "https://bocchi.rocks/tv/caststaff/",
+      "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes?oldid=1379446981"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-clues-one-anime-studio-year-and-plot-hint.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Mob_Psycho_100?oldid=1380373905",
+      "https://www.wikidata.org/wiki/Q66313196",
+      "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_episodes?oldid=1373429137",
+      "https://www.wikidata.org/wiki/Q114009808",
+      "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters?oldid=1370251193"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-clues-one-anime-studio-year-and-plot-hint.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)?oldid=1378637114",
+      "https://www.wikidata.org/wiki/Q98836216",
+      "https://www.mbs.jp/jujutsukaisen/",
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen?oldid=1381182639"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-clues-one-anime-studio-year-and-plot-hint.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)?oldid=1381889048",
+      "https://www.ten-sura.com/anime/tensura/staffcast",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20736",
+      "https://www.wikidata.org/wiki/Q61779950"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-clues-one-anime-studio-year-and-plot-hint.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)?oldid=1376900824",
+      "https://swordart-online.net/aincrad/",
+      "https://www.wikidata.org/wiki/Q63348493",
+      "https://en.wikipedia.org/wiki/Sword_Art_Online?oldid=1380954173"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-clues-one-anime-studio-year-and-plot-hint.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tokyo_Ghoul?oldid=1381849149",
+      "https://www.wikidata.org/wiki/Q40239998"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-clues-one-anime-studio-year-and-plot-hint.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tokyo_Revengers?oldid=1381518809",
+      "https://www.wikidata.org/wiki/Q100255568",
+      "https://tokyo-revengers-anime.com/staff/",
+      "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes?oldid=1381408214",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23847"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-clues-one-anime-studio-year-and-plot-hint.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q57390937",
+      "https://tv.violet-evergarden.jp/staffcast/"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-clues-one-anime-studio-year-and-plot-hint.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)?oldid=1379439701",
+      "https://www.wikidata.org/wiki/Q90394739",
+      "https://fruba.jp/caststaff/",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21588",
+      "https://en.wikipedia.org/wiki/Fruits_Basket?oldid=1379854325"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/where-did-it-begin-origins-and-adaptations-odd-one-out.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tower_of_God?oldid=1378030268",
+      "https://www.wikidata.org/wiki/Q487202",
+      "https://en.wikipedia.org/wiki/Re:Zero?oldid=1381439544",
+      "https://ncode.syosetu.com/n2267be/",
+      "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime?oldid=1381575839",
+      "https://www.wikidata.org/wiki/Q22100530",
+      "https://ncode.syosetu.com/n6316bn/",
+      "https://en.wikipedia.org/wiki/Solo_Leveling?oldid=1379866104",
+      "https://www.wikidata.org/wiki/Q65551313"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/where-did-it-begin-origins-and-adaptations-odd-one-out.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q22101190",
+      "https://en.wikipedia.org/wiki/The_Apothecary_Diaries?oldid=1380103786",
+      "https://www.wikidata.org/wiki/Q48751907",
+      "https://herobunko.com/books/hero14/",
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint?oldid=1380159721",
+      "https://www.wikidata.org/wiki/Q124338944",
+      "https://en.wikipedia.org/wiki/Sword_Art_Online?oldid=1380954173"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/where-did-it-begin-origins-and-adaptations-odd-one-out.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Case_Closed?oldid=1380847138",
+      "https://www.wikidata.org/wiki/Q3853685",
+      "https://en.wikipedia.org/wiki/Mob_Psycho_100?oldid=1380373905",
+      "https://www.wikidata.org/wiki/Q11344543",
+      "https://en.wikipedia.org/wiki/One-Punch_Man?oldid=1379606340",
+      "https://www.wikidata.org/wiki/Q22341676",
+      "https://en.wikipedia.org/wiki/Tower_of_God?oldid=1378030268",
+      "https://www.wikidata.org/wiki/Q487202"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/where-did-it-begin-origins-and-adaptations-odd-one-out.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Steins;Gate?oldid=1380920189",
+      "https://www.wikidata.org/wiki/Q482494",
+      "https://en.wikipedia.org/wiki/Sword_Art_Online?oldid=1380954173",
+      "https://www.wikidata.org/wiki/Q27863",
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q22101190",
+      "https://en.wikipedia.org/wiki/The_Apothecary_Diaries?oldid=1380103786",
+      "https://www.wikidata.org/wiki/Q48751907",
+      "https://herobunko.com/books/hero14/"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/where-did-it-begin-origins-and-adaptations-odd-one-out.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/My_Hero_Academia?oldid=1381034934",
+      "https://en.wikipedia.org/wiki/Gintama?oldid=1380552228",
+      "https://en.wikipedia.org/wiki/Mob_Psycho_100?oldid=1380373905",
+      "https://www.wikidata.org/wiki/Q54829045",
+      "https://en.wikipedia.org/wiki/One_Piece?oldid=1379784013"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/where-did-it-begin-origins-and-adaptations-odd-one-out.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Re:Zero?oldid=1381439544",
+      "https://en.wikipedia.org/wiki/Tower_of_God?oldid=1378030268",
+      "https://en.wikipedia.org/wiki/Solo_Leveling?oldid=1381887886",
+      "https://en.wikipedia.org/wiki/Omniscient_Reader's_Viewpoint?oldid=1381802715"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/where-did-it-begin-origins-and-adaptations-odd-one-out.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q22101190",
+      "https://en.wikipedia.org/wiki/Re:Zero?oldid=1381439544",
+      "https://www.wikidata.org/wiki/Q20718351",
+      "https://en.wikipedia.org/wiki/Sword_Art_Online?oldid=1380954173",
+      "https://www.wikidata.org/wiki/Q27863",
+      "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime?oldid=1381575839",
+      "https://www.wikidata.org/wiki/Q22100530"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/where-did-it-begin-origins-and-adaptations-odd-one-out.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bleach_(manga)?oldid=1372127035",
+      "https://www.wikidata.org/wiki/Q904",
+      "https://en.wikipedia.org/wiki/The_Apothecary_Diaries?oldid=1380103786",
+      "https://www.wikidata.org/wiki/Q48751907",
+      "https://herobunko.com/books/hero14/",
+      "https://en.wikipedia.org/wiki/Re:Zero?oldid=1381439544",
+      "https://ncode.syosetu.com/n2267be/",
+      "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime?oldid=1381575839",
+      "https://ncode.syosetu.com/n6316bn/"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/where-did-it-begin-origins-and-adaptations-odd-one-out.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket?oldid=1379854325",
+      "https://www.wikidata.org/wiki/Q216204",
+      "https://en.wikipedia.org/wiki/Solo_Leveling?oldid=1379866104",
+      "https://www.wikidata.org/wiki/Q65551313",
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint?oldid=1380159721",
+      "https://www.wikidata.org/wiki/Q124338944",
+      "https://en.wikipedia.org/wiki/Sword_Art_Online?oldid=1380954173"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/where-did-it-begin-origins-and-adaptations-odd-one-out.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/One_Piece?oldid=1379784013",
+      "https://en.wikipedia.org/wiki/Gintama?oldid=1380552228",
+      "https://en.wikipedia.org/wiki/Tokyo_Ghoul_(film)?oldid=1380114369",
+      "https://www.wikidata.org/wiki/Q28315563",
+      "https://en.wikipedia.org/wiki/Tokyo_Revengers_(film)?oldid=1369619933",
+      "https://www.wikidata.org/wiki/Q100255572"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-eats-what-sweet-teeth-snacks-and-appetites.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Death_Note_characters?oldid=1380832770"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-eats-what-sweet-teeth-snacks-and-appetites.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)?oldid=1379031004"
+    ],
+    "reason": "the stem claimed the line was the most trending phrase of 2022 (a ranking and a year from one Wikipedia source); it now asks only for the snack in the line itself (Wikipedia rev 1379031004)"
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-eats-what-sweet-teeth-snacks-and-appetites.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Death_Note_characters?oldid=1380832770"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-eats-what-sweet-teeth-snacks-and-appetites.json",
+    "index": 3,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sailor_Moon_(character)?oldid=1373279974"
+    ],
+    "reason": "the page says the manga lists cake as \"one of\" her favourites, so the other options could not be shown false; replaced by the dislike of carrots stated on the same page (rev 1373279974)"
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-eats-what-sweet-teeth-snacks-and-appetites.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-eats-what-sweet-teeth-snacks-and-appetites.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket?oldid=1379854325"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-eats-what-sweet-teeth-snacks-and-appetites.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-eats-what-sweet-teeth-snacks-and-appetites.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-eats-what-sweet-teeth-snacks-and-appetites.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters?oldid=1381937587"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-eats-what-sweet-teeth-snacks-and-appetites.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Frieren_characters?oldid=1372941223"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-made-it-pens-pencils-and-pen-names.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fullmetal_Alchemist?oldid=1379208505",
+      "https://www.wikidata.org/wiki/Q189562",
+      "https://www.ganganonline.com/title/586"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-made-it-pens-pencils-and-pen-names.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Attack_on_Titan?oldid=1379110502",
+      "https://www.wikidata.org/wiki/Q586025",
+      "https://www.kodansha.co.jp/comic/products/0000352102"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-made-it-pens-pencils-and-pen-names.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Mob_Psycho_100?oldid=1380373905",
+      "https://www.wikidata.org/wiki/Q22341676",
+      "https://www.wikidata.org/wiki/Q11344543"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q22341676"
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-made-it-pens-pencils-and-pen-names.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Cowboy_Bebop?oldid=1381153866",
+      "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=41"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-made-it-pens-pencils-and-pen-names.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters?oldid=1380310152",
+      "https://en.wikipedia.org/wiki/Dragon_Ball?oldid=1381000548",
+      "https://www.wikidata.org/wiki/Q2020",
+      "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=297"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-made-it-pens-pencils-and-pen-names.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Death_Note?oldid=1379383524",
+      "https://www.wikidata.org/wiki/Q1834"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-made-it-pens-pencils-and-pen-names.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Frieren?oldid=1381100921",
+      "https://www.wikidata.org/wiki/Q98642652"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-made-it-pens-pencils-and-pen-names.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q22101190"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-made-it-pens-pencils-and-pen-names.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Solo_Leveling?oldid=1379866104",
+      "https://www.wikidata.org/wiki/Q65551313"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-made-it-pens-pencils-and-pen-names.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Chainsaw_Man?oldid=1381105424",
+      "https://www.wikidata.org/wiki/Q65240543"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-sang-the-opening-bands-and-singers-across-ten-anime.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)?oldid=1377881862",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=22005",
+      "https://re-zero-anime.jp/tv/music/",
+      "https://www.wikidata.org/wiki/Q28687869"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q28687869"
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-sang-the-opening-bands-and-singers-across-ten-anime.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)?oldid=1379816935",
+      "https://www.wikidata.org/wiki/Q137465114"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q137465114"
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-sang-the-opening-bands-and-singers-across-ten-anime.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1?oldid=1374154710",
+      "https://www.wikidata.org/wiki/Q65278185"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q65278185"
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-sang-the-opening-bands-and-singers-across-ten-anime.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)?oldid=1381105566",
+      "https://www.wikidata.org/wiki/Q114562491"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q114562491"
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-sang-the-opening-bands-and-singers-across-ten-anime.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes?oldid=1379446981",
+      "https://www.wikidata.org/wiki/Q115937207"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q115937207"
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-sang-the-opening-bands-and-singers-across-ten-anime.json",
+    "index": 5,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)?oldid=1379821089",
+      "https://www.wikidata.org/wiki/Q134691505",
+      "https://en.wikipedia.org/wiki/Frieren_(TV_series)?oldid=1381164237",
+      "https://www.wikidata.org/wiki/Q122850179"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q134691505, Wikidata Q122850179"
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-sang-the-opening-bands-and-singers-across-ten-anime.json",
+    "index": 6,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes?oldid=1378501554",
+      "https://www.wikidata.org/wiki/Q130476620",
+      "https://anime-dandadan.com/music/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q130476620, official anime-dandadan.com"
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-sang-the-opening-bands-and-singers-across-ten-anime.json",
+    "index": 7,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)?oldid=1379031004",
+      "https://www.wikidata.org/wiki/Q111602539",
+      "https://en.wikipedia.org/wiki/Tokyo_Revengers?oldid=1381518809",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23847",
+      "https://www.wikidata.org/wiki/Q110321532"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q111602539, Wikidata Q110321532"
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-sang-the-opening-bands-and-singers-across-ten-anime.json",
+    "index": 8,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)?oldid=1378637114",
+      "https://www.wikidata.org/wiki/Q105352451"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q105352451"
+  },
+  {
+    "quiz": "quizzes/anime-mix/who-sang-the-opening-bands-and-singers-across-ten-anime.json",
+    "index": 9,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion?oldid=1380009223",
+      "https://www.wikidata.org/wiki/Q378523"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q378523"
+  },
+  {
+    "quiz": "quizzes/apothecary-diaries/three-clues-to-find-it-apothecary-diaries-editions-seasons-and-palace-places.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/The_Apothecary_Diaries?oldid=1380103786",
+      "https://www.wikidata.org/wiki/Q48751907",
+      "https://herobunko.com/books/hero14/"
+    ]
+  },
+  {
+    "quiz": "quizzes/apothecary-diaries/three-clues-to-find-it-apothecary-diaries-editions-seasons-and-palace-places.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters?oldid=1381623594"
+    ]
+  },
+  {
+    "quiz": "quizzes/apothecary-diaries/three-clues-to-find-it-apothecary-diaries-editions-seasons-and-palace-places.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes?oldid=1380822865",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=27141",
+      "https://www.wikidata.org/wiki/Q116787865"
+    ],
+    "reason": "the end date March 24, 2024 is on Wikipedia only (Wikidata and ANN do not carry it); clue 3 now gives the 24 episodes (Wikipedia and ANN); the premiere of October 22, 2023 is on Wikidata"
+  },
+  {
+    "quiz": "quizzes/apothecary-diaries/three-clues-to-find-it-apothecary-diaries-editions-seasons-and-palace-places.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/The_Apothecary_Diaries?oldid=1380103786",
+      "https://ncode.syosetu.com/n9636x/",
+      "https://www.wikidata.org/wiki/Q48751907",
+      "https://herobunko.com/books/hero14/"
+    ]
+  },
+  {
+    "quiz": "quizzes/apothecary-diaries/three-clues-to-find-it-apothecary-diaries-editions-seasons-and-palace-places.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters?oldid=1381623594"
+    ]
+  },
+  {
+    "quiz": "quizzes/apothecary-diaries/three-clues-to-find-it-apothecary-diaries-editions-seasons-and-palace-places.json",
+    "index": 5,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/The_Apothecary_Diaries?oldid=1380103786",
+      "https://squareenixmangaandbooks.square-enix-games.com/en-us/series/the-apothecary-diaries",
+      "https://www.sunday-webry.com/episode/3269754496551508487"
+    ],
+    "reason": "clue 3 relied on the August 2017 start of the other manga, which has a Wikipedia source only; it now relies on \"first of the two takes\" (Wikipedia: \"The first is published by Square Enix\") and the Wikidata start date 2017-05-25"
+  },
+  {
+    "quiz": "quizzes/apothecary-diaries/three-clues-to-find-it-apothecary-diaries-editions-seasons-and-palace-places.json",
+    "index": 6,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes?oldid=1380822865",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32557",
+      "https://www.wikidata.org/wiki/Q116787865"
+    ],
+    "reason": "the end date July 4, 2025 is on Wikipedia only; clue 3 now gives the January 10, 2025 start (Wikipedia and ANN encyclopedia); clue 1 names only the song (performer had no second source)"
+  },
+  {
+    "quiz": "quizzes/apothecary-diaries/three-clues-to-find-it-apothecary-diaries-editions-seasons-and-palace-places.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters?oldid=1381623594"
+    ]
+  },
+  {
+    "quiz": "quizzes/apothecary-diaries/three-clues-to-find-it-apothecary-diaries-editions-seasons-and-palace-places.json",
+    "index": 8,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/The_Apothecary_Diaries?oldid=1380103786",
+      "https://www.sunday-webry.com/episode/3269754496551508487"
+    ],
+    "reason": "the August 19, 2017 launch date has no second source; the clue keeps the title, and the artist and publisher got the official Shogakukan Sunday Webry page as second source"
+  },
+  {
+    "quiz": "quizzes/apothecary-diaries/three-clues-to-find-it-apothecary-diaries-editions-seasons-and-palace-places.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters?oldid=1381623594"
+    ]
+  },
+  {
+    "quiz": "quizzes/attack-on-titan/walls-squads-and-titans-attack-on-titan-odd-one-out.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Attack_on_Titan?oldid=1379110502",
+      "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters?oldid=1381702143"
+    ]
+  },
+  {
+    "quiz": "quizzes/attack-on-titan/walls-squads-and-titans-attack-on-titan-odd-one-out.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)?oldid=1379816935",
+      "https://www.wikidata.org/wiki/Q137465114"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q137465114"
+  },
+  {
+    "quiz": "quizzes/attack-on-titan/walls-squads-and-titans-attack-on-titan-odd-one-out.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters?oldid=1381702143"
+    ]
+  },
+  {
+    "quiz": "quizzes/attack-on-titan/walls-squads-and-titans-attack-on-titan-odd-one-out.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Attack_on_Titan?oldid=1379110502"
+    ]
+  },
+  {
+    "quiz": "quizzes/attack-on-titan/walls-squads-and-titans-attack-on-titan-odd-one-out.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters?oldid=1381702143"
+    ]
+  },
+  {
+    "quiz": "quizzes/attack-on-titan/walls-squads-and-titans-attack-on-titan-odd-one-out.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters?oldid=1381702143"
+    ]
+  },
+  {
+    "quiz": "quizzes/attack-on-titan/walls-squads-and-titans-attack-on-titan-odd-one-out.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters?oldid=1381702143"
+    ]
+  },
+  {
+    "quiz": "quizzes/attack-on-titan/walls-squads-and-titans-attack-on-titan-odd-one-out.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters?oldid=1381702143"
+    ]
+  },
+  {
+    "quiz": "quizzes/attack-on-titan/walls-squads-and-titans-attack-on-titan-odd-one-out.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters?oldid=1381702143"
+    ]
+  },
+  {
+    "quiz": "quizzes/attack-on-titan/walls-squads-and-titans-attack-on-titan-odd-one-out.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters?oldid=1381702143",
+      "https://en.wikipedia.org/wiki/Attack_on_Titan?oldid=1379110502"
+    ]
+  },
+  {
+    "quiz": "quizzes/bleach/not-a-vizard-not-a-mod-soul-bleach-odd-one-out.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bleach_characters?oldid=1377233491"
+    ]
+  },
+  {
+    "quiz": "quizzes/bleach/not-a-vizard-not-a-mod-soul-bleach-odd-one-out.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bleach_characters?oldid=1377233491"
+    ]
+  },
+  {
+    "quiz": "quizzes/bleach/not-a-vizard-not-a-mod-soul-bleach-odd-one-out.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bleach_characters?oldid=1377233491"
+    ]
+  },
+  {
+    "quiz": "quizzes/bleach/not-a-vizard-not-a-mod-soul-bleach-odd-one-out.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bleach_characters?oldid=1377233491"
+    ]
+  },
+  {
+    "quiz": "quizzes/bleach/not-a-vizard-not-a-mod-soul-bleach-odd-one-out.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bleach_characters?oldid=1377233491"
+    ]
+  },
+  {
+    "quiz": "quizzes/bleach/not-a-vizard-not-a-mod-soul-bleach-odd-one-out.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bleach_characters?oldid=1377233491"
+    ]
+  },
+  {
+    "quiz": "quizzes/bleach/not-a-vizard-not-a-mod-soul-bleach-odd-one-out.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bleach_characters?oldid=1377233491"
+    ]
+  },
+  {
+    "quiz": "quizzes/bleach/not-a-vizard-not-a-mod-soul-bleach-odd-one-out.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bleach_characters?oldid=1377233491"
+    ]
+  },
+  {
+    "quiz": "quizzes/bleach/not-a-vizard-not-a-mod-soul-bleach-odd-one-out.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bleach_(TV_series)?oldid=1377360344",
+      "https://www.wikidata.org/wiki/Q112631839"
+    ]
+  },
+  {
+    "quiz": "quizzes/bleach/not-a-vizard-not-a-mod-soul-bleach-odd-one-out.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks?oldid=1372218246"
+    ]
+  },
+  {
+    "quiz": "quizzes/blue-lock/blue-lock-by-the-numbers-players-goals-ranks-and-years.json",
+    "index": 0,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes?oldid=1374283835",
+      "https://www.wikidata.org/wiki/Q117353182"
+    ],
+    "reason": "in-story count (players, goals, ranks, ages) with a single Wikipedia source and no official or Wikidata page to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/blue-lock/blue-lock-by-the-numbers-players-goals-ranks-and-years.json",
+    "index": 1,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes?oldid=1374283835",
+      "https://www.wikidata.org/wiki/Q117353182"
+    ],
+    "reason": "in-story count (players, goals, ranks, ages) with a single Wikipedia source and no official or Wikidata page to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/blue-lock/blue-lock-by-the-numbers-players-goals-ranks-and-years.json",
+    "index": 2,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Blue_Lock?oldid=1380484703",
+      "https://news.kodansha.co.jp/comics/8841"
+    ],
+    "reason": "in-story count (players, goals, ranks, ages) with a single Wikipedia source and no official or Wikidata page to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/blue-lock/blue-lock-by-the-numbers-players-goals-ranks-and-years.json",
+    "index": 3,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Blue_Lock?oldid=1380484703",
+      "https://www.wikidata.org/wiki/Q62414782"
+    ],
+    "reason": "in-story count (players, goals, ranks, ages) with a single Wikipedia source and no official or Wikidata page to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/blue-lock/blue-lock-by-the-numbers-players-goals-ranks-and-years.json",
+    "index": 4,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes?oldid=1374283835",
+      "https://www.wikidata.org/wiki/Q117353182"
+    ],
+    "reason": "in-story count (players, goals, ranks, ages) with a single Wikipedia source and no official or Wikidata page to confirm it; replaced by a question on a verified series fact (season one ended March 26, 2023)"
+  },
+  {
+    "quiz": "quizzes/blue-lock/blue-lock-by-the-numbers-players-goals-ranks-and-years.json",
+    "index": 5,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes?oldid=1374283835",
+      "https://bluelock-pr.com/"
+    ],
+    "reason": "in-story count (players, goals, ranks, ages) with a single Wikipedia source and no official or Wikidata page to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/blue-lock/blue-lock-by-the-numbers-players-goals-ranks-and-years.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters?oldid=1381706437"
+    ]
+  },
+  {
+    "quiz": "quizzes/blue-lock/blue-lock-by-the-numbers-players-goals-ranks-and-years.json",
+    "index": 7,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes?oldid=1374283835",
+      "https://www.wikidata.org/wiki/Q117353182"
+    ],
+    "reason": "in-story count (players, goals, ranks, ages) with a single Wikipedia source and no official or Wikidata page to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/blue-lock/blue-lock-by-the-numbers-players-goals-ranks-and-years.json",
+    "index": 8,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes?oldid=1374283835",
+      "https://www.wikidata.org/wiki/Q117353182"
+    ],
+    "reason": "in-story count (players, goals, ranks, ages) with a single Wikipedia source and no official or Wikidata page to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/blue-lock/blue-lock-by-the-numbers-players-goals-ranks-and-years.json",
+    "index": 9,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes?oldid=1374283835",
+      "https://bluelock-pr.com/"
+    ],
+    "reason": "in-story count (players, goals, ranks, ages) with a single Wikipedia source and no official or Wikidata page to confirm it; replaced by a question on a verified series fact (third season announced on September 28, 2025; Wikipedia and official site)"
+  },
+  {
+    "quiz": "quizzes/chainsaw-man/which-one-doesnt-belong-chainsaw-man-devils-hunters-and-songs.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters?oldid=1368604634"
+    ]
+  },
+  {
+    "quiz": "quizzes/chainsaw-man/which-one-doesnt-belong-chainsaw-man-devils-hunters-and-songs.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters?oldid=1368604634"
+    ]
+  },
+  {
+    "quiz": "quizzes/chainsaw-man/which-one-doesnt-belong-chainsaw-man-devils-hunters-and-songs.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters?oldid=1368604634"
+    ]
+  },
+  {
+    "quiz": "quizzes/chainsaw-man/which-one-doesnt-belong-chainsaw-man-devils-hunters-and-songs.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)?oldid=1381105566",
+      "https://www.wikidata.org/wiki/Q114562491",
+      "https://en.wikipedia.org/wiki/Chainsaw_Man_%E2%80%93_The_Movie:_Reze_Arc?oldid=1380395387",
+      "https://www.wikidata.org/wiki/Q135892717",
+      "https://www.wikidata.org/wiki/Q114562277"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q114562491, Wikidata Q135892717, Wikidata Q114562277"
+  },
+  {
+    "quiz": "quizzes/chainsaw-man/which-one-doesnt-belong-chainsaw-man-devils-hunters-and-songs.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Chainsaw_Man?oldid=1381371327"
+    ]
+  },
+  {
+    "quiz": "quizzes/chainsaw-man/which-one-doesnt-belong-chainsaw-man-devils-hunters-and-songs.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tatsuki_Fujimoto?oldid=1380627160",
+      "https://en.wikipedia.org/wiki/Chainsaw_Man?oldid=1381371327"
+    ]
+  },
+  {
+    "quiz": "quizzes/chainsaw-man/which-one-doesnt-belong-chainsaw-man-devils-hunters-and-songs.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters?oldid=1368604634"
+    ]
+  },
+  {
+    "quiz": "quizzes/chainsaw-man/which-one-doesnt-belong-chainsaw-man-devils-hunters-and-songs.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters?oldid=1368604634"
+    ]
+  },
+  {
+    "quiz": "quizzes/chainsaw-man/which-one-doesnt-belong-chainsaw-man-devils-hunters-and-songs.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters?oldid=1368604634"
+    ]
+  },
+  {
+    "quiz": "quizzes/chainsaw-man/which-one-doesnt-belong-chainsaw-man-devils-hunters-and-songs.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters?oldid=1368604634"
+    ]
+  },
+  {
+    "quiz": "quizzes/cowboy-bebop/cowboy-bebop-by-the-numbers-ages-sessions-and-woolongs.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters?oldid=1374374792",
+      "https://www.cowboy-bebop.net/character/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: official cowboy-bebop.net"
+  },
+  {
+    "quiz": "quizzes/cowboy-bebop/cowboy-bebop-by-the-numbers-ages-sessions-and-woolongs.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters?oldid=1374374792",
+      "https://www.cowboy-bebop.net/character/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: official cowboy-bebop.net"
+  },
+  {
+    "quiz": "quizzes/cowboy-bebop/cowboy-bebop-by-the-numbers-ages-sessions-and-woolongs.json",
+    "index": 2,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes?oldid=1368905328",
+      "https://www.wikidata.org/wiki/Q101244908"
+    ],
+    "reason": "the director quote (80 percent serious) had one Wikipedia source and nothing to confirm it; replaced by the TV Tokyo start day (April 3, 1998; Wikipedia and Wikidata)"
+  },
+  {
+    "quiz": "quizzes/cowboy-bebop/cowboy-bebop-by-the-numbers-ages-sessions-and-woolongs.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters?oldid=1374374792",
+      "https://www.cowboy-bebop.net/character/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: official cowboy-bebop.net"
+  },
+  {
+    "quiz": "quizzes/cowboy-bebop/cowboy-bebop-by-the-numbers-ages-sessions-and-woolongs.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters?oldid=1374374792",
+      "https://www.wikidata.org/wiki/Q75037237"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q75037237"
+  },
+  {
+    "quiz": "quizzes/cowboy-bebop/cowboy-bebop-by-the-numbers-ages-sessions-and-woolongs.json",
+    "index": 5,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters?oldid=1374374792",
+      "http://www.cowboy-bebop.net/character/",
+      "https://www.cowboy-bebop.net/character/"
+    ],
+    "reason": "\"about 77\" (her age after the freeze) is on Wikipedia only; replaced by the age the official series site lists (23), which Wikipedia confirms as the age she seems to be"
+  },
+  {
+    "quiz": "quizzes/cowboy-bebop/cowboy-bebop-by-the-numbers-ages-sessions-and-woolongs.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes?oldid=1368905328",
+      "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=41"
+    ]
+  },
+  {
+    "quiz": "quizzes/cowboy-bebop/cowboy-bebop-by-the-numbers-ages-sessions-and-woolongs.json",
+    "index": 7,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Cowboy_Bebop?oldid=1381153866",
+      "https://www.wikidata.org/wiki/Q379052"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q379052"
+  },
+  {
+    "quiz": "quizzes/cowboy-bebop/cowboy-bebop-by-the-numbers-ages-sessions-and-woolongs.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie?oldid=1377778119",
+      "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=42",
+      "https://www.wikidata.org/wiki/Q1334287"
+    ]
+  },
+  {
+    "quiz": "quizzes/cowboy-bebop/cowboy-bebop-by-the-numbers-ages-sessions-and-woolongs.json",
+    "index": 9,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie?oldid=1381555070",
+      "https://www.cowboy-bebop.net/story/movie.html"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: official cowboy-bebop.net"
+  },
+  {
+    "quiz": "quizzes/dandadan/voice-habit-hint-dandadan-in-three-clues.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_characters?oldid=1381762207",
+      "https://anime-dandadan.com/character/",
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_characters?oldid=1374284707"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: official anime-dandadan.com"
+  },
+  {
+    "quiz": "quizzes/dandadan/voice-habit-hint-dandadan-in-three-clues.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_characters?oldid=1381762207",
+      "https://anime-dandadan.com/character/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: official anime-dandadan.com"
+  },
+  {
+    "quiz": "quizzes/dandadan/voice-habit-hint-dandadan-in-three-clues.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_characters?oldid=1381762207",
+      "https://anime-dandadan.com/character/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: official anime-dandadan.com"
+  },
+  {
+    "quiz": "quizzes/dandadan/voice-habit-hint-dandadan-in-three-clues.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_characters?oldid=1381762207",
+      "https://anime-dandadan.com/character/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: official anime-dandadan.com"
+  },
+  {
+    "quiz": "quizzes/dandadan/voice-habit-hint-dandadan-in-three-clues.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_characters?oldid=1381762207",
+      "https://anime-dandadan.com/character/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: official anime-dandadan.com"
+  },
+  {
+    "quiz": "quizzes/dandadan/voice-habit-hint-dandadan-in-three-clues.json",
+    "index": 5,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_characters?oldid=1381762207",
+      "https://anime-dandadan.com/character/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: official anime-dandadan.com"
+  },
+  {
+    "quiz": "quizzes/dandadan/voice-habit-hint-dandadan-in-three-clues.json",
+    "index": 6,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_characters?oldid=1381762207",
+      "https://anime-dandadan.com/character/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: official anime-dandadan.com"
+  },
+  {
+    "quiz": "quizzes/dandadan/voice-habit-hint-dandadan-in-three-clues.json",
+    "index": 7,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_characters?oldid=1381762207",
+      "https://anime-dandadan.com/character/"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: official anime-dandadan.com"
+  },
+  {
+    "quiz": "quizzes/dandadan/voice-habit-hint-dandadan-in-three-clues.json",
+    "index": 8,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_characters?oldid=1381762207"
+    ],
+    "reason": "the voice clue (Manaka Iwami) is on Wikipedia only and not on the official cast page; clue 1 now carries a trait, the voice fact is no longer cited"
+  },
+  {
+    "quiz": "quizzes/dandadan/voice-habit-hint-dandadan-in-three-clues.json",
+    "index": 9,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes?oldid=1378501554",
+      "https://www.wikidata.org/wiki/Q136534235",
+      "https://anime-dandadan.com/music/",
+      "https://anime-dandadan.com/news/1527/",
+      "https://www.wikidata.org/wiki/Q131472106"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q136534235, official anime-dandadan.com"
+  },
+  {
+    "quiz": "quizzes/death-note/which-one-is-not-a-shinigami-death-note-odd-one-out.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Death_Note_characters?oldid=1380832770"
+    ]
+  },
+  {
+    "quiz": "quizzes/death-note/which-one-is-not-a-shinigami-death-note-odd-one-out.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Death_Note_characters?oldid=1380832770"
+    ]
+  },
+  {
+    "quiz": "quizzes/death-note/which-one-is-not-a-shinigami-death-note-odd-one-out.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Death_Note_characters?oldid=1380832770"
+    ]
+  },
+  {
+    "quiz": "quizzes/death-note/which-one-is-not-a-shinigami-death-note-odd-one-out.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Death_Note_characters?oldid=1380832770"
+    ]
+  },
+  {
+    "quiz": "quizzes/death-note/which-one-is-not-a-shinigami-death-note-odd-one-out.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Death_Note_characters?oldid=1380832770"
+    ]
+  },
+  {
+    "quiz": "quizzes/death-note/which-one-is-not-a-shinigami-death-note-odd-one-out.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Death_Note_characters?oldid=1380832770"
+    ]
+  },
+  {
+    "quiz": "quizzes/death-note/which-one-is-not-a-shinigami-death-note-odd-one-out.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Death_Note_characters?oldid=1380832770"
+    ]
+  },
+  {
+    "quiz": "quizzes/death-note/which-one-is-not-a-shinigami-death-note-odd-one-out.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Death_Note?oldid=1379383524",
+      "https://en.wikipedia.org/wiki/Death_Note?oldid=1381769893"
+    ]
+  },
+  {
+    "quiz": "quizzes/death-note/which-one-is-not-a-shinigami-death-note-odd-one-out.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Death_Note_characters?oldid=1380832770"
+    ]
+  },
+  {
+    "quiz": "quizzes/death-note/which-one-is-not-a-shinigami-death-note-odd-one-out.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Death_Note_characters?oldid=1380832770"
+    ]
+  },
+  {
+    "quiz": "quizzes/demon-slayer/which-one-does-not-belong-demon-slayer-odd-one-out.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_2?oldid=1374154719",
+      "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_3?oldid=1377696261"
+    ]
+  },
+  {
+    "quiz": "quizzes/demon-slayer/which-one-does-not-belong-demon-slayer-odd-one-out.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters?oldid=1381843197"
+    ]
+  },
+  {
+    "quiz": "quizzes/demon-slayer/which-one-does-not-belong-demon-slayer-odd-one-out.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters?oldid=1381843197",
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters?oldid=1380846107"
+    ]
+  },
+  {
+    "quiz": "quizzes/demon-slayer/which-one-does-not-belong-demon-slayer-odd-one-out.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters?oldid=1381843197"
+    ]
+  },
+  {
+    "quiz": "quizzes/demon-slayer/which-one-does-not-belong-demon-slayer-odd-one-out.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters?oldid=1381843197"
+    ]
+  },
+  {
+    "quiz": "quizzes/demon-slayer/which-one-does-not-belong-demon-slayer-odd-one-out.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters?oldid=1381843197"
+    ]
+  },
+  {
+    "quiz": "quizzes/demon-slayer/which-one-does-not-belong-demon-slayer-odd-one-out.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters?oldid=1381843197",
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters?oldid=1380846107"
+    ]
+  },
+  {
+    "quiz": "quizzes/demon-slayer/which-one-does-not-belong-demon-slayer-odd-one-out.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters?oldid=1381843197",
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters?oldid=1380846107"
+    ]
+  },
+  {
+    "quiz": "quizzes/demon-slayer/which-one-does-not-belong-demon-slayer-odd-one-out.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters?oldid=1381843197"
+    ]
+  },
+  {
+    "quiz": "quizzes/demon-slayer/which-one-does-not-belong-demon-slayer-odd-one-out.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters?oldid=1381843197"
+    ]
+  },
+  {
+    "quiz": "quizzes/dragon-ball/which-one-does-not-belong-dragon-ball-odd-one-out.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters?oldid=1380310152"
+    ]
+  },
+  {
+    "quiz": "quizzes/dragon-ball/which-one-does-not-belong-dragon-ball-odd-one-out.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters?oldid=1380310152",
+      "https://en.wikipedia.org/wiki/Dragon_Ball?oldid=1381000548",
+      "https://en.wikipedia.org/wiki/Dragon_Ball_Z?oldid=1379753684",
+      "https://www.wikidata.org/wiki/Q477916",
+      "https://en.wikipedia.org/wiki/Dragon_Ball_Super_(TV_series)?oldid=1380689066",
+      "https://www.wikidata.org/wiki/Q19839121",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=17006"
+    ]
+  },
+  {
+    "quiz": "quizzes/dragon-ball/which-one-does-not-belong-dragon-ball-odd-one-out.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters?oldid=1380310152"
+    ]
+  },
+  {
+    "quiz": "quizzes/dragon-ball/which-one-does-not-belong-dragon-ball-odd-one-out.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters?oldid=1380310152"
+    ]
+  },
+  {
+    "quiz": "quizzes/dragon-ball/which-one-does-not-belong-dragon-ball-odd-one-out.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters?oldid=1380310152"
+    ]
+  },
+  {
+    "quiz": "quizzes/dragon-ball/which-one-does-not-belong-dragon-ball-odd-one-out.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters?oldid=1380310152"
+    ]
+  },
+  {
+    "quiz": "quizzes/dragon-ball/which-one-does-not-belong-dragon-ball-odd-one-out.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters?oldid=1380310152"
+    ]
+  },
+  {
+    "quiz": "quizzes/dragon-ball/which-one-does-not-belong-dragon-ball-odd-one-out.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters?oldid=1380310152"
+    ]
+  },
+  {
+    "quiz": "quizzes/dragon-ball/which-one-does-not-belong-dragon-ball-odd-one-out.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters?oldid=1380310152"
+    ]
+  },
+  {
+    "quiz": "quizzes/dragon-ball/which-one-does-not-belong-dragon-ball-odd-one-out.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters?oldid=1380310152"
+    ]
+  },
+  {
+    "quiz": "quizzes/evangelion/which-came-first-evangelion-angels-episodes-and-films.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)?oldid=1377668650"
+    ]
+  },
+  {
+    "quiz": "quizzes/evangelion/which-came-first-evangelion-angels-episodes-and-films.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes?oldid=1376272212",
+      "https://www.wikidata.org/wiki/Q662",
+      "https://en.wikipedia.org/wiki/The_End_of_Evangelion?oldid=1381107041",
+      "https://www.wikidata.org/wiki/Q1151814",
+      "https://en.wikipedia.org/wiki/Rebuild_of_Evangelion?oldid=1379273276",
+      "https://www.wikidata.org/wiki/Q6434144",
+      "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion?oldid=1380009223",
+      "https://www.animenewsnetwork.com/interest/2019-06-27/japanese-fans-official-translator-weigh-in-on-netflix-evangelion-english-subtitle-debate/.148305",
+      "https://www.wikidata.org/wiki/Q579209"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: ANN, Wikidata Q579209"
+  },
+  {
+    "quiz": "quizzes/evangelion/which-came-first-evangelion-angels-episodes-and-films.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)?oldid=1377668650"
+    ]
+  },
+  {
+    "quiz": "quizzes/evangelion/which-came-first-evangelion-angels-episodes-and-films.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes?oldid=1376272212",
+      "https://www.wikidata.org/wiki/Q662",
+      "https://en.wikipedia.org/wiki/The_End_of_Evangelion?oldid=1381107041",
+      "https://www.wikidata.org/wiki/Q1151814",
+      "https://en.wikipedia.org/wiki/Rebuild_of_Evangelion?oldid=1379273276",
+      "https://www.wikidata.org/wiki/Q6434144",
+      "https://www.wikidata.org/wiki/Q579209"
+    ],
+    "reason": "the 1993 development start is on Wikipedia only; the options now use the dated releases (first episode October 4, 1995; finale March 27, 1996; The End of Evangelion July 19, 1997; Rebuild 1.0 September 1, 2007)"
+  },
+  {
+    "quiz": "quizzes/evangelion/which-came-first-evangelion-angels-episodes-and-films.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes?oldid=1381369153",
+      "https://www.wikidata.org/wiki/Q967664",
+      "https://en.wikipedia.org/wiki/Rebuild_of_Evangelion?oldid=1379273276",
+      "https://www.wikidata.org/wiki/Q6434144",
+      "https://www.wikidata.org/wiki/Q579209"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q967664, Wikidata Q579209"
+  },
+  {
+    "quiz": "quizzes/evangelion/which-came-first-evangelion-angels-episodes-and-films.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters?oldid=1380470607",
+      "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes?oldid=1381369153"
+    ]
+  },
+  {
+    "quiz": "quizzes/evangelion/which-came-first-evangelion-angels-episodes-and-films.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)?oldid=1377668650"
+    ]
+  },
+  {
+    "quiz": "quizzes/evangelion/which-came-first-evangelion-angels-episodes-and-films.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters?oldid=1380470607"
+    ]
+  },
+  {
+    "quiz": "quizzes/evangelion/which-came-first-evangelion-angels-episodes-and-films.json",
+    "index": 8,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes?oldid=1376272212",
+      "https://www.wikidata.org/wiki/Q662",
+      "https://en.wikipedia.org/wiki/The_End_of_Evangelion?oldid=1381107041",
+      "https://www.wikidata.org/wiki/Q1151814",
+      "https://en.wikipedia.org/wiki/Rebuild_of_Evangelion?oldid=1379273276",
+      "https://www.wikidata.org/wiki/Q6434144",
+      "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters?oldid=1380470607",
+      "https://www.wikidata.org/wiki/Q614200",
+      "https://www.wikidata.org/wiki/Q579209"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q614200, Wikidata Q579209"
+  },
+  {
+    "quiz": "quizzes/evangelion/which-came-first-evangelion-angels-episodes-and-films.json",
+    "index": 9,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/The_End_of_Evangelion?oldid=1381107041",
+      "https://www.wikidata.org/wiki/Q1151814",
+      "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters?oldid=1380470607",
+      "https://www.wikidata.org/wiki/Q614200",
+      "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion?oldid=1380009223",
+      "https://www.animenewsnetwork.com/interest/2019-06-27/japanese-fans-official-translator-weigh-in-on-netflix-evangelion-english-subtitle-debate/.148305",
+      "https://en.wikipedia.org/wiki/Rebuild_of_Evangelion?oldid=1379273276",
+      "https://www.wikidata.org/wiki/Q6434144"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q614200, ANN"
+  },
+  {
+    "quiz": "quizzes/frieren/which-name-does-not-belong-frieren-mages-demons-and-songs.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Frieren_characters?oldid=1372941223"
+    ]
+  },
+  {
+    "quiz": "quizzes/frieren/which-name-does-not-belong-frieren-mages-demons-and-songs.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Frieren_characters?oldid=1372941223"
+    ]
+  },
+  {
+    "quiz": "quizzes/frieren/which-name-does-not-belong-frieren-mages-demons-and-songs.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Frieren_characters?oldid=1372941223"
+    ]
+  },
+  {
+    "quiz": "quizzes/frieren/which-name-does-not-belong-frieren-mages-demons-and-songs.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Frieren_characters?oldid=1372941223"
+    ]
+  },
+  {
+    "quiz": "quizzes/frieren/which-name-does-not-belong-frieren-mages-demons-and-songs.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Frieren_characters?oldid=1372941223"
+    ]
+  },
+  {
+    "quiz": "quizzes/frieren/which-name-does-not-belong-frieren-mages-demons-and-songs.json",
+    "index": 5,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Frieren_(TV_series)?oldid=1381164237",
+      "https://www.wikidata.org/wiki/Q122850179",
+      "https://www.wikidata.org/wiki/Q137803374",
+      "https://www.sonymusic.co.jp/artist/milet_music/info/556339"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q122850179, Wikidata Q137803374, official sonymusic.co.jp"
+  },
+  {
+    "quiz": "quizzes/frieren/which-name-does-not-belong-frieren-mages-demons-and-songs.json",
+    "index": 6,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Frieren_(TV_series)?oldid=1381164237",
+      "https://www.wikidata.org/wiki/Q115792176",
+      "https://en.wikipedia.org/wiki/Frieren?oldid=1381100921",
+      "https://www.wikidata.org/wiki/Q98642652"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q115792176"
+  },
+  {
+    "quiz": "quizzes/frieren/which-name-does-not-belong-frieren-mages-demons-and-songs.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Frieren_characters?oldid=1372941223"
+    ]
+  },
+  {
+    "quiz": "quizzes/frieren/which-name-does-not-belong-frieren-mages-demons-and-songs.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Frieren_characters?oldid=1372941223"
+    ]
+  },
+  {
+    "quiz": "quizzes/frieren/which-name-does-not-belong-frieren-mages-demons-and-songs.json",
+    "index": 9,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Frieren_(TV_series)?oldid=1381164237",
+      "https://www.wikidata.org/wiki/Q122850179",
+      "https://www.wikidata.org/wiki/Q137803374",
+      "https://www.sonymusic.co.jp/artist/milet_music/info/556339"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q122850179, Wikidata Q137803374, official sonymusic.co.jp"
+  },
+  {
+    "quiz": "quizzes/fullmetal-alchemist/which-one-is-not-a-homunculus-fullmetal-alchemist-odd-one-out.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters?oldid=1374097138"
+    ]
+  },
+  {
+    "quiz": "quizzes/fullmetal-alchemist/which-one-is-not-a-homunculus-fullmetal-alchemist-odd-one-out.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters?oldid=1374097138"
+    ]
+  },
+  {
+    "quiz": "quizzes/fullmetal-alchemist/which-one-is-not-a-homunculus-fullmetal-alchemist-odd-one-out.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters?oldid=1374097138"
+    ]
+  },
+  {
+    "quiz": "quizzes/fullmetal-alchemist/which-one-is-not-a-homunculus-fullmetal-alchemist-odd-one-out.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters?oldid=1374097138"
+    ]
+  },
+  {
+    "quiz": "quizzes/fullmetal-alchemist/which-one-is-not-a-homunculus-fullmetal-alchemist-odd-one-out.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters?oldid=1374097138"
+    ]
+  },
+  {
+    "quiz": "quizzes/fullmetal-alchemist/which-one-is-not-a-homunculus-fullmetal-alchemist-odd-one-out.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters?oldid=1374097138"
+    ]
+  },
+  {
+    "quiz": "quizzes/fullmetal-alchemist/which-one-is-not-a-homunculus-fullmetal-alchemist-odd-one-out.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters?oldid=1374097138"
+    ]
+  },
+  {
+    "quiz": "quizzes/fullmetal-alchemist/which-one-is-not-a-homunculus-fullmetal-alchemist-odd-one-out.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters?oldid=1374097138"
+    ]
+  },
+  {
+    "quiz": "quizzes/fullmetal-alchemist/which-one-is-not-a-homunculus-fullmetal-alchemist-odd-one-out.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fullmetal_Alchemist?oldid=1381770058"
+    ]
+  },
+  {
+    "quiz": "quizzes/fullmetal-alchemist/which-one-is-not-a-homunculus-fullmetal-alchemist-odd-one-out.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters?oldid=1374097138"
+    ]
+  },
+  {
+    "quiz": "quizzes/haikyu/serve-it-in-numbers-haikyu-episodes-years-and-songs.json",
+    "index": 0,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes?oldid=1379123132",
+      "https://www.wikidata.org/wiki/Q67144604",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=16660",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=18459"
+    ],
+    "reason": "the OVA count is ambiguous on the page (infobox \"5 OVAs\", text \"four\"); replaced by the season three length (episodes 51 to 60)"
+  },
+  {
+    "quiz": "quizzes/haikyu/serve-it-in-numbers-haikyu-episodes-years-and-songs.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Haikyu!!?oldid=1380484279",
+      "https://www.wikidata.org/wiki/Q67144604",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=22438",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23165"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: ANN"
+  },
+  {
+    "quiz": "quizzes/haikyu/serve-it-in-numbers-haikyu-episodes-years-and-songs.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Haikyu!!?oldid=1380484279",
+      "https://www.wikidata.org/wiki/Q326642",
+      "https://shonenjump.com/j/rensai/haikyu.html"
+    ]
+  },
+  {
+    "quiz": "quizzes/haikyu/serve-it-in-numbers-haikyu-episodes-years-and-songs.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Haikyu!!?oldid=1380484279",
+      "https://www.wikidata.org/wiki/Q67144604",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=15683"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: ANN"
+  },
+  {
+    "quiz": "quizzes/haikyu/serve-it-in-numbers-haikyu-episodes-years-and-songs.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes?oldid=1379123132",
+      "https://www.wikidata.org/wiki/Q67144604"
+    ]
+  },
+  {
+    "quiz": "quizzes/haikyu/serve-it-in-numbers-haikyu-episodes-years-and-songs.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Haikyu!!?oldid=1380484279"
+    ]
+  },
+  {
+    "quiz": "quizzes/haikyu/serve-it-in-numbers-haikyu-episodes-years-and-songs.json",
+    "index": 6,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Haikyu!!?oldid=1380484279",
+      "https://www.wikidata.org/wiki/Q67144604",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=22438",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23165"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: ANN"
+  },
+  {
+    "quiz": "quizzes/haikyu/serve-it-in-numbers-haikyu-episodes-years-and-songs.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Haikyu!!?oldid=1380484279",
+      "https://shonenjump.com/j/rensai/haikyu.html"
+    ]
+  },
+  {
+    "quiz": "quizzes/haikyu/serve-it-in-numbers-haikyu-episodes-years-and-songs.json",
+    "index": 8,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes?oldid=1379123132",
+      "https://www.wikidata.org/wiki/Q67144604",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=16660",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=18459"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: ANN"
+  },
+  {
+    "quiz": "quizzes/haikyu/serve-it-in-numbers-haikyu-episodes-years-and-songs.json",
+    "index": 9,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes?oldid=1379123132",
+      "https://www.wikidata.org/wiki/Q67144604",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=16660",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=18459"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: ANN"
+  },
+  {
+    "quiz": "quizzes/hunter-x-hunter/which-came-first-hunter-x-hunter-releases-arcs-and-ending-songs.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter?oldid=1381097044",
+      "https://www.wikidata.org/wiki/Q696071",
+      "https://www.wikidata.org/wiki/Q21232458",
+      "https://www.wikidata.org/wiki/Q70209136",
+      "https://www.wikidata.org/wiki/Q11398237"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q11398237"
+  },
+  {
+    "quiz": "quizzes/hunter-x-hunter/which-came-first-hunter-x-hunter-releases-arcs-and-ending-songs.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter?oldid=1381097044",
+      "https://www.wikidata.org/wiki/Q21232458",
+      "https://www.wikidata.org/wiki/Q70209136",
+      "https://en.wikipedia.org/wiki/Hunter_×_Hunter?oldid=1381097044",
+      "https://www.wikidata.org/wiki/Q11398237"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q11398237"
+  },
+  {
+    "quiz": "quizzes/hunter-x-hunter/which-came-first-hunter-x-hunter-releases-arcs-and-ending-songs.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Hunter_×_Hunter?oldid=1381097044",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=17135",
+      "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter?oldid=1381097044",
+      "https://www.wikidata.org/wiki/Q21232458",
+      "https://www.wikidata.org/wiki/Q70209136",
+      "https://www.wikidata.org/wiki/Q11398237"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: ANN, Wikidata Q11398237"
+  },
+  {
+    "quiz": "quizzes/hunter-x-hunter/which-came-first-hunter-x-hunter-releases-arcs-and-ending-songs.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter?oldid=1381097044",
+      "https://www.animenewsnetwork.com/news/2022-10-10/hunter-x-hunter-manga-resumes-after-almost-4-years-on-october-24/.190697",
+      "https://www.wikidata.org/wiki/Q21232458",
+      "https://www.wikidata.org/wiki/Q70209136",
+      "https://www.wikidata.org/wiki/Q11398237"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: ANN, Wikidata Q11398237"
+  },
+  {
+    "quiz": "quizzes/hunter-x-hunter/which-came-first-hunter-x-hunter-releases-arcs-and-ending-songs.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Hunter_×_Hunter?oldid=1381097044",
+      "https://www.wikidata.org/wiki/Q11398237",
+      "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter?oldid=1381097044",
+      "https://www.wikidata.org/wiki/Q70209136",
+      "https://www.animenewsnetwork.com/news/2022-10-10/hunter-x-hunter-manga-resumes-after-almost-4-years-on-october-24/.190697"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q11398237, ANN"
+  },
+  {
+    "quiz": "quizzes/hunter-x-hunter/which-came-first-hunter-x-hunter-releases-arcs-and-ending-songs.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)?oldid=1381279135",
+      "https://musicbrainz.org/release-group/45660776-29ac-4d3d-b2d7-86865d568ba4"
+    ]
+  },
+  {
+    "quiz": "quizzes/hunter-x-hunter/which-came-first-hunter-x-hunter-releases-arcs-and-ending-songs.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)?oldid=1381279135",
+      "https://musicbrainz.org/release-group/45660776-29ac-4d3d-b2d7-86865d568ba4"
+    ]
+  },
+  {
+    "quiz": "quizzes/hunter-x-hunter/which-came-first-hunter-x-hunter-releases-arcs-and-ending-songs.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Hunter_×_Hunter?oldid=1381097044"
+    ]
+  },
+  {
+    "quiz": "quizzes/hunter-x-hunter/which-came-first-hunter-x-hunter-releases-arcs-and-ending-songs.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Hunter_×_Hunter?oldid=1381097044"
+    ]
+  },
+  {
+    "quiz": "quizzes/hunter-x-hunter/which-came-first-hunter-x-hunter-releases-arcs-and-ending-songs.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Hunter_×_Hunter?oldid=1381097044"
+    ]
+  },
+  {
+    "quiz": "quizzes/jojo/odd-jojo-out-heroes-stands-hamon-and-part-titles.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters?oldid=1379244237"
+    ]
+  },
+  {
+    "quiz": "quizzes/jojo/odd-jojo-out-heroes-stands-hamon-and-part-titles.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters?oldid=1379244237"
+    ]
+  },
+  {
+    "quiz": "quizzes/jojo/odd-jojo-out-heroes-stands-hamon-and-part-titles.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters?oldid=1379244237"
+    ]
+  },
+  {
+    "quiz": "quizzes/jojo/odd-jojo-out-heroes-stands-hamon-and-part-titles.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters?oldid=1379244237"
+    ]
+  },
+  {
+    "quiz": "quizzes/jojo/odd-jojo-out-heroes-stands-hamon-and-part-titles.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters?oldid=1379244237"
+    ]
+  },
+  {
+    "quiz": "quizzes/jojo/odd-jojo-out-heroes-stands-hamon-and-part-titles.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters?oldid=1379244237"
+    ]
+  },
+  {
+    "quiz": "quizzes/jojo/odd-jojo-out-heroes-stands-hamon-and-part-titles.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Stardust_Crusaders?oldid=1380274815",
+      "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters?oldid=1379244237"
+    ]
+  },
+  {
+    "quiz": "quizzes/jojo/odd-jojo-out-heroes-stands-hamon-and-part-titles.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters?oldid=1379244237"
+    ]
+  },
+  {
+    "quiz": "quizzes/jojo/odd-jojo-out-heroes-stands-hamon-and-part-titles.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters?oldid=1379244237"
+    ]
+  },
+  {
+    "quiz": "quizzes/jojo/odd-jojo-out-heroes-stands-hamon-and-part-titles.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/JoJo's_Bizarre_Adventure?oldid=1381936842",
+      "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters?oldid=1379244237"
+    ]
+  },
+  {
+    "quiz": "quizzes/jujutsu-kaisen/jujutsu-kaisen-by-the-numbers-episodes-days-and-odds.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)?oldid=1378637114",
+      "https://www.wikidata.org/wiki/Q98836216"
+    ]
+  },
+  {
+    "quiz": "quizzes/jujutsu-kaisen/jujutsu-kaisen-by-the-numbers-episodes-days-and-odds.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen?oldid=1381182639",
+      "https://www.wikidata.org/wiki/Q55522899",
+      "https://www.shonenjump.com/j/rensai/jujutsu/"
+    ]
+  },
+  {
+    "quiz": "quizzes/jujutsu-kaisen/jujutsu-kaisen-by-the-numbers-episodes-days-and-odds.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0?oldid=1379845584",
+      "https://www.wikidata.org/wiki/Q106392064"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q106392064"
+  },
+  {
+    "quiz": "quizzes/jujutsu-kaisen/jujutsu-kaisen-by-the-numbers-episodes-days-and-odds.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)?oldid=1378637114",
+      "https://www.wikidata.org/wiki/Q98836216"
+    ]
+  },
+  {
+    "quiz": "quizzes/jujutsu-kaisen/jujutsu-kaisen-by-the-numbers-episodes-days-and-odds.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)?oldid=1378637114",
+      "https://www.animenewsnetwork.com/news/2020-11-11/crunchyroll-announces-english-dubs-casts-for-jujutsu-kaisen-im-standing-on-a-million-lives-tonikawa-/.166242"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: ANN"
+  },
+  {
+    "quiz": "quizzes/jujutsu-kaisen/jujutsu-kaisen-by-the-numbers-episodes-days-and-odds.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)?oldid=1378637114"
+    ]
+  },
+  {
+    "quiz": "quizzes/jujutsu-kaisen/jujutsu-kaisen-by-the-numbers-episodes-days-and-odds.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_3?oldid=1381078979",
+      "https://www.shonenjump.com/j/rensai/jujutsu/"
+    ]
+  },
+  {
+    "quiz": "quizzes/jujutsu-kaisen/jujutsu-kaisen-by-the-numbers-episodes-days-and-odds.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_3?oldid=1381078979",
+      "https://www.shonenjump.com/j/rensai/jujutsu/"
+    ]
+  },
+  {
+    "quiz": "quizzes/jujutsu-kaisen/jujutsu-kaisen-by-the-numbers-episodes-days-and-odds.json",
+    "index": 8,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)?oldid=1378637114",
+      "https://www.wikidata.org/wiki/Q98836216"
+    ],
+    "reason": "Hakari odds (1 in 239) are in-story and have no second source; replaced by the 59 TV episodes of the first three seasons (24, 23 and 12; Wikipedia and Wikidata)"
+  },
+  {
+    "quiz": "quizzes/jujutsu-kaisen/jujutsu-kaisen-by-the-numbers-episodes-days-and-odds.json",
+    "index": 9,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen?oldid=1381182639",
+      "https://www.wikidata.org/wiki/Q55522899"
+    ],
+    "reason": "the jackpot length (4 minutes 11 seconds) is in-story and has one source; replaced by the last day of the weekly run (September 30, 2024; Wikipedia and Wikidata)"
+  },
+  {
+    "quiz": "quizzes/kagurabachi/which-came-first-kagurabachi-releases-and-backstory-in-order.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1380968841",
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1381907193"
+    ]
+  },
+  {
+    "quiz": "quizzes/kagurabachi/which-came-first-kagurabachi-releases-and-backstory-in-order.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1380968841",
+      "https://www.viz.com/manga-books/manga/kagurabachi-volume-1/product/8072",
+      "https://www.wikidata.org/wiki/Q122713274",
+      "https://www.shonenjump.com/j/rensai/kagurabachi.html",
+      "https://www.animenewsnetwork.com/news/2024-03-06/viz-media-to-release-kagurabachi-manga-in-print-in-fall/.208379"
+    ],
+    "reason": "English print dates had one source; added the official Viz page (volume 1 on November 5, 2024) and the ANN announcement (March 6, 2024)"
+  },
+  {
+    "quiz": "quizzes/kagurabachi/which-came-first-kagurabachi-releases-and-backstory-in-order.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1381907193",
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1380968841"
+    ]
+  },
+  {
+    "quiz": "quizzes/kagurabachi/which-came-first-kagurabachi-releases-and-backstory-in-order.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1380968841",
+      "https://www.viz.com/manga-books/manga/kagurabachi-volume-1/product/8072",
+      "https://www.wikidata.org/wiki/Q122713274",
+      "https://www.shonenjump.com/j/rensai/kagurabachi.html",
+      "https://www.animenewsnetwork.com/news/2024-03-06/viz-media-to-release-kagurabachi-manga-in-print-in-fall/.208379"
+    ],
+    "reason": "the options mixed in circulation (4.5 million, one source); the question now compares the dated releases only (volume 1 Feb 2, 2024, Viz announcement March 2024, Viz volume 1 Nov 5, 2024, volume 12 Sep 4, 2026)"
+  },
+  {
+    "quiz": "quizzes/kagurabachi/which-came-first-kagurabachi-releases-and-backstory-in-order.json",
+    "index": 4,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1381907193"
+    ],
+    "reason": "the 99 million Manga Plus views and the awards had one Wikipedia source, and the Japanese volume 1 date (February 2, 2024) could not be confirmed on an official page that opens; replaced by a story-order question on the cited plot facts"
+  },
+  {
+    "quiz": "quizzes/kagurabachi/which-came-first-kagurabachi-releases-and-backstory-in-order.json",
+    "index": 5,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1380968841",
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1381907193"
+    ],
+    "reason": "the Next Manga Award, Japan Expo award and circulation figure are single source; replaced by a story-order question on the cited plot facts"
+  },
+  {
+    "quiz": "quizzes/kagurabachi/which-came-first-kagurabachi-releases-and-backstory-in-order.json",
+    "index": 6,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1380968841",
+      "https://www.viz.com/manga-books/manga/kagurabachi-volume-1/product/8072",
+      "https://www.wikidata.org/wiki/Q122713274",
+      "https://www.shonenjump.com/j/rensai/kagurabachi.html",
+      "https://www.animenewsnetwork.com/news/2024-03-06/viz-media-to-release-kagurabachi-manga-in-print-in-fall/.208379"
+    ],
+    "reason": "English print dates had one source; added the official Viz page and the ANN announcement"
+  },
+  {
+    "quiz": "quizzes/kagurabachi/which-came-first-kagurabachi-releases-and-backstory-in-order.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1380968841",
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1381907193"
+    ]
+  },
+  {
+    "quiz": "quizzes/kagurabachi/which-came-first-kagurabachi-releases-and-backstory-in-order.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1381907193"
+    ]
+  },
+  {
+    "quiz": "quizzes/kagurabachi/which-came-first-kagurabachi-releases-and-backstory-in-order.json",
+    "index": 9,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1380968841",
+      "https://en.wikipedia.org/wiki/Kagurabachi?oldid=1381907193"
+    ],
+    "reason": "the circulation milestone (by October 2026) cannot be dated against volume 12 and is single source; replaced by a story-order question on the cited plot facts"
+  },
+  {
+    "quiz": "quizzes/kaiju-no-8/kaiju-no-8-in-numbers-ages-divisions-and-weapon-numbers.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes?oldid=1376808063",
+      "https://kaiju-no8.net/"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaiju-no-8/kaiju-no-8-in-numbers-ages-divisions-and-weapon-numbers.json",
+    "index": 1,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters?oldid=1377041414",
+      "https://shonenjumpplus.com/episode/13933686331762212128"
+    ],
+    "reason": "age, percentage or fortitude figure of the story with a single Wikipedia source and nothing to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/kaiju-no-8/kaiju-no-8-in-numbers-ages-divisions-and-weapon-numbers.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes?oldid=1376808063",
+      "https://kaiju-no8.net/"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaiju-no-8/kaiju-no-8-in-numbers-ages-divisions-and-weapon-numbers.json",
+    "index": 3,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters?oldid=1377041414",
+      "https://shonenjumpplus.com/episode/13933686331762212128"
+    ],
+    "reason": "age, percentage or fortitude figure of the story with a single Wikipedia source and nothing to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/kaiju-no-8/kaiju-no-8-in-numbers-ages-divisions-and-weapon-numbers.json",
+    "index": 4,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters?oldid=1377041414",
+      "https://shonenjumpplus.com/episode/13933686331762212128"
+    ],
+    "reason": "age, percentage or fortitude figure of the story with a single Wikipedia source and nothing to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/kaiju-no-8/kaiju-no-8-in-numbers-ages-divisions-and-weapon-numbers.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters?oldid=1379106176"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaiju-no-8/kaiju-no-8-in-numbers-ages-divisions-and-weapon-numbers.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters?oldid=1379106176"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaiju-no-8/kaiju-no-8-in-numbers-ages-divisions-and-weapon-numbers.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters?oldid=1379106176"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaiju-no-8/kaiju-no-8-in-numbers-ages-divisions-and-weapon-numbers.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters?oldid=1379106176"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaiju-no-8/kaiju-no-8-in-numbers-ages-divisions-and-weapon-numbers.json",
+    "index": 9,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes?oldid=1376808063",
+      "https://kaiju-no8.net/"
+    ],
+    "reason": "age, percentage or fortitude figure of the story with a single Wikipedia source and nothing to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/my-hero-academia/which-one-does-not-belong-my-hero-academia-odd-one-out.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters?oldid=1380243025"
+    ]
+  },
+  {
+    "quiz": "quizzes/my-hero-academia/which-one-does-not-belong-my-hero-academia-odd-one-out.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters?oldid=1380243025"
+    ]
+  },
+  {
+    "quiz": "quizzes/my-hero-academia/which-one-does-not-belong-my-hero-academia-odd-one-out.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters?oldid=1380243025"
+    ]
+  },
+  {
+    "quiz": "quizzes/my-hero-academia/which-one-does-not-belong-my-hero-academia-odd-one-out.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters?oldid=1380243025"
+    ]
+  },
+  {
+    "quiz": "quizzes/my-hero-academia/which-one-does-not-belong-my-hero-academia-odd-one-out.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters?oldid=1380243025"
+    ]
+  },
+  {
+    "quiz": "quizzes/my-hero-academia/which-one-does-not-belong-my-hero-academia-odd-one-out.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters?oldid=1380243025"
+    ]
+  },
+  {
+    "quiz": "quizzes/my-hero-academia/which-one-does-not-belong-my-hero-academia-odd-one-out.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters?oldid=1380243025"
+    ]
+  },
+  {
+    "quiz": "quizzes/my-hero-academia/which-one-does-not-belong-my-hero-academia-odd-one-out.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters?oldid=1380243025"
+    ]
+  },
+  {
+    "quiz": "quizzes/my-hero-academia/which-one-does-not-belong-my-hero-academia-odd-one-out.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters?oldid=1380243025"
+    ]
+  },
+  {
+    "quiz": "quizzes/my-hero-academia/which-one-does-not-belong-my-hero-academia-odd-one-out.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters?oldid=1380243025"
+    ]
+  },
+  {
+    "quiz": "quizzes/naruto/which-ninja-does-not-belong-naruto-odd-one-out.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Naruto_characters?oldid=1381418203"
+    ]
+  },
+  {
+    "quiz": "quizzes/naruto/which-ninja-does-not-belong-naruto-odd-one-out.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Naruto_characters?oldid=1381418203"
+    ]
+  },
+  {
+    "quiz": "quizzes/naruto/which-ninja-does-not-belong-naruto-odd-one-out.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Naruto_characters?oldid=1381418203"
+    ]
+  },
+  {
+    "quiz": "quizzes/naruto/which-ninja-does-not-belong-naruto-odd-one-out.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Naruto_characters?oldid=1381418203"
+    ]
+  },
+  {
+    "quiz": "quizzes/naruto/which-ninja-does-not-belong-naruto-odd-one-out.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Naruto_characters?oldid=1381418203"
+    ]
+  },
+  {
+    "quiz": "quizzes/naruto/which-ninja-does-not-belong-naruto-odd-one-out.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Naruto_characters?oldid=1381418203"
+    ]
+  },
+  {
+    "quiz": "quizzes/naruto/which-ninja-does-not-belong-naruto-odd-one-out.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Naruto_characters?oldid=1381418203"
+    ]
+  },
+  {
+    "quiz": "quizzes/naruto/which-ninja-does-not-belong-naruto-odd-one-out.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Naruto_characters?oldid=1381418203"
+    ]
+  },
+  {
+    "quiz": "quizzes/naruto/which-ninja-does-not-belong-naruto-odd-one-out.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Naruto_characters?oldid=1381418203"
+    ]
+  },
+  {
+    "quiz": "quizzes/naruto/which-ninja-does-not-belong-naruto-odd-one-out.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Naruto_characters?oldid=1381418203"
+    ]
+  },
+  {
+    "quiz": "quizzes/omniscient-readers-viewpoint/which-came-first-omniscient-readers-viewpoint-from-novel-to-film.json",
+    "index": 0,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint?oldid=1380159721",
+      "https://comic.naver.com/webtoon/list?titleId=747269",
+      "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92?oldid=95012189",
+      "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy?oldid=1376160456",
+      "https://www.wikidata.org/wiki/Q126724933",
+      "https://www.wikidata.org/wiki/Q124338944",
+      "https://yenpress.com/titles/9798400901065-omniscient-reader-s-viewpoint-vol-1"
+    ],
+    "reason": "options on the Korean volumes and the IZE Press announcement (Wikipedia only, no second source) replaced by dated events with official or Wikidata second sources (Yen Press pages for the English comic of December 12, 2023 and the English novel of July 22, 2025)"
+  },
+  {
+    "quiz": "quizzes/omniscient-readers-viewpoint/which-came-first-omniscient-readers-viewpoint-from-novel-to-film.json",
+    "index": 1,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint?oldid=1380159721",
+      "https://www.wikidata.org/wiki/Q124338944",
+      "https://www.webtoons.com/en/action/omniscient-reader/list?title_no=2154",
+      "https://www.wikidata.org/wiki/Q139567602",
+      "https://comic.naver.com/webtoon/list?titleId=747269",
+      "https://yenpress.com/titles/9798400901065-omniscient-reader-s-viewpoint-vol-1"
+    ],
+    "reason": "the end of the web novel (February 2, 2020) is on Wikipedia only (Wikidata carries the start); options built on events with Wikidata, official or ANN second sources"
+  },
+  {
+    "quiz": "quizzes/omniscient-readers-viewpoint/which-came-first-omniscient-readers-viewpoint-from-novel-to-film.json",
+    "index": 2,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint?oldid=1380159721",
+      "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy?oldid=1376160456",
+      "https://www.wikidata.org/wiki/Q126724933",
+      "https://yenpress.com/titles/9798400903526-omniscient-reader-s-viewpoint-novel-vol-1",
+      "https://yenpress.com/titles/9798400901065-omniscient-reader-s-viewpoint-vol-1",
+      "https://comic.naver.com/webtoon/list?titleId=747269",
+      "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92?oldid=95012189"
+    ],
+    "reason": "options on the Korean volumes and the IZE Press announcement (Wikipedia only, no second source) replaced by dated events with official or Wikidata second sources (Yen Press pages for the English comic of December 12, 2023 and the English novel of July 22, 2025)"
+  },
+  {
+    "quiz": "quizzes/omniscient-readers-viewpoint/which-came-first-omniscient-readers-viewpoint-from-novel-to-film.json",
+    "index": 3,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint?oldid=1380159721",
+      "https://comic.naver.com/webtoon/list?titleId=747269",
+      "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92?oldid=95012189",
+      "https://yenpress.com/titles/9798400901065-omniscient-reader-s-viewpoint-vol-1",
+      "https://www.wikidata.org/wiki/Q139567602",
+      "https://www.webtoons.com/en/action/omniscient-reader/list?title_no=2154"
+    ],
+    "reason": "options on the Korean volumes and the IZE Press announcement (Wikipedia only, no second source) replaced by dated events with official or Wikidata second sources (Yen Press pages for the English comic of December 12, 2023 and the English novel of July 22, 2025)"
+  },
+  {
+    "quiz": "quizzes/omniscient-readers-viewpoint/which-came-first-omniscient-readers-viewpoint-from-novel-to-film.json",
+    "index": 4,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint?oldid=1380159721",
+      "https://yenpress.com/titles/9798400903526-omniscient-reader-s-viewpoint-novel-vol-1",
+      "https://yenpress.com/titles/9798400901065-omniscient-reader-s-viewpoint-vol-1",
+      "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy?oldid=1376160456",
+      "https://www.wikidata.org/wiki/Q126724933",
+      "https://www.webtoons.com/en/action/omniscient-reader/list?title_no=2154"
+    ],
+    "reason": "options on the Korean volumes and the IZE Press announcement (Wikipedia only, no second source) replaced by dated events with official or Wikidata second sources (Yen Press pages for the English comic of December 12, 2023 and the English novel of July 22, 2025)"
+  },
+  {
+    "quiz": "quizzes/omniscient-readers-viewpoint/which-came-first-omniscient-readers-viewpoint-from-novel-to-film.json",
+    "index": 5,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint?oldid=1380159721",
+      "https://yenpress.com/titles/9798400903526-omniscient-reader-s-viewpoint-novel-vol-1",
+      "https://yenpress.com/titles/9798400901065-omniscient-reader-s-viewpoint-vol-1",
+      "https://www.webtoons.com/en/action/omniscient-reader/list?title_no=2154",
+      "https://www.wikidata.org/wiki/Q139567602",
+      "https://comic.naver.com/webtoon/list?titleId=747269"
+    ],
+    "reason": "the end of the web novel (February 2, 2020) is on Wikipedia only (Wikidata carries the start); options built on events with Wikidata, official or ANN second sources"
+  },
+  {
+    "quiz": "quizzes/omniscient-readers-viewpoint/which-came-first-omniscient-readers-viewpoint-from-novel-to-film.json",
+    "index": 6,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint?oldid=1380159721",
+      "https://yenpress.com/titles/9798400901065-omniscient-reader-s-viewpoint-vol-1",
+      "https://www.wikidata.org/wiki/Q139567602",
+      "https://comic.naver.com/webtoon/list?titleId=747269",
+      "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy?oldid=1376160456",
+      "https://www.wikidata.org/wiki/Q126724933",
+      "https://yenpress.com/titles/9798400903526-omniscient-reader-s-viewpoint-novel-vol-1"
+    ],
+    "reason": "options on the Korean volumes and the IZE Press announcement (Wikipedia only, no second source) replaced by dated events with official or Wikidata second sources (Yen Press pages for the English comic of December 12, 2023 and the English novel of July 22, 2025)"
+  },
+  {
+    "quiz": "quizzes/omniscient-readers-viewpoint/which-came-first-omniscient-readers-viewpoint-from-novel-to-film.json",
+    "index": 7,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint?oldid=1380159721",
+      "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy?oldid=1376160456",
+      "https://www.wikidata.org/wiki/Q126724933",
+      "https://www.wikidata.org/wiki/Q124338944",
+      "https://www.wikidata.org/wiki/Q139567602",
+      "https://comic.naver.com/webtoon/list?titleId=747269",
+      "https://www.webtoons.com/en/action/omniscient-reader/list?title_no=2154"
+    ],
+    "reason": "the end of the web novel (February 2, 2020) is on Wikipedia only (Wikidata carries the start); options built on events with Wikidata, official or ANN second sources"
+  },
+  {
+    "quiz": "quizzes/omniscient-readers-viewpoint/which-came-first-omniscient-readers-viewpoint-from-novel-to-film.json",
+    "index": 8,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint?oldid=1380159721",
+      "https://www.wikidata.org/wiki/Q124338944",
+      "https://yenpress.com/titles/9798400901065-omniscient-reader-s-viewpoint-vol-1",
+      "https://www.webtoons.com/en/action/omniscient-reader/list?title_no=2154",
+      "https://yenpress.com/titles/9798400903526-omniscient-reader-s-viewpoint-novel-vol-1"
+    ],
+    "reason": "the end of the web novel (February 2, 2020) is on Wikipedia only (Wikidata carries the start); options built on events with Wikidata, official or ANN second sources"
+  },
+  {
+    "quiz": "quizzes/omniscient-readers-viewpoint/which-came-first-omniscient-readers-viewpoint-from-novel-to-film.json",
+    "index": 9,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint?oldid=1380159721",
+      "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy?oldid=1376160456",
+      "https://www.wikidata.org/wiki/Q126724933",
+      "https://yenpress.com/titles/9798400903526-omniscient-reader-s-viewpoint-novel-vol-1",
+      "https://yenpress.com/titles/9798400901065-omniscient-reader-s-viewpoint-vol-1",
+      "https://www.webtoons.com/en/action/omniscient-reader/list?title_no=2154"
+    ],
+    "reason": "options on the Korean volumes and the IZE Press announcement (Wikipedia only, no second source) replaced by dated events with official or Wikidata second sources (Yen Press pages for the English comic of December 12, 2023 and the English novel of July 22, 2025)"
+  },
+  {
+    "quiz": "quizzes/one-piece/pirate-feast-meals-drinks-and-sanjis-kitchen-in-one-piece.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Monkey_D._Luffy?oldid=1379660000"
+    ]
+  },
+  {
+    "quiz": "quizzes/one-piece/pirate-feast-meals-drinks-and-sanjis-kitchen-in-one-piece.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Roronoa_Zoro?oldid=1380100680"
+    ]
+  },
+  {
+    "quiz": "quizzes/one-piece/pirate-feast-meals-drinks-and-sanjis-kitchen-in-one-piece.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/One_Piece?oldid=1381646993"
+    ]
+  },
+  {
+    "quiz": "quizzes/one-piece/pirate-feast-meals-drinks-and-sanjis-kitchen-in-one-piece.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Straw_Hats?oldid=1379529411"
+    ]
+  },
+  {
+    "quiz": "quizzes/one-piece/pirate-feast-meals-drinks-and-sanjis-kitchen-in-one-piece.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sanji_(One_Piece)?oldid=1381413387"
+    ]
+  },
+  {
+    "quiz": "quizzes/one-piece/pirate-feast-meals-drinks-and-sanjis-kitchen-in-one-piece.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_One_Piece_pirates?oldid=1379094181"
+    ]
+  },
+  {
+    "quiz": "quizzes/one-piece/pirate-feast-meals-drinks-and-sanjis-kitchen-in-one-piece.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sanji_(One_Piece)?oldid=1381413387"
+    ]
+  },
+  {
+    "quiz": "quizzes/one-piece/pirate-feast-meals-drinks-and-sanjis-kitchen-in-one-piece.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Nami_(One_Piece)?oldid=1375323378"
+    ]
+  },
+  {
+    "quiz": "quizzes/one-piece/pirate-feast-meals-drinks-and-sanjis-kitchen-in-one-piece.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tony_Tony_Chopper?oldid=1381333806"
+    ]
+  },
+  {
+    "quiz": "quizzes/one-piece/pirate-feast-meals-drinks-and-sanjis-kitchen-in-one-piece.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Franky_(One_Piece)?oldid=1381620266"
+    ]
+  },
+  {
+    "quiz": "quizzes/one-punch-man/one-punch-man-in-numbers-ages-ranks-scores-and-episodes.json",
+    "index": 0,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/One-Punch_Man?oldid=1379606340",
+      "https://www.wikidata.org/wiki/Q22341676"
+    ],
+    "reason": "age, training, score or sentence figure of the story with a single Wikipedia source and nothing to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/one-punch-man/one-punch-man-in-numbers-ages-ranks-scores-and-episodes.json",
+    "index": 1,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/One-Punch_Man_season_1?oldid=1376949985",
+      "https://onepunchman-anime.net/staff/"
+    ],
+    "reason": "age, training, score or sentence figure of the story with a single Wikipedia source and nothing to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/one-punch-man/one-punch-man-in-numbers-ages-ranks-scores-and-episodes.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/One-Punch_Man_season_1?oldid=1376949985",
+      "https://onepunchman-anime.net/staff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/one-punch-man/one-punch-man-in-numbers-ages-ranks-scores-and-episodes.json",
+    "index": 3,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/One-Punch_Man_season_2?oldid=1373082914",
+      "https://onepunchman-anime.net/staff/"
+    ],
+    "reason": "age, training, score or sentence figure of the story with a single Wikipedia source and nothing to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/one-punch-man/one-punch-man-in-numbers-ages-ranks-scores-and-episodes.json",
+    "index": 4,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/One-Punch_Man?oldid=1379606340",
+      "https://onepunchman-anime.net/staff/"
+    ],
+    "reason": "age, training, score or sentence figure of the story with a single Wikipedia source and nothing to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/one-punch-man/one-punch-man-in-numbers-ages-ranks-scores-and-episodes.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters?oldid=1380588466"
+    ]
+  },
+  {
+    "quiz": "quizzes/one-punch-man/one-punch-man-in-numbers-ages-ranks-scores-and-episodes.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters?oldid=1380588466"
+    ]
+  },
+  {
+    "quiz": "quizzes/one-punch-man/one-punch-man-in-numbers-ages-ranks-scores-and-episodes.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/One-Punch_Man_season_1?oldid=1376949985",
+      "https://onepunchman-anime.net/staff/",
+      "https://en.wikipedia.org/wiki/One-Punch_Man_season_2?oldid=1373082914"
+    ]
+  },
+  {
+    "quiz": "quizzes/one-punch-man/one-punch-man-in-numbers-ages-ranks-scores-and-episodes.json",
+    "index": 8,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/One-Punch_Man_season_1?oldid=1376949985",
+      "https://onepunchman-anime.net/staff/"
+    ],
+    "reason": "age, training, score or sentence figure of the story with a single Wikipedia source and nothing to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/one-punch-man/one-punch-man-in-numbers-ages-ranks-scores-and-episodes.json",
+    "index": 9,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/One-Punch_Man_season_2?oldid=1373082914",
+      "https://onepunchman-anime.net/staff/"
+    ],
+    "reason": "age, training, score or sentence figure of the story with a single Wikipedia source and nothing to confirm it; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/oshi-no-ko/three-clues-to-a-song-a-show-and-a-publisher-oshi-no-ko.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)?oldid=1379821089",
+      "https://www.wikidata.org/wiki/Q134691505",
+      "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes?oldid=1379822538",
+      "https://www.wikidata.org/wiki/Q120055455"
+    ],
+    "reason": "a date, count or credit rested on one source; second source added: Wikidata Q134691505"
+  },
+  {
+    "quiz": "quizzes/oshi-no-ko/three-clues-to-a-song-a-show-and-a-publisher-oshi-no-ko.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)?oldid=1379821089",
+      "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes?oldid=1379822538",
+      "https://www.wikidata.org/wiki/Q120122299"
+    ],
+    "reason": "the performer (Gemn) of the opening has no second source; the clue now names the song only"
+  },
+  {
+    "quiz": "quizzes/oshi-no-ko/three-clues-to-a-song-a-show-and-a-publisher-oshi-no-ko.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Oshi_no_Ko?oldid=1377608811"
+    ]
+  },
+  {
+    "quiz": "quizzes/oshi-no-ko/three-clues-to-a-song-a-show-and-a-publisher-oshi-no-ko.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters?oldid=1377609994"
+    ]
+  },
+  {
+    "quiz": "quizzes/oshi-no-ko/three-clues-to-a-song-a-show-and-a-publisher-oshi-no-ko.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters?oldid=1377609994"
+    ]
+  },
+  {
+    "quiz": "quizzes/oshi-no-ko/three-clues-to-a-song-a-show-and-a-publisher-oshi-no-ko.json",
+    "index": 5,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Oshi_no_Ko?oldid=1377608811",
+      "https://www.animenewsnetwork.com/news/2024-06-19/live-action-oshi-no-ko-teaser-unveils-staff-series-november-28-debut-film-december-20-opening/.212158"
+    ],
+    "reason": "the live-action dates (series November 28, 2024; film December 20, 2024) had one source; added ANN (announcement of June 19, 2024)"
+  },
+  {
+    "quiz": "quizzes/oshi-no-ko/three-clues-to-a-song-a-show-and-a-publisher-oshi-no-ko.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)?oldid=1379821089",
+      "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes?oldid=1379822538",
+      "https://www.wikidata.org/wiki/Q120122299"
+    ]
+  },
+  {
+    "quiz": "quizzes/oshi-no-ko/three-clues-to-a-song-a-show-and-a-publisher-oshi-no-ko.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Oshi_no_Ko?oldid=1377608811",
+      "https://www.wikidata.org/wiki/Q97310775",
+      "https://youngjump.jp/oshinoko/"
+    ]
+  },
+  {
+    "quiz": "quizzes/oshi-no-ko/three-clues-to-a-song-a-show-and-a-publisher-oshi-no-ko.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters?oldid=1377609994"
+    ]
+  },
+  {
+    "quiz": "quizzes/oshi-no-ko/three-clues-to-a-song-a-show-and-a-publisher-oshi-no-ko.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters?oldid=1377609994"
+    ]
+  },
+  {
+    "quiz": "quizzes/sailor-moon/which-one-is-the-outsider-sailor-moon-odd-one-out.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters?oldid=1379441297"
+    ]
+  },
+  {
+    "quiz": "quizzes/sailor-moon/which-one-is-the-outsider-sailor-moon-odd-one-out.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sailor_Moon_(character)?oldid=1373279974",
+      "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters?oldid=1379441297"
+    ]
+  },
+  {
+    "quiz": "quizzes/sailor-moon/which-one-is-the-outsider-sailor-moon-odd-one-out.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters?oldid=1379441297"
+    ]
+  },
+  {
+    "quiz": "quizzes/sailor-moon/which-one-is-the-outsider-sailor-moon-odd-one-out.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters?oldid=1379441297"
+    ]
+  },
+  {
+    "quiz": "quizzes/sailor-moon/which-one-is-the-outsider-sailor-moon-odd-one-out.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters?oldid=1379441297",
+      "https://en.wikipedia.org/wiki/Sailor_Moon_(character)?oldid=1373279974"
+    ]
+  },
+  {
+    "quiz": "quizzes/sailor-moon/which-one-is-the-outsider-sailor-moon-odd-one-out.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters?oldid=1379441297"
+    ]
+  },
+  {
+    "quiz": "quizzes/sailor-moon/which-one-is-the-outsider-sailor-moon-odd-one-out.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters?oldid=1379441297"
+    ]
+  },
+  {
+    "quiz": "quizzes/sailor-moon/which-one-is-the-outsider-sailor-moon-odd-one-out.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters?oldid=1379441297"
+    ]
+  },
+  {
+    "quiz": "quizzes/sailor-moon/which-one-is-the-outsider-sailor-moon-odd-one-out.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters?oldid=1379441297"
+    ]
+  },
+  {
+    "quiz": "quizzes/sailor-moon/which-one-is-the-outsider-sailor-moon-odd-one-out.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters?oldid=1379441297"
+    ]
+  },
+  {
+    "quiz": "quizzes/solo-leveling/solo-leveling-in-three-clues-works-seasons-songs-and-places.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Solo_Leveling?oldid=1379866104",
+      "https://www.wikidata.org/wiki/Q65551313"
+    ],
+    "reason": "the printed edition date of November 4, 2016 is on Wikipedia only; clue 3 now names the publisher and label, and clue 2 keeps the KakaoPage start of July 2016"
+  },
+  {
+    "quiz": "quizzes/solo-leveling/solo-leveling-in-three-clues-works-seasons-songs-and-places.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Solo_Leveling?oldid=1379866104",
+      "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=25998"
+    ],
+    "reason": "the \"two seasons, first ended in March 2020\" clue had a single Wikipedia source; clues now rest on the March 2018 start and December 2021 end (Wikipedia and ANN)"
+  },
+  {
+    "quiz": "quizzes/solo-leveling/solo-leveling-in-three-clues-works-seasons-songs-and-places.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Solo_Leveling_season_1?oldid=1373093955",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=26000&page=25",
+      "https://en.wikipedia.org/wiki/Solo_Leveling?oldid=1379866104",
+      "https://www.wikidata.org/wiki/Q112898063",
+      "https://sololeveling-anime.net/",
+      "https://www.animenewsnetwork.com/news/2024-10-21/solo-leveling-reawakening-film-posts-trailer-poster-visual/.216995"
+    ],
+    "reason": "the recap date February 25, 2024 conflicts with ANN (recap 7.5 on 2024-03-03); the date is dropped from the clue and the fact; compilation film dates got the ANN second source"
+  },
+  {
+    "quiz": "quizzes/solo-leveling/solo-leveling-in-three-clues-works-seasons-songs-and-places.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Solo_Leveling?oldid=1379866104",
+      "https://www.wikidata.org/wiki/Q112898063",
+      "https://sololeveling-anime.net/",
+      "https://en.wikipedia.org/wiki/Solo_Leveling_season_2?oldid=1361222047",
+      "https://www.animenewsnetwork.com/news/2024-10-21/solo-leveling-reawakening-film-posts-trailer-poster-visual/.216995"
+    ],
+    "reason": "compilation film dates (November 29 to December 12, 2024) had one source; added ANN as second source"
+  },
+  {
+    "quiz": "quizzes/solo-leveling/solo-leveling-in-three-clues-works-seasons-songs-and-places.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Solo_Leveling_season_1?oldid=1373093955",
+      "https://sololeveling-anime.net/1st/music/"
+    ],
+    "reason": "opening song and performer had one source; added the official anime site music page"
+  },
+  {
+    "quiz": "quizzes/solo-leveling/solo-leveling-in-three-clues-works-seasons-songs-and-places.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Solo_Leveling?oldid=1381887886",
+      "https://sololeveling-anime.net/"
+    ]
+  },
+  {
+    "quiz": "quizzes/solo-leveling/solo-leveling-in-three-clues-works-seasons-songs-and-places.json",
+    "index": 6,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Solo_Leveling?oldid=1381887886",
+      "https://www.animenewsnetwork.com/news/2025-07-09/netflix-produces-live-action-solo-leveling-series-reveals-woo-seok-byeon-as-lead/.226496"
+    ],
+    "reason": "the cast clue (Byeon Woo-seok) had one source and a credit needs two; clue 3 now gives the announcement month (July 2025; Wikipedia and ANN)"
+  },
+  {
+    "quiz": "quizzes/solo-leveling/solo-leveling-in-three-clues-works-seasons-songs-and-places.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Solo_Leveling?oldid=1381887886"
+    ]
+  },
+  {
+    "quiz": "quizzes/solo-leveling/solo-leveling-in-three-clues-works-seasons-songs-and-places.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Solo_Leveling?oldid=1381887886"
+    ]
+  },
+  {
+    "quiz": "quizzes/solo-leveling/solo-leveling-in-three-clues-works-seasons-songs-and-places.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Solo_Leveling?oldid=1381887886"
+    ]
+  },
+  {
+    "quiz": "quizzes/spy-x-family/peanuts-meremere-and-sweet-tooths-spy-x-family-food-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)?oldid=1379031004"
+    ]
+  },
+  {
+    "quiz": "quizzes/spy-x-family/peanuts-meremere-and-sweet-tooths-spy-x-family-food-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White?oldid=1374015513"
+    ]
+  },
+  {
+    "quiz": "quizzes/spy-x-family/peanuts-meremere-and-sweet-tooths-spy-x-family-food-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters?oldid=1373964762"
+    ]
+  },
+  {
+    "quiz": "quizzes/spy-x-family/peanuts-meremere-and-sweet-tooths-spy-x-family-food-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White?oldid=1374015513"
+    ]
+  },
+  {
+    "quiz": "quizzes/spy-x-family/peanuts-meremere-and-sweet-tooths-spy-x-family-food-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White?oldid=1374015513"
+    ]
+  },
+  {
+    "quiz": "quizzes/spy-x-family/peanuts-meremere-and-sweet-tooths-spy-x-family-food-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White?oldid=1374015513"
+    ]
+  },
+  {
+    "quiz": "quizzes/spy-x-family/peanuts-meremere-and-sweet-tooths-spy-x-family-food-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White?oldid=1374015513"
+    ]
+  },
+  {
+    "quiz": "quizzes/spy-x-family/peanuts-meremere-and-sweet-tooths-spy-x-family-food-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White?oldid=1374015513"
+    ]
+  },
+  {
+    "quiz": "quizzes/spy-x-family/peanuts-meremere-and-sweet-tooths-spy-x-family-food-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters?oldid=1373964762"
+    ]
+  },
+  {
+    "quiz": "quizzes/spy-x-family/peanuts-meremere-and-sweet-tooths-spy-x-family-food-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White?oldid=1374015513",
+      "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters?oldid=1373964762"
+    ]
+  },
+  {
+    "quiz": "quizzes/tower-of-god/the-tower-by-the-numbers-floors-families-and-years.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tower_of_God?oldid=1378030268",
+      "https://www.wikidata.org/wiki/Q487202"
+    ]
+  },
+  {
+    "quiz": "quizzes/tower-of-god/the-tower-by-the-numbers-floors-families-and-years.json",
+    "index": 1,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tower_of_God_season_1?oldid=1373945327",
+      "https://tog-anime.com/1st/caststaff/",
+      "https://www.animenewsnetwork.com/daily-briefs/2020-04-02/tower-of-god-anime-has-13-episodes/.158235",
+      "https://www.wikidata.org/wiki/Q131160789"
+    ],
+    "reason": "in-story count (layers, team roles, families, planning years) or the English release year with a single Wikipedia source; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/tower-of-god/the-tower-by-the-numbers-floors-families-and-years.json",
+    "index": 2,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tower_of_God_season_1?oldid=1373945327",
+      "https://tog-anime.com/1st/caststaff/",
+      "https://www.animenewsnetwork.com/daily-briefs/2020-04-02/tower-of-god-anime-has-13-episodes/.158235",
+      "https://www.wikidata.org/wiki/Q131160789"
+    ],
+    "reason": "in-story count (layers, team roles, families, planning years) or the English release year with a single Wikipedia source; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/tower-of-god/the-tower-by-the-numbers-floors-families-and-years.json",
+    "index": 3,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tower_of_God_season_2?oldid=1373945362",
+      "https://www.wikidata.org/wiki/Q131160789",
+      "https://tog-anime.com/staffcast/index.html"
+    ],
+    "reason": "in-story count (team roles) with a single Wikipedia source; replaced by the last day of season two (December 29, 2024; Wikipedia and Wikidata)"
+  },
+  {
+    "quiz": "quizzes/tower-of-god/the-tower-by-the-numbers-floors-families-and-years.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tower_of_God?oldid=1378030268",
+      "https://www.animenewsnetwork.com/daily-briefs/2020-02-10/aniplex-subsidiary-rialto-entertainment-works-on-tower-of-god-animated-work/.156314"
+    ],
+    "reason": "the Seoul Comic-Con announcement (August 2019) had one source; added ANN"
+  },
+  {
+    "quiz": "quizzes/tower-of-god/the-tower-by-the-numbers-floors-families-and-years.json",
+    "index": 5,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tower_of_God_season_2?oldid=1373945362",
+      "https://www.wikidata.org/wiki/Q131160789"
+    ],
+    "reason": "in-story count (layers, team roles, families, planning years) or the English release year with a single Wikipedia source; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/tower-of-god/the-tower-by-the-numbers-floors-families-and-years.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tower_of_God_season_2?oldid=1373945362",
+      "https://www.wikidata.org/wiki/Q131160789",
+      "https://tog-anime.com/staffcast/index.html"
+    ]
+  },
+  {
+    "quiz": "quizzes/tower-of-god/the-tower-by-the-numbers-floors-families-and-years.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tower_of_God_season_2?oldid=1373945362",
+      "https://www.wikidata.org/wiki/Q131160789"
+    ]
+  },
+  {
+    "quiz": "quizzes/tower-of-god/the-tower-by-the-numbers-floors-families-and-years.json",
+    "index": 8,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tower_of_God?oldid=1378030268",
+      "https://www.wikidata.org/wiki/Q487202"
+    ],
+    "reason": "in-story count (layers, team roles, families, planning years) or the English release year with a single Wikipedia source; replaced by a question on a verified series fact"
+  },
+  {
+    "quiz": "quizzes/tower-of-god/the-tower-by-the-numbers-floors-families-and-years.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tower_of_God?oldid=1378030268"
+    ]
+  },
+  {
+    "quiz": "quizzes/vinland-saga/which-came-first-vinland-saga-releases-awards-and-story-beats.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)?oldid=1378041110",
+      "https://www.wikidata.org/wiki/Q930990",
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)?oldid=1379073139",
+      "https://www.wikidata.org/wiki/Q111677557",
+      "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes?oldid=1376081382",
+      "https://www.wikidata.org/wiki/Q115730093",
+      "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters?oldid=1378686023"
+    ]
+  },
+  {
+    "quiz": "quizzes/vinland-saga/which-came-first-vinland-saga-releases-awards-and-story-beats.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)?oldid=1381714814"
+    ]
+  },
+  {
+    "quiz": "quizzes/vinland-saga/which-came-first-vinland-saga-releases-awards-and-story-beats.json",
+    "index": 2,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)?oldid=1379073139",
+      "https://www.bunka.go.jp/j-mediaarts-festival/award/previous/13th/manga/index.html",
+      "https://www.wikidata.org/wiki/Q111677557",
+      "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes?oldid=1376081382",
+      "https://www.wikidata.org/wiki/Q115730093",
+      "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters?oldid=1378686023",
+      "https://www.wikidata.org/wiki/Q930990",
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)?oldid=1378041110",
+      "https://www.bunka.go.jp/j-mediaarts-festival/award/previous/"
+    ],
+    "reason": "options on the English hardcovers (October 2013, sources disagree on the day) and the Kodansha general-manga prize (2012, Wikipedia only) replaced by dated events with second sources; the Japan Media Arts Festival honor is confirmed by the official festival site (13th edition, 2009)"
+  },
+  {
+    "quiz": "quizzes/vinland-saga/which-came-first-vinland-saga-releases-awards-and-story-beats.json",
+    "index": 3,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)?oldid=1379073139",
+      "https://www.bunka.go.jp/j-mediaarts-festival/award/previous/13th/manga/index.html",
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)?oldid=1378041110",
+      "https://www.wikidata.org/wiki/Q930990",
+      "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes?oldid=1376081382",
+      "https://www.wikidata.org/wiki/Q115730093",
+      "https://www.bunka.go.jp/j-mediaarts-festival/award/previous/"
+    ],
+    "reason": "options on the English hardcovers (October 2013, sources disagree on the day), the Kodansha general-manga prize (2012) and the move to Monthly Afternoon (December 24, 2005) have no strong second source; replaced by events carried by Wikidata, official pages or ANN (start April 2005, end July 25, 2025, season dates, Japan Media Arts Festival 13th edition)"
+  },
+  {
+    "quiz": "quizzes/vinland-saga/which-came-first-vinland-saga-releases-awards-and-story-beats.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)?oldid=1381714814"
+    ]
+  },
+  {
+    "quiz": "quizzes/vinland-saga/which-came-first-vinland-saga-releases-awards-and-story-beats.json",
+    "index": 5,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)?oldid=1379073139",
+      "https://www.bunka.go.jp/j-mediaarts-festival/award/previous/13th/manga/index.html",
+      "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes?oldid=1376081382",
+      "https://www.wikidata.org/wiki/Q115730093",
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)?oldid=1378041110",
+      "https://www.wikidata.org/wiki/Q111677557",
+      "https://www.wikidata.org/wiki/Q930990",
+      "https://www.bunka.go.jp/j-mediaarts-festival/award/previous/"
+    ],
+    "reason": "options on the English hardcovers (October 2013, sources disagree on the day), the Kodansha general-manga prize (2012) and the move to Monthly Afternoon (December 24, 2005) have no strong second source; replaced by events carried by Wikidata, official pages or ANN (start April 2005, end July 25, 2025, season dates, Japan Media Arts Festival 13th edition)"
+  },
+  {
+    "quiz": "quizzes/vinland-saga/which-came-first-vinland-saga-releases-awards-and-story-beats.json",
+    "index": 6,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)?oldid=1379073139",
+      "https://www.bunka.go.jp/j-mediaarts-festival/award/previous/13th/manga/index.html",
+      "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes?oldid=1376081382",
+      "https://www.wikidata.org/wiki/Q115730093",
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)?oldid=1378041110",
+      "https://www.wikidata.org/wiki/Q930990",
+      "https://www.wikidata.org/wiki/Q111677557",
+      "https://www.bunka.go.jp/j-mediaarts-festival/award/previous/"
+    ],
+    "reason": "options on the English hardcovers (October 2013, sources disagree on the day) and the Kodansha general-manga prize (2012, Wikipedia only) replaced by dated events with second sources; the Japan Media Arts Festival honor is confirmed by the official festival site (13th edition, 2009)"
+  },
+  {
+    "quiz": "quizzes/vinland-saga/which-came-first-vinland-saga-releases-awards-and-story-beats.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)?oldid=1381714814"
+    ]
+  },
+  {
+    "quiz": "quizzes/vinland-saga/which-came-first-vinland-saga-releases-awards-and-story-beats.json",
+    "index": 8,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)?oldid=1379073139",
+      "https://www.bunka.go.jp/j-mediaarts-festival/award/previous/13th/manga/index.html",
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)?oldid=1378041110",
+      "https://www.wikidata.org/wiki/Q930990",
+      "https://www.wikidata.org/wiki/Q111677557",
+      "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes?oldid=1376081382",
+      "https://www.wikidata.org/wiki/Q115730093"
+    ],
+    "reason": "options on the English hardcovers (October 2013, sources disagree on the day), the Kodansha general-manga prize (2012) and the move to Monthly Afternoon (December 24, 2005) have no strong second source; replaced by events carried by Wikidata, official pages or ANN (start April 2005, end July 25, 2025, season dates, Japan Media Arts Festival 13th edition)"
+  },
+  {
+    "quiz": "quizzes/vinland-saga/which-came-first-vinland-saga-releases-awards-and-story-beats.json",
+    "index": 9,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)?oldid=1379073139",
+      "https://www.bunka.go.jp/j-mediaarts-festival/award/previous/13th/manga/index.html",
+      "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters?oldid=1378686023",
+      "https://www.wikidata.org/wiki/Q930990",
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)?oldid=1378041110",
+      "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes?oldid=1376081382",
+      "https://www.wikidata.org/wiki/Q115730093",
+      "https://www.wikidata.org/wiki/Q111677557"
+    ],
+    "reason": "options on the English hardcovers (October 2013, sources disagree on the day) and the Kodansha general-manga prize (2012, Wikipedia only) replaced by dated events with second sources; the Japan Media Arts Festival honor is confirmed by the official festival site (13th edition, 2009)"
+  }
+]

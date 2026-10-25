@@ -2365,7 +2365,7 @@
     ],
     "text": "Ken Kaneki is voiced in Japanese by Natsuki Hanae.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -2376,10 +2376,16 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
         "ref": "1381202233",
         "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65152123",
+        "ref": "Q65152123",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T19:04:36.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Natsuki Hanae (Japanese)"
   }
 ]

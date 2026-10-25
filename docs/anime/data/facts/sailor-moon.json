@@ -1779,5 +1779,34 @@
     "status": "verified",
     "verified_at": "2026-10-25T18:55:30.000Z",
     "excerpt": "they take on the names Kou Seiya, Kou Taiki, and Kou Yaten"
+  },
+  {
+    "id": "sailor-moon-usagi-dislikes-carrots-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "usagi-tsukino"
+    },
+    "field": "habits",
+    "value": "carrots",
+    "text": "Usagi is a glutton for sweets, yet she is said to dislike carrots.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(character)",
+        "ref": "1373279974",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "She is said to dislike carrots"
   }
 ]

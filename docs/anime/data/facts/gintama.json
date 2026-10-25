@@ -418,12 +418,6 @@
         "source": "press",
         "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236",
         "fetched_at": "2026-10-25T15:40:00Z"
-      },
-      {
-        "source": "wikidata",
-        "url": "https://www.wikidata.org/wiki/Q709716",
-        "ref": "Q709716",
-        "fetched_at": "2026-10-25T15:40:00Z"
       }
     ],
     "status": "verified",
@@ -1372,7 +1366,7 @@
     "value": "Rie Kugimiya",
     "text": "Rie Kugimiya voices Kagura in Japanese.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -1383,10 +1377,16 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
         "ref": "1378278398",
         "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q4921911",
+        "ref": "Q4921911",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:00:00.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voice: Rie Kugimiya"
   },
   {

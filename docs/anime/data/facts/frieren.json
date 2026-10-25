@@ -340,7 +340,7 @@
     "value": "Evan Call",
     "text": "Evan Call wrote the music for the anime.",
     "category": "music",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -351,10 +351,16 @@
         "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
         "ref": "1381164237",
         "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q115792176",
+        "ref": "Q115792176",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "The music is composed by Evan Call"
   },
   {
@@ -372,7 +378,7 @@
     ],
     "text": "The anime has used three opening songs: Yoasobi and Yorushika in season one, Mrs. Green Apple in season two.",
     "category": "music",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -383,10 +389,16 @@
         "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
         "ref": "1381164237",
         "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q122850179",
+        "ref": "Q122850179",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "The first opening theme song is \"Yūsha\""
   },
   {
@@ -405,7 +417,7 @@
     ],
     "text": "Milet sang every ending, including the one used only for the four-episode premiere broadcast.",
     "category": "music",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -416,10 +428,21 @@
         "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
         "ref": "1381164237",
         "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q137803374",
+        "ref": "Q137803374",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.sonymusic.co.jp/artist/milet_music/info/556339",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "For the four-episode premiere broadcast only, the special ending theme song is \"Bliss\""
   },
   {

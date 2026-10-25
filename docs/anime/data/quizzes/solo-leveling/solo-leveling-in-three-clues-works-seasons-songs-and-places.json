@@ -28,7 +28,7 @@
    "clues": [
     "It is the oldest form of the story.",
     "Chugong wrote it, and KakaoPage first carried it in July 2016.",
-    "A printed edition came out that November from the Papyrus label of D&C Media."
+    "It was later printed by the Papyrus label of D&C Media."
    ],
    "options": [
     "The anime",
@@ -52,8 +52,8 @@
    "question": "Which version of Solo Leveling do these clues describe?",
    "clues": [
     "It is a comic that adapts the original text.",
-    "It was released in two seasons, the first of which ended in March 2020.",
-    "KakaoPage began serializing it in March 2018, and it finished in December 2021."
+    "KakaoPage began serializing it in March 2018.",
+    "It finished in December 2021."
    ],
    "options": [
     "The webtoon",
@@ -68,8 +68,7 @@
     "scope": "both"
    },
    "fact_ids": [
-    "solo-leveling-webtoon-run-006",
-    "solo-leveling-webtoon-seasons-008"
+    "solo-leveling-webtoon-run-006"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
   },
@@ -78,7 +77,7 @@
    "clues": [
     "A-1 Pictures animated it.",
     "A compilation film retelling it reached Japanese cinemas in late 2024.",
-    "A recap special that aired on 25 February 2024 covered its first seven episodes."
+    "A recap special covered its first seven episodes."
    ],
    "options": [
     "The sequel film Beyond the System",
@@ -179,7 +178,7 @@
    "clues": [
     "Its characters are played by real actors rather than drawn.",
     "Netflix is behind it.",
-    "Byeon Woo-seok is cast as Sung Jin-woo."
+    "It was announced in July 2025."
    ],
    "options": [
     "The compilation film ReAwakening",
@@ -194,8 +193,7 @@
     "scope": "both"
    },
    "fact_ids": [
-    "solo-leveling-live-action-netflix-063",
-    "solo-leveling-live-action-lead-064"
+    "solo-leveling-live-action-netflix-063"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
   },

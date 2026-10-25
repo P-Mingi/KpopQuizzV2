@@ -2,14 +2,14 @@
  "site": "anime",
  "account": "oq_creator_26",
  "group_slug": "kaiju-no-8",
- "title": "Kaiju No. 8 in Numbers: Ages, Divisions and Weapon Numbers",
+ "title": "Kaiju No. 8 in Numbers: Years, Episodes, Divisions and Weapon Numbers",
  "slug": "kaiju-no-8-in-numbers-ages-divisions-and-weapon-numbers",
- "description": "Ten rounds where every answer is a number: ages, years, episode numbers, division numbers and the Numbers weapons of the Defense Force. Light spoilers up to season two.",
+ "description": "Ten rounds where every answer is a number: years, chapters, volumes, episode numbers, division numbers and the Numbers weapons of the Defense Force. Light spoilers up to season two.",
  "quiz_type": "multiple_choice",
  "difficulty": "medium",
  "language": "en",
  "title_gives_nothing_away": true,
- "notes": "Numbers format: every option is a plain number (a year, an age, a division, a weapon number or a rating).",
+ "notes": "Numbers format: every option is a plain number (a year, a count, a division or a weapon number).",
  "sources": [
   {
    "id": "S1",
@@ -23,8 +23,8 @@
   },
   {
    "id": "S3",
-   "title": "Wikipedia: Kaiju No. 8",
-   "url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+   "title": "Wikipedia: List of Kaiju No. 8 chapters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
   }
  ],
  "questions": [
@@ -48,23 +48,23 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
   },
   {
-   "question": "How old is Reno Ichikawa when he starts working with Kafka?",
+   "question": "How many chapters does the Kaiju No. 8 manga run for?",
    "options": [
-    "18",
-    "16",
-    "20",
-    "24"
+    "99",
+    "129",
+    "150",
+    "200"
    ],
-   "correct": 0,
-   "kind": "character",
+   "correct": 1,
+   "kind": "manga",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "manga"
    },
    "fact_ids": [
-    "kaiju-no-8-reno-age-028"
+    "kaiju-no-8-manga-completion-003"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
   },
   {
    "question": "Season two keeps counting episodes from season one. Which overall episode number does it open with?",
@@ -87,42 +87,42 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
   },
   {
-   "question": "An officer needs unleashed combat power above what percentage to become a captain or vice-captain?",
+   "question": "How many collected volumes does the Kaiju No. 8 manga fill?",
    "options": [
-    "75",
-    "90",
-    "100",
-    "60"
+    "12",
+    "16",
+    "20",
+    "24"
    ],
    "correct": 1,
-   "kind": "lore",
+   "kind": "manga",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "manga"
    },
    "fact_ids": [
-    "kaiju-no-8-captain-power-threshold-037"
+    "kaiju-no-8-manga-completion-003"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
   },
   {
-   "question": "How old is Mina Ashiro, the captain of the Third Division?",
+   "question": "In which year did the Kaiju No. 8 manga begin on Shonen Jump+?",
    "options": [
-    "27",
-    "32",
-    "22",
-    "35"
+    "2018",
+    "2019",
+    "2020",
+    "2021"
    ],
-   "correct": 0,
-   "kind": "character",
+   "correct": 2,
+   "kind": "manga",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "manga"
    },
    "fact_ids": [
-    "kaiju-no-8-mina-age-029"
+    "kaiju-no-8-author-run-002"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
   },
   {
    "question": "Kikoru's late mother Hikari once led which numbered division of the Defense Force?",
@@ -201,24 +201,23 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
   },
   {
-   "question": "Reno wears armor made from a kaiju that crippled the Defense Force before the story begins. What is that kaiju's fortitude level?",
+   "question": "How many episodes does the first season of the anime have?",
    "options": [
-    "8.6",
-    "9.6",
-    "9.9",
-    "7.2"
+    "10",
+    "12",
+    "13",
+    "24"
    ],
    "correct": 1,
-   "kind": "lore",
+   "kind": "episode",
    "spoiler": {
-    "arc": 2,
-    "scope": "both"
+    "arc": 1,
+    "scope": "anime"
    },
    "fact_ids": [
-    "kaiju-no-8-reno-numbers6-031",
-    "kaiju-no-8-kaiju6-fortitude-032"
+    "kaiju-no-8-anime-season-one-004"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
   }
  ]
 }

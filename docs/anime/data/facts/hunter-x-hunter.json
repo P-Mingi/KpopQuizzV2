@@ -183,7 +183,7 @@
     "value": "Resumed October 24, 2022 after three years and eleven months",
     "text": "The longest break in the manga ended on 24 October 2022, after nearly four years without new chapters.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "manga"
@@ -194,10 +194,15 @@
         "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
         "ref": "1381097044",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2022-10-10/hunter-x-hunter-manga-resumes-after-almost-4-years-on-october-24/.190697",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "resumed on October 24, 2022, after a hiatus of three years and eleven months"
   },
   {
@@ -505,7 +510,7 @@
     ],
     "text": "Two animated theatrical films reached cinemas in 2013, Phantom Rouge and The Last Mission.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -516,10 +521,16 @@
         "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
         "ref": "1381097044",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q11398237",
+        "ref": "Q11398237",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "two animated theatrical films released in 2013"
   },
   {
@@ -1247,7 +1258,7 @@
     "value": "short film adaptation",
     "text": "A short animated film from Studio Pierrot played at a Jump anime tour, ahead of the first TV series.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -1258,10 +1269,15 @@
         "url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter",
         "ref": "1381097044",
         "fetched_at": "2026-10-25T18:50:43Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=17135",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:52:43.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Before the first anime television series was created, a short film adaptation of Hunter × Hunter was shown"
   },
   {
@@ -1275,7 +1291,7 @@
     "value": "first one's debut",
     "text": "Phantom Rouge was the first of the two theatrical films, and The Last Mission was announced only once it had opened.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -1286,10 +1302,16 @@
         "url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter",
         "ref": "1381097044",
         "fetched_at": "2026-10-25T18:50:43Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q11398237",
+        "ref": "Q11398237",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:52:43.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "was announced following the first one's debut"
   },
   {

@@ -2820,7 +2820,7 @@
     ],
     "text": "Kirito is voiced in Japanese by Yoshitsugu Matsuoka.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -2831,10 +2831,16 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
         "ref": "1380067261",
         "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q18468944",
+        "ref": "Q18468944",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T19:04:36.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Yoshitsugu Matsuoka (Japanese)"
   }
 ]

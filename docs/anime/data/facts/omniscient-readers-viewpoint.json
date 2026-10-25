@@ -856,5 +856,71 @@
     "status": "verified",
     "verified_at": "2026-10-25T19:04:59.000Z",
     "excerpt": "is a South Korean web novel written by singNsong"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-english-comic-vol1-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "license",
+    "value": "Ize Press (Yen Press), December 12, 2023",
+    "text": "The first English volume of the comic reached readers on December 12, 2023, from Ize Press, an imprint of Yen Press.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint",
+        "ref": "1380159721",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://yenpress.com/titles/9798400901065-omniscient-reader-s-viewpoint-vol-1",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "01 December 22, 2020 979-11-6428-401-6 December 12, 2023"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-english-novel-vol1-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "publisher_na",
+    "value": "Ize Press (Yen Press), July 22, 2025",
+    "text": "Ize Press printed the first English volume of the novel on July 22, 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint",
+        "ref": "1380159721",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://yenpress.com/titles/9798400903526-omniscient-reader-s-viewpoint-novel-vol-1",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Yen Press released the first volume of the English physical novel on July 22, 2025."
   }
 ]

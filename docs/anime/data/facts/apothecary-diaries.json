@@ -160,10 +160,15 @@
         "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
         "ref": "1380103786",
         "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.sunday-webry.com/episode/3269754496551508487",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "the second is published by Shogakukan in Monthly Sunday Gene-X with art by Minoji Kurata"
   },
   {
@@ -194,10 +199,15 @@
         "url": "https://www.wikidata.org/wiki/Q116787865",
         "ref": "Q116787865",
         "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=27141",
+        "fetched_at": "2026-10-25T21:25:10Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:25:10.000Z",
     "excerpt": "Produced by Toho Animation Studio and OLM, the series was written by Norihiro Naganuma and directed by Naganuma and Akinori Fudesaka."
   },
   {
@@ -228,10 +238,15 @@
         "url": "https://www.wikidata.org/wiki/Q116787865",
         "ref": "Q116787865",
         "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32557",
+        "fetched_at": "2026-10-25T21:25:10Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:25:10.000Z",
     "excerpt": "a second season was announced. It aired from January 10 to July 4, 2025, on Nippon TV's Friday Anime Night and its affiliates."
   },
   {

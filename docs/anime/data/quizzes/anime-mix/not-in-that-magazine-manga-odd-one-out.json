@@ -337,19 +337,19 @@
    "question": "Three of these manga ended after 2020. Which one had already ended in 2017?",
    "options": [
     {
-     "label": "Chainsaw Man"
-    },
-    {
-     "label": "Fairy Tail"
+     "label": "Kaiju No. 8"
     },
     {
      "label": "Jujutsu Kaisen"
     },
     {
+     "label": "Fairy Tail"
+    },
+    {
      "label": "Tokyo Revengers"
     }
    ],
-   "correct": 1,
+   "correct": 2,
    "kind": "manga",
    "spoiler": {
     "arc": 0,
@@ -358,7 +358,7 @@
    "fact_ids": [
     "fairy-tail-manga-run-004",
     "jujutsu-kaisen-manga-run-008",
-    "chainsaw-man-manga-run-004",
+    "kaiju-no-8-author-run-002",
     "tokyo-revengers-manga-run-003"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail"

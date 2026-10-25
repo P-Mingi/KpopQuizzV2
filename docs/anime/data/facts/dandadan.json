@@ -416,7 +416,7 @@
     ],
     "text": "Season one opens with Otonoke by Creepy Nuts and closes with Taidada by Zutomayo.",
     "category": "music",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -427,10 +427,21 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes",
         "ref": "1378501554",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q130476620",
+        "ref": "Q130476620",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/music/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "performed by Creepy Nuts"
   },
   {
@@ -447,7 +458,7 @@
     ],
     "text": "Season two opens with Kakumei Dōchū by Aina the End and closes with Doukashiteru by WurtS.",
     "category": "music",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 2,
       "scope": "anime"
@@ -458,10 +469,21 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes",
         "ref": "1378501554",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q136534235",
+        "ref": "Q136534235",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/music/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "performed by Aina the End"
   },
   {
@@ -1253,7 +1275,7 @@
     "value": "Nana Mizuki (Japanese)",
     "text": "In the Japanese version, Seiko Ayase is played by the singer and actress Nana Mizuki.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -1264,10 +1286,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
         "ref": "1381762207",
         "fetched_at": "2026-10-25T18:53:12Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:55:12.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Nana Mizuki (Japanese)"
   },
   {
@@ -1311,7 +1338,7 @@
     "value": "Mayumi Tanaka (Japanese)",
     "text": "The Japanese voice of Turbo Granny is Mayumi Tanaka.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -1322,10 +1349,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
         "ref": "1381762207",
         "fetched_at": "2026-10-25T18:53:12Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:55:12.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Mayumi Tanaka (Japanese)"
   },
   {
@@ -1369,7 +1401,7 @@
     "value": "Kazuya Nakai (Japanese)",
     "text": "Kazuya Nakai is the Japanese voice behind the Serpo aliens.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -1380,10 +1412,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
         "ref": "1381762207",
         "fetched_at": "2026-10-25T18:53:12Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:55:12.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Kazuya Nakai (Japanese)"
   },
   {
@@ -1456,7 +1493,7 @@
     "value": "Ayane Sakura (Japanese)",
     "text": "Ayane Sakura voices Aira in the Japanese version.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -1467,10 +1504,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
         "ref": "1381762207",
         "fetched_at": "2026-10-25T18:53:12Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:55:12.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Ayane Sakura (Japanese)"
   },
   {
@@ -1514,7 +1556,7 @@
     "value": "Kaito Ishikawa (Japanese)",
     "text": "Kaito Ishikawa gives Jiji his voice in the Japanese version.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -1525,10 +1567,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
         "ref": "1381762207",
         "fetched_at": "2026-10-25T18:53:12Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:55:12.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Kaito Ishikawa"
   },
   {
@@ -1601,7 +1648,7 @@
     "value": "Mutsumi Tamura (Japanese)",
     "text": "In Japanese, Evil Eye is voiced by Mutsumi Tamura.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 2,
       "scope": "both"
@@ -1612,10 +1659,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
         "ref": "1381762207",
         "fetched_at": "2026-10-25T18:53:12Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:55:12.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Mutsumi Tamura (Japanese)"
   },
   {
@@ -1688,7 +1740,7 @@
     "value": "Daichi Fujiwara (Japanese)",
     "text": "Daichi Fujiwara is the Japanese voice of Kinta.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 2,
       "scope": "both"
@@ -1699,10 +1751,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
         "ref": "1381762207",
         "fetched_at": "2026-10-25T18:53:12Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:55:12.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Daichi Fujiwara (Japanese)"
   },
   {
@@ -1775,7 +1832,7 @@
     "value": "Tomokazu Sugita (Japanese)",
     "text": "Tomokazu Sugita provides the Japanese voice of Taro.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 2,
       "scope": "both"
@@ -1786,10 +1843,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
         "ref": "1381762207",
         "fetched_at": "2026-10-25T18:53:12Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:55:12.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Tomokazu Sugita (Japanese)"
   },
   {
@@ -2038,7 +2100,7 @@
     ],
     "text": "Ken Takakura is voiced in Japanese by Natsuki Hanae.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -2049,10 +2111,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
         "ref": "1381762207",
         "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "official",
+        "url": "https://anime-dandadan.com/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T19:04:36.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Natsuki Hanae (Japanese)"
   }
 ]

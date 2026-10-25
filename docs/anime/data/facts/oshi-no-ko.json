@@ -390,7 +390,7 @@
     ],
     "text": "Season one opens with Idol by YOASOBI and closes with Mephisto by Queen Bee.",
     "category": "music",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -401,10 +401,16 @@
         "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)",
         "ref": "1379821089",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q134691505",
+        "ref": "Q134691505",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Opening: Idol by Yoasobi; Ending: Mephisto by Queen Bee"
   },
   {
@@ -649,7 +655,7 @@
     "value": "TV series from November 28, 2024; film The Final Act on December 20, 2024",
     "text": "A live-action series debuted on November 28, 2024, and a feature film titled The Final Act arrived on December 20, 2024.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -660,10 +666,15 @@
         "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
         "ref": "1377608811",
         "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2024-06-19/live-action-oshi-no-ko-teaser-unveils-staff-series-november-28-debut-film-december-20-opening/.212158",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "The film Oshi no Ko: The Final Act premiered on December 20, 2024"
   },
   {

@@ -2,14 +2,14 @@
  "site": "anime",
  "account": "oq_creator_28",
  "group_slug": "one-punch-man",
- "title": "One-Punch Man in Numbers: Ages, Ranks, Scores and Episodes",
+ "title": "One-Punch Man in Numbers: Ranks, Years, Days and Episodes",
  "slug": "one-punch-man-in-numbers-ages-ranks-scores-and-episodes",
- "description": "Numbers format: every answer is a number, from ages and Hero Association ranks to exam scores, training reps and episode counts. No story spoilers, only season 2 shows up as an episode count.",
+ "description": "Numbers format: every answer is a number, from years and days to Hero Association ranks and episode numbers. No story spoilers, only season 2 shows up as an episode number.",
  "quiz_type": "multiple_choice",
  "difficulty": "easy",
  "language": "en",
  "title_gives_nothing_away": true,
- "notes": "Numbers format: every question has a number for an answer; ages and ranks come from the character list, years and episode counts from verified anime facts.",
+ "notes": "Numbers format: every question has a number for an answer; ranks come from the character list, years, days and episode numbers from verified facts.",
  "sources": [
   {
    "id": "S1",
@@ -20,46 +20,56 @@
    "id": "S2",
    "title": "Wikipedia: One-Punch Man season 1",
    "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: One-Punch Man",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: One-Punch Man season 2",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2"
   }
  ],
  "questions": [
   {
-   "question": "How old is Saitama?",
+   "question": "In which year did One first put the story online as a webcomic?",
    "options": [
-    "19",
-    "33",
-    "28",
-    "25"
+    "2008",
+    "2009",
+    "2011",
+    "2012"
    ],
-   "correct": 3,
-   "kind": "character",
+   "correct": 1,
+   "kind": "manga",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "manga"
    },
    "fact_ids": [
-    "one-punch-man-saitama-age-028"
+    "one-punch-man-webcomic-start-003"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
   },
   {
-   "question": "How many push-ups, sit-ups and squats does Saitama do in his daily training, each?",
+   "question": "How many episodes does season 1 of the One-Punch Man anime have?",
    "options": [
-    "100",
-    "500",
-    "200",
-    "50"
+    "10",
+    "12",
+    "13",
+    "24"
    ],
-   "correct": 0,
-   "kind": "lore",
+   "correct": 1,
+   "kind": "episode",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "one-punch-man-saitama-training-029"
+    "one-punch-man-anime-season-one-007"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
   },
   {
    "question": "In which year did the One-Punch Man anime premiere?",
@@ -81,43 +91,42 @@
    "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
   },
   {
-   "question": "What overall score did Saitama get on the Hero Association entrance exam?",
+   "question": "Season 2 keeps counting from season 1. Which overall episode number does it open with?",
    "options": [
-    "84",
-    "58",
-    "65",
-    "71"
+    "11",
+    "12",
+    "13",
+    "14"
    ],
-   "correct": 3,
-   "kind": "lore",
+   "correct": 2,
+   "kind": "episode",
    "spoiler": {
-    "arc": 0,
-    "scope": "both"
+    "arc": 2,
+    "scope": "anime"
    },
    "fact_ids": [
-    "one-punch-man-saitama-exam-score-030"
+    "one-punch-man-anime-season-two-008"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2"
   },
   {
-   "question": "How old is Child Emperor, the youngest S-Class hero?",
+   "question": "On which day of June 2012 did Murata's redrawn version begin on Tonari no Young Jump?",
    "options": [
-    "8",
-    "10",
+    "4",
     "14",
-    "12"
+    "24",
+    "28"
    ],
    "correct": 1,
-   "kind": "character",
+   "kind": "manga",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "manga"
    },
    "fact_ids": [
-    "one-punch-man-child-emperor-age-037",
-    "one-punch-man-child-emperor-youngest-032"
+    "one-punch-man-remake-magazine-004"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
   },
   {
    "question": "Which rank in the C-Class is Mumen Rider listed at when he first appears?",
@@ -178,42 +187,42 @@
    "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
   },
   {
-   "question": "When Saitama calls him middle-aged, Atomic Samurai replies that he is only what age?",
+   "question": "On which day of October 2015 did season 1 of the anime premiere?",
    "options": [
-    "37",
-    "33",
-    "29",
-    "45"
-   ],
-   "correct": 0,
-   "kind": "character",
-   "spoiler": {
-    "arc": 0,
-    "scope": "both"
-   },
-   "fact_ids": [
-    "one-punch-man-atomic-samurai-age-035"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
-  },
-  {
-   "question": "For how many years is Puri-Puri Prisoner sentenced?",
-   "options": [
-    "100",
-    "10,000",
-    "100,000",
-    "1000"
+    "1",
+    "5",
+    "12",
+    "19"
    ],
    "correct": 1,
-   "kind": "lore",
+   "kind": "production",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "one-punch-man-puri-puri-sentence-036"
+    "one-punch-man-anime-season-one-007"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "question": "In which year did season 2 of the anime begin airing?",
+   "options": [
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-two-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2"
   }
  ]
 }

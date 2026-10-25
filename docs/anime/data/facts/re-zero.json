@@ -1175,7 +1175,7 @@
     ],
     "text": "Re:Zero has used six openings so far: Redo, Paradisus-Paradoxum, Realize, Long Shot, Reweave and Recollect.",
     "category": "music",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -1196,10 +1196,16 @@
         "source": "official",
         "url": "https://re-zero-anime.jp/tv/music/",
         "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q28687869",
+        "ref": "Q28687869",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T14:30:00.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Opening theme | List | Redo | Paradisus-Paradoxum"
   },
   {

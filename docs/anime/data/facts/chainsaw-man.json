@@ -469,7 +469,7 @@
     ],
     "text": "The opening theme of the series is Kick Back by Kenshi Yonezu.",
     "category": "music",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -480,10 +480,16 @@
         "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
         "ref": "1381105566",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q114562491",
+        "ref": "Q114562491",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "\"Kick Back\" by Kenshi Yonezu"
   },
   {
@@ -510,7 +516,7 @@
     ],
     "text": "Every episode has its own ending song by a different artist, from Chainsaw Blood by Vaundy in episode 1 to Zanki by Zutomayo in episode 12.",
     "category": "music",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -521,10 +527,16 @@
         "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
         "ref": "1381105566",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q114562277",
+        "ref": "Q114562277",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "\"Zanki\" by Zutomayo"
   },
   {
@@ -2056,7 +2068,7 @@
     "value": "Iris Out",
     "text": "Kenshi Yonezu performed Iris Out, the theme song of the Chainsaw Man anime film.",
     "category": "music",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -2067,10 +2079,16 @@
         "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_%E2%80%93_The_Movie:_Reze_Arc",
         "ref": "1380395387",
         "fetched_at": "2026-10-25T18:45:10Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q135892717",
+        "ref": "Q135892717",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:47:10.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "performed the film's theme song \"Iris Out\""
   },
   {
@@ -2084,7 +2102,7 @@
     "value": "Jane Doe",
     "text": "Jane Doe, the closing song of the Chainsaw Man anime film, is a duet of Kenshi Yonezu and Hikaru Utada.",
     "category": "music",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -2095,10 +2113,16 @@
         "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_%E2%80%93_The_Movie:_Reze_Arc",
         "ref": "1380395387",
         "fetched_at": "2026-10-25T18:45:10Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q135892717",
+        "ref": "Q135892717",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:47:10.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "the ending theme song is \"Jane Doe\" by Yonezu and Hikaru Utada"
   },
   {

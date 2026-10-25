@@ -4,7 +4,7 @@
  "group_slug": "kagurabachi",
  "title": "Which Came First? Kagurabachi Releases and Backstory in Order",
  "slug": "which-came-first-kagurabachi-releases-and-backstory-in-order",
- "description": "Ten rounds of four events where you pick the earliest or the latest: the Jump start, volumes, English print, awards and the war-and-murder backstory. Light spoilers up to the first arc.",
+ "description": "Ten rounds of four events where you pick the earliest or the latest: the Jump start, volumes, English print and the war-and-murder backstory. Light spoilers up to the first arc.",
  "quiz_type": "multiple_choice",
  "difficulty": "medium",
  "language": "en",
@@ -84,66 +84,66 @@
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },
   {
-   "question": "On the road to an English edition, which step on this list happened first?",
+   "question": "Which of these real-world steps came last?",
    "options": [
-    "Volume 12 released",
     "Viz Media published volume 1",
     "Viz Media announced a print edition",
-    "Circulation passing 4.5 million"
-   ],
-   "correct": 2,
-   "kind": "production",
-   "spoiler": {
-    "arc": 0,
-    "scope": "manga"
-   },
-   "fact_ids": [
-    "kagurabachi-english-release-007",
-    "kagurabachi-volume-count-004",
-    "kagurabachi-circulation-005"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
-  },
-  {
-   "question": "Counting from the first chapter, which of these milestones arrived first?",
-   "options": [
-    "The Japan Expo Awards Daruma",
-    "Over 99 million views on Manga Plus",
-    "Viz Media published volume 1",
+    "Volume 1 released in Japan",
     "Volume 12 released"
    ],
-   "correct": 1,
+   "correct": 3,
    "kind": "production",
    "spoiler": {
     "arc": 0,
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-page-views-011",
-    "kagurabachi-english-release-007",
     "kagurabachi-volume-count-004",
-    "kagurabachi-awards-006"
+    "kagurabachi-english-release-007"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },
   {
-   "question": "Among these prizes and releases, which is the earliest?",
+   "question": "Reading the story in order, which of these came earliest?",
    "options": [
-    "The tenth Next Manga Award",
-    "Volume 12 released",
-    "The Japan Expo Awards Daruma",
-    "Circulation passing 4.5 million"
+    "Kunishige's murder",
+    "Chihiro's quest for revenge",
+    "Ibuki Misaka being killed",
+    "The Sorcery Bureau already existed"
    ],
-   "correct": 0,
-   "kind": "production",
+   "correct": 3,
+   "kind": "lore",
    "spoiler": {
-    "arc": 0,
+    "arc": 1,
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-awards-006",
-    "kagurabachi-volume-count-004",
-    "kagurabachi-circulation-005"
+    "kagurabachi-sorcery-bureau-prewar-028",
+    "kagurabachi-hishaku-murder-blades-029",
+    "kagurabachi-chihiro-revenge-quest-034",
+    "kagurabachi-ibuki-killed-after-murder-032"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which of these happened first in the story's timeline?",
+   "options": [
+    "Kunishige's murder",
+    "The Kamunabi being set up",
+    "Ibuki Misaka being killed",
+    "Chihiro's quest for revenge"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 1,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-kamunabi-agency-012",
+    "kagurabachi-hishaku-murder-blades-029",
+    "kagurabachi-chihiro-revenge-quest-034",
+    "kagurabachi-ibuki-killed-after-murder-032"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },
@@ -213,24 +213,24 @@
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   },
   {
-   "question": "Which of these milestones is the most recent?",
+   "question": "Which of these came last in the story's timeline?",
    "options": [
-    "Circulation passing 4.5 million",
-    "Viz Media published volume 1",
-    "The tenth Next Manga Award",
-    "Volume 12 released"
+    "Azami helped Kunishige settle out of sight",
+    "The Kamunabi being formed",
+    "The Sorcery Bureau existing",
+    "The Seitei War"
    ],
    "correct": 0,
-   "kind": "production",
+   "kind": "lore",
    "spoiler": {
     "arc": 0,
     "scope": "manga"
    },
    "fact_ids": [
-    "kagurabachi-circulation-005",
-    "kagurabachi-english-release-007",
-    "kagurabachi-awards-006",
-    "kagurabachi-volume-count-004"
+    "kagurabachi-setting-war-010",
+    "kagurabachi-sorcery-bureau-prewar-028",
+    "kagurabachi-kamunabi-agency-012",
+    "kagurabachi-kunishige-hidden-home-031"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
   }

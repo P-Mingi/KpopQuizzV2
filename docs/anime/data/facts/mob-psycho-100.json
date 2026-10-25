@@ -576,7 +576,7 @@
     "value": "One-Punch Man",
     "text": "ONE is also the creator of the original One-Punch Man.",
     "category": "fun",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "manga"
@@ -587,11 +587,17 @@
         "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
         "ref": "1380373905",
         "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22341676",
+        "ref": "Q22341676",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "Creator also wrote One-Punch Man"
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "ONE's other work One-Punch Man"
   },
   {
     "id": "mob-psycho-100-manga-award-019",
@@ -2211,7 +2217,7 @@
     ],
     "text": "Arataka Reigen is voiced in Japanese by Takahiro Sakurai.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -2222,10 +2228,16 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
         "ref": "1370251193",
         "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q125343442",
+        "ref": "Q125343442",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T19:04:36.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Takahiro Sakurai (Japanese)"
   }
 ]

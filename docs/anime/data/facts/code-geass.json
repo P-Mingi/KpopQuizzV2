@@ -2284,7 +2284,7 @@
     ],
     "text": "Suzaku Kururugi is voiced in Japanese by Takahiro Sakurai.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -2295,10 +2295,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
         "ref": "1381937587",
         "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.geass.jp/first/cast.html",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T19:04:36.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Takahiro Sakurai (Japanese)"
   },
   {
@@ -2315,7 +2320,7 @@
     ],
     "text": "Lelouch Lamperouge is voiced in Japanese by Jun Fukuyama.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -2326,10 +2331,21 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
         "ref": "1381937587",
         "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q952328",
+        "ref": "Q952328",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.geass.jp/first/cast.html",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T19:04:36.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Jun Fukuyama (Japanese)"
   }
 ]
