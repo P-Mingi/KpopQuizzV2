@@ -33,12 +33,26 @@ describe('the files of the home data', () => {
     }
   });
 
-  it('only reads: no insert, update, delete or upsert, and the only rpc is the idempotent daily blind test', () => {
+  it('only reads: no insert, update, delete, upsert or rpc', () => {
     for (const f of prod) {
       const code = source(f);
       expect(code, f).not.toMatch(/\.(insert|update|upsert|delete)\(/);
-      for (const m of code.matchAll(/\.rpc\(\s*'([a-z_]+)'/g)) expect(m[1], f).toBe('ensure_daily_blindtest');
+      expect(code, f).not.toMatch(/\.rpc\(/);
     }
+  });
+
+  it('uses the service role only where the table is closed (Team list, memberships, preferences)', () => {
+    const users = prod.filter((f) => /createServiceRoleClient/.test(source(f).split('\n').filter((l) => !l.trim().startsWith('//') && !l.trim().startsWith('*')).join('\n')));
+    expect(users).toEqual(['top-fans.ts']);
+  });
+
+  it('the rollback of the XP snapshots refuses to drop past days, before it drops anything', () => {
+    const sql = readFileSync(fileURLToPath(new URL('../../../../../../../docs/pending-migrations/hub/002-xp-daily-snapshots.rollback.sql', import.meta.url)), 'utf8');
+    const guard = sql.indexOf("where day < (now() at time zone ''utc'')::date");
+    expect(guard).toBeGreaterThan(-1);
+    expect(sql.indexOf('raise exception')).toBeGreaterThan(guard);
+    expect(sql.indexOf('drop table')).toBeGreaterThan(sql.indexOf('raise exception'));
+    expect(sql.indexOf('drop function')).toBeGreaterThan(sql.indexOf('raise exception'));
   });
 
   it('never throws at the page: every get* goes through hubCached', () => {

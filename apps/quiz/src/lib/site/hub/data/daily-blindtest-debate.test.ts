@@ -55,7 +55,7 @@ describe('the daily blind test', () => {
 
   it('gives the fresh preview link of the first song, the real count and the kpop link, and nothing that names the song', async () => {
     const db = fakeDb({ daily_blindtests: [{ date: '2026-10-25', song_ids: ids }], songs });
-    const out = await readBlindtest(ORIGINS, NOW, { db: db as never, ensure: () => db, preview: async (id) => `https://cdn.example/fresh-${id}.mp3` });
+    const out = await readBlindtest(ORIGINS, NOW, { db: db as never, preview: async (id) => `https://cdn.example/fresh-${id}.mp3` });
     expect(out).toEqual({
       site: 'kpop',
       siteName: 'KpopQuiz',
@@ -78,23 +78,29 @@ describe('the daily blind test', () => {
 
   it('keeps the stored link when Deezer does not answer', async () => {
     const db = fakeDb({ daily_blindtests: [{ date: '2026-10-25', song_ids: ids }], songs });
-    const out = await readBlindtest(ORIGINS, NOW, { db: db as never, ensure: () => db, preview: async () => null });
+    const out = await readBlindtest(ORIGINS, NOW, { db: db as never, preview: async () => null });
     expect(out?.previewUrl).toBe('https://cdn.example/stored-s1.mp3');
   });
 
-  it('makes the day once when it does not exist yet (the route of the site does the same), then reads it', async () => {
-    const rows: Array<Record<string, unknown>> = [];
-    const db = fakeDb({ daily_blindtests: rows, songs }, { rpc: { ensure_daily_blindtest: () => { rows.push({ date: '2026-10-25', song_ids: ids }); return { error: null }; } } });
-    const out = await readBlindtest(ORIGINS, NOW, { db: db as never, ensure: () => db, preview: async () => null });
-    expect(db.rpcCalls).toEqual([{ fn: 'ensure_daily_blindtest', args: { p_date: '2026-10-25' } }]);
+  it('only reads: today, else yesterday, else null, and never calls ensure_daily_blindtest', async () => {
+    const yesterday = fakeDb({ daily_blindtests: [{ date: '2026-10-24', song_ids: ids }], songs });
+    const out = await readBlindtest(ORIGINS, NOW, { db: yesterday as never, preview: async () => null });
+    expect(out?.date).toBe('2026-10-24');
     expect(out?.songCount).toBe(10);
+    expect(yesterday.rpcCalls).toEqual([]);
+    const today = fakeDb({ daily_blindtests: [{ date: '2026-10-25', song_ids: ids.slice(0, 5) }, { date: '2026-10-24', song_ids: ids }], songs });
+    expect((await readBlindtest(ORIGINS, NOW, { db: today as never, preview: async () => null }))?.songCount).toBe(5);
+    const none = fakeDb({ daily_blindtests: [{ date: '2026-10-22', song_ids: ids }], songs });
+    expect(await readBlindtest(ORIGINS, NOW, { db: none as never, preview: async () => null })).toBeNull();
+    expect(none.rpcCalls).toEqual([]);
+    expect(none.calls.every((c) => c.table !== 'songs')).toBe(true);
   });
 
-  it('fails when the day cannot be made, and is empty when the set has no song', async () => {
-    const bad = fakeDb({ daily_blindtests: [], songs }, { rpc: { ensure_daily_blindtest: () => ({ error: { message: 'boom' } }) } });
-    await expect(readBlindtest(ORIGINS, NOW, { db: bad as never, ensure: () => bad, preview: async () => null })).rejects.toThrow('boom');
+  it('is empty when the set has no song, and fails on a database error', async () => {
+    const bad = fakeDb({ daily_blindtests: [], songs }, { failing: { daily_blindtests: 'boom' } });
+    await expect(readBlindtest(ORIGINS, NOW, { db: bad as never, preview: async () => null })).rejects.toThrow('boom');
     const empty = fakeDb({ daily_blindtests: [{ date: '2026-10-25', song_ids: [] }], songs });
-    expect(await readBlindtest(ORIGINS, NOW, { db: empty as never, ensure: () => empty, preview: async () => null })).toBeNull();
+    expect(await readBlindtest(ORIGINS, NOW, { db: empty as never, preview: async () => null })).toBeNull();
   });
 
   it('reads a Deezer answer and survives a bad one', async () => {

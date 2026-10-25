@@ -1,16 +1,16 @@
 // Run O1, lot H2b: Today, the daily blind test. K-pop only, audio only (the anime blind test is withdrawn from OtakuQuiz).
 //
 // The set is the one /api/daily/blindtest serves: daily_blindtests.song_ids of the UTC date (10 songs today; the Plan says 5, the data says
-// 10), made by ensure_daily_blindtest (idempotent, called here only when the day has no row yet, as that route does). The block returns
+// 10), made by ensure_daily_blindtest when the first visitor opens the site's own route. This block only READS: today's row, else yesterday's, else null (no rpc, no write). The block returns
 // the preview URL of the first song and nothing that names it: no title, no artist, no cover, so no soundtrack or KPop Demon Hunters
 // cover can show (the hidden-cover rules of lib/blind-test-curated.ts and songs.hide_cover only decide what a screen shows; this block
 // shows no cover at all). The stored preview_url expires, so the first song's link is read again from Deezer, as the route does.
 
 import { forSite } from '@/lib/site/scope';
-import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { createPublicReadClient } from '@/lib/supabase/server';
 
 import { hubCached } from './cache';
-import { must, resolveOrigins, siteName, utcDate } from './util';
+import { DAY_MS, must, resolveOrigins, siteName, utcDate } from './util';
 
 import type { HubBlindtest, HubOpts, HubOrigins } from './types';
 
@@ -35,8 +35,6 @@ export async function deezerPreview(trackId: number, fetcher: typeof fetch = fet
 
 export interface BlindtestDeps {
   readonly db: Db;
-  /** The service role client, for ensure_daily_blindtest only. */
-  readonly ensure: () => { rpc: (fn: string, args: Record<string, unknown>) => PromiseLike<{ error: { message: string } | null }> };
   readonly preview: (trackId: number) => Promise<string | null>;
 }
 
@@ -47,11 +45,11 @@ async function readDay(db: Db, date: string): Promise<DailyRow | null> {
 }
 
 export async function readBlindtest(origins: HubOrigins, now: Date, deps: BlindtestDeps): Promise<HubBlindtest | null> {
-  const date = utcDate(now);
+  // Read only (a page render never writes): today's set, else yesterday's until the first visitor of the day has made today's, else null.
+  let date = utcDate(now);
   let day = await readDay(deps.db, date);
   if (!day) {
-    const { error } = await deps.ensure().rpc('ensure_daily_blindtest', { p_date: date });
-    if (error) throw new Error(`ensure_daily_blindtest: ${error.message}`);
+    date = utcDate(new Date(now.getTime() - DAY_MS));
     day = await readDay(deps.db, date);
   }
   const ids = (day?.song_ids ?? []).filter((id): id is string => typeof id === 'string');
@@ -76,7 +74,7 @@ export async function readBlindtest(origins: HubOrigins, now: Date, deps: Blindt
 }
 
 const cached = hubCached('blindtest', (origins: HubOrigins) =>
-  readBlindtest(origins, new Date(), { db: createPublicReadClient(), ensure: createServiceRoleClient, preview: (id) => deezerPreview(id) }));
+  readBlindtest(origins, new Date(), { db: createPublicReadClient(), preview: (id) => deezerPreview(id) }));
 
 /** Today's blind test (first song's preview, count, link), cached one hour (tag hub:blindtest). */
 export async function getBlindtest(opts?: HubOpts): Promise<HubBlindtest | null> {

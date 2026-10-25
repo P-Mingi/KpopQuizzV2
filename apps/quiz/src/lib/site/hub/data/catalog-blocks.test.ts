@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it, vi } from 'vitest';
 
 vi.hoisted(() => { process.env.NEXT_PUBLIC_SITE_ID = 'hub'; });
@@ -11,7 +13,7 @@ import { dbCrossoverReads, isoWeek, readCrossover, rotate, weekIndex } from './c
 import { readDoors } from './doors';
 import { bestEasy, readStartEasy } from './start-easy';
 import { pickSurprise } from './surprise-pick';
-import { readSurprisePool, SURPRISE_PER_SITE } from './surprise';
+import { readPlayedIds, readSurprisePool, SURPRISE_PER_SITE } from './surprise';
 import { fakeDb, ORIGINS, quizRow } from './test-support';
 
 import type { Row } from './test-support';
@@ -109,6 +111,28 @@ describe('Surprise me', () => {
     // everything played: the pool is used rather than nothing
     expect(pickSurprise(p, { playedIds: p.map((c) => c.id), random: () => 0 })?.id).toBe('kpop-0');
     expect(pickSurprise([])).toBeNull();
+  });
+});
+
+describe('the played ids of Surprise me', () => {
+  it('reads one page of at most 5000 plays with the public client, once per call', async () => {
+    const plays = Array.from({ length: 6000 }, (_, i) => ({ id: String(i), player_id: 'me', quiz_id: `q${i}`, created_at: new Date(Date.UTC(2026, 0, 1) + i * 1000).toISOString() }));
+    const db = fakeDb({ plays }, { pageCap: 100000 });
+    const ids = await readPlayedIds('me', () => db as never);
+    expect(ids).toHaveLength(5000);
+    expect(ids[0]).toBe('q5999');
+    expect(db.calls).toHaveLength(1);
+    expect(db.calls[0]!.ops.find(([op]) => op === 'range')).toEqual(['range', 0, 4999]);
+  });
+
+  it('gives none, never an error, when the client cannot be made or the read fails', async () => {
+    expect(await readPlayedIds('me', () => { throw new Error('missing setting'); })).toEqual([]);
+    expect(await readPlayedIds('me', () => fakeDb({ plays: [] }, { failing: { plays: 'down' } }) as never)).toEqual([]);
+  });
+
+  it('does not use the service role', () => {
+    const src = readFileSync(fileURLToPath(new URL('./surprise.ts', import.meta.url)), 'utf8');
+    expect(src).not.toMatch(/createServiceRoleClient|fetchAllRows/);
   });
 });
 

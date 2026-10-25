@@ -2,8 +2,7 @@
 // and "never twice in a row the same site" can hold); the draw itself is pickSurprise (surprise-pick.ts), played in the browser.
 // A signed-in fan's played quiz ids come with the pool, read live and never cached with it, so a quiz just played leaves the draw.
 
-import { fetchAllRows } from '@/lib/db/fetch-all';
-import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { createPublicReadClient } from '@/lib/supabase/server';
 
 import { loadCatalog, loadTiers, rankByQuality } from './catalog';
 import { hubCached } from './cache';
@@ -28,11 +27,12 @@ export async function readSurprisePool(origins: HubOrigins, now: Date, db: Db): 
 }
 
 /** The quiz ids a signed-in fan played (at most 5000, the newest). A failed read gives none: the draw then simply does not exclude. */
-export async function readPlayedIds(userId: string, db: ReturnType<typeof createServiceRoleClient>): Promise<string[]> {
+export async function readPlayedIds(userId: string, makeDb: () => Db = createPublicReadClient): Promise<string[]> {
   try {
-    const rows = await fetchAllRows<{ quiz_id: string }>(() =>
-      db.from('plays').select('quiz_id').eq('player_id', userId).order('created_at', { ascending: false }));
-    return [...new Set(rows.map((r) => r.quiz_id))].slice(0, MAX_PLAYED);
+    // plays is a public read (plays_select_all): the anon client, created inside the try so a missing setting cannot reach the page.
+    const res = await makeDb().from('plays').select('quiz_id').eq('player_id', userId).order('created_at', { ascending: false }).range(0, MAX_PLAYED - 1);
+    if (res.error) return [];
+    return [...new Set(((res.data ?? []) as Array<{ quiz_id: string }>).map((r) => r.quiz_id))];
   } catch {
     return [];
   }
@@ -49,7 +49,7 @@ export interface SurpriseOpts extends HubOpts {
 export async function getSurprise(opts?: SurpriseOpts): Promise<HubSurprise | null> {
   const pool = await cachedPool(resolveOrigins(opts));
   if (!pool) return null;
-  const playedIds = opts?.userId ? await readPlayedIds(opts.userId, createServiceRoleClient()) : [];
+  const playedIds = opts?.userId ? await readPlayedIds(opts.userId) : [];
   const inPool = new Set(pool.map((c) => c.id));
   return { pool, playedIds: playedIds.filter((id) => inPool.has(id)) };
 }

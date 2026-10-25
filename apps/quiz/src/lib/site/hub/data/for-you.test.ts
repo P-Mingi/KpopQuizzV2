@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it, vi } from 'vitest';
 
 vi.hoisted(() => { process.env.NEXT_PUBLIC_SITE_ID = 'hub'; });
@@ -5,7 +7,7 @@ vi.mock('next/cache', () => ({ unstable_cache: <T>(fn: T) => fn }));
 vi.mock('@/lib/supabase/server', () => ({ createPublicReadClient: () => ({}), createServiceRoleClient: () => ({}) }));
 
 import { BRIDGE_PAIRS, MIN_COMMON } from './bridge-pairs';
-import { pickFirstStep, pickNext, readForYou, targetDifficulty, topCoPlay, topFandom } from './for-you';
+import { COPLAY_MAX_PLAYS, coPlayRows, pickFirstStep, pickNext, readForYou, targetDifficulty, topCoPlay, topFandom } from './for-you';
 import { fakeDb, ORIGINS, quizRow } from './test-support';
 
 import type { PlayInfo } from './for-you';
@@ -86,6 +88,22 @@ describe('the passport count', () => {
   });
 });
 
+describe('coPlayRows', () => {
+  it('reads the plays of a fandom with one query ending in limit 3000, newest first', async () => {
+    const plays = Array.from({ length: 4500 }, (_, i) => ({ id: String(i), player_id: `p${i}`, created_at: new Date(Date.UTC(2026, 9, 1) + i * 1000).toISOString(), quizzes: { group_id: 1, site_id: 'kpop' } }));
+    const db = fakeDb({ plays }, { pageCap: 100000 });
+    const rows = await coPlayRows(db as never, 1, 'anime');
+    expect(COPLAY_MAX_PLAYS).toBe(3000);
+    const first = db.calls[0]!.ops;
+    expect(first.some(([op]) => op === 'range')).toBe(false);
+    expect(first.find(([op]) => op === 'limit')?.[1]).toBe(3000);
+    expect(first.find(([op]) => op === 'order')?.[1]).toBe('created_at');
+    // the first query is the only one that reads the group's plays: the next ones are by player
+    expect(db.calls.filter((c) => c.ops.some(([op, col]) => op === 'eq' && col === 'quizzes.group_id'))).toHaveLength(1);
+    expect(rows).toEqual([]);
+  });
+});
+
 describe('the hand-picked pairs', () => {
   it('rest on a stated basis, name real slugs once, and use no dash', () => {
     expect(BRIDGE_PAIRS.length).toBeGreaterThan(0);
@@ -94,6 +112,14 @@ describe('the hand-picked pairs', () => {
       expect(`${p.kpop}${p.anime}${p.basis}`).not.toMatch(DASHES);
     }
     expect(new Set(BRIDGE_PAIRS.map((p) => `${p.kpop}/${p.anime}`)).size).toBe(BRIDGE_PAIRS.length);
+  });
+});
+
+describe('the client of For you', () => {
+  it('is the public one: plays are a public read', () => {
+    const src = readFileSync(fileURLToPath(new URL('./for-you.ts', import.meta.url)), 'utf8');
+    expect(src).not.toMatch(/createServiceRoleClient/);
+    expect(src).toMatch(/createPublicReadClient\(\)/);
   });
 });
 

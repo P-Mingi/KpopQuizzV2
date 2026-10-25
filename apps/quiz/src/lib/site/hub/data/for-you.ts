@@ -12,7 +12,7 @@
 // A fan with no play gets null (the page then shows Start easy). Cached 5 minutes per fan (the rest of the page: one hour).
 
 import { fetchAllRows } from '@/lib/db/fetch-all';
-import { createServiceRoleClient } from '@/lib/supabase/server';
+import { createPublicReadClient } from '@/lib/supabase/server';
 
 import { BRIDGE_PAIRS, MIN_COMMON } from './bridge-pairs';
 import { bestEasy } from './start-easy';
@@ -23,9 +23,12 @@ import { chunk, difficultyLabel, groupOf, resolveOrigins, siteName, toCard } fro
 import type { QuizRow } from './util';
 import type { HubForYou, HubForYouCard, HubOpts, HubOrigins, HubSite } from './types';
 
-type Db = ReturnType<typeof createServiceRoleClient>;
+// plays, quizzes, groups and series are public reads (plays_select_all): the anon client is enough.
+type Db = ReturnType<typeof createPublicReadClient>;
 
 export const FOR_YOU_TTL = 300;
+/** Plays of a fandom read to find its players. */
+export const COPLAY_MAX_PLAYS = 3000;
 const DIFFICULTIES = ['easy', 'medium', 'hard'] as const;
 
 export interface PlayInfo {
@@ -111,9 +114,11 @@ export async function loadPlays(db: Db, userId: string): Promise<PlayInfo[]> {
 
 /** How many passport players play a group of the other site, among the players of this fandom (capped at 3000 players). */
 export async function coPlayRows(db: Db, groupId: number, other: HubSite): Promise<Array<{ player_id: string; group_id: number }>> {
-  const mine = await fetchAllRows<{ player_id: string }>(() =>
-    db.from('plays').select('player_id, quizzes!inner(group_id)').eq('quizzes.group_id', groupId).not('player_id', 'is', null).order('id'));
-  const players = [...new Set(mine.map((r) => r.player_id))].slice(0, 3000);
+  // One query, newest plays first, never more than 3000 rows (not the whole history of the group).
+  const mineRes = await db.from('plays').select('player_id, quizzes!inner(group_id)').eq('quizzes.group_id', groupId).not('player_id', 'is', null)
+    .order('created_at', { ascending: false }).limit(COPLAY_MAX_PLAYS);
+  if (mineRes.error) throw new Error(`plays: ${mineRes.error.message}`);
+  const players = [...new Set(((mineRes.data ?? []) as Array<{ player_id: string }>).map((r) => r.player_id))];
   const out: Array<{ player_id: string; group_id: number }> = [];
   for (const part of chunk(players, 100)) {
     const rows = await fetchAllRows<{ player_id: string; quizzes: { group_id: number } | Array<{ group_id: number }> | null }>(() =>
@@ -195,12 +200,12 @@ export async function readForYou(origins: HubOrigins, now: Date, userId: string,
 }
 
 const coPlayCached = hubCached('co-play', async (groupId: number, other: HubSite) =>
-  topCoPlay(await coPlayRows(createServiceRoleClient(), groupId, other)));
+  topCoPlay(await coPlayRows(createPublicReadClient(), groupId, other)));
 
 const cached = hubCached(
   'for-you',
   (origins: HubOrigins, userId: string) =>
-    readForYou(origins, new Date(), userId, { db: createServiceRoleClient(), coPlay: async (g, o) => (await coPlayCached(g, o)) ?? [] }),
+    readForYou(origins, new Date(), userId, { db: createPublicReadClient(), coPlay: async (g, o) => (await coPlayCached(g, o)) ?? [] }),
   FOR_YOU_TTL,
 );
 
