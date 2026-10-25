@@ -91,6 +91,7 @@
 .p4-madeby .ux-ava { width: 40px; height: 40px; }
 .p4-madeby b, .p4-madeby a.p4-handle { color: var(--ux-ink); font-size: 15px; font-weight: 600; }
 .p4-madeby a.p4-handle:hover { color: var(--ux-pink-ink); }
+.p4-madeby-acts { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .p4-report { display: inline-flex; align-items: center; gap: 6px; color: var(--ux-muted); font-size: 14px; font-weight: 500; }
 .p4-report:hover { color: var(--ux-ink); }
 .p4-report .ux-ico { width: 16px; height: 16px; }

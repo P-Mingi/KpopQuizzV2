@@ -126,6 +126,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/about`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.4 },
     // SEO Mission 1 (owner, 2026-10-14): the editorial policy and its dated corrections log.
     { url: `${SITE_URL}/editorial-policy`, lastModified: new Date('2026-10-14'), changeFrequency: 'monthly', priority: 0.4 },
+    // SEO Mission 3, part F.2: the press kit. lastmod is its content date, never its live counts.
+    { url: `${SITE_URL}/press`, lastModified: new Date('2026-10-15'), changeFrequency: 'monthly', priority: 0.4 },
     { url: `${SITE_URL}/faq`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${SITE_URL}/contact`, lastModified: STATIC_DATE, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/terms`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },

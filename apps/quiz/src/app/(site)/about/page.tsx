@@ -152,7 +152,9 @@ export default async function AboutPage(): Promise<React.ReactElement> {
           <p>
             Write to{' '}
             <a href={`mailto:${CONTACT_EMAIL}`} className="font-medium text-[var(--accent)] hover:underline">{CONTACT_EMAIL}</a>
-            {' '}for questions, corrections or press requests.
+            {' '}for questions, corrections or press requests. Journalists will find live numbers, our reports, logos
+            and licences in the{' '}
+            <Link href="/press" className="font-medium text-[var(--accent)] hover:underline">press kit</Link>.
           </p>
         </div>
       </section>

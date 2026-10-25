@@ -84,6 +84,8 @@ export interface P4QuizPageProps {
   groupQuizCount: number | null;
   articleLinks: Array<{ slug: string; label: string }>;
   creator: P4Creator | null;
+  /** SEO Mission 3, part F.1: the public "Embed this quiz" island, passed in by the route. */
+  embedAction?: React.ReactNode;
 }
 
 /**
@@ -283,7 +285,11 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
               </div>
               )}
             </div>
-            <P4ReportButton quizId={q.id} withIcon />
+            {/* SEO Mission 3, part F.1: the public embed generator sits beside Report. */}
+            <div className="p4-madeby-acts">
+              {p.embedAction ?? null}
+              <P4ReportButton quizId={q.id} withIcon />
+            </div>
           </section>
           <div className="p4-owner"><QuizOwnerActions quizId={q.id} creatorId={q.creatorId} /></div>
         </div>
