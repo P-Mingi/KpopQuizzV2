@@ -2,8 +2,8 @@
 
 20 daily quizzes for 2026-11-13 to 2026-12-02, one per day, published by the KpopQuizz Team
 account as public /q/ pages, right after lot 1 (2026-10-24 to 2026-11-12). SQL:
-`docs/pending-migrations/daily-bank-2026-11-lot2.sql` and its rollback. Owner-gated: applied by
-the owner after his review.
+`docs/pending-migrations/daily-bank-2026-11-lot2.sql` and its rollback. Owner-gated: reviewed by
+the owner on 2026-10-25, applied in production by Claude only on the owner's go.
 
 Kpop only. The tools that checked and wrote this lot read kpopquiz.org rows only (site filter of
 `apps/quiz/src/lib/daily-bank/kpop-scope.ts`, tested by `kpop-scope.test.ts`, which fails if a row
@@ -39,6 +39,10 @@ the draft refuses to apply while the review is not recorded. Lot 1 is not touche
    Two questions were replaced: the magic quiz showed Accendio as a 2024 IVE song, which gave away
    a question of the IVE quiz eight days later, and VIXX's Voodoo Doll did not fit a light quiz.
    Every changed item was checked again: `verify-lot2-final.md`.
+   Owner recheck (2026-10-25, `verify-lot2-owner.md`): each of the 16 flagged items proved again
+   on a page opened for it; 15 kept, 1 replaced (2026-11-16 Q10: WJSN's As You Wish, whose fun fact
+   was not fully proven, became ITZY's Cheshire, right answer still in position 2). Lint run again
+   on the final files: no error, no warning.
 4. Right answers were moved (option swaps, the right answer text unchanged) so that no run of four
    answer positions repeats from one quiz to another.
 5. Dry run of the real rotation over 110 days from 2026-10-25: `simulate-lot2.txt`. Every lot
@@ -56,14 +60,13 @@ The source files of the lot are `lot2-A.json` to `lot2-D.json` (regenerate the S
 
 ## Pour le propriétaire
 
-1. Relire le lot sur la page de relecture (lien dans la PR) : les 20 titres, les 50 questions
-   marquées « À relire » et les 16 points signalés. Deux erreurs dans l'échantillon : le lot repart.
-2. Cliquer « Je valide le lot 2 » en bas de la page, puis dire « go » à Claude : il régénère le
-   SQL final avec votre nom et la date de la relecture. Le SQL actuel est un brouillon : il refuse
-   de s'appliquer tant que le nom et la date ne sont pas inscrits.
-3. Lancer le SQL final dans l'éditeur SQL de Supabase avant le 13 novembre, au plus tard avant
-   2 h 05 (heure de Paris) la nuit du 12 au 13 (le cron du quiz du jour tourne à 00 h 05 UTC).
-   Si c'est plus tard, le quiz du 13 passe simplement après la fin du lot :
-   `daily-bank-2026-11-lot2.sql`. Retour arrière : `daily-bank-2026-11-lot2-rollback.sql`.
-4. Le 13 novembre au matin, ouvrir /daily : le quiz du jour doit être
+1. Relecture faite : le lot est relu par Louis Pecchia le 2026-10-25 (revérification des 16 points
+   signalés, `verify-lot2-owner.md`). Le SQL final l'inscrit sur chaque quiz : « checked by Louis
+   Pecchia on 2026-10-25 ».
+2. Le SQL n'est pas lancé à la main : sur votre « go », Claude applique
+   `daily-bank-2026-11-lot2.sql` en production, puis vérifie ligne par ligne (20 lignes, une par
+   date du 13 novembre au 2 décembre, 200 questions, titres, groupes et notes de relecture), comme
+   pour le lot 1. À faire avant le 13 novembre, 2 h 05 heure de Paris (le cron du quiz du jour tourne
+   à 00 h 05 UTC). Retour arrière : `daily-bank-2026-11-lot2-rollback.sql`.
+3. Le 13 novembre au matin, ouvrir /daily : le quiz du jour doit être
    « ZEROBASEONE: From Boys Planet to In Bloom ».
