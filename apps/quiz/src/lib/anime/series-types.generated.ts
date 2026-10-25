@@ -4,6 +4,7 @@
 export const SERIES_TYPE_BY_SLUG: Readonly<Record<string, string>> = {
   'apothecary-diaries': 'anime_manga',
   'attack-on-titan': 'anime_manga',
+  'black-clover': 'anime_manga',
   'bleach': 'anime_manga',
   'blue-lock': 'anime_manga',
   'chainsaw-man': 'anime_manga',
