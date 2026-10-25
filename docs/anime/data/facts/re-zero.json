@@ -1,0 +1,2775 @@
+[
+  {
+    "id": "re-zero-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "title_native",
+    "value": [
+      "Re:ゼロから始める異世界生活",
+      "Ri:Zero kara Hajimeru Isekai Seikatsu"
+    ],
+    "text": "The full Japanese title is Re:ゼロから始める異世界生活, which means starting an isekai life from zero, and it is read Ri:Zero kara Hajimeru Isekai Seikatsu.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q20718351",
+        "ref": "Q20718351",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Japanese: Re:ゼロから始める異世界生活"
+  },
+  {
+    "id": "re-zero-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "author",
+    "value": "Tappei Nagatsuki",
+    "text": "Tappei Nagatsuki is the author of the novels, and he also helps supervise the scripts of the anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q20718351",
+        "ref": "Q20718351",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://re-zero-anime.jp/tv/staffcast/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a Japanese light novel series written by Tappei Nagatsuki"
+  },
+  {
+    "id": "re-zero-web-novel-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "novel_run",
+    "value": [
+      "April 20, 2012",
+      "Shōsetsuka ni Narō"
+    ],
+    "text": "Nagatsuki began posting Re:Zero as a web novel on the site Shōsetsuka ni Narō on April 20, 2012, under the pen name Nezumi-iro Neko.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://ncode.syosetu.com/n2267be/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "initially serialized by Tappei Nagatsuki on the user-generated content site Shōsetsuka ni Narō"
+  },
+  {
+    "id": "re-zero-light-novel-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "novel",
+    "value": [
+      "Media Factory",
+      "MF Bunko J",
+      "January 24, 2014"
+    ],
+    "text": "Media Factory printed the first light novel volume under its MF Bunko J label on January 24, 2014.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q20718351",
+        "ref": "Q20718351",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The first light novel volume was published on January 24, 2014, under their MF Bunko J imprint"
+  },
+  {
+    "id": "re-zero-volumes-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "volumes",
+    "value": 46,
+    "text": "As of September 2026, the main light novel series counts 46 volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q20718351",
+        "ref": "Q20718351",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "As of September 2026, 46 volumes have been published"
+  },
+  {
+    "id": "re-zero-illustrator-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "artist",
+    "value": [
+      "Shinichirou Otsuka",
+      "大塚真一郎"
+    ],
+    "text": "Shinichirou Otsuka illustrates the light novels, and the anime credits him for the original character designs.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://re-zero-anime.jp/tv/staffcast/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "illustrated by Shinichirou Otsuka"
+  },
+  {
+    "id": "re-zero-anime-s1-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "anime_s1",
+    "value": [
+      "April 2016",
+      "September 2016",
+      "25 episodes"
+    ],
+    "text": "The first season ran 25 episodes between April and September 2016, and it opened with an hour long episode.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)",
+        "ref": "1377881862",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=17360",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65086934",
+        "ref": "Q65086934",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The 25-episode first season premiered on 4 April 2016, with an extended 52-minute first episode"
+  },
+  {
+    "id": "re-zero-anime-s2-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "anime_s2",
+    "value": [
+      "July 2020",
+      "March 2021",
+      "25 episodes in two parts"
+    ],
+    "text": "The second season came in two parts: the first part had 13 episodes in July to September 2020, and the second part had 12 episodes from January to March 2021.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)",
+        "ref": "1377881862",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=22005",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23779",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the first half airing from 8 July to 30 September 2020"
+  },
+  {
+    "id": "re-zero-anime-s3-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "anime_s3",
+    "value": [
+      "October 2024",
+      "March 2025",
+      "16 episodes in two parts"
+    ],
+    "text": "The third season came in two parts of eight episodes: the first part ran from October to November 2024, and the second part from February to March 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)",
+        "ref": "1377881862",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=27619",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=34168",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The first cours, entitled the \"Attack Arc\", ran from 2 October to 20 November 2024"
+  },
+  {
+    "id": "re-zero-anime-s4-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "anime_s4",
+    "value": [
+      "April 2026",
+      "September 2026",
+      "19 episodes in two parts"
+    ],
+    "text": "The fourth season came in two parts in 2026: the first part had 11 episodes from April to June, and the second part had 8 episodes from August to September.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)",
+        "ref": "1377881862",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=35362",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://re-zero-anime.jp/tv/staffcast/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The fourth season aired from 8 April to 30 September 2026"
+  },
+  {
+    "id": "re-zero-anime-seasons-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "anime_seasons",
+    "value": 4,
+    "text": "By October 2026 the TV anime had aired four seasons.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)",
+        "ref": "1377881862",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65086934",
+        "ref": "Q65086934",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "has aired four seasons across television networks"
+  },
+  {
+    "id": "re-zero-studio-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "anime_studio",
+    "value": [
+      "White Fox",
+      "WHITE FOX"
+    ],
+    "text": "White Fox animates Re:Zero, the same studio that made Steins;Gate.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://re-zero-anime.jp/tv/staffcast/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "with animation by the studio White Fox"
+  },
+  {
+    "id": "re-zero-director-now-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "director",
+    "value": [
+      "Masahiro Shinohara",
+      "篠原正寛"
+    ],
+    "text": "Masahiro Shinohara has directed the anime since its third season.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)",
+        "ref": "1377881862",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://re-zero-anime.jp/tv/staffcast/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Masahiro Shinohara (S3 to 4)"
+  },
+  {
+    "id": "re-zero-director-first-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "studio_director",
+    "value": "Masaharu Watanabe",
+    "text": "Masaharu Watanabe directed the first two seasons, and he picked Kenichiro Suehiro to compose the music.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)",
+        "ref": "1377881862",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Masaharu Watanabe (S1 to 2)"
+  },
+  {
+    "id": "re-zero-composer-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "composer",
+    "value": [
+      "Kenichiro Suehiro",
+      "末廣健一郎"
+    ],
+    "text": "Kenichiro Suehiro composes the music of the anime, partly inspired by the style of Ennio Morricone.",
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)",
+        "ref": "1377881862",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://re-zero-anime.jp/tv/staffcast/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Music by | Kenichiro Suehiro"
+  },
+  {
+    "id": "re-zero-writer-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "staff",
+    "value": [
+      "Masahiro Yokotani",
+      "横谷昌宏"
+    ],
+    "text": "Masahiro Yokotani handles the series composition of the anime.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)",
+        "ref": "1377881862",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://re-zero-anime.jp/tv/staffcast/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Developed by | Masahiro Yokotani"
+  },
+  {
+    "id": "re-zero-ova-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "ova",
+    "value": [
+      "Memory Snow",
+      "The Frozen Bond",
+      "October 2018",
+      "November 2019"
+    ],
+    "text": "Two OVAs followed the first season: Memory Snow in October 2018 and The Frozen Bond in November 2019.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)",
+        "ref": "1377881862",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20773",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21998",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "screened in Japanese theaters starting on 6 October 2018"
+  },
+  {
+    "id": "re-zero-shorts-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "shorts",
+    "value": [
+      "Re:Zero - Starting Break Time From Zero",
+      "Re:Petit",
+      "Studio Puyukai"
+    ],
+    "text": "Studio Puyukai made chibi shorts for the first season, called Starting Break Time From Zero and later Re:Petit.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)",
+        "ref": "1377881862",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "were produced by Studio Puyukai to accompany the series"
+  },
+  {
+    "id": "re-zero-theatrical-malice-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "bonus_special",
+    "value": "Theatrical Malice",
+    "text": "The third season opened with a 90 minute special named Theatrical Malice.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)",
+        "ref": "1377881862",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "It premiered in October 2024 with a 90-minute special"
+  },
+  {
+    "id": "re-zero-games-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "spin_offs",
+    "value": [
+      "Death or Kiss",
+      "Lost in Memories",
+      "The Prophecy of the Throne",
+      "Witch's Re:surrection"
+    ],
+    "text": "Games based on the series include the visual novel Death or Kiss, the mobile game Lost in Memories, the tactical adventure The Prophecy of the Throne and Witch's Re:surrection.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a visual novel based on the series, titled Re:Zero − Starting Life in Another World: Death or Kiss"
+  },
+  {
+    "id": "re-zero-manga-magazines-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "manga",
+    "value": [
+      "Monthly Comic Alive",
+      "Monthly Big Gangan",
+      "Comic Alive+"
+    ],
+    "text": "The arcs were adapted as manga in Monthly Comic Alive, Monthly Big Gangan and Comic Alive+.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Monthly Comic Alive | Monthly Big Gangan | Comic Alive+"
+  },
+  {
+    "id": "re-zero-isekai-quartet-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "spinoff",
+    "value": [
+      "Isekai Quartet",
+      "KonoSuba",
+      "Overlord"
+    ],
+    "text": "Re:Zero joined Isekai Quartet, a chibi crossover comedy that also stars characters from KonoSuba, Overlord and The Saga of Tanya the Evil.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a crossover comedy series with characters drawn in a chibi style"
+  },
+  {
+    "id": "re-zero-prague-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "setting",
+    "value": "Prague",
+    "text": "The Royal Capital of Lugunica was modeled on the city of Prague.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "was modelled after Prague"
+  },
+  {
+    "id": "re-zero-zero-no-tsukaima-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "inspiration",
+    "value": "The Familiar of Zero",
+    "text": "Nagatsuki first wrote fan fiction of The Familiar of Zero on Narō, then turned its other world idea into his own story.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "initially wrote The Familiar of Zero fan fiction on Narō"
+  },
+  {
+    "id": "re-zero-thousand-pages-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "planning",
+    "value": "1,000 pages",
+    "text": "For the first volume Nagatsuki handed in a manuscript of more than 1,000 pages, four times the length of a normal light novel.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "submitted a manuscript exceeding 1,000 pages for the first volume"
+  },
+  {
+    "id": "re-zero-emilia-favorite-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "fond_of",
+    "value": "silver-haired heroines",
+    "text": "The series started from Nagatsuki's wish to write Emilia, since he loves silver-haired heroines.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "originated from Nagatsuki's desire to write the heroine Emilia"
+  },
+  {
+    "id": "re-zero-premise-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "premise",
+    "value": [
+      "Subaru Natsuki",
+      "Return by Death"
+    ],
+    "text": "Subaru Natsuki, a NEET, is summoned to a fantasy world where he discovers that he can go back in time after he dies.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "he has the power to turn back time after his death"
+  },
+  {
+    "id": "re-zero-subaru-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "subaru-natsuki"
+    },
+    "field": "name_origin",
+    "value": "Pleiades",
+    "text": "Subaru's given name refers to the Pleiades star cluster, which is the Seven Sisters of Greek myth.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Subaru's given name was conceived as a reference to the Pleiades asterism"
+  },
+  {
+    "id": "re-zero-rabbits-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "record",
+    "value": "rabbits",
+    "text": "Nagatsuki calls the scene in which rabbits devour Subaru his most gruesome, and took the idea from The Lost World: Jurassic Park.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "inspired by the 1997 film The Lost World: Jurassic Park"
+  },
+  {
+    "id": "re-zero-candidates-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "role",
+    "value": [
+      "Emilia",
+      "Crusch Karsten",
+      "Priscilla Barielle",
+      "Anastasia Hoshin",
+      "Felt"
+    ],
+    "text": "The royal election to pick the 42nd Queen of Lugunica has five candidates: Emilia, Crusch, Priscilla, Anastasia and Felt.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "one of the candidates to become the next ruler in the royal election"
+  },
+  {
+    "id": "re-zero-mansion-031",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "organization",
+    "value": [
+      "Rem",
+      "Ram",
+      "Beatrice",
+      "Roswaal L. Mathers"
+    ],
+    "text": "At the mansion of Roswaal L. Mathers, the twin maids Rem and Ram work for the master, and Beatrice keeps the library.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "work at Roswaal's mansion as maids"
+  },
+  {
+    "id": "re-zero-game-developer-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "creator",
+    "value": [
+      "5pb.",
+      "Death or Kiss"
+    ],
+    "text": "The visual novel Death or Kiss was developed by the game company 5pb.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "game developer 5pb. released a visual novel based on the light novels"
+  },
+  {
+    "id": "re-zero-arcs-early-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "arcs_a",
+    "value": [
+      "Season 1: episodes 1 to 25",
+      "Season 2 Part 1: episodes 26 to 38",
+      "Season 2 Part 2: episodes 39 to 50"
+    ],
+    "text": "The first two seasons fill episodes 1 to 50, with the first season ending at episode 25 and the second season split into two parts.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_episodes",
+        "ref": "1379092891",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Season 1 | 1 | 25 | Season 2 | 25 | 13 | 12"
+  },
+  {
+    "id": "re-zero-arcs-late-034",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "arcs_b",
+    "value": [
+      "Attack Arc: episodes 51 to 58",
+      "Counterattack Arc: episodes 59 to 66",
+      "Loss Arc: episodes 67 to 77",
+      "Recapture Arc: episodes 78 to 85"
+    ],
+    "text": "The third season, with the Attack Arc and the Counterattack Arc, covers episodes 51 to 66, and the fourth, with the Loss Arc and the Recapture Arc, covers 67 to 85.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_episodes",
+        "ref": "1379092891",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Attack Arc | Counterattack Arc | Loss Arc | Recapture Arc"
+  },
+  {
+    "id": "re-zero-openings-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP1: Redo (Konomi Suzuki)",
+      "OP2: Paradisus-Paradoxum (Myth & Roid)",
+      "OP3: Realize (Konomi Suzuki)",
+      "OP4: Long Shot (Mayu Maeshima)",
+      "OP5: Reweave (Konomi Suzuki)",
+      "OP6: Recollect (Konomi Suzuki featuring Ashnikko)"
+    ],
+    "text": "Re:Zero has used six openings so far: Redo, Paradisus-Paradoxum, Realize, Long Shot, Reweave and Recollect.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)",
+        "ref": "1377881862",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=22005",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://re-zero-anime.jp/tv/music/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Opening theme | List | Redo | Paradisus-Paradoxum"
+  },
+  {
+    "id": "re-zero-endings-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED1: Styx Helix (Myth & Roid)",
+      "ED2: Straight Bet (Myth & Roid)",
+      "ED3: Theater D (Myth & Roid)",
+      "ED4: Stay Alive (Rie Takahashi)",
+      "ED5: Memento (Nonoc)",
+      "ED6: Believe in You (Nonoc)",
+      "ED7: Nox Lux (Myth & Roid)",
+      "ED8: Ender Ember (Myth & Roid featuring TK from Ling Tosite Sigure)"
+    ],
+    "text": "The eight endings so far run from Styx Helix by Myth & Roid to Ender Ember, which features TK from Ling Tosite Sigure.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)",
+        "ref": "1377881862",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=22005",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://re-zero-anime.jp/tv/music/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Ending theme | List | Styx Helix | Straight Bet"
+  },
+  {
+    "id": "re-zero-s4-themes-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "themes_s4",
+    "value": [
+      "Recollect (Konomi Suzuki featuring Ashnikko)",
+      "Ender Ember (Myth & Roid featuring TK from Ling Tosite Sigure)"
+    ],
+    "text": "The fourth season opens with Recollect by Konomi Suzuki featuring the rapper Ashnikko and closes with Ender Ember by Myth & Roid with TK.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "official",
+        "url": "https://re-zero-anime.jp/tv/music/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "4th season OP Recollect ED Ender Ember"
+  },
+  {
+    "id": "re-zero-character-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "subaru-natsuki"
+    },
+    "field": "name",
+    "value": [
+      "Subaru Natsuki",
+      "ナツキ・スバル"
+    ],
+    "text": "Subaru Natsuki, the hero, is a shut-in who gets whisked off to another world on a walk home from the corner store.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Subaru is a 17-year-old NEET who suddenly finds himself teleported to another world"
+  },
+  {
+    "id": "re-zero-character-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "emilia"
+    },
+    "field": "name",
+    "value": [
+      "Emilia",
+      "エミリア"
+    ],
+    "text": "Emilia is a silver-haired half-elf, and a candidate to be the 42nd queen of Lugunica.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the 42nd Queen of Lugunica"
+  },
+  {
+    "id": "re-zero-character-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "puck"
+    },
+    "field": "name",
+    "value": [
+      "Puck",
+      "パック"
+    ],
+    "text": "Puck is Emilia's cat-shaped spirit familiar, who works fixed hours like an office worker.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "His work time is from 9 a.m. to 5 p.m., similar to a salaryman's"
+  },
+  {
+    "id": "re-zero-character-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "felt"
+    },
+    "field": "name",
+    "value": [
+      "Felt",
+      "フェルト"
+    ],
+    "text": "Felt, a teenage pickpocket of fifteen, was raised in the poorest districts of the capital.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "A 15-year-old thief who grew up in the slums of the capital"
+  },
+  {
+    "id": "re-zero-character-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "reinhard-van-astrea"
+    },
+    "field": "name",
+    "value": [
+      "Reinhard van Astrea",
+      "ラインハルト・ヴァン・アストレア"
+    ],
+    "text": "Reinhard van Astrea is a knight who holds the title of Sword Saint, and the author calls him the most powerful character in the world.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "holder of the title \"Sword Saint\""
+  },
+  {
+    "id": "re-zero-character-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "elsa-granhiert"
+    },
+    "field": "name",
+    "value": [
+      "Elsa Granhiert",
+      "エルザ・グランヒルテ"
+    ],
+    "text": "Elsa Granhiert is an assassin from the northern country of Gusteko who is said to be immortal.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "A supposedly immortal assassin from a northern country called Gusteko"
+  },
+  {
+    "id": "re-zero-character-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "rem"
+    },
+    "field": "name",
+    "value": [
+      "Rem",
+      "レム"
+    ],
+    "text": "Rem is the twin sister of Ram, and she wears her blue hair parted on the left.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Rem is Ram's twin sister"
+  },
+  {
+    "id": "re-zero-character-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "ram"
+    },
+    "field": "name",
+    "value": [
+      "Ram",
+      "ラム"
+    ],
+    "text": "Ram is the twin sister of Rem and wears her pink hair parted on the right.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Ram is Rem's twin sister"
+  },
+  {
+    "id": "re-zero-character-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "beatrice"
+    },
+    "field": "name",
+    "value": [
+      "Beatrice",
+      "ベアトリス"
+    ],
+    "text": "Beatrice guards the ancient magical tomes in the enormous library of Roswaal's mansion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "keep his ancient magical tomes safe in his enormous library"
+  },
+  {
+    "id": "re-zero-character-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "roswaal-l-mathers"
+    },
+    "field": "name",
+    "value": [
+      "Roswaal L. Mathers",
+      "ロズワール・L・メイザース"
+    ],
+    "text": "Roswaal L. Mathers holds noble rank as a margrave, serves as court wizard, and funds Emilia's campaign for the crown.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "A Margrave, as well as an Imperial Wizard and Count"
+  },
+  {
+    "id": "re-zero-character-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "crusch-karsten"
+    },
+    "field": "name",
+    "value": [
+      "Crusch Karsten",
+      "クルシュ・カルステン"
+    ],
+    "text": "Crusch Karsten has a blessing that lets her tell when someone is lying.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a blessing that allows her to tell when someone is lying"
+  },
+  {
+    "id": "re-zero-character-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "priscilla-barielle"
+    },
+    "field": "name",
+    "value": [
+      "Priscilla Barielle",
+      "プリシラ・バーリエル"
+    ],
+    "text": "Priscilla Barielle is a candidate in the royal election who had eight husbands at only 19.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Priscilla had 8 husbands who have all \"mysteriously\" died"
+  },
+  {
+    "id": "re-zero-character-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "anastasia-hoshin"
+    },
+    "field": "name",
+    "value": [
+      "Anastasia Hoshin",
+      "アナスタシア・ホーシン"
+    ],
+    "text": "At 22 Anastasia Hoshin already leads the well known Hoshin Trading Company.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the 22-year-old head of the famous Hoshin Trading Company"
+  },
+  {
+    "id": "re-zero-character-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "julius-juukulius"
+    },
+    "field": "name",
+    "value": [
+      "Julius Juukulius",
+      "ユリウス・ユークリウス"
+    ],
+    "text": "Julius Juukulius is Anastasia's knight and a member of the Royal Guard.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Anastasia's knight, member of the Royal Guard"
+  },
+  {
+    "id": "re-zero-character-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "otto-suwen"
+    },
+    "field": "name",
+    "value": [
+      "Otto Suwen",
+      "オットー・スーウェン"
+    ],
+    "text": "Otto Suwen is a merchant with a blessing that lets him talk to animals, plants and other beings.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "communicate with any animal, plant or being in the world"
+  },
+  {
+    "id": "re-zero-character-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "petelgeuse-romanee-conti"
+    },
+    "field": "name",
+    "value": [
+      "Petelgeuse Romanée-Conti",
+      "ペテルギウス・ロマネコンティ"
+    ],
+    "text": "Petelgeuse Romanée-Conti is a Witch Cult leader who represents the sin of Sloth.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "One of the leaders of the Witch Cult, who represents the sin of Sloth"
+  },
+  {
+    "id": "re-zero-character-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "satella"
+    },
+    "field": "name",
+    "value": [
+      "Satella",
+      "サテラ"
+    ],
+    "text": "Satella is the Witch of Envy, the central figure of worship for the Witch Cult.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "She is the Witch of Envy and the main figure of worship of the Witch Cult"
+  },
+  {
+    "id": "re-zero-character-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "garfiel-tinzel"
+    },
+    "field": "name",
+    "value": [
+      "Garfiel Tinzel",
+      "ガーフィール・ティンゼル"
+    ],
+    "text": "Garfiel Tinzel is a demi-human who guards the Sanctuary, and he is the half-brother of Frederica Baumann.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Frederica Baumann's half-brother"
+  },
+  {
+    "id": "re-zero-character-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "echidna"
+    },
+    "field": "name",
+    "value": [
+      "Echidna",
+      "エキドナ"
+    ],
+    "text": "Echidna is the Witch of Greed and an important figure in the fourth arc of the series.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "She is the Witch of Greed"
+  },
+  {
+    "id": "re-zero-character-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "regulus-corneas"
+    },
+    "field": "name",
+    "value": [
+      "Regulus Corneas",
+      "レグルス・コルニアス"
+    ],
+    "text": "Regulus Corneas is a Witch Cult leader who stands for the sin of Greed.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "One of the leaders of the Witch Cult, who represents the sin of Greed"
+  },
+  {
+    "id": "re-zero-subaru-voice-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "subaru-natsuki"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Yūsuke Kobayashi",
+      "Sean Chiplock"
+    ],
+    "text": "Subaru is voiced by Yūsuke Kobayashi in Japanese and by Sean Chiplock in English.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Voiced by (Japanese): Yūsuke Kobayashi"
+  },
+  {
+    "id": "re-zero-subaru-return-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "subaru-natsuki"
+    },
+    "field": "ability",
+    "value": "Return by Death",
+    "text": "Subaru's power Return by Death sends him back in time when he dies, while he keeps his memories.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "allows him to go back in time when he dies"
+  },
+  {
+    "id": "re-zero-emilia-voice-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "emilia"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Rie Takahashi",
+      "Kayli Mills"
+    ],
+    "text": "Emilia is voiced by Rie Takahashi in Japanese and by Kayli Mills in English.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Voiced by (Japanese): Rie Takahashi"
+  },
+  {
+    "id": "re-zero-emilia-name-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "emilia"
+    },
+    "field": "name_origin",
+    "value": "Satella",
+    "text": "Emilia first introduced herself to Subaru as Satella, the name of the Witch of Envy.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The name Emilia first used when introducing herself to Subaru, \"Satella\""
+  },
+  {
+    "id": "re-zero-puck-true-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "puck"
+    },
+    "field": "origin",
+    "value": "Beast of the End of the Eternally Frozen Lands",
+    "text": "Puck is really one of the four Great Spirits, the Beast of the End of the Eternally Frozen Lands.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "one of 4 Great Spirits of the world who can control heat"
+  },
+  {
+    "id": "re-zero-puck-voice-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "puck"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Yumi Uchiyama",
+      "Erica Mendez"
+    ],
+    "text": "Puck is voiced by Yumi Uchiyama in Japanese and by Erica Mendez in English.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Voiced by (Japanese): Yumi Uchiyama"
+  },
+  {
+    "id": "re-zero-felt-name-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "felt"
+    },
+    "field": "background",
+    "value": "not her real name",
+    "text": "Felt is later shown not to be her real name.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Felt is not her real name"
+  },
+  {
+    "id": "re-zero-reinhard-title-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "reinhard-van-astrea"
+    },
+    "field": "title",
+    "value": "Sword Saint",
+    "text": "Reinhard holds the title of Sword Saint, and he becomes Felt's knight in the royal election.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "becomes Felt's knight for the royal election"
+  },
+  {
+    "id": "re-zero-elsa-epithet-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "elsa-granhiert"
+    },
+    "field": "epithet",
+    "value": "Bowel Hunter",
+    "text": "Elsa is known as the Bowel Hunter for how she kills her prey.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "earning her the epithet \"Bowel Hunter\""
+  },
+  {
+    "id": "re-zero-elsa-first-death-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "elsa-granhiert"
+    },
+    "field": "record",
+    "value": "first death of Subaru",
+    "text": "Elsa is the person who first kills Subaru and triggers his time rewind.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "She is the first person to kill Subaru and trigger his time rewind ability"
+  },
+  {
+    "id": "re-zero-rem-hate-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "rem"
+    },
+    "field": "motivation",
+    "value": "scent of the Witch",
+    "text": "At first Rem hates Subaru because he has the scent of the Witch on him, and she kills him.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Rem initially hates Subaru for having the scent of the Witch on him"
+  },
+  {
+    "id": "re-zero-rem-voice-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "rem"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Inori Minase",
+      "Brianna Knickerbocker"
+    ],
+    "text": "Rem is voiced by Inori Minase in Japanese and by Brianna Knickerbocker in English.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Voiced by (Japanese): Inori Minase"
+  },
+  {
+    "id": "re-zero-rem-award-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "rem"
+    },
+    "field": "popularity",
+    "value": "Newtype Anime Awards",
+    "text": "Rem won Best Character (Female) at the 2015 to 2016 Newtype Anime Awards.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "She won the award for Best Character (Female) in the 2015 to 2016 Newtype Anime Awards"
+  },
+  {
+    "id": "re-zero-ram-barusu-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "ram"
+    },
+    "field": "nickname",
+    "value": "Barusu",
+    "text": "Ram always calls Subaru Barusu and shows him little respect.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Ram always calls Subaru \"Barusu\""
+  },
+  {
+    "id": "re-zero-ram-horn-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "ram"
+    },
+    "field": "background",
+    "value": "lost horn",
+    "text": "Ram lost her powers when her horn was cut off during an attack on their village.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "She lost her powers after her horn was cut off"
+  },
+  {
+    "id": "re-zero-beatrice-suppose-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "beatrice"
+    },
+    "field": "catchphrase",
+    "value": "I suppose",
+    "text": "Beatrice often ends her sentences with I suppose.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "She tends to suffix many of her sentences with \"I suppose\""
+  },
+  {
+    "id": "re-zero-beatrice-library-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "beatrice"
+    },
+    "field": "ability",
+    "value": "warp to the library",
+    "text": "Beatrice can warp any room of the mansion to the library, but cannot leave the mansion fully.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "She has the ability to warp any room in the mansion to this library"
+  },
+  {
+    "id": "re-zero-roswaal-ages-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "roswaal-l-mathers"
+    },
+    "field": "record",
+    "value": "possessing descendants",
+    "text": "Roswaal is far older than he looks, since he has taken over the bodies of his descendants.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "having possessed the bodies of his descendants"
+  },
+  {
+    "id": "re-zero-roswaal-echidna-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "roswaal-l-mathers"
+    },
+    "field": "motivation",
+    "value": "revive Echidna",
+    "text": "Roswaal lives long enough to revive Echidna, his master and the love of his life.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "in hopes of living long enough to revive Echidna"
+  },
+  {
+    "id": "re-zero-crusch-lies-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "crusch-karsten"
+    },
+    "field": "ability",
+    "value": "tell lies",
+    "text": "Crusch is not easily fooled, as her blessing reveals a lie.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "not easily fooled"
+  },
+  {
+    "id": "re-zero-priscilla-husbands-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "priscilla-barielle"
+    },
+    "field": "background",
+    "value": "eight husbands",
+    "text": "Priscilla had eight husbands, all of whom died mysteriously, yet her lands prosper.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "8 husbands who have all \"mysteriously\" died"
+  },
+  {
+    "id": "re-zero-anastasia-dialect-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "anastasia-hoshin"
+    },
+    "field": "specialty",
+    "value": "Kansai dialect",
+    "text": "Anastasia speaks in the Kansai dialect and has the mercenary company Iron Fang.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "speaks in \"Kansai\" dialect"
+  },
+  {
+    "id": "re-zero-julius-knight-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "julius-juukulius"
+    },
+    "field": "title",
+    "value": "Spirit Knight",
+    "text": "Julius is a knight who fights with Spirit Arts and is therefore nicknamed a Spirit Knight.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a type of Spirit Arts user known as a \"Spirit Knight\""
+  },
+  {
+    "id": "re-zero-otto-blessing-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "otto-suwen"
+    },
+    "field": "specialty",
+    "value": "talking to animals",
+    "text": "Otto's blessing to talk with animals and plants can make him seem shady.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "makes him come across as shady and sinister"
+  },
+  {
+    "id": "re-zero-petelgeuse-hands-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "petelgeuse-romanee-conti"
+    },
+    "field": "power",
+    "value": "Unseen Hands",
+    "text": "Petelgeuse uses the Authority of Sloth, which shows as invisible shadow arms called Unseen Hands.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "manifests a supernatural ability known as Unseen Hands"
+  },
+  {
+    "id": "re-zero-satella-sealed-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "satella"
+    },
+    "field": "record",
+    "value": "killing the six other witches",
+    "text": "Satella killed the six other Witches of Sin 400 years ago and was sealed in a shrine at the Grand Cascade.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "killing the six other Witches of Sin"
+  },
+  {
+    "id": "re-zero-garfiel-sanctuary-084",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "garfiel-tinzel"
+    },
+    "field": "role",
+    "value": "guard of the Sanctuary",
+    "text": "Garfiel is the guard of the Sanctuary and first acts as a secondary antagonist in the fourth arc.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "who guards the Sanctuary"
+  },
+  {
+    "id": "re-zero-echidna-advisor-085",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "echidna"
+    },
+    "field": "motivation",
+    "value": "become his advisor",
+    "text": "Echidna is fascinated by Subaru's Return by Death and longs to become his advisor.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "she longs to become his advisor"
+  },
+  {
+    "id": "re-zero-regulus-greed-086",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "re-zero",
+      "ref": "regulus-corneas"
+    },
+    "field": "power",
+    "value": "Greed",
+    "text": "Regulus holds the Witch Factors of Greed, and long ago he killed his family and his whole village.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+        "ref": "1379441287",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Regulus obtained the Witch Factors of Greed"
+  }
+]
