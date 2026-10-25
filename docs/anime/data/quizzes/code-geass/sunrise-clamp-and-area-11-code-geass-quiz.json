@@ -4,7 +4,7 @@
   "group_slug": "code-geass",
   "title": "Code Geass Quiz: Sunrise, Clamp and Area 11",
   "slug": "sunrise-clamp-and-area-11-code-geass-quiz",
-  "description": "Ten easy questions on the studio, the staff, the first ending, the setting, Geass and the English dub. No story knowledge needed, and no spoilers.",
+  "description": "Ten easy questions on the studio, Clamp, the setting, Geass, the English dub and the award. No story knowledge needed, and no spoilers.",
   "quiz_type": "multiple_choice",
   "difficulty": "easy",
   "language": "en",
@@ -43,25 +43,6 @@
       "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
     },
     {
-      "question": "Who directed Code Geass?",
-      "options": [
-        "Gorō Taniguchi",
-        "Shinichirō Watanabe",
-        "Yuzuru Tachikawa",
-        "Hideaki Anno"
-      ],
-      "correct": 0,
-      "kind": "production",
-      "spoiler": {
-        "arc": 0,
-        "scope": "anime"
-      },
-      "fact_ids": [
-        "code-geass-anime-director-003"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
-    },
-    {
       "question": "Which group created the original character designs?",
       "options": [
         "Gainax",
@@ -81,42 +62,42 @@
       "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
     },
     {
-      "question": "Who handled the series composition, the overall structure of the scripts?",
+      "question": "What was new for Clamp when it worked on Code Geass?",
       "options": [
-        "Hiroshi Seko",
-        "Ichirō Ōkouchi",
-        "Jukki Hanada",
-        "Chūji Mikasano"
+        "Designing characters for an anime series",
+        "Writing a novel",
+        "Directing a film",
+        "Composing a soundtrack"
       ],
-      "correct": 1,
+      "correct": 0,
       "kind": "production",
       "spoiler": {
         "arc": 0,
         "scope": "anime"
       },
       "fact_ids": [
-        "code-geass-anime-composition-004"
+        "code-geass-clamp-first-006"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
     },
     {
-      "question": "Which group sings the first ending, Yūkyō Seishunka?",
+      "question": "Which legends may have inspired the idea of Geass?",
       "options": [
-        "Ali Project",
-        "FLOW",
-        "Access",
-        "Orange Range"
+        "Norse sagas",
+        "Irish and Welsh legends",
+        "Greek myths",
+        "Arthurian romances"
       ],
-      "correct": 0,
-      "kind": "music",
+      "correct": 1,
+      "kind": "lore",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "code-geass-theme-ed-025"
+        "code-geass-geass-name-009"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_episodes"
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
     },
     {
       "question": "What name does Britannia give to conquered Japan?",
@@ -210,6 +191,25 @@
       },
       "fact_ids": [
         "code-geass-anime-award-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "question": "For which two consoles was the Lost Colors game developed?",
+      "options": [
+        "Nintendo DS and Wii",
+        "Xbox 360 and PlayStation 3",
+        "Game Boy Advance and GameCube",
+        "PlayStation Portable and PlayStation 2"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-video-game-021"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
     }

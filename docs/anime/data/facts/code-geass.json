@@ -180,7 +180,7 @@
       "kind": "series",
       "group_slug": "code-geass"
     },
-    "field": "character_design_note",
+    "field": "background",
     "value": "First anime designs by Clamp",
     "text": "Code Geass was the first anime series for which Clamp had ever been asked to design the characters.",
     "category": "fun",
@@ -446,7 +446,7 @@
       "kind": "series",
       "group_slug": "code-geass"
     },
-    "field": "film_story",
+    "field": "story_arcs",
     "value": "Sequel to Zero Requiem",
     "text": "Lelouch of the Re;surrection takes place after the Zero Requiem arc, which ended the story of the television series.",
     "category": "fun",
@@ -665,7 +665,7 @@
       "kind": "series",
       "group_slug": "code-geass"
     },
-    "field": "game",
+    "field": "spin_offs",
     "value": [
       "Lost Colors",
       "PlayStation Portable",
@@ -1611,7 +1611,7 @@
       "group_slug": "code-geass",
       "ref": "lelouch-lamperouge"
     },
-    "field": "geass",
+    "field": "power",
     "value": "Command",
     "text": "Lelouch's Geass allows him to order any person to obey the next thing he says.",
     "category": "fun",
@@ -1640,7 +1640,7 @@
       "group_slug": "code-geass",
       "ref": "lelouch-lamperouge"
     },
-    "field": "knightmare",
+    "field": "treasure",
     "value": "Shinkirō",
     "text": "In the later story, Lelouch pilots a Knightmare Frame named Shinkirō.",
     "category": "fun",
@@ -1669,7 +1669,7 @@
       "group_slug": "code-geass",
       "ref": "suzaku-kururugi"
     },
-    "field": "rank",
+    "field": "role",
     "value": "Knight of Seven",
     "text": "Suzaku becomes the Knight of Seven among the Knights of the Round.",
     "category": "fun",
@@ -1698,7 +1698,7 @@
       "group_slug": "code-geass",
       "ref": "suzaku-kururugi"
     },
-    "field": "knightmare",
+    "field": "treasure",
     "value": "Lancelot",
     "text": "Suzaku pilots the Knightmare Frame called Lancelot.",
     "category": "fun",
@@ -1756,7 +1756,7 @@
       "group_slug": "code-geass",
       "ref": "kallen-stadtfeld"
     },
-    "field": "knightmare",
+    "field": "treasure",
     "value": "Guren",
     "text": "Kallen pilots the Knightmare Frame named Guren.",
     "category": "fun",
@@ -1785,7 +1785,7 @@
       "group_slug": "code-geass",
       "ref": "nunnally-lamperouge"
     },
-    "field": "condition",
+    "field": "background",
     "value": "Blind and uses a wheelchair",
     "text": "Nunnally is blind and uses a wheelchair.",
     "category": "fun",
@@ -1814,7 +1814,7 @@
       "group_slug": "code-geass",
       "ref": "nina-einstein"
     },
-    "field": "invention",
+    "field": "specialty",
     "value": "FLEIJA bomb",
     "text": "Nina invents a powerful weapon known as the F.L.E.I.J.A. bomb.",
     "category": "fun",
@@ -1901,7 +1901,7 @@
       "group_slug": "code-geass",
       "ref": "schneizel-el-britannia"
     },
-    "field": "strategy",
+    "field": "talent",
     "value": "Beat Lelouch at chess",
     "text": "Schneizel is the only person whom Lelouch could not defeat in a game of chess.",
     "category": "fun",
@@ -1930,7 +1930,7 @@
       "group_slug": "code-geass",
       "ref": "charles-zi-britannia"
     },
-    "field": "court",
+    "field": "role",
     "value": "98th emperor, 108 consorts",
     "text": "Charles is the 98th emperor of Britannia and has 108 consorts.",
     "category": "fun",
@@ -1959,7 +1959,7 @@
       "group_slug": "code-geass",
       "ref": "jeremiah-gottwald"
     },
-    "field": "geass",
+    "field": "power",
     "value": "Geass Canceler",
     "text": "Jeremiah has the Geass Canceler, an ability to restore a Geass that was cancelled.",
     "category": "fun",
@@ -1988,7 +1988,7 @@
       "group_slug": "code-geass",
       "ref": "rolo-lamperouge"
     },
-    "field": "geass",
+    "field": "power",
     "value": "Freezes time",
     "text": "Rolo's Geass lets him freeze time for a short while.",
     "category": "fun",
@@ -2017,7 +2017,7 @@
       "group_slug": "code-geass",
       "ref": "lloyd-asplund"
     },
-    "field": "invention",
+    "field": "specialty",
     "value": "Lancelot",
     "text": "Lloyd is the scientist who created the Lancelot frame.",
     "category": "fun",
@@ -2046,7 +2046,7 @@
       "group_slug": "code-geass",
       "ref": "kaguya-sumeragi"
     },
-    "field": "office",
+    "field": "title",
     "value": "UFN Supreme Council Chairwoman",
     "text": "Kaguya becomes chair of the supreme council of the UFN.",
     "category": "fun",
@@ -2133,7 +2133,7 @@
       "group_slug": "code-geass",
       "ref": "bismarck-waldstein"
     },
-    "field": "geass",
+    "field": "power",
     "value": "Precognition",
     "text": "Bismarck has a Geass that lets him see a few seconds into the future.",
     "category": "fun",
@@ -2162,7 +2162,7 @@
       "group_slug": "code-geass",
       "ref": "milly-ashford"
     },
-    "field": "office",
+    "field": "role",
     "value": "Student Council president",
     "text": "Milly is the president of the Student Council.",
     "category": "fun",
@@ -2191,7 +2191,7 @@
       "group_slug": "code-geass",
       "ref": "shirley-fenette"
     },
-    "field": "hobby",
+    "field": "occupation",
     "value": "Swimmer",
     "text": "Shirley is a member of the swimming team and of the Student Council.",
     "category": "fun",
@@ -2220,7 +2220,7 @@
       "group_slug": "code-geass",
       "ref": "rivalz-cardemonde"
     },
-    "field": "ride",
+    "field": "habits",
     "value": "Drives Lelouch on his motorbike",
     "text": "Rivalz often gives Lelouch a lift on his motorbike.",
     "category": "fun",
