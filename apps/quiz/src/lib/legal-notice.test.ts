@@ -20,7 +20,7 @@ describe('the facts', () => {
     expect(LEGAL.siren).toBe('SIREN 109 686 634, SIRET du siège 109 686 634 00014');
     expect(LEGAL.vat).toBe('TVA non applicable, article 293 B du CGI');
     expect(LEGAL.director).toBe('Louis Pecchia');
-    expect(LEGAL.email).toBe('contact@kpopquiz.org');
+    expect(LEGAL.email).toBe('hello@kpopquiz.org');
     expect(LEGAL.privacyUrl).toBe('https://kpopquiz.org/privacy');
     expect(LEGAL.host).toEqual({ name: 'Vercel Inc.', address: '440 N Barranca Avenue #4133, Covina, CA 91723, United States', phone: '+1 559 288 7060' });
   });
@@ -68,7 +68,7 @@ describe('the page', () => {
     expect(text).toContain('Legal form: Entrepreneur individuel (EI) SIREN 109 686 634, SIRET du siège 109 686 634 00014 TVA non applicable, article 293 B du CGI Phone: +33 7 81 55 70 19');
     expect(text).toContain('The publication director is: Louis Pecchia');
     expect(text).toContain('KpopQuiz is hosted by: Vercel Inc. 440 N Barranca Avenue #4133, Covina, CA 91723, United States Phone: +1 559 288 7060');
-    expect(html).toContain('href="mailto:contact@kpopquiz.org"');
+    expect(html).toContain('href="mailto:hello@kpopquiz.org"');
     expect(html).toContain('href="https://kpopquiz.org/privacy"');
     expect(text).not.toMatch(DASHES);
     expect(metadata.title).toBe('Legal notice');

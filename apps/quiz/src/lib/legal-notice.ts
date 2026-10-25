@@ -7,7 +7,8 @@
 export const LEGAL = {
   site: 'KpopQuiz',
   domain: 'kpopquiz.org',
-  email: 'contact@kpopquiz.org',
+  // hello@ is the only routed mailbox of kpopquiz.org (owner, 2026-10-25).
+  email: 'hello@kpopquiz.org',
   privacyUrl: 'https://kpopquiz.org/privacy',
   /** The day the text was written, for the sitemap lastmod. */
   written: '2026-10-24',
