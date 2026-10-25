@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { fetchAllRows } from '@/lib/db/fetch-all';
-import { applyPlaylistSpec, capByRank, specFollowsCuratedSwitch, specStatuses, v12Playlist, withoutKpdhCover } from '@/lib/blind-test-curated';
+import { applyPlaylistSpec, capByRank, specFollowsCuratedSwitch, specStatuses, v12Playlist, withoutHiddenCover } from '@/lib/blind-test-curated';
+import { hiddenCoverSongIds, withCoverSwitch } from '@/lib/song-cover-overrides';
 
 import type { NextRequest } from 'next/server';
 
@@ -292,6 +293,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
   const selected = selectGame(byTier, buildTarget(count), count);
 
+  // The owner's manual cover switches (cached, fail soft: empty while the SQL is not run), read
+  // alongside the Deezer re-fetch below.
+  const coverSwitches = hiddenCoverSongIds();
+
   // Re-fetch fresh preview URLs + covers from Deezer (stored links expire).
   await Promise.all(
     selected.map(async (song) => {
@@ -306,9 +311,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       }
     }),
   );
-  // Text and audio only: a KPop Demon Hunters song never carries its cover (the film key art),
-  // whatever the playlist and whatever Deezer answered. Every other song is untouched.
-  for (let i = 0; i < selected.length; i++) selected[i] = withoutKpdhCover(selected[i]!);
+  // Text and audio only: a KPop Demon Hunters song or a soundtrack (drama, film, series OST) never
+  // carries its cover (the show's key art), whatever the playlist and whatever Deezer answered.
+  // Every other song is untouched.
+  const switches = await coverSwitches;
+  for (let i = 0; i < selected.length; i++) selected[i] = withoutHiddenCover(withCoverSwitch(selected[i]!, switches));
 
   // Allocate the whole game's question-type split, then shuffle so 'artist' and
   // 'title' questions interleave unpredictably (not all-one-type, not a fixed

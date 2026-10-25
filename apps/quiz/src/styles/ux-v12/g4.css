@@ -126,6 +126,9 @@ html.ux-live-lock, html.ux-live-lock body { overflow: hidden; }
 
 /* host controls */
 .ux-live-ctl { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+/* Deezer attribution under the host controls (components/deezer-attribution.tsx). */
+.dz-attr.ux-live-dz { justify-content: flex-start; text-align: left; margin-top: 12px; font-size: 13px; color: var(--ux-muted); }
+.ux-live-wrap.is-full .dz-attr.ux-live-dz { justify-content: center; text-align: center; }
 
 /* players sheet (the host removes a player) */
 .ux-live-manage { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; max-height: 50vh; overflow: auto; }

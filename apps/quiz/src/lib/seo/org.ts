@@ -6,7 +6,8 @@
 import { SOCIAL_LINKS } from '@kpopquiz/shared/social-links';
 
 export const SITE_URL = 'https://kpopquiz.org';
-export const CONTACT_EMAIL = 'contact@kpopquiz.org';
+// hello@ is the only routed mailbox of kpopquiz.org (owner, 2026-10-25).
+export const CONTACT_EMAIL = 'hello@kpopquiz.org';
 
 export const FOUNDER = {
   name: 'Louis',
