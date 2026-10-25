@@ -2,14 +2,14 @@
   "site": "anime",
   "account": "otakuquiz_team",
   "group_slug": "dr-stone",
-  "title": "Dr. Stone in Numbers: Volumes, Episodes and Millions of Copies",
+  "title": "Dr. Stone in Numbers: Volumes, Years, Episodes, Awards and Ranks",
   "slug": "dr-stone-in-numbers-volumes-episodes-and-millions-of-copies",
-  "description": "Ten questions where the answer is a number: volumes, chapters, episodes, prizes and print figures of Dr. Stone. Some late figures hint at how the story ends.",
+  "description": "Ten questions where the answer is a number or a short name: volumes, years, seasons, episodes, award editions and a streaming rank of Dr. Stone. Some late figures hint at how the story ends.",
   "quiz_type": "multiple_choice",
   "difficulty": "medium",
   "language": "en",
   "title_gives_nothing_away": true,
-  "notes": "Numbers format: every answer is a figure from a cited fact; the circulation figure is dated March 2026.",
+  "notes": "Numbers format: every answer is a figure from a cited fact: a count, a year, an award edition or a ranking.",
   "sources": [
     {
       "id": "S1",

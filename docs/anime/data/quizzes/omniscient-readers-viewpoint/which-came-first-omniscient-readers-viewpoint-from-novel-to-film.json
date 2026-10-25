@@ -4,7 +4,7 @@
  "group_slug": "omniscient-readers-viewpoint",
  "title": "Which Came First? Omniscient Reader's Viewpoint From Novel to Film",
  "slug": "which-came-first-omniscient-readers-viewpoint-from-novel-to-film",
- "description": "Ten rounds of four releases and milestones where you pick the earliest or the latest: web novel, webtoon, Korean volumes, English editions and the live-action film. No story spoilers.",
+ "description": "Ten rounds of four releases and milestones where you pick the earliest or the latest: web novel, webtoon, English editions, the live-action film and the end of season one. No story spoilers.",
  "quiz_type": "multiple_choice",
  "difficulty": "medium",
  "language": "en",
@@ -26,32 +26,10 @@
   {
    "question": "Which Omniscient Reader milestone is the oldest of these four?",
    "options": [
-    "Season 1 ended on the Naver Webtoon",
     "The live-action film opened in South Korean cinemas",
-    "The original web novel started on Munpia",
-    "Korean volumes 1 and 2 appeared together"
-   ],
-   "correct": 2,
-   "kind": "manga",
-   "spoiler": {
-    "arc": 0,
-    "scope": "both"
-   },
-   "fact_ids": [
-    "omniscient-readers-viewpoint-novel-run-004",
-    "omniscient-readers-viewpoint-film-release-011",
-    "omniscient-readers-viewpoint-season-one-finale-008",
-    "omniscient-readers-viewpoint-korean-volumes-010"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
-  },
-  {
-   "question": "Which Omniscient Reader milestone is the newest of these four?",
-   "options": [
-    "The main story of the web novel was finished",
-    "English readers got the webtoon",
-    "The webtoon adaptation went live on Naver",
-    "Korean volumes 1 and 2 appeared together"
+    "Season 1 ended on the Naver Webtoon",
+    "The first English volume of the comic reached readers",
+    "The original web novel started on Munpia"
    ],
    "correct": 3,
    "kind": "manga",
@@ -60,10 +38,32 @@
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-webtoon-launch-006",
+    "omniscient-readers-viewpoint-season-one-finale-008",
+    "omniscient-readers-viewpoint-film-release-011",
+    "omniscient-readers-viewpoint-novel-run-004",
+    "omniscient-readers-viewpoint-english-comic-vol1-029"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "Which Omniscient Reader milestone is the newest of these four?",
+   "options": [
+    "The webtoon adaptation went live on Naver",
+    "The first English volume of the comic reached readers",
+    "The original web novel started on Munpia",
+    "English readers got the webtoon"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
     "omniscient-readers-viewpoint-novel-run-004",
     "omniscient-readers-viewpoint-english-webtoon-007",
-    "omniscient-readers-viewpoint-korean-volumes-010"
+    "omniscient-readers-viewpoint-webtoon-launch-006",
+    "omniscient-readers-viewpoint-english-comic-vol1-029"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
   },
@@ -71,52 +71,9 @@
    "question": "Which of these four events happened before the other three?",
    "options": [
     "The live-action film opened in South Korean cinemas",
-    "The first English novel volume came out",
-    "IZE Press announced English rights",
-    "Season 1 ended on the Naver Webtoon"
-   ],
-   "correct": 2,
-   "kind": "manga",
-   "spoiler": {
-    "arc": 0,
-    "scope": "both"
-   },
-   "fact_ids": [
-    "omniscient-readers-viewpoint-english-licence-009",
-    "omniscient-readers-viewpoint-film-release-011",
-    "omniscient-readers-viewpoint-season-one-finale-008"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
-  },
-  {
-   "question": "Which of these four events happened after the other three?",
-   "options": [
     "Season 1 ended on the Naver Webtoon",
-    "Korean volumes 1 and 2 appeared together",
-    "IZE Press announced English rights",
-    "English readers got the webtoon"
-   ],
-   "correct": 0,
-   "kind": "manga",
-   "spoiler": {
-    "arc": 0,
-    "scope": "both"
-   },
-   "fact_ids": [
-    "omniscient-readers-viewpoint-season-one-finale-008",
-    "omniscient-readers-viewpoint-korean-volumes-010",
-    "omniscient-readers-viewpoint-english-licence-009",
-    "omniscient-readers-viewpoint-english-webtoon-007"
-   ],
-   "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
-  },
-  {
-   "question": "Put these four in order: which one comes at the start of the line?",
-   "options": [
-    "The first English novel volume came out",
-    "IZE Press announced English rights",
-    "Korean volumes 1 and 2 appeared together",
-    "English readers got the webtoon"
+    "The first English volume of the novel was printed",
+    "The first English volume of the comic reached readers"
    ],
    "correct": 3,
    "kind": "manga",
@@ -125,62 +82,42 @@
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-english-webtoon-007",
-    "omniscient-readers-viewpoint-korean-volumes-010",
-    "omniscient-readers-viewpoint-english-licence-009"
+    "omniscient-readers-viewpoint-film-release-011",
+    "omniscient-readers-viewpoint-english-novel-vol1-030",
+    "omniscient-readers-viewpoint-english-comic-vol1-029",
+    "omniscient-readers-viewpoint-season-one-finale-008"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
   },
   {
-   "question": "Put these four in order: which one comes at the end of the line?",
+   "question": "Which of these four events happened after the other three?",
    "options": [
-    "The original web novel started on Munpia",
-    "English readers got the webtoon",
-    "The main story of the web novel was finished",
-    "The webtoon adaptation went live on Naver"
+    "The webtoon adaptation went live on Naver",
+    "The first English volume of the comic reached readers",
+    "Season 1 ended on the Naver Webtoon",
+    "English readers got the webtoon"
    ],
-   "correct": 1,
+   "correct": 2,
    "kind": "manga",
    "spoiler": {
     "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-novel-run-004",
+    "omniscient-readers-viewpoint-season-one-finale-008",
+    "omniscient-readers-viewpoint-english-comic-vol1-029",
     "omniscient-readers-viewpoint-webtoon-launch-006",
     "omniscient-readers-viewpoint-english-webtoon-007"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+   "source_url": "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
   },
   {
-   "question": "If you read the calendar from the top, which of these four do you reach first?",
+   "question": "Put these four in order: which one comes at the start of the line?",
    "options": [
-    "Korean volumes 1 and 2 appeared together",
-    "The webtoon adaptation went live on Naver",
+    "English readers got the webtoon",
     "The live-action film opened in South Korean cinemas",
-    "IZE Press announced English rights"
-   ],
-   "correct": 1,
-   "kind": "manga",
-   "spoiler": {
-    "arc": 0,
-    "scope": "both"
-   },
-   "fact_ids": [
-    "omniscient-readers-viewpoint-webtoon-launch-006",
-    "omniscient-readers-viewpoint-korean-volumes-010",
-    "omniscient-readers-viewpoint-film-release-011",
-    "omniscient-readers-viewpoint-english-licence-009"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
-  },
-  {
-   "question": "If you read the calendar from the top, which of these four do you reach last?",
-   "options": [
-    "IZE Press announced English rights",
-    "The webtoon adaptation went live on Naver",
-    "The main story of the web novel was finished",
-    "Korean volumes 1 and 2 appeared together"
+    "The first English volume of the comic reached readers",
+    "The first English volume of the novel was printed"
    ],
    "correct": 0,
    "kind": "manga",
@@ -189,22 +126,88 @@
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-novel-run-004",
-    "omniscient-readers-viewpoint-english-licence-009",
-    "omniscient-readers-viewpoint-korean-volumes-010",
+    "omniscient-readers-viewpoint-english-novel-vol1-030",
+    "omniscient-readers-viewpoint-english-comic-vol1-029",
+    "omniscient-readers-viewpoint-film-release-011",
+    "omniscient-readers-viewpoint-english-webtoon-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "Put these four in order: which one comes at the end of the line?",
+   "options": [
+    "The first English volume of the novel was printed",
+    "The webtoon adaptation went live on Naver",
+    "English readers got the webtoon",
+    "The first English volume of the comic reached readers"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-english-novel-vol1-030",
+    "omniscient-readers-viewpoint-english-comic-vol1-029",
+    "omniscient-readers-viewpoint-english-webtoon-007",
     "omniscient-readers-viewpoint-webtoon-launch-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "If you read the calendar from the top, which of these four do you reach first?",
+   "options": [
+    "The live-action film opened in South Korean cinemas",
+    "The first English volume of the comic reached readers",
+    "The webtoon adaptation went live on Naver",
+    "The first English volume of the novel was printed"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-english-comic-vol1-029",
+    "omniscient-readers-viewpoint-webtoon-launch-006",
+    "omniscient-readers-viewpoint-film-release-011",
+    "omniscient-readers-viewpoint-english-novel-vol1-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "If you read the calendar from the top, which of these four do you reach last?",
+   "options": [
+    "The original web novel started on Munpia",
+    "The webtoon adaptation went live on Naver",
+    "English readers got the webtoon",
+    "The live-action film opened in South Korean cinemas"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-film-release-011",
+    "omniscient-readers-viewpoint-novel-run-004",
+    "omniscient-readers-viewpoint-webtoon-launch-006",
+    "omniscient-readers-viewpoint-english-webtoon-007"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
   },
   {
    "question": "Which of these four events opened the list in time?",
    "options": [
-    "Korean volumes 1 and 2 appeared together",
-    "The main story of the web novel was finished",
     "English readers got the webtoon",
-    "IZE Press announced English rights"
+    "The first English volume of the novel was printed",
+    "The first English volume of the comic reached readers",
+    "The original web novel started on Munpia"
    ],
-   "correct": 1,
+   "correct": 3,
    "kind": "manga",
    "spoiler": {
     "arc": 0,
@@ -212,9 +215,9 @@
    },
    "fact_ids": [
     "omniscient-readers-viewpoint-novel-run-004",
+    "omniscient-readers-viewpoint-english-comic-vol1-029",
     "omniscient-readers-viewpoint-english-webtoon-007",
-    "omniscient-readers-viewpoint-korean-volumes-010",
-    "omniscient-readers-viewpoint-english-licence-009"
+    "omniscient-readers-viewpoint-english-novel-vol1-030"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
   },
@@ -222,9 +225,9 @@
    "question": "Look closely at the dates: which of these four events came last of all?",
    "options": [
     "The live-action film opened in South Korean cinemas",
-    "The first English novel volume came out",
-    "Korean volumes 1 and 2 appeared together",
-    "IZE Press announced English rights"
+    "The first English volume of the novel was printed",
+    "English readers got the webtoon",
+    "The first English volume of the comic reached readers"
    ],
    "correct": 0,
    "kind": "production",
@@ -233,9 +236,10 @@
     "scope": "both"
    },
    "fact_ids": [
-    "omniscient-readers-viewpoint-korean-volumes-010",
-    "omniscient-readers-viewpoint-english-licence-009",
-    "omniscient-readers-viewpoint-film-release-011"
+    "omniscient-readers-viewpoint-film-release-011",
+    "omniscient-readers-viewpoint-english-novel-vol1-030",
+    "omniscient-readers-viewpoint-english-comic-vol1-029",
+    "omniscient-readers-viewpoint-english-webtoon-007"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
   }
