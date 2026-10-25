@@ -16,6 +16,7 @@
     "check:sitemap-hygiene": "tsx scripts/check-sitemap-hygiene.mts",
     "check:fact-lint": "vitest run src/lib/trivia/sourced/fact-lint.test.ts",
     "check:fact-lint-refs": "tsx scripts/sourced-trivia-refs.mts",
+    "check:prod-seo": "tsx scripts/seo-prod-crawl.mts",
     "data-guard": "tsx scripts/data-guard.ts",
     "check:docs-secrets": "tsx scripts/check-docs-secrets.mts",
     "check:verse-tokens": "tsx scripts/check-verse-tokens.mts",

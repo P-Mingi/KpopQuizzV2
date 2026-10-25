@@ -35,7 +35,8 @@ const GROUP_ARTICLE_MAP: Record<string, GroupArticleLink[]> = {
 
 /** General articles linked from EVERY group quiz page (low-priority, max 1). */
 const GENERAL_ARTICLES: GroupArticleLink[] = [
-  { slug: 'kpop-generations-explained', label: 'Every K-pop Generation Explained' },
+  // The cluster owner's anchor (rulebook 8.1; SEO Mission 2, part C).
+  { slug: 'kpop-generations-explained', label: 'K-pop generations explained' },
 ];
 
 /**

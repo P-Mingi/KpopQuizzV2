@@ -22,7 +22,6 @@ export const metadata: Metadata = {
     canonical: '/articles',
     languages: {
       en: '/articles',
-      'pt-BR': '/pt/articles',
       'x-default': '/articles',
     },
   },

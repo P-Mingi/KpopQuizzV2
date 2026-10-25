@@ -3,6 +3,7 @@
 import { createContext, useContext } from 'react';
 
 import type { QuizType } from '@/lib/db/types';
+import type { ResultLevel } from '@/lib/quiz/result-levels';
 import type { ChallengePublic } from '@/lib/ux-v1/p4/challenge';
 
 /** Everything the client run needs about the quiz, serialisable (server -> client). */
@@ -33,6 +34,13 @@ export interface P4RunQuiz {
   keepPlaying: Array<{ slug: string; title: string; quizType: string; difficulty: string; plays: number; photo: string | null }>;
   /** The group's blindtest playlist (lib/blind-test-playlists.ts rule), when it has one. */
   playlist: { songs: number } | null;
+  /**
+   * A level-result quiz (lib/quiz/result-levels.ts, settings.result_levels): the levels, lowest
+   * first. Absent or null = an ordinary quiz, whose results are unchanged.
+   */
+  resultLevels?: ResultLevel[] | null;
+  /** Finished attempts when the page rendered (quizzes.total_completions): the percentile floor of a level quiz. */
+  attempts?: number;
 }
 
 export interface LoadedChallenge extends ChallengePublic {

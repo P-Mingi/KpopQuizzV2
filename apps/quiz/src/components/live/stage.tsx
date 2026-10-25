@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useAudioPlayer } from '@/components/blind-test/use-audio-player';
+import { DeezerAttribution } from '@/components/deezer-attribution';
 import { HostTiles } from '@/components/ux-v1/answer-tiles';
 import { UxButton } from '@/components/ux-v1/button';
 import { Segmented } from '@/components/ux-v1/segmented';
@@ -583,6 +584,7 @@ export function LiveStage(): React.ReactElement {
             <UxButton variant="quiet" size={state?.status === 'round' ? 'md' : 'lg'} onClick={toggleFullscreen} className="ux-live-fs">{isFullscreen ? 'Exit full screen' : 'Full screen'}</UxButton>
           ) : null}
         </div>
+        <DeezerAttribution variant="live" className="ux-live-dz" />
       </div>
       <Sheet open={managing && !!state} onClose={() => setManaging(false)} title="Players" width={440}>
         <ul className="ux-live-manage">
