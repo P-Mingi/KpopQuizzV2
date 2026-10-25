@@ -1,0 +1,723 @@
+[
+  {
+    "scheduled_date": "2026-11-18",
+    "title": "DAY6: From Congratulations to Fourever",
+    "description": "From The Day and Congratulations to Every DAY6, Even of Day and Fourever: ten questions on DAY6's music, members and instruments.",
+    "group_slug": "day6",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "DAY6 made their debut on September 7, 2015 with which EP?",
+        "options": [
+          "Daydream",
+          "The Day",
+          "Sunrise",
+          "Moonrise"
+        ],
+        "correct": 1,
+        "fun_fact": "Its lead single was Congratulations, and a week after release the EP reached No. 2 on Billboard's World Albums chart.",
+        "source": "https://en.wikipedia.org/wiki/Day6"
+      },
+      {
+        "question": "Which song kicked off the Every DAY6 monthly project in January 2017?",
+        "options": [
+          "You Were Beautiful",
+          "I Wait",
+          "I Smile",
+          "How Can I Say"
+        ],
+        "correct": 1,
+        "fun_fact": "Billboard later placed it at No. 81 on its staff list of the 100 greatest K-pop songs of the 2010s.",
+        "source": "https://en.wikipedia.org/wiki/Day6"
+      },
+      {
+        "question": "Which DAY6 studio album of June 2017 collected the first half of the Every DAY6 releases?",
+        "options": [
+          "Unlock",
+          "Moonrise",
+          "Sunrise",
+          "The Book of Us: Entropy"
+        ],
+        "correct": 2,
+        "fun_fact": "Billboard ranked it No. 14 on its staff list of the 25 greatest K-pop albums of the 2010s.",
+        "source": "https://en.wikipedia.org/wiki/Day6"
+      },
+      {
+        "question": "Young K is best known as the DAY6 player of which instrument?",
+        "options": [
+          "Drums",
+          "Bass",
+          "Keyboards",
+          "Synthesizers"
+        ],
+        "correct": 1,
+        "fun_fact": "Hosting KBS Cool FM's Kiss the Radio won him one of the two DJ Awards at the 2023 KBS Entertainment Awards.",
+        "source": "https://en.wikipedia.org/wiki/Young_K"
+      },
+      {
+        "question": "Who sits behind the drum kit in DAY6?",
+        "options": [
+          "Wonpil",
+          "Sungjin",
+          "Dowoon",
+          "Young K"
+        ],
+        "correct": 2,
+        "fun_fact": "He trained for only about three months at JYP Entertainment before his debut, one of the fastest debuts at the company.",
+        "source": "https://en.wikipedia.org/wiki/Dowoon"
+      },
+      {
+        "question": "Which DAY6 member handles the keyboards and synthesizers?",
+        "options": [
+          "Sungjin",
+          "Dowoon",
+          "Young K",
+          "Wonpil"
+        ],
+        "correct": 3,
+        "fun_fact": "His first solo album, Pilmography, debuted at No. 1 on the Gaon Album Chart in February 2022.",
+        "source": "https://en.wikipedia.org/wiki/Wonpil"
+      },
+      {
+        "question": "Which DAY6 member is the band's leader and plays guitar?",
+        "options": [
+          "Sungjin",
+          "Dowoon",
+          "Young K",
+          "Wonpil"
+        ],
+        "correct": 0,
+        "fun_fact": "He released his first solo album, titled 30, on November 5, 2024, and held his first solo concert days later.",
+        "source": "https://en.wikipedia.org/wiki/Sungjin"
+      },
+      {
+        "question": "Which song led The Book of Us: Gluon, the August 2020 debut EP of the unit Even of Day?",
+        "options": [
+          "Where the Sea Sleeps",
+          "Zombie",
+          "Right Through Me",
+          "You Make Me"
+        ],
+        "correct": 0,
+        "fun_fact": "JYP founder Park Jin-young named the unit: even is an old word for night, so the name promises a bright day after a dark night.",
+        "source": "https://en.wikipedia.org/wiki/Day6_(Even_of_Day)"
+      },
+      {
+        "question": "Which song was the lead single of Fourever, the EP DAY6 released on March 18, 2024?",
+        "options": [
+          "Happy",
+          "Melt Down",
+          "Welcome to the Show",
+          "Maybe Tomorrow"
+        ],
+        "correct": 2,
+        "fun_fact": "Happy, a track from the same EP that was never a single, reached No. 1 on the Circle Digital Chart in September 2024.",
+        "source": "https://en.wikipedia.org/wiki/Fourever"
+      },
+      {
+        "question": "Which DAY6 lead single from 2019 ranked No. 10 on the Circle Digital Chart for the first half of 2024?",
+        "options": [
+          "Zombie",
+          "Shoot Me",
+          "I Like You",
+          "Time of Our Life"
+        ],
+        "correct": 3,
+        "fun_fact": "The revival rolled on into Band Aid in September 2024, an EP whose title pairs band with aid, a promise to offer help.",
+        "source": "https://en.wikipedia.org/wiki/Band_Aid_(EP)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Day6",
+      "https://en.wikipedia.org/wiki/Young_K",
+      "https://en.wikipedia.org/wiki/Dowoon",
+      "https://en.wikipedia.org/wiki/Wonpil",
+      "https://en.wikipedia.org/wiki/Sungjin",
+      "https://en.wikipedia.org/wiki/Day6_(Even_of_Day)",
+      "https://en.wikipedia.org/wiki/Fourever",
+      "https://en.wikipedia.org/wiki/Band_Aid_(EP)",
+      "https://en.wikipedia.org/wiki/The_Day_(EP)",
+      "https://en.wikipedia.org/wiki/Congratulations_(Day6_song)",
+      "https://www.wikidata.org/wiki/Q20898046",
+      "https://day6.jype.com/profile",
+      "https://en.wikipedia.org/wiki/2023_KBS_Entertainment_Awards"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-19",
+    "title": "TXT: From Sugar Rush Ride to Deja Vu",
+    "description": "TXT in 2023 and 2024: The Name Chapter: Temptation and Freefall, minisode 3: Tomorrow with Deja Vu, and the tours and stages of that run.",
+    "group_slug": "txt",
+    "category": "era",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Which TXT song won Push Performance of the Year at the 2023 MTV Video Music Awards?",
+        "options": [
+          "Chasing That Feeling",
+          "Sugar Rush Ride",
+          "Do It Like That",
+          "Back for More"
+        ],
+        "correct": 1,
+        "fun_fact": "The song also reached No. 1 on Billboard's US World Digital Song Sales chart in 2023.",
+        "source": "https://en.wikipedia.org/wiki/Sugar_Rush_Ride"
+      },
+      {
+        "question": "The January 2023 EP The Name Chapter: Temptation draws its story from which classic tale?",
+        "options": [
+          "Peter Pan",
+          "Alice in Wonderland",
+          "Pinocchio",
+          "The Little Prince"
+        ],
+        "correct": 0,
+        "fun_fact": "American rapper Coi Leray guests on its third track, Happy Fools, and the closing ballad is called Farewell, Neverland.",
+        "source": "https://en.wikipedia.org/wiki/The_Name_Chapter:_Temptation"
+      },
+      {
+        "question": "Which world tour did TXT launch in Seoul in March 2023 in support of Temptation?",
+        "options": [
+          "Act: Lovesick",
+          "Act: Promise",
+          "Act: Tomorrow",
+          "Act: Sweet Mirage"
+        ],
+        "correct": 3,
+        "fun_fact": "The tour opened on March 25, 2023 and closed on December 3, 2023, both times in Seoul.",
+        "source": "https://en.wikipedia.org/wiki/List_of_Tomorrow_X_Together_live_performances"
+      },
+      {
+        "question": "In August 2023, TXT became the first Korean group to headline which Chicago festival?",
+        "options": [
+          "Lollapalooza",
+          "Pitchfork Music Festival",
+          "Riot Fest",
+          "Chicago Blues Festival"
+        ],
+        "correct": 0,
+        "fun_fact": "It was their second straight Lollapalooza: on July 30, 2022 they had played a set on the smaller Solana x Perry's stage.",
+        "source": "https://www.nme.com/reviews/tomorrow-x-together-lollapalooza-2023-live-review-3478932"
+      },
+      {
+        "question": "Which American band joined TXT on the July 2023 single Do It Like That?",
+        "options": [
+          "Maroon 5",
+          "OneRepublic",
+          "Jonas Brothers",
+          "Imagine Dragons"
+        ],
+        "correct": 2,
+        "fun_fact": "Ryan Tedder produced the track after meeting TXT while they were touring the United States.",
+        "source": "https://en.wikipedia.org/wiki/Do_It_Like_That_(Tomorrow_X_Together_and_Jonas_Brothers_song)"
+      },
+      {
+        "question": "Which Brazilian singer recorded the September 2023 version of Back for More with TXT?",
+        "options": [
+          "Pabllo Vittar",
+          "Ludmilla",
+          "Anitta",
+          "Luísa Sonza"
+        ],
+        "correct": 2,
+        "fun_fact": "Mixing K-pop with Brazilian funk, it debuted at No. 41 on the Billboard Brasil Hot 100.",
+        "source": "https://en.wikipedia.org/wiki/Back_for_More_(Tomorrow_X_Together_and_Anitta_song)"
+      },
+      {
+        "question": "Besides Do It Like That and Back for More, which song was a single from The Name Chapter: Freefall?",
+        "options": [
+          "Chasing That Feeling",
+          "Deja Vu",
+          "Sugar Rush Ride",
+          "Growing Pain"
+        ],
+        "correct": 0,
+        "fun_fact": "Released on October 13, 2023, the album moved more than 2.4 million copies in South Korea in week one and opened at No. 1 on the Circle and Oricon album charts.",
+        "source": "https://en.wikipedia.org/wiki/The_Name_Chapter:_Freefall"
+      },
+      {
+        "question": "In 2024, TXT recorded LeveL as the opening theme of which anime series?",
+        "options": [
+          "Jujutsu Kaisen",
+          "Chainsaw Man",
+          "Tower of God",
+          "Solo Leveling"
+        ],
+        "correct": 3,
+        "fun_fact": "They made the song together with Japanese composer Hiroyuki Sawano.",
+        "source": "https://en.wikipedia.org/wiki/Tomorrow_X_Together"
+      },
+      {
+        "question": "Which song was the lead single of minisode 3: Tomorrow, released on April 1, 2024?",
+        "options": [
+          "Miracle",
+          "Quarter Life",
+          "Deja Vu",
+          "I'll See You There Tomorrow"
+        ],
+        "correct": 2,
+        "fun_fact": "The EP's second track is a seven-second piece whose title is written in Morse code that reads tomorrow.",
+        "source": "https://en.wikipedia.org/wiki/Minisode_3:_Tomorrow"
+      },
+      {
+        "question": "Act: Promise, TXT's 2024 tour for minisode 3, opened on May 3 at which Seoul venue?",
+        "options": [
+          "Gocheok Sky Dome",
+          "KSPO Dome",
+          "Jamsil Indoor Stadium",
+          "Inspire Arena"
+        ],
+        "correct": 1,
+        "fun_fact": "The Japan leg of the tour began on July 10, 2024 at the Tokyo Dome.",
+        "source": "https://en.wikipedia.org/wiki/List_of_Tomorrow_X_Together_live_performances"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Sugar_Rush_Ride",
+      "https://en.wikipedia.org/wiki/The_Name_Chapter:_Temptation",
+      "https://en.wikipedia.org/wiki/List_of_Tomorrow_X_Together_live_performances",
+      "https://www.nme.com/reviews/tomorrow-x-together-lollapalooza-2023-live-review-3478932",
+      "https://en.wikipedia.org/wiki/Do_It_Like_That_(Tomorrow_X_Together_and_Jonas_Brothers_song)",
+      "https://en.wikipedia.org/wiki/Back_for_More_(Tomorrow_X_Together_and_Anitta_song)",
+      "https://en.wikipedia.org/wiki/The_Name_Chapter:_Freefall",
+      "https://en.wikipedia.org/wiki/Tomorrow_X_Together",
+      "https://en.wikipedia.org/wiki/Minisode_3:_Tomorrow",
+      "https://en.wikipedia.org/wiki/2023_MTV_Video_Music_Awards",
+      "https://www.koreaherald.com/article/3085666"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-20",
+    "title": "K-pop Songs of 2025",
+    "description": "Ten acts, ten songs from 2025: match Jump, Dirty Work, Earthquake, Good Goodbye and more to the K-pop act that released them.",
+    "group_slug": null,
+    "category": "knowledge",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Which group released Jump in July 2025 as the lead single of its EP Deadline?",
+        "options": [
+          "BABYMONSTER",
+          "aespa",
+          "ITZY",
+          "BLACKPINK"
+        ],
+        "correct": 3,
+        "fun_fact": "It became the group's third No. 1 on the Billboard Global 200, and Dave Meyers directed its music video.",
+        "source": "https://en.wikipedia.org/wiki/Jump_(Blackpink_song)"
+      },
+      {
+        "question": "Dirty Work, out in June 2025 as the title track of a first single album, is by which group?",
+        "options": [
+          "ITZY",
+          "Kep1er",
+          "i-dle",
+          "aespa"
+        ],
+        "correct": 3,
+        "fun_fact": "Apple co-produced its performance video, shot from start to finish on an iPhone 16 Pro, and the song went on to win four music show trophies.",
+        "source": "https://en.wikipedia.org/wiki/Dirty_Work_(Aespa_song)"
+      },
+      {
+        "question": "Who released Earthquake on February 14, 2025 as the lead single of her debut EP, Amortage?",
+        "options": [
+          "Jisoo",
+          "Rosé",
+          "Taeyeon",
+          "Chungha"
+        ],
+        "correct": 0,
+        "fun_fact": "It became her first No. 1 on Billboard's World Digital Song Sales chart and her first single under her own label, Blissoo.",
+        "source": "https://en.wikipedia.org/wiki/Earthquake_(Jisoo_song)"
+      },
+      {
+        "question": "Whose May 2025 EP Echo was led by the single Don't Say You Love Me?",
+        "options": [
+          "Baekhyun",
+          "Taemin",
+          "Kai",
+          "Jin"
+        ],
+        "correct": 3,
+        "fun_fact": "Its music video was shot in Singapore with actress Shin Se-kyung, the first time Jin worked with an actor.",
+        "source": "https://en.wikipedia.org/wiki/Don't_Say_You_Love_Me_(Jin_song)"
+      },
+      {
+        "question": "Which BTS member released Mona Lisa in March 2025 after previewing it at Brooklyn's Barclays Center?",
+        "options": [
+          "RM",
+          "J-Hope",
+          "Suga",
+          "Jungkook"
+        ],
+        "correct": 1,
+        "fun_fact": "Blake Slatkin, Cashmere Cat and Misogi share the production credit, and J-Hope told his Brooklyn crowd the song was his way of showing love to ARMY.",
+        "source": "https://en.wikipedia.org/wiki/Mona_Lisa_(J-Hope_song)"
+      },
+      {
+        "question": "Good Thing, the May 2025 lead single of the EP We Are, comes from which group?",
+        "options": [
+          "TWICE",
+          "aespa",
+          "i-dle",
+          "STAYC"
+        ],
+        "correct": 2,
+        "fun_fact": "Soyeon wrote it and co-composed it with Pop Time, Daily and Likey, drawing on early 2000s autotune styles.",
+        "source": "https://en.wikipedia.org/wiki/Good_Thing_(I-dle_song)"
+      },
+      {
+        "question": "Which group released the EP Girls Will Be Girls, led by its title song, in June 2025?",
+        "options": [
+          "ITZY",
+          "STAYC",
+          "Kep1er",
+          "fromis_9"
+        ],
+        "correct": 0,
+        "fun_fact": "It was the group's tenth EP, a five-track release put out by JYP Entertainment and Republic Records.",
+        "source": "https://en.wikipedia.org/wiki/Girls_Will_Be_Girls_(EP)"
+      },
+      {
+        "question": "Fly Up was the lead single of Odyssey, the first studio album of which boy group, in May 2025?",
+        "options": [
+          "NCT Wish",
+          "TWS",
+          "RIIZE",
+          "The Boyz"
+        ],
+        "correct": 2,
+        "fun_fact": "The song draws on 1950s rock and roll and won four first-place trophies on Korean music shows.",
+        "source": "https://en.wikipedia.org/wiki/Fly_Up"
+      },
+      {
+        "question": "Who released Good Goodbye in October 2025, a song that took off after her Blue Dragon Film Awards stage?",
+        "options": [
+          "Taeyeon",
+          "BIBI",
+          "Hwasa",
+          "Lee Hi"
+        ],
+        "correct": 2,
+        "fun_fact": "By January 2026 it had the second-most perfect all-kills of any song and the most by a soloist.",
+        "source": "https://en.wikipedia.org/wiki/Good_Goodbye_(Hwasa_song)"
+      },
+      {
+        "question": "This Is For, the July 2025 lead single of a fourth Korean studio album, is by which group?",
+        "options": [
+          "ITZY",
+          "TWICE",
+          "BLACKPINK",
+          "STAYC"
+        ],
+        "correct": 1,
+        "fun_fact": "Jihyo said the members pushed hard for this song to be the lead single, and in the end it was the one chosen.",
+        "source": "https://en.wikipedia.org/wiki/This_Is_For_(song)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Jump_(Blackpink_song)",
+      "https://en.wikipedia.org/wiki/Dirty_Work_(Aespa_song)",
+      "https://en.wikipedia.org/wiki/Earthquake_(Jisoo_song)",
+      "https://en.wikipedia.org/wiki/Don't_Say_You_Love_Me_(Jin_song)",
+      "https://en.wikipedia.org/wiki/Mona_Lisa_(J-Hope_song)",
+      "https://en.wikipedia.org/wiki/Good_Thing_(I-dle_song)",
+      "https://en.wikipedia.org/wiki/Girls_Will_Be_Girls_(EP)",
+      "https://en.wikipedia.org/wiki/Fly_Up",
+      "https://en.wikipedia.org/wiki/Good_Goodbye_(Hwasa_song)",
+      "https://en.wikipedia.org/wiki/This_Is_For_(song)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-21",
+    "title": "KPop Demon Hunters Quiz",
+    "description": "An easy quiz on the 2025 Netflix film KPop Demon Hunters: its directors, HUNTR/X and the Saja Boys, the voice cast and Golden's records.",
+    "group_slug": null,
+    "category": "fun",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Which studio produced KPop Demon Hunters for Netflix?",
+        "options": [
+          "Sony Pictures Animation",
+          "DreamWorks Animation",
+          "Pixar",
+          "Illumination"
+        ],
+        "correct": 0,
+        "fun_fact": "The animation itself was done by Sony Pictures Imageworks at its Vancouver and Montreal studios.",
+        "source": "https://en.wikipedia.org/wiki/KPop_Demon_Hunters"
+      },
+      {
+        "question": "Maggie Kang co-directed KPop Demon Hunters with which filmmaker?",
+        "options": [
+          "Peter Ramsey",
+          "Phil Lord",
+          "Chris Williams",
+          "Chris Appelhans"
+        ],
+        "correct": 3,
+        "fun_fact": "Kang first pitched the idea in 2018, and Appelhans joined after hearing it despite planning a long break after Wish Dragon.",
+        "source": "https://en.wikipedia.org/wiki/KPop_Demon_Hunters"
+      },
+      {
+        "question": "Who gives Rumi her speaking voice in KPop Demon Hunters?",
+        "options": [
+          "May Hong",
+          "Arden Cho",
+          "Ji-young Yoo",
+          "Liza Koshy"
+        ],
+        "correct": 1,
+        "fun_fact": "She first auditioned for the role of Celine and then tried out for Rumi at the urging of director Maggie Kang.",
+        "source": "https://en.wikipedia.org/wiki/KPop_Demon_Hunters"
+      },
+      {
+        "question": "Who provides Rumi's singing voice in the film?",
+        "options": [
+          "EJAE",
+          "Rei Ami",
+          "Lea Salonga",
+          "Audrey Nuna"
+        ],
+        "correct": 0,
+        "fun_fact": "She joined the production as a songwriter, and she says the directors offered her the role after hearing her voice on the demos.",
+        "source": "https://en.wikipedia.org/wiki/KPop_Demon_Hunters"
+      },
+      {
+        "question": "Rei Ami is the singing voice of which character in KPop Demon Hunters?",
+        "options": [
+          "Mira",
+          "Rumi",
+          "Zoey",
+          "Celine"
+        ],
+        "correct": 2,
+        "fun_fact": "Audrey Nuna sings for Mira, while Zoey's speaking voice comes from Ji-young Yoo.",
+        "source": "https://en.wikipedia.org/wiki/Huntrix"
+      },
+      {
+        "question": "Which of these songs from the film is performed by the Saja Boys?",
+        "options": [
+          "Your Idol",
+          "Golden",
+          "How It's Done",
+          "Takedown"
+        ],
+        "correct": 0,
+        "fun_fact": "In the story, the demon boy band sings it at Namsan Tower to summon their master, Gwi-Ma.",
+        "source": "https://en.wikipedia.org/wiki/Your_Idol"
+      },
+      {
+        "question": "Members of which real girl group recorded the end credits version of Takedown?",
+        "options": [
+          "ITZY",
+          "BLACKPINK",
+          "TWICE",
+          "aespa"
+        ],
+        "correct": 2,
+        "fun_fact": "Jeongyeon, Jihyo and Chaeyoung sang it, and their version came out on June 20, 2025 as the soundtrack's lead single.",
+        "source": "https://en.wikipedia.org/wiki/Takedown_(song)"
+      },
+      {
+        "question": "When Golden topped the Billboard Hot 100 in August 2025, which first did it claim?",
+        "options": [
+          "First K-pop song ever to top the chart",
+          "First K-pop No. 1 led by female vocalists",
+          "First No. 1 by a fictional act",
+          "First No. 1 from an animated film"
+        ],
+        "correct": 1,
+        "fun_fact": "HUNTR/X also became the first all-women trio or bigger to top the chart since Destiny's Child with Bootylicious in 2001.",
+        "source": "https://www.billboard.com/lists/huntrx-golden-kpop-demon-hunters-number-1-hot-100/"
+      },
+      {
+        "question": "In August 2025, Golden became the second K-pop No. 1 on the UK singles chart. Which song was the first?",
+        "options": [
+          "How You Like That",
+          "Dynamite",
+          "APT.",
+          "Gangnam Style"
+        ],
+        "correct": 3,
+        "fun_fact": "That same week, the Saja Boys songs Your Idol and Soda Pop climbed to No. 10 and No. 11.",
+        "source": "https://www.officialcharts.com/chart-news/kpop-demon-hunters-huntrx-golden-number-1-single/"
+      },
+      {
+        "question": "In September 2025, KPop Demon Hunters passed which show to become Netflix's most-watched title?",
+        "options": [
+          "Wednesday season 1",
+          "Stranger Things 4",
+          "Squid Game season 1",
+          "Bridgerton season 1"
+        ],
+        "correct": 2,
+        "fun_fact": "Eight days earlier, on August 26, it had overtaken Red Notice to become Netflix's most-watched film.",
+        "source": "https://en.wikipedia.org/wiki/KPop_Demon_Hunters"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/KPop_Demon_Hunters",
+      "https://en.wikipedia.org/wiki/Huntrix",
+      "https://en.wikipedia.org/wiki/Your_Idol",
+      "https://en.wikipedia.org/wiki/Takedown_(song)",
+      "https://www.billboard.com/lists/huntrx-golden-kpop-demon-hunters-number-1-hot-100/",
+      "https://www.officialcharts.com/chart-news/kpop-demon-hunters-huntrx-golden-number-1-single/",
+      "https://en.wikipedia.org/wiki/Golden_(Huntrix_song)",
+      "https://en.wikipedia.org/wiki/Arden_Cho",
+      "https://en.wikipedia.org/wiki/Ejae",
+      "https://en.wikipedia.org/wiki/Rei_Ami",
+      "https://www.billboard.com/charts/hot-100/2025-08-16/"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-22",
+    "title": "BOYNEXTDOOR: From WHO! to No Genre",
+    "description": "An easy quiz on BOYNEXTDOOR: KOZ Entertainment, the WHO! debut, the First Love trilogy, 19.99, No Genre and their first wins.",
+    "group_slug": "boynextdoor",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Which HYBE label formed BOYNEXTDOOR in 2023?",
+        "options": [
+          "KOZ Entertainment",
+          "Pledis Entertainment",
+          "Belift Lab",
+          "Source Music"
+        ],
+        "correct": 0,
+        "fun_fact": "Rapper and producer Zico of Block B founded the label, which HYBE acquired in 2020.",
+        "source": "https://en.wikipedia.org/wiki/BoyNextDoor"
+      },
+      {
+        "question": "With which single album did BOYNEXTDOOR debut on May 30, 2023?",
+        "options": [
+          "WHY..",
+          "WHO!",
+          "HOW?",
+          "19.99"
+        ],
+        "correct": 1,
+        "fun_fact": "All three of its tracks, But I Like You, One and Only and Serenade, were released as singles.",
+        "source": "https://en.wikipedia.org/wiki/Who!_(single_album)"
+      },
+      {
+        "question": "Which WHO! song, produced by Zico, has the members open a real door on stage?",
+        "options": [
+          "But I Like You",
+          "Serenade",
+          "One and Only",
+          "But Sometimes"
+        ],
+        "correct": 2,
+        "fun_fact": "The six members helped create its choreography, and the door gag literally acts out the group's name.",
+        "source": "https://www.koreaherald.com/article/3136905"
+      },
+      {
+        "question": "Which song led WHY.., BOYNEXTDOOR's first EP, in 2023?",
+        "options": [
+          "But Sometimes",
+          "Nice Guy",
+          "Dangerous",
+          "But I Like You"
+        ],
+        "correct": 0,
+        "fun_fact": "The EP entered the Billboard 200 at No. 162, the group's first appearance on that chart.",
+        "source": "https://en.wikipedia.org/wiki/BoyNextDoor"
+      },
+      {
+        "question": "Which song led HOW?, the April 2024 EP that closed BOYNEXTDOOR's First Love trilogy?",
+        "options": [
+          "Amnesia",
+          "Our",
+          "Nice Guy",
+          "Earth, Wind & Fire"
+        ],
+        "correct": 3,
+        "fun_fact": "HOW? debuted at No. 1 on the Circle Album Chart, the group's first chart-topping album.",
+        "source": "https://en.wikipedia.org/wiki/How%3F_(EP)"
+      },
+      {
+        "question": "On which music show did BOYNEXTDOOR earn their first win, on April 23, 2024?",
+        "options": [
+          "The Show",
+          "Music Bank",
+          "Inkigayo",
+          "Show! Music Core"
+        ],
+        "correct": 0,
+        "fun_fact": "That June they held their first fan meeting, OneDoorful Day, at the Olympic Hall in Seoul.",
+        "source": "https://en.wikipedia.org/wiki/BoyNextDoor"
+      },
+      {
+        "question": "What does the title of BOYNEXTDOOR's September 2024 EP 19.99 point to?",
+        "options": [
+          "The price of the album in dollars",
+          "The moment just before turning 20",
+          "The year 1999",
+          "The days they spent as trainees"
+        ],
+        "correct": 1,
+        "fun_fact": "Its main single was Nice Guy, and the EP passed one million copies in cumulative sales in October 2024.",
+        "source": "https://en.wikipedia.org/wiki/19.99_(EP)"
+      },
+      {
+        "question": "Which song was the main single of No Genre, BOYNEXTDOOR's May 2025 EP?",
+        "options": [
+          "Hollywood Action",
+          "I Feel Good",
+          "Nice Guy",
+          "Step by Step"
+        ],
+        "correct": 1,
+        "fun_fact": "No Genre sold 1,166,419 copies in its first five days, the group's best opening week at the time.",
+        "source": "https://en.wikipedia.org/wiki/No_Genre_(EP)"
+      },
+      {
+        "question": "Which special award did BOYNEXTDOOR win at the 2023 Melon Music Awards?",
+        "options": [
+          "Rookie of the Year",
+          "Artist of the Year",
+          "Song of the Year",
+          "Global Rising Artist"
+        ],
+        "correct": 3,
+        "fun_fact": "That November they also released Fadeaway as the theme song of the Naver webtoon Garbage Time.",
+        "source": "https://en.wikipedia.org/wiki/BoyNextDoor"
+      },
+      {
+        "question": "Which of these idols is a member of BOYNEXTDOOR?",
+        "options": [
+          "Taeyong",
+          "Taehyun",
+          "Taesan",
+          "Taemin"
+        ],
+        "correct": 2,
+        "fun_fact": "Taesan, Jaehyun and Woonhak take an active part in producing the group's music.",
+        "source": "https://en.wikipedia.org/wiki/BoyNextDoor"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/BoyNextDoor",
+      "https://en.wikipedia.org/wiki/Who!_(single_album)",
+      "https://www.koreaherald.com/article/3136905",
+      "https://en.wikipedia.org/wiki/How%3F_(EP)",
+      "https://en.wikipedia.org/wiki/19.99_(EP)",
+      "https://en.wikipedia.org/wiki/No_Genre_(EP)",
+      "https://www.wikidata.org/wiki/Q118178306",
+      "https://kozofficial.com/artist/profile/BOYNEXTDOOR",
+      "https://www.nme.com/news/music/2023-melon-music-awards-nominations-winners-3552668",
+      "https://www.koreatimes.co.kr/entertainment/k-pop/20230905/boynextdoor-explores-complexities-of-young-love-in-new-album-why",
+      "https://www.nme.com/news/music/boynextdoor-first-comeback-why-mini-album-release-date-3479688"
+    ]
+  }
+]

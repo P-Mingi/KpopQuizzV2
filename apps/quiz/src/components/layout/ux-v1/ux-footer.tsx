@@ -6,7 +6,7 @@ import { discordInviteWithUtm } from '@kpopquiz/shared/social-links';
 import { UxBrand } from '@/components/ux-v1/brand';
 import { Icon } from '@/components/ux-v1/icon';
 
-import { UxFooterLocale, UxFooterTheme } from './ux-footer-controls';
+import { UxFooterTheme } from './ux-footer-controls';
 
 import type { FooterCol } from '@/lib/ux-v1/a0/nav';
 
@@ -18,6 +18,7 @@ import type { FooterCol } from '@/lib/ux-v1/a0/nav';
 function columns(showFandoms: boolean): FooterCol[] {
   return [
     { title: 'Play', links: [
+      { label: 'K-pop games', href: '/kpop-games' },
       { label: 'Daily quiz', href: '/daily' },
       { label: 'Blindtest', href: '/blindtest' },
       { label: 'Ranked', href: '/blindtest/ranked' },
@@ -49,6 +50,7 @@ function columns(showFandoms: boolean): FooterCol[] {
       { label: 'Editorial policy', href: '/editorial-policy' },
       { label: 'Contact', href: '/contact' },
       { label: 'Privacy', href: '/privacy' },
+      { label: 'Legal notice', href: '/legal' },
       { label: 'Terms', href: '/terms' },
       { label: 'DMCA', href: '/dmca' },
     ] },
@@ -95,7 +97,7 @@ export function UxFooter({ showFandoms, year }: { showFandoms: boolean; year: nu
         </div>
         <div className="ux-fbot">
           <span>© {year} KpopQuiz. Group photos belong to their owners.</span>
-          <span className="ux-fbot-r"><UxFooterLocale /><UxFooterTheme /></span>
+          <span className="ux-fbot-r"><UxFooterTheme /></span>
         </div>
       </div>
     </footer>

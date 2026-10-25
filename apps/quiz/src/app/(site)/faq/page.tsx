@@ -12,7 +12,6 @@ export const metadata: Metadata = {
     canonical: '/faq',
     languages: {
       en: '/faq',
-      'pt-BR': '/pt/faq',
       'x-default': '/faq',
     },
   },

@@ -29,6 +29,7 @@ import { getTitleForLevel } from '@/lib/level-titles';
 import { RELATED_GROUPS } from '@/lib/related-groups';
 import { buildAnswerChunks, buildAnswerFirst } from '@/lib/seo/answer-first';
 import { musicGroupEntity } from '@/lib/seo/wikidata';
+import { generationShort, groupGeneration } from '@/lib/generations/generations';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { QUIZ_TYPE_ICON } from '@/lib/ux-v1/a0/icons';
 import { getGroupCommentsWithTeam, getGroupsIndex, getHubQuizzes, getPlayableSongs } from '@/lib/ux-v1/p3/data';
@@ -51,6 +52,7 @@ import {
 import { isUxV12 } from '@/lib/ux-v12';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 
+import { GenerationAnswer } from '../generation-answer';
 import { GroupAvatar } from './group-avatar';
 import { HubGrowth } from './hub-growth';
 import { HubPlusFacts, HubPlusTop } from './hub-plus';
@@ -157,8 +159,13 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const photo = groupPhotoUrl(g.slug);
   const fandom = realFandomName(g.fandom_name);
 
+  // The generation from the generation file, the field the generations hub reads (SEO
+  // Mission 2, part C; owner, 2026-10-15). A group the file does not cover keeps
+  // groups.generation; a group it covers without a label (a solo artist) shows none.
+  const genRec = category ? null : groupGeneration(g.slug);
+  const genShort = genRec ? (genRec.label ? generationShort(genRec.label) : null) : (g.generation ?? null);
   // No label until it is sourced (see lib/seo/answer-first.ts; owner, 2026-10-14).
-  const eyebrow = hubEyebrow({ fandom: g.fandom_name, generation: g.generation ?? null, label: null, quizzes: published });
+  const eyebrow = hubEyebrow({ fandom: g.fandom_name, generation: genShort, label: null, quizzes: published });
   const facts = hubFacts({ members: memberCount, debutYear: debutYearOf(g.inception_date), quizzes: published, songs });
 
   // Today's locked texts, from today's builders.
@@ -167,7 +174,10 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   const answerFacts = { memberCount, songCount: plus ? songs : blindtest.songs };
   const chunks = cat ? [] : buildAnswerChunks(gc, answerFacts);
   const answerLead = cat ? cat.about : chunks.length > 0 ? buildAnswerFirst(gc, answerFacts) : '';
-  const faqItems = mergeHubFaqs(groupFaqs.length >= 2 ? groupFaqs : [], chunks);
+  // The generation answer shows its sources as links (the chunk text stays the plain version).
+  const genQuestion = `What generation is ${g.name}?`;
+  const faqChunks = chunks.map((c) => (c.question === genQuestion && genRec?.label ? { ...c, a: <GenerationAnswer name={g.name} label={genRec.label} /> } : c));
+  const faqItems = mergeHubFaqs(groupFaqs.length >= 2 ? groupFaqs : [], faqChunks);
   const updated = formatContentMonth(contentDate);
   const articles = getGroupArticleLinks(g.slug);
 

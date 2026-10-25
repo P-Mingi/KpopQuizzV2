@@ -13,7 +13,7 @@ export default function BannedPage(): React.ReactElement {
           Your account has been suspended.
         </h1>
         <p className="text-sm text-secondary">
-          If you think this is a mistake, contact us at support@kpopquiz.org
+          If you think this is a mistake, contact us at hello@kpopquiz.org
         </p>
       </div>
     </div>

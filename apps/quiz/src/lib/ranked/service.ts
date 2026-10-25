@@ -6,7 +6,7 @@
 // ranked_song_stats through the store, and bt_players only gets a bare row on a
 // player's first finished run (PHASE0 Q2).
 
-import { isKpdhTrack } from '@/lib/blind-test-curated';
+import { isCoverHidden } from '@/lib/blind-test-curated';
 import { teamUsernames } from '@/lib/editorial/surfaces/team';
 
 import { DAILY_RUN_LIMIT, ROUND_COUNT, ROUND_MS, RUN_TTL_MS } from './constants';
@@ -157,9 +157,13 @@ export async function issueRun(store: RankedStore, userId: string, season: Seaso
       }
     }),
   );
-  // A KPop Demon Hunters song never shows its cover, the film key art (COMMON rule 10, F6d).
-  const fresh = refreshed.map((r): PrivateRound =>
-    isKpdhTrack(byId.get(r.songId)?.deezerTrackId) ? { ...r, reveal: { ...r.reveal, cover: null } } : r);
+  // A KPop Demon Hunters song or a soundtrack (drama, film, series OST) never shows its cover, the
+  // show's key art (COMMON rule 10, F6d, Mission U part C).
+  const fresh = refreshed.map((r): PrivateRound => {
+    const song = byId.get(r.songId);
+    const hidden = song !== undefined && isCoverHidden({ deezer_track_id: song.deezerTrackId, album_name: song.album, hide_cover: song.hideCover });
+    return hidden ? { ...r, reveal: { ...r.reveal, cover: null } } : r;
+  });
 
   const created = await store.createRun({ userId, season: season.id, rounds: fresh, dayStart, dailyLimit: DAILY_RUN_LIMIT, ttlMs: RUN_TTL_MS });
   if (created.outcome === 'limit') {
