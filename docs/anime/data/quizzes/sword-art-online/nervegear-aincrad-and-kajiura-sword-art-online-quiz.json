@@ -2,9 +2,9 @@
   "site": "anime",
   "account": "otakuquiz_team",
   "group_slug": "sword-art-online",
-  "title": "Sword Art Online Quiz: NerveGear, A-1 Pictures and Kajiura",
-  "slug": "nervegear-a-1-pictures-and-kajiura-sword-art-online-quiz",
-  "description": "Ten easy questions on the author, the helmet, the studio, the composer, the first opening and the film. No story knowledge needed, and no spoilers.",
+  "title": "Sword Art Online Quiz: NerveGear, Aincrad and Kajiura",
+  "slug": "nervegear-aincrad-and-kajiura-sword-art-online-quiz",
+  "description": "Ten easy questions on the author, the helmet, the floating castle, the composer, the first console game and the film. No story knowledge needed, and no spoilers.",
   "quiz_type": "multiple_choice",
   "difficulty": "easy",
   "language": "en",
@@ -26,7 +26,7 @@
       "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
     }
   ],
-  "notes": "New series batch 1. Arc 0 facts only: production, premise and music. One fact per answer.",
+  "notes": "New series batch 1. Arc 0 facts only: production, premise and games. One fact per answer.",
   "questions": [
     {
       "question": "Who writes the Sword Art Online light novels?",
@@ -67,23 +67,23 @@
       "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
     },
     {
-      "question": "Which studio animated the Sword Art Online anime?",
+      "question": "What is the name of the floating castle that the players must clear?",
       "options": [
-        "White Fox",
-        "Bones",
-        "Sunrise",
-        "A-1 Pictures"
+        "Underworld",
+        "Alfheim",
+        "Rulid",
+        "Aincrad"
       ],
       "correct": 3,
-      "kind": "production",
+      "kind": "lore",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "sword-art-online-anime-studio-016"
+        "sword-art-online-floors-010"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
     },
     {
       "question": "What is the name of the helmet that lets players dive into the game?",
@@ -124,23 +124,23 @@
       "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
     },
     {
-      "question": "Which song plays over the opening of the first episodes?",
+      "question": "Which was the first console game of the series, made for the PlayStation Portable?",
       "options": [
-        "Ignite",
-        "Adamas",
-        "Crossing Field",
-        "Innocence"
+        "Hollow Fragment",
+        "Lost Song",
+        "Infinity Moment",
+        "Fatal Bullet"
       ],
       "correct": 2,
-      "kind": "music",
+      "kind": "production",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "sword-art-online-theme-op-033"
+        "sword-art-online-first-console-game-023"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
     },
     {
       "question": "In which year did the Sword Art Online anime first air?",

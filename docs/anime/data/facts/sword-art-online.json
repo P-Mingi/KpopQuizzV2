@@ -145,7 +145,7 @@
       "kind": "series",
       "group_slug": "sword-art-online"
     },
-    "field": "web_novel",
+    "field": "novel_history",
     "value": "Fumio Kunori",
     "text": "Before it was a printed series, Kawahara shared the story online as a web novel under the pen name Fumio Kunori.",
     "category": "fun",
@@ -173,7 +173,7 @@
       "kind": "series",
       "group_slug": "sword-art-online"
     },
-    "field": "publication_story",
+    "field": "inspiration",
     "value": "Accel World",
     "text": "Kawahara's later work Accel World won the Grand Prize of the Dengeki competition, which led the publisher to ask him to publish Sword Art Online as well.",
     "category": "fun",
@@ -229,7 +229,7 @@
       "kind": "series",
       "group_slug": "sword-art-online"
     },
-    "field": "device",
+    "field": "terms",
     "value": "NerveGear",
     "text": "The NerveGear is a helmet that feeds the five senses to the brain, so players can control their game characters with their minds.",
     "category": "fun",
@@ -257,7 +257,7 @@
       "kind": "series",
       "group_slug": "sword-art-online"
     },
-    "field": "launch_day",
+    "field": "background",
     "value": [
       "10,000 players",
       "November 6"
@@ -288,7 +288,7 @@
       "kind": "series",
       "group_slug": "sword-art-online"
     },
-    "field": "goal",
+    "field": "mission",
     "value": "100 floors",
     "text": "To go free, the players have to beat all 100 floors of the floating castle Aincrad.",
     "category": "fun",
@@ -316,7 +316,7 @@
       "kind": "series",
       "group_slug": "sword-art-online"
     },
-    "field": "death_rule",
+    "field": "notebook_rule",
     "value": "Death in the game means death in life",
     "text": "The rule of the game is that a player who dies in it, or who has the NerveGear forcibly removed, dies in real life too.",
     "category": "fun",
@@ -344,7 +344,7 @@
       "kind": "series",
       "group_slug": "sword-art-online"
     },
-    "field": "survivors",
+    "field": "record",
     "value": "300 players",
     "text": "After the game is cleared, 300 players, Asuna among them, are still stuck inside their NerveGear.",
     "category": "fun",
@@ -372,7 +372,7 @@
       "kind": "series",
       "group_slug": "sword-art-online"
     },
-    "field": "alo",
+    "field": "arc_2",
     "value": "Alfheim Online",
     "text": "Agil tells Kirito that a figure like Asuna was spotted on the World Tree of the game Alfheim Online.",
     "category": "fun",
@@ -400,7 +400,7 @@
       "kind": "series",
       "group_slug": "sword-art-online"
     },
-    "field": "ggo",
+    "field": "arc_3",
     "value": "Gun Gale Online",
     "text": "In Gun Gale Online, Kirito looks into a string of murders and takes part in a gunfight tournament named Bullet of Bullets.",
     "category": "fun",
@@ -428,7 +428,7 @@
       "kind": "series",
       "group_slug": "sword-art-online"
     },
-    "field": "underworld",
+    "field": "arc_late",
     "value": [
       "Soul Translator",
       "a thousand times faster"
@@ -669,7 +669,7 @@
       "kind": "series",
       "group_slug": "sword-art-online"
     },
-    "field": "film_2",
+    "field": "films",
     "value": [
       "Aria of a Starless Night",
       "October 30, 2021"
@@ -706,7 +706,7 @@
       "kind": "series",
       "group_slug": "sword-art-online"
     },
-    "field": "game_first",
+    "field": "spin_offs",
     "value": "Infinity Moment",
     "text": "Sword Art Online: Infinity Moment was the first console game of the series, made for the PlayStation Portable.",
     "category": "fun",
@@ -734,7 +734,7 @@
       "kind": "series",
       "group_slug": "sword-art-online"
     },
-    "field": "game_west",
+    "field": "spinoff",
     "value": [
       "Hollow Fragment",
       "PlayStation Vita"
@@ -2234,7 +2234,7 @@
       "group_slug": "sword-art-online",
       "ref": "asuna"
     },
-    "field": "weapon",
+    "field": "technique",
     "value": "Rapier",
     "text": "Asuna fights with a rapier and goes by the nickname The Flash in the game.",
     "category": "fun",
@@ -2263,7 +2263,7 @@
       "group_slug": "sword-art-online",
       "ref": "yui"
     },
-    "field": "designation",
+    "field": "title",
     "value": "Mental Health Counselling Program",
     "text": "Yui is officially named MHCP version 1, short for Mental Health Counselling Program.",
     "category": "fun",
@@ -2292,7 +2292,7 @@
       "group_slug": "sword-art-online",
       "ref": "klein"
     },
-    "field": "guild",
+    "field": "organization",
     "value": "Fuurinkazan",
     "text": "Klein becomes the head of his own guild, Fuurinkazan.",
     "category": "fun",
@@ -2321,7 +2321,7 @@
       "group_slug": "sword-art-online",
       "ref": "agil"
     },
-    "field": "trade",
+    "field": "occupation",
     "value": "Blacksmith with an axe",
     "text": "Agil is an axe fighter who also works as a blacksmith and shopkeeper.",
     "category": "fun",
@@ -2350,7 +2350,7 @@
       "group_slug": "sword-art-online",
       "ref": "lisbeth"
     },
-    "field": "trade",
+    "field": "occupation",
     "value": "Blacksmith",
     "text": "Lisbeth is proud of her work as a blacksmith who forges custom swords.",
     "category": "fun",
@@ -2379,7 +2379,7 @@
       "group_slug": "sword-art-online",
       "ref": "silica"
     },
-    "field": "pet",
+    "field": "specialty",
     "value": "Pina the dragon",
     "text": "Silica travels with a small dragon named Pina, her tamed companion.",
     "category": "fun",
@@ -2408,7 +2408,7 @@
       "group_slug": "sword-art-online",
       "ref": "sachi"
     },
-    "field": "guild",
+    "field": "organization",
     "value": "Moonlit Black Cats",
     "text": "Sachi is a member of Moonlit Black Cats, the first guild Kirito joined, and her guild is trapped in a room on the 27th floor.",
     "category": "fun",
@@ -2466,7 +2466,7 @@
       "group_slug": "sword-art-online",
       "ref": "kibaou"
     },
-    "field": "group",
+    "field": "organization",
     "value": "Aincrad Liberation Squad",
     "text": "Kibaou heads a group called the Aincrad Liberation Squad.",
     "category": "fun",
@@ -2495,7 +2495,7 @@
       "group_slug": "sword-art-online",
       "ref": "argo"
     },
-    "field": "trade",
+    "field": "occupation",
     "value": "Information broker",
     "text": "Argo makes her living as an information broker.",
     "category": "fun",
@@ -2524,7 +2524,7 @@
       "group_slug": "sword-art-online",
       "ref": "sinon"
     },
-    "field": "rifle",
+    "field": "treasure",
     "value": "PGM Ultima Ratio Hecate II",
     "text": "Sinon shoots with a sniper rifle called the PGM Ultima Ratio Hecate II.",
     "category": "fun",
@@ -2553,7 +2553,7 @@
       "group_slug": "sword-art-online",
       "ref": "sinon"
     },
-    "field": "fear",
+    "field": "background",
     "value": "Fear of guns",
     "text": "In the real world Sinon has panic attacks at the sight of a gun.",
     "category": "fun",
@@ -2582,7 +2582,7 @@
       "group_slug": "sword-art-online",
       "ref": "leafa"
     },
-    "field": "kendo",
+    "field": "specialty",
     "value": "Eight years of kendo",
     "text": "Leafa has practiced kendo for eight years.",
     "category": "fun",
@@ -2640,7 +2640,7 @@
       "group_slug": "sword-art-online",
       "ref": "eugeo"
     },
-    "field": "weapon",
+    "field": "treasure",
     "value": "Blue Rose Sword",
     "text": "Eugeo carries the Blue Rose Sword.",
     "category": "fun",
@@ -2669,7 +2669,7 @@
       "group_slug": "sword-art-online",
       "ref": "alice-zuberg"
     },
-    "field": "rank",
+    "field": "role",
     "value": "Integrity Knight",
     "text": "Alice is an Integrity Knight with the designation Alice Synthesis Thirty.",
     "category": "fun",
@@ -2698,7 +2698,7 @@
       "group_slug": "sword-art-online",
       "ref": "bercouli"
     },
-    "field": "distinction",
+    "field": "epithet",
     "value": "First Integrity Knight",
     "text": "Bercouli is remembered as the very first of the Integrity Knights.",
     "category": "fun",
@@ -2727,7 +2727,7 @@
       "group_slug": "sword-art-online",
       "ref": "death-gun"
     },
-    "field": "effect",
+    "field": "ability",
     "value": "Triggers Sinon's panic",
     "text": "Death Gun's weapon makes the old trauma of Sinon come back.",
     "category": "fun",
@@ -2756,7 +2756,7 @@
       "group_slug": "sword-art-online",
       "ref": "akihiko-kayaba"
     },
-    "field": "creation",
+    "field": "origin",
     "value": "SAO and NerveGear",
     "text": "Akihiko Kayaba created both the game Sword Art Online and the NerveGear that runs it.",
     "category": "fun",
