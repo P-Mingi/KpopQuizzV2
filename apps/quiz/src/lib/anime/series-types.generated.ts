@@ -18,6 +18,7 @@ export const SERIES_TYPE_BY_SLUG: Readonly<Record<string, string>> = {
   'evangelion': 'anime_original',
   'fairy-tail': 'anime_manga',
   'frieren': 'anime_manga',
+  'fruits-basket': 'anime_manga',
   'fullmetal-alchemist': 'franchise',
   'haikyu': 'anime_manga',
   'hunter-x-hunter': 'anime_manga',
