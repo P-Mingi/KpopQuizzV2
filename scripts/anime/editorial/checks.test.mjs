@@ -325,3 +325,13 @@ test('a folder named withdrawn is never collected (owner, 2026-10-24)', async ()
   assert.equal(files.length, 1);
   assert.ok(files[0].endsWith('live.json'));
 });
+
+test('C5: a mix quiz reads names in the series of the facts it cites (D-117)', async () => {
+  const { namedCharacters } = await import('./lib/checks-b.mjs');
+  const series = (slug, level) => ({ data: { characters: [{ slug: `${slug}-kagura`, name: 'Kagura', spoiler_level: level }] } });
+  const ctx = { series: new Map([['gintama', series('gintama', 0)], ['inuyasha', series('inuyasha', 1)]]) };
+  const text = 'Kagura loves vinegar kelp.';
+  assert.deepEqual(namedCharacters(text, 'anime-mix', ctx, ['gintama']).map((c) => c.level), [0]);
+  assert.deepEqual(namedCharacters(text, 'anime-mix', ctx, []).map((c) => c.level).sort(), [0, 1]);
+  assert.deepEqual(namedCharacters(text, 'inuyasha', ctx, ['gintama']).map((c) => c.level), [1]);
+});

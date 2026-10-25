@@ -1,0 +1,238 @@
+{
+ "site": "anime",
+ "account": "oq_creator_25",
+ "group_slug": "kagurabachi",
+ "title": "Which Came First? Kagurabachi Releases and Backstory in Order",
+ "slug": "which-came-first-kagurabachi-releases-and-backstory-in-order",
+ "description": "Ten rounds of four events where you pick the earliest or the latest: the Jump start, volumes, English print, awards and the war-and-murder backstory. Light spoilers up to the first arc.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "First format: dates come from verified facts; the story-order rounds use only events whose order the sources state.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Kagurabachi",
+   "url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Which of these came first in the story's timeline?",
+   "options": [
+    "Chihiro's quest for revenge",
+    "Kunishige going into hiding",
+    "The Seitei War",
+    "Kunishige's murder"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-setting-war-010",
+    "kagurabachi-hishaku-murder-blades-029",
+    "kagurabachi-chihiro-revenge-quest-034",
+    "kagurabachi-kunishige-hidden-home-031"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Four real-world moments are listed here. Which one came first?",
+   "options": [
+    "Kagurabachi started in Weekly Shōnen Jump",
+    "Viz Media announced a print edition",
+    "Volume 1 released in Japan",
+    "Viz Media published volume 1"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-serialization-start-003",
+    "kagurabachi-volume-count-004",
+    "kagurabachi-english-release-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which of these existed first in the story?",
+   "options": [
+    "The Hishaku crime",
+    "The Kamunabi",
+    "Ibuki quitting swordsmanship",
+    "The Sorcery Bureau"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 1,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-sorcery-bureau-prewar-028",
+    "kagurabachi-kamunabi-agency-012",
+    "kagurabachi-hishaku-murder-blades-029",
+    "kagurabachi-ibuki-quit-swordsmanship-033"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "On the road to an English edition, which step on this list happened first?",
+   "options": [
+    "Volume 12 released",
+    "Viz Media published volume 1",
+    "Viz Media announced a print edition",
+    "Circulation passing 4.5 million"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-english-release-007",
+    "kagurabachi-volume-count-004",
+    "kagurabachi-circulation-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Counting from the first chapter, which of these milestones arrived first?",
+   "options": [
+    "The Japan Expo Awards Daruma",
+    "Over 99 million views on Manga Plus",
+    "Viz Media published volume 1",
+    "Volume 12 released"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-page-views-011",
+    "kagurabachi-english-release-007",
+    "kagurabachi-volume-count-004",
+    "kagurabachi-awards-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Among these prizes and releases, which is the earliest?",
+   "options": [
+    "The tenth Next Manga Award",
+    "Volume 12 released",
+    "The Japan Expo Awards Daruma",
+    "Circulation passing 4.5 million"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-awards-006",
+    "kagurabachi-volume-count-004",
+    "kagurabachi-circulation-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which of these came last in real life?",
+   "options": [
+    "Volume 1 released in Japan",
+    "Viz Media published volume 1",
+    "Viz Media announced a print edition",
+    "Kagurabachi started in Weekly Shōnen Jump"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-serialization-start-003",
+    "kagurabachi-volume-count-004",
+    "kagurabachi-english-release-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which of these events happened last in the story's timeline?",
+   "options": [
+    "Kunishige going into hiding",
+    "The Kamunabi being formed",
+    "Kunishige's murder",
+    "Chihiro's quest for revenge"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-kamunabi-agency-012",
+    "kagurabachi-kunishige-hidden-home-031",
+    "kagurabachi-hishaku-murder-blades-029",
+    "kagurabachi-chihiro-revenge-quest-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which of these events took place last in the story, going by the sources?",
+   "options": [
+    "Kunishige going into hiding",
+    "Ibuki Misaka being killed",
+    "Kunishige's murder",
+    "Ibuki quitting swordsmanship"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 1,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-ibuki-killed-after-murder-032",
+    "kagurabachi-hishaku-murder-blades-029",
+    "kagurabachi-kunishige-hidden-home-031",
+    "kagurabachi-ibuki-quit-swordsmanship-033"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which of these milestones is the most recent?",
+   "options": [
+    "Circulation passing 4.5 million",
+    "Viz Media published volume 1",
+    "The tenth Next Manga Award",
+    "Volume 12 released"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-circulation-005",
+    "kagurabachi-english-release-007",
+    "kagurabachi-awards-006",
+    "kagurabachi-volume-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  }
+ ]
+}

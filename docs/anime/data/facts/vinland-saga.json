@@ -836,5 +836,229 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a female hunter from Norway. Originally an inventor and carpenter, her life changed when Askeladd's band attacked her village and killed her family."
+  },
+  {
+    "id": "vinland-saga-plot-thorkell-takes-canute-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "background",
+    "value": "Thorkell takes Prince Canute captive",
+    "text": "Thorkell, Thorfinn's great-uncle, seizes Prince Canute during the fighting.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:53:32Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:32.000Z",
+    "excerpt": "When Thorkell takes Sweyn's son Prince Canute captive"
+  },
+  {
+    "id": "vinland-saga-plot-ketil-farm-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "role",
+    "value": "Ketil's farm in Denmark",
+    "text": "Thorfinn later labours as a slave on a Danish farm that belongs to Ketil.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:53:32Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:32.000Z",
+    "excerpt": "Thorfinn works on a farm in Denmark owned by Ketil"
+  },
+  {
+    "id": "vinland-saga-plot-leaves-with-leif-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "organization",
+    "value": "Leif Erikson",
+    "text": "Thorfinn and Einar are freed and sail away with Leif Erikson, an old friend of Thors.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:53:32Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:32.000Z",
+    "excerpt": "they depart with Leif Erikson"
+  },
+  {
+    "id": "vinland-saga-plot-invasion-of-london-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "mission",
+    "value": "Askeladd's company joins the Danish invasion of London",
+    "text": "In the War Arc, Askeladd and his men sign on as hired soldiers of King Sweyn for the attack on London by the Danes.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:54:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:04.000Z",
+    "excerpt": "Askeladd's company finds employment as mercenaries under King Sweyn in the Danish invasion of London"
+  },
+  {
+    "id": "vinland-saga-plot-askeladd-captures-canute-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "occupation",
+    "value": "captures the prince",
+    "text": "Askeladd's company then grabs Prince Canute, planning to sell him to whichever side pays.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:54:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:04.000Z",
+    "excerpt": "Askeladd's company captures the prince with the intent of selling him"
+  },
+  {
+    "id": "vinland-saga-plot-befriends-einar-039",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "origin",
+    "value": "Thorfinn befriends Einar",
+    "text": "Thorfinn becomes friends with Einar, a fellow slave, while working the farm.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:54:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:04.000Z",
+    "excerpt": "He later befriends another slave named Einar"
+  },
+  {
+    "id": "vinland-saga-plot-canute-king-040",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "setting",
+    "value": "Canute rules both England and Denmark",
+    "text": "Canute rules both England and Denmark after getting rid of his brother Harald.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:54:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:04.000Z",
+    "excerpt": "Canute has become both King of England and Denmark after poisoning his brother Harald"
+  },
+  {
+    "id": "vinland-saga-plot-thorfinn-enslaved-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "terms",
+    "value": "enslavement",
+    "text": "Thorfinn tries to kill King Canute and ends up condemned to slavery after Thorkell stops him.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:54:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:18.000Z",
+    "excerpt": "tries to assassinate King Canute, but is sentenced to a life of enslavement"
   }
 ]

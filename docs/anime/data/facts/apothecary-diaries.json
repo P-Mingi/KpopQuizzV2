@@ -833,5 +833,348 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The freckled adopted daughter of an apothecary and doctor named Luomen who lives in the red-light district of the capital city. She was born and raised in the"
+  },
+  {
+    "id": "apothecary-diaries-gyokuyo-jade-pavilion-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gyokuyo"
+    },
+    "field": "setting",
+    "value": "Jade Pavilion",
+    "text": "Gyokuyō makes her home in the Jade Pavilion, a residence inside the Rear Palace.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "She resides in the Jade Pavilion in the Rear Palace"
+  },
+  {
+    "id": "apothecary-diaries-gyokuyo-hires-maomao-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gyokuyo"
+    },
+    "field": "role",
+    "value": "Maomao's employer",
+    "text": "Gyokuyō hires Maomao as a lady-in-waiting after Maomao warns her that her makeup is poisoned.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "She took Maomao as a Lady-in-waiting as thanks for warning her about the poisoned makeup"
+  },
+  {
+    "id": "apothecary-diaries-lishu-diamond-pavilion-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lishu"
+    },
+    "field": "setting",
+    "value": "Diamond Pavilion",
+    "text": "Lishu lives in the Diamond Pavilion, which sits in the Rear Palace.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "She resides in the Diamond Pavilion in the Rear Palace"
+  },
+  {
+    "id": "apothecary-diaries-lishu-allergies-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lishu"
+    },
+    "field": "habits",
+    "value": "food allergies",
+    "text": "Lishu suffers from food allergies, yet her attendants take it for fussy eating.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "She has food allergies but her ladies-in-waiting think she is just picky with her food"
+  },
+  {
+    "id": "apothecary-diaries-maomao-verdigris-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "maomao"
+    },
+    "field": "origin",
+    "value": "Verdigris House",
+    "text": "Maomao grew up in the Verdigris House, a well-known brothel in the capital.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "She was born and raised in the Verdigris House, a renowned brothel"
+  },
+  {
+    "id": "apothecary-diaries-three-princesses-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "organization",
+    "value": "Verdigris House courtesans",
+    "text": "The Three Princesses are the best-known courtesans of the Verdigris House, and they helped raise Maomao.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "are the most famous courtesans of the Verdigris House"
+  },
+  {
+    "id": "apothecary-diaries-verdigris-madam-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "occupation",
+    "value": "Madam of the Verdigris House",
+    "text": "An old woman, known as the Madam, owns the Verdigris House and gave Maomao a place to work there.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "An old woman who owns the Verdigris House brothel and offered Maomao a place to work"
+  },
+  {
+    "id": "apothecary-diaries-guen-palace-doctor-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "role",
+    "value": "palace doctor",
+    "text": "Guen serves as the palace doctor, though Maomao regards him as a quack.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "Guen is the palace's doctor, whom Maomao refers to as a quack"
+  },
+  {
+    "id": "apothecary-diaries-guen-paper-family-039",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "background",
+    "value": "family sells paper to the palace",
+    "text": "Guen comes from a family that supplies the palace with fine paper.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "His family is a purveyor of high-quality paper to the palace"
+  },
+  {
+    "id": "apothecary-diaries-gyokuyo-favourite-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gyokuyo"
+    },
+    "field": "organization",
+    "value": "emperor's favorite",
+    "text": "Gyokuyō, the Precious Consort, holds the place of the emperor's favourite among his four top-ranking consorts.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:25Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:25.000Z",
+    "excerpt": "and is the emperor's favorite"
+  },
+  {
+    "id": "apothecary-diaries-hongniang-jade-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "origin",
+    "value": "Jade Pavilion staff leader",
+    "text": "Hongniang runs the staff of the Jade Pavilion as its head lady-in-waiting and is a decent boss to Maomao.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:25Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:25.000Z",
+    "excerpt": "Hongniang is the dutiful head lady-in-waiting in the Jade Pavilion"
+  },
+  {
+    "id": "apothecary-diaries-lishu-youngest-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lishu"
+    },
+    "field": "role",
+    "value": "youngest of the four consorts",
+    "text": "Lishu, the Virtuous Consort, is the youngest of the emperor's four top-ranking consorts.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:36.000Z",
+    "excerpt": "youngest of the Emperor's four high-ranking"
   }
 ]

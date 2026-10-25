@@ -1,0 +1,326 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Three Clues, One Anime: Studio, Year and Plot Hint",
+ "slug": "three-clues-one-anime-studio-year-and-plot-hint",
+ "description": "Ten anime to name from three clues that get easier: the studio, the year it started airing, then a hint about the setup. Opening premises only, no spoilers.",
+ "quiz_type": "guess_from_clues",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Cross-series set. Clue 1 studio, clue 2 start year or season, clue 3 an opening-premise hint. Each question cites the facts behind all three clues.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Black Clover (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Bocchi the Rock!",
+   "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Mob Psycho 100",
+   "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Jujutsu Kaisen (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: That Time I Got Reincarnated as a Slime (TV series)",
+   "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: Sword Art Online (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: Tokyo Ghoul",
+   "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: Tokyo Revengers",
+   "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: Violet Evergarden",
+   "url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+  },
+  {
+   "id": "S10",
+   "title": "Wikipedia: Fruits Basket (2019 TV series)",
+   "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Which anime is this?",
+   "clues": [
+    "Studio Pierrot animated it.",
+    "Its first season began airing in October 2017.",
+    "An orphan with no mana at all, in a world that runs on magic, wants the highest wizard rank."
+   ],
+   "options": [
+    "Fairy Tail",
+    "Black Clover",
+    "Tokyo Ghoul",
+    "My Hero Academia"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "black-clover-studio-009",
+    "black-clover-anime-s1-007",
+    "black-clover-premise-017"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)"
+  },
+  {
+   "question": "Which anime is this?",
+   "clues": [
+    "CloverWorks made it.",
+    "The first episode aired in October 2022.",
+    "A painfully shy girl who has practised guitar alone for years is finally pulled into a real band."
+   ],
+   "options": [
+    "Spy x Family",
+    "Oshi no Ko",
+    "Blue Lock",
+    "Bocchi the Rock!"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bocchi-the-rock-studio-011",
+    "bocchi-the-rock-anime-start-008",
+    "bocchi-the-rock-premise-032"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+  },
+  {
+   "question": "Which anime is this?",
+   "clues": [
+    "Studio Bones animated it.",
+    "Its first season aired in the summer of 2016.",
+    "The hero is an eighth-grade esper with huge powers who keeps his emotions in check."
+   ],
+   "options": [
+    "Mob Psycho 100",
+    "One-Punch Man",
+    "My Hero Academia",
+    "Fullmetal Alchemist"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "mob-psycho-100-anime-studio-007",
+    "mob-psycho-100-anime-season-one-012",
+    "mob-psycho-100-premise-022"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+  },
+  {
+   "question": "Which anime is this?",
+   "clues": [
+    "MAPPA animated it.",
+    "Its first season began airing in October 2020.",
+    "To postpone his execution, a high school student must swallow every one of twenty cursed fingers."
+   ],
+   "options": [
+    "Chainsaw Man",
+    "Demon Slayer",
+    "Tokyo Revengers",
+    "Jujutsu Kaisen"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-animation-studio-014",
+    "jujutsu-kaisen-anime-premiere-012",
+    "jujutsu-kaisen-twenty-fingers-027"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+  },
+  {
+   "question": "Which anime is this?",
+   "clues": [
+    "Eight Bit animates it.",
+    "Its first season began in October 2018.",
+    "A salaryman is stabbed in Tokyo and wakes up in a fantasy world as something with no bones."
+   ],
+   "options": [
+    "Re:Zero",
+    "Sword Art Online",
+    "Reincarnated as a Slime",
+    "Black Clover"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "that-time-i-got-reincarnated-as-a-slime-studio-015",
+    "that-time-i-got-reincarnated-as-a-slime-anime-s1-010",
+    "that-time-i-got-reincarnated-as-a-slime-premise-022"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)"
+  },
+  {
+   "question": "Which anime is this?",
+   "clues": [
+    "A-1 Pictures animated it.",
+    "It premiered in July 2012.",
+    "Players of a virtual reality game find out there is no way to log out until the game is cleared."
+   ],
+   "options": [
+    "Sword Art Online",
+    "Fairy Tail",
+    "Solo Leveling",
+    "Tower of God"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sword-art-online-anime-studio-016",
+    "sword-art-online-anime-premiere-019",
+    "sword-art-online-premise-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+  },
+  {
+   "question": "Which anime is this?",
+   "clues": [
+    "Pierrot animated it.",
+    "Its first season aired in the summer of 2014.",
+    "After a date goes wrong, a college student wakes up as half monster because of a transplant."
+   ],
+   "options": [
+    "Death Note",
+    "Tokyo Ghoul",
+    "Black Clover",
+    "Naruto"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tokyo-ghoul-anime-first-season-007",
+    "tokyo-ghoul-premise-021"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
+  },
+  {
+   "question": "Which anime is this?",
+   "clues": [
+    "Liden Films produces it.",
+    "Its first season aired in spring and summer 2021.",
+    "A part-timer learns his old girlfriend has died and finds a way to jump back twelve years."
+   ],
+   "options": [
+    "Tokyo Revengers",
+    "Re:Zero",
+    "Steins;Gate",
+    "Haikyu!!"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tokyo-revengers-studio-010",
+    "tokyo-revengers-anime-s1-006",
+    "tokyo-revengers-premise-021"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+  },
+  {
+   "question": "Which anime is this?",
+   "clues": [
+    "Kyoto Animation produced it.",
+    "It aired in the winter of 2018, from January to April.",
+    "A former soldier takes a job writing letters for people who cannot find the words."
+   ],
+   "options": [
+    "Frieren: Beyond Journey's End",
+    "Fruits Basket",
+    "Violet Evergarden",
+    "Bocchi the Rock!"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "violet-evergarden-studio-010",
+    "violet-evergarden-tv-run-008",
+    "violet-evergarden-premise-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+  },
+  {
+   "question": "Which anime is this?",
+   "clues": [
+    "TMS Entertainment animated this remake.",
+    "Its first season ran from April to September 2019.",
+    "Thirteen members of one family turn into zodiac animals when stressed or hugged by the opposite sex."
+   ],
+   "options": [
+    "Detective Conan",
+    "Fruits Basket",
+    "Demon Slayer",
+    "Fairy Tail"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fruits-basket-anime-studio-015",
+    "fruits-basket-season-one-019",
+    "fruits-basket-premise-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)"
+  }
+ ]
+}

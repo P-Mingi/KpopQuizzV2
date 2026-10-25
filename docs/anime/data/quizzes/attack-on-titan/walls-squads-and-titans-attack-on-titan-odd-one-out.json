@@ -1,0 +1,324 @@
+{
+ "site": "anime",
+ "account": "oq_creator_07",
+ "group_slug": "attack-on-titan",
+ "title": "Walls, Squads and Titans: Attack on Titan Odd One Out",
+ "slug": "walls-squads-and-titans-attack-on-titan-odd-one-out",
+ "description": "Ten rounds of four names where one does not belong: walls, army branches, squads, Titans and Marley's Warriors. Intruder format. Spoilers up to The Final Season Part 1.",
+ "quiz_type": "intruder",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Intruder format: three real members of a group and one real outsider; every option is a place, group, song or person from the series.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Attack on Titan",
+   "url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Attack on Titan (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Attack on Titan characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three of these are the great walls that protect humanity. Which one is a city built inside one of them?",
+   "options": [
+    {
+     "label": "Wall Rose"
+    },
+    {
+     "label": "Wall Sina"
+    },
+    {
+     "label": "Wall Maria"
+    },
+    {
+     "label": "Trost"
+    }
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "attack-on-titan-wall-maria-first-073",
+    "attack-on-titan-wall-rose-second-074",
+    "attack-on-titan-wall-sina-inner-075",
+    "attack-on-titan-trost-city-076"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+  },
+  {
+   "question": "Three of these songs open episodes of the anime. Which one plays over the end credits instead?",
+   "options": [
+    {
+     "label": "Shinzo wo Sasageyo!"
+    },
+    {
+     "label": "Great Escape"
+    },
+    {
+     "label": "Guren no Yumiya"
+    },
+    {
+     "label": "Jiyu no Tsubasa"
+    }
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "attack-on-titan-opening-themes-008",
+    "attack-on-titan-ending-themes-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+  },
+  {
+   "question": "The army inside the Walls has three branches. Which of these is not one of them?",
+   "options": [
+    {
+     "label": "Garrison Regiment"
+    },
+    {
+     "label": "Survey Corps"
+    },
+    {
+     "label": "Training Corps"
+    },
+    {
+     "label": "Military Police Brigade"
+    }
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "attack-on-titan-military-divisions-061",
+    "attack-on-titan-training-corps-school-062"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+  },
+  {
+   "question": "Three of these are among the Nine Titans. Which one is not?",
+   "options": [
+    {
+     "label": "Smiling Titan"
+    },
+    {
+     "label": "Female Titan"
+    },
+    {
+     "label": "Colossal Titan"
+    },
+    {
+     "label": "Armored Titan"
+    }
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "attack-on-titan-nine-titans-list-091",
+    "attack-on-titan-smiling-titan-064"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+  },
+  {
+   "question": "Three of these officers lead a squad in the Survey Corps. Which one commands the Military Police instead?",
+   "options": [
+    {
+     "label": "Hange Zoë"
+    },
+    {
+     "label": "Mike Zacharius"
+    },
+    {
+     "label": "Levi Ackerman"
+    },
+    {
+     "label": "Nile Dok"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "attack-on-titan-mike-squad-leader-069",
+    "attack-on-titan-hange-fourth-squad-070",
+    "attack-on-titan-levi-elite-squad-071",
+    "attack-on-titan-nile-dok-mp-072"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+  },
+  {
+   "question": "Three of these characters serve in the Garrison Regiment. Which one is a Survey Corps soldier?",
+   "options": [
+    {
+     "label": "Dot Pixis"
+    },
+    {
+     "label": "Nanaba"
+    },
+    {
+     "label": "Hannes"
+    },
+    {
+     "label": "Rico Brzenska"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "attack-on-titan-hannes-garrison-065",
+    "attack-on-titan-rico-garrison-066",
+    "attack-on-titan-pixis-garrison-067",
+    "attack-on-titan-nanaba-survey-068"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+  },
+  {
+   "question": "Three of these were hand-picked for Captain Levi's special squad. Which one works for Hange instead?",
+   "options": [
+    {
+     "label": "Moblit Berner"
+    },
+    {
+     "label": "Petra Ral"
+    },
+    {
+     "label": "Eld Jinn"
+    },
+    {
+     "label": "Oluo Bozado"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "attack-on-titan-squad-levi-members-077",
+    "attack-on-titan-moblit-hange-aide-078"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+  },
+  {
+   "question": "Three of these cadets of the 104th Training Corps hid a Titan power. Which one did not?",
+   "options": [
+    {
+     "label": "Bertolt Hoover"
+    },
+    {
+     "label": "Jean Kirstein"
+    },
+    {
+     "label": "Reiner Braun"
+    },
+    {
+     "label": "Annie Leonhart"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "attack-on-titan-reiner-armored-holder-079",
+    "attack-on-titan-bertolt-colossal-holder-080",
+    "attack-on-titan-annie-titan-form-081",
+    "attack-on-titan-jean-sixth-cadet-082"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+  },
+  {
+   "question": "Three of these belong to the secret Interior Police. Which one is an ordinary Military Police soldier?",
+   "options": [
+    {
+     "label": "Marlowe Freudenberg"
+    },
+    {
+     "label": "Kenny Ackerman"
+    },
+    {
+     "label": "Traute Carven"
+    },
+    {
+     "label": "Djel Sanes"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "attack-on-titan-kenny-interior-police-083",
+    "attack-on-titan-traute-interior-squad-084",
+    "attack-on-titan-djel-interior-squad-085",
+    "attack-on-titan-marlowe-military-police-086"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+  },
+  {
+   "question": "Three of these characters trained in Marley's Warrior Unit. Which one grew up inside the Walls?",
+   "options": [
+    {
+     "label": "Reiner Braun"
+    },
+    {
+     "label": "Pieck Finger"
+    },
+    {
+     "label": "Eren Yeager"
+    },
+    {
+     "label": "Porco Galliard"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "attack-on-titan-reiner-warrior-unit-087",
+    "attack-on-titan-pieck-warrior-unit-088",
+    "attack-on-titan-porco-warrior-unit-089",
+    "attack-on-titan-eren-walls-boy-090"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+  }
+ ]
+}

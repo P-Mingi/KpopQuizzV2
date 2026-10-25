@@ -1187,5 +1187,379 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a student in the Performing Arts Program of Youtou High School and a classmate of Ruby and Frill. In the show"
+  },
+  {
+    "id": "oshi-no-ko-lovenow-reality-show-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "akane-kurokawa"
+    },
+    "field": "setting",
+    "value": "LoveNow",
+    "text": "Akane takes part in LoveNow, a dating reality show in the story, in order to advertise her theater company.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-25T18:55:14Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:14.000Z",
+    "excerpt": "is a stage actress who joins the reality show My Love with a Star Begins Now (LoveNow) to promote her theater troupe"
+  },
+  {
+    "id": "oshi-no-ko-memcho-lovenow-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "mem-cho"
+    },
+    "field": "occupation",
+    "value": "YouTuber and TikToker",
+    "text": "Mem-cho, a YouTuber, is another entrant of the same dating show.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-25T18:55:14Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:14.000Z",
+    "excerpt": "is a YouTuber and TikToker who signs up for LoveNow"
+  },
+  {
+    "id": "oshi-no-ko-ichigo-strawberry-president-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "ichigo-saito"
+    },
+    "field": "occupation",
+    "value": "president of Strawberry Productions",
+    "text": "Ichigo Saitō heads Strawberry Productions, the talent agency of the story.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-25T18:55:14Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:14.000Z",
+    "excerpt": "is the president of Strawberry Productions"
+  },
+  {
+    "id": "oshi-no-ko-miyako-runs-agency-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "miyako-saito"
+    },
+    "field": "occupation",
+    "value": "manages Strawberry Productions",
+    "text": "Miyako Saitō, Ichigo's wife, takes care of the daily running of the agency.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-25T18:55:14Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:14.000Z",
+    "excerpt": "She manages Strawberry Productions and keeps the business afloat"
+  },
+  {
+    "id": "oshi-no-ko-ai-scouted-strawberry-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "ai-hoshino"
+    },
+    "field": "background",
+    "value": "scouted by Strawberry Productions",
+    "text": "As a young girl from an orphanage, Ai was signed to the agency by its president.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-25T18:55:14Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:14.000Z",
+    "excerpt": "she is scouted at age 12 by Strawberry Productions president Ichigo Saitō"
+  },
+  {
+    "id": "oshi-no-ko-ai-bkomachi-centerpiece-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "ai-hoshino"
+    },
+    "field": "role",
+    "value": "centerpiece of B-Komachi",
+    "text": "Ai Hoshino is the star at the heart of the idol group B-Komachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-25T18:55:14Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:14.000Z",
+    "excerpt": "eventually becoming the centerpiece of B-Komachi"
+  },
+  {
+    "id": "oshi-no-ko-ruby-new-bkomachi-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "ruby-hoshino"
+    },
+    "field": "role",
+    "value": "forms the new B-Komachi",
+    "text": "Ruby puts together a fresh version of B-Komachi with the actress Kana and the YouTuber Mem-cho.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-25T18:55:14Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:14.000Z",
+    "excerpt": "she forms the new B-Komachi with Kana and Mem-cho"
+  },
+  {
+    "id": "oshi-no-ko-abiko-tokyo-blade-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "abiko-samejima"
+    },
+    "field": "occupation",
+    "value": "manga artist behind Tokyo Blade",
+    "text": "Abiko Samejima draws Tokyo Blade and steps in as a producer when its stage play goes badly.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-25T18:55:14Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:14.000Z",
+    "excerpt": "is the manga artist behind the manga series Tokyo Blade, and became a producer for its stage play"
+  },
+  {
+    "id": "oshi-no-ko-kaguya-same-magazine-049",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "background",
+    "value": "Kaguya-sama: Love Is War",
+    "text": "When Oshi no Ko began, its writer's earlier hit Kaguya-sama was still being published in that very magazine.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+        "ref": "1377608811",
+        "fetched_at": "2026-10-25T18:55:14Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:14.000Z",
+    "excerpt": "Kaguya-sama: Love Is War was still running in the same magazine"
+  },
+  {
+    "id": "oshi-no-ko-kaguya-live-action-050",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "film",
+    "value": "Kaguya-sama: Love Is War live-action film",
+    "text": "The writer was busy with the live-action film of his earlier manga when he thought of the entertainment-industry story.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+        "ref": "1377608811",
+        "fetched_at": "2026-10-25T18:55:14Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:14.000Z",
+    "excerpt": "working on the live-action film adaptation of his previous manga Kaguya-sama: Love Is War"
+  },
+  {
+    "id": "oshi-no-ko-yen-press-licence-051",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "oshi-no-ko"
+    },
+    "field": "publisher_na",
+    "value": "Yen Press",
+    "text": "Yen Press holds the licence for the North American edition of the manga.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+        "ref": "1377608811",
+        "fetched_at": "2026-10-25T18:55:14Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:14.000Z",
+    "excerpt": "It has been licensed for release in North America by Yen Press"
+  },
+  {
+    "id": "oshi-no-ko-taiki-tokyo-blade-star-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "taiki-himekawa"
+    },
+    "field": "role",
+    "value": "Tokyo Blade stage production",
+    "text": "Taiki Himekawa, an acclaimed stage actor, is the lead of the Tokyo Blade play when he first shows up.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-25T18:55:26Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:26.000Z",
+    "excerpt": "first seen as the main star of the Tokyo Blade stage production"
+  },
+  {
+    "id": "oshi-no-ko-melt-tokyo-blade-joins-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "melt-narushima"
+    },
+    "field": "background",
+    "value": "stage production of Tokyo Blade",
+    "text": "Melt Narushima, who has since worked on his acting, later takes a part in the Tokyo Blade play.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-25T18:55:26Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:26.000Z",
+    "excerpt": "by the time he joined the stage production of Tokyo Blade"
   }
 ]

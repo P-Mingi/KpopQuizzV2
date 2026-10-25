@@ -1,0 +1,283 @@
+{
+ "site": "anime",
+ "account": "oq_creator_21",
+ "group_slug": "apothecary-diaries",
+ "title": "Three Clues to Find It: Apothecary Diaries Editions, Seasons and Palace Places",
+ "slug": "three-clues-to-find-it-apothecary-diaries-editions-seasons-and-palace-places",
+ "description": "Ten rounds of three growing clues to name a version of the story (web novel, light novel, manga, anime season), a place in the palace or a doctor. Light spoilers up to season two.",
+ "quiz_type": "guess_from_clues",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Clues format: three clues of growing help; the clues use studios, years, formats and plot hints from verified facts.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: The Apothecary Diaries",
+   "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of The Apothecary Diaries characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of The Apothecary Diaries episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Which version of the story is this?",
+   "clues": [
+    "It is the oldest form of the story.",
+    "A book from Shufunotomo followed one year after it began.",
+    "It began in 2011 on the site Shōsetsuka ni Narō."
+   ],
+   "options": [
+    "The web novel",
+    "The light novel line",
+    "Anime season 2",
+    "The Monthly Big Gangan manga"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-novel-history-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Which place in the story is this?",
+   "clues": [
+    "It is a pavilion in the Rear Palace.",
+    "Hongniang is its head lady-in-waiting.",
+    "The emperor's favourite consort lives there."
+   ],
+   "options": [
+    "The Verdigris House",
+    "The Jade Pavilion",
+    "The Crystal Pavilion",
+    "The Diamond Pavilion"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-gyokuyo-jade-pavilion-029",
+    "apothecary-diaries-hongniang-jade-041",
+    "apothecary-diaries-gyokuyo-favourite-040"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  },
+  {
+   "question": "Which season of the anime is this?",
+   "clues": [
+    "Toho Animation Studio and OLM made it together.",
+    "It premiered on October 22, 2023.",
+    "Its 24 episodes ended on March 24, 2024."
+   ],
+   "options": [
+    "Anime season 3",
+    "The light novel line",
+    "Anime season 2",
+    "Anime season 1"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "apothecary-diaries-anime-season-one-006",
+    "apothecary-diaries-themes-season-one-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  },
+  {
+   "question": "Which version of the story is this?",
+   "clues": [
+    "Touko Shino draws its illustrations.",
+    "A line called Hero Bunko launched it on August 29, 2014.",
+    "It had reached 16 volumes by May 2025."
+   ],
+   "options": [
+    "Anime season 1",
+    "The light novel line",
+    "The web novel",
+    "The Monthly Sunday Gene-X manga"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-author-story-002",
+    "apothecary-diaries-novel-history-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Which place in the story is this?",
+   "clues": [
+    "Maomao grew up here.",
+    "The Three Princesses, famous courtesans, work here.",
+    "An old woman, the Madam, owns it and gave Maomao a place to work."
+   ],
+   "options": [
+    "The Verdigris House",
+    "The Diamond Pavilion",
+    "The Rear Palace Clinic",
+    "The Jade Pavilion"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-maomao-verdigris-035",
+    "apothecary-diaries-three-princesses-036",
+    "apothecary-diaries-verdigris-madam-037"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  },
+  {
+   "question": "Which manga is this?",
+   "clues": [
+    "Nekokurage draws it.",
+    "Square Enix publishes it.",
+    "It began on May 25, 2017, a few months before the other manga take."
+   ],
+   "options": [
+    "The web novel",
+    "The light novel line",
+    "The Monthly Big Gangan manga",
+    "The Monthly Sunday Gene-X manga"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "apothecary-diaries-manga-big-gangan-004",
+    "apothecary-diaries-manga-gene-x-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Which season of the anime is this?",
+   "clues": [
+    "Omoinotake sings one of its endings, Hitorigoto.",
+    "Its episodes are numbered 25 to 48.",
+    "It returned on January 10, 2025 and ended on July 4, 2025."
+   ],
+   "options": [
+    "Anime season 1",
+    "Anime season 3",
+    "Anime season 2",
+    "The Monthly Big Gangan manga"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "apothecary-diaries-anime-season-two-007",
+    "apothecary-diaries-themes-season-two-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  },
+  {
+   "question": "Which place in the story is this?",
+   "clues": [
+    "It is a pavilion in the Rear Palace.",
+    "Its mistress is the youngest of the four top-ranking consorts.",
+    "Its mistress has food allergies that her attendants take for fussiness."
+   ],
+   "options": [
+    "The Crystal Pavilion",
+    "The Diamond Pavilion",
+    "The Verdigris House",
+    "The Jade Pavilion"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-lishu-diamond-pavilion-033",
+    "apothecary-diaries-lishu-youngest-042",
+    "apothecary-diaries-lishu-allergies-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  },
+  {
+   "question": "Which manga is this?",
+   "clues": [
+    "Minoji Kurata draws it.",
+    "Shogakukan publishes it.",
+    "It launched on August 19, 2017 under the title Maomao's Notes on the Inner Palace."
+   ],
+   "options": [
+    "The web novel",
+    "Anime season 1",
+    "The Monthly Big Gangan manga",
+    "The Monthly Sunday Gene-X manga"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "apothecary-diaries-manga-gene-x-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Who is this man?",
+   "clues": [
+    "He practices medicine at the palace.",
+    "Maomao calls him a quack.",
+    "His family supplies the palace with fine paper."
+   ],
+   "options": [
+    "Guen",
+    "Lakan",
+    "Lihaku",
+    "Gaoshun"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-guen-palace-doctor-038",
+    "apothecary-diaries-guen-paper-family-039"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+  }
+ ]
+}

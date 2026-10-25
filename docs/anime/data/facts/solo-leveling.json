@@ -1816,5 +1816,403 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the Queen of Insects and the Monarch of Plagues, who teams up with Rakan and Tarnak during the Japan Crisis."
+  },
+  {
+    "id": "solo-leveling-season-two-follows-on-061",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "premise",
+    "value": "continues straight after season 1",
+    "text": "The second season of the anime begins right where the first one stopped, with no time skip between them.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_2",
+        "ref": "1361222047",
+        "fetched_at": "2026-10-25T18:51:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:00.000Z",
+    "excerpt": "takes place directly after the events of the first season"
+  },
+  {
+    "id": "solo-leveling-beyond-the-system-sequel-062",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "film",
+    "value": "Solo Leveling: Beyond the System",
+    "text": "Beyond the System is the name of a sequel film that continues the anime on the big screen.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1381887886",
+        "fetched_at": "2026-10-25T18:51:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:00.000Z",
+    "excerpt": "A sequel anime film titled Solo Leveling: Beyond the System"
+  },
+  {
+    "id": "solo-leveling-live-action-netflix-063",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "live_action",
+    "value": "Netflix live-action series",
+    "text": "Netflix is making a live-action series of Solo Leveling, so the cast will be played by actors rather than drawn.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1381887886",
+        "fetched_at": "2026-10-25T18:51:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:00.000Z",
+    "excerpt": "Netflix was announced to be producing a live-action television series"
+  },
+  {
+    "id": "solo-leveling-live-action-lead-064",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "role",
+    "value": "Byeon Woo-seok as Sung Jin-woo",
+    "text": "In the live-action series, the actor Byeon Woo-seok is cast to portray the hero Sung Jin-woo.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1381887886",
+        "fetched_at": "2026-10-25T18:51:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:00.000Z",
+    "excerpt": "with Byeon Woo-seok starring as Sung Jin-woo"
+  },
+  {
+    "id": "solo-leveling-double-dungeon-065",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "setting",
+    "value": "double dungeon",
+    "text": "A rare and overwhelmingly strong double dungeon almost destroys Jin-woo's whole party, and it leads to his meeting The System.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1381887886",
+        "fetched_at": "2026-10-25T18:51:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:00.000Z",
+    "excerpt": "overwhelmingly powerful and rare double dungeon that nearly wipes out his entire party"
+  },
+  {
+    "id": "solo-leveling-joo-hee-survivor-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "lee-joo-hee"
+    },
+    "field": "role",
+    "value": "survived the double dungeon",
+    "text": "Lee Joo-hee, a healer, gets out of the double dungeon alive together with Jin-woo.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1381887886",
+        "fetched_at": "2026-10-25T18:51:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:00.000Z",
+    "excerpt": "she survives the double dungeon alongside Jin-woo"
+  },
+  {
+    "id": "solo-leveling-chi-yul-survivor-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "song-chi-yul"
+    },
+    "field": "role",
+    "value": "survivor of the double dungeon",
+    "text": "Song Chi-yul, a kumdo teacher and C-Rank Hunter, is among the few Hunters who walk out of the double dungeon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1381887886",
+        "fetched_at": "2026-10-25T18:51:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:00.000Z",
+    "excerpt": "one of the six survivors of the double dungeon incident"
+  },
+  {
+    "id": "solo-leveling-baek-white-tiger-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "baek-yoon-ho"
+    },
+    "field": "organization",
+    "value": "White Tiger Guild",
+    "text": "Baek Yoon-ho, an S-Rank Hunter, leads the White Tiger Guild as its master.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1381887886",
+        "fetched_at": "2026-10-25T18:51:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:00.000Z",
+    "excerpt": "He is the Guild Master of the White Tiger Guild"
+  },
+  {
+    "id": "solo-leveling-baek-transformation-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "baek-yoon-ho"
+    },
+    "field": "specialty",
+    "value": "transformation magic",
+    "text": "Baek Yoon-ho fights with magic that changes his body into other forms.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1381887886",
+        "fetched_at": "2026-10-25T18:51:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:00.000Z",
+    "excerpt": "who specializes in transformation magic"
+  },
+  {
+    "id": "solo-leveling-baek-notices-jin-woo-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "baek-yoon-ho"
+    },
+    "field": "role",
+    "value": "first S-Rank to notice Jin-woo grows",
+    "text": "Of all the S-Rank Hunters, Baek Yoon-ho is the first to realise that Jin-woo can grow stronger.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1381887886",
+        "fetched_at": "2026-10-25T18:51:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:00.000Z",
+    "excerpt": "He is also the first S-Rank to discover Jin-woo's ability to grow"
+  },
+  {
+    "id": "solo-leveling-choi-hunters-guild-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "solo-leveling",
+      "ref": "choi-jong-in"
+    },
+    "field": "organization",
+    "value": "Hunters Guild",
+    "text": "Choi Jong-in is the S-Rank fire mage who runs the Hunters Guild.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1381887886",
+        "fetched_at": "2026-10-25T18:51:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:00.000Z",
+    "excerpt": "He is the Guild Master of the Hunters Guild"
+  },
+  {
+    "id": "solo-leveling-shadow-army-undead-072",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "ability",
+    "value": "immortal soldiers raised by the Shadow Monarch",
+    "text": "The Shadow Army is an undying host of soldiers revived through the might of the Shadow Monarch.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1381887886",
+        "fetched_at": "2026-10-25T18:51:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:00.000Z",
+    "excerpt": "An immortal race of soldiers resurrected by the power of the Shadow Monarch"
+  },
+  {
+    "id": "solo-leveling-shadow-army-grow-073",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "organization",
+    "value": "capable of growth and speech",
+    "text": "Shadow soldiers differ from the summons of other Hunters because they can grow stronger and even talk.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1381887886",
+        "fetched_at": "2026-10-25T18:51:25Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:25.000Z",
+    "excerpt": "Unlike summons from other hunters, they are capable of growth and speech"
+  },
+  {
+    "id": "solo-leveling-korean-origin-074",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "solo-leveling"
+    },
+    "field": "origin",
+    "value": "South Korea",
+    "text": "Solo Leveling started in South Korea as a fantasy web novel by Chugong.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
+        "ref": "1381887886",
+        "fetched_at": "2026-10-25T19:02:59Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:59.000Z",
+    "excerpt": "is a South Korean fantasy web novel written by Chugong"
   }
 ]

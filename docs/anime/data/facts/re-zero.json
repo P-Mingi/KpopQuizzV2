@@ -2771,5 +2771,33 @@
     "status": "verified",
     "verified_at": "2026-10-25T14:30:00.000Z",
     "excerpt": "Regulus obtained the Witch Factors of Greed"
+  },
+  {
+    "id": "re-zero-japanese-origin-087",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "re-zero"
+    },
+    "field": "origin",
+    "value": "Japan",
+    "text": "Re:Zero is a Japanese light novel series by Tappei Nagatsuki, illustrated by Shinichirou Otsuka.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Re:Zero",
+        "ref": "1381439544",
+        "fetched_at": "2026-10-25T19:02:59Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:59.000Z",
+    "excerpt": "is a Japanese light novel series written by Tappei Nagatsuki"
   }
 ]

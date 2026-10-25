@@ -1,0 +1,320 @@
+{
+ "site": "anime",
+ "account": "oq_creator_29",
+ "group_slug": "sailor-moon",
+ "title": "Which One Is the Outsider? Sailor Moon Odd One Out",
+ "slug": "which-one-is-the-outsider-sailor-moon-odd-one-out",
+ "description": "Ten rounds of four names with one outsider: classmates, cooks and sweet lovers, the Tsukino family, cats, crows, talismans, villain leaders and a boy band. Spoilers up to the Stars arc.",
+ "quiz_type": "intruder",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Intruder format (fallback from food: the sources hold too few meal facts): three options share a trait, one does not.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Sailor Moon characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Sailor Moon (character)",
+   "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(character)"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three of these characters sit in Usagi's class at school. Which one goes to a different school?",
+   "options": [
+    {
+     "label": "Ami Mizuno"
+    },
+    {
+     "label": "Gurio Umino"
+    },
+    {
+     "label": "Rei Hino"
+    },
+    {
+     "label": "Makoto Kino"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-ami-classmate-028",
+    "sailor-moon-makoto-classmate-029",
+    "sailor-moon-gurio-classmate-030",
+    "sailor-moon-rei-other-school-031"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+  },
+  {
+   "question": "Three of these characters are linked to cooking or sweets. Which one is known as a bookworm instead?",
+   "options": [
+    {
+     "label": "Ikuko Tsukino"
+    },
+    {
+     "label": "Ami Mizuno"
+    },
+    {
+     "label": "Makoto Kino"
+    },
+    {
+     "label": "Usagi Tsukino"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-usagi-cake-lover-032",
+    "sailor-moon-makoto-cooking-033",
+    "sailor-moon-ikuko-cooking-034",
+    "sailor-moon-ami-bookworm-035"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(character)"
+  },
+  {
+   "question": "Three of these characters belong to Usagi's own family. Which one works at the Crown Game Center arcade?",
+   "options": [
+    {
+     "label": "Ikuko Tsukino"
+    },
+    {
+     "label": "Motoki Furuhata"
+    },
+    {
+     "label": "Shingo Tsukino"
+    },
+    {
+     "label": "Kenji Tsukino"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-ikuko-mother-036",
+    "sailor-moon-kenji-father-037",
+    "sailor-moon-shingo-brother-038",
+    "sailor-moon-motoki-arcade-061"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+  },
+  {
+   "question": "Three of these are talking cats from the planet Mau. Which one is a pet crow at the shrine?",
+   "options": [
+    {
+     "label": "Luna"
+    },
+    {
+     "label": "Diana"
+    },
+    {
+     "label": "Artemis"
+    },
+    {
+     "label": "Phobos"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-mau-cats-040",
+    "sailor-moon-phobos-deimos-crows-041"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+  },
+  {
+   "question": "Three of these belong to the 30th century. Which one ruled the Moon long before, in the Silver Millennium?",
+   "options": [
+    {
+     "label": "Queen Serenity"
+    },
+    {
+     "label": "Neo-Queen Serenity"
+    },
+    {
+     "label": "Chibiusa"
+    },
+    {
+     "label": "Prince Demand"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-chibiusa-30th-042",
+    "sailor-moon-black-moon-30th-062",
+    "sailor-moon-neo-queen-30th-044",
+    "sailor-moon-queen-serenity-silver-045"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+  },
+  {
+   "question": "Three of these Guardians fight beside Sailor Moon from the early story. Which one joins the team later?",
+   "options": [
+    {
+     "label": "Sailor Jupiter"
+    },
+    {
+     "label": "Sailor Mercury"
+    },
+    {
+     "label": "Sailor Venus"
+    },
+    {
+     "label": "Sailor Uranus"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-inner-four-046",
+    "sailor-moon-outer-four-047"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+  },
+  {
+   "question": "Three of these are talismans of outer Guardians. Which one is the weapon of Sailor Saturn?",
+   "options": [
+    {
+     "label": "Silence Glaive"
+    },
+    {
+     "label": "Garnet Orb"
+    },
+    {
+     "label": "Space Sword"
+    },
+    {
+     "label": "Deep Aqua Mirror"
+    }
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-pluto-garnet-orb-048",
+    "sailor-moon-uranus-space-sword-049",
+    "sailor-moon-neptune-deep-aqua-mirror-050",
+    "sailor-moon-saturn-silence-glaive-051"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+  },
+  {
+   "question": "Three of these characters were made up for the anime only. Which one also appears in Takeuchi's manga?",
+   "options": [
+    {
+     "label": "An"
+    },
+    {
+     "label": "Naru Osaka"
+    },
+    {
+     "label": "Yuichiro Kumada"
+    },
+    {
+     "label": "Ail"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-hell-tree-anime-only-052",
+    "sailor-moon-yuichiro-anime-only-053",
+    "sailor-moon-naru-in-manga-054"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+  },
+  {
+   "question": "Three of these lead villain groups. Which one is a princess whose kingdom the villains destroy?",
+   "options": [
+    {
+     "label": "Princess Kakyuu"
+    },
+    {
+     "label": "Zirconia"
+    },
+    {
+     "label": "Queen Beryl"
+    },
+    {
+     "label": "Sailor Galaxia"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-beryl-dark-kingdom-055",
+    "sailor-moon-zirconia-circus-056",
+    "sailor-moon-galaxia-shadow-galactica-057",
+    "sailor-moon-kakyuu-princess-058"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+  },
+  {
+   "question": "On Earth, the Starlights pose as a boy band of three. Which of these is not one of its members?",
+   "options": [
+    {
+     "label": "Kou Taiki"
+    },
+    {
+     "label": "Kou Seiya"
+    },
+    {
+     "label": "Mamoru Chiba"
+    },
+    {
+     "label": "Kou Yaten"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-three-lights-names-063",
+    "sailor-moon-mamoru-student-060"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+  }
+ ]
+}

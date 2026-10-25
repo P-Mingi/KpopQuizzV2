@@ -1,0 +1,367 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Not in That Magazine: Manga Odd One Out",
+ "slug": "not-in-that-magazine-manga-odd-one-out",
+ "description": "Ten rounds of four manga where one ran somewhere else: Shueisha against Kodansha, weekly against monthly, print against web. Publishing facts only, no spoilers.",
+ "quiz_type": "intruder",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Cross-series set on magazines, publishers and run dates. Three options share the property, one does not. Arc 0.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Blue Lock",
+   "url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Gintama",
+   "url": "https://en.wikipedia.org/wiki/Gintama"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Case Closed",
+   "url": "https://en.wikipedia.org/wiki/Case_Closed"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Fruits Basket",
+   "url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: Mob Psycho 100",
+   "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: Dandadan",
+   "url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: Death Note",
+   "url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: Bocchi the Rock!",
+   "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: Bleach (manga)",
+   "url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+  },
+  {
+   "id": "S10",
+   "title": "Wikipedia: Fairy Tail",
+   "url": "https://en.wikipedia.org/wiki/Fairy_Tail"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three of these manga ran in Weekly Shonen Jump. Which one ran in a different magazine?",
+   "options": [
+    {
+     "label": "Haikyu!!"
+    },
+    {
+     "label": "Death Note"
+    },
+    {
+     "label": "Bleach"
+    },
+    {
+     "label": "Blue Lock"
+    }
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-magazine-start-003",
+    "death-note-magazine-run-003",
+    "haikyu-magazine-run-003",
+    "bleach-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "question": "Three of these manga ran in Weekly Shonen Magazine. Which one ran in Weekly Shonen Jump?",
+   "options": [
+    {
+     "label": "Blue Lock"
+    },
+    {
+     "label": "Gintama"
+    },
+    {
+     "label": "Fairy Tail"
+    },
+    {
+     "label": "Tokyo Revengers"
+    }
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "gintama-magazine-003",
+    "fairy-tail-magazine-003",
+    "blue-lock-magazine-start-003",
+    "tokyo-revengers-magazine-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Gintama"
+  },
+  {
+   "question": "Three of these manga were published by Kodansha. Which one was published by Shogakukan?",
+   "options": [
+    {
+     "label": "Attack on Titan"
+    },
+    {
+     "label": "Sailor Moon"
+    },
+    {
+     "label": "Detective Conan"
+    },
+    {
+     "label": "Fairy Tail"
+    }
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "detective-conan-publisher-004",
+    "fairy-tail-magazine-003",
+    "attack-on-titan-magazine-publisher-013",
+    "sailor-moon-manga-serialization-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Case_Closed"
+  },
+  {
+   "question": "Three of these manga were published by Shueisha. Which one was published by Hakusensha?",
+   "options": [
+    {
+     "label": "Fruits Basket"
+    },
+    {
+     "label": "Death Note"
+    },
+    {
+     "label": "Gintama"
+    },
+    {
+     "label": "Tokyo Ghoul"
+    }
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fruits-basket-publisher-004",
+    "death-note-magazine-run-003",
+    "gintama-publisher-004",
+    "tokyo-ghoul-manga-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+  },
+  {
+   "question": "Three of these ran with Shueisha's Young Jump titles. Which one began as a webcomic on a Shogakukan site?",
+   "options": [
+    {
+     "label": "Oshi no Ko"
+    },
+    {
+     "label": "One-Punch Man"
+    },
+    {
+     "label": "Mob Psycho 100"
+    },
+    {
+     "label": "Tokyo Ghoul"
+    }
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "mob-psycho-100-manga-origin-003",
+    "oshi-no-ko-magazine-run-003",
+    "tokyo-ghoul-manga-run-003",
+    "one-punch-man-remake-magazine-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+  },
+  {
+   "question": "Three of these manga started in Weekly Shonen Jump. Which one started on the Shonen Jump+ platform?",
+   "options": [
+    {
+     "label": "Black Clover"
+    },
+    {
+     "label": "Jujutsu Kaisen"
+    },
+    {
+     "label": "Kagurabachi"
+    },
+    {
+     "label": "Dandadan"
+    }
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-serialization-start-003",
+    "black-clover-magazine-004",
+    "jujutsu-kaisen-magazine-publisher-009",
+    "kagurabachi-serialization-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "Three of these manga ran in monthly magazines. Which one ran in a weekly?",
+   "options": [
+    {
+     "label": "Death Note"
+    },
+    {
+     "label": "Reincarnated as a Slime"
+    },
+    {
+     "label": "Fullmetal Alchemist"
+    },
+    {
+     "label": "Attack on Titan"
+    }
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-magazine-run-003",
+    "fullmetal-alchemist-magazine-run-003",
+    "attack-on-titan-magazine-publisher-013",
+    "that-time-i-got-reincarnated-as-a-slime-manga-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "Three of these manga are published by Shueisha. Which one is published by Houbunsha?",
+   "options": [
+    {
+     "label": "Bocchi the Rock!"
+    },
+    {
+     "label": "One Piece"
+    },
+    {
+     "label": "Bleach"
+    },
+    {
+     "label": "Haikyu!!"
+    }
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bocchi-the-rock-publisher-004",
+    "haikyu-magazine-run-003",
+    "bleach-magazine-run-003",
+    "one-piece-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+  },
+  {
+   "question": "Three of these manga began serialization in the 1990s. Which one began in 2001?",
+   "options": [
+    {
+     "label": "Hunter x Hunter"
+    },
+    {
+     "label": "Bleach"
+    },
+    {
+     "label": "One Piece"
+    },
+    {
+     "label": "Naruto"
+    }
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bleach-magazine-run-003",
+    "naruto-manga-run-004",
+    "one-piece-magazine-run-003",
+    "hunter-x-hunter-magazine-publisher-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+  },
+  {
+   "question": "Three of these manga ended after 2020. Which one had already ended in 2017?",
+   "options": [
+    {
+     "label": "Chainsaw Man"
+    },
+    {
+     "label": "Fairy Tail"
+    },
+    {
+     "label": "Jujutsu Kaisen"
+    },
+    {
+     "label": "Tokyo Revengers"
+    }
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fairy-tail-manga-run-004",
+    "jujutsu-kaisen-manga-run-008",
+    "chainsaw-man-manga-run-004",
+    "tokyo-revengers-manga-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail"
+  }
+ ]
+}

@@ -832,5 +832,268 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Erekutora Ovirō; \"Electra Ovilo\" on Sony's official website and in Japanese materials) is a veteran of the Titan War who first"
+  },
+  {
+    "id": "cowboy-bebop-spike-age-27-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "spike-spiegel"
+    },
+    "field": "age",
+    "value": "27 years old",
+    "text": "Spike Spiegel is 27 years old, a lanky bounty hunter who was born on Mars.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T18:49:54Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:54.000Z",
+    "excerpt": "is a tall, lean, and slightly muscular 27-year-old bounty hunter born on Mars"
+  },
+  {
+    "id": "cowboy-bebop-jet-age-36-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "jet-black"
+    },
+    "field": "age",
+    "value": "36 years old",
+    "text": "Jet Black, the ex-cop from Ganymede who owns the Bebop, is 36 years old.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T18:49:54Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:54.000Z",
+    "excerpt": "is a 36-year-old former cop from Ganymede"
+  },
+  {
+    "id": "cowboy-bebop-ed-age-13-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "ed"
+    },
+    "field": "age",
+    "value": "about 13 years old",
+    "text": "Radical Edward, the whiz-kid hacker, is a girl of roughly 13 years.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T18:49:54Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:54.000Z",
+    "excerpt": "teenage girl of around thirteen years of age"
+  },
+  {
+    "id": "cowboy-bebop-faye-real-age-77-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "faye-valentine"
+    },
+    "field": "age",
+    "value": "about 77 years old",
+    "text": "Faye looks barely older than twenty, yet after her long freeze she is really about 77 years old.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T18:49:54Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:54.000Z",
+    "excerpt": "Faye is actually around 77 years old"
+  },
+  {
+    "id": "cowboy-bebop-ein-mushroom-samba-17-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "ein"
+    },
+    "field": "ability",
+    "value": "session 17, Mushroom Samba",
+    "text": "Ein shows he can talk with other animals in session 17, Mushroom Samba, where he swaps words with a cow.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T18:49:54Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:54.000Z",
+    "excerpt": "Session 17: \"Mushroom Samba\" (he speaks to a cow"
+  },
+  {
+    "id": "cowboy-bebop-watanabe-80-20-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "style",
+    "value": "80 percent serious story, 20 percent humorous touch",
+    "text": "The director split his own series into 80 percent serious drama and 20 percent humour.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-25T18:49:54Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:54.000Z",
+    "excerpt": "Watanabe described Cowboy Bebop as \"80% serious story and 20% humorous touch\""
+  },
+  {
+    "id": "cowboy-bebop-film-bounty-300-million-034",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "role",
+    "value": "300 million woolongs",
+    "text": "In the film, Mars puts up a reward of 300 million woolongs to catch the culprit behind the pathogen attack.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie",
+        "ref": "1381555070",
+        "fetched_at": "2026-10-25T18:50:15Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:52:15.000Z",
+    "excerpt": "offers an astounding 300 million Woolong bounty for the culprit's capture"
+  },
+  {
+    "id": "cowboy-bebop-faye-valentine-voice-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "faye-valentine"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Megumi Hayashibara"
+    ],
+    "text": "Faye Valentine is voiced in Japanese by Megumi Hayashibara.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Voiced by: Megumi Hayashibara (Japanese)"
+  },
+  {
+    "id": "cowboy-bebop-spike-spiegel-voice-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "spike-spiegel"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Kōichi Yamadera"
+    ],
+    "text": "Spike Spiegel is voiced in Japanese by Kōichi Yamadera.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Voiced by: Kōichi Yamadera (Japanese)"
   }
 ]

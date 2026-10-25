@@ -1,0 +1,219 @@
+{
+ "site": "anime",
+ "account": "oq_creator_28",
+ "group_slug": "one-punch-man",
+ "title": "One-Punch Man in Numbers: Ages, Ranks, Scores and Episodes",
+ "slug": "one-punch-man-in-numbers-ages-ranks-scores-and-episodes",
+ "description": "Numbers format: every answer is a number, from ages and Hero Association ranks to exam scores, training reps and episode counts. No story spoilers, only season 2 shows up as an episode count.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Numbers format: every question has a number for an answer; ages and ranks come from the character list, years and episode counts from verified anime facts.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of One-Punch Man characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: One-Punch Man season 1",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  }
+ ],
+ "questions": [
+  {
+   "question": "How old is Saitama?",
+   "options": [
+    "19",
+    "33",
+    "28",
+    "25"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-saitama-age-028"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "How many push-ups, sit-ups and squats does Saitama do in his daily training, each?",
+   "options": [
+    "100",
+    "500",
+    "200",
+    "50"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-saitama-training-029"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "In which year did the One-Punch Man anime premiere?",
+   "options": [
+    "2016",
+    "2014",
+    "2015",
+    "2013"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "question": "What overall score did Saitama get on the Hero Association entrance exam?",
+   "options": [
+    "84",
+    "58",
+    "65",
+    "71"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-saitama-exam-score-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "How old is Child Emperor, the youngest S-Class hero?",
+   "options": [
+    "8",
+    "10",
+    "14",
+    "12"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-child-emperor-age-037",
+    "one-punch-man-child-emperor-youngest-032"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "Which rank in the C-Class is Mumen Rider listed at when he first appears?",
+   "options": [
+    "8",
+    "1",
+    "100",
+    "35"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-mumen-rider-rank-033"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "Which place does Tatsumaki hold among the S-Class heroes?",
+   "options": [
+    "2",
+    "3",
+    "5",
+    "1"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-tatsumaki-rank-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "How many episodes do seasons 1 and 2 of the anime have together?",
+   "options": [
+    "36",
+    "12",
+    "24",
+    "48"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-one-007",
+    "one-punch-man-anime-season-two-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "question": "When Saitama calls him middle-aged, Atomic Samurai replies that he is only what age?",
+   "options": [
+    "37",
+    "33",
+    "29",
+    "45"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-atomic-samurai-age-035"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "For how many years is Puri-Puri Prisoner sentenced?",
+   "options": [
+    "100",
+    "10,000",
+    "100,000",
+    "1000"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-puri-puri-sentence-036"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  }
+ ]
+}

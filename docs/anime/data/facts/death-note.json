@@ -1217,5 +1217,712 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "real name is Mihael Keehl, grows up in competition with Near to succeed L. After L's death, however, he concedes the position to Near and"
+  },
+  {
+    "id": "death-note-ryuk-shinigami-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "ryuk"
+    },
+    "field": "role",
+    "value": "Shinigami",
+    "text": "Ryuk is a Shinigami, a death god who gets bored and drops his Death Note into the human world just for fun.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "is a bored Shinigami that drops a Death Note"
+  },
+  {
+    "id": "death-note-rem-shinigami-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "rem"
+    },
+    "field": "role",
+    "value": "Shinigami",
+    "text": "Rem is the Shinigami who hands Misa her Death Note.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "is the Shinigami who gives Misa her Death Note"
+  },
+  {
+    "id": "death-note-sidoh-shinigami-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "sidoh"
+    },
+    "field": "role",
+    "value": "Shinigami",
+    "text": "Sidoh is a Shinigami, and the notebook that Ryuk stole from him ends up with a mafia gang.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "is the Shinigami whose Death Note was stolen by Ryuk"
+  },
+  {
+    "id": "death-note-yotsuba-board-044",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "organization",
+    "value": [
+      "Shingo Mido",
+      "Reiji Namikawa",
+      "Eiichi Takahashi"
+    ],
+    "text": "The Yotsuba Group is a board of eight company executives, and Shingo Mido, Reiji Namikawa and Eiichi Takahashi sit on it.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "is a group of eight members of the Yotsuba Corporation"
+  },
+  {
+    "id": "death-note-demegawa-tv-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "occupation",
+    "value": "Hitoshi Demegawa",
+    "text": "Hitoshi Demegawa runs the television station Sakura TV, where the tapes of the second Kira are shown.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "is a publicity hound and director of Sakura TV"
+  },
+  {
+    "id": "death-note-matt-habits-046",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "habits",
+    "value": [
+      "chain smoker",
+      "video games"
+    ],
+    "text": "Matt, a friend of Mello, is known for chain smoking and playing video games rather than for any favourite food.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "He is a chain smoker with a fondness for video games"
+  },
+  {
+    "id": "death-note-raye-fbi-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "raye-penber"
+    },
+    "field": "organization",
+    "value": "FBI",
+    "text": "Raye Penber is an American investigator who works for the FBI.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "is an American investigator from the FBI"
+  },
+  {
+    "id": "death-note-naomi-fbi-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "naomi-misora"
+    },
+    "field": "organization",
+    "value": "FBI",
+    "text": "Naomi Misora used to be a top FBI agent and is the fiancee of Raye Penber.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "A former first rate FBI agent"
+  },
+  {
+    "id": "death-note-mason-fbi-049",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "role",
+    "value": "Steve Mason",
+    "text": "Steve Mason is the head of the FBI who helps L and later helps Near start the SPK.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "is the head of the Federal Bureau of Investigation"
+  },
+  {
+    "id": "death-note-soichiro-npa-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "soichiro-yagami"
+    },
+    "field": "occupation",
+    "value": "detective superintendent of the National Police Agency",
+    "text": "Soichiro Yagami is a detective superintendent of Japan's National Police Agency and leads the first investigation team.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "detective superintendent of Japan's National Police Agency"
+  },
+  {
+    "id": "death-note-spk-members-051",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "background",
+    "value": [
+      "Anthony Rester",
+      "Halle Lidner",
+      "Stephen Gevanni"
+    ],
+    "text": "Near leads the SPK, a small anti-Kira team whose members include Anthony Rester, Halle Lidner and Stephen Gevanni.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "works for Near as part of his investigation team"
+  },
+  {
+    "id": "death-note-mogi-team-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "kanzo-mogi"
+    },
+    "field": "organization",
+    "value": "Kira investigation team",
+    "text": "Kanzo Mogi is a quiet but dedicated member of the Japanese Kira investigation team.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "is one of the most dedicated members of the Kira investigation team"
+  },
+  {
+    "id": "death-note-sanami-film-053",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "origin",
+    "value": "Sanami",
+    "text": "Sanami is a Task Force member who exists only in the live-action Death Note films, where she is the one woman on the team.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "is a character exclusive to the Death Note film series"
+  },
+  {
+    "id": "death-note-beyond-birthday-novel-057",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "setting",
+    "value": "Beyond Birthday",
+    "text": "Beyond Birthday, called BB, is a killer who appears only in the prequel novel Another Note and never in the manga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "is a character exclusive to the prequel novel"
+  },
+  {
+    "id": "death-note-aiber-conman-058",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "terms",
+    "value": "Aiber",
+    "text": "Aiber is a professional con man hired by L, who plays the detective alias Eraldo Coil.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "is a professional con man in the employ of L"
+  },
+  {
+    "id": "death-note-wammy-residents-059",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "specialty",
+    "value": [
+      "L",
+      "Mello",
+      "Matt",
+      "Near",
+      "Beyond Birthday"
+    ],
+    "text": "L, Mello, Matt and Near all lived in Wammy's House, and so did the novel killer Beyond Birthday.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "Like L, Mello, Matt and Near, he lived in Wammy's House"
+  },
+  {
+    "id": "death-note-higuchi-third-kira-060",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "talent",
+    "value": "Kyosuke Higuchi",
+    "text": "Kyosuke Higuchi is the third person to act as Kira, handed the notebook by Rem.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "is the third \"Kira\", receiving the Death Note from Rem"
+  },
+  {
+    "id": "death-note-misa-second-kira-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "misa-amane"
+    },
+    "field": "role",
+    "value": "second Kira",
+    "text": "Misa Amane is the second Kira, and she carries the eyes of a Shinigami.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "As a Death Note owner and the second Kira"
+  },
+  {
+    "id": "death-note-mikami-fourth-kira-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "teru-mikami"
+    },
+    "field": "role",
+    "value": "fourth Kira",
+    "text": "Teru Mikami is a prosecutor whom Light picks to be the fourth Kira.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:37:48Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:39:48.000Z",
+    "excerpt": "to become the fourth Kira"
+  },
+  {
+    "id": "death-note-films-list-063",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "death-note"
+    },
+    "field": "film",
+    "value": [
+      "Death Note 2: The Last Name",
+      "L: Change the World"
+    ],
+    "text": "The live-action sequel The Last Name premiered in 2006, and the spin-off film L: Change the World followed in Japan in 2008.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Death_Note",
+        "ref": "1381769893",
+        "fetched_at": "2026-10-25T18:38:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:40:00.000Z",
+    "excerpt": "A spin-off from the films named L: Change the World was released in Japan on February 9, 2008"
+  },
+  {
+    "id": "death-note-matsuda-youngest-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "touta-matsuda"
+    },
+    "field": "role",
+    "value": "youngest on the task force",
+    "text": "Touta Matsuda is the rookie of the Japanese task force chasing Kira, the youngest man on the squad.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:38:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:40:12.000Z",
+    "excerpt": "is the youngest member of the Kira investigation team"
+  },
+  {
+    "id": "death-note-aizawa-team-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "shuichi-aizawa"
+    },
+    "field": "organization",
+    "value": "task force",
+    "text": "Shuichi Aizawa is a Japanese task force detective who steps up as its leader after L is gone.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:38:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:40:12.000Z",
+    "excerpt": "is a member of the Kira investigation team"
+  },
+  {
+    "id": "death-note-ide-team-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "hideki-ide"
+    },
+    "field": "organization",
+    "value": "Kira investigation team",
+    "text": "Hideki Ide is a Japanese police officer who sticks with Soichiro through the Kira case.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters",
+        "ref": "1380832770",
+        "fetched_at": "2026-10-25T18:38:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:40:12.000Z",
+    "excerpt": "is one of the few police officers who remain with Soichiro"
+  },
+  {
+    "id": "death-note-light-voice-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "death-note",
+      "ref": "light-yagami"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Mamoru Miyano"
+    ],
+    "text": "In the Japanese cast of the Death Note anime, Light Yagami is voiced by Mamoru Miyano.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)",
+        "ref": "1381705742",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Light Yagami | Mamoru Miyano"
   }
 ]

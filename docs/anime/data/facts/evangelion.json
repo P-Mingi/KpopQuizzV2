@@ -816,5 +816,635 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is introduced in the film Evangelion: 2.0 You Can (Not) Advance (2009), the second"
+  },
+  {
+    "id": "evangelion-film-release-order-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "film",
+    "value": [
+      "Death & Rebirth",
+      "The End of Evangelion",
+      "Revival of Evangelion"
+    ],
+    "text": "The alternate ending reached cinemas in steps: the Death & Rebirth preview came before The End of Evangelion, and Revival of Evangelion closed the sequence.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+        "ref": "1381369153",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "first as a preview (Neon Genesis Evangelion: Death & Rebirth), then as the completed alternate ending (The End of Evangelion)"
+  },
+  {
+    "id": "evangelion-sachiel-number-3-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "role",
+    "value": "third Angel",
+    "text": "In the TV series Sachiel carries the number 3 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "the third Angel, has an anthropomorphic appearance"
+  },
+  {
+    "id": "evangelion-shamshel-number-4-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "organization",
+    "value": "fourth Angel",
+    "text": "In the TV series Shamshel carries the number 4 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "the fourth Angel, has an insect-like appearance"
+  },
+  {
+    "id": "evangelion-ramiel-number-5-031",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "occupation",
+    "value": "fifth Angel",
+    "text": "In the TV series Ramiel carries the number 5 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "is the fifth Angel"
+  },
+  {
+    "id": "evangelion-gaghiel-number-6-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "background",
+    "value": "sixth Angel",
+    "text": "In the TV series Gaghiel carries the number 6 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "the sixth Angel, appears in"
+  },
+  {
+    "id": "evangelion-israfel-number-7-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "origin",
+    "value": "seventh Angel",
+    "text": "In the TV series Israfel carries the number 7 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "is the seventh Angel"
+  },
+  {
+    "id": "evangelion-sandalphon-number-8-034",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "terms",
+    "value": "eighth Angel",
+    "text": "In the TV series Sandalphon carries the number 8 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "the eighth Angel, is detected inside the volcanic crater"
+  },
+  {
+    "id": "evangelion-matarael-number-9-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "specialty",
+    "value": "ninth Angel",
+    "text": "In the TV series Matarael carries the number 9 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "The ninth Angel, Matarael"
+  },
+  {
+    "id": "evangelion-sahaquiel-number-10-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "talent",
+    "value": "tenth Angel",
+    "text": "In the TV series Sahaquiel carries the number 10 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "the tenth Angel, appears in Earth's orbit above the Indian Ocean"
+  },
+  {
+    "id": "evangelion-ireul-number-11-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "style",
+    "value": "eleventh Angel",
+    "text": "In the TV series Ireul carries the number 11 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "is the eleventh Angel"
+  },
+  {
+    "id": "evangelion-zeruel-number-14-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "mission",
+    "value": "fourteenth Angel",
+    "text": "In the TV series Zeruel carries the number 14 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "the fourteenth Angel, is almost anthropomorphic"
+  },
+  {
+    "id": "evangelion-arael-number-15-039",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "premise",
+    "value": "fifteenth Angel",
+    "text": "In the TV series Arael carries the number 15 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "is the fifteenth Angel"
+  },
+  {
+    "id": "evangelion-asuka-second-child-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "asuka-langley-soryu"
+    },
+    "field": "role",
+    "value": "Second Child",
+    "text": "Asuka Langley Soryu holds the pilot designation of Second Child.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "is a fiery pilot who is assigned to command Evangelion Unit 02 as the Second Child"
+  },
+  {
+    "id": "evangelion-shinji-third-child-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "shinji-ikari"
+    },
+    "field": "role",
+    "value": "Third Child",
+    "text": "Shinji Ikari holds the pilot designation of Third Child.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "to assume the role of the Third Child"
+  },
+  {
+    "id": "evangelion-toji-fourth-child-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "toji-suzuhara"
+    },
+    "field": "role",
+    "value": "Fourth Child",
+    "text": "Toji Suzuhara holds the pilot designation of Fourth Child.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "Toji is chosen as the Fourth Child"
+  },
+  {
+    "id": "evangelion-kaworu-fifth-child-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "kaworu-nagisa"
+    },
+    "field": "role",
+    "value": "Fifth Child",
+    "text": "Kaworu Nagisa holds the pilot designation of Fifth Child.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "is the Fifth Child, who is sent to Nerv as a replacement pilot"
+  },
+  {
+    "id": "evangelion-episode-14-rei-focus-044",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "episodes",
+    "value": "episode 14, the episode where Anno digs into Rei",
+    "text": "In episode 14 the director takes a closer look at Rei, the character he knew least well.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "In the show's fourteenth episode, Anno wanted to investigate Rei Ayanami"
+  },
+  {
+    "id": "evangelion-episode-16-inward-turn-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "ability",
+    "value": "episode 16, the episode that turns the show inward",
+    "text": "Episode 16 is where the series swings from action toward inner struggles, and that tone stays for its second half.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+        "ref": "1381369153",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "The 16th episode marked a distinct shift to a more introspective, less action-focused tone"
+  },
+  {
+    "id": "evangelion-episode-18-rampage-046",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "power",
+    "value": "episode 18, the episode with Eva-01's rampage",
+    "text": "By episode 18 the show was a hit, and the rampage of Eva-01 drew complaints as unfit for a children's audience.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+        "ref": "1381369153",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "by the 18th episode, the series had become enough of a sensation"
+  },
+  {
+    "id": "evangelion-episode-24-best-loved-047",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "technique",
+    "value": "episode 24, the episode voted best-loved by fans",
+    "text": "Readers of Animage ranked episode 24 first among single episodes, with episode 26 in second place.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+        "ref": "1381369153",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "Episodes 24 and 26 took first and second place respectively"
+  },
+  {
+    "id": "evangelion-rei-ayanami-voice-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "rei-ayanami"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Megumi Hayashibara"
+    ],
+    "text": "Rei Ayanami is voiced in Japanese by Megumi Hayashibara.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Voiced by: Megumi Hayashibara (Japanese)"
+  },
+  {
+    "id": "evangelion-ryoji-kaji-voice-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "ryoji-kaji"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Kōichi Yamadera"
+    ],
+    "text": "Ryoji Kaji is voiced in Japanese by Kōichi Yamadera.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Voiced by: Kōichi Yamadera (Japanese)"
   }
 ]

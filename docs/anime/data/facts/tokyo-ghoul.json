@@ -2351,5 +2351,36 @@
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
     "excerpt": "\"Gourmet\" ghoul; powerful family member; joins Kaneki's team"
+  },
+  {
+    "id": "tokyo-ghoul-ken-kaneki-voice-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "ken-kaneki"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Natsuki Hanae"
+    ],
+    "text": "Ken Kaneki is voiced in Japanese by Natsuki Hanae.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Voiced by: Natsuki Hanae (Japanese)"
   }
 ]

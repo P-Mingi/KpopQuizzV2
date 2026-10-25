@@ -1240,5 +1240,819 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a student who confronted Momo in the school library while Momo was still small from the Danmanra adventure. Although"
+  },
+  {
+    "id": "dandadan-seiko-voice-jp-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "seiko-ayase"
+    },
+    "field": "voice_cast",
+    "value": "Nana Mizuki (Japanese)",
+    "text": "In the Japanese version, Seiko Ayase is played by the singer and actress Nana Mizuki.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "Voiced by: Nana Mizuki (Japanese)"
+  },
+  {
+    "id": "dandadan-seiko-tv-fortune-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "seiko-ayase"
+    },
+    "field": "role",
+    "value": "television host who tells fortunes",
+    "text": "Seiko fronts her own TV show, reads fortunes there for real, and the show has made her rich.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "She also hosts a television program where she demonstrates genuine spiritual feats such as fortune-telling"
+  },
+  {
+    "id": "dandadan-turbo-granny-voice-jp-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "turbo-granny"
+    },
+    "field": "voice_cast",
+    "value": "Mayumi Tanaka (Japanese)",
+    "text": "The Japanese voice of Turbo Granny is Mayumi Tanaka.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "Voiced by: Mayumi Tanaka (Japanese)"
+  },
+  {
+    "id": "dandadan-turbo-granny-doll-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "turbo-granny"
+    },
+    "field": "role",
+    "value": "sealed in a maneki-neko doll",
+    "text": "After her defeat, Seiko locks her spirit inside a lucky cat figure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "Seiko seals her spirit inside a maneki-neko doll"
+  },
+  {
+    "id": "dandadan-serpo-voice-jp-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "alien-serpo"
+    },
+    "field": "voice_cast",
+    "value": "Kazuya Nakai (Japanese)",
+    "text": "Kazuya Nakai is the Japanese voice behind the Serpo aliens.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "Voiced by: Kazuya Nakai (Japanese)"
+  },
+  {
+    "id": "dandadan-serpo-all-male-race-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "alien-serpo"
+    },
+    "field": "origin",
+    "value": "an entirely male alien race from Planet Serpo",
+    "text": "There are no females among these aliens, who hail from a planet that shares their name.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "are an entirely male alien race who come from Planet Serpo"
+  },
+  {
+    "id": "dandadan-serpo-abductions-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "alien-serpo"
+    },
+    "field": "motivation",
+    "value": "abduct humans to get reproductive organs",
+    "text": "Because they cannot reproduce naturally, they kidnap people from Earth to get the body parts they lack.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "seek to gain reproductive organs by abducting humans from Earth"
+  },
+  {
+    "id": "dandadan-aira-voice-jp-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "aira-shiratori"
+    },
+    "field": "voice_cast",
+    "value": "Ayane Sakura (Japanese)",
+    "text": "Ayane Sakura voices Aira in the Japanese version.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "Voiced by: Ayane Sakura (Japanese)"
+  },
+  {
+    "id": "dandadan-aira-school-idol-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "aira-shiratori"
+    },
+    "field": "role",
+    "value": "school idol of Kami High",
+    "text": "At Kami High, Aira is the girl everybody treats as the idol of the school.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "is the school idol of Kami High"
+  },
+  {
+    "id": "dandadan-jiji-voice-jp-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "jin-enjoji"
+    },
+    "field": "voice_cast",
+    "value": "Kaito Ishikawa (Japanese)",
+    "text": "Kaito Ishikawa gives Jiji his voice in the Japanese version.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "Voiced by: Kaito Ishikawa"
+  },
+  {
+    "id": "dandadan-jiji-eccentric-jock-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "jin-enjoji"
+    },
+    "field": "habits",
+    "value": "looks like a jock but is an eccentric dork who praises everybody",
+    "text": "Jiji passes for a handsome athlete, yet underneath he is a goofy soul who compliments everyone and sees good in all.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "Jiji is actually an eccentric dork who constantly throws praise onto others"
+  },
+  {
+    "id": "dandadan-jiji-moves-in-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "jin-enjoji"
+    },
+    "field": "role",
+    "value": "Momo's childhood friend who moves in with her and Seiko",
+    "text": "Jiji knew Momo as a small child, and after trouble at his own house he ends up living with her and her grandmother.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "is Momo's childhood friend and first crush"
+  },
+  {
+    "id": "dandadan-evil-eye-voice-jp-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "evil-eye"
+    },
+    "field": "voice_cast",
+    "value": "Mutsumi Tamura (Japanese)",
+    "text": "In Japanese, Evil Eye is voiced by Mutsumi Tamura.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "Voiced by: Mutsumi Tamura (Japanese)"
+  },
+  {
+    "id": "dandadan-evil-eye-hot-cold-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "evil-eye"
+    },
+    "field": "ability",
+    "value": "suppressed by hot water, revived by cold",
+    "text": "A bath of hot water tames this yokai, while cold brings his power back.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "His influence is suppressed by hot water and revived by cold"
+  },
+  {
+    "id": "dandadan-evil-eye-human-sacrifice-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "evil-eye"
+    },
+    "field": "origin",
+    "value": "born from a human sacrifice",
+    "text": "This yokai's birth lies in a person offered up in a sacrifice, and he grew vengeful afterwards.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "a vengeful yōkai born from a human sacrifice"
+  },
+  {
+    "id": "dandadan-kinta-voice-jp-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "kinta-sakata"
+    },
+    "field": "voice_cast",
+    "value": "Daichi Fujiwara (Japanese)",
+    "text": "Daichi Fujiwara is the Japanese voice of Kinta.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "Voiced by: Daichi Fujiwara (Japanese)"
+  },
+  {
+    "id": "dandadan-kinta-unwelcome-advances-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "kinta-sakata"
+    },
+    "field": "habits",
+    "value": "makes unwelcome advances toward girls",
+    "text": "Kinta keeps hitting on girls in an awkward way, and they turn him down almost every time.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "Kinta frequently makes unwelcome advances toward female peers"
+  },
+  {
+    "id": "dandadan-kinta-nanoskin-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "kinta-sakata"
+    },
+    "field": "ability",
+    "value": "key user of nanoskin thanks to his alien obsession",
+    "text": "His fixation on aliens and the paranormal makes Kinta the person who handles nanoskin best.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "his obsession with aliens and the paranormal proves vital when using nanoskin"
+  },
+  {
+    "id": "dandadan-taro-voice-jp-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "taro"
+    },
+    "field": "voice_cast",
+    "value": "Tomokazu Sugita (Japanese)",
+    "text": "Tomokazu Sugita provides the Japanese voice of Taro.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "Voiced by: Tomokazu Sugita (Japanese)"
+  },
+  {
+    "id": "dandadan-taro-anatomical-model-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "taro"
+    },
+    "field": "role",
+    "value": "anatomical model that lives at the high school",
+    "text": "Taro is a living anatomy model that has made its home in the school of Momo and Okarun.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "is an anthropomorphized anatomical model that resides at Momo and Okarun's high school"
+  },
+  {
+    "id": "dandadan-taro-loves-hana-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "taro"
+    },
+    "field": "organization",
+    "value": "madly in love with Hana",
+    "text": "Taro is head over heels for Hana.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "He is madly in love with Hana"
+  },
+  {
+    "id": "dandadan-rin-voice-jp-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "rin-sawaki"
+    },
+    "field": "voice_cast",
+    "value": "Manaka Iwami (Japanese)",
+    "text": "Manaka Iwami gives Rin her voice in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "Voiced by: Manaka Iwami (Japanese)"
+  },
+  {
+    "id": "dandadan-rin-class-rep-vampires-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "rin-sawaki"
+    },
+    "field": "habits",
+    "value": "strict class rep, secretly fascinated by vampires",
+    "text": "Rin runs her class with a firm hand, but in private she is a fan of vampires.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "Secretly fascinated by vampires"
+  },
+  {
+    "id": "dandadan-rin-gravity-singing-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "rin-sawaki"
+    },
+    "field": "power",
+    "value": "gravity manipulation tied to her singing",
+    "text": "Rin's power over gravity is bound to her singing voice.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:12Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:12.000Z",
+    "excerpt": "she develops gravity manipulation powers tied to her singing ability"
+  },
+  {
+    "id": "dandadan-seiko-looks-twenty-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "seiko-ayase"
+    },
+    "field": "age",
+    "value": "appears to be in her twenties",
+    "text": "Seiko is a grandmother, yet she looks like a woman of twenty or so.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:32Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:32.000Z",
+    "excerpt": "her youthful appearance suggests she is in her 20s"
+  },
+  {
+    "id": "dandadan-turbo-granny-comforter-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "turbo-granny"
+    },
+    "field": "origin",
+    "value": "former protector of ghostly girls killed in awful ways",
+    "text": "Long ago this yokai was a gentle presence for the ghosts of girls who met a terrible end.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:32Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:32.000Z",
+    "excerpt": "used to comfort the spirits of girls who died horrible deaths"
+  },
+  {
+    "id": "dandadan-aira-chosen-exorcist-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "aira-shiratori"
+    },
+    "field": "motivation",
+    "value": "thinks heaven picked her to banish spirits",
+    "text": "Aira is sure that heaven picked her to drive out spirits, and that conviction sets her against Momo and Okarun.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T18:53:32Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:32.000Z",
+    "excerpt": "led her to believe that she was divinely chosen to exorcise yōkai"
+  },
+  {
+    "id": "dandadan-ken-takakura-voice-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dandadan",
+      "ref": "ken-takakura"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Natsuki Hanae"
+    ],
+    "text": "Ken Takakura is voiced in Japanese by Natsuki Hanae.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+        "ref": "1381762207",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Voiced by: Natsuki Hanae (Japanese)"
   }
 ]

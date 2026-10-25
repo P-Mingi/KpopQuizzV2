@@ -1836,5 +1836,878 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The patriarch of the Tybur family and the true commander-in-chief of Marley prior to his death, Willy's ancestors orchestrated the downfall of the Eldian"
+  },
+  {
+    "id": "attack-on-titan-military-divisions-061",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "organization",
+    "value": [
+      "Garrison Regiment",
+      "Survey Corps",
+      "Military Police Brigade"
+    ],
+    "text": "Inside the Walls the army is split into exactly three branches: the Garrison, the Survey Corps and the Military Police.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "The military within the Walls is divided into three divisions: the Garrison Regiment, the Survey Corps, and the Military Police Brigade"
+  },
+  {
+    "id": "attack-on-titan-training-corps-school-062",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "role",
+    "value": "Training Corps",
+    "text": "The Training Corps is the school for new recruits, who only later choose one of the three branches.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "is the branch of the military dedicated to training and educating new recruits"
+  },
+  {
+    "id": "attack-on-titan-smiling-titan-064",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "titan_name",
+    "value": "Smiling Titan",
+    "text": "The Smiling Titan that kills Eren's mother is an ordinary man-eating Titan, not one of the Nine.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "Eren's mother is eaten by a Smiling Titan while Eren escapes"
+  },
+  {
+    "id": "attack-on-titan-hannes-garrison-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "hannes"
+    },
+    "field": "organization",
+    "value": "Garrison Regiment",
+    "text": "Hannes is a soldier of the Garrison who rescues Eren and Mikasa when Shiganshina falls.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "A Garrison soldier who saves Eren and Mikasa during the attack on Shiganshina"
+  },
+  {
+    "id": "attack-on-titan-rico-garrison-066",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "occupation",
+    "value": "Garrison Regiment",
+    "text": "Rico Brzenska leads her own squad inside the Garrison's elite forces.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "is the team leader of Squad Rico and a member of the Garrison's 1st Division Elite Forces"
+  },
+  {
+    "id": "attack-on-titan-pixis-garrison-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "dot-pixis"
+    },
+    "field": "organization",
+    "value": "Garrison Regiment",
+    "text": "Dot Pixis is a bald, moustached and eccentric commander who sits among the Garrison officers and rules the Southern Territory.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "is a man with a moustache and no hair who is the highest-ranking commander of the Southern Territory"
+  },
+  {
+    "id": "attack-on-titan-nanaba-survey-068",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "background",
+    "value": "Survey Corps",
+    "text": "Nanaba is a blond Survey Corps soldier who commands a team on the 57th expedition.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "Nanaba has short blond hair"
+  },
+  {
+    "id": "attack-on-titan-mike-squad-leader-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "mike-zacharius"
+    },
+    "field": "role",
+    "value": "Survey Corps squad leader",
+    "text": "Mike Zacharius sniffs newcomers on first meeting and leads a squad of the Survey Corps.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "A Survey Corps squad leader who has a peculiar habit"
+  },
+  {
+    "id": "attack-on-titan-hange-fourth-squad-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "hange-zoe"
+    },
+    "field": "role",
+    "value": "leader of the 4th Squad",
+    "text": "Hange is a scientist of the Survey Corps who heads the 4th Squad and studies Titans.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "is a bespectacled Survey Corps veteran and the leader of 4th Squad"
+  },
+  {
+    "id": "attack-on-titan-levi-elite-squad-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "levi-ackerman"
+    },
+    "field": "role",
+    "value": "head of an elite squad",
+    "text": "Levi, called the strongest soldier of humanity, commands an elite squad of the Survey Corps.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "head of an elite squad in the Survey Corps"
+  },
+  {
+    "id": "attack-on-titan-nile-dok-mp-072",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "origin",
+    "value": "Nile Dok",
+    "text": "Nile Dok commands the Military Police Brigade, not the Survey Corps.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "Commander of the Military Police Brigade"
+  },
+  {
+    "id": "attack-on-titan-wall-maria-first-073",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "setting",
+    "value": "Wall Maria",
+    "text": "Wall Maria is the outermost of the three walls, and Shiganshina lies on it.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "the first wall, Wall Maria, is breached"
+  },
+  {
+    "id": "attack-on-titan-wall-rose-second-074",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "terms",
+    "value": "Wall Rose",
+    "text": "Wall Rose is the second innermost of the walls.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "located in the second innermost wall, Wall Rose"
+  },
+  {
+    "id": "attack-on-titan-wall-sina-inner-075",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "specialty",
+    "value": "Wall Sina",
+    "text": "Wall Sina is the innermost wall, where cadets dream of a safe life in the Military Police.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "safely within Wall Sina"
+  },
+  {
+    "id": "attack-on-titan-trost-city-076",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "talent",
+    "value": "Trost",
+    "text": "Trost is a city, not a wall: it is the place that the Colossal Titan attacks inside Wall Rose.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "the Colossal Titan attacks the city of Trost"
+  },
+  {
+    "id": "attack-on-titan-squad-levi-members-077",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "style",
+    "value": [
+      "Eld Jinn",
+      "Oluo Bozado",
+      "Petra Ral",
+      "Gunther Schultz"
+    ],
+    "text": "Eld Jinn, Oluo Bozado, Petra Ral and Gunther Schultz are the four soldiers hand-picked for Captain Levi's Special Operations Squad.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "also known as Squad Levi"
+  },
+  {
+    "id": "attack-on-titan-moblit-hange-aide-078",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "mission",
+    "value": "Moblit Berner",
+    "text": "Moblit Berner is the vice captain of the 4th Squad and works as Hange's assistant and messenger.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "served as assistant and messenger for Hange"
+  },
+  {
+    "id": "attack-on-titan-reiner-armored-holder-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "reiner-braun"
+    },
+    "field": "titan_name",
+    "value": "Armored Titan",
+    "text": "Reiner Braun, a cadet of the 104th, is the one who holds the Armored Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "is the holder of the Armoured Titan"
+  },
+  {
+    "id": "attack-on-titan-bertolt-colossal-holder-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "bertolt-hoover"
+    },
+    "field": "titan_name",
+    "value": "Colossal Titan",
+    "text": "Bertolt Hoover, a quiet 104th cadet who ranked third, holds the Colossal Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "He is also the holder of the Colossus Titan"
+  },
+  {
+    "id": "attack-on-titan-annie-titan-form-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "annie-leonhart"
+    },
+    "field": "titan_name",
+    "value": "Female Titan",
+    "text": "Annie Leonhart, a 104th cadet who finished fourth, turns into a Titan to ambush the 57th expedition.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "Annie later assumes her Titan form to ambush the 57th expedition to Wall Maria"
+  },
+  {
+    "id": "attack-on-titan-jean-sixth-cadet-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "jean-kirstein"
+    },
+    "field": "role",
+    "value": "sixth-ranked cadet",
+    "text": "Jean Kirstein graduates sixth in the 104th Training Corps and is an ordinary human soldier.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "ranking sixth"
+  },
+  {
+    "id": "attack-on-titan-kenny-interior-police-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "kenny-ackerman"
+    },
+    "field": "organization",
+    "value": "Interior Police",
+    "text": "Kenny Ackerman heads the Interior Police unit that hunts the Survey Corps.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "Kenny personally leads the Interior Police against the Survey Corps"
+  },
+  {
+    "id": "attack-on-titan-traute-interior-squad-084",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "premise",
+    "value": "Traute Carven",
+    "text": "Traute Carven is the right hand of Kenny Ackerman in his counter-insurgency squad of the Interior Police.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "The second-in-command of the Anti-Personnel Control Squad"
+  },
+  {
+    "id": "attack-on-titan-djel-interior-squad-085",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "ability",
+    "value": "Djel Sanes",
+    "text": "Djel Sanes is a secret policeman of the First Interior Squad, also called the Interior Police.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "A member of the First Interior Squad"
+  },
+  {
+    "id": "attack-on-titan-marlowe-military-police-086",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "power",
+    "value": "Marlowe Freudenberg",
+    "text": "Marlowe Freudenberg is a rank-and-file soldier of the Military Police who wants to reform the corrupt force.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "Military Police member who is given a bit of leadership responsibility"
+  },
+  {
+    "id": "attack-on-titan-reiner-warrior-unit-087",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "reiner-braun"
+    },
+    "field": "organization",
+    "value": "Warrior Unit",
+    "text": "Reiner Braun trained in Marley as a member of the Warrior Unit.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "is a member of the Marleyan military's Warrior Unit"
+  },
+  {
+    "id": "attack-on-titan-pieck-warrior-unit-088",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "pieck-finger"
+    },
+    "field": "organization",
+    "value": "Warrior Unit",
+    "text": "Pieck Finger is another young Eldian raised in the Marleyan Warrior Unit, and she can become the Cart Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "An Eldian cadet of the Marleyan Warrior Unit, Pieck"
+  },
+  {
+    "id": "attack-on-titan-porco-warrior-unit-089",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "porco-galliard"
+    },
+    "field": "organization",
+    "value": "Warrior Unit",
+    "text": "Porco Galliard, brother of Marcel, was a Marleyan Warrior cadet and holds the Jaw Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "An Eldian cadet of the Marleyan Warrior Unit, Porco"
+  },
+  {
+    "id": "attack-on-titan-eren-walls-boy-090",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "eren-yeager"
+    },
+    "field": "origin",
+    "value": "Shiganshina, inside the Walls",
+    "text": "Eren Yeager grows up in the border town of Shiganshina, within the Walls and far from Marley.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "Eren Yeager is a boy who lives in the town of Shiganshina"
+  },
+  {
+    "id": "attack-on-titan-nine-titans-list-091",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "technique",
+    "value": [
+      "Attack Titan",
+      "Colossal Titan",
+      "Armored Titan",
+      "Female Titan",
+      "Beast Titan",
+      "Jaw Titan",
+      "Cart Titan",
+      "War Hammer Titan",
+      "Founding Titan"
+    ],
+    "text": "The Nine Titans are a fixed set of named powers; the Colossal, Armored and Female forms belong to it, along with six others.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-25T18:44:43Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:43.000Z",
+    "excerpt": "are the Attack, Colossal, Armored, Female, Beast, Jaw, Cart, War Hammer, and Founding Titans"
   }
 ]

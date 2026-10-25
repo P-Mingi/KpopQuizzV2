@@ -1,0 +1,362 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Same Studio, Same Length: Anime Odd One Out",
+ "slug": "same-studio-same-length-anime-odd-one-out",
+ "description": "Ten rounds of four anime where one does not belong: four on studios, then season lengths and premiere dates. All from sourced production facts, no spoilers.",
+ "quiz_type": "intruder",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Cross-series set. Studio rounds first, then first-season episode counts and premiere dates. Arc 0.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Mob Psycho 100",
+   "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Haikyu!!",
+   "url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Neon Genesis Evangelion",
+   "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Dandadan",
+   "url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: List of Blue Lock episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: List of Oshi no Ko episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: Violet Evergarden",
+   "url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: Attack on Titan (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: Sailor Moon (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three of these anime were animated by Pierrot. Which one was animated by Bones?",
+   "options": [
+    {
+     "label": "Mob Psycho 100"
+    },
+    {
+     "label": "Tokyo Ghoul"
+    },
+    {
+     "label": "Bleach"
+    },
+    {
+     "label": "Black Clover"
+    }
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "mob-psycho-100-anime-studio-007",
+    "black-clover-studio-009",
+    "tokyo-ghoul-anime-first-season-007",
+    "bleach-anime-production-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+  },
+  {
+   "question": "Three of these anime were made by Madhouse. Which one was made by Production I.G?",
+   "options": [
+    {
+     "label": "One-Punch Man"
+    },
+    {
+     "label": "Hunter x Hunter"
+    },
+    {
+     "label": "Frieren: Beyond Journey's End"
+    },
+    {
+     "label": "Haikyu!!"
+    }
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-one-007",
+    "one-punch-man-anime-season-one-007",
+    "frieren-anime-season-one-008",
+    "hunter-x-hunter-second-anime-2011-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Three of these anime came from Sunrise. Which one came from Gainax?",
+   "options": [
+    {
+     "label": "Neon Genesis Evangelion"
+    },
+    {
+     "label": "Gintama"
+    },
+    {
+     "label": "Cowboy Bebop"
+    },
+    {
+     "label": "Code Geass"
+    }
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-studio-director-002",
+    "code-geass-anime-studio-002",
+    "cowboy-bebop-studio-director-002",
+    "gintama-studios-022"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "Three of these anime were animated by A-1 Pictures. Which one was animated by Science Saru?",
+   "options": [
+    {
+     "label": "Solo Leveling"
+    },
+    {
+     "label": "Dandadan"
+    },
+    {
+     "label": "Sword Art Online"
+    },
+    {
+     "label": "Fairy Tail"
+    }
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-anime-studio-director-008",
+    "sword-art-online-anime-studio-016",
+    "solo-leveling-anime-studio-009",
+    "fairy-tail-anime-studios-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "Three of these anime have a 12-episode first season. Which one has 24 episodes?",
+   "options": [
+    {
+     "label": "Bocchi the Rock!"
+    },
+    {
+     "label": "Mob Psycho 100"
+    },
+    {
+     "label": "Blue Lock"
+    },
+    {
+     "label": "One-Punch Man"
+    }
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-one-008",
+    "mob-psycho-100-anime-season-one-012",
+    "one-punch-man-anime-season-one-007",
+    "bocchi-the-rock-episodes-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Three of these anime ran 24 episodes in their first run. Which one ran only 11?",
+   "options": [
+    {
+     "label": "Oshi no Ko"
+    },
+    {
+     "label": "Steins;Gate"
+    },
+    {
+     "label": "Tokyo Revengers"
+    },
+    {
+     "label": "Reincarnated as a Slime"
+    }
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-season-one-008",
+    "tokyo-revengers-anime-s1-006",
+    "steins-gate-anime-run-016",
+    "that-time-i-got-reincarnated-as-a-slime-anime-s1-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+  },
+  {
+   "question": "Three of these anime have a 25-episode first season. Which one has 13?",
+   "options": [
+    {
+     "label": "Attack on Titan"
+    },
+    {
+     "label": "Haikyu!!"
+    },
+    {
+     "label": "Re:Zero"
+    },
+    {
+     "label": "Violet Evergarden"
+    }
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "violet-evergarden-episodes-009",
+    "attack-on-titan-anime-premiere-016",
+    "haikyu-anime-season-one-007",
+    "re-zero-anime-s1-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+  },
+  {
+   "question": "Three of these anime started airing in 2022. Which one started in 2023?",
+   "options": [
+    {
+     "label": "Bocchi the Rock!"
+    },
+    {
+     "label": "Oshi no Ko"
+    },
+    {
+     "label": "Blue Lock"
+    },
+    {
+     "label": "Spy x Family"
+    }
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-season-one-008",
+    "spy-x-family-anime-run-007",
+    "bocchi-the-rock-anime-start-008",
+    "blue-lock-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+  },
+  {
+   "question": "Three of these anime premiered in October. Which one premiered in April?",
+   "options": [
+    {
+     "label": "Dandadan"
+    },
+    {
+     "label": "Attack on Titan"
+    },
+    {
+     "label": "Jujutsu Kaisen"
+    },
+    {
+     "label": "One-Punch Man"
+    }
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "attack-on-titan-anime-premiere-016",
+    "jujutsu-kaisen-anime-premiere-012",
+    "dandadan-anime-season-one-009",
+    "one-punch-man-anime-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+  },
+  {
+   "question": "Three of these anime started in the 2010s. Which one started in 1992?",
+   "options": [
+    {
+     "label": "Demon Slayer"
+    },
+    {
+     "label": "Haikyu!!"
+    },
+    {
+     "label": "Sailor Moon"
+    },
+    {
+     "label": "Black Clover"
+    }
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-anime-run-008",
+    "haikyu-anime-season-one-007",
+    "black-clover-anime-s1-007",
+    "demon-slayer-tv-start-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  }
+ ]
+}

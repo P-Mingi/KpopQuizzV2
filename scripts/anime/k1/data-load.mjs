@@ -166,7 +166,7 @@ function buildCreators(list) {
 
 function buildQuizzes(list, creators, groups, arcsBySlug) {
   const accounts = new Set(creators.map((c) => c.username));
-  const slugs = new Set(groups.map((g) => g.slug));
+  const slugs = new Set([...groups.map((g) => g.slug), MIX_SLUG]); // the anime-mix group is created by the load (multi-series quizzes)
   const seen = new Set(); const rows = [];
   for (const q of list) {
     const where = `${q.file ?? 'quiz'} (${q.slug})`;

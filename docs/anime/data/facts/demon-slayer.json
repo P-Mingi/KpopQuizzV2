@@ -1873,5 +1873,988 @@
   "status": "verified",
   "verified_at": "2026-10-23T17:38:18.790Z",
   "excerpt": "An arrogant demon holds the position of Upper Rank Five. Unlike the others, Gyokko has a highly distorted djinn-like anatomy with his eyes being on his"
+ },
+ {
+  "id": "demon-slayer-muzan-villain-061",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "muzan-kibutsuji"
+  },
+  "field": "role",
+  "value": "first demon who attacked the Kamado family",
+  "text": "Muzan Kibutsuji, the very first demon, is the villain whose attack on the Kamado family left Nezuko transformed.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "This goal drives him to attack the Kamado family, resulting in Nezuko's transformation"
+ },
+ {
+  "id": "demon-slayer-nezuko-box-062",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "nezuko-kamado"
+  },
+  "field": "role",
+  "value": "travels with Tanjiro in a wooden box",
+  "text": "Nezuko journeys at her brother Tanjiro's side, riding on his back inside a purpose-built wooden box.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "she is carried by Tanjiro in a specially designed wooden box"
+ },
+ {
+  "id": "demon-slayer-zenitsu-joined-063",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "zenitsu-agatsuma"
+  },
+  "field": "role",
+  "value": "joined the Corps alongside Tanjiro",
+  "text": "Zenitsu entered the Demon Slayer Corps at the same time as Tanjiro and fights as his comrade.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "is a Demon Slayer who joined the Corps alongside Tanjiro"
+ },
+ {
+  "id": "demon-slayer-inosuke-ally-064",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "inosuke-hashibira"
+  },
+  "field": "role",
+  "value": "close ally of Tanjiro",
+  "text": "Boar-raised Inosuke starts out wild, yet he grows into one of the trusted companions around Tanjiro.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "He eventually becomes a close ally to Tanjiro and his companions"
+ },
+ {
+  "id": "demon-slayer-tanjiro-water-style-065",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "tanjiro-kamado"
+  },
+  "field": "style",
+  "value": "Water Breathing",
+  "text": "The Breathing style that Tanjiro trains in at the start of his journey is Water Breathing.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "He trains in the Water Breathing"
+ },
+ {
+  "id": "demon-slayer-inosuke-beast-style-066",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "inosuke-hashibira"
+  },
+  "field": "style",
+  "value": "Beast Breathing",
+  "text": "Inosuke made up his own fighting method, which he named Beast Breathing.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "He fights using a self-taught style called Beast Breathing"
+ },
+ {
+  "id": "demon-slayer-kanao-flower-style-067",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "kanao-tsuyuri"
+  },
+  "field": "style",
+  "value": "Flower Breathing",
+  "text": "Kanao Tsuyuri practises Flower Breathing and carries a light pink Nichirin sword.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "is a practitioner of the Flower Breathing"
+ },
+ {
+  "id": "demon-slayer-nezuko-exploding-blood-068",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "nezuko-kamado"
+  },
+  "field": "ability",
+  "value": "Exploding Blood",
+  "text": "Among the powers Nezuko has as a demon is Exploding Blood, a Blood Demon Art that makes flames which hurt demons.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "called Exploding Blood (爆血, Bakketsu)"
+ },
+ {
+  "id": "demon-slayer-giyu-water-hashira-069",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "giyu-tomioka"
+  },
+  "field": "role",
+  "value": "Water Hashira",
+  "text": "Giyu Tomioka holds the title of Water Hashira and is the first Demon Slayer whom Tanjiro meets.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "The Water Hashira and the first Demon Slayer that Tanjiro meets"
+ },
+ {
+  "id": "demon-slayer-shinobu-insect-hashira-070",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "shinobu-kocho"
+  },
+  "field": "role",
+  "value": "Insect Hashira",
+  "text": "Shinobu Kocho is the Hashira with the Insect title, and her name means butterfly.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "The Insect Hashira and sister of Kanae"
+ },
+ {
+  "id": "demon-slayer-sanemi-wind-hashira-071",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "sanemi-shinazugawa"
+  },
+  "field": "role",
+  "value": "Wind Hashira",
+  "text": "Sanemi Shinazugawa is the Wind Hashira, a harsh fighter who refuses to accept the Kamado siblings.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "The Wind Hashira, who is confrontational and aggressive"
+ },
+ {
+  "id": "demon-slayer-kanao-tsuguko-072",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "kanao-tsuyuri"
+  },
+  "field": "role",
+  "value": "tsuguko, not a Hashira",
+  "text": "Kanao Tsuyuri is Shinobu's adopted sister and a trained tsuguko, a Demon Slayer who does not hold a Hashira title.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "Trained as a tsuguko"
+ },
+ {
+  "id": "demon-slayer-akaza-upper-three-073",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "akaza"
+  },
+  "field": "role",
+  "value": "Upper Rank Three",
+  "text": "Akaza sits at the third place among the Upper Ranks of the Twelve Kizuki.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "who holds the position of Upper Rank Three"
+ },
+ {
+  "id": "demon-slayer-daki-upper-six-074",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "daki"
+  },
+  "field": "role",
+  "value": "Upper Rank Six",
+  "text": "Daki is an Upper Rank demon who holds the sixth seat jointly with her brother.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "shares the position of Upper Rank Six with her older brother"
+ },
+ {
+  "id": "demon-slayer-gyutaro-upper-six-075",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "gyutaro"
+  },
+  "field": "role",
+  "value": "Upper Rank Six",
+  "text": "Gyutaro holds the sixth Upper Rank seat together with his younger sister Daki.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "shares the position of Upper Rank Six with his younger sister"
+ },
+ {
+  "id": "demon-slayer-enmu-lower-one-076",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "enmu"
+  },
+  "field": "role",
+  "value": "Lower Rank One",
+  "text": "Enmu, the foe of the Mugen Train story, is the top-ranked of the Lower Ranks.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "holds the position of Lower Rank One"
+ },
+ {
+  "id": "demon-slayer-zenitsu-hearing-077",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "zenitsu-agatsuma"
+  },
+  "field": "ability",
+  "value": "extremely acute hearing",
+  "text": "Zenitsu's sense of hearing is so sharp that he can tell what people truly intend and follow demons by sound.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "He possesses extremely acute hearing"
+ },
+ {
+  "id": "demon-slayer-inosuke-touch-078",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "inosuke-hashibira"
+  },
+  "field": "ability",
+  "value": "heightened sense of touch",
+  "text": "Inosuke feels vibrations in the air with his skin, and that is how he locates opponents.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "He possesses a heightened sense of touch"
+ },
+ {
+  "id": "demon-slayer-mitsuri-muscle-079",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "mitsuri-kanroji"
+  },
+  "field": "ability",
+  "value": "flexibility and strength from dense musculature",
+  "text": "Mitsuri Kanroji gets her fighting edge from a very muscular body that is both unusually flexible and strong.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "She possesses enhanced flexibility and physical strength"
+ },
+ {
+  "id": "demon-slayer-genya-no-breathing-080",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "genya-shinazugawa"
+  },
+  "field": "ability",
+  "value": "cannot use breathing techniques",
+  "text": "Genya Shinazugawa is a Demon Slayer who cannot use any breathing technique, and instead gains demon powers for a while by eating demon flesh.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "is a Demon Slayer who cannot use breathing techniques"
+ },
+ {
+  "id": "demon-slayer-tanjiro-black-sword-081",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "tanjiro-kamado"
+  },
+  "field": "blade",
+  "value": "black Nichirin sword",
+  "text": "The first blade made for Tanjiro is a Nichirin sword with a black blade.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "He initially wields a black Nichirin sword forged for him"
+ },
+ {
+  "id": "demon-slayer-shinobu-needle-sword-082",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "shinobu-kocho"
+  },
+  "field": "blade",
+  "value": "thin sting-like Nichirin sword",
+  "text": "Shinobu fights with a slender, needle-like Nichirin sword that delivers a wisteria poison.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "she wields a thin, sting-like Nichirin sword"
+ },
+ {
+  "id": "demon-slayer-mitsuri-whip-sword-083",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "mitsuri-kanroji"
+  },
+  "field": "blade",
+  "value": "whip-like Nichirin sword",
+  "text": "Mitsuri uses a Nichirin sword that moves more like a lash than a straight blade.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "wields a whip-like Nichirin sword"
+ },
+ {
+  "id": "demon-slayer-gyomei-kusarigama-084",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "gyomei-himejima"
+  },
+  "field": "blade",
+  "value": "kusarigama",
+  "text": "Gyomei Himejima, the Stone Hashira, swings a huge kusarigama rather than an ordinary Nichirin sword.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "He wields a massive kusarigama instead of a standard Nichirin sword"
+ },
+ {
+  "id": "demon-slayer-haganezuka-swordsmith-085",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "hotaru-haganezuka"
+  },
+  "field": "occupation",
+  "value": "swordsmith for the Corps",
+  "text": "Hotaru Haganezuka is a swordsmith who makes blades for the Corps and is given the job of forging Tanjiro's.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "One of the swordsmiths who makes swords for the Demon Slayer Corps"
+ },
+ {
+  "id": "demon-slayer-rui-killed-by-giyu-089",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "rui"
+  },
+  "field": "role",
+  "value": "killed by Giyu",
+  "text": "The child-like demon Rui is brought down by Giyu in the end.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "until Giyu kills him"
+ },
+ {
+  "id": "demon-slayer-gyokko-killed-by-muichiro-091",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "gyokko"
+  },
+  "field": "role",
+  "value": "killed by Muichiro",
+  "text": "Gyokko raids the Swordsmith Village with Hantengu, but Muichiro is the one who ends him.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "but is killed by Muichiro"
+ },
+ {
+  "id": "demon-slayer-muichiro-mist-hashira-092",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "muichiro-tokito"
+  },
+  "field": "role",
+  "value": "Mist Hashira",
+  "text": "Muichiro Tokito is the Hashira of Mist and a descendant of earlier Demon Slayers.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:43:55Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:45:55.000Z",
+  "excerpt": "The Mist Hashira, and a descendant of Demon Slayers"
+ },
+ {
+  "id": "demon-slayer-kanamori-swordsmith-093",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "occupation",
+  "value": "swordsmith for the Corps",
+  "text": "Kozo Kanamori is a Swordsmith Village smith who made the blades of Inosuke and was later given Muichiro's.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:44:33Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:46:33.000Z",
+  "excerpt": "A swordsmith who makes swords for the Demon Slayer Corps"
+ },
+ {
+  "id": "demon-slayer-spider-father-killed-096",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "role",
+  "value": "killed when Giyu intervenes",
+  "text": "The Spider Demon who plays the Father of the spider family dies when Giyu steps in.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:44:33Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:46:33.000Z",
+  "excerpt": "until he is killed when Giyu intervenes"
+ },
+ {
+  "id": "demon-slayer-kyogai-killed-by-tanjiro-097",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "organization",
+  "value": "killed by Tanjiro after an arduous battle",
+  "text": "Kyogai, the Drum Demon who haunts the Tsuzumi Mansion, is slain by Tanjiro after a long fight.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:44:33Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:46:33.000Z",
+  "excerpt": "Following an arduous battle, Tanjiro kills him"
+ },
+ {
+  "id": "demon-slayer-tecchin-chief-098",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "background",
+  "value": "village chief and blacksmith",
+  "text": "Tecchin Tecchikawahara, a skilled senior smith with a mild temper, leads the village where the Corps' swords are forged.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 4,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:44:42Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:46:42.000Z",
+  "excerpt": "The mild-mannered elderly chief of the swordsmith village and a master blacksmith"
+ },
+ {
+  "id": "demon-slayer-aoi-butterfly-mansion-099",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "demon-slayer"
+  },
+  "field": "origin",
+  "value": "caretaker of wounded slayers",
+  "text": "Aoi Kanzaki, though a Demon Slayer, is too frightened to fight and instead looks after wounded slayers at the Butterfly Mansion.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T18:44:42Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:46:42.000Z",
+  "excerpt": "oversees the rehabilitation of wounded Demon Slayers"
+ },
+ {
+  "id": "demon-slayer-inosuke-hashibira-voice-100",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "demon-slayer",
+   "ref": "inosuke-hashibira"
+  },
+  "field": "voice_cast",
+  "value": [
+   "Yoshitsugu Matsuoka"
+  ],
+  "text": "Inosuke Hashibira is voiced in Japanese by Yoshitsugu Matsuoka.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+    "ref": "1381843197",
+    "fetched_at": "2026-10-25T19:02:36Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T19:04:36.000Z",
+  "excerpt": "Voiced by: Yoshitsugu Matsuoka (Japanese)"
  }
 ]

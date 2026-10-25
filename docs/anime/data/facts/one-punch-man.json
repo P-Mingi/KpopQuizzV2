@@ -908,5 +908,268 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the top superhero in the Hero Association who can also use a teleportation suit. His whereabouts are currently unknown and it is said"
+  },
+  {
+    "id": "one-punch-man-saitama-age-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "saitama"
+    },
+    "field": "age",
+    "value": 25,
+    "text": "Saitama is 25 years old, a hero bored by how easily one blow ends nearly every fight.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-25T18:46:47Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:47.000Z",
+    "excerpt": "is a 25-year-old man who has become bored with fighting"
+  },
+  {
+    "id": "one-punch-man-saitama-training-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "saitama"
+    },
+    "field": "habits",
+    "value": [
+      "100 push-ups",
+      "100 sit-ups",
+      "100 squats",
+      "10 km run"
+    ],
+    "text": "Every day Saitama works through 100 push-ups, 100 sit-ups and 100 squats, then a 10 km run, which he credits for his power.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-25T18:46:47Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:47.000Z",
+    "excerpt": "100 push-ups, 100 sit-ups, 100 squats, a 10 km run"
+  },
+  {
+    "id": "one-punch-man-saitama-exam-score-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "saitama"
+    },
+    "field": "record",
+    "value": 71,
+    "text": "Saitama just clears the Hero Association entrance exam with 71 points, because his written paper drags his total down.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-25T18:46:47Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:47.000Z",
+    "excerpt": "Saitama enters the Hero Association with a score of 71"
+  },
+  {
+    "id": "one-punch-man-child-emperor-youngest-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "role",
+    "value": "youngest S-Class hero",
+    "text": "Among all S-Class heroes, Child Emperor is the youngest of the group.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-25T18:46:47Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:47.000Z",
+    "excerpt": "he is the youngest of the S-Class heroes"
+  },
+  {
+    "id": "one-punch-man-mumen-rider-rank-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "mumen-rider"
+    },
+    "field": "role",
+    "value": "C-Class rank 1",
+    "text": "When Mumen Rider is first introduced in the Hero Association lists, he stands at the top of the lowest class, as the number 1 of C-Class.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-25T18:46:47Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:47.000Z",
+    "excerpt": "initially listed as Class-C, Rank 1"
+  },
+  {
+    "id": "one-punch-man-tatsumaki-rank-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "tatsumaki"
+    },
+    "field": "role",
+    "value": "S-Class rank 2",
+    "text": "Tatsumaki, nicknamed Terrible Tornado, holds second place in the S-Class and is the highest-placed woman of the Hero Association.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-25T18:46:47Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:47.000Z",
+    "excerpt": "at rank 2, is the top female superhero in the Hero Association"
+  },
+  {
+    "id": "one-punch-man-atomic-samurai-age-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-punch-man",
+      "ref": "atomic-samurai"
+    },
+    "field": "age",
+    "value": 37,
+    "text": "Atomic Samurai insists that he is no more than 37 when Saitama calls him middle-aged.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-25T18:46:47Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:47.000Z",
+    "excerpt": "he replies that he is only 37"
+  },
+  {
+    "id": "one-punch-man-puri-puri-sentence-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "record",
+    "value": "10,000 years",
+    "text": "Puri-Puri Prisoner boasts a jail sentence of 10,000 years, which is where his hero name comes from.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-25T18:46:47Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:47.000Z",
+    "excerpt": "prides himself in having a 10,000-year sentence"
+  },
+  {
+    "id": "one-punch-man-child-emperor-age-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-punch-man"
+    },
+    "field": "age",
+    "value": "ten-year-old boy",
+    "text": "Child Emperor, the S-Class genius at rank 5, is 10 years old and carries his robot gear in a school backpack.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters",
+        "ref": "1380588466",
+        "fetched_at": "2026-10-25T18:47:08Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:49:08.000Z",
+    "excerpt": "rank 5, is a ten-year-old boy who wears a Japanese-style elementary school backpack"
   }
 ]

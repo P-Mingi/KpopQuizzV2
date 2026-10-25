@@ -1,0 +1,225 @@
+{
+ "site": "anime",
+ "account": "oq_creator_03",
+ "group_slug": "spy-x-family",
+ "title": "Peanuts, Meremere and Sweet Tooths: Spy x Family Food Quiz",
+ "slug": "peanuts-meremere-and-sweet-tooths-spy-x-family-food-quiz",
+ "description": "Ten food questions: Anya and her peanuts, a classmate with a sweet tooth, Yor in the kitchen and the dessert quest of the film Code: White. Light spoilers for the film.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Food format: snacks, desserts and cooking in the franchise, including the film Code: White.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Spy × Family (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Spy × Family Code: White",
+   "url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Spy × Family characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Which snack does the famous line about Anya say she likes?",
+   "options": [
+    "Peanuts",
+    "Candy",
+    "Pretzels",
+    "Apples"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anya-peanuts-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "What kind of contest is held in Anya's class in the film Code: White?",
+   "options": [
+    "A drawing contest",
+    "A dodgeball tournament",
+    "A cooking competition",
+    "A spelling bee"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-code-white-cooking-contest-041"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White"
+  },
+  {
+   "question": "Which of Damian's two staunch followers loves sweet food?",
+   "options": [
+    "Henry Henderson",
+    "Ewen Egeburg",
+    "Donovan Desmond",
+    "Emile Elman"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-emile-sweet-food-047"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters"
+  },
+  {
+   "question": "Which dessert does the principal love, the one that Loid wants to recreate in Code: White?",
+   "options": [
+    "Baumkuchen",
+    "Meremere",
+    "Tiramisu",
+    "Pavlova"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-code-white-meremere-042"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White"
+  },
+  {
+   "question": "What does Anya eat from a suitcase on the train, not knowing that it hides a microfilm?",
+   "options": [
+    "Candy",
+    "Cookies",
+    "Dried fruit",
+    "Chocolate"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-code-white-chocolate-044"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White"
+  },
+  {
+   "question": "Loid takes the family to a city in the north to taste the principal's favourite dessert. Which city is it?",
+   "options": [
+    "Berlint",
+    "Sonnenfeld",
+    "Frigis",
+    "Kaltburg"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-code-white-frigis-043",
+    "spy-x-family-code-white-meremere-042"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White"
+  },
+  {
+   "question": "Who snatches the last serving of that dessert from the Forgers at a restaurant?",
+   "options": [
+    "Colonel Snidel",
+    "Yuri Briar",
+    "Donovan Desmond",
+    "Henry Henderson"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-code-white-snidel-045"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White"
+  },
+  {
+   "question": "Which ingredient is the last one that Loid struggles to find for the dessert?",
+   "options": [
+    "Cherry liquor",
+    "Vanilla beans",
+    "Rose water",
+    "Maple syrup"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-code-white-cherry-liquor-046"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White"
+  },
+  {
+   "question": "Bond's glimpse of the future once showed him that the cooking of one person could kill him. Whose cooking is it?",
+   "options": [
+    "Sylvia Sherwood",
+    "Yor Forger",
+    "Franky Franklin",
+    "Loid Forger"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-bond-fears-yor-cooking-048"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters"
+  },
+  {
+   "question": "What could the winner of the contest in Anya's class earn at Eden Academy?",
+   "options": [
+    "A Tonitrus Bolt",
+    "A Stella Star",
+    "Eight Stella Stars",
+    "A place among the Imperial Scholars"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-code-white-cooking-contest-041",
+    "spy-x-family-eden-stella-star-049",
+    "spy-x-family-eden-tonitrus-bolt-050"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White"
+  }
+ ]
+}

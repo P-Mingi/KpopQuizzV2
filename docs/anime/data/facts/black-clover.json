@@ -3260,5 +3260,36 @@
     "status": "verified",
     "verified_at": "2026-10-25T14:30:00.000Z",
     "excerpt": "Asta ultimately destroys him by bisecting his heart"
+  },
+  {
+    "id": "black-clover-finral-roulacase-voice-103",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "finral-roulacase"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Jun Fukuyama"
+    ],
+    "text": "Finral Roulacase is voiced in Japanese by Jun Fukuyama.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Voiced by: Jun Fukuyama (Japanese)"
   }
 ]

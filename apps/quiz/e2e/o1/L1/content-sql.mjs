@@ -62,7 +62,8 @@ export function selectData(files, extras, { drafts = false } = {}) {
   const factIds = new Set(outFiles.flatMap((f) => f.facts.map((x) => x.id)));
   const cited = (q) => Array.isArray(q.fact_ids) && q.fact_ids.length > 0 && q.fact_ids.every((id) => factIds.has(id));
   const backed = (row) => drafts || (Array.isArray(row.questions) && row.questions.length > 0 && row.questions.every(cited));
-  const quizzes = (extras.quizzes ?? []).filter((q) => loadedSlugs.has(q.group_slug) && backed(q));
+  // D-117: multi-series quizzes (group anime-mix, created by L04) launch like the series quizzes.
+  const quizzes = (extras.quizzes ?? []).filter((q) => (q.group_slug === MIX_SLUG || loadedSlugs.has(q.group_slug)) && backed(q));
   const daily = (extras.daily ?? []).filter((r) => (r.group_slug === undefined || r.group_slug === MIX_SLUG || loadedSlugs.has(r.group_slug)) && backed(r));
   const count = (list) => list.reduce((n, f) => n + f.length, 0);
   const report = {

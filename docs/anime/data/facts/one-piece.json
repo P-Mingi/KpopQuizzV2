@@ -2047,5 +2047,294 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "also known as \"Ogre Princess\" (鬼姫, Onihime), is Kaido's daughter. Yamato idolizes Kozuki Oden to the point of adopting male pronouns to be more"
+  },
+  {
+    "id": "one-piece-luffy-stomach-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "monkey-d-luffy"
+    },
+    "field": "habits",
+    "value": "huge appetite, thinks with his stomach",
+    "text": "Luffy eats so much and so eagerly that the story shows him letting his stomach do his thinking.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Monkey_D._Luffy",
+        "ref": "1379660000",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "often thinking with his stomach and comically gorging himself"
+  },
+  {
+    "id": "one-piece-zoro-sake-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "roronoa-zoro"
+    },
+    "field": "fond_of",
+    "value": "sake",
+    "text": "Zoro enjoys sake nearly as much as Luffy enjoys meat, yet his strong constitution means he never gets drunk.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Roronoa_Zoro",
+        "ref": "1380100680",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "He also likes sake, almost as much as Luffy likes meat"
+  },
+  {
+    "id": "one-piece-zoro-onigiri-pun-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "roronoa-zoro"
+    },
+    "field": "technique",
+    "value": "Onigiri, a pun on the rice ball",
+    "text": "Zoro's signature technique is Onigiri: its characters mean a demon cut, but spoken aloud it is the Japanese word for a rice ball.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1381646993",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "Zoro's signature move is Onigiri, which is written as demon cut but is pronounced the same as rice ball"
+  },
+  {
+    "id": "one-piece-sanji-all-blue-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "sanji"
+    },
+    "field": "motivation",
+    "value": "All Blue, a sea of every fish",
+    "text": "Sanji dreams of reaching the All Blue, a legendary sea where the four Blues meet and where fish of every kind can be found.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Straw_Hats",
+        "ref": "1379529411",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "containing every kind of fish in the world"
+  },
+  {
+    "id": "one-piece-zeff-teaches-sanji-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "sanji"
+    },
+    "field": "background",
+    "value": "learned cooking from Zeff at the Baratie",
+    "text": "Sanji learned his cooking from Zeff, the former pirate who owns the floating restaurant Baratie and also showed him how to fight with his legs.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sanji_(One_Piece)",
+        "ref": "1381413387",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "who taught him cooking and his fighting style"
+  },
+  {
+    "id": "one-piece-gin-fed-by-sanji-066",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "role",
+    "value": "Gin, fed by Sanji at the Baratie",
+    "text": "Gin, the combat commander of Krieg's crew, turns up at the Baratie starving, and Sanji's gift of a meal makes him thankful to the cook.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_pirates",
+        "ref": "1379094181",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "He arrived at the Baratie restaurant hungry, being saved by Sanji, who offered him a plate of food"
+  },
+  {
+    "id": "one-piece-sanji-kicks-protect-hands-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "sanji"
+    },
+    "field": "style",
+    "value": "kicks only, to protect his hands",
+    "text": "Sanji will not use his hands in a fight, since a cook depends on them, so every attack of his is a kick.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sanji_(One_Piece)",
+        "ref": "1381413387",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "never punching opponents because of his belief that a cook's hands are important instruments"
+  },
+  {
+    "id": "one-piece-nami-tangerine-tattoo-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "nami"
+    },
+    "field": "trademark",
+    "value": "tangerine and pinwheel tattoo",
+    "text": "After the mark of Arlong's crew is removed from Nami's arm, she wears a new tattoo that shows a tangerine beside a pinwheel.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Nami_(One_Piece)",
+        "ref": "1375323378",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "replaced with a symbol of a tangerine and pinwheel on her left bicep"
+  },
+  {
+    "id": "one-piece-chopper-cotton-candy-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "tony-tony-chopper"
+    },
+    "field": "nickname",
+    "value": "Cotton Candy Lover",
+    "text": "Chopper's sweet tooth gives him a pet name: the reindeer doctor is called the Cotton Candy Lover.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tony_Tony_Chopper",
+        "ref": "1381333806",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "otherwise known as \"Cotton Candy Lover\""
+  },
+  {
+    "id": "one-piece-franky-cola-fuel-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "franky"
+    },
+    "field": "power",
+    "value": "cola",
+    "text": "Franky keeps his cyborg body running by drinking bottles of cola from a fridge built into his abdomen.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 22,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Franky_(One_Piece)",
+        "ref": "1381620266",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "Franky recharges his energy by drinking cola from glass bottles"
   }
 ]
