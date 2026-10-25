@@ -1,0 +1,340 @@
+{
+  "$comment": "Run O1 lane K1, new series batch 1 (K1-new-series): data for Steins;Gate (tier C: the character list of the allowed sources holds twelve usable characters), built from pinned Wikipedia revisions (visual novel, TV series, Steins;Gate 0, episode and character lists), Wikidata Q482494 (visual novel), Q20590069 (anime), Q7606919 (film), Q21775901 and Q48835532 (Steins;Gate 0), the official sites steinsgate.jp and steinsgate0-anime.com and Anime News Network encyclopedia ids 11770 and 20446. The series began as a visual novel, so the type is franchise. Arcs are the first anime, the film and Steins;Gate 0. The Wikidata director of the first anime does not match Wikipedia and Anime News Network, so no director of the first anime is stated; Wikipedia has Hiroshi Hamasaki and Takuya Sato. Broadcast dates are given by month.",
+  "group": {
+    "slug": "steins-gate",
+    "name": "Steins;Gate",
+    "site": "anime",
+    "display_color": "#0F766E",
+    "text_color": "#FFFFFF"
+  },
+  "series": {
+    "type": "franchise",
+    "title_en": "Steins;Gate",
+    "title_native": "STEINS;GATE",
+    "title_romaji": "Shutainzu Gēto",
+    "aliases": [
+      "SG"
+    ],
+    "studios": [
+      {
+        "name": "White Fox"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Chiyomaru Shikura",
+        "role": "story"
+      },
+      {
+        "name": "Naotaka Hayashi",
+        "role": "story"
+      },
+      {
+        "name": "Huke",
+        "role": "art"
+      }
+    ],
+    "anime_start_year": 2011,
+    "anime_end_year": 2018,
+    "status": "finished",
+    "official_url": "https://steinsgate.jp/",
+    "wikidata_qid": "Q482494",
+    "tier": "C",
+    "published": true
+  },
+  "arcs": [
+    {
+      "ord": 1,
+      "name": "Steins;Gate",
+      "kind": "season",
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)",
+      "status": "published"
+    },
+    {
+      "ord": 2,
+      "name": "Load Region of Déjà Vu",
+      "kind": "part",
+      "anime_only": true,
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate:_The_Movie_%E2%88%92_Load_Region_of_D%C3%A9j%C3%A0_Vu",
+      "status": "published"
+    },
+    {
+      "ord": 3,
+      "name": "Steins;Gate 0",
+      "kind": "season",
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate_0",
+      "status": "published"
+    }
+  ],
+  "characters": [
+    {
+      "slug": "rintaro-okabe",
+      "name": "Rintaro Okabe",
+      "name_native": "岡部 倫太郎",
+      "role": "main",
+      "affiliation": "Future Gadget Laboratory",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A self-styled mad scientist who founds the Future Gadget Laboratory and calls himself Hououin Kyouma.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 1,
+      "status": "published"
+    },
+    {
+      "slug": "kurisu-makise",
+      "name": "Kurisu Makise",
+      "name_native": "牧瀬 紅莉栖",
+      "role": "main",
+      "affiliation": "Future Gadget Laboratory",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A brilliant young neuroscientist who already has research published in a leading journal.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 2,
+      "status": "published"
+    },
+    {
+      "slug": "mayuri-shiina",
+      "name": "Mayuri Shiina",
+      "name_native": "椎名 まゆり",
+      "role": "main",
+      "affiliation": "Future Gadget Laboratory",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Okabe's cheerful childhood friend, who loves cosplay and greets people with a sing-song tutturu.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 3,
+      "status": "published"
+    },
+    {
+      "slug": "itaru-hashida",
+      "name": "Itaru Hashida",
+      "name_native": "橋田 至",
+      "role": "supporting",
+      "affiliation": "Future Gadget Laboratory",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A very skilled hacker and programmer, nicknamed Daru, who is happy to build gadgets.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 4,
+      "status": "published"
+    },
+    {
+      "slug": "moeka-kiryu",
+      "name": "Moeka Kiryu",
+      "name_native": "桐生 萌郁",
+      "role": "supporting",
+      "affiliation": "Future Gadget Laboratory",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A shy tech journalist who prefers texting over talking and guards her phone closely.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 5,
+      "status": "published"
+    },
+    {
+      "slug": "luka-urushibara",
+      "name": "Luka Urushibara",
+      "name_native": "漆原 るか",
+      "role": "supporting",
+      "affiliation": "Future Gadget Laboratory",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A gentle friend of Okabe whose looks and manner are very feminine.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 6,
+      "status": "published"
+    },
+    {
+      "slug": "faris-nyannyan",
+      "name": "Faris NyanNyan",
+      "name_native": "フェイリス・ニャンニャン",
+      "role": "supporting",
+      "affiliation": "Future Gadget Laboratory",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A maid cafe waitress who plays a cat-like persona and is a star of Akihabara.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 7,
+      "status": "published"
+    },
+    {
+      "slug": "suzuha-amane",
+      "name": "Suzuha Amane",
+      "name_native": "阿万音 鈴羽",
+      "role": "supporting",
+      "affiliation": "Future Gadget Laboratory",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A cheerful part-timer with a secret: she is a time traveler, searching for her father.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters",
+      "spoiler_level": 1,
+      "identity_spoiler": true,
+      "ord": 8,
+      "status": "published"
+    },
+    {
+      "slug": "yugo-tennouji",
+      "name": "Yugo Tennouji",
+      "name_native": "天王寺 裕吾",
+      "role": "supporting",
+      "affiliation": "TV repair shop",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Okabe's gruff landlord, who runs the TV repair shop under the lab.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 9,
+      "status": "published"
+    },
+    {
+      "slug": "nae-tennouji",
+      "name": "Nae Tennouji",
+      "name_native": "天王寺 綯",
+      "role": "supporting",
+      "affiliation": "TV repair shop",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The landlord's daughter, who gets along with Mayuri but is afraid of Okabe.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 10,
+      "status": "published"
+    },
+    {
+      "slug": "doctor-nakabachi",
+      "name": "Doctor Nakabachi",
+      "name_native": "ドクター中鉢",
+      "role": "antagonist",
+      "affiliation": "SERN",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A scientist so set on outshining his own daughter that it drives his every move.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters",
+      "spoiler_level": 2,
+      "identity_spoiler": false,
+      "ord": 11,
+      "status": "published"
+    },
+    {
+      "slug": "maho-hiyajo",
+      "name": "Maho Hiyajo",
+      "role": "supporting",
+      "affiliation": "Steins;Gate 0",
+      "debut_arc_ord": 3,
+      "debut_medium": "both",
+      "description": "A young neuroscientist and colleague of Kurisu, who wants to use her research.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters",
+      "spoiler_level": 3,
+      "identity_spoiler": false,
+      "ord": 12,
+      "status": "published"
+    }
+  ],
+  "themes": [
+    {
+      "kind": "op",
+      "number": 1,
+      "title": "Hacking to the Gate",
+      "artist": "Kanako Itō",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 1,
+      "title": "Toki Tsukasadoru Jūni no Meiyaku",
+      "artist": "Yui Sakakibara",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 2,
+      "title": "Skyclad no Kansokusha",
+      "artist": "Kanako Itō",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 2,
+      "title": "Fatima",
+      "artist": "Kanako Itō",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 3,
+      "title": "Amadeus",
+      "artist": "Kanako Itō",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 4,
+      "title": "Last Game",
+      "artist": "Zwei",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 5,
+      "title": "World-Line",
+      "artist": "Asami Imai",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 6,
+      "title": "Gate of Steiner",
+      "artist": "Eri Sasaki",
+      "season": 2,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes",
+      "status": "published"
+    }
+  ]
+}
