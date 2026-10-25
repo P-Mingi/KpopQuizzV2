@@ -181,7 +181,7 @@
       "Telesis",
       "The Great War"
     ],
-    "text": "The story takes place on the continent of Telesis, right after a four year war has ended.",
+    "text": "The story of Violet Evergarden takes place in the land of Telesis, right after a four year war has ended.",
     "category": "fun",
     "load_bearing": false,
     "spoiler": {
@@ -747,10 +747,16 @@
         "source": "press",
         "url": "https://www.animenewsnetwork.com/news/2020-09-23/violet-evergarden-the-movie-debuts-at-no.2/.164378",
         "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q106434135",
+        "ref": "Q106434135",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:00:00.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "it premiered in Japan on September 18, 2020"
   },
   {

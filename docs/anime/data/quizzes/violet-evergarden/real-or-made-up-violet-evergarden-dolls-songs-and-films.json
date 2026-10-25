@@ -51,7 +51,7 @@
       "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
     },
     {
-      "question": "Violet Evergarden is set on a continent called Telesis.",
+      "question": "The story of Violet Evergarden takes place in the land of Telesis.",
       "correct": true,
       "kind": "lore",
       "spoiler": {
@@ -147,15 +147,15 @@
       "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
     },
     {
-      "question": "Netflix streamed the series worldwide while it aired.",
+      "question": "Yui Ishikawa voices Violet Evergarden in the Japanese version.",
       "correct": true,
-      "kind": "production",
+      "kind": "character",
       "spoiler": {
         "arc": 0,
-        "scope": "anime"
+        "scope": "both"
       },
       "fact_ids": [
-        "violet-evergarden-streaming-019"
+        "violet-evergarden-violet-evergarden-voice-031"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
     }

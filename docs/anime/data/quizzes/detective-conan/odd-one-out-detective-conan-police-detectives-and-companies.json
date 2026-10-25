@@ -179,34 +179,34 @@
       "source_url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)"
     },
     {
-      "question": "Three of these sang theme songs of the anime. Which one is the voice of the hero?",
+      "question": "Three of these voice actors play members of the Junior Detective League. Which one voices Heiji Hattori?",
       "options": [
         {
-          "label": "Ziggy"
+          "label": "Yukiko Iwai"
         },
         {
-          "label": "The High-Lows"
+          "label": "Ikue Ōtani"
         },
         {
-          "label": "Minami Takayama"
+          "label": "Ryo Horikawa"
         },
         {
-          "label": "Mai Kuraki"
+          "label": "Wataru Takagi"
         }
       ],
       "correct": 2,
-      "kind": "music",
+      "kind": "character",
       "spoiler": {
         "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "detective-conan-conan-edogawa-voice-034",
-        "detective-conan-first-opening-017",
-        "detective-conan-first-ending-018",
-        "detective-conan-guinness-016"
+        "detective-conan-heiji-hattori-voice-042",
+        "detective-conan-ayumi-yoshida-voice-055",
+        "detective-conan-mitsuhiko-tsuburaya-voice-053",
+        "detective-conan-genta-kojima-voice-051"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Minami_Takayama"
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
     },
     {
       "question": "Three of these inspired Aoyama's series. Which one is his earlier series?",
