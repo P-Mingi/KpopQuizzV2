@@ -1576,7 +1576,7 @@
     "category": "members",
     "load_bearing": false,
     "spoiler": {
-      "arc": 1,
+      "arc": 0,
       "scope": "both"
     },
     "sources": [
