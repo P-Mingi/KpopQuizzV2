@@ -1,3 +1,4 @@
+-- applied in production on 2026-10-25 (get_rising_creators exists, checked on 2026-10-25).
 -- OWNER-GATED. Creates public.get_rising_creators, which the site already calls but which was
 -- never created in production (supabase/migrations/097_rising_creators.sql is in the repo, not
 -- applied): every call answers 404 (PGRST202), several times an hour.
