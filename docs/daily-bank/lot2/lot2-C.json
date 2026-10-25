@@ -1,0 +1,672 @@
+[
+  {
+    "scheduled_date": "2026-11-23",
+    "title": "K-pop Award Shows True or False",
+    "description": "Ten true or false statements about the K-pop award shows themselves: who runs MAMA, Melon, Golden Disc and Seoul Music Awards, and where.",
+    "group_slug": null,
+    "category": "true_false",
+    "quiz_type": "true_false",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "The awards show now known as the MAMA Awards was first held in 1999.",
+        "correct": true,
+        "fun_fact": "The show took the Mnet Asian Music Awards name in 2009 as it set its sights beyond Korea, then shortened its brand to the MAMA Awards in 2022.",
+        "source": "https://en.wikipedia.org/wiki/MAMA_Awards"
+      },
+      {
+        "question": "The first MAMA ceremony held outside South Korea took place in Singapore in 2010.",
+        "correct": false,
+        "fun_fact": "The 2010 edition went to Macau, at the Cotai Arena of The Venetian Macao. Singapore hosted in 2011, then Hong Kong from 2012 to 2017.",
+        "source": "https://en.wikipedia.org/wiki/MAMA_Awards"
+      },
+      {
+        "question": "The Melon Music Awards are presented by CJ ENM, the company behind the Mnet channel.",
+        "correct": false,
+        "fun_fact": "They are held by Kakao Entertainment through its streaming service Melon, whose digital data counts alongside online votes and judges.",
+        "source": "https://en.wikipedia.org/wiki/Melon_Music_Awards"
+      },
+      {
+        "question": "The Golden Disc Awards were first held in 1986, under the name Korea Visual and Records Grand Prize Award.",
+        "correct": true,
+        "fun_fact": "The ceremony took the name Golden Disk Awards in 2001, and the spelling changed to Golden Disc in 2015.",
+        "source": "https://en.wikipedia.org/wiki/Golden_Disc_Awards"
+      },
+      {
+        "question": "The Seoul Music Awards are presented by the sports daily Ilgan Sports.",
+        "correct": false,
+        "fun_fact": "The Seoul Music Awards, or Seoul Gayo Daesang in Korean, are presented by the newspaper Sports Seoul and have aired on KBS N since 2013.",
+        "source": "https://en.wikipedia.org/wiki/Seoul_Music_Awards"
+      },
+      {
+        "question": "The Circle Chart Music Awards used the name Gaon Chart Music Awards until the chart was rebranded in 2022.",
+        "correct": true,
+        "fun_fact": "The awards are presented by the Korea Music Content Association, and the first ceremony took place in Seoul on February 22, 2012.",
+        "source": "https://en.wikipedia.org/wiki/Circle_Chart_Music_Awards"
+      },
+      {
+        "question": "The 40th Golden Disc Awards were held at the Taipei Dome in January 2026.",
+        "correct": true,
+        "fun_fact": "Hosted by Sung Si-kyung and Moon Ga-young on January 10, 2026, the ceremony honored Korean music released from early November 2024 to early November 2025.",
+        "source": "https://en.wikipedia.org/wiki/40th_Golden_Disc_Awards"
+      },
+      {
+        "question": "The 2023 MAMA Awards took place at the Kyocera Dome in Osaka.",
+        "correct": false,
+        "fun_fact": "The 2023 show ran over two nights at the Tokyo Dome. The Kyocera Dome in Osaka hosted in 2022 and 2024 and was chosen again for the November 2026 edition.",
+        "source": "https://en.wikipedia.org/wiki/MAMA_Awards"
+      },
+      {
+        "question": "The Seoul Music Awards were held outside South Korea for the first time in January 2024, in Bangkok.",
+        "correct": true,
+        "fun_fact": "The 33rd ceremony took place at Rajamangala Stadium. The next two editions moved to June, at Inspire Arena in Incheon.",
+        "source": "https://www.koreajoongangdaily.com/entertainment/nct-dream-wins-top-honor-at-seoul-music-awards-for-2nd-year/10376567"
+      },
+      {
+        "question": "The 2023 and 2024 Melon Music Awards were both held at the Gocheok Sky Dome in Seoul.",
+        "correct": false,
+        "fun_fact": "Both ceremonies took place at Inspire Arena in Incheon. The show returned to the Gocheok Sky Dome for its December 2025 edition.",
+        "source": "https://en.wikipedia.org/wiki/Melon_Music_Awards"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/MAMA_Awards",
+      "https://en.wikipedia.org/wiki/Melon_Music_Awards",
+      "https://en.wikipedia.org/wiki/Golden_Disc_Awards",
+      "https://en.wikipedia.org/wiki/Seoul_Music_Awards",
+      "https://en.wikipedia.org/wiki/Circle_Chart_Music_Awards",
+      "https://en.wikipedia.org/wiki/40th_Golden_Disc_Awards",
+      "https://www.billboard.com/music/awards/mama-awards-2022-date-location-rebrand-1235129969/",
+      "https://en.wikipedia.org/wiki/2026_MAMA_Awards",
+      "https://www.koreajoongangdaily.com/entertainment/nct-dream-wins-top-honor-at-seoul-music-awards-for-2nd-year/10376567"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-24",
+    "title": "IVE: The SWITCH to EMPATHY Era",
+    "description": "IVE in 2024 and 2025: Heya and Will, Rebel Heart and Attitude, Supernova Love, XOXZ, the world tour and Lollapalooza.",
+    "group_slug": "ive",
+    "category": "era",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "What does the Korean title of IVE's April 2024 single Heya mean?",
+        "options": [
+          "Moon",
+          "Star",
+          "Sky",
+          "Sun"
+        ],
+        "correct": 3,
+        "fun_fact": "Described as a hip hop song in F minor, Heya draws its lyrics from a folk tale and climbed to No. 2 on the Circle Digital Chart.",
+        "source": "https://en.wikipedia.org/wiki/Heya_(Ive_song)"
+      },
+      {
+        "question": "Will, a Japanese song IVE released on April 12, 2024, was the new opening theme of which anime series?",
+        "options": [
+          "Pokémon Horizons",
+          "Detective Conan",
+          "One Piece",
+          "Doraemon"
+        ],
+        "correct": 0,
+        "fun_fact": "The opening video came out on Pokémon's official YouTube channel, and IVE's second Japanese EP, Alive, followed on August 28, 2024.",
+        "source": "https://en.wikipedia.org/wiki/Ive_(group)"
+      },
+      {
+        "question": "Which IVE member wrote the lyrics of Blue Heart, a track on the 2024 EP Ive Switch?",
+        "options": [
+          "An Yu-jin",
+          "Gaeul",
+          "Jang Won-young",
+          "Liz"
+        ],
+        "correct": 2,
+        "fun_fact": "Blue Heart is the third of the six tracks on Ive Switch, an EP that peaked at No. 2 on the Circle Album Chart.",
+        "source": "https://en.wikipedia.org/wiki/Ive_Switch"
+      },
+      {
+        "question": "IVE's first world tour, Show What I Have, ended in September 2024 with two shows at which venue?",
+        "options": [
+          "KSPO Dome",
+          "Tokyo Dome",
+          "Kyocera Dome Osaka",
+          "Gocheok Sky Dome"
+        ],
+        "correct": 1,
+        "fun_fact": "The tour opened in Seoul on October 7, 2023 and grew to 37 concerts across Asia, North America, Europe, Latin America and Oceania.",
+        "source": "https://en.wikipedia.org/wiki/Show_What_I_Have_World_Tour"
+      },
+      {
+        "question": "Supernova Love, IVE's November 2024 single with David Guetta, samples a piece by which Japanese composer?",
+        "options": [
+          "Ryuichi Sakamoto",
+          "Joe Hisaishi",
+          "Yoko Kanno",
+          "Koji Kondo"
+        ],
+        "correct": 0,
+        "fun_fact": "The sampled piece is Merry Christmas, Mr. Lawrence. IVE first teased the song during encores of their world tour shows in Japan.",
+        "source": "https://en.wikipedia.org/wiki/Supernova_Love"
+      },
+      {
+        "question": "Which Ive Empathy single came out first, on January 13, 2025, and went on to top the Circle Digital Chart?",
+        "options": [
+          "Attitude",
+          "Flu",
+          "TKO",
+          "Rebel Heart"
+        ],
+        "correct": 3,
+        "fun_fact": "It became IVE's fifth song to achieve a perfect all-kill on Korean charts and collected eleven first places on music shows.",
+        "source": "https://en.wikipedia.org/wiki/Rebel_Heart_(Ive_song)"
+      },
+      {
+        "question": "Attitude, the second single from Ive Empathy, interpolates which Suzanne Vega song?",
+        "options": [
+          "Luka",
+          "Tom's Diner",
+          "Left of Center",
+          "Marlene on the Wall"
+        ],
+        "correct": 1,
+        "fun_fact": "Released with the EP on February 3, 2025, Attitude peaked at No. 7 on the Circle Digital Chart and won on M Countdown, Inkigayo and Show! Music Core.",
+        "source": "https://en.wikipedia.org/wiki/Attitude_(Ive_song)"
+      },
+      {
+        "question": "At which 2025 ceremony did IVE's Rebel Heart win the Song of the Year daesang?",
+        "options": [
+          "MAMA Awards",
+          "Golden Disc Awards",
+          "Melon Music Awards",
+          "Asia Artist Awards"
+        ],
+        "correct": 3,
+        "fun_fact": "The 10th Asia Artist Awards took place on December 6, 2025 at the National Stadium in Kaohsiung, Taiwan.",
+        "source": "https://en.wikipedia.org/wiki/10th_Asia_Artist_Awards"
+      },
+      {
+        "question": "After a first Lollapalooza in Chicago in 2024, IVE played which two editions of the festival in July 2025?",
+        "options": [
+          "Berlin and Santiago",
+          "Paris and Stockholm",
+          "Berlin and Paris",
+          "Mumbai and Paris"
+        ],
+        "correct": 2,
+        "fun_fact": "On July 12, 2025, IVE became the first K-pop girl group to perform at Lollapalooza Berlin, then played the Paris edition on July 20.",
+        "source": "https://en.wikipedia.org/wiki/Ive_(group)"
+      },
+      {
+        "question": "What was the lead single of Ive Secret, the EP IVE released on August 25, 2025?",
+        "options": [
+          "Gotcha (Baddest Eros)",
+          "Wild Bird",
+          "XOXZ",
+          "Midnight Kiss"
+        ],
+        "correct": 2,
+        "fun_fact": "Ive Secret topped the Circle Album Chart, making it the group's seventh No. 1 album and sixth million-seller.",
+        "source": "https://en.wikipedia.org/wiki/Ive_(group)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Heya_(Ive_song)",
+      "https://en.wikipedia.org/wiki/Ive_Switch",
+      "https://en.wikipedia.org/wiki/Show_What_I_Have_World_Tour",
+      "https://en.wikipedia.org/wiki/Supernova_Love",
+      "https://en.wikipedia.org/wiki/Rebel_Heart_(Ive_song)",
+      "https://en.wikipedia.org/wiki/Attitude_(Ive_song)",
+      "https://en.wikipedia.org/wiki/10th_Asia_Artist_Awards",
+      "https://en.wikipedia.org/wiki/Ive_(group)",
+      "https://en.wikipedia.org/wiki/Ive_Empathy",
+      "https://en.wikipedia.org/wiki/Ive_Secret",
+      "https://en.wikipedia.org/wiki/2025_MAMA_Awards",
+      "https://en.wikipedia.org/wiki/2025_Melon_Music_Awards",
+      "https://en.wikipedia.org/wiki/40th_Golden_Disc_Awards",
+      "https://en.wikipedia.org/wiki/Alive_(Ive_EP)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-25",
+    "title": "K-pop Groups and Their First Wins",
+    "description": "Which song gave TVXQ, Apink, EXO, TWICE, ITZY or TWS their first music show win, and on which show? Ten hard questions.",
+    "group_slug": null,
+    "category": "knowledge",
+    "quiz_type": "multiple_choice",
+    "difficulty": "hard",
+    "questions": [
+      {
+        "question": "TVXQ won their first music show award on Inkigayo in March 2004. Which song won it?",
+        "options": [
+          "The Way U Are",
+          "Rising Sun",
+          "Hug",
+          "Mirotic"
+        ],
+        "correct": 2,
+        "fun_fact": "The win came on March 28, 2004, and Hug went on to stay on the MIAK monthly chart for ten consecutive months.",
+        "source": "https://en.wikipedia.org/wiki/TVXQ"
+      },
+      {
+        "question": "Beast, the group now called Highlight, got their first music show win with Shock in March 2010. On which show?",
+        "options": [
+          "Show Champion",
+          "Music Bank",
+          "Inkigayo",
+          "M Countdown"
+        ],
+        "correct": 3,
+        "fun_fact": "Shock led their second EP, Shock of the New Era. Later in 2010, the single Breath took first place on KBS's Music Bank.",
+        "source": "https://en.wikipedia.org/wiki/Highlight_(band)"
+      },
+      {
+        "question": "Which song gave Apink their first music show award, on M Countdown in January 2012?",
+        "options": [
+          "Mollayo",
+          "Hush",
+          "My My",
+          "LUV"
+        ],
+        "correct": 2,
+        "fun_fact": "My My came from their second EP, Snow Pink. A month later, Apink won Rookie of the Year at the first Gaon Chart Awards.",
+        "source": "https://en.wikipedia.org/wiki/Apink"
+      },
+      {
+        "question": "Which single earned EXO their first music show win, on Music Bank in June 2013?",
+        "options": [
+          "Growl",
+          "Wolf",
+          "History",
+          "MAMA"
+        ],
+        "correct": 1,
+        "fun_fact": "EXO later won 18 music shows with Call Me Baby (2015), a record for a single song that they held for four years.",
+        "source": "https://en.wikipedia.org/wiki/Exo"
+      },
+      {
+        "question": "On February 2, 2016, GFriend won their first music show award on The Show. Which song won it?",
+        "options": [
+          "Me Gustas Tu",
+          "Rough",
+          "Glass Bead",
+          "Navillera"
+        ],
+        "correct": 1,
+        "fun_fact": "Rough closed the group's school concept trilogy after Glass Bead and Me Gustas Tu, and won 15 music show awards in all.",
+        "source": "https://en.wikipedia.org/wiki/GFriend"
+      },
+      {
+        "question": "Which single gave TWICE their first music program award, on M Countdown in May 2016?",
+        "options": [
+          "Signal",
+          "Like Ooh-Ahh",
+          "TT",
+          "Cheer Up"
+        ],
+        "correct": 3,
+        "fun_fact": "The win came on May 5, 2016, exactly one year after the first episode of Sixteen, the survival show that formed TWICE.",
+        "source": "https://en.wikipedia.org/wiki/Twice"
+      },
+      {
+        "question": "Which song gave MAMAMOO their first music show win, on Inkigayo in March 2016?",
+        "options": [
+          "Um Oh Ah Yeh",
+          "You're the Best",
+          "Décalcomanie",
+          "Mr. Ambiguous"
+        ],
+        "correct": 1,
+        "fun_fact": "It was the title track of their first studio album, Melting, and became their first number-one single. It won eight music shows in total.",
+        "source": "https://en.wikipedia.org/wiki/Mamamoo"
+      },
+      {
+        "question": "With Dalla Dalla in February 2019, ITZY won their first music show trophy. On which show?",
+        "options": [
+          "Show! Music Core",
+          "Music Bank",
+          "Inkigayo",
+          "M Countdown"
+        ],
+        "correct": 3,
+        "fun_fact": "The win set a record at the time as the fastest music show win by a girl group, and Dalla Dalla went on to collect nine trophies.",
+        "source": "https://en.wikipedia.org/wiki/Itzy"
+      },
+      {
+        "question": "ENHYPEN took their first music show win with Drunk-Dazed in May 2021. On which show?",
+        "options": [
+          "The Show",
+          "Music Bank",
+          "M Countdown",
+          "Show Champion"
+        ],
+        "correct": 0,
+        "fun_fact": "Drunk-Dazed led their second EP, Border: Carnival, which became the group's first No. 1 on Japan's Oricon Albums Chart.",
+        "source": "https://en.wikipedia.org/wiki/Enhypen"
+      },
+      {
+        "question": "On which show did TWS take their first music show win, with Plot Twist, 23 days after their 2024 debut?",
+        "options": [
+          "Show Champion",
+          "Music Bank",
+          "The Show",
+          "Inkigayo"
+        ],
+        "correct": 0,
+        "fun_fact": "Plot Twist led their debut EP, Sparkling Blue, released on January 22, 2024, the start of what the group labels boyhood pop.",
+        "source": "https://en.wikipedia.org/wiki/TWS_(group)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/TVXQ",
+      "https://en.wikipedia.org/wiki/Highlight_(band)",
+      "https://en.wikipedia.org/wiki/Apink",
+      "https://en.wikipedia.org/wiki/Exo",
+      "https://en.wikipedia.org/wiki/GFriend",
+      "https://en.wikipedia.org/wiki/Twice",
+      "https://en.wikipedia.org/wiki/Mamamoo",
+      "https://en.wikipedia.org/wiki/Itzy",
+      "https://en.wikipedia.org/wiki/Enhypen",
+      "https://en.wikipedia.org/wiki/TWS_(group)",
+      "https://en.wikipedia.org/wiki/Hug_(TVXQ_song)",
+      "https://en.wikipedia.org/wiki/Show_the_World",
+      "https://en.wikipedia.org/wiki/Wolf_(Exo_song)",
+      "https://en.wikipedia.org/wiki/Rough_(song)",
+      "https://en.wikipedia.org/wiki/Cheer_Up_(song)",
+      "https://en.wikipedia.org/wiki/Melting_(album)",
+      "https://en.wikipedia.org/wiki/Dalla_Dalla",
+      "https://en.wikipedia.org/wiki/Border:_Carnival",
+      "https://en.wikipedia.org/wiki/Plot_Twist_(TWS_song)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-26",
+    "title": "NMIXX: From O.O to Blue Valentine",
+    "description": "Easy questions on NMIXX: Ad Mare, the meaning of their name, the leader, Dice, Party O'Clock, the Fe3O4 series and Blue Valentine.",
+    "group_slug": "nmixx",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "What was the title of NMIXX's debut single album, released on February 22, 2022?",
+        "options": [
+          "Entwurf",
+          "Fe3O4: Break",
+          "Expérgo",
+          "Ad Mare"
+        ],
+        "correct": 3,
+        "fun_fact": "Ad Mare is Latin for to the sea. Besides its lead single, it holds the B-side Tank and instrumental versions of both songs.",
+        "source": "https://en.wikipedia.org/wiki/Ad_Mare"
+      },
+      {
+        "question": "Which member is the leader of NMIXX?",
+        "options": [
+          "Lily",
+          "Sullyoon",
+          "Haewon",
+          "Kyujin"
+        ],
+        "correct": 2,
+        "fun_fact": "In her first solo magazine profile, in the June 2025 issue of Marie Claire Korea, Haewon spoke about her role as the group's leader.",
+        "source": "https://en.wikipedia.org/wiki/Haewon_(singer)"
+      },
+      {
+        "question": "The N in NMIXX stands for now, new, next and which other idea?",
+        "options": [
+          "The unknown n",
+          "Nation",
+          "Nature",
+          "Night"
+        ],
+        "correct": 0,
+        "fun_fact": "The word mix stands for combination and diversity, so the full name is meant as the best combination for a new era.",
+        "source": "https://en.wikipedia.org/wiki/Nmixx"
+      },
+      {
+        "question": "Which song led NMIXX's second single album, Entwurf, in September 2022?",
+        "options": [
+          "Dash",
+          "Roller Coaster",
+          "Dice",
+          "Party O'Clock"
+        ],
+        "correct": 2,
+        "fun_fact": "Entwurf means draft or design in German. It came out seven months after their debut single album.",
+        "source": "https://en.wikipedia.org/wiki/Entwurf"
+      },
+      {
+        "question": "Love Me Like This (2023) was the lead single of NMIXX's first EP. What is that EP called?",
+        "options": [
+          "Fe3O4: Forward",
+          "Entwurf",
+          "Blue Valentine",
+          "Expérgo"
+        ],
+        "correct": 3,
+        "fun_fact": "Expérgo is Latin for to wake up. Released on March 20, 2023, the EP was preceded by the single Young, Dumb, Stupid.",
+        "source": "https://en.wikipedia.org/wiki/Expérgo"
+      },
+      {
+        "question": "Which K-pop label founder co-wrote and co-composed Party O'Clock, NMIXX's July 2023 single?",
+        "options": [
+          "Bang Si-hyuk",
+          "Lee Soo-man",
+          "J.Y. Park",
+          "Yang Hyun-suk"
+        ],
+        "correct": 2,
+        "fun_fact": "Party O'Clock led the single album A Midsummer NMIXX's Dream and was described as a garage-based pop song.",
+        "source": "https://en.wikipedia.org/wiki/Party_O'Clock_(Nmixx_song)"
+      },
+      {
+        "question": "Which song led Fe3O4: Break, the EP NMIXX released on January 15, 2024?",
+        "options": [
+          "Dash",
+          "High Horse",
+          "See That?",
+          "Dice"
+        ],
+        "correct": 0,
+        "fun_fact": "Dash was described as a cross between old school hip hop and pop punk, and its music video came out the same day as the EP.",
+        "source": "https://en.wikipedia.org/wiki/Dash_(Nmixx_song)"
+      },
+      {
+        "question": "Know About Me led which March 2025 EP, the finale of NMIXX's Fe3O4 series?",
+        "options": [
+          "Fe3O4: Stick Out",
+          "Fe3O4: Forward",
+          "Expérgo",
+          "Fe3O4: Break"
+        ],
+        "correct": 1,
+        "fun_fact": "The EP followed Fe3O4: Break and Fe3O4: Stick Out. Its pre-release single, High Horse, came out on March 4, 2025.",
+        "source": "https://en.wikipedia.org/wiki/Fe3O4:_Forward"
+      },
+      {
+        "question": "In 2025, Blue Valentine gave NMIXX their first number one on which chart?",
+        "options": [
+          "Oricon Singles Chart",
+          "Circle Digital Chart",
+          "Billboard Hot 100",
+          "UK Singles Chart"
+        ],
+        "correct": 1,
+        "fun_fact": "The song led their first studio album of the same name, released in October 2025, and spent four weeks at the top.",
+        "source": "https://en.wikipedia.org/wiki/Nmixx"
+      },
+      {
+        "question": "In February 2025, NMIXX made a surprise appearance at the Viña del Mar festival. In which country is it held?",
+        "options": [
+          "Chile",
+          "Argentina",
+          "Brazil",
+          "Mexico"
+        ],
+        "correct": 0,
+        "fun_fact": "It made them the first K-pop group ever to perform at the festival, and they were later announced as headliners of the 2026 edition.",
+        "source": "https://en.wikipedia.org/wiki/Nmixx"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Ad_Mare",
+      "https://en.wikipedia.org/wiki/Haewon_(singer)",
+      "https://en.wikipedia.org/wiki/Nmixx",
+      "https://en.wikipedia.org/wiki/Entwurf",
+      "https://en.wikipedia.org/wiki/Expérgo",
+      "https://en.wikipedia.org/wiki/Party_O'Clock_(Nmixx_song)",
+      "https://en.wikipedia.org/wiki/Dash_(Nmixx_song)",
+      "https://en.wikipedia.org/wiki/Fe3O4:_Forward",
+      "https://nmixx.jype.com/profile",
+      "https://nmixx.jype.com/discography",
+      "https://en.wikipedia.org/wiki/Blue_Valentine_(Nmixx_album)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-27",
+    "title": "K-pop Songs With Numbers",
+    "description": "From 8282 and 1, 2, 3, 4 to 2 Baddies, 3D and Love 119: ten questions on K-pop songs with a number in the title.",
+    "group_slug": null,
+    "category": "fun",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Which girl group released the tropical house single 4 Walls in October 2015?",
+        "options": [
+          "Girls' Generation",
+          "f(x)",
+          "SISTAR",
+          "Apink"
+        ],
+        "correct": 1,
+        "fun_fact": "4 Walls was the title track of f(x)'s fourth studio album and peaked at No. 2 on the Gaon Digital Chart. LDN Noise co-composed it.",
+        "source": "https://en.wikipedia.org/wiki/4_Walls_(song)"
+      },
+      {
+        "question": "SHINee's 2016 album 1 of 1 had a 1990s theme. On which retro format did it get a limited edition?",
+        "options": [
+          "8-track cartridge",
+          "Vinyl record",
+          "MiniDisc",
+          "Cassette tape"
+        ],
+        "correct": 3,
+        "fun_fact": "1 of 1 was SHINee's fifth Korean studio album. Its November 2016 repackage, 1 and 1, was led by Tell Me What to Do.",
+        "source": "https://en.wikipedia.org/wiki/1_of_1_(Shinee_album)"
+      },
+      {
+        "question": "Read aloud, the title of Davichi's 2009 single 8282 sounds like a Korean word. What does that word mean?",
+        "options": [
+          "Goodbye",
+          "Quickly",
+          "Forever",
+          "Again"
+        ],
+        "correct": 1,
+        "fun_fact": "8282 led Davichi in Wonderland, the duo's first EP, which came out in early 2009.",
+        "source": "https://en.wikipedia.org/wiki/Davichi_in_Wonderland"
+      },
+      {
+        "question": "200% was a single from Play, the April 2014 debut album of which K-pop Star 2 winners?",
+        "options": [
+          "Busker Busker",
+          "AKMU",
+          "Urban Zakapa",
+          "10cm"
+        ],
+        "correct": 1,
+        "fun_fact": "YG's Yang Hyun-suk picked 200% as a single while the duo chose Melted. 200% topped the Gaon Digital Chart for two weeks.",
+        "source": "https://en.wikipedia.org/wiki/AKMU"
+      },
+      {
+        "question": "Which singer made her debut with the single 1, 2, 3, 4 on October 28, 2012?",
+        "options": [
+          "Lee Hi",
+          "Ailee",
+          "Juniel",
+          "Hyuna"
+        ],
+        "correct": 0,
+        "fun_fact": "She had finished second on the first season of K-pop Star before signing with YG Entertainment, and the song was No. 1 on the monthly Gaon Digital Chart for November 2012.",
+        "source": "https://en.wikipedia.org/wiki/Lee_Hi"
+      },
+      {
+        "question": "IU's Twenty-Three was the lead single of which 2015 EP?",
+        "options": [
+          "Palette",
+          "Modern Times",
+          "Last Fantasy",
+          "Chat-Shire"
+        ],
+        "correct": 3,
+        "fun_fact": "Released on October 23, 2015, the disco-inspired track topped the Gaon Digital Chart and has sold over 2.5 million downloads in South Korea.",
+        "source": "https://en.wikipedia.org/wiki/Twenty-Three_(song)"
+      },
+      {
+        "question": "NCT 127's 2022 single 2 Baddies has a different Korean title. What does it mean?",
+        "options": [
+          "Escape",
+          "Thunder",
+          "Speeding",
+          "Gravity"
+        ],
+        "correct": 2,
+        "fun_fact": "2 Baddies led NCT 127's fourth studio album, also named 2 Baddies, released by SM Entertainment on September 16, 2022.",
+        "source": "https://en.wikipedia.org/wiki/2_Baddies_(song)"
+      },
+      {
+        "question": "Which American rapper is featured on 3D, Jungkook's single from September 2023?",
+        "options": [
+          "Latto",
+          "Lil Nas X",
+          "Jack Harlow",
+          "Drake"
+        ],
+        "correct": 2,
+        "fun_fact": "3D debuted at No. 5 on the Billboard Hot 100, and a November 2023 remix replaced Harlow with Justin Timberlake.",
+        "source": "https://en.wikipedia.org/wiki/3D_(song)"
+      },
+      {
+        "question": "Number One Girl, released in November 2024, was a single from which album?",
+        "options": [
+          "Rosie",
+          "Ruby",
+          "Born Pink",
+          "R"
+        ],
+        "correct": 0,
+        "fun_fact": "Rosé said the title refers to her fans, whom she calls her number ones. Bruno Mars is among the song's producers.",
+        "source": "https://en.wikipedia.org/wiki/Number_One_Girl"
+      },
+      {
+        "question": "Which boy group released Love 119 in January 2024?",
+        "options": [
+          "RIIZE",
+          "NCT Wish",
+          "TWS",
+          "The Boyz"
+        ],
+        "correct": 0,
+        "fun_fact": "Love 119 samples Emergency Room, a 2005 song by the band Izi, and peaked at No. 5 on the Circle Digital Chart.",
+        "source": "https://en.wikipedia.org/wiki/Love_119"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/4_Walls_(song)",
+      "https://en.wikipedia.org/wiki/1_of_1_(Shinee_album)",
+      "https://en.wikipedia.org/wiki/Davichi_in_Wonderland",
+      "https://en.wikipedia.org/wiki/AKMU",
+      "https://en.wikipedia.org/wiki/Lee_Hi",
+      "https://en.wikipedia.org/wiki/Twenty-Three_(song)",
+      "https://en.wikipedia.org/wiki/2_Baddies_(song)",
+      "https://en.wikipedia.org/wiki/3D_(song)",
+      "https://en.wikipedia.org/wiki/Number_One_Girl",
+      "https://en.wikipedia.org/wiki/Love_119",
+      "https://en.wikipedia.org/wiki/Play_(AKMU_album)",
+      "https://en.wikipedia.org/wiki/Davichi_discography"
+    ]
+  }
+]

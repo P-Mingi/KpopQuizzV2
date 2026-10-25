@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
   alternates: {
     canonical: '/leaderboard',
-    languages: { en: '/leaderboard', 'pt-BR': '/pt/leaderboard', 'x-default': '/leaderboard' },
+    languages: { en: '/leaderboard', 'x-default': '/leaderboard' },
   },
 };
 

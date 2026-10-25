@@ -26,7 +26,8 @@ import type { Theme } from '../ux-v1/helpers/setup-page';
 // Flag states (the server decides; the spec reads it from an empty POST, which the
 // route refuses before any database call):
 //   both on    /<group>-name-all-members is the page, /name-all/<group> the noindex twin.
-//   v11 only   both URLs 301 to / (the middleware), the route answers 404.
+//   v11 only   both URLs answer 404 (an unknown URL is a real 404 since the owner's rule of
+//              2026-10-15; it was a 301 to / before), the route answers 404.
 //   both off   the same.
 // G6_EXPECT=v12 | v11 | off makes the state an assertion instead of a discovery.
 
@@ -286,12 +287,14 @@ test.describe('G6 name them all behaviour', () => {
     test.info().annotations.push({ type: 'flag-state', description: state });
   });
 
-  test('flag off: both URLs answer as today (301 to /) and the route is a 404', async ({ request }) => {
+  // Owner rule (2026-10-15): an unknown URL answers a real 404, never a redirect to the home
+  // page. This row asserted the old 301 to / and now asserts the 404 that replaced it.
+  test('flag off: both URLs are a real 404 (no redirect) and the route is a 404', async ({ request }) => {
     test.skip((await flagState(request)) === 'v12', 'v12 is served here');
     for (const url of [PRETTY, INTERNAL, '/bts-name-all-members', '/name-all/bts']) {
       const r = await request.get(url, { maxRedirects: 0 });
-      expect(r.status(), `GET ${url}`).toBe(301);
-      expect(new URL(r.headers().location ?? '', 'http://x').pathname, `GET ${url} location`).toBe('/');
+      expect(r.status(), `GET ${url}`).toBe(404);
+      expect(r.headers().location, `GET ${url} location`).toBeUndefined();
     }
     expect((await request.post(NTA_PATH, { data: {} })).status()).toBe(404);
   });

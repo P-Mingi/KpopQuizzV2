@@ -32,7 +32,6 @@ export const metadata: Metadata = {
     canonical: '/stats',
     languages: {
       en: '/stats',
-      'pt-BR': '/pt/stats',
       'x-default': '/stats',
     },
   },

@@ -1,0 +1,686 @@
+[
+  {
+    "scheduled_date": "2026-11-08",
+    "title": "aespa: The Supernova Era",
+    "description": "Relive aespa's huge 2024: the Supernova and Armageddon releases, the Whiplash EP and the year-end awards that followed.",
+    "group_slug": "aespa",
+    "category": "era",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Which aespa song was pre-released on May 13, 2024, two weeks before the album Armageddon?",
+        "options": [
+          "Supernova",
+          "Spicy",
+          "Drama",
+          "Whiplash"
+        ],
+        "correct": 0,
+        "fun_fact": "Its futuristic music video, where each member shows off a superpower, passed 10 million views within about 10 hours of release.",
+        "source": "https://en.wikipedia.org/wiki/Supernova_(Aespa_song)"
+      },
+      {
+        "question": "Armageddon, released on May 27, 2024, was aespa's first release of which type?",
+        "options": [
+          "Single album",
+          "EP",
+          "Studio album",
+          "Japanese single"
+        ],
+        "correct": 2,
+        "fun_fact": "The ten-track record had passed 1.02 million copies in pre-orders by its release day.",
+        "source": "https://en.wikipedia.org/wiki/Armageddon_(Aespa_album)"
+      },
+      {
+        "question": "Supernova hit No. 1 on the real-time, daily and weekly iChart rankings at once. What is that feat called?",
+        "options": [
+          "Grand slam",
+          "Hat trick",
+          "Daesang",
+          "Perfect all-kill"
+        ],
+        "correct": 3,
+        "fun_fact": "It also became aespa's first song to top the Circle Digital Chart, where it stayed at No. 1 for 11 non-consecutive weeks.",
+        "source": "https://en.wikipedia.org/wiki/Supernova_(Aespa_song)"
+      },
+      {
+        "question": "How many grand prizes (daesang) did aespa win at the 2024 Melon Music Awards?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "correct": 2,
+        "fun_fact": "They took Artist, Album and Song of the Year among seven trophies, while Record of the Year went to (G)I-DLE, now known as i-dle.",
+        "source": "https://www.koreatimes.co.kr/entertainment/k-pop/20241201/aespas-meteoric-rise-continues-with-7-melon-awards"
+      },
+      {
+        "question": "Supernova won Song of the Year at the 2024 MAMA Awards, the first MAMA held partly in which country?",
+        "options": [
+          "United Kingdom",
+          "United States",
+          "Australia",
+          "Canada"
+        ],
+        "correct": 1,
+        "fun_fact": "The first night was at the Dolby Theatre in Los Angeles; the rest moved to the Kyocera Dome in Osaka, where aespa left with six awards.",
+        "source": "https://koreajoongangdaily.joins.com/news/2024-11-24/entertainment/kpop/Wow-Fantastic-Baby-2024-MAMA-Awards-end-with-a-Big-Bang/2184738"
+      },
+      {
+        "question": "Which aespa music video won Best Music Video at the 2024 MAMA Awards?",
+        "options": [
+          "Supernova",
+          "Whiplash",
+          "Spicy",
+          "Armageddon"
+        ],
+        "correct": 3,
+        "fun_fact": "The same video later won Best K-pop Video at the 2025 MTV Video Music Awards Japan.",
+        "source": "https://en.wikipedia.org/wiki/Armageddon_(Aespa_song)"
+      },
+      {
+        "question": "Whiplash, released on October 21, 2024, is aespa's which extended play?",
+        "options": [
+          "Third",
+          "Fourth",
+          "Fifth",
+          "Sixth"
+        ],
+        "correct": 2,
+        "fun_fact": "Besides the title track, the six-track EP includes Kill It, Pink Hoodie, Flowers and Just Another Girl.",
+        "source": "https://en.wikipedia.org/wiki/Whiplash_(EP)"
+      },
+      {
+        "question": "In March 2025, an English version of Whiplash came out alongside a remix by which DJ?",
+        "options": [
+          "Marshmello",
+          "Steve Aoki",
+          "Zedd",
+          "David Guetta"
+        ],
+        "correct": 1,
+        "fun_fact": "The English version came out on March 27, 2025, bundled with the Aoki remix and a sped-up take of the song.",
+        "source": "https://en.wikipedia.org/wiki/Whiplash_(Aespa_song)"
+      },
+      {
+        "question": "What was the name of aespa's second world tour, launched in Seoul in June 2024?",
+        "options": [
+          "Synk: Hyper Line",
+          "Synk: Parallel Line",
+          "Synk: Aexis Line",
+          "Synk: Complaexity"
+        ],
+        "correct": 1,
+        "fun_fact": "At the first Seoul shows each member unveiled a solo song, and the four tracks were released together on October 9, 2024.",
+        "source": "https://en.wikipedia.org/wiki/Synk:_Parallel_Line_(single_album)"
+      },
+      {
+        "question": "aespa opened 2024 with a remake of Regret of the Times. Which act first released the song?",
+        "options": [
+          "Seo Taiji and Boys",
+          "H.O.T.",
+          "S.E.S.",
+          "Fin.K.L"
+        ],
+        "correct": 0,
+        "fun_fact": "The remake was released on January 15, 2024, four months before Supernova arrived.",
+        "source": "https://en.wikipedia.org/wiki/Aespa"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Supernova_(Aespa_song)",
+      "https://en.wikipedia.org/wiki/Armageddon_(Aespa_album)",
+      "https://en.wikipedia.org/wiki/Armageddon_(Aespa_song)",
+      "https://en.wikipedia.org/wiki/Whiplash_(EP)",
+      "https://en.wikipedia.org/wiki/Whiplash_(Aespa_song)",
+      "https://en.wikipedia.org/wiki/Aespa",
+      "https://en.wikipedia.org/wiki/2024_Melon_Music_Awards",
+      "https://en.wikipedia.org/wiki/2024_MAMA_Awards",
+      "https://en.wikipedia.org/wiki/List_of_Circle_Digital_Chart_number_ones_of_2024",
+      "https://www.koreatimes.co.kr/entertainment/k-pop/20241201/aespas-meteoric-rise-continues-with-7-melon-awards",
+      "https://koreajoongangdaily.joins.com/news/2024-11-24/entertainment/kpop/Wow-Fantastic-Baby-2024-MAMA-Awards-end-with-a-Big-Bang/2184738",
+      "https://koreajoongangdaily.joins.com/news/2025-03-24/entertainment/kpop/Girl-group-aespa-to-release-English-version-of-Whiplash/2268760",
+      "https://koreajoongangdaily.joins.com/news/2024-04-22/entertainment/kpop/aespa-to-release-first-fulllength-album-Armageddon-in-May/2030527",
+      "https://en.wikipedia.org/wiki/Perfect_all-kill",
+      "https://en.wikipedia.org/wiki/Synk:_Parallel_Line_(single_album)",
+      "https://en.wikipedia.org/wiki/I-dle"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-09",
+    "title": "K-pop Solo Artists True or False",
+    "description": "Ten true or false statements about K-pop soloists, from BoA and Rain to IU, Taeyeon, Jennie, Jisoo, Baekhyun and Jungkook.",
+    "group_slug": null,
+    "category": "true_false",
+    "quiz_type": "true_false",
+    "difficulty": "hard",
+    "questions": [
+      {
+        "question": "IU made her debut in 2008 with the EP Lost and Found.",
+        "correct": true,
+        "fun_fact": "Her agency LOEN came up with the stage name IU, meant to express I and You becoming one through music.",
+        "source": "https://en.wikipedia.org/wiki/IU_(entertainer)"
+      },
+      {
+        "question": "Rain launched his solo career in 2002 under SM Entertainment.",
+        "correct": false,
+        "fun_fact": "He debuted solo under J. Y. Park's JYP Entertainment, releasing the album Bad Guy on May 13, 2002.",
+        "source": "https://en.wikipedia.org/wiki/Rain_(entertainer)"
+      },
+      {
+        "question": "BoA's Listen to My Heart was the first album by a Korean artist to top the Oricon Albums Chart.",
+        "correct": true,
+        "fun_fact": "Released in Japan in March 2002, it was also the first record by a Korean artist certified million by the RIAJ for one million shipments.",
+        "source": "https://en.wikipedia.org/wiki/Listen_to_My_Heart_(BoA_album)"
+      },
+      {
+        "question": "Taeyeon's debut studio album, released in 2017, was titled Purpose.",
+        "correct": false,
+        "fun_fact": "Her first studio album was My Voice (2017). Purpose followed on October 28, 2019, as her second, with the single Spark.",
+        "source": "https://en.wikipedia.org/wiki/Taeyeon"
+      },
+      {
+        "question": "Jennie's debut solo studio album, Ruby, was released in 2025 by Odd Atelier and Columbia Records.",
+        "correct": true,
+        "fun_fact": "The 15-track album features guests such as Dua Lipa, Doechii, Childish Gambino, Kali Uchis, Dominic Fike and FKJ.",
+        "source": "https://en.wikipedia.org/wiki/Ruby_(Jennie_album)"
+      },
+      {
+        "question": "Sunmi released her 2017 hit Gashina while still signed to JYP Entertainment.",
+        "correct": false,
+        "fun_fact": "She had moved to MakeUs Entertainment that year, and Gashina was a collaboration with The Black Label, led by producer Teddy Park.",
+        "source": "https://www.koreatimes.co.kr/entertainment/k-pop/20170828/ioi-girls-return-in-different-bands"
+      },
+      {
+        "question": "Jisoo's 2023 solo debut single, Flower, was released through SM Entertainment.",
+        "correct": false,
+        "fun_fact": "It arrived on March 31, 2023, via YG Entertainment and Interscope, leading her first single album, Me.",
+        "source": "https://en.wikipedia.org/wiki/Flower_(Jisoo_song)"
+      },
+      {
+        "question": "Chung Ha finished fourth on Produce 101 and became a member of the project group I.O.I.",
+        "correct": true,
+        "fun_fact": "After I.O.I's run ended, she debuted as a soloist in 2017 with the EP Hands on Me.",
+        "source": "https://en.wikipedia.org/wiki/Chung_Ha"
+      },
+      {
+        "question": "Jungkook's 2023 single Seven featured the rapper Cardi B.",
+        "correct": false,
+        "fun_fact": "Seven featured Latto and debuted at No. 1 on the Billboard Hot 100: Jungkook's first solo chart-topper and Latto's first ever.",
+        "source": "https://www.billboard.com/music/chart-beat/jung-kook-latto-seven-number-one-debut-hot-100-jason-aldean-1235377400/"
+      },
+      {
+        "question": "EXO's Baekhyun made his solo debut in 2019 with the EP City Lights.",
+        "correct": true,
+        "fun_fact": "SM Entertainment released the six-track EP on July 10, 2019, with UN Village as its lead single.",
+        "source": "https://en.wikipedia.org/wiki/City_Lights_(EP)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/IU_(entertainer)",
+      "https://www.koreaherald.com/article/2561258",
+      "https://en.wikipedia.org/wiki/Rain_(entertainer)",
+      "https://www.koreatimes.co.kr/entertainment/k-pop/20241115/jyps-founder-thrives-after-30-years-at-helm-of-k-pop-powerhouse",
+      "https://en.wikipedia.org/wiki/BoA",
+      "https://en.wikipedia.org/wiki/Listen_to_My_Heart_(BoA_album)",
+      "https://en.wikipedia.org/wiki/Taeyeon",
+      "https://en.wikipedia.org/wiki/Jennie_(singer)",
+      "https://en.wikipedia.org/wiki/Ruby_(Jennie_album)",
+      "https://www.billboard.com/music/pop/blackpink-jennie-announces-debut-solo-album-ruby-1235880419/",
+      "https://en.wikipedia.org/wiki/Sunmi",
+      "https://www.koreatimes.co.kr/entertainment/k-pop/20170828/ioi-girls-return-in-different-bands",
+      "https://www.koreaherald.com/article/1264697",
+      "https://en.wikipedia.org/wiki/Chung_Ha",
+      "https://www.koreaherald.com/article/1352231",
+      "https://en.wikipedia.org/wiki/Seven_(Jung_Kook_song)",
+      "https://www.billboard.com/music/chart-beat/jung-kook-latto-seven-number-one-debut-hot-100-jason-aldean-1235377400/",
+      "https://en.wikipedia.org/wiki/Purpose_(Taeyeon_album)",
+      "https://en.wikipedia.org/wiki/Jisoo",
+      "https://en.wikipedia.org/wiki/Flower_(Jisoo_song)",
+      "https://koreaherald.com/view.php?ud=20230331000435",
+      "https://en.wikipedia.org/wiki/Baekhyun",
+      "https://en.wikipedia.org/wiki/City_Lights_(EP)",
+      "https://www.koreatimes.co.kr/www/art/2024/04/398_271644.html"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-10",
+    "title": "TWICE: Cheer Up to Fancy Quiz",
+    "description": "From Cheer Up to Fancy: test what you remember about TWICE's 2016 to 2019 singles, their music videos and the agency behind them.",
+    "group_slug": "twice",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Which agency launched TWICE in 2015?",
+        "options": [
+          "SM Entertainment",
+          "YG Entertainment",
+          "JYP Entertainment",
+          "Big Hit Entertainment"
+        ],
+        "correct": 2,
+        "fun_fact": "Founder J. Y. Park chose the name TWICE: the group would touch hearts once through the ears and again through the eyes.",
+        "source": "https://en.wikipedia.org/wiki/Twice"
+      },
+      {
+        "question": "In the Cheer Up music video, Sana dresses as which famous anime heroine?",
+        "options": [
+          "Sailor Moon",
+          "Sakura Kinomoto",
+          "Nausicaa",
+          "Asuka Langley"
+        ],
+        "correct": 0,
+        "fun_fact": "Every member plays a film or TV character, such as Tzuyu as Holly Golightly from Breakfast at Tiffany's.",
+        "source": "https://en.wikipedia.org/wiki/Cheer_Up_(song)"
+      },
+      {
+        "question": "Which 2016 TWICE video shows the members in Halloween costumes such as Tinker Bell and Pinocchio?",
+        "options": [
+          "Heart Shaker",
+          "TT",
+          "Likey",
+          "Fancy"
+        ],
+        "correct": 1,
+        "fun_fact": "Chaeyoung appears as Ariel from The Little Mermaid, and the video closes with a To be continued message.",
+        "source": "https://en.wikipedia.org/wiki/TT_(song)"
+      },
+      {
+        "question": "Which 2017 TWICE video shows a slumber party, a snowball fight and a short cameo by J. Y. Park?",
+        "options": [
+          "Signal",
+          "Heart Shaker",
+          "Likey",
+          "Knock Knock"
+        ],
+        "correct": 3,
+        "fun_fact": "Released on February 20, 2017, it led the special album Twicecoaster: Lane 2 and ends with the same scene as the TT video.",
+        "source": "https://en.wikipedia.org/wiki/Knock_Knock_(Twice_song)"
+      },
+      {
+        "question": "In the Signal music video, the superpowered members meet what kind of visitor?",
+        "options": [
+          "A zombie",
+          "A vampire",
+          "A robot",
+          "A green-headed alien"
+        ],
+        "correct": 3,
+        "fun_fact": "Each member has a power, such as Momo's super speed, and by the end of the video the members turn into aliens too.",
+        "source": "https://en.wikipedia.org/wiki/Signal_(Twice_song)"
+      },
+      {
+        "question": "The Likey music video was filmed entirely in which city?",
+        "options": [
+          "Los Angeles",
+          "Sydney",
+          "Vancouver",
+          "London"
+        ],
+        "correct": 2,
+        "fun_fact": "Likey was the lead single of TWICE's first studio album, Twicetagram, and leader Jihyo shot some of the footage herself.",
+        "source": "https://en.wikipedia.org/wiki/Likey"
+      },
+      {
+        "question": "Which 2018 single's video has the members recreating scenes from films like Ghost and La La Land?",
+        "options": [
+          "What Is Love?",
+          "Yes or Yes",
+          "Heart Shaker",
+          "Dance the Night Away"
+        ],
+        "correct": 0,
+        "fun_fact": "The song earned TWICE their third Song of the Year award in a row at the 2018 Mnet Asian Music Awards.",
+        "source": "https://en.wikipedia.org/wiki/What_Is_Love%3F_(Twice_song)"
+      },
+      {
+        "question": "The Dance the Night Away video shows TWICE as castaways on a beach. Where was it filmed?",
+        "options": [
+          "Jeju Island",
+          "Okinawa",
+          "Bali",
+          "Hawaii"
+        ],
+        "correct": 1,
+        "fun_fact": "Released on July 9, 2018, it was the lead single of Summer Nights, a reissue of their fifth EP.",
+        "source": "https://en.wikipedia.org/wiki/Dance_the_Night_Away_(Twice_song)"
+      },
+      {
+        "question": "In the Yes or Yes music video, which object do the members use to have their fortunes told?",
+        "options": [
+          "A crystal ball",
+          "Tarot cards",
+          "A fortune cookie",
+          "A magic mirror"
+        ],
+        "correct": 0,
+        "fun_fact": "It hit 100 million YouTube views on December 14, 2018, making ten TWICE music videos in a row to reach that mark.",
+        "source": "https://en.wikipedia.org/wiki/Yes_or_Yes_(song)"
+      },
+      {
+        "question": "Which April 2019 single showed a more mature TWICE, with bold CGI backdrops in its video?",
+        "options": [
+          "Yes or Yes",
+          "Knock Knock",
+          "Heart Shaker",
+          "Fancy"
+        ],
+        "correct": 3,
+        "fun_fact": "Written by Black Eyed Pilseung and Jeon Goon, the retro electropop track led the group's seventh EP, Fancy You.",
+        "source": "https://en.wikipedia.org/wiki/Fancy_(Twice_song)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Twice",
+      "https://twice.jype.com/profile",
+      "https://www.billboard.com/music/music-news/twice-k-pop-ten-facts-girl-group-7557591/",
+      "https://www.koreatimes.co.kr/entertainment/k-pop/20260810/twices-jeongyeon-leaves-jyp-to-pursue-acting-career",
+      "https://en.wikipedia.org/wiki/Cheer_Up_(song)",
+      "https://en.wikipedia.org/wiki/TT_(song)",
+      "https://en.wikipedia.org/wiki/Signal_(Twice_song)",
+      "https://en.wikipedia.org/wiki/Likey",
+      "https://en.wikipedia.org/wiki/What_Is_Love%3F_(Twice_song)",
+      "https://en.wikipedia.org/wiki/Dance_the_Night_Away_(Twice_song)",
+      "https://en.wikipedia.org/wiki/Fancy_(Twice_song)",
+      "https://en.wikipedia.org/wiki/Knock_Knock_(Twice_song)",
+      "https://en.wikipedia.org/wiki/Yes_or_Yes_(song)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-11",
+    "title": "K-pop Grand Prize Winners",
+    "description": "Who took the daesang? Test your memory of Artist and Album of the Year winners at the MAMA, Melon and Golden Disc Awards.",
+    "group_slug": null,
+    "category": "knowledge",
+    "quiz_type": "multiple_choice",
+    "difficulty": "hard",
+    "questions": [
+      {
+        "question": "Which act won the very first MAMA Artist of the Year award, presented in 2006?",
+        "options": [
+          "Super Junior",
+          "BIGBANG",
+          "TVXQ",
+          "Rain"
+        ],
+        "correct": 2,
+        "fun_fact": "Super Junior took the award the following year, and BIGBANG won it in 2008.",
+        "source": "https://en.wikipedia.org/wiki/MAMA_Award_for_Artist_of_the_Year"
+      },
+      {
+        "question": "Through the 2025 ceremony, how many times had BTS won the MAMA Artist of the Year daesang?",
+        "options": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "correct": 3,
+        "fun_fact": "Their wins ran every year from 2016 to 2022, a streak no other act had matched as of 2025.",
+        "source": "https://en.wikipedia.org/wiki/MAMA_Award_for_Artist_of_the_Year"
+      },
+      {
+        "question": "Which group won MAMA Album of the Year five years in a row, from 2013 to 2017?",
+        "options": [
+          "EXO",
+          "Super Junior",
+          "SHINee",
+          "BIGBANG"
+        ],
+        "correct": 0,
+        "fun_fact": "The run began with XOXO and ended with The War, and BTS then won the next five editions from 2018 to 2022.",
+        "source": "https://en.wikipedia.org/wiki/MAMA_Award_for_Album_of_the_Year"
+      },
+      {
+        "question": "Which group won the Melon Music Award for Artist of the Year in both 2011 and 2012?",
+        "options": [
+          "2NE1",
+          "Beast",
+          "BIGBANG",
+          "SHINee"
+        ],
+        "correct": 1,
+        "fun_fact": "Girls' Generation had won the two previous editions, and SHINee took the award in 2013.",
+        "source": "https://en.wikipedia.org/wiki/Melon_Music_Award_for_Artist_of_the_Year"
+      },
+      {
+        "question": "Which band won Melon Album of the Year in both 2012 and 2013?",
+        "options": [
+          "CNBLUE",
+          "Hyukoh",
+          "Busker Busker",
+          "Day6"
+        ],
+        "correct": 2,
+        "fun_fact": "They won first with Busker Busker 1st Album and again the next year with their second album.",
+        "source": "https://en.wikipedia.org/wiki/Melon_Music_Award_for_Album_of_the_Year"
+      },
+      {
+        "question": "Which IU album was named Melon Album of the Year in 2017?",
+        "options": [
+          "Lilac",
+          "Palette",
+          "Love Poem",
+          "Chat-Shire"
+        ],
+        "correct": 1,
+        "fun_fact": "She won the same grand prize again in 2021, that time with Lilac.",
+        "source": "https://en.wikipedia.org/wiki/Melon_Music_Award_for_Album_of_the_Year"
+      },
+      {
+        "question": "At the 2022 Melon Music Awards, which singer took both Artist of the Year and Album of the Year?",
+        "options": [
+          "Lim Young-woong",
+          "IU",
+          "Zico",
+          "Psy"
+        ],
+        "correct": 0,
+        "fun_fact": "BTS received Record of the Year that night, and IVE won Song of the Year, the group's first ever daesang.",
+        "source": "https://en.wikipedia.org/wiki/2022_Melon_Music_Awards"
+      },
+      {
+        "question": "Which TVXQ album won Album of the Year at the 2008 Mnet KM Music Festival?",
+        "options": [
+          "Catch Me",
+          "Rising Sun",
+          "Keep Your Head Down",
+          "Mirotic"
+        ],
+        "correct": 3,
+        "fun_fact": "Released in September 2008 as their fourth Korean studio album, it also won the Disk Daesang at the 23rd Golden Disc Awards.",
+        "source": "https://en.wikipedia.org/wiki/Mirotic_(album)"
+      },
+      {
+        "question": "Who won the Golden Disc Awards' new Artist Daesang, first given at the 40th ceremony in January 2026?",
+        "options": [
+          "Rosé",
+          "G-Dragon",
+          "IU",
+          "Jennie"
+        ],
+        "correct": 3,
+        "fun_fact": "The ceremony took place at the Taipei Dome, and Stray Kids won that year's Album Daesang with Karma.",
+        "source": "https://en.wikipedia.org/wiki/40th_Golden_Disc_Awards"
+      },
+      {
+        "question": "At the 2025 Melon Music Awards, who swept Song, Artist and Album of the Year?",
+        "options": [
+          "aespa",
+          "Jennie",
+          "G-Dragon",
+          "Rosé"
+        ],
+        "correct": 2,
+        "fun_fact": "He won seven awards at Gocheok Sky Dome that night, while Record of the Year went to Jennie.",
+        "source": "https://en.wikipedia.org/wiki/2025_Melon_Music_Awards"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/MAMA_Award_for_Artist_of_the_Year",
+      "https://en.wikipedia.org/wiki/MAMA_Award_for_Album_of_the_Year",
+      "https://en.wikipedia.org/wiki/Melon_Music_Award_for_Artist_of_the_Year",
+      "https://en.wikipedia.org/wiki/Melon_Music_Award_for_Album_of_the_Year",
+      "https://en.wikipedia.org/wiki/2022_Melon_Music_Awards",
+      "https://en.wikipedia.org/wiki/Mirotic_(album)",
+      "https://en.wikipedia.org/wiki/Golden_Disc_Awards",
+      "https://en.wikipedia.org/wiki/40th_Golden_Disc_Awards",
+      "https://en.wikipedia.org/wiki/2025_Melon_Music_Awards",
+      "https://en.wikipedia.org/wiki/2025_MAMA_Awards"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-12",
+    "title": "K-pop Virtual Idols",
+    "description": "PLAVE, K/DA, MAVE: and naevis: ten questions on the virtual idols and digital singers who have made their mark on K-pop.",
+    "group_slug": null,
+    "category": "fun",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Which agency is behind the virtual boy band PLAVE?",
+        "options": [
+          "Pulse9",
+          "Vlast",
+          "Metaverse Entertainment",
+          "Riot Games"
+        ],
+        "correct": 1,
+        "fun_fact": "In April 2024, Vlast's CEO said HYBE and YG Plus had invested in the company to help PLAVE expand overseas.",
+        "source": "https://en.wikipedia.org/wiki/Plave"
+      },
+      {
+        "question": "Which single album marked PLAVE's formal debut in March 2023?",
+        "options": [
+          "Caligo Pt.1",
+          "Pandora's Box",
+          "Asterum",
+          "All Out"
+        ],
+        "correct": 2,
+        "fun_fact": "PLAVE's name mixes the English word play with rêve, French for dream.",
+        "source": "https://en.wikipedia.org/wiki/Plave"
+      },
+      {
+        "question": "In 2024, PLAVE became the first virtual idol group to win a Korean music show. With which song?",
+        "options": [
+          "Way 4 Luv",
+          "Dash",
+          "Pop/Stars",
+          "Pandora"
+        ],
+        "correct": 0,
+        "fun_fact": "The song took first place on both Show Champion and Show! Music Core.",
+        "source": "https://en.wikipedia.org/wiki/Plave"
+      },
+      {
+        "question": "Which HYBE-run fan platform did PLAVE become the first virtual group to join?",
+        "options": [
+          "Lysn",
+          "Berriz",
+          "Universe",
+          "Weverse"
+        ],
+        "correct": 3,
+        "fun_fact": "They announced the move during a livestream on December 12, 2023, and opened their official fan club membership there in early 2024.",
+        "source": "https://en.wikipedia.org/wiki/Plave"
+      },
+      {
+        "question": "The members of the virtual girl group K/DA are versions of characters from which video game?",
+        "options": [
+          "Overwatch",
+          "Valorant",
+          "League of Legends",
+          "Fortnite"
+        ],
+        "correct": 2,
+        "fun_fact": "Riot Games unveiled the group in 2018 with a mixed-reality performance at the World Championship opening ceremony in Incheon.",
+        "source": "https://www.billboard.com/pro/league-of-legends-virtual-k-pop-girl-group-kda-music-esports/"
+      },
+      {
+        "question": "Which two members of (G)I-DLE, now called i-dle, voice Ahri and Akali in K/DA?",
+        "options": [
+          "Yuqi and Minnie",
+          "Shuhua and Yuqi",
+          "Minnie and Shuhua",
+          "Miyeon and Soyeon"
+        ],
+        "correct": 3,
+        "fun_fact": "The other two characters are voiced by American singers: Madison Beer as Evelynn and Jaira Burns as Kai'Sa.",
+        "source": "https://www.billboard.com/pro/league-of-legends-virtual-k-pop-girl-group-kda-music-esports/"
+      },
+      {
+        "question": "What was K/DA's debut single, released on November 3, 2018?",
+        "options": [
+          "Pop/Stars",
+          "More",
+          "The Baddest",
+          "Drum Go Dum"
+        ],
+        "correct": 0,
+        "fun_fact": "Within days it reached No. 1 on Billboard's World Digital Song Sales chart and on the US iTunes K-pop chart.",
+        "source": "https://www.koreaherald.com/view.php?ud=20181114000662"
+      },
+      {
+        "question": "The virtual girl group MAVE: was launched by an affiliate of which game company?",
+        "options": [
+          "Nexon",
+          "Netmarble",
+          "NCSoft",
+          "Krafton"
+        ],
+        "correct": 1,
+        "fun_fact": "Its four virtual members, SIU:, ZENA:, TYRA: and MARTY:, debuted on January 25, 2023, with the album Pandora's Box.",
+        "source": "https://www.koreatimes.co.kr/www/tech/2023/01/133_344172.html"
+      },
+      {
+        "question": "Which agency debuted naevis, its first AI-generated singer, in 2024?",
+        "options": [
+          "JYP Entertainment",
+          "YG Entertainment",
+          "SM Entertainment",
+          "HYBE"
+        ],
+        "correct": 2,
+        "fun_fact": "She first appeared in aespa's fictional universe, where she helps the members travel to the digital world called Kwangya.",
+        "source": "https://www.nme.com/news/music/sm-entertainment-debut-first-ai-singer-naevis-3785500"
+      },
+      {
+        "question": "What was the title of naevis's debut single, released in September 2024?",
+        "options": [
+          "Done",
+          "Pandora",
+          "I'm Real",
+          "Dash"
+        ],
+        "correct": 0,
+        "fun_fact": "Years before going solo, she showed up in the video for aespa's Black Mamba, released in November 2020.",
+        "source": "https://www.koreaherald.com/article/10420599"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Plave",
+      "https://www.koreaherald.com/article/10489798",
+      "https://www.billboard.com/pro/league-of-legends-virtual-k-pop-girl-group-kda-music-esports/",
+      "https://www.koreaherald.com/view.php?ud=20181114000662",
+      "https://en.wikipedia.org/wiki/K/DA",
+      "https://www.koreatimes.co.kr/www/tech/2023/01/133_344172.html",
+      "https://en.wikipedia.org/wiki/Mave:",
+      "https://www.nme.com/news/music/sm-entertainment-debut-first-ai-singer-naevis-3785500",
+      "https://www.koreaherald.com/article/10420599",
+      "https://en.wikipedia.org/wiki/Naevis",
+      "https://koreaherald.com/view.php?ud=20240303050195",
+      "https://en.wikipedia.org/wiki/Weverse",
+      "https://en.wikipedia.org/wiki/Lysn",
+      "https://www.koreaherald.com/article/10449874",
+      "https://www.koreaherald.com/article/2548585",
+      "https://en.wikipedia.org/wiki/I-dle"
+    ]
+  }
+]

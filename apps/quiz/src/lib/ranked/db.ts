@@ -7,6 +7,8 @@
 
 import { createClient } from '@supabase/supabase-js';
 
+import { hiddenCoverSongIds } from '@/lib/song-cover-overrides';
+
 import { RankedNotLiveError } from './service';
 
 import type { FinalRun, RunState, RunStatus, StoredAnswer } from './run';
@@ -149,6 +151,8 @@ export class SupabaseRankedStore implements RankedStore {
       this.db.from('ranked_song_stats').select('song_id, times_played, times_correct').order('song_id'),
     );
     const byId = new Map(stats.map((s) => [s.song_id, s]));
+    // The owner's manual cover switches (fail soft: empty while songs.hide_cover does not exist).
+    const coverSwitches = await hiddenCoverSongIds();
     const pool = songs.map((s): PoolSong => {
       const st = byId.get(s.id);
       return {
@@ -164,6 +168,7 @@ export class SupabaseRankedStore implements RankedStore {
         tier: s.tier,
         timesPlayed: st?.times_played ?? 0,
         timesCorrect: st?.times_correct ?? 0,
+        hideCover: coverSwitches.has(s.id),
       };
     });
     poolCache = { at: Date.now(), songs: pool };

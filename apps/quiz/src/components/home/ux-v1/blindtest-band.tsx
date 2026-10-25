@@ -31,7 +31,8 @@ const EQ_DELAYS = ['0s', '-.2s', '-.4s', '-.1s', '-.3s', '-.5s', '-.15s'];
  * left to the UTC rollover, and the played state: a signed-in fan's score and rank
  * from /api/ux-v1/p1/daily-band ("You scored 8/10 today", See today's board, "Your
  * best 8/10"), a guest's "played today" flag from this browser (same flag as the
- * legacy daily card). Links: /blindtest?daily=true, /blindtest/leaderboard, /blindtest.
+ * legacy daily card). Links: /blindtest?daily=true, /blindtest/leaderboard, /blindtest,
+ * /kpop-games.
  */
 export function BlindtestBand({ fans, date }: Props): React.ReactElement {
   const me = useUxMe();
@@ -87,6 +88,8 @@ export function BlindtestBand({ fans, date }: Props): React.ReactElement {
               ? <UxButton href="/blindtest/leaderboard" size="lg" icon="trophy">See today&apos;s board</UxButton>
               : <UxButton href="/blindtest?daily=true" size="lg" icon="play">Play the daily</UxButton>}
             <UxLink href="/blindtest" icon="arrow">All blindtest modes</UxLink>
+            {/* SEO Mission 2 (owner, 2026-10-15): the page of every game. */}
+            <UxLink href="/kpop-games" icon="arrow">K-pop games</UxLink>
           </div>
         </div>
         <div className="p1-eqwrap">
