@@ -17,8 +17,8 @@ import { brandWordmark } from '@/lib/site/brand';
 export function UxBrand({ href = '/', label = `${SITE.brand.name} home` }: { href?: string | null; label?: string }): React.ReactElement {
   const inner = (
     <>
-      {/* Run O1 (H2a, owner 2026-10-25): the rabbit of kpopquiz.org is the mark of the three sites, then the wordmark of the site: it replaces the
-          letter tile (F, O) of the hub and the anime site. */}
+      {/* Run O1 (H2a, owner 2026-10-25): the rabbit is the mark of the three sites, then the wordmark of the site: it replaces the letter tile
+          (F, O) of the hub and the anime site. */}
       <Image src="/mascot/mascot-default.png" alt="" width={28} height={28} loading="eager" className="ux-brand-rabbit" aria-hidden="true" />
       <span>{brandWordmark().head}<b>{brandWordmark().tail}</b></span>
     </>

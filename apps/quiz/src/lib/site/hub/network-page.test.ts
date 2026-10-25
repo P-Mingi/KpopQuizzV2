@@ -56,7 +56,7 @@ describe('the sites list comes from the registry', () => {
       'lib/site/hub/passport-summary.ts',
       ...readdirSync(`${SRC}components/hub`).filter((f) => f.endsWith('.tsx') && !f.endsWith('.test.tsx')).map((f) => `components/hub/${f}`),
       // lot H2a: the blocks of the new home and their loaders
-      ...readdirSync(`${SRC}components/hub/home`).filter((f) => /\.tsx?$/.test(f)).map((f) => `components/hub/home/${f}`),
+      ...readdirSync(`${SRC}components/hub/home`).filter((f) => /\.tsx?$/.test(f) && !f.endsWith('.test.ts')).map((f) => `components/hub/home/${f}`),
       ...readdirSync(`${SRC}lib/site/hub`).filter((f) => /^home-.*\.ts$/.test(f) && !f.endsWith('.test.ts')).map((f) => `lib/site/hub/${f}`),
     ];
     const words = [
@@ -91,7 +91,7 @@ describe('the copy of the page', () => {
   it('uses every key it has, in the code of the page', () => {
     const files = [
       'app/sites/[site]/home-hub.tsx', 'lib/site/hub/network-page.ts', 'components/hub/hub-shares.tsx',
-      ...readdirSync(`${SRC}components/hub/home`).filter((f) => /\.tsx?$/.test(f)).map((f) => `components/hub/home/${f}`),
+      ...readdirSync(`${SRC}components/hub/home`).filter((f) => /\.tsx?$/.test(f) && !f.endsWith('.test.ts')).map((f) => `components/hub/home/${f}`),
     ];
     const code = files.map(read).join('\n');
     for (const key of Object.keys(COPY)) expect(code.includes(`'${key}'`), key).toBe(true);

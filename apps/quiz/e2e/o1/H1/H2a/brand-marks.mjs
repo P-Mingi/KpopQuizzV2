@@ -1,11 +1,11 @@
-// Run O1, lot H2a (owner, 2026-10-25): the KpopQuiz rabbit followed by the wordmark of the site, for the share image and the square logos of
+// Run O1, lot H2a (owner, 2026-10-25): the KpopQuiz rabbit followed by the wordmark of the site, for the default share image of
 // the hub (FanQuiz) and of the anime site (OtakuQuiz), the wordmark written as the name is (FanQuiz, OtakuQuiz). Same renderer and same face as e2e/o1/L1/brand-og.mjs (@vercel/og, public/fonts/dm-sans-*.ttf).
 // The rabbit is public/mascot/mascot-default.png as kpopquiz.org's navigation draws it. The hub is ink and cream (no pink); the anime site is orange.
 //
-//   node apps/quiz/e2e/o1/H1/H2a/brand-marks.mjs            writes public/brand/{hub,anime}/og-default.png and logo-512.png, logo-192.png, logo-96.png
+//   node apps/quiz/e2e/o1/H1/H2a/brand-marks.mjs            writes public/brand/{hub,anime}/og-default.png
+// The icons, favicons and logo files of the two sites stay kpopquiz's bytes (owner decision D-099, routing.test.ts): they are the rabbit already.
 //   node apps/quiz/e2e/o1/H1/H2a/brand-marks.mjs --check    exit 1 when a file differs from a fresh render
 import { readFileSync, writeFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -13,8 +13,6 @@ import { ImageResponse } from '@vercel/og';
 
 const QUIZ = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '..');
 const PUBLIC = join(QUIZ, 'public');
-const require = createRequire(join(QUIZ, 'package.json'));
-const sharp = require('sharp');
 
 const RABBIT = `data:image/png;base64,${readFileSync(join(PUBLIC, 'mascot', 'mascot-default.png')).toString('base64')}`;
 const PILL = '#F5F3EF';
@@ -62,16 +60,6 @@ function og(s) {
   ]);
 }
 
-function logo(s) {
-  return el('div', { width: 512, height: 512, background: '#FAF8F5', borderRadius: 112, flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: 'DM Sans' }, [
-    img(300),
-    el('div', { fontSize: 76, lineHeight: 1, letterSpacing: -1, fontWeight: 800, marginTop: 4 }, [
-      el('span', { color: s.ink }, s.head),
-      el('span', { color: s.accent }, s.tail),
-    ]),
-  ]);
-}
-
 async function render(node, width, height) {
   return Buffer.from(await new ImageResponse(node, { width, height, fonts: FONTS }).arrayBuffer());
 }
@@ -91,9 +79,5 @@ async function put(site, name, png) {
 }
 for (const [site, s] of Object.entries(SITES)) {
   await put(site, 'og-default.png', await render(og(s), 1200, 630));
-  const big = await render(logo(s), 512, 512);
-  await put(site, 'logo-512.png', big);
-  await put(site, 'logo-192.png', await sharp(big).resize(192, 192).png().toBuffer());
-  await put(site, 'logo-96.png', await sharp(big).resize(96, 96).png().toBuffer());
 }
 if (check) { console.log(`brand marks check, differing files: ${differs}`); process.exit(differs ? 1 : 0); }
