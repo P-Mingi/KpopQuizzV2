@@ -828,5 +828,33 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "稱號：馴獸大師→靈獸之王"
+  },
+  {
+    "id": "omniscient-readers-viewpoint-korean-origin-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "omniscient-readers-viewpoint"
+    },
+    "field": "origin",
+    "value": "South Korea",
+    "text": "Omniscient Reader's Viewpoint began as a web novel from South Korea, written by singNsong.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Omniscient_Reader's_Viewpoint",
+        "ref": "1381802715",
+        "fetched_at": "2026-10-25T19:02:59Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:59.000Z",
+    "excerpt": "is a South Korean web novel written by singNsong"
   }
 ]

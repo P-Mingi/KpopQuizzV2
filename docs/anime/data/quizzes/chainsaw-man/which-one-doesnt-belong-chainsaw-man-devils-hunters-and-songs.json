@@ -1,0 +1,333 @@
+{
+ "site": "anime",
+ "account": "oq_creator_12",
+ "group_slug": "chainsaw-man",
+ "title": "Which One Does Not Belong? Chainsaw Man Devils, Hunters and Songs",
+ "slug": "which-one-doesnt-belong-chainsaw-man-devils-hunters-and-songs",
+ "description": "Odd one out in ten rounds: devil contracts, fears that spawn devils, Special Division 4 hunters, Fujimoto works and Yonezu songs. Light spoilers up to the Reze Arc, with one question reaching the Assassins Arc.",
+ "quiz_type": "intruder",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Intruder format: three options share a category and one does not; every option is a devil, hunter, song or work from the franchise.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Chainsaw Man characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Chainsaw Man (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Chainsaw Man",
+   "url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Tatsuki Fujimoto",
+   "url": "https://en.wikipedia.org/wiki/Tatsuki_Fujimoto"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three of these are devils. Which one is a human Devil Hunter?",
+   "options": [
+    {
+     "label": "Future Devil"
+    },
+    {
+     "label": "Zombie Devil"
+    },
+    {
+     "label": "Curse Devil"
+    },
+    {
+     "label": "Kobeni Higashiyama"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "chainsaw-man-zombie-devil-yakuza-075",
+    "chainsaw-man-curse-devil-fear-045",
+    "chainsaw-man-future-devil-fear-046",
+    "chainsaw-man-kobeni-hunter-051"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+  },
+  {
+   "question": "Three of these characters work for Makima's Public Safety team. Which one comes from the yakuza?",
+   "options": [
+    {
+     "label": "Kobeni Higashiyama"
+    },
+    {
+     "label": "Katana Man"
+    },
+    {
+     "label": "Angel Devil"
+    },
+    {
+     "label": "Power"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "chainsaw-man-power-hunter-060",
+    "chainsaw-man-angel-hunter-061",
+    "chainsaw-man-kobeni-hunter-051",
+    "chainsaw-man-katana-yakuza-062"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+  },
+  {
+   "question": "Three of these devils are born from the fear of an animal. Which one is born from the fear of something else?",
+   "options": [
+    {
+     "label": "Bat Devil"
+    },
+    {
+     "label": "Spider Devil"
+    },
+    {
+     "label": "Eternity Devil"
+    },
+    {
+     "label": "Fox Devil"
+    }
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "chainsaw-man-bat-devil-fear-047",
+    "chainsaw-man-fox-devil-fear-048",
+    "chainsaw-man-spider-devil-fear-049",
+    "chainsaw-man-eternity-devil-fear-050"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+  },
+  {
+   "question": "Three of these songs feature Kenshi Yonezu. Which one is by another artist?",
+   "options": [
+    {
+     "label": "Chainsaw Blood"
+    },
+    {
+     "label": "Kick Back"
+    },
+    {
+     "label": "Jane Doe"
+    },
+    {
+     "label": "Iris Out"
+    }
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "chainsaw-man-opening-theme-015",
+    "chainsaw-man-iris-out-073",
+    "chainsaw-man-jane-doe-074",
+    "chainsaw-man-ending-themes-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+  },
+  {
+   "question": "Three of these are Shueisha outlets for the manga. Which one is the company behind the English print edition?",
+   "options": [
+    {
+     "label": "Weekly Shonen Jump"
+    },
+    {
+     "label": "Viz Media"
+    },
+    {
+     "label": "Manga Plus"
+    },
+    {
+     "label": "Shonen Jump+"
+    }
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "chainsaw-man-wsj-part-one-065",
+    "chainsaw-man-jump-plus-part-two-066",
+    "chainsaw-man-manga-plus-067",
+    "chainsaw-man-viz-licence-068"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+  },
+  {
+   "question": "Three of these are works by Tatsuki Fujimoto. Which one is a film that inspired Chainsaw Man?",
+   "options": [
+    {
+     "label": "Goodbye, Eri"
+    },
+    {
+     "label": "Fire Punch"
+    },
+    {
+     "label": "The Texas Chain Saw Massacre"
+    },
+    {
+     "label": "Look Back"
+    }
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "chainsaw-man-fire-punch-056",
+    "chainsaw-man-look-back-057",
+    "chainsaw-man-goodbye-eri-058",
+    "chainsaw-man-texas-inspiration-059"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tatsuki_Fujimoto"
+  },
+  {
+   "question": "Three of these devils struck a deal with Aki. Which one lends its power to Himeno?",
+   "options": [
+    {
+     "label": "Future Devil"
+    },
+    {
+     "label": "Ghost Devil"
+    },
+    {
+     "label": "Curse Devil"
+    },
+    {
+     "label": "Fox Devil"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "chainsaw-man-aki-contracts-043",
+    "chainsaw-man-himeno-ghost-044"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+  },
+  {
+   "question": "Three of these hunters serve in Tokyo Special Division 4. Which one comes from Kyoto?",
+   "options": [
+    {
+     "label": "Aki Hayakawa"
+    },
+    {
+     "label": "Kishibe"
+    },
+    {
+     "label": "Madoka"
+    },
+    {
+     "label": "Michiko Tendo"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "chainsaw-man-aki-division4-052",
+    "chainsaw-man-kishibe-division4-053",
+    "chainsaw-man-madoka-division4-072",
+    "chainsaw-man-tendo-kyoto-055"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+  },
+  {
+   "question": "Three of these devils have a contract with Kishibe. Which one made its deal with the yakuza instead?",
+   "options": [
+    {
+     "label": "Zombie Devil"
+    },
+    {
+     "label": "Knife Devil"
+    },
+    {
+     "label": "Needle Devil"
+    },
+    {
+     "label": "Claw Devil"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "chainsaw-man-kishibe-contracts-042",
+    "chainsaw-man-zombie-devil-yakuza-075"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+  },
+  {
+   "question": "Three of these are Fiends, devils that live in a body. Which one is a devil of its own?",
+   "options": [
+    {
+     "label": "Angel Devil"
+    },
+    {
+     "label": "Beam"
+    },
+    {
+     "label": "Galgali"
+    },
+    {
+     "label": "Power"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "chainsaw-man-power-hunter-060",
+    "chainsaw-man-beam-fiend-069",
+    "chainsaw-man-galgali-fiend-070",
+    "chainsaw-man-angel-devil-angelic-071"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+  }
+ ]
+}

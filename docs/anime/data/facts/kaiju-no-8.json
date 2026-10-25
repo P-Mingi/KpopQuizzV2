@@ -815,5 +815,263 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a humanoid kaiju that leads an assault on the Defense Force's Third Division base using a group of wyvern-type kaiju."
+  },
+  {
+    "id": "kaiju-no-8-reno-age-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "reno-ichikawa"
+    },
+    "field": "age",
+    "value": 18,
+    "text": "Reno Ichikawa is a teenager of eighteen when he joins the cleanup company and hopes to enter the Defense Force.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-25T18:48:22Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:50:22.000Z",
+    "excerpt": "is an 18-year-old man who starts working in the same company as Kafka"
+  },
+  {
+    "id": "kaiju-no-8-mina-age-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "mina-ashiro"
+    },
+    "field": "age",
+    "value": 27,
+    "text": "Mina Ashiro, the Third Division captain, is twenty-seven in the character profile.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-25T18:48:22Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:50:22.000Z",
+    "excerpt": "is the 27-year-old captain of the Third Division"
+  },
+  {
+    "id": "kaiju-no-8-reno-numbers6-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "reno-ichikawa"
+    },
+    "field": "ability",
+    "value": "Numbers 6",
+    "text": "Reno can wield the Numbers 6 weapon, an armor made from Kaiju No. 6 that gives him ice powers.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-25T18:48:22Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:50:22.000Z",
+    "excerpt": "He is compatible with the Numbers 6 weapon made from the remains of Kaiju No. 6"
+  },
+  {
+    "id": "kaiju-no-8-kaiju6-fortitude-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "power",
+    "value": 9.6,
+    "text": "Kaiju No. 6, which crippled the Defense Force before the story, is rated 9.6 on the fortitude scale.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-25T18:48:22Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:50:22.000Z",
+    "excerpt": "made from the remains of Kaiju No. 6 that has a fortitude level of 9.6"
+  },
+  {
+    "id": "kaiju-no-8-kikoru-numbers4-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "kikoru-shinomiya"
+    },
+    "field": "ability",
+    "value": "Numbers 4",
+    "text": "Kikoru takes over the Numbers 4 armor of her late mother, which lets her fly.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-25T18:48:22Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:50:22.000Z",
+    "excerpt": "inherits her mother's Numbers 4 suit which gives her increased speed and the ability of flight"
+  },
+  {
+    "id": "kaiju-no-8-gen-numbers1-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "gen-narumi"
+    },
+    "field": "ability",
+    "value": "Numbers 1",
+    "text": "Gen Narumi fights with the Numbers 1 weapon, made from Kaiju No. 1, which lets him foresee his enemy's moves.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-25T18:48:22Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:50:22.000Z",
+    "excerpt": "Gen uses the Numbers 1 weapon made from the remains of Kaiju No. 1"
+  },
+  {
+    "id": "kaiju-no-8-hikari-division2-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "role",
+    "value": "captain of the Second Division",
+    "text": "Hikari Shinomiya, Kikoru's mother, once led the Second Division (Division 2) as its captain.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-25T18:48:22Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:50:22.000Z",
+    "excerpt": "was the former captain of the Second Division of the Defense Force"
+  },
+  {
+    "id": "kaiju-no-8-reno-fourth-division-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaiju-no-8",
+      "ref": "reno-ichikawa"
+    },
+    "field": "organization",
+    "value": "Fourth Division",
+    "text": "When the Third Division base is wrecked, Reno moves to the Fourth Division (Division 4).",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+        "ref": "1379106176",
+        "fetched_at": "2026-10-25T18:48:22Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:50:22.000Z",
+    "excerpt": "joints the Fourth Division after the destruction of the Third Division's base"
+  },
+  {
+    "id": "kaiju-no-8-captain-power-threshold-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaiju-no-8"
+    },
+    "field": "organization",
+    "value": "90%",
+    "text": "A Defense Force officer needs unleashed combat power over 90 percent to become a captain or vice-captain who commands a division.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaiju_No._8",
+        "ref": "1381742599",
+        "fetched_at": "2026-10-25T18:48:59Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:50:59.000Z",
+    "excerpt": "captains and vice-captains whose combat power exceeds 90% and who lead divisions"
   }
 ]
