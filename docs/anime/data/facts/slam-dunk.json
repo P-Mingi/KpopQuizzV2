@@ -38,7 +38,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Slam Dunk (stylized in all caps)"
   },
   {
@@ -77,7 +77,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Written and illustrated by Takehiko Inoue"
   },
   {
@@ -111,7 +111,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump"
   },
   {
@@ -139,7 +139,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Shueisha"
   },
   {
@@ -173,7 +173,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "from October 1, 1990"
   },
   {
@@ -204,7 +204,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "to June 17, 1996"
   },
   {
@@ -238,7 +238,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "The 276 individual chapters were originally collected in 31 tankōbon volumes"
   },
   {
@@ -266,7 +266,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "The 276 individual chapters"
   },
   {
@@ -297,7 +297,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "A 20 volume shinsōban edition was published"
   },
   {
@@ -328,7 +328,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "an early prototype of Hanamichi Sakuragi and Haruko Akagi"
   },
   {
@@ -356,7 +356,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "inspired to create Slam Dunk from his love of basketball"
   },
   {
@@ -384,7 +384,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "began playing basketball to become popular with girls"
   },
   {
@@ -415,7 +415,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "attended the NBA Finals in the United States and the 1992 Summer Olympics in Barcelona"
   },
   {
@@ -443,7 +443,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "surprised to receive letters from readers who had begun playing the sport"
   },
   {
@@ -471,7 +471,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "The Slam Dunk Scholarship program was created in 2006 by Inoue and Shueisha"
   },
   {
@@ -489,7 +489,7 @@
     ],
     "text": "In 1994 the series took the Shogakukan Manga Award, the 40th edition, for shonen manga.",
     "category": "achievements",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "manga"
@@ -500,10 +500,15 @@
         "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
         "ref": "1379466912",
         "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shogakukan-comic.jp/shogakukan-mangasho-archives",
+        "fetched_at": "2026-10-25T18:15:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "awarded the 40th Shogakukan Manga Award in the shōnen category in 1994"
   },
   {
@@ -531,7 +536,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "special commendations from the Japan Basketball Association"
   },
   {
@@ -559,7 +564,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "voted the #1 manga of all time"
   },
   {
@@ -587,7 +592,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Slam Dunk ranked third, behind only One Piece and Demon Slayer"
   },
   {
@@ -615,7 +620,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "By 2025, the series had over 185 million copies in circulation worldwide"
   },
   {
@@ -643,7 +648,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "held the record for initial printing of a manga at 2.5 million copies"
   },
   {
@@ -671,7 +676,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "the fourth best-selling manga of 2018 with 5.2 million copies sold"
   },
   {
@@ -708,7 +713,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "The 31st and final volume was released on December 3, 2013"
   },
   {
@@ -736,7 +741,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "it will release the series in a deluxe edition starting in Q2 2027"
   },
   {
@@ -768,7 +773,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "drawn on 23 chalkboards on the former campus of the defunct Misaki High School"
   },
   {
@@ -802,7 +807,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "An anime series, consisting of 101 episodes, was produced by Toei Animation"
   },
   {
@@ -844,7 +849,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "It was first broadcast on TV Asahi from October 16, 1993, to March 23, 1996"
   },
   {
@@ -883,7 +888,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "consisting of 101 episodes"
   },
   {
@@ -917,7 +922,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "directed by Nobutaka Nishizawa"
   },
   {
@@ -948,7 +953,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Takanobu Masuda (from episode 1 to 61) and BMF (from episode 62 to 101)"
   },
   {
@@ -976,7 +981,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "left out the National Tournament games"
   },
   {
@@ -1012,7 +1017,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "is used as the opening theme for the first 61 episodes"
   },
   {
@@ -1050,7 +1055,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "is used for episodes 50-81"
   },
   {
@@ -1078,7 +1083,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "depicted in the opening credits of the manga's anime adaptation"
   },
   {
@@ -1111,7 +1116,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Four anime films were produced by Toei Animation from 1994 to 1995"
   },
   {
@@ -1139,7 +1144,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "for a combined ¥6.53 billion"
   },
   {
@@ -1167,7 +1172,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Inoue is the director and writer of the film"
   },
   {
@@ -1209,7 +1214,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "It was released theatrically in Japan on December 3, 2022"
   },
   {
@@ -1237,7 +1242,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "The film grossed $279 million worldwide"
   },
   {
@@ -1265,7 +1270,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "won the Japan Academy Prize for Animation of the Year"
   },
   {
@@ -1296,7 +1301,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Opening theme song: \"Love Rockets\" by the Birthday"
   },
   {
@@ -1323,7 +1328,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "2027年3月20日(土)"
   },
   {
@@ -1351,7 +1356,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "J. R. Sakuragi partially took his surname from the Hanamichi Sakuragi character"
   },
   {
@@ -1388,7 +1393,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Episodes"
   },
   {
@@ -1419,7 +1424,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "The film adapts the final match depicted in the manga"
   },
   {
@@ -1451,7 +1456,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "serving as Shohoku's power forward"
   },
   {
@@ -1480,7 +1485,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "After being rejected fifty times by girls during junior high school"
   },
   {
@@ -1509,7 +1514,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "leader of the feared Sakuragi Legion"
   },
   {
@@ -1538,7 +1543,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Voiced by: Takeshi Kusao"
   },
   {
@@ -1570,7 +1575,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "serving as Shohoku's captain and center"
   },
   {
@@ -1599,7 +1604,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "who addresses him as \"Gori\" due to his immense physical presence"
   },
   {
@@ -1628,7 +1633,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Voiced by: Kiyoyuki Yanada"
   },
   {
@@ -1660,7 +1665,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "the small forward of the Shohoku team, number 11"
   },
   {
@@ -1689,7 +1694,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Voiced by: Hikaru Midorikawa"
   },
   {
@@ -1718,7 +1723,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "the only first-year player so honored"
   },
   {
@@ -1750,7 +1755,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Takenori's younger sister and Hanamichi Sakuragi's love interest"
   },
   {
@@ -1779,7 +1784,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "impressed by the height of his jump"
   },
   {
@@ -1808,7 +1813,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Voiced by: Akiko Hiramatsu"
   },
   {
@@ -1840,7 +1845,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "training him in the basics"
   },
   {
@@ -1872,7 +1877,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "nicknamed \"White-Haired Devil\""
   },
   {
@@ -1901,7 +1906,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Voiced by: Tomomichi Nishimura"
   },
   {
@@ -1933,7 +1938,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Hanamichi's deputy commander"
   },
   {
@@ -1965,7 +1970,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Shohoku's vice-captain, backup shooting guard"
   },
   {
@@ -1994,7 +1999,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "earning him the nickname \"Megane-kun,\""
   },
   {
@@ -2026,7 +2031,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "the MVP in his final year at Takeishi Junior High"
   },
   {
@@ -2055,7 +2060,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "best known on the team as a three-pointer specialist"
   },
   {
@@ -2084,7 +2089,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Voiced by: Ryōtarō Okiayu"
   },
   {
@@ -2116,7 +2121,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "is the point guard of the Shohoku team"
   },
   {
@@ -2145,7 +2150,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "having only been rejected 10 times"
   },
   {
@@ -2174,7 +2179,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Voiced by: Yoku Shioya"
   },
   {
@@ -2206,7 +2211,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Ryonan's ace and small forward"
   },
   {
@@ -2235,7 +2240,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Voiced by: Hōchū Ōtsuka"
   },
   {
@@ -2267,7 +2272,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Ryonan's captain and center"
   },
   {
@@ -2296,7 +2301,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Sakuragi refers to him as \"Boss Monkey\""
   },
   {
@@ -2328,7 +2333,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "was crowned prefectural MVP twice"
   },
   {
@@ -2357,7 +2362,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Voiced by: Hisao Egawa"
   },
   {
@@ -2389,7 +2394,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "closely resembles Sakuragi in attitude"
   },
   {
@@ -2418,7 +2423,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "Kiyota likes to call Hanamichi \"Red Monkey\""
   },
   {
@@ -2450,7 +2455,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "shooting 500 a day after practice"
   },
   {
@@ -2482,7 +2487,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "the point guard and coach of Shoyo"
   },
   {
@@ -2514,7 +2519,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "known for his fade away shot"
   },
   {
@@ -2546,7 +2551,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "an odd habit of adding \"yo\" to almost everything he says"
   },
   {
@@ -2578,7 +2583,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "best all-round player in Japanese high school basketball"
   },
   {
@@ -2610,7 +2615,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:36:26.000Z",
+    "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "considered the top high school center in Japan"
   }
 ]
