@@ -1,0 +1,653 @@
+[
+  {
+    "scheduled_date": "2026-12-18",
+    "title": "2NE1: The Crush Era",
+    "description": "Hard questions on 2NE1's 2014 Crush era: Come Back Home, Gotta Be You, MTBD, the album's acclaim and the All or Nothing World Tour.",
+    "group_slug": "2ne1",
+    "category": "era",
+    "quiz_type": "multiple_choice",
+    "difficulty": "hard",
+    "questions": [
+      {
+        "question": "Come Back Home takes its title from a 1995 song by which group, as a tribute?",
+        "options": [
+          "H.O.T.",
+          "Deux",
+          "Seo Taiji and Boys",
+          "Sechs Kies"
+        ],
+        "correct": 2,
+        "fun_fact": "YG founder Yang Hyun-suk was a member of that group. CL confirmed the nod in an interview, while saying the video would go in a different direction.",
+        "source": "https://en.wikipedia.org/wiki/Come_Back_Home_(2NE1_song)"
+      },
+      {
+        "question": "In its first week, Come Back Home placed No. 2 on the Gaon Digital Chart behind which Girls' Generation single?",
+        "options": [
+          "Mr.Mr.",
+          "I Got a Boy",
+          "Lion Heart",
+          "Catch Me If You Can"
+        ],
+        "correct": 0,
+        "fun_fact": "A week later it climbed to the top and stayed there for two weeks, the ninth and last No. 1 that 2NE1 scored on that chart.",
+        "source": "https://en.wikipedia.org/wiki/Come_Back_Home_(2NE1_song)"
+      },
+      {
+        "question": "The Come Back Home video, set in a near-future city with a virtual paradise, was compared to which 1999 film?",
+        "options": [
+          "The Matrix",
+          "Fight Club",
+          "Being John Malkovich",
+          "eXistenZ"
+        ],
+        "correct": 0,
+        "fun_fact": "Dee Shin directed the clip, whose production cost was put at about half a million dollars.",
+        "source": "https://en.wikipedia.org/wiki/Come_Back_Home_(2NE1_song)"
+      },
+      {
+        "question": "Which track on Crush is a solo song by the group's leader, CL?",
+        "options": [
+          "If I Were You",
+          "Happy",
+          "MTBD",
+          "Baby I Miss You"
+        ],
+        "correct": 2,
+        "fun_fact": "Its Korean title, Menbung, translates as Mental Breakdown, and in 2017 Billboard ranked it No. 2 on its list of the best K-pop deep cuts of the decade so far.",
+        "source": "https://en.wikipedia.org/wiki/Crush_(2NE1_album)"
+      },
+      {
+        "question": "The pop art look of the Gotta Be You video mixes Roy Lichtenstein's comics with which artist's Brillo Boxes?",
+        "options": [
+          "Keith Haring",
+          "Andy Warhol",
+          "Jeff Koons",
+          "Takashi Murakami"
+        ],
+        "correct": 1,
+        "fun_fact": "Designer Jeremy Scott worked with the group on the video, which came out in May 2014 to celebrate five years since their debut.",
+        "source": "https://en.wikipedia.org/wiki/Gotta_Be_You_(2NE1_song)"
+      },
+      {
+        "question": "Where did Crush land on Billboard's list of the 10 best K-pop albums of 2014?",
+        "options": [
+          "No. 1",
+          "No. 2",
+          "No. 5",
+          "No. 10"
+        ],
+        "correct": 0,
+        "fun_fact": "Rolling Stone also put it sixth among the best pop albums of 2014, the only record by an Asian artist on that list.",
+        "source": "https://en.wikipedia.org/wiki/Crush_(2NE1_album)"
+      },
+      {
+        "question": "Crush includes a Korean version of which song that 2NE1 first released as a Japanese single in 2012?",
+        "options": [
+          "Go Away",
+          "Ugly",
+          "Lonely",
+          "Scream"
+        ],
+        "correct": 3,
+        "fun_fact": "YG moved the album's digital release from February 24 to February 27, 2014, so that it would line up with CL's birthday.",
+        "source": "https://en.wikipedia.org/wiki/Crush_(2NE1_album)"
+      },
+      {
+        "question": "Which YG boy group were special guests on the All or Nothing World Tour from Seoul to Jakarta?",
+        "options": [
+          "iKON",
+          "Winner",
+          "Big Bang",
+          "Epik High"
+        ],
+        "correct": 1,
+        "fun_fact": "The tour began at the SK Olympic Handball Gymnasium in Seoul on March 1, 2014, and grew to 20 concerts across Asia.",
+        "source": "https://en.wikipedia.org/wiki/All_or_Nothing_World_Tour"
+      },
+      {
+        "question": "After the All or Nothing World Tour, 2NE1's next tour came with their 2024 reunion. What was it called?",
+        "options": [
+          "Nolza Tour",
+          "New Evolution Global Tour",
+          "Born Pink World Tour",
+          "Welcome Back Tour"
+        ],
+        "correct": 3,
+        "fun_fact": "YG revealed the reunion in July 2024 to mark the group's 15th anniversary, and the tour opened at Seoul's Olympic Hall that October.",
+        "source": "https://en.wikipedia.org/wiki/2NE1"
+      },
+      {
+        "question": "At the 2014 Melon Music Awards, Come Back Home won the award for which genre?",
+        "options": [
+          "Rock",
+          "Electronic",
+          "Ballad",
+          "Rap/Hip Hop"
+        ],
+        "correct": 1,
+        "fun_fact": "It was also named Song of the Year for March at the Gaon Chart K-pop Awards, and it won three music show trophies in March 2014.",
+        "source": "https://en.wikipedia.org/wiki/Come_Back_Home_(2NE1_song)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Come_Back_Home_(2NE1_song)",
+      "https://en.wikipedia.org/wiki/Crush_(2NE1_album)",
+      "https://en.wikipedia.org/wiki/Gotta_Be_You_(2NE1_song)",
+      "https://en.wikipedia.org/wiki/All_or_Nothing_World_Tour",
+      "https://en.wikipedia.org/wiki/2NE1",
+      "https://en.wikipedia.org/wiki/2014_Melon_Music_Awards",
+      "https://www.nme.com/news/music/yg-announces-2ne1-will-return-with-a-world-tour-3776672",
+      "https://www.billboard.com/music/music-news/kpop-deep-cuts-best-8054669/"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-19",
+    "title": "K-pop and Korean Tradition True or False",
+    "description": "True or false on Korean tradition in K-pop: hanbok in videos and on stage, gugak instruments, Daechwita and songs that borrow from the past.",
+    "group_slug": null,
+    "category": "true_false",
+    "quiz_type": "true_false",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "BLACKPINK dance in modified hanbok in their 2020 video for How You Like That.",
+        "correct": true,
+        "fun_fact": "The Korea Times reported that Rosé's outfit drew on the cheollik, a garment of military officials, and the group also wore hanbok on The Tonight Show.",
+        "source": "https://www.koreatimes.co.kr/entertainment/20200709/hanbok-sweeps-global-k-pop-fans-off-their-feet"
+      },
+      {
+        "question": "Haegeum, a 2023 single by Agust D, takes its name from a traditional Korean drum.",
+        "correct": false,
+        "fun_fact": "A haegeum is a two-stringed fiddle, and the song uses one in its arrangement. The title also works as wordplay on liberation, a theme of the track.",
+        "source": "https://en.wikipedia.org/wiki/Haegeum_(song)"
+      },
+      {
+        "question": "Seo Taiji and Boys' 1993 hit Anyhow Song (Hayeoga) features the taepyeongso, a traditional Korean instrument.",
+        "correct": true,
+        "fun_fact": "Kim Duk-soo is credited with the taepyeongso and samul nori parts, and the album Seo Taiji and Boys II sold over 2.2 million copies.",
+        "source": "https://en.wikipedia.org/wiki/Seo_Taiji_and_Boys_II"
+      },
+      {
+        "question": "VIXX's 2017 single Shangri-La pairs synths with melodies inspired by Japanese enka.",
+        "correct": false,
+        "fun_fact": "Its melodies take their cue from gugak, traditional Korean music, and the visuals of the release put Korean tradition front and center.",
+        "source": "https://www.koreatimes.co.kr/entertainment/k-pop/20250930/gugak-meets-k-pop-tracks-that-fuse-tradition-with-global-pop-sounds"
+      },
+      {
+        "question": "The video for Agust D's Daechwita is based on the 2005 film The King and the Clown.",
+        "correct": false,
+        "fun_fact": "It draws on the 2012 film Masquerade instead, and Agust D plays both a king and the double who takes his place.",
+        "source": "https://en.wikipedia.org/wiki/Daechwita_(song)"
+      },
+      {
+        "question": "NewJeans performed in hanbok at Gyeongbok Palace in Seoul in May 2024.",
+        "correct": true,
+        "fun_fact": "The show was 2024 Korea On Stage, co-hosted by the Korea Heritage Service and KBS, and a filmed clip showed them singing Cool With You at Geunjeongjeon Hall.",
+        "source": "https://www.koreatimes.co.kr/amp/entertainment/k-pop/20240522/newjeans-wows-crowd-at-2024-korea-on-stage-at-gyeongbok-palace-in-hanbok-clothing"
+      },
+      {
+        "question": "Agust D's 2020 song Daechwita samples the traditional Korean military music it is named after.",
+        "correct": true,
+        "fun_fact": "He has said the idea of using a real daechwita grew into pansori-style storytelling and kkwaenggwari percussion on the track.",
+        "source": "https://en.wikipedia.org/wiki/Daechwita_(song)"
+      },
+      {
+        "question": "Billboard described Sunmi's 2019 single Lalalay as Eurodance blended with traditional Korean sounds.",
+        "correct": false,
+        "fun_fact": "Billboard heard Latin pop and dancehall in it, plus the taepyeongso, a traditional Korean horn. Sunmi shares the production credit with Frants.",
+        "source": "https://en.wikipedia.org/wiki/Lalalay"
+      },
+      {
+        "question": "On Mnet's Queendom in 2019, Oh My Girl covered Lovelyz's Destiny in an arrangement featuring the gayageum.",
+        "correct": true,
+        "fun_fact": "According to The Korea Times, the choreography of that stage was also styled after the graceful look of traditional Korean art.",
+        "source": "https://www.koreatimes.co.kr/entertainment/k-pop/20250930/gugak-meets-k-pop-tracks-that-fuse-tradition-with-global-pop-sounds"
+      },
+      {
+        "question": "In her 2021 video for Lalisa, BLACKPINK's Lisa sits on a throne in an outfit modeled on Korean royal court dress.",
+        "correct": false,
+        "fun_fact": "That look is Thai instead, with a rad klao yod, a pointed headdress mostly seen in Thai traditional dance, and Phanom Rung Historical Park also features in the clip.",
+        "source": "https://en.wikipedia.org/wiki/Lalisa_(song)"
+      }
+    ],
+    "sources": [
+      "https://www.koreatimes.co.kr/entertainment/20200709/hanbok-sweeps-global-k-pop-fans-off-their-feet",
+      "https://en.wikipedia.org/wiki/Haegeum_(song)",
+      "https://en.wikipedia.org/wiki/Seo_Taiji_and_Boys_II",
+      "https://www.koreatimes.co.kr/entertainment/k-pop/20250930/gugak-meets-k-pop-tracks-that-fuse-tradition-with-global-pop-sounds",
+      "https://en.wikipedia.org/wiki/Daechwita_(song)",
+      "https://www.koreatimes.co.kr/amp/entertainment/k-pop/20240522/newjeans-wows-crowd-at-2024-korea-on-stage-at-gyeongbok-palace-in-hanbok-clothing",
+      "https://en.wikipedia.org/wiki/Lalalay",
+      "https://en.wikipedia.org/wiki/Lalisa_(song)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-20",
+    "title": "P1Harmony: From Siren to Sad Song",
+    "description": "From their 2020 debut with Siren to Sad Song: P1Harmony's name, fandom, leader, singles, a world tour and Billboard 200 entries.",
+    "group_slug": "p1harmony",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Siren was the lead single of P1Harmony's October 2020 debut EP. What was that EP called?",
+        "options": [
+          "Disharmony: Break Out",
+          "Harmony: Zero In",
+          "Disharmony: Find Out",
+          "Disharmony: Stand Out"
+        ],
+        "correct": 3,
+        "fun_fact": "All six members helped write the lyrics of its opening track, Intro; Breakthrough, and the EP reached No. 5 on the Gaon Album Chart.",
+        "source": "https://en.wikipedia.org/wiki/Disharmony:_Stand_Out"
+      },
+      {
+        "question": "The name P1Harmony joins the word harmony with which two ideas?",
+        "options": [
+          "Plus and the number 1",
+          "Peace and the number 1",
+          "Power and first place",
+          "Planet and one world"
+        ],
+        "correct": 0,
+        "fun_fact": "The members are meant to add up to one group with endless possibilities for harmonies, and the name is often shortened to P1H.",
+        "source": "https://en.wikipedia.org/wiki/P1Harmony"
+      },
+      {
+        "question": "What is the official name of P1Harmony's fandom?",
+        "options": [
+          "Harmonies",
+          "P1us",
+          "Melody",
+          "P1ece"
+        ],
+        "correct": 3,
+        "fun_fact": "Revealed on April 20, 2021, the name says that fans are the pieces P1Harmony could not do without.",
+        "source": "https://en.wikipedia.org/wiki/P1Harmony"
+      },
+      {
+        "question": "Which member is the leader of P1Harmony?",
+        "options": [
+          "Theo",
+          "Intak",
+          "Keeho",
+          "Jiung"
+        ],
+        "correct": 2,
+        "fun_fact": "Keeho is also one of the group's vocalists. The six members are Keeho, Theo, Jiung, Intak, Soul and Jongseob.",
+        "source": "https://en.wikipedia.org/wiki/P1Harmony"
+      },
+      {
+        "question": "Which single led Disharmony: Break Out, the EP of P1Harmony's first comeback in April 2021?",
+        "options": [
+          "Duh!",
+          "Do It Like This",
+          "Doom Du Doom",
+          "Scared"
+        ],
+        "correct": 3,
+        "fun_fact": "The EP went on to be nominated for Album of the Year at the 2021 Mnet Asian Music Awards.",
+        "source": "https://en.wikipedia.org/wiki/P1Harmony"
+      },
+      {
+        "question": "On which US talk show did P1Harmony make their American TV debut, performing Back Down in November 2022?",
+        "options": [
+          "Good Morning America",
+          "The Kelly Clarkson Show",
+          "The Late Late Show with James Corden",
+          "The Tonight Show Starring Jimmy Fallon"
+        ],
+        "correct": 1,
+        "fun_fact": "The performance aired on November 29, one day before Back Down came out as the lead single of the EP Harmony: Set In.",
+        "source": "https://en.wikipedia.org/wiki/P1Harmony"
+      },
+      {
+        "question": "Which EP, led by Jump, gave P1Harmony their first entry on the Billboard 200 in June 2023?",
+        "options": [
+          "Harmony: All In",
+          "Harmony: Set In",
+          "Harmony: Zero In",
+          "Disharmony: Find Out"
+        ],
+        "correct": 0,
+        "fun_fact": "It entered at No. 51 and sold more than 250,000 copies, double their previous release, while the group placed No. 35 on the Artist 100.",
+        "source": "https://www.koreatimes.co.kr/entertainment/k-pop/20230622/p1harmony-enters-billboard-200-chart-for-first-time"
+      },
+      {
+        "question": "With Killin' It, P1Harmony won their first music show trophy in February 2024. On which show?",
+        "options": [
+          "Show Champion",
+          "Music Bank",
+          "The Show",
+          "M Countdown"
+        ],
+        "correct": 1,
+        "fun_fact": "Killin' It, released on February 5, 2024, was the group's first full-length album and reached No. 39 on the Billboard 200.",
+        "source": "https://en.wikipedia.org/wiki/P1Harmony"
+      },
+      {
+        "question": "Where did P1Harmony's September 2024 EP Sad Song peak on the Billboard 200?",
+        "options": [
+          "No. 3",
+          "No. 16",
+          "No. 28",
+          "No. 60"
+        ],
+        "correct": 1,
+        "fun_fact": "The EP tells a story of getting over loneliness through a superhero concept, and it reached No. 2 on the Circle Album Chart.",
+        "source": "https://en.wikipedia.org/wiki/Sad_Song_(EP)"
+      },
+      {
+        "question": "How many cities did P1Harmony's 2023 tour, P1ustage H: P1oneer, visit around the world?",
+        "options": [
+          "Twelve",
+          "Twenty",
+          "Thirty-nine",
+          "Fifty"
+        ],
+        "correct": 2,
+        "fun_fact": "The tour opened on January 14, 2023, and FNC Entertainment counts 40 shows across those cities.",
+        "source": "https://en.wikipedia.org/wiki/P1Harmony"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Disharmony:_Stand_Out",
+      "https://en.wikipedia.org/wiki/P1Harmony",
+      "https://en.wikipedia.org/wiki/Sad_Song_(EP)",
+      "https://www.koreatimes.co.kr/entertainment/k-pop/20230622/p1harmony-enters-billboard-200-chart-for-first-time",
+      "https://www.koreajoongangdaily.com/entertainment/your-playlist-p1harmony-members-finally-get-to-hear-fans-loud-and-clear-and-theyre-loving-it/10998543",
+      "https://www.nme.com/features/music-interviews/p1harmony-reflect-on-one-year-anniversary-new-album-3081632",
+      "https://fncent.com/P1Harmony/b/introduce/45597"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-21",
+    "title": "Who Directed These K-pop Music Videos?",
+    "description": "Ten famous K-pop music videos, from Gangnam Style to Ditto: name the director or production company behind each one.",
+    "group_slug": null,
+    "category": "knowledge",
+    "quiz_type": "multiple_choice",
+    "difficulty": "hard",
+    "questions": [
+      {
+        "question": "Which production company made the 2017 video for the remix of BTS's Mic Drop with Steve Aoki?",
+        "options": [
+          "Lumpens",
+          "Zanybros",
+          "GDW",
+          "Naive"
+        ],
+        "correct": 2,
+        "fun_fact": "Woogie Kim of GDW directed it, and the mic drop at the end of the clip was inspired by Barack Obama's at his last White House Correspondents' Dinner.",
+        "source": "https://en.wikipedia.org/wiki/Mic_Drop_(song)"
+      },
+      {
+        "question": "Which production team directed TWICE's 2016 video for TT?",
+        "options": [
+          "Lumpens",
+          "Rigend Film",
+          "Digipedi",
+          "Naive"
+        ],
+        "correct": 3,
+        "fun_fact": "Kim Young-jo and Yoo Seung-woo of the team had also made Like Ooh-Ahh and Cheer Up, and the TT video drew over 5 million YouTube views in under a day.",
+        "source": "https://en.wikipedia.org/wiki/TT_(song)"
+      },
+      {
+        "question": "Who directed BIGBANG's 2015 video for Bang Bang Bang?",
+        "options": [
+          "Seo Hyun-seung",
+          "Cho Soo-hyun",
+          "Hong Won-ki",
+          "Shin Hee-won"
+        ],
+        "correct": 0,
+        "fun_fact": "Parris Goebel created the choreography, and she can be spotted in the clip herself.",
+        "source": "https://en.wikipedia.org/wiki/Bang_Bang_Bang_(BigBang_song)"
+      },
+      {
+        "question": "Who directed the 2012 video for PSY's Gangnam Style?",
+        "options": [
+          "Cho Soo-hyun",
+          "Hong Won-ki",
+          "Seo Hyun-seung",
+          "Shin Woo-seok"
+        ],
+        "correct": 0,
+        "fun_fact": "The video was shot in Seoul over 48 hours in July 2012, and the same director went on to make the clip for PSY's next single, Gentleman.",
+        "source": "https://en.wikipedia.org/wiki/Gangnam_Style_(music_video)"
+      },
+      {
+        "question": "Which studio made LOONA's 2019 video for Butterfly?",
+        "options": [
+          "Lumpens",
+          "Naive",
+          "GDW",
+          "Digipedi"
+        ],
+        "correct": 3,
+        "fun_fact": "Digipedi stands for Digital Pedicure, and the studio was started by two art directors, Seong Won-mo and Park Sang-woo.",
+        "source": "https://en.wikipedia.org/wiki/Digipedi"
+      },
+      {
+        "question": "Which production team directed (G)I-DLE's 2020 video for Oh My God?",
+        "options": [
+          "Zanybros",
+          "Rigend Film",
+          "Digipedi",
+          "GDW"
+        ],
+        "correct": 1,
+        "fun_fact": "Yoon Rima and Jang Dongju of Rigend Film directed it, and it became the group's third video to pass 100 million views.",
+        "source": "https://en.wikipedia.org/wiki/Oh_My_God_((G)I-dle_song)"
+      },
+      {
+        "question": "Who directed the two-part video for NewJeans's Ditto in December 2022?",
+        "options": [
+          "Shin Woo-seok",
+          "Shin Hee-won",
+          "Seo Hyun-seung",
+          "Cho Soo-hyun"
+        ],
+        "correct": 0,
+        "fun_fact": "He is an advertising director who heads Dolphiners Films, and part of the song's lyrics came from Oohyo and The Black Skirts.",
+        "source": "https://en.wikipedia.org/wiki/Ditto_(song)"
+      },
+      {
+        "question": "Which production company made Super Junior's 2011 video for Mr. Simple?",
+        "options": [
+          "Naive",
+          "Lumpens",
+          "Zanybros",
+          "Rigend Film"
+        ],
+        "correct": 2,
+        "fun_fact": "Director Hong Won-ki set it up in 2002 with cameraman Kim Jun-hong, and in 2020 it made the web series Goedam, which Netflix acquired.",
+        "source": "https://en.wikipedia.org/wiki/Zanybros"
+      },
+      {
+        "question": "Which production company made ENHYPEN's 2020 debut video, Given-Taken?",
+        "options": [
+          "Naive",
+          "Lumpens",
+          "Zanybros",
+          "GDW"
+        ],
+        "correct": 1,
+        "fun_fact": "The company's name began as a nickname a college professor gave its founder, taken from a German insult.",
+        "source": "https://en.wikipedia.org/wiki/Lumpens"
+      },
+      {
+        "question": "Who directed Taeyeon's 2016 video for 11:11?",
+        "options": [
+          "Shin Woo-seok",
+          "Hong Won-ki",
+          "Cho Soo-hyun",
+          "Shin Hee-won"
+        ],
+        "correct": 3,
+        "fun_fact": "He works with ST-WT Productions, and in 2022 he also directed the video for Girls' Generation's Forever 1.",
+        "source": "https://en.wikipedia.org/wiki/Shin_Hee-won"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Mic_Drop_(song)",
+      "https://en.wikipedia.org/wiki/TT_(song)",
+      "https://en.wikipedia.org/wiki/Bang_Bang_Bang_(BigBang_song)",
+      "https://en.wikipedia.org/wiki/Gangnam_Style_(music_video)",
+      "https://en.wikipedia.org/wiki/Digipedi",
+      "https://en.wikipedia.org/wiki/Butterfly_(Loona_song)",
+      "https://en.wikipedia.org/wiki/Oh_My_God_((G)I-dle_song)",
+      "https://en.wikipedia.org/wiki/Ditto_(song)",
+      "https://en.wikipedia.org/wiki/Zanybros",
+      "https://en.wikipedia.org/wiki/Super_Junior_videography",
+      "https://en.wikipedia.org/wiki/Lumpens",
+      "https://en.wikipedia.org/wiki/Border:_Day_One",
+      "https://en.wikipedia.org/wiki/Shin_Hee-won"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-22",
+    "title": "K-pop Song Titles That Ask a Question",
+    "description": "Easy questions on K-pop songs whose titles ask a question, from What Is Love? and Why Not? to What Do I Call You.",
+    "group_slug": null,
+    "category": "fun",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Which girl group released What Is Love? in April 2018?",
+        "options": [
+          "TWICE",
+          "Red Velvet",
+          "GFriend",
+          "Momoland"
+        ],
+        "correct": 0,
+        "fun_fact": "J.Y. Park wrote and composed the song, and it debuted at No. 1 on the Gaon Digital Chart.",
+        "source": "https://en.wikipedia.org/wiki/What_Is_Love%3F_(Twice_song)"
+      },
+      {
+        "question": "Which girl group released Why Not? in October 2020?",
+        "options": [
+          "Dreamcatcher",
+          "Everglow",
+          "LOONA",
+          "Weki Meki"
+        ],
+        "correct": 2,
+        "fun_fact": "It led their EP [12:00], and its video shows the members dancing on the surface of the Moon.",
+        "source": "https://en.wikipedia.org/wiki/Why_Not%3F_(song)"
+      },
+      {
+        "question": "Which American rapper features on MONSTA X's 2019 single Who Do U Love?",
+        "options": [
+          "French Montana",
+          "Wiz Khalifa",
+          "Pitbull",
+          "Lil Nas X"
+        ],
+        "correct": 0,
+        "fun_fact": "It climbed to No. 26 on Billboard's Mainstream Top 40 airplay chart, the group's first single to enter it, and was up for Best K-pop at the 2019 MTV VMAs.",
+        "source": "https://en.wikipedia.org/wiki/Who_Do_U_Love%3F_(Monsta_X_song)"
+      },
+      {
+        "question": "Which BIGBANG member released the solo single Who You? in September 2013?",
+        "options": [
+          "G-Dragon",
+          "Daesung",
+          "T.O.P",
+          "Taeyang"
+        ],
+        "correct": 0,
+        "fun_fact": "It came out on September 2, 2013, the same day as Black, a single that features Jennie, then a YG trainee.",
+        "source": "https://en.wikipedia.org/wiki/Coup_d%27Etat_(G-Dragon_album)"
+      },
+      {
+        "question": "Which girl group released What's Your Name? in April 2013?",
+        "options": [
+          "Sistar",
+          "Rainbow",
+          "Secret",
+          "4Minute"
+        ],
+        "correct": 3,
+        "fun_fact": "Produced by Brave Brothers, it reached No. 1 on the Gaon chart and is introduced on its EP by a short track called What's My Name?",
+        "source": "https://en.wikipedia.org/wiki/Name_Is_4Minute"
+      },
+      {
+        "question": "Which soloist released How's This? in August 2016?",
+        "options": [
+          "Chung Ha",
+          "Sunmi",
+          "Jessi",
+          "Hyuna"
+        ],
+        "correct": 3,
+        "fun_fact": "She co-wrote the hip-hop and trap track, and its club party video featured one hundred dancers.",
+        "source": "https://en.wikipedia.org/wiki/How%27s_This%3F"
+      },
+      {
+        "question": "Which singer released What Do I Call You, her fourth Korean EP and its title track, in December 2020?",
+        "options": [
+          "IU",
+          "Sunmi",
+          "Taeyeon",
+          "BoA"
+        ],
+        "correct": 2,
+        "fun_fact": "The physical edition of the EP also includes Happy, the digital single she had put out in May 2020.",
+        "source": "https://en.wikipedia.org/wiki/What_Do_I_Call_You"
+      },
+      {
+        "question": "Who released the single What You Waiting For in July 2020?",
+        "options": [
+          "Chung Ha",
+          "Jeon Somi",
+          "Lee Hi",
+          "Jessi"
+        ],
+        "correct": 1,
+        "fun_fact": "Teddy and R.Tee were among its producers, and in the video she plays several versions of herself, from timid to confident.",
+        "source": "https://en.wikipedia.org/wiki/What_You_Waiting_For_(Jeon_Somi_song)"
+      },
+      {
+        "question": "Who released What Are You Up To as the lead single of his debut EP, Color on Me, in 2019?",
+        "options": [
+          "Ha Sung-woon",
+          "Kang Daniel",
+          "Kim Jae-hwan",
+          "Park Ji-hoon"
+        ],
+        "correct": 1,
+        "fun_fact": "Music Bank handed him his first music show trophy as a solo artist for this song on August 9, 2019.",
+        "source": "https://en.wikipedia.org/wiki/What_Are_You_Up_To"
+      },
+      {
+        "question": "Which singer made her solo debut with Why Don't You Know, featuring rapper Nucksal, in June 2017?",
+        "options": [
+          "Sunmi",
+          "Jeon Somi",
+          "Chung Ha",
+          "Hyolyn"
+        ],
+        "correct": 2,
+        "fun_fact": "The tropical house track is about a love that goes unanswered, and its video shows her dancing across a wide grassy field.",
+        "source": "https://en.wikipedia.org/wiki/Why_Don%27t_You_Know"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/What_Is_Love%3F_(Twice_song)",
+      "https://en.wikipedia.org/wiki/Why_Not%3F_(song)",
+      "https://en.wikipedia.org/wiki/Who_Do_U_Love%3F_(Monsta_X_song)",
+      "https://en.wikipedia.org/wiki/Coup_d%27Etat_(G-Dragon_album)",
+      "https://en.wikipedia.org/wiki/Name_Is_4Minute",
+      "https://en.wikipedia.org/wiki/How%27s_This%3F",
+      "https://en.wikipedia.org/wiki/What_Do_I_Call_You",
+      "https://en.wikipedia.org/wiki/What_You_Waiting_For_(Jeon_Somi_song)",
+      "https://en.wikipedia.org/wiki/What_Are_You_Up_To",
+      "https://en.wikipedia.org/wiki/Why_Don%27t_You_Know"
+    ]
+  }
+]
