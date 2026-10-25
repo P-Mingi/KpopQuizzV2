@@ -23,9 +23,12 @@ import {
 import { getQuizzesByGroup } from '@/lib/db/queries/quizzes';
 import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
+import { flagshipSlug, hubPlus, hubPlusAnswer } from '@/lib/hubs/hub-plus';
+import { monthYear, pooledScore, rankByMeasuredScore } from '@/lib/hubs/hub-scores';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { RELATED_GROUPS } from '@/lib/related-groups';
 import { buildAnswerChunks, buildAnswerFirst } from '@/lib/seo/answer-first';
+import { musicGroupEntity } from '@/lib/seo/wikidata';
 import { generationShort, groupGeneration } from '@/lib/generations/generations';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { QUIZ_TYPE_ICON } from '@/lib/ux-v1/a0/icons';
@@ -52,6 +55,7 @@ import { jsonLdScript } from '@/lib/verse/jsonld';
 import { GenerationAnswer } from '../generation-answer';
 import { GroupAvatar } from './group-avatar';
 import { HubGrowth } from './hub-growth';
+import { HubPlusFacts, HubPlusTop } from './hub-plus';
 import { HubNotifyLoader, HubQuizzesLoader } from './loader';
 
 import type { Group } from '@/lib/db/types';
@@ -72,6 +76,12 @@ const PHOTO_SIZES = '(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 
  * too (quizzes, trivia, blindtest, related groups and their top quizzes, articles,
  * top fans, the Verse space, create, the war link). Counts shown in the new UI
  * come from published quizzes (getHubQuizzes), never groups.quiz_count.
+ *
+ * Exception, SEO Mission 2 part B (owner, 2026-10-14): a strengthened hub listed in
+ * lib/hubs/hub-plus.ts (BTS) has its own H1 and subtitle, an answer block as its lead, the
+ * extra sections of ./hub-plus.tsx, one quiz count everywhere (the published one, FAQ and
+ * JSON-LD included) and a MusicGroup `about` in its CollectionPage. Every other hub renders
+ * exactly as described above.
  */
 export async function GroupHubV11({ group }: { group: Group }): Promise<React.ReactElement> {
   const g = group as GroupRow;
@@ -127,11 +137,25 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   // The full published list (read fail-closed): its length is the real count.
   const published = quizzes.length;
   const cat = category ? categoryTexts(g.name, published) : null;
-  const intro = cat ? cat.intro : g.seo_intro || generateDefaultIntro(g);
+  const songs = playable[g.slug] ?? 0;
+  // SEO Mission 2 part B: a strengthened hub (lib/hubs/hub-plus.ts; BTS today). Null for every
+  // other hub, which renders exactly as before. On a strengthened hub one count is used
+  // everywhere on the page (rulebook 4.2): the published quizzes read here, not the
+  // groups.quiz_count counter, and the playable songs, not the blindtest info read.
+  const plus = category ? null : hubPlus(g.slug);
+  const gc: GroupRow = plus ? { ...g, quiz_count: published } : g;
+  const asOf = new Date().toISOString();
+  const scored = plus ? rankByMeasuredScore(quizzes) : null;
+  const pooled = plus ? pooledScore(quizzes) : null;
+  const intro = cat
+    ? cat.intro
+    : plus && pooled
+      ? hubPlusAnswer({ name: g.name, scope: plus.scope, published, pooledAvg: pooled.avg, attempts: pooled.attempts, songs, asOfMonth: monthYear(asOf) })
+      : g.seo_intro || generateDefaultIntro(g);
   const hasQuizzes = published > 0;
   const isEmptyGroup = !hasQuizzes;
-  const topSlug = initialQuizzes[0]?.slug ?? quizzes[0]?.slug ?? null;
-  const songs = playable[g.slug] ?? 0;
+  const mostPlayedSlug = initialQuizzes[0]?.slug ?? quizzes[0]?.slug ?? null;
+  const topSlug = plus ? flagshipSlug(plus, new Set(quizzes.map((q) => q.slug)), mostPlayedSlug) : mostPlayedSlug;
   const photo = groupPhotoUrl(g.slug);
   const fandom = realFandomName(g.fandom_name);
 
@@ -146,10 +170,10 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
 
   // Today's locked texts, from today's builders.
   // The category hub has its own lead and FAQ (the same array feeds the FAQPage JSON-LD).
-  const groupFaqs = cat ? cat.faqs : buildGroupFaqs(g, memberCount, blindtest.qualifies);
-  const answerFacts = { memberCount, songCount: blindtest.songs };
-  const chunks = cat ? [] : buildAnswerChunks(g, answerFacts);
-  const answerLead = cat ? cat.about : chunks.length > 0 ? buildAnswerFirst(g, answerFacts) : '';
+  const groupFaqs = cat ? cat.faqs : buildGroupFaqs(gc, memberCount, blindtest.qualifies);
+  const answerFacts = { memberCount, songCount: plus ? songs : blindtest.songs };
+  const chunks = cat ? [] : buildAnswerChunks(gc, answerFacts);
+  const answerLead = cat ? cat.about : chunks.length > 0 ? buildAnswerFirst(gc, answerFacts) : '';
   // The generation answer shows its sources as links (the chunk text stays the plain version).
   const genQuestion = `What generation is ${g.name}?`;
   const faqChunks = chunks.map((c) => (c.question === genQuestion && genRec?.label ? { ...c, a: <GenerationAnswer name={g.name} label={genRec.label} /> } : c));
@@ -178,11 +202,14 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
   // SEO-3 U7 (today's hub): the 5 newest quizzes with their dates, a crawlable
   // freshness signal, shown only when they differ from the popular top 10.
   const popularSlugs = new Set(initialQuizzes.map((q) => q.slug));
-  const newestDistinct = newestQuizzes.filter((q) => !popularSlugs.has(q.slug)).slice(0, 5);
+  // A strengthened hub shows its newest quizzes in the main column (HubPlusTop), not here.
+  const newestDistinct = plus ? [] : newestQuizzes.filter((q) => !popularSlugs.has(q.slug)).slice(0, 5);
 
   const fk = fanKnowledge;
   const showMastered = fk.masteredCount >= 3;
-  const showAccuracy = fk.avgAccuracy != null;
+  // A strengthened hub states how fans score in its own section (quiz points, pooled); the
+  // blind test accuracy here is another measure, so it is not printed beside it as a second average.
+  const showAccuracy = fk.avgAccuracy != null && !plus;
   const showFans = fk.topFans.length >= 3;
   const masteredNoun = fandom ? `${fandom}s` : 'fans';
   const showBlindtest = songs > 0 || blindtest.qualifies;
@@ -238,11 +265,20 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
           {/* The SEO H1, word for word: "<Group> Quiz - Test How Well You Know <Group>"
               ("... Know K-pop" for the General K-pop category). The first half is the
               display title, the rest its second line. */}
-          <h1 id="p3-h1" className="p3-h1">
-            <span className="p3-h1-main">{g.name} Quiz</span>
-            <span className="ux-sr"> - </span>
-            <span className="p3-h1-tail">Test How Well You Know {knowSubject(g.slug, g.name)}</span>
-          </h1>
+          {plus ? (
+            // A strengthened hub: the H1 is the primary phrase of its title and description
+            // ("BTS quiz"), the question fans type is the visible line under it.
+            <>
+              <h1 id="p3-h1" className="p3-h1"><span className="p3-h1-main">{plus.h1}</span></h1>
+              <p className="p3-sub">{plus.subtitle}</p>
+            </>
+          ) : (
+            <h1 id="p3-h1" className="p3-h1">
+              <span className="p3-h1-main">{g.name} Quiz</span>
+              <span className="ux-sr"> - </span>
+              <span className="p3-h1-tail">Test How Well You Know {knowSubject(g.slug, g.name)}</span>
+            </h1>
+          )}
           <p className="p3-lead">{intro}</p>
           <div className="p3-actions" id="ghub-play">
             {isEmptyGroup ? (
@@ -252,7 +288,7 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
               </>
             ) : (
               <>
-                {topSlug ? <UxButton href={`/q/${topSlug}`} size="lg" icon="play">Play the top quiz</UxButton> : null}
+                {topSlug ? <UxButton href={`/q/${topSlug}`} size="lg" icon="play">{plus ? plus.startLabel : 'Play the top quiz'}</UxButton> : null}
                 {showBlindtest ? <UxButton href={`/blindtest/group-${g.slug}`} variant={topSlug ? 'ghost' : 'primary'} size="lg" icon="music">Blindtest</UxButton> : null}
               </>
             )}
@@ -274,6 +310,10 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
         ) : null}
       </section>
 
+      {plus && scored ? (
+        <HubPlusTop name={g.name} slug={g.slug} quizzes={quizzes} ranked={scored.ranked} belowFloor={scored.belowFloor} songs={songs} />
+      ) : null}
+
       {/* Every quiz of the group is a real, server-rendered <a href> (12 cards, the
           rest in a native <details> "Show all N"): no link lives only in <noscript>. */}
       {isUxV12() ? (
@@ -283,6 +323,10 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
           {hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} /> : null}
         </HubGrowth>
       ) : hasQuizzes ? <HubQuizzesLoader groupName={g.name} quizzes={quizzes} /> : null}
+
+      {plus && scored && pooled ? (
+        <HubPlusFacts name={g.name} plus={plus} generation={g.generation ?? null} pooled={pooled} ranked={scored.ranked} asOf={asOf} />
+      ) : null}
 
       {hasLow ? (
         <div className={hasSide ? 'ux-sec p3-low' : 'ux-sec p3-low is-solo'}>
@@ -488,13 +532,16 @@ export async function GroupHubV11({ group }: { group: Group }): Promise<React.Re
       {jsonLdScript({
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
-        name: `${g.name} Quizzes`,
+        // A strengthened hub: the name is its H1, the count the published one the page shows,
+        // and `about` its MusicGroup with the fetched Wikidata item (lib/seo/wikidata.ts).
+        name: plus ? plus.h1 : `${g.name} Quizzes`,
         description: intro,
         url: `https://kpopquiz.org/${g.slug}-quiz`,
         ...(contentDate ? { dateModified: contentDate.slice(0, 10) } : {}),
+        ...(plus ? (() => { const about = musicGroupEntity(g.slug, g.name); return about ? { about } : {}; })() : {}),
         mainEntity: {
           '@type': 'ItemList',
-          numberOfItems: g.quiz_count,
+          numberOfItems: gc.quiz_count,
           itemListElement: initialQuizzes.slice(0, 10).map((q, i) => ({
             '@type': 'ListItem',
             position: i + 1,

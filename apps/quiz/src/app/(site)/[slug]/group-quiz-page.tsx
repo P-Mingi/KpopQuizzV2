@@ -87,9 +87,18 @@ export function buildGroupFaqs(
 // suffix (rulebook 2.2; the CTR freeze on these ended 2026-08-31). Five were shortened:
 // "(2026)" dropped where that was enough, Cortis and BABYMONSTER reworded. Pinned by
 // lib/seo/titles.test.ts.
-const GROUP_SEO_OVERRIDES: Record<string, { title: string; hook: string }> = {
+// SEO Mission 2 part B (owner, 2026-10-14): /bts-quiz is the strengthened hub (lib/hubs/hub-plus.ts).
+// Its title, H1 ("BTS quiz") and description share the primary phrase, and they carry no count,
+// so no number can differ between the metadata and the page. An entry with `description` uses
+// it as is (meta and Open Graph); the others keep the formula below.
+const GROUP_SEO_OVERRIDES: Record<string, { title: string; hook: string; description?: string; ogDescription?: string }> = {
   seventeen: { title: 'SEVENTEEN Quiz: Can You Name All 13 Members?', hook: 'Name all 13 members, guess the era, and prove you are a real CARAT' },
-  bts: { title: 'BTS Quiz: Only Real ARMY Can Name All 7 (2026)', hook: 'Name all 7 members, guess the song from the lyrics, and prove you are a real ARMY' },
+  bts: {
+    title: 'BTS Quiz: How Well Do You Know BTS? Easy to Hard',
+    hook: 'Pick a quiz by level, from easy member questions to hard era deep cuts, and prove you are a real ARMY',
+    description: 'Take a BTS quiz at your level, from easy member questions to hard era deep cuts, ranked by how fans really score. Free, no sign-up, with a sourced BTS profile.',
+    ogDescription: 'Pick a BTS quiz by level, ranked by real fan scores. Can you pass them all?',
+  },
   aespa: { title: 'aespa Quiz: Name All 4 Members and More (2026)', hook: 'Name all 4 members, guess the era, and prove you are a real MY' },
   blackpink: { title: 'BLACKPINK Quiz: Can Every BLINK Name All 4?', hook: 'Name all 4 members, guess the song, and prove you are a real BLINK' },
   twice: { title: 'TWICE Quiz: Can You Name All 9 Members? (2026)', hook: 'Name all 9 members, guess the era, and prove you are a real ONCE' },
@@ -126,7 +135,9 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
   // click, inside a ~150 char budget that cannot absorb an editorial paragraph.
   // seo_intro is now additive and VISIBLE only: it renders as the intro paragraph
   // at the top of the page (see `intro` below). The CTR formula always wins here.
-  const description = override
+  const description = override?.description
+    ? override.description
+    : override
     ? `Play ${atLeast(group.quiz_count)} free ${group.name} quizzes made by fans. ${override.hook}. Start now, no sign-up.`
     : n >= 2
     ? `Play ${n} free ${group.name} quizzes made by fans. Test your knowledge of ${group.name}'s members, songs, eras, and history, then prove you are a real ${group.fandom_name}.`
@@ -140,7 +151,7 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
     alternates: { canonical: `/${group.slug}-quiz` },
     openGraph: {
       title: `${group.name} Quiz | KpopQuiz`,
-      description: `${atLeast(group.quiz_count)} free ${group.name} quizzes. Can you pass them all?`,
+      description: override?.ogDescription ?? `${atLeast(group.quiz_count)} free ${group.name} quizzes. Can you pass them all?`,
       url: `https://kpopquiz.org/${group.slug}-quiz`,
       images: [{ url: ogImage, width: 1200, height: 630, alt: `${group.name} Quiz` }],
     },
