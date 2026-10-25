@@ -1,0 +1,164 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "tokyo-ghoul",
+  "title": "Fact or Fabrication: Tokyo Ghoul True or False",
+  "slug": "fact-or-fabrication-tokyo-ghoul-true-or-false",
+  "description": "Ten statements about the cafe, the seasons, the film and the staff. Half are real and half are one detail off, so read closely. Light spoilers up to Root A.",
+  "quiz_type": "true_false",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Tokyo Ghoul characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Tokyo Ghoul",
+      "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Tokyo Ghoul (film)",
+      "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul_(film)"
+    }
+  ],
+  "notes": "Five true, five false; each false statement changes a single detail (a count, a person, a company, a place).",
+  "questions": [
+    {
+      "question": "Hide senses that something is off about Kaneki, even though Kaneki tries to hide his ghoul side from him.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-character-detail-060"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+    },
+    {
+      "question": "Anteiku, the cafe that takes Kaneki in, is run by CCG investigators.",
+      "correct": false,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-anteiku-022"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
+    },
+    {
+      "question": "Root A tells a story of its own rather than following the manga plot.",
+      "correct": true,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-root-a-original-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
+    },
+    {
+      "question": "The second season, Root A, has 24 episodes.",
+      "correct": false,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-anime-root-a-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
+    },
+    {
+      "question": "A live-action Tokyo Ghoul film directed by Kentarō Hagiwara reached Japanese cinemas in 2017.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-live-action-film-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul_(film)"
+    },
+    {
+      "question": "Fumika Shimizu plays Kaneki in the 2017 live-action film.",
+      "correct": false,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-film-cast-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul_(film)"
+    },
+    {
+      "question": "Tokyo Ghoul [Jack] is a prequel spin-off manga.",
+      "correct": true,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-prequel-manga-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
+    },
+    {
+      "question": "Viz Media licensed the Tokyo Ghoul anime for North America.",
+      "correct": false,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-anime-licence-025",
+        "tokyo-ghoul-manga-english-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
+    },
+    {
+      "question": "Österreich performed the opening of the first Tokyo Ghoul season.",
+      "correct": false,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-theme-op-027",
+        "tokyo-ghoul-theme-op-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul"
+    },
+    {
+      "question": "Kaneki's hair turns white, slowly in the manga but all at once in the anime.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-character-detail-055"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+    }
+  ]
+}
