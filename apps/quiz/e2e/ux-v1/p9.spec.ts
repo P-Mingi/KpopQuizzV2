@@ -109,7 +109,8 @@ for (const theme of THEMES) {
       await expect(page).toHaveTitle(SEO.title);
       await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', SEO.description);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://kpopquiz.org/leaderboard');
-      await expect(page.locator('link[rel="alternate"][hreflang="pt-BR"]')).toHaveAttribute('href', 'https://kpopquiz.org/pt/leaderboard');
+      // Portuguese mirror retired (owner, 2026-10-23): no pt-BR alternate any more.
+      await expect(page.locator('link[rel="alternate"][hreflang="pt-BR"]')).toHaveCount(0);
       await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
       await expect(page.locator('h1')).toHaveCount(1);
       await expect(page.locator('h1')).toHaveText(SEO.h1);

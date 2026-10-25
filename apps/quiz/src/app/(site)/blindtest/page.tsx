@@ -32,7 +32,6 @@ export async function generateMetadata(): Promise<Metadata> {
     canonical: '/blindtest',
     languages: {
       en: '/blindtest',
-      'pt-BR': '/pt/blindtest',
       'x-default': '/blindtest',
     },
   },

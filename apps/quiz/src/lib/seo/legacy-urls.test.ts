@@ -7,7 +7,7 @@ import { prettyPath } from '@/lib/name-all/round';
 import { isKnownRouteWith } from '@/lib/route-allowlist';
 import {
   LEGACY_GROUP_ALIASES, LEGACY_NAME_ALL_PREFIX, RETIRED_FAMILIES, RETIRED_PAGES, battleQuizSlug, legacyAnswer,
-  legacyNameAllAnswer, retiredFeatureAnswer,
+  legacyNameAllAnswer, retiredFeatureAnswer, PORTUGUESE_PAGES, portugueseAnswer,
 } from './legacy-urls';
 
 // SEO (owner, 2026-10-14): the retired URLs Bing reported (docs/seo/bing-2026-10-14,
@@ -167,13 +167,29 @@ describe('retired features: 410, never a generic page (owner, 2026-10-15)', () =
   });
 
   it('leaves kept pages and look-alike paths alone', () => {
-    for (const p of ['/', '/quizzes', '/pt', '/pt/quizzes', '/gamesx', '/games-quiz', '/rankingsx', '/tier-lists',
+    for (const p of ['/', '/quizzes', '/gamesx', '/games-quiz', '/rankingsx', '/tier-lists',
       '/battlefield', '/battle-previewx', '/battle-quiz', '/personality-quiz', '/personality/bts',
       '/personality/bts/r/jimin', '/which-bts-member-are-you', '/name-all/bts', '/bts-name-all-members',
       '/q/battle', '/blindtest', '/kpop-true-or-false', '/leaderboard']) {
       expect(retiredFeatureAnswer(p), p).toBeNull();
       expect(legacyAnswer(p, LIVE), p).toBeNull();
     }
+  });
+
+  // Owner, 2026-10-23: the Portuguese mirror is retired; each former page 301s to the English
+  // page it translated (its exact successor), other /pt paths are unknown (404), /pt/games 410.
+  it('/pt pages 301 to their English page, nothing else under /pt', () => {
+    expect(legacyAnswer('/pt', LIVE)).toEqual({ status: 301, location: '/' });
+    expect(legacyAnswer('/pt/', LIVE)).toEqual({ status: 301, location: '/' });
+    for (const p of PORTUGUESE_PAGES.filter((x) => x !== '/')) {
+      expect(legacyAnswer(`/pt${p}`, LIVE), p).toEqual({ status: 301, location: p });
+      expect(portugueseAnswer(`/pt${p}/`), p).toEqual({ status: 301, location: p });
+    }
+    expect(legacyAnswer('/pt/games', LIVE)).toEqual({ status: 410 });
+    for (const p of ['/pt/unknown', '/pt/q/some-quiz', '/pt/bts-quiz', '/ptx', '/portugal']) {
+      expect(portugueseAnswer(p), p).toBeNull();
+    }
+    expect(retiredFeatureAnswer('/pt/quizzes')).toBeNull();
   });
 
   it('/games/name-all keeps its slug-by-slug answer', () => {

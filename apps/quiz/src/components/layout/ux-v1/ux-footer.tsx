@@ -6,7 +6,7 @@ import { discordInviteWithUtm } from '@kpopquiz/shared/social-links';
 import { UxBrand } from '@/components/ux-v1/brand';
 import { Icon } from '@/components/ux-v1/icon';
 
-import { UxFooterLocale, UxFooterTheme } from './ux-footer-controls';
+import { UxFooterTheme } from './ux-footer-controls';
 
 import type { FooterCol } from '@/lib/ux-v1/a0/nav';
 
@@ -95,7 +95,7 @@ export function UxFooter({ showFandoms, year }: { showFandoms: boolean; year: nu
         </div>
         <div className="ux-fbot">
           <span>© {year} KpopQuiz. Group photos belong to their owners.</span>
-          <span className="ux-fbot-r"><UxFooterLocale /><UxFooterTheme /></span>
+          <span className="ux-fbot-r"><UxFooterTheme /></span>
         </div>
       </div>
     </footer>
