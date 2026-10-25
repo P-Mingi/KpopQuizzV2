@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -47,11 +45,13 @@
   --border-h:     rgba(26,23,20,0.20);
 
   /* ===== Typography =====
-   * Site-wide: DM Sans (with Pretendard fallback for Korean glyphs).
+   * Site-wide: DM Sans (with Pretendard fallback for Korean glyphs), self-hosted
+   * through next/font/local in app/layout.tsx (--font-dm-sans, --font-dm-sans-ext):
+   * no Google Fonts request from the browser (owner, 2026-10-25).
    * --font-display is kept as an alias of the body stack so every existing
    * `var(--font-display)` rule renders in DM Sans without a sweeping rewrite.
    */
-  --font-body:    'DM Sans', var(--font-pretendard), system-ui, sans-serif;
+  --font-body:    var(--font-dm-sans), var(--font-dm-sans-ext), var(--font-pretendard), system-ui, sans-serif;
   --font-display: var(--font-body);
   --font-sans:    var(--font-body);
 
