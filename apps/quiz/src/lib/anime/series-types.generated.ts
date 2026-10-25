@@ -37,6 +37,7 @@ export const SERIES_TYPE_BY_SLUG: Readonly<Record<string, string>> = {
   'steins-gate': 'franchise',
   'sword-art-online': 'anime_manga',
   'tokyo-ghoul': 'anime_manga',
+  'tokyo-revengers': 'anime_manga',
   'tower-of-god': 'webtoon',
   'vinland-saga': 'anime_manga',
 };

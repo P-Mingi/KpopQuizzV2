@@ -1,0 +1,165 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "tokyo-revengers",
+  "title": "Real or Made Up: Tokyo Revengers Captains, Gangs and Songs",
+  "slug": "real-or-made-up-tokyo-revengers-captains-gangs-and-songs",
+  "description": "Ten statements about the time leap, the gang divisions and the music, some real and some twisted. Decide true or false. Light spoilers up to the Tenjiku Arc.",
+  "quiz_type": "true_false",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "True or false format: five true and five false statements; each false one swaps a single detail with another real one from the series.",
+  "questions": [
+    {
+      "question": "Takemichi can leap exactly twelve years into the past.",
+      "correct": true,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-takemichi-leap-055"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    },
+    {
+      "question": "A hug with Naoto is what triggers Takemichi's time leap.",
+      "correct": false,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-takemichi-leap-055"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    },
+    {
+      "question": "Ken Ryuguji is nicknamed Draken and is known for a mature, big-brother attitude.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-draken-nick-060"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Mitsuya is the captain of the fourth division of the gang.",
+      "correct": false,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-mitsuya-captain-070"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Haruki Hayashida, nicknamed Pah-chin, leads the third division.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-pahchin-captain-071",
+        "tokyo-revengers-character-name-042"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Kiyomasa organizes underground cooking contests.",
+      "correct": false,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-kiyomasa-fights-072"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Izana Kurokawa is the president of Tenjiku, a gang based in Yokohama.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-izana-tenjiku-079"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Cry Baby by Official Hige Dandism is an ending theme of the first season.",
+      "correct": false,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "tokyo-revengers-openings-030",
+        "tokyo-revengers-cry-baby-split-032"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+    },
+    {
+      "question": "ChibiReve is a series of chibi shorts released on YouTube.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "tokyo-revengers-chibireve-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+    },
+    {
+      "question": "The fourth anime season is called the Tenjiku Arc.",
+      "correct": false,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "tokyo-revengers-anime-s4-009",
+        "tokyo-revengers-arcs-list-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Tokyo Revengers episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Tokyo Revengers characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Tokyo Revengers",
+      "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+    }
+  ]
+}

@@ -1,0 +1,277 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "tokyo-revengers",
+  "title": "Tokyo Revengers Delinquents in Three Clues: Who Is This?",
+  "slug": "tokyo-revengers-delinquents-in-three-clues-who-is-this",
+  "description": "Ten characters, three clues each, from a vague hint to the giveaway. Light spoilers up to the Tenjiku Arc for the last few.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Guess-from-clues format: clues go from vague to easy; every clue rests on a cited fact.",
+  "questions": [
+    {
+      "question": "Who is this delinquent?",
+      "clues": [
+        "This delinquent commands a gang that goes by Toman for short.",
+        "The same delinquent befriends Takemichi after seeing his resolve.",
+        "Everyone calls this leader by the nickname Mikey."
+      ],
+      "options": [
+        "Manjiro Sano",
+        "Ken Ryuguji",
+        "Takashi Mitsuya",
+        "Masataka Kiyomizu"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-character-name-035",
+        "tokyo-revengers-mikey-nick-058",
+        "tokyo-revengers-toman-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Who is this delinquent?",
+      "clues": [
+        "This delinquent is the second-in-command of the Tokyo Manji Gang.",
+        "A stabbing by Kiyomasa nearly kills this delinquent in the first timeline.",
+        "This friend of Mikey is known for a mature, big-brother attitude."
+      ],
+      "options": [
+        "Manjiro Sano",
+        "Takashi Mitsuya",
+        "Naoto Tachibana",
+        "Ken Ryuguji"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-character-name-036",
+        "tokyo-revengers-draken-stab-062",
+        "tokyo-revengers-draken-nick-060"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This person was Takemichi's sweetheart in middle school.",
+        "The death of this person is what sends Takemichi back in time.",
+        "This person has a younger brother who becomes a police officer."
+      ],
+      "options": [
+        "Emma Sano",
+        "Yuzuha Shiba",
+        "Hinata Tachibana",
+        "Haruki Hayashida"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-hinata-role-064",
+        "tokyo-revengers-naoto-police-066"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This character is Hinata's younger brother.",
+        "In the new present this character works as a police officer.",
+        "A handshake with this character triggers the time leaps."
+      ],
+      "options": [
+        "Ken Ryuguji",
+        "Takashi Mitsuya",
+        "Masataka Kiyomizu",
+        "Naoto Tachibana"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-character-name-038",
+        "tokyo-revengers-naoto-police-066",
+        "tokyo-revengers-takemichi-leap-055"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Who is this delinquent?",
+      "clues": [
+        "This bully treats Takemichi like a servant.",
+        "Underground fights are this bully's business.",
+        "This bully stabs Draken, and answers to the nickname Kiyomasa."
+      ],
+      "options": [
+        "Shuji Hanma",
+        "Haruki Hayashida",
+        "Takashi Mitsuya",
+        "Masataka Kiyomizu"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-character-name-043",
+        "tokyo-revengers-kiyomasa-fights-072",
+        "tokyo-revengers-draken-stab-062"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This captain is a founding member of the Tokyo Manji Gang.",
+        "This captain seems to switch sides to Valhalla.",
+        "A spin-off manga carries a letter from this captain in its title."
+      ],
+      "options": [
+        "Chifuyu Matsuno",
+        "Keisuke Baji",
+        "Takashi Mitsuya",
+        "Kazutora Hanemiya"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-character-name-040",
+        "tokyo-revengers-baji-defect-069",
+        "tokyo-revengers-baji-letter-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This delinquent captains the third division.",
+        "This captain turns himself in to the police.",
+        "Fans know this captain by the nickname Pah-chin."
+      ],
+      "options": [
+        "Haruki Hayashida",
+        "Takashi Mitsuya",
+        "Masataka Kiyomizu",
+        "Shuji Hanma"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-character-name-042",
+        "tokyo-revengers-pahchin-captain-071"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This gang leader runs the tenth generation of the Black Dragons.",
+        "The younger siblings of this leader are Hakkai and Yuzuha.",
+        "This leader abuses his siblings after their mother's death."
+      ],
+      "options": [
+        "Taiju Shiba",
+        "Hakkai Shiba",
+        "Kazutora Hanemiya",
+        "Shuji Hanma"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-character-name-047",
+        "tokyo-revengers-taiju-abuse-077"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This fighter is one of the Four Heavenly Kings of Tenjiku.",
+        "This fighter is nicknamed The Brawler.",
+        "A large scar and a half-blind eye mark this fighter."
+      ],
+      "options": [
+        "Izana Kurokawa",
+        "Haruchiyo Sanzu",
+        "Kakucho",
+        "Shuji Hanma"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-character-name-050",
+        "tokyo-revengers-kakucho-brawler-081"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This delinquent is a vice-captain of the fifth division.",
+        "This delinquent has long hair.",
+        "A mask never leaves this delinquent's face."
+      ],
+      "options": [
+        "Shuji Hanma",
+        "Izana Kurokawa",
+        "Haruchiyo Sanzu",
+        "Kakucho"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-character-name-053",
+        "tokyo-revengers-sanzu-mask-083"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Tokyo Revengers characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    }
+  ]
+}
