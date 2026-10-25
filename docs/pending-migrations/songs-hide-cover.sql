@@ -1,3 +1,4 @@
+-- applied in production on 2026-10-25: steps 1 and 2 (177 songs, 167 active, 147 albums); the optional step 3 was not run.
 -- WHAT: songs.hide_cover, a boolean "never show this song's Deezer cover" switch, set to true for every song
 --   on a soundtrack album (drama, film, series, webtoon or game OST). Mission U, part C.
 -- WHY: a soundtrack album's Deezer cover is most likely the show's key art (the drama or film poster). The
@@ -51,7 +52,7 @@ where hide_cover = false
 --    Not verified against a source. To hide their covers too, remove the two dashes in front of each line
 --    of the statement below before running the file.
 -- update public.songs set hide_cover = true where id in (
---   '1ed013ef-f028-41e8-b16a-b668e64fc4b2', -- Ailee, Because of Tears (from "Secret")
+--   '1ed013ef-f028-41e8-b16a-b668e64fc4b2', -- Ailee, Because of Tears (a drama song: album name in songs-hide-cover-ALBUMS.md)
 --   '15d26394-0873-4f90-ad6b-02db7835e63d', -- Kep1er, I Stay (From "Ne Zha 2")
 --   '2ed78a44-05a8-4f2b-93c2-7fc612ed47a2', -- fromis_9, Love Me Back (From "Operation: True Love")
 --   '75ec375d-3c84-42ad-9e55-d5656e0276dd', -- izna, Psycho (From "Operation: True Love")

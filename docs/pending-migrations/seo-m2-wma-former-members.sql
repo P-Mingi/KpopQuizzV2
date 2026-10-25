@@ -1,3 +1,4 @@
+-- applied in production on 2026-10-25 (departures confirmed by the press: Heeseung on 2026-03-10, Danielle on 2025-12-29).
 -- SEO Mission 2, part D (2026-10-15): two quiz profiles of former members.
 -- OWNER-RUN ONLY. Data change, no schema change. Rollback: seo-m2-wma-former-members-rollback.sql.
 --
