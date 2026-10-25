@@ -1,5 +1,7 @@
 # dependencies
 node_modules/
+# O1 (D-115): lane worktrees link node_modules to O1's; a symlink is not a directory, so the line above misses it.
+node_modules
 .pnp
 .pnp.js
 
