@@ -1,0 +1,219 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "kaguya-sama-love-is-war",
+  "title": "Kaguya-sama Hard Quiz: the Shinomiya Clan, a Bamboo Emperor and a Last Film",
+  "slug": "the-shinomiya-clan-a-bamboo-emperor-and-a-last-film-kaguya-sama-hard-quiz",
+  "description": "Ten hard questions on the rival families, the late cast and the newest releases of Kaguya-sama: Love Is War. Spoilers for the later seasons, the film, the special and the manga.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Hard quiz: late facts (arcs 3 to 5), spoilers named in the description.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Kaguya-sama: Love Is War characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Kaguya-sama: Love Is War episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Which family business does Mikado Shijo stand to inherit?",
+      "options": [
+        "The Shirogane Works",
+        "The Fujiwara Group",
+        "The Shijo Group",
+        "The Shinomiya Group"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-mikado-shijo-name-085"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "Which best friend of Nagisa is the older twin sister of Mikado?",
+      "options": [
+        "Nagisa Kashiwagi",
+        "Moeha Fujiwara",
+        "Maki Shijo",
+        "Kobachi Osaragi"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-mikado-shijo-name-085",
+        "kaguya-sama-love-is-war-maki-shijo-name-074"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "Mikado shares his name with the emperor of which story?",
+      "options": [
+        "Tale of the Heike",
+        "Tale of the Bamboo Cutter",
+        "Tales of Ise",
+        "Tale of Genji"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-mikado-shijo-namesake-088"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "Who is the eldest child of Gan'an and the heir to the Shinomiya Group?",
+      "options": [
+        "Mikado Shijo",
+        "Un'yo Shinomiya",
+        "Miyuki Shirogane",
+        "Oko Shinomiya"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-oko-shinomiya-name-084"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "How is Un'yo Shinomiya related to Kaguya?",
+      "options": [
+        "Her uncle",
+        "Her half-brother",
+        "Her cousin",
+        "Her twin brother"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-unyo-shinomiya-name-083"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "Who is the patriarch of the Shinomiya Group?",
+      "options": [
+        "Papa Shirogane",
+        "Mikado Shijo",
+        "Gan'an Shinomiya",
+        "Oko Shinomiya"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-ganan-shinomiya-name-087"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "Late in the manga, Miko is elected school president. Whom does she ask to be her vice president?",
+      "options": [
+        "Kobachi Osaragi",
+        "Maki Shijo",
+        "Chika Fujiwara",
+        "Yu Ishigami"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 5,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-miko-iino-president-067"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "What is the title of the film announced to conclude the story?",
+      "options": [
+        "Ultra Romantic",
+        "The Last Confession",
+        "The Final Chapter",
+        "The Final Kiss"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 5,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-final-film-039"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes"
+    },
+    {
+      "question": "On which date did the television special The Stairway to Adulthood premiere?",
+      "options": [
+        "December 31, 2025",
+        "March 30, 2019",
+        "April 9, 2022",
+        "December 17, 2022"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 5,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-special-038"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes"
+    },
+    {
+      "question": "Which voice actress of the lead sings the ending theme of the special?",
+      "options": [
+        "Aoi Koga",
+        "Halca",
+        "Airi Suzuki",
+        "Haruka Fukuhara"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 5,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-themes-special-046",
+        "kaguya-sama-love-is-war-kaguya-shinomiya-voice-051"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes"
+    }
+  ]
+}

@@ -1,0 +1,2531 @@
+[
+  {
+    "id": "detective-conan-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "title_native",
+    "value": [
+      "名探偵コナン",
+      "Meitantei Konan"
+    ],
+    "text": "The Japanese title 名探偵コナン is read Meitantei Konan, and the English releases of the manga were renamed Case Closed.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Detective Conan (名探偵コナン, Meitantei Konan)"
+  },
+  {
+    "id": "detective-conan-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "author",
+    "value": "Gosho Aoyama",
+    "text": "Gosho Aoyama writes and draws the manga that the anime is based on.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3853685",
+        "ref": "Q3853685",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.tms-e.co.jp/global/alltitles/conan/087101.html",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Gosho Aoyama created this mystery manga series"
+  },
+  {
+    "id": "detective-conan-magazine-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Sunday",
+    "text": "The manga runs in Shogakukan's Weekly Shōnen Sunday.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3853685",
+        "ref": "Q3853685",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "through Weekly Shōnen Sunday magazine"
+  },
+  {
+    "id": "detective-conan-publisher-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "publisher",
+    "value": "Shogakukan",
+    "text": "Shogakukan publishes the manga in Japan.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3853685",
+        "ref": "Q3853685",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.tms-e.co.jp/global/alltitles/conan/087101.html",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "published by Shogakukan in the shōnen demographic"
+  },
+  {
+    "id": "detective-conan-manga-start-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "manga_start",
+    "value": "January 5, 1994",
+    "text": "The manga began on January 5, 1994, and is still running.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3853685",
+        "ref": "Q3853685",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "serialization began on January 5, 1994"
+  },
+  {
+    "id": "detective-conan-volumes-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "volumes",
+    "value": 109,
+    "text": "As of October 2026 the manga has been collected in 109 tankobon volumes, and more keep coming.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3853685",
+        "ref": "Q3853685",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "collected into 109 tankōbon volumes"
+  },
+  {
+    "id": "detective-conan-anime-start-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "anime_start",
+    "value": "January 8, 1996",
+    "text": "The TV anime premiered on January 8, 1996, and it is still on the air.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)",
+        "ref": "1380734049",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q5363072",
+        "ref": "Q5363072",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "premiered on January 8, 1996"
+  },
+  {
+    "id": "detective-conan-anime-studio-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "anime_studio",
+    "value": "TMS Entertainment",
+    "text": "TMS Entertainment animates the TV series.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)",
+        "ref": "1380734049",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q5363072",
+        "ref": "Q5363072",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.tms-e.co.jp/global/alltitles/conan/087101.html",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "produced by TMS Entertainment and Yomiuri Telecasting Corporation"
+  },
+  {
+    "id": "detective-conan-broadcaster-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "broadcast",
+    "value": "Yomiuri Telecasting Corporation",
+    "text": "Yomiuri Telecasting Corporation co-produces the anime together with TMS Entertainment.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)",
+        "ref": "1380734049",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Yomiuri Telecasting Corporation"
+  },
+  {
+    "id": "detective-conan-composer-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "composer",
+    "value": "Katsuo Ōno",
+    "text": "Katsuo Ōno composed the original music of the TV series.",
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)",
+        "ref": "1380734049",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q5363072",
+        "ref": "Q5363072",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Katsuo Ōno composed the original music"
+  },
+  {
+    "id": "detective-conan-directors-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "anime_directors",
+    "value": [
+      "Kenji Kodama",
+      "Yasuichiro Yamamoto",
+      "Masato Satō",
+      "Kōjin Ochi",
+      "Nobuharu Kamanaka"
+    ],
+    "text": "The anime has had five directors over the years, among them Kenji Kodama and Yasuichiro Yamamoto.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)",
+        "ref": "1380734049",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "directors being Kenji Kodama, Yasuichiro Yamamoto, Masato Satō"
+  },
+  {
+    "id": "detective-conan-character-design-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "character_designer",
+    "value": "Masatomo Sudo",
+    "text": "Masatomo Sudo has designed the characters of the anime from the beginning.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)",
+        "ref": "1380734049",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Masatomo Sudo designed characters from inception"
+  },
+  {
+    "id": "detective-conan-first-film-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "film_1997",
+    "value": [
+      "The Time Bombed Skyscraper",
+      "1997"
+    ],
+    "text": "The first Detective Conan film, The Time Bombed Skyscraper, opened in 1997.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)",
+        "ref": "1380734049",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "beginning with \"Case Closed: The Time Bombed Skyscraper\" in 1997"
+  },
+  {
+    "id": "detective-conan-film-count-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "films",
+    "value": 29,
+    "text": "As of April 2026 there have been 29 Detective Conan films, one almost every year since 1997 except 2020.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "A total of 29 films have released each year since 1997"
+  },
+  {
+    "id": "detective-conan-film-latest-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "film_release",
+    "value": [
+      "Fallen Angel of the Highway",
+      "April 10, 2026"
+    ],
+    "text": "The latest film listed is Detective Conan: Fallen Angel of the Highway, which opened on April 10, 2026.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.conan-movie.jp/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Fallen Angel of the Highway"
+  },
+  {
+    "id": "detective-conan-guinness-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "record",
+    "value": "Most theme songs for a single anime series",
+    "text": "Mai Kuraki holds a Guinness World Record: nobody else has sung as many themes for a single anime.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Guinness World Record for singing the most theme songs"
+  },
+  {
+    "id": "detective-conan-first-opening-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP1: Mune ga Dokidoki (The High-Lows)"
+    ],
+    "text": "The very first opening theme was Mune ga Dokidoki by The High-Lows, used from episode 1 on January 8, 1996.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)",
+        "ref": "1380734049",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "\"Mune ga Dokidoki\" by The High-Lows"
+  },
+  {
+    "id": "detective-conan-first-ending-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED1: Step by Step (Ziggy)"
+    ],
+    "text": "The first ending theme, Step by Step by Ziggy, covered the first 26 episodes.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)",
+        "ref": "1380734049",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "\"Step by Step\" by Ziggy"
+  },
+  {
+    "id": "detective-conan-secret-song-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "signature_song",
+    "value": "Secret of My Heart",
+    "text": "Mai Kuraki's Secret of My Heart was an ending theme in the year 2000, for episodes 180 to 204.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)",
+        "ref": "1380734049",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "\"Secret of My Heart\" (episodes 180"
+  },
+  {
+    "id": "detective-conan-inspiration-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "inspiration",
+    "value": [
+      "Arsène Lupin",
+      "Sherlock Holmes",
+      "Akira Kurosawa"
+    ],
+    "text": "Aoyama took inspiration from Arsène Lupin, Sherlock Holmes stories and the samurai films of Akira Kurosawa.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Arsène Lupin, Sherlock Holmes narratives, and Akira Kurosawa's samurai films"
+  },
+  {
+    "id": "detective-conan-writing-pace-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "habits",
+    "value": "About four hours for a simple puzzle",
+    "text": "Aoyama's team needs about four hours to script a simple puzzle and about twelve for a complex one, and his brother, a scientist, helps with the tricks.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "averaging four hours for simpler puzzles and twelve hours"
+  },
+  {
+    "id": "detective-conan-hiatus-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "hiatus",
+    "value": "2015",
+    "text": "In 2015 Aoyama had surgery, which caused the first long hiatus of the manga in 21 years.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "going on its first lengthy hiatus in 21 years"
+  },
+  {
+    "id": "detective-conan-award-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "manga_award",
+    "value": "Shogakukan Manga Award, shonen category",
+    "text": "The 46th Shogakukan Manga Award, handed out in 2001, went to Detective Conan in the shonen section.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "awarded the 46th Shogakukan Manga Award in the shōnen category"
+  },
+  {
+    "id": "detective-conan-naming-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "title_forms",
+    "value": [
+      "Detective Conan",
+      "Case Closed"
+    ],
+    "text": "Because of legal problems with the name Detective Conan, several American English releases were renamed Case Closed.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "legal problems with the name Detective Conan"
+  },
+  {
+    "id": "detective-conan-english-dub-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "dubs",
+    "value": "Funimation, 2004",
+    "text": "Funimation dubbed the anime in English as Case Closed and began releasing it on DVD in August 2004.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)",
+        "ref": "1380734049",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Funimation licensed the anime series for North American broadcast"
+  },
+  {
+    "id": "detective-conan-originals-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "original_episode_split",
+    "value": "23 of 39 episodes in 2025",
+    "text": "Anime-only stories are common: 23 of the 39 episodes shown in 2025 were made by the anime staff rather than adapted from the manga.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)",
+        "ref": "1380734049",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "of the 39 episodes aired in 2025, 23 of them were originals"
+  },
+  {
+    "id": "detective-conan-hokuei-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "reputation",
+    "value": "Conan Town",
+    "text": "Aoyama's hometown Hokuei in Tottori has a museum of his work, and the town markets itself as Conan Town.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "celebrated in his hometown Hokuei, Tottori"
+  },
+  {
+    "id": "detective-conan-lupin-special-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "bonus_special",
+    "value": "Lupin the 3rd crossover",
+    "text": "A crossover special, Lupin the 3rd vs. Detective Conan, aired on March 27, 2009, and set a household rating record of 19.5.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)",
+        "ref": "1380734049",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Lupin the 3rd vs. Detective Conan"
+  },
+  {
+    "id": "detective-conan-live-action-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "live_action",
+    "value": "Shun Oguri",
+    "text": "In the first live-action specials, Shun Oguri played the teenage Shinichi Kudo.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "featured Shun Oguri as teenage Shinichi Kudo"
+  },
+  {
+    "id": "detective-conan-zero-tea-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "spinoff",
+    "value": "Zero's Tea Time",
+    "text": "A spin-off manga, Zero's Tea Time, follows the agent Toru Amuro, also known as Rei Furuya.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Case_Closed",
+        "ref": "1380847138",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "focusing on agent Toru Amuro/Rei Furuya"
+  },
+  {
+    "id": "detective-conan-arc-list-031",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "detective-conan"
+    },
+    "field": "arcs",
+    "value": [
+      "Seasons 1 to 15",
+      "Seasons 16 to 30",
+      "Seasons 31 and later"
+    ],
+    "text": "The episode lists are split into three groups: seasons 1 to 15, seasons 16 to 30 and seasons 31 and later.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Lists_of_Case_Closed_episodes",
+        "ref": "1364238565",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Seasons 1 to 15"
+  },
+  {
+    "id": "detective-conan-conan-edogawa-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "conan-edogawa"
+    },
+    "field": "name",
+    "value": [
+      "Conan Edogawa",
+      "江戸川 コナン"
+    ],
+    "text": "Conan Edogawa is the alias of Shinichi Kudo, a high school detective whose body has been shrunk to that of a child.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "adopts the alias Conan Edogawa to hide his identity"
+  },
+  {
+    "id": "detective-conan-conan-edogawa-cover-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "conan-edogawa"
+    },
+    "field": "occupation",
+    "value": "High school detective in a child's body",
+    "text": "He hides his identity by living with Ran, and by sedating Kogoro and imitating his voice, he helps solve cases.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "sedating him and impersonating his voice to solve cases"
+  },
+  {
+    "id": "detective-conan-conan-edogawa-voice-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "conan-edogawa"
+    },
+    "field": "voice_cast",
+    "value": "Minami Takayama",
+    "text": "Minami Takayama has voiced Conan Edogawa in the TV series since 1996.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Minami_Takayama",
+        "ref": "1378288828",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "has voiced this character since 1996"
+  },
+  {
+    "id": "detective-conan-ran-mori-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "ran-mori"
+    },
+    "field": "name",
+    "value": [
+      "Ran Mori",
+      "毛利 蘭"
+    ],
+    "text": "Ran Mori is Shinichi's childhood friend and a skilled karate fighter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "has been Jimmy Kudo's friend since elementary school"
+  },
+  {
+    "id": "detective-conan-ran-mori-karate-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "ran-mori"
+    },
+    "field": "ability",
+    "value": "Karate",
+    "text": "Aoyama chose karate for Ran because he considered it cooler than kendo or judo.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Aoyama decided on karate for Rachel because it was 'cooler'"
+  },
+  {
+    "id": "detective-conan-ran-mori-voice-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "ran-mori"
+    },
+    "field": "voice_cast",
+    "value": "Wakana Yamazaki",
+    "text": "Wakana Yamazaki voiced Ran from 1996 for many years.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Wakana Yamazaki (1996"
+  },
+  {
+    "id": "detective-conan-kogoro-mori-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "kogoro-mori"
+    },
+    "field": "name",
+    "value": [
+      "Kogoro Mori",
+      "毛利 小五郎"
+    ],
+    "text": "Kogoro Mori is Ran's father, a private detective who became famous because Conan secretly solves his cases.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a private detective"
+  },
+  {
+    "id": "detective-conan-kogoro-mori-voice-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "kogoro-mori"
+    },
+    "field": "voice_cast",
+    "value": "Akira Kamiya",
+    "text": "Akira Kamiya was the first voice of Kogoro, followed by Rikiya Koyama in 2009.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Akira Kamiya (1996"
+  },
+  {
+    "id": "detective-conan-heiji-hattori-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "heiji-hattori"
+    },
+    "field": "name",
+    "value": [
+      "Heiji Hattori",
+      "服部 平次"
+    ],
+    "text": "Heiji Hattori is a high school detective from Osaka and a rival of Shinichi Kudo.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a high school detective from Osaka"
+  },
+  {
+    "id": "detective-conan-heiji-hattori-dialect-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "heiji-hattori"
+    },
+    "field": "style",
+    "value": "Kansai dialect and dark skin",
+    "text": "Aoyama gave Heiji a Kansai dialect and dark skin to make him very different from Shinichi.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "the author gave him a Kansai dialect"
+  },
+  {
+    "id": "detective-conan-heiji-hattori-voice-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "heiji-hattori"
+    },
+    "field": "voice_cast",
+    "value": "Ryo Horikawa",
+    "text": "Ryo Horikawa voices Heiji in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Ryo Horikawa"
+  },
+  {
+    "id": "detective-conan-kazuha-toyama-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "kazuha-toyama"
+    },
+    "field": "name",
+    "value": [
+      "Kazuha Toyama",
+      "遠山 和葉"
+    ],
+    "text": "Kazuha Toyama is Heiji's childhood friend, and her bond with him mirrors the one between Ran and Shinichi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Heiji's childhood friend"
+  },
+  {
+    "id": "detective-conan-kazuha-toyama-voice-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "kazuha-toyama"
+    },
+    "field": "voice_cast",
+    "value": "Yūko Miyamura",
+    "text": "Yūko Miyamura voices Kazuha in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Yūko Miyamura"
+  },
+  {
+    "id": "detective-conan-ai-haibara-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "ai-haibara"
+    },
+    "field": "name",
+    "value": [
+      "Ai Haibara",
+      "灰原 哀"
+    ],
+    "text": "Ai Haibara is the alias of Shiho Miyano, a former member of the Black Organization who joined the Junior Detective League.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a former member of the Black Organization under the code name Sherry"
+  },
+  {
+    "id": "detective-conan-ai-haibara-apotx-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "ai-haibara"
+    },
+    "field": "ability",
+    "value": "Inventor of APTX 4869",
+    "text": "As a gifted chemist she invented APTX 4869, the poison that shrank Shinichi Kudo.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "she is the inventor of APTX 4869"
+  },
+  {
+    "id": "detective-conan-ai-haibara-voice-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "ai-haibara"
+    },
+    "field": "voice_cast",
+    "value": "Megumi Hayashibara",
+    "text": "Megumi Hayashibara voices Ai in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Megumi Hayashibara"
+  },
+  {
+    "id": "detective-conan-hiroshi-agasa-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "hiroshi-agasa"
+    },
+    "field": "name",
+    "value": [
+      "Hiroshi Agasa",
+      "阿笠 博士"
+    ],
+    "text": "Hiroshi Agasa is the absent-minded professor next door, who invents gadgets and knows Conan's secret.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "appears as an absent-minded professor and neighbor"
+  },
+  {
+    "id": "detective-conan-hiroshi-agasa-voice-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "hiroshi-agasa"
+    },
+    "field": "voice_cast",
+    "value": "Kenichi Ogata",
+    "text": "Kenichi Ogata voices Professor Agasa in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Kenichi Ogata"
+  },
+  {
+    "id": "detective-conan-genta-kojima-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "genta-kojima"
+    },
+    "field": "name",
+    "value": [
+      "Genta Kojima",
+      "小嶋 元太"
+    ],
+    "text": "Genta Kojima loves food and calls himself the head of the Junior Detective League.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "self-proclaimed leader of the Junior Detective League"
+  },
+  {
+    "id": "detective-conan-genta-kojima-voice-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "genta-kojima"
+    },
+    "field": "voice_cast",
+    "value": "Wataru Takagi",
+    "text": "Genta is voiced by Wataru Takagi, the actor who shares his name with the police officer Wataru Takagi.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Wataru Takagi"
+  },
+  {
+    "id": "detective-conan-mitsuhiko-tsuburaya-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "mitsuhiko-tsuburaya"
+    },
+    "field": "name",
+    "value": [
+      "Mitsuhiko Tsuburaya",
+      "円谷 光彦"
+    ],
+    "text": "Mitsuhiko Tsuburaya is the bright, well-read member of the Junior Detective League who likes science books.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "enjoys reading science books"
+  },
+  {
+    "id": "detective-conan-mitsuhiko-tsuburaya-voice-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "mitsuhiko-tsuburaya"
+    },
+    "field": "voice_cast",
+    "value": "Ikue Ōtani",
+    "text": "Ikue Ōtani voices Mitsuhiko in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Ikue Ōtani"
+  },
+  {
+    "id": "detective-conan-ayumi-yoshida-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "ayumi-yoshida"
+    },
+    "field": "name",
+    "value": [
+      "Ayumi Yoshida",
+      "吉田 歩美"
+    ],
+    "text": "Ayumi Yoshida is a classmate of Conan and the only girl of the Junior Detective League until Ai joins.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "friend and classmate"
+  },
+  {
+    "id": "detective-conan-ayumi-yoshida-voice-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "ayumi-yoshida"
+    },
+    "field": "voice_cast",
+    "value": "Yukiko Iwai",
+    "text": "Yukiko Iwai voices Ayumi in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Yukiko Iwai"
+  },
+  {
+    "id": "detective-conan-juzo-megure-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "juzo-megure"
+    },
+    "field": "name",
+    "value": [
+      "Juzo Megure",
+      "目暮 十三"
+    ],
+    "text": "Juzo Megure is the veteran police inspector who heads most murder investigations.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a veteran police officer"
+  },
+  {
+    "id": "detective-conan-juzo-megure-voice-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "juzo-megure"
+    },
+    "field": "voice_cast",
+    "value": "Chafurin",
+    "text": "Chafurin voices Inspector Megure in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Chafurin"
+  },
+  {
+    "id": "detective-conan-wataru-takagi-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "wataru-takagi"
+    },
+    "field": "name",
+    "value": [
+      "Wataru Takagi",
+      "高木 渉"
+    ],
+    "text": "Wataru Takagi is an officer under Inspector Megure who has feelings for Miwako Sato.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "He has feelings for his fellow officer Miwako Sato"
+  },
+  {
+    "id": "detective-conan-wataru-takagi-voice-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "wataru-takagi"
+    },
+    "field": "voice_cast",
+    "value": "Wataru Takagi",
+    "text": "The officer Takagi is voiced by the actor Wataru Takagi, who has the same name.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voice Actor: Wataru Takagi"
+  },
+  {
+    "id": "detective-conan-miwako-sato-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "miwako-sato"
+    },
+    "field": "name",
+    "value": [
+      "Miwako Sato",
+      "佐藤 美和子"
+    ],
+    "text": "Miwako Sato is a smart, athletic police officer who is popular with her male colleagues.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "smart, physically capable, energetic, and dedicated"
+  },
+  {
+    "id": "detective-conan-miwako-sato-voice-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "miwako-sato"
+    },
+    "field": "voice_cast",
+    "value": "Atsuko Yuya",
+    "text": "Atsuko Yuya voices Miwako Sato in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Atsuko Yuya"
+  },
+  {
+    "id": "detective-conan-ninzaburo-shiratori-name-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "ninzaburo-shiratori"
+    },
+    "field": "name",
+    "value": [
+      "Ninzaburo Shiratori",
+      "白鳥 任三郎"
+    ],
+    "text": "Ninzaburo Shiratori is a promoted officer who has unrequited feelings for Miwako Sato.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "unrequited feelings towards Miwako Sato"
+  },
+  {
+    "id": "detective-conan-kaito-kid-name-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "kaito-kid"
+    },
+    "field": "name",
+    "value": [
+      "Kaito Kid",
+      "怪盗キッド"
+    ],
+    "text": "Kaito Kid is a gentleman thief and master of disguise who steals gems using magic tricks.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a gentleman thief who employs the use of magic tricks"
+  },
+  {
+    "id": "detective-conan-kaito-kid-origin-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "kaito-kid"
+    },
+    "field": "origin",
+    "value": "Magic Kaito",
+    "text": "Kid was originally the star of Aoyama's earlier series Magic Kaito.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Originally the protagonist of Gosho Aoyoma's Magic Kaito series"
+  },
+  {
+    "id": "detective-conan-gin-name-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "gin"
+    },
+    "field": "name",
+    "value": [
+      "Gin",
+      "ジン"
+    ],
+    "text": "Gin is a high-ranking and merciless agent of the Black Organization, the man who made Shinichi swallow the drug.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a merciless killer who fed the APTX 4869 poison"
+  },
+  {
+    "id": "detective-conan-gin-car-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "gin"
+    },
+    "field": "habits",
+    "value": "Black Porsche 356A",
+    "text": "A black Porsche 356A is the car Gin likes to use.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "He drives a black Porsche 356A"
+  },
+  {
+    "id": "detective-conan-gin-voice-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "gin"
+    },
+    "field": "voice_cast",
+    "value": "Yukitoshi Hori",
+    "text": "Yukitoshi Hori voices Gin in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Yukitoshi Hori"
+  },
+  {
+    "id": "detective-conan-vermouth-name-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "vermouth"
+    },
+    "field": "name",
+    "value": [
+      "Vermouth",
+      "ベルモット"
+    ],
+    "text": "Vermouth is a mysterious member of the Black Organization who never seems to age.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Her appearance remains the same even after many years"
+  },
+  {
+    "id": "detective-conan-vermouth-voice-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "vermouth"
+    },
+    "field": "voice_cast",
+    "value": "Mami Koyama",
+    "text": "Mami Koyama voices Vermouth in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Mami Koyama"
+  },
+  {
+    "id": "detective-conan-masumi-sera-name-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "masumi-sera"
+    },
+    "field": "name",
+    "value": [
+      "Masumi Sera",
+      "世良 真純"
+    ],
+    "text": "Masumi Sera is a teenage female detective who joins the high school of Shinichi and Ran.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a female teenage detective"
+  },
+  {
+    "id": "detective-conan-masumi-sera-brothers-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "masumi-sera"
+    },
+    "field": "role",
+    "value": "Two older brothers",
+    "text": "Masumi's two older brothers are Shuichi Akai and Shukichi Haneda.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "She has two older brothers, Shuichi Akai and Shukichi Haneda"
+  },
+  {
+    "id": "detective-conan-yusaku-kudo-name-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "yusaku-kudo"
+    },
+    "field": "name",
+    "value": [
+      "Yusaku Kudo",
+      "工藤 優作"
+    ],
+    "text": "Yusaku Kudo is Shinichi's father, a famous mystery author who created the Night Baron.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a famous author of detective stories"
+  },
+  {
+    "id": "detective-conan-yukiko-kudo-name-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "yukiko-kudo"
+    },
+    "field": "name",
+    "value": [
+      "Yukiko Kudo",
+      "工藤 有希子"
+    ],
+    "text": "Yukiko Kudo is Shinichi's mother, a former actress who learned disguise from Toichi Kuroba.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "trained in the art of disguise by Toichi Kuroba"
+  },
+  {
+    "id": "detective-conan-subaru-okiya-name-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "subaru-okiya"
+    },
+    "field": "name",
+    "value": [
+      "Subaru Okiya",
+      "沖矢 昴"
+    ],
+    "text": "Subaru Okiya is a blond graduate student with glasses who lives in the Kudo house.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a young blond-haired man with glasses"
+  },
+  {
+    "id": "detective-conan-subaru-okiya-identity-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "subaru-okiya"
+    },
+    "field": "role",
+    "value": "Shuichi Akai in disguise",
+    "text": "Subaru Okiya is revealed to be the FBI agent Shuichi Akai in disguise.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Akai later appears as Subaru Okiya"
+  },
+  {
+    "id": "detective-conan-rum-name-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "rum"
+    },
+    "field": "name",
+    "value": [
+      "Rum",
+      "ラム"
+    ],
+    "text": "Rum is the second in command of the Black Organization and is close to its Boss.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "the second in charge of the Black Organization"
+  },
+  {
+    "id": "detective-conan-toru-amuro-name-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "toru-amuro"
+    },
+    "field": "name",
+    "value": [
+      "Toru Amuro",
+      "安室 透"
+    ],
+    "text": "Toru Amuro is the alias of Rei Furuya, a public security agent who infiltrated the Black Organization as Bourbon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "working undercover in the Black Organization with the codename Bourbon"
+  },
+  {
+    "id": "detective-conan-jodie-starling-name-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "jodie-starling"
+    },
+    "field": "name",
+    "value": [
+      "Jodie Starling",
+      "ジョディ・スターリング"
+    ],
+    "text": "Jodie Starling is Ran's new English teacher who turns out to be an FBI agent with a grudge against Vermouth.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a personal vendetta against Vermouth"
+  },
+  {
+    "id": "detective-conan-james-black-name-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "james-black"
+    },
+    "field": "name",
+    "value": [
+      "James Black",
+      "ジェイムズ・ブラック"
+    ],
+    "text": "James Black leads the FBI operation against the Black Organization in Japan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "head of operations on the hunt for the Black Organization"
+  },
+  {
+    "id": "detective-conan-sonoko-suzuki-name-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "sonoko-suzuki"
+    },
+    "field": "name",
+    "value": [
+      "Sonoko Suzuki",
+      "鈴木 園子"
+    ],
+    "text": "Sonoko Suzuki is Ran's best friend and comes from a rich family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "best friend"
+  },
+  {
+    "id": "detective-conan-makoto-kyogoku-name-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "makoto-kyogoku"
+    },
+    "field": "name",
+    "value": [
+      "Makoto Kyogoku",
+      "京極 真"
+    ],
+    "text": "Makoto Kyogoku is a karate champion known as the Prince of Kicks and the boyfriend of Sonoko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Dubbed 'The Prince of Kicks'"
+  },
+  {
+    "id": "detective-conan-eri-kisaki-name-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "detective-conan",
+      "ref": "eri-kisaki"
+    },
+    "field": "name",
+    "value": [
+      "Eri Kisaki",
+      "妃 英理"
+    ],
+    "text": "Eri Kisaki is Ran's mother, a lawyer nicknamed the Queen of the legal world.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+        "ref": "1376414959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "known as the Queen of the legal world"
+  }
+]

@@ -2240,5 +2240,96 @@
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
     "excerpt": "Usually driving Lelouch around on his motorbike"
+  },
+  {
+    "id": "code-geass-pizza-hut-cc-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "cc"
+    },
+    "field": "fond_of",
+    "value": "Pizza Hut",
+    "text": "C.C. keeps ordering pizza on Lelouch's credit card, and the chain Pizza Hut sponsored Code Geass in Japan.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381937587",
+        "fetched_at": "2026-10-25T18:54:45Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:45.000Z",
+    "excerpt": "ordering Pizza Hut (which sponsors Code Geass in Japan) with his credit card"
+  },
+  {
+    "id": "code-geass-suzaku-kururugi-voice-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "suzaku-kururugi"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Takahiro Sakurai"
+    ],
+    "text": "Suzaku Kururugi is voiced in Japanese by Takahiro Sakurai.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381937587",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Voiced by: Takahiro Sakurai (Japanese)"
+  },
+  {
+    "id": "code-geass-lelouch-lamperouge-voice-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "lelouch-lamperouge"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Jun Fukuyama"
+    ],
+    "text": "Lelouch Lamperouge is voiced in Japanese by Jun Fukuyama.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381937587",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Voiced by: Jun Fukuyama (Japanese)"
   }
 ]

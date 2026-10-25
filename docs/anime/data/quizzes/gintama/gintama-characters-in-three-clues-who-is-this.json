@@ -1,0 +1,270 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "gintama",
+  "title": "Gintama Characters in Three Clues: Who Is This?",
+  "slug": "gintama-characters-in-three-clues-who-is-this",
+  "description": "Ten people of the Kabuki District, three clues each, from the hint that is hard to read to the one that gives it away. No spoilers.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Guess-from-clues format: every clue rests on a cited fact; names are never in the clues.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Gintama characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "His voice actor in Japanese is Tomokazu Sugita.",
+        "He has naturally wavy hair.",
+        "He loves sweets and runs an odd-jobs shop."
+      ],
+      "options": [
+        "Tatsuma Sakamoto",
+        "Shinpachi Shimura",
+        "Gintoki Sakata",
+        "Isao Kondo"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-gintoki-sakata-name-034",
+        "gintama-gintoki-sakata-hair-035",
+        "gintama-gintoki-sakata-voice-036"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is a comrade of the hero from the war.",
+        "His nickname is a word for a hairpiece.",
+        "His pet communicates with signboards."
+      ],
+      "options": [
+        "Tatsuma Sakamoto",
+        "Isao Kondo",
+        "Kotaro Katsura",
+        "Toshiro Hijikata"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-kotaro-katsura-name-046",
+        "gintama-kotaro-katsura-zura-047",
+        "gintama-elizabeth-signs-045"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This pet looks like a giant white bird.",
+        "It never speaks.",
+        "Its owner is a wanted resistance fighter."
+      ],
+      "options": [
+        "Tama",
+        "Sadaharu",
+        "Elizabeth",
+        "Catherine"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-elizabeth-name-044",
+        "gintama-elizabeth-signs-045"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She comes from a clan of alien fighters.",
+        "Her skin is sensitive to the sun.",
+        "Her strength is extraordinary."
+      ],
+      "options": [
+        "Catherine",
+        "Tae Shimura",
+        "Kagura",
+        "Tama"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-kagura-name-039",
+        "gintama-kagura-skin-040"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is the second in command of a police-like force.",
+        "He is rarely seen without a cigarette.",
+        "His nickname calls him a demon."
+      ],
+      "options": [
+        "Sagaru Yamazaki",
+        "Isao Kondo",
+        "Toshiro Hijikata",
+        "Sougo Okita"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-toshiro-hijikata-name-052",
+        "gintama-toshiro-hijikata-voice-053"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is the best swordsman of the force he belongs to.",
+        "He likes to use a bazooka.",
+        "Kenichi Suzumura voices him in Japanese."
+      ],
+      "options": [
+        "Sagaru Yamazaki",
+        "Toshiro Hijikata",
+        "Sougo Okita",
+        "Isao Kondo"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-sogo-okita-name-054",
+        "gintama-sogo-okita-voice-055"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is a spy.",
+        "He is often caught playing badminton on the job.",
+        "He grows fond of a red bean bun."
+      ],
+      "options": [
+        "Sougo Okita",
+        "Isao Kondo",
+        "Sagaru Yamazaki",
+        "Toshiro Hijikata"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-sagaru-yamazaki-name-056"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is the head of the police.",
+        "He wears sunglasses.",
+        "He thinks that people in sunglasses are assassins."
+      ],
+      "options": [
+        "Toshiro Hijikata",
+        "Isao Kondo",
+        "Katakuriko Matsudaira",
+        "Taizo Hasegawa"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-katakuriko-matsudaira-name-057"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She runs the family dojo.",
+        "She is the older sister of a Yorozuya member.",
+        "Her cooking is terrible."
+      ],
+      "options": [
+        "Tama",
+        "Otose",
+        "Tae Shimura",
+        "Catherine"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-tae-shimura-name-061"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is a former official who has fallen on hard times.",
+        "His nickname is Madao.",
+        "He still wears sunglasses."
+      ],
+      "options": [
+        "Tatsuma Sakamoto",
+        "Isao Kondo",
+        "Taizo Hasegawa",
+        "Sagaru Yamazaki"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "gintama-taizo-hasegawa-name-062"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    }
+  ]
+}

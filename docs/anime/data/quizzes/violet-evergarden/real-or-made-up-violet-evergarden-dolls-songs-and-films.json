@@ -1,0 +1,163 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "violet-evergarden",
+  "title": "Real or Made Up: Violet Evergarden Dolls, Songs and Films",
+  "slug": "real-or-made-up-violet-evergarden-dolls-songs-and-films",
+  "description": "Ten statements about the series, some true and some invented. Decide which is which. No spoilers beyond the set-up.",
+  "quiz_type": "true_false",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "True or false format: five true and five invented statements. Every statement rests on a cited fact.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Violet Evergarden",
+      "url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Violet Evergarden: Eternity and the Auto Memory Doll",
+      "url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Kyoto Animation, the studio, also published the original Violet Evergarden novels.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-publisher-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "The opening theme of the TV series is called Michishirube.",
+      "correct": false,
+      "fun_fact": "Michishirube is the ending theme; the opening is Sincerely.",
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "violet-evergarden-opening-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Violet Evergarden is set on a continent called Telesis.",
+      "correct": true,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-setting-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "The TV series has 26 episodes.",
+      "correct": false,
+      "fun_fact": "It has 13 episodes.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "violet-evergarden-episodes-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Minori Chihara voices Erica Brown and also sings the ending theme.",
+      "correct": true,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "violet-evergarden-erica-brown-voice-042",
+        "violet-evergarden-ending-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Taichi Ishidate directed the TV series.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "violet-evergarden-director-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "The music of the anime was composed by Yuki Kajiura.",
+      "correct": false,
+      "fun_fact": "The composer is Evan Call.",
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "violet-evergarden-composer-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Auto Memory Doll is the name of a job in the story.",
+      "correct": true,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-premise-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "The side story film Eternity and the Auto Memory Doll runs for 140 minutes.",
+      "correct": false,
+      "fun_fact": "The side story film runs 90 minutes; the 2020 film runs 140.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "violet-evergarden-eternity-film-020",
+        "violet-evergarden-movie-length-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    },
+    {
+      "question": "Netflix streamed the series worldwide while it aired.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "violet-evergarden-streaming-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    }
+  ]
+}

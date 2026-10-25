@@ -1,0 +1,252 @@
+{
+ "site": "anime",
+ "account": "oq_creator_02",
+ "group_slug": "one-piece",
+ "title": "Pirate Feast: Meals, Drinks and Sanji's Kitchen in One Piece",
+ "slug": "pirate-feast-meals-drinks-and-sanjis-kitchen-in-one-piece",
+ "description": "Ten food questions about One Piece: the Baratie, Sanji's cooking, what the Straw Hats love to eat and drink, and a food pun in the manga. Light spoilers up to Water 7.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Food format: every question is about meals, drinks or sweets; facts come from the character pages of Luffy, Zoro, Sanji, Nami, Chopper and Franky.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Monkey D. Luffy",
+   "url": "https://en.wikipedia.org/wiki/Monkey_D._Luffy"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Roronoa Zoro",
+   "url": "https://en.wikipedia.org/wiki/Roronoa_Zoro"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: One Piece",
+   "url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Straw Hats",
+   "url": "https://en.wikipedia.org/wiki/Straw_Hats"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: Sanji (One Piece)",
+   "url": "https://en.wikipedia.org/wiki/Sanji_(One_Piece)"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: List of One Piece pirates",
+   "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_pirates"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: Nami (One Piece)",
+   "url": "https://en.wikipedia.org/wiki/Nami_(One_Piece)"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: Tony Tony Chopper",
+   "url": "https://en.wikipedia.org/wiki/Tony_Tony_Chopper"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: Franky (One Piece)",
+   "url": "https://en.wikipedia.org/wiki/Franky_(One_Piece)"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Because of his huge appetite, which part of his body does Luffy often think with?",
+   "options": [
+    "His stomach",
+    "His heart",
+    "His fists",
+    "His straw hat"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-luffy-stomach-061"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Monkey_D._Luffy"
+  },
+  {
+   "question": "Zoro never gets drunk, and one drink is his favourite, almost like Luffy's love of meat. Which drink?",
+   "options": [
+    "Cola",
+    "Sake",
+    "Milk",
+    "Tea"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-zoro-sake-062"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Roronoa_Zoro"
+  },
+  {
+   "question": "Zoro's signature move is written with characters meaning demon cut, but sounds like which food?",
+   "options": [
+    "A fish cake",
+    "A dumpling",
+    "A bowl of ramen",
+    "A rice ball"
+   ],
+   "correct": 3,
+   "kind": "quote",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-zoro-onigiri-pun-063"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Sanji dreams of finding the All Blue, a legendary sea that holds what?",
+   "options": [
+    "Spice of every kind",
+    "Meat of every kind",
+    "Fish of every kind",
+    "Fruit of every kind"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-sanji-all-blue-064"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Straw_Hats"
+  },
+  {
+   "question": "Who taught Sanji to cook at the floating restaurant Baratie?",
+   "options": [
+    "Zeff",
+    "Arlong",
+    "Dracule Mihawk",
+    "Don Krieg"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-zeff-teaches-sanji-065"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sanji_(One_Piece)"
+  },
+  {
+   "question": "Which hungry pirate from Krieg's crew was grateful for the plate of food that Sanji gave him at the Baratie?",
+   "options": [
+    "Johnny",
+    "Patty",
+    "Gin",
+    "Usopp"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-gin-fed-by-sanji-066"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_pirates"
+  },
+  {
+   "question": "Sanji fights with his legs only, so that which part of his body stays safe for cooking?",
+   "options": [
+    "His hands",
+    "His back",
+    "His tongue",
+    "His eyes"
+   ],
+   "correct": 0,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-sanji-kicks-protect-hands-067"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sanji_(One_Piece)"
+  },
+  {
+   "question": "Which fruit appears in the tattoo that Nami wears beside a pinwheel?",
+   "options": [
+    "An apple",
+    "A pineapple",
+    "A cherry",
+    "A tangerine"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-nami-tangerine-tattoo-068"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Nami_(One_Piece)"
+  },
+  {
+   "question": "Which sweet treat gives Chopper his nickname?",
+   "options": [
+    "Chocolate",
+    "Cotton candy",
+    "Ice cream",
+    "Candy apple"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 11,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-chopper-cotton-candy-069"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tony_Tony_Chopper"
+  },
+  {
+   "question": "Which drink does Franky use to recharge his cyborg body?",
+   "options": [
+    "Green tea",
+    "Cola",
+    "Milk",
+    "Orange juice"
+   ],
+   "correct": 1,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 22,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-franky-cola-fuel-070"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Franky_(One_Piece)"
+  }
+ ]
+}

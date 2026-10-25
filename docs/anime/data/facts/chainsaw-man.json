@@ -1240,5 +1240,893 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "A public safety devil hunter from Special Division 7 who Yoshida assigns to be Denji's bodyguard in school. She entered into a contract with the STD Devil at"
+  },
+  {
+    "id": "chainsaw-man-kishibe-contracts-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "kishibe"
+    },
+    "field": "ability",
+    "value": [
+      "Knife Devil",
+      "Needle Devil",
+      "Claw Devil"
+    ],
+    "text": "Kishibe has made deals with a few devils, such as the Knife Devil, the Needle Devil and the Claw Devil.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "He maintains contracts with multiple devils including the Knife, Needle, and Claw Devils."
+  },
+  {
+    "id": "chainsaw-man-aki-contracts-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "aki-hayakawa"
+    },
+    "field": "ability",
+    "value": [
+      "Fox Devil",
+      "Curse Devil",
+      "Future Devil"
+    ],
+    "text": "Aki fights through deals with the Fox Devil and the Curse Devil, and later gets a peek at what comes next from the Future Devil.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "Initially contracted with the Fox and Curse Devils, he later acquires future sight through the Future Devil"
+  },
+  {
+    "id": "chainsaw-man-himeno-ghost-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "himeno"
+    },
+    "field": "ability",
+    "value": "Ghost Devil",
+    "text": "Himeno borrows the power of the Ghost Devil, using its unseen hand from far away.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "contracted to the Ghost Devil, allowing her to use its invisible right hand from anywhere"
+  },
+  {
+    "id": "chainsaw-man-curse-devil-fear-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "origin",
+    "value": "fear of curses",
+    "text": "The Curse Devil is born from people dreading curses.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "A devil embodying the fear of curses"
+  },
+  {
+    "id": "chainsaw-man-future-devil-fear-046",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "role",
+    "value": "fear of the future",
+    "text": "The Future Devil is born from people dreading what lies ahead.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "A devil embodying the fear of the future"
+  },
+  {
+    "id": "chainsaw-man-bat-devil-fear-047",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "organization",
+    "value": "fear of bats",
+    "text": "The Bat Devil is born from people dreading bats.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "A devil embodying the fear of bats"
+  },
+  {
+    "id": "chainsaw-man-fox-devil-fear-048",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "occupation",
+    "value": "fear of foxes",
+    "text": "The Fox Devil is born from people dreading foxes.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "A devil embodying the fear of foxes"
+  },
+  {
+    "id": "chainsaw-man-spider-devil-fear-049",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "background",
+    "value": "fear of spiders",
+    "text": "The Spider Devil, a half-human half-spider woman named Princi, is born from people dreading spiders.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "the embodiment of the fear of spiders"
+  },
+  {
+    "id": "chainsaw-man-eternity-devil-fear-050",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "setting",
+    "value": "fear of eternity",
+    "text": "The Eternity Devil is born from people dreading eternity.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "A devil embodying the fear of eternity"
+  },
+  {
+    "id": "chainsaw-man-kobeni-hunter-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "kobeni-higashiyama"
+    },
+    "field": "occupation",
+    "value": "Devil Hunter",
+    "text": "Kobeni Higashiyama is a human Devil Hunter, drafted into the experimental squad that Makima runs.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "Devil Hunter conscripted into Makima's experimental squad"
+  },
+  {
+    "id": "chainsaw-man-aki-division4-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "aki-hayakawa"
+    },
+    "field": "organization",
+    "value": "Tokyo Special Division 4",
+    "text": "Aki Hayakawa hunts devils for Tokyo Special Division 4.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "A Tokyo Special Division 4 Devil Hunter driven by vengeance"
+  },
+  {
+    "id": "chainsaw-man-kishibe-division4-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "kishibe"
+    },
+    "field": "organization",
+    "value": "Tokyo Special Division 4",
+    "text": "Kishibe moved over to Division 4, where he coaches Denji and Power.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "After transferring to Division 4, he trains Denji and Power"
+  },
+  {
+    "id": "chainsaw-man-tendo-kyoto-055",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "terms",
+    "value": "Kyoto Special Division 1",
+    "text": "Michiko Tendo comes from Kyoto Special Division 1 and is sent to Tokyo to coach the Division 4 hunters.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "A devil hunter from Kyoto Division 1"
+  },
+  {
+    "id": "chainsaw-man-fire-punch-056",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "specialty",
+    "value": "Fire Punch",
+    "text": "Before Chainsaw Man, Fujimoto drew another serialized manga called Fire Punch.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tatsuki_Fujimoto",
+        "ref": "1380627160",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "known for his works Fire Punch and Chainsaw Man"
+  },
+  {
+    "id": "chainsaw-man-look-back-057",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "talent",
+    "value": "Look Back",
+    "text": "Look Back is a one-shot chapter by Fujimoto, released on Shonen Jump+.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tatsuki_Fujimoto",
+        "ref": "1380627160",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "Fujimoto published the one-shot Look Back"
+  },
+  {
+    "id": "chainsaw-man-goodbye-eri-058",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "style",
+    "value": "Goodbye, Eri",
+    "text": "Goodbye, Eri is a longer one-shot by Fujimoto, also put out on Shonen Jump+.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tatsuki_Fujimoto",
+        "ref": "1380627160",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "Fujimoto published Goodbye, Eri"
+  },
+  {
+    "id": "chainsaw-man-texas-inspiration-059",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "inspiration",
+    "value": "The Texas Chain Saw Massacre",
+    "text": "A 1974 horror film, The Texas Chain Saw Massacre, gave Fujimoto the spark for his chainsaw hero.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+        "ref": "1381371327",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "Fujimoto was inspired by the 1974 film The Texas Chain Saw Massacre"
+  },
+  {
+    "id": "chainsaw-man-power-hunter-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "power"
+    },
+    "field": "role",
+    "value": "Blood Fiend",
+    "text": "Power is a Blood Fiend who works as a Public Safety Devil Hunter for Makima.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "A Blood Fiend serving as a Public Safety Devil Hunter under Makima"
+  },
+  {
+    "id": "chainsaw-man-angel-hunter-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "angel-devil"
+    },
+    "field": "role",
+    "value": "Public Safety Devil Hunter",
+    "text": "Angel Devil is a devil who joins Public Safety as a Devil Hunter and becomes Aki's partner.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "As a Public Safety Devil Hunter, he partners with Aki"
+  },
+  {
+    "id": "chainsaw-man-katana-yakuza-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "katana-man"
+    },
+    "field": "origin",
+    "value": "yakuza",
+    "text": "Katana Man, also called Samurai Sword, is a hybrid born into the yakuza and the grandson of their boss.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "grandson of the yakuza boss who ordered Denji's execution"
+  },
+  {
+    "id": "chainsaw-man-wsj-part-one-065",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "mission",
+    "value": "Weekly Shonen Jump",
+    "text": "Weekly Shonen Jump is the Shueisha magazine that carried the first arc of the manga.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+        "ref": "1381371327",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "Shueisha's shōnen manga magazine Weekly Shōnen Jump"
+  },
+  {
+    "id": "chainsaw-man-jump-plus-part-two-066",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "premise",
+    "value": "Shonen Jump+",
+    "text": "Shonen Jump+ is the Shueisha app and website where the second arc ran.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+        "ref": "1381371327",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "serialized in Shueisha's Shōnen Jump+ app and website"
+  },
+  {
+    "id": "chainsaw-man-manga-plus-067",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "publisher",
+    "value": "Manga Plus",
+    "text": "Shueisha also offers the manga on its own platform, Manga Plus.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+        "ref": "1381371327",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "published by Shueisha on the Manga Plus online platform"
+  },
+  {
+    "id": "chainsaw-man-viz-licence-068",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "english_licence",
+    "value": "Viz Media",
+    "text": "In North America the English print and digital editions come from Viz Media.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+        "ref": "1381371327",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "the manga is licensed in English by Viz Media"
+  },
+  {
+    "id": "chainsaw-man-beam-fiend-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "beam"
+    },
+    "field": "role",
+    "value": "Shark Fiend",
+    "text": "Beam is the Shark Fiend, a devil living in a body.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "The Shark Fiend, who has the ability to"
+  },
+  {
+    "id": "chainsaw-man-galgali-fiend-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "galgali"
+    },
+    "field": "role",
+    "value": "Violence Fiend",
+    "text": "Galgali is the Violence Fiend, a devil living in a body.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "The Violence Fiend, who ironically is friendly and polite"
+  },
+  {
+    "id": "chainsaw-man-angel-devil-angelic-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "chainsaw-man",
+      "ref": "angel-devil"
+    },
+    "field": "origin",
+    "value": "fear of angels",
+    "text": "Angel Devil is a devil of its own, the embodiment of the fear of angels, and not a fiend inside a borrowed body.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:44:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:29.000Z",
+    "excerpt": "A humanoid embodiment of angelic fear"
+  },
+  {
+    "id": "chainsaw-man-madoka-division4-072",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "ability",
+    "value": "Tokyo Special Division 4",
+    "text": "Madoka is a hunter of Tokyo Special Division 4 who quits after surviving a hit aimed at the team.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:45:10Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:10.000Z",
+    "excerpt": "A devil hunter in Tokyo Special Division 4 who resigns"
+  },
+  {
+    "id": "chainsaw-man-iris-out-073",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "signature_song",
+    "value": "Iris Out",
+    "text": "Kenshi Yonezu performed Iris Out, the theme song of the Chainsaw Man anime film.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_%E2%80%93_The_Movie:_Reze_Arc",
+        "ref": "1380395387",
+        "fetched_at": "2026-10-25T18:45:10Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:10.000Z",
+    "excerpt": "performed the film's theme song \"Iris Out\""
+  },
+  {
+    "id": "chainsaw-man-jane-doe-074",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "power",
+    "value": "Jane Doe",
+    "text": "Jane Doe, the closing song of the Chainsaw Man anime film, is a duet of Kenshi Yonezu and Hikaru Utada.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_%E2%80%93_The_Movie:_Reze_Arc",
+        "ref": "1380395387",
+        "fetched_at": "2026-10-25T18:45:10Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:10.000Z",
+    "excerpt": "the ending theme song is \"Jane Doe\" by Yonezu and Hikaru Utada"
+  },
+  {
+    "id": "chainsaw-man-zombie-devil-yakuza-075",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "chainsaw-man"
+    },
+    "field": "technique",
+    "value": "fear of zombies",
+    "text": "The Zombie Devil is the devil that the yakuza strike a deal with when they want Denji dead.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+        "ref": "1368604634",
+        "fetched_at": "2026-10-25T18:48:47Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:50:47.000Z",
+    "excerpt": "A devil embodying the fear of zombies who formed a contract with the yakuza"
   }
 ]

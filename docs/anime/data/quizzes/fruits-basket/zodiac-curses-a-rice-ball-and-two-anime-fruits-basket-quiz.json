@@ -1,0 +1,227 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "fruits-basket",
+  "title": "Fruits Basket Quiz: Zodiac Curses, a Rice Ball and Two Anime",
+  "slug": "zodiac-curses-a-rice-ball-and-two-anime-fruits-basket-quiz",
+  "description": "Ten easy questions on the creator, the magazine, the title game, the two anime and the music. No story knowledge needed, and no spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "New series batch 3. Arc 0 facts only: production, the title game and the set-up. One fact per answer.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Fruits Basket",
+      "url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Fruits Basket (2019 TV series)",
+      "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Fruits Basket (2001 TV series)",
+      "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2001_TV_series)"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: List of Fruits Basket characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Which shojo magazine carried the Fruits Basket manga?",
+      "options": [
+        "Ribon",
+        "Hana to Yume",
+        "Margaret",
+        "Nakayoshi"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "fruits-basket-magazine-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+    },
+    {
+      "question": "Who both wrote and drew the manga?",
+      "options": [
+        "Natsuki Takaya",
+        "Naoko Takeuchi",
+        "Yuu Watase",
+        "Arina Tanemura"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "fruits-basket-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+    },
+    {
+      "question": "The title comes from a children's game. Which one?",
+      "options": [
+        "Musical chairs",
+        "Duck duck goose",
+        "Hide and seek",
+        "Fruit Basket Turnover"
+      ],
+      "correct": 3,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-title-game-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+    },
+    {
+      "question": "In that game, what role does Tohru get instead of a fruit?",
+      "options": [
+        "A mochi",
+        "An onigiri",
+        "An umeboshi",
+        "A bento box"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-title-game-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+    },
+    {
+      "question": "Over its whole run the manga produced how many chapters?",
+      "options": [
+        "150",
+        "136",
+        "108",
+        "120"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "fruits-basket-chapters-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+    },
+    {
+      "question": "Which studio animated the 2019 remake?",
+      "options": [
+        "Studio Deen",
+        "Bones",
+        "TMS Entertainment",
+        "Madhouse"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fruits-basket-anime-studio-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)"
+    },
+    {
+      "question": "Who directed the first anime, broadcast in 2001?",
+      "options": [
+        "Yoshihide Ibata",
+        "Akitaro Daichi",
+        "Mamoru Hosoda",
+        "Shinichiro Watanabe"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fruits-basket-studio-2001-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2001_TV_series)"
+    },
+    {
+      "question": "How many TV seasons does the 2019 remake have?",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "2"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fruits-basket-total-episodes-022"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)"
+    },
+    {
+      "question": "Who composed the music of the 2019 anime?",
+      "options": [
+        "Yoko Kanno",
+        "Hiroyuki Sawano",
+        "Kenji Kawai",
+        "Masaru Yokoyama"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fruits-basket-composer-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+    },
+    {
+      "question": "Which voice actress plays Tohru in the 2019 anime?",
+      "options": [
+        "Reina Ueda",
+        "Megumi Han",
+        "Manaka Iwami",
+        "Rie Kugimiya"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fruits-basket-tohru-honda-voice-032"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    }
+  ]
+}

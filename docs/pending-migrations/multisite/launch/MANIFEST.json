@@ -1,6 +1,6 @@
 {
   "mode": "verified",
-  "input_sha256": "e0f34d3ce03e0472f0d61a67efdda679298ea2da4b237b17a74f63f9cebbb93e",
+  "input_sha256": "150827a79c6b13cf05729bcf2ec84817b4924378aebbe40d49be84c30268857b",
   "files": [
     {
       "name": "L02-K2-team-accounts.sql",
@@ -12,27 +12,27 @@
     },
     {
       "name": "L04-K1-series.sql",
-      "sha256": "f4aeacab28db7cd2251a3f70555335d4784ae43de121edf5aa678375c8432a33"
+      "sha256": "5ec108abac509db2d5759a2128a86e1002909ba8254716225dfbb4f29ff3565e"
     },
     {
       "name": "L04-K1-series.rollback.sql",
-      "sha256": "634fc6dd2fbf3b2763c6485bef001b3541461b8ecc649773de85349acac658a4"
+      "sha256": "634dd66c71ab72dd857b54164737bd4cb08b9be56fc1bf1c38d4d37fd641b417"
     },
     {
       "name": "L05-K1-facts.sql",
-      "sha256": "e373db49e874a2ad47551d5e6b859aec06dea0b73b010f442663ba719fd33d07"
+      "sha256": "605a99549cd2ba7325bbd945ff1a641d00e8f9610dc1c48a4827424d727214bb"
     },
     {
       "name": "L05-K1-facts.rollback.sql",
-      "sha256": "7887c55713249697addb900834abb33c00cea77ce6f4e4c497de742e6698cab5"
+      "sha256": "5e9134585d27e1d26e841ea07e37a82984a28202ad722266700d8f120f20200d"
     },
     {
       "name": "L07-K2-catalogue.sql",
-      "sha256": "b7f361bb76d1cd5c9d103d148e486bb0e2833ca08fe7cbe323236eaae072db40"
+      "sha256": "b9ebc9c99253755b09f7ee2f6f13bc0fa7e8f97a788d6bd6e32ef99efabcadf7"
     },
     {
       "name": "L07-K2-catalogue.rollback.sql",
-      "sha256": "be6c37eddbd19b8921e2c036ba14d84d99017c196108f4b5c51882b5086f84d5"
+      "sha256": "0f816ceaa932b3adaba09c57addb4f67a60a1b466b58d693cde70926747bc289"
     },
     {
       "name": "L08-K3-daily-bank.sql",

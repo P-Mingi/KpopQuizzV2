@@ -1235,5 +1235,285 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is the second youngest sibling of Killua. While the other members of the Zoldyck family refer to Alluka as male or"
+  },
+  {
+    "id": "hunter-x-hunter-pierrot-short-film-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "film",
+    "value": "short film adaptation",
+    "text": "A short animated film from Studio Pierrot played at a Jump anime tour, ahead of the first TV series.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-25T18:50:43Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:52:43.000Z",
+    "excerpt": "Before the first anime television series was created, a short film adaptation of Hunter × Hunter was shown"
+  },
+  {
+    "id": "hunter-x-hunter-film-order-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "role",
+    "value": "first one's debut",
+    "text": "Phantom Rouge was the first of the two theatrical films, and The Last Mission was announced only once it had opened.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-25T18:50:43Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:52:43.000Z",
+    "excerpt": "was announced following the first one's debut"
+  },
+  {
+    "id": "hunter-x-hunter-hunter-exam-start-043",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "story_arcs",
+    "value": "Whale Island",
+    "text": "The story begins when Gon leaves his island home to sit the Hunter Exam, the first arc.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-25T18:50:43Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:52:43.000Z",
+    "excerpt": "Gon leaves his home on Whale Island"
+  },
+  {
+    "id": "hunter-x-hunter-heavens-arena-nen-044",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "organization",
+    "value": "Heavens Arena",
+    "text": "After the exam, Gon and Killua go to the towering Heavens Arena and learn Nen from the master Wing.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-25T18:50:43Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:52:43.000Z",
+    "excerpt": "Gon and Killua travel to Heavens Arena"
+  },
+  {
+    "id": "hunter-x-hunter-yorknew-reunion-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "occupation",
+    "value": "Yorknew City",
+    "text": "Once Heavens Arena is behind them, the friends gather again in Yorknew City to face the Phantom Troupe.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-25T18:50:43Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:52:43.000Z",
+    "excerpt": "Later, the group reconvenes in Yorknew City"
+  },
+  {
+    "id": "hunter-x-hunter-kurapika-seals-chrollo-046",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "background",
+    "value": "seals their leader",
+    "text": "In Yorknew City Kurapika defeats two Troupe members and locks away the Nen of their boss Chrollo.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-25T18:50:43Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:52:43.000Z",
+    "excerpt": "Kurapika kills two members and seals their leader Chrollo Lucilfer's powers"
+  },
+  {
+    "id": "hunter-x-hunter-greed-island-game-047",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "origin",
+    "value": "Greed Island",
+    "text": "After Yorknew City, Gon and Killua enter the game Greed Island, which Ging built, hoping to find hints about him.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-25T18:50:43Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:52:43.000Z",
+    "excerpt": "Gon and Killua later play Greed Island"
+  },
+  {
+    "id": "hunter-x-hunter-ant-queen-kite-048",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "setting",
+    "value": "Chimera Ant queen",
+    "text": "When Greed Island is finished, the boys find Kite, who is studying a Chimera Ant queen that eats people.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-25T18:50:43Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:52:43.000Z",
+    "excerpt": "they reunite with Kite, who is researching a man-eating Chimera Ant queen"
+  },
+  {
+    "id": "hunter-x-hunter-east-gorteau-fall-049",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "terms",
+    "value": "East Gorteau",
+    "text": "The offspring of the Chimera Ant queen learn Nen and topple a nearby state called East Gorteau.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-25T18:50:43Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:52:43.000Z",
+    "excerpt": "overthrow the nearby Republic of East Gorteau"
+  },
+  {
+    "id": "hunter-x-hunter-election-zodiacs-050",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "hunter-x-hunter"
+    },
+    "field": "specialty",
+    "value": "new chairman",
+    "text": "In the Election arc, once the Chimera Ant crisis is over, the Zodiacs of the Hunter Association look for someone to lead them.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter",
+        "ref": "1381097044",
+        "fetched_at": "2026-10-25T18:50:43Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:52:43.000Z",
+    "excerpt": "After the Chimera Ant crisis, the Hunter Association's Zodiacs, including Ging, seek a new chairman"
   }
 ]

@@ -1,0 +1,259 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Who Made It? Pens, Pencils and Pen Names",
+ "slug": "who-made-it-pens-pencils-and-pen-names",
+ "description": "Ten questions on the people behind the stories: which creator made which series, who drew what, and one pen name that hides a whole studio. Sourced credits, no spoilers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Cross-series set on creators. Arc 0; credits come from verified creator facts.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Fullmetal Alchemist",
+   "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Attack on Titan",
+   "url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Mob Psycho 100",
+   "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Cowboy Bebop",
+   "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: List of Dragon Ball characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: Death Note",
+   "url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: Frieren",
+   "url": "https://en.wikipedia.org/wiki/Frieren"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: Violet Evergarden",
+   "url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: Solo Leveling",
+   "url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+  },
+  {
+   "id": "S10",
+   "title": "Wikipedia: Chainsaw Man",
+   "url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Hiromu Arakawa wrote and drew which of these manga?",
+   "options": [
+    "Bleach",
+    "Fullmetal Alchemist",
+    "Haikyu!!",
+    "Fairy Tail"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-manga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  },
+  {
+   "question": "Hajime Isayama wrote and drew the whole manga of which of these?",
+   "options": [
+    "Demon Slayer",
+    "Attack on Titan",
+    "Jujutsu Kaisen",
+    "Tokyo Ghoul"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "attack-on-titan-manga-creator-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+  },
+  {
+   "question": "Mob Psycho 100 was created by ONE. Which other original series did the same person create?",
+   "options": [
+    "Gintama",
+    "Chainsaw Man",
+    "One-Punch Man",
+    "Death Note"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "mob-psycho-100-same-creator-018",
+    "mob-psycho-100-manga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+  },
+  {
+   "question": "Hajime Yatate is the credited creator of Cowboy Bebop. What is that name?",
+   "options": [
+    "A light novelist",
+    "The series director",
+    "A manga artist at Shueisha",
+    "A shared pen name of the Sunrise staff"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-creator-credit-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "Dragon Ball is set in the same fictional world as which earlier manga by Akira Toriyama?",
+   "options": [
+    "Gintama",
+    "Bleach",
+    "Dr. Slump",
+    "Slam Dunk"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dragon-ball-dr-slump-universe-064",
+    "dragon-ball-series-creator-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  },
+  {
+   "question": "Tsugumi Ohba wrote the story of the Death Note manga. Who drew it?",
+   "options": [
+    "Mengo Yokoyari",
+    "Takeshi Obata",
+    "Tsukasa Abe",
+    "Yusuke Murata"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-manga-creators-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "Kanehito Yamada writes the manga of Frieren: Beyond Journey's End. Who draws it?",
+   "options": [
+    "Tsukasa Abe",
+    "Yusuke Nomura",
+    "Mengo Yokoyari",
+    "Yusuke Murata"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "frieren-manga-creators-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Frieren"
+  },
+  {
+   "question": "The light novels of Kana Akatsuki grew into which anime?",
+   "options": [
+    "Violet Evergarden",
+    "Reincarnated as a Slime",
+    "Re:Zero",
+    "Sword Art Online"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "violet-evergarden-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+  },
+  {
+   "question": "A web novel by Chugong, first posted in 2016, is where which anime began?",
+   "options": [
+    "Reincarnated as a Slime",
+    "Re:Zero",
+    "Omniscient Reader's Viewpoint",
+    "Solo Leveling"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "solo-leveling-novel-author-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+  },
+  {
+   "question": "Tatsuki Fujimoto both wrote and drew which of these manga?",
+   "options": [
+    "Chainsaw Man",
+    "Dandadan",
+    "Spy x Family",
+    "Kaiju No. 8"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "chainsaw-man-manga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+  }
+ ]
+}

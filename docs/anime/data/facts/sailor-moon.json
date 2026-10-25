@@ -843,5 +843,941 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is an elegant and talented violinist and painter. Similar to her"
+  },
+  {
+    "id": "sailor-moon-ami-classmate-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "ami-mizuno"
+    },
+    "field": "role",
+    "value": "classmate of Usagi",
+    "text": "Ami, the quiet genius, sits in the same classroom as Usagi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "is a fourteen-year-old bookworm in Usagi's class"
+  },
+  {
+    "id": "sailor-moon-makoto-classmate-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "makoto-kino"
+    },
+    "field": "role",
+    "value": "classmate of Usagi",
+    "text": "Makoto, tall and strong, is another girl in the class of Usagi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "who is a student in Usagi's class"
+  },
+  {
+    "id": "sailor-moon-gurio-classmate-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "role",
+    "value": "Gurio Umino, a classmate",
+    "text": "Gurio is a glasses-wearing boy who studies in the class of Usagi and has a crush on her.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "is a student in Usagi's class at school"
+  },
+  {
+    "id": "sailor-moon-rei-other-school-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "rei-hino"
+    },
+    "field": "origin",
+    "value": "private Catholic school",
+    "text": "Rei is the one friend who goes to a separate private school from the rest of the girls.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "She attends a private Catholic school separate from the other girls"
+  },
+  {
+    "id": "sailor-moon-usagi-cake-lover-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "usagi-tsukino"
+    },
+    "field": "fond_of",
+    "value": "cake",
+    "text": "Usagi is a glutton for sweets, and cake appears as a favourite in the manga.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(character)",
+        "ref": "1373279974",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "the manga lists one of her favorite foods as cake"
+  },
+  {
+    "id": "sailor-moon-makoto-cooking-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "makoto-kino"
+    },
+    "field": "habits",
+    "value": "cooking and gardening",
+    "text": "Makoto looks after herself and enjoys housekeeping, cooking and tending plants.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "domestic interests, including housekeeping, cooking and gardening"
+  },
+  {
+    "id": "sailor-moon-ikuko-cooking-034",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "habits",
+    "value": "Ikuko often cooks",
+    "text": "Ikuko, the mother of Usagi, is usually seen busy in the kitchen, scolding her about school marks.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "is Usagi's mother, who is often seen cooking"
+  },
+  {
+    "id": "sailor-moon-ami-bookworm-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "ami-mizuno"
+    },
+    "field": "habits",
+    "value": "books and study",
+    "text": "Ami loves learning and reading, and she is rumoured to have an IQ of 300.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "bookworm in Usagi's class, who is quiet yet intelligent and rumored to have an IQ of 300"
+  },
+  {
+    "id": "sailor-moon-ikuko-mother-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "organization",
+    "value": "Ikuko, mother of Usagi",
+    "text": "Ikuko Tsukino is the mother of Usagi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "is Usagi's mother"
+  },
+  {
+    "id": "sailor-moon-kenji-father-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "occupation",
+    "value": "Kenji, father of Usagi",
+    "text": "Kenji Tsukino is a magazine reporter and later editor-in-chief, and the father of Usagi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "is Usagi's father"
+  },
+  {
+    "id": "sailor-moon-shingo-brother-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "background",
+    "value": "Shingo, younger brother of Usagi",
+    "text": "Shingo is the little brother of Usagi, the only Guardian with a known sibling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "is Usagi's younger brother"
+  },
+  {
+    "id": "sailor-moon-mau-cats-040",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "origin",
+    "value": "Luna, Artemis and Diana: planet Mau",
+    "text": "Luna, Artemis and Diana are speaking cats from the planet Mau, and they advise their owners.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "are cats from the planet Mau"
+  },
+  {
+    "id": "sailor-moon-phobos-deimos-crows-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "setting",
+    "value": "Phobos and Deimos, crows of Rei",
+    "text": "Phobos and Deimos are two pet crows kept by Rei at the shrine and named for the moons of Mars.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "are Rei's pet crows that live at the shrine"
+  },
+  {
+    "id": "sailor-moon-chibiusa-30th-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "chibiusa"
+    },
+    "field": "origin",
+    "value": "30th century",
+    "text": "Chibiusa is a girl from the 30th century and the daughter of the future queen and king.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "is the future daughter of Neo-Queen Serenity and King Endymion in the 30th century"
+  },
+  {
+    "id": "sailor-moon-neo-queen-30th-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "usagi-tsukino"
+    },
+    "field": "role",
+    "value": "Neo-Queen Serenity",
+    "text": "Usagi later rules the Earth as Neo-Queen Serenity in the 30th century.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(character)",
+        "ref": "1373279974",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "known as Neo-Queen Serenity, by the 30th century"
+  },
+  {
+    "id": "sailor-moon-queen-serenity-silver-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "terms",
+    "value": "Queen Serenity, ruler of the Moon",
+    "text": "Queen Serenity was the ruling queen of the Moon during the Silver Millennium, long ago.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "the queen regnant of the Moon, who reigned during the first Silver Millennium era"
+  },
+  {
+    "id": "sailor-moon-inner-four-046",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "specialty",
+    "value": "Mercury, Mars, Jupiter and Venus: first four Guardians",
+    "text": "At the start, Sailors Mercury, Mars, Jupiter and Venus are the friends who stand beside Sailor Moon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "her guardians and friends: Sailors Mercury, Mars, Jupiter and Venus"
+  },
+  {
+    "id": "sailor-moon-outer-four-047",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "talent",
+    "value": "Uranus, Neptune, Pluto and Saturn: later four Guardians",
+    "text": "Sailors Uranus, Neptune, Pluto and Saturn arrive later in the story as four extra Guardians.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "four more guardians: Sailors Uranus, Neptune, Pluto and Saturn"
+  },
+  {
+    "id": "sailor-moon-pluto-garnet-orb-048",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "ability",
+    "value": "Garnet Orb",
+    "text": "Sailor Pluto uses the Garnet Orb to attack and to stop time for a short while.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "Her talisman, the Garnet Orb, aids her power to attack and temporarily stop time"
+  },
+  {
+    "id": "sailor-moon-uranus-space-sword-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "haruka-tenoh"
+    },
+    "field": "ability",
+    "value": "Space Sword",
+    "text": "Haruka carries the Space Sword as her talisman when fighting as Sailor Uranus.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "Her talisman, the Space Sword, aids her fighting"
+  },
+  {
+    "id": "sailor-moon-neptune-deep-aqua-mirror-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "michiru-kaioh"
+    },
+    "field": "ability",
+    "value": "Deep Aqua Mirror",
+    "text": "Michiru has the Deep Aqua Mirror, which helps her intuition and shows hidden evil.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "Her talisman, the Deep Aqua Mirror, aids her intuition and reveals cloaked evil"
+  },
+  {
+    "id": "sailor-moon-saturn-silence-glaive-051",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "style",
+    "value": "Silence Glaive",
+    "text": "Hotaru, as Sailor Saturn, wields the Silence Glaive, a weapon that makes barriers.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "She wields the Silence Glaive, which gives her the power to generate barriers"
+  },
+  {
+    "id": "sailor-moon-hell-tree-anime-only-052",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "mission",
+    "value": "Hell Tree aliens: anime only",
+    "text": "Ail and An belong to the Hell Tree aliens, a group made up for the anime only.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "are a group who only appear in the anime"
+  },
+  {
+    "id": "sailor-moon-yuichiro-anime-only-053",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "premise",
+    "value": "Yuichiro Kumada: anime only",
+    "text": "Yuichiro, a boy who helps at the shrine, was made up for the anime.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "is an anime-only character who helps out at the Hikawa Shrine"
+  },
+  {
+    "id": "sailor-moon-naru-in-manga-054",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "power",
+    "value": "Naru Osaka, best friend in the manga too",
+    "text": "Naru, Usagi's best friend, also shows up in the manga, where she reaches the same high school.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "Naru later attends the same high school as Usagi in Stars arc of the manga"
+  },
+  {
+    "id": "sailor-moon-beryl-dark-kingdom-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "queen-beryl"
+    },
+    "field": "role",
+    "value": "founder of the Dark Kingdom",
+    "text": "Queen Beryl founded the Dark Kingdom, the first enemy faced by the Guardians.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "Established by Queen Beryl"
+  },
+  {
+    "id": "sailor-moon-zirconia-circus-056",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "technique",
+    "value": "Zirconia, leader of the Dead Moon Circus",
+    "text": "Zirconia heads the Dead Moon Circus, who search for the Golden Crystal.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "Led by Zirconia, they seek the Golden Crystal"
+  },
+  {
+    "id": "sailor-moon-galaxia-shadow-galactica-057",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "trademark",
+    "value": "Galaxia, leader of Shadow Galactica",
+    "text": "Sailor Galaxia leads Shadow Galactica, a band of corrupted Guardians stealing Star Seeds.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "led by Sailor Galaxia, who devote themselves to stealing Star Seeds"
+  },
+  {
+    "id": "sailor-moon-kakyuu-princess-058",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "nickname",
+    "value": "Princess Kakyuu of Kinmoku",
+    "text": "Princess Kakyuu rules the kingdom of Kinmoku, which the villain Galaxia destroys.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "After Galaxia attacks and destroys Kinmoku, Kakyuu is injured"
+  },
+  {
+    "id": "sailor-moon-mamoru-student-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sailor-moon",
+      "ref": "mamoru-chiba"
+    },
+    "field": "occupation",
+    "value": "student older than Usagi",
+    "text": "Mamoru Chiba is a student a bit older than Usagi, who also fights as Tuxedo Mask.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:18.000Z",
+    "excerpt": "is a student who is older than Usagi"
+  },
+  {
+    "id": "sailor-moon-motoki-arcade-061",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "epithet",
+    "value": "Motoki Furuhata, arcade worker",
+    "text": "Motoki Furuhata works at the Crown Game Center arcade and fruit parlor and is no relative; Usagi just calls him Big Brother.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:30Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:30.000Z",
+    "excerpt": "works at the Crown Game Center, a video arcade Usagi frequently visits"
+  },
+  {
+    "id": "sailor-moon-black-moon-30th-062",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "public_identity",
+    "value": "Black Moon Clan",
+    "text": "The Black Moon Clan, led by Prince Demand, are terrorists from the 30th century.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:30Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:30.000Z",
+    "excerpt": "a terrorist group from the 30th century led by Prince Demand"
+  },
+  {
+    "id": "sailor-moon-three-lights-names-063",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sailor-moon"
+    },
+    "field": "motivation",
+    "value": "Three Lights band",
+    "text": "On Earth the three Starlights pose as a male pop band called the Three Lights, under the names Seiya, Taiki and Yaten Kou.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+        "ref": "1379441297",
+        "fetched_at": "2026-10-25T18:53:30Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:30.000Z",
+    "excerpt": "they take on the names Kou Seiya, Kou Taiki, and Kou Yaten"
   }
 ]

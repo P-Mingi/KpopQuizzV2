@@ -128,7 +128,8 @@ function countInsertTotal(): number {
   return c.groups + c.series + c.arcs + c.characters + c.themes + c.quizzes;
 }
 
-describe('load-fixtures.mjs', () => {
+// D-117: the script reads the whole data folder (45 series and growing) and runs beside builds: 30 s, not the 5 s default.
+describe('load-fixtures.mjs', { timeout: 30_000 }, () => {
   const script = path.join(ROOT, 'scripts/anime/k1/load-fixtures.mjs');
   const run = (...args: string[]) => spawnSync(process.execPath, [script, ...args], { encoding: 'utf8', cwd: ROOT });
 

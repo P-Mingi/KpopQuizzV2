@@ -102,9 +102,13 @@ function maxArc(slug, ctx) {
   return ords.length ? Math.max(...ords) : null;
 }
 
-/** Characters of the series (all series for a mix) whose name appears in a text, with their spoiler level. */
-function namedCharacters(text, slug, ctx) {
-  const list = slug && !isMixSlug(slug) ? [ctx.series.get(slug)] : [...ctx.series.values()];
+/**
+ * Characters of the series whose name appears in a text, with their spoiler level. A mix quiz looks in the series of the facts the
+ * question cites (D-117: Gintama's Kagura is not Inuyasha's Kagura), and in every series when it cites none.
+ */
+export function namedCharacters(text, slug, ctx, citedSlugs = []) {
+  const mixList = citedSlugs.length ? citedSlugs.map((s) => ctx.series.get(s)) : [...ctx.series.values()];
+  const list = slug && !isMixSlug(slug) ? [ctx.series.get(slug)] : mixList;
   const out = [];
   for (const s of list.filter(Boolean)) {
     for (const c of s.data.characters ?? []) {
@@ -177,7 +181,8 @@ export function c5(item, ctx) {
     else if (tag.arc > needArc && found.length > 0) r.warn(`${base}/spoiler`, `tagged arc ${tag.arc}, the cited facts only need arc ${needArc}`);
     const seen = new Set();
     for (const { text } of questionTexts(q, base)) {
-      for (const c of namedCharacters(text, slug, ctx)) {
+      const citedSlugs = [...new Set(found.map(({ fact }) => fact?.entity?.group_slug).filter(Boolean))];
+      for (const c of namedCharacters(text, slug, ctx, citedSlugs)) {
         if (c.level > tag.arc && !seen.has(c.slug)) { seen.add(c.slug); r.fail(`${base}/spoiler`, `names ${c.name} (spoiler level ${c.level}) but is tagged arc ${tag.arc}`); }
       }
     }

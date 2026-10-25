@@ -1236,5 +1236,177 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The strongest and most dangerous being of the entire Tower. He is a highly enigmatic person, ranked first in the Tower. One day, Phantaminum breached Jahad's"
+  },
+  {
+    "id": "tower-of-god-team-positions-five-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "role",
+    "value": "5 basic positions",
+    "text": "In the Tower, teams fight with 5 standard roles: fisherman, spear-bearer, light-bearer, scout and wave-controller.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-25T18:46:44Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:44.000Z",
+    "excerpt": "There are five basic positions"
+  },
+  {
+    "id": "tower-of-god-floor-layers-three-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "setting",
+    "value": "3 layers per floor",
+    "text": "Every floor of the Tower splits into 3 parts: an outer living area, an inner testing area and a middle linking area.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-25T18:46:44Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:44.000Z",
+    "excerpt": "Each floor is composed of three layers"
+  },
+  {
+    "id": "tower-of-god-great-families-ten-043",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "organization",
+    "value": "10 Great Families",
+    "text": "The top of the Tower is ruled by a council called the 10 Great Families, led by King Jahad.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-25T18:46:44Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:44.000Z",
+    "excerpt": "At the top of the Tower sit the \"Ten Great Families\""
+  },
+  {
+    "id": "tower-of-god-enryu-floor-43-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "enryu"
+    },
+    "field": "ability",
+    "value": "killed the guardian of floor 43",
+    "text": "The Irregular Enryu once slew the administrator of floor 43, a deed nobody thought possible.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-25T18:46:44Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:44.000Z",
+    "excerpt": "managed to kill the then administrator and guardian of the 43rd floor"
+  },
+  {
+    "id": "tower-of-god-rachel-voice-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "rachel"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Saori Hayami"
+    ],
+    "text": "Rachel is voiced in Japanese by Saori Hayami.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Voiced by: Saori Hayami (Japanese)"
+  },
+  {
+    "id": "tower-of-god-korean-origin-046",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "origin",
+    "value": "South Korea",
+    "text": "Tower of God comes from South Korea: it is a manhwa published as a webtoon, with S.I.U. as writer and artist.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-25T19:02:59Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:59.000Z",
+    "excerpt": "is a South Korean manhwa released as a webtoon"
   }
 ]

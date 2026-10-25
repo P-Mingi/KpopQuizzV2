@@ -1,0 +1,222 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "slam-dunk",
+  "title": "Slam Dunk Hard Quiz: Sannoh, a Red Monkey and 500 Threes a Day",
+  "slug": "sannoh-a-red-monkey-and-500-threes-a-day-slam-dunk-hard-quiz",
+  "description": "Ten hard questions on the rival teams, the National Tournament and the 2022 film of Slam Dunk. Spoilers for the whole manga, including the part the TV anime never adapted.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Hard quiz: late facts (arcs 5 to 8), spoilers named in the description.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Slam Dunk characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Slam Dunk (manga)",
+      "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: The First Slam Dunk",
+      "url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Who is the calm captain and point guard of Sannoh?",
+      "options": [
+        "Kenji Fujima",
+        "Shinichi Maki",
+        "Eiji Sawakita",
+        "Kazunari Fukatsu"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 8,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-kazunari-fukatsu-name-082"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Which Sannoh star is regarded as the finest all-round high school player in Japan?",
+      "options": [
+        "Nobunaga Kiyota",
+        "Eiji Sawakita",
+        "Akira Sendoh",
+        "Masashi Kawata"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 8,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-eiji-sawakita-name-083"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Which Sannoh player ranks as the best high school center in the country?",
+      "options": [
+        "Masashi Kawata",
+        "Toru Hanagata",
+        "Takenori Akagi",
+        "Jun Uozumi"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 8,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-masashi-kawata-name-084"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Who taught Sawakita to play basketball from the age of four?",
+      "options": [
+        "A neighbor",
+        "His coach",
+        "His older brother",
+        "His father"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 8,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-eiji-sawakita-name-083"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Which Kainan player built his deadly three point shot by taking 500 every day after practice?",
+      "options": [
+        "Shinichi Maki",
+        "Soichiro Jin",
+        "Hisashi Mitsui",
+        "Nobunaga Kiyota"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-soichiro-jin-name-079"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Which Kainan forward calls Sakuragi by an animal nickname?",
+      "options": [
+        "Soichiro Jin",
+        "Jun Uozumi",
+        "Shinichi Maki",
+        "Nobunaga Kiyota"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-nobunaga-kiyota-red-monkey-078"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Which Shoyo player is both the point guard and the coach?",
+      "options": [
+        "Akira Sendoh",
+        "Shinichi Maki",
+        "Toru Hanagata",
+        "Kenji Fujima"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-kenji-fujima-name-080"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "What part of the manga does the TV anime leave out?",
+      "options": [
+        "The first day of club practice",
+        "The National Tournament games",
+        "The Kainan match",
+        "The Ryonan practice match"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-skipped-nationals-031"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "question": "The First Slam Dunk retells the last match of the manga against which team?",
+      "options": [
+        "Shoyo",
+        "Kainan",
+        "Sannoh",
+        "Ryonan"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 8,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-ichi-plot-045"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk"
+    },
+    {
+      "question": "Which song closes The First Slam Dunk?",
+      "options": [
+        "Dai-Zero Kan",
+        "Zettai ni, Daremo",
+        "My Friend",
+        "Love Rockets"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "slam-dunk-ichi-songs-041"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk"
+    }
+  ]
+}

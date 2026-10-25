@@ -1,0 +1,222 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "kaguya-sama-love-is-war",
+  "title": "Kaguya-sama: Love Is War Quiz: Shuchiin Academy, Cockroaches and a Bamboo Princess",
+  "slug": "shuchiin-academy-cockroaches-and-a-bamboo-princess-kaguya-sama-quiz",
+  "description": "Ten easy questions on the manga, the awards, the voices and the first cast of Kaguya-sama: Love Is War. No spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "New series batch 4. Arc 0 facts only, characters of the first season. One fact per answer.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Kaguya-sama: Love Is War",
+      "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Kaguya-sama: Love Is War characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Kaguya-sama: Love Is War episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes"
+    }
+  ],
+  "questions": [
+    {
+      "question": "The names of the characters come from which old tale?",
+      "options": [
+        "Tales of Ise",
+        "Tale of the Heike",
+        "Tale of the Bamboo Cutter",
+        "Tale of Genji"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-names-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War"
+    },
+    {
+      "question": "After a first stretch in Miracle Jump, the manga moved to which magazine in March 2016?",
+      "options": [
+        "Weekly Shonen Sunday",
+        "Weekly Young Jump",
+        "Big Comic Spirits",
+        "Weekly Shonen Magazine"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-magazine-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War"
+    },
+    {
+      "question": "Miyuki has a paralyzing fear of which kind of creature?",
+      "options": [
+        "Birds",
+        "Dogs",
+        "Snakes",
+        "Insects"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-miyuki-shirogane-bugs-053"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "What does Miyuki dream of becoming?",
+      "options": [
+        "A concert pianist",
+        "A fashion model",
+        "A professional astronomer",
+        "A high court judge"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-miyuki-shirogane-stars-054"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "Which post does Chika hold on the student council?",
+      "options": [
+        "Vice president",
+        "Auditor",
+        "Secretary",
+        "Treasurer"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-chika-fujiwara-name-056"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "Despite her trouble with digital tools, Kaguya is good with which old machine?",
+      "options": [
+        "The telephone",
+        "The film projector",
+        "The fax machine",
+        "The typewriter"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-kaguya-shinomiya-typewriter-050"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "Which manga shared the general category of the 65th Shogakukan Manga Award in 2020 with this series?",
+      "options": [
+        "Kingdom",
+        "Aoashi",
+        "Golden Kamuy",
+        "Blue Giant"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-award-shogakukan-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War"
+    },
+    {
+      "question": "Who voices Kaguya in Japanese?",
+      "options": [
+        "Yumiri Hanamori",
+        "Miyu Tomita",
+        "Konomi Kohara",
+        "Aoi Koga"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-kaguya-shinomiya-voice-051"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "Which pen name does the anime director Shinichi Omata work under?",
+      "options": [
+        "Hajime Kamegaki",
+        "Takuya Satake",
+        "Mamoru Hatakeyama",
+        "Ryosuke Nakamura"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-anime-director-030"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes"
+    },
+    {
+      "question": "Akasaka started which other series in the same magazine in April 2020?",
+      "options": [
+        "Oshi no Ko",
+        "Gantz",
+        "Tokyo Ghoul",
+        "Kingdom"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-oshi-no-ko-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War"
+    }
+  ]
+}

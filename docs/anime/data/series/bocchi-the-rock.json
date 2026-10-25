@@ -1,0 +1,352 @@
+{
+  "$comment": "Run O1 lane K1, new series batch 3 (K1-new-series): data for Bocchi the Rock! (tier C), built from pinned Wikipedia revisions (main article, episode list, Kessoku Band album), Wikidata Q65235667 (manga) and Q108230373 (TV anime), the official anime site bocchi.rocks (cast and staff page, discography), and Anime News Network (encyclopedia id 24062 and the news item on the second season). Arcs are the four ending theme blocks of the twelve episode first season, because no allowed source splits the story further. The manga continues past the anime and the second season has been announced but has not aired at the pinned date. Characters carry the episode block where they first matter; levels are editorial judgments and the later block was chosen when unsure. No character is an identity spoiler.",
+  "group": {
+    "slug": "bocchi-the-rock",
+    "name": "Bocchi the Rock!",
+    "site": "anime",
+    "display_color": "#E8588E",
+    "text_color": "#FFFFFF"
+  },
+  "series": {
+    "type": "anime_manga",
+    "title_en": "Bocchi the Rock!",
+    "title_native": "ぼっち・ざ・ろっく！",
+    "title_romaji": "Botchi Za Rokku!",
+    "aliases": [
+      "Bocchi",
+      "BTR"
+    ],
+    "studios": [
+      {
+        "name": "CloverWorks"
+      }
+    ],
+    "director": "Keiichirō Saitō",
+    "authors": [
+      {
+        "name": "Aki Hamazi",
+        "role": "story_art"
+      }
+    ],
+    "magazine": "Manga Time Kirara Max",
+    "publisher": "Houbunsha",
+    "anime_start_year": 2022,
+    "anime_end_year": 2022,
+    "manga_start_year": 2017,
+    "status": "between_seasons",
+    "episodes": 12,
+    "seasons": 1,
+    "volumes": 8,
+    "official_url": "https://bocchi.rocks/",
+    "wikidata_qid": "Q65235667",
+    "tier": "C",
+    "published": true
+  },
+  "arcs": [
+    {
+      "ord": 1,
+      "name": "Episodes 1 to 3",
+      "kind": "arc",
+      "episode_from": 1,
+      "episode_to": 3,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+      "status": "published"
+    },
+    {
+      "ord": 2,
+      "name": "Episodes 4 to 7",
+      "kind": "arc",
+      "episode_from": 4,
+      "episode_to": 7,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+      "status": "published"
+    },
+    {
+      "ord": 3,
+      "name": "Episodes 8 to 11",
+      "kind": "arc",
+      "episode_from": 8,
+      "episode_to": 11,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+      "status": "published"
+    },
+    {
+      "ord": 4,
+      "name": "Episode 12",
+      "kind": "arc",
+      "episode_from": 12,
+      "episode_to": 12,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+      "status": "published"
+    }
+  ],
+  "characters": [
+    {
+      "slug": "hitori-goto",
+      "name": "Hitori Gotō",
+      "name_native": "後藤 ひとり",
+      "role": "main",
+      "affiliation": "Kessoku Band",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A terribly shy girl who taught herself guitar and dreams of playing in a real band.",
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 1,
+      "status": "published"
+    },
+    {
+      "slug": "nijika-ijichi",
+      "name": "Nijika Ijichi",
+      "name_native": "伊地知 虹夏",
+      "role": "main",
+      "affiliation": "Kessoku Band",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The sunny drummer who founds Kessoku Band and keeps its members together.",
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 2,
+      "status": "published"
+    },
+    {
+      "slug": "ryo-yamada",
+      "name": "Ryō Yamada",
+      "name_native": "山田 リョウ",
+      "role": "main",
+      "affiliation": "Kessoku Band",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A cool, aloof bassist and composer who is always short of money.",
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 3,
+      "status": "published"
+    },
+    {
+      "slug": "ikuyo-kita",
+      "name": "Ikuyo Kita",
+      "name_native": "喜多 郁代",
+      "role": "main",
+      "affiliation": "Kessoku Band",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A bright, popular guitarist and singer who joins the band to be near Ryō.",
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 4,
+      "status": "published"
+    },
+    {
+      "slug": "seika-ijichi",
+      "name": "Seika Ijichi",
+      "name_native": "伊地知 星歌",
+      "role": "supporting",
+      "affiliation": "Starry",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Nijika's older sister, who manages the live house Starry.",
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 5,
+      "status": "published"
+    },
+    {
+      "slug": "pa-san",
+      "name": "PA-san",
+      "name_native": "PAさん",
+      "role": "supporting",
+      "affiliation": "Starry",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The goth-styled sound engineer of Starry, scary to look at but kind.",
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 6,
+      "status": "published"
+    },
+    {
+      "slug": "kikuri-hiroi",
+      "name": "Kikuri Hiroi",
+      "name_native": "廣井 きくり",
+      "role": "supporting",
+      "affiliation": "Sick Hack",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "description": "The bassist and singer of Sick Hack, a heavy drinker who bonds with Hitori.",
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 7,
+      "status": "published"
+    },
+    {
+      "slug": "eliza-shimizu",
+      "name": "Eliza Shimizu",
+      "name_native": "清水 イライザ",
+      "role": "supporting",
+      "affiliation": "Sick Hack",
+      "debut_arc_ord": 3,
+      "debut_medium": "both",
+      "description": "The English-born guitarist of the band Sick Hack.",
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 8,
+      "status": "published"
+    },
+    {
+      "slug": "shima-iwashita",
+      "name": "Shima Iwashita",
+      "name_native": "岩下 志麻",
+      "role": "supporting",
+      "affiliation": "Sick Hack",
+      "debut_arc_ord": 3,
+      "debut_medium": "both",
+      "description": "The drummer of Sick Hack, who often cleans up the mess her bandmates make.",
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 9,
+      "status": "published"
+    },
+    {
+      "slug": "yoyoko-otsuki",
+      "name": "Yoyoko Ōtsuki",
+      "name_native": "大槻 ヨヨコ",
+      "role": "supporting",
+      "affiliation": "Sideros",
+      "debut_arc_ord": 3,
+      "debut_medium": "both",
+      "description": "The proud leader of the metal band Sideros, who is obsessed with rankings.",
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 10,
+      "status": "published"
+    },
+    {
+      "slug": "futari-goto",
+      "name": "Futari Gotō",
+      "name_native": "後藤 ふたり",
+      "role": "supporting",
+      "affiliation": "Gotō family",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Hitori's lively little sister, who is far more sociable than she is.",
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 11,
+      "status": "published"
+    },
+    {
+      "slug": "michiyo-goto",
+      "name": "Michiyo Gotō",
+      "name_native": "後藤 美智代",
+      "role": "supporting",
+      "affiliation": "Gotō family",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Hitori's gentle mother, who gladly accepts her daughter's anxiety.",
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 12,
+      "status": "published"
+    },
+    {
+      "slug": "naoki-goto",
+      "name": "Naoki Gotō",
+      "name_native": "後藤 直樹",
+      "role": "supporting",
+      "affiliation": "Gotō family",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Hitori's father, a former dreamer of rock stardom whose face is never shown.",
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 13,
+      "status": "published"
+    },
+    {
+      "slug": "jimihen",
+      "name": "JimiHen",
+      "name_native": "ジミヘン",
+      "role": "other",
+      "affiliation": "Gotō family",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The Gotō family's pet Shiba Inu, named after a famous guitarist.",
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 14,
+      "status": "published"
+    }
+  ],
+  "themes": [
+    {
+      "kind": "op",
+      "number": 1,
+      "title": "Seishun Complex",
+      "artist": "Kessoku Band",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 1,
+      "title": "Distortion!!",
+      "artist": "Kessoku Band",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 2,
+      "title": "Karakara",
+      "artist": "Kessoku Band",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 3,
+      "title": "What Is Wrong With",
+      "artist": "Kessoku Band",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 4,
+      "title": "Rockn' Roll, Morning Light Falls on You",
+      "artist": "Kessoku Band",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+      "status": "published"
+    }
+  ]
+}

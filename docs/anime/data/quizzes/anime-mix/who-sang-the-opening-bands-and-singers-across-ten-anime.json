@@ -1,0 +1,259 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Who Sang the Opening? Bands and Singers Across Ten Anime",
+ "slug": "who-sang-the-opening-bands-and-singers-across-ten-anime",
+ "description": "Ten questions on the artists behind famous opening themes, including two acts that opened more than one series. Names and credits only, no lyrics and no spoilers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Cross-series music set. Artist credits from verified theme facts; no lyrics.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Re:Zero (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Attack on Titan (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba season 1",
+   "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Chainsaw Man (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: List of Bocchi the Rock! episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: Oshi no Ko (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: List of Dandadan episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: Spy × Family (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: Jujutsu Kaisen (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+  },
+  {
+   "id": "S10",
+   "title": "Wikipedia: Neon Genesis Evangelion",
+   "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Which singer performed Redo, the first opening of Re:Zero?",
+   "options": [
+    "Rie Takahashi",
+    "Mayu Maeshima",
+    "Konomi Suzuki",
+    "Reona"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "re-zero-openings-035"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+  },
+  {
+   "question": "Which act performed Guren no Yumiya, the first opening of Attack on Titan?",
+   "options": [
+    "Linked Horizon",
+    "Cinema Staff",
+    "SiM",
+    "Shinsei Kamattechan"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "attack-on-titan-opening-themes-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+  },
+  {
+   "question": "Which singer performed Gurenge, the first opening of the Demon Slayer anime?",
+   "options": [
+    "LiSA",
+    "Milet",
+    "Eve",
+    "Aimer"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "demon-slayer-themes-season-1-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+  },
+  {
+   "question": "Who performed Kick Back, the opening of the Chainsaw Man anime?",
+   "options": [
+    "Kenshi Yonezu",
+    "Eve",
+    "Vaundy",
+    "Aimer"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "chainsaw-man-opening-theme-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+  },
+  {
+   "question": "Which fictional band sings the opening Seishun Complex in Bocchi the Rock!?",
+   "options": [
+    "YOASOBI",
+    "Kessoku Band",
+    "Official Hige Dandism",
+    "Creepy Nuts"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bocchi-the-rock-opening-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes"
+  },
+  {
+   "question": "Which act performed the first opening of both Oshi no Ko and Frieren: Beyond Journey's End?",
+   "options": [
+    "Eve",
+    "YOASOBI",
+    "Aimer",
+    "Kenshi Yonezu"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "oshi-no-ko-themes-season-one-012",
+    "frieren-opening-themes-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "Which duo performed Otonoke, the first opening of Dandadan?",
+   "options": [
+    "Ado",
+    "King Gnu",
+    "Creepy Nuts",
+    "Official Hige Dandism"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "dandadan-themes-season-one-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "question": "Which band performed the first opening of both Spy x Family and Tokyo Revengers?",
+   "options": [
+    "Spitz",
+    "Official Hige Dandism",
+    "Bump of Chicken",
+    "Vaundy"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-theme-songs-011",
+    "tokyo-revengers-openings-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Who performed Kaikai Kitan, the first opening of Jujutsu Kaisen?",
+   "options": [
+    "King Gnu",
+    "Yorushika",
+    "Ado",
+    "Eve"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-opening-themes-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+  },
+  {
+   "question": "Which singer performed A Cruel Angel's Thesis, the opening of Neon Genesis Evangelion?",
+   "options": [
+    "LiSA",
+    "Kanako Ito",
+    "Mai Yamane",
+    "Yoko Takahashi"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "evangelion-opening-cruel-angel-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  }
+ ]
+}

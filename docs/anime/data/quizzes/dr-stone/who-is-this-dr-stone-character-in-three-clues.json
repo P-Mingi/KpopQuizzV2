@@ -1,0 +1,282 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "dr-stone",
+  "title": "Who Is This? Dr. Stone Characters in Three Clues",
+  "slug": "who-is-this-dr-stone-character-in-three-clues",
+  "description": "Ten characters of the Stone World, three clues each, from the faint hint to the giveaway. Light spoilers: only people from the first season appear.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Guess-from-clues format: every clue rests on a cited fact; names are never in the clues. Characters of levels 0 and 1 only.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Dr. Stone characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "Yūsuke Kobayashi gives this person a voice in Japanese.",
+        "Astronomy and space travel are the favorite fields.",
+        "This teenager fakes a death to throw off a hunter."
+      ],
+      "options": [
+        "Chrome",
+        "Senku Ishigami",
+        "Taiju Oki",
+        "Gen Asagiri"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-senku-ishigami-name-044",
+        "dr-stone-senku-ishigami-voice-046",
+        "dr-stone-senku-ishigami-interest-045",
+        "dr-stone-senku-ishigami-fake-death-080"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This person is a pacifist who has never thrown a punch.",
+        "Stamina and strength seem to have no limit.",
+        "The heart belongs to a girl from the handicrafts club."
+      ],
+      "options": [
+        "Kokuyo",
+        "Taiju Oki",
+        "Senku Ishigami",
+        "Tsukasa Shishio"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-taiju-oki-strength-084",
+        "dr-stone-taiju-oki-love-085",
+        "dr-stone-taiju-oki-name-047",
+        "dr-stone-yuzuriha-ogawa-name-049"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "A talent for sewing and working with cloth.",
+        "The dream is a career in fashion.",
+        "The best friend of Senku is in love with this person."
+      ],
+      "options": [
+        "Ruri",
+        "Yuzuriha Ogawa",
+        "Kohaku",
+        "Suika"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-yuzuriha-ogawa-name-049",
+        "dr-stone-yuzuriha-ogawa-talent-086",
+        "dr-stone-taiju-oki-love-085"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This martial arts star has a nickname about a primate.",
+        "The belief is that strength should rule the new world.",
+        "A big cat pelt hangs over the shoulders."
+      ],
+      "options": [
+        "Kokuyo",
+        "Tsukasa Shishio",
+        "Taiju Oki",
+        "Gen Asagiri"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-tsukasa-shishio-name-050",
+        "dr-stone-tsukasa-shishio-motive-079",
+        "dr-stone-tsukasa-shishio-pelt-051",
+        "dr-stone-tsukasa-shishio-voice-052"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This warrior is the first villager that Senku meets.",
+        "A running joke compares this person to a gorilla.",
+        "An older sister is the priestess of the village."
+      ],
+      "options": [
+        "Yuzuriha Ogawa",
+        "Kohaku",
+        "Suika",
+        "Ruri"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-kohaku-name-053",
+        "dr-stone-kohaku-gag-087",
+        "dr-stone-kohaku-sister-088"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This boy mistakes science for sorcery.",
+        "Collecting rocks is a hobby.",
+        "Later he becomes the partner of the genius from the old world."
+      ],
+      "options": [
+        "Taiju Oki",
+        "Chrome",
+        "Kaseki",
+        "Kokuyo"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-chrome-name-054",
+        "dr-stone-chrome-hobby-055",
+        "dr-stone-chrome-partner-092"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "A young girl who keeps a fruit on her head.",
+        "Her helmet gets lenses made to measure.",
+        "She often goes scouting for Senku."
+      ],
+      "options": [
+        "Kohaku",
+        "Suika",
+        "Yuzuriha Ogawa",
+        "Ruri"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-suika-name-056",
+        "dr-stone-suika-lenses-089"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "A silver-tongued man from the old world who calls himself a mentalist.",
+        "He walks barefoot in a yukata.",
+        "Revived by an enemy to check a death, he ends up switching sides."
+      ],
+      "options": [
+        "Kaseki",
+        "Gen Asagiri",
+        "Chrome",
+        "Kokuyo"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-gen-asagiri-name-057",
+        "dr-stone-gen-asagiri-defect-081",
+        "dr-stone-gen-asagiri-voice-058"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This elderly man is far stronger than he looks.",
+        "He shaped much of the village by hand.",
+        "Glass, engines and vacuum tubes come out of his workshop."
+      ],
+      "options": [
+        "Chrome",
+        "Kaseki",
+        "Kokuyo",
+        "Gen Asagiri"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-kaseki-name-065",
+        "dr-stone-kaseki-craft-090"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This person is the high priestess of a village.",
+        "The Hundred Stories are in this keeper's care.",
+        "An illness sets the first goal of the Kingdom of Science."
+      ],
+      "options": [
+        "Suika",
+        "Ruri",
+        "Kohaku",
+        "Yuzuriha Ogawa"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dr-stone-ruri-name-066",
+        "dr-stone-ruri-stories-091"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    }
+  ]
+}

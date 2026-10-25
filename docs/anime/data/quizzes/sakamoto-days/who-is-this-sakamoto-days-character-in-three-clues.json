@@ -1,0 +1,275 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "sakamoto-days",
+  "title": "Who Is This? Sakamoto Days Characters in Three Clues",
+  "slug": "who-is-this-sakamoto-days-character-in-three-clues",
+  "description": "Ten characters of the Sakamoto family and the Order, three clues each, from the faint hint to the giveaway. Light spoilers: only people from the first episodes appear.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Guess-from-clues format: every clue rests on a cited fact; names are never in the clues. Characters of level 0 only.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Sakamoto Days characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "Tomokazu Sugita gives this person a voice.",
+        "Only thirty percent of the former strength remains.",
+        "In extreme moments the fat disappears and the power doubles."
+      ],
+      "options": [
+        "Yoichi Nagumo",
+        "Heisuke Mashimo",
+        "Shishiba",
+        "Taro Sakamoto"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-taro-sakamoto-name-045",
+        "sakamoto-days-taro-sakamoto-forms-046",
+        "sakamoto-days-taro-sakamoto-voice-047"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "A former hitman who is 21 years old.",
+        "Each time the boss pictures a murder, this person senses it.",
+        "Nobunaga Shimazaki plays this role."
+      ],
+      "options": [
+        "Heisuke Mashimo",
+        "Hyo",
+        "Yoichi Nagumo",
+        "Shin Asakura"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-shin-asakura-name-048",
+        "sakamoto-days-shin-asakura-gag-049",
+        "sakamoto-days-shin-asakura-voice-050"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "The father of this 18 year old led a crime syndicate.",
+        "The fighting style blends Tai Chi and Drunken Fist.",
+        "Ayane Sakura gives this person a voice."
+      ],
+      "options": [
+        "Aoi Sakamoto",
+        "Osaragi",
+        "Hana Sakamoto",
+        "Lu Xiaotang"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-lu-xiaotang-name-051",
+        "sakamoto-days-lu-xiaotang-style-052",
+        "sakamoto-days-lu-xiaotang-voice-053"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This hitman is a sniping specialist.",
+        "A bird acts as the spotter.",
+        "Ryōta Suzuki plays this role."
+      ],
+      "options": [
+        "Shishiba",
+        "Yoichi Nagumo",
+        "Hyo",
+        "Heisuke Mashimo"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-heisuke-mashimo-name-057",
+        "sakamoto-days-heisuke-mashimo-parrot-058",
+        "sakamoto-days-heisuke-mashimo-voice-059"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "An old classmate and colleague of the hero.",
+        "Disguising himself as other people is a specialty.",
+        "Natsuki Hanae plays this role."
+      ],
+      "options": [
+        "Shishiba",
+        "Heisuke Mashimo",
+        "Hyo",
+        "Yoichi Nagumo"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-yoichi-nagumo-name-060",
+        "sakamoto-days-yoichi-nagumo-voice-061"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "A member of the Order who is strict and cynical.",
+        "The one food that this person hates is a bulb vegetable.",
+        "The weapon of choice is a hammer."
+      ],
+      "options": [
+        "Hyo",
+        "Osaragi",
+        "Yoichi Nagumo",
+        "Shishiba"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-shishiba-name-062"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "The Order's youngest member.",
+        "Snacks are a great love.",
+        "Saori Hayami plays this role."
+      ],
+      "options": [
+        "Aoi Sakamoto",
+        "Hana Sakamoto",
+        "Lu Xiaotang",
+        "Osaragi"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-osaragi-name-063",
+        "sakamoto-days-osaragi-voice-064"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This member of the Order is harsh.",
+        "The safety of others comes first for this person.",
+        "Brass knuckles are the chosen weapon."
+      ],
+      "options": [
+        "Shishiba",
+        "Yoichi Nagumo",
+        "Heisuke Mashimo",
+        "Hyo"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-hyo-name-065"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "A former cashier whom the hero fell for at first sight.",
+        "This person is the wife of the hero.",
+        "Nao Tōyama plays this role."
+      ],
+      "options": [
+        "Lu Xiaotang",
+        "Hana Sakamoto",
+        "Osaragi",
+        "Aoi Sakamoto"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-aoi-sakamoto-name-054",
+        "sakamoto-days-aoi-sakamoto-voice-055"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "A six year old girl.",
+        "The father runs a convenience store.",
+        "The mother was once a cashier."
+      ],
+      "options": [
+        "Lu Xiaotang",
+        "Aoi Sakamoto",
+        "Osaragi",
+        "Hana Sakamoto"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-hana-sakamoto-name-056",
+        "sakamoto-days-premise-011",
+        "sakamoto-days-aoi-sakamoto-name-054"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    }
+  ]
+}

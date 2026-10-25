@@ -1227,5 +1227,318 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The butler of the Blackbell family and the primary caretaker of Becky Blackbell. She cares for and loves Becky genuinely, correcting her haughtiness and bad"
+  },
+  {
+    "id": "spy-x-family-code-white-cooking-contest-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "role",
+    "value": "cooking competition",
+    "text": "In the film Code: White, the class of Anya sets up a cooking contest, where the winner may gain a Stella star.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White",
+        "ref": "1374015513",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "Anya's class is holding a cooking competition, with the winner possibly earning a Stella star"
+  },
+  {
+    "id": "spy-x-family-code-white-meremere-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "fond_of",
+    "value": "Meremere",
+    "text": "The principal, who judges the contest, is a fan of a dessert named Meremere in the film Code: White.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White",
+        "ref": "1374015513",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "the judge, the principal, loves a dessert called Meremere"
+  },
+  {
+    "id": "spy-x-family-code-white-frigis-043",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "origin",
+    "value": "Frigis",
+    "text": "Meremere comes from Frigis, a city in the north, so Loid takes his family there.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White",
+        "ref": "1374015513",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "dessert called Meremere from the northern city of Frigis"
+  },
+  {
+    "id": "spy-x-family-code-white-chocolate-044",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "organization",
+    "value": "chocolate",
+    "text": "Anya opens a suitcase on the train and eats the chocolate inside, which hides a microfilm.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White",
+        "ref": "1374015513",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "She opens a suitcase and eats the chocolate inside, unaware that it contains a microfilm"
+  },
+  {
+    "id": "spy-x-family-code-white-snidel-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "occupation",
+    "value": "Colonel Snidel",
+    "text": "At a restaurant in Frigis, Colonel Snidel grabs the last Meremere right in front of the Forgers.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White",
+        "ref": "1374015513",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "only for Colonel Snidel, an Ostanian military officer, to seize it and humiliate Loid"
+  },
+  {
+    "id": "spy-x-family-code-white-cherry-liquor-046",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "background",
+    "value": "cherry liquor",
+    "text": "Cherry liquor is the last ingredient that Loid needs to bake the Meremere dessert.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White",
+        "ref": "1374015513",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "Loid tries to find cherry liquor, the final ingredient for Meremere"
+  },
+  {
+    "id": "spy-x-family-emile-sweet-food-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "emile-elman"
+    },
+    "field": "fond_of",
+    "value": "sweet food",
+    "text": "Emile Elman, a follower of Damian, has a sweet tooth.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "He is carefree, laidback and loves sweet food"
+  },
+  {
+    "id": "spy-x-family-bond-fears-yor-cooking-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "bond-forger"
+    },
+    "field": "habits",
+    "value": "fears Yor's cooking",
+    "text": "Bond tries hard to dodge the meals cooked by Yor, since his glimpse of the future told him they could kill him.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "Bond dreads Yor's cooking after his future sight once showed him that it could kill him"
+  },
+  {
+    "id": "spy-x-family-eden-stella-star-049",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "trademark",
+    "value": "Stella Star",
+    "text": "Eden Academy hands out a Stella Star as a reward for strong results in class or behaviour.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "Eden students are awarded with a Stella Star"
+  },
+  {
+    "id": "spy-x-family-eden-tonitrus-bolt-050",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "setting",
+    "value": "Tonitrus Bolt",
+    "text": "A Tonitrus Bolt is a mark of punishment at Eden Academy, the opposite of a Stella Star.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "may also be punished with a Tonitrus Bolt"
+  },
+  {
+    "id": "spy-x-family-yor-forger-voice-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yor-forger"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Saori Hayami"
+    ],
+    "text": "Yor Forger is voiced in Japanese by Saori Hayami.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Voiced by: Saori Hayami (Japanese)"
   }
 ]

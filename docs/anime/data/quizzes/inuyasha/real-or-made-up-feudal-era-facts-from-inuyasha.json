@@ -1,0 +1,167 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "inuyasha",
+  "title": "Real or Made Up: Feudal Era Facts from Inuyasha",
+  "slug": "real-or-made-up-feudal-era-facts-from-inuyasha",
+  "description": "Ten statements about Inuyasha, some true and some invented. Decide which is which. No spoilers.",
+  "quiz_type": "true_false",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "True or false format: five true and five invented statements. Every statement rests on a cited fact.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Inuyasha",
+      "url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Inuyasha characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Inuyasha (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Inuyasha_(TV_series)"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Kagome falls into a well at her family shrine and lands in the Sengoku period.",
+      "correct": true,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-premise-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "The mother of Inuyasha is a demon and his father is a human.",
+      "correct": false,
+      "fun_fact": "His father was a dog demon and his mother was human.",
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-inuyasha-name-053"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "Sango fights with a huge bone boomerang.",
+      "correct": true,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-sango-boomerang-062"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "The manga was serialized in Weekly Shonen Jump.",
+      "correct": false,
+      "fun_fact": "It ran in Weekly Shonen Sunday.",
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "inuyasha-magazine-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "Kaede is the younger sister of Kikyo.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-kaede-name-074"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "The first anime series has 100 episodes.",
+      "correct": false,
+      "fun_fact": "It has 167 episodes.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "inuyasha-episodes-028"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "The villain of the second film is Kaguya, a character based on the Tale of the Bamboo Cutter.",
+      "correct": true,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "inuyasha-film-2-042"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "The Wind Tunnel curse of Miroku was laid on his grandfather by Sesshomaru.",
+      "correct": false,
+      "fun_fact": "Naraku laid the curse.",
+      "kind": "ability",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-miroku-wind-tunnel-059"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "Inuyasha earned a Shogakukan Manga Award in 2002.",
+      "correct": true,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "inuyasha-award-shogakukan-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "Toei Animation produced the first anime series.",
+      "correct": false,
+      "fun_fact": "Sunrise produced it.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "inuyasha-anime-studio-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha_(TV_series)"
+    }
+  ]
+}

@@ -1,0 +1,325 @@
+{
+ "site": "anime",
+ "account": "oq_creator_14",
+ "group_slug": "frieren",
+ "title": "Which Name Does Not Belong? Frieren Mages, Demons and Songs",
+ "slug": "which-name-does-not-belong-frieren-mages-demons-and-songs",
+ "description": "Ten rounds of four names or songs where one does not fit: the old Hero Party, mages, demons, exam teams, anime staff and theme songs. Light spoilers up to season two.",
+ "quiz_type": "intruder",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Intruder format: three real members of a group and one real outsider; every option is a character, person or song from Frieren. A food quiz was not possible, because the sources hold almost no food facts.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Frieren characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Frieren (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three of these were members of the old party that beat the Demon King. Which one was not?",
+   "options": [
+    {
+     "label": "Heiter"
+    },
+    {
+     "label": "Fern"
+    },
+    {
+     "label": "Himmel"
+    },
+    {
+     "label": "Eisen"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "frieren-himmel-party-hero-041",
+    "frieren-heiter-drinking-priest-042",
+    "frieren-eisen-party-dwarf-043",
+    "frieren-fern-apprentice-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+  },
+  {
+   "question": "Three of these cast spells. Which one is a warrior who fights with weapons?",
+   "options": [
+    {
+     "label": "Stark"
+    },
+    {
+     "label": "Fern"
+    },
+    {
+     "label": "Serie"
+    },
+    {
+     "label": "Frieren"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "frieren-frieren-mage-046",
+    "frieren-fern-mage-045",
+    "frieren-serie-elf-mage-047",
+    "frieren-stark-warrior-044"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+  },
+  {
+   "question": "Three of these are demons. Which one is an elf?",
+   "options": [
+    {
+     "label": "Revolte"
+    },
+    {
+     "label": "Serie"
+    },
+    {
+     "label": "Aura"
+    },
+    {
+     "label": "Lügner"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "frieren-aura-sage-demon-048",
+    "frieren-sages-powerful-demons-065",
+    "frieren-lugner-aura-demon-050",
+    "frieren-revolte-demon-general-053",
+    "frieren-serie-elf-mage-047"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+  },
+  {
+   "question": "Three of these demons are on Aura's side. Which one is a demon the Hero Party sealed away?",
+   "options": [
+    {
+     "label": "Linie"
+    },
+    {
+     "label": "Lügner"
+    },
+    {
+     "label": "Qual"
+    },
+    {
+     "label": "Draht"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "frieren-lugner-aura-demon-050",
+    "frieren-linie-assistant-051",
+    "frieren-draht-assistant-052",
+    "frieren-qual-zoltraak-020",
+    "frieren-qual-sealed-070"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+  },
+  {
+   "question": "Three of these mages took the first-class exam as candidates. Which one ran part of it as a proctor?",
+   "options": [
+    {
+     "label": "Genau"
+    },
+    {
+     "label": "Land"
+    },
+    {
+     "label": "Übel"
+    },
+    {
+     "label": "Wirbel"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "frieren-land-exam-mage-054",
+    "frieren-ubel-exam-mage-066",
+    "frieren-wirbel-exam-mage-067",
+    "frieren-genau-proctor-057"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+  },
+  {
+   "question": "Three of these were opening songs of the anime. Which one was an ending?",
+   "options": [
+    {
+     "label": "The Story of Us"
+    },
+    {
+     "label": "Sunny (Haru)"
+    },
+    {
+     "label": "Lulu."
+    },
+    {
+     "label": "Yūsha"
+    }
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "frieren-opening-themes-012",
+    "frieren-ending-themes-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+  },
+  {
+   "question": "Three of these people worked on the anime. Which one draws the manga?",
+   "options": [
+    {
+     "label": "Keiichirō Saitō"
+    },
+    {
+     "label": "Tsukasa Abe"
+    },
+    {
+     "label": "Tomoya Kitagawa"
+    },
+    {
+     "label": "Evan Call"
+    }
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "frieren-anime-season-one-008",
+    "frieren-anime-season-two-009",
+    "frieren-anime-composer-011",
+    "frieren-manga-creators-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+  },
+  {
+   "question": "Three of these mages are second-class. Which one is only third-class?",
+   "options": [
+    {
+     "label": "Ehre"
+    },
+    {
+     "label": "Scharf"
+    },
+    {
+     "label": "Edel"
+    },
+    {
+     "label": "Kanne"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "frieren-edel-second-class-058",
+    "frieren-scharf-second-class-068",
+    "frieren-ehre-second-class-069",
+    "frieren-kanne-third-class-061"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+  },
+  {
+   "question": "Three of these mages teamed up with Denken in the exam. Which one belongs to Wirbel's team?",
+   "options": [
+    {
+     "label": "Methode"
+    },
+    {
+     "label": "Laufen"
+    },
+    {
+     "label": "Richter"
+    },
+    {
+     "label": "Ehre"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "frieren-richter-denken-team-062",
+    "frieren-laufen-denken-team-063",
+    "frieren-methode-denken-team-064",
+    "frieren-ehre-second-class-069"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+  },
+  {
+   "question": "Three of these songs are by Milet. Which one is by Yoasobi?",
+   "options": [
+    {
+     "label": "The Story of Us"
+    },
+    {
+     "label": "Bliss"
+    },
+    {
+     "label": "Yūsha"
+    },
+    {
+     "label": "Anytime Anywhere"
+    }
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "frieren-opening-themes-012",
+    "frieren-ending-themes-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+  }
+ ]
+}

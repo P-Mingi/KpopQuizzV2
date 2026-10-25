@@ -1276,5 +1276,771 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "the primary antagonist of the post-timeskip half, is the sovereign of the Wandenreich and"
+  },
+  {
+    "id": "bleach-karin-yuzu-sisters-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "karin-kurosaki"
+    },
+    "field": "sibling_bond",
+    "value": "younger sisters of Ichigo",
+    "text": "Karin Kurosaki and her twin Yuzu are the two little sisters in Ichigo's household.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:43:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:45:03.000Z",
+    "excerpt": "are Ichigo's younger sisters"
+  },
+  {
+    "id": "bleach-isshin-family-head-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "isshin-kurosaki"
+    },
+    "field": "role",
+    "value": "father and head of the Kurosaki household",
+    "text": "When the story opens, Isshin Kurosaki is the easygoing dad of Ichigo and his sisters and runs the family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:43:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:45:03.000Z",
+    "excerpt": "the unassuming father of Ichigo, Karin and Yuzu, and the head of the family"
+  },
+  {
+    "id": "bleach-tatsuki-friend-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "tatsuki-arisawa"
+    },
+    "field": "role",
+    "value": "friend of Ichigo and of Orihime",
+    "text": "Tatsuki Arisawa is a childhood friend who spars with Ichigo at karate and looks out for Orihime; she is no relative of his.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:43:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:45:03.000Z",
+    "excerpt": "is a good friend of Ichigo Kurosaki and the best friend of Orihime Inoue"
+  },
+  {
+    "id": "bleach-kisuke-shop-owner-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "kisuke-urahara"
+    },
+    "field": "occupation",
+    "value": "owner of the Urahara Shop",
+    "text": "Kisuke Urahara is a shopkeeper in Karakura Town, not a student, and sells sweets and spirit gear.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:43:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:45:03.000Z",
+    "excerpt": "is the owner of the Urahara Shop"
+  },
+  {
+    "id": "bleach-tessai-shop-assistant-048",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "occupation",
+    "value": "Urahara's assistant",
+    "text": "Tessai Tsukabishi is the big, mustached helper who works beside Kisuke at the shop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:43:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:45:03.000Z",
+    "excerpt": "is Urahara's personal assistant in both business and other matters"
+  },
+  {
+    "id": "bleach-kon-first-modsoul-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "kon"
+    },
+    "field": "role",
+    "value": "first Mod-Soul to appear",
+    "text": "Kon is the first Mod-Soul shown in the story, a comic character who lives in a lion plush toy.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:43:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:45:03.000Z",
+    "excerpt": "is the first Mod-Soul to appear in Bleach"
+  },
+  {
+    "id": "bleach-kurodo-modsoul-052",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "role",
+    "value": "Mod-Soul",
+    "text": "Kurōdo is a timid Mod-Soul who can copy other people's powers and sometimes lives in a rabbit-like purse.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:43:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:45:03.000Z",
+    "excerpt": "is a somewhat cowardly Mod-Soul with the ability to shapeshift"
+  },
+  {
+    "id": "bleach-ririn-modsoul-leader-053",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "organization",
+    "value": "leader of the Mod-Souls",
+    "text": "Ririn leads the group of Mod-Souls who show up in the anime-only Bount storyline.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:43:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:45:03.000Z",
+    "excerpt": "acts as the leader of the Mod-Souls introduced in the Bount arc"
+  },
+  {
+    "id": "bleach-kariya-bount-leader-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "jin-kariya"
+    },
+    "field": "role",
+    "value": "leader of the Bounts",
+    "text": "Jin Kariya heads the Bounts, a clan of long-lived humans who wield Dolls.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:43:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:45:03.000Z",
+    "excerpt": "is the Leader of the Bounts who planned to destroy the entire Soul Society"
+  },
+  {
+    "id": "bleach-uryu-quincy-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "uryu-ishida"
+    },
+    "field": "origin",
+    "value": "Quincy",
+    "text": "Uryū Ishida comes from the Quincy, a nearly extinct line of spirit archers.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:43:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:45:03.000Z",
+    "excerpt": "is a Quincy, a descendant of a line of near-extinct, priest-like, hollow-hunting archers"
+  },
+  {
+    "id": "bleach-yoruichi-helped-vizards-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "yoruichi-shihoin"
+    },
+    "field": "role",
+    "value": "helped the Vizards escape, but is not one",
+    "text": "Yoruichi Shihōin helped Urahara, Tessai and the Vizards flee the Soul Society a century ago, so she is their ally rather than a member.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:43:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:45:03.000Z",
+    "excerpt": "helping Urahara, Tessai Tsukabishi, and the Vizards escape to the human world"
+  },
+  {
+    "id": "bleach-gigai-term-067",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "terms",
+    "value": "gigai: artificial body",
+    "text": "A gigai is a made-up body that a Soul Reaper wears to move around the human world; it is not a sword.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:43:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:45:03.000Z",
+    "excerpt": "gigai (義骸, artificial body)"
+  },
+  {
+    "id": "bleach-keigo-classmate-068",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "background",
+    "value": "friend of Ichigo Kurosaki",
+    "text": "Keigo Asano is a loud, excitable boy from Ichigo's school class.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "Keigo Asano (浅野 啓吾, Asano Keigo) is a classmate and friend of Ichigo Kurosaki"
+  },
+  {
+    "id": "bleach-mizuiro-classmate-069",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "origin",
+    "value": "Kojima Mizuiro",
+    "text": "Mizuiro Kojima, a soft-spoken boy with a taste for older women, sits in Ichigo's class.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "Mizuiro Kojima (小島 水色, Kojima Mizuiro) is a classmate and friend of Ichigo Kurosaki"
+  },
+  {
+    "id": "bleach-chizuru-classmate-070",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "setting",
+    "value": "classmate of Ichigo Kurosaki",
+    "text": "Chizuru Honshō goes to school with Ichigo and is forever chasing Orihime.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "is a classmate of Ichigo Kurosaki"
+  },
+  {
+    "id": "bleach-jinta-shop-boy-071",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "specialty",
+    "value": "manual labor for the shop",
+    "text": "Jinta Hanakari is a red-haired kid who is meant to do the cleaning at the shop but often slacks off.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "who is supposed to do manual labor for the shop, such as cleaning"
+  },
+  {
+    "id": "bleach-ururu-shop-girl-072",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "talent",
+    "value": "mostly does manual labor",
+    "text": "Ururu Tsumugiya is a quiet girl who carries out most of the heavy chores at the shop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "who mostly does manual labor for the shop"
+  },
+  {
+    "id": "bleach-koga-bount-073",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "style",
+    "value": "Gō Koga",
+    "text": "Gō Koga is a friend of Kariya and the one Bount who outlives the clan's defeat.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "with the exception of his friend Gō Koga, Kariya managed to have his forces wiped out"
+  },
+  {
+    "id": "bleach-yoshino-bount-074",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "mission",
+    "value": "Kariya's ex-wife",
+    "text": "Yoshino Sōma is a Bount and the former wife of Kariya, and her Doll is a fire figure.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "is Kariya's ex-wife, whose doll is a fire humanoid"
+  },
+  {
+    "id": "bleach-ryuken-quincy-075",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "premise",
+    "value": "bitter and cold Quincy",
+    "text": "Ryūken Ishida, Uryū's father, is a Quincy who runs a hospital and scorns his own people.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "bitter and cold Quincy who detests his own people"
+  },
+  {
+    "id": "bleach-soken-quincy-mentor-076",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "ability",
+    "value": "trained Uryū in Quincy abilities",
+    "text": "Sōken Ishida, the grandfather, taught young Uryū the Quincy arts.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "He trained Uryū in Quincy abilities throughout his childhood"
+  },
+  {
+    "id": "bleach-shinji-vizard-leader-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "shinji-hirako"
+    },
+    "field": "role",
+    "value": "leader of the Vizards",
+    "text": "Shinji Hirako heads the Vizards, a masked band of Soul Reapers who gained hollow powers, and has known Urahara for ages.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "is the de facto leader of the Vizards and a friend of Urahara"
+  },
+  {
+    "id": "bleach-kensei-vizard-078",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "power",
+    "value": "turned into a Vizard",
+    "text": "Kensei Muguruma, once a squad captain, was among the first Soul Reapers made into a Vizard.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "One of the first to be turned into a Vizard"
+  },
+  {
+    "id": "bleach-hachi-vizard-079",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "technique",
+    "value": "physically largest Vizard",
+    "text": "Hachigen Ushōda, nicknamed Hachi, is the biggest of the Vizards and puts up barriers for them.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "is the physically largest Vizard"
+  },
+  {
+    "id": "bleach-zabimaru-blade-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "renji-abarai"
+    },
+    "field": "blade",
+    "value": "Zanpakutō owned by Renji Abarai",
+    "text": "Zabimaru, with a snake-tail design, is the sword spirit that fights for Renji Abarai.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "is the Zanpakutō owned by Renji Abarai"
+  },
+  {
+    "id": "bleach-hyorinmaru-blade-081",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "blade",
+    "value": "Zanpakutō owned by Tōshirō Hitsugaya",
+    "text": "Hyōrinmaru is an ice dragon spirit and the sword of the young captain Tōshirō Hitsugaya.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "is the Zanpakutō owned by Tōshirō Hitsugaya, appearing as a dragon made of ice"
+  },
+  {
+    "id": "bleach-katen-kyokotsu-blade-082",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bleach"
+    },
+    "field": "habits",
+    "value": "Zanpakutō owned by Shunsui Kyōraku",
+    "text": "Katen Kyōkotsu is the twin-bladed zanpakutō of Shunsui Kyōraku.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+        "ref": "1377233491",
+        "fetched_at": "2026-10-25T18:44:23Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:23.000Z",
+    "excerpt": "is a pair of Zanpakutō owned by Shunsui Kyōraku"
   }
 ]

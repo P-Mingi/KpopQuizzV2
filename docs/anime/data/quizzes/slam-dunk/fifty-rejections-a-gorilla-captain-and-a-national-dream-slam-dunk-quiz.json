@@ -1,0 +1,218 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "slam-dunk",
+  "title": "Slam Dunk Quiz: Fifty Rejections, a Gorilla Captain and a National Dream",
+  "slug": "fifty-rejections-a-gorilla-captain-and-a-national-dream-slam-dunk-quiz",
+  "description": "Ten easy questions on the creator, the early cast and the anime of Slam Dunk. No spoilers beyond the first episodes.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "New series batch 4. Arc 0 facts only, characters of the opening episodes. One fact per answer.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Slam Dunk characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Slam Dunk (manga)",
+      "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    }
+  ],
+  "questions": [
+    {
+      "question": "How many times had girls turned Sakuragi down before he met Haruko?",
+      "options": [
+        "Fifty",
+        "Twenty",
+        "Ten",
+        "One hundred"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-hanamichi-sakuragi-rejections-047"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "What is the name of the feared gang that Sakuragi leads?",
+      "options": [
+        "The Sakuragi Legion",
+        "The Shohoku Blades",
+        "The Red Monkeys",
+        "The Kanagawa Crows"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-hanamichi-sakuragi-gang-048"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Sakuragi calls the Shohoku captain by which nickname?",
+      "options": [
+        "Gori",
+        "Megane-kun",
+        "Boss",
+        "Oyaji"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-takenori-akagi-gori-051"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Haruko is the younger sister of which Shohoku player?",
+      "options": [
+        "Takenori Akagi",
+        "Yohei Mito",
+        "Kaede Rukawa",
+        "Kiminobu Kogure"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-haruko-akagi-name-056",
+        "slam-dunk-takenori-akagi-name-050"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "What does the nickname Megane-kun mean?",
+      "options": [
+        "Big boss",
+        "Silent type",
+        "Little red",
+        "Glasses guy"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-kiminobu-kogure-nickname-064"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Under which fearsome nickname was the Shohoku coach known in his college days?",
+      "options": [
+        "The Silent Hawk",
+        "The Iron Wall",
+        "The Red Fox",
+        "The White-Haired Devil"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-mitsuyoshi-anzai-name-060"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "What was the title of the one-shot that Inoue drew in 1990 with early versions of Sakuragi and Haruko?",
+      "options": [
+        "Real",
+        "Dunk Boys",
+        "Hoop Dreams",
+        "Aka ga Suki"
+      ],
+      "correct": 3,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "slam-dunk-oneshot-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "question": "Which program did Inoue and Shueisha create in 2006 to send a young player to America?",
+      "options": [
+        "The Shohoku Cup",
+        "The Slam Dunk Scholarship",
+        "The Jump Basketball League",
+        "The Inoue Fellowship"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "slam-dunk-scholarship-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "question": "How many episodes does the TV anime have?",
+      "options": [
+        "150",
+        "52",
+        "75",
+        "101"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "slam-dunk-episodes-028"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "question": "Who voices Sakuragi in the TV anime?",
+      "options": [
+        "Kiyoyuki Yanada",
+        "Hikaru Midorikawa",
+        "Takeshi Kusao",
+        "Tomomichi Nishimura"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "slam-dunk-hanamichi-sakuragi-voice-049"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    }
+  ]
+}

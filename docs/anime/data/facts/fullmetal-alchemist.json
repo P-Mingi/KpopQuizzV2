@@ -1262,5 +1262,1164 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a mysterious being/deity that lives on another plane of existence as both overseer and enforcer of alchemy's universal laws, going by"
+  },
+  {
+    "id": "fullmetal-alchemist-lust-homunculus-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "role",
+    "value": "primary assassin",
+    "text": "Lust is the shapely homunculus who serves as the assassin of her kin and can stretch her fingers into blades.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "also serves as the homunculi's primary assassin"
+  },
+  {
+    "id": "fullmetal-alchemist-gluttony-homunculus-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "organization",
+    "value": "simple-minded homunculus",
+    "text": "Gluttony is a slow-witted homunculus with a huge appetite, and he is nearly always found at the side of Lust.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "is an obese, simple-minded homunculus whose thoughts rarely stray far from eating"
+  },
+  {
+    "id": "fullmetal-alchemist-sloth-homunculus-043",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "occupation",
+    "value": "dim-witted homunculus",
+    "text": "Sloth is a hulking homunculus who finds everything pointless, yet he is the quickest of his kind.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "is a large, muscular, dim-witted homunculus who believes everything to be pointless"
+  },
+  {
+    "id": "fullmetal-alchemist-homunculi-sins-044",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "origin",
+    "value": "named after the seven deadly sins",
+    "text": "Every homunculus carries the name of a deadly sin and is recognisable by an Ouroboros tattoo somewhere on the body.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "each named after one of the seven deadly sins and identified through an Ouroboros tattoo"
+  },
+  {
+    "id": "fullmetal-alchemist-kimblee-state-alchemist-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "background",
+    "value": "Crimson Alchemist",
+    "text": "Solf J. Kimblee is a human alchemist, the Crimson Alchemist, who won his fame in the Ishbalan Civil War by turning objects into bombs.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "the \"Crimson Lotus Alchemist\" or \"Crimson Alchemist\""
+  },
+  {
+    "id": "fullmetal-alchemist-black-hayate-dog-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "riza-hawkeye"
+    },
+    "field": "habits",
+    "value": "raises the dog Black Hayate",
+    "text": "Riza Hawkeye adopted a pet dog called Black Hayate and trains him strictly.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "she adopts a dog named Black Hayate"
+  },
+  {
+    "id": "fullmetal-alchemist-xiao-mei-panda-047",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "setting",
+    "value": "small pet panda",
+    "text": "Xiao Mei is the little panda that travels with May Chang.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "is May Chang's small pet panda"
+  },
+  {
+    "id": "fullmetal-alchemist-alexander-dog-048",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "terms",
+    "value": "Alexander",
+    "text": "Alexander is the Tucker family's big pet dog, a Pyrenean Mountain Dog who loves to tackle Edward.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "Alexander (アレクサンダー, Arekusandā) is Nina and Shou's pet Pyrenean Mountain Dog"
+  },
+  {
+    "id": "fullmetal-alchemist-maria-ross-soldier-049",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "specialty",
+    "value": "Second Lieutenant Maria Ross",
+    "text": "Maria Ross is a second lieutenant of the military who, with Denny Brosh, is first sent to look after Edward.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "Second Lieutenant Maria Ross"
+  },
+  {
+    "id": "fullmetal-alchemist-edward-youngest-sa-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "edward-elric"
+    },
+    "field": "occupation",
+    "value": "youngest State Alchemist in history",
+    "text": "Edward became the youngest State Alchemist ever, signing up at twelve years of age.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "is the youngest State Alchemist in history, joining the program at the age of 12"
+  },
+  {
+    "id": "fullmetal-alchemist-roy-flame-sa-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "roy-mustang"
+    },
+    "field": "occupation",
+    "value": "State Alchemist (Flame Alchemist)",
+    "text": "Roy Mustang, the Flame Alchemist, is a State Alchemist and the superior officer of Edward.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "is a State Alchemist and Edward's direct superior"
+  },
+  {
+    "id": "fullmetal-alchemist-armstrong-strong-arm-sa-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "alex-louis-armstrong"
+    },
+    "field": "occupation",
+    "value": "State Alchemist (Strong Arm Alchemist)",
+    "text": "Alex Louis Armstrong is the weepy, muscle-flexing State Alchemist called the Strong Arm Alchemist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "comically emotional State Alchemist"
+  },
+  {
+    "id": "fullmetal-alchemist-hughes-intelligence-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "maes-hughes"
+    },
+    "field": "occupation",
+    "value": "officer of the military intelligence division",
+    "text": "Maes Hughes works in military intelligence and is a doting father who phones everyone to boast about his daughter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "He works in the military's intelligence division"
+  },
+  {
+    "id": "fullmetal-alchemist-lin-yao-xing-prince-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "lin-yao"
+    },
+    "field": "origin",
+    "value": "prince of Xing",
+    "text": "Lin Yao is the twelfth prince of the faraway country of Xing.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "is the twelfth prince of Xing"
+  },
+  {
+    "id": "fullmetal-alchemist-may-chang-xing-princess-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "may-chang"
+    },
+    "field": "origin",
+    "value": "princess of Xing",
+    "text": "May Chang is a princess of Xing, number seventeen among the emperor's children.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "is the seventeenth princess of Xing"
+  },
+  {
+    "id": "fullmetal-alchemist-lan-fan-bodyguard-056",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "talent",
+    "value": "bodyguard of Lin Yao",
+    "text": "Lan Fan is a fierce warrior who guards Lin Yao, the prince from Xing, together with her grandfather.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "is one of Lin Yao's bodyguards. She is the granddaughter of Lin's other bodyguard"
+  },
+  {
+    "id": "fullmetal-alchemist-scar-ishbalan-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "scar"
+    },
+    "field": "origin",
+    "value": "Ishbalan Extermination Campaign",
+    "text": "Scar belongs to the Ishbalan people and is one of the few survivors of the campaign that wiped most of them out.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "is one of the survivors of the Ishbalan Extermination Campaign"
+  },
+  {
+    "id": "fullmetal-alchemist-havoc-mustang-team-058",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "style",
+    "value": "The Knight",
+    "text": "Jean Havoc, the cigarette smoker, is one of the soldiers Mustang trusts the most.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "is one of Roy Mustang's most trusted subordinates. His chess code name is \"The Knight\""
+  },
+  {
+    "id": "fullmetal-alchemist-breda-mustang-team-059",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "mission",
+    "value": "The Rook",
+    "text": "Heymans Breda is a Mustang loyalist who is clever at chess and afraid of dogs.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "is one of Roy Mustang's most trusted subordinates. His chess code name is \"The Rook\""
+  },
+  {
+    "id": "fullmetal-alchemist-falman-mustang-team-060",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "premise",
+    "value": "The Bishop",
+    "text": "Vato Falman is a very formal member of the Mustang squad who recalls almost every detail he has seen.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "is one of Roy Mustang's most trusted subordinates. His chess code name is \"The Bishop\""
+  },
+  {
+    "id": "fullmetal-alchemist-brosh-guard-061",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "ability",
+    "value": "Denny Brosh",
+    "text": "Denny Brosh is a sergeant who was posted as a bodyguard for Edward, not a member of the Mustang squad.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "Sergeant Denny Brosh"
+  },
+  {
+    "id": "fullmetal-alchemist-amestris-country-062",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "power",
+    "value": "Amestris",
+    "text": "Most of the journey of the brothers takes place in the country of Amestris.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "starts traveling with Alphonse through the country of Amestris"
+  },
+  {
+    "id": "fullmetal-alchemist-xing-country-063",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "technique",
+    "value": "country far away",
+    "text": "Xing lies far away from Amestris and is a whole country, split between fifty clans under one emperor.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "is a country far away from Amestris"
+  },
+  {
+    "id": "fullmetal-alchemist-drachma-country-064",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "habits",
+    "value": "Drachma",
+    "text": "Drachma is the neighbouring country that the fortress of Briggs was built to keep at bay.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "protecting the country from the neighboring country of Drachma"
+  },
+  {
+    "id": "fullmetal-alchemist-resembool-town-065",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "trademark",
+    "value": "Resembool",
+    "text": "Resembool is only a small town in the east of Amestris, where the Rockbell family runs its automail workshop.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "living and working in the town of Resembool in the eastern region of Amestris"
+  },
+  {
+    "id": "fullmetal-alchemist-alphonse-armor-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "alphonse-elric"
+    },
+    "field": "ability",
+    "value": "suit of armor",
+    "text": "Alphonse lost his whole body, and his soul lives on inside a big suit of armor.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "Ed sealed Al's soul in a large suit of armor"
+  },
+  {
+    "id": "fullmetal-alchemist-barry-armor-067",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "nickname",
+    "value": "Barry the Chopper",
+    "text": "Barry the Chopper is a murderer whose soul the military bound to a suit of armor to make him a guard.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "Barry's soul was removed from his body and bound to a suit of armor"
+  },
+  {
+    "id": "fullmetal-alchemist-slicer-brothers-armor-068",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "epithet",
+    "value": "Number 48",
+    "text": "The Slicer Brothers are two killers who guard the 5th Laboratory with both souls tied to the same suit of armor.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "have their souls attached to a suit of armor, called Number 48"
+  },
+  {
+    "id": "fullmetal-alchemist-marcoh-researcher-069",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "public_identity",
+    "value": "leading researcher",
+    "text": "Tim Marcoh is a former military alchemist who led the research into Philosopher's Stones and later used imperfect stones to heal people.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "was the leading researcher in the military's Philosopher's Stone creation project"
+  },
+  {
+    "id": "fullmetal-alchemist-edward-automail-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "edward-elric"
+    },
+    "field": "trademark",
+    "value": "automail limbs",
+    "text": "Edward wears automail prosthetics in place of his right arm and left leg.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "Edward replacing his right arm and left leg with two sets of automail"
+  },
+  {
+    "id": "fullmetal-alchemist-lan-fan-automail-071",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "motivation",
+    "value": "automail arm",
+    "text": "Lan Fan lost an arm shielding her prince and got an automail arm after surgery.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "she and her grandfather leave Lin so that she can get automail surgery to replace her arm"
+  },
+  {
+    "id": "fullmetal-alchemist-buccaneer-automail-072",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "popularity",
+    "value": "automail",
+    "text": "Buccaneer, a burly soldier under Olivier, is shown with two different pieces of automail.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "has been shown with two different pieces of automail"
+  },
+  {
+    "id": "fullmetal-alchemist-winry-mechanic-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fullmetal-alchemist",
+      "ref": "winry-rockbell"
+    },
+    "field": "occupation",
+    "value": "automail mechanic",
+    "text": "Winry builds and services automail for a living and keeps Edward's limbs in shape.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "Winry is a practicing and gifted automail mechanic"
+  },
+  {
+    "id": "fullmetal-alchemist-bones-animated-works-074",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "film",
+    "value": "animated by Bones",
+    "text": "Studio Bones animated both TV series and both theatrical films, the second of which is The Sacred Star of Milos.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist",
+        "ref": "1381770058",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "two television series, released in 2003 and 2009, and two films, released in 2005 and 2011, all animated by Bones"
+  },
+  {
+    "id": "fullmetal-alchemist-conqueror-shamballa-film-075",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "reputation",
+    "value": "sequel and conclusion",
+    "text": "Conqueror of Shamballa is an animated film that wraps up the story of the 2003 series.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist",
+        "ref": "1381770058",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "a sequel and conclusion to the 2003 series"
+  },
+  {
+    "id": "fullmetal-alchemist-sacred-star-milos-film-076",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "catchphrase",
+    "value": "original story",
+    "text": "The Sacred Star of Milos tells a new tale set in the time of Brotherhood.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist",
+        "ref": "1381770058",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "featuring an original story set during the time period of Brotherhood"
+  },
+  {
+    "id": "fullmetal-alchemist-revenge-of-scar-live-action-077",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "name_origin",
+    "value": "Revenge of Scar",
+    "text": "The Revenge of Scar is one of two live-action sequels to the 2017 film, released in 2022.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist",
+        "ref": "1381770058",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "The sequels Fullmetal Alchemist: The Revenge of Scar"
+  },
+  {
+    "id": "fullmetal-alchemist-rose-manga-078",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "name_meaning",
+    "value": "young woman",
+    "text": "Rosé Thomas, the devoted believer of the Church of Leto, shows up at the very beginning of the manga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "is a young woman introduced at the very start of the series"
+  },
+  {
+    "id": "fullmetal-alchemist-pinako-manga-079",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "naming",
+    "value": "caretaker to the three youngsters",
+    "text": "Pinako Rockbell is a surgeon and automail engineer and the person who looks after the Elric boys.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "Pinako acts as caretaker to the three youngsters"
+  },
+  {
+    "id": "fullmetal-alchemist-sheska-librarian-080",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "inspiration",
+    "value": "librarian with a photographic memory",
+    "text": "Sheska is a bookworm of a librarian who can recite everything she has read.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "She has a photographic memory and can remember and reproduce anything she has ever read"
+  },
+  {
+    "id": "fullmetal-alchemist-tringham-light-novel-081",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fullmetal-alchemist"
+    },
+    "field": "novel",
+    "value": "The Land of Sand",
+    "text": "Russell and his brother Fletcher Tringham started life in a light novel and entered the story only through the 2003 anime, never the manga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+        "ref": "1374097138",
+        "fetched_at": "2026-10-25T18:45:42Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:47:42.000Z",
+    "excerpt": "Their characters are adapted by the first anime from the light novel The Land of Sand, not the manga"
   }
 ]

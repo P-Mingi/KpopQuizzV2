@@ -1,0 +1,328 @@
+{
+ "site": "anime",
+ "account": "oq_creator_15",
+ "group_slug": "fullmetal-alchemist",
+ "title": "Which One Is Not a Homunculus? Fullmetal Alchemist Odd One Out",
+ "slug": "which-one-is-not-a-homunculus-fullmetal-alchemist-odd-one-out",
+ "description": "Ten rounds of four names with one outsider: homunculi, State Alchemists, soldiers, Xing, souls in armor, automail and anime tie-ins. Light spoilers up to Brotherhood.",
+ "quiz_type": "intruder",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Intruder format: three real members of a group and one real outsider. Facts are taken from the manga and from both anime where they agree.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Fullmetal Alchemist characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Fullmetal Alchemist",
+   "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three of these are homunculi, the artificial beings named after deadly sins. Which one is a human alchemist?",
+   "options": [
+    {
+     "label": "Kimblee"
+    },
+    {
+     "label": "Gluttony"
+    },
+    {
+     "label": "Sloth"
+    },
+    {
+     "label": "Lust"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-lust-homunculus-041",
+    "fullmetal-alchemist-gluttony-homunculus-042",
+    "fullmetal-alchemist-sloth-homunculus-043",
+    "fullmetal-alchemist-homunculi-sins-044",
+    "fullmetal-alchemist-kimblee-state-alchemist-045"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Three of these are animals. Which one is a soldier?",
+   "options": [
+    {
+     "label": "Black Hayate"
+    },
+    {
+     "label": "Maria Ross"
+    },
+    {
+     "label": "Alexander"
+    },
+    {
+     "label": "Xiao Mei"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-black-hayate-dog-046",
+    "fullmetal-alchemist-xiao-mei-panda-047",
+    "fullmetal-alchemist-alexander-dog-048",
+    "fullmetal-alchemist-maria-ross-soldier-049"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Three of these characters are State Alchemists. Which one works in military intelligence instead?",
+   "options": [
+    {
+     "label": "Edward Elric"
+    },
+    {
+     "label": "Maes Hughes"
+    },
+    {
+     "label": "Roy Mustang"
+    },
+    {
+     "label": "Alex Louis Armstrong"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-edward-youngest-sa-050",
+    "fullmetal-alchemist-roy-flame-sa-051",
+    "fullmetal-alchemist-armstrong-strong-arm-sa-052",
+    "fullmetal-alchemist-hughes-intelligence-053"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Three of these come from the faraway country of Xing. Which one is an Ishbalan?",
+   "options": [
+    {
+     "label": "May Chang"
+    },
+    {
+     "label": "Scar"
+    },
+    {
+     "label": "Lan Fan"
+    },
+    {
+     "label": "Lin Yao"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-lin-yao-xing-prince-054",
+    "fullmetal-alchemist-may-chang-xing-princess-055",
+    "fullmetal-alchemist-lan-fan-bodyguard-056",
+    "fullmetal-alchemist-scar-ishbalan-057"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Three of these men serve in Roy Mustang's squadron. Which one was sent to guard Edward?",
+   "options": [
+    {
+     "label": "Heymans Breda"
+    },
+    {
+     "label": "Vato Falman"
+    },
+    {
+     "label": "Jean Havoc"
+    },
+    {
+     "label": "Denny Brosh"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-havoc-mustang-team-058",
+    "fullmetal-alchemist-breda-mustang-team-059",
+    "fullmetal-alchemist-falman-mustang-team-060",
+    "fullmetal-alchemist-brosh-guard-061"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Three of these are whole countries. Which one is a small town?",
+   "options": [
+    {
+     "label": "Xing"
+    },
+    {
+     "label": "Amestris"
+    },
+    {
+     "label": "Resembool"
+    },
+    {
+     "label": "Drachma"
+    }
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-amestris-country-062",
+    "fullmetal-alchemist-xing-country-063",
+    "fullmetal-alchemist-drachma-country-064",
+    "fullmetal-alchemist-resembool-town-065"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Three of these have their souls bound to armor. Which one is a researcher with no armor at all?",
+   "options": [
+    {
+     "label": "Tim Marcoh"
+    },
+    {
+     "label": "Alphonse Elric"
+    },
+    {
+     "label": "Slicer Brothers"
+    },
+    {
+     "label": "Barry the Chopper"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-alphonse-armor-066",
+    "fullmetal-alchemist-barry-armor-067",
+    "fullmetal-alchemist-slicer-brothers-armor-068",
+    "fullmetal-alchemist-marcoh-researcher-069"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Three of these characters wear automail. Which one builds it for a living?",
+   "options": [
+    {
+     "label": "Edward Elric"
+    },
+    {
+     "label": "Lan Fan"
+    },
+    {
+     "label": "Winry Rockbell"
+    },
+    {
+     "label": "Buccaneer"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-edward-automail-070",
+    "fullmetal-alchemist-lan-fan-automail-071",
+    "fullmetal-alchemist-buccaneer-automail-072",
+    "fullmetal-alchemist-winry-mechanic-073"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Three of these were animated by studio Bones. Which one is a live-action film?",
+   "options": [
+    {
+     "label": "The Revenge of Scar"
+    },
+    {
+     "label": "The Sacred Star of Milos"
+    },
+    {
+     "label": "Conqueror of Shamballa"
+    },
+    {
+     "label": "Fullmetal Alchemist: Brotherhood"
+    }
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-bones-animated-works-074",
+    "fullmetal-alchemist-conqueror-shamballa-film-075",
+    "fullmetal-alchemist-sacred-star-milos-film-076",
+    "fullmetal-alchemist-revenge-of-scar-live-action-077"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist"
+  },
+  {
+   "question": "Three of these characters come from the manga. Which one was borrowed from a light novel for the first anime?",
+   "options": [
+    {
+     "label": "Sheska"
+    },
+    {
+     "label": "Rosé Thomas"
+    },
+    {
+     "label": "Pinako Rockbell"
+    },
+    {
+     "label": "Russell Tringham"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-rose-manga-078",
+    "fullmetal-alchemist-pinako-manga-079",
+    "fullmetal-alchemist-sheska-librarian-080",
+    "fullmetal-alchemist-tringham-light-novel-081"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  }
+ ]
+}
