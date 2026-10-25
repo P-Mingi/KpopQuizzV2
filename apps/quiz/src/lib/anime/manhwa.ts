@@ -4,6 +4,7 @@
 // anime years, seasons or episodes) also says, on its page, that the anime adapts it. Pure: no I/O.
 
 import { t } from './copy';
+import { SERIES_TYPE_BY_SLUG } from './series-types.generated';
 
 /** The `series.type` of a Korean webtoon. */
 export const MANHWA_TYPE = 'webtoon';
@@ -13,6 +14,11 @@ export interface HasSeriesType { readonly type?: string | null | undefined }
 
 export function isManhwaType(type: string | null | undefined): boolean {
   return type === MANHWA_TYPE;
+}
+
+/** The `series.type` of a series named by its slug alone (a quiz card): from the map generated from docs/anime/data/series, null when unknown. */
+export function seriesTypeOfSlug(slug: string | null | undefined): string | null {
+  return slug && Object.prototype.hasOwnProperty.call(SERIES_TYPE_BY_SLUG, slug) ? SERIES_TYPE_BY_SLUG[slug]! : null;
 }
 
 /** "Manhwa" for a series typed webtoon, else null. */
