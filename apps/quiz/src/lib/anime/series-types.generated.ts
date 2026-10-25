@@ -39,6 +39,7 @@ export const SERIES_TYPE_BY_SLUG: Readonly<Record<string, string>> = {
   'oshi-no-ko': 'anime_manga',
   're-zero': 'anime_manga',
   'sailor-moon': 'anime_manga',
+  'sakamoto-days': 'anime_manga',
   'solo-leveling': 'webtoon',
   'spy-x-family': 'anime_manga',
   'steins-gate': 'franchise',
