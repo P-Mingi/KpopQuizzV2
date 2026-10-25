@@ -69,6 +69,18 @@
     {
       "path": "/api/cron/live-expire",
       "schedule": "*/30 * * * *"
+    },
+    {
+      "path": "/api/cron/seo-linked-urls",
+      "schedule": "40 2 * * *"
+    },
+    {
+      "path": "/api/cron/seo-sources",
+      "schedule": "15 5 2 * *"
+    },
+    {
+      "path": "/api/cron/seo-spikes",
+      "schedule": "23 * * * *"
     }
   ]
 }

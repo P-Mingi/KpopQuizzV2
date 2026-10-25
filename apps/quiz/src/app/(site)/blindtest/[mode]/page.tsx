@@ -13,6 +13,7 @@ import { UX_V1 } from '@/lib/ux-v1';
 import { modeRun } from '@/lib/ux-v1/p6/modes';
 import { getPlayableGroups, hasDbEnv, settle } from '@/lib/ux-v1/p6/hub-data';
 import { isUxV12 } from '@/lib/ux-v12';
+import { redirectIfRenamed, renamedPath } from '@/lib/seo/slug-redirects';
 
 import type { Metadata } from 'next';
 import type { BlindTestMode } from '@/lib/blind-test-modes';
@@ -89,7 +90,11 @@ export async function generateMetadata({ params }: ModePageProps): Promise<Metad
 
   if (isGroupModeId(modeId)) {
     const v12 = await playableGroup(modeId);
-    if (v12.list && !v12.group) notFound();
+    if (v12.list && !v12.group) {
+      // SEO Mission 3 D1: a renamed group answers a permanent redirect to its new page.
+      await redirectIfRenamed('group', getGroupSlugFromModeId(modeId) || '', renamedPath.groupBlindtest);
+      notFound();
+    }
     if (v12.group) return groupBlindtestMetadata(v12.group);
     const slug = getGroupSlugFromModeId(modeId) || '';
     const name = await groupName(slug);
@@ -131,7 +136,10 @@ export default async function BlindTestModePage({ params }: ModePageProps): Prom
     const groupSlug = getGroupSlugFromModeId(modeId);
     if (!groupSlug) notFound();
     const v12 = await playableGroup(modeId);
-    if (v12.list && !v12.group) notFound();
+    if (v12.list && !v12.group) {
+      await redirectIfRenamed('group', groupSlug!, renamedPath.groupBlindtest);
+      notFound();
+    }
     if (v12.group && v12.list) return <BlindtestGroupV12 group={v12.group} others={v12.list} />;
     mode = {
       id: modeId,
