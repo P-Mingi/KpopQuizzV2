@@ -25,10 +25,10 @@ describe('the facts', () => {
     expect(LEGAL.host).toEqual({ name: 'Vercel Inc.', address: '440 N Barranca Avenue #4133, Covina, CA 91723, United States', phone: '+1 559 288 7060' });
   });
 
-  it('keeps the fact the owner has not given (the phone) as a placeholder, written once, in this file only', () => {
-    expect(LEGAL.phone).toBe('[TELEPHONE]');
-    expect(legalPlaceholders()).toEqual(['[TELEPHONE]']);
-    expect(legalIsComplete()).toBe(false);
+  it('has every fact filled: no placeholder is left, so the page can be found', () => {
+    expect(LEGAL.phone).toBe('+33 7 81 55 70 19');
+    expect(legalPlaceholders()).toEqual([]);
+    expect(legalIsComplete()).toBe(true);
     const lib = readFileSync(join(SRC, 'lib/legal-notice.ts'), 'utf8');
     const page = readFileSync(join(SRC, 'app/(site)/legal/page.tsx'), 'utf8');
     for (const p of legalPlaceholders()) {
@@ -65,7 +65,7 @@ describe('the page', () => {
     expect(html).toContain('>Legal notice</h1>');
     expect(html).toContain('<p lang="fr" class="text-sm text-secondary mb-8">Mentions légales</p>');
     expect(text).toContain('KpopQuiz (kpopquiz.org) is published by: Louis Pecchia, entrepreneur individuel (EI), 3560 chemin des Lauves, 13100 Aix-en-Provence, France');
-    expect(text).toContain('Legal form: Entrepreneur individuel (EI) SIREN 109 686 634, SIRET du siège 109 686 634 00014 TVA non applicable, article 293 B du CGI Phone: [TELEPHONE]');
+    expect(text).toContain('Legal form: Entrepreneur individuel (EI) SIREN 109 686 634, SIRET du siège 109 686 634 00014 TVA non applicable, article 293 B du CGI Phone: +33 7 81 55 70 19');
     expect(text).toContain('The publication director is: Louis Pecchia');
     expect(text).toContain('KpopQuiz is hosted by: Vercel Inc. 440 N Barranca Avenue #4133, Covina, CA 91723, United States Phone: +1 559 288 7060');
     expect(html).toContain('href="mailto:contact@kpopquiz.org"');
@@ -75,9 +75,9 @@ describe('the page', () => {
     expect(metadata.alternates?.canonical).toBe('/legal');
   });
 
-  it('says noindex while a placeholder is printed', async () => {
+  it('is indexable now that no placeholder is printed', async () => {
     const { metadata } = await import('@/app/(site)/legal/page');
-    expect(metadata.robots).toEqual({ index: false, follow: true });
+    expect(metadata.robots).toEqual({ index: true, follow: true });
   });
 });
 

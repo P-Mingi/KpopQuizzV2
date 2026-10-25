@@ -20,8 +20,8 @@ export const LEGAL = {
   siren: 'SIREN 109 686 634, SIRET du siège 109 686 634 00014',
   vat: 'TVA non applicable, article 293 B du CGI',
   director: 'Louis Pecchia',
-  // The fact the owner has not given yet, replaced before this page is meant to be found.
-  phone: '[TELEPHONE]',
+  // The publisher's phone (owner, 2026-10-25).
+  phone: '+33 7 81 55 70 19',
   host: {
     name: 'Vercel Inc.',
     // Printed on vercel.com/legal/privacy-notice (address) and vercel.com/legal/dmca-policy (the only number vercel.com prints).
