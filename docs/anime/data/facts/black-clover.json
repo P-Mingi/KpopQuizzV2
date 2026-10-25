@@ -129,7 +129,7 @@
     ],
     "text": "The story began in Weekly Shōnen Jump and finished in Jump Giga, after a move in late 2023.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -145,10 +145,16 @@
         "source": "press",
         "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=17059",
         "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q20638503",
+        "ref": "Q20638503",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T14:30:00.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "finished its run in Weekly Shōnen Jump on August 21, 2023, and resumed in Jump Giga"
   },
   {
@@ -2395,7 +2401,7 @@
     ],
     "text": "Yami is voiced by Junichi Suwabe in Japanese and by Christopher Sabat in the English dub.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -2411,10 +2417,16 @@
         "source": "official",
         "url": "https://bclover.jp/staffcast/",
         "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q110895968",
+        "ref": "Q110895968",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T14:30:00.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Junichi Suwabe (Japanese); Christopher Sabat (English)"
   },
   {
@@ -3275,7 +3287,7 @@
     ],
     "text": "Finral Roulacase is voiced in Japanese by Jun Fukuyama.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -3286,10 +3298,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
         "ref": "1381757229",
         "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bclover.jp/staffcast/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T19:04:36.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Jun Fukuyama (Japanese)"
   }
 ]

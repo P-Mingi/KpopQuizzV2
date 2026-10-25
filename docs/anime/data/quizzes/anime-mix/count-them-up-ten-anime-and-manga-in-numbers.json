@@ -33,33 +33,33 @@
   },
   {
    "id": "S5",
-   "title": "Wikipedia: Gintama",
-   "url": "https://en.wikipedia.org/wiki/Gintama"
-  },
-  {
-   "id": "S6",
    "title": "Wikipedia: Jujutsu Kaisen",
    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
   },
   {
-   "id": "S7",
+   "id": "S6",
    "title": "Wikipedia: List of Haikyu!! episodes",
    "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
   },
   {
-   "id": "S8",
+   "id": "S7",
    "title": "Wikipedia: Bleach (manga)",
    "url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
   },
   {
-   "id": "S9",
+   "id": "S8",
    "title": "Wikipedia: 進撃の巨人",
    "url": "https://ja.wikipedia.org/wiki/%E9%80%B2%E6%92%83%E3%81%AE%E5%B7%A8%E4%BA%BA"
   },
   {
-   "id": "S10",
+   "id": "S9",
    "title": "Wikipedia: List of Vinland Saga chapters",
    "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  },
+  {
+   "id": "S10",
+   "title": "Wikipedia: Gintama (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)"
   }
  ],
  "questions": [
@@ -141,23 +141,23 @@
    "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)"
   },
   {
-   "question": "Adding up all of its TV series, how many episodes does Gintama reach?",
+   "question": "How many episodes did the original Gintama TV series run for on TV Tokyo, from 2006 to 2010?",
    "options": [
     "300",
     "367",
-    "500",
-    "201"
+    "201",
+    "150"
    ],
-   "correct": 1,
+   "correct": 2,
    "kind": "episode",
    "spoiler": {
     "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "gintama-total-021"
+    "gintama-series-1-013"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Gintama"
+   "source_url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)"
   },
   {
    "question": "The Jujutsu Kaisen manga ended in 2024. How many collected volumes does it fill?",

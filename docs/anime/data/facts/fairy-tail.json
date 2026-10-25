@@ -83,7 +83,7 @@
     ],
     "text": "The manga appeared weekly in the magazine Weekly Shōnen Magazine, which belongs to the publisher Kodansha.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -94,10 +94,16 @@
         "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
         "ref": "1381103857",
         "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q18796",
+        "ref": "Q18796",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T14:30:00.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "serialized in Kodansha's Weekly Shōnen Magazine"
   },
   {
@@ -1437,7 +1443,7 @@
     ],
     "text": "Happy is voiced by Rie Kugimiya in Japanese and by Tia Ballard in the English dub.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -1453,10 +1459,16 @@
         "source": "official",
         "url": "https://a1p.jp/works/fairytail/",
         "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q10922148",
+        "ref": "Q10922148",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T14:30:00.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Happy | Rie Kugimiya | Tia Ballard"
   },
   {

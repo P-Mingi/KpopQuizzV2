@@ -2137,7 +2137,7 @@
     ],
     "text": "In the Japanese cast of the Steins;Gate anime, Rintaro Okabe is voiced by Mamoru Miyano.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -2148,10 +2148,16 @@
         "url": "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)",
         "ref": "1381908034",
         "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3936121",
+        "ref": "Q3936121",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T19:04:36.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Rintaro Okabe | Mamoru Miyano"
   }
 ]

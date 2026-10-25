@@ -1908,7 +1908,7 @@
     ],
     "text": "In the Japanese cast of the Death Note anime, Light Yagami is voiced by Mamoru Miyano.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -1919,10 +1919,16 @@
         "url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)",
         "ref": "1381705742",
         "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q843545",
+        "ref": "Q843545",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T19:04:36.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Light Yagami | Mamoru Miyano"
   }
 ]

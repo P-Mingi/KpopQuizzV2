@@ -371,7 +371,7 @@
     ],
     "text": "Each cour of the anime has its own pair of songs, from Official Hige Dandism and Gen Hoshino in the first to Spitz and Lilas Ikuta in the third season.",
     "category": "music",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -382,10 +382,16 @@
         "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
         "ref": "1379031004",
         "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q111602539",
+        "ref": "Q111602539",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "The opening theme for the first part of the first season uses the song \"Mixed Nuts\""
   },
   {
@@ -1524,7 +1530,7 @@
     ],
     "text": "Yor Forger is voiced in Japanese by Saori Hayami.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -1535,10 +1541,16 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters",
         "ref": "1373964762",
         "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q110177683",
+        "ref": "Q110177683",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T19:04:36.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Saori Hayami (Japanese)"
   }
 ]

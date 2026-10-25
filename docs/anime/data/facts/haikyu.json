@@ -242,10 +242,15 @@
         "url": "https://www.wikidata.org/wiki/Q67144604",
         "ref": "Q67144604",
         "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=15683",
+        "fetched_at": "2026-10-25T21:25:10Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:25:10.000Z",
     "excerpt": "An anime television series produced by Production I.G aired from April 6 to September 21, 2014, on MBS"
   },
   {
@@ -370,10 +375,20 @@
         "url": "https://www.wikidata.org/wiki/Q67144604",
         "ref": "Q67144604",
         "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=22438",
+        "fetched_at": "2026-10-25T21:25:10Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23165",
+        "fetched_at": "2026-10-25T21:25:10Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:25:10.000Z",
     "excerpt": "the second cour was supposed to air in July 2020 but was delayed due to the COVID-19 pandemic"
   },
   {
@@ -515,10 +530,20 @@
         "url": "https://www.wikidata.org/wiki/Q67144604",
         "ref": "Q67144604",
         "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=16660",
+        "fetched_at": "2026-10-25T21:25:10Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=18459",
+        "fetched_at": "2026-10-25T21:25:10Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:25:10.000Z",
     "excerpt": "Recently, the anime series ran for 85 episodes overall."
   },
   {

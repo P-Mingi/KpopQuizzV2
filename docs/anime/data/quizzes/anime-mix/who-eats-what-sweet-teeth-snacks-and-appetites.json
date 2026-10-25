@@ -73,7 +73,7 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
   {
-   "question": "Which snack did Japanese Generation Z name in the most trending phrase of 2022, thanks to Anya Forger?",
+   "question": "Anya Forger's best-known catchphrase says she likes which snack?",
    "options": [
     "Chestnuts",
     "Almonds",
@@ -111,12 +111,12 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
   },
   {
-   "question": "Usagi Tsukino of Sailor Moon is a glutton for sweets, and which one shows up as a favourite in the manga?",
+   "question": "Usagi Tsukino of Sailor Moon is a glutton for sweets, yet she is said to dislike which food?",
    "options": [
-    "Ice cream",
-    "Cake",
+    "Pancakes",
+    "Carrots",
     "Dumplings",
-    "Pancakes"
+    "Cake"
    ],
    "correct": 1,
    "kind": "character",
@@ -125,6 +125,7 @@
     "scope": "both"
    },
    "fact_ids": [
+    "sailor-moon-usagi-dislikes-carrots-064",
     "sailor-moon-usagi-cake-lover-032"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(character)"

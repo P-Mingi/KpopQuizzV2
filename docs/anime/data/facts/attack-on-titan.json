@@ -256,7 +256,7 @@
       "OP 8: Saigo no Kyojin - Linked Horizon (season 4)"
     ],
     "category": "music",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -267,10 +267,16 @@
         "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
         "ref": "1379816935",
         "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q137465114",
+        "ref": "Q137465114",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "\"Guren no Yumiya\" by Linked Horizon"
   },
   {

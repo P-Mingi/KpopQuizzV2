@@ -199,7 +199,7 @@
     "value": "Seoul Comic-Con, August 2019",
     "text": "The anime adaptation was first revealed at Seoul Comic-Con in August 2019, and the show reached screens in April 2020.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -210,10 +210,15 @@
         "url": "https://en.wikipedia.org/wiki/Tower_of_God",
         "ref": "1378030268",
         "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/daily-briefs/2020-02-10/aniplex-subsidiary-rialto-entertainment-works-on-tower-of-god-animated-work/.156314",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "initially announced at Seoul Comic-Con in August 2019"
   },
   {
@@ -243,10 +248,21 @@
         "source": "official",
         "url": "https://tog-anime.com/1st/caststaff/",
         "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/daily-briefs/2020-04-02/tower-of-god-anime-has-13-episodes/.158235",
+        "fetched_at": "2026-10-25T21:25:10Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q131160789",
+        "ref": "Q131160789",
+        "fetched_at": "2026-10-25T21:25:10Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:25:10.000Z",
     "excerpt": "in Japan from April 2 to June 24, 2020, on Tokyo MX and other networks"
   },
   {
@@ -1364,7 +1380,7 @@
     ],
     "text": "Rachel is voiced in Japanese by Saori Hayami.",
     "category": "members",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -1375,10 +1391,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
         "ref": "1374413860",
         "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tog-anime.com/1st/caststaff/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T19:04:36.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Saori Hayami (Japanese)"
   },
   {

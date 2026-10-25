@@ -472,7 +472,7 @@
     ],
     "text": "Season 1 opens with Level by SawanoHiroyuki[nZk]: Tomorrow X Together and closes with Request by Krage.",
     "category": "music",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -483,10 +483,15 @@
         "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1",
         "ref": "1373093955",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://sololeveling-anime.net/1st/music/",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "the ending theme song is \"Request\" performed by Krage"
   },
   {
@@ -528,8 +533,8 @@
       "group_slug": "solo-leveling"
     },
     "field": "recap_special",
-    "value": "How to Get Stronger, February 25, 2024",
-    "text": "A recap special named How to Get Stronger went out on 25 February 2024 and covered the first seven episodes.",
+    "value": "How to Get Stronger",
+    "text": "A recap special named How to Get Stronger covered the first seven episodes of season one.",
     "category": "history",
     "load_bearing": false,
     "spoiler": {
@@ -545,7 +550,7 @@
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "recap special covering the first seven episodes of the season"
   },
   {
@@ -559,7 +564,7 @@
     "value": "Solo Leveling: ReAwakening, shown in Japan in late 2024",
     "text": "A compilation film of Season 1, Solo Leveling: ReAwakening, was shown in Japan with the first two episodes of Season 2 in late 2024.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 2,
       "scope": "anime"
@@ -570,10 +575,15 @@
         "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
         "ref": "1379866104",
         "fetched_at": "2026-10-20T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2024-10-21/solo-leveling-reawakening-film-posts-trailer-poster-visual/.216995",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-23T17:38:18.790Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "was screened along with the first two episodes of the second season in Japan from November 29 to December 12, 2024"
   },
   {
@@ -1881,10 +1891,10 @@
       "group_slug": "solo-leveling"
     },
     "field": "live_action",
-    "value": "Netflix live-action series",
-    "text": "Netflix is making a live-action series of Solo Leveling, so the cast will be played by actors rather than drawn.",
+    "value": "Netflix live-action series, announced July 2025",
+    "text": "Netflix announced in July 2025 that it is making a live-action Solo Leveling drama, cast with actors instead of drawings.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -1895,10 +1905,15 @@
         "url": "https://en.wikipedia.org/wiki/Solo_Leveling",
         "ref": "1381887886",
         "fetched_at": "2026-10-25T18:51:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2025-07-09/netflix-produces-live-action-solo-leveling-series-reveals-woo-seok-byeon-as-lead/.226496",
+        "fetched_at": "2026-10-25T21:12:01Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:53:00.000Z",
+    "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Netflix was announced to be producing a live-action television series"
   },
   {
