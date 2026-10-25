@@ -47,7 +47,7 @@
       "question": "Who is this?",
       "clues": [
         "Works as a waitress at the Anteiku cafe",
-        "Her kagune belongs to the ukaku type",
+        "Written 霧嶋 董香 in Japanese",
         "Her younger brother Ayato joined Aogiri Tree"
       ],
       "options": [
@@ -64,7 +64,6 @@
       },
       "fact_ids": [
         "tokyo-ghoul-character-name-036",
-        "tokyo-ghoul-character-detail-058",
         "tokyo-ghoul-character-name-047"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"

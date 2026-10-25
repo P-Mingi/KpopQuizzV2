@@ -1797,8 +1797,7 @@
         "fetched_at": "2026-10-25T14:30:00Z"
       }
     ],
-    "status": "verified",
-    "verified_at": "2026-10-25T14:45:00.000Z",
+    "status": "draft",
     "excerpt": "Kagune Type: Ukaku (can produce lightning)"
   },
   {
