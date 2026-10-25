@@ -7,6 +7,7 @@
 // not in the catalogue simply does not play; nothing here invents a song.
 
 import { themedModesOn } from './blind-test-modes';
+import { isSoundtrackAlbum } from './soundtrack-album';
 
 export interface CuratedSong {
   deezerId: number;
@@ -106,6 +107,42 @@ export function isKpdhTrack(deezerTrackId: number | string | null | undefined): 
 /** A song's covers with the KPDH film art dropped (null); any other song is returned untouched. */
 export function withoutKpdhCover<T extends { deezer_track_id: number; album_cover_medium: string | null; album_cover_big: string | null }>(song: T): T {
   if (!isKpdhTrack(song.deezer_track_id)) return song;
+  return { ...song, album_cover_medium: null, album_cover_big: null };
+}
+
+// ── Hidden covers (Mission U, part C) ───────────────
+// The KPDH rule widened to every soundtrack: a drama, film, series, webtoon or game OST sits on an
+// album whose Deezer cover is most likely the show's key art, so it is never shown either. Three
+// reasons hide a cover, in this order:
+//   1. songs.hide_cover is true on the row (the owner's manual switch, docs/pending-migrations/
+//      songs-hide-cover.sql). Honoured only when the row carries it: no select list asks for the
+//      column, lib/song-cover-overrides.ts reads it in one guarded place, so nothing breaks while
+//      the column does not exist;
+//   2. a KPop Demon Hunters track (isKpdhTrack above, unchanged);
+//   3. a soundtrack album by name (isSoundtrackAlbum, lib/soundtrack-album.ts), which on its own
+//      already hides every album the SQL flags.
+// The KPDH album itself keeps its own rule, by track id only: its 12 catalogue rows are exactly the
+// 12 KPDH ids (checked 2026-10-15), and a song on that album with any other id keeps its cover as it
+// always did (the Verse kpdh-cover test pins it).
+const KPDH_ALBUM = /\bkpop demon hunters\b/i;
+
+export interface CoverSong {
+  deezer_track_id: number | string | null | undefined;
+  album_name?: string | null | undefined;
+  hide_cover?: boolean | null | undefined;
+}
+
+/** Is this song's cover hidden (manual switch, KPDH track, or soundtrack album)? */
+export function isCoverHidden(song: CoverSong): boolean {
+  if (song.hide_cover === true) return true;
+  if (isKpdhTrack(song.deezer_track_id)) return true;
+  if (typeof song.album_name === 'string' && KPDH_ALBUM.test(song.album_name)) return false;
+  return isSoundtrackAlbum(song.album_name);
+}
+
+/** A song's covers dropped (null) when isCoverHidden; any other song is returned untouched. */
+export function withoutHiddenCover<T extends CoverSong & { deezer_track_id: number; album_cover_medium: string | null; album_cover_big: string | null }>(song: T): T {
+  if (!isCoverHidden(song)) return song;
   return { ...song, album_cover_medium: null, album_cover_big: null };
 }
 

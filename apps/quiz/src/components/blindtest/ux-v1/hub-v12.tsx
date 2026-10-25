@@ -9,7 +9,7 @@ import type { ThemeCardCopy } from '@/lib/growth/bt-themes';
 // What /blindtest gains with the V12 flag (SYSTEM.md 4; prototype #blindtest): the
 // Playlists rail under the hero, the live band after "Ways to play", the language
 // row at the foot. Server components, rendered by hub.tsx only when isUxV12(); the
-// hub's H1, intro, FAQ, JSON-LD, metadata and its en / pt-BR hreflang pair are not
+// hub's H1, intro, FAQ, JSON-LD, metadata and its hreflang are not
 // touched, and every link the v11 hub has is still there.
 
 /** The themed playlists as cover cards. Hidden when there is none to show. */

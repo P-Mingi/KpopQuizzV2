@@ -18,7 +18,6 @@ export const metadata: Metadata = {
     canonical: '/kpop-true-or-false',
     languages: {
       en: '/kpop-true-or-false',
-      'pt-BR': '/pt/kpop-true-or-false',
       'x-default': '/kpop-true-or-false',
     },
   },
