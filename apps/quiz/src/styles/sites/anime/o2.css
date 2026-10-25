@@ -116,3 +116,7 @@ html.ux-v1[data-site="anime"] .anime-o2-tile > span:last-child { white-space: no
   html.ux-v1[data-site="anime"] .anime-o2-art-stack .anime-o2-art-strip { display: none; }
   html.ux-v1[data-site="anime"] .anime-o2-art-stack .anime-o2-art-sq { display: block; }
 }
+
+/* Manhwa: the label of a Korean webtoon on a series card or list row, and the line that says the anime adapts it. */
+html.ux-v1[data-site="anime"] .anime-o2-kind { display: inline-block; margin-right: 6px; padding: 1px 8px; border: 1px solid var(--ux-line); border-radius: 999px; background: var(--ux-raised); color: var(--ux-pink-ink); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; line-height: 1.5; vertical-align: baseline; }
+html.ux-v1[data-site="anime"] .anime-o2-adapts { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ux-ink); }

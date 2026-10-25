@@ -1,6 +1,7 @@
 import { Icon } from '@/components/ux-v1/icon';
 import { Panel } from '@/components/ux-v1/panel';
 import { t } from '@/lib/anime/copy';
+import { adaptationLine } from '@/lib/anime/manhwa';
 import { airingRecord, headerFacts, sourceLinks } from '@/lib/anime/series-model';
 
 import type { SeriesSourceRow } from '@/lib/anime/series';
@@ -22,7 +23,8 @@ export function SeriesFacts({ series, sources, name }: SeriesFactsProps): React.
   const facts = headerFacts(series, name);
   const airing = airingRecord(series.airing);
   const links = sourceLinks(sources, series);
-  if (facts.length === 0 && !airing && links.length === 0) return null;
+  const adapts = adaptationLine(series);
+  if (facts.length === 0 && !airing && links.length === 0 && !adapts) return null;
   return (
     <div className="anime-o2-facts" data-testid="series-facts">
       {airing ? (
@@ -34,6 +36,7 @@ export function SeriesFacts({ series, sources, name }: SeriesFactsProps): React.
           {airing.sourceUrl ? <a href={airing.sourceUrl} rel="nofollow noopener" target="_blank">{t('hub.airingSource')}</a> : null}
         </p>
       ) : null}
+      {adapts ? <p className="anime-o2-adapts" data-testid="manhwa-adaptation">{adapts}</p> : null}
       {facts.length > 0 ? (
         <dl className="anime-o2-dl">
           {facts.map((f) => (
