@@ -1479,7 +1479,7 @@
       "group_slug": "re-zero",
       "ref": "rem"
     },
-    "field": "name",
+    "field": "name_native",
     "value": [
       "Rem",
       "レム"
