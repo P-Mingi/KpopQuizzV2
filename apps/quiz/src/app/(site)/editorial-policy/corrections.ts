@@ -20,6 +20,11 @@ export const CORRECTIONS: readonly Correction[] = [
     what: 'Generation labels now come from one sourced file, with a confidence level shown next to each. Groups that debuted from 2023, such as ILLIT and RIIZE, are called the newest wave instead of a settled 5th generation, because that label is not official. Groups that debuted in 2018 and 2019, such as Stray Kids and ITZY, now say that the line between the 3rd and 4th generations is debated.',
   },
   {
+    date: '2026-10-15',
+    page: 'Which member are you',
+    what: 'The roles printed on results (such as "main dancer" or "the youngest") came from an unsourced list. Each page now lists the members and public roles that Wikidata and Wikipedia agree on, with both sources linked. Heeseung (ENHYPEN) and Danielle (NewJeans) are no longer given as results: both sources list them as former members.',
+  },
+  {
     date: '2026-10-14',
     page: 'BTS trivia',
     href: '/bts-trivia',
