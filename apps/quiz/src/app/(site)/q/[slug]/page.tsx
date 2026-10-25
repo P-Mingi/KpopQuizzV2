@@ -21,6 +21,7 @@ import { QuizStatsBlock } from '@/components/quiz/quiz-stats-block';
 import { AboutQuizDrawer } from '@/components/quiz/about-quiz-drawer';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { isNextInternalError, safeFetch } from '@/lib/error-handling';
+import { READ_RETRY_DELAY_MS } from '@/lib/ux-v1/p3/reads';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { avgScorePct, scoreIsPerQuestion } from '@/lib/quiz/scoring';
 import { buildInThisQuiz } from '@/lib/quiz/in-this-quiz';
@@ -93,7 +94,7 @@ function shownTitle(quiz: NonNullable<Awaited<ReturnType<typeof getQuizBySlug>>>
 
 /**
  * The quiz row, or a true 404 when no published quiz has this slug. SEO (owner, 2026-10-13):
- * at request time a failed or slow read THROWS instead of falling back to null. With the null
+ * at request time a failed or slow read is tried once more, then THROWS instead of falling back to null. With the null
  * fallback a database blip became a cached "not found" (noindex) for an hour on a real,
  * indexed quiz; thrown, the render fails uncached and ISR keeps serving the last good page.
  *
@@ -122,10 +123,20 @@ async function quizOr404(slug: string): Promise<NonNullable<Awaited<ReturnType<t
     console.warn(`[q/[slug]] build: the quiz read failed twice for ${slug}; on-demand ISR re-renders it`);
     notFound();
   }
-  const quiz = await read(8000);
-  if (quiz === TIMEOUT) throw new Error(`[q/[slug]] getQuizBySlug timed out for ${slug}`);
-  if (!quiz) notFound();
-  return quiz;
+  // Request time: two tries, 750 ms apart (owner, 2026-10-25: the bursts of reads after a
+  // deploy). A quiz that still cannot be read throws: never a cached 404 on a real quiz.
+  for (let attempt = 0; attempt < 2; attempt++) {
+    if (attempt > 0) await new Promise((resolve) => setTimeout(resolve, READ_RETRY_DELAY_MS));
+    try {
+      const quiz = await read(8000);
+      if (quiz === TIMEOUT) continue;
+      if (!quiz) notFound();
+      return quiz;
+    } catch (err) {
+      if (isNextInternalError(err)) throw err;
+    }
+  }
+  throw new Error(`[q/[slug]] getQuizBySlug failed twice for ${slug}`);
 }
 
 export async function generateMetadata({ params }: QuizPageProps): Promise<Metadata> {
