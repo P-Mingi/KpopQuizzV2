@@ -1,0 +1,333 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "kaguya-sama-love-is-war",
+  "title": "Odd One Out: Kaguya-sama Council Members, Songs and Spin-offs",
+  "slug": "odd-one-out-kaguya-sama-council-songs-and-spin-offs",
+  "description": "Four choices, one that does not belong. The council, the voices, the songs and the spin-offs of Kaguya-sama: Love Is War. Light spoilers from the later seasons.",
+  "quiz_type": "intruder",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Intruder format: three real members of a group and one real outsider, every label from the series data.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Kaguya-sama: Love Is War characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Kaguya-sama: Love Is War season 1",
+      "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_season_1"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Kaguya-sama: Love Is War",
+      "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: List of Kaguya-sama: Love Is War episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Three of these belong to the student council. Which one does not?",
+      "options": [
+        {
+          "label": "Chika Fujiwara"
+        },
+        {
+          "label": "Yu Ishigami"
+        },
+        {
+          "label": "Nagisa Kashiwagi"
+        },
+        {
+          "label": "Kaguya Shinomiya"
+        }
+      ],
+      "correct": 2,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-nagisa-kashiwagi-name-068",
+        "kaguya-sama-love-is-war-kaguya-shinomiya-name-049",
+        "kaguya-sama-love-is-war-chika-fujiwara-name-056",
+        "kaguya-sama-love-is-war-yu-ishigami-name-059"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "Three of these people voice members of the student council. Which one voices a character outside it?",
+      "options": [
+        {
+          "label": "Konomi Kohara"
+        },
+        {
+          "label": "Makoto Furukawa"
+        },
+        {
+          "label": "Momo Asakura"
+        },
+        {
+          "label": "Aoi Koga"
+        }
+      ],
+      "correct": 2,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-nagisa-kashiwagi-voice-069",
+        "kaguya-sama-love-is-war-kaguya-shinomiya-voice-051",
+        "kaguya-sama-love-is-war-miyuki-shirogane-voice-055",
+        "kaguya-sama-love-is-war-chika-fujiwara-voice-058"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "Three of these songs open a season of the anime. Which one closes a season?",
+      "options": [
+        {
+          "label": "Daddy! Daddy! Do!"
+        },
+        {
+          "label": "GIRI GIRI"
+        },
+        {
+          "label": "Sentimental Crisis"
+        },
+        {
+          "label": "Love Dramatic"
+        }
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-themes-s1-042",
+        "kaguya-sama-love-is-war-themes-s2-043",
+        "kaguya-sama-love-is-war-themes-s3-044"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_season_1"
+    },
+    {
+      "question": "Three of these songs close a season of the anime. Which one opens a season?",
+      "options": [
+        {
+          "label": "Heart wa Oteage"
+        },
+        {
+          "label": "Kaze ni Fukarete"
+        },
+        {
+          "label": "Sentimental Crisis"
+        },
+        {
+          "label": "GIRI GIRI"
+        }
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-themes-s1-042",
+        "kaguya-sama-love-is-war-themes-s2-043",
+        "kaguya-sama-love-is-war-themes-s3-044"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_season_1"
+    },
+    {
+      "question": "Three of these are spin-offs of the series. Which one is a separate series by Akasaka?",
+      "options": [
+        {
+          "label": "The Dōjin Edition"
+        },
+        {
+          "label": "Kaguya-sama o Kataritai"
+        },
+        {
+          "label": "Oshi no Ko"
+        },
+        {
+          "label": "The Seven Mysteries of Shuchiin Academy"
+        }
+      ],
+      "correct": 2,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-oshi-no-ko-016",
+        "kaguya-sama-love-is-war-spinoff-doujin-024",
+        "kaguya-sama-love-is-war-spinoff-kataritai-025",
+        "kaguya-sama-love-is-war-novels-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War"
+    },
+    {
+      "question": "Three of these are sisters or brothers of main characters. Which one is not?",
+      "options": [
+        {
+          "label": "Karen Kino"
+        },
+        {
+          "label": "Kei Shirogane"
+        },
+        {
+          "label": "Mikado Shijo"
+        },
+        {
+          "label": "Moeha Fujiwara"
+        }
+      ],
+      "correct": 0,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-karen-kino-name-079",
+        "kaguya-sama-love-is-war-kei-shirogane-name-071",
+        "kaguya-sama-love-is-war-moeha-fujiwara-name-073",
+        "kaguya-sama-love-is-war-mikado-shijo-name-085"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "Three of these belong to the Shinomiya family. Which one does not?",
+      "options": [
+        {
+          "label": "Un'yo Shinomiya"
+        },
+        {
+          "label": "Oko Shinomiya"
+        },
+        {
+          "label": "Mikado Shijo"
+        },
+        {
+          "label": "Gan'an Shinomiya"
+        }
+      ],
+      "correct": 2,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-mikado-shijo-name-085",
+        "kaguya-sama-love-is-war-unyo-shinomiya-name-083",
+        "kaguya-sama-love-is-war-oko-shinomiya-name-084",
+        "kaguya-sama-love-is-war-ganan-shinomiya-name-087"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    },
+    {
+      "question": "Three of these are anime releases. Which one is a manga spin-off?",
+      "options": [
+        {
+          "label": "The First Kiss That Never Ends"
+        },
+        {
+          "label": "Kaguya-sama o Kataritai"
+        },
+        {
+          "label": "The Final Chapter"
+        },
+        {
+          "label": "The Stairway to Adulthood"
+        }
+      ],
+      "correct": 1,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-spinoff-kataritai-025",
+        "kaguya-sama-love-is-war-film-037",
+        "kaguya-sama-love-is-war-special-038",
+        "kaguya-sama-love-is-war-final-film-039"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War"
+    },
+    {
+      "question": "Three of these people voice characters of the anime. Which one directed it?",
+      "options": [
+        {
+          "label": "Miyu Tomita"
+        },
+        {
+          "label": "Mamoru Hatakeyama"
+        },
+        {
+          "label": "Aoi Koga"
+        },
+        {
+          "label": "Konomi Kohara"
+        }
+      ],
+      "correct": 1,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-anime-director-030",
+        "kaguya-sama-love-is-war-kaguya-shinomiya-voice-051",
+        "kaguya-sama-love-is-war-chika-fujiwara-voice-058",
+        "kaguya-sama-love-is-war-miko-iino-voice-066"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes"
+    },
+    {
+      "question": "Three of these people starred in or directed the live action film. Which one is a voice actress of the anime?",
+      "options": [
+        {
+          "label": "Hayato Kawai"
+        },
+        {
+          "label": "Aoi Koga"
+        },
+        {
+          "label": "Kanna Hashimoto"
+        },
+        {
+          "label": "Sho Hirano"
+        }
+      ],
+      "correct": 1,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "kaguya-sama-love-is-war-live-action-040",
+        "kaguya-sama-love-is-war-kaguya-shinomiya-voice-051"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War"
+    }
+  ]
+}

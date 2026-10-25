@@ -28,6 +28,7 @@ export const SERIES_TYPE_BY_SLUG: Readonly<Record<string, string>> = {
   'jojo': 'franchise',
   'jujutsu-kaisen': 'anime_manga',
   'kagurabachi': 'manga',
+  'kaguya-sama-love-is-war': 'anime_manga',
   'kaiju-no-8': 'anime_manga',
   'mob-psycho-100': 'anime_manga',
   'my-hero-academia': 'anime_manga',
