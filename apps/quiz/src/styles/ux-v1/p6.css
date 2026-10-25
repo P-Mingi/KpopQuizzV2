@@ -200,6 +200,9 @@
 .p6-next { background: var(--ux-surface); color: var(--ux-ink); }
 .p6-next:hover { background: var(--ux-surface-2); }
 .p6-next .ux-kbd { background: transparent; color: inherit; border-color: var(--ux-edge); }
+/* Deezer attribution (components/deezer-attribution.tsx): under the game, and under "Your songs" on the results. */
+.dz-attr.p6-dz { margin-top: 24px; font-size: 13px; color: var(--ux-muted); }
+.p6-songs + .dz-attr.p6-dz { justify-content: flex-start; text-align: left; margin-top: 16px; }
 
 /* ---------- results (prototype #btend, day mode) ---------- */
 .p6-res { padding-top: 88px; padding-bottom: 112px; }

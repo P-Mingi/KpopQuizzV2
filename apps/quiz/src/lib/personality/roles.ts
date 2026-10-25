@@ -1,3 +1,8 @@
+// SUPERSEDED (SEO Mission 2, part D, 2026-10-15): the pages now print the sourced role of
+// rosters.ts (Wikipedia, with Wikidata confirming the line-up) or "Member of <group>".
+// Several lines below ("Main dancer", "the youngest") had no source. Nothing calls
+// publicRole any more; the module stays with its unit test until the owner removes both.
+//
 // V12 G5: the public role line of a Which member are you result (SYSTEM.md 5.2:
 // "links to the member only through their public role (leader, producer, main
 // dancer...)").

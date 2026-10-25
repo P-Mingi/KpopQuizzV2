@@ -5,6 +5,8 @@ import { getOverriddenFacts } from '@/lib/trivia/facts';
 import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
 import { GroupQuizPage, generateGroupQuizMetadata } from './group-quiz-page';
 import { GroupTriviaPage, generateGroupTriviaMetadata } from './group-trivia-page';
+import { SourcedTriviaPage, generateSourcedTriviaMetadata } from './sourced-trivia-page';
+import { getSourcedTrivia } from '@/lib/trivia/sourced/store';
 import { UX_V1 } from '@/lib/ux-v1';
 import { GroupHubV11 } from '@/components/group/ux-v1/hub';
 
@@ -61,6 +63,11 @@ export async function generateMetadata({ params }: SlugPageProps): Promise<Metad
 
   if (parsed.type === 'quiz') return generateGroupQuizMetadata(group);
 
+  // SEO Mission 2, part E: a group with a sourced fact file (enough verified items) gets the
+  // question and answer bank at the same URL; the others keep the fun facts page below.
+  const sourced = getSourcedTrivia(group.slug);
+  if (sourced) return generateSourcedTriviaMetadata(group, sourced);
+
   // Trivia eligibility gate at the route level. generateMetadata resolves
   // BEFORE the page body streams (the root loading.tsx shell would otherwise
   // commit a 200), so calling notFound() here for an ineligible / suppressed
@@ -84,5 +91,7 @@ export default async function SlugPage({ params }: SlugPageProps): Promise<React
   // FAQ, JSON-LD and links. Flag off renders exactly today's page. The -trivia
   // pages keep today's content inside the v11 shell.
   if (parsed.type === 'quiz') return UX_V1 ? GroupHubV11({ group }) : GroupQuizPage({ group });
+  const sourced = getSourcedTrivia(group.slug);
+  if (sourced) return SourcedTriviaPage({ group, file: sourced });
   return GroupTriviaPage({ group });
 }

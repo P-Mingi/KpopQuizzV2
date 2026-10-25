@@ -157,3 +157,36 @@
   .p3-more[open] > div { margin-top: 0; }
   .p3-more .ux-tgrid .ux-tcard:first-child { border-top: 1px solid var(--ux-hair); }
 }
+
+/* ---------- strengthened hub (SEO Mission 2 part B, components/group/ux-v1/hub-plus.tsx) ----------
+   Only a hub listed in lib/hubs/hub-plus.ts carries these classes; every other hub is unchanged. */
+.p3-sub { font-size: 20px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; color: var(--ux-muted); margin-top: 10px; }
+.p3x-lede { font-size: 16px; line-height: 1.65; max-width: 66ch; margin-top: 12px; }
+.p3x-lede a, .p3x-topic a, .p3x-list a, .p3x-table td a { color: var(--ux-pink-ink); font-weight: 500; }
+.p3x-lede a:hover, .p3x-topic a:hover, .p3x-list a:hover, .p3x-table a:hover, .p3x-src a:hover { text-decoration: underline; }
+.p3x-lede b { font-weight: 600; }
+.p3x-note { font-size: 14px; line-height: 1.6; color: var(--ux-muted); max-width: 66ch; margin-top: 12px; }
+.p3x-tablewrap { overflow-x: auto; margin-top: 20px; max-width: 880px; }
+.p3x-table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; }
+.p3x-table th, .p3x-table td { text-align: left; vertical-align: top; padding: 10px 16px 10px 0; border-bottom: 1px solid var(--ux-hair); }
+.p3x-table thead th { font-size: 13px; font-weight: 600; color: var(--ux-muted); }
+.p3x-table tbody th { font-weight: 600; white-space: nowrap; }
+.p3x-table .is-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.p3x-lvl { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; font-size: 12px; font-weight: 700; background: var(--ux-surface-2); color: var(--ux-ink); }
+.p3x-lvl.is-easy { background: var(--ux-ok-soft); color: var(--ux-ok); }
+.p3x-lvl.is-hard { background: var(--ux-no-soft); color: var(--ux-no); }
+.p3x-src { font-size: 14px; color: var(--ux-muted); }
+.p3x-src a { color: var(--ux-muted); text-decoration: underline; text-underline-offset: 2px; }
+.p3x-topics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 48px; margin-top: 8px; }
+.p3x-topic h3 { font-size: 16px; line-height: 1.5; font-weight: 600; margin-top: 20px; }
+.p3x-topic ul, .p3x-list { display: grid; gap: 8px; margin-top: 8px; font-size: 15px; line-height: 1.5; }
+.p3x-list { margin-top: 12px; }
+.p3x-meta { color: var(--ux-muted); font-size: 14px; }
+.p3x-dated li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; max-width: 720px; }
+.p3x-dated time { flex: 0 0 auto; font-size: 13px; color: var(--ux-muted); font-variant-numeric: tabular-nums; }
+@media (max-width: 760px) {
+  .p3-sub { font-size: 18px; }
+  .p3x-topics { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .p3x-table { font-size: 14px; }
+  .p3x-table th, .p3x-table td { padding-right: 10px; }
+}

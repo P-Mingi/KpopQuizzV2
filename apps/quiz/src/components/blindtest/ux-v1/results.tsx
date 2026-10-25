@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
+import { DeezerAttribution } from '@/components/deezer-attribution';
 import { Mascot } from '@/components/ui/mascot';
 import { UxButton } from '@/components/ux-v1/button';
 import { CoverImg } from '@/components/ux-v1/cover-img';
@@ -162,6 +163,7 @@ export function BtResults({ run, board, onAgain, onBoard, kicker, slot, primary,
             );
           })}
         </div>
+        <DeezerAttribution className="p6-dz" />
       </section>
 
       <ShareSheet

@@ -1,0 +1,413 @@
+{
+  "version": 1,
+  "group": "illit",
+  "reviewed": "2026-10-15",
+  "wikipedia": "https://en.wikipedia.org/wiki/Illit",
+  "officialSite": "https://beliftlab.com/artist/profile/Illit",
+  "wikidata": "Q122179261",
+  "members": [
+    "Yunah",
+    "Minju",
+    "Moka",
+    "Wonhee",
+    "Iroha"
+  ],
+  "groupsData": {
+    "name": "ILLIT",
+    "generation": "5th Gen",
+    "memberCount": null,
+    "readAt": "2026-10-15"
+  },
+  "facts": [
+    {
+      "id": "illit-members",
+      "level": "easy",
+      "question": "How many members are in ILLIT?",
+      "answer": "Five",
+      "text": "ILLIT has five members: Yunah, Minju, Moka, Wonhee and Iroha.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q122179261",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "ILLIT"
+        },
+        {
+          "url": "https://www.billboard.com/music/pop/illit-kpop-rookie-of-the-month-june-2024-magnetic-1235718156/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "Why 'Magnetic' Group ILLIT Is Billboard's First-Ever K-Pop Rookie of the Month"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-agency",
+      "level": "easy",
+      "question": "Which label formed ILLIT?",
+      "answer": "Belift Lab",
+      "text": "ILLIT was formed by Belift Lab, a label under HYBE.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q122179261",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "ILLIT"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-debut",
+      "level": "easy",
+      "question": "When did ILLIT debut?",
+      "answer": "March 25, 2024",
+      "text": "ILLIT debuted on March 25, 2024, with the EP Super Real Me.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q122179261",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "ILLIT"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-debut-single",
+      "level": "easy",
+      "question": "What was the debut single of ILLIT?",
+      "answer": "Magnetic",
+      "text": "Magnetic, the lead single of Super Real Me, was the debut single of ILLIT.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-r-u-next",
+      "level": "easy",
+      "question": "Through which survival show was ILLIT formed?",
+      "answer": "R U Next?",
+      "text": "ILLIT was formed through R U Next?, a survival competition show that aired on JTBC in 2023.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        },
+        {
+          "url": "https://www.billboard.com/music/pop/illit-kpop-rookie-of-the-month-june-2024-magnetic-1235718156/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "Why 'Magnetic' Group ILLIT Is Billboard's First-Ever K-Pop Rookie of the Month"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-name",
+      "level": "medium",
+      "question": "What idea does the name ILLIT stand for?",
+      "answer": "Choosing a verb between I'll and it",
+      "text": "The name ILLIT stands for choosing a verb to place between I'll and it, so the members decide for themselves.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-ill-like-you",
+      "level": "medium",
+      "question": "What was the second EP released by ILLIT?",
+      "answer": "I'll Like You",
+      "text": "ILLIT released their second EP, I'll Like You, on October 21, 2024.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-ava-max",
+      "level": "medium",
+      "question": "Which singer is featured on Baby It's Both, the English version of the ILLIT song Tick-Tack?",
+      "answer": "Ava Max",
+      "text": "Baby It's Both, the English version of the ILLIT song Tick-Tack, features the singer Ava Max.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-almond-chocolate",
+      "level": "medium",
+      "question": "What was the first original Japanese song by ILLIT?",
+      "answer": "Almond Chocolate",
+      "text": "Almond Chocolate, released on February 14, 2025, was the first original Japanese song by ILLIT, included in the soundtrack of a Japanese live-action film.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-bomb",
+      "level": "medium",
+      "question": "Which ILLIT EP was led by the single Do the Dance?",
+      "answer": "Bomb",
+      "text": "ILLIT released their third EP, Bomb, on June 16, 2025, with Do the Dance as its lead single.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-acne-studios",
+      "level": "hard",
+      "question": "At which fashion show did ILLIT make their first public appearance?",
+      "answer": "The Acne Studios show at Paris Fashion Week",
+      "text": "ILLIT made their first public appearance at the Acne Studios show during Paris Fashion Week in February 2024, before their debut.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-bang-si-hyuk",
+      "level": "hard",
+      "question": "Which HYBE chairman produced the ILLIT debut EP Super Real Me?",
+      "answer": "Bang Si-hyuk",
+      "text": "Bang Si-hyuk, the chairman of HYBE, took part as a producer of the ILLIT debut EP Super Real Me.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-rookie-of-the-month",
+      "level": "hard",
+      "question": "Which honor did Billboard give ILLIT for the first time in June 2024?",
+      "answer": "K-Pop Rookie of the Month",
+      "text": "In June 2024, Billboard named ILLIT its first-ever K-Pop Rookie of the Month.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/music/pop/illit-kpop-rookie-of-the-month-june-2024-magnetic-1235718156/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "Why 'Magnetic' Group ILLIT Is Billboard's First-Ever K-Pop Rookie of the Month"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-rec-magnetic-circle",
+      "level": "records",
+      "question": "Which ILLIT song topped the Circle Digital Chart in 2024?",
+      "answer": "Magnetic",
+      "text": "Magnetic by ILLIT topped South Korea's Circle Digital Chart in 2024.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-rec-magnetic-hot100",
+      "level": "records",
+      "question": "At what position did the ILLIT song Magnetic enter the Billboard Hot 100?",
+      "answer": "No. 91",
+      "text": "Magnetic by ILLIT entered the Billboard Hot 100 at No. 91 on the chart dated April 20, 2024, the first K-pop debut song to reach that chart.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/artist/illit/chart-history/hsi/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "ILLIT Chart History: Billboard Hot 100"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-rec-magnetic-uk",
+      "level": "records",
+      "question": "Which ILLIT song was the first debut single by a K-pop group on the UK singles chart?",
+      "answer": "Magnetic",
+      "text": "Magnetic made ILLIT the first K-pop group to enter the UK Official Singles Chart with a debut single, peaking at No. 80.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-rec-super-real-me",
+      "level": "records",
+      "question": "At what position did the ILLIT EP Super Real Me enter the Billboard 200?",
+      "answer": "No. 93",
+      "text": "Super Real Me by ILLIT entered the Billboard 200 at No. 93 on the chart dated May 11, 2024.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/artist/illit/chart-history/tlp/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "ILLIT Chart History: Billboard 200"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Illit",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Illit"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "illit-rec-mamihlapinatapai",
+      "level": "records",
+      "question": "Which ILLIT EP reached No. 26 on the Billboard 200?",
+      "answer": "Mamihlapinatapai",
+      "text": "Mamihlapinatapai by ILLIT debuted at No. 26 on the Billboard 200 dated May 16, 2026, higher than any earlier ILLIT album.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/artist/illit/chart-history/tlp/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "ILLIT Chart History: Billboard 200"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    }
+  ]
+}

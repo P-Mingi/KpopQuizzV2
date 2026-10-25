@@ -1,0 +1,69 @@
+{
+  "_note": "Written by scripts/fetch-wikidata-groups.mjs from the public Wikidata API. Do not edit by hand: re-run the script.",
+  "fetchedAt": "2026-10-15",
+  "groups": {
+    "bts": {
+      "qid": "Q13580495",
+      "wikidata": "https://www.wikidata.org/wiki/Q13580495",
+      "wikipedia": "https://en.wikipedia.org/wiki/BTS",
+      "official": [
+        "https://ibighit.com/",
+        "https://bts-official.jp/",
+        "http://bts.ibighit.com"
+      ],
+      "inception": "2013-06-13",
+      "recordLabels": [
+        {
+          "qid": "Q1988428",
+          "label": "Avex Trax"
+        },
+        {
+          "qid": "Q11196729",
+          "label": "Def Jam Japan"
+        },
+        {
+          "qid": "Q183387",
+          "label": "Columbia Records"
+        },
+        {
+          "qid": "Q654283",
+          "label": "Def Jam Recordings"
+        },
+        {
+          "qid": "Q106296918",
+          "label": "Big Hit Music"
+        }
+      ],
+      "members": [
+        {
+          "qid": "Q18388296",
+          "label": "V"
+        },
+        {
+          "qid": "Q16236223",
+          "label": "J-hope"
+        },
+        {
+          "qid": "Q24276424",
+          "label": "Kim Seok-jin"
+        },
+        {
+          "qid": "Q22338877",
+          "label": "Jung Kook"
+        },
+        {
+          "qid": "Q21075020",
+          "label": "Suga"
+        },
+        {
+          "qid": "Q20514446",
+          "label": "RM"
+        },
+        {
+          "qid": "Q20947093",
+          "label": "Jimin"
+        }
+      ]
+    }
+  }
+}

@@ -8,6 +8,7 @@ import { SectionHeader } from '@/components/ux-v1/section-header';
 import { WaysTile, WaysTiles } from '@/components/ux-v1/ways-tile';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { getWmaGroupSlugs } from '@/lib/personality/data';
+import { metaDescription } from '@/lib/personality/page-copy';
 import { getWmaPage, SITE } from '@/lib/personality/server';
 import { settle } from '@/lib/ux-v1/p6/hub-data';
 import { whichMemberPath } from '@/lib/personality/view';
@@ -52,7 +53,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     `Which ${name} member are you? Take the quiz`,
     `Which ${name} member are you?`,
   );
-  const description = `Eight questions about you, no right answers, no timer. Find out which ${name} member matches how you move through life, then see how other fans came out.`;
+  // SEO Mission 2, part D: the primary phrase once, 120 to 160 characters (page-copy.test.ts).
+  const description = metaDescription(name, page.view.questions.length);
   const url = whichMemberPath(page.group.slug);
   return {
     title,
@@ -67,7 +69,7 @@ export default async function WhichMemberPage({ params }: Props): Promise<React.
   const { group: slug } = await params;
   const page = await getWmaPage(slug);
   if (!page) notFound();
-  const { group, view, blindtestSongs } = page;
+  const { group, view, blindtestSongs, roster, common, trivia } = page;
   const hub = `/${group.slug}-quiz`;
   // The cross-links below the quiz: settled reads, so a blip drops a link, never the page.
   const [wma, groups] = await Promise.all([getWmaGroupSlugs(), settle(() => getAllGroups(), null)]);
@@ -99,6 +101,17 @@ export default async function WhichMemberPage({ params }: Props): Promise<React.
           { '@type': 'ListItem', position: 3, name: 'Which member are you' },
         ],
       })}
+      {/* The group and its members as the sourced line-up names them (rosters.ts): the
+          same names and links as the visible members section, Wikidata IDs fetched by
+          script. Absent when the line-up is. */}
+      {roster ? jsonLdScript({
+        '@context': 'https://schema.org',
+        '@type': 'MusicGroup',
+        name: group.name,
+        url: `${SITE}${hub}`,
+        sameAs: [roster.wikidataUrl, roster.wikipediaUrl.replace(/#.*$/, ''), ...(roster.official ? [roster.official] : [])],
+        member: roster.members.map((m) => ({ '@type': 'Person', name: m.name, sameAs: `https://www.wikidata.org/wiki/${m.wikidata}` })),
+      }) : null}
       <nav className="ux-crumb" aria-label="Breadcrumb">
         <Link href="/groups">Groups</Link>
         <span className="ux-pers-sep" aria-hidden="true">/</span>
@@ -109,7 +122,7 @@ export default async function WhichMemberPage({ params }: Props): Promise<React.
       <div className="ux-pers-body">
         <PersonalityQuiz view={view} also={also} />
       </div>
-      <WmaAbout group={group} view={view} wmaSlugs={wma} names={names} />
+      <WmaAbout group={group} view={view} wmaSlugs={wma} names={names} roster={roster} common={common} blindtestSongs={blindtestSongs} trivia={trivia} />
     </UxPage>
   );
 }
