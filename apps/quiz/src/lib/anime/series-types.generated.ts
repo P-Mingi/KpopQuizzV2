@@ -25,6 +25,7 @@ export const SERIES_TYPE_BY_SLUG: Readonly<Record<string, string>> = {
   'gintama': 'anime_manga',
   'haikyu': 'anime_manga',
   'hunter-x-hunter': 'anime_manga',
+  'inuyasha': 'anime_manga',
   'jojo': 'franchise',
   'jujutsu-kaisen': 'anime_manga',
   'kagurabachi': 'manga',
