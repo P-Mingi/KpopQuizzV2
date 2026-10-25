@@ -1,0 +1,217 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "mob-psycho-100",
+  "title": "Mob Psycho 100 Quiz: Ura Sunday, Bones and the 100% Meter",
+  "slug": "ura-sunday-bones-and-the-100-percent-meter-mob-psycho-100-quiz",
+  "description": "Ten easy questions on the creator, the studio, the staff, the first opening, the consultation office and the emotion meter. No story knowledge needed, and no spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Mob Psycho 100",
+      "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Mob Psycho 100 characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    }
+  ],
+  "notes": "New series batch 1. Arc 0 facts only: production, premise and music. The season count is dated (as of October 2026).",
+  "questions": [
+    {
+      "question": "Who created Mob Psycho 100?",
+      "options": [
+        "Tatsuki Fujimoto",
+        "Gege Akutami",
+        "ONE",
+        "Sui Ishida"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "mob-psycho-100-manga-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
+      "question": "On which Shogakukan website did the webcomic begin?",
+      "options": [
+        "Ura Sunday",
+        "Shonen Jump+",
+        "Comic Days",
+        "Manga Up!"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "mob-psycho-100-manga-origin-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
+      "question": "Which studio animated the series?",
+      "options": [
+        "Pierrot",
+        "MAPPA",
+        "Madhouse",
+        "Bones"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "mob-psycho-100-anime-studio-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
+      "question": "Who directed the anime?",
+      "options": [
+        "Shinichirō Watanabe",
+        "Yuzuru Tachikawa",
+        "Gorō Taniguchi",
+        "Tomohiko Itō"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "mob-psycho-100-anime-director-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
+      "question": "Which composer wrote the score of Mob Psycho 100?",
+      "options": [
+        "Kenji Kawai",
+        "Yuki Kajiura",
+        "Yoko Kanno",
+        "Hiroyuki Sawano"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "mob-psycho-100-anime-composer-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
+      "question": "Which group performs the opening song 99 of the first season?",
+      "options": [
+        "All Off",
+        "Sajou no Hana",
+        "Mob Choir",
+        "Österreich"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "mob-psycho-100-theme-op-028"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
+      "question": "How many seasons does the anime have as of October 2026?",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "mob-psycho-100-anime-seasons-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
+      "question": "What is the name of the business that Reigen runs?",
+      "options": [
+        "Esper Detective Agency",
+        "Poltergeist Repair Shop",
+        "Lost Souls Hotline",
+        "Spirits and Such Consultation Office"
+      ],
+      "correct": 3,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-consultation-office-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "At what percentage on his emotion meter does Mob unleash his full powers?",
+      "options": [
+        "100%",
+        "10%",
+        "50%",
+        "200%"
+      ],
+      "correct": 0,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-percent-meter-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "Which club took over the room of the Telepathy Club?",
+      "options": [
+        "Journalism Club",
+        "Student Council",
+        "Body Improvement Club",
+        "Occult Club"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-body-improvement-club-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    }
+  ]
+}

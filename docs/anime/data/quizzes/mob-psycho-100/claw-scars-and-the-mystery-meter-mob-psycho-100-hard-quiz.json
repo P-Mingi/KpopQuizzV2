@@ -1,0 +1,212 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "mob-psycho-100",
+  "title": "Mob Psycho 100 Hard Quiz: Claw, the Scars and the Mystery Meter",
+  "slug": "claw-scars-and-the-mystery-meter-mob-psycho-100-hard-quiz",
+  "description": "Ten hard questions on Claw, its Ultimate 5 and Scars, the Mitsuura Group and the ???% meter. Spoilers for all three seasons.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Mob Psycho 100 characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    }
+  ],
+  "notes": "Hard quiz: late facts (arcs 1 to 3) only here. Spoilers named in the description.",
+  "questions": [
+    {
+      "question": "Who leads the criminal esper group Claw?",
+      "options": [
+        "Keiji Mogami",
+        "Touichirou Suzuki",
+        "Teruki Hanazawa",
+        "Katsuya Serizawa"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-character-detail-063"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "Why does Serizawa stay shut in his room?",
+      "options": [
+        "He feared his powers might get out of control",
+        "He is hiding from the police",
+        "He lost a bet with Claw",
+        "He is bound by a curse"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-character-detail-064"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "Which Claw esper becomes a florist after his defeat?",
+      "options": [
+        "Hiroshi Shibata",
+        "Nozomu Hatori",
+        "Ryo Shimazaki",
+        "Toshiki Minegishi"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-character-detail-066"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "Who was once dubbed the greatest psychic of the 20th century?",
+      "options": [
+        "Touichirou Suzuki",
+        "Musashi Goda",
+        "Keiji Mogami",
+        "Shou Suzuki"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-character-detail-070"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "Which son of the head of Claw stands against his father?",
+      "options": [
+        "Shou Suzuki",
+        "Teruki Hanazawa",
+        "Ritsu Kageyama",
+        "Tenga Onigawara"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-character-detail-069"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "Which Claw esper has the special ability called Mind's Eye?",
+      "options": [
+        "Hiroshi Shibata",
+        "Ryo Shimazaki",
+        "Nozomu Hatori",
+        "Toshiki Minegishi"
+      ],
+      "correct": 1,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-character-detail-065"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "What did the leader of the Mitsuura Group wish to create?",
+      "options": [
+        "A new evil spirit",
+        "A robot army",
+        "A psychic school",
+        "Artificial psychic powers"
+      ],
+      "correct": 3,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-character-detail-073"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "Which Scar of the Claw 7th Division fights with a Telekinetic Helix?",
+      "options": [
+        "Ichi Mezato",
+        "Tenga Onigawara",
+        "Megumu Koyama",
+        "Kenji Mitsuura"
+      ],
+      "correct": 2,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-character-detail-071"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "Which student journalist took part in founding the Psycho Helmet Cult?",
+      "options": [
+        "Ichi Mezato",
+        "Tome Kurata",
+        "Tsubomi Takane",
+        "Musashi Goda"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-character-detail-072"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "What does ???% stand for on Mob's emotion meter?",
+      "options": [
+        "A meter that is broken now",
+        "A power state far beyond his limits",
+        "The strength of Claw as a whole",
+        "A joke written by Reigen"
+      ],
+      "correct": 1,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-unknown-percent-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    }
+  ]
+}
