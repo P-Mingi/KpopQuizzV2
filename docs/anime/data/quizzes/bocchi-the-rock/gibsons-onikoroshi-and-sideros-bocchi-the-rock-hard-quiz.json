@@ -20,11 +20,6 @@
       "id": "S2",
       "title": "Wikipedia: Kessoku Band (album)",
       "url": "https://en.wikipedia.org/wiki/Kessoku_Band_(album)"
-    },
-    {
-      "id": "S3",
-      "title": "Wikipedia: List of Bocchi the Rock! episodes",
-      "url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes"
     }
   ],
   "questions": [
@@ -143,45 +138,6 @@
       "source_url": "https://en.wikipedia.org/wiki/Kessoku_Band_(album)"
     },
     {
-      "question": "Which episodes use Karakara as the ending theme?",
-      "options": [
-        "Episodes 4 to 7",
-        "Episodes 5 to 8",
-        "Episodes 3 to 6",
-        "Episodes 2 to 5"
-      ],
-      "correct": 0,
-      "kind": "music",
-      "spoiler": {
-        "arc": 0,
-        "scope": "anime"
-      },
-      "fact_ids": [
-        "bocchi-the-rock-endings-017"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes"
-    },
-    {
-      "question": "Which voice actress plays both PA-san and the dog JimiHen?",
-      "options": [
-        "Sayaka Senbongi",
-        "Misaki Watada",
-        "Maaya Uchida",
-        "Kotori Koiwai"
-      ],
-      "correct": 3,
-      "kind": "character",
-      "spoiler": {
-        "arc": 0,
-        "scope": "both"
-      },
-      "fact_ids": [
-        "bocchi-the-rock-pa-san-voice-058",
-        "bocchi-the-rock-jimihen-voice-076"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
-    },
-    {
       "question": "From which country does Eliza, the guitarist of Sick Hack, originally come?",
       "options": [
         "Scotland",
@@ -202,21 +158,59 @@
       "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
     },
     {
-      "question": "What does the given name of Hitori's sister Futari mean?",
+      "question": "What is Shima Iwashita's role in the band Sick Hack?",
       "options": [
-        "Second child",
-        "Little star",
-        "Two voices",
-        "Two people"
+        "Drummer",
+        "Lead guitarist",
+        "Bassist",
+        "Keyboardist"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-shima-iwashita-name-066"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "Who is the leader of the metal band Sideros?",
+      "options": [
+        "Kikuri Hiroi",
+        "Seika Ijichi",
+        "Shima Iwashita",
+        "Yoyoko Ōtsuki"
       ],
       "correct": 3,
       "kind": "character",
       "spoiler": {
-        "arc": 0,
+        "arc": 3,
         "scope": "both"
       },
       "fact_ids": [
-        "bocchi-the-rock-futari-goto-meaning-069"
+        "bocchi-the-rock-yoyoko-otsuki-name-067"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "Which genre does the band Sick Hack play?",
+      "options": [
+        "Visual kei",
+        "Folk pop",
+        "Psychedelic rock",
+        "Hardcore punk"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-kikuri-hiroi-name-059"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
     }

@@ -13,8 +13,8 @@
   "sources": [
     {
       "id": "S1",
-      "title": "Wikipedia: Violet Evergarden",
-      "url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+      "title": "Wikipedia: Violet Evergarden: The Movie",
+      "url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie"
     },
     {
       "id": "S2",
@@ -23,48 +23,48 @@
     },
     {
       "id": "S3",
-      "title": "Wikipedia: Violet Evergarden: The Movie",
-      "url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie"
+      "title": "Wikipedia: Violet Evergarden",
+      "url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
     }
   ],
   "questions": [
     {
-      "question": "What is the only keepsake of Gilbert that Violet keeps?",
+      "question": "On which date did Violet Evergarden: The Movie premiere in Japan?",
       "options": [
-        "A military medal",
-        "A pocket watch",
-        "An emerald brooch",
-        "A silver locket"
-      ],
-      "correct": 2,
-      "kind": "lore",
-      "spoiler": {
-        "arc": 0,
-        "scope": "both"
-      },
-      "fact_ids": [
-        "violet-evergarden-gilbert-bougainvillea-brooch-047"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
-    },
-    {
-      "question": "Who is Gilbert's older brother, a navy captain?",
-      "options": [
-        "Claudia",
-        "Dietfried",
-        "Benedict",
-        "Oscar"
+        "September 6, 2019",
+        "September 18, 2020",
+        "July 4, 2018",
+        "January 10, 2020"
       ],
       "correct": 1,
-      "kind": "character",
+      "kind": "production",
       "spoiler": {
         "arc": 0,
         "scope": "both"
       },
       "fact_ids": [
-        "violet-evergarden-dietfried-bougainvillea-name-051"
+        "violet-evergarden-movie-release-022"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie"
+    },
+    {
+      "question": "Whom does Violet tutor at a girls' boarding school in the side story film?",
+      "options": [
+        "Isabella York",
+        "Charlotte Abelfreyja Drossel",
+        "Anne Magnolia",
+        "Taylor Bartlett"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-eternity-plot-021"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
     },
     {
       "question": "What does the terminally ill Clara Magnolia ask Violet to prepare for her daughter?",
