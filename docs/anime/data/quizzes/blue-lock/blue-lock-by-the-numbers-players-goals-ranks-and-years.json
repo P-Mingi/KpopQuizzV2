@@ -2,14 +2,14 @@
  "site": "anime",
  "account": "oq_creator_22",
  "group_slug": "blue-lock",
- "title": "Blue Lock by the Numbers: Players, Goals, Ranks and Years",
+ "title": "Blue Lock by the Numbers: Years, Episodes, Volumes and Awards",
  "slug": "blue-lock-by-the-numbers-players-goals-ranks-and-years",
- "description": "Ten multiple choice questions where every answer is a number: players, goals, ages, rankings and years. Numbers format. Light spoilers up to the Neo Egoist League.",
+ "description": "Ten multiple choice questions where every answer is a number: years, days, episodes, volumes and award numbers, plus one number from the story. Numbers format. Light spoilers up to the Neo Egoist League.",
  "quiz_type": "multiple_choice",
  "difficulty": "medium",
  "language": "en",
  "title_gives_nothing_away": true,
- "notes": "Numbers format: every option is a number, taken from the story or from the verified series facts.",
+ "notes": "Numbers format: every option is a number, taken from the verified series facts; one question uses a story label (the World's 11).",
  "sources": [
   {
    "id": "S1",
@@ -20,122 +20,127 @@
    "id": "S2",
    "title": "Wikipedia: Blue Lock",
    "url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Blue Lock episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
   }
  ],
  "questions": [
   {
-   "question": "How many players compete in the Blue Lock program at the start of the story?",
+   "question": "How many episodes does the first season of the Blue Lock anime run for?",
    "options": [
-    "500",
-    "300",
-    "200",
-    "100"
+    "12",
+    "13",
+    "24",
+    "26"
    ],
-   "correct": 1,
-   "kind": "lore",
+   "correct": 2,
+   "kind": "episode",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "blue-lock-isagi-300-participants-028"
+    "blue-lock-anime-season-one-008"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
   },
   {
-   "question": "The football association hires Ego after Japan finished in which place at the 2018 World Cup?",
+   "question": "In which year did the Blue Lock anime premiere?",
    "options": [
-    "16th",
-    "4th",
-    "24th",
-    "8th"
+    "2020",
+    "2021",
+    "2022",
+    "2023"
    ],
-   "correct": 0,
-   "kind": "lore",
+   "correct": 2,
+   "kind": "production",
    "spoiler": {
     "arc": 0,
-    "scope": "both"
+    "scope": "anime"
    },
    "fact_ids": [
-    "blue-lock-japan-16th-world-cup-029"
+    "blue-lock-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "At which numbered Kodansha Manga Award did Blue Lock win the shonen prize?",
+   "options": [
+    "The 55th",
+    "The 40th",
+    "The 35th",
+    "The 45th"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "blue-lock-kodansha-award-006"
    ],
    "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
   },
   {
-   "question": "Ego wants Japan to win the full FIFA World Cup of which year?",
+   "question": "In which year did the Blue Lock manga begin in Weekly Shonen Magazine?",
    "options": [
-    "2022",
+    "2016",
+    "2017",
     "2018",
-    "2024",
-    "2030"
-   ],
-   "correct": 0,
-   "kind": "lore",
-   "spoiler": {
-    "arc": 0,
-    "scope": "both"
-   },
-   "fact_ids": [
-    "blue-lock-ego-world-cup-target-030"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
-  },
-  {
-   "question": "Reo Mikage copies his rivals in the U-20 exhibition game with up to what percent accuracy?",
-   "options": [
-    "70 percent",
-    "50 percent",
-    "85 percent",
-    "99 percent"
-   ],
-   "correct": 3,
-   "kind": "character",
-   "spoiler": {
-    "arc": 2,
-    "scope": "both"
-   },
-   "fact_ids": [
-    "blue-lock-reo-copy-99-percent-031"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
-  },
-  {
-   "question": "Nagi is picked among the top how many players of Blue Lock?",
-   "options": [
-    "3",
-    "6",
-    "20",
-    "10"
-   ],
-   "correct": 1,
-   "kind": "character",
-   "spoiler": {
-    "arc": 2,
-    "scope": "both"
-   },
-   "fact_ids": [
-    "blue-lock-nagi-top-6-032"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
-  },
-  {
-   "question": "Ryūsei Shidou comes on as a second-half substitute against Japan U-20. How many goals does he score?",
-   "options": [
-    "4",
-    "1",
-    "2",
-    "3"
+    "2019"
    ],
    "correct": 2,
-   "kind": "character",
+   "kind": "manga",
    "spoiler": {
-    "arc": 2,
-    "scope": "both"
+    "arc": 0,
+    "scope": "manga"
    },
    "fact_ids": [
-    "blue-lock-shidou-two-goals-033"
+    "blue-lock-magazine-start-003"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "question": "In which year did the first season of the Blue Lock anime end?",
+   "options": [
+    "2021",
+    "2022",
+    "2023",
+    "2024"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "The third season of the anime was announced at Blue Lock Egoist Fest in September. On which day?",
+   "options": [
+    "5",
+    "14",
+    "21",
+    "28"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-three-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
   },
   {
    "question": "Sae Itoshi counts among the World's best young players. The group is named for which number?",
@@ -157,61 +162,61 @@
    "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
   },
   {
-   "question": "Ikki Niko makes the new national squad. Where does he stand in the league table when round five closes?",
+   "question": "On which day of October 2022 did the Blue Lock anime premiere?",
    "options": [
-    "5th",
-    "10th",
-    "20th",
-    "15th"
-   ],
-   "correct": 3,
-   "kind": "character",
-   "spoiler": {
-    "arc": 3,
-    "scope": "both"
-   },
-   "fact_ids": [
-    "blue-lock-niko-ranked-15th-037"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
-  },
-  {
-   "question": "Michael Kaiser's signature shot, the Kaiser Impact, comes in how many variations?",
-   "options": [
-    "3",
     "2",
-    "4",
-    "5"
-   ],
-   "correct": 0,
-   "kind": "character",
-   "spoiler": {
-    "arc": 3,
-    "scope": "both"
-   },
-   "fact_ids": [
-    "blue-lock-kaiser-impact-three-forms-035"
-   ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
-  },
-  {
-   "question": "Julian Loki is the youngest Master Striker. How old is he?",
-   "options": [
-    "15",
-    "17",
-    "19",
-    "21"
+    "9",
+    "16",
+    "30"
    ],
    "correct": 1,
-   "kind": "character",
+   "kind": "production",
    "spoiler": {
-    "arc": 3,
-    "scope": "both"
+    "arc": 0,
+    "scope": "anime"
    },
    "fact_ids": [
-    "blue-lock-loki-age-17-036"
+    "blue-lock-anime-season-one-008"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "The first season ended in March. On which day of the month?",
+   "options": [
+    "12",
+    "19",
+    "26",
+    "31"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "In which year was a third season of the Blue Lock anime announced at Blue Lock Egoist Fest?",
+   "options": [
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-three-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
   }
  ]
 }

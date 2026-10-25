@@ -4,7 +4,7 @@
  "group_slug": "dandadan",
  "title": "Voice, Habit, Hint: Dandadan in Three Clues",
  "slug": "voice-habit-hint-dandadan-in-three-clues",
- "description": "Ten guess-from-clues questions. Each starts with the Japanese voice actor, then a habit or trait, then a strong hint; the last one is a season. Light spoilers up to Season 2.",
+ "description": "Ten guess-from-clues questions. Most start with the Japanese voice actor, then a habit or trait, then a strong hint; the last one is a season. Light spoilers up to Season 2.",
  "quiz_type": "guess_from_clues",
  "difficulty": "medium",
  "language": "en",
@@ -236,8 +236,8 @@
   {
    "question": "Who is this character?",
    "clues": [
-    "Manaka Iwami is her Japanese voice.",
-    "She is a strict class representative and a secret fan of vampires.",
+    "She is a strict class representative.",
+    "In private she is a secret fan of vampires.",
     "Her gravity powers are tied to her singing."
    ],
    "options": [
@@ -253,7 +253,6 @@
     "scope": "both"
    },
    "fact_ids": [
-    "dandadan-rin-voice-jp-065",
     "dandadan-rin-class-rep-vampires-066",
     "dandadan-rin-gravity-singing-067"
    ],
