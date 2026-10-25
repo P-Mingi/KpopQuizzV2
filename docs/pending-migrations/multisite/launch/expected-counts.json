@@ -7,8 +7,8 @@
       "loaded": 50
     },
     "facts": {
-      "total": 3473,
-      "loaded": 3316
+      "total": 3483,
+      "loaded": 3325
     },
     "quizzes": {
       "total": 258,
@@ -29,8 +29,8 @@
     "arcs": 364,
     "characters": 998,
     "themes": 704,
-    "trivia": 3290,
-    "entity_sources": 3917,
+    "trivia": 3299,
+    "entity_sources": 4016,
     "creators": 31,
     "quizzes": 258,
     "questions": 2550,
