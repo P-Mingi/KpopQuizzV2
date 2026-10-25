@@ -119,6 +119,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/guess-the-kpop-idol`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/kpop-true-or-false`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/blindtest`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.8 },
+    // SEO Mission 2 (owner, 2026-10-15): every game of the site in one page. lastmod is the day
+    // the page was written; its counts move every day and never bump it (rulebook 9.6).
+    { url: `${SITE_URL}/kpop-games`, lastModified: new Date('2026-10-15'), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${SITE_URL}/stats`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/about`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.4 },
     // SEO Mission 1 (owner, 2026-10-14): the editorial policy and its dated corrections log.
