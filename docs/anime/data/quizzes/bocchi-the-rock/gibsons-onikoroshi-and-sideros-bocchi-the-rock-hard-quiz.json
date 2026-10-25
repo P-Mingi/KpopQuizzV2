@@ -1,0 +1,224 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "bocchi-the-rock",
+  "title": "Bocchi the Rock! Hard Quiz: Gibsons, Onikoroshi and the Bands of Folt",
+  "slug": "gibsons-onikoroshi-and-sideros-bocchi-the-rock-hard-quiz",
+  "description": "Ten hard questions on guitars, bass names, rival bands and the finale song. Spoilers for all twelve episodes.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Hard quiz: late block facts (episodes 8 to 12) and gear details. Spoilers named in the description.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Bocchi the Rock!",
+      "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Kessoku Band (album)",
+      "url": "https://en.wikipedia.org/wiki/Kessoku_Band_(album)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Bocchi the Rock! episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Besides her Gibson Les Paul Custom, which guitar does Hitori later buy?",
+      "options": [
+        "Yamaha Pacifica",
+        "Ibanez RG",
+        "Epiphone Casino",
+        "Fender Stratocaster"
+      ],
+      "correct": 0,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-hitori-goto-guitars-039"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "What does Kikuri call her bass guitar?",
+      "options": [
+        "Kappa Deluxe",
+        "Oni Slayer MK2",
+        "Bacchus Prime",
+        "Shuten-dōji EX"
+      ],
+      "correct": 3,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-kikuri-hiroi-bass-061"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "Which brand of sake does Kikuri spend most of her money on?",
+      "options": [
+        "Hakkaisan",
+        "Onikoroshi",
+        "Dassai",
+        "Kubota"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-kikuri-hiroi-sake-060"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "The members of Sick Hack take their surnames from which real band?",
+      "options": [
+        "Asian Kung-Fu Generation",
+        "Straightener",
+        "88Kasyo Junrei",
+        "Kinniku Shōjo Tai"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-other-bands-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "The members of Sideros take their surnames from which real band?",
+      "options": [
+        "Straightener",
+        "Asian Kung-Fu Generation",
+        "Kinniku Shōjo Tai",
+        "88Kasyo Junrei"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-other-bands-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "The episode 12 ending theme is a cover of a song by which band?",
+      "options": [
+        "Asian Kung-Fu Generation",
+        "Spitz",
+        "Number Girl",
+        "ONE OK ROCK"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-final-cover-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Kessoku_Band_(album)"
+    },
+    {
+      "question": "Which episodes use Karakara as the ending theme?",
+      "options": [
+        "Episodes 4 to 7",
+        "Episodes 5 to 8",
+        "Episodes 3 to 6",
+        "Episodes 2 to 5"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-endings-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes"
+    },
+    {
+      "question": "Which voice actress plays both PA-san and the dog JimiHen?",
+      "options": [
+        "Sayaka Senbongi",
+        "Misaki Watada",
+        "Maaya Uchida",
+        "Kotori Koiwai"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-pa-san-voice-058",
+        "bocchi-the-rock-jimihen-voice-076"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "From which country does Eliza, the guitarist of Sick Hack, originally come?",
+      "options": [
+        "Scotland",
+        "England",
+        "Ireland",
+        "Australia"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-eliza-shimizu-name-063",
+        "bocchi-the-rock-eliza-shimizu-origin-064"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "What does the given name of Hitori's sister Futari mean?",
+      "options": [
+        "Second child",
+        "Little star",
+        "Two voices",
+        "Two people"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-futari-goto-meaning-069"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    }
+  ]
+}

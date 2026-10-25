@@ -1,0 +1,280 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "bocchi-the-rock",
+  "title": "Bocchi the Rock! Characters in Three Clues: Who Is This?",
+  "slug": "bocchi-the-rock-characters-in-three-clues-who-is-this",
+  "description": "Ten characters, three clues each, from the hint that is hard to read to the one that gives it away. Light spoilers up to the last episodes for the final character.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Guess-from-clues format: every clue rests on a cited fact; the character is never named in a clue.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Bocchi the Rock!",
+      "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "Her nickname plays on a Japanese word for being alone.",
+        "Online she goes by a username that sounds like a legend of the strings.",
+        "She wears a pink tracksuit, even over her school uniform."
+      ],
+      "options": [
+        "Ikuyo Kita",
+        "Hitori Gotō",
+        "Nijika Ijichi",
+        "Futari Gotō"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-hitori-goto-name-034",
+        "bocchi-the-rock-hitori-goto-nickname-035",
+        "bocchi-the-rock-hitori-goto-alias-036",
+        "bocchi-the-rock-hitori-goto-tracksuit-038"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She is the leader of the band, and she plays the drums.",
+        "Her big sister runs the live house where the band plays.",
+        "Her kit is a vintage red Tama Imperialstar."
+      ],
+      "options": [
+        "Seika Ijichi",
+        "Nijika Ijichi",
+        "Ryō Yamada",
+        "Shima Iwashita"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-nijika-ijichi-name-042",
+        "bocchi-the-rock-nijika-ijichi-family-043",
+        "bocchi-the-rock-nijika-ijichi-kit-044"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She borrows money all the time because her allowance goes on music gear.",
+        "When she is broke she sometimes eats weeds.",
+        "She plays a white Fender Precision."
+      ],
+      "options": [
+        "Kikuri Hiroi",
+        "Ryō Yamada",
+        "Ikuyo Kita",
+        "PA-san"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-ryo-yamada-name-046",
+        "bocchi-the-rock-ryo-yamada-weeds-047",
+        "bocchi-the-rock-ryo-yamada-bass-048"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She joined the band partly to get close to a certain bassist.",
+        "She does not like her own given name because of how it sounds.",
+        "She sings and plays rhythm guitar."
+      ],
+      "options": [
+        "Hitori Gotō",
+        "Ikuyo Kita",
+        "Nijika Ijichi",
+        "Futari Gotō"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-ikuyo-kita-name-050",
+        "bocchi-the-rock-ikuyo-kita-crush-051",
+        "bocchi-the-rock-ikuyo-kita-given-name-052"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "Her goth look and piercings make people nervous.",
+        "She works the sound desk at Starry.",
+        "Her voice actress also plays the Gotō family dog."
+      ],
+      "options": [
+        "Seika Ijichi",
+        "PA-san",
+        "Shima Iwashita",
+        "Michiyo Gotō"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-pa-san-name-056",
+        "bocchi-the-rock-pa-san-style-057",
+        "bocchi-the-rock-pa-san-voice-058"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She and her sister are named with the numbers one and two.",
+        "She is the outgoing one of the Gotō sisters.",
+        "Her name means two people."
+      ],
+      "options": [
+        "Michiyo Gotō",
+        "Futari Gotō",
+        "Seika Ijichi",
+        "Ikuyo Kita"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-futari-goto-name-068",
+        "bocchi-the-rock-futari-goto-meaning-069"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This family member is a Shiba Inu.",
+        "The name is a short form of a guitar legend's name.",
+        "The voice actress is the same as PA-san's."
+      ],
+      "options": [
+        "Naoki Gotō",
+        "JimiHen",
+        "Futari Gotō",
+        "PA-san"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-jimihen-name-074",
+        "bocchi-the-rock-jimihen-namesake-075",
+        "bocchi-the-rock-jimihen-voice-076"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "His face is never shown on screen.",
+        "He once wanted to make it as a musician himself.",
+        "The guitar he used to play ended up with his daughter."
+      ],
+      "options": [
+        "Michiyo Gotō",
+        "Naoki Gotō",
+        "Kikuri Hiroi",
+        "Jimi Hendrix"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-naoki-goto-name-072",
+        "bocchi-the-rock-naoki-goto-dream-073"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She plays bass and sings for the psychedelic band Sick Hack.",
+        "She spends most of her money on one brand of sake.",
+        "She gave her bass a name taken from a Japanese demon."
+      ],
+      "options": [
+        "Ryō Yamada",
+        "Kikuri Hiroi",
+        "Yoyoko Ōtsuki",
+        "PA-san"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-kikuri-hiroi-name-059",
+        "bocchi-the-rock-kikuri-hiroi-sake-060",
+        "bocchi-the-rock-kikuri-hiroi-bass-061"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She plays guitar in Sick Hack.",
+        "She came to Japan from another country.",
+        "Her voice actress is Sally Amaki."
+      ],
+      "options": [
+        "Shima Iwashita",
+        "Eliza Shimizu",
+        "Ikuyo Kita",
+        "Yoyoko Ōtsuki"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-eliza-shimizu-name-063",
+        "bocchi-the-rock-eliza-shimizu-voice-065"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    }
+  ]
+}

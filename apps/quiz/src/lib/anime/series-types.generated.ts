@@ -7,6 +7,7 @@ export const SERIES_TYPE_BY_SLUG: Readonly<Record<string, string>> = {
   'black-clover': 'anime_manga',
   'bleach': 'anime_manga',
   'blue-lock': 'anime_manga',
+  'bocchi-the-rock': 'anime_manga',
   'chainsaw-man': 'anime_manga',
   'code-geass': 'anime_original',
   'cowboy-bebop': 'anime_original',

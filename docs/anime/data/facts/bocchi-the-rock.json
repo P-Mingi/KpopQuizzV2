@@ -1,0 +1,2372 @@
+[
+  {
+    "id": "bocchi-the-rock-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "title_native",
+    "value": [
+      "ぼっち・ざ・ろっく！",
+      "Botchi Za Rokku!"
+    ],
+    "text": "The Japanese title is written ぼっち・ざ・ろっく！ and read Botchi Za Rokku!, a spelling of the English name that keeps the rock band pun in the sound.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "ぼっち・ざ・ろっく！ ... Botchi Za Rokku!"
+  },
+  {
+    "id": "bocchi-the-rock-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "author",
+    "value": "Aki Hamazi",
+    "text": "Aki Hamazi writes and draws the four panel manga, and the anime was adapted from it.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65235667",
+        "ref": "Q65235667",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bocchi.rocks/tv/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "written and illustrated by Aki Hamazi"
+  },
+  {
+    "id": "bocchi-the-rock-magazine-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "magazine",
+    "value": "Manga Time Kirara Max",
+    "text": "The manga runs in the seinen magazine Manga Time Kirara Max.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bocchi.rocks/tv/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "seinen manga magazine Manga Time Kirara Max"
+  },
+  {
+    "id": "bocchi-the-rock-publisher-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "publisher",
+    "value": "Houbunsha",
+    "text": "Houbunsha publishes the original manga in Japan, and Yen Press brought it to English readers.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65235667",
+        "ref": "Q65235667",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Houbunsha's seinen manga magazine"
+  },
+  {
+    "id": "bocchi-the-rock-manga-start-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "manga_start",
+    "value": "December 19, 2017",
+    "text": "The first chapter appeared on December 19, 2017, as a one-off guest work in Manga Time Kirara Max.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65235667",
+        "ref": "Q65235667",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "serialized in Houbunsha's Manga Time Kirara Max magazine on December 19, 2017, as a guest work"
+  },
+  {
+    "id": "bocchi-the-rock-full-serial-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "serialization",
+    "value": "March 19, 2018",
+    "text": "A full weekly run in Manga Time Kirara Max started a few months after the guest chapter, on March 19, 2018.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "A full serialization started in the same magazine on March 19, 2018"
+  },
+  {
+    "id": "bocchi-the-rock-volumes-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "volumes",
+    "value": 8,
+    "text": "As of November 2025 the manga fills eight tankobon volumes, and the series is still running.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65235667",
+        "ref": "Q65235667",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "collected in eight tankōbon volumes as of November 27, 2025"
+  },
+  {
+    "id": "bocchi-the-rock-anime-start-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "anime_start",
+    "value": "October 9, 2022",
+    "text": "The anime started airing on October 9, 2022, on Tokyo MX and other stations.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+        "ref": "1379446981",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q108230373",
+        "ref": "Q108230373",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The series aired from October 9 to December 25, 2022"
+  },
+  {
+    "id": "bocchi-the-rock-anime-end-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "anime_end",
+    "value": "December 25, 2022",
+    "text": "The twelve episode run ended on December 25, 2022, so it fit into a single autumn season.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=24062",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "aired from October 9 to December 25, 2022, on Tokyo MX"
+  },
+  {
+    "id": "bocchi-the-rock-episodes-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "episodes",
+    "value": 12,
+    "text": "The first season is twelve episodes long, one per week, and the finale aired on Christmas Day 2022.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+        "ref": "1379446981",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q108230373",
+        "ref": "Q108230373",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The anime consists of 12 episodes"
+  },
+  {
+    "id": "bocchi-the-rock-studio-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "anime_studio",
+    "value": "CloverWorks",
+    "text": "CloverWorks animated the TV series, with Aniplex behind the home video releases.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q108230373",
+        "ref": "Q108230373",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bocchi.rocks/tv/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "An anime television series adaptation produced by CloverWorks"
+  },
+  {
+    "id": "bocchi-the-rock-director-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "director",
+    "value": "Keiichirō Saitō",
+    "text": "Keiichirō Saitō directed the first season while Yūsuke Yamamoto worked as assistant director.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bocchi.rocks/tv/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "directed by Keiichirō Saitō, with Yūsuke Yamamoto serving as assistant director"
+  },
+  {
+    "id": "bocchi-the-rock-season-two-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "anime_s2",
+    "value": [
+      "February 15, 2025",
+      "Yūsuke Yamamoto"
+    ],
+    "text": "A second season was announced on February 15, 2025, with former assistant director Yūsuke Yamamoto taking over as director.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2025-02-15/bocchi-the-rock-anime-gets-2nd-season-with-new-director/.221252",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "A second season was announced at Kessoku Band's 'We Will B' live event"
+  },
+  {
+    "id": "bocchi-the-rock-composer-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "composer",
+    "value": [
+      "Tomoki Kikuya",
+      "菊谷知樹"
+    ],
+    "text": "Tomoki Kikuya composed the score of the anime.",
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bocchi.rocks/tv/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Tomoki Kikuya composed the music"
+  },
+  {
+    "id": "bocchi-the-rock-staff-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "anime_staff",
+    "value": [
+      "Erika Yoshida",
+      "Kerorira"
+    ],
+    "text": "Erika Yoshida wrote the series scripts and Kerorira handled the character designs.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bocchi.rocks/tv/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Erika Yoshida wrote the series' scripts, Kerorira designed the characters"
+  },
+  {
+    "id": "bocchi-the-rock-opening-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP: Seishun Complex (Kessoku Band)"
+    ],
+    "text": "The only opening theme of season one is Seishun Complex, performed by the fictional band Kessoku Band, voiced by the main cast.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+        "ref": "1379446981",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Kessoku Band performed the opening theme \"Seishun Complex\""
+  },
+  {
+    "id": "bocchi-the-rock-endings-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED1: Distortion!! (episodes 1 to 3)",
+      "ED2: Karakara (episodes 4 to 7)",
+      "ED3: What Is Wrong With (episodes 8 to 11)",
+      "ED4: Rockn' Roll, Morning Light Falls on You (episode 12)"
+    ],
+    "text": "The ending song changes four times: Distortion!!, Karakara, What Is Wrong With, and a cover of an Asian Kung-Fu Generation song for the finale.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+        "ref": "1379446981",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=24062",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "\"Distortion!!\" for episodes 1 to 3, \"Karakara\" for episodes 4 to 7"
+  },
+  {
+    "id": "bocchi-the-rock-album-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "record",
+    "value": [
+      "December 28, 2022",
+      "14 tracks"
+    ],
+    "text": "The album Kessoku Band, with 14 songs, came out on CD on December 28, 2022, after a digital release three days earlier.",
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kessoku_Band_(album)",
+        "ref": "1379441393",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bocchi.rocks/kessokuband/discography/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "December 25, 2022 (digital), December 28, 2022 (CD format)"
+  },
+  {
+    "id": "bocchi-the-rock-album-rank-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "awards_sales",
+    "value": "Oricon number one, RIAJ platinum",
+    "text": "The Kessoku Band album went straight to the top of the Oricon albums chart and was later certified platinum in Japan.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kessoku_Band_(album)",
+        "ref": "1379441393",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "debuted at number one on the Oricon Albums Chart"
+  },
+  {
+    "id": "bocchi-the-rock-final-cover-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "ending_theme",
+    "value": "Rockn' Roll, Morning Light Falls on You",
+    "text": "The finale's ending song is a cover of an Asian Kung-Fu Generation track, which fits a show whose episode titles borrow from that band.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kessoku_Band_(album)",
+        "ref": "1379441393",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a cover version of Asian Kung-Fu Generation's song"
+  },
+  {
+    "id": "bocchi-the-rock-band-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "name_pun",
+    "value": "Kessoku Band",
+    "text": "The name Kessoku Band literally means zip tie band, and it is also a pun on the idea of a united band.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "lit. 'zip tie', a pun on 'unity band'"
+  },
+  {
+    "id": "bocchi-the-rock-surnames-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "namesake",
+    "value": "Asian Kung-Fu Generation",
+    "text": "The Kessoku Band members borrow their family names from the members of the real band Asian Kung-Fu Generation, and each plays the same kind of instrument.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "derived from the real-life J-rock band Asian Kung-Fu Generation"
+  },
+  {
+    "id": "bocchi-the-rock-other-bands-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "inspiration",
+    "value": [
+      "88Kasyo Junrei",
+      "Kinniku Shōjo Tai"
+    ],
+    "text": "Rival bands also borrow real surnames: Sick Hack takes them from the group 88Kasyo Junrei and Sideros from Kinniku Shōjo Tai.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "share their last names with those of the real-life band 88Kasyo Junrei"
+  },
+  {
+    "id": "bocchi-the-rock-episode-list-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "titles",
+    "value": [
+      "1 Lonely Rolling Bocchi",
+      "2 See You Tomorrow",
+      "3 Be Right There",
+      "4 Jumping Girl(s)",
+      "5 Flightless Fish",
+      "6 Eight Views",
+      "7 To Your House",
+      "8 Bocchi the Rock",
+      "9 Enoshima Escar",
+      "10 After Dark",
+      "11 Duodecimal Sunset",
+      "12 Morning Light Falls on You"
+    ],
+    "text": "The twelve episodes are titled Lonely Rolling Bocchi, See You Tomorrow, Be Right There, Jumping Girl(s), Flightless Fish, Eight Views, To Your House, Bocchi the Rock, Enoshima Escar, After Dark, Duodecimal Sunset and Morning Light Falls on You.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+        "ref": "1379446981",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "1 Lonely Rolling Bocchi, 2 See You Tomorrow, 3 Be Right There, 4 Jumping Girl(s), 5 Flightless Fish"
+  },
+  {
+    "id": "bocchi-the-rock-episode-titles-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "title_origin",
+    "value": "Asian Kung-Fu Generation songs",
+    "text": "Every episode name twists the title of a track by the real rock group Asian Kung-Fu Generation.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes",
+        "ref": "1379446981",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "parodies of songs by the rock band Asian Kung-Fu Generation"
+  },
+  {
+    "id": "bocchi-the-rock-starry-shelter-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "setting",
+    "value": [
+      "Starry",
+      "Shelter",
+      "Shimokitazawa"
+    ],
+    "text": "The live house Starry is based on a real venue called Shelter in the Tokyo district of Shimokitazawa, which saw a wave of fan visits.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "the Shelter live house that Starry is based on"
+  },
+  {
+    "id": "bocchi-the-rock-gear-boom-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "popularity",
+    "value": "Guitars sold out after the anime",
+    "text": "After the anime aired, demand for guitars jumped and models used by the characters went out of stock.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "led to skyrocketing demand for musical instruments, especially guitars"
+  },
+  {
+    "id": "bocchi-the-rock-comiket-line-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "reputation",
+    "value": "Comiket 101",
+    "text": "At Comiket 101 in December 2022 the line at the mangaka's booth grew so long that her wares were sold out by early afternoon.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "formed an excessive line at mangaka Aki Hamazi's booth at Comiket 101"
+  },
+  {
+    "id": "bocchi-the-rock-spin-off-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "spinoff",
+    "value": "Kikuri Hiroi's Heavy-Drinking Diary",
+    "text": "A spin-off manga by Kumichou, titled Kikuri Hiroi's Heavy-Drinking Diary, puts the band's hard-drinking bassist in the lead role.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "features supporting character Kikuri Hiroi as the central protagonist"
+  },
+  {
+    "id": "bocchi-the-rock-stage-play-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "live_action",
+    "value": "Live Stage Bocchi the Rock!",
+    "text": "A stage play version called Live Stage Bocchi the Rock! was performed at the Theater Milano-Za in Tokyo in 2023.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "titled Live Stage 'Bocchi the Rock!', ran from August 11 to 20, 2023"
+  },
+  {
+    "id": "bocchi-the-rock-english-licence-031",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "english_licence",
+    "value": "Yen Press",
+    "text": "Yen Press licensed the manga for English publication, and Crunchyroll streamed the anime outside Asia.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Yen Press announced that they had licensed the manga for English publication"
+  },
+  {
+    "id": "bocchi-the-rock-premise-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "premise",
+    "value": "A socially anxious guitarist joins a band",
+    "text": "The story follows a painfully shy girl who practices guitar alone for years and finally gets pulled into a real band.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "extremely anxious and socially awkward"
+  },
+  {
+    "id": "bocchi-the-rock-next-manga-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "bocchi-the-rock"
+    },
+    "field": "manga_award",
+    "value": "Eighth place at the Next Manga Awards",
+    "text": "In 2019 the manga placed eighth in the print category of the fifth Next Manga Awards.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "ranked eighth at the fifth Next Manga Awards in the print category"
+  },
+  {
+    "id": "bocchi-the-rock-hitori-goto-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "hitori-goto"
+    },
+    "field": "name",
+    "value": [
+      "Hitori Gotō",
+      "後藤 ひとり"
+    ],
+    "text": "Hitori Gotō, nicknamed Bocchi, is the shy lead guitarist and lyricist at the center of the story.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The main protagonist of the series, she is the lead guitarist and lyricist of Kessoku Band"
+  },
+  {
+    "id": "bocchi-the-rock-hitori-goto-nickname-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "hitori-goto"
+    },
+    "field": "nickname",
+    "value": "Bocchi",
+    "text": "Her nickname Bocchi plays on hitoribocchi, a Japanese word for being alone.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Her nickname Bocchi is a reference to hitoribocchi"
+  },
+  {
+    "id": "bocchi-the-rock-hitori-goto-alias-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "hitori-goto"
+    },
+    "field": "epithet",
+    "value": "Guitarhero",
+    "text": "Online she is a small star under the username Guitarhero, even though she cannot make friends in person.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "having a small fanbase online (under the alias 'Guitarhero')"
+  },
+  {
+    "id": "bocchi-the-rock-hitori-goto-taught-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "hitori-goto"
+    },
+    "field": "background",
+    "value": "Self-taught in middle school",
+    "text": "Guitar was self-taught: she started in the first year of middle school, encouraged by her father and a TV interview.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "she taught herself to play the guitar in her first year of middle school"
+  },
+  {
+    "id": "bocchi-the-rock-hitori-goto-tracksuit-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "hitori-goto"
+    },
+    "field": "style",
+    "value": "Pink tracksuit",
+    "text": "She is usually dressed in a pink tracksuit, which she even wears over her school uniform.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "She is usually seen wearing a pink tracksuit"
+  },
+  {
+    "id": "bocchi-the-rock-hitori-goto-guitars-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "hitori-goto"
+    },
+    "field": "ability",
+    "value": [
+      "Gibson Les Paul Custom",
+      "Yamaha Pacifica"
+    ],
+    "text": "Her main guitar is an ebony Gibson Les Paul Custom, and she later buys a black Yamaha Pacifica.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "She plays an Ebony Gibson Les Paul Custom electric guitar"
+  },
+  {
+    "id": "bocchi-the-rock-hitori-goto-surname-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "hitori-goto"
+    },
+    "field": "name_origin",
+    "value": "Masafumi Gotoh",
+    "text": "Her surname comes from Masafumi Gotoh, the vocalist of Asian Kung-Fu Generation.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Her surname comes from Masafumi Gotoh"
+  },
+  {
+    "id": "bocchi-the-rock-hitori-goto-voice-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "hitori-goto"
+    },
+    "field": "voice_cast",
+    "value": "Yoshino Aoyama",
+    "text": "Yoshino Aoyama voices Hitori in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bocchi.rocks/tv/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voiced by: Yoshino Aoyama"
+  },
+  {
+    "id": "bocchi-the-rock-nijika-ijichi-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "nijika-ijichi"
+    },
+    "field": "name",
+    "value": [
+      "Nijika Ijichi",
+      "伊地知 虹夏"
+    ],
+    "text": "Nijika Ijichi is the cheerful drummer who founds Kessoku Band and keeps it together.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The drummer and leader of Kessoku Band"
+  },
+  {
+    "id": "bocchi-the-rock-nijika-ijichi-family-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "nijika-ijichi"
+    },
+    "field": "background",
+    "value": "Younger sister of Seika",
+    "text": "Nijika's big sister Seika is the boss of Starry, the venue the band keeps returning to, and the girls lost their mother young.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Her older sister, Seika, runs the live house where they often play"
+  },
+  {
+    "id": "bocchi-the-rock-nijika-ijichi-kit-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "nijika-ijichi"
+    },
+    "field": "ability",
+    "value": "Tama Imperialstar drum kit",
+    "text": "Nijika drums on a Tama Imperialstar kit in vintage red.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "She plays a Vintage Red Tama Imperialstar drum kit"
+  },
+  {
+    "id": "bocchi-the-rock-nijika-ijichi-voice-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "nijika-ijichi"
+    },
+    "field": "voice_cast",
+    "value": "Sayumi Suzushiro",
+    "text": "Sayumi Suzushiro voices Nijika in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bocchi.rocks/tv/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voiced by: Sayumi Suzushiro"
+  },
+  {
+    "id": "bocchi-the-rock-ryo-yamada-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "ryo-yamada"
+    },
+    "field": "name",
+    "value": [
+      "Ryō Yamada",
+      "山田 リョウ"
+    ],
+    "text": "Ryō Yamada is the cool, aloof bassist and composer of the band.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The bassist, composer and backup vocalist of Kessoku Band"
+  },
+  {
+    "id": "bocchi-the-rock-ryo-yamada-weeds-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "ryo-yamada"
+    },
+    "field": "habits",
+    "value": "Eats weeds when broke",
+    "text": "She spends her allowance on music gear, so she borrows money and sometimes even eats weeds.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "leading her to constantly borrow money and even eat weeds"
+  },
+  {
+    "id": "bocchi-the-rock-ryo-yamada-bass-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "ryo-yamada"
+    },
+    "field": "ability",
+    "value": "Fender Precision bass",
+    "text": "Ryō's bass is a white Fender Precision.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "She plays an Olympic White Fender Precision bass"
+  },
+  {
+    "id": "bocchi-the-rock-ryo-yamada-voice-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "ryo-yamada"
+    },
+    "field": "voice_cast",
+    "value": "Saku Mizuno",
+    "text": "Saku Mizuno voices Ryō in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bocchi.rocks/tv/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voiced by: Saku Mizuno"
+  },
+  {
+    "id": "bocchi-the-rock-ikuyo-kita-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "ikuyo-kita"
+    },
+    "field": "name",
+    "value": [
+      "Ikuyo Kita",
+      "喜多 郁代"
+    ],
+    "text": "Ikuyo Kita sings and plays rhythm guitar in Kessoku Band, and she is the outgoing, popular one of the group.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The lead vocalist and rhythm guitarist of Kessoku Band"
+  },
+  {
+    "id": "bocchi-the-rock-ikuyo-kita-crush-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "ikuyo-kita"
+    },
+    "field": "motivation",
+    "value": "Wanted to be near Ryo",
+    "text": "She first joined because she had a crush on Ryō, then fled after bluffing about how well she plays guitar.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "She initially joined Kessoku Band to get closer to Ryō"
+  },
+  {
+    "id": "bocchi-the-rock-ikuyo-kita-given-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "ikuyo-kita"
+    },
+    "field": "name_meaning",
+    "value": "Sounds like a cheer",
+    "text": "She dislikes her given name because it sounds like a phrase meaning I am here, let us go.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "it phonetically sounds the same as"
+  },
+  {
+    "id": "bocchi-the-rock-ikuyo-kita-voice-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "ikuyo-kita"
+    },
+    "field": "voice_cast",
+    "value": "Ikumi Hasegawa",
+    "text": "Ikumi Hasegawa voices Ikuyo in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bocchi.rocks/tv/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voiced by: Ikumi Hasegawa"
+  },
+  {
+    "id": "bocchi-the-rock-seika-ijichi-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "seika-ijichi"
+    },
+    "field": "name",
+    "value": [
+      "Seika Ijichi",
+      "伊地知 星歌"
+    ],
+    "text": "Seika Ijichi is Nijika's older sister and the manager of the live house Starry.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Nijika's older sister and the manager of Starry"
+  },
+  {
+    "id": "bocchi-the-rock-seika-ijichi-voice-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "seika-ijichi"
+    },
+    "field": "voice_cast",
+    "value": "Maaya Uchida",
+    "text": "Maaya Uchida voices Seika in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voiced by: Maaya Uchida"
+  },
+  {
+    "id": "bocchi-the-rock-pa-san-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "pa-san"
+    },
+    "field": "name",
+    "value": [
+      "PA-san",
+      "PAさん"
+    ],
+    "text": "PA-san is the nameless sound engineer of Starry, who looks intimidating but is kind.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The unnamed public address system engineer of Starry"
+  },
+  {
+    "id": "bocchi-the-rock-pa-san-style-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "pa-san"
+    },
+    "field": "style",
+    "value": "Goth style and piercings",
+    "text": "Her goth look and piercings make her seem scary, but she has a kind nature.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Her intimidating goth style and piercings belie her kind nature"
+  },
+  {
+    "id": "bocchi-the-rock-pa-san-voice-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "pa-san"
+    },
+    "field": "voice_cast",
+    "value": "Kotori Koiwai",
+    "text": "Kotori Koiwai voices PA-san and also the family dog JimiHen.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voiced by: Kotori Koiwai"
+  },
+  {
+    "id": "bocchi-the-rock-kikuri-hiroi-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "kikuri-hiroi"
+    },
+    "field": "name",
+    "value": [
+      "Kikuri Hiroi",
+      "廣井 きくり"
+    ],
+    "text": "Kikuri Hiroi is the bassist and vocalist of the psychedelic rock band Sick Hack.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The bassist and vocalist of Sick Hack"
+  },
+  {
+    "id": "bocchi-the-rock-kikuri-hiroi-sake-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "kikuri-hiroi"
+    },
+    "field": "habits",
+    "value": "Onikoroshi sake",
+    "text": "She spends most of her money on alcohol, especially boxes of Onikoroshi sake.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "particularly boxes of Onikoroshi brand sake"
+  },
+  {
+    "id": "bocchi-the-rock-kikuri-hiroi-bass-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "kikuri-hiroi"
+    },
+    "field": "specialty",
+    "value": "Shuten-dōji EX",
+    "text": "Kikuri's bass has a name of its own, Shuten-dōji EX, borrowed from a demon of Japanese legend.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "She calls her bass guitar 'Shuten-dōji EX.'"
+  },
+  {
+    "id": "bocchi-the-rock-kikuri-hiroi-voice-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "kikuri-hiroi"
+    },
+    "field": "voice_cast",
+    "value": "Sayaka Senbongi",
+    "text": "Sayaka Senbongi voices Kikuri in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voiced by: Sayaka Senbongi"
+  },
+  {
+    "id": "bocchi-the-rock-eliza-shimizu-name-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "eliza-shimizu"
+    },
+    "field": "name",
+    "value": [
+      "Eliza Shimizu",
+      "清水 イライザ"
+    ],
+    "text": "Eliza Shimizu is the English born guitarist of Sick Hack.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The guitarist of Sick Hack who originally came from England"
+  },
+  {
+    "id": "bocchi-the-rock-eliza-shimizu-origin-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "eliza-shimizu"
+    },
+    "field": "origin",
+    "value": "England",
+    "text": "Eliza is not from Japan: she came over from England meaning to visit Comiket and join an anime cover band.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "who originally came from England"
+  },
+  {
+    "id": "bocchi-the-rock-eliza-shimizu-voice-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "eliza-shimizu"
+    },
+    "field": "voice_cast",
+    "value": "Sally Amaki",
+    "text": "Sally Amaki voices Eliza in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voiced by: Sally Amaki"
+  },
+  {
+    "id": "bocchi-the-rock-shima-iwashita-name-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "shima-iwashita"
+    },
+    "field": "name",
+    "value": [
+      "Shima Iwashita",
+      "岩下 志麻"
+    ],
+    "text": "Shima Iwashita is the drummer of Sick Hack.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The drummer of Sick Hack"
+  },
+  {
+    "id": "bocchi-the-rock-yoyoko-otsuki-name-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "yoyoko-otsuki"
+    },
+    "field": "name",
+    "value": [
+      "Yoyoko Ōtsuki",
+      "大槻 ヨヨコ"
+    ],
+    "text": "Yoyoko Ōtsuki leads the metal band Sideros and is obsessed with rankings.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The guitarist, vocalist and leader of Sideros"
+  },
+  {
+    "id": "bocchi-the-rock-futari-goto-name-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "futari-goto"
+    },
+    "field": "name",
+    "value": [
+      "Futari Gotō",
+      "後藤 ふたり"
+    ],
+    "text": "Futari Gotō is Hitori's outgoing younger sister.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Hitori's younger sister"
+  },
+  {
+    "id": "bocchi-the-rock-futari-goto-meaning-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "futari-goto"
+    },
+    "field": "name_meaning",
+    "value": "Two people",
+    "text": "Her given name Futari means two people, set against her big sister's name Hitori, which means one person.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "translates to two people while her sister's means one person"
+  },
+  {
+    "id": "bocchi-the-rock-futari-goto-voice-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "futari-goto"
+    },
+    "field": "voice_cast",
+    "value": "Misaki Watada",
+    "text": "Misaki Watada voices Futari in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voiced by: Misaki Watada"
+  },
+  {
+    "id": "bocchi-the-rock-michiyo-goto-name-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "michiyo-goto"
+    },
+    "field": "name",
+    "value": [
+      "Michiyo Gotō",
+      "後藤 美智代"
+    ],
+    "text": "Michiyo Gotō is Hitori's gentle mother, who accepts her daughter's anxiety.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Hitori's mother"
+  },
+  {
+    "id": "bocchi-the-rock-naoki-goto-name-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "naoki-goto"
+    },
+    "field": "name",
+    "value": [
+      "Naoki Gotō",
+      "後藤 直樹"
+    ],
+    "text": "Naoki Gotō is Hitori's father, whose face is never shown on screen.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Hitori's father, whose face is never shown"
+  },
+  {
+    "id": "bocchi-the-rock-naoki-goto-dream-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "naoki-goto"
+    },
+    "field": "background",
+    "value": "Dreamed of music",
+    "text": "Naoki once wanted to make it as a musician too, and his old guitar eventually passed to Hitori.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "dreamed of becoming a successful musician"
+  },
+  {
+    "id": "bocchi-the-rock-jimihen-name-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "jimihen"
+    },
+    "field": "name",
+    "value": [
+      "JimiHen",
+      "ジミヘン"
+    ],
+    "text": "JimiHen is the Gotō family's pet Shiba Inu.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The family's Shiba Inu pet dog"
+  },
+  {
+    "id": "bocchi-the-rock-jimihen-namesake-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "jimihen"
+    },
+    "field": "namesake",
+    "value": "Jimi Hendrix",
+    "text": "The family dog is named after the guitarist Jimi Hendrix.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "named after Jimi Hendrix"
+  },
+  {
+    "id": "bocchi-the-rock-jimihen-voice-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bocchi-the-rock",
+      "ref": "jimihen"
+    },
+    "field": "voice_cast",
+    "value": "Kotori Koiwai",
+    "text": "The dog shares a voice actress with PA-san, Kotori Koiwai.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+        "ref": "1381243071",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voiced by: Kotori Koiwai"
+  }
+]
