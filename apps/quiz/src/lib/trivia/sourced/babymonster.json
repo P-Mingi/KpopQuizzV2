@@ -1,0 +1,353 @@
+{
+  "version": 1,
+  "group": "babymonster",
+  "reviewed": "2026-10-15",
+  "wikipedia": "https://en.wikipedia.org/wiki/Babymonster",
+  "officialSite": "https://ygfamily.com/ko/artists/babymonster/main",
+  "wikidata": "Q115967938",
+  "members": [
+    "Ruka",
+    "Pharita",
+    "Asa",
+    "Ahyeon",
+    "Rami",
+    "Rora",
+    "Chiquita"
+  ],
+  "groupsData": {
+    "name": "BABYMONSTER",
+    "generation": "5th Gen",
+    "memberCount": 7,
+    "readAt": "2026-10-15"
+  },
+  "facts": [
+    {
+      "id": "babymonster-members",
+      "level": "easy",
+      "question": "How many members are in BABYMONSTER?",
+      "answer": "Seven",
+      "text": "BABYMONSTER has seven members: Ruka, Pharita, Asa, Ahyeon, Rami, Rora and Chiquita.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q115967938",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "BABYMONSTER"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-agency",
+      "level": "easy",
+      "question": "Which company formed BABYMONSTER?",
+      "answer": "YG Entertainment",
+      "text": "BABYMONSTER is a girl group formed by YG Entertainment.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q115967938",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "BABYMONSTER"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-debut-ep",
+      "level": "easy",
+      "question": "Which EP marked the official debut of BABYMONSTER as seven members?",
+      "answer": "Babymons7er",
+      "text": "BABYMONSTER made their official debut as a full ensemble on April 1, 2024, with the EP Babymons7er.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-batter-up",
+      "level": "easy",
+      "question": "What was the first single BABYMONSTER released, in November 2023?",
+      "answer": "Batter Up",
+      "text": "BABYMONSTER released their first single, Batter Up, on November 27, 2023, before their official debut.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-drip",
+      "level": "medium",
+      "question": "What is the name of the first BABYMONSTER studio album?",
+      "answer": "Drip",
+      "text": "BABYMONSTER released their first studio album, Drip, on November 1, 2024.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-we-go-up",
+      "level": "medium",
+      "question": "What was the second EP released by BABYMONSTER, in 2025?",
+      "answer": "We Go Up",
+      "text": "In 2025, BABYMONSTER released their second EP, We Go Up, and began the Hello Monsters World Tour.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-baemon",
+      "level": "medium",
+      "question": "Which short nickname is BABYMONSTER also known by?",
+      "answer": "Baemon",
+      "text": "BABYMONSTER is also referred to as Baemon, a syllable abbreviation of the group's name.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-last-evaluation",
+      "level": "medium",
+      "question": "Which reality show chronicled how BABYMONSTER was formed?",
+      "answer": "Last Evaluation",
+      "text": "The 2023 reality show Last Evaluation chronicled the selection process that formed BABYMONSTER.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-forever",
+      "level": "medium",
+      "question": "Which BABYMONSTER single was pre-released on July 1, 2024?",
+      "answer": "Forever",
+      "text": "Forever, a digital single for the first BABYMONSTER studio album, was pre-released on July 1, 2024.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-blackpink-name",
+      "level": "hard",
+      "question": "Which YG girl group once had BABYMONSTER among its possible names?",
+      "answer": "BLACKPINK",
+      "text": "Babymonster was one of many names first considered for BLACKPINK, and YG Entertainment trademarked it for BABYMONSTER in 2020.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-batter-up-writers",
+      "level": "hard",
+      "question": "Which AKMU member co-wrote the BABYMONSTER single Batter Up?",
+      "answer": "Lee Chan-hyuk",
+      "text": "Batter Up by BABYMONSTER was co-written by YG labelmates Lee Chan-hyuk of AKMU and Choi Hyun-suk of TREASURE.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-rookie-of-the-month",
+      "level": "hard",
+      "question": "Which Billboard monthly title did BABYMONSTER earn in July 2024?",
+      "answer": "K-Pop Rookie of the Month",
+      "text": "Billboard named BABYMONSTER its K-Pop Rookie of the Month for July 2024.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/music/pop/babymonster-kpop-rookie-of-the-month-july-2024-forever-1235743065/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "How BABYMONSTER Showcase Their 'Monster-Like Skills' On & Off the Stage"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-rec-dream",
+      "level": "records",
+      "question": "Which pre-debut BABYMONSTER single debuted at No. 1 on Billboard's Hot Trending Songs chart?",
+      "answer": "Dream",
+      "text": "Dream, a pre-debut single by BABYMONSTER released in May 2023, debuted at No. 1 on Billboard's Hot Trending Songs chart.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/music/chart-beat/babymonster-dream-number-one-hot-trending-songs-1235334704/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "BABYMONSTER Premieres Atop Hot Trending Songs Chart With 'DREAM'"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-rec-sheesh",
+      "level": "records",
+      "question": "Which BABYMONSTER single was the group's first top 10 on the Circle Digital Chart?",
+      "answer": "Sheesh",
+      "text": "Sheesh, the lead single of Babymons7er, became the first BABYMONSTER top 10 entry on South Korea's Circle Digital Chart.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-rec-drip-200",
+      "level": "records",
+      "question": "Which BABYMONSTER album was the group's first entry on the Billboard 200?",
+      "answer": "Drip",
+      "text": "Drip by BABYMONSTER entered the Billboard 200 at No. 149 on the chart dated November 16, 2024, the group's first entry on that chart.",
+      "sources": [
+        {
+          "url": "https://www.billboard.com/artist/babymonster/chart-history/tlp/",
+          "type": "billboard",
+          "publisher": "Billboard",
+          "title": "BABYMONSTER Chart History: Billboard 200"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "babymonster-rec-drip-single",
+      "level": "records",
+      "question": "Which BABYMONSTER title track was the group's second top 10 hit in South Korea?",
+      "answer": "Drip",
+      "text": "The title track of the BABYMONSTER album Drip became the group's second top 10 hit in South Korea.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Babymonster",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Babymonster"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    }
+  ]
+}

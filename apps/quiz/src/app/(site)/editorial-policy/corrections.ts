@@ -25,6 +25,12 @@ export const CORRECTIONS: readonly Correction[] = [
     what: 'The roles printed on results (such as "main dancer" or "the youngest") came from an unsourced list. Each page now lists the members and public roles that Wikidata and Wikipedia agree on, with both sources linked. Heeseung (ENHYPEN) and Danielle (NewJeans) are no longer given as results: both sources list them as former members.',
   },
   {
+    date: '2026-10-15',
+    page: 'Trivia for BTS, aespa, IVE, ILLIT, BABYMONSTER and Cortis',
+    href: '/trivia',
+    what: 'These six trivia pages no longer show fun facts taken from fan-made quizzes. They are now question and answer banks in which every answer was checked against its source (Billboard, Wikipedia, Wikidata or an official site) and links to it.',
+  },
+  {
     date: '2026-10-14',
     page: 'BTS trivia',
     href: '/bts-trivia',
