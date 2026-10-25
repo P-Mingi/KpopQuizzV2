@@ -1,0 +1,2720 @@
+[
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "title_native",
+    "value": [
+      "転生したらスライムだった件",
+      "Tensei Shitara Suraimu Datta Ken"
+    ],
+    "text": "That Time I Got Reincarnated as a Slime is the English title of 転生したらスライムだった件, read Tensei Shitara Suraimu Datta Ken, which fans shorten to TenSura.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime",
+        "ref": "1381575839",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://ncode.syosetu.com/n6316bn/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Japanese: 転生したらスライムだった件, Hepburn: Tensei Shitara Suraimu Datta Ken"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "author",
+    "value": [
+      "Fuse",
+      "伏瀬"
+    ],
+    "text": "Fuse wrote the story of the series, first as a web novel and then as light novels.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime",
+        "ref": "1381575839",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22100530",
+        "ref": "Q22100530",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://ncode.syosetu.com/n6316bn/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a Japanese fantasy light novel series written by Fuse"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-web-novel-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "novel_run",
+    "value": [
+      "February 20, 2013",
+      "January 1, 2016",
+      "Shōsetsuka ni Narō"
+    ],
+    "text": "Fuse posted the story online on Shōsetsuka ni Narō from February 20, 2013, to January 1, 2016.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime",
+        "ref": "1381575839",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://ncode.syosetu.com/n6316bn/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "between February 20, 2013, and January 1, 2016"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-light-novel-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "novel",
+    "value": [
+      "Micro Magazine",
+      "GC Novels",
+      "May 30, 2014"
+    ],
+    "text": "Micro Magazine printed the first light novel under its GC Novels label on May 30, 2014.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime",
+        "ref": "1381575839",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22100530",
+        "ref": "Q22100530",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Original run: May 30, 2014 to November 29, 2025"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-volumes-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "volumes",
+    "value": 23,
+    "text": "The light novels run to 23 main volumes, plus two extra ones.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime",
+        "ref": "1381575839",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22100530",
+        "ref": "Q22100530",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Volumes: 23 + 2 extra"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-illustrator-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "artist",
+    "value": [
+      "Mitz Vah",
+      "みっつばー"
+    ],
+    "text": "Mitz Vah illustrates the light novels, and the official anime site credits the original characters to this artist.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime",
+        "ref": "1381575839",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.ten-sura.com/anime/tensura/staffcast",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "illustrated by Mitz Vah"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-manga-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "manga_start",
+    "value": [
+      "Taiki Kawakami",
+      "Monthly Shōnen Sirius",
+      "March 26, 2015"
+    ],
+    "text": "Taiki Kawakami launched the main manga in Monthly Shōnen Sirius on March 26, 2015.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime",
+        "ref": "1381575839",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q61779948",
+        "ref": "Q61779948",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.ten-sura.com/anime/tensura/staffcast",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "launched a manga adaptation in Kodansha's shōnen manga magazine Monthly Shōnen Sirius on March 26, 2015"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-manga-volumes-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "manga_volumes",
+    "value": 33,
+    "text": "As of October 2026, the main manga has 33 volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime",
+        "ref": "1381575839",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q61779948",
+        "ref": "Q61779948",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Volumes: 33"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-spinoffs-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "spinoff",
+    "value": [
+      "Shō Okagiri",
+      "Shiba",
+      "Tae Tono"
+    ],
+    "text": "Spin-off manga include The Ways of the Monster Nation by Shō Okagiri, The Slime Diaries by Shiba and Trinity in Tempest by Tae Tono.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime",
+        "ref": "1381575839",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "with art by Shō Okagiri, was serialized in Micro Magazine's Comic Ride web magazine"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-anime-s1-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "anime_s1",
+    "value": [
+      "October 2018",
+      "March 2019",
+      "24 episodes"
+    ],
+    "text": "The first season ran 24 episodes from October 2018 to March 2019.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20736",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q61779950",
+        "ref": "Q61779950",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The first season ran for 24 episodes"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-anime-s2-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "anime_s2",
+    "value": [
+      "January 2021",
+      "September 2021",
+      "24 episodes in two parts"
+    ],
+    "text": "The second season came in two parts of 12 episodes, in January to March 2021 and in July to September 2021.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23358",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=24212",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the first half aired from January 12 to March 30, 2021"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-anime-s3-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "anime_s3",
+    "value": [
+      "April 2024",
+      "September 2024",
+      "24 episodes"
+    ],
+    "text": "The third season aired 24 episodes between April and September 2024 on Nippon TV and its affiliates.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=26553",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "aired from April 5 to September 27, 2024"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-anime-s4-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "anime_s4",
+    "value": [
+      "April 2026",
+      "September 2026",
+      "five cours"
+    ],
+    "text": "The fourth season is planned as five cours, and the first two aired from April to September 2026, with 24 episodes so far.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=33626",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The fourth season is set to premiere 5 cours"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-anime-s4-next-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "anime_seasons",
+    "value": "July 2027",
+    "text": "As of October 25, 2026, the third cour of the fourth season is scheduled for July 2027.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=40578",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The third cour is set to premiere in July 2027"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-studio-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "anime_studio",
+    "value": [
+      "Eight Bit",
+      "エイトビット"
+    ],
+    "text": "Eight Bit animates the TV anime, the films and the spin-offs.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.ten-sura.com/anime/tensura/staffcast",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Produced by Eight Bit"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-director-now-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "director",
+    "value": [
+      "Naokatsu Tsuda",
+      "津田尚克"
+    ],
+    "text": "Naokatsu Tsuda directs the fourth season of the anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.ten-sura.com/anime/tensura/staffcast",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Naokatsu Tsuda (S4)"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-director-first-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "studio_director",
+    "value": [
+      "Yasuhito Kikuchi",
+      "Atsushi Nakayama"
+    ],
+    "text": "Yasuhito Kikuchi directed the first season, and Atsushi Nakayama directed the second and third seasons.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Yasuhito Kikuchi (S1)"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-composition-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "staff",
+    "value": [
+      "Kazuyuki Fudeyasu",
+      "Toshizo Nemoto",
+      "Hitomi Ogawa"
+    ],
+    "text": "Kazuyuki Fudeyasu handled the series composition of seasons one and two, Toshizo Nemoto season three and Hitomi Ogawa season four.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.ten-sura.com/anime/tensura/staffcast",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Kazuyuki Fudeyasu (S1 to 2)"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-film-1-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "film",
+    "value": [
+      "Scarlet Bond",
+      "November 25, 2022"
+    ],
+    "text": "The first film, Scarlet Bond, premiered in Japan on November 25, 2022.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q113841116",
+        "ref": "Q113841116",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=24754",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "premiered in Japan on November 25, 2022"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-film-2-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "films",
+    "value": [
+      "Tears of the Azure Sea",
+      "February 27, 2026"
+    ],
+    "text": "The second film, Tears of the Azure Sea, premiered on February 27, 2026.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=34556",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "premiered on February 27, 2026"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-coleus-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "shorts",
+    "value": [
+      "Visions of Coleus",
+      "Eight Bit"
+    ],
+    "text": "Visions of Coleus is a short net animation spin-off, also made by Eight Bit, and it uses the same staff as the second season.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "A three-episode original net animation (ONA) series, titled Visions of Coleus"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-premise-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "premise",
+    "value": [
+      "Satoru Mikami",
+      "Rimuru Tempest"
+    ],
+    "text": "Satoru Mikami, a salaryman, is stabbed to death in Tokyo and reborn in a fantasy world as a slime called Rimuru Tempest.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a salaryman who is murdered and reincarnated in a fantasy world as a powerful slime named Rimuru Tempest"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-satoru-age-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "age",
+    "value": 37,
+    "text": "Before his death, Satoru Mikami is a 37-year-old office worker living in Tokyo.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "an ordinary 37-year-old corporate worker living in Tokyo"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-predator-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "power",
+    "value": [
+      "Predator",
+      "Great Sage"
+    ],
+    "text": "Rimuru gains the skill Predator, which lets him devour anything and copy its looks and abilities, together with the skill Great Sage.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the ability called \"Predator\", which allows them to devour anything and mimic its appearance and skills"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-veldora-seal-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "record",
+    "value": [
+      "Veldora",
+      "300 years"
+    ],
+    "text": "Veldora, the Storm Dragon, has been sealed in a cave for 300 years when Rimuru finds him.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "who has been sealed for the last 300 years"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-names-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "name_origin",
+    "value": [
+      "Rimuru",
+      "Tempest"
+    ],
+    "text": "The slime gets the name Rimuru from Veldora and gives the dragon the family name Tempest in return.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Veldora bestows upon them the name Rimuru, and he receives the surname Tempest in return"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-orc-war-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "mission",
+    "value": [
+      "Disaster Geld",
+      "Jura Tempest Federation"
+    ],
+    "text": "Rimuru beats the Orc Lord Disaster Geld, which leads to the founding of the Jura Tempest Federation.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "He defeats the orc Disaster Geld, absorbing his sins"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-ogres-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "organization",
+    "value": [
+      "Benimaru",
+      "Shuna",
+      "Shion",
+      "Souei",
+      "Kurobe"
+    ],
+    "text": "Rimuru meets the survivors of a ruined ogre village and names them Benimaru, Shuna, Shion, Souei and Kurobe.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "whom he names Benimaru, Shuna, Shion, Souei and Kurobe"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-ogre-count-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "debut",
+    "value": 6,
+    "text": "Benimaru leads six ogre survivors when he first meets Rimuru.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "leading the six ogre survivors for revenge"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-students-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "role",
+    "value": "five Otherworlder students",
+    "text": "To keep the last wish of Shizue, Rimuru travels to Ingracia to teach five Otherworlder students.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "to teach her five \"Otherworlder\" students"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-megiddo-031",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "powers",
+    "value": [
+      "20,000",
+      "Megiddo"
+    ],
+    "text": "Rimuru destroys the 20,000 strong army of Falmuth with the spell Megiddo and becomes a demon lord.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "He annihilates the 20,000-strong Falmuth army with the spell \"Megiddo\""
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-octagram-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "epithet",
+    "value": [
+      "Octagram",
+      "Ten Great Demon Lords"
+    ],
+    "text": "After Clayman is beaten, the Ten Great Demon Lords are restructured as the Octagram.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the \"Ten Great Demon Lords\" are restructured into the Octagram"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-labyrinth-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "setting",
+    "value": [
+      "100 floors",
+      "Labyrinth"
+    ],
+    "text": "In season three Rimuru opens a Labyrinth of 100 floors, managed by Veldora and Ramiris.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "He introduces the 100-floor Labyrinth"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-western-peace-034",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "treasure",
+    "value": [
+      "Hinata Sakaguchi",
+      "Luminous"
+    ],
+    "text": "The second duel between Rimuru and Hinata ends when the True Demon Lord Luminous Valentine steps in, leading to a peace treaty.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the True Demon Lord Luminous Valentine intervenes, leading to a peace treaty"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-yuuki-maribel-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "motivation",
+    "value": [
+      "Yuuki Kagurazaka",
+      "Maribel"
+    ],
+    "text": "Yuuki turns on Maribel, the granddaughter of Granville, and kills her, then claims the Demon Lords did it.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Yuuki betrays and kills her"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-chronoa-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "reputation",
+    "value": [
+      "Chronoa",
+      "Chloe"
+    ],
+    "text": "The True Hero Chronoa is the personification of the rage and grief of Chloe, who traveled countless times to the past.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Chronoa is revealed to the personification of Chloe's rage and grief"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-arcs-early-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "arcs_a",
+    "value": [
+      "Season 1: episodes 1 to 24",
+      "Season 2 Part 1: episodes 25 to 36",
+      "Season 2 Part 2: episodes 37 to 48"
+    ],
+    "text": "The first season fills episodes 1 to 24 and the second season, in two parts, episodes 25 to 48.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes",
+        "ref": "1376771977",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Season 1 | 24 | Season 2 | 12 | 12"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-arcs-late-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "arcs_b",
+    "value": [
+      "Season 3: episodes 49 to 72",
+      "Season 4 Part 1: episodes 73 to 84",
+      "Season 4 Part 2: episodes 85 to 96"
+    ],
+    "text": "The third season fills episodes 49 to 72, and the first two cours of the fourth fill episodes 73 to 96.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes",
+        "ref": "1376771977",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Season 3 | 24 | Season 4"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-openings-039",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP1: Nameless Story (Takuma Terashima)",
+      "OP2: Megurumono (Takuma Terashima)",
+      "OP3: Storyteller (TRUE)",
+      "OP4: Like Flames (MindaRyn)",
+      "OP5: Peacekeeper (Stereo Dive Foundation)",
+      "OP6: Renacer Serenade (Momoiro Clover Z)",
+      "OP7: Esoragoto (Eir Aoi)",
+      "OP8: Tactic (Daoko)"
+    ],
+    "text": "The eight openings of the TV anime go from Nameless Story by Takuma Terashima to Tactic by Daoko.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20736",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=33626",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.ten-sura.com/anime/tensura/staffcast",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Opening theme | Artist | Ending theme"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-endings-040",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED1: Another Colony (TRUE)",
+      "ED2: Little Soldier (Azusa Tadokoro)",
+      "ED3: Storyseeker (Stereo Dive Foundation)",
+      "ED4: Reincarnate (Takuma Terashima)",
+      "ED5: Believer (Rin Kurusu)",
+      "ED6: Miracle Soup (MindaRyn)",
+      "ED7: Katsubo (CiON)",
+      "ED8: Hymnal (Azusa Tadokoro)"
+    ],
+    "text": "The eight endings start with Another Colony by TRUE and finish, for now, with Hymnal by Azusa Tadokoro.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20736",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=33626",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.ten-sura.com/anime/tensura/staffcast",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Another Colony | Little Soldier | Hymnal"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "rimuru-tempest"
+    },
+    "field": "name",
+    "value": [
+      "Rimuru Tempest",
+      "リムル・テンペスト"
+    ],
+    "text": "Rimuru Tempest is the slime form of Satoru Mikami and is technically genderless, though usually taken as male.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Though considered male, Rimuru is technically genderless"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "veldora-tempest"
+    },
+    "field": "name",
+    "value": [
+      "Veldora Tempest",
+      "ヴェルドラ"
+    ],
+    "text": "Veldora Tempest is the Storm Dragon, one of four original True Dragons and a Catastrophe-level threat.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "One of the four original True Dragons, the \"Storm Dragon\""
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "gobta"
+    },
+    "field": "name",
+    "value": [
+      "Gobta",
+      "ゴブタ"
+    ],
+    "text": "Gobta is a hobgoblin who heads the goblin riders and has real talent with the sword.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the leader of goblin riders"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "ranga"
+    },
+    "field": "name",
+    "value": [
+      "Ranga",
+      "嵐牙"
+    ],
+    "text": "Ranga is the dire wolf who first meets Rimuru while raiding the goblin village.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a dire wolf who first encounters Rimuru when raiding the goblin village"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "benimaru"
+    },
+    "field": "name",
+    "value": [
+      "Benimaru",
+      "紅丸"
+    ],
+    "text": "Benimaru is an ogre prince, and after being named he evolves into a kijin, a rare ogre that looks more human.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "evolves into Kijin, a rare type of ogre with a more human-like appearance"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "shion"
+    },
+    "field": "name",
+    "value": [
+      "Shion",
+      "紫苑"
+    ],
+    "text": "Shion is one of the six ogre survivors and becomes Rimuru's self-appointed secretary.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "One of the six survivors of the ogre village"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "shuna"
+    },
+    "field": "name",
+    "value": [
+      "Shuna",
+      "朱菜"
+    ],
+    "text": "Shuna, the sister of Benimaru, is skilled at sewing clothes and teaches goblins her craft.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "good at making clothes and teaches her skills to the goblins"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "souei"
+    },
+    "field": "name",
+    "value": [
+      "Souei",
+      "蒼影"
+    ],
+    "text": "Souei is a friend of Benimaru and one of the six ogre survivors.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "He is a friend of Benimaru"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "kurobe"
+    },
+    "field": "name",
+    "value": [
+      "Kurobe",
+      "黒兵衛"
+    ],
+    "text": "Kurobe is the ogre blacksmith, and he forges most of Tempest's tools with Kaijin.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "He and Kaijin make up most of Tempest's tools and weapon manufacturing"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "geld"
+    },
+    "field": "name",
+    "value": [
+      "Geld",
+      "ゲルド"
+    ],
+    "text": "Geld is an orc, the Orc Lord's son and one of his bodyguards, who bears no grudge against Rimuru.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "doesn't bear a grudge towards Rimuru for defeating him"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "gabil"
+    },
+    "field": "name",
+    "value": [
+      "Gabil",
+      "ガビル"
+    ],
+    "text": "Gabil is the lizardman chieftain's son who is pushed by Laplace to fight the Orc Lord.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Ignorant, he is spurred by Laplace to fight the Orc Lord himself"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "milim-nava"
+    },
+    "field": "name",
+    "value": [
+      "Milim Nava",
+      "ミリム・ナーヴァ"
+    ],
+    "text": "Milim Nava is the daughter of the True Dragon Veldanava, which makes her the niece of Veldora.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "daughter of the True Dragon Veldanava, making her Veldora and Velzard's niece"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "ramiris"
+    },
+    "field": "name",
+    "value": [
+      "Ramiris",
+      "ラミリス"
+    ],
+    "text": "Ramiris is among the oldest True Demon Lords and reincarnates whenever she dies.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "reincarnates whenever she perishes"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "shizue-izawa"
+    },
+    "field": "name",
+    "value": [
+      "Shizue Izawa",
+      "井沢 静江"
+    ],
+    "text": "Shizue Izawa, nicknamed Shizu, was summoned during the bombing of Tokyo.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "summoned into this world during the Bombing of Tokyo"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "hinata-sakaguchi"
+    },
+    "field": "name",
+    "value": [
+      "Hinata Sakaguchi",
+      "ヒナタ・サカグチ"
+    ],
+    "text": "Hinata Sakaguchi is a former student of Shizu who works as a knight for the Western Holy Empire.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "former student of Shizu"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "diablo"
+    },
+    "field": "name",
+    "value": [
+      "Diablo",
+      "ディアヴロ"
+    ],
+    "text": "Diablo is one of seven Primordial Demons, known as Noir, and he is Rimuru's strongest subordinate.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "one of the seven Primordial Demons, known as \"Noir\""
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "clayman"
+    },
+    "field": "name",
+    "value": [
+      "Clayman",
+      "クレイマン"
+    ],
+    "text": "Clayman is a deathman Demon Lord known as the Marionette Master who leads the Moderate Harlequin Alliance.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "He is the leader of the Moderate Harlequin Alliance"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "luminous-valentine"
+    },
+    "field": "name",
+    "value": [
+      "Luminous Twilight Valentine",
+      "ルミナス・バレンタイン"
+    ],
+    "text": "Luminous Twilight Valentine is a vampire and one of the oldest True Demon Lords, with the epithet Queen of Nightmares.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "known by the epithet \"Queen of Nightmares\""
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "masayuki"
+    },
+    "field": "name",
+    "value": [
+      "Masayuki Rudra Nam Ul Nasca",
+      "マサユキ・ルドラ・ナム・ウル・ナスカ"
+    ],
+    "text": "Masayuki Rudra Nam Ul Nasca is an Otherworlder emperor of the Eastern Empire, also known as the hero Lightspeed Masayuki.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the emperor of the Eastern Empire and a legendary historic figure"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-character-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "yuuki-kagurazaka"
+    },
+    "field": "name",
+    "value": [
+      "Yuuki Kagurazaka",
+      "ユウキ カグラザカ"
+    ],
+    "text": "Yuuki Kagurazaka is an Otherworlder who runs the Freedom Academy as its grandmaster.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The grandmaster of the Freedom Academy"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-rimuru-voice-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "rimuru-tempest"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Miho Okasaki",
+      "Brittney Karbowski"
+    ],
+    "text": "Rimuru is voiced by Miho Okasaki in Japanese and by Brittney Karbowski in English.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.ten-sura.com/anime/tensura/staffcast",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Voiced by: Miho Okasaki (Rimuru), Takuma Terashima (Satoru) (Japanese)"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-rimuru-demon-lord-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "rimuru-tempest"
+    },
+    "field": "record",
+    "value": "Demon Lord",
+    "text": "Rimuru learns that becoming a demon lord lets him bring back his fallen friends, and so he evolves into a true demon lord.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "he can resurrect them by becoming a demon lord"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-veldora-voice-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "veldora-tempest"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Tomoaki Maeno",
+      "Chris Rager"
+    ],
+    "text": "Veldora is voiced by Tomoaki Maeno in Japanese and by Chris Rager in English.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Voiced by: Tomoaki Maeno (Japanese); Chris Rager (English)"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-gobta-riders-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "gobta"
+    },
+    "field": "role",
+    "value": "goblin riders",
+    "text": "Gobta commands the goblin riders and, despite his goofy looks, can bring down a huge monster with his sword.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "enough to take down a big monster"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-ranga-star-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "ranga"
+    },
+    "field": "power",
+    "value": "Tempest Star Wolf",
+    "text": "After he is named, Ranga evolves into a Tempest Star Wolf using his skill Death Storm.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "evolved further as Tempest Star Wolf after using his skill 'Death Storm'"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-benimaru-prince-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "benimaru"
+    },
+    "field": "background",
+    "value": "ogre prince",
+    "text": "Benimaru, an ogre prince, attacks Rimuru by mistake while hunting those who destroyed his village.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "whose village was decimated by orcs"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-shion-cook-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "shion"
+    },
+    "field": "habits",
+    "value": "terrible cook",
+    "text": "Shion is a poor cook who loves to hug Rimuru and competes with Shuna for his attention.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "is also a terrible cook"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-shion-death-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "shion"
+    },
+    "field": "record",
+    "value": "killed in the attack on Tempest",
+    "text": "Shion dies during the surprise attack on Tempest, which pushes Rimuru toward becoming a demon lord.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Devastated by the death of Shion and many citizens"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-shuna-title-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "shuna"
+    },
+    "field": "title",
+    "value": "Holy Princess",
+    "text": "Rimuru gave Shuna the title Holy Princess.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Rimuru gave her the title \"Holy Princess\""
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-souei-title-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "souei"
+    },
+    "field": "title",
+    "value": "Spy",
+    "text": "After the Orc Lord fell, Rimuru gave Souei the title Spy.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Rimuru gave him the title \"Spy\""
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-kurobe-title-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "kurobe"
+    },
+    "field": "title",
+    "value": "Blacksmith",
+    "text": "Kurobe has the title Blacksmith, which Rimuru gave him.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "given the title of \"Blacksmith\" by Rimuru"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-geld-title-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "geld"
+    },
+    "field": "occupation",
+    "value": "High Orc commander",
+    "text": "Geld evolves into a High Orc and commands the army of Tempest.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "evolved into a High Orc"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-gabil-spear-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "gabil"
+    },
+    "field": "treasure",
+    "value": "Vortex Spear",
+    "text": "Gabil is entrusted with his father's Vortex Spear before he becomes a winged dragonewt.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "entrusted with his father's Vortex Spear"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-milim-destroyer-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "milim-nava"
+    },
+    "field": "epithet",
+    "value": "Destroyer",
+    "text": "Milim is called the Destroyer, a Catastrophe-level Demon Lord whose power is destruction itself.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "known as the \"Destroyer\""
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-milim-food-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "milim-nava"
+    },
+    "field": "motivation",
+    "value": "food and friendship",
+    "text": "Rimuru tames Milim with food and friendship when she arrives in Tempest seeking excitement.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Rimuru \"tames\" her with food and friendship"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-ramiris-labyrinth-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "ramiris"
+    },
+    "field": "epithet",
+    "value": "Labyrinth Master",
+    "text": "Ramiris, the Labyrinth Master, controls a hidden dimension and later runs her labyrinth as an attraction.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "known by the epithet \"Labyrinth Master\""
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-shizue-ifrit-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "shizue-izawa"
+    },
+    "field": "title",
+    "value": "Conqueror of Flames",
+    "text": "Shizue is called the Conqueror of Flames after the fire spirit Ifrit is bound to her.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "she gained the title \"Conqueror of Flames\""
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-hinata-ambush-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "hinata-sakaguchi"
+    },
+    "field": "record",
+    "value": "ambush of Rimuru",
+    "text": "Hinata ambushes Rimuru on his way back from Ingracia, believing that he killed Shizu.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "ambushed by the holy knight Hinata Sakaguchi"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-diablo-noir-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "diablo"
+    },
+    "field": "nickname",
+    "value": "Noir",
+    "text": "Diablo is one of the Primordial Demons called Noir and swears loyalty to Rimuru after being summoned.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "is one of the seven Primordial Demons, known as \"Noir\""
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-clayman-marionette-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "clayman"
+    },
+    "field": "epithet",
+    "value": "Marionette Master",
+    "text": "Clayman is called the Marionette Master because he manipulates others from behind the scenes.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "known as the \"Marionette Master\""
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-luminous-queen-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "luminous-valentine"
+    },
+    "field": "public_identity",
+    "value": "maid",
+    "text": "Luminous hides as a maid while ruling the Western Holy Empire in secret, until Veldora exposes her at Walpurgis.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "while she herself is disguised as a maid"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-masayuki-hero-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "masayuki"
+    },
+    "field": "epithet",
+    "value": "Chosen Hero",
+    "text": "Rimuru befriends the Chosen Hero Masayuki when he opens the Labyrinth.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "befriends the \"Chosen Hero\" Masayuki"
+  },
+  {
+    "id": "that-time-i-got-reincarnated-as-a-slime-yuuki-academy-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+      "ref": "yuuki-kagurazaka"
+    },
+    "field": "organization",
+    "value": "Freedom Academy",
+    "text": "Yuuki is the guild creator of the Western nations and the grandmaster of the Freedom Academy.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
+        "ref": "1381889048",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the Western Nations' guild creator and \"Otherworlder\" Yuuki Kagurazaka"
+  }
+]
