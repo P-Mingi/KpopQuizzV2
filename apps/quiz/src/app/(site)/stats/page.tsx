@@ -5,6 +5,7 @@ import { Mascot } from '@/components/ui/mascot';
 import { getSiteStats, getQuizScoreExtremes } from '@/lib/db/queries/stats';
 import { getFandomWarMap } from '@/lib/db/queries/community';
 import { safeFetch } from '@/lib/error-handling';
+import { atLeast } from '@/lib/stats/site-stats';
 import { CiteLicence } from '@/components/cite/cite-licence';
 import { DATA_LICENCE } from '@/lib/seo/org';
 
@@ -153,10 +154,13 @@ export default async function StatsPage(): Promise<React.ReactElement> {
   const asOf = formatDate(stats.updatedAt);
   const topFandom = warMap[0] ?? null;
 
-  const heroCards: Array<{ label: string; value: number; icon: React.ReactElement; accent: string }> = [
+  // The play count grows every hour: it is written with the shared floor, atLeast() ("79,000+"),
+  // never a K rounding, so the number on the page is always true and the nightly crawl agrees
+  // with it (SEO rulebook, section 4; owner, 2026-10-25).
+  const heroCards: Array<{ label: string; value: number; shown?: string; icon: React.ReactElement; accent: string }> = [
     { label: 'Quizzes', value: stats.totalQuizzes, icon: <IconQuiz />, accent: 'var(--brand)' },
     { label: 'Songs', value: stats.totalSongs, icon: <IconMusic />, accent: '#7c5cfc' },
-    { label: 'Total plays', value: stats.totalPlays, icon: <IconPlay />, accent: '#f59e0b' },
+    { label: 'Total plays', value: stats.totalPlays, shown: atLeast(stats.totalPlays), icon: <IconPlay />, accent: '#f59e0b' },
     { label: 'Groups', value: stats.totalGroups, icon: <IconUsers />, accent: '#10b981' },
     { label: 'Generations', value: stats.generationsCovered, icon: <IconStar />, accent: '#f472b6' },
   ];
@@ -165,7 +169,7 @@ export default async function StatsPage(): Promise<React.ReactElement> {
     '@context': 'https://schema.org',
     '@type': 'Dataset',
     name: 'KpopQuiz Platform Statistics',
-    description: `Live statistics from kpopquiz.org: ${stats.totalQuizzes} published quizzes, ${stats.totalSongs} blind test songs and ${formatNumber(stats.totalPlays)} quiz plays.`,
+    description: `Live statistics from kpopquiz.org: ${stats.totalQuizzes} published quizzes, ${stats.totalSongs} blind test songs and ${atLeast(stats.totalPlays)} quiz plays.`,
     url: 'https://kpopquiz.org/stats',
     creator: {
       '@type': 'Organization',
@@ -247,7 +251,7 @@ export default async function StatsPage(): Promise<React.ReactElement> {
           KpopQuiz hosts {stats.totalQuizzes.toLocaleString('en-US')} fan-made quizzes
           and {stats.totalSongs.toLocaleString('en-US')} blind test songs
           covering {stats.totalGroups} K-pop groups across {stats.generationsCovered} generations
-          (1st through 5th). The platform has recorded {formatNumber(stats.totalPlays)} total
+          (1st through 5th). The platform has recorded {atLeast(stats.totalPlays)} total
           plays since launch, with new quizzes added daily by the community.
         </p>
       </div>
@@ -261,7 +265,7 @@ export default async function StatsPage(): Promise<React.ReactElement> {
             style={{ animationDelay: `${i * 80}ms` }}
           >
             <span className="stats-card-icon" style={{ color: card.accent }}>{card.icon}</span>
-            <span className="stats-card-value">{formatNumber(card.value)}</span>
+            <span className="stats-card-value">{card.shown ?? formatNumber(card.value)}</span>
             <span className="stats-card-label">{card.label}</span>
           </div>
         ))}

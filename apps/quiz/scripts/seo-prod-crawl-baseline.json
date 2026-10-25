@@ -4,15 +4,16 @@
     "The crawl fails only on findings NOT listed here. An entry whose page was graded and no longer shows the finding is printed as \"fixed, remove from baseline\".",
     "RULE: entries may only be REMOVED. Never add one without the owner's OK, and never to make a red run green.",
     "Key: rule|where|detail, exactly as the crawler prints it under each new finding. Every key sits under its own check type.",
-    "Seeded on 2026-10-15 from one complete crawl of production (736 sitemap URLs, 150 discovered links, 14 legacy URLs, the www host)."
+    "Seeded on 2026-10-15 from one complete crawl of production (736 sitemap URLs, 150 discovered links, 14 legacy URLs, the www host).",
+    "Refreshed on 2026-10-25 with the owner's OK (\"mets sa liste de reference a jour avec main\"), from two complete crawls after #102 to #127: 18 fixed entries removed, 14 findings added to their families (counts that moved with the data, new pages, the 410s of #102); /stats now writes its play count with atLeast() instead of a key that would move every day."
   ],
   "counts": [
     {
-      "reason": "count definition mismatch on group lists: the home picker and /groups A to Z show 93 groups and /groups says 46 with a quiz, the stats function counts 95 groups and 47 with a published quiz; owner decision pending",
+      "reason": "count definition mismatch on group lists: the home picker and /groups A to Z show 94 groups and /groups says 47 with a quiz, the stats function counts 96 groups and 48 with a published quiz (crawl of 2026-10-25); owner decision pending",
       "keys": [
-        "counts|/|body: 93 groups",
-        "counts|/groups|body: 46 groups",
-        "counts|/groups|body: 93 groups"
+        "counts|/|body: 94 groups",
+        "counts|/groups|body: 47 groups",
+        "counts|/groups|body: 94 groups"
       ]
     },
     {
@@ -26,16 +27,14 @@
         "counts|/fr/blind-test-kpop|JSON-LD: 83 groupes",
         "counts|/es/adivina-la-cancion-kpop|body: 83 listas de grupos",
         "counts|/es/adivina-la-cancion-kpop|body: 83 grupos",
-        "counts|/es/adivina-la-cancion-kpop|JSON-LD: 83 grupos"
+        "counts|/es/adivina-la-cancion-kpop|JSON-LD: 83 grupos",
+        "counts|/kpop-games|body: 83 groups"
       ]
     },
     {
       "reason": "/stats and /pt/stats round with K (73.9K plays, 4.3K songs, which rounds 4,281 up), not with atLeast() or exact(); fix pending",
       "keys": [
-        "counts|/stats|body: 73.9K total plays",
         "counts|/stats|body: 4.3K Songs",
-        "counts|/stats|body: 73.9K Total plays",
-        "counts|/stats|JSON-LD: 73.9K quiz plays",
         "counts|/pt/stats|body: 73.9K jogadas",
         "counts|/pt/stats|body: 4.3K Musicas",
         "counts|/pt/stats|body: 73.9K Jogadas"
@@ -55,8 +54,7 @@
       "reason": "counts typed into article copy (4,000 songs, 87 groups) are stale against the stats function; fix pending (fillStats tokens)",
       "keys": [
         "counts|/articles/kpop-blind-test-guide|body: 4,000 songs",
-        "counts|/articles/kpop-blind-test-guide|body: 87+ groups",
-        "counts|/articles/kpop-eras-timeline|body: 87 groups"
+        "counts|/articles/kpop-blind-test-guide|body: 87+ groups"
       ]
     }
   ],
@@ -91,7 +89,6 @@
         "description|/articles/kpop-blind-test-by-group-ranked|over 160",
         "description|/articles/hardest-kpop-groups-to-memorize|over 160",
         "description|/articles/best-kpop-quizzes-for-beginners|over 160",
-        "description|/articles/kpop-eras-timeline|over 160",
         "description|/articles/newjeans-fan-guide|over 160",
         "description|/articles/guess-the-kpop-idol-guide|over 160",
         "description|/articles/bts-discography-guide|over 160",
@@ -113,7 +110,9 @@
         "description|/q/who-said-it-snsd-version|under 120",
         "description|/q/how-well-do-you-know-about-bts-as-a-army|under 120",
         "description|/q/a-pretty-hard-itzy-quiz|under 120",
-        "description|/q/-nct-find-the-intruder|under 120"
+        "description|/q/-nct-find-the-intruder|under 120",
+        "description|/q/nct-basics-oct-2026|under 120",
+        "description|/q/who-is-known-as-the-face-of-kpop|under 120"
       ]
     },
     {
@@ -149,6 +148,12 @@
         "description|/u/multistancookie|under 120",
         "description|/u/hii|under 120"
       ]
+    },
+    {
+      "reason": "profile pages: the generated description (\"{name}'s K-pop quizzes on KpopQuiz. N quizzes created, N total plays.\") is under 120 characters for a creator with few quizzes; template fix pending",
+      "keys": [
+        "description|/u/crisu|under 120"
+      ]
     }
   ],
   "dash": [
@@ -173,6 +178,13 @@
         "dash|/blindtest/group-fifty-fifty|visible text",
         "dash|/blindtest/group-nct-127|visible text"
       ]
+    },
+    {
+      "reason": "creator-written quiz text with em dashes (the fun facts of /q/exo-songs, shown again on /exo-trivia); owner decision pending: normalize at render",
+      "keys": [
+        "dash|/q/exo-songs|visible text",
+        "dash|/exo-trivia|visible text"
+      ]
     }
   ],
   "noindex": [
@@ -181,7 +193,9 @@
       "keys": [
         "noindex|/blindtest/ranked|noindex",
         "noindex|/community|noindex",
-        "noindex|/live|noindex"
+        "noindex|/live|noindex",
+        "noindex|/blindtest/leaderboard|noindex",
+        "noindex|/join|noindex"
       ]
     },
     {
@@ -193,16 +207,9 @@
   ],
   "redirect": [
     {
-      "reason": "owner decision pending: REFONTE P1 sends these URLs to /quizzes (next.config.ts); rulebook 9.4 wants an exact successor or a 410",
+      "reason": "retired rankings URLs answer 410 since #102 (owner, 2026-10-18) before the next.config redirect to the group hub runs; owner decision pending: drop the dead redirect or the expectation",
       "keys": [
-        "redirect|/games/sort-it|generic",
-        "redirect|/tier-list/new|generic"
-      ]
-    },
-    {
-      "reason": "owner decision pending: middleware.ts sends unknown URLs 301 to the home page; rulebook 9.3 wants a real 404",
-      "keys": [
-        "redirect|/zz-seo-nightly-probe-not-a-page|expected HTTP 404"
+        "redirect|/rankings/bts/members|not one redirect: none"
       ]
     }
   ],
@@ -229,7 +236,6 @@
         "jsonld|/data/knowledge-report-2026|Dataset name: K-pop Knowledge Report #: figures, queries and sample siz",
         "jsonld|/stats|Dataset name: KpopQuiz Platform Statistics",
         "jsonld|/stats|WebPage name: K-pop Quiz Statistics #",
-        "jsonld|/data/pulse|CollectionPage name: Monthly K-pop Pulse",
         "jsonld|/data/pulse|Dataset name: K-pop Pulse: September #",
         "jsonld|/data/pulse|Dataset name: K-pop Pulse: August #",
         "jsonld|/data/pulse|Dataset name: K-pop Pulse: July #"
@@ -284,27 +290,24 @@
         "jsonld|/ive-quiz|ItemList name: Ways to play IVE on KpopQuiz",
         "jsonld|/girls-generation-quiz|ItemList name: Ways to play Girls' Generation on KpopQuiz",
         "jsonld|/illit-quiz|ItemList name: Ways to play ILLIT on KpopQuiz",
-        "jsonld|/mamamoo-quiz|ItemList name: Ways to play MAMAMOO on KpopQuiz"
+        "jsonld|/mamamoo-quiz|ItemList name: Ways to play MAMAMOO on KpopQuiz",
+        "jsonld|/lngshot-quiz|ItemList name: Ways to play Lngshot on KpopQuiz"
       ]
     },
     {
       "reason": "trivia pages: the JSON-LD headline \"{Group} Trivia - N Fun Facts\" differs from the visible H1; template fix pending",
       "keys": [
-        "jsonld|/babymonster-trivia|Article headline: BABYMONSTER Trivia - # Fun Facts",
         "jsonld|/enhypen-trivia|Article headline: ENHYPEN Trivia - # Fun Facts",
         "jsonld|/exo-trivia|Article headline: EXO Trivia - # Fun Facts",
         "jsonld|/got7-trivia|Article headline: GOT# Trivia - # Fun Facts",
         "jsonld|/stray-kids-trivia|Article headline: Stray Kids Trivia - # Fun Facts",
-        "jsonld|/bts-trivia|Article headline: BTS Trivia - # Fun Facts",
         "jsonld|/red-velvet-trivia|Article headline: Red Velvet Trivia - # Fun Facts",
         "jsonld|/seventeen-trivia|Article headline: SEVENTEEN Trivia - # Fun Facts",
         "jsonld|/blackpink-trivia|Article headline: BLACKPINK Trivia - # Fun Facts",
         "jsonld|/shinee-trivia|Article headline: SHINee Trivia - # Fun Facts",
         "jsonld|/g-i-dle-trivia|Article headline: (G)I-DLE Trivia - # Fun Facts",
         "jsonld|/loona-trivia|Article headline: LOONA Trivia - # Fun Facts",
-        "jsonld|/cortis-trivia|Article headline: Cortis Trivia - # Fun Facts",
         "jsonld|/katseye-trivia|Article headline: KATSEYE Trivia - # Fun Facts",
-        "jsonld|/aespa-trivia|Article headline: aespa Trivia - # Fun Facts",
         "jsonld|/txt-trivia|Article headline: TXT Trivia - # Fun Facts",
         "jsonld|/ateez-trivia|Article headline: ATEEZ Trivia - # Fun Facts",
         "jsonld|/le-sserafim-trivia|Article headline: LE SSERAFIM Trivia - # Fun Facts",
@@ -314,9 +317,8 @@
         "jsonld|/newjeans-trivia|Article headline: NewJeans Trivia - # Fun Facts",
         "jsonld|/nct-trivia|Article headline: NCT Trivia - # Fun Facts",
         "jsonld|/itzy-trivia|Article headline: ITZY Trivia - # Fun Facts",
-        "jsonld|/ive-trivia|Article headline: IVE Trivia - # Fun Facts",
-        "jsonld|/illit-trivia|Article headline: ILLIT Trivia - # Fun Facts",
-        "jsonld|/mamamoo-trivia|Article headline: MAMAMOO Trivia - # Fun Facts"
+        "jsonld|/mamamoo-trivia|Article headline: MAMAMOO Trivia - # Fun Facts",
+        "jsonld|/nct-127-trivia|Article headline: NCT # Trivia - # Fun Facts"
       ]
     },
     {
