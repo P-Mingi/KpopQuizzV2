@@ -6,8 +6,11 @@
 //   npx tsx scripts/daily-bank/simulate.mts [--from 2026-10-16] [--days 110] [--null-far-future] <lot.json> [...]
 //
 // --null-far-future simulates the lot SQL's first statement: the leftover rows dated 2029 and
-// later lose their date, so the rotation pulls them before the lot's dated rows.
+// later lose their date, so the rotation pulls them before the lot's dated rows. Kpop only: the
+// open bank rows and the groups are kpopquiz.org's (src/lib/daily-bank/kpop-scope.ts), the
+// rotation of kpopquiz.org's quiz of the day.
 
+import { kpopGroups, kpopOpenBank } from '../../src/lib/daily-bank/kpop-scope';
 import { rotateQotd } from '../../src/lib/ux-v1/p1/qotd-rotation';
 
 import { loadLots, readClient } from './lib.mts';
@@ -30,12 +33,10 @@ async function main(): Promise<void> {
   const files = process.argv.slice(2).filter((a, i, all) => a.endsWith('.json') && !['--from', '--days'].includes(all[i - 1] ?? ''));
 
   const db = readClient();
-  const { data: open, error } = await db.from('quiz_bank').select('id, title, group_id, category, scheduled_date, status').in('status', ['verified', 'scheduled']);
-  if (error) throw new Error(error.message);
-  const { data: groups } = await db.from('groups').select('id, slug');
-  const idOf = new Map(((groups ?? []) as Array<{ id: number; slug: string }>).map((g) => [g.slug, g.id]));
+  const [open, groups] = await Promise.all([kpopOpenBank(db), kpopGroups(db)]);
+  const idOf = new Map(groups.map((g) => [g.slug, g.id]));
 
-  const rows: Row[] = ((open ?? []) as Array<Row>).map((r) => ({
+  const rows: Row[] = open.map((r) => ({
     ...r,
     scheduled_date: nullFar && r.scheduled_date && r.scheduled_date >= '2029-01-01' ? null : r.scheduled_date,
     published: false,

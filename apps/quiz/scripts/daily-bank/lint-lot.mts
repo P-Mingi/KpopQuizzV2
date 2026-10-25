@@ -8,10 +8,14 @@
 //   domain and never a forbidden one, no em or en dash, no quoted text in a music question,
 //   no forbidden word, a unique title within 45 characters that is not "{group} quiz", a
 //   real group slug, the schedule (no gap, no duplicate date, no same group or category two
-//   days running, at most 3 quizzes of a group in 7 days), and duplicates against the 100+
-//   bank quizzes and every published quiz (normalized text).
+//   days running, also against the bank rows the day before and the day after the lot, at most
+//   3 quizzes of a group in 7 days), and duplicates against the 100+
+//   bank quizzes and every published quiz (normalized text). Kpop only: the groups, bank rows
+//   and published quizzes it reads are kpopquiz.org's (src/lib/daily-bank/kpop-scope.ts).
 
-import { fetchAll, loadLots, norm, readClient } from './lib.mts';
+import { kpopLintContext } from '../../src/lib/daily-bank/kpop-scope';
+
+import { loadLots, norm, readClient } from './lib.mts';
 
 import type { LotQuiz, McQuestion, TfQuestion } from './lib.mts';
 
@@ -88,12 +92,7 @@ async function main(): Promise<void> {
   if (files.length === 0) throw new Error('usage: lint-lot.mts <lot.json> [...]');
   const lot = loadLots(files).sort((a, b) => a.scheduled_date.localeCompare(b.scheduled_date));
 
-  const db = readClient();
-  const [groups, bank, quizzes] = await Promise.all([
-    fetchAll<{ id: number; slug: string; name: string }>((f, t) => db.from('groups').select('id, slug, name').range(f, t)),
-    fetchAll<{ title: string; questions: Array<{ question?: string }> }>((f, t) => db.from('quiz_bank').select('title, questions').range(f, t)),
-    fetchAll<{ title: string; questions: Array<{ question?: string }> }>((f, t) => db.from('quizzes').select('title, questions').eq('status', 'published').order('id').range(f, t)),
-  ]);
+  const { groups, bank, quizzes } = await kpopLintContext(readClient());
   const slugs = new Map(groups.map((g) => [g.slug, g]));
   const seenTitles = new Set([...bank, ...quizzes].map((q) => norm(q.title)));
   const seenTopics = [...bank, ...quizzes].map((q) => ({ title: q.title, words: topicWords(q.title) }));
@@ -173,7 +172,17 @@ async function main(): Promise<void> {
     }
   }
 
-  // Schedule.
+  // Schedule. The kpop bank row on the day before the lot and the day after it count too: the
+  // first day of a lot follows the last day of the previous one.
+  const idToSlug = new Map(groups.map((g) => [g.id, g.slug]));
+  const live = bank.filter((b) => b.status !== 'draft' && b.scheduled_date);
+  for (const [day, mine, side] of [[addDays(lot[0]!.scheduled_date, -1), lot[0]!, 'before'], [addDays(lot.at(-1)!.scheduled_date, 1), lot.at(-1)!, 'after']] as const) {
+    const next = live.find((b) => b.scheduled_date === day);
+    if (!next) continue;
+    const slug = next.group_id != null ? idToSlug.get(next.group_id) ?? null : null;
+    if (mine.group_slug && mine.group_slug === slug) err(mine.scheduled_date, `same group as the bank row the day ${side} (${day}, ${next.title})`);
+    if (mine.category === next.category) err(mine.scheduled_date, `same category as the bank row the day ${side} (${day}, ${next.title})`);
+  }
   for (let i = 1; i < lot.length; i++) {
     const a = lot[i - 1]!; const b = lot[i]!;
     if (b.scheduled_date === a.scheduled_date) err(b.scheduled_date, 'two quizzes on one date');
