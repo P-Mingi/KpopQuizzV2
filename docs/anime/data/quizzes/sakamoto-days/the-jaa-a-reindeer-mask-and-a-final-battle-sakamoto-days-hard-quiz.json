@@ -24,40 +24,40 @@
   ],
   "questions": [
     {
-      "question": "On which date did the manga begin its final battle?",
+      "question": "On which date did the Sakamoto Days manga begin its serialization?",
       "options": [
+        "November 21, 2020",
+        "December 26, 2019",
         "January 11, 2025",
-        "August 4, 2025",
-        "April 29, 2026",
-        "November 21, 2020"
+        "April 2, 2021"
       ],
-      "correct": 1,
+      "correct": 0,
       "kind": "manga",
       "spoiler": {
-        "arc": 3,
+        "arc": 0,
         "scope": "manga"
       },
       "fact_ids": [
-        "sakamoto-days-final-battle-019"
+        "sakamoto-days-manga-start-006"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
     },
     {
-      "question": "On which date was it announced that the series was heading to its climax?",
+      "question": "How many episodes did the first season of the anime run for across its two cours?",
       "options": [
-        "December 26, 2019",
-        "August 4, 2025",
-        "October 30, 2026",
-        "July 21, 2026"
+        "22",
+        "24",
+        "13",
+        "26"
       ],
-      "correct": 3,
-      "kind": "manga",
+      "correct": 0,
+      "kind": "production",
       "spoiler": {
-        "arc": 3,
-        "scope": "manga"
+        "arc": 0,
+        "scope": "anime"
       },
       "fact_ids": [
-        "sakamoto-days-final-battle-019"
+        "sakamoto-days-episodes-035"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
     },

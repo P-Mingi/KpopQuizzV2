@@ -1,0 +1,3485 @@
+[
+  {
+    "quiz": "quizzes/violet-evergarden/auto-memory-dolls-kyoto-animation-and-evan-call-violet-evergarden-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q22101190"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/auto-memory-dolls-kyoto-animation-and-evan-call-violet-evergarden-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q22101190"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/auto-memory-dolls-kyoto-animation-and-evan-call-violet-evergarden-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/auto-memory-dolls-kyoto-animation-and-evan-call-violet-evergarden-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q57390937",
+      "https://tv.violet-evergarden.jp/music/"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/auto-memory-dolls-kyoto-animation-and-evan-call-violet-evergarden-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://tv.violet-evergarden.jp/music/"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/auto-memory-dolls-kyoto-animation-and-evan-call-violet-evergarden-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://tv.violet-evergarden.jp/music/"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/auto-memory-dolls-kyoto-animation-and-evan-call-violet-evergarden-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q57390937"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/auto-memory-dolls-kyoto-animation-and-evan-call-violet-evergarden-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q57390937"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/auto-memory-dolls-kyoto-animation-and-evan-call-violet-evergarden-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/auto-memory-dolls-kyoto-animation-and-evan-call-violet-evergarden-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/gilberts-brooch-clara-s-letters-and-an-island-violet-evergarden-hard-quiz.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie?oldid=1374805718",
+      "https://www.animenewsnetwork.com/news/2020-09-23/violet-evergarden-the-movie-debuts-at-no.2/.164378",
+      "https://www.wikidata.org/wiki/Q106434135"
+    ],
+    "reason": "load-bearing release date had Wikipedia plus ANN only; added Wikidata Q106434135 (publication date 2020-09-18, Japan) as the second source"
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/gilberts-brooch-clara-s-letters-and-an-island-violet-evergarden-hard-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll?oldid=1378512597"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/gilberts-brooch-clara-s-letters-and-an-island-violet-evergarden-hard-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/gilberts-brooch-clara-s-letters-and-an-island-violet-evergarden-hard-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll?oldid=1378512597"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/gilberts-brooch-clara-s-letters-and-an-island-violet-evergarden-hard-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll?oldid=1378512597"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/gilberts-brooch-clara-s-letters-and-an-island-violet-evergarden-hard-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie?oldid=1374805718"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/gilberts-brooch-clara-s-letters-and-an-island-violet-evergarden-hard-quiz.json",
+    "index": 6,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie?oldid=1374805718"
+    ],
+    "reason": "question leaked the answer of Q5 (\"on the island\"); wording shortened"
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/gilberts-brooch-clara-s-letters-and-an-island-violet-evergarden-hard-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie?oldid=1374805718"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/gilberts-brooch-clara-s-letters-and-an-island-violet-evergarden-hard-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/gilberts-brooch-clara-s-letters-and-an-island-violet-evergarden-hard-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/real-or-made-up-violet-evergarden-dolls-songs-and-films.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q22101190"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/real-or-made-up-violet-evergarden-dolls-songs-and-films.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://tv.violet-evergarden.jp/music/"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/real-or-made-up-violet-evergarden-dolls-songs-and-films.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ],
+    "reason": "Wikipedia (rev 1381043521) says \"land of Telesis\", not continent; statement and the fact text reworded to what the page says"
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/real-or-made-up-violet-evergarden-dolls-songs-and-films.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q57390937"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/real-or-made-up-violet-evergarden-dolls-songs-and-films.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://tv.violet-evergarden.jp/music/"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/real-or-made-up-violet-evergarden-dolls-songs-and-films.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q57390937",
+      "https://tv.violet-evergarden.jp/staffcast/"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/real-or-made-up-violet-evergarden-dolls-songs-and-films.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521",
+      "https://www.wikidata.org/wiki/Q57390937",
+      "https://tv.violet-evergarden.jp/music/"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/real-or-made-up-violet-evergarden-dolls-songs-and-films.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/real-or-made-up-violet-evergarden-dolls-songs-and-films.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll?oldid=1378512597",
+      "https://www.wikidata.org/wiki/Q73896191",
+      "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie?oldid=1374805718",
+      "https://www.wikidata.org/wiki/Q106434135"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/real-or-made-up-violet-evergarden-dolls-songs-and-films.json",
+    "index": 9,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ],
+    "reason": "Netflix \"worldwide while it aired\" is false for the United States and Australia (page: they started April 5, 2018, the last episode date); replaced by a statement proven on the cast list"
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/violet-evergarden-characters-in-three-clues-who-is-this.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/violet-evergarden-characters-in-three-clues-who-is-this.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/violet-evergarden-characters-in-three-clues-who-is-this.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/violet-evergarden-characters-in-three-clues-who-is-this.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/violet-evergarden-characters-in-three-clues-who-is-this.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/violet-evergarden-characters-in-three-clues-who-is-this.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/violet-evergarden-characters-in-three-clues-who-is-this.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/violet-evergarden-characters-in-three-clues-who-is-this.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/violet-evergarden-characters-in-three-clues-who-is-this.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/violet-evergarden/violet-evergarden-characters-in-three-clues-who-is-this.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden?oldid=1381043521"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/akito-s-secret-kazuma-s-boy-and-the-last-season-fruits-basket-hard-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/akito-s-secret-kazuma-s-boy-and-the-last-season-fruits-basket-hard-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/akito-s-secret-kazuma-s-boy-and-the-last-season-fruits-basket-hard-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/akito-s-secret-kazuma-s-boy-and-the-last-season-fruits-basket-hard-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/akito-s-secret-kazuma-s-boy-and-the-last-season-fruits-basket-hard-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/akito-s-secret-kazuma-s-boy-and-the-last-season-fruits-basket-hard-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/akito-s-secret-kazuma-s-boy-and-the-last-season-fruits-basket-hard-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/akito-s-secret-kazuma-s-boy-and-the-last-season-fruits-basket-hard-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)?oldid=1379439701"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/akito-s-secret-kazuma-s-boy-and-the-last-season-fruits-basket-hard-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)?oldid=1379439701"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/akito-s-secret-kazuma-s-boy-and-the-last-season-fruits-basket-hard-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)?oldid=1379439701",
+      "https://www.animenewsnetwork.com/news/2020-09-21/fruits-basket-anime-gets-final-season-in-2021/.164299",
+      "https://www.wikidata.org/wiki/Q90394739"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/fruits-basket-characters-in-three-clues-who-is-this.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180",
+      "https://en.wikipedia.org/wiki/Fruits_Basket?oldid=1379854325"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/fruits-basket-characters-in-three-clues-who-is-this.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180",
+      "https://fruba.jp/caststaff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/fruits-basket-characters-in-three-clues-who-is-this.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180",
+      "https://fruba.jp/caststaff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/fruits-basket-characters-in-three-clues-who-is-this.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/fruits-basket-characters-in-three-clues-who-is-this.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/fruits-basket-characters-in-three-clues-who-is-this.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/fruits-basket-characters-in-three-clues-who-is-this.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180",
+      "https://fruba.jp/caststaff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/fruits-basket-characters-in-three-clues-who-is-this.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180",
+      "https://fruba.jp/caststaff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/fruits-basket-characters-in-three-clues-who-is-this.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180",
+      "https://fruba.jp/caststaff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/fruits-basket-characters-in-three-clues-who-is-this.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180",
+      "https://fruba.jp/caststaff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/odd-one-out-fruits-basket-zodiac-animals-songs-and-voices.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/odd-one-out-fruits-basket-zodiac-animals-songs-and-voices.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/odd-one-out-fruits-basket-zodiac-animals-songs-and-voices.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)?oldid=1379439701"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/odd-one-out-fruits-basket-zodiac-animals-songs-and-voices.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)?oldid=1379439701"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/odd-one-out-fruits-basket-zodiac-animals-songs-and-voices.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)?oldid=1379439701"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/odd-one-out-fruits-basket-zodiac-animals-songs-and-voices.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180",
+      "https://fruba.jp/caststaff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/odd-one-out-fruits-basket-zodiac-animals-songs-and-voices.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/odd-one-out-fruits-basket-zodiac-animals-songs-and-voices.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/odd-one-out-fruits-basket-zodiac-animals-songs-and-voices.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket_(2001_TV_series)?oldid=1368461630",
+      "https://www.wikidata.org/wiki/Q76767242",
+      "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)?oldid=1379439701",
+      "https://fruba.jp/caststaff/",
+      "https://en.wikipedia.org/wiki/Fruits_Basket?oldid=1379854325"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/odd-one-out-fruits-basket-zodiac-animals-songs-and-voices.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/zodiac-curses-a-rice-ball-and-two-anime-fruits-basket-quiz.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket?oldid=1379854325",
+      "https://www.wikidata.org/wiki/Q216204"
+    ],
+    "reason": "fact had Wikipedia plus fruba.jp (page names only the Hana to Yume COMICS imprint, not the magazine); replaced the official source by Wikidata Q216204 (published in: Hana to Yume)"
+  },
+  {
+    "quiz": "quizzes/fruits-basket/zodiac-curses-a-rice-ball-and-two-anime-fruits-basket-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket?oldid=1379854325",
+      "https://www.wikidata.org/wiki/Q216204",
+      "https://fruba.jp/caststaff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/zodiac-curses-a-rice-ball-and-two-anime-fruits-basket-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket?oldid=1379854325"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/zodiac-curses-a-rice-ball-and-two-anime-fruits-basket-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket?oldid=1379854325"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/zodiac-curses-a-rice-ball-and-two-anime-fruits-basket-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket?oldid=1379854325",
+      "https://www.wikidata.org/wiki/Q216204"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/zodiac-curses-a-rice-ball-and-two-anime-fruits-basket-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)?oldid=1379439701",
+      "https://www.wikidata.org/wiki/Q90394739",
+      "https://fruba.jp/caststaff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/zodiac-curses-a-rice-ball-and-two-anime-fruits-basket-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket_(2001_TV_series)?oldid=1368461630",
+      "https://www.wikidata.org/wiki/Q76767242"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/zodiac-curses-a-rice-ball-and-two-anime-fruits-basket-quiz.json",
+    "index": 7,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)?oldid=1379439701",
+      "https://www.wikidata.org/wiki/Q90394739"
+    ],
+    "reason": "cited fact held only 63 episodes, not the season count; added fact seasons-count-077 (Wikipedia rev 1379439701 \"divided into three seasons\", Wikidata number of seasons 3)"
+  },
+  {
+    "quiz": "quizzes/fruits-basket/zodiac-curses-a-rice-ball-and-two-anime-fruits-basket-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket?oldid=1379854325",
+      "https://fruba.jp/caststaff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/fruits-basket/zodiac-curses-a-rice-ball-and-two-anime-fruits-basket-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters?oldid=1379347180",
+      "https://fruba.jp/caststaff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/a-shrunken-sleuth-two-names-and-a-town-detective-conan-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Case_Closed?oldid=1380847138",
+      "https://www.wikidata.org/wiki/Q3853685",
+      "https://www.tms-e.co.jp/global/alltitles/conan/087101.html"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/a-shrunken-sleuth-two-names-and-a-town-detective-conan-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Case_Closed?oldid=1380847138",
+      "https://www.wikidata.org/wiki/Q3853685"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/a-shrunken-sleuth-two-names-and-a-town-detective-conan-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Case_Closed?oldid=1380847138"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/a-shrunken-sleuth-two-names-and-a-town-detective-conan-quiz.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)?oldid=1380734049",
+      "https://www.wikidata.org/wiki/Q1195711"
+    ],
+    "reason": "release year of the first film is a date but had one source; added Wikidata Q1195711 (publication date 1997-04-19, Japan) and marked the fact load bearing"
+  },
+  {
+    "quiz": "quizzes/detective-conan/a-shrunken-sleuth-two-names-and-a-town-detective-conan-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Case_Closed?oldid=1380847138"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/a-shrunken-sleuth-two-names-and-a-town-detective-conan-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Case_Closed?oldid=1380847138"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/a-shrunken-sleuth-two-names-and-a-town-detective-conan-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Case_Closed?oldid=1380847138"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/a-shrunken-sleuth-two-names-and-a-town-detective-conan-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Case_Closed?oldid=1380847138",
+      "https://www.wikidata.org/wiki/Q3853685"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/a-shrunken-sleuth-two-names-and-a-town-detective-conan-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)?oldid=1380734049",
+      "https://www.wikidata.org/wiki/Q5363072",
+      "https://www.tms-e.co.jp/global/alltitles/conan/087101.html"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/a-shrunken-sleuth-two-names-and-a-town-detective-conan-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)?oldid=1380734049"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/codenames-cover-identities-and-a-missing-brother-detective-conan-hard-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/codenames-cover-identities-and-a-missing-brother-detective-conan-hard-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/codenames-cover-identities-and-a-missing-brother-detective-conan-hard-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/codenames-cover-identities-and-a-missing-brother-detective-conan-hard-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/codenames-cover-identities-and-a-missing-brother-detective-conan-hard-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/codenames-cover-identities-and-a-missing-brother-detective-conan-hard-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/codenames-cover-identities-and-a-missing-brother-detective-conan-hard-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/codenames-cover-identities-and-a-missing-brother-detective-conan-hard-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/codenames-cover-identities-and-a-missing-brother-detective-conan-hard-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/codenames-cover-identities-and-a-missing-brother-detective-conan-hard-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/detective-conan-characters-in-three-clues-who-is-this.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/detective-conan-characters-in-three-clues-who-is-this.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/detective-conan-characters-in-three-clues-who-is-this.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/detective-conan-characters-in-three-clues-who-is-this.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/detective-conan-characters-in-three-clues-who-is-this.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/detective-conan-characters-in-three-clues-who-is-this.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/detective-conan-characters-in-three-clues-who-is-this.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/detective-conan-characters-in-three-clues-who-is-this.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/detective-conan-characters-in-three-clues-who-is-this.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/detective-conan-characters-in-three-clues-who-is-this.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/odd-one-out-detective-conan-police-detectives-and-companies.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/odd-one-out-detective-conan-police-detectives-and-companies.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/odd-one-out-detective-conan-police-detectives-and-companies.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/odd-one-out-detective-conan-police-detectives-and-companies.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/odd-one-out-detective-conan-police-detectives-and-companies.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)?oldid=1380734049",
+      "https://www.wikidata.org/wiki/Q5363072",
+      "https://www.tms-e.co.jp/global/alltitles/conan/087101.html",
+      "https://en.wikipedia.org/wiki/Case_Closed?oldid=1380847138",
+      "https://www.wikidata.org/wiki/Q3853685"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/odd-one-out-detective-conan-police-detectives-and-companies.json",
+    "index": 5,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ],
+    "reason": "old premise \"three of these sang theme songs\" was false: Minami Takayama is part of Two-Mix, who sang opening 5 (Wikipedia rev 1380734049); replaced by a voice-cast intruder proven on the character list"
+  },
+  {
+    "quiz": "quizzes/detective-conan/odd-one-out-detective-conan-police-detectives-and-companies.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959",
+      "https://en.wikipedia.org/wiki/Case_Closed?oldid=1380847138"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/odd-one-out-detective-conan-police-detectives-and-companies.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/odd-one-out-detective-conan-police-detectives-and-companies.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/detective-conan/odd-one-out-detective-conan-police-detectives-and-companies.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters?oldid=1376414959"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/gintama-characters-in-three-clues-who-is-this.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/gintama-characters-in-three-clues-who-is-this.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/gintama-characters-in-three-clues-who-is-this.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/gintama-characters-in-three-clues-who-is-this.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/gintama-characters-in-three-clues-who-is-this.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/gintama-characters-in-three-clues-who-is-this.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/gintama-characters-in-three-clues-who-is-this.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/gintama-characters-in-three-clues-who-is-this.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/gintama-characters-in-three-clues-who-is-this.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/gintama-characters-in-three-clues-who-is-this.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/real-or-made-up-gintama-nicknames-studios-and-silly-facts.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/real-or-made-up-gintama-nicknames-studios-and-silly-facts.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/real-or-made-up-gintama-nicknames-studios-and-silly-facts.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama?oldid=1380552228"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/real-or-made-up-gintama-nicknames-studios-and-silly-facts.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama?oldid=1380552228",
+      "https://www.wikidata.org/wiki/Q764135",
+      "https://www.shonenjump.com/j/rensai/gintama.html"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/real-or-made-up-gintama-nicknames-studios-and-silly-facts.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama_(TV_series)?oldid=1375554499",
+      "https://www.tv-tokyo.co.jp/anime/gintama/",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236",
+      "https://www.wikidata.org/wiki/Q709716"
+    ],
+    "reason": "load-bearing studio fact lacked a Wikidata or official source that carries Sunrise; added Wikidata Q709716 (production company: Sunrise)"
+  },
+  {
+    "quiz": "quizzes/gintama/real-or-made-up-gintama-nicknames-studios-and-silly-facts.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/real-or-made-up-gintama-nicknames-studios-and-silly-facts.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/real-or-made-up-gintama-nicknames-studios-and-silly-facts.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/real-or-made-up-gintama-nicknames-studios-and-silly-facts.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama_(TV_series)?oldid=1375554499",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236",
+      "https://www.wikidata.org/wiki/Q709716"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/real-or-made-up-gintama-nicknames-studios-and-silly-facts.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama?oldid=1380552228"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/silver-souls-aliens-in-edo-and-201-first-episodes-gintama-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama?oldid=1380552228"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/silver-souls-aliens-in-edo-and-201-first-episodes-gintama-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama?oldid=1380552228",
+      "https://www.wikidata.org/wiki/Q764135",
+      "https://www.shonenjump.com/j/rensai/gintama.html"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/silver-souls-aliens-in-edo-and-201-first-episodes-gintama-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama?oldid=1380552228"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/silver-souls-aliens-in-edo-and-201-first-episodes-gintama-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama?oldid=1380552228"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/silver-souls-aliens-in-edo-and-201-first-episodes-gintama-quiz.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama_(TV_series)?oldid=1375554499",
+      "https://www.tv-tokyo.co.jp/anime/gintama/",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236",
+      "https://www.wikidata.org/wiki/Q709716"
+    ],
+    "reason": "same fact: added Wikidata Q709716 (production company: Sunrise) as second source"
+  },
+  {
+    "quiz": "quizzes/gintama/silver-souls-aliens-in-edo-and-201-first-episodes-gintama-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama_(TV_series)?oldid=1375554499",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236",
+      "https://www.wikidata.org/wiki/Q709716"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/silver-souls-aliens-in-edo-and-201-first-episodes-gintama-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama?oldid=1380552228",
+      "https://www.wikidata.org/wiki/Q764135"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/silver-souls-aliens-in-edo-and-201-first-episodes-gintama-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama?oldid=1380552228"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/silver-souls-aliens-in-edo-and-201-first-episodes-gintama-quiz.json",
+    "index": 8,
+    "verdict": "fixed",
+    "urls": [
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236"
+    ],
+    "reason": "Wikipedia rev 1375554499 of Gintama (TV series) does not list the opening themes; dropped it, the ANN encyclopedia page (id 6236) lists them and stays as source"
+  },
+  {
+    "quiz": "quizzes/gintama/silver-souls-aliens-in-edo-and-201-first-episodes-gintama-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/tenshouin-naraku-a-teacher-s-name-and-a-borrowed-arm-gintama-hard-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/tenshouin-naraku-a-teacher-s-name-and-a-borrowed-arm-gintama-hard-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/tenshouin-naraku-a-teacher-s-name-and-a-borrowed-arm-gintama-hard-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/tenshouin-naraku-a-teacher-s-name-and-a-borrowed-arm-gintama-hard-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/tenshouin-naraku-a-teacher-s-name-and-a-borrowed-arm-gintama-hard-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/tenshouin-naraku-a-teacher-s-name-and-a-borrowed-arm-gintama-hard-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/tenshouin-naraku-a-teacher-s-name-and-a-borrowed-arm-gintama-hard-quiz.json",
+    "index": 6,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ],
+    "reason": "the cited fact text had the left-eye event but its excerpt did not; excerpt now carries the Wikipedia sentence (Tae Shimura, rev 1378278398)"
+  },
+  {
+    "quiz": "quizzes/gintama/tenshouin-naraku-a-teacher-s-name-and-a-borrowed-arm-gintama-hard-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/tenshouin-naraku-a-teacher-s-name-and-a-borrowed-arm-gintama-hard-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/gintama/tenshouin-naraku-a-teacher-s-name-and-a-borrowed-arm-gintama-hard-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters?oldid=1378278398"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/bocchi-the-rock-characters-in-three-clues-who-is-this.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/bocchi-the-rock-characters-in-three-clues-who-is-this.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/bocchi-the-rock-characters-in-three-clues-who-is-this.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/bocchi-the-rock-characters-in-three-clues-who-is-this.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/bocchi-the-rock-characters-in-three-clues-who-is-this.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/bocchi-the-rock-characters-in-three-clues-who-is-this.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/bocchi-the-rock-characters-in-three-clues-who-is-this.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/bocchi-the-rock-characters-in-three-clues-who-is-this.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/bocchi-the-rock-characters-in-three-clues-who-is-this.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/bocchi-the-rock-characters-in-three-clues-who-is-this.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/gibsons-onikoroshi-and-sideros-bocchi-the-rock-hard-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/gibsons-onikoroshi-and-sideros-bocchi-the-rock-hard-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/gibsons-onikoroshi-and-sideros-bocchi-the-rock-hard-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/gibsons-onikoroshi-and-sideros-bocchi-the-rock-hard-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/gibsons-onikoroshi-and-sideros-bocchi-the-rock-hard-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/gibsons-onikoroshi-and-sideros-bocchi-the-rock-hard-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kessoku_Band_(album)?oldid=1379441393"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/gibsons-onikoroshi-and-sideros-bocchi-the-rock-hard-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/gibsons-onikoroshi-and-sideros-bocchi-the-rock-hard-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/gibsons-onikoroshi-and-sideros-bocchi-the-rock-hard-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/gibsons-onikoroshi-and-sideros-bocchi-the-rock-hard-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/real-or-made-up-bocchi-the-rock-bands-gear-and-episode-titles.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes?oldid=1379446981"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/real-or-made-up-bocchi-the-rock-bands-gear-and-episode-titles.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes?oldid=1379446981"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/real-or-made-up-bocchi-the-rock-bands-gear-and-episode-titles.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/real-or-made-up-bocchi-the-rock-bands-gear-and-episode-titles.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071",
+      "https://www.wikidata.org/wiki/Q108230373",
+      "https://bocchi.rocks/tv/caststaff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/real-or-made-up-bocchi-the-rock-bands-gear-and-episode-titles.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/real-or-made-up-bocchi-the-rock-bands-gear-and-episode-titles.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071",
+      "https://www.wikidata.org/wiki/Q65235667"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/real-or-made-up-bocchi-the-rock-bands-gear-and-episode-titles.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/real-or-made-up-bocchi-the-rock-bands-gear-and-episode-titles.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes?oldid=1379446981",
+      "https://www.wikidata.org/wiki/Q108230373"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/real-or-made-up-bocchi-the-rock-bands-gear-and-episode-titles.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/real-or-made-up-bocchi-the-rock-bands-gear-and-episode-titles.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes?oldid=1379446981"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/zip-ties-shimokitazawa-and-twelve-weeks-of-distortion-bocchi-the-rock-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071",
+      "https://www.wikidata.org/wiki/Q108230373",
+      "https://bocchi.rocks/tv/caststaff/"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/zip-ties-shimokitazawa-and-twelve-weeks-of-distortion-bocchi-the-rock-quiz.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071",
+      "https://www.wikidata.org/wiki/Q65235667"
+    ],
+    "reason": "official cast and staff page does not name the magazine; replaced it by Wikidata Q65235667 (published in: Manga Time Kirara Max)"
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/zip-ties-shimokitazawa-and-twelve-weeks-of-distortion-bocchi-the-rock-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes?oldid=1379446981",
+      "https://www.wikidata.org/wiki/Q108230373"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/zip-ties-shimokitazawa-and-twelve-weeks-of-distortion-bocchi-the-rock-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/zip-ties-shimokitazawa-and-twelve-weeks-of-distortion-bocchi-the-rock-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/zip-ties-shimokitazawa-and-twelve-weeks-of-distortion-bocchi-the-rock-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/zip-ties-shimokitazawa-and-twelve-weeks-of-distortion-bocchi-the-rock-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes?oldid=1379446981",
+      "https://www.wikidata.org/wiki/Q108230373"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/zip-ties-shimokitazawa-and-twelve-weeks-of-distortion-bocchi-the-rock-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/zip-ties-shimokitazawa-and-twelve-weeks-of-distortion-bocchi-the-rock-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock!?oldid=1381243071"
+    ]
+  },
+  {
+    "quiz": "quizzes/bocchi-the-rock/zip-ties-shimokitazawa-and-twelve-weeks-of-distortion-bocchi-the-rock-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes?oldid=1379446981"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/dr-stone-in-numbers-volumes-episodes-and-millions-of-copies.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872",
+      "https://www.viz.com/dr-stone",
+      "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=20337"
+    ],
+    "reason": "two readings possible (26 volumes for the 232 main chapters, 27 with the 2024 extras volume); wording now says which, Wikipedia infobox and VIZ page give 27"
+  },
+  {
+    "quiz": "quizzes/dr-stone/dr-stone-in-numbers-volumes-episodes-and-millions-of-copies.json",
+    "index": 1,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872",
+      "https://www.wikidata.org/wiki/Q38275959",
+      "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=20337"
+    ],
+    "reason": "chapter count 232 had only a Wikipedia source (no Wikidata or official figure found); replaced by the start year, proven by Wikipedia rev 1381501872, Wikidata Q38275959 and ANN"
+  },
+  {
+    "quiz": "quizzes/dr-stone/dr-stone-in-numbers-volumes-episodes-and-millions-of-copies.json",
+    "index": 2,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872",
+      "https://www.wikidata.org/wiki/Q61041618"
+    ],
+    "reason": "total 94 episodes had only a Wikipedia source (Wikidata total of 57 is stale, lacks season 4); replaced by season count, Wikipedia plus Wikidata Q61041618 (4 seasons)"
+  },
+  {
+    "quiz": "quizzes/dr-stone/dr-stone-in-numbers-volumes-episodes-and-millions-of-copies.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872",
+      "https://www.wikidata.org/wiki/Q98139674"
+    ],
+    "reason": "episode count is a count with one source; added Wikidata Q98139674 (number of episodes 11), fact now load bearing with 2 sources"
+  },
+  {
+    "quiz": "quizzes/dr-stone/dr-stone-in-numbers-volumes-episodes-and-millions-of-copies.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes?oldid=1361616710",
+      "https://www.wikidata.org/wiki/Q117242538"
+    ],
+    "reason": "episode count is a count with one source; added Wikidata Q117242538 (number of episodes 22), fact now load bearing with 2 sources"
+  },
+  {
+    "quiz": "quizzes/dr-stone/dr-stone-in-numbers-volumes-episodes-and-millions-of-copies.json",
+    "index": 5,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872",
+      "https://www.wikidata.org/wiki/Q61041618",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21703"
+    ],
+    "reason": "season 4 count 37 had only a Wikipedia source and Wikidata has no figure for it; replaced by the premiere year, Wikipedia plus Wikidata Q61041618 plus ANN"
+  },
+  {
+    "quiz": "quizzes/dr-stone/dr-stone-in-numbers-volumes-episodes-and-millions-of-copies.json",
+    "index": 6,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872",
+      "https://www.wikidata.org/wiki/Q38275959"
+    ],
+    "reason": "circulation figure (20 million by March 2026) had only a Wikipedia source and no official figure found; replaced by the magazine, Wikipedia plus Wikidata Q38275959"
+  },
+  {
+    "quiz": "quizzes/dr-stone/dr-stone-in-numbers-volumes-episodes-and-millions-of-copies.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872",
+      "https://shogakukan-comic.jp/news/15958"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/dr-stone-in-numbers-volumes-episodes-and-millions-of-copies.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/dr-stone-in-numbers-volumes-episodes-and-millions-of-copies.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/petrified-for-3700-years-a-kingdom-of-science-dr-stone-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872",
+      "https://www.viz.com/dr-stone"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/petrified-for-3700-years-a-kingdom-of-science-dr-stone-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/petrified-for-3700-years-a-kingdom-of-science-dr-stone-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/petrified-for-3700-years-a-kingdom-of-science-dr-stone-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/petrified-for-3700-years-a-kingdom-of-science-dr-stone-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872",
+      "https://www.viz.com/dr-stone"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/petrified-for-3700-years-a-kingdom-of-science-dr-stone-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/petrified-for-3700-years-a-kingdom-of-science-dr-stone-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872",
+      "https://shogakukan-comic.jp/news/15958"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/petrified-for-3700-years-a-kingdom-of-science-dr-stone-quiz.json",
+    "index": 7,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes?oldid=1361616710",
+      "https://www.wikidata.org/wiki/Q96376597",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21703"
+    ],
+    "reason": "episode count is a count with one source; added Wikidata Q96376597 (24) and ANN id 21703 (24 episodes), fact now load bearing"
+  },
+  {
+    "quiz": "quizzes/dr-stone/petrified-for-3700-years-a-kingdom-of-science-dr-stone-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21703"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/petrified-for-3700-years-a-kingdom-of-science-dr-stone-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/platinum-a-second-wave-and-a-rocket-to-the-moon-dr-stone-hard-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/platinum-a-second-wave-and-a-rocket-to-the-moon-dr-stone-hard-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/platinum-a-second-wave-and-a-rocket-to-the-moon-dr-stone-hard-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/platinum-a-second-wave-and-a-rocket-to-the-moon-dr-stone-hard-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/platinum-a-second-wave-and-a-rocket-to-the-moon-dr-stone-hard-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/platinum-a-second-wave-and-a-rocket-to-the-moon-dr-stone-hard-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/platinum-a-second-wave-and-a-rocket-to-the-moon-dr-stone-hard-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/platinum-a-second-wave-and-a-rocket-to-the-moon-dr-stone-hard-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/platinum-a-second-wave-and-a-rocket-to-the-moon-dr-stone-hard-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes?oldid=1361616710"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/platinum-a-second-wave-and-a-rocket-to-the-moon-dr-stone-hard-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/who-is-this-dr-stone-character-in-three-clues.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/who-is-this-dr-stone-character-in-three-clues.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/who-is-this-dr-stone-character-in-three-clues.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/who-is-this-dr-stone-character-in-three-clues.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548",
+      "https://en.wikipedia.org/wiki/Dr._Stone?oldid=1381501872"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/who-is-this-dr-stone-character-in-three-clues.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/who-is-this-dr-stone-character-in-three-clues.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/who-is-this-dr-stone-character-in-three-clues.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/who-is-this-dr-stone-character-in-three-clues.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/who-is-this-dr-stone-character-in-three-clues.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/dr-stone/who-is-this-dr-stone-character-in-three-clues.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters?oldid=1377940548"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/odd-one-out-kaguya-sama-council-songs-and-spin-offs.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/odd-one-out-kaguya-sama-council-songs-and-spin-offs.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/odd-one-out-kaguya-sama-council-songs-and-spin-offs.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_season_1?oldid=1373126096",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21401",
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War%3F?oldid=1374276631",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=22587",
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_%E2%80%93_Ultra_Romantic?oldid=1379120423",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=24889"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/odd-one-out-kaguya-sama-council-songs-and-spin-offs.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_season_1?oldid=1373126096",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21401",
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War%3F?oldid=1374276631",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=22587",
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_%E2%80%93_Ultra_Romantic?oldid=1379120423",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=24889"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/odd-one-out-kaguya-sama-council-songs-and-spin-offs.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War?oldid=1379440392"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/odd-one-out-kaguya-sama-council-songs-and-spin-offs.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/odd-one-out-kaguya-sama-council-songs-and-spin-offs.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/odd-one-out-kaguya-sama-council-songs-and-spin-offs.json",
+    "index": 7,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War?oldid=1379440392",
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes?oldid=1373260664",
+      "https://www.wikidata.org/wiki/Q121354029",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=36700",
+      "https://kaguya.love/"
+    ],
+    "reason": "\"anime releases\" is not true of The Final Chapter (announced, not released); wording now \"anime titles\"; special premiere date also got the official site as second source"
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/odd-one-out-kaguya-sama-council-songs-and-spin-offs.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes?oldid=1373260664",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21401",
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/odd-one-out-kaguya-sama-council-songs-and-spin-offs.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War?oldid=1379440392",
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/real-or-made-up-love-war-facts-from-shuchiin-academy.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_chapters?oldid=1374288565"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/real-or-made-up-love-war-facts-from-shuchiin-academy.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/real-or-made-up-love-war-facts-from-shuchiin-academy.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/real-or-made-up-love-war-facts-from-shuchiin-academy.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War?oldid=1379440392",
+      "https://www.wikidata.org/wiki/Q24867647"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/real-or-made-up-love-war-facts-from-shuchiin-academy.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War?oldid=1379440392"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/real-or-made-up-love-war-facts-from-shuchiin-academy.json",
+    "index": 5,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_%E2%80%93_Ultra_Romantic?oldid=1379120423",
+      "https://www.wikidata.org/wiki/Q109229216",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=24889"
+    ],
+    "reason": "episode count of season 3 had one source; added Wikidata Q109229216 (13 episodes) and ANN id 24889 (13 episodes), fact now load bearing"
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/real-or-made-up-love-war-facts-from-shuchiin-academy.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/real-or-made-up-love-war-facts-from-shuchiin-academy.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/real-or-made-up-love-war-facts-from-shuchiin-academy.json",
+    "index": 8,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes?oldid=1373260664",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23977",
+      "https://www.wikidata.org/wiki/Q139980021"
+    ],
+    "reason": "volume number and release date had Wikipedia plus ANN only; added Wikidata Q139980021 (manga volume 22, published 2021-05-19), fact now load bearing"
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/real-or-made-up-love-war-facts-from-shuchiin-academy.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War?oldid=1379440392",
+      "https://www.wikidata.org/wiki/Q62017594",
+      "https://kaguya.love/"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/shuchiin-academy-cockroaches-and-a-bamboo-princess-kaguya-sama-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War?oldid=1379440392"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/shuchiin-academy-cockroaches-and-a-bamboo-princess-kaguya-sama-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War?oldid=1379440392",
+      "https://www.wikidata.org/wiki/Q24867647"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/shuchiin-academy-cockroaches-and-a-bamboo-princess-kaguya-sama-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/shuchiin-academy-cockroaches-and-a-bamboo-princess-kaguya-sama-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/shuchiin-academy-cockroaches-and-a-bamboo-princess-kaguya-sama-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/shuchiin-academy-cockroaches-and-a-bamboo-princess-kaguya-sama-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/shuchiin-academy-cockroaches-and-a-bamboo-princess-kaguya-sama-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War?oldid=1379440392",
+      "https://shogakukan-comic.jp/shogakukan-mangasho-archives"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/shuchiin-academy-cockroaches-and-a-bamboo-princess-kaguya-sama-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/shuchiin-academy-cockroaches-and-a-bamboo-princess-kaguya-sama-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes?oldid=1373260664",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21401"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/shuchiin-academy-cockroaches-and-a-bamboo-princess-kaguya-sama-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War?oldid=1379440392"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/the-shinomiya-clan-a-bamboo-emperor-and-a-last-film-kaguya-sama-hard-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/the-shinomiya-clan-a-bamboo-emperor-and-a-last-film-kaguya-sama-hard-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/the-shinomiya-clan-a-bamboo-emperor-and-a-last-film-kaguya-sama-hard-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/the-shinomiya-clan-a-bamboo-emperor-and-a-last-film-kaguya-sama-hard-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/the-shinomiya-clan-a-bamboo-emperor-and-a-last-film-kaguya-sama-hard-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/the-shinomiya-clan-a-bamboo-emperor-and-a-last-film-kaguya-sama-hard-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/the-shinomiya-clan-a-bamboo-emperor-and-a-last-film-kaguya-sama-hard-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/the-shinomiya-clan-a-bamboo-emperor-and-a-last-film-kaguya-sama-hard-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes?oldid=1373260664"
+    ]
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/the-shinomiya-clan-a-bamboo-emperor-and-a-last-film-kaguya-sama-hard-quiz.json",
+    "index": 8,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes?oldid=1373260664",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=36700",
+      "https://kaguya.love/"
+    ],
+    "reason": "premiere date of the special had Wikipedia plus ANN only; added the official site kaguya.love (2025.12.31 ONAIR), fact now load bearing"
+  },
+  {
+    "quiz": "quizzes/kaguya-sama-love-is-war/the-shinomiya-clan-a-bamboo-emperor-and-a-last-film-kaguya-sama-hard-quiz.json",
+    "index": 9,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes?oldid=1373260664",
+      "https://kaguya.love/",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=36700",
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters?oldid=1372942368"
+    ],
+    "reason": "Wikipedia rev 1373260664 lists only the special opening; the ending Aka to Ao by Aoi Koga is on the official site and ANN id 36700; added ANN as source"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/a-retired-hitman-a-convenience-store-and-one-rule-sakamoto-days-quiz.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283"
+    ],
+    "reason": "the one-shot date (December 26, 2019) has only Wikipedia and ANN as sources and no strong source exists for it; question reworded to ask the title only, which Wikipedia and ANN (2024-06-02) both state"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/a-retired-hitman-a-convenience-store-and-one-rule-sakamoto-days-quiz.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283"
+    ],
+    "reason": "the cited fact excerpt did not carry the convenience store; excerpt now holds the Wikipedia sentence, rev 1372317737"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/a-retired-hitman-a-convenience-store-and-one-rule-sakamoto-days-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/a-retired-hitman-a-convenience-store-and-one-rule-sakamoto-days-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/a-retired-hitman-a-convenience-store-and-one-rule-sakamoto-days-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/a-retired-hitman-a-convenience-store-and-one-rule-sakamoto-days-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/a-retired-hitman-a-convenience-store-and-one-rule-sakamoto-days-quiz.json",
+    "index": 6,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ],
+    "reason": "the cited fact excerpt did not carry the weapon; excerpt now holds the Wikipedia sentence (large circular saw), rev 1372317737"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/a-retired-hitman-a-convenience-store-and-one-rule-sakamoto-days-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/a-retired-hitman-a-convenience-store-and-one-rule-sakamoto-days-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/a-retired-hitman-a-convenience-store-and-one-rule-sakamoto-days-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/the-jaa-a-reindeer-mask-and-a-final-battle-sakamoto-days-hard-quiz.json",
+    "index": 0,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283",
+      "https://www.wikidata.org/wiki/Q105087026",
+      "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=24170"
+    ],
+    "reason": "final battle start (August 4, 2025) is a manga story date with only a Wikipedia source and no strong second source; replaced by the serialization start, Wikipedia plus Wikidata Q105087026 plus ANN"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/the-jaa-a-reindeer-mask-and-a-final-battle-sakamoto-days-hard-quiz.json",
+    "index": 1,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283",
+      "https://www.wikidata.org/wiki/Q126127689"
+    ],
+    "reason": "climax announcement date: Wikipedia says July 21, 2026 while the cited ANN article is dated July 20, 2026, and no strong source exists; replaced by the season 1 episode count (Wikipedia plus Wikidata Q126127689, 22)"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/the-jaa-a-reindeer-mask-and-a-final-battle-sakamoto-days-hard-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/the-jaa-a-reindeer-mask-and-a-final-battle-sakamoto-days-hard-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/the-jaa-a-reindeer-mask-and-a-final-battle-sakamoto-days-hard-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/the-jaa-a-reindeer-mask-and-a-final-battle-sakamoto-days-hard-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/the-jaa-a-reindeer-mask-and-a-final-battle-sakamoto-days-hard-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/the-jaa-a-reindeer-mask-and-a-final-battle-sakamoto-days-hard-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/the-jaa-a-reindeer-mask-and-a-final-battle-sakamoto-days-hard-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283",
+      "https://www.wikidata.org/wiki/Q126127689",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=38152"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/the-jaa-a-reindeer-mask-and-a-final-battle-sakamoto-days-hard-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=38152"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/which-came-first-sakamoto-days-from-one-shot-to-second-season.json",
+    "index": 0,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes?oldid=1376754875",
+      "https://www.wikidata.org/wiki/Q126127689",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32767",
+      "https://www.wikidata.org/wiki/Q137476983",
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=38152",
+      "https://www.wikidata.org/wiki/Q105087026",
+      "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=24170"
+    ],
+    "reason": "dates of the one-shot, the Viz print run, the novels, the puzzle game, the final battle and the climax have no strong second source (some conflict: ANN dates the second cour July 14 and the climax news July 20, Wikipedia July 15 and July 21), and the old Q7 answer was wrong (the puzzle game of April 2025 came before the climax of July 2026); whole quiz rebuilt on events with Wikidata or ANN-announcement sources: serialization, volume 1, anime announcement, Sakamoto Holidays, anime premiere, season 1 finale, season 2"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/which-came-first-sakamoto-days-from-one-shot-to-second-season.json",
+    "index": 1,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283",
+      "https://www.animenewsnetwork.com/news/2024-06-02/sakamoto-days-manga-gets-sakamoto-holidays-spinoff-starting-on-july-4/.211434",
+      "https://www.wikidata.org/wiki/Q105087026",
+      "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=24170",
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes?oldid=1376754875",
+      "https://www.wikidata.org/wiki/Q126127689",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32767"
+    ],
+    "reason": "dates of the one-shot, the Viz print run, the novels, the puzzle game, the final battle and the climax have no strong second source (some conflict: ANN dates the second cour July 14 and the climax news July 20, Wikipedia July 15 and July 21), and the old Q7 answer was wrong (the puzzle game of April 2025 came before the climax of July 2026); whole quiz rebuilt on events with Wikidata or ANN-announcement sources: serialization, volume 1, anime announcement, Sakamoto Holidays, anime premiere, season 1 finale, season 2"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/which-came-first-sakamoto-days-from-one-shot-to-second-season.json",
+    "index": 2,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283",
+      "https://www.animenewsnetwork.com/news/2024-05-27/sakamoto-days-tv-anime-confirmed-for-january-2025-starring-tomokazu-sugita/.211235",
+      "https://www.wikidata.org/wiki/Q105087026",
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes?oldid=1376754875",
+      "https://www.wikidata.org/wiki/Q137476983",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=38152"
+    ],
+    "reason": "dates of the one-shot, the Viz print run, the novels, the puzzle game, the final battle and the climax have no strong second source (some conflict: ANN dates the second cour July 14 and the climax news July 20, Wikipedia July 15 and July 21), and the old Q7 answer was wrong (the puzzle game of April 2025 came before the climax of July 2026); whole quiz rebuilt on events with Wikidata or ANN-announcement sources: serialization, volume 1, anime announcement, Sakamoto Holidays, anime premiere, season 1 finale, season 2"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/which-came-first-sakamoto-days-from-one-shot-to-second-season.json",
+    "index": 3,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes?oldid=1376754875",
+      "https://www.wikidata.org/wiki/Q126127689",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32767",
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283",
+      "https://www.animenewsnetwork.com/news/2024-06-02/sakamoto-days-manga-gets-sakamoto-holidays-spinoff-starting-on-july-4/.211434",
+      "https://www.wikidata.org/wiki/Q105087026",
+      "https://www.wikidata.org/wiki/Q137476983"
+    ],
+    "reason": "dates of the one-shot, the Viz print run, the novels, the puzzle game, the final battle and the climax have no strong second source (some conflict: ANN dates the second cour July 14 and the climax news July 20, Wikipedia July 15 and July 21), and the old Q7 answer was wrong (the puzzle game of April 2025 came before the climax of July 2026); whole quiz rebuilt on events with Wikidata or ANN-announcement sources: serialization, volume 1, anime announcement, Sakamoto Holidays, anime premiere, season 1 finale, season 2"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/which-came-first-sakamoto-days-from-one-shot-to-second-season.json",
+    "index": 4,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283",
+      "https://www.animenewsnetwork.com/news/2024-05-27/sakamoto-days-tv-anime-confirmed-for-january-2025-starring-tomokazu-sugita/.211235",
+      "https://www.animenewsnetwork.com/news/2024-06-02/sakamoto-days-manga-gets-sakamoto-holidays-spinoff-starting-on-july-4/.211434",
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes?oldid=1376754875",
+      "https://www.wikidata.org/wiki/Q126127689",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32767",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=38152"
+    ],
+    "reason": "dates of the one-shot, the Viz print run, the novels, the puzzle game, the final battle and the climax have no strong second source (some conflict: ANN dates the second cour July 14 and the climax news July 20, Wikipedia July 15 and July 21), and the old Q7 answer was wrong (the puzzle game of April 2025 came before the climax of July 2026); whole quiz rebuilt on events with Wikidata or ANN-announcement sources: serialization, volume 1, anime announcement, Sakamoto Holidays, anime premiere, season 1 finale, season 2"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/which-came-first-sakamoto-days-from-one-shot-to-second-season.json",
+    "index": 5,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes?oldid=1376754875",
+      "https://www.wikidata.org/wiki/Q137476983",
+      "https://www.wikidata.org/wiki/Q126127689",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32767",
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=38152",
+      "https://www.animenewsnetwork.com/news/2024-06-02/sakamoto-days-manga-gets-sakamoto-holidays-spinoff-starting-on-july-4/.211434"
+    ],
+    "reason": "dates of the one-shot, the Viz print run, the novels, the puzzle game, the final battle and the climax have no strong second source (some conflict: ANN dates the second cour July 14 and the climax news July 20, Wikipedia July 15 and July 21), and the old Q7 answer was wrong (the puzzle game of April 2025 came before the climax of July 2026); whole quiz rebuilt on events with Wikidata or ANN-announcement sources: serialization, volume 1, anime announcement, Sakamoto Holidays, anime premiere, season 1 finale, season 2"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/which-came-first-sakamoto-days-from-one-shot-to-second-season.json",
+    "index": 6,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283",
+      "https://www.animenewsnetwork.com/news/2024-06-02/sakamoto-days-manga-gets-sakamoto-holidays-spinoff-starting-on-july-4/.211434",
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes?oldid=1376754875",
+      "https://www.wikidata.org/wiki/Q137476983",
+      "https://www.animenewsnetwork.com/news/2024-05-27/sakamoto-days-tv-anime-confirmed-for-january-2025-starring-tomokazu-sugita/.211235",
+      "https://www.wikidata.org/wiki/Q126127689",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32767"
+    ],
+    "reason": "dates of the one-shot, the Viz print run, the novels, the puzzle game, the final battle and the climax have no strong second source (some conflict: ANN dates the second cour July 14 and the climax news July 20, Wikipedia July 15 and July 21), and the old Q7 answer was wrong (the puzzle game of April 2025 came before the climax of July 2026); whole quiz rebuilt on events with Wikidata or ANN-announcement sources: serialization, volume 1, anime announcement, Sakamoto Holidays, anime premiere, season 1 finale, season 2"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/which-came-first-sakamoto-days-from-one-shot-to-second-season.json",
+    "index": 7,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283",
+      "https://www.wikidata.org/wiki/Q105087026",
+      "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=24170",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=38152",
+      "https://www.animenewsnetwork.com/news/2024-06-02/sakamoto-days-manga-gets-sakamoto-holidays-spinoff-starting-on-july-4/.211434"
+    ],
+    "reason": "dates of the one-shot, the Viz print run, the novels, the puzzle game, the final battle and the climax have no strong second source (some conflict: ANN dates the second cour July 14 and the climax news July 20, Wikipedia July 15 and July 21), and the old Q7 answer was wrong (the puzzle game of April 2025 came before the climax of July 2026); whole quiz rebuilt on events with Wikidata or ANN-announcement sources: serialization, volume 1, anime announcement, Sakamoto Holidays, anime premiere, season 1 finale, season 2"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/which-came-first-sakamoto-days-from-one-shot-to-second-season.json",
+    "index": 8,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283",
+      "https://www.wikidata.org/wiki/Q105087026",
+      "https://www.animenewsnetwork.com/news/2024-05-27/sakamoto-days-tv-anime-confirmed-for-january-2025-starring-tomokazu-sugita/.211235",
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes?oldid=1376754875",
+      "https://www.wikidata.org/wiki/Q126127689",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32767",
+      "https://www.wikidata.org/wiki/Q137476983"
+    ],
+    "reason": "dates of the one-shot, the Viz print run, the novels, the puzzle game, the final battle and the climax have no strong second source (some conflict: ANN dates the second cour July 14 and the climax news July 20, Wikipedia July 15 and July 21), and the old Q7 answer was wrong (the puzzle game of April 2025 came before the climax of July 2026); whole quiz rebuilt on events with Wikidata or ANN-announcement sources: serialization, volume 1, anime announcement, Sakamoto Holidays, anime premiere, season 1 finale, season 2"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/which-came-first-sakamoto-days-from-one-shot-to-second-season.json",
+    "index": 9,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=38152",
+      "https://www.animenewsnetwork.com/news/2024-06-02/sakamoto-days-manga-gets-sakamoto-holidays-spinoff-starting-on-july-4/.211434",
+      "https://www.animenewsnetwork.com/news/2024-05-27/sakamoto-days-tv-anime-confirmed-for-january-2025-starring-tomokazu-sugita/.211235",
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes?oldid=1376754875",
+      "https://www.wikidata.org/wiki/Q137476983"
+    ],
+    "reason": "dates of the one-shot, the Viz print run, the novels, the puzzle game, the final battle and the climax have no strong second source (some conflict: ANN dates the second cour July 14 and the climax news July 20, Wikipedia July 15 and July 21), and the old Q7 answer was wrong (the puzzle game of April 2025 came before the climax of July 2026); whole quiz rebuilt on events with Wikidata or ANN-announcement sources: serialization, volume 1, anime announcement, Sakamoto Holidays, anime premiere, season 1 finale, season 2"
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/who-is-this-sakamoto-days-character-in-three-clues.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/who-is-this-sakamoto-days-character-in-three-clues.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/who-is-this-sakamoto-days-character-in-three-clues.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/who-is-this-sakamoto-days-character-in-three-clues.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/who-is-this-sakamoto-days-character-in-three-clues.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/who-is-this-sakamoto-days-character-in-three-clues.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/who-is-this-sakamoto-days-character-in-three-clues.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/who-is-this-sakamoto-days-character-in-three-clues.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/who-is-this-sakamoto-days-character-in-three-clues.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737"
+    ]
+  },
+  {
+    "quiz": "quizzes/sakamoto-days/who-is-this-sakamoto-days-character-in-three-clues.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters?oldid=1372317737",
+      "https://en.wikipedia.org/wiki/Sakamoto_Days?oldid=1379833283"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/fifty-rejections-a-gorilla-captain-and-a-national-dream-slam-dunk-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/fifty-rejections-a-gorilla-captain-and-a-national-dream-slam-dunk-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/fifty-rejections-a-gorilla-captain-and-a-national-dream-slam-dunk-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/fifty-rejections-a-gorilla-captain-and-a-national-dream-slam-dunk-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/fifty-rejections-a-gorilla-captain-and-a-national-dream-slam-dunk-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/fifty-rejections-a-gorilla-captain-and-a-national-dream-slam-dunk-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/fifty-rejections-a-gorilla-captain-and-a-national-dream-slam-dunk-quiz.json",
+    "index": 6,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)?oldid=1379466912"
+    ],
+    "reason": "the year of the one-shot (1990) rests on Wikipedia alone and no strong second source exists; question no longer states a year, the title Aka ga Suki is on the manga page (rev 1379466912)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/fifty-rejections-a-gorilla-captain-and-a-national-dream-slam-dunk-quiz.json",
+    "index": 7,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)?oldid=1379466912"
+    ],
+    "reason": "the year 2006 rests on Wikipedia alone and no strong second source exists; question no longer states a year, the program is on the manga page (rev 1379466912)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/fifty-rejections-a-gorilla-captain-and-a-national-dream-slam-dunk-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)?oldid=1379466912",
+      "https://www.wikidata.org/wiki/Q100910749",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=659"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/fifty-rejections-a-gorilla-captain-and-a-national-dream-slam-dunk-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/odd-one-out-slam-dunk-teams-songs-and-voices.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/odd-one-out-slam-dunk-teams-songs-and-voices.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ],
+    "reason": "the cited fact excerpt did not carry the answer; excerpt now holds the Wikipedia sentence (List of Slam Dunk characters rev 1379124925)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/odd-one-out-slam-dunk-teams-songs-and-voices.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ],
+    "reason": "the cited fact excerpt did not carry the answer; excerpt now holds the Wikipedia sentence (List of Slam Dunk characters rev 1379124925)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/odd-one-out-slam-dunk-teams-songs-and-voices.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_episodes?oldid=1356358188",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=659"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/odd-one-out-slam-dunk-teams-songs-and-voices.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_episodes?oldid=1356358188",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=659"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/odd-one-out-slam-dunk-teams-songs-and-voices.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/The_First_Slam_Dunk?oldid=1381665232",
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_episodes?oldid=1356358188",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=659"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/odd-one-out-slam-dunk-teams-songs-and-voices.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/odd-one-out-slam-dunk-teams-songs-and-voices.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/odd-one-out-slam-dunk-teams-songs-and-voices.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)?oldid=1379466912",
+      "https://en.wikipedia.org/wiki/The_First_Slam_Dunk?oldid=1381665232",
+      "https://www.wikidata.org/wiki/Q112897629",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=25969"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/odd-one-out-slam-dunk-teams-songs-and-voices.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/The_First_Slam_Dunk?oldid=1381665232",
+      "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)?oldid=1379466912",
+      "https://shogakukan-comic.jp/shogakukan-mangasho-archives"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/sannoh-a-red-monkey-and-500-threes-a-day-slam-dunk-hard-quiz.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ],
+    "reason": "the cited fact excerpt did not carry the answer; excerpt now holds the Wikipedia sentence (List of Slam Dunk characters rev 1379124925)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/sannoh-a-red-monkey-and-500-threes-a-day-slam-dunk-hard-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/sannoh-a-red-monkey-and-500-threes-a-day-slam-dunk-hard-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/sannoh-a-red-monkey-and-500-threes-a-day-slam-dunk-hard-quiz.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ],
+    "reason": "the cited fact excerpt did not carry the answer; excerpt now holds the Wikipedia sentence (List of Slam Dunk characters rev 1379124925)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/sannoh-a-red-monkey-and-500-threes-a-day-slam-dunk-hard-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/sannoh-a-red-monkey-and-500-threes-a-day-slam-dunk-hard-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/sannoh-a-red-monkey-and-500-threes-a-day-slam-dunk-hard-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/sannoh-a-red-monkey-and-500-threes-a-day-slam-dunk-hard-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)?oldid=1379466912"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/sannoh-a-red-monkey-and-500-threes-a-day-slam-dunk-hard-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/The_First_Slam_Dunk?oldid=1381665232"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/sannoh-a-red-monkey-and-500-threes-a-day-slam-dunk-hard-quiz.json",
+    "index": 9,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/The_First_Slam_Dunk?oldid=1381665232"
+    ],
+    "reason": "the cited fact excerpt named only the opening song; excerpt now also holds the ending theme Dai-Zero Kan (The First Slam Dunk rev 1381665232)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/slam-dunk-in-numbers-jerseys-volumes-and-episodes.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ],
+    "reason": "the cited fact excerpt did not carry the answer; excerpt now holds the Wikipedia sentence (List of Slam Dunk characters rev 1379124925)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/slam-dunk-in-numbers-jerseys-volumes-and-episodes.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ],
+    "reason": "the cited fact excerpt did not carry the answer; excerpt now holds the Wikipedia sentence (List of Slam Dunk characters rev 1379124925)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/slam-dunk-in-numbers-jerseys-volumes-and-episodes.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ],
+    "reason": "the cited fact excerpt did not carry the answer; excerpt now holds the Wikipedia sentence (List of Slam Dunk characters rev 1379124925)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/slam-dunk-in-numbers-jerseys-volumes-and-episodes.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ],
+    "reason": "the cited fact excerpt did not carry the answer; excerpt now holds the Wikipedia sentence (List of Slam Dunk characters rev 1379124925)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/slam-dunk-in-numbers-jerseys-volumes-and-episodes.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters?oldid=1379124925"
+    ],
+    "reason": "the cited fact excerpt did not carry the answer; excerpt now holds the Wikipedia sentence (List of Slam Dunk characters rev 1379124925)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/slam-dunk-in-numbers-jerseys-volumes-and-episodes.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)?oldid=1379466912",
+      "https://www.wikidata.org/wiki/Q714760"
+    ]
+  },
+  {
+    "quiz": "quizzes/slam-dunk/slam-dunk-in-numbers-jerseys-volumes-and-episodes.json",
+    "index": 6,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)?oldid=1379466912",
+      "https://www.wikidata.org/wiki/Q714760"
+    ],
+    "reason": "chapter count 276 had only a Wikipedia source (Wikidata gives volumes, not chapters); replaced by the start year, Wikipedia plus Wikidata Q714760 (1990-10-01)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/slam-dunk-in-numbers-jerseys-volumes-and-episodes.json",
+    "index": 7,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)?oldid=1379466912",
+      "https://www.wikidata.org/wiki/Q100910749",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=659"
+    ],
+    "reason": "circulation figure (185 million by 2025) is a sales figure with only a Wikipedia source (only Oricon counts as strong); replaced by the anime start year, Wikipedia plus Wikidata Q100910749 plus ANN id 659 (1993-10-16)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/slam-dunk-in-numbers-jerseys-volumes-and-episodes.json",
+    "index": 8,
+    "verdict": "replaced",
+    "urls": [
+      "https://en.wikipedia.org/wiki/The_First_Slam_Dunk?oldid=1381665232",
+      "https://www.wikidata.org/wiki/Q112897629",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=25969"
+    ],
+    "reason": "chalkboard count (23) had only a Wikipedia source; replaced by the film release year, Wikipedia plus Wikidata Q112897629 plus ANN id 25969 (2022-12-03)"
+  },
+  {
+    "quiz": "quizzes/slam-dunk/slam-dunk-in-numbers-jerseys-volumes-and-episodes.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)?oldid=1379466912",
+      "https://shogakukan-comic.jp/shogakukan-mangasho-archives"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/a-well-a-jewel-and-a-half-demon-inuyasha-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/a-well-a-jewel-and-a-half-demon-inuyasha-quiz.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/a-well-a-jewel-and-a-half-demon-inuyasha-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/a-well-a-jewel-and-a-half-demon-inuyasha-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/a-well-a-jewel-and-a-half-demon-inuyasha-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/a-well-a-jewel-and-a-half-demon-inuyasha-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/a-well-a-jewel-and-a-half-demon-inuyasha-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/a-well-a-jewel-and-a-half-demon-inuyasha-quiz.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/a-well-a-jewel-and-a-half-demon-inuyasha-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410",
+      "https://www.wikidata.org/wiki/Q21587460",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=159"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/a-well-a-jewel-and-a-half-demon-inuyasha-quiz.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/eighth-detachments-a-last-wish-and-the-final-act-inuyasha-hard-quiz.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/eighth-detachments-a-last-wish-and-the-final-act-inuyasha-hard-quiz.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ],
+    "reason": "the cited fact excerpt did not carry \"first detachment\"; excerpt now holds the Wikipedia sentence (list of characters rev 1375701088)"
+  },
+  {
+    "quiz": "quizzes/inuyasha/eighth-detachments-a-last-wish-and-the-final-act-inuyasha-hard-quiz.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/eighth-detachments-a-last-wish-and-the-final-act-inuyasha-hard-quiz.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/eighth-detachments-a-last-wish-and-the-final-act-inuyasha-hard-quiz.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/eighth-detachments-a-last-wish-and-the-final-act-inuyasha-hard-quiz.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/eighth-detachments-a-last-wish-and-the-final-act-inuyasha-hard-quiz.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/eighth-detachments-a-last-wish-and-the-final-act-inuyasha-hard-quiz.json",
+    "index": 7,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410"
+    ],
+    "reason": "the date of the epilogue chapter rests on Wikipedia alone; question no longer states a date, the title \"Since Then\" is on Wikipedia rev 1377936410"
+  },
+  {
+    "quiz": "quizzes/inuyasha/eighth-detachments-a-last-wish-and-the-final-act-inuyasha-hard-quiz.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410",
+      "https://www.wikidata.org/wiki/Q3728811",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=10970"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/eighth-detachments-a-last-wish-and-the-final-act-inuyasha-hard-quiz.json",
+    "index": 9,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410",
+      "https://www.wikidata.org/wiki/Q97171756"
+    ],
+    "reason": "cited fact held the May 2020 announcement, not the premiere date; added fact yashahime-premiere-087 (Wikipedia rev 1377936410 plus Wikidata Q97171756, start 2020-10-03)"
+  },
+  {
+    "quiz": "quizzes/inuyasha/real-or-made-up-feudal-era-facts-from-inuyasha.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/real-or-made-up-feudal-era-facts-from-inuyasha.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/real-or-made-up-feudal-era-facts-from-inuyasha.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/real-or-made-up-feudal-era-facts-from-inuyasha.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410",
+      "https://www.wikidata.org/wiki/Q182056"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/real-or-made-up-feudal-era-facts-from-inuyasha.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/real-or-made-up-feudal-era-facts-from-inuyasha.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410",
+      "https://www.wikidata.org/wiki/Q21587460",
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=159"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/real-or-made-up-feudal-era-facts-from-inuyasha.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/real-or-made-up-feudal-era-facts-from-inuyasha.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/real-or-made-up-feudal-era-facts-from-inuyasha.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410",
+      "https://shogakukan-comic.jp/shogakukan-mangasho-archives"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/real-or-made-up-feudal-era-facts-from-inuyasha.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha_(TV_series)?oldid=1373125400",
+      "https://www.wikidata.org/wiki/Q21587460"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/who-is-this-inuyasha-character-in-three-clues.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/who-is-this-inuyasha-character-in-three-clues.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/who-is-this-inuyasha-character-in-three-clues.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/who-is-this-inuyasha-character-in-three-clues.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/who-is-this-inuyasha-character-in-three-clues.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/who-is-this-inuyasha-character-in-three-clues.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/who-is-this-inuyasha-character-in-three-clues.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/who-is-this-inuyasha-character-in-three-clues.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/who-is-this-inuyasha-character-in-three-clues.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088"
+    ]
+  },
+  {
+    "quiz": "quizzes/inuyasha/who-is-this-inuyasha-character-in-three-clues.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters?oldid=1375701088",
+      "https://en.wikipedia.org/wiki/Inuyasha?oldid=1377936410"
+    ]
+  }
+]

@@ -93,13 +93,14 @@
         "fetched_at": "2026-10-25T15:40:00Z"
       },
       {
-        "source": "official",
-        "url": "https://bocchi.rocks/tv/caststaff/",
-        "fetched_at": "2026-10-25T15:40:00Z"
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65235667",
+        "ref": "Q65235667",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:00:00.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "seinen manga magazine Manga Time Kirara Max"
   },
   {

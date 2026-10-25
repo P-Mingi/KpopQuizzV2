@@ -252,7 +252,7 @@
     "value": "April 2, 2021",
     "text": "The first collected volume came out on April 2, 2021.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "manga"
@@ -263,10 +263,16 @@
         "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
         "ref": "1379833283",
         "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q105087026",
+        "fetched_at": "2026-10-25T21:00:00Z",
+        "ref": "Q105087026"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:30:30.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "The first volume was released on April 2, 2021"
   },
   {
@@ -355,7 +361,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T18:30:30.000Z",
-    "excerpt": "a retired legendary hitman who has settled into a quiet and mundane life as a family man"
+    "excerpt": "a retired legendary hitman ... now working as a humble convenience store owner"
   },
   {
     "id": "sakamoto-days-no-kill-012",
@@ -736,7 +742,7 @@
     ],
     "text": "A spin-off, Sakamoto Holidays, by Tetsu Ōkawa, a former assistant of Suzuki, began in Saikyō Jump on July 4, 2024.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "manga"
@@ -747,10 +753,15 @@
         "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
         "ref": "1379833283",
         "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2024-06-02/sakamoto-days-manga-gets-sakamoto-holidays-spinoff-starting-on-july-4/.211434",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:30:30.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "A spin-off manga by Tetsu Ōkawa"
   },
   {
@@ -858,7 +869,7 @@
     "value": "May 2024",
     "text": "Reports in May 2024 revealed that TMS Entertainment would make a TV anime of the series.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -869,10 +880,15 @@
         "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
         "ref": "1379833283",
         "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2024-05-27/sakamoto-days-tv-anime-confirmed-for-january-2025-starring-tomokazu-sugita/.211235",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:30:30.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "In May 2024, it was announced that the series would receive an anime television series adaptation"
   },
   {
@@ -1086,7 +1102,7 @@
     ],
     "text": "The second cour of the anime has 11 episodes too and aired from July 15 to September 23, 2025.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 2,
       "scope": "anime"
@@ -1099,13 +1115,14 @@
         "fetched_at": "2026-10-25T17:50:00Z"
       },
       {
-        "source": "press",
-        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=35291",
-        "fetched_at": "2026-10-25T17:50:00Z"
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q137476983",
+        "ref": "Q137476983",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:30:30.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "11 July 15, 2025 (2025-07-15) September 23, 2025 (2025-09-23)"
   },
   {
@@ -2006,7 +2023,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T18:30:30.000Z",
-    "excerpt": "the youngest member of the Order"
+    "excerpt": "the youngest member of the Order ... a large circular saw"
   },
   {
     "id": "sakamoto-days-osaragi-voice-064",

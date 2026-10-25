@@ -740,10 +740,16 @@
         "source": "press",
         "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236",
         "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q709716",
+        "ref": "Q709716",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:00:00.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "transferred to \"Bandai Namco Pictures (BN Pictures)\""
   },
   {
@@ -852,12 +858,6 @@
       {
         "source": "press",
         "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236",
-        "fetched_at": "2026-10-25T15:40:00Z"
-      },
-      {
-        "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
-        "ref": "1375554499",
         "fetched_at": "2026-10-25T15:40:00Z"
       }
     ],
@@ -2256,7 +2256,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T18:00:00.000Z",
-    "excerpt": "raised as male to succeed her family's clan"
+    "excerpt": "raised as male to succeed her family's clan ... lost her left eye protecting her when they were young"
   },
   {
     "id": "gintama-shinsuke-takasugi-name-070",

@@ -1076,7 +1076,7 @@
     ],
     "text": "An OVA episode came bundled with volume 22 of the manga on May 19, 2021.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -1092,10 +1092,16 @@
         "source": "press",
         "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23977",
         "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q139980021",
+        "ref": "Q139980021",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T17:37:52.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "The OVA was bundled with the manga's twenty-second volume"
   },
   {
@@ -1114,7 +1120,7 @@
     ],
     "text": "Ultra Romantic, the third season, comprises 13 episodes that were broadcast between April 9 and June 25, 2022.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 3,
       "scope": "anime"
@@ -1125,10 +1131,21 @@
         "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_%E2%80%93_Ultra_Romantic",
         "ref": "1379120423",
         "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q109229216",
+        "ref": "Q109229216",
+        "fetched_at": "2026-10-25T21:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=24889",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T17:37:52.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "The season aired from April 9 to June 25, 2022"
   },
   {
@@ -1216,7 +1233,7 @@
     ],
     "text": "The television special The Stairway to Adulthood was announced in June 2025 and premiered on December 31, 2025.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 5,
       "scope": "anime"
@@ -1232,10 +1249,15 @@
         "source": "press",
         "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=36700",
         "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://kaguya.love/",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T17:37:52.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "The anime special premiered on December 31 of the same year"
   },
   {
@@ -1501,10 +1523,15 @@
         "source": "official",
         "url": "https://kaguya.love/",
         "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=36700",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T17:37:52.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "The opening theme song is \"Abunai Kioku\""
   },
   {

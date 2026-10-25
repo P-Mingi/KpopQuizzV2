@@ -421,7 +421,7 @@
     ],
     "text": "The first Detective Conan film, The Time Bombed Skyscraper, opened in 1997.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -432,10 +432,16 @@
         "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)",
         "ref": "1380734049",
         "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1195711",
+        "ref": "Q1195711",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:00:00.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "beginning with \"Case Closed: The Time Bombed Skyscraper\" in 1997"
   },
   {

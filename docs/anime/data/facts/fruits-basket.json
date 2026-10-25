@@ -91,13 +91,14 @@
         "fetched_at": "2026-10-25T15:40:00Z"
       },
       {
-        "source": "official",
-        "url": "https://fruba.jp/caststaff/",
-        "fetched_at": "2026-10-25T15:40:00Z"
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q216204",
+        "ref": "Q216204",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T18:00:00.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "semi-monthly shōjo manga magazine Hana to Yume"
   },
   {
@@ -2479,5 +2480,39 @@
     "status": "verified",
     "verified_at": "2026-10-25T18:00:00.000Z",
     "excerpt": "a student council treasurer who also had a traumatic childhood"
+  },
+  {
+    "id": "fruits-basket-seasons-count-077",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "anime_seasons",
+    "value": 3,
+    "text": "The 2019 remake was split into three seasons, the last of which is titled The Final.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)",
+        "ref": "1379439701",
+        "fetched_at": "2026-10-25T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q90394739",
+        "ref": "Q90394739",
+        "fetched_at": "2026-10-25T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:00:00.000Z",
+    "excerpt": "The show was divided into three seasons"
   }
 ]

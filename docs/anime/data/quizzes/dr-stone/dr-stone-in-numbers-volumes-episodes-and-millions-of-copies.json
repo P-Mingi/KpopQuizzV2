@@ -24,7 +24,7 @@
   ],
   "questions": [
     {
-      "question": "How many collected volumes does the manga fill?",
+      "question": "How many tankobon volumes does the whole manga fill, counting the 2024 volume of extra chapters?",
       "options": [
         "26",
         "21",
@@ -43,12 +43,12 @@
       "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
     },
     {
-      "question": "How many weekly chapters make up the main story?",
+      "question": "In which year did the manga begin its serialization?",
       "options": [
-        "232",
-        "276",
-        "205",
-        "180"
+        "2017",
+        "2015",
+        "2019",
+        "2013"
       ],
       "correct": 0,
       "kind": "manga",
@@ -57,26 +57,26 @@
         "scope": "manga"
       },
       "fact_ids": [
-        "dr-stone-chapters-008"
+        "dr-stone-manga-start-005"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
     },
     {
-      "question": "How many episodes does the whole anime have, not counting its special?",
+      "question": "How many TV seasons has the anime reached, counting the final one?",
       "options": [
-        "75",
-        "57",
-        "112",
-        "94"
+        "3",
+        "4",
+        "5",
+        "6"
       ],
-      "correct": 3,
+      "correct": 1,
       "kind": "production",
       "spoiler": {
         "arc": 0,
         "scope": "anime"
       },
       "fact_ids": [
-        "dr-stone-episodes-031"
+        "dr-stone-seasons-count-093"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
     },
@@ -119,12 +119,12 @@
       "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes"
     },
     {
-      "question": "How many episodes are in the fourth and final season?",
+      "question": "In which year did the anime adaptation first air on television?",
       "options": [
-        "37",
-        "24",
-        "48",
-        "13"
+        "2019",
+        "2018",
+        "2020",
+        "2021"
       ],
       "correct": 0,
       "kind": "production",
@@ -133,26 +133,26 @@
         "scope": "anime"
       },
       "fact_ids": [
-        "dr-stone-season-4-030"
+        "dr-stone-anime-start-021"
       ],
-      "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes"
+      "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
     },
     {
-      "question": "As of March 2026, the manga had passed how many copies in circulation?",
+      "question": "In which magazine was the manga serialized?",
       "options": [
-        "10 million",
-        "20 million",
-        "5 million",
-        "40 million"
+        "Weekly Shōnen Jump",
+        "Weekly Shōnen Sunday",
+        "Weekly Shōnen Magazine",
+        "Monthly Shōnen Gangan"
       ],
-      "correct": 1,
+      "correct": 0,
       "kind": "manga",
       "spoiler": {
         "arc": 0,
         "scope": "manga"
       },
       "fact_ids": [
-        "dr-stone-copies-2026-015"
+        "dr-stone-magazine-003"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
     },

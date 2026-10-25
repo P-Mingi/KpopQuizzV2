@@ -24,220 +24,222 @@
   ],
   "questions": [
     {
-      "question": "Between the early manga milestones of Sakamoto Days, which came first?",
+      "question": "Between the first years of the manga and the anime, which came first?",
       "options": [
-        "The first collected volume",
-        "The weekly serialization",
-        "Print volumes from Viz",
-        "The one-shot Sakamoto in Jump Giga"
+        "The anime premiered",
+        "The second cour finale aired",
+        "The second season premiere",
+        "The weekly serialization began"
       ],
       "correct": 3,
-      "kind": "manga",
-      "spoiler": {
-        "arc": 0,
-        "scope": "manga"
-      },
-      "fact_ids": [
-        "sakamoto-days-oneshot-005",
-        "sakamoto-days-manga-start-006",
-        "sakamoto-days-first-volume-008",
-        "sakamoto-days-viz-023"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
-    },
-    {
-      "question": "Among the books and spin-offs around Sakamoto Days, which came first?",
-      "options": [
-        "The anime is announced",
-        "The novel Assassin's Blues is released",
-        "The novel Assassin's Method is released",
-        "Sakamoto Holidays begins"
-      ],
-      "correct": 2,
-      "kind": "manga",
-      "spoiler": {
-        "arc": 0,
-        "scope": "manga"
-      },
-      "fact_ids": [
-        "sakamoto-days-novel-method-025",
-        "sakamoto-days-anime-announced-028",
-        "sakamoto-days-holidays-024",
-        "sakamoto-days-novel-blues-026"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
-    },
-    {
-      "question": "Among the 2024 and 2025 releases of Sakamoto Days, which came out first?",
-      "options": [
-        "The novel Assassin's Blues",
-        "The anime premiere",
-        "Sakamoto Holidays",
-        "The puzzle game"
-      ],
-      "correct": 2,
-      "kind": "manga",
-      "spoiler": {
-        "arc": 0,
-        "scope": "both"
-      },
-      "fact_ids": [
-        "sakamoto-days-holidays-024",
-        "sakamoto-days-novel-blues-026",
-        "sakamoto-days-anime-start-029",
-        "sakamoto-days-game-027"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
-    },
-    {
-      "question": "In the build-up to the Sakamoto Days anime, which came first?",
-      "options": [
-        "The anime premieres",
-        "The anime is announced",
-        "The second cour starts",
-        "Sakamoto Holidays begins"
-      ],
-      "correct": 1,
       "kind": "production",
       "spoiler": {
         "arc": 2,
-        "scope": "both"
+        "scope": "anime"
       },
       "fact_ids": [
-        "sakamoto-days-anime-announced-028",
-        "sakamoto-days-holidays-024",
         "sakamoto-days-anime-start-029",
-        "sakamoto-days-cour-2-034"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
-    },
-    {
-      "question": "Around the second cour of the Sakamoto Days anime, which came first?",
-      "options": [
-        "The live action film",
-        "Climax announced",
-        "The final battle",
-        "The second cour of the anime"
-      ],
-      "correct": 3,
-      "kind": "production",
-      "spoiler": {
-        "arc": 3,
-        "scope": "both"
-      },
-      "fact_ids": [
         "sakamoto-days-cour-2-034",
-        "sakamoto-days-final-battle-019",
-        "sakamoto-days-live-action-039"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes"
-    },
-    {
-      "question": "Around the end game of Sakamoto Days, which came first?",
-      "options": [
-        "The final battle",
-        "The live action film",
-        "Climax announced",
-        "The film on Prime Video"
-      ],
-      "correct": 0,
-      "kind": "manga",
-      "spoiler": {
-        "arc": 3,
-        "scope": "manga"
-      },
-      "fact_ids": [
-        "sakamoto-days-final-battle-019",
-        "sakamoto-days-live-action-039",
-        "sakamoto-days-live-action-prime-040"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
-    },
-    {
-      "question": "In the live action story of Sakamoto Days, which came first?",
-      "options": [
-        "The second season premieres",
-        "The live action film opens in Japan",
-        "The film arrives on Prime Video",
-        "The climax is announced"
-      ],
-      "correct": 1,
-      "kind": "production",
-      "spoiler": {
-        "arc": 3,
-        "scope": "manga"
-      },
-      "fact_ids": [
-        "sakamoto-days-live-action-039",
-        "sakamoto-days-final-battle-019",
-        "sakamoto-days-live-action-prime-040",
-        "sakamoto-days-season-2-038"
-      ],
-      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
-    },
-    {
-      "question": "Among the late 2026 news of Sakamoto Days, which came first?",
-      "options": [
-        "Climax announced",
-        "The puzzle game",
-        "The film on Prime Video",
-        "The second season"
-      ],
-      "correct": 0,
-      "kind": "manga",
-      "spoiler": {
-        "arc": 3,
-        "scope": "manga"
-      },
-      "fact_ids": [
-        "sakamoto-days-final-battle-019",
-        "sakamoto-days-live-action-prime-040",
         "sakamoto-days-season-2-038",
-        "sakamoto-days-game-027"
+        "sakamoto-days-manga-start-006"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
     },
     {
       "question": "At the start of the Sakamoto Days manga, which came first?",
       "options": [
-        "The novel Assassin's Method",
-        "Print volumes from Viz",
-        "The first collected volume",
-        "The weekly serialization"
+        "Sakamoto Holidays began",
+        "The weekly serialization began",
+        "The first collected volume came out",
+        "The anime premiered"
       ],
-      "correct": 3,
-      "kind": "manga",
+      "correct": 1,
+      "kind": "production",
       "spoiler": {
         "arc": 0,
-        "scope": "manga"
+        "scope": "both"
       },
       "fact_ids": [
+        "sakamoto-days-holidays-024",
         "sakamoto-days-manga-start-006",
         "sakamoto-days-first-volume-008",
-        "sakamoto-days-viz-023",
-        "sakamoto-days-novel-method-025"
+        "sakamoto-days-anime-start-029"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
     },
     {
-      "question": "Among the first volumes of Sakamoto Days, which came first?",
+      "question": "Around the first collected volume, which of these came first?",
       "options": [
-        "The first collected volume",
-        "The anime is announced",
-        "Print volumes from Viz",
-        "Sakamoto Holidays"
+        "The TV anime is revealed",
+        "The first collected volume came out",
+        "The second cour finale aired",
+        "The second season premiere"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sakamoto-days-anime-announced-028",
+        "sakamoto-days-first-volume-008",
+        "sakamoto-days-cour-2-034",
+        "sakamoto-days-season-2-038"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "question": "In the run-up to the anime, which of these came first?",
+      "options": [
+        "The anime premiered",
+        "Sakamoto Holidays began",
+        "The first collected volume came out",
+        "The second cour finale aired"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sakamoto-days-anime-start-029",
+        "sakamoto-days-holidays-024",
+        "sakamoto-days-first-volume-008",
+        "sakamoto-days-cour-2-034"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "question": "Among the news of 2024 and the anime, which came first?",
+      "options": [
+        "The TV anime is revealed",
+        "Sakamoto Holidays began",
+        "The anime premiered",
+        "The second season premiere"
       ],
       "correct": 0,
-      "kind": "manga",
+      "kind": "production",
       "spoiler": {
         "arc": 0,
-        "scope": "manga"
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-anime-announced-028",
+        "sakamoto-days-holidays-024",
+        "sakamoto-days-anime-start-029",
+        "sakamoto-days-season-2-038"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "question": "Around the spin-off and the anime premiere, which came first?",
+      "options": [
+        "The second cour finale aired",
+        "The anime premiered",
+        "The second season premiere",
+        "Sakamoto Holidays began"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sakamoto-days-cour-2-034",
+        "sakamoto-days-anime-start-029",
+        "sakamoto-days-season-2-038",
+        "sakamoto-days-holidays-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "question": "In the build-up to the Sakamoto Days anime, which came first?",
+      "options": [
+        "Sakamoto Holidays began",
+        "The second cour finale aired",
+        "The TV anime is revealed",
+        "The anime premiered"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sakamoto-days-holidays-024",
+        "sakamoto-days-cour-2-034",
+        "sakamoto-days-anime-announced-028",
+        "sakamoto-days-anime-start-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "question": "Among the manga milestones and the second season, which came first?",
+      "options": [
+        "The weekly serialization began",
+        "The second season premiere",
+        "The first collected volume came out",
+        "Sakamoto Holidays began"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-manga-start-006",
+        "sakamoto-days-season-2-038",
+        "sakamoto-days-first-volume-008",
+        "sakamoto-days-holidays-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "question": "From the first volume to the finale, which came first?",
+      "options": [
+        "The first collected volume came out",
+        "The TV anime is revealed",
+        "The anime premiered",
+        "The second cour finale aired"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
       },
       "fact_ids": [
         "sakamoto-days-first-volume-008",
-        "sakamoto-days-viz-023",
         "sakamoto-days-anime-announced-028",
-        "sakamoto-days-holidays-024"
+        "sakamoto-days-anime-start-029",
+        "sakamoto-days-cour-2-034"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "question": "Between the spin-off and the second season, which came first?",
+      "options": [
+        "The second season premiere",
+        "Sakamoto Holidays began",
+        "The TV anime is revealed",
+        "The second cour finale aired"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sakamoto-days-season-2-038",
+        "sakamoto-days-holidays-024",
+        "sakamoto-days-anime-announced-028",
+        "sakamoto-days-cour-2-034"
       ],
       "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
     }
