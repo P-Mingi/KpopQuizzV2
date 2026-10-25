@@ -1,0 +1,212 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "detective-conan",
+  "title": "Detective Conan Hard Quiz: Codenames, Cover Identities and a Missing Brother",
+  "slug": "codenames-cover-identities-and-a-missing-brother-detective-conan-hard-quiz",
+  "description": "Ten hard questions on identities, codenames and secrets of the Black Organization story. Spoilers for the late reveals of the manga and the anime.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Hard quiz: late reveals (arcs 2 and 3) and the Black Organization secrets. Spoilers named in the description.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Case Closed characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Who is Subaru Okiya revealed to be in disguise?",
+      "options": [
+        "The detective Heiji Hattori",
+        "The thief Kaito Kid",
+        "The FBI agent Shuichi Akai",
+        "The agent Rei Furuya"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-subaru-okiya-identity-075"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "What is the codename of Toru Amuro in the Black Organization?",
+      "options": [
+        "Bourbon",
+        "Gin",
+        "Vermouth",
+        "Rum"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-toru-amuro-name-077"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Which job does Toru Amuro's true identity Rei Furuya hold?",
+      "options": [
+        "An FBI agent",
+        "A defence lawyer",
+        "A public security agent",
+        "A private detective"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-toru-amuro-name-077"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "What position does Rum hold in the Black Organization?",
+      "options": [
+        "Second in command",
+        "The assassin of the Boss",
+        "The chief chemist",
+        "The Boss"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-rum-name-076"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Besides Shuichi Akai, who is another older brother of Masumi Sera?",
+      "options": [
+        "Makoto Kyogoku",
+        "Heiji Hattori",
+        "Yusaku Kudo",
+        "Shukichi Haneda"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-masumi-sera-brothers-071"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Which Black Organization member seems never to age?",
+      "options": [
+        "Gin",
+        "Vermouth",
+        "Rum",
+        "Bourbon"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-vermouth-name-068"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Who invented the poison APTX 4869?",
+      "options": [
+        "Hiroshi Agasa",
+        "Gin",
+        "Ai Haibara",
+        "Vermouth"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-ai-haibara-apotx-046"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Who trained Yukiko Kudo in the art of disguise?",
+      "options": [
+        "Yusaku Kudo",
+        "Toichi Kuroba",
+        "Hiroshi Agasa",
+        "Kogoro Mori"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-yukiko-kudo-name-073"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Kaito Kid was originally the hero of which earlier series by Aoyama?",
+      "options": [
+        "Lupin Junior",
+        "Yaiba",
+        "Magic Kaito",
+        "Black Thief"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-kaito-kid-origin-064"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Who heads the FBI operation against the Black Organization in Japan?",
+      "options": [
+        "Juzo Megure",
+        "James Black",
+        "Jodie Starling",
+        "Shuichi Akai"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-james-black-name-079"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    }
+  ]
+}
