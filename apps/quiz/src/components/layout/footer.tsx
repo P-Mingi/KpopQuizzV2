@@ -14,6 +14,7 @@ export function Footer(): React.ReactElement {
     { label: 'Popular quizzes', href: '/quizzes/popular-this-week' },
     { label: 'Trivia', href: '/trivia' },
     { label: 'Blindtest', href: '/blindtest' },
+    { label: 'K-pop games', href: '/kpop-games' },
     ...(verseHidden() ? [] : [{ label: 'Fandoms', href: '/verse' }]),
     { label: 'Leaderboard', href: '/leaderboard' },
     { label: 'Stats', href: '/stats' },
@@ -79,6 +80,7 @@ export function Footer(): React.ReactElement {
               { label: 'Contact', href: '/contact' },
               { label: 'Terms', href: '/terms' },
               { label: 'Privacy', href: '/privacy' },
+              { label: 'Legal notice', href: '/legal' },
               { label: 'DMCA', href: '/dmca' },
             ].map(l => (
               <Link key={l.label} href={l.href} style={{ display: 'block', fontSize: 11, color: 'var(--txt2)', margin: 0, marginBottom: 6, textDecoration: 'none' }}>{l.label}</Link>

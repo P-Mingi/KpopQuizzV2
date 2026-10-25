@@ -68,3 +68,12 @@ _(fill in at 2026-08-24+)_
 | /bts-quiz | 2.2% | | 9.6 | | |
 | /stray-kids-quiz | 4.3% | | 7.9 | | |
 | /illit-quiz | ~8% | | 7.0 | | |
+
+## Later title changes
+
+- 2026-10-15, SEO Mission 2 part B (branch `seo/m2-bts-quiz`): /bts-quiz retitled. The
+  freeze window above closed on 2026-08-31 and its re-check log was never filled, so there
+  was no live measurement to protect. Previous title: "BTS Quiz: Only Real ARMY Can Name All 7
+  (2026)". New title: "BTS Quiz: How Well Do You Know BTS? Easy to Hard", H1 "BTS quiz", new
+  meta description. To compare, read GSC and Bing for /bts-quiz 4 weeks after the deploy
+  against the 4 weeks before it; the revert rule above applies.

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getQuizzesByType } from '@/lib/db/queries/quizzes';
 import { QuizCard } from '@/components/quiz/quiz-card';
 import { safeFetch } from '@/lib/error-handling';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
@@ -38,6 +39,8 @@ export default async function KpopTrueOrFalsePage(): Promise<React.ReactElement>
 
   return (
     <div className="py-6">
+      {/* SEO Mission 2 (owner, 2026-10-15): one of the K-pop games (visible trail + BreadcrumbList). */}
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'K-pop games', href: '/kpop-games' }, { label: 'K-pop true or false' }]} />
       <h1 className="text-xl font-medium text-primary">K-pop true or false</h1>
       <p className="text-sm text-secondary mt-1 leading-relaxed">
         They look easy until you pick the wrong answer and question

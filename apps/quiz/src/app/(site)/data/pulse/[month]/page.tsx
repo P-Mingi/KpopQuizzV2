@@ -4,8 +4,9 @@ import { notFound } from 'next/navigation';
 
 import { Mascot } from '@/components/ui/mascot';
 import { PulseReportView } from '@/components/pulse/report-view';
+import { CiteLicence } from '@/components/cite/cite-licence';
 import { getPulseReport, listPulseReports, PULSE_MONTH_RE } from '@/lib/pulse/data';
-import { FOUNDER, founderPerson } from '@/lib/seo/org';
+import { DATA_LICENCE, FOUNDER, founderPerson } from '@/lib/seo/org';
 
 import type { Metadata } from 'next';
 
@@ -86,6 +87,7 @@ export default async function PulseMonthPage({ params }: PageProps): Promise<Rea
     dateModified: report.updatedAt,
     temporalCoverage: `${payload.windowStart.slice(0, 10)}/${payload.windowEnd.slice(0, 10)}`,
     isAccessibleForFree: true,
+    license: DATA_LICENCE.url,
     variableMeasured: [
       ...(payload.fandom ? [{ '@type': 'PropertyValue', name: 'Fandom of the month plays', value: payload.fandom.plays }] : []),
       { '@type': 'PropertyValue', name: 'Total quiz plays', value: payload.community.plays },
@@ -147,6 +149,9 @@ export default async function PulseMonthPage({ params }: PageProps): Promise<Rea
       </header>
 
       <PulseReportView payload={payload} />
+
+      {/* SEO Mission 3, part F.3: the licence block (credit line, CC BY 4.0, press contact). */}
+      <CiteLicence credit={`Source: kpopquiz.org K-pop Pulse, ${payload.monthLabel}`} />
     </div>
   );
 }

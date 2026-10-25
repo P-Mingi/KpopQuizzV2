@@ -1,0 +1,1433 @@
+{
+  "version": 1,
+  "reviewed": "2026-10-15",
+  "about": "Generation labels for every act in the kpopquiz.org directory (General K-pop excluded). Read only through apps/quiz/src/lib/generations/generations.ts. Debut year and agency: the act's Wikipedia article. Wikidata ids: written by scripts/wikidata-group-generations.mts from the Wikipedia article, never typed. Confidence: consensus = the debut year sits inside one generation in every dating our sources give; attributed = a named source places the act, or a note qualifies it; contested = the act sits where sources disagree and none places it; newest = a debut from 2023 on, where the 5th generation label is not official. No em or en dashes.",
+  "sources": {
+    "wikipedia-history-of-korean-idols": {
+      "publisher": "Wikipedia",
+      "title": "History of Korean idols",
+      "url": "https://en.wikipedia.org/wiki/History_of_Korean_idols",
+      "date": null,
+      "short": "Wikipedia, History of Korean idols"
+    },
+    "korea-times-2025": {
+      "publisher": "The Korea Times",
+      "title": "Japanese girl group Cosmosy raises questions about K-pop's generational identity",
+      "url": "https://www.koreatimes.co.kr/entertainment/k-pop/20250131/japanese-girl-group-cosmosy-raises-questions-about-k-pops-generational-identity",
+      "date": "2025-01-31",
+      "short": "Korea Times, 2025"
+    },
+    "joongang-2023-fifth-generation": {
+      "publisher": "Korea JoongAng Daily",
+      "title": "[FACTCHECK] Has K-pop already entered its fifth generation?",
+      "url": "https://koreajoongangdaily.com/entertainment/factcheck-has-kpop-already-entered-its-fifth-generation/10480537",
+      "date": "2023-07-11",
+      "short": "Korea JoongAng Daily, July 2023"
+    },
+    "joongang-2023-stray-kids": {
+      "publisher": "Korea JoongAng Daily",
+      "title": "Stray Kids sets K-pop milestone with dome stadium tour",
+      "url": "https://www.koreajoongangdaily.com/entertainment/stray-kids-sets-k-pop-milestone-with-dome-stadium-tour/10294580",
+      "date": "2023-10-31",
+      "short": "Korea JoongAng Daily, October 2023"
+    },
+    "wikipedia-got7": {
+      "publisher": "Wikipedia",
+      "title": "Got7",
+      "url": "https://en.wikipedia.org/wiki/Got7",
+      "date": null,
+      "short": "Wikipedia, GOT7"
+    },
+    "wikipedia-g-i-dle": {
+      "publisher": "Wikipedia",
+      "title": "I-dle",
+      "url": "https://en.wikipedia.org/wiki/I-dle",
+      "date": null,
+      "short": "Wikipedia, I-dle"
+    },
+    "wikipedia-ateez": {
+      "publisher": "Wikipedia",
+      "title": "Ateez",
+      "url": "https://en.wikipedia.org/wiki/Ateez",
+      "date": null,
+      "short": "Wikipedia, ATEEZ"
+    }
+  },
+  "eras": [
+    {
+      "generation": 1,
+      "start": 1996,
+      "end": 2002,
+      "startText": "1996, the debut of H.O.T.",
+      "changed": "SM Entertainment's trainee system; groups of about five with set roles and synchronized group dance, relying on TV broadcasts",
+      "examples": [
+        "H.O.T.",
+        "S.E.S.",
+        "Sechs Kies",
+        "Fin.K.L",
+        "g.o.d"
+      ],
+      "sources": [
+        "wikipedia-history-of-korean-idols",
+        "korea-times-2025"
+      ]
+    },
+    {
+      "generation": 2,
+      "start": 2003,
+      "end": 2011,
+      "startText": "2003, the debut of TVXQ",
+      "changed": "Bigger groups with sub-units, variety shows, digital singles and EPs, and songs aimed at listeners abroad",
+      "examples": [
+        "TVXQ",
+        "BIGBANG",
+        "Girls' Generation",
+        "Wonder Girls",
+        "SHINee",
+        "2NE1"
+      ],
+      "sources": [
+        "wikipedia-history-of-korean-idols",
+        "korea-times-2025"
+      ]
+    },
+    {
+      "generation": 3,
+      "start": 2012,
+      "end": 2017,
+      "startText": "2012, the debut of EXO and the year of Gangnam Style",
+      "changed": "Social media and self-made video content, members from abroad, survival shows, and worldwide stars",
+      "examples": [
+        "EXO",
+        "BTS",
+        "BLACKPINK",
+        "GOT7",
+        "SEVENTEEN",
+        "MAMAMOO"
+      ],
+      "sources": [
+        "wikipedia-history-of-korean-idols",
+        "korea-times-2025"
+      ]
+    },
+    {
+      "generation": 4,
+      "start": 2018,
+      "startAlt": 2020,
+      "end": 2022,
+      "startText": "Around 2018, or 2020 with the pandemic",
+      "changed": "Online concerts, short-form video and virtual tours during the pandemic, and a girl group renaissance",
+      "examples": [
+        "aespa",
+        "LE SSERAFIM",
+        "NewJeans",
+        "IVE",
+        "ENHYPEN",
+        "TXT"
+      ],
+      "sources": [
+        "korea-times-2025",
+        "joongang-2023-fifth-generation"
+      ]
+    },
+    {
+      "generation": 5,
+      "start": 2023,
+      "end": null,
+      "official": false,
+      "startText": "2023, when ZEROBASEONE was billed as 5th generation (not official)",
+      "changed": "Direct contact with fans again after the pandemic limits, as ZEROBASEONE's agency framed it",
+      "examples": [
+        "ZEROBASEONE",
+        "BOYNEXTDOOR",
+        "TWS",
+        "RIIZE",
+        "ILLIT",
+        "BABYMONSTER",
+        "KISS OF LIFE"
+      ],
+      "sources": [
+        "korea-times-2025",
+        "joongang-2023-fifth-generation"
+      ]
+    }
+  ],
+  "groups": {
+    "2ne1": {
+      "name": "2NE1",
+      "debutYear": 2009,
+      "agency": "YG Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/2NE1",
+      "wikidata": "Q171885",
+      "label": {
+        "confidence": "consensus",
+        "generation": 2,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "2pm": {
+      "name": "2PM",
+      "debutYear": 2008,
+      "agency": "JYP Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/2PM",
+      "wikidata": "Q222760",
+      "label": {
+        "confidence": "consensus",
+        "generation": 2,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "aespa": {
+      "name": "aespa",
+      "debutYear": 2020,
+      "agency": "SM Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Aespa",
+      "wikidata": "Q100877982",
+      "label": {
+        "confidence": "consensus",
+        "generation": 4,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "akmu": {
+      "name": "AKMU",
+      "debutYear": 2014,
+      "agency": "YG Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/AKMU",
+      "wikidata": "Q10728972",
+      "label": null,
+      "unlabelled": "duo"
+    },
+    "apink": {
+      "name": "Apink",
+      "debutYear": 2011,
+      "agency": "A Cube Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Apink",
+      "wikidata": "Q483286",
+      "label": {
+        "confidence": "attributed",
+        "generation": 2,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ],
+        "note": "Girl groups that debuted from 2010 to 2013 are sometimes called generation 2.5."
+      }
+    },
+    "artms": {
+      "name": "ARTMS",
+      "debutYear": 2024,
+      "agency": "Modhaus",
+      "wikipedia": "https://en.wikipedia.org/wiki/Artms",
+      "wikidata": "Q119692734",
+      "debutNote": "pre-debut releases from 2023",
+      "label": {
+        "confidence": "newest",
+        "generation": null,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "astro": {
+      "name": "ASTRO",
+      "debutYear": 2016,
+      "agency": "Fantagio",
+      "wikipedia": "https://en.wikipedia.org/wiki/Astro_(South_Korean_band)",
+      "wikidata": "Q23004252",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "ateez": {
+      "name": "ATEEZ",
+      "debutYear": 2018,
+      "agency": "KQ Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Ateez",
+      "wikidata": "Q59793088",
+      "label": {
+        "confidence": "attributed",
+        "generation": 4,
+        "sources": [
+          "wikipedia-ateez",
+          "korea-times-2025"
+        ],
+        "note": "It sits where the line between the 3rd and 4th generations is debated."
+      }
+    },
+    "babymonster": {
+      "name": "BABYMONSTER",
+      "debutYear": 2023,
+      "agency": "YG Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Babymonster",
+      "wikidata": "Q115967938",
+      "debutNote": "full group from 2024",
+      "label": {
+        "confidence": "newest",
+        "generation": 5,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "bibi": {
+      "name": "BIBI",
+      "debutYear": 2019,
+      "agency": "Feel Ghood Music",
+      "wikipedia": "https://en.wikipedia.org/wiki/Bibi_(singer)",
+      "wikidata": "Q65060693",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "bigbang": {
+      "name": "BIGBANG",
+      "debutYear": 2006,
+      "agency": "YG Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/BigBang_(South_Korean_band)",
+      "wikidata": "Q282104",
+      "label": {
+        "confidence": "consensus",
+        "generation": 2,
+        "sources": [
+          "korea-times-2025",
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "billlie": {
+      "name": "Billlie",
+      "debutYear": 2021,
+      "agency": "Mystic Story",
+      "wikipedia": "https://en.wikipedia.org/wiki/Billlie",
+      "wikidata": "Q108888399",
+      "label": {
+        "confidence": "consensus",
+        "generation": 4,
+        "sources": [
+          "korea-times-2025"
+        ]
+      }
+    },
+    "blackpink": {
+      "name": "BLACKPINK",
+      "debutYear": 2016,
+      "agency": "YG Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Blackpink",
+      "wikidata": "Q25056945",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "korea-times-2025"
+        ]
+      }
+    },
+    "boynextdoor": {
+      "name": "BOYNEXTDOOR",
+      "debutYear": 2023,
+      "agency": "KOZ Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/BoyNextDoor",
+      "wikidata": "Q118178306",
+      "label": {
+        "confidence": "newest",
+        "generation": 5,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "btob": {
+      "name": "BTOB",
+      "debutYear": 2012,
+      "agency": "Cube Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/BtoB_(band)",
+      "wikidata": "Q491067",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "bts": {
+      "name": "BTS",
+      "debutYear": 2013,
+      "agency": "Big Hit Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/BTS",
+      "wikidata": "Q13580495",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "korea-times-2025"
+        ]
+      }
+    },
+    "chungha": {
+      "name": "Chungha",
+      "debutYear": 2016,
+      "agency": "MNH Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Chung_Ha",
+      "wikidata": "Q26214034",
+      "debutNote": "with I.O.I",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "cortis": {
+      "name": "Cortis",
+      "debutYear": 2025,
+      "agency": "BigHit Music",
+      "wikipedia": "https://en.wikipedia.org/wiki/Cortis",
+      "wikidata": "Q135668928",
+      "label": {
+        "confidence": "newest",
+        "generation": null,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "day6": {
+      "name": "DAY6",
+      "debutYear": 2015,
+      "agency": "JYP Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Day6",
+      "wikidata": "Q20898046",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "dreamcatcher": {
+      "name": "Dreamcatcher",
+      "debutYear": 2017,
+      "agency": "Dreamcatcher Company",
+      "wikipedia": "https://en.wikipedia.org/wiki/Dreamcatcher_(group)",
+      "wikidata": "Q20684822",
+      "debutNote": "first as MINX in 2014",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "enhypen": {
+      "name": "ENHYPEN",
+      "debutYear": 2020,
+      "agency": "Belift Lab",
+      "wikipedia": "https://en.wikipedia.org/wiki/Enhypen",
+      "wikidata": "Q99479445",
+      "label": {
+        "confidence": "consensus",
+        "generation": 4,
+        "sources": [
+          "joongang-2023-fifth-generation",
+          "korea-times-2025"
+        ]
+      }
+    },
+    "exo": {
+      "name": "EXO",
+      "debutYear": 2012,
+      "agency": "SM Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Exo",
+      "wikidata": "Q494717",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "korea-times-2025",
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "fifty-fifty": {
+      "name": "FIFTY FIFTY",
+      "debutYear": 2022,
+      "agency": "Attrakt",
+      "wikipedia": "https://en.wikipedia.org/wiki/Fifty_Fifty_(group)",
+      "wikidata": "Q116731010",
+      "label": {
+        "confidence": "consensus",
+        "generation": 4,
+        "sources": [
+          "korea-times-2025"
+        ]
+      }
+    },
+    "fromis-9": {
+      "name": "fromis_9",
+      "debutYear": 2018,
+      "agency": "Stone Music Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Fromis_9",
+      "wikidata": "Q41398331",
+      "label": {
+        "confidence": "contested",
+        "generation": null,
+        "range": [
+          3,
+          4
+        ],
+        "sources": [
+          "wikipedia-history-of-korean-idols",
+          "korea-times-2025"
+        ]
+      }
+    },
+    "fx": {
+      "name": "f(x)",
+      "debutYear": 2009,
+      "agency": "SM Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/F(x)_(group)",
+      "wikidata": "Q344286",
+      "label": {
+        "confidence": "consensus",
+        "generation": 2,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "g-i-dle": {
+      "name": "(G)I-DLE",
+      "debutYear": 2018,
+      "agency": "Cube Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/I-dle",
+      "wikidata": "Q51885404",
+      "label": {
+        "confidence": "attributed",
+        "generation": 4,
+        "sources": [
+          "wikipedia-g-i-dle",
+          "korea-times-2025"
+        ],
+        "note": "It sits where the line between the 3rd and 4th generations is debated."
+      }
+    },
+    "girls-generation": {
+      "name": "Girls' Generation",
+      "debutYear": 2007,
+      "agency": "SM Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Girls'_Generation",
+      "wikidata": "Q20153",
+      "label": {
+        "confidence": "consensus",
+        "generation": 2,
+        "sources": [
+          "korea-times-2025",
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "got7": {
+      "name": "GOT7",
+      "debutYear": 2014,
+      "agency": "JYP Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Got7",
+      "wikidata": "Q23772001",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-got7",
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "hearts2hearts": {
+      "name": "Hearts2Hearts",
+      "debutYear": 2025,
+      "agency": "SM Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Hearts2Hearts",
+      "wikidata": "Q131746784",
+      "label": {
+        "confidence": "newest",
+        "generation": null,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "heize": {
+      "name": "Heize",
+      "debutYear": 2014,
+      "agency": null,
+      "wikipedia": "https://en.wikipedia.org/wiki/Heize",
+      "wikidata": "Q24855768",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "hwasa": {
+      "name": "Hwasa",
+      "debutYear": 2014,
+      "agency": "RBW",
+      "wikipedia": "https://en.wikipedia.org/wiki/Hwasa",
+      "wikidata": "Q19603912",
+      "debutNote": "with MAMAMOO",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "hyuna": {
+      "name": "HyunA",
+      "debutYear": 2007,
+      "agency": "JYP Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Hyuna",
+      "wikidata": "Q234066",
+      "debutNote": "with Wonder Girls",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "ikon": {
+      "name": "iKON",
+      "debutYear": 2015,
+      "agency": "YG Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/IKon",
+      "wikidata": "Q18161349",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "illit": {
+      "name": "ILLIT",
+      "debutYear": 2024,
+      "agency": "Belift Lab",
+      "wikipedia": "https://en.wikipedia.org/wiki/Illit",
+      "wikidata": "Q122179261",
+      "label": {
+        "confidence": "newest",
+        "generation": 5,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "itzy": {
+      "name": "ITZY",
+      "debutYear": 2019,
+      "agency": "JYP Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Itzy",
+      "wikidata": "Q60732823",
+      "label": {
+        "confidence": "contested",
+        "generation": null,
+        "range": [
+          3,
+          4
+        ],
+        "sources": [
+          "wikipedia-history-of-korean-idols",
+          "korea-times-2025"
+        ]
+      }
+    },
+    "iu": {
+      "name": "IU",
+      "debutYear": 2008,
+      "agency": "LOEN Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/IU_(entertainer)",
+      "wikidata": "Q20145",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "ive": {
+      "name": "IVE",
+      "debutYear": 2021,
+      "agency": "Starship Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Ive_(group)",
+      "wikidata": "Q109375061",
+      "label": {
+        "confidence": "consensus",
+        "generation": 4,
+        "sources": [
+          "joongang-2023-fifth-generation",
+          "korea-times-2025"
+        ]
+      }
+    },
+    "jay-park": {
+      "name": "Jay Park",
+      "debutYear": 2008,
+      "agency": "JYP Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Jay_Park",
+      "wikidata": "Q429046",
+      "debutNote": "with 2PM",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "jennie": {
+      "name": "Jennie",
+      "debutYear": 2016,
+      "agency": "YG Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Jennie_(singer)",
+      "wikidata": "Q26262599",
+      "debutNote": "with BLACKPINK",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "jeon-somi": {
+      "name": "JEON SOMI",
+      "debutYear": 2016,
+      "agency": "YMC Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Jeon_Somi",
+      "wikidata": "Q22910214",
+      "debutNote": "with I.O.I",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "jimin": {
+      "name": "Jimin",
+      "debutYear": 2013,
+      "agency": "Big Hit Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Jimin",
+      "wikidata": "Q20947093",
+      "debutNote": "with BTS",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "jungkook": {
+      "name": "Jungkook",
+      "debutYear": 2013,
+      "agency": "Big Hit Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Jung_Kook",
+      "wikidata": "Q22338877",
+      "debutNote": "with BTS",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "kara": {
+      "name": "KARA",
+      "debutYear": 2007,
+      "agency": "DSP Media",
+      "wikipedia": "https://en.wikipedia.org/wiki/Kara_(South_Korean_group)",
+      "wikidata": "Q124459",
+      "label": {
+        "confidence": "consensus",
+        "generation": 2,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "katseye": {
+      "name": "KATSEYE",
+      "debutYear": 2024,
+      "agency": "HYBE and Geffen Records",
+      "wikipedia": "https://en.wikipedia.org/wiki/Katseye",
+      "wikidata": "Q123480242",
+      "label": null,
+      "unlabelled": "abroad",
+      "debutNote": "based in Los Angeles"
+    },
+    "kep1er": {
+      "name": "Kep1er",
+      "debutYear": 2022,
+      "agency": "WakeOne and Swing Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Kep1er",
+      "wikidata": "Q109077000",
+      "label": {
+        "confidence": "consensus",
+        "generation": 4,
+        "sources": [
+          "korea-times-2025"
+        ]
+      }
+    },
+    "kickflip": {
+      "name": "KickFlip",
+      "debutYear": 2025,
+      "agency": "JYP Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/KickFlip",
+      "wikidata": "Q131722593",
+      "label": {
+        "confidence": "newest",
+        "generation": null,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "kiiikiii": {
+      "name": "Kiiikiii",
+      "debutYear": 2025,
+      "agency": "Starship Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/KiiiKiii",
+      "wikidata": "Q132526762",
+      "label": {
+        "confidence": "newest",
+        "generation": null,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "kiss-of-life": {
+      "name": "KISS OF LIFE",
+      "debutYear": 2023,
+      "agency": "S2 Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Kiss_of_Life_(group)",
+      "wikidata": "Q118314702",
+      "label": {
+        "confidence": "newest",
+        "generation": 5,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "le-sserafim": {
+      "name": "LE SSERAFIM",
+      "debutYear": 2022,
+      "agency": "Source Music",
+      "wikipedia": "https://en.wikipedia.org/wiki/Le_Sserafim",
+      "wikidata": "Q111381707",
+      "label": {
+        "confidence": "consensus",
+        "generation": 4,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "loona": {
+      "name": "LOONA",
+      "debutYear": 2018,
+      "agency": "Blockberry Creative",
+      "wikipedia": "https://en.wikipedia.org/wiki/Loona",
+      "wikidata": "Q28025953",
+      "debutNote": "members revealed from 2016",
+      "label": {
+        "confidence": "contested",
+        "generation": null,
+        "range": [
+          3,
+          4
+        ],
+        "sources": [
+          "wikipedia-history-of-korean-idols",
+          "korea-times-2025"
+        ]
+      }
+    },
+    "loossemble": {
+      "name": "Loossemble",
+      "debutYear": 2023,
+      "agency": "CTDENM",
+      "wikipedia": "https://en.wikipedia.org/wiki/Loossemble",
+      "wikidata": "Q121975741",
+      "label": {
+        "confidence": "newest",
+        "generation": null,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "mamamoo": {
+      "name": "MAMAMOO",
+      "debutYear": 2014,
+      "agency": "RBW",
+      "wikipedia": "https://en.wikipedia.org/wiki/Mamamoo",
+      "wikidata": "Q17278068",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "miss-a": {
+      "name": "miss A",
+      "debutYear": 2010,
+      "agency": "AQ Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Miss_A",
+      "wikidata": "Q284740",
+      "label": {
+        "confidence": "attributed",
+        "generation": 2,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ],
+        "note": "Girl groups that debuted from 2010 to 2013 are sometimes called generation 2.5."
+      }
+    },
+    "monsta-x": {
+      "name": "MONSTA X",
+      "debutYear": 2015,
+      "agency": "Starship Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Monsta_X",
+      "wikidata": "Q19855151",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "nct": {
+      "name": "NCT",
+      "debutYear": 2016,
+      "agency": "SM Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/NCT_(group)",
+      "wikidata": "Q23725822",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "nct-127": {
+      "name": "NCT 127",
+      "debutYear": 2016,
+      "agency": "SM Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/NCT_127",
+      "wikidata": "Q55624444",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "nct-dream": {
+      "name": "NCT DREAM",
+      "debutYear": 2016,
+      "agency": "SM Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/NCT_Dream",
+      "wikidata": "Q47002841",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "nct-wish": {
+      "name": "NCT WISH",
+      "debutYear": 2024,
+      "agency": "SM Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/NCT_Wish",
+      "wikidata": "Q122575981",
+      "debutNote": "pre-debut single in 2023",
+      "label": {
+        "confidence": "newest",
+        "generation": null,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "newjeans": {
+      "name": "NewJeans",
+      "debutYear": 2022,
+      "agency": "ADOR",
+      "wikipedia": "https://en.wikipedia.org/wiki/NewJeans",
+      "wikidata": "Q113189277",
+      "label": {
+        "confidence": "consensus",
+        "generation": 4,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "nmixx": {
+      "name": "NMIXX",
+      "debutYear": 2022,
+      "agency": "JYP Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Nmixx",
+      "wikidata": "Q109307762",
+      "label": {
+        "confidence": "consensus",
+        "generation": 4,
+        "sources": [
+          "korea-times-2025"
+        ]
+      }
+    },
+    "p1harmony": {
+      "name": "P1Harmony",
+      "debutYear": 2020,
+      "agency": "FNC Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/P1Harmony",
+      "wikidata": "Q101529383",
+      "label": {
+        "confidence": "consensus",
+        "generation": 4,
+        "sources": [
+          "korea-times-2025"
+        ]
+      }
+    },
+    "pentagon": {
+      "name": "PENTAGON",
+      "debutYear": 2016,
+      "agency": "Cube Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Pentagon_(South_Korean_band)",
+      "wikidata": "Q23936742",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "psy": {
+      "name": "PSY",
+      "debutYear": 2001,
+      "agency": null,
+      "wikipedia": "https://en.wikipedia.org/wiki/Psy",
+      "wikidata": "Q20150",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "purple-kiss": {
+      "name": "PURPLE KISS",
+      "debutYear": 2021,
+      "agency": "RBW",
+      "wikipedia": "https://en.wikipedia.org/wiki/Purple_Kiss",
+      "wikidata": "Q97780109",
+      "debutNote": "pre-debut singles from 2020",
+      "label": {
+        "confidence": "consensus",
+        "generation": 4,
+        "sources": [
+          "korea-times-2025"
+        ]
+      }
+    },
+    "red-velvet": {
+      "name": "Red Velvet",
+      "debutYear": 2014,
+      "agency": "SM Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Red_Velvet_(group)",
+      "wikidata": "Q17466114",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "rescene": {
+      "name": "RESCENE",
+      "debutYear": 2024,
+      "agency": "The Muze Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Rescene",
+      "wikidata": "Q124856415",
+      "label": {
+        "confidence": "newest",
+        "generation": null,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "riize": {
+      "name": "RIIZE",
+      "debutYear": 2023,
+      "agency": "SM Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Riize",
+      "wikidata": "Q121075203",
+      "label": {
+        "confidence": "newest",
+        "generation": 5,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "rose": {
+      "name": "ROSE",
+      "debutYear": 2016,
+      "agency": "YG Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Ros%C3%A9_(singer)",
+      "wikidata": "Q27655344",
+      "debutNote": "with BLACKPINK",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "seventeen": {
+      "name": "SEVENTEEN",
+      "debutYear": 2015,
+      "agency": "Pledis Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Seventeen_(South_Korean_band)",
+      "wikidata": "Q14524548",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-got7",
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "shinee": {
+      "name": "SHINee",
+      "debutYear": 2008,
+      "agency": "SM Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Shinee",
+      "wikidata": "Q269836",
+      "label": {
+        "confidence": "consensus",
+        "generation": 2,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "sistar": {
+      "name": "SISTAR",
+      "debutYear": 2010,
+      "agency": "Starship Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Sistar",
+      "wikidata": "Q223048",
+      "label": {
+        "confidence": "attributed",
+        "generation": 2,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ],
+        "note": "Girl groups that debuted from 2010 to 2013 are sometimes called generation 2.5."
+      }
+    },
+    "stayc": {
+      "name": "STAYC",
+      "debutYear": 2020,
+      "agency": "High Up Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/STAYC",
+      "wikidata": "Q101541493",
+      "label": {
+        "confidence": "consensus",
+        "generation": 4,
+        "sources": [
+          "korea-times-2025"
+        ]
+      }
+    },
+    "stray-kids": {
+      "name": "Stray Kids",
+      "debutYear": 2018,
+      "agency": "JYP Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Stray_Kids",
+      "wikidata": "Q46134670",
+      "debutNote": "formed in 2017",
+      "label": {
+        "confidence": "attributed",
+        "generation": 4,
+        "sources": [
+          "joongang-2023-stray-kids",
+          "korea-times-2025"
+        ],
+        "note": "Its agency, JYP Entertainment, uses that label. It sits where the line between the 3rd and 4th generations is debated."
+      }
+    },
+    "sunmi": {
+      "name": "Sunmi",
+      "debutYear": 2007,
+      "agency": "JYP Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Sunmi",
+      "wikidata": "Q624995",
+      "debutNote": "with Wonder Girls",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "t-ara": {
+      "name": "T-ARA",
+      "debutYear": 2009,
+      "agency": "MBK Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/T-ara",
+      "wikidata": "Q495383",
+      "label": {
+        "confidence": "consensus",
+        "generation": 2,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "taeyang": {
+      "name": "Taeyang",
+      "debutYear": 2006,
+      "agency": "YG Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Taeyang",
+      "wikidata": "Q482991",
+      "debutNote": "with BIGBANG",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "taeyeon": {
+      "name": "Taeyeon",
+      "debutYear": 2007,
+      "agency": "SM Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Taeyeon",
+      "wikidata": "Q233371",
+      "debutNote": "with Girls' Generation",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "team": {
+      "name": "&TEAM",
+      "debutYear": 2022,
+      "agency": "HYBE Labels Japan",
+      "wikipedia": "https://en.wikipedia.org/wiki/%26Team",
+      "wikidata": "Q112834233",
+      "label": null,
+      "unlabelled": "abroad",
+      "debutNote": "based in Japan"
+    },
+    "the-boyz": {
+      "name": "THE BOYZ",
+      "debutYear": 2017,
+      "agency": "Cre.ker Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/The_Boyz_(South_Korean_band)",
+      "wikidata": "Q41949104",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "treasure": {
+      "name": "TREASURE",
+      "debutYear": 2020,
+      "agency": "YG Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Treasure_(band)",
+      "wikidata": "Q61057550",
+      "label": {
+        "confidence": "consensus",
+        "generation": 4,
+        "sources": [
+          "korea-times-2025"
+        ]
+      }
+    },
+    "triples": {
+      "name": "tripleS",
+      "debutYear": 2023,
+      "agency": "Modhaus",
+      "wikipedia": "https://en.wikipedia.org/wiki/TripleS",
+      "wikidata": "Q115099831",
+      "debutNote": "sub-units from 2022",
+      "label": {
+        "confidence": "newest",
+        "generation": null,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "tuide": {
+      "name": "TUIDE",
+      "debutYear": 2026,
+      "agency": "ABD",
+      "wikipedia": "https://en.wikipedia.org/wiki/Tuide",
+      "wikidata": "Q141030335",
+      "label": {
+        "confidence": "newest",
+        "generation": null,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "twice": {
+      "name": "TWICE",
+      "debutYear": 2015,
+      "agency": "JYP Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Twice",
+      "wikidata": "Q20645861",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "tws": {
+      "name": "TWS",
+      "debutYear": 2024,
+      "agency": "Pledis Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/TWS_(group)",
+      "wikidata": "Q124091148",
+      "label": {
+        "confidence": "newest",
+        "generation": 5,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "txt": {
+      "name": "TXT",
+      "debutYear": 2019,
+      "agency": "Big Hit Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Tomorrow_X_Together",
+      "wikidata": "Q60550265",
+      "label": {
+        "confidence": "attributed",
+        "generation": 4,
+        "sources": [
+          "joongang-2023-fifth-generation",
+          "korea-times-2025"
+        ],
+        "note": "It sits where the line between the 3rd and 4th generations is debated."
+      }
+    },
+    "v-bts": {
+      "name": "V",
+      "debutYear": 2013,
+      "agency": "Big Hit Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/V_(singer)",
+      "wikidata": "Q18388296",
+      "debutNote": "with BTS",
+      "label": null,
+      "unlabelled": "solo"
+    },
+    "viviz": {
+      "name": "VIVIZ",
+      "debutYear": 2022,
+      "agency": "BPM Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Viviz",
+      "wikidata": "Q108853211",
+      "label": {
+        "confidence": "consensus",
+        "generation": 4,
+        "sources": [
+          "korea-times-2025"
+        ]
+      }
+    },
+    "winner": {
+      "name": "WINNER",
+      "debutYear": 2014,
+      "agency": "YG Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Winner_(band)",
+      "wikidata": "Q15116397",
+      "label": {
+        "confidence": "consensus",
+        "generation": 3,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "wonder-girls": {
+      "name": "Wonder Girls",
+      "debutYear": 2007,
+      "agency": "JYP Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Wonder_Girls",
+      "wikidata": "Q476119",
+      "label": {
+        "confidence": "consensus",
+        "generation": 2,
+        "sources": [
+          "wikipedia-history-of-korean-idols"
+        ]
+      }
+    },
+    "xikers": {
+      "name": "XIKERS",
+      "debutYear": 2023,
+      "agency": "KQ Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Xikers",
+      "wikidata": "Q117191573",
+      "label": {
+        "confidence": "newest",
+        "generation": null,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "young-posse": {
+      "name": "Young posse",
+      "debutYear": 2023,
+      "agency": "DSP Media",
+      "wikipedia": "https://en.wikipedia.org/wiki/Young_Posse",
+      "wikidata": "Q123099728",
+      "label": {
+        "confidence": "newest",
+        "generation": null,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "zerobaseone": {
+      "name": "ZEROBASEONE",
+      "debutYear": 2023,
+      "agency": "WakeOne",
+      "wikipedia": "https://en.wikipedia.org/wiki/Zerobaseone",
+      "wikidata": "Q117808633",
+      "label": {
+        "confidence": "newest",
+        "generation": 5,
+        "sources": [
+          "korea-times-2025",
+          "joongang-2023-fifth-generation"
+        ]
+      }
+    },
+    "zico": {
+      "name": "Zico",
+      "debutYear": 2011,
+      "agency": "Stardom Entertainment",
+      "wikipedia": "https://en.wikipedia.org/wiki/Zico_(rapper)",
+      "wikidata": "Q7696122",
+      "debutNote": "with Block B",
+      "label": null,
+      "unlabelled": "solo"
+    }
+  }
+}

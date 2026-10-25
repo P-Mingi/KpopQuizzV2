@@ -41,6 +41,12 @@ export interface P4QuizPageProps {
     id: string;
     slug: string;
     title: string;
+    /**
+     * The H1 when it differs from the creator's title (SEO Mission 2: a generic "{group} quiz"
+     * gets a qualifier from its content, lib/seo/quiz-meta.ts); the creator's title then shows
+     * as the subtitle. Absent = the creator's title is the H1, as before.
+     */
+    heading?: string;
     quizType: QuizType;
     difficulty: string;
     questionCount: number;
@@ -78,6 +84,8 @@ export interface P4QuizPageProps {
   groupQuizCount: number | null;
   articleLinks: Array<{ slug: string; label: string }>;
   creator: P4Creator | null;
+  /** SEO Mission 3, part F.1: the public "Embed this quiz" island, passed in by the route. */
+  embedAction?: React.ReactNode;
 }
 
 /**
@@ -127,7 +135,8 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
             )}
           </div>
 
-          <h1 className="p4-title">{q.title}</h1>
+          <h1 className="p4-title">{q.heading ?? q.title}</h1>
+          {q.heading && q.heading !== q.title ? <p className="p4-subtitle">{q.title}</p> : null}
           <div className="p4-meta">
             <span><Icon name={QUIZ_TYPE_ICON[q.quizType] ?? 't-classic'} />{QUIZ_TYPE_LABEL[q.quizType] ?? 'Classic'}</span>
             <span>{LEVEL[q.difficulty] ?? q.difficulty}</span>
@@ -276,7 +285,11 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
               </div>
               )}
             </div>
-            <P4ReportButton quizId={q.id} withIcon />
+            {/* SEO Mission 3, part F.1: the public embed generator sits beside Report. */}
+            <div className="p4-madeby-acts">
+              {p.embedAction ?? null}
+              <P4ReportButton quizId={q.id} withIcon />
+            </div>
           </section>
           <div className="p4-owner"><QuizOwnerActions quizId={q.id} creatorId={q.creatorId} /></div>
         </div>

@@ -18,6 +18,7 @@ import type { FooterCol } from '@/lib/ux-v1/a0/nav';
 function columns(showFandoms: boolean): FooterCol[] {
   return [
     { title: 'Play', links: [
+      { label: 'K-pop games', href: '/kpop-games' },
       { label: 'Daily quiz', href: '/daily' },
       { label: 'Blindtest', href: '/blindtest' },
       { label: 'Ranked', href: '/blindtest/ranked' },
@@ -49,6 +50,7 @@ function columns(showFandoms: boolean): FooterCol[] {
       { label: 'Editorial policy', href: '/editorial-policy' },
       { label: 'Contact', href: '/contact' },
       { label: 'Privacy', href: '/privacy' },
+      { label: 'Legal notice', href: '/legal' },
       { label: 'Terms', href: '/terms' },
       { label: 'DMCA', href: '/dmca' },
     ] },
