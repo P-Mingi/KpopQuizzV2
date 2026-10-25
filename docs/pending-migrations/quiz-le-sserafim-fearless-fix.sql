@@ -1,3 +1,4 @@
+-- applied in production on 2026-10-25 (the quiz and its bank row hold the corrected content: md5 90e2f771e812fc0f808fc7706fc5746b and b605eb8f5fddb317cd9cdd09f726676b, checked on 2026-10-25).
 -- Fix of the live quiz /q/le-sserafim-fearless-quiz (LE SSERAFIM: FEARLESS Quiz, quiz of the day of 2026-10-05).
 -- OWNER-GATED: applied in production only on the owner's go. Rollback: quiz-le-sserafim-fearless-fix-rollback.sql.
 -- What changes: the questions of the quizzes row 7892cc49-4580-4123-962c-192eceab578f and of its quiz_bank row 0e34ea85-f1ca-4321-9153-a72658dc3b78:
