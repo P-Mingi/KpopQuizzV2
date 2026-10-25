@@ -1,0 +1,222 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "sword-art-online",
+  "title": "Sword Art Online Quiz: NerveGear, A-1 Pictures and Kajiura",
+  "slug": "nervegear-a-1-pictures-and-kajiura-sword-art-online-quiz",
+  "description": "Ten easy questions on the author, the helmet, the studio, the composer, the first opening and the film. No story knowledge needed, and no spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Sword Art Online",
+      "url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Sword Art Online (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Sword Art Online characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    }
+  ],
+  "notes": "New series batch 1. Arc 0 facts only: production, premise and music. One fact per answer.",
+  "questions": [
+    {
+      "question": "Who writes the Sword Art Online light novels?",
+      "options": [
+        "Kazuma Kamachi",
+        "Tappei Nagatsuki",
+        "Reki Kawahara",
+        "Fujino Omori"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "sword-art-online-novel-creators-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "question": "Under which imprint did the light novels first appear in print?",
+      "options": [
+        "Dengeki Bunko",
+        "Fujimi Fantasia Bunko",
+        "MF Bunko J",
+        "GA Bunko"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "sword-art-online-novel-start-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "question": "Which studio animated the Sword Art Online anime?",
+      "options": [
+        "White Fox",
+        "Bones",
+        "Sunrise",
+        "A-1 Pictures"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-anime-studio-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "What is the name of the helmet that lets players dive into the game?",
+      "options": [
+        "AmuSphere",
+        "NerveGear",
+        "Medicuboid",
+        "Dive Visor"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-nervegear-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "question": "Who composed the music of the anime?",
+      "options": [
+        "Yuki Kajiura",
+        "Yoko Kanno",
+        "Hiroyuki Sawano",
+        "Yutaka Yamada"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-anime-composer-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "Which song plays over the opening of the first episodes?",
+      "options": [
+        "Ignite",
+        "Adamas",
+        "Crossing Field",
+        "Innocence"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-theme-op-033"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "In which year did the Sword Art Online anime first air?",
+      "options": [
+        "2009",
+        "2010",
+        "2014",
+        "2012"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-anime-premiere-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "What happens to a player who dies in the game?",
+      "options": [
+        "A player restarts on the first floor",
+        "A player dies in real life too",
+        "A player loses every item and level",
+        "A player is banned for a day"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-death-rule-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "question": "Who designed the game and the NerveGear?",
+      "options": [
+        "Nobuyuki Sugou",
+        "Seijirō Kikuoka",
+        "Akihiko Kayaba",
+        "Rinko Koujiro"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-character-detail-090"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    },
+    {
+      "question": "In which year did the film Ordinal Scale open in Japan?",
+      "options": [
+        "2017",
+        "2013",
+        "2015",
+        "2019"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-ordinal-scale-021"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    }
+  ]
+}

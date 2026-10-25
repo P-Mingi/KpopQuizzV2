@@ -1,0 +1,331 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "sword-art-online",
+  "title": "Odd One Out: Sword Art Online Songs, Arcs and Guilds",
+  "slug": "odd-one-out-songs-arcs-and-guilds-sword-art-online",
+  "description": "Four choices, one that does not belong. Openings against endings, singers, arcs, games and guilds. Light spoilers up to the second season.",
+  "quiz_type": "intruder",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Sword Art Online (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Sword Art Online",
+      "url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Sword Art Online characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    }
+  ],
+  "notes": "Intruder format: three real members of a group and one real outsider; all four options are things from the series. Highest arc is Mother's Rosario (arc 5).",
+  "questions": [
+    {
+      "question": "Three of these songs are openings of the anime. Which one is an ending?",
+      "options": [
+        {
+          "label": "Crossing Field"
+        },
+        {
+          "label": "Innocence"
+        },
+        {
+          "label": "Adamas"
+        },
+        {
+          "label": "Overfly"
+        }
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-theme-ed-042",
+        "sword-art-online-theme-op-033",
+        "sword-art-online-theme-op-034",
+        "sword-art-online-theme-op-037"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "Three of these songs are endings of the anime. Which one is an opening?",
+      "options": [
+        {
+          "label": "Resister"
+        },
+        {
+          "label": "Iris"
+        },
+        {
+          "label": "Shirushi"
+        },
+        {
+          "label": "Startear"
+        }
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-theme-op-038",
+        "sword-art-online-theme-ed-046",
+        "sword-art-online-theme-ed-045",
+        "sword-art-online-theme-ed-043"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "Three of these songs are sung by LiSA. Which one is not?",
+      "options": [
+        {
+          "label": "Crossing Field"
+        },
+        {
+          "label": "Shirushi"
+        },
+        {
+          "label": "Ignite"
+        },
+        {
+          "label": "Adamas"
+        }
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-theme-op-035",
+        "sword-art-online-theme-op-033",
+        "sword-art-online-theme-ed-045",
+        "sword-art-online-theme-op-037"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "Three of these songs are performed by Eir Aoi. Which one is not?",
+      "options": [
+        {
+          "label": "Innocence"
+        },
+        {
+          "label": "Courage"
+        },
+        {
+          "label": "Ignite"
+        },
+        {
+          "label": "Iris"
+        }
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-theme-op-036",
+        "sword-art-online-theme-op-034",
+        "sword-art-online-theme-op-035",
+        "sword-art-online-theme-ed-046"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "Three of these songs are sung by Haruka Tomatsu. Which one is not?",
+      "options": [
+        {
+          "label": "Yume Sekai"
+        },
+        {
+          "label": "Courage"
+        },
+        {
+          "label": "Resolution"
+        },
+        {
+          "label": "Overfly"
+        }
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-theme-ed-042",
+        "sword-art-online-theme-ed-041",
+        "sword-art-online-theme-op-036",
+        "sword-art-online-theme-op-039"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "Three of these are arcs of the TV anime. Which one is a film?",
+      "options": [
+        {
+          "label": "Fairy Dance"
+        },
+        {
+          "label": "Phantom Bullet"
+        },
+        {
+          "label": "Aria of a Starless Night"
+        },
+        {
+          "label": "Mother's Rosario"
+        }
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 5,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-progressive-aria-022",
+        "sword-art-online-arc-run-027",
+        "sword-art-online-arc-run-028",
+        "sword-art-online-arc-run-030"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "question": "Three of these are video games. Which one is a film?",
+      "options": [
+        {
+          "label": "Ordinal Scale"
+        },
+        {
+          "label": "Infinity Moment"
+        },
+        {
+          "label": "Hollow Fragment"
+        },
+        {
+          "label": "Lost Song"
+        }
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-ordinal-scale-021",
+        "sword-art-online-first-console-game-023",
+        "sword-art-online-first-western-game-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "question": "Three of these are guilds or squads. Which one is a person?",
+      "options": [
+        {
+          "label": "Fuurinkazan"
+        },
+        {
+          "label": "Argo"
+        },
+        {
+          "label": "Moonlit Black Cats"
+        },
+        {
+          "label": "Aincrad Liberation Squad"
+        }
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-character-detail-081",
+        "sword-art-online-character-detail-074",
+        "sword-art-online-character-detail-078",
+        "sword-art-online-character-detail-080"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    },
+    {
+      "question": "Three of these are human players. Which one is an AI?",
+      "options": [
+        {
+          "label": "Klein"
+        },
+        {
+          "label": "Agil"
+        },
+        {
+          "label": "Lisbeth"
+        },
+        {
+          "label": "Yui"
+        }
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-character-name-055",
+        "sword-art-online-character-name-052",
+        "sword-art-online-character-name-053",
+        "sword-art-online-character-name-056"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    },
+    {
+      "question": "Three of these arcs belong to the second season. Which one belongs to the first?",
+      "options": [
+        {
+          "label": "Fairy Dance"
+        },
+        {
+          "label": "Phantom Bullet"
+        },
+        {
+          "label": "Calibur"
+        },
+        {
+          "label": "Mother's Rosario"
+        }
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 5,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-arc-run-027",
+        "sword-art-online-arc-run-028",
+        "sword-art-online-arc-run-029",
+        "sword-art-online-arc-run-030"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    }
+  ]
+}

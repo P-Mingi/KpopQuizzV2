@@ -1,0 +1,222 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "sword-art-online",
+  "title": "Sword Art Online in Numbers: Floors, Players and Episodes",
+  "slug": "floors-players-and-episodes-sword-art-online-in-numbers",
+  "description": "Ten questions where the answer is a number: floors, players, episodes and volumes. Spoilers up to the end of the second season.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Sword Art Online",
+      "url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Sword Art Online (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Sword Art Online characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    }
+  ],
+  "notes": "Numbers only. Highest arc cited is Mother's Rosario (arc 5).",
+  "questions": [
+    {
+      "question": "How many floors do the players have to clear in Aincrad?",
+      "options": [
+        "50",
+        "100",
+        "75",
+        "99"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-floors-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "question": "How many players log in on the first day of the game?",
+      "options": [
+        "10,000",
+        "1,000",
+        "5,000",
+        "100,000"
+      ],
+      "correct": 0,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-first-day-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "question": "How many players are still trapped after the game is cleared?",
+      "options": [
+        "30",
+        "3,000",
+        "300",
+        "1,000"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-still-trapped-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "question": "How many episodes does the Aincrad arc have?",
+      "options": [
+        "12",
+        "13",
+        "25",
+        "14"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-arc-run-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "How many episodes does the Fairy Dance arc have?",
+      "options": [
+        "11",
+        "9",
+        "12",
+        "14"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-arc-run-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "How many episodes does the short Calibur arc have?",
+      "options": [
+        "2",
+        "5",
+        "3",
+        "7"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 4,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-arc-run-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "How many episodes does the television anime have in all, specials aside?",
+      "options": [
+        "75",
+        "96",
+        "85",
+        "100"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-anime-total-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "As of April 2026, how many volumes does the main light novel series have?",
+      "options": [
+        "25",
+        "30",
+        "33",
+        "29"
+      ],
+      "correct": 3,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "sword-art-online-novel-volumes-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "question": "How many episodes does the Mother's Rosario arc have?",
+      "options": [
+        "7",
+        "3",
+        "11",
+        "14"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 5,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-arc-run-030"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "On which floor is Sachi's guild trapped?",
+      "options": [
+        "25th floor",
+        "50th floor",
+        "27th floor",
+        "74th floor"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-character-detail-078"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    }
+  ]
+}
