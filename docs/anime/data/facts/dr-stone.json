@@ -807,7 +807,7 @@
     ],
     "text": "The first season ran for 24 episodes, from July 5 to December 13, 2019.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -818,10 +818,21 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes",
         "ref": "1361616710",
         "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q96376597",
+        "ref": "Q96376597",
+        "fetched_at": "2026-10-25T21:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21703",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T17:20:57.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "July 5, 2019 (2019-07-05) December 13, 2019 (2019-12-13)"
   },
   {
@@ -840,7 +851,7 @@
     ],
     "text": "The second season, Stone Wars, has 11 episodes and aired from January 14 to March 25, 2021.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -851,10 +862,16 @@
         "url": "https://en.wikipedia.org/wiki/Dr._Stone",
         "ref": "1381501872",
         "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q98139674",
+        "ref": "Q98139674",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T17:20:57.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "the second season aired for eleven episodes from January 14 to March 25, 2021"
   },
   {
@@ -904,7 +921,7 @@
     ],
     "text": "The third season, New World, has 22 episodes in two cours: April to June 2023 and October to December 2023.",
     "category": "history",
-    "load_bearing": false,
+    "load_bearing": true,
     "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -915,10 +932,16 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_episodes",
         "ref": "1361616710",
         "fetched_at": "2026-10-25T17:05:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q117242538",
+        "ref": "Q117242538",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T17:20:57.000Z",
+    "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "April 6, 2023 (2023-04-06) June 15, 2023 (2023-06-15)"
   },
   {
@@ -2866,5 +2889,39 @@
     "status": "verified",
     "verified_at": "2026-10-25T17:20:57.000Z",
     "excerpt": "becomes Senku's partner"
+  },
+  {
+    "id": "dr-stone-seasons-count-093",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dr-stone"
+    },
+    "field": "anime_seasons",
+    "value": 4,
+    "text": "The anime ran for four TV seasons, the last of which, Science Future, wrapped up in June 2026.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dr._Stone",
+        "ref": "1381501872",
+        "fetched_at": "2026-10-25T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q61041618",
+        "ref": "Q61041618",
+        "fetched_at": "2026-10-25T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:00:00.000Z",
+    "excerpt": "A fourth and final season, titled Dr. Stone: Science Future"
   }
 ]
