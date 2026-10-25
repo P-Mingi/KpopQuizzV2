@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 import { FOUNDER } from '@/lib/seo/org';
-import { SITE } from '@/lib/site/registry';
+import { MAILBOX } from '@/lib/site/registry';
 import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 import type { PublicStats } from '@/lib/stats/site-stats';
 
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
   },
 };
 
-// The mailbox of the site (contact@ its own host), as the contact, terms and privacy pages print it.
-const CONTACT_EMAIL = `contact@${SITE.domain}`;
+// The mailbox of the network (the registry), as the contact, terms and privacy pages print it.
+const CONTACT_EMAIL = MAILBOX;
 
 // Owner, 2026-10-14: live counts (lib/stats/site-stats.ts), the same as every other page.
 // This said "42k+" plays for 73,425, "500+" quizzes for 456, and "3k+ fans every week",

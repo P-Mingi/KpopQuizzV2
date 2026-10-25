@@ -193,7 +193,13 @@ export async function handleDelete(request: NextRequest, ctx: AccountCtx = {}): 
   }
   if (caller.email) {
     const to = caller.email;
-    const send = ctx.sendNotice ?? ((addr: string, at: string, from: SiteId) => sendDeletionNotice(addr, at, undefined, undefined, from));
+    // With no Resend key the notice is skipped (sendDeletionNotice answers false): the deletion is already recorded, so this only logs
+    // the skip, with the route, the outcome and the site, never the address.
+    const send = ctx.sendNotice ?? (async (addr: string, at: string, from: SiteId) => {
+      const sent = await sendDeletionNotice(addr, at, undefined, undefined, from);
+      if (!sent) log('delete', 'notice_skipped', from);
+      return sent;
+    });
     defer(() => send(to, runAfter, site));
   }
   deferNotify(ctx, username, sites.length > 0 ? sites : [site]);

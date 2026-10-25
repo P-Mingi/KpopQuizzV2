@@ -42,7 +42,7 @@ changing one needs a redeploy of that project. Server variables are read at run 
 | `NET_INDEXING` | ignored (kpop is never closed) | `1` at RUNBOOK K10, last step of launch day | `1` at K10 | Server flag, read at build: unset, every page of the build answers `noindex, nofollow` (meta tag and `X-Robots-Tag` header, except `robots.txt` and `sitemap.xml`); `1` removes the header and lets each page speak for itself (`/settings`, `/me`, `/admin`, login, search, profiles keep their noindex). Redeploy after changing it. |
 | `NET_LAUNCH_DATE` | ignored | `YYYY-MM-DD`, the launch date, set at RUNBOOK K10 before `NET_INDEXING` | the same date at K10 | Server value, read at build (`lib/site/indexing.ts`, kept out of the registry so the kpop bundle does not change): the network privacy policy prints "In force since <date>". With `NET_INDEXING=1` and no valid date the build fails with a message naming it, so set it first. |
 | `NEXT_PUBLIC_NET_PRIVACY` | `1` at launch (kpop sign-in notice, footer "Legal notice", `/legal`) | always on (no effect) | always on (no effect) | Public, read at build: redeploy kpopquiz after setting it. Off: kpopquiz.org as today. The legal placeholders (form, SIREN, publication director) must be filled first. |
-| `NEXT_PUBLIC_NET_DELETION` | `1` at launch, after SQL 18b, 016 and 19b (017) are applied and the hub cron runs | ignored | ignored | Public, read at build: KpopQuiz Settings, "Delete account" starts the passport deletion (7 days, quizzes kept unless asked). Needs a verified KpopQuiz sender in Resend (or `SEND_EMAIL_FROM_KPOP`). Off: the part D contact-page text. |
+| `NEXT_PUBLIC_NET_DELETION` | `1` at launch, after SQL 18b, 016 and 19b (017) are applied and the hub cron runs | ignored | ignored | Public, read at build: KpopQuiz Settings, "Delete account" starts the passport deletion (7 days, quizzes kept unless asked). Needs no Resend sender: with no Resend key the "deletion scheduled" email is skipped (logged without any address) and the request, the cancel and the deletion still run, with the same success answer. Off: the part D contact-page text. |
 | `QOTD_ROTATION_FIX` | already (kpop's own, untouched) | `1` (auto-scheduling of the anime daily, RUNBOOK J4) | leave unset | Server switch read by the cron `ensure-daily-quiz` (00:05 UTC) and by the bank `auto-schedule` route: with `1`, an empty day is filled from the next verified or scheduled bank row of the site, else a catalogue pick, and a day that stays empty makes the cron answer 500. |
 | `PASSPORT_CONTINUE`, `PASSPORT_SEED` | never | never | never | Reserved for later work; they do nothing in this run. Reading one in code is a review finding, setting one is pointless. |
 
@@ -98,11 +98,13 @@ An IndexNow key is a public value (it is served as `/<key>.txt`), so it lives in
 
 Each key file is a static file in `public/`, which the three builds share, so a plain build would answer all three keys on every domain. Each site answers only its own: on anime and hub `routing.ts` (`keyFileBlocksFor`, inside `rewritesFor`) sends the two foreign key files to the site's 404; on kpop the same rewrites need the small patch of `next.config.ts` in `docs/o1/requests/L1.md` (request 1), which ORCH applies before the merge. Until that patch is on `main`, kpopquiz.org also answers the two new keys (harmless: a key proves control of the host that lists it).
 The only IndexNow variable is `INDEXNOW_TRIGGER_TOKEN` (kpop, 1.5). The two new keys are not secrets and need nothing in Vercel.
-Organization mailboxes (public values, set in the registry by lane L1, `seo.organization.email`): `contact@otakuquiz.org` for anime, `contact@fanquiz.org` for hub. They must exist before launch (RUNBOOK H5). The Team addresses `<username>@team.otakuquiz.org` must not receive mail: no MX record and no mailbox for `team.otakuquiz.org`.
+Organization mailbox (public value, `MAILBOX` in the registry, owner decision 2026-10-25): `hello@kpopquiz.org` for all three sites (`seo.organization.email`). It is the one routed mailbox and must receive mail before launch (RUNBOOK H5). The Team addresses `<username>@team.otakuquiz.org` must not receive mail: no MX record and no mailbox for `team.otakuquiz.org`.
 
 ## 2. Supabase
 
 ### 2.1 Edge Function `send-email` (lane B7, merged)
+
+Postponed (owner, 2026-10-25): Resend is not configured and the Send Email hook stays off at launch, so none of the variables below is needed at launch; sign-in emails use Supabase's default sender. Keep the table for later.
 
 | variable | value source | notes |
 |---|---|---|
@@ -112,8 +114,8 @@ Organization mailboxes (public values, set in the registry by lane L1, `seo.orga
 | `SEND_EMAIL_FROM_ANIME`, `SEND_EMAIL_FROM_HUB` | optional | default `OtakuQuiz <no-reply@otakuquiz.org>` and `FanQuiz <no-reply@fanquiz.org>` |
 | `SEND_EMAIL_ORIGINS` | **never in production** | same syntax as `NEXT_PUBLIC_NET_ORIGINS`; staging projects only |
 
-The deploy note is `docs/o1/b7/send-email-hook.md` (RUNBOOK section I). The `fanquiz` Vercel project also takes `RESEND_API_KEY` (and optionally
-`SEND_EMAIL_FROM_HUB`) for the "your passport will be deleted" notice; without them the notice is skipped and the deletion still goes ahead.
+The deploy note is `docs/o1/b7/send-email-hook.md` (RUNBOOK section I). The `fanquiz` Vercel project may also take `RESEND_API_KEY` (and optionally
+`SEND_EMAIL_FROM_HUB`) for the "your passport will be deleted" notice, later; it is not required: without them the notice is skipped (logged without any address) and the deletion still goes ahead.
 
 ### 2.2 Auth settings (dashboard, no variable)
 

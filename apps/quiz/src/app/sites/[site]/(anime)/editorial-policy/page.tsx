@@ -4,12 +4,12 @@ import Link from 'next/link';
 import { jsonLdString } from '@/lib/seo/json-ld';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 import { FOUNDER } from '@/lib/seo/org';
-import { SITE } from '@/lib/site/registry';
+import { MAILBOX, SITE } from '@/lib/site/registry';
 
 import { CORRECTIONS } from './corrections';
 
-// The mailbox of the site (contact@ its own host), as the contact, terms and privacy pages print it.
-const CONTACT_EMAIL = `contact@${SITE.domain}`;
+// The mailbox of the network (the registry), as the contact, terms and privacy pages print it.
+const CONTACT_EMAIL = MAILBOX;
 const SITE_URL = SITE.url;
 
 import type { Metadata } from 'next';

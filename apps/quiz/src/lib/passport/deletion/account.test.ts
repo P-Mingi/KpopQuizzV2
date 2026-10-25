@@ -1,7 +1,7 @@
 // Run O1, lot (e), lane B7: POST /api/passport/delete, /cancel, /leave and GET /api/cron/passport-deletions (apis.md 3.4 to 3.6, 5)
 // with a mocked Supabase. Every status of the contract, in the order the contract lists them.
 import { NextRequest } from 'next/server';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const state = vi.hoisted(() => ({
   user: null as { id: string; email: string | null; last_sign_in_at: string | null } | null,
@@ -464,5 +464,67 @@ describe('GET /api/cron/passport-deletions', () => {
 
   it('nothing due: 200 {processed: 0, failed: 0}', async () => {
     expect(await (await handleCronDeletions(get('Bearer cron-secret'), c())).json()).toEqual({ processed: 0, failed: 0 });
+  });
+});
+
+// Launch state (owner, 2026-10-25): Resend is not configured, so RESEND_API_KEY and the mail sink are unset. The request, the cancel and
+// the cron run must still work and answer the same success; the notice is skipped and logged without an address.
+describe('no Resend key', () => {
+  beforeEach(() => {
+    vi.stubEnv('RESEND_API_KEY', '');
+    vi.stubEnv('O1_MAIL_SINK', '');
+    vi.stubEnv('O1_ENV', '');
+  });
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.restoreAllMocks();
+  });
+  // the real notice sender: no sendNotice in the context
+  const real = () => {
+    const { sendNotice: _unused, ...rest } = ctx();
+    void _unused;
+    return rest;
+  };
+
+  it('the deletion request: the same 200 {runAfter}, recorded and signed out, no mail sent, the skip logged without the address', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch');
+    const info = vi.spyOn(console, 'info').mockImplementation(() => undefined);
+    signedIn();
+    state.rpc.passport_request_deletion = { data: '2026-10-28T12:00:00+00:00', error: null };
+    const res = await handleDelete(post('/api/passport/delete', { keepQuizzes: true, confirm: '@fan_one' }), real());
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ runAfter: '2026-10-28T12:00:00.000Z' });
+    expect(calls('passport_request_deletion')).toHaveLength(1);
+    expect(state.signOuts).toEqual([{ scope: 'global' }]);
+    await vi.waitFor(() => expect(JSON.stringify(info.mock.calls)).toContain('delete notice_skipped hub'));
+    await vi.waitFor(() => expect(calls('notify')).toHaveLength(1));
+    expect(fetchSpy).not.toHaveBeenCalled();
+    expect(JSON.stringify(info.mock.calls)).not.toContain('fan@example.test');
+    expect(JSON.stringify(info.mock.calls)).not.toContain('example.test');
+  });
+
+  it('the cancel: the same 200 {cancelled: true}, no mail involved', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch');
+    signedIn();
+    state.rpc.passport_cancel_deletion = { data: true, error: null };
+    const res = await handleCancel(post('/api/passport/cancel', undefined), real());
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ cancelled: true });
+    expect(calls('passport_cancel_deletion')).toHaveLength(1);
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it('the cron run: the due request is deleted (rows, then the auth user), the same counts, no mail involved', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch');
+    state.due = [{ user_id: 'u-a' }];
+    const res = await handleCronDeletions(
+      new Request(`${HUB}/api/cron/passport-deletions`, { headers: { authorization: 'Bearer cron-secret' } }),
+      { site: 'hub', secret: 'cron-secret', notify: ctx().notify },
+    );
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ processed: 1, failed: 0 });
+    expect(calls('passport_run_deletion')).toHaveLength(1);
+    expect(calls('admin.deleteUser')).toEqual([{ fn: 'admin.deleteUser', args: { id: 'u-a' } }]);
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 });

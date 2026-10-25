@@ -6,13 +6,13 @@
 import { COPY } from '@/copy/hub/h1';
 import { HUB_EMAIL, ht } from '@/lib/site/hub/copy';
 import { LEGAL_PLACEHOLDER_KEYS, privacyUrl } from '@/lib/site/hub/network-page';
-import { flagOn, SITE, SITE_ID } from '@/lib/site/registry';
+import { flagOn, MAILBOX, SITE, SITE_ID } from '@/lib/site/registry';
 
 import type { LegalKey } from '@/lib/site/hub/network-page';
 
 /** The mailbox printed in the notice: the site's own on kpopquiz.org, the network mailbox on the other two. */
 export function legalEmail(): string {
-  return SITE_ID === 'kpop' ? (SITE.seo.organization.email ?? `contact@${SITE.domain}`) : HUB_EMAIL;
+  return SITE_ID === 'kpop' ? (SITE.seo.organization.email ?? MAILBOX) : HUB_EMAIL;
 }
 
 /** Where "Read the privacy policy" goes: the site's own /privacy on kpopquiz.org, the network policy on the other two. */
