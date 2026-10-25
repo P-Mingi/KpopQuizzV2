@@ -15,7 +15,7 @@ import { forSite } from '@/lib/site/scope';
 import { createPublicReadClient } from '@/lib/supabase/server';
 
 import type { Group } from '@/lib/db/types';
-import type { ArcRow, CharacterRow, SeriesRow, SeriesThemeRow } from './types';
+import type { ArcRow, CharacterRow, SeriesRow, SeriesThemeRow, SeriesType } from './types';
 
 /** A published quiz of the series with its spoiler level (quizzes.spoiler_arc_ord, spoiler_scope; computed on the server). */
 export interface SeriesQuizRow {
@@ -55,6 +55,8 @@ export interface RelatedSeries {
   readonly slug: string;
   readonly name: string;
   readonly quizzes: number;
+  /** `series.type` of the series (a webtoon is a manhwa: lib/anime/manhwa.ts). */
+  readonly type?: SeriesType | undefined;
 }
 
 export interface SeriesHub {
@@ -168,7 +170,8 @@ export const getSeriesHub = unstable_cache(
 /** Other published series for "Related series": most quizzes first, the current one left out. [] on any error. */
 export async function loadRelatedSeries(db: SeriesDb, groupId: number, limit = 4): Promise<RelatedSeries[]> {
   try {
-    const list = must((await db.from('series').select('group_id').eq('published', true).limit(60)) as Result<{ group_id: number }[]>, 'series') ?? [];
+    const list = must((await db.from('series').select('group_id, type').eq('published', true).limit(60)) as Result<{ group_id: number; type?: SeriesType }[]>, 'series') ?? [];
+    const typeOf = new Map(list.map((r) => [r.group_id, r.type] as const));
     const ids = list.map((r) => r.group_id).filter((id) => id !== groupId);
     if (ids.length === 0) return [];
     const groups = must(
@@ -176,7 +179,7 @@ export async function loadRelatedSeries(db: SeriesDb, groupId: number, limit = 4
       'groups',
     ) ?? [];
     return groups
-      .map((g) => ({ slug: g.slug, name: g.name, quizzes: g.quiz_count ?? 0 }))
+      .map((g) => ({ slug: g.slug, name: g.name, quizzes: g.quiz_count ?? 0, type: typeOf.get(g.id) }))
       .sort((a, b) => b.quizzes - a.quizzes || a.name.localeCompare(b.name))
       .slice(0, limit);
   } catch {
@@ -192,6 +195,6 @@ export const getRelatedSeries = unstable_cache(
       return [];
     }
   },
-  ['db:anime:getRelatedSeries:v1'],
+  ['db:anime:getRelatedSeries:v2'],
   { revalidate: CACHE_TTL.catalog, tags: ['groups', 'series'] },
 );

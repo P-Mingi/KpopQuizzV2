@@ -26,7 +26,7 @@ const ROOT = join(__dirname, '../../../../../..');
 const COOKIES = readFileSync(join(ROOT, 'docs/o1/contracts/cookies.md'), 'utf8');
 const KEYS = Object.keys(COPY).filter((k) => k.startsWith('privacy.')) as (keyof typeof COPY)[];
 const DASHES = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(0x2014)}]`);
-const CONTROLLER = 'Louis Pecchia, entrepreneur individuel, 3560 chemin des Lauves, 13100 Aix-en-Provence, France, SIREN 109 686 634, contact@fanquiz.org';
+const CONTROLLER = 'Louis Pecchia, entrepreneur individuel, 3560 chemin des Lauves, 13100 Aix-en-Provence, France, SIREN 109 686 634, hello@kpopquiz.org';
 
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); });
 
@@ -168,7 +168,7 @@ describe('point 2: the controller', () => {
     const { text, html } = await render();
     expect(text).toContain(`${ht('privacy.who.p3')} ${CONTROLLER}`);
     expect(text.split(CONTROLLER)).toHaveLength(2);
-    expect(html).toContain('href="mailto:contact@fanquiz.org"');
+    expect(html).toContain('href="mailto:hello@kpopquiz.org"');
     expect(html).toContain('<a href="/legal">Read the legal notice</a>');
     expect(text).not.toMatch(/Nuri|Rémusat|75016|gmail/i);
     expect(text).not.toMatch(/\[[A-ZÉ ,]+\]/);
@@ -361,16 +361,16 @@ describe('points 14 to 18', () => {
     expect(text).toContain('not for children under 15');
     expect(text).not.toMatch(/under 13/);
   });
-  it('contact: contact@fanquiz.org, as a mailto link', async () => {
+  it('contact: hello@kpopquiz.org, as a mailto link', async () => {
     const { html, text } = await render();
-    expect(HUB_EMAIL).toBe('contact@fanquiz.org');
-    expect(html).toContain('href="mailto:contact@fanquiz.org"');
-    expect(text).toContain('Questions about privacy, or a request about your data: contact@fanquiz.org.');
+    expect(HUB_EMAIL).toBe('hello@kpopquiz.org');
+    expect(html).toContain('href="mailto:hello@kpopquiz.org"');
+    expect(text).toContain('Questions about privacy, or a request about your data: hello@kpopquiz.org.');
   });
   it('retention, export, French law, changes', async () => {
     const { text } = await render();
     expect(text).toContain('We keep your play history as long as your account exists.');
-    expect(text).toContain('Write to contact@fanquiz.org and we send you an export.');
+    expect(text).toContain('Write to hello@kpopquiz.org and we send you an export.');
     expect(text).toContain('French law applies to this policy.');
     expect(text).toContain('We tell you about important changes with a banner and by email.');
   });

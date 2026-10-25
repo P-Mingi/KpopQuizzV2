@@ -140,17 +140,18 @@ describe('the page, on each site', () => {
     });
   }
 
-  it('the email and the privacy link: contact@fanquiz.org and the network policy on OtakuQuiz and FanQuiz, the own ones on KpopQuiz', async () => {
+  it('the email and the privacy link: hello@kpopquiz.org and the network policy on OtakuQuiz and FanQuiz, the own ones on KpopQuiz', async () => {
     for (const site of ['anime', 'hub'] as const) {
       const { html, text } = await render(site);
-      expect(text, site).toContain('Email: contact@fanquiz.org');
-      expect(html, site).toContain('href="mailto:contact@fanquiz.org"');
+      expect(text, site).toContain('Email: hello@kpopquiz.org');
+      expect(html, site).toContain('href="mailto:hello@kpopquiz.org"');
       expect(html, site).toContain('href="https://fanquiz.org/privacy"');
-      expect(html.includes('kpopquiz.org'), site).toBe(false);
+      // the one network mailbox is on kpopquiz.org; no other kpop mention
+      expect(html.replaceAll('hello@kpopquiz.org', '').includes('kpopquiz.org'), site).toBe(false);
     }
     const kpop = await render('kpop');
-    expect(kpop.text).toContain('Email: contact@kpopquiz.org');
-    expect(kpop.html).toContain('href="mailto:contact@kpopquiz.org"');
+    expect(kpop.text).toContain('Email: hello@kpopquiz.org');
+    expect(kpop.html).toContain('href="mailto:hello@kpopquiz.org"');
     expect(kpop.html).toContain('href="https://kpopquiz.org/privacy"');
     expect(kpop.html.includes('fanquiz.org')).toBe(false);
   });

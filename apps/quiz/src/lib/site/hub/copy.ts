@@ -5,7 +5,7 @@ import { COPY as H1 } from '@/copy/hub/h1';
 import { HANDOFF_LOG_DAYS, DELETION_GRACE_DAYS, leavableSites } from '@/lib/passport/deletion/policy';
 import { PASSPORT_SECONDS } from '@/lib/passport/types';
 import { formatLaunchDate } from '@/lib/site/indexing';
-import { NETWORK, SITE, siteConfig } from '@/lib/site/registry';
+import { MAILBOX, NETWORK, SITE, siteConfig } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 
 export type HubCopyKey = keyof typeof H1;
@@ -21,8 +21,8 @@ function siteList(): string {
   return andList(SITE_IDS.map((id) => `${siteConfig(id).brand.name} (${siteConfig(id).domain})`));
 }
 
-/** The mailbox of the hub (contact@ its own host, as the other legal pages print it). */
-export const HUB_EMAIL = `contact@${siteConfig('hub').domain}`;
+/** The mailbox of the hub: the one network mailbox, from the registry. */
+export const HUB_EMAIL = MAILBOX;
 
 /** The minimum age on the three sites (owner, 2026-10-24). */
 export const MIN_AGE = 15;

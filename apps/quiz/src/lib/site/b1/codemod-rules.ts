@@ -150,7 +150,7 @@ export const RULES: readonly FileRule[] = [
     note: 'registry.test.ts reads SITE_URL, CONTACT_EMAIL and the organization literals from this file: repoint it first (request B1-1).',
     edits: [
       { from: "export const SITE_URL = 'https://kpopquiz.org';", to: 'export const SITE_URL = SITE.url;' },
-      { from: "export const CONTACT_EMAIL = 'contact@kpopquiz.org';", to: "export const CONTACT_EMAIL = SITE.seo.organization.email ?? '';" },
+      { from: "export const CONTACT_EMAIL = 'hello@kpopquiz.org';", to: "export const CONTACT_EMAIL = SITE.seo.organization.email ?? '';" },
       { from: "role: 'Founder of kpopquiz.org',", to: 'role: `Founder of ${SITE.domain}`,' },
       { from: "    name: 'KpopQuiz',\n    alternateName: 'kpopquiz.org',", to: '    name: SITE.seo.organization.name,\n    alternateName: SITE.seo.organization.alternateName,' },
       { from: 'logo: `${SITE_URL}/logo-512.png`,', to: 'logo: `${SITE_URL}${SITE.seo.organization.logo}`,' },
