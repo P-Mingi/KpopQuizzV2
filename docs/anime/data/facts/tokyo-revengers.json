@@ -329,7 +329,7 @@
         "source": "wikipedia",
         "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes",
         "ref": "1381408214",
-        "fetched_at": "2026-10-25T14:15:00Z"
+        "fetched_at": "2026-10-25T20:45:00Z"
       },
       {
         "source": "press",
@@ -339,7 +339,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:30:00.000Z",
-    "excerpt": "It premiered on October 3, 2026, on the Animeism programming block"
+    "excerpt": "It premiered on October 3, 2026."
   },
   {
     "id": "tokyo-revengers-studio-010",
@@ -508,7 +508,7 @@
         "source": "wikipedia",
         "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers_(film)",
         "ref": "1369619933",
-        "fetched_at": "2026-10-25T14:15:00Z"
+        "fetched_at": "2026-10-25T20:45:00Z"
       },
       {
         "source": "wikidata",
@@ -519,7 +519,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:30:00.000Z",
-    "excerpt": "delayed to July 9, 2021"
+    "excerpt": "is a 2021 Japanese science fiction action film directed by Tsutomu Hanabusa"
   },
   {
     "id": "tokyo-revengers-film-sequel-015",
@@ -2233,9 +2233,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
-        "ref": "1381518809",
-        "fetched_at": "2026-10-25T14:15:00Z"
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T20:45:00Z"
       }
     ],
     "status": "verified",
@@ -2320,9 +2320,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
-        "ref": "1348563266",
-        "fetched_at": "2026-10-25T14:15:00Z"
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T20:45:00Z"
       }
     ],
     "status": "verified",

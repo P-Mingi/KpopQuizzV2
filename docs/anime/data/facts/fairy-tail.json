@@ -1114,7 +1114,7 @@
     },
     "field": "arcs_a",
     "value": [
-      "Eisenwald Arc: episodes 1 to 10",
+      "Eisenwald Arc: episodes 5 to 10",
       "Galuna Island Arc: episodes 11 to 20",
       "Phantom Lord Arc: episodes 21 to 29",
       "Loke Arc: episodes 30 to 32",
@@ -1124,7 +1124,7 @@
       "Daphne Arc: episodes 69 to 75",
       "Edolas Arc: episodes 76 to 95"
     ],
-    "text": "The TV anime opens with the Eisenwald Arc, episodes 1 to 10, and its ninth story arc, Edolas, ends with episode 95.",
+    "text": "The Eisenwald Arc fills episodes 5 to 10 of the TV anime, and its ninth story arc, Edolas, ends with episode 95.",
     "category": "history",
     "load_bearing": false,
     "spoiler": {
@@ -1141,7 +1141,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:30:00.000Z",
-    "excerpt": "Eisenwald Arc | 5 | 6 | Galuna Island Arc | 11"
+    "excerpt": "Galuna Island Arc 11 11"
   },
   {
     "id": "fairy-tail-arcs-late-035",
@@ -1156,9 +1156,9 @@
       "Key of the Starry Heavens Arc: episodes 123 to 150",
       "Grand Magic Games Arc: episodes 151 to 203",
       "Eclipse Celestial Spirits Arc: episodes 204 to 226",
-      "Sun Valley Arc: episodes 227 to 233",
-      "Tartaros Arc: episodes 234 to 275",
-      "Avatar Arc: episodes 276 to 284",
+      "Sun Valley Arc: episodes 227 to 237",
+      "Tartaros Arc: episodes 238 to 277",
+      "Avatar Arc: episodes 278 to 284",
       "Alvarez Arc: episodes 285 to 328"
     ],
     "text": "The last story arc, Alvarez, fills episodes 285 to 328, while the Tenrou Island Arc starts the second half at episode 96.",
@@ -1178,7 +1178,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:30:00.000Z",
-    "excerpt": "Alvarez Arc | 285"
+    "excerpt": "Sun Valley Arc 227"
   },
   {
     "id": "fairy-tail-openings-first-036",
@@ -2217,14 +2217,14 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
-        "ref": "1372941047",
-        "fetched_at": "2026-10-25T14:15:00Z"
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T20:30:00Z"
       }
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:30:00.000Z",
-    "excerpt": "Igneel emerges from Natsu's body"
+    "excerpt": "Acnologia kills Igneel in front of a helpless Natsu"
   },
   {
     "id": "fairy-tail-lucy-keys-067",
@@ -2456,7 +2456,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:30:00.000Z",
-    "excerpt": "\"requip\" exchange and equip various weapons and armors"
+    "excerpt": "She uses magic called \"The Knight\""
   },
   {
     "id": "fairy-tail-makarov-saints-075",
@@ -2630,7 +2630,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:30:00.000Z",
-    "excerpt": "uses magic cards either as projectile weapons or to perform a variety of spells"
+    "excerpt": "She uses magic cards"
   },
   {
     "id": "fairy-tail-cana-father-081",
@@ -2721,7 +2721,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:30:00.000Z",
-    "excerpt": "a member of Shadow Gear, a three-wizard team that also includes Jet and Droy"
+    "excerpt": "member of Shadow Gear"
   },
   {
     "id": "fairy-tail-loke-leo-084",
@@ -3211,14 +3211,14 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
-        "ref": "1372941047",
-        "fetched_at": "2026-10-25T14:15:00Z"
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T20:30:00Z"
       }
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:30:00.000Z",
-    "excerpt": "places them into seven years of suspended animation"
+    "excerpt": "casts the defensive Fairy Sphere spell that places them into seven years of suspended animation"
   },
   {
     "id": "fairy-tail-mavis-zeref-101",
@@ -3240,14 +3240,14 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
-        "ref": "1372941047",
-        "fetched_at": "2026-10-25T14:15:00Z"
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T20:30:00Z"
       }
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:30:00.000Z",
-    "excerpt": "allowing Mavis to lift her and Zeref's curse by reciprocating his love"
+    "excerpt": "allowing Mavis to lift her and Zeref's curse by reciprocating his love, which kills them both"
   },
   {
     "id": "fairy-tail-zeref-curse-102",
@@ -3417,14 +3417,14 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
-        "ref": "1372941047",
-        "fetched_at": "2026-10-25T14:15:00Z"
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T20:30:00Z"
       }
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:30:00.000Z",
-    "excerpt": "Natsu accumulates the other Dragon Slayers' magic and destroys his spirit"
+    "excerpt": "Natsu accumulates the other Dragon Slayers' magic and destroys his spirit, killing Acnologia"
   },
   {
     "id": "fairy-tail-natsu-flame-108",

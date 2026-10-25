@@ -482,8 +482,8 @@
       },
       {
         "source": "press",
-        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=33626",
-        "fetched_at": "2026-10-25T14:15:00Z"
+        "url": "https://www.animenewsnetwork.com/news/2025-12-19/that-time-i-got-reincarnated-as-a-slime-anime-4th-season-premieres-in-april-to-run-for-more-than-a-/.232260",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",
@@ -1576,7 +1576,7 @@
     "category": "members",
     "load_bearing": false,
     "spoiler": {
-      "arc": 0,
+      "arc": 1,
       "scope": "both"
     },
     "sources": [
@@ -2592,9 +2592,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)",
-        "ref": "1381889048",
-        "fetched_at": "2026-10-25T14:15:00Z"
+        "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+        "ref": "1376693848",
+        "fetched_at": "2026-10-25T21:00:00Z"
       }
     ],
     "status": "verified",

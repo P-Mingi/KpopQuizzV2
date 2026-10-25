@@ -99,7 +99,7 @@
       "source_url": "https://steinsgate0-anime.com/"
     },
     {
-      "question": "Three of these songs belong to Steins;Gate 0. Which one belongs to the first anime?",
+      "question": "Three of these songs are endings of Steins;Gate 0. Which one is the opening of the first anime?",
       "options": [
         {
           "label": "Last Game"
@@ -278,7 +278,7 @@
       "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
     },
     {
-      "question": "Three of these characters are neuroscientists. Which one is a hacker?",
+      "question": "Three of these characters are scientists. Which one is a hacker?",
       "options": [
         {
           "label": "Kurisu Makise"
@@ -290,7 +290,7 @@
           "label": "Itaru Hashida"
         },
         {
-          "label": "Alexis Leskinen"
+          "label": "Doctor Nakabachi"
         }
       ],
       "correct": 2,
@@ -303,7 +303,7 @@
         "steins-gate-character-name-041",
         "steins-gate-character-name-039",
         "steins-gate-character-name-049",
-        "steins-gate-zero-leskinen-025"
+        "steins-gate-character-name-048"
       ],
       "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
     },

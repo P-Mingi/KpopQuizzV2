@@ -317,9 +317,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_episodes",
-        "ref": "1341825129",
-        "fetched_at": "2026-10-25T14:30:00Z"
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T20:00:00Z"
       },
       {
         "source": "press",
@@ -329,7 +329,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "Season 1: 25 episodes, October 6, 2006 to July 29, 2007, MBS"
+    "excerpt": "Original run October 6, 2006"
   },
   {
     "id": "code-geass-anime-r2-011",
@@ -354,9 +354,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_R2_episodes",
-        "ref": "1341825335",
-        "fetched_at": "2026-10-25T14:30:00Z"
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_2_episodes",
+        "ref": "1373484202",
+        "fetched_at": "2026-10-25T20:00:00Z"
       },
       {
         "source": "press",
@@ -366,7 +366,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "The season contains 25 episodes that aired from April 6 to September 28, 2008"
+    "excerpt": "No. of episodes 25 Release Original network JNN ( MBS , TBS ) Original release April 6"
   },
   {
     "id": "code-geass-anime-total-012",
@@ -424,9 +424,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/Code_Geass:_Lelouch_of_the_Re;surrection",
-        "ref": "1054294591",
-        "fetched_at": "2026-10-25T14:30:00Z"
+        "url": "https://en.wikipedia.org/wiki/Code_Geass_Lelouch_of_the_Re;surrection",
+        "ref": "1380024988",
+        "fetched_at": "2026-10-25T20:00:00Z"
       },
       {
         "source": "wikidata",
@@ -437,7 +437,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "released in theaters in Japan on February 9, 2019"
+    "excerpt": "The film was released in theaters in Japan on February 9, 2019."
   },
   {
     "id": "code-geass-film-zero-requiem-014",
@@ -447,8 +447,8 @@
       "group_slug": "code-geass"
     },
     "field": "story_arcs",
-    "value": "Sequel to Zero Requiem",
-    "text": "Lelouch of the Re;surrection takes place after the Zero Requiem arc, which ended the story of the television series.",
+    "value": "Set a year after the Zero Requiem",
+    "text": "Lelouch of the Re;surrection opens a year after the Zero Requiem, the scheme that ended the story of the television series.",
     "category": "fun",
     "load_bearing": false,
     "spoiler": {
@@ -458,14 +458,14 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/Code_Geass:_Lelouch_of_the_Re;surrection",
-        "ref": "1054294591",
-        "fetched_at": "2026-10-25T14:30:00Z"
+        "url": "https://en.wikipedia.org/wiki/Code_Geass_Lelouch_of_the_Re;surrection",
+        "ref": "1380024988",
+        "fetched_at": "2026-10-25T20:00:00Z"
       }
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "it is a sequel to the \"Zero Requiem\" arc of that continuity"
+    "excerpt": "A year has passed since the events of the \"Zero Requiem\", a scheme Emperor Lelouch vi Britannia formulated to end conflict with his death"
   },
   {
     "id": "code-geass-ova-akito-015",
@@ -713,9 +713,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_episodes",
-        "ref": "1341825129",
-        "fetched_at": "2026-10-25T14:30:00Z"
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_1_episodes",
+        "ref": "1341952163",
+        "fetched_at": "2026-10-25T20:00:00Z"
       },
       {
         "source": "press",
@@ -725,7 +725,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "Episodes 1-12: Opening \"Colors\" by Flow"
+    "excerpt": "For the first 12 episodes, the opening theme is \"Colors\" performed by Flow"
   },
   {
     "id": "code-geass-theme-op-023",
@@ -750,9 +750,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_episodes",
-        "ref": "1341825129",
-        "fetched_at": "2026-10-25T14:30:00Z"
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_1_episodes",
+        "ref": "1341952163",
+        "fetched_at": "2026-10-25T20:00:00Z"
       },
       {
         "source": "press",
@@ -762,7 +762,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "Episodes 13-23: Opening \"Kaidokufunō\" by Jinn"
+    "excerpt": "For the rest of the season, the opening theme is \"Kaidokufunō\""
   },
   {
     "id": "code-geass-theme-op-024",
@@ -787,9 +787,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_episodes",
-        "ref": "1341825129",
-        "fetched_at": "2026-10-25T14:30:00Z"
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_1_episodes",
+        "ref": "1341952163",
+        "fetched_at": "2026-10-25T20:00:00Z"
       },
       {
         "source": "press",
@@ -799,7 +799,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "Episodes 24-25: Opening \"Hitomi no Tsubasa\" by Access"
+    "excerpt": "Episodes 24 and 25 had the opening theme \"Hitomi no Tsubasa\""
   },
   {
     "id": "code-geass-theme-ed-025",
@@ -824,9 +824,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_episodes",
-        "ref": "1341825129",
-        "fetched_at": "2026-10-25T14:30:00Z"
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_1_episodes",
+        "ref": "1341952163",
+        "fetched_at": "2026-10-25T20:00:00Z"
       },
       {
         "source": "press",
@@ -836,7 +836,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "Episodes 1-12: Ending \"Yūkyō Seishunka\" by Ali Project"
+    "excerpt": "the ending theme is \"Yūkyō Seishunka\""
   },
   {
     "id": "code-geass-theme-ed-026",
@@ -861,9 +861,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_episodes",
-        "ref": "1341825129",
-        "fetched_at": "2026-10-25T14:30:00Z"
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_1_episodes",
+        "ref": "1341952163",
+        "fetched_at": "2026-10-25T20:00:00Z"
       },
       {
         "source": "press",
@@ -873,7 +873,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "Ending \"Mosaic Kakera\" by SunSet Swish"
+    "excerpt": "the ending theme is \"Mosaic Kakera\""
   },
   {
     "id": "code-geass-theme-op-027",
@@ -898,9 +898,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_R2_episodes",
-        "ref": "1341825335",
-        "fetched_at": "2026-10-25T14:30:00Z"
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_2_episodes",
+        "ref": "1373484202",
+        "fetched_at": "2026-10-25T20:00:00Z"
       },
       {
         "source": "press",
@@ -910,7 +910,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "Episodes 1-12: Opening \"O2\" performed by Orange Range"
+    "excerpt": "The opening and ending themes for the first 12 episodes are \"O2\""
   },
   {
     "id": "code-geass-theme-op-028",
@@ -935,9 +935,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_R2_episodes",
-        "ref": "1341825335",
-        "fetched_at": "2026-10-25T14:30:00Z"
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_2_episodes",
+        "ref": "1373484202",
+        "fetched_at": "2026-10-25T20:00:00Z"
       },
       {
         "source": "press",
@@ -947,7 +947,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "Episodes 13-25: Opening \"World End\" performed by Flow"
+    "excerpt": "For the rest of the season, the opening theme is \"World End\" performed by Flow"
   },
   {
     "id": "code-geass-theme-ed-029",
@@ -972,9 +972,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_R2_episodes",
-        "ref": "1341825335",
-        "fetched_at": "2026-10-25T14:30:00Z"
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_2_episodes",
+        "ref": "1373484202",
+        "fetched_at": "2026-10-25T20:00:00Z"
       },
       {
         "source": "press",
@@ -984,7 +984,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "Ending \"Shiawase Neiro\" performed by Orange Range"
+    "excerpt": "respectively and were both performed by Orange Range"
   },
   {
     "id": "code-geass-theme-ed-030",
@@ -1009,9 +1009,9 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_R2_episodes",
-        "ref": "1341825335",
-        "fetched_at": "2026-10-25T14:30:00Z"
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_2_episodes",
+        "ref": "1373484202",
+        "fetched_at": "2026-10-25T20:00:00Z"
       },
       {
         "source": "press",
@@ -1021,7 +1021,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "Episodes 13-25: Ending \"Waga Rōtashi Aku no Hana\" performed by Ali Project"
+    "excerpt": "the ending theme is \"Waga Rōtashi Aku no Hana\""
   },
   {
     "id": "code-geass-character-name-031",
@@ -1960,8 +1960,8 @@
       "ref": "jeremiah-gottwald"
     },
     "field": "power",
-    "value": "Geass Canceler",
-    "text": "Jeremiah has the Geass Canceler, an ability to restore a Geass that was cancelled.",
+    "value": "Geass Canceler (nullifies the effects of a Geass)",
+    "text": "Jeremiah's Geass Canceler nullifies the effects that another Geass has had on a person.",
     "category": "fun",
     "load_bearing": false,
     "spoiler": {
@@ -1978,7 +1978,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
-    "excerpt": "Ability: Geass Canceler - restores cancelled Geass"
+    "excerpt": "The latter also comes with the Geass Canceler, a blue, inverted form of the Geass with about the same capabilities as Rolo's Geass that nullifies any effects done onto a person by the Geass"
   },
   {
     "id": "code-geass-character-detail-064",
