@@ -23,6 +23,7 @@ afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); });
 
 const DASHES = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(0x2014)}]`);
 const BANNED = /K-?pop|kpopquiz|Kpop_Verse|Discord/i;
+const MAILBOX = 'hello@kpopquiz.org';
 
 describe('the anime pages that were kpop copies', () => {
   const pages: Array<[string, () => Promise<{ default: () => unknown; metadata?: unknown }>]> = [
@@ -37,9 +38,10 @@ describe('the anime pages that were kpop copies', () => {
       const out = await (mod.default as () => unknown)();
       const html = renderToString(out as React.ReactElement) + JSON.stringify((mod as { metadata?: unknown }).metadata ?? {});
       const banned = name === 'contact' ? /K-?pop(?!_)|kpopquiz|Discord/i : BANNED;
-      expect(html).not.toMatch(banned);
+      // the one network mailbox (owner, 2026-10-25) is the only kpopquiz.org text these pages may print
+      expect(html.replaceAll(MAILBOX, '')).not.toMatch(banned);
       expect(html).not.toMatch(DASHES);
-      if (/mailto:/.test(html)) expect(html).toContain('@otakuquiz.org');
+      if (/mailto:/.test(html)) expect(html).toContain(`mailto:${MAILBOX}`);
     });
   }
 });
@@ -56,8 +58,8 @@ describe('the network privacy policy on the hub and on anime', () => {
         expect(html, `${site}: ${s.brand.name}`).toContain(s.brand.name);
         expect(html, `${site}: ${s.domain}`).toContain(s.domain);
       }
-      expect(html).toContain('mailto:contact@fanquiz.org');
-      expect(html).not.toContain('@kpopquiz.org');
+      expect(html).toContain('mailto:hello@kpopquiz.org');
+      expect(html.replaceAll(MAILBOX, '')).not.toContain('@kpopquiz.org');
       expect(html).not.toContain('@otakuquiz.org');
       expect(html).not.toMatch(DASHES);
     }

@@ -6,7 +6,7 @@
 import { SOCIAL_LINKS } from '@kpopquiz/shared/social-links';
 
 export const SITE_URL = 'https://kpopquiz.org';
-export const CONTACT_EMAIL = 'contact@kpopquiz.org';
+export const CONTACT_EMAIL = 'hello@kpopquiz.org';
 
 export const FOUNDER = {
   name: 'Louis',

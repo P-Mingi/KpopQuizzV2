@@ -16,6 +16,9 @@ import type { SiteConfig, SiteFeatures, SiteId, ThemeTokens, NetworkConfig } fro
 /** The network umbrella (BACKLOG 5.1). */
 export const NETWORK: NetworkConfig = { name: 'FanQuiz', url: 'https://fanquiz.org' };
 
+/** The one routed mailbox of the whole network (owner, 2026-10-25): every site prints and publishes this address. */
+export const MAILBOX = 'hello@kpopquiz.org';
+
 const ALL_OFF: SiteFeatures = {
   quizzes: false, topicHubs: false, trivia: false, create: false, dailyQuiz: false,
   blindTest: false, dailyBlindTest: false, openingOfTheDay: false, nameAll: false,
@@ -94,7 +97,7 @@ const KPOP: SiteConfig = {
       name: 'KpopQuiz',
       alternateName: 'kpopquiz.org',
       logo: '/logo-512.png',
-      email: 'contact@kpopquiz.org',
+      email: MAILBOX,
     },
     llmsTxt: { title: 'kpopquiz.org' },
   },
@@ -182,7 +185,7 @@ const ANIME: SiteConfig = {
       name: 'OtakuQuiz',
       alternateName: 'otakuquiz.org',
       logo: '/brand/anime/logo-512.png',
-      email: 'contact@otakuquiz.org',
+      email: MAILBOX,
     },
     llmsTxt: { title: 'otakuquiz.org' },
   },
@@ -251,7 +254,7 @@ const HUB: SiteConfig = {
       name: 'FanQuiz',
       alternateName: 'fanquiz.org',
       logo: '/brand/hub/logo-512.png',
-      email: 'contact@fanquiz.org',
+      email: MAILBOX,
     },
     llmsTxt: { title: 'fanquiz.org' },
   },

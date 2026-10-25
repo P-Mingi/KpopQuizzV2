@@ -25,11 +25,11 @@ export default function ContactPage(): React.ReactElement {
             Email
           </p>
           <a
-            href="mailto:hello@otakuquiz.org"
+            href="mailto:hello@kpopquiz.org"
             className="text-sm font-medium text-[var(--accent)] hover:underline"
           >
             
-            hello@otakuquiz.org
+            hello@kpopquiz.org
           </a>
         </div>
 
