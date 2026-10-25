@@ -2,14 +2,14 @@
  "site": "anime",
  "account": "oq_creator_05",
  "group_slug": "jujutsu-kaisen",
- "title": "Jujutsu Kaisen by the Numbers: Episodes, Days and Odds",
+ "title": "Jujutsu Kaisen by the Numbers: Episodes, Days and Years",
  "slug": "jujutsu-kaisen-by-the-numbers-episodes-days-and-odds",
- "description": "Ten numeric questions: episodes per season, release years and days, circulation, an award ceremony and the odds of a famous jackpot. Light spoilers up to the Culling Game.",
+ "description": "Ten numeric questions: episodes per season, release years and days, volumes and an award ceremony. Light spoilers up to the Culling Game.",
  "quiz_type": "multiple_choice",
  "difficulty": "medium",
  "language": "en",
  "title_gives_nothing_away": true,
- "notes": "Numbers format: every answer is a number taken from verified facts about the anime, the manga and one domain expansion.",
+ "notes": "Numbers format: every answer is a number taken from verified facts about the anime and the manga.",
  "sources": [
   {
    "id": "S1",
@@ -30,11 +30,6 @@
    "id": "S4",
    "title": "Wikipedia: Jujutsu Kaisen season 3",
    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_3"
-  },
-  {
-   "id": "S5",
-   "title": "Wikipedia: List of Jujutsu Kaisen characters",
-   "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
   }
  ],
  "questions": [
@@ -191,42 +186,42 @@
    "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_3"
   },
   {
-   "question": "Kinji Hakari's Domain Expansion, Idle Death Gamble, hits its jackpot at odds of 1 in how many?",
+   "question": "How many TV episodes do the first three seasons of the Jujutsu Kaisen anime add up to?",
    "options": [
-    "239",
-    "139",
-    "199",
-    "339"
+    "48",
+    "52",
+    "59",
+    "72"
    ],
-   "correct": 0,
-   "kind": "ability",
+   "correct": 2,
+   "kind": "episode",
    "spoiler": {
-    "arc": 9,
-    "scope": "both"
+    "arc": 7,
+    "scope": "anime"
    },
    "fact_ids": [
-    "jujutsu-kaisen-idle-death-gamble-029"
+    "jujutsu-kaisen-episode-count-013"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
   },
   {
-   "question": "Once the jackpot of Idle Death Gamble hits, it lasts a set number of whole minutes plus 11 seconds. How many minutes?",
+   "question": "The weekly run of the manga ended in September 2024. On which day of the month?",
    "options": [
-    "3",
-    "4",
-    "5",
-    "10"
+    "16",
+    "23",
+    "27",
+    "30"
    ],
-   "correct": 1,
-   "kind": "ability",
+   "correct": 3,
+   "kind": "manga",
    "spoiler": {
-    "arc": 9,
+    "arc": 0,
     "scope": "both"
    },
    "fact_ids": [
-    "jujutsu-kaisen-idle-death-gamble-029"
+    "jujutsu-kaisen-manga-run-008"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
   }
  ]
 }

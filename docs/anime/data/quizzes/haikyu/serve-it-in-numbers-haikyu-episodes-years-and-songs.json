@@ -4,7 +4,7 @@
  "group_slug": "haikyu",
  "title": "Serve It in Numbers: Haikyu!! Episodes, Years and Songs",
  "slug": "serve-it-in-numbers-haikyu-episodes-years-and-songs",
- "description": "Ten questions that all have a number for an answer: episodes, years, song slots, OVAs and one December day. Light spoilers: the finale films are mentioned, nothing about the matches.",
+ "description": "Ten questions that all have a number for an answer: episodes, years, song slots and one December day. Light spoilers: the finale films are mentioned, nothing about the matches.",
  "quiz_type": "multiple_choice",
  "difficulty": "medium",
  "language": "en",
@@ -24,23 +24,23 @@
  ],
  "questions": [
   {
-   "question": "How many OVA episodes does the Haikyu!! anime have?",
+   "question": "How many episodes does season three, the Shiratorizawa season, run for?",
    "options": [
-    "Four",
-    "Six",
-    "Two",
-    "Three"
+    "13",
+    "25",
+    "10",
+    "12"
    ],
-   "correct": 0,
-   "kind": "production",
+   "correct": 2,
+   "kind": "episode",
    "spoiler": {
-    "arc": 0,
-    "scope": "anime"
+    "arc": 5,
+    "scope": "both"
    },
    "fact_ids": [
-    "haikyu-first-ova-020"
+    "haikyu-arc-structure-015"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
   },
   {
    "question": "How many episodes does season four, To The Top, run?",

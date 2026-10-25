@@ -23,16 +23,11 @@
   },
   {
    "id": "S3",
-   "title": "Wikipedia: Neon Genesis Evangelion",
-   "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
-  },
-  {
-   "id": "S4",
    "title": "Wikipedia: List of Neon Genesis Evangelion characters",
    "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
   },
   {
-   "id": "S5",
+   "id": "S4",
    "title": "Wikipedia: The End of Evangelion",
    "url": "https://en.wikipedia.org/wiki/The_End_of_Evangelion"
   }
@@ -78,7 +73,8 @@
     "evangelion-broadcast-run-003",
     "evangelion-end-of-evangelion-film-008",
     "evangelion-rebuild-films-009",
-    "evangelion-netflix-premiere-012"
+    "evangelion-netflix-premiere-012",
+    "evangelion-rebuild-first-film-015"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
   },
@@ -105,12 +101,12 @@
    "source_url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)"
   },
   {
-   "question": "On the road from first idea to cinema release, which of these steps happened first?",
+   "question": "On the road from the TV series to the films, which of these steps happened first?",
    "options": [
     "The first Rebuild film opens",
     "The End of Evangelion reaches cinemas",
-    "Anno starts shaping the project",
-    "The first TV episode airs"
+    "The TV season starting on TV Tokyo",
+    "The TV season finishing on TV Tokyo"
    ],
    "correct": 2,
    "kind": "production",
@@ -119,12 +115,12 @@
     "scope": "both"
    },
    "fact_ids": [
-    "evangelion-production-start-010",
     "evangelion-broadcast-run-003",
     "evangelion-end-of-evangelion-film-008",
-    "evangelion-rebuild-films-009"
+    "evangelion-rebuild-films-009",
+    "evangelion-rebuild-first-film-015"
    ],
-   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
   },
   {
    "question": "The alternate ending came to cinemas in several steps. Which release came first?",
@@ -142,7 +138,8 @@
    },
    "fact_ids": [
     "evangelion-film-release-order-028",
-    "evangelion-rebuild-films-009"
+    "evangelion-rebuild-films-009",
+    "evangelion-rebuild-first-film-015"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
   },
@@ -230,7 +227,8 @@
     "evangelion-broadcast-run-003",
     "evangelion-end-of-evangelion-film-008",
     "evangelion-rebuild-films-009",
-    "evangelion-mari-debut-014"
+    "evangelion-mari-debut-014",
+    "evangelion-rebuild-first-film-015"
    ],
    "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
   },
