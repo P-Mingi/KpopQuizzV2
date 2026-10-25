@@ -23,9 +23,9 @@ Logos (owner exception, brief section 2):
 2. Footer, 1440 (1.94%): the rabbit (28 px) before FanQuiz in the brand line.
 3. Doors, 1440 and 390 (0.07%, 0.36% of the hero): the "K" and "O" letters of the 40 px (36 px) tiles are the rabbit in white (`rabbit-white.png`, made from the mascot by `rabbit-white.mjs`).
 
-Data (lot H2b):
+Data (lot H2b, wired by lot H2c, see the section "H2c: the real data" below):
 
-4. The numbers, titles, handles, streaks and links are the design's sample data, from the loaders `lib/site/hub/home-*.ts`. The signed-in fan is real for the username, the level and the sites joined (`readHubPassport`); the progress to the next level (72%) and the streaks (6 and 2 days) are the design's samples. Links of the sample quizzes point at plausible paths of their own site, which exist only once H2b gives real slugs.
+4. Every number, title, handle, streak and link is now real (o1-dev); no sample is left in a render path. The streaks and the progress of the signed-in fan are read from their account.
 
 Words that are not the design's (one decision, for the owner):
 
@@ -40,8 +40,29 @@ Noise that is not a difference:
 ## Things the design does not decide, and what the page does
 
 - Mobile signed in: the Mobile board has no signed-in state. The page shows the desktop signed-in blocks on the phone width (level chip in the bar, "For you, name" as the two or three plain cards, the passport with the progress bar and the streaks), no reference to compare.
-- Search ("Search both sites"): a button, as in the design; the design's script gives it no action, so it does none (lot H2b wires it).
+- Search ("Search both sites"): lot H2c makes it a link (same look, same label) to the search page of KpopQuiz while the Hot now filter is All or KpopQuiz, of OtakuQuiz when it is OtakuQuiz.
 - Options of the question: the design's `.fq-opt:hover` border colour never shows (its inline border wins), so the page has none.
 - One markup serves both boards (a text that differs, such as "Play today's quiz" and "Play", is in the markup twice and the sheet shows one; blocks the phone board leaves out are hidden by the sheet at 719 px and below). Landmarks: bar (`header`), `main`, `footer` are siblings in the page, as in the Main board.
 - Fonts: DM Sans from `next/font` (self-hosted, with the optical size axis), the face the design links from Google Fonts.
 - Dark mode: the existing dark tokens, with local `--hub-*` values for the site colours (KpopQuiz pink and OtakuQuiz orange), AA checked in `lib/site/hub/home-styles.test.ts`.
+
+## H2c: the real data, block by block
+
+Real shots, o1-dev, 1440 and 390, signed out and signed in (the `dual` fixture): `real-1440-out.png`, `real-1440-in.png`, `real-390-out.png`, `real-390-in.png` (`shoot-real.mjs`).
+`real-compare-blocks.txt` is `compare.mjs` against the design with the real data: the share of differing pixels is now the text, the numbers and the heights of the real data, so it is no measure; sizes and structure are. The interactions that need data are driven by `interact-real.mjs` (all green).
+
+Only logos (items 1 to 3 above), data and the passport wording (item 5) differ from the design. Block by block:
+
+- Top bar: same structure and sizes (73 px at 1440, 69 px at 390, as the design). Search is a link (same box, `box-sizing` set so it is 44 px as the button was). Signed in: the level chip shows the real level. A pill (Today, Hot now, Top fans) is left out with the block it points to when that block has no data (today: Top fans, nobody has made a profile public on o1-dev).
+- Hero: the pills are the real counts (474 quizzes, 274 quizzes, 51 series), the "New site" pill only while OtakuQuiz is in its first week (the rule of its Just added quiz), "Top now" or "Just added" with the real quiz. Daily blindtest and Which member are you are KpopQuiz's own features, written as in the design. A door with no data leaves the hero; the design's heights hold with both doors.
+- Surprise me: the pool is the 100 best quizzes of each site, the draw is `pickSurprise` (never a played quiz, never the same site twice in a row), the link is the canonical page. No pool, no button.
+- Today: real quizzes of the day (link `/q/<slug>?daily=quiz`, so the streak counts), "10 songs, 10 seconds each" (the real set is 10 songs, the design said 5), the real preview of the first song plays for ten seconds, the real debate, "New picks in N h M min (1:05, Paris time)" aiming at 00:05 UTC (2:05 in summer, 1:05 in winter; the design's fixed "2:05" was true in summer only). A card with no data leaves the grid (auto-fit), the section leaves when all three are missing. Streaks are the fan's real daily streaks.
+- 60 seconds: a real question (no spoiler, no XP) with its story, the two sourced facts of the day; each part leaves alone. The phone board's short story is the first sentence of the story.
+- Hot right now: the real ranking (Plan section 3 A), the three filter lists come from the module, `All` alternates. The block and its ItemList leave when there is no ranking.
+- For you or Start easy: signed in, the next quiz of the fandom and the bridge (there is no Continue card: the run in progress lives in the browser of each site); a fan with nothing played sees Start easy without the "Save your progress" card (they have a passport).
+- Crossover: the three picks of the week and one sourced fact; the fact line leaves when none is available; the block leaves with no pick.
+- Top fans: public profiles only, no Team account; the board leaves when empty and the passport takes the row (it is empty on o1-dev: no public stamp). A fan who keeps the level private shows no level.
+- Passport: real username, level, sites joined, progress to the next level and the daily streak of each site ("Streak 0 days" when there is none). Signed out: `HubShares`' wording (the one wording difference, item 5, owner decision: keep `HubShares`).
+- Footer: unchanged.
+
+What still lacks data: the Continue card (needs a server table of runs in progress), the "verified first" order of OtakuQuiz's start-up week (no per-quiz flag), the completion rate of Hot (no record of started runs), Top fans on a database with no public profile. Each leaves the page cleanly.
