@@ -1,0 +1,3515 @@
+[
+  {
+    "id": "fairy-tail-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "title_native",
+    "value": [
+      "フェアリーテイル",
+      "Fearī Teiru"
+    ],
+    "text": "The title is written in katakana as フェアリーテイル and read Fearī Teiru; the guild in the story is spelled 妖精の尻尾 in kanji, the tail of a fairy.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://a1p.jp/works/fairytail/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Fairy Tail (妖精の尻尾（フェアリーテイル）, Fearī Teiru)"
+  },
+  {
+    "id": "fairy-tail-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "author",
+    "value": "Hiro Mashima",
+    "text": "Hiro Mashima both wrote and drew the manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q18796",
+        "ref": "Q18796",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Written and illustrated by Hiro Mashima"
+  },
+  {
+    "id": "fairy-tail-magazine-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "magazine",
+    "value": [
+      "Weekly Shōnen Magazine",
+      "Kodansha"
+    ],
+    "text": "The manga appeared weekly in the magazine Weekly Shōnen Magazine, which belongs to the publisher Kodansha.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "serialized in Kodansha's Weekly Shōnen Magazine"
+  },
+  {
+    "id": "fairy-tail-manga-run-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "manga_run",
+    "value": [
+      "August 2, 2006",
+      "July 26, 2017"
+    ],
+    "text": "The weekly serialization started on August 2, 2006, and wrapped up on July 26, 2017.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q18796",
+        "ref": "Q18796",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Weekly Shōnen Magazine from August 2, 2006, to July 26, 2017"
+  },
+  {
+    "id": "fairy-tail-volumes-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "volumes",
+    "value": 63,
+    "text": "Its chapters were gathered into 63 tankōbon volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q18796",
+        "ref": "Q18796",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "collected and published into 63 tankōbon volumes"
+  },
+  {
+    "id": "fairy-tail-pilot-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "origin",
+    "value": [
+      "Fairy Tale",
+      "Magazine Fresh"
+    ],
+    "text": "A pilot one-shot named Fairy Tale, printed in Magazine Fresh, came years before the weekly series.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a one-shot titled Fairy Tale that was published in Magazine Fresh"
+  },
+  {
+    "id": "fairy-tail-rave-master-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "inspiration",
+    "value": [
+      "Rave Master",
+      "a lot of fun"
+    ],
+    "text": "After finishing Rave Master, Mashima wanted his next manga to be full of fun, and drew on evenings of partying with friends in bars.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "wanted the storyline of his next manga to have a lot of fun"
+  },
+  {
+    "id": "fairy-tail-tale-to-tail-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "title_change",
+    "value": "Tale to Tail",
+    "text": "Mashima swapped Tale for Tail in the title as a nod to a fairy's tail, and hinted it might matter to the plot.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The title was changed from Tale to Tail in reference to the tail of a fairy"
+  },
+  {
+    "id": "fairy-tail-anime-s1-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "anime_s1",
+    "value": [
+      "October 12, 2009",
+      "March 30, 2013",
+      "175 episodes"
+    ],
+    "text": "TV Tokyo screened 175 episodes in the first season, which began on October 12, 2009, and ended on March 30, 2013.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes",
+        "ref": "1381404148",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=10942",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the first season was broadcast on TV Tokyo from October 12, 2009, to March 30, 2013"
+  },
+  {
+    "id": "fairy-tail-anime-s2-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "anime_s2",
+    "value": [
+      "April 5, 2014",
+      "March 26, 2016",
+      "102 episodes"
+    ],
+    "text": "After a one year gap the series returned on April 5, 2014, and its 102 episodes ended on March 26, 2016.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes",
+        "ref": "1381404148",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=15799",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a second season run from April 5, 2014, to March 26, 2016"
+  },
+  {
+    "id": "fairy-tail-anime-s3-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "anime_s3",
+    "value": [
+      "October 7, 2018",
+      "September 29, 2019"
+    ],
+    "text": "The third and final season of the TV anime started on October 7, 2018, and finished on September 29, 2019.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes",
+        "ref": "1381404148",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20846",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q16510277",
+        "ref": "Q16510277",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "A third and final season aired from October 7, 2018, to September 29, 2019"
+  },
+  {
+    "id": "fairy-tail-anime-total-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "tv_episodes",
+    "value": 328,
+    "text": "Across all its seasons the TV anime adds up to 328 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)",
+        "ref": "1381884191",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q16510277",
+        "ref": "Q16510277",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the series aired for 328 episodes on TV Tokyo"
+  },
+  {
+    "id": "fairy-tail-anime-studios-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "anime_studio",
+    "value": [
+      "A-1 Pictures",
+      "Satelight"
+    ],
+    "text": "A-1 Pictures and Satelight animated the first TV series together.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes",
+        "ref": "1381404148",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q16510277",
+        "ref": "Q16510277",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Produced by A-1 Pictures and Satelight"
+  },
+  {
+    "id": "fairy-tail-later-studios-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "anime_studios",
+    "value": [
+      "Bridge",
+      "CloverWorks"
+    ],
+    "text": "For the 2014 return Bridge took over from Satelight, and CloverWorks, once part of A-1 Pictures, joined for the final season.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)",
+        "ref": "1381884191",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Bridge replaced Satelight as the co-animation studio"
+  },
+  {
+    "id": "fairy-tail-studios-seasons-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "crew_roles",
+    "value": [
+      "A-1 Pictures",
+      "Satelight",
+      "Bridge",
+      "CloverWorks"
+    ],
+    "text": "A-1 Pictures worked on all three seasons, Satelight only on the first, Bridge on the second and third, and CloverWorks only on the last.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)",
+        "ref": "1381884191",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Bridge replaced Satelight as the co-animation studio"
+  },
+  {
+    "id": "fairy-tail-grimoire-heart-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "background",
+    "value": [
+      "Grimoire Heart",
+      "Acnologia"
+    ],
+    "text": "On Sirius Island Fairy Tail fights the dark guild Grimoire Heart, and the noise draws the black dragon Acnologia.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "between Fairy Tail and the dark guild Grimoire Heart"
+  },
+  {
+    "id": "fairy-tail-director-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "director",
+    "value": [
+      "Shinji Ishihira",
+      "石平信司"
+    ],
+    "text": "Shinji Ishihira directed the TV anime and came back for the 2014 sequel series.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)",
+        "ref": "1381884191",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://a1p.jp/works/fairytail/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "directed by Shinji Ishihira"
+  },
+  {
+    "id": "fairy-tail-composer-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "composer",
+    "value": [
+      "Yasuharu Takanashi",
+      "高梨康治"
+    ],
+    "text": "Yasuharu Takanashi composed and arranged the music of the anime, and four soundtrack CDs came out.",
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)",
+        "ref": "1381884191",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://a1p.jp/works/fairytail/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "composed and arranged by Yasuharu Takanashi"
+  },
+  {
+    "id": "fairy-tail-film-1-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "film",
+    "value": [
+      "Fairy Tail the Movie: Phoenix Priestess",
+      "August 18, 2012"
+    ],
+    "text": "The first film, Phoenix Priestess, reached Japanese cinemas on August 18, 2012.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q5430982",
+        "ref": "Q5430982",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=13785",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "premiered in Japan on August 18, 2012"
+  },
+  {
+    "id": "fairy-tail-film-2-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "films",
+    "value": [
+      "Fairy Tail: Dragon Cry",
+      "May 6, 2017"
+    ],
+    "text": "A second film, Dragon Cry, premiered in Japan on May 6, 2017.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q28859714",
+        "ref": "Q28859714",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=19338",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "premiered in Japan on May 6, 2017"
+  },
+  {
+    "id": "fairy-tail-sequel-manga-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "spin_offs",
+    "value": [
+      "Fairy Tail: 100 Years Quest",
+      "July 25, 2018",
+      "Atsuo Ueda"
+    ],
+    "text": "The sequel manga 100 Years Quest began on Magazine Pocket on July 25, 2018, with Mashima writing the storyboards and Atsuo Ueda drawing.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q55919001",
+        "ref": "Q55919001",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "began serialization on Magazine Pocket on July 25, 2018"
+  },
+  {
+    "id": "fairy-tail-sequel-anime-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "new_anime",
+    "value": [
+      "Fairy Tail: 100 Years Quest",
+      "July 2024",
+      "January 2025"
+    ],
+    "text": "Between July 2024 and January 2025 a follow-up anime named 100 Years Quest was broadcast.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)",
+        "ref": "1381884191",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=24716",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "aired from July 2024 to January 2025"
+  },
+  {
+    "id": "fairy-tail-prequel-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "prequel_manga",
+    "value": [
+      "Fairy Tail Zero",
+      "Monthly Fairy Tail Magazine"
+    ],
+    "text": "Mashima himself wrote a prequel, Fairy Tail Zero, which ran in a short-lived monthly magazine named after the series.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a prequel by Mashima, Fairy Tail Zero"
+  },
+  {
+    "id": "fairy-tail-seven-sins-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "spinoff",
+    "value": [
+      "The Seven Deadly Sins",
+      "Nakaba Suzuki"
+    ],
+    "text": "Mashima and Nakaba Suzuki, the creator of The Seven Deadly Sins, each drew a four-panel strip of the other's series before a full crossover chapter.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "each artist drew a yonkoma (four-panel comic) of the other's series"
+  },
+  {
+    "id": "fairy-tail-madoshi-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "name_meaning",
+    "value": "madōshi",
+    "text": "The Japanese word behind wizard is madōshi, which sounds closer to a martial artist who follows a way, like judo, than to a Western wizard such as Merlin.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "wizard is the translation of the Japanese word madōshi"
+  },
+  {
+    "id": "fairy-tail-premise-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "premise",
+    "value": [
+      "Natsu Dragneel",
+      "Igneel"
+    ],
+    "text": "Natsu travels the kingdom of Fiore looking for his missing adoptive father, the dragon Igneel.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "in search of his missing adoptive father, the dragon Igneel"
+  },
+  {
+    "id": "fairy-tail-guild-life-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "setting",
+    "value": "Earth-land",
+    "text": "In the world of Earth-land, wizards join guilds that take paid job requests, and Fairy Tail is the guild the story follows.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "numerous guilds where wizards apply their magic for paid job requests"
+  },
+  {
+    "id": "fairy-tail-team-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "organization",
+    "value": [
+      "Natsu",
+      "Lucy",
+      "Happy",
+      "Gray",
+      "Erza"
+    ],
+    "text": "The best known team of the guild starts with Natsu, Lucy and Happy and later adds Gray and Erza after shared missions.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "later expands to include Gray Fullbuster and Erza Scarlet"
+  },
+  {
+    "id": "fairy-tail-dragon-slayer-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "terms",
+    "value": "Dragon Slayer",
+    "text": "A Dragon Slayer is a wizard with a dragon like body and powers meant to fight dragons.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a wizard with dragon-like physiology whose powers are designed to combat dragons"
+  },
+  {
+    "id": "fairy-tail-s-class-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "role",
+    "value": "S-Class",
+    "text": "The guild ranks its strongest members as S-Class wizards, and Mashima says the S can stand for super or special.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the \"S\" stands for words such as \"super\", \"special\""
+  },
+  {
+    "id": "fairy-tail-motion-sickness-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "natsu-dragneel"
+    },
+    "field": "habits",
+    "value": "motion sickness",
+    "text": "Natsu's motion sickness was borrowed from a friend of Mashima who feels ill whenever they ride in a taxi together.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "He took Natsu's motion sickness from one of his friends"
+  },
+  {
+    "id": "fairy-tail-natsu-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "natsu-dragneel"
+    },
+    "field": "name_origin",
+    "value": [
+      "Natsu",
+      "summer"
+    ],
+    "text": "Mashima named his hero with the Japanese word for summer because Western fantasy names seemed unfamiliar to Japanese readers.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "went with the Japanese name for summer; Natsu"
+  },
+  {
+    "id": "fairy-tail-mashima-schedule-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "planning",
+    "value": [
+      "Monster Hunter Orage",
+      "Monday"
+    ],
+    "text": "In 2008 Mashima wrote the script on Monday, sketched on Tuesday and inked from Wednesday to Friday, saving weekends for a monthly series named Monster Hunter Orage.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "script and storyboards were written on Monday"
+  },
+  {
+    "id": "fairy-tail-arcs-early-034",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "arcs_a",
+    "value": [
+      "Eisenwald Arc: episodes 1 to 10",
+      "Galuna Island Arc: episodes 11 to 20",
+      "Phantom Lord Arc: episodes 21 to 29",
+      "Loke Arc: episodes 30 to 32",
+      "Tower of Heaven Arc: episodes 33 to 40",
+      "Battle of Fairy Tail Arc: episodes 41 to 51",
+      "Nirvana Arc: episodes 52 to 68",
+      "Daphne Arc: episodes 69 to 75",
+      "Edolas Arc: episodes 76 to 95"
+    ],
+    "text": "The TV anime opens with the Eisenwald Arc, episodes 1 to 10, and its ninth story arc, Edolas, ends with episode 95.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes",
+        "ref": "1381404148",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Eisenwald Arc | 5 | 6 | Galuna Island Arc | 11"
+  },
+  {
+    "id": "fairy-tail-arcs-late-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "arcs_b",
+    "value": [
+      "Tenrou Island Arc: episodes 96 to 122",
+      "Key of the Starry Heavens Arc: episodes 123 to 150",
+      "Grand Magic Games Arc: episodes 151 to 203",
+      "Eclipse Celestial Spirits Arc: episodes 204 to 226",
+      "Sun Valley Arc: episodes 227 to 233",
+      "Tartaros Arc: episodes 234 to 275",
+      "Avatar Arc: episodes 276 to 284",
+      "Alvarez Arc: episodes 285 to 328"
+    ],
+    "text": "The last story arc, Alvarez, fills episodes 285 to 328, while the Tenrou Island Arc starts the second half at episode 96.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes",
+        "ref": "1381404148",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Alvarez Arc | 285"
+  },
+  {
+    "id": "fairy-tail-openings-first-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "themes_op_a",
+    "value": [
+      "OP1: Snow Fairy (Funkist)",
+      "OP2: S.O.W. Sense of Wonder (Idoling!!!)",
+      "OP3: ft. (Funkist)",
+      "OP4: R.P.G. ~Rockin' Playing Game (SuG)",
+      "OP5: Egao no Mahou (Magic Party)",
+      "OP6: Fiesta (+Plus)",
+      "OP7: Evidence (Daisy x Daisy)",
+      "OP8: The Rock City Boy (JAMIL)",
+      "OP9: Towa no Kizuna (Daisy x Daisy feat. Another Infinity)",
+      "OP10: I Wish (Milky Bunny)",
+      "OP11: Hajimari no Sora (+Plus)",
+      "OP12: Tenohira (HERO)",
+      "OP13: Breakthrough (Going Under Ground)"
+    ],
+    "text": "The first opening, Snow Fairy by Funkist, played for episodes 1 to 14, and the first thirteen openings end with Breakthrough.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)",
+        "ref": "1381884191",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Opening Themes | No. | Song Title | Artist | Episodes"
+  },
+  {
+    "id": "fairy-tail-openings-last-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "themes_op_b",
+    "value": [
+      "OP14: Yakusoku no Hi (Chihiro Yonekura)",
+      "OP15: Masayume Chasing (BoA)",
+      "OP16: Strike Back (Back-On)",
+      "OP17: Mysterious Magic (Do As Infinity)",
+      "OP18: Break Out (V6)",
+      "OP19: Yume-iro Graffiti (Tackey & Tsubasa)",
+      "OP20: Never-End Tale (Tatsuyuki Kobayashi & Konomi Suzuki)",
+      "OP21: Believe in Myself (Edge of Life)",
+      "OP22: Ashita wo Narase (Kavka Shishido)",
+      "OP23: Power of the Dream (lol)",
+      "OP24: Down by Law (The Rampage from Exile Tribe)",
+      "OP25: No-Limit (Osaka Shunka Shuto)",
+      "OP26: MORE THAN LiKE (BiSH)"
+    ],
+    "text": "Opening 26, MORE THAN LiKE by BiSH, closed the run for episodes 316 to 328.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)",
+        "ref": "1381884191",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Opening Themes | No. | Song Title | Artist | Episodes"
+  },
+  {
+    "id": "fairy-tail-endings-first-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "themes_ed_a",
+    "value": [
+      "ED1: Kanpeki gu~no ne (Watarirouka Hashiritai)",
+      "ED2: Tsunaide Te (Chihiro Yonekura)",
+      "ED3: Gomen ne, Watashi (Shiho Nanba)",
+      "ED4: Kimi ga Iru Kara (Mikuni Shimokawa)",
+      "ED5: Holy Shine (Daisy x Daisy)",
+      "ED6: -Be As One- (w-inds.)",
+      "ED7: Lonely Person (ShaNa)",
+      "ED8: Don't think. Feel!!! (Idoling!!!)",
+      "ED9: Kono Te Nobashite (Hi-Fi Camp)",
+      "ED10: Boys Be Ambitious!! (Hi-Fi Camp)",
+      "ED11: Glitter (Starving Trancer Remix) (Another Infinity feat. Mayumi Morinaga)",
+      "ED12: Yell: Kagayaku Tame no Mono (Sata Andagi)",
+      "ED13: Kimi ga Kureta Mono (Shizuka Kudo)"
+    ],
+    "text": "The first ending, Kanpeki gu~no ne by Watarirouka Hashiritai, played for episodes 1 to 14.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)",
+        "ref": "1381884191",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Ending Themes | No. | Song Title | Artist | Episodes"
+  },
+  {
+    "id": "fairy-tail-endings-last-039",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "themes_ed_b",
+    "value": [
+      "ED14: We're the Stars (Aimi)",
+      "ED15: Kimi to Kare to Boku to Kanojo to (Breathe)",
+      "ED16: Kokoro no Kagi (May J.)",
+      "ED17: Kimi no Mirai (Root Five)",
+      "ED18: Don't Let Me Down (Mariya Nishiuchi)",
+      "ED19: Never Ever (Tokyo Girls' Style)",
+      "ED20: Forever Here (Yoko Ishida)",
+      "ED21: Azayaka na Tabiji (Megumi Mori)",
+      "ED22: Landscape (Solidemo)",
+      "ED23: Endless Harmony (Beverly feat. Lullaby)",
+      "ED24: Pierce (EMPiRE)",
+      "ED25: Boku to Kimi no Lullaby (Miyuna)",
+      "ED26: Exceed (Miyuna)"
+    ],
+    "text": "Ending 26, Exceed by Miyuna, rounded off the series for episodes 316 to 328.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)",
+        "ref": "1381884191",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Ending Themes | No. | Song Title | Artist | Episodes"
+  },
+  {
+    "id": "fairy-tail-voice-natsu-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "natsu-dragneel"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Tetsuya Kakihara",
+      "Todd Haberkorn"
+    ],
+    "text": "Natsu is voiced by Tetsuya Kakihara in Japanese and by Todd Haberkorn in the English dub.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)",
+        "ref": "1381884191",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://a1p.jp/works/fairytail/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Natsu Dragneel | Tetsuya Kakihara | Todd Haberkorn"
+  },
+  {
+    "id": "fairy-tail-voice-lucy-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "lucy-heartfilia"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Aya Hirano",
+      "Cherami Leigh"
+    ],
+    "text": "Lucy is voiced by Aya Hirano in Japanese and by Cherami Leigh in the English dub.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)",
+        "ref": "1381884191",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://a1p.jp/works/fairytail/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Lucy Heartfilia | Aya Hirano | Cherami Leigh"
+  },
+  {
+    "id": "fairy-tail-voice-happy-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "happy"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Rie Kugimiya",
+      "Tia Ballard"
+    ],
+    "text": "Happy is voiced by Rie Kugimiya in Japanese and by Tia Ballard in the English dub.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)",
+        "ref": "1381884191",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://a1p.jp/works/fairytail/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Happy | Rie Kugimiya | Tia Ballard"
+  },
+  {
+    "id": "fairy-tail-voice-erza-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "erza-scarlet"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Sayaka Ohara",
+      "Colleen Clinkenbeard"
+    ],
+    "text": "Erza is voiced by Sayaka Ohara in Japanese and by Colleen Clinkenbeard in the English dub.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)",
+        "ref": "1381884191",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://a1p.jp/works/fairytail/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Erza Scarlet | Sayaka Ohara | Colleen Clinkenbeard"
+  },
+  {
+    "id": "fairy-tail-character-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "natsu-dragneel"
+    },
+    "field": "name",
+    "value": [
+      "Natsu Dragneel",
+      "ナツ・ドラグニル"
+    ],
+    "text": "Natsu Dragneel uses Fire Dragon Slayer Magic, which makes him immune to flames and lets him eat fire for energy.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Natsu is immune to flames and capable of consuming them to fuel his attacks"
+  },
+  {
+    "id": "fairy-tail-character-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "lucy-heartfilia"
+    },
+    "field": "name",
+    "value": [
+      "Lucy Heartfilia",
+      "ルーシィ・ハートフィリア"
+    ],
+    "text": "Lucy Heartfilia is a young celestial wizard who comes to Fairy Tail with dreams of joining the famous guild.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a young celestial wizard named Lucy Heartfilia"
+  },
+  {
+    "id": "fairy-tail-character-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "happy"
+    },
+    "field": "name",
+    "value": [
+      "Happy",
+      "ハッピー"
+    ],
+    "text": "Happy is a blue cat who came from an egg that Natsu and Lisanna found, and he has been Natsu's partner since the start.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Happy is hatched from an egg found by Natsu and Lisanna Strauss"
+  },
+  {
+    "id": "fairy-tail-character-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "gray-fullbuster"
+    },
+    "field": "name",
+    "value": [
+      "Gray Fullbuster",
+      "グレイ・フルバスター"
+    ],
+    "text": "Gray Fullbuster learned his ice magic from Ur and slips out of his clothes without noticing.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Gray is tutored by Ur to use Ice Make"
+  },
+  {
+    "id": "fairy-tail-character-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "erza-scarlet"
+    },
+    "field": "name",
+    "value": [
+      "Erza Scarlet",
+      "エルザ・スカーレット"
+    ],
+    "text": "Erza Scarlet got her surname from her childhood friend Jellal, who named her after the color of her hair.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Jellal Fernandes, who gives her the surname \"Scarlet\" after her red hair"
+  },
+  {
+    "id": "fairy-tail-character-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "makarov-dreyar"
+    },
+    "field": "name",
+    "value": [
+      "Makarov Dreyar",
+      "マカロフ・ドレアー"
+    ],
+    "text": "Makarov Dreyar is the third master of Fairy Tail, and his name was chosen because Mashima wanted it to sound Russian.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "he wanted it to sound Russian"
+  },
+  {
+    "id": "fairy-tail-character-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "mirajane-strauss"
+    },
+    "field": "name",
+    "value": [
+      "Mirajane Strauss",
+      "ミラジェーン・ストラウス"
+    ],
+    "text": "Mirajane Strauss is the older sister of Lisanna and Elfman and works as the guild's barmaid.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the older sister of Lisanna and Elfman"
+  },
+  {
+    "id": "fairy-tail-character-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "elfman-strauss"
+    },
+    "field": "name",
+    "value": [
+      "Elfman Strauss",
+      "エルフマン・ストラウス"
+    ],
+    "text": "Elfman Strauss is the brother of Mirajane and Lisanna, and his name was meant to sound somewhat cute.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Mashima developed his name to sound \"somewhat cute\""
+  },
+  {
+    "id": "fairy-tail-character-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "cana-alberona"
+    },
+    "field": "name",
+    "value": [
+      "Cana Alberona",
+      "カナ・アルベローナ"
+    ],
+    "text": "Cana Alberona takes her name from the tarot word arcana and joined the guild at the age of six.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Her name is derived from the tarot term \"arcana\""
+  },
+  {
+    "id": "fairy-tail-character-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "levy-mcgarden"
+    },
+    "field": "name",
+    "value": [
+      "Levy McGarden",
+      "レビィ・マクガーデン"
+    ],
+    "text": "Levy McGarden bonds with Lucy over books and can translate ancient runic languages.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "proficient at translating and decoding ancient languages and runic magic"
+  },
+  {
+    "id": "fairy-tail-character-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "loke"
+    },
+    "field": "name",
+    "value": [
+      "Loke",
+      "ロキ"
+    ],
+    "text": "Loke is a nickname, and his name comes from the Norse god Loki.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "his name is derived from the Norse god Loki"
+  },
+  {
+    "id": "fairy-tail-character-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "gajeel-redfox"
+    },
+    "field": "name",
+    "value": [
+      "Gajeel Redfox",
+      "ガジル・レッドフォックス"
+    ],
+    "text": "Gajeel Redfox was the first Dragon Slayer besides Natsu to appear in the manga, created as a scary rival for Natsu.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "first of several Dragon Slayers besides Natsu to be introduced in the series"
+  },
+  {
+    "id": "fairy-tail-character-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "juvia-lockser"
+    },
+    "field": "name",
+    "value": [
+      "Juvia Lockser",
+      "ジュビア・ロクサー"
+    ],
+    "text": "Juvia Lockser began in the Element 4, the elite quartet of the guild Phantom Lord.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "originating from the Element 4, Phantom Lord's S-Class team"
+  },
+  {
+    "id": "fairy-tail-character-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "laxus-dreyar"
+    },
+    "field": "name",
+    "value": [
+      "Laxus Dreyar",
+      "ラクサス・ドレアー"
+    ],
+    "text": "Laxus Dreyar gets his name from lux, the unit that measures light.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "derived from the word \"lux\", a unit of measurement for light"
+  },
+  {
+    "id": "fairy-tail-character-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "wendy-marvell"
+    },
+    "field": "name",
+    "value": [
+      "Wendy Marvell",
+      "ウェンディ・マーベル"
+    ],
+    "text": "Wendy Marvell was raised by the dragon Grandeeney, and her name comes from the Japanese word for Wednesday.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 8,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "derived from the Japanese name for Wednesday"
+  },
+  {
+    "id": "fairy-tail-character-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "carla"
+    },
+    "field": "name",
+    "value": [
+      "Carla",
+      "シャルル"
+    ],
+    "text": "Carla is a white Exceed who protects Wendy and inherited precognition from her mother.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 8,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "born with the unconscious power of precognition inherited from her mother"
+  },
+  {
+    "id": "fairy-tail-character-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "gildarts-clive"
+    },
+    "field": "name",
+    "value": [
+      "Gildarts Clive",
+      "ギルダーツ・クライヴ"
+    ],
+    "text": "Gildarts Clive is the guild member whom everyone treats as the strongest, even though he is hardly ever there.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 9,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "regarded by Fairy Tail to be their most powerful member"
+  },
+  {
+    "id": "fairy-tail-character-name-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "mavis-vermillion"
+    },
+    "field": "name",
+    "value": [
+      "Mavis Vermillion",
+      "メイビス・ヴァーミリオン"
+    ],
+    "text": "Mavis Vermillion is the first master of Fairy Tail, who first met Zeref at the age of thirteen.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the first and founding master of Fairy Tail"
+  },
+  {
+    "id": "fairy-tail-character-name-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "zeref-dragneel"
+    },
+    "field": "name",
+    "value": [
+      "Zeref Dragneel",
+      "ゼレフ・ドラグニル"
+    ],
+    "text": "Zeref Dragneel is mentioned early in the series as the most evil wizard in history, the Black Wizard.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the most evil wizard in history called the \"Black Wizard\""
+  },
+  {
+    "id": "fairy-tail-character-name-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "acnologia"
+    },
+    "field": "name",
+    "value": [
+      "Acnologia",
+      "アクノロギア"
+    ],
+    "text": "Acnologia is called the Dragon King for driving dragons close to extinction.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "known as the \"Dragon King\" for driving the dragon race to near extinction"
+  },
+  {
+    "id": "fairy-tail-nickname-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "natsu-dragneel"
+    },
+    "field": "nickname",
+    "value": "Salamander",
+    "text": "Across Fiore Natsu is known by the nickname Salamander.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "known as \"Salamander\""
+  },
+  {
+    "id": "fairy-tail-endpoint-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "natsu-dragneel"
+    },
+    "field": "origin",
+    "value": "Etherious Natsu Dragneel",
+    "text": "Natsu is secretly the demon Etherious Natsu Dragneel, also called E.N.D., and the younger brother of Zeref.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Natsu is a demon known as \"Etherious Natsu Dragneel\""
+  },
+  {
+    "id": "fairy-tail-igneel-sealed-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "natsu-dragneel"
+    },
+    "field": "record",
+    "value": [
+      "Igneel",
+      "Acnologia"
+    ],
+    "text": "Igneel sealed himself inside Natsu's body, then was killed by Acnologia in front of Natsu.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 15,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Igneel emerges from Natsu's body"
+  },
+  {
+    "id": "fairy-tail-lucy-keys-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "lucy-heartfilia"
+    },
+    "field": "power",
+    "value": "Celestial Spirit Magic",
+    "text": "Lucy is a celestial wizard whose magical keys summon spirits, and the twelve golden keys are the zodiac spirits.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "magical keys that summon celestial spirits"
+  },
+  {
+    "id": "fairy-tail-lucy-novel-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "lucy-heartfilia"
+    },
+    "field": "talent",
+    "value": "novelist",
+    "text": "Lucy dreams of being a writer and publishes her first novel, based on the guild, at the end of the series.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "publishes her debut novel based on her experiences at the guild"
+  },
+  {
+    "id": "fairy-tail-happy-aera-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "happy"
+    },
+    "field": "ability",
+    "value": "Aera",
+    "text": "Happy can grow wings and fly with his Aera magic, and he is the only one Natsu can ride without feeling sick.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "transform into a winged cat and fly at great speeds"
+  },
+  {
+    "id": "fairy-tail-happy-exceed-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "happy"
+    },
+    "field": "origin",
+    "value": "Exceed",
+    "text": "Happy turns out to be an Exceed from Edolas who was sent to Earth-land as an egg.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 9,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Happy discovers his origins as an Exceed from Edolas"
+  },
+  {
+    "id": "fairy-tail-gray-icemake-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "gray-fullbuster"
+    },
+    "field": "technique",
+    "value": "Ice Make",
+    "text": "Gray's Ice Make instantly forms ice into any weapon or object he pictures in his mind.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "instantly produces ice in the form of any weapon or object he imagines"
+  },
+  {
+    "id": "fairy-tail-gray-strip-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "gray-fullbuster"
+    },
+    "field": "habits",
+    "value": "stripping",
+    "text": "Gray strips without realizing it, a habit he picked up while training to endure the cold and which Mashima shares.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "subconsciously stripping his clothes"
+  },
+  {
+    "id": "fairy-tail-erza-titania-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "erza-scarlet"
+    },
+    "field": "nickname",
+    "value": "Titania",
+    "text": "Erza's nickname Titania borrows the name of the fairy queen in Shakespeare's A Midsummer Night's Dream.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "referencing the Fairy Queen from A Midsummer Night's Dream"
+  },
+  {
+    "id": "fairy-tail-erza-requip-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "erza-scarlet"
+    },
+    "field": "power",
+    "value": "The Knight",
+    "text": "Erza's magic is called The Knight, which lets her requip, meaning swap, different armors and weapons at once.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "\"requip\" exchange and equip various weapons and armors"
+  },
+  {
+    "id": "fairy-tail-makarov-saints-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "makarov-dreyar"
+    },
+    "field": "title",
+    "value": "Ten Wizard Saints",
+    "text": "Makarov is one of the Ten Wizard Saints, the ten wizards the Magic Council ranks highest in the land.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "one of the Ten Wizard Saints"
+  },
+  {
+    "id": "fairy-tail-makarov-giant-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "makarov-dreyar"
+    },
+    "field": "ability",
+    "value": "Giant",
+    "text": "Makarov can enlarge his small body hugely with a magic called Giant.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "ability to vastly increase his size using the magic Giant"
+  },
+  {
+    "id": "fairy-tail-mirajane-soul-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "mirajane-strauss"
+    },
+    "field": "power",
+    "value": "Satan Soul",
+    "text": "Mirajane's Satan Soul is a Takeover magic that lets her take on the forms of demons she has beaten.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "assume the forms and powers of various demons she has defeated"
+  },
+  {
+    "id": "fairy-tail-mirajane-model-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "mirajane-strauss"
+    },
+    "field": "occupation",
+    "value": "pin-up girl",
+    "text": "Besides running the bar, Mirajane poses as a pin-up girl for the in-world magazine Weekly Sorcerer.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "works as a pin-up girl for the fictional Weekly Sorcerer"
+  },
+  {
+    "id": "fairy-tail-elfman-soul-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "elfman-strauss"
+    },
+    "field": "power",
+    "value": "Beast Soul",
+    "text": "Elfman's Beast Soul magic takes over the strength of monsters, though he usually manages only his right arm.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "assimilate the powers and forms of monsters"
+  },
+  {
+    "id": "fairy-tail-cana-cards-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "cana-alberona"
+    },
+    "field": "power",
+    "value": "magic cards",
+    "text": "Cana fights and tells fortunes with magic cards, and she drinks huge amounts of the guild's alcohol.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "uses magic cards either as projectile weapons or to perform a variety of spells"
+  },
+  {
+    "id": "fairy-tail-cana-father-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "cana-alberona"
+    },
+    "field": "background",
+    "value": "Gildarts Clive",
+    "text": "Cana joined the guild to find her father, who turns out to be Gildarts.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "to search for her father, Gildarts Clive"
+  },
+  {
+    "id": "fairy-tail-levy-script-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "levy-mcgarden"
+    },
+    "field": "power",
+    "value": "Solid Script",
+    "text": "Levy's Solid Script turns written words into three dimensional objects with the traits of what is written.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "transforms written words into three-dimensional objects"
+  },
+  {
+    "id": "fairy-tail-levy-team-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "levy-mcgarden"
+    },
+    "field": "organization",
+    "value": [
+      "Shadow Gear",
+      "Jet",
+      "Droy"
+    ],
+    "text": "Levy leads the three person team Shadow Gear with Jet and Droy.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a member of Shadow Gear, a three-wizard team that also includes Jet and Droy"
+  },
+  {
+    "id": "fairy-tail-loke-leo-084",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "loke"
+    },
+    "field": "public_identity",
+    "value": "Leo",
+    "text": "Loke is really Leo, a celestial spirit of the zodiac, who lived in the human world after his owner died.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Leo, better known as Loke, is a humanoid celestial spirit"
+  },
+  {
+    "id": "fairy-tail-loke-ring-085",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "loke"
+    },
+    "field": "treasure",
+    "value": "Regulus",
+    "text": "His finger ring Regulus can produce blinding or damaging light.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "His finger ring Regulus can generate blinding or damaging light at will"
+  },
+  {
+    "id": "fairy-tail-gajeel-iron-086",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "gajeel-redfox"
+    },
+    "field": "power",
+    "value": "Iron Dragon Slayer Magic",
+    "text": "Gajeel can turn his limbs into iron weapons and eat iron objects for food with Iron Dragon Slayer Magic.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "transform his limbs into iron weapons"
+  },
+  {
+    "id": "fairy-tail-gajeel-nick-087",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "gajeel-redfox"
+    },
+    "field": "nickname",
+    "value": "Kurogane",
+    "text": "In Phantom Lord Gajeel was nicknamed Kurogane, written with characters for iron dragon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "nicknamed \"Kurogane\""
+  },
+  {
+    "id": "fairy-tail-juvia-water-088",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "juvia-lockser"
+    },
+    "field": "power",
+    "value": "Water",
+    "text": "Juvia's water magic lets her turn her body into water, which makes physical attacks harmless.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "turn her body into water at will"
+  },
+  {
+    "id": "fairy-tail-juvia-speech-089",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "juvia-lockser"
+    },
+    "field": "habits",
+    "value": "third person",
+    "text": "Juvia speaks about herself in the third person in the Japanese version.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "She also speaks in third person"
+  },
+  {
+    "id": "fairy-tail-laxus-lightning-090",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "laxus-dreyar"
+    },
+    "field": "power",
+    "value": "Lightning Dragon Slayer Magic",
+    "text": "Laxus uses Lightning Dragon Slayer Magic thanks to a lacrima crystal his father implanted in him as a child.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Lightning Dragon Slayer Magic"
+  },
+  {
+    "id": "fairy-tail-laxus-grandson-091",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "laxus-dreyar"
+    },
+    "field": "role",
+    "value": "grandson of Makarov",
+    "text": "Laxus is the grandson of Makarov and the heir to the post of guild master.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Makarov Dreyar's grandson and heir to the position of guild master"
+  },
+  {
+    "id": "fairy-tail-laxus-tribe-092",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "laxus-dreyar"
+    },
+    "field": "organization",
+    "value": "Raijin Tribe",
+    "text": "Laxus has three personal followers named the Raijin Tribe, or Thunder Legion in the English dub.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "\"Thunder Legion\" in Funimation's anime dub"
+  },
+  {
+    "id": "fairy-tail-wendy-sky-093",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "wendy-marvell"
+    },
+    "field": "power",
+    "value": "Sky Dragon Slayer Magic",
+    "text": "Wendy's Sky Dragon Slayer Magic draws power from clean air and can heal injuries and ailments.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 8,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "draws power from clean air to heal others' injuries and ailments"
+  },
+  {
+    "id": "fairy-tail-wendy-design-094",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "wendy-marvell"
+    },
+    "field": "background",
+    "value": "twelve years old",
+    "text": "Mashima made Wendy a twelve year old girl after a staff member said that young girls hardly appear in the series.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 8,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Mashima designed Wendy to be a 12-year-old girl"
+  },
+  {
+    "id": "fairy-tail-carla-charles-095",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "carla"
+    },
+    "field": "name_variant",
+    "value": "Charles",
+    "text": "Carla is named Charles in Japanese, and the English name changed because readers would take Charles for a male name.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 8,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "her name is Charles in Japanese"
+  },
+  {
+    "id": "fairy-tail-gildarts-crush-096",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "gildarts-clive"
+    },
+    "field": "power",
+    "value": "Crush",
+    "text": "Gildarts uses Crush to break any object or spell he touches into blocks.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 9,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "break any object or spell he touches down into blocks"
+  },
+  {
+    "id": "fairy-tail-gildarts-streets-097",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "gildarts-clive"
+    },
+    "field": "habits",
+    "value": "Magnolia streets",
+    "text": "Magnolia's streets rearrange into one narrow path to the guild so that Gildarts does not stumble into buildings.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 9,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "requires Magnolia's streets to reconfigure into a single, narrow path"
+  },
+  {
+    "id": "fairy-tail-mavis-strategist-098",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "mavis-vermillion"
+    },
+    "field": "epithet",
+    "value": "Fairy Strategist",
+    "text": "Mavis was a prodigy nicknamed the Fairy Strategist, and she walks barefoot after a harsh master took her shoes.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "nicknamed the \"Fairy Strategist\""
+  },
+  {
+    "id": "fairy-tail-mavis-spells-099",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "mavis-vermillion"
+    },
+    "field": "spell",
+    "value": [
+      "Fairy Law",
+      "Fairy Glitter",
+      "Fairy Sphere"
+    ],
+    "text": "The Three Great Fairy Magics, Fairy Law, Fairy Glitter and Fairy Sphere, can only be cast by members of her guild.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Three Great Fairy Magics"
+  },
+  {
+    "id": "fairy-tail-mavis-sphere-100",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "mavis-vermillion"
+    },
+    "field": "record",
+    "value": "Fairy Sphere",
+    "text": "Mavis's Fairy Sphere shielded the guild and left everyone inside suspended in time for seven years.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "places them into seven years of suspended animation"
+  },
+  {
+    "id": "fairy-tail-mavis-zeref-101",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "mavis-vermillion"
+    },
+    "field": "role",
+    "value": "lover of Zeref",
+    "text": "Mavis and Zeref were friends who fell in love, and when she accepted that love their shared curse ended both lives.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "allowing Mavis to lift her and Zeref's curse by reciprocating his love"
+  },
+  {
+    "id": "fairy-tail-zeref-curse-102",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "zeref-dragneel"
+    },
+    "field": "record",
+    "value": [
+      "400 years",
+      "immortality"
+    ],
+    "text": "Cursed with immortality, Zeref wishes to die and has lived for four centuries.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Cursed with immortality and deadly power for the past 400 years"
+  },
+  {
+    "id": "fairy-tail-zeref-brother-103",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "zeref-dragneel"
+    },
+    "field": "role",
+    "value": "Natsu's older brother",
+    "text": "Zeref is Natsu's centuries-old elder brother.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Zeref is Natsu Dragneel's centuries-old elder brother"
+  },
+  {
+    "id": "fairy-tail-zeref-alias-104",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "zeref-dragneel"
+    },
+    "field": "public_identity",
+    "value": "Spriggan",
+    "text": "Under the name Spriggan Zeref rules the Alvarez Empire, a military nation he built over a century.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "under the alias of Spriggan"
+  },
+  {
+    "id": "fairy-tail-acnologia-human-105",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "acnologia"
+    },
+    "field": "background",
+    "value": "Dragon Slayer",
+    "text": "Acnologia was once a human Dragon Slayer who became a black dragon as a side effect of his magic.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Originally a human Dragon Slayer who resents dragons"
+  },
+  {
+    "id": "fairy-tail-acnologia-igneel-106",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "acnologia"
+    },
+    "field": "record",
+    "value": "Igneel",
+    "text": "Acnologia killed Igneel, after losing an arm in their fight, and later took part in the war against the Alvarez Empire.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 15,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "losing an arm in a battle with Igneel that results in the latter's death"
+  },
+  {
+    "id": "fairy-tail-acnologia-end-107",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "acnologia"
+    },
+    "field": "role",
+    "value": "Natsu",
+    "text": "Natsu gathered the magic of the other Dragon Slayers and destroyed Acnologia's spirit, which ended Acnologia.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Natsu accumulates the other Dragon Slayers' magic and destroys his spirit"
+  },
+  {
+    "id": "fairy-tail-natsu-flame-108",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "natsu-dragneel"
+    },
+    "field": "background",
+    "value": "Fire Dragon Slayer Magic",
+    "text": "Natsu's Fire Dragon Slayer Magic comes from the dragon Igneel, who trained him.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "raised from a young age by the dragon Igneel"
+  },
+  {
+    "id": "fairy-tail-makarov-death-109",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fairy-tail",
+      "ref": "makarov-dreyar"
+    },
+    "field": "record",
+    "value": "Fairy Law",
+    "text": "Makarov uses Fairy Law against the Alvarez army and pays with his life, though Mavis later revives him.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters",
+        "ref": "1372941047",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "He eventually sacrifices his life to annihilate the Alvarez Empire's army"
+  },
+  {
+    "id": "fairy-tail-final-quest-110",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fairy-tail"
+    },
+    "field": "mission",
+    "value": "century quest",
+    "text": "In the finale Natsu and his team set out on a century old guild mission.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+        "ref": "1381103857",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "depart on a century-old guild mission"
+  }
+]

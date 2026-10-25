@@ -1,0 +1,328 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "fairy-tail",
+  "title": "Odd One Out: Fairy Tail Spells, Songs and Studios",
+  "slug": "odd-one-out-fairy-tail-spells-songs-and-studios",
+  "description": "Four choices, one that does not belong. Dragon Slayers, singers, studios, spells and arcs. Light spoilers up to the Tenrou Island Arc.",
+  "quiz_type": "intruder",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Intruder format: three real members of a group and one real outsider; all four options are things from the series.",
+  "questions": [
+    {
+      "question": "Three of these wizards use Dragon Slayer Magic. Which one does not?",
+      "options": [
+        {
+          "label": "Erza Scarlet"
+        },
+        {
+          "label": "Natsu Dragneel"
+        },
+        {
+          "label": "Gajeel Redfox"
+        },
+        {
+          "label": "Wendy Marvell"
+        }
+      ],
+      "correct": 0,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 8,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-natsu-flame-108",
+        "fairy-tail-gajeel-iron-086",
+        "fairy-tail-wendy-sky-093",
+        "fairy-tail-erza-requip-074"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Three of these acts sang openings of the TV anime. Which one sang an ending instead?",
+      "options": [
+        {
+          "label": "Funkist"
+        },
+        {
+          "label": "Shiho Nanba"
+        },
+        {
+          "label": "SuG"
+        },
+        {
+          "label": "BiSH"
+        }
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fairy-tail-openings-first-036",
+        "fairy-tail-openings-last-037",
+        "fairy-tail-endings-first-038"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)"
+    },
+    {
+      "question": "Three of these are kinds of magic. Which one is a nickname?",
+      "options": [
+        {
+          "label": "Ice Make"
+        },
+        {
+          "label": "Titania"
+        },
+        {
+          "label": "Solid Script"
+        },
+        {
+          "label": "Beast Soul"
+        }
+      ],
+      "correct": 1,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-gray-icemake-071",
+        "fairy-tail-levy-script-082",
+        "fairy-tail-elfman-soul-079",
+        "fairy-tail-erza-titania-073"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Three of these studios worked on the final season. Which one worked only on the first season?",
+      "options": [
+        {
+          "label": "A-1 Pictures"
+        },
+        {
+          "label": "Satelight"
+        },
+        {
+          "label": "Bridge"
+        },
+        {
+          "label": "CloverWorks"
+        }
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fairy-tail-studios-seasons-015",
+        "fairy-tail-later-studios-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)"
+    },
+    {
+      "question": "Three of these people voice a hero in the Japanese version. Which one voices a hero in the English dub?",
+      "options": [
+        {
+          "label": "Tetsuya Kakihara"
+        },
+        {
+          "label": "Todd Haberkorn"
+        },
+        {
+          "label": "Aya Hirano"
+        },
+        {
+          "label": "Rie Kugimiya"
+        }
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fairy-tail-voice-natsu-040",
+        "fairy-tail-voice-lucy-041",
+        "fairy-tail-voice-happy-042"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)"
+    },
+    {
+      "question": "Three of these belong to the Fairy Tail franchise as later spin-offs or sequels. Which one came before it?",
+      "options": [
+        {
+          "label": "Fairy Tail Zero"
+        },
+        {
+          "label": "Rave Master"
+        },
+        {
+          "label": "Fairy Tail: 100 Years Quest"
+        },
+        {
+          "label": "Fairy Tail the Movie: Phoenix Priestess"
+        }
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-rave-master-007",
+        "fairy-tail-prequel-023",
+        "fairy-tail-sequel-manga-021",
+        "fairy-tail-film-1-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail"
+    },
+    {
+      "question": "Three of these wizards belong to the best known team. Which one started in a rival guild?",
+      "options": [
+        {
+          "label": "Lucy Heartfilia"
+        },
+        {
+          "label": "Gajeel Redfox"
+        },
+        {
+          "label": "Happy"
+        },
+        {
+          "label": "Gray Fullbuster"
+        }
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-team-028",
+        "fairy-tail-gajeel-nick-087"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Three of these are story arcs of the TV anime. Which one is a dark guild that appears in the Tenrou Island Arc?",
+      "options": [
+        {
+          "label": "Galuna Island Arc"
+        },
+        {
+          "label": "Edolas Arc"
+        },
+        {
+          "label": "Sun Valley Arc"
+        },
+        {
+          "label": "Grimoire Heart"
+        }
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 10,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-arcs-early-034",
+        "fairy-tail-arcs-late-035",
+        "fairy-tail-grimoire-heart-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes"
+    },
+    {
+      "question": "Three of these are among the Three Great Fairy Magics. Which one is not?",
+      "options": [
+        {
+          "label": "Fairy Law"
+        },
+        {
+          "label": "Fairy Glitter"
+        },
+        {
+          "label": "Satan Soul"
+        },
+        {
+          "label": "Fairy Sphere"
+        }
+      ],
+      "correct": 2,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 10,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-mavis-spells-099",
+        "fairy-tail-mirajane-soul-077"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Three of these are manga drawn by Mashima. Which one comes from another artist?",
+      "options": [
+        {
+          "label": "Fairy Tail"
+        },
+        {
+          "label": "Rave Master"
+        },
+        {
+          "label": "The Seven Deadly Sins"
+        },
+        {
+          "label": "Monster Hunter Orage"
+        }
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "fairy-tail-seven-sins-024",
+        "fairy-tail-rave-master-007",
+        "fairy-tail-mashima-schedule-033",
+        "fairy-tail-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Fairy Tail characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Fairy Tail (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Fairy Tail",
+      "url": "https://en.wikipedia.org/wiki/Fairy_Tail"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: List of Fairy Tail episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes"
+    }
+  ]
+}
