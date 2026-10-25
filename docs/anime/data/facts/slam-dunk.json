@@ -1,0 +1,2616 @@
+[
+  {
+    "id": "slam-dunk-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "title_native",
+    "value": [
+      "スラムダンク",
+      "SLAM DUNK"
+    ],
+    "text": "The title is written in capital letters as SLAM DUNK, and in Japanese it is スラムダンク.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q714760",
+        "ref": "Q714760",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=1596",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Slam Dunk (stylized in all caps)"
+  },
+  {
+    "id": "slam-dunk-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "author",
+    "value": "Takehiko Inoue",
+    "text": "Takehiko Inoue wrote and drew the manga on his own.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q714760",
+        "ref": "Q714760",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/slam-dunk",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Written and illustrated by Takehiko Inoue"
+  },
+  {
+    "id": "slam-dunk-magazine-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Jump",
+    "text": "The manga ran in Weekly Shōnen Jump for its whole serialization.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q714760",
+        "ref": "Q714760",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump"
+  },
+  {
+    "id": "slam-dunk-publisher-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "publisher",
+    "value": "Shueisha",
+    "text": "Shueisha published the collected volumes in Japan under its Jump Comics label.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Shueisha"
+  },
+  {
+    "id": "slam-dunk-manga-start-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "manga_start",
+    "value": "October 1, 1990",
+    "text": "The first chapter appeared in Weekly Shōnen Jump on October 1, 1990.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q714760",
+        "ref": "Q714760",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "from October 1, 1990"
+  },
+  {
+    "id": "slam-dunk-manga-end-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "manga_run",
+    "value": [
+      "October 1, 1990",
+      "June 17, 1996"
+    ],
+    "text": "The weekly run ended on June 17, 1996, after almost six years.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "to June 17, 1996"
+  },
+  {
+    "id": "slam-dunk-volumes-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "volumes",
+    "value": 31,
+    "text": "The original edition fills 31 volumes, from February 1991 to October 1996.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q714760",
+        "ref": "Q714760",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "The 276 individual chapters were originally collected in 31 tankōbon volumes"
+  },
+  {
+    "id": "slam-dunk-chapters-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "chapters",
+    "value": 276,
+    "text": "The story is told in 276 chapters.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "The 276 individual chapters"
+  },
+  {
+    "id": "slam-dunk-editions-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "manga_2",
+    "value": [
+      "24 kanzenban volumes",
+      "20 shinsōban volumes"
+    ],
+    "text": "Later editions were a 24 volume deluxe set in 2001 and 2002 and a 20 volume new edition in 2018.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "A 20 volume shinsōban edition was published"
+  },
+  {
+    "id": "slam-dunk-oneshot-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "debut",
+    "value": [
+      "Aka ga Suki",
+      "1990"
+    ],
+    "text": "Before the series Inoue drew a one-shot, Aka ga Suki, that already held early versions of Sakuragi and Haruko.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "an early prototype of Hanamichi Sakuragi and Haruko Akagi"
+  },
+  {
+    "id": "slam-dunk-love-of-basketball-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "inspiration",
+    "value": "Love of basketball",
+    "text": "Inoue has loved basketball since his own high school years, and that love is the root of the series.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "inspired to create Slam Dunk from his love of basketball"
+  },
+  {
+    "id": "slam-dunk-popular-with-girls-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "motivation",
+    "value": "Playing to be popular",
+    "text": "Inoue began playing basketball to be popular with girls and then grew to like the sport itself, as Sakuragi does in the story.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "began playing basketball to become popular with girls"
+  },
+  {
+    "id": "slam-dunk-research-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "background",
+    "value": [
+      "NBA Finals",
+      "1992 Olympics"
+    ],
+    "text": "As research Inoue watched the NBA Finals in America and the Barcelona Summer Games of 1992.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "attended the NBA Finals in the United States and the 1992 Summer Olympics in Barcelona"
+  },
+  {
+    "id": "slam-dunk-reader-letters-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "planning",
+    "value": "Letters from new players",
+    "text": "Letters from readers who had taken up basketball because of the manga pushed Inoue to draw better basketball games.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "surprised to receive letters from readers who had begun playing the sport"
+  },
+  {
+    "id": "slam-dunk-scholarship-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "mission",
+    "value": "Slam Dunk Scholarship",
+    "text": "In 2006 Inoue and Shueisha created the Slam Dunk Scholarship, which sends a winning teenager to a prep school in America.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "The Slam Dunk Scholarship program was created in 2006 by Inoue and Shueisha"
+  },
+  {
+    "id": "slam-dunk-award-shogakukan-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "manga_award",
+    "value": [
+      "40th Shogakukan Manga Award",
+      "shonen category",
+      "1994"
+    ],
+    "text": "In 1994 the series took the Shogakukan Manga Award, the 40th edition, for shonen manga.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "awarded the 40th Shogakukan Manga Award in the shōnen category in 1994"
+  },
+  {
+    "id": "slam-dunk-jba-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "awards",
+    "value": "Japan Basketball Association commendation",
+    "text": "In 2010 the Japan Basketball Association gave Inoue special commendations for helping to popularize basketball in Japan.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "special commendations from the Japan Basketball Association"
+  },
+  {
+    "id": "slam-dunk-poll-2006-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "popularity",
+    "value": "Number one manga of all time in 2006",
+    "text": "A poll of nearly 79,000 people for the 10th Japan Media Arts Festival in 2006 voted Slam Dunk the best manga of all time.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "voted the #1 manga of all time"
+  },
+  {
+    "id": "slam-dunk-sosenkyo-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "reputation",
+    "value": "Third in Manga Sōsenkyo 2021",
+    "text": "In the TV Asahi poll Manga Sōsenkyo 2021, only One Piece and Demon Slayer ranked above Slam Dunk, which came third.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Slam Dunk ranked third, behind only One Piece and Demon Slayer"
+  },
+  {
+    "id": "slam-dunk-copies-2025-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "copies",
+    "value": "Over 185 million",
+    "text": "Worldwide circulation had passed 185 million copies as of 2025.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "By 2025, the series had over 185 million copies in circulation worldwide"
+  },
+  {
+    "id": "slam-dunk-print-record-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "print_run",
+    "value": "2.5 million",
+    "text": "Volumes 21 to 23 held the manga record for first printing, at 2.5 million copies, until it was broken in 2002.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "held the record for initial printing of a manga at 2.5 million copies"
+  },
+  {
+    "id": "slam-dunk-sales-2018-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "awards_sales",
+    "value": "5.2 million in 2018",
+    "text": "Helped by a new edition, Slam Dunk sold 5.2 million copies in 2018 and ranked fourth among manga that year.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "the fourth best-selling manga of 2018 with 5.2 million copies sold"
+  },
+  {
+    "id": "slam-dunk-viz-run-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "english_release",
+    "value": [
+      "Viz Media",
+      "September 2, 2008",
+      "December 3, 2013"
+    ],
+    "text": "Viz Media published Slam Dunk in English from September 2008 to December 2013, after an earlier run by Gutsoon! in Raijin Comics.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/slam-dunk",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "The 31st and final volume was released on December 3, 2013"
+  },
+  {
+    "id": "slam-dunk-viz-deluxe-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "english_licence",
+    "value": "Deluxe edition from Q2 2027",
+    "text": "In June 2026 Viz Media announced a deluxe edition of the series, set to start in the second quarter of 2027.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "it will release the series in a deluxe edition starting in Q2 2027"
+  },
+  {
+    "id": "slam-dunk-ten-days-after-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "bonus_special",
+    "value": [
+      "Slam Dunk: 10 Days After",
+      "23 chalkboards",
+      "December 2004"
+    ],
+    "text": "The epilogue 10 Days After was drawn on 23 chalkboards in a closed school and shown to the public for three days in December 2004.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "drawn on 23 chalkboards on the former campus of the defunct Misaki High School"
+  },
+  {
+    "id": "slam-dunk-anime-studio-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "anime_studio",
+    "value": "Toei Animation",
+    "text": "Toei Animation produced the TV anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q100910749",
+        "ref": "Q100910749",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "An anime series, consisting of 101 episodes, was produced by Toei Animation"
+  },
+  {
+    "id": "slam-dunk-anime-run-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "anime_run",
+    "value": [
+      "October 16, 1993",
+      "March 23, 1996"
+    ],
+    "text": "TV Asahi aired the anime between October 16, 1993 and March 23, 1996.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q100910749",
+        "ref": "Q100910749",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=659",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "It was first broadcast on TV Asahi from October 16, 1993, to March 23, 1996"
+  },
+  {
+    "id": "slam-dunk-episodes-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "episodes",
+    "value": 101,
+    "text": "The TV series has 101 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q100910749",
+        "ref": "Q100910749",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=659",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "consisting of 101 episodes"
+  },
+  {
+    "id": "slam-dunk-anime-director-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "anime_directors",
+    "value": "Nobutaka Nishizawa",
+    "text": "Nobutaka Nishizawa directed the TV series.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q100910749",
+        "ref": "Q100910749",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "directed by Nobutaka Nishizawa"
+  },
+  {
+    "id": "slam-dunk-composers-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "composers",
+    "value": [
+      "Takanobu Masuda",
+      "BMF"
+    ],
+    "text": "Takanobu Masuda composed the music of episodes 1 to 61, and BMF took over for episodes 62 to 101.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Takanobu Masuda (from episode 1 to 61) and BMF (from episode 62 to 101)"
+  },
+  {
+    "id": "slam-dunk-skipped-nationals-031",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "arc_manga_only",
+    "value": "National Tournament",
+    "text": "The anime follows the manga but leaves out the games of the National Tournament.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "left out the National Tournament games"
+  },
+  {
+    "id": "slam-dunk-themes-op-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP1: Kimi ga Suki da to Sakebitai (Baad)",
+      "OP2: Zettai ni, Daremo (Zyyg)"
+    ],
+    "text": "Baad sang the opening for the first 61 episodes, and Zyyg replaced it for episodes 62 to 101.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_episodes",
+        "ref": "1356358188",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=659",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "is used as the opening theme for the first 61 episodes"
+  },
+  {
+    "id": "slam-dunk-themes-ed-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED1: Anata Dake Mitsumeteru (Maki Ohguro)",
+      "ED2: Sekai ga Owaru Made wa (Wands)",
+      "ED3: Kirameku Toki ni Torawarete (Manish)",
+      "ED4: My Friend (Zard)"
+    ],
+    "text": "Four songs closed the episodes in turn: Maki Ohguro, then Wands, then Manish and finally Zard.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_episodes",
+        "ref": "1356358188",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=659",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "is used for episodes 50-81"
+  },
+  {
+    "id": "slam-dunk-crossing-034",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "setting",
+    "value": "Kamakurakōkōmae No. 1 crossing",
+    "text": "A railroad crossing of the Enoshima Electric Railway, shown in the opening credits of the anime, became a fan pilgrimage site so crowded that guards were assigned to it.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "depicted in the opening credits of the manga's anime adaptation"
+  },
+  {
+    "id": "slam-dunk-early-films-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "films",
+    "value": [
+      "Slam Dunk",
+      "March 12, 1994",
+      "Zenkoku Seiha da! Sakuragi Hanamichi",
+      "July 9, 1994"
+    ],
+    "text": "Toei made four short films in 1994 and 1995, starting with Slam Dunk on March 12, 1994 and a second one on July 9, 1994.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Four anime films were produced by Toei Animation from 1994 to 1995"
+  },
+  {
+    "id": "slam-dunk-films-gross-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "record",
+    "value": "6.53 billion yen",
+    "text": "The first three anime films earned a combined 6.53 billion yen in Japan by 1995.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "for a combined ¥6.53 billion"
+  },
+  {
+    "id": "slam-dunk-ichi-announced-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "anime_announced",
+    "value": "January 7, 2021",
+    "text": "On January 7, 2021 Inoue announced a new anime film, The First Slam Dunk, with himself as director and writer.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Inoue is the director and writer of the film"
+  },
+  {
+    "id": "slam-dunk-ichi-release-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "film_release",
+    "value": [
+      "The First Slam Dunk",
+      "December 3, 2022"
+    ],
+    "text": "The First Slam Dunk opened in Japanese theaters on December 3, 2022.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk",
+        "ref": "1381665232",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q112897629",
+        "ref": "Q112897629",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=25969",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "It was released theatrically in Japan on December 3, 2022"
+  },
+  {
+    "id": "slam-dunk-ichi-gross-039",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "views",
+    "value": "279 million dollars",
+    "text": "As of October 2026 the film had earned about 279 million dollars worldwide, the most ever for a basketball film.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk",
+        "ref": "1381665232",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "The film grossed $279 million worldwide"
+  },
+  {
+    "id": "slam-dunk-ichi-prize-040",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "anime_award",
+    "value": "Japan Academy Prize, Animation of the Year",
+    "text": "The film earned the 2023 Japan Academy Prize in the animation category.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk",
+        "ref": "1381665232",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "won the Japan Academy Prize for Animation of the Year"
+  },
+  {
+    "id": "slam-dunk-ichi-songs-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "theme_op",
+    "value": [
+      "Love Rockets (the Birthday)",
+      "Dai-Zero Kan (10-Feet)"
+    ],
+    "text": "The film opens with Love Rockets by the Birthday and ends with Dai-Zero Kan by 10-Feet.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk",
+        "ref": "1381665232",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Opening theme song: \"Love Rockets\" by the Birthday"
+  },
+  {
+    "id": "slam-dunk-ichi-rerun-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "streaming",
+    "value": "Back in cinemas in March 2027",
+    "text": "The official film site announced that The First Slam Dunk returns to Japanese cinemas from March 20 to April 1, 2027.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "official",
+        "url": "https://slamdunk-movie.jp/",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "2027年3月20日(土)"
+  },
+  {
+    "id": "slam-dunk-sakuragi-namesake-043",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "namesake",
+    "value": "J. R. Sakuragi",
+    "text": "The basketball player J. R. Sakuragi took part of his Japanese surname from the hero when he became a Japanese citizen.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+        "ref": "1379466912",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "J. R. Sakuragi partially took his surname from the Hanamichi Sakuragi character"
+  },
+  {
+    "id": "slam-dunk-arc-list-044",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "arcs",
+    "value": [
+      "Joining the team: episodes 1 to 12",
+      "The Ryonan practice match: episodes 13 to 19",
+      "Trouble with the old gang: episodes 20 to 27",
+      "The Interhigh preliminaries: episodes 28 to 49",
+      "The Kainan challenge: episodes 50 to 60",
+      "The last qualifier: episodes 61 to 84",
+      "Road to the nationals: episodes 85 to 101",
+      "The National Tournament: manga only"
+    ],
+    "text": "This data file cuts the story into eight blocks from the episode list: the seven blocks of the anime and the manga-only National Tournament.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_episodes",
+        "ref": "1356358188",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Episodes"
+  },
+  {
+    "id": "slam-dunk-ichi-plot-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "slam-dunk"
+    },
+    "field": "premise",
+    "value": [
+      "Ryota Miyagi",
+      "Sannoh"
+    ],
+    "text": "The film centers on Miyagi and retells the last match of the manga against Sannoh, with new flashbacks and an epilogue.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 8,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk",
+        "ref": "1381665232",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "The film adapts the final match depicted in the manga"
+  },
+  {
+    "id": "slam-dunk-hanamichi-sakuragi-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "hanamichi-sakuragi"
+    },
+    "field": "name",
+    "value": [
+      "Hanamichi Sakuragi",
+      "桜木 花道"
+    ],
+    "text": "Hanamichi Sakuragi is the hot-tempered first-year who plays power forward for Shohoku in the number 10 jersey.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "serving as Shohoku's power forward"
+  },
+  {
+    "id": "slam-dunk-hanamichi-sakuragi-rejections-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "hanamichi-sakuragi"
+    },
+    "field": "background",
+    "value": "Rejected fifty times",
+    "text": "Before high school girls turned him down fifty times, and then he fell for Haruko Akagi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "After being rejected fifty times by girls during junior high school"
+  },
+  {
+    "id": "slam-dunk-hanamichi-sakuragi-gang-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "hanamichi-sakuragi"
+    },
+    "field": "organization",
+    "value": "Sakuragi Legion",
+    "text": "Sakuragi leads a feared gang called the Sakuragi Legion, with four close friends.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "leader of the feared Sakuragi Legion"
+  },
+  {
+    "id": "slam-dunk-hanamichi-sakuragi-voice-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "hanamichi-sakuragi"
+    },
+    "field": "voice_cast",
+    "value": "Takeshi Kusao",
+    "text": "Takeshi Kusao voices Sakuragi in the TV anime.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Voiced by: Takeshi Kusao"
+  },
+  {
+    "id": "slam-dunk-takenori-akagi-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "takenori-akagi"
+    },
+    "field": "name",
+    "value": [
+      "Takenori Akagi",
+      "赤木 剛憲"
+    ],
+    "text": "Takenori Akagi is the captain and center of Shohoku, a senior in the number 4 jersey and the older brother of Haruko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "serving as Shohoku's captain and center"
+  },
+  {
+    "id": "slam-dunk-takenori-akagi-gori-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "takenori-akagi"
+    },
+    "field": "nickname",
+    "value": "Gori",
+    "text": "Sakuragi calls the captain Gori, because of his huge physical presence.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "who addresses him as \"Gori\" due to his immense physical presence"
+  },
+  {
+    "id": "slam-dunk-takenori-akagi-voice-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "takenori-akagi"
+    },
+    "field": "voice_cast",
+    "value": "Kiyoyuki Yanada",
+    "text": "Kiyoyuki Yanada voices Akagi in the TV anime.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Voiced by: Kiyoyuki Yanada"
+  },
+  {
+    "id": "slam-dunk-kaede-rukawa-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "kaede-rukawa"
+    },
+    "field": "name",
+    "value": [
+      "Kaede Rukawa",
+      "流川 楓"
+    ],
+    "text": "Kaede Rukawa is the cold and aloof small forward of Shohoku in the number 11 jersey, and the great rival of Sakuragi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "the small forward of the Shohoku team, number 11"
+  },
+  {
+    "id": "slam-dunk-kaede-rukawa-voice-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "kaede-rukawa"
+    },
+    "field": "voice_cast",
+    "value": "Hikaru Midorikawa",
+    "text": "Hikaru Midorikawa voices Rukawa in the TV anime.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Voiced by: Hikaru Midorikawa"
+  },
+  {
+    "id": "slam-dunk-kaede-rukawa-top-five-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "kaede-rukawa"
+    },
+    "field": "talent",
+    "value": "Top five of the Interhigh",
+    "text": "At the Kanagawa Interhigh Tournament Rukawa was named among the top five players, and he was the only first-year to be picked.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "the only first-year player so honored"
+  },
+  {
+    "id": "slam-dunk-haruko-akagi-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "haruko-akagi"
+    },
+    "field": "name",
+    "value": [
+      "Haruko Akagi",
+      "赤木 晴子"
+    ],
+    "text": "Haruko Akagi is the younger sister of the captain and the love interest of Sakuragi, who has a crush on someone else.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Takenori's younger sister and Hanamichi Sakuragi's love interest"
+  },
+  {
+    "id": "slam-dunk-haruko-akagi-talent-spotter-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "haruko-akagi"
+    },
+    "field": "talent",
+    "value": "Spotted his jump",
+    "text": "Haruko noticed the talent of Sakuragi when he tried to dunk a ball at her request, and she judged him good enough for the team.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "impressed by the height of his jump"
+  },
+  {
+    "id": "slam-dunk-haruko-akagi-voice-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "haruko-akagi"
+    },
+    "field": "voice_cast",
+    "value": "Akiko Hiramatsu",
+    "text": "Akiko Hiramatsu voices Haruko in the TV anime.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Voiced by: Akiko Hiramatsu"
+  },
+  {
+    "id": "slam-dunk-ayako-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "ayako"
+    },
+    "field": "name",
+    "value": [
+      "Ayako",
+      "彩子"
+    ],
+    "text": "Ayako is the strong-willed manager of the team, who trains Sakuragi in the basics such as dribbling.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "training him in the basics"
+  },
+  {
+    "id": "slam-dunk-mitsuyoshi-anzai-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "mitsuyoshi-anzai"
+    },
+    "field": "name",
+    "value": [
+      "Mitsuyoshi Anzai",
+      "安西 光義"
+    ],
+    "text": "Mitsuyoshi Anzai is the overweight, beloved coach of Shohoku, who was once a strict college coach known as the White-Haired Devil.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "nicknamed \"White-Haired Devil\""
+  },
+  {
+    "id": "slam-dunk-mitsuyoshi-anzai-voice-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "mitsuyoshi-anzai"
+    },
+    "field": "voice_cast",
+    "value": "Tomomichi Nishimura",
+    "text": "Tomomichi Nishimura voices Anzai in the TV anime.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Voiced by: Tomomichi Nishimura"
+  },
+  {
+    "id": "slam-dunk-yohei-mito-name-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "yohei-mito"
+    },
+    "field": "name",
+    "value": [
+      "Yohei Mito",
+      "水戸 洋平"
+    ],
+    "text": "Yohei Mito is the deputy of the Sakuragi gang and the best friend of Sakuragi since childhood, and the best fighter after him.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Hanamichi's deputy commander"
+  },
+  {
+    "id": "slam-dunk-kiminobu-kogure-name-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "kiminobu-kogure"
+    },
+    "field": "name",
+    "value": [
+      "Kiminobu Kogure",
+      "木暮 公延"
+    ],
+    "text": "Kiminobu Kogure is the gentle vice-captain of Shohoku in the number 5 jersey, a senior who rarely appears without his glasses.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Shohoku's vice-captain, backup shooting guard"
+  },
+  {
+    "id": "slam-dunk-kiminobu-kogure-nickname-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "kiminobu-kogure"
+    },
+    "field": "nickname",
+    "value": "Megane-kun",
+    "text": "Sakuragi calls him Megane-kun, which means glasses guy.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "earning him the nickname \"Megane-kun,\""
+  },
+  {
+    "id": "slam-dunk-hisashi-mitsui-name-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "hisashi-mitsui"
+    },
+    "field": "name",
+    "value": [
+      "Hisashi Mitsui",
+      "三井 寿"
+    ],
+    "text": "Hisashi Mitsui is the shooting guard of Shohoku in the number 14 jersey, a former junior high MVP who came back to the team.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "the MVP in his final year at Takeishi Junior High"
+  },
+  {
+    "id": "slam-dunk-hisashi-mitsui-threes-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "hisashi-mitsui"
+    },
+    "field": "specialty",
+    "value": "Three pointers",
+    "text": "Mitsui is best known as the three point specialist of the team.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "best known on the team as a three-pointer specialist"
+  },
+  {
+    "id": "slam-dunk-hisashi-mitsui-voice-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "hisashi-mitsui"
+    },
+    "field": "voice_cast",
+    "value": "Ryōtarō Okiayu",
+    "text": "Ryōtarō Okiayu voices Mitsui in the TV anime.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Voiced by: Ryōtarō Okiayu"
+  },
+  {
+    "id": "slam-dunk-ryota-miyagi-name-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "ryota-miyagi"
+    },
+    "field": "name",
+    "value": [
+      "Ryota Miyagi",
+      "宮城 リョータ"
+    ],
+    "text": "Ryota Miyagi is the small but very fast point guard of Shohoku, who wears the number 7 jersey.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "is the point guard of the Shohoku team"
+  },
+  {
+    "id": "slam-dunk-ryota-miyagi-rejected-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "ryota-miyagi"
+    },
+    "field": "background",
+    "value": "Rejected ten times",
+    "text": "Miyagi was turned down ten times in love, far fewer than the fifty of Sakuragi.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "having only been rejected 10 times"
+  },
+  {
+    "id": "slam-dunk-ryota-miyagi-voice-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "ryota-miyagi"
+    },
+    "field": "voice_cast",
+    "value": "Yoku Shioya",
+    "text": "Yoku Shioya voices Miyagi in the TV anime.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Voiced by: Yoku Shioya"
+  },
+  {
+    "id": "slam-dunk-akira-sendoh-name-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "akira-sendoh"
+    },
+    "field": "name",
+    "value": [
+      "Akira Sendoh",
+      "仙道 彰"
+    ],
+    "text": "Akira Sendoh is the easygoing ace of Ryonan, a small forward with a smile who often arrives late to practice.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Ryonan's ace and small forward"
+  },
+  {
+    "id": "slam-dunk-akira-sendoh-voice-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "akira-sendoh"
+    },
+    "field": "voice_cast",
+    "value": "Hōchū Ōtsuka",
+    "text": "Hōchū Ōtsuka voices Sendoh in the TV anime.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Voiced by: Hōchū Ōtsuka"
+  },
+  {
+    "id": "slam-dunk-jun-uozumi-name-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "jun-uozumi"
+    },
+    "field": "name",
+    "value": [
+      "Jun Uozumi",
+      "魚住 純"
+    ],
+    "text": "Jun Uozumi is the captain and center of Ryonan, who sees the Shohoku captain as his rival, though without hostility.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Ryonan's captain and center"
+  },
+  {
+    "id": "slam-dunk-jun-uozumi-boss-monkey-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "jun-uozumi"
+    },
+    "field": "nickname",
+    "value": "Boss Monkey",
+    "text": "Sakuragi calls him Boss Monkey, because he is built like the Shohoku captain and is even taller.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Sakuragi refers to him as \"Boss Monkey\""
+  },
+  {
+    "id": "slam-dunk-shinichi-maki-name-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "shinichi-maki"
+    },
+    "field": "name",
+    "value": [
+      "Shinichi Maki",
+      "牧 紳一"
+    ],
+    "text": "Shinichi Maki is the captain and point guard of Kainan, called the best player in Kanagawa and twice prefectural MVP.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "was crowned prefectural MVP twice"
+  },
+  {
+    "id": "slam-dunk-shinichi-maki-voice-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "shinichi-maki"
+    },
+    "field": "voice_cast",
+    "value": "Hisao Egawa",
+    "text": "Hisao Egawa voices Maki in the TV anime.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Voiced by: Hisao Egawa"
+  },
+  {
+    "id": "slam-dunk-nobunaga-kiyota-name-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "nobunaga-kiyota"
+    },
+    "field": "name",
+    "value": [
+      "Nobunaga Kiyota",
+      "清田 信長"
+    ],
+    "text": "Nobunaga Kiyota is the boastful small forward of Kainan, who resembles Sakuragi in attitude but has the skills to back it up.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "closely resembles Sakuragi in attitude"
+  },
+  {
+    "id": "slam-dunk-nobunaga-kiyota-red-monkey-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "nobunaga-kiyota"
+    },
+    "field": "nickname",
+    "value": "Red Monkey",
+    "text": "Kiyota calls Sakuragi the Red Monkey, and Sakuragi calls him the Wild Monkey.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "Kiyota likes to call Hanamichi \"Red Monkey\""
+  },
+  {
+    "id": "slam-dunk-soichiro-jin-name-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "soichiro-jin"
+    },
+    "field": "name",
+    "value": [
+      "Soichiro Jin",
+      "神 宗一郎"
+    ],
+    "text": "Soichiro Jin is the calm shooting guard of Kainan, who built a deadly three point shot by taking 500 every day after practice.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "shooting 500 a day after practice"
+  },
+  {
+    "id": "slam-dunk-kenji-fujima-name-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "kenji-fujima"
+    },
+    "field": "name",
+    "value": [
+      "Kenji Fujima",
+      "藤真健司"
+    ],
+    "text": "Kenji Fujima is both the point guard and the coach of Shoyo, and he goes on court only when his team truly needs him.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "the point guard and coach of Shoyo"
+  },
+  {
+    "id": "slam-dunk-toru-hanagata-name-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "toru-hanagata"
+    },
+    "field": "name",
+    "value": [
+      "Toru Hanagata",
+      "花形透"
+    ],
+    "text": "Toru Hanagata is the glasses-wearing center of Shoyo, known for his hard-to-block fade away shot.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "known for his fade away shot"
+  },
+  {
+    "id": "slam-dunk-kazunari-fukatsu-name-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "kazunari-fukatsu"
+    },
+    "field": "name",
+    "value": [
+      "Kazunari Fukatsu",
+      "深津一成"
+    ],
+    "text": "Kazunari Fukatsu is the calm point guard and captain of Sannoh, who adds an odd word to nearly everything he says.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 8,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "an odd habit of adding \"yo\" to almost everything he says"
+  },
+  {
+    "id": "slam-dunk-eiji-sawakita-name-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "eiji-sawakita"
+    },
+    "field": "name",
+    "value": [
+      "Eiji Sawakita",
+      "沢北栄治"
+    ],
+    "text": "Eiji Sawakita is the ace of Sannoh, taught basketball by his father, and counted as the best all-round player in the country.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 8,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "best all-round player in Japanese high school basketball"
+  },
+  {
+    "id": "slam-dunk-masashi-kawata-name-084",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "masashi-kawata"
+    },
+    "field": "name",
+    "value": [
+      "Masashi Kawata",
+      "河田雅史"
+    ],
+    "text": "Masashi Kawata is the top high school center in Japan, who grew very tall in a year and so learned skills that other centers lack.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 8,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-25T18:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:36:26.000Z",
+    "excerpt": "considered the top high school center in Japan"
+  }
+]
