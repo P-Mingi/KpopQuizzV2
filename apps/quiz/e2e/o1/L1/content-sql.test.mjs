@@ -132,7 +132,7 @@ test('the real data folder generates in both modes and the manifest matches the 
   for (const drafts of [false, true]) {
     const out = mkdtempSync(join(tmpdir(), 'o1-l1-'));
     const r = generate({ data: 'docs/anime/data', out, drafts, teamDomain: 'otakuquiz.org' });
-    assert.equal(r.counts.groups, 35);
+    assert.equal(r.counts.groups, 40);
     assert.equal(r.counts.creators, 31);
     assert.ok(readdirSync(out).includes('MANIFEST.json'));
     const manifest = JSON.parse(readFileSync(join(out, 'MANIFEST.json'), 'utf8'));
@@ -140,7 +140,7 @@ test('the real data folder generates in both modes and the manifest matches the 
     for (const f of manifest.files) assert.equal(createHash('sha256').update(readFileSync(join(out, f.name))).digest('hex'), f.sha256);
     if (drafts) {
       // D-109: 12 quizzes and 1 daily row withdrawn (docs/anime/data/withdrawn), owner rule of 2026-10-24.
-      assert.equal(r.counts.quizzes, 158);
+      assert.equal(r.counts.quizzes, 178);
       assert.equal(r.counts.daily, 99);
       assert.match(readFileSync(join(out, 'L07-K2-catalogue.sql'), 'utf8'), /^-- DRAFTS/);
     } else {

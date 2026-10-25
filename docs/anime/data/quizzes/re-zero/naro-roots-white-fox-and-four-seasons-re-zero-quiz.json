@@ -1,0 +1,217 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "re-zero",
+  "title": "Re:Zero Quiz: Naro Roots, White Fox and Four Seasons of Return by Death",
+  "slug": "naro-roots-white-fox-and-four-seasons-re-zero-quiz",
+  "description": "Ten easy questions on the author, the web novel, the light novels, the studio, the composer and the seasons so far. No story knowledge needed, and no spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "New series batch 2. Arc 0 facts only: production, release dates and the set-up. One fact per answer.",
+  "questions": [
+    {
+      "question": "Who wrote the Re:Zero novels?",
+      "options": [
+        "Reki Kawahara",
+        "Tappei Nagatsuki",
+        "Natsume Akatsuki",
+        "Kugane Maruyama"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "re-zero-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero"
+    },
+    {
+      "question": "On which website did Re:Zero first appear as a web novel?",
+      "options": [
+        "Shōsetsuka ni Narō",
+        "Kakuyomu",
+        "Pixiv",
+        "Hameln"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "re-zero-web-novel-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero"
+    },
+    {
+      "question": "Which company published the first light novel volume under its MF Bunko J label?",
+      "options": [
+        "Shueisha",
+        "Square Enix",
+        "Media Factory",
+        "Kodansha"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "re-zero-light-novel-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero"
+    },
+    {
+      "question": "As of September 2026, how many main light novel volumes have been published?",
+      "options": [
+        "12",
+        "46",
+        "28",
+        "63"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "re-zero-volumes-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero"
+    },
+    {
+      "question": "Which studio animates Re:Zero?",
+      "options": [
+        "White Fox",
+        "Studio Pierrot",
+        "Bones",
+        "Madhouse"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "re-zero-studio-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero"
+    },
+    {
+      "question": "In which year did the first anime season begin?",
+      "options": [
+        "2014",
+        "2018",
+        "2020",
+        "2016"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "re-zero-anime-s1-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "question": "As of October 2026, how many TV seasons of the anime have aired?",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "re-zero-anime-seasons-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "question": "Which real city was the Royal Capital of Lugunica modeled on?",
+      "options": [
+        "Prague",
+        "Vienna",
+        "Budapest",
+        "Paris"
+      ],
+      "correct": 0,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-prague-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero"
+    },
+    {
+      "question": "Which light novel inspired the fan fiction that Nagatsuki wrote on Narō before Re:Zero?",
+      "options": [
+        "The Familiar of Zero",
+        "Sword Art Online",
+        "Spice and Wolf",
+        "Overlord"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "re-zero-zero-no-tsukaima-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero"
+    },
+    {
+      "question": "Who composes the music of the Re:Zero anime?",
+      "options": [
+        "Kenichiro Suehiro",
+        "Yuki Kajiura",
+        "Hiroyuki Sawano",
+        "Yasuharu Takanashi"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "re-zero-composer-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Re:Zero",
+      "url": "https://en.wikipedia.org/wiki/Re:Zero"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Re:Zero (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    }
+  ]
+}

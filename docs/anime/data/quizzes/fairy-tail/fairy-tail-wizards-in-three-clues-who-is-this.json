@@ -1,0 +1,279 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "fairy-tail",
+  "title": "Fairy Tail Wizards in Three Clues: Who Is This?",
+  "slug": "fairy-tail-wizards-in-three-clues-who-is-this",
+  "description": "Ten wizards, three clues each, from the hint that is hard to read to the one that gives it away. Light spoilers up to the Alvarez era for the last few wizards.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Guess-from-clues format: clues go from vague to easy; every clue rests on a cited fact.",
+  "questions": [
+    {
+      "question": "Who is this wizard?",
+      "clues": [
+        "The nickname comes from the fairy queen of a Shakespeare play.",
+        "Weapons and armor are swapped in an instant with magic named The Knight.",
+        "Jellal named this swordswoman after the color of her hair."
+      ],
+      "options": [
+        "Erza Scarlet",
+        "Mirajane Strauss",
+        "Lucy Heartfilia",
+        "Cana Alberona"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-erza-titania-073",
+        "fairy-tail-erza-requip-074",
+        "fairy-tail-character-name-048"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Who is this wizard?",
+      "clues": [
+        "He learned his magic from a teacher named Ur.",
+        "He forms weapons and objects out of ice.",
+        "He strips off his clothes without noticing."
+      ],
+      "options": [
+        "Natsu Dragneel",
+        "Elfman Strauss",
+        "Gray Fullbuster",
+        "Makarov Dreyar"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-character-name-047",
+        "fairy-tail-gray-icemake-071",
+        "fairy-tail-gray-strip-072"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Who is this wizard?",
+      "clues": [
+        "Younger siblings named Lisanna and Elfman look up to this wizard.",
+        "The guild bar is run by this wizard, who also poses for a magazine.",
+        "Satan Soul lets this wizard take demon forms."
+      ],
+      "options": [
+        "Cana Alberona",
+        "Levy McGarden",
+        "Mirajane Strauss",
+        "Lucy Heartfilia"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-character-name-050",
+        "fairy-tail-mirajane-model-078",
+        "fairy-tail-mirajane-soul-077"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Who is this wizard?",
+      "clues": [
+        "This old master sits among the Ten Wizard Saints.",
+        "Mashima wanted this name to sound Russian.",
+        "Magic named Giant makes this small man tower over everyone."
+      ],
+      "options": [
+        "Elfman Strauss",
+        "Makarov Dreyar",
+        "Natsu Dragneel",
+        "Happy"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-makarov-saints-075",
+        "fairy-tail-character-name-049",
+        "fairy-tail-makarov-giant-076"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This cat hatched from an egg that Natsu found.",
+        "Aera magic grows wings on this cat.",
+        "Natsu is never sick when he flies with this cat."
+      ],
+      "options": [
+        "Carla",
+        "Happy",
+        "Loke",
+        "Makarov Dreyar"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 8,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-character-name-046",
+        "fairy-tail-happy-aera-069"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Who is this wizard?",
+      "clues": [
+        "This wizard is part of the three person team Shadow Gear.",
+        "Written words become solid objects at this wizard's command.",
+        "This wizard can read ancient runic languages."
+      ],
+      "options": [
+        "Cana Alberona",
+        "Mirajane Strauss",
+        "Levy McGarden",
+        "Lucy Heartfilia"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-levy-team-083",
+        "fairy-tail-levy-script-082",
+        "fairy-tail-character-name-053"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Who is this wizard?",
+      "clues": [
+        "This wizard is the guild's biggest drinker.",
+        "The name comes from a tarot word.",
+        "Magic cards serve as both weapons and fortune telling tools."
+      ],
+      "options": [
+        "Levy McGarden",
+        "Mirajane Strauss",
+        "Lucy Heartfilia",
+        "Cana Alberona"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-cana-cards-080",
+        "fairy-tail-character-name-052"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Who is this wizard?",
+      "clues": [
+        "The nickname Kurogane was given to this wizard in a rival guild.",
+        "This wizard eats iron to get stronger.",
+        "Iron Dragon Slayer Magic is the power of this wizard."
+      ],
+      "options": [
+        "Gajeel Redfox",
+        "Natsu Dragneel",
+        "Laxus Dreyar",
+        "Gray Fullbuster"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 6,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-gajeel-nick-087",
+        "fairy-tail-gajeel-iron-086"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Who is this wizard?",
+      "clues": [
+        "The streets of Magnolia rearrange to guide this wizard home.",
+        "Anything this wizard touches breaks into blocks.",
+        "The guild considers this S-Class wizard its strongest member."
+      ],
+      "options": [
+        "Laxus Dreyar",
+        "Makarov Dreyar",
+        "Gajeel Redfox",
+        "Gildarts Clive"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 9,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-gildarts-streets-097",
+        "fairy-tail-gildarts-crush-096",
+        "fairy-tail-character-name-060"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Who is this wizard?",
+      "clues": [
+        "The name comes from the Japanese word for Wednesday.",
+        "Mashima made this wizard twelve years old after a staff comment.",
+        "Healing magic from clean air is the specialty of this Sky Dragon Slayer."
+      ],
+      "options": [
+        "Lucy Heartfilia",
+        "Wendy Marvell",
+        "Carla",
+        "Cana Alberona"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 8,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-character-name-058",
+        "fairy-tail-wendy-design-094",
+        "fairy-tail-wendy-sky-093"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Fairy Tail characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    }
+  ]
+}

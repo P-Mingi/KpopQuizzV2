@@ -1,0 +1,163 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "black-clover",
+  "title": "Real or Made Up: Black Clover Magic and Nicknames",
+  "slug": "real-or-made-up-black-clover-magic-and-nicknames",
+  "description": "Ten statements about spells, nicknames and production, some real and some twisted. Decide true or false. Light spoilers up to the Witches' Forest Arc.",
+  "quiz_type": "true_false",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "True or false format: five true and five false statements; each false one swaps a single detail with another real one from the series.",
+  "questions": [
+    {
+      "question": "Black Clover began in Weekly Shōnen Jump in February 2015.",
+      "correct": true,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "black-clover-manga-run-003",
+        "black-clover-magazine-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Black_Clover"
+    },
+    {
+      "question": "The Black Clover TV anime was animated by Studio Bones.",
+      "correct": false,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "black-clover-studio-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)"
+    },
+    {
+      "question": "Luck Voltia is nicknamed the Cheery Berserker.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "black-clover-luck-nick-078"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    },
+    {
+      "question": "Gauche Adlai casts Fire Magic through an artificial left eye.",
+      "correct": false,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "black-clover-gauche-eye-080"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    },
+    {
+      "question": "Vanessa Enoteca has a magical cat named Rouge, the Red Thread of Fate.",
+      "correct": true,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "black-clover-vanessa-thread-083"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    },
+    {
+      "question": "Charmy Pappitson makes sheep out of Thread Magic.",
+      "correct": false,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "black-clover-charmy-cotton-081"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    },
+    {
+      "question": "Yami Sukehiro is nicknamed the Lord of Destruction.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "black-clover-yami-nick-072"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    },
+    {
+      "question": "Noelle Silva wields Fire Magic as a member of House Silva.",
+      "correct": false,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "black-clover-noelle-water-069"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    },
+    {
+      "question": "Secre Swallowtail is also known by the name Nero.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "black-clover-secre-nero-086"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    },
+    {
+      "question": "Finral Roulacase specializes in Time Magic.",
+      "correct": false,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "black-clover-finral-spatial-075"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Black Clover",
+      "url": "https://en.wikipedia.org/wiki/Black_Clover"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Black Clover (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Black Clover characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    }
+  ]
+}

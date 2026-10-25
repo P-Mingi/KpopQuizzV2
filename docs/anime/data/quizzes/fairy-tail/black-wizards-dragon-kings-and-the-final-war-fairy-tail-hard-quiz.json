@@ -1,0 +1,213 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "fairy-tail",
+  "title": "Fairy Tail Hard Quiz: Black Wizards, Dragon Kings and the Final War",
+  "slug": "black-wizards-dragon-kings-and-the-final-war-fairy-tail-hard-quiz",
+  "description": "Ten hard questions on the secrets of the last arcs: Natsu's origin, the guild founder, the dragons and the war with Alvarez. Spoilers for the whole story, up to the finale.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Hard quiz: late facts (arcs 10 to 17) only here. Spoilers named in the description.",
+  "questions": [
+    {
+      "question": "Which demon identity does Natsu turn out to hold?",
+      "options": [
+        "Etherious Natsu Dragneel",
+        "Spriggan",
+        "Dragon King",
+        "Fairy Strategist"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 17,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-endpoint-065"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "How is Zeref related to Natsu?",
+      "options": [
+        "He is Natsu's adoptive father",
+        "He is Natsu's childhood teacher",
+        "He is Natsu's older brother",
+        "He is Natsu's younger cousin"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 17,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-zeref-brother-103"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "For how long did the Fairy Sphere hold the guild in suspended animation?",
+      "options": [
+        "One year",
+        "Three years",
+        "Twelve years",
+        "Seven years"
+      ],
+      "correct": 3,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 10,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-mavis-sphere-100"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Which dragon kills Igneel in front of Natsu?",
+      "options": [
+        "Grandeeney",
+        "Acnologia",
+        "Metalicana",
+        "Weisslogia"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 15,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-igneel-sealed-066",
+        "fairy-tail-acnologia-igneel-106"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Under the alias Spriggan, which military nation does Zeref rule?",
+      "options": [
+        "Grimoire Heart",
+        "Phantom Lord",
+        "The Alvarez Empire",
+        "The Magic Council"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 17,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-zeref-alias-104"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "How did the curse shared by Mavis and Zeref finally end?",
+      "options": [
+        "Mavis accepted that love, and the curse ended both lives",
+        "Natsu burned the cursed book of Zeref",
+        "Acnologia swallowed the curse in a rift",
+        "Lucy broke the curse with a golden key"
+      ],
+      "correct": 0,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 17,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-mavis-zeref-101"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "Who gives up his life with the spell Fairy Law against the Alvarez army, before Mavis revives him?",
+      "options": [
+        "Gildarts Clive",
+        "Makarov Dreyar",
+        "Laxus Dreyar",
+        "Gajeel Redfox"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 17,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-makarov-death-109"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "What was Acnologia before he turned into a black dragon?",
+      "options": [
+        "A celestial spirit",
+        "An Exceed from Edolas",
+        "A human Dragon Slayer",
+        "A guild master"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 17,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-acnologia-human-105"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "How does Natsu finally destroy Acnologia?",
+      "options": [
+        "He sealed the dragon inside a crystal",
+        "He fed the dragon to the Eclipse gate",
+        "He dueled the dragon with a zodiac key",
+        "He gathered the magic of the other Dragon Slayers and destroyed the spirit"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 17,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-acnologia-end-107"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    },
+    {
+      "question": "What does Lucy publish at the end of the series?",
+      "options": [
+        "A novel based on her time at the guild",
+        "A spell book of the zodiac keys",
+        "A map of the whole kingdom",
+        "A history of the Magic Council"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 17,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-lucy-novel-068"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Fairy Tail characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+    }
+  ]
+}
