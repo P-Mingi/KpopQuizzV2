@@ -1,0 +1,565 @@
+{
+  "$comment": "Run O1 lane K1, new series batch 1 (K1-new-series): data for Sword Art Online (tier B), built from pinned Wikipedia revisions (main article, TV series article, character list), Wikidata Q27863 (light novels), Q63348493 (anime), Q24238538 and Q105424646 (films), and the official anime site swordart-online.net for the length and months of each arc. Arcs are the seven TV arcs; broadcast months are used instead of days because late-night slots shift the day. Characters carry the arc where they first matter; levels are editorial judgments and the later arc was chosen when unsure.",
+  "group": {
+    "slug": "sword-art-online",
+    "name": "Sword Art Online",
+    "site": "anime",
+    "display_color": "#1D4ED8",
+    "text_color": "#FFFFFF"
+  },
+  "series": {
+    "type": "anime_manga",
+    "title_en": "Sword Art Online",
+    "title_native": "ソードアート・オンライン",
+    "title_romaji": "Sōdo Āto Onrain",
+    "aliases": [
+      "SAO"
+    ],
+    "studios": [
+      {
+        "name": "A-1 Pictures"
+      }
+    ],
+    "director": "Tomohiko Itō",
+    "authors": [
+      {
+        "name": "Reki Kawahara",
+        "role": "story"
+      },
+      {
+        "name": "abec",
+        "role": "art"
+      }
+    ],
+    "publisher": "Dengeki Bunko",
+    "anime_start_year": 2012,
+    "anime_end_year": 2020,
+    "status": "ongoing",
+    "episodes": 96,
+    "official_url": "https://swordart-online.net/",
+    "wikidata_qid": "Q27863",
+    "tier": "B",
+    "published": true
+  },
+  "arcs": [
+    {
+      "ord": 1,
+      "name": "Aincrad",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "ord": 2,
+      "name": "Fairy Dance",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "ord": 3,
+      "name": "Phantom Bullet",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "ord": 4,
+      "name": "Calibur",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "ord": 5,
+      "name": "Mother's Rosario",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "ord": 6,
+      "name": "Alicization",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "ord": 7,
+      "name": "War of Underworld",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    }
+  ],
+  "characters": [
+    {
+      "slug": "kirito",
+      "name": "Kirito",
+      "name_native": "桐ヶ谷 和人",
+      "role": "main",
+      "affiliation": "Players",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A solo player in black who is among the first to take on the death game, and who is better than most at it.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 1,
+      "status": "published"
+    },
+    {
+      "slug": "asuna",
+      "name": "Asuna",
+      "name_native": "結城 明日奈",
+      "role": "main",
+      "affiliation": "Players",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A quick and skilled swordswoman who becomes one of the strongest players of the game.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 2,
+      "status": "published"
+    },
+    {
+      "slug": "klein",
+      "name": "Klein",
+      "name_native": "壷井 遼太郎",
+      "role": "supporting",
+      "affiliation": "Players",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A friendly katana user who is Kirito's first friend in the game.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 3,
+      "status": "published"
+    },
+    {
+      "slug": "agil",
+      "name": "Agil",
+      "name_native": "アンドリュー・ギルバート・ミルズ",
+      "role": "supporting",
+      "affiliation": "Players",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A big, kind axe user and shop owner who spends much of what he earns helping other players.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 4,
+      "status": "published"
+    },
+    {
+      "slug": "akihiko-kayaba",
+      "name": "Akihiko Kayaba",
+      "role": "antagonist",
+      "affiliation": "Game creator",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The genius behind the game and its NerveGear, and the man who sets the deadly rule.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 5,
+      "status": "published"
+    },
+    {
+      "slug": "yui",
+      "name": "Yui",
+      "name_native": "ユイ",
+      "role": "supporting",
+      "affiliation": "AI",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A small, cheerful AI who is built to watch over players' emotions and appears at their side.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 6,
+      "status": "published"
+    },
+    {
+      "slug": "lisbeth",
+      "name": "Lisbeth",
+      "name_native": "篠崎 里香",
+      "role": "supporting",
+      "affiliation": "Players",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A proud blacksmith who forges custom swords for the best players.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 7,
+      "status": "published"
+    },
+    {
+      "slug": "silica",
+      "name": "Silica",
+      "name_native": "綾野 珪子",
+      "role": "supporting",
+      "affiliation": "Players",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A young player who is one of the rare beast tamers and travels with a small dragon.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 8,
+      "status": "published"
+    },
+    {
+      "slug": "sachi",
+      "name": "Sachi",
+      "name_native": "サチ",
+      "role": "supporting",
+      "affiliation": "Moonlit Black Cats",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A gentle player in the guild Kirito joins early in the game.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 9,
+      "status": "published"
+    },
+    {
+      "slug": "diavel",
+      "name": "Diavel",
+      "name_native": "ディアベル",
+      "role": "supporting",
+      "affiliation": "Raid party",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A confident knight who steps up to lead the raid against the first floor boss.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 10,
+      "status": "published"
+    },
+    {
+      "slug": "kibaou",
+      "name": "Kibaou",
+      "name_native": "キバオウ",
+      "role": "supporting",
+      "affiliation": "Aincrad Liberation Squad",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A loud and power-hungry squad leader who has little patience for beta testers.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 11,
+      "status": "published"
+    },
+    {
+      "slug": "argo",
+      "name": "Argo",
+      "name_native": "アルゴ",
+      "role": "supporting",
+      "affiliation": "Information brokers",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A sly information broker who sells her knowledge and often works with Kirito.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 12,
+      "status": "published"
+    },
+    {
+      "slug": "sasha",
+      "name": "Sasha",
+      "role": "supporting",
+      "affiliation": "Town of Beginnings",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A caretaker who looks after the youngest players in the Town of Beginnings.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 13,
+      "status": "published"
+    },
+    {
+      "slug": "leafa",
+      "name": "Leafa",
+      "name_native": "桐ヶ谷 直葉",
+      "role": "supporting",
+      "affiliation": "Alfheim Online",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "description": "A sylph swordswoman in Alfheim Online, and Kirito's cousin in the real world.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 2,
+      "identity_spoiler": false,
+      "ord": 14,
+      "status": "published"
+    },
+    {
+      "slug": "sinon",
+      "name": "Sinon",
+      "name_native": "朝田 詩乃",
+      "role": "supporting",
+      "affiliation": "Gun Gale Online",
+      "debut_arc_ord": 3,
+      "debut_medium": "both",
+      "description": "A cool sniper in Gun Gale Online who struggles with a fear of guns in the real world.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 3,
+      "identity_spoiler": false,
+      "ord": 15,
+      "status": "published"
+    },
+    {
+      "slug": "death-gun",
+      "name": "Death Gun",
+      "role": "antagonist",
+      "affiliation": "Gun Gale Online",
+      "debut_arc_ord": 3,
+      "debut_medium": "both",
+      "description": "A masked killer in Gun Gale Online whose weapon shakes Sinon badly.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 3,
+      "identity_spoiler": false,
+      "ord": 16,
+      "status": "published"
+    },
+    {
+      "slug": "yuuki-konno",
+      "name": "Yuuki Konno",
+      "name_native": "紺野 木綿季",
+      "role": "supporting",
+      "affiliation": "Sleeping Knights",
+      "debut_arc_ord": 5,
+      "debut_medium": "both",
+      "description": "An unbeaten duelist who leads a small guild in a virtual world.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 5,
+      "identity_spoiler": false,
+      "ord": 17,
+      "status": "published"
+    },
+    {
+      "slug": "eugeo",
+      "name": "Eugeo",
+      "name_native": "ユージオ",
+      "role": "main",
+      "affiliation": "Underworld",
+      "debut_arc_ord": 6,
+      "debut_medium": "both",
+      "description": "Kirito's friend in the Underworld, who learns Kirito's sword skills.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 6,
+      "identity_spoiler": false,
+      "ord": 18,
+      "status": "published"
+    },
+    {
+      "slug": "alice-zuberg",
+      "name": "Alice Zuberg",
+      "name_native": "アリス・ツーベルク",
+      "role": "main",
+      "affiliation": "Underworld",
+      "debut_arc_ord": 6,
+      "debut_medium": "both",
+      "description": "A powerful knight of the Underworld with a mysterious link to the heroes' childhood.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 6,
+      "identity_spoiler": false,
+      "ord": 19,
+      "status": "published"
+    },
+    {
+      "slug": "bercouli",
+      "name": "Bercouli",
+      "role": "supporting",
+      "affiliation": "Underworld",
+      "debut_arc_ord": 6,
+      "debut_medium": "both",
+      "description": "The founder of Rulid Village and a legend among the Integrity Knights.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+      "spoiler_level": 6,
+      "identity_spoiler": false,
+      "ord": 20,
+      "status": "published"
+    }
+  ],
+  "themes": [
+    {
+      "kind": "op",
+      "number": 1,
+      "title": "Crossing Field",
+      "artist": "LiSA",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 2,
+      "title": "Innocence",
+      "artist": "Eir Aoi",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 3,
+      "title": "Ignite",
+      "artist": "Eir Aoi",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 4,
+      "title": "Courage",
+      "artist": "Haruka Tomatsu",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 5,
+      "title": "Adamas",
+      "artist": "LiSA",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 6,
+      "title": "Resister",
+      "artist": "ASCA",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 7,
+      "title": "Resolution",
+      "artist": "Haruka Tomatsu",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 8,
+      "title": "Anima",
+      "artist": "Reona",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 1,
+      "title": "Yume Sekai",
+      "artist": "Haruka Tomatsu",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 2,
+      "title": "Overfly",
+      "artist": "Luna Haruna",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 3,
+      "title": "Startear",
+      "artist": "Luna Haruna",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 4,
+      "title": "No More Time Machine",
+      "artist": "LiSA",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 5,
+      "title": "Shirushi",
+      "artist": "LiSA",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 6,
+      "title": "Iris",
+      "artist": "Eir Aoi",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 7,
+      "title": "Forget-me-not",
+      "artist": "Reona",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 8,
+      "title": "Unlasting",
+      "artist": "LiSA",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 9,
+      "title": "I will...",
+      "artist": "Eir Aoi",
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+      "status": "published"
+    }
+  ]
+}

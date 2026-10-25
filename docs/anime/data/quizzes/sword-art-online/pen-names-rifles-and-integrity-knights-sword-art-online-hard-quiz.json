@@ -1,0 +1,222 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "sword-art-online",
+  "title": "Sword Art Online Hard Quiz: Pen Names, Rifles and Integrity Knights",
+  "slug": "pen-names-rifles-and-integrity-knights-sword-art-online-hard-quiz",
+  "description": "Ten hard questions on staff, aliases, weapons, publishing history and the Underworld. Spoilers up to the final arc of the anime.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Sword Art Online (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Sword Art Online characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Sword Art Online",
+      "url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    }
+  ],
+  "notes": "Hard quiz: late facts (arcs 1 to 6) only here. Spoilers named in the description.",
+  "questions": [
+    {
+      "question": "Who directed the Alicization seasons of the anime?",
+      "options": [
+        "Tomohiko Itō",
+        "Ayako Kōno",
+        "Toshiyuki Kubooka",
+        "Manabu Ono"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sword-art-online-anime-directors-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)"
+    },
+    {
+      "question": "What is Yui officially, according to her designation?",
+      "options": [
+        "Medical Care Assistant Program",
+        "Mental Health Counselling Program",
+        "Memory Control Protocol",
+        "Monitoring Companion Pixie"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-character-detail-073"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    },
+    {
+      "question": "Which sniper rifle does Sinon use?",
+      "options": [
+        "PGM Ultima Ratio Hecate II",
+        "Barrett M82",
+        "Dragunov SVD",
+        "Intervention M200"
+      ],
+      "correct": 0,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-character-detail-082"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    },
+    {
+      "question": "Which title does the undefeated duelist Yuuki hold?",
+      "options": [
+        "Black Swordsman",
+        "The Flash",
+        "Absolute Sword",
+        "Sword Saint"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-character-detail-085"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    },
+    {
+      "question": "Which character is remembered as the earliest Integrity Knight of all?",
+      "options": [
+        "Eugeo",
+        "Bercouli",
+        "Alice Zuberg",
+        "Kibaou"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 6,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-character-detail-088"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    },
+    {
+      "question": "Which later novel series won the Dengeki competition and led to Sword Art Online being published?",
+      "options": [
+        "Accel World",
+        "Black Bullet",
+        "Log Horizon",
+        "Overlord"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "sword-art-online-accel-world-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "question": "Under which pen name did Kawahara first post the story online?",
+      "options": [
+        "Haruo Kanamori",
+        "Yoshio Kunisaki",
+        "Fumio Kunori",
+        "Fumito Kawana"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "sword-art-online-web-novel-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "question": "Which game was the first of the series released outside Japan?",
+      "options": [
+        "Infinity Moment",
+        "Lost Song",
+        "Fatal Bullet",
+        "Hollow Fragment"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-first-western-game-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "question": "Which company announced it had won the global rights for a live-action series?",
+      "options": [
+        "Legendary Television",
+        "Skydance Television",
+        "Amazon Studios",
+        "Warner Bros. Television"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-live-action-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+    },
+    {
+      "question": "Which was the first guild that Kirito joined?",
+      "options": [
+        "Moonlit Black Cats",
+        "Divine Dragon Alliance",
+        "Aincrad Liberation Squad",
+        "Knights of the Blood Oath"
+      ],
+      "correct": 0,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sword-art-online-character-detail-078"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    }
+  ]
+}

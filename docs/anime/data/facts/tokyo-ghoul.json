@@ -1,0 +1,2355 @@
+[
+  {
+    "id": "tokyo-ghoul-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "title_native",
+    "value": "東京喰種 (Tōkyō Gūru)",
+    "text": "The Japanese title is written 東京喰種, with the reading Tōkyō Gūru shown in katakana beside the kanji.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q11102941",
+        "ref": "Q11102941",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "東京喰種（トーキョーグール）, Hepburn: Tōkyō Gūru"
+  },
+  {
+    "id": "tokyo-ghoul-manga-author-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "author",
+    "value": "Sui Ishida",
+    "text": "Sui Ishida is the one creator behind Tokyo Ghoul, who both wrote and drew it.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q11102941",
+        "ref": "Q11102941",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "written and illustrated by Sui Ishida"
+  },
+  {
+    "id": "tokyo-ghoul-manga-run-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "manga_run",
+    "value": [
+      "Weekly Young Jump",
+      "September 2011 to September 2014",
+      "Shueisha"
+    ],
+    "text": "The first manga ran in Shueisha's Weekly Young Jump, from September 2011 to September 2014.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q11102941",
+        "ref": "Q11102941",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "serialized in Weekly Young Jump from September 8, 2011 to September 18, 2014"
+  },
+  {
+    "id": "tokyo-ghoul-manga-size-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "manga_volumes",
+    "value": 14,
+    "text": "The original Tokyo Ghoul manga fills 14 volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q11102941",
+        "ref": "Q11102941",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "collected in 14 tankōbon volumes"
+  },
+  {
+    "id": "tokyo-ghoul-sequel-manga-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "manga_2",
+    "value": [
+      "Tokyo Ghoul:re",
+      "16 volumes",
+      "October 2014"
+    ],
+    "text": "The sequel manga, Tokyo Ghoul:re, began in October 2014 and was gathered into 16 volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q24955678",
+        "ref": "Q24955678",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "from October 16, 2014, to July 5, 2018 ... collected in sixteen tankōbon volumes"
+  },
+  {
+    "id": "tokyo-ghoul-sequel-gap-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "background",
+    "value": "Two years after the original story",
+    "text": "Tokyo Ghoul:re takes place two years after the first story finishes.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "set two years after the end of the original series"
+  },
+  {
+    "id": "tokyo-ghoul-anime-first-season-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "anime_s1",
+    "value": [
+      "12 episodes",
+      "July to September 2014",
+      "Pierrot"
+    ],
+    "text": "The first anime season has 12 episodes, aired in the summer of 2014 and was animated by Pierrot.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q40239998",
+        "ref": "Q40239998",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "produced by Pierrot ... 12-episode anime television series ... July 4, 2014 to September 19, 2014"
+  },
+  {
+    "id": "tokyo-ghoul-anime-director-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "anime_directors",
+    "value": "Shuhei Morita",
+    "text": "Shuhei Morita directed the first season of the Tokyo Ghoul anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q40239998",
+        "ref": "Q40239998",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The anime was directed by Shuhei Morita"
+  },
+  {
+    "id": "tokyo-ghoul-anime-composer-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "composer",
+    "value": "Yutaka Yamada",
+    "text": "Yutaka Yamada wrote the music for the Tokyo Ghoul anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q40239998",
+        "ref": "Q40239998",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Music by Yutaka Yamada"
+  },
+  {
+    "id": "tokyo-ghoul-anime-writer-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "staff",
+    "value": "Chūji Mikasano",
+    "text": "Chūji Mikasano wrote the scripts for the Tokyo Ghoul anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q40239998",
+        "ref": "Q40239998",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Written by Chūji Mikasano"
+  },
+  {
+    "id": "tokyo-ghoul-anime-root-a-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "anime_s2",
+    "value": [
+      "Tokyo Ghoul √A",
+      "12 episodes",
+      "January 2015"
+    ],
+    "text": "The second season is called Tokyo Ghoul √A, read Root A. It has 12 episodes and began in January 2015.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=16318",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "a 12-episode second season, titled Tokyo Ghoul √A (pronounced Tokyo Ghoul Root A)"
+  },
+  {
+    "id": "tokyo-ghoul-root-a-original-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "story_arcs",
+    "value": "An original story",
+    "text": "Root A does not follow the manga plot; it tells a story made for the anime.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "which follows an original story, aired from January to March 2015"
+  },
+  {
+    "id": "tokyo-ghoul-anime-re-first-cour-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "anime_s3",
+    "value": [
+      "Tokyo Ghoul:re",
+      "12 episodes",
+      "April 2018"
+    ],
+    "text": "The first half of Tokyo Ghoul:re began in April 2018 and has 12 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "first season airing from April 3 to June 19, 2018 ... 12 episodes each"
+  },
+  {
+    "id": "tokyo-ghoul-anime-re-size-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "anime_total",
+    "value": [
+      "24 episodes",
+      "two cours of 12 episodes"
+    ],
+    "text": "Tokyo Ghoul:re has 24 episodes in all, split into two cours of 12.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q107429584",
+        "ref": "Q107429584",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The series aired in two seasons of 12 episodes each"
+  },
+  {
+    "id": "tokyo-ghoul-anime-re-second-cour-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "anime_s4",
+    "value": "October 2018",
+    "text": "The second half of Tokyo Ghoul:re followed in October 2018.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2018-06-13/tokyo-ghoul-re-anime-gets-2nd-season-in-october/.132828",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the second season airing from October 9 to December 25 of that same year"
+  },
+  {
+    "id": "tokyo-ghoul-live-action-film-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "film",
+    "value": [
+      "July 29, 2017",
+      "120 minutes",
+      "Kentarō Hagiwara"
+    ],
+    "text": "A live-action Tokyo Ghoul film directed by Kentarō Hagiwara reached Japanese cinemas on July 29, 2017 and runs 120 minutes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul_(film)",
+        "ref": "1380114369",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q28315563",
+        "ref": "Q28315563",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "released in Japan on July 29, 2017 ... Kentarō Hagiwara directed the film"
+  },
+  {
+    "id": "tokyo-ghoul-film-cast-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Masataka Kubota",
+      "Fumika Shimizu",
+      "Yū Aoi"
+    ],
+    "text": "In the 2017 film, Masataka Kubota plays Kaneki, Fumika Shimizu plays Touka and Yū Aoi plays Rize.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul_(film)",
+        "ref": "1380114369",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Masataka Kubota as Ken Kaneki, Fumika Shimizu as Tōka Kirishima, Yū Aoi as Rize Kamishiro"
+  },
+  {
+    "id": "tokyo-ghoul-prequel-manga-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "prequel_manga",
+    "value": "Tokyo Ghoul [Jack]",
+    "text": "Tokyo Ghoul [Jack] is a prequel spin-off manga that first came out on the Jump Live service.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "a prequel spin-off manga titled Tokyo Ghoul [Jack] was released on Jump Live"
+  },
+  {
+    "id": "tokyo-ghoul-days-novel-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "novel",
+    "value": "Tokyo Ghoul: Days",
+    "text": "Tokyo Ghoul: Days is a side story that looks at the daily lives of characters from the series.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "serves as sidestory/spin off that focuses on the daily lives of characters"
+  },
+  {
+    "id": "tokyo-ghoul-video-game-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "spin_offs",
+    "value": [
+      "Call to Exist",
+      "PlayStation 4",
+      "Windows"
+    ],
+    "text": "A Tokyo Ghoul video game called Call to Exist came out for PlayStation 4 and for Windows.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Call to Exist, released for PlayStation 4 and Windows"
+  },
+  {
+    "id": "tokyo-ghoul-premise-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "premise",
+    "value": "A student turned half-ghoul",
+    "text": "After a date goes wrong, a college student wakes up as a half-ghoul, because organs from the ghoul who attacked him were transplanted into him.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "underwent a surgery that transformed him into a half-ghoul ... some of Rize's organs were transferred"
+  },
+  {
+    "id": "tokyo-ghoul-anteiku-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "setting",
+    "value": "Anteiku",
+    "text": "A coffee shop named Anteiku, run by ghouls, takes Kaneki in and teaches him how to live as a half-ghoul.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Ghouls who run a coffee shop called \"Anteiku\" take him in and teach him to deal with his new life"
+  },
+  {
+    "id": "tokyo-ghoul-ccg-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "organization",
+    "value": "Commission of Counter Ghoul",
+    "text": "The CCG, the Commission of Counter Ghoul, is the federal agency that handles crimes linked to ghouls.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The CCG (Commission of Counter Ghoul), the federal agency tasked into dealing with crimes related to ghouls"
+  },
+  {
+    "id": "tokyo-ghoul-aogiri-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "terms",
+    "value": "Aogiri Tree",
+    "text": "Aogiri Tree is a group of rogue ghouls that wants to take control of Tokyo's ghoul wards away from the CCG.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The Aogiri Tree are a group of rogue Ghouls ... their main objective is to have control over Tokyo's Ghoul wards"
+  },
+  {
+    "id": "tokyo-ghoul-anime-licence-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "license",
+    "value": "Funimation",
+    "text": "Funimation licensed the Tokyo Ghoul anime for North America.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Funimation licensed the anime series in North America"
+  },
+  {
+    "id": "tokyo-ghoul-manga-english-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-ghoul"
+    },
+    "field": "english_release",
+    "value": "Viz Media",
+    "text": "Viz Media publishes the Tokyo Ghoul manga in English in North America.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q11102941",
+        "ref": "Q11102941",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "licensed for English release in North America by Viz Media"
+  },
+  {
+    "id": "tokyo-ghoul-theme-op-027",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "tokyo-ghoul",
+      "ref": "op-1"
+    },
+    "field": "themes_s1",
+    "value": [
+      "Unravel",
+      "TK from Ling tosite Sigure"
+    ],
+    "text": "The opening of the first season is Unravel, performed by TK from Ling tosite Sigure.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The opening theme song is \"Unravel\" by TK from Ling tosite Sigure"
+  },
+  {
+    "id": "tokyo-ghoul-theme-ed-028",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "tokyo-ghoul",
+      "ref": "ed-1"
+    },
+    "field": "themes_s2",
+    "value": [
+      "The Saints",
+      "People in the Box"
+    ],
+    "text": "The ending of the first season is The Saints, by the band People in the Box.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the ending theme is \"The Saints\" (聖者たち, Seijatachi) by People in the Box"
+  },
+  {
+    "id": "tokyo-ghoul-theme-op-029",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "tokyo-ghoul",
+      "ref": "op-2"
+    },
+    "field": "themes_s1",
+    "value": [
+      "Munou",
+      "Österreich"
+    ],
+    "text": "Root A opens with Munou, a song by Österreich.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The opening theme song is \"Munou\" (無能, Munō; lit. \"Incompetence\") by Österreich"
+  },
+  {
+    "id": "tokyo-ghoul-theme-ed-030",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "tokyo-ghoul",
+      "ref": "ed-2"
+    },
+    "field": "themes_s2",
+    "value": [
+      "Kisetsu wa Tsugitsugi Shinde Iku",
+      "Amazarashi"
+    ],
+    "text": "The ending theme of the Root A season is a song by Amazarashi, titled Kisetsu wa Tsugitsugi Shinde Iku.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the ending is \"Kisetsu wa Tsugitsugi Shinde Iku\" by Amazarashi"
+  },
+  {
+    "id": "tokyo-ghoul-theme-op-031",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "tokyo-ghoul",
+      "ref": "op-3"
+    },
+    "field": "themes_s1",
+    "value": [
+      "Asphyxia",
+      "Cö shu Nie"
+    ],
+    "text": "The first half of Tokyo Ghoul:re opens with Asphyxia, performed by Cö shu Nie.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The opening theme of the first season is \"Asphyxia\" by Cö shu Nie"
+  },
+  {
+    "id": "tokyo-ghoul-theme-ed-032",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "tokyo-ghoul",
+      "ref": "ed-3"
+    },
+    "field": "themes_s2",
+    "value": [
+      "Half",
+      "Queen Bee"
+    ],
+    "text": "The first half of Tokyo Ghoul:re ends with Half, by the band Queen Bee.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the ending theme is \"Half\" by Queen Bee"
+  },
+  {
+    "id": "tokyo-ghoul-theme-op-033",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "tokyo-ghoul",
+      "ref": "op-4"
+    },
+    "field": "themes_s1",
+    "value": [
+      "Katharsis",
+      "TK from Ling tosite Sigure"
+    ],
+    "text": "The second half of Tokyo Ghoul:re opens with Katharsis, again by TK from Ling tosite Sigure.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The opening theme of the second season is \"Katharsis\" by TK from Ling tosite Sigure"
+  },
+  {
+    "id": "tokyo-ghoul-theme-ed-034",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "tokyo-ghoul",
+      "ref": "ed-4"
+    },
+    "field": "themes_s2",
+    "value": [
+      "Rakuen no Kimi",
+      "Österreich"
+    ],
+    "text": "The closing song of the second half of Tokyo Ghoul:re is Rakuen no Kimi, by Österreich.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+        "ref": "1381849149",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the ending theme of the second season is \"Rakuen no Kimi\" (楽園の君; lit. \"You of Paradise\") by Österreich"
+  },
+  {
+    "id": "tokyo-ghoul-character-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "ken-kaneki"
+    },
+    "field": "name",
+    "value": "Ken Kaneki (金木 研)",
+    "text": "Ken Kaneki is written 金木 研 in Japanese and is the bookish student at the center of the story.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "After the operation Kaneki develops ghoul-like tendencies and characteristics, and his rationality begins to wane."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "touka-kirishima"
+    },
+    "field": "name",
+    "value": "Touka Kirishima (霧嶋 董香)",
+    "text": "Touka Kirishima is written 霧嶋 董香 in Japanese and works at the Anteiku cafe.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "She blends in well with human society and believes that keeping one's ghoul identity is of top most priority."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "rize-kamishiro"
+    },
+    "field": "name",
+    "value": "Rize Kamishiro (神代 利世)",
+    "text": "Rize Kamishiro is written 神代 利世 in Japanese and is the ghoul who attacks Kaneki on their date.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Rize was a girl with glasses that Ken encountered who tried to eat him after luring him out on a date."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "hide-nagachika"
+    },
+    "field": "name",
+    "value": "Hide Nagachika (永近 英良)",
+    "text": "Hide Nagachika, whose full name is Hideyoshi, is written 永近 英良 in Japanese and is Kaneki's best friend.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "He has a sharp intuition, so much so that while Ken tried to keep his ghoul identity hidden from him, Hideyoshi seemed to know something is weird."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "yoshimura"
+    },
+    "field": "name",
+    "value": "Yoshimura (芳村)",
+    "text": "Yoshimura is written 芳村 in Japanese and is the manager of the Anteiku cafe.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "He is a very kind and reasonable ghoul that provides aid and food to ghouls that are incapable of hunting on their own."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "nishiki-nishio"
+    },
+    "field": "name",
+    "value": "Nishiki Nishio (西尾 錦)",
+    "text": "Nishiki Nishio is written 西尾 錦 in Japanese and is a university student who is also a ghoul.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "He is arrogant and hates it whenever his juniors talk back to him."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "hinami-fueguchi"
+    },
+    "field": "name",
+    "value": "Hinami Fueguchi (笛口 雛実)",
+    "text": "Hinami Fueguchi is written 笛口 雛実 in Japanese and is a young ghoul living in the 20th ward.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Hinami is a 13 to 14-year-old ghoul that came to the 20th ward with her mother after her father was killed by ghoul investigators."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "kotaro-amon"
+    },
+    "field": "name",
+    "value": "Kotaro Amon (亜門 鋼太朗)",
+    "text": "Kotaro Amon is written 亜門 鋼太朗 in Japanese and is a Special Class Investigator of the CCG.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "He has a very strong sense of justice and believes that he must make this \"Wrong World\" right by killing the ghouls."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "akira-mado"
+    },
+    "field": "name",
+    "value": "Akira Mado (真戸 暁)",
+    "text": "Akira Mado is written 真戸 暁 in Japanese and is an investigator of the CCG.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "She is an intelligent woman and seems to be always serious about work and her daily routine in general."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "shu-tsukiyama"
+    },
+    "field": "name",
+    "value": "Shu Tsukiyama (月山 習)",
+    "text": "Shu Tsukiyama is written 月山 習 in Japanese and is a fashionable ghoul.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "He is a very powerful, cunning, smug, and fashionable ghoul and was also an acquaintance of Rize."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "juzo-suzuya"
+    },
+    "field": "name",
+    "value": "Juzo Suzuya (鈴屋 什造)",
+    "text": "Juzo Suzuya is written 鈴屋 什造 in Japanese and is a young investigator of the CCG.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "A young boy with an androgynous appearance. He was raised by a ghoul called Big Madam until he was taken in by the CCG."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "kisho-arima"
+    },
+    "field": "name",
+    "value": "Kisho Arima (有馬 貴将)",
+    "text": "Kisho Arima is written 有馬 貴将 in Japanese and is a Special Class Investigator of the CCG.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "He is always seen wearing his glasses, with his face kept in an apathetic expression, rarely showing any emotion if not at all."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "ayato-kirishima"
+    },
+    "field": "name",
+    "value": "Ayato Kirishima (霧嶋 絢都)",
+    "text": "Ayato Kirishima is written 霧嶋 絢都 in Japanese; he is Touka's younger brother and an executive of Aogiri Tree.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The youngest Executive of Aogiri, and Tōka's younger brother. He is a troubled and rebellious teenager."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "renji-yomo"
+    },
+    "field": "name",
+    "value": "Renji Yomo (四方 蓮示)",
+    "text": "Renji Yomo is written 四方 蓮示 in Japanese and is a quiet ghoul connected to Anteiku.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Renji is a quiet and reserved ghoul. He is an expert coffee brewer, although he does not work for the shop anymore."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "yamori"
+    },
+    "field": "name",
+    "value": "Yamori (大守 八雲)",
+    "text": "Yamori is written 大守 八雲 in Japanese and is an executive of Aogiri Tree.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "A deranged Executive of Aogiri, he was nicknamed 'Jason' due to his brutality and habit of wearing a hockey mask."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "seido-takizawa"
+    },
+    "field": "name",
+    "value": "Seido Takizawa (滝澤 政道)",
+    "text": "Seido Takizawa is written 滝澤 政道 in Japanese and is an investigator of the CCG.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "He was mortally wounded by Noro, and declared KIA. In Tokyo Ghoul:re, he returns as a major antagonist after being turned into an insane One-Eyed Ghoul."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "eto-yoshimura"
+    },
+    "field": "name",
+    "value": "Eto Yoshimura (芳村 愛支)",
+    "text": "Eto Yoshimura is written 芳村 愛支 in Japanese and leads Aogiri Tree.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "She enjoys breaking people by picking on their insecurities and according to Sasaki, she lost all hope long ago."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "haise-sasaki"
+    },
+    "field": "name",
+    "value": "Haise Sasaki (佐々木 琲世)",
+    "text": "Haise Sasaki is written 佐々木 琲世 in Japanese and is a CCG investigator who leads the Quinx Squad.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Despite having a new identity, Haise still retains some traits from his former self, like the love for reading and the determination to protect his companions."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "toru-mutsuki"
+    },
+    "field": "name",
+    "value": "Toru Mutsuki (六月 透)",
+    "text": "Toru Mutsuki is written 六月 透 in Japanese and belongs to the Quinx Squad.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Tōru struggles to keep his one eyed kakugan under control, much like Kaneki did in the past; he suffers from anemia."
+  },
+  {
+    "id": "tokyo-ghoul-character-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "nimura-furuta"
+    },
+    "field": "name",
+    "value": "Nimura Furuta (旧多 二福)",
+    "text": "Nimura Furuta is written 旧多 二福 in Japanese and is the main antagonist of Tokyo Ghoul:re.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The main antagonist of Tokyo Ghoul:re. He was originally Sōta Washū-Furuta, and later known as Nimura Furuta."
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "ken-kaneki"
+    },
+    "field": "style",
+    "value": "Black to white",
+    "text": "Kaneki's hair turns white: slowly from chapter 61 in the manga, but all at once in the anime.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "In the manga at chapter 61, Kaneki's hair slowly changes color from black to white. In the anime, his hair changes instantly"
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "ken-kaneki"
+    },
+    "field": "role",
+    "value": "One-Eyed King",
+    "text": "By the end of the story Kaneki has taken the title of the One-Eyed King.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Anteiku waiter, CCG as Haise Sasaki, then One-Eyed King"
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "rize-kamishiro"
+    },
+    "field": "origin",
+    "value": "Her organs go to Kaneki",
+    "text": "When steel beams fall on Rize, her organs are moved into Kaneki, which makes him a half-ghoul.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Parts of her body are transplanted into Ken after she is struck by fallen iron construction parts."
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "touka-kirishima"
+    },
+    "field": "power",
+    "value": "Ukaku",
+    "text": "Touka's kagune belongs to the ukaku type and can crackle with lightning.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Kagune Type: Ukaku (can produce lightning)"
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "touka-kirishima"
+    },
+    "field": "role",
+    "value": "Marries Kaneki",
+    "text": "Late in the story Touka marries Kaneki, and she is expecting his child.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Becomes pregnant with Kaneki's child; they marry."
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "hide-nagachika"
+    },
+    "field": "talent",
+    "value": "Sharp intuition",
+    "text": "Hide senses that something is off about Kaneki, even though Kaneki tries to hide his ghoul side from him.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "He has a sharp intuition, so much so that while Ken tried to keep his ghoul identity hidden"
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "hide-nagachika"
+    },
+    "field": "public_identity",
+    "value": "Scarecrow",
+    "text": "In the later story Hide takes on a disguise known as the Scarecrow.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Becomes Scarecrow; later appears in Kaneki's mind as confidant."
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "yoshimura"
+    },
+    "field": "habits",
+    "value": "Feeds ghouls who cannot hunt",
+    "text": "Yoshimura quietly supplies food to ghouls who are unable to hunt for themselves.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "provides aid and food to ghouls that are incapable of hunting on their own"
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "hinami-fueguchi"
+    },
+    "field": "sense_of_smell",
+    "value": "Heightened sense of smell",
+    "text": "Hinami has a heightened sense of smell.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Heightened sense of smell. Parents killed by investigators."
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "kotaro-amon"
+    },
+    "field": "background",
+    "value": "Raised by Donato Porpora",
+    "text": "Amon grew up as an orphan under the care of Donato Porpora, who turns out to be a cannibal ghoul.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Orphan raised by Donato Porpora (a cannibal ghoul)."
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "juzo-suzuya"
+    },
+    "field": "background",
+    "value": "Raised by Big Madam",
+    "text": "Before the CCG took him in, Suzuya was brought up by a ghoul called Big Madam.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "He was raised by a ghoul called Big Madam until he was taken in by the CCG."
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "kisho-arima"
+    },
+    "field": "nickname",
+    "value": "CCG Reaper",
+    "text": "Arima is known inside the CCG as the Reaper.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "CCG Special Class Investigator; \"CCG Reaper\"; Kaneki's mentor"
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "kisho-arima"
+    },
+    "field": "public_identity",
+    "value": "One-Eyed King",
+    "text": "In secret, Arima is the One-Eyed King and works alongside Eto.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Secretly the \"One-Eyed King\" conspiring with Eto."
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "kisho-arima"
+    },
+    "field": "debut",
+    "value": "Lead of Tokyo Ghoul [Jack]",
+    "text": "Arima is the main character of the prequel manga Tokyo Ghoul [Jack].",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Supporting role; protagonist of Tokyo Ghoul: JACK"
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "eto-yoshimura"
+    },
+    "field": "name_variant",
+    "value": "Sen Takatsuki",
+    "text": "Eto also works as a novelist, writing under the name Sen Takatsuki.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Aogiri Tree founder/leader; \"One-Eyed Owl\"; author Sen Takatsuki"
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "ayato-kirishima"
+    },
+    "field": "name_variant",
+    "value": "Black Rabbit",
+    "text": "Ayato goes by the alias Black Rabbit.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Adopts identity \"Black Rabbit.\" Cares for Hinami"
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "yamori"
+    },
+    "field": "nickname",
+    "value": "Jason",
+    "text": "Yamori got the nickname Jason because of his cruelty and the hockey mask he likes to wear.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "he was nicknamed 'Jason' due to his brutality and habit of wearing a hockey mask"
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "yamori"
+    },
+    "field": "record",
+    "value": "Tortured Kaneki for ten days",
+    "text": "Yamori tortured Kaneki for ten days before Kaneki turned the tables.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Tortured Kaneki for 10 days. Defeated and devoured by Kaneki."
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "seido-takizawa"
+    },
+    "field": "record",
+    "value": "Returns as a one-eyed ghoul",
+    "text": "In Tokyo Ghoul:re, Takizawa returns as a one-eyed ghoul, after being experimented on.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "In Tokyo Ghoul:re, he returns as a major antagonist after being turned into an insane One-Eyed Ghoul."
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "haise-sasaki"
+    },
+    "field": "public_identity",
+    "value": "Kaneki's new identity",
+    "text": "Haise Sasaki is the identity Kaneki is given after Arima defeats him and his memories are wiped.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Created after Arima defeats Kaneki and wipes his memories."
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "haise-sasaki"
+    },
+    "field": "organization",
+    "value": "Quinx Squad",
+    "text": "Haise mentors the Quinx Squad, a special unit made up of artificial ghouls.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "mentor of the Quinx Squad, a special unit composed of artificial ghouls"
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "nimura-furuta"
+    },
+    "field": "record",
+    "value": "Killed by Kaneki inside the Dragon",
+    "text": "Furuta ends up killed by Kaneki inside the Dragon, a creature that Furuta himself created.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Created Dragon creature. Defeated and killed by Kaneki inside Dragon."
+  },
+  {
+    "id": "tokyo-ghoul-character-detail-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-ghoul",
+      "ref": "shu-tsukiyama"
+    },
+    "field": "nickname",
+    "value": "The Gourmet",
+    "text": "Tsukiyama is known as the Gourmet.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+        "ref": "1381202233",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "\"Gourmet\" ghoul; powerful family member; joins Kaneki's team"
+  }
+]

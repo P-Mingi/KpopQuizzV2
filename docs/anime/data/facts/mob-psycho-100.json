@@ -1,0 +1,2200 @@
+[
+  {
+    "id": "mob-psycho-100-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "title_native",
+    "value": "モブサイコ100 (Mobu Saiko Hyaku)",
+    "text": "The Japanese title is written モブサイコ100, read Mobu Saiko Hyaku, with the number 100 kept as a numeral.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q11344543",
+        "ref": "Q11344543",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "モブサイコ100 (Mobu Saiko Hyaku)"
+  },
+  {
+    "id": "mob-psycho-100-manga-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "author",
+    "value": "ONE",
+    "text": "ONE wrote and drew Mob Psycho 100 himself.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q11344543",
+        "ref": "Q11344543",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "written and illustrated by One"
+  },
+  {
+    "id": "mob-psycho-100-manga-origin-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "serialization",
+    "value": "Ura Sunday",
+    "text": "Mob Psycho 100 started as a webcomic on Ura Sunday, a website run by the publisher Shogakukan.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q11344543",
+        "ref": "Q11344543",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "began as a webcomic on Shogakukan's Ura Sunday website"
+  },
+  {
+    "id": "mob-psycho-100-manga-app-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "manga",
+    "value": "MangaONE",
+    "text": "The series was also published on the mobile app MangaONE.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "also serialized on MangaONE mobile app"
+  },
+  {
+    "id": "mob-psycho-100-manga-size-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "manga_volumes",
+    "value": 16,
+    "text": "The manga was collected in 16 volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q11344543",
+        "ref": "Q11344543",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "compiled its chapters in 16 tankōbon volumes"
+  },
+  {
+    "id": "mob-psycho-100-english-manga-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "english_release",
+    "value": "Dark Horse Comics",
+    "text": "Dark Horse Comics publishes the manga in English.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "English publisher: Dark Horse Comics"
+  },
+  {
+    "id": "mob-psycho-100-anime-studio-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "anime_studio",
+    "value": "Bones",
+    "text": "The anime was animated by the studio Bones.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q66313196",
+        "ref": "Q66313196",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Studio: Bones"
+  },
+  {
+    "id": "mob-psycho-100-anime-director-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "anime_directors",
+    "value": "Yuzuru Tachikawa",
+    "text": "Yuzuru Tachikawa directed the Mob Psycho 100 anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q66313196",
+        "ref": "Q66313196",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "directed by Yuzuru Tachikawa"
+  },
+  {
+    "id": "mob-psycho-100-anime-scripts-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "staff",
+    "value": "Hiroshi Seko",
+    "text": "Hiroshi Seko wrote the scripts of the anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q66313196",
+        "ref": "Q66313196",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Hiroshi Seko wrote the scripts"
+  },
+  {
+    "id": "mob-psycho-100-anime-composer-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "composer",
+    "value": "Kenji Kawai",
+    "text": "Kenji Kawai composed the music of the anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q66313196",
+        "ref": "Q66313196",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Kenji Kawai composed the music"
+  },
+  {
+    "id": "mob-psycho-100-anime-seasons-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "anime_seasons",
+    "value": "3 seasons",
+    "text": "As of October 2026, the Mob Psycho 100 anime has three seasons.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q66313196",
+        "ref": "Q66313196",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Season 3 aired from October 6 to December 22, 2022"
+  },
+  {
+    "id": "mob-psycho-100-anime-season-one-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "anime_s1",
+    "value": [
+      "12 episodes",
+      "July to September 2016"
+    ],
+    "text": "The first season has 12 episodes and aired from July to September 2016.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_episodes",
+        "ref": "1373429137",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q114009808",
+        "ref": "Q114009808",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "12 episodes between July 12 and September 27, 2016"
+  },
+  {
+    "id": "mob-psycho-100-anime-season-two-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "anime_s2",
+    "value": [
+      "13 episodes",
+      "January to April 2019"
+    ],
+    "text": "The second season has 13 episodes and aired from January to April 2019.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_episodes",
+        "ref": "1373429137",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q114011046",
+        "ref": "Q114011046",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "13 episodes from January 7 to April 1, 2019"
+  },
+  {
+    "id": "mob-psycho-100-anime-season-three-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "anime_s3",
+    "value": [
+      "12 episodes",
+      "October to December 2022"
+    ],
+    "text": "The third season has 12 episodes and aired from October to December 2022.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_episodes",
+        "ref": "1373429137",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q114012814",
+        "ref": "Q114012814",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Season 3 aired from October 6 to December 22, 2022"
+  },
+  {
+    "id": "mob-psycho-100-live-action-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "live_action",
+    "value": "2018 drama",
+    "text": "A live-action TV drama of Mob Psycho 100 was made in 2018.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q54829045",
+        "ref": "Q54829045",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "A 12-episode Japanese television drama premiered on Netflix on January 12, 2018"
+  },
+  {
+    "id": "mob-psycho-100-live-action-release-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "broadcast",
+    "value": [
+      "Netflix",
+      "TV Tokyo"
+    ],
+    "text": "The live-action drama first appeared on Netflix and was then shown on TV Tokyo.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "premiered on Netflix ... broadcast on TV Tokyo's MokuDora 25 timeslot"
+  },
+  {
+    "id": "mob-psycho-100-reigen-spinoff-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "spinoff",
+    "value": "Reigen",
+    "text": "A spin-off manga called Reigen was published online on Ura Sunday and on the MangaONE app.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "A spin-off manga series titled Reigen was serialized online in Ura Sunday website and in the MangaONE mobile app"
+  },
+  {
+    "id": "mob-psycho-100-same-creator-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "creator",
+    "value": "One-Punch Man",
+    "text": "ONE is also the creator of the original One-Punch Man.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Creator also wrote One-Punch Man"
+  },
+  {
+    "id": "mob-psycho-100-manga-award-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "manga_award",
+    "value": "62nd Shogakukan Manga Award",
+    "text": "In the shonen category, the manga was honoured at the 62nd Shogakukan Manga Award.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "won the 62nd Shogakukan Manga Award in the shōnen category"
+  },
+  {
+    "id": "mob-psycho-100-crunchyroll-awards-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "awards",
+    "value": [
+      "Best Action",
+      "Best Fight Scene"
+    ],
+    "text": "At the first Crunchyroll Anime Awards, the anime won two prizes, Best Action and Best Fight Scene.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "received two awards at 1st Crunchyroll Anime Awards: Best Action and Best Fight Scene"
+  },
+  {
+    "id": "mob-psycho-100-simulcast-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "streaming",
+    "value": "Crunchyroll",
+    "text": "Crunchyroll streamed every season of the anime as it aired.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_episodes",
+        "ref": "1373429137",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Crunchyroll simulcast all seasons"
+  },
+  {
+    "id": "mob-psycho-100-premise-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "premise",
+    "value": "An eighth-grade esper",
+    "text": "Mob is an eighth-grade esper with huge powers, who holds back his emotions so they do not run out of control.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "He suppresses his emotions to keep his power in control"
+  },
+  {
+    "id": "mob-psycho-100-consultation-office-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "occupation",
+    "value": "Spirits and Such Consultation Office",
+    "text": "Reigen runs the Spirits and Such Consultation Office, a low-cost advice business where Mob works for 300 yen an hour.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Low-cost psychic consultation business run by Reigen where Mob works for 300 yen per hour"
+  },
+  {
+    "id": "mob-psycho-100-body-improvement-club-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "organization",
+    "value": "Body Improvement Club",
+    "text": "The Body Improvement Club is a fitness club that took over the room of the Telepathy Club.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Fitness-based club that took over the Telepathy Club room"
+  },
+  {
+    "id": "mob-psycho-100-percent-meter-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "power",
+    "value": "100%",
+    "text": "When Mob's emotions reach 100%, he unleashes his full powers.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "When emotions reach 100%, he unleashes full powers"
+  },
+  {
+    "id": "mob-psycho-100-unknown-percent-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "powers",
+    "value": "???%",
+    "text": "The mark ???% stands for an unconscious state of power that goes far beyond Mob's normal limits.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "???% represents an extremely powerful unconscious state beyond normal limits"
+  },
+  {
+    "id": "mob-psycho-100-claw-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "mob-psycho-100"
+    },
+    "field": "terms",
+    "value": "Claw",
+    "text": "Claw is a criminal group of espers that aims at world domination and is led by Touichirou Suzuki.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Criminal organization of Espers pursuing world domination, led by Touichiro Suzuki"
+  },
+  {
+    "id": "mob-psycho-100-theme-op-028",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "mob-psycho-100",
+      "ref": "op-1"
+    },
+    "field": "themes_s5",
+    "value": [
+      "99",
+      "Mob Choir"
+    ],
+    "text": "The opening of the first season is called 99 and is sung by Mob Choir.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The opening theme song, \"99\", is performed by Mob Choir"
+  },
+  {
+    "id": "mob-psycho-100-theme-ed-029",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "mob-psycho-100",
+      "ref": "ed-1"
+    },
+    "field": "themes_s6",
+    "value": [
+      "Refrain Boy",
+      "All Off"
+    ],
+    "text": "The first season ends with Refrain Boy, performed by All Off.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the ending theme song, titled \"Refrain Boy\""
+  },
+  {
+    "id": "mob-psycho-100-theme-op-030",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "mob-psycho-100",
+      "ref": "op-2"
+    },
+    "field": "themes_s5",
+    "value": [
+      "99.9",
+      "Mob Choir with Sajou no Hana"
+    ],
+    "text": "The second season opens with 99.9, by Mob Choir together with Sajou no Hana.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The opening theme for the second season is \"99.9\" by Mob Choir feat. Sajou no Hana"
+  },
+  {
+    "id": "mob-psycho-100-theme-op-031",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "mob-psycho-100",
+      "ref": "op-3"
+    },
+    "field": "themes_s5",
+    "value": [
+      "1",
+      "Mob Choir"
+    ],
+    "text": "The third season opens with a song simply called 1, by Mob Choir.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The opening theme is \"1\", and the ending theme is \"Cobalt\", both performed by Mob Choir"
+  },
+  {
+    "id": "mob-psycho-100-theme-ed-032",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "mob-psycho-100",
+      "ref": "ed-2"
+    },
+    "field": "themes_s6",
+    "value": [
+      "Cobalt",
+      "Mob Choir"
+    ],
+    "text": "The third season closes with Cobalt, also by Mob Choir.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+        "ref": "1380373905",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the ending theme is \"Cobalt\", both performed by Mob Choir"
+  },
+  {
+    "id": "mob-psycho-100-character-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "shigeo-kageyama"
+    },
+    "field": "name",
+    "value": "Shigeo Kageyama (影山 茂夫)",
+    "text": "Shigeo Kageyama, nicknamed Mob, is written 影山 茂夫 in Japanese and is an eighth-grade esper.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "He suppresses his emotions to keep his power in control"
+  },
+  {
+    "id": "mob-psycho-100-character-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "arataka-reigen"
+    },
+    "field": "name",
+    "value": "Arataka Reigen (霊幻 新隆)",
+    "text": "Arataka Reigen is written 霊幻 新隆 in Japanese and runs a consultation business.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "A self-proclaimed spirit medium...essentially a con artist"
+  },
+  {
+    "id": "mob-psycho-100-character-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "ritsu-kageyama"
+    },
+    "field": "name",
+    "value": "Ritsu Kageyama (影山 律)",
+    "text": "Ritsu Kageyama is written 影山 律 in Japanese and is the younger brother of Mob.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Had an inferiority complex towards Mob's powers"
+  },
+  {
+    "id": "mob-psycho-100-character-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "teruki-hanazawa"
+    },
+    "field": "name",
+    "value": "Teruki Hanazawa (花沢 輝気)",
+    "text": "Teruki Hanazawa is written 花沢 輝気 in Japanese and is a powerful telekinetic esper.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Originally held scorn for people without psychic power"
+  },
+  {
+    "id": "mob-psycho-100-character-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "dimple"
+    },
+    "field": "name",
+    "value": "Dimple (エクボ)",
+    "text": "Dimple is written エクボ in Japanese and is an evil spirit.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Possesses bodies, hypnotizes groups, unleashes possessed body's potential"
+  },
+  {
+    "id": "mob-psycho-100-character-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "tsubomi-takane"
+    },
+    "field": "name",
+    "value": "Tsubomi Takane (高嶺 ツボミ)",
+    "text": "Tsubomi Takane is written 高嶺 ツボミ in Japanese and is a childhood friend of Mob.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "One of few who truly doesn't care about Mob's psychic ability"
+  },
+  {
+    "id": "mob-psycho-100-character-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "musashi-goda"
+    },
+    "field": "name",
+    "value": "Musashi Goda (郷田 武蔵)",
+    "text": "Musashi Goda is written 郷田 武蔵 in Japanese and is the president of the Body Improvement Club.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Kind-hearted with strong sense of justice"
+  },
+  {
+    "id": "mob-psycho-100-character-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "tome-kurata"
+    },
+    "field": "name",
+    "value": "Tome Kurata (暗田 トメ)",
+    "text": "Tome Kurata is written 暗田 トメ in Japanese and founded the Telepathy Club.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Genuinely passionate about telepathy with aspirations"
+  },
+  {
+    "id": "mob-psycho-100-character-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "tenga-onigawara"
+    },
+    "field": "name",
+    "value": "Tenga Onigawara (鬼瓦 天牙)",
+    "text": "Tenga Onigawara is written 鬼瓦 天牙 in Japanese and is a delinquent who joins the Body Improvement Club.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Started 'White T-Poison' rumor inadvertently"
+  },
+  {
+    "id": "mob-psycho-100-character-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "touichirou-suzuki"
+    },
+    "field": "name",
+    "value": "Touichirou Suzuki (鈴木 統一郎)",
+    "text": "Touichirou Suzuki is written 鈴木 統一郎 in Japanese and is the leader of Claw.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Founded Claw for sole purpose of world domination"
+  },
+  {
+    "id": "mob-psycho-100-character-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "katsuya-serizawa"
+    },
+    "field": "name",
+    "value": "Katsuya Serizawa (芹沢 克也)",
+    "text": "Katsuya Serizawa is written 芹沢 克也 in Japanese and is a bodyguard in Claw.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Never left his room out of fear of uncontrollable powers"
+  },
+  {
+    "id": "mob-psycho-100-character-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "ryo-shimazaki"
+    },
+    "field": "name",
+    "value": "Ryo Shimazaki (島崎 亮)",
+    "text": "Ryo Shimazaki is written 島崎 亮 in Japanese and belongs to the Ultimate 5 of Claw.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Eyes closed most of the time"
+  },
+  {
+    "id": "mob-psycho-100-character-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "toshiki-minegishi"
+    },
+    "field": "name",
+    "value": "Toshiki Minegishi (峯岸 棯樹)",
+    "text": "Toshiki Minegishi is written 峯岸 棯樹 in Japanese and belongs to the Ultimate 5 of Claw.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Specialty is using plants"
+  },
+  {
+    "id": "mob-psycho-100-character-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "hiroshi-shibata"
+    },
+    "field": "name",
+    "value": "Hiroshi Shibata (柴田 宏)",
+    "text": "Hiroshi Shibata is written 柴田 宏 in Japanese and belongs to the Ultimate 5 of Claw.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Muscular, physically imposing Esper"
+  },
+  {
+    "id": "mob-psycho-100-character-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "nozomu-hatori"
+    },
+    "field": "name",
+    "value": "Nozomu Hatori (羽鳥 希)",
+    "text": "Nozomu Hatori is written 羽鳥 希 in Japanese and belongs to the Ultimate 5 of Claw.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Uses psychic powers to manipulate technology"
+  },
+  {
+    "id": "mob-psycho-100-character-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "shou-suzuki"
+    },
+    "field": "name",
+    "value": "Shou Suzuki (鈴木 将)",
+    "text": "Shou Suzuki is written 鈴木 将 in Japanese and is the son of the head of Claw.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Opposing his father despite being Claw leader's son"
+  },
+  {
+    "id": "mob-psycho-100-character-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "keiji-mogami"
+    },
+    "field": "name",
+    "value": "Keiji Mogami (最上 啓示)",
+    "text": "Keiji Mogami is written 最上 啓示 in Japanese and was a famed psychic of the past.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Once dubbed 'Greatest Psychic of 20th Century'"
+  },
+  {
+    "id": "mob-psycho-100-character-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "megumu-koyama"
+    },
+    "field": "name",
+    "value": "Megumu Koyama (誇山 恵)",
+    "text": "Megumu Koyama is written 誇山 恵 in Japanese and is a member of the Scars of the 7th Division.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Hot-headed...sports mohawk and facial piercings"
+  },
+  {
+    "id": "mob-psycho-100-character-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "kenji-mitsuura"
+    },
+    "field": "name",
+    "value": "Kenji Mitsuura (密裏 賢治)",
+    "text": "Kenji Mitsuura is written 密裏 賢治 in Japanese and leads the Mitsuura Group.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Doesn't have psychic powers"
+  },
+  {
+    "id": "mob-psycho-100-character-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "ichi-mezato"
+    },
+    "field": "name",
+    "value": "Ichi Mezato (米里 イチ)",
+    "text": "Ichi Mezato is written 米里 イチ in Japanese and is a journalist of the Journalism Club.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Developed interest in Mob's psychic abilities"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "shigeo-kageyama"
+    },
+    "field": "habits",
+    "value": "Suppresses his emotions",
+    "text": "Mob keeps his feelings under tight control, because they power his abilities.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "He suppresses his emotions to keep his power in control"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "arataka-reigen"
+    },
+    "field": "powers",
+    "value": "Claims psychic powers but has none",
+    "text": "Reigen says he is a psychic, but he has no powers and gets by on wit and charm.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Claims psychic powers but lacks them; uses intelligence and charisma instead"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "ritsu-kageyama"
+    },
+    "field": "occupation",
+    "value": "Seventh-grader on the Student Council",
+    "text": "Ritsu is a seventh-grade student and a member of the Student Council.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Mob's younger brother, seventh-grade student; Student Council member"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "ritsu-kageyama"
+    },
+    "field": "powers",
+    "value": "Develops psychic powers",
+    "text": "Ritsu develops psychic powers of his own as the series goes on.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Develops psychic powers during the series"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "teruki-hanazawa"
+    },
+    "field": "reputation",
+    "value": "Hidden boss of Black Vinegar Middle School",
+    "text": "Teruki is known as the hidden boss of Black Vinegar Middle School.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Black Vinegar Middle School's \"hidden boss\""
+  },
+  {
+    "id": "mob-psycho-100-character-detail-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "dimple"
+    },
+    "field": "origin",
+    "value": "Evil spirit",
+    "text": "Dimple is an evil spirit who can take over bodies, though he cannot possess powerful psychics without their permission.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Evil spirit, later ally; unable to possess powerful psychics without permission"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "tsubomi-takane"
+    },
+    "field": "role",
+    "value": "Childhood friend and crush",
+    "text": "Tsubomi Takane is the childhood friend that Mob has a crush on.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Mob's childhood friend and crush"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "musashi-goda"
+    },
+    "field": "organization",
+    "value": "Founder of the Body Improvement Club",
+    "text": "Musashi Goda founded the Body Improvement Club and serves as its president.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Body Improvement Club founder/president"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "tome-kurata"
+    },
+    "field": "organization",
+    "value": "Founder of the Telepathy Club",
+    "text": "Tome Kurata founded the Telepathy Club and is its president.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Club founder and president; Telepathy Club founder"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "tenga-onigawara"
+    },
+    "field": "reputation",
+    "value": "White T-Poison",
+    "text": "By accident, Tenga Onigawara starts the rumor called White T-Poison.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Started 'White T-Poison' rumor inadvertently"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "touichirou-suzuki"
+    },
+    "field": "organization",
+    "value": "Leader of Claw",
+    "text": "Touichirou Suzuki founded Claw to take over the world.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Founded Claw for sole purpose of world domination"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "katsuya-serizawa"
+    },
+    "field": "background",
+    "value": "Afraid of his own power",
+    "text": "Serizawa stayed shut in his room because he feared his powers might get out of control.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Never left his room out of fear of uncontrollable powers"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "ryo-shimazaki"
+    },
+    "field": "ability",
+    "value": "Mind's Eye",
+    "text": "Shimazaki's special ability is called the Mind's Eye, and he can teleport and predict movements.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Teleportation, predicting movements; \"Mind's Eye\" special ability"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "toshiki-minegishi"
+    },
+    "field": "occupation",
+    "value": "Plants, then florist",
+    "text": "Minegishi controls plants, and after his defeat he becomes a florist.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Plant manipulation; becomes florist after defeat"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "hiroshi-shibata"
+    },
+    "field": "ability",
+    "value": "Psychic strength enhancement",
+    "text": "Shibata's power is to boost his own psychic strength.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Psychic strength enhancement"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "nozomu-hatori"
+    },
+    "field": "ability",
+    "value": "Technology manipulation",
+    "text": "Hatori controls technology with his psychic powers, and in the anime he ends up as a helicopter pilot.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Technology manipulation and telekinesis; becomes helicopter pilot in anime"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "shou-suzuki"
+    },
+    "field": "role",
+    "value": "Opposes his father",
+    "text": "Shou is the son of the head of Claw but stands against his father, and he is a close friend of Ritsu.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Opposes his father Touichiro; closest friends with Ritsu"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "keiji-mogami"
+    },
+    "field": "title",
+    "value": "Greatest psychic of the 20th century",
+    "text": "Keiji Mogami was once called the greatest psychic of the twentieth century.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Once dubbed 'Greatest Psychic of 20th Century'"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "megumu-koyama"
+    },
+    "field": "technique",
+    "value": "Telekinetic Helix and Energy Bomb",
+    "text": "Koyama fights with attacks named Telekinetic Helix and Energy Bomb.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Telekinetic Helix and Energy Bomb attacks"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "ichi-mezato"
+    },
+    "field": "organization",
+    "value": "Psycho Helmet Cult",
+    "text": "Mezato took part in founding the Psycho Helmet Cult.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Journalism Club; helped found Psycho Helmet Cult"
+  },
+  {
+    "id": "mob-psycho-100-character-detail-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "kenji-mitsuura"
+    },
+    "field": "motivation",
+    "value": "Artificial psychic powers",
+    "text": "Mitsuura wished to create psychic powers by artificial means.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "None; wished to create artificial psychic powers"
+  }
+]

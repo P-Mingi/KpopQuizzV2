@@ -1,0 +1,217 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "steins-gate",
+  "title": "Steins;Gate Quiz: Akihabara, the PhoneWave and D-Mails",
+  "slug": "akihabara-the-phonewave-and-d-mails-steins-gate-quiz",
+  "description": "Ten easy questions on the developers, the first console, the lab, the time machine, the title and the first opening. No story knowledge needed, and no spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Steins;Gate",
+      "url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Steins;Gate episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes"
+    }
+  ],
+  "notes": "New series batch 1. Arc 0 facts only: production, setting and the main gadgets. One fact per answer.",
+  "questions": [
+    {
+      "question": "Which two companies developed the original visual novel?",
+      "options": [
+        "Key and Visual Arts",
+        "Frontwing and 07th Expansion",
+        "5pb. and Nitroplus",
+        "Idea Factory and Compile Heart"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "steins-gate-vn-makers-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "On which console did the visual novel first come out?",
+      "options": [
+        "Xbox 360",
+        "PlayStation 3",
+        "PlayStation Portable",
+        "Nintendo Switch"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "steins-gate-vn-release-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "In which district of Tokyo is the Future Gadget Laboratory?",
+      "options": [
+        "Shibuya",
+        "Shinjuku",
+        "Ikebukuro",
+        "Akihabara"
+      ],
+      "correct": 3,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-future-gadget-lab-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "Which device that the friends build turns out to be a time machine?",
+      "options": [
+        "Divergence Meter",
+        "PhoneWave",
+        "IBN 5100",
+        "Amadeus"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-phonewave-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "What are the messages that start to change the timeline called?",
+      "options": [
+        "D-Mails",
+        "T-Mails",
+        "Z-Mails",
+        "Q-Mails"
+      ],
+      "correct": 0,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-d-mail-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "From which German word is the first part of the title coined?",
+      "options": [
+        "Sterne",
+        "Stahl",
+        "Stein",
+        "Strahl"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-title-meaning-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "Which game series does Steins;Gate belong to?",
+      "options": [
+        "Memories Off series",
+        "Science Adventure series",
+        "Zero Escape series",
+        "Muv-Luv series"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "steins-gate-science-adventure-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "Which prize did the visual novel receive at the Famitsu Awards?",
+      "options": [
+        "Grand Prize",
+        "Best Story Award",
+        "Readers' Choice",
+        "Game of Excellence"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "steins-gate-famitsu-award-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "Which company published the English PC version in North America?",
+      "options": [
+        "JAST USA",
+        "MangaGamer",
+        "Sekai Project",
+        "NIS America"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "steins-gate-english-pc-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "Who sings the opening Hacking to the Gate?",
+      "options": [
+        "Yui Sakakibara",
+        "Zwei",
+        "Kanako Itō",
+        "Asami Imai"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "steins-gate-theme-op-030"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes"
+    }
+  ]
+}

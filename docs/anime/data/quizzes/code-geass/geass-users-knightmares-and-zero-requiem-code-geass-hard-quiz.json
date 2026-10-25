@@ -1,0 +1,217 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "code-geass",
+  "title": "Code Geass Hard Quiz: Geass Users, Knightmares and Zero Requiem",
+  "slug": "geass-users-knightmares-and-zero-requiem-code-geass-hard-quiz",
+  "description": "Ten hard questions on Geass abilities, Knightmare Frames, the Knights of the Round and the sequel film. Spoilers for R2 and for Lelouch of the Re;surrection.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Code Geass characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Code Geass: Lelouch of the Re;surrection",
+      "url": "https://en.wikipedia.org/wiki/Code_Geass:_Lelouch_of_the_Re;surrection"
+    }
+  ],
+  "notes": "Hard quiz: late facts (arcs 1 to 3) only here. Spoilers named in the description.",
+  "questions": [
+    {
+      "question": "Which Knight of the Round has a Geass that shows him a few seconds ahead?",
+      "options": [
+        "Bismarck Waldstein",
+        "Suzaku Kururugi",
+        "Jeremiah Gottwald",
+        "Rolo Lamperouge"
+      ],
+      "correct": 0,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-detail-069"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Whose Geass can freeze time for a short while?",
+      "options": [
+        "Bismarck Waldstein",
+        "Jeremiah Gottwald",
+        "Rolo Lamperouge",
+        "Lloyd Asplund"
+      ],
+      "correct": 2,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-detail-064"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Which scientist at Ashford builds F.L.E.I.J.A.?",
+      "options": [
+        "Lloyd Asplund",
+        "Milly Ashford",
+        "Shirley Fenette",
+        "Nina Einstein"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-detail-058"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Who is the only person that Lelouch could not defeat at chess?",
+      "options": [
+        "Cornelia li Britannia",
+        "Schneizel el Britannia",
+        "Charles zi Britannia",
+        "Suzaku Kururugi"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-detail-061"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "What does the ability of Jeremiah, the Geass Canceler, do?",
+      "options": [
+        "Freeze time",
+        "Read minds",
+        "Restore a cancelled Geass",
+        "Command any person"
+      ],
+      "correct": 2,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-detail-063"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Which Knightmare Frame does Lelouch pilot in the later story?",
+      "options": [
+        "Shinkirō",
+        "Lancelot",
+        "Guren",
+        "Galahad"
+      ],
+      "correct": 0,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-detail-052"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Which seat among the Knights of the Round does Suzaku take?",
+      "options": [
+        "Knight of One",
+        "Knight of Three",
+        "Knight of Six",
+        "Knight of Seven"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-detail-053"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Who chairs the supreme council of the UFN?",
+      "options": [
+        "Euphemia li Britannia",
+        "Kaguya Sumeragi",
+        "Milly Ashford",
+        "Nunnally Lamperouge"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-detail-066"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Lelouch of the Re;surrection is a sequel to which arc?",
+      "options": [
+        "Black Rebellion",
+        "Geass Order",
+        "Zero Requiem",
+        "Imperial Reform"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-film-zero-requiem-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass:_Lelouch_of_the_Re;surrection"
+    },
+    {
+      "question": "Which nickname does Tohdoh carry?",
+      "options": [
+        "Tohdoh of Miracles",
+        "Tohdoh of Steel",
+        "Tohdoh the Reaper",
+        "Tohdoh the Zero"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-detail-067"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    }
+  ]
+}

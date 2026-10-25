@@ -1,0 +1,167 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "code-geass",
+  "title": "Geass or Not: Code Geass True or False",
+  "slug": "geass-or-not-code-geass-true-or-false",
+  "description": "Ten statements about the studio, the setting, Geass, the dub and the sequel film. Half are real and half are one detail off, so read closely. Spoilers for R2 and the film.",
+  "quiz_type": "true_false",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Code Geass",
+      "url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Code Geass: Lelouch of the Rebellion R2 episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_R2_episodes"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Code Geass: Lelouch of the Re;surrection",
+      "url": "https://en.wikipedia.org/wiki/Code_Geass:_Lelouch_of_the_Re;surrection"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: List of Code Geass characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    }
+  ],
+  "notes": "Five true, five false; each false statement changes one detail (a studio, a name, a year, a count, an ability).",
+  "questions": [
+    {
+      "question": "Code Geass was the first anime series for which Clamp designed the characters.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-clamp-first-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "question": "The Code Geass anime was made at the studio Bones.",
+      "correct": false,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-anime-studio-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "question": "The Holy Britannian Empire renamed conquered Japan as Area 11.",
+      "correct": true,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-premise-britannia-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "question": "Geass is known as the Power of Shadows.",
+      "correct": false,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-geass-power-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "question": "The second season, R2, has 25 episodes.",
+      "correct": true,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-anime-r2-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_R2_episodes"
+    },
+    {
+      "question": "The film Lelouch of the Re;surrection opened in Japanese cinemas in 2012.",
+      "correct": false,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-film-resurrection-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass:_Lelouch_of_the_Re;surrection"
+    },
+    {
+      "question": "The English dub of Code Geass was shown on Adult Swim.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-english-dub-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "question": "Emperor Charles has 18 consorts.",
+      "correct": false,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-detail-062"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Suzaku pilots the Knightmare Frame called Lancelot.",
+      "correct": true,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-detail-054"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Rolo's Geass lets him read the minds of other people.",
+      "correct": false,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-detail-064"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    }
+  ]
+}
