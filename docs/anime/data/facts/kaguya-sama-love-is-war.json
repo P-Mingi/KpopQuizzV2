@@ -1,0 +1,2792 @@
+[
+  {
+    "id": "kaguya-sama-love-is-war-title-native-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "title_native",
+    "value": [
+      "かぐや様は告らせたい ～天才たちの恋愛頭脳戦～",
+      "Kaguya-sama wa Kokurasetai"
+    ],
+    "text": "The Japanese title means roughly: the lady Kaguya wants him to confess, followed by a subtitle about a war of hearts and minds among geniuses.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "lit. 'Lady Kaguya Wants to Make Him Confess"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "author",
+    "value": "Aka Akasaka",
+    "text": "Aka Akasaka both wrote and drew the manga Kaguya-sama: Love Is War.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q24867647",
+        "ref": "Q24867647",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/kaguya-sama-love-is-war",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "written and illustrated by Aka Akasaka"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-magazine-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "magazine",
+    "value": "Weekly Young Jump",
+    "text": "After a first stretch in Miracle Jump, the manga moved to Weekly Young Jump, where it stayed until the end.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q24867647",
+        "ref": "Q24867647",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "later transferred to Weekly Young Jump"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-publisher-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "publisher",
+    "value": "Shueisha",
+    "text": "Shueisha publishes the manga, with the volumes sold under its Young Jump Comics label.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Young Jump Comics"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-manga-start-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "manga_start",
+    "value": "May 19, 2015",
+    "text": "The first chapter was published in Miracle Jump on May 19, 2015.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q24867647",
+        "ref": "Q24867647",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Aka Akasaka launched the series in the June issue of Shueisha's seinen manga magazine Miracle Jump on May 19, 2015"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-manga-end-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "manga_run",
+    "value": [
+      "May 19, 2015",
+      "November 2, 2022"
+    ],
+    "text": "The serialization finished on November 2, 2022, after seven years and a few months.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q24867647",
+        "ref": "Q24867647",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "The series finished on November 2, 2022"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-volumes-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "volumes",
+    "value": 28,
+    "text": "The collected edition has 28 volumes, the first from March 2016 and the last from December 2022.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q24867647",
+        "ref": "Q24867647",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/kaguya-sama-love-is-war",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "The first volume was released on March 18, 2016, and the last on December 19, 2022"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-chapters-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "chapters_collected",
+    "value": 281,
+    "text": "The 281 chapters of the series fill those 28 volumes.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "collected its 281 individual chapters in 28 individual tankōbon volumes"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-battles-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "terms",
+    "value": "Battles",
+    "text": "Each chapter of the manga is officially called a battle, in keeping with the war of love at its center.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_chapters",
+        "ref": "1374288565",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Individual chapters of the series are called battles"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-premise-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "premise",
+    "value": [
+      "Student council",
+      "First to confess loses"
+    ],
+    "text": "The student council president and vice president of Shuchiin Academy both love each other but believe the first to confess loses, so they scheme to make the other speak first.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "whoever does so first would \"lose\" in their relationship"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-names-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "name_origin",
+    "value": "Tale of the Bamboo Cutter",
+    "text": "The character names come from an old tale known in Japan as the Tale of the Bamboo Cutter, in which Kaguya-hime is a princess.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "The characters' names were derived from the monogatari The Tale of the Bamboo Cutter"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-first-plan-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "planning",
+    "value": "Fantasy game of death",
+    "text": "The first plan of Akasaka was a fantasy about a game of death, but his editor asked for something more mainstream, and the series became his first romantic comedy.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "the original plot for Kaguya-sama was more of a fantasy and game of death"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-influences-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "inspiration",
+    "value": [
+      "Death Note",
+      "School Rumble"
+    ],
+    "text": "Akasaka wanted intellectual duels in the manner of Death Note at first, and he also names School Rumble as an influence.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "cited School Rumble as an influence on his work"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-two-tsunderes-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "style",
+    "value": "Two tsunderes",
+    "text": "Akasaka pictured two people who like each other fighting battles of the mind, and readers found the idea fresh.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "two tsunderes who like each other having battles of the mind"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-earlier-work-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "background",
+    "value": "Instant Bullets",
+    "text": "Akasaka was writing Instant Bullets for Weekly Young Jump when he looked for a second series.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Akasaka was writing the manga Instant Bullets for Weekly Young Jump"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-oshi-no-ko-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "franchise_titles",
+    "value": "Oshi no Ko",
+    "text": "In April 2020 Akasaka began Oshi no Ko, drawn by Mengo Yokoyari, in the same magazine, and Kaguya has a cameo in one of its special chapters.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Kaguya would make a cameo in a special chapter of Oshi no Ko"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-after-confession-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "mission",
+    "value": "The relationship after the confession",
+    "text": "Halfway through the series the leads confess to each other, and the story then follows how they move forward and what stands in their way.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Halfway through the series, they manage to confess to each other"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-award-shogakukan-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "manga_award",
+    "value": [
+      "65th Shogakukan Manga Award",
+      "general category",
+      "2020"
+    ],
+    "text": "The manga was one of two winners of the general category at the 65th Shogakukan Manga Award in 2020, the other being Aoashi.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shogakukan-comic.jp/shogakukan-mangasho-archives",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "along with Aoashi, Kaguya-sama: Love Is War won the 65th Shogakukan Manga Award in the general category"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-award-next-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "award",
+    "value": "Next Manga Award",
+    "text": "In its category for printed comics, the third Next Manga Award went to the series, for books released in 2017.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "won the third Next Manga Award in the comics division"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-copies-2022-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "copies",
+    "value": "Over 22 million",
+    "text": "By December 2022 the manga had passed 22 million copies in circulation.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "over 22 million copies in circulation by December 2022"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-record-2019-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "record",
+    "value": "Ninth best selling manga of 2019",
+    "text": "The manga was the ninth best selling series of 2019, with more than 4 million copies sold that year.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "It was the ninth-best-selling manga in 2019"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-sosenkyo-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "popularity",
+    "value": "50th in Manga Sōsenkyo 2021",
+    "text": "In the TV Asahi poll Manga Sōsenkyo 2021, where 150,000 people chose their top 100 series, the manga placed 50th.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Kaguya-sama: Love Is War ranked 50th"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-viz-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "english_licence",
+    "value": "Viz Media",
+    "text": "Viz Media revealed its North American license for the manga on July 20, 2017, during a panel at San Diego Comic-Con.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/kaguya-sama-love-is-war",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Viz Media announced during their panel at San Diego Comic-Con on July 20, 2017"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-spinoff-doujin-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "spin_offs",
+    "value": [
+      "Kaguya-sama wa Kokurasetai: Dōjin-ban",
+      "Shinta Sakayama",
+      "four volumes"
+    ],
+    "text": "A spin-off by Shinta Sakayama, the Dōjin Edition, ran on the website Tonari no Young Jump from June 14, 2018 to June 25, 2020 in four volumes.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "A spin-off manga by Shinta Sakayama"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-spinoff-kataritai-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "spinoff",
+    "value": [
+      "Kaguya-sama o Kataritai",
+      "G3 Ida",
+      "eight volumes"
+    ],
+    "text": "A four panel spin-off by G3 Ida, Kaguya-sama o Kataritai, follows two press club girls who idolize the council, and it filled eight volumes.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "A yonkoma spin-off, written by G3 Ida"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-novels-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "novel",
+    "value": [
+      "Jūichirō Hitsujiyama",
+      "September 19, 2018",
+      "November 17, 2023"
+    ],
+    "text": "Two spin-off novels by Jūichirō Hitsujiyama came out in September 2018 and November 2023.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Two spin-off novels written by Jūichirō Hitsujiyama have been released by Shueisha"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-anime-announced-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "anime_announced",
+    "value": "June 1, 2018",
+    "text": "Shueisha announced the anime adaptation on June 1, 2018.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes",
+        "ref": "1373260664",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "announced by Shueisha on June 1, 2018"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-anime-start-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "anime_start",
+    "value": "January 12, 2019",
+    "text": "The anime premiered on January 12, 2019.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_season_1",
+        "ref": "1373126096",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q62017594",
+        "ref": "Q62017594",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21401",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "The series premiered from January 12 to March 30, 2019"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-anime-studio-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "anime_studio",
+    "value": "A-1 Pictures",
+    "text": "A-1 Pictures animated all three seasons, the film and the special.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q62017594",
+        "ref": "Q62017594",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://kaguya.love/",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "An anime television series adaptation, produced by A-1 Pictures"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-anime-director-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "anime_directors",
+    "value": [
+      "Shinichi Omata",
+      "Mamoru Hatakeyama"
+    ],
+    "text": "Shinichi Omata directed the anime under the pen name Mamoru Hatakeyama.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes",
+        "ref": "1373260664",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21401",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "directed by Shinichi Omata under the pseudonym Mamoru Hatakeyama"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-crew-031",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "crew_roles",
+    "value": [
+      "Yasuhiro Nakanishi",
+      "Yuuko Yahiro",
+      "Jin Aketagawa",
+      "Kei Haneoka"
+    ],
+    "text": "Yasuhiro Nakanishi wrote the scripts, Yuuko Yahiro designed the characters, Jin Aketagawa directed the sound and Kei Haneoka composed the music.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_season_1",
+        "ref": "1373126096",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21401",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Yuuko Yahiro provided the character designs"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-season-1-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "season_1",
+    "value": [
+      "Season 1",
+      "12 episodes",
+      "January 12, 2019",
+      "March 30, 2019"
+    ],
+    "text": "The first season ran for 12 episodes from January 12 to March 30, 2019.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_season_1",
+        "ref": "1373126096",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q102364866",
+        "ref": "Q102364866",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "The series ran for 12 episodes"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-season-2-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "season_2",
+    "value": [
+      "Love Is War?",
+      "12 episodes",
+      "April 11, 2020",
+      "June 27, 2020"
+    ],
+    "text": "The second season, Love Is War?, has 12 episodes and aired from April 11 to June 27, 2020, after a world premiere in Sydney.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War%3F",
+        "ref": "1374276631",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=22587",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "its world premiere took place prior to Japanese broadcast at Anime Festival Sydney on March 8, 2020"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-ova-034",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "ova",
+    "value": [
+      "OVA",
+      "May 19, 2021"
+    ],
+    "text": "An OVA episode came bundled with volume 22 of the manga on May 19, 2021.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes",
+        "ref": "1373260664",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23977",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "The OVA was bundled with the manga's twenty-second volume"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-season-3-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "season_3",
+    "value": [
+      "Ultra Romantic",
+      "13 episodes",
+      "April 9, 2022",
+      "June 25, 2022"
+    ],
+    "text": "Ultra Romantic, the third season, comprises 13 episodes that were broadcast between April 9 and June 25, 2022.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_%E2%80%93_Ultra_Romantic",
+        "ref": "1379120423",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "The season aired from April 9 to June 25, 2022"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-episodes-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "episodes",
+    "value": 37,
+    "text": "The 3 TV seasons add up to 37 episodes: 12, 12 and 13.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes",
+        "ref": "1373260664",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q62017594",
+        "ref": "Q62017594",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Season Episodes Originally released First released Last released 1 12 January 12, 2019"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-film-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "film",
+    "value": [
+      "The First Kiss That Never Ends",
+      "December 17, 2022"
+    ],
+    "text": "The film The First Kiss That Never Ends opened in Japanese theaters on December 17, 2022.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 4,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes",
+        "ref": "1373260664",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q121354029",
+        "ref": "Q121354029",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "which released in theatres on December 17, 2022"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-special-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "bonus_special",
+    "value": [
+      "The Stairway to Adulthood",
+      "December 31, 2025"
+    ],
+    "text": "The television special The Stairway to Adulthood was announced in June 2025 and premiered on December 31, 2025.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes",
+        "ref": "1373260664",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=36700",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "The anime special premiered on December 31 of the same year"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-final-film-039",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "new_anime",
+    "value": [
+      "The Final Chapter",
+      "announced",
+      "no date as of October 2026"
+    ],
+    "text": "A last film, The Final Chapter, has been announced to conclude the story from an original story by Akasaka; no release date is listed as of October 25, 2026.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes",
+        "ref": "1373260664",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "an anime film featuring the original story by Aka Akasaka and serving as the story's conclusion"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-live-action-040",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "live_action",
+    "value": [
+      "Sho Hirano",
+      "Kanna Hashimoto",
+      "September 6, 2019"
+    ],
+    "text": "The live action film of September 6, 2019 starred Sho Hirano as Miyuki and Kanna Hashimoto as Kaguya, and Hayato Kawai directed it.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "The live-action film adaptation premiered on September 6, 2019"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-live-action-2-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "tv_start",
+    "value": "August 20, 2021",
+    "text": "A sequel film, Kaguya-sama Final, opened in Japanese cinemas on August 20, 2021.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+        "ref": "1379440392",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "It premiered in Japanese cinemas on August 20, 2021"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-themes-s1-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP1: Love Dramatic (Masayuki Suzuki feat. Rikka Ihara)",
+      "ED1: Sentimental Crisis (Halca)"
+    ],
+    "text": "Season one opened with Love Dramatic by Masayuki Suzuki with Rikka Ihara and closed with Sentimental Crisis by Halca.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_season_1",
+        "ref": "1373126096",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21401",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "the series' opening song \"Love Dramatic feat. Rikka Ihara\""
+  },
+  {
+    "id": "kaguya-sama-love-is-war-themes-s2-043",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP2: Daddy! Daddy! Do! (Masayuki Suzuki feat. Airi Suzuki)",
+      "ED2: Kaze ni Fukarete (Haruka Fukuhara)"
+    ],
+    "text": "Season two used Daddy! Daddy! Do!, again by Masayuki Suzuki, with the actress Airi Suzuki, and Kaze ni Fukarete by Haruka Fukuhara.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War%3F",
+        "ref": "1374276631",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=22587",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Haruka Fukuhara's \"Kaze ni Fukarete\" (lit. \"Blown by the Wind\") as the ending theme"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-themes-s3-044",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "themes_s3",
+    "value": [
+      "OP3: GIRI GIRI (Masayuki Suzuki feat. Suu)",
+      "ED3: Heart wa Oteage (Airi Suzuki)"
+    ],
+    "text": "Season three came with GIRI GIRI by Masayuki Suzuki and Suu of Silent Siren, and Heart wa Oteage by Airi Suzuki.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_%E2%80%93_Ultra_Romantic",
+        "ref": "1379120423",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=24889",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "The opening theme song is \"GIRI GIRI\" by Masayuki Suzuki featuring Suu from Silent Siren"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-my-nonfiction-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "ending_theme",
+    "value": "My Nonfiction",
+    "text": "In episode 5 of the third season the ending song was My Nonfiction, sung by Makoto Furukawa and Konomi Kohara as Miyuki and Chika.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War_%E2%80%93_Ultra_Romantic",
+        "ref": "1379120423",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=24889",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "In episode 5, the ending theme song is \"My Nonfiction\""
+  },
+  {
+    "id": "kaguya-sama-love-is-war-themes-special-046",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "themes_s4",
+    "value": [
+      "OP4: Abunai Kioku (Masayuki Suzuki feat. Aoi Koga)",
+      "ED4: Aka to Ao (Aoi Koga)"
+    ],
+    "text": "The special The Stairway to Adulthood opens with Abunai Kioku, by Masayuki Suzuki with Aoi Koga, and ends with Aka to Ao, sung by Aoi Koga.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes",
+        "ref": "1373260664",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://kaguya.love/",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "The opening theme song is \"Abunai Kioku\""
+  },
+  {
+    "id": "kaguya-sama-love-is-war-arc-list-047",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "arcs",
+    "value": [
+      "Season 1: episodes 1 to 12",
+      "Love Is War?: episodes 13 to 24",
+      "Ultra Romantic: episodes 25 to 37",
+      "The First Kiss That Never Ends: film",
+      "The Stairway to Adulthood: special"
+    ],
+    "text": "The anime is split into three TV seasons, a film and a television special.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes",
+        "ref": "1373260664",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Series overview"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-episode-titles-048",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kaguya-sama-love-is-war"
+    },
+    "field": "titles",
+    "value": "Who wants what",
+    "text": "Episodes of season one are made of short stories with titles that say who wants what, such as Kaguya Wants to Exchange Contact Info.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_episodes",
+        "ref": "1373260664",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "\"Kaguya Wants to Exchange Contact Info\""
+  },
+  {
+    "id": "kaguya-sama-love-is-war-kaguya-shinomiya-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "kaguya-shinomiya"
+    },
+    "field": "name",
+    "value": [
+      "Kaguya Shinomiya",
+      "四宮 かぐや"
+    ],
+    "text": "Kaguya Shinomiya is the vice president of the student council, a beautiful and clever heiress of one of the biggest business families in Japan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "known for her beauty, intelligence and wealth"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-kaguya-shinomiya-typewriter-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "kaguya-shinomiya"
+    },
+    "field": "talent",
+    "value": "Typewriter",
+    "text": "Kaguya is hopeless with social media and digital tools, yet she is excellent with old analog tools such as the typewriter.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "she excels at older, analog methods of input such as typewriter"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-kaguya-shinomiya-voice-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "kaguya-shinomiya"
+    },
+    "field": "voice_cast",
+    "value": "Aoi Koga",
+    "text": "Aoi Koga voices Kaguya in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Voiced by: Aoi Koga"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-miyuki-shirogane-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "miyuki-shirogane"
+    },
+    "field": "name",
+    "value": [
+      "Miyuki Shirogane",
+      "白銀 御行"
+    ],
+    "text": "Miyuki Shirogane is the president of the student council and the top student of the school, who finished second in national mock exams.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "placed second overall in national mock exams"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-miyuki-shirogane-bugs-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "miyuki-shirogane"
+    },
+    "field": "habits",
+    "value": "Fear of bugs",
+    "text": "Miyuki is physically weak at sports and has a paralyzing fear of insects, above all cockroaches.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "paralyzing fear of bugs, especially cockroaches"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-miyuki-shirogane-stars-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "miyuki-shirogane"
+    },
+    "field": "motivation",
+    "value": "Astronomy",
+    "text": "Miyuki loves stargazing and dreams of becoming a professional astronomer one day.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "dreams of one day becoming a professional astronomer"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-miyuki-shirogane-voice-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "miyuki-shirogane"
+    },
+    "field": "voice_cast",
+    "value": "Makoto Furukawa",
+    "text": "Makoto Furukawa voices Miyuki in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Voiced by: Makoto Furukawa"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-chika-fujiwara-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "chika-fujiwara"
+    },
+    "field": "name",
+    "value": [
+      "Chika Fujiwara",
+      "藤原 千花"
+    ],
+    "text": "Chika Fujiwara is the secretary of the student council, a cheerful airhead who is nonetheless good at languages, singing and sports.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "skilled in languages, singing and various sports"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-chika-fujiwara-hair-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "chika-fujiwara"
+    },
+    "field": "style",
+    "value": "Silver hair, pink in the anime",
+    "text": "Chika has silver hair with a black bow in the manga, and her hair is light pink in the anime.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "silver hair (light pink in the anime)"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-chika-fujiwara-voice-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "chika-fujiwara"
+    },
+    "field": "voice_cast",
+    "value": "Konomi Kohara",
+    "text": "Konomi Kohara voices Chika in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Voiced by: Konomi Kohara"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-yu-ishigami-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "yu-ishigami"
+    },
+    "field": "name",
+    "value": [
+      "Yu Ishigami",
+      "石上 優"
+    ],
+    "text": "Yu Ishigami is the treasurer of the student council, a quiet underclassman who plays video games on a handheld console with headphones on.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "student council treasurer"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-yu-ishigami-voice-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "yu-ishigami"
+    },
+    "field": "voice_cast",
+    "value": "Ryōta Suzuki",
+    "text": "Ryōta Suzuki voices Yu in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Voiced by: Ryōta Suzuki"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-ai-hayasaka-name-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "ai-hayasaka"
+    },
+    "field": "name",
+    "value": [
+      "Ai Hayasaka",
+      "早坂 愛"
+    ],
+    "text": "Ai Hayasaka is the personal assistant and childhood friend of Kaguya, who hides this link at school behind a fashionable image.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "personal assistant and childhood friend"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-ai-hayasaka-maid-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "ai-hayasaka"
+    },
+    "field": "style",
+    "value": "Disguised as a maid",
+    "text": "When Miyuki visits the house, Ai plays a maid from an all-girls school under a made up name.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "she dresses as a maid named"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-ai-hayasaka-voice-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "ai-hayasaka"
+    },
+    "field": "voice_cast",
+    "value": "Yumiri Hanamori",
+    "text": "Yumiri Hanamori voices Ai in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Voiced by: Yumiri Hanamori"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-miko-iino-name-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "miko-iino"
+    },
+    "field": "name",
+    "value": [
+      "Miko Iino",
+      "伊井野 ミコ"
+    ],
+    "text": "Miko Iino is a strict first-year member of the disciplinary committee who wants orderly and proper behavior, yet she is shy and fears public speaking.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "very shy and fearful of public speaking"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-miko-iino-piano-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "miko-iino"
+    },
+    "field": "talent",
+    "value": "Top of her class",
+    "text": "Miko is at the top of her class and admires Chika for her skill as a pianist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "admires Chika for her music skills as a pianist"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-miko-iino-voice-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "miko-iino"
+    },
+    "field": "voice_cast",
+    "value": "Miyu Tomita",
+    "text": "Miyu Tomita voices Miko in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Voiced by: Miyu Tomita"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-miko-iino-president-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "miko-iino"
+    },
+    "field": "role",
+    "value": "Elected school president",
+    "text": "Later on Miko runs for school president and wins, and she asks Yu Ishigami to be her vice president.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Upon Miko's becoming elected as the new school president"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-nagisa-kashiwagi-name-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "nagisa-kashiwagi"
+    },
+    "field": "name",
+    "value": [
+      "Nagisa Kashiwagi",
+      "柏木 渚"
+    ],
+    "text": "Nagisa Kashiwagi is a classmate from a wealthy shipbuilding family who heads the volunteering club and asks Kaguya for relationship advice.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "heads the school's Volunteering club"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-nagisa-kashiwagi-voice-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "nagisa-kashiwagi"
+    },
+    "field": "voice_cast",
+    "value": "Momo Asakura",
+    "text": "Momo Asakura voices Nagisa in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Voiced by: Momo Asakura"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-tsubasa-tanuma-name-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "tsubasa-tanuma"
+    },
+    "field": "name",
+    "value": [
+      "Tsubasa Tanuma",
+      "田沼 翼"
+    ],
+    "text": "Tsubasa Tanuma is the classmate who asks Miyuki for love advice, confesses to Nagisa and becomes her boyfriend.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "regularly asks Miyuki for love advice"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-kei-shirogane-name-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "kei-shirogane"
+    },
+    "field": "name",
+    "value": [
+      "Kei Shirogane",
+      "白銀 圭"
+    ],
+    "text": "Kei Shirogane is the younger sister of Miyuki and the treasurer of the junior high student council of Shuchiin.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Miyuki's younger sister"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-kei-shirogane-voice-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "kei-shirogane"
+    },
+    "field": "voice_cast",
+    "value": "Sayumi Suzushiro",
+    "text": "Sayumi Suzushiro voices Kei in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Voiced by: Sayumi Suzushiro"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-moeha-fujiwara-name-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "moeha-fujiwara"
+    },
+    "field": "name",
+    "value": [
+      "Moeha Fujiwara",
+      "藤原 萌葉"
+    ],
+    "text": "Moeha Fujiwara is the younger sister of Chika and the vice president of the junior high student council, with a habit of dark remarks.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Chika's little sister"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-maki-shijo-name-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "maki-shijo"
+    },
+    "field": "name",
+    "value": [
+      "Maki Shijo",
+      "四条 眞妃"
+    ],
+    "text": "Maki Shijo is a classmate and best friend of Nagisa who is secretly jealous, and a running gag shows her watching the couple from the edge of the page.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "seemingly stalking the two with a distraught look"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-maki-shijo-voice-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "maki-shijo"
+    },
+    "field": "voice_cast",
+    "value": "Kana Ichinose",
+    "text": "Kana Ichinose voices Maki in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Voiced by: Kana Ichinose"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-kobachi-osaragi-name-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "kobachi-osaragi"
+    },
+    "field": "name",
+    "value": [
+      "Kobachi Osaragi",
+      "大仏 こばち"
+    ],
+    "text": "Kobachi Osaragi is the glasses-wearing classmate of Miko and a member of the disciplinary committee.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Miko's classmate with the glasses"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-tsubame-koyasu-name-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "tsubame-koyasu"
+    },
+    "field": "name",
+    "value": [
+      "Tsubame Koyasu",
+      "子安 つばめ"
+    ],
+    "text": "Tsubame Koyasu is a popular senior who serves as vice captain of the cheer squad and does rhythmic gymnastics.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "vice-captain of the cheer squad and a rhythmic gymnast"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-tsubame-koyasu-voice-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "tsubame-koyasu"
+    },
+    "field": "voice_cast",
+    "value": "Haruka Fukuhara",
+    "text": "Haruka Fukuhara voices Tsubame in Japanese, and she also sings the second ending theme of the anime.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Voiced by: Haruka Fukuhara"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-karen-kino-name-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "karen-kino"
+    },
+    "field": "name",
+    "value": [
+      "Karen Kino",
+      "紀 かれん"
+    ],
+    "text": "Karen Kino is a mass media club member who writes fan fiction about the leads, and the daughter of the head of a big publisher.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "writing fan fiction manga about them"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-erika-kose-name-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "erika-kose"
+    },
+    "field": "name",
+    "value": [
+      "Erika Kose",
+      "巨瀬 エリカ"
+    ],
+    "text": "Erika Kose is a mass media club member with a ponytail whose obsession is fixed on Kaguya, from a family that makes miso.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "daughter of a family that makes miso"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-papa-shirogane-name-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "papa-shirogane"
+    },
+    "field": "name",
+    "value": [
+      "Papa Shirogane",
+      "白銀 父"
+    ],
+    "text": "Papa Shirogane is the father of Miyuki and Kei, who spends most of his time jobless and tells fortunes.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "He does random activities such as fortune-telling and giving advice"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-papa-shirogane-voice-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "papa-shirogane"
+    },
+    "field": "voice_cast",
+    "value": "Takehito Koyasu",
+    "text": "Takehito Koyasu voices him in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Voiced by: Takehito Koyasu"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-unyo-shinomiya-name-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "unyo-shinomiya"
+    },
+    "field": "name",
+    "value": [
+      "Un'yo Shinomiya",
+      "四宮 雲鷹"
+    ],
+    "text": "Un'yo Shinomiya is the cold and sharp half-brother of Kaguya who is very protective of her.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "elder half-brother to Kaguya"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-oko-shinomiya-name-084",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "oko-shinomiya"
+    },
+    "field": "name",
+    "value": [
+      "Oko Shinomiya",
+      "四宮 黄光"
+    ],
+    "text": "Oko Shinomiya is the eldest child of Gan'an and the heir to the Shinomiya Group.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "eldest child of Gan'an Shinomiya and the heir to the Shinomiya Group"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-mikado-shijo-name-085",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "mikado-shijo"
+    },
+    "field": "name",
+    "value": [
+      "Mikado Shijo",
+      "四条 帝"
+    ],
+    "text": "Mikado Shijo is the heir to the Shijo Group and the younger twin brother of Maki.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "younger twin brother of Maki Shijo"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-mikado-shijo-voice-086",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "mikado-shijo"
+    },
+    "field": "voice_cast",
+    "value": "Seiichiro Yamashita",
+    "text": "Seiichiro Yamashita voices Mikado in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "Voiced by: Seiichiro Yamashita"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-ganan-shinomiya-name-087",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "ganan-shinomiya"
+    },
+    "field": "name",
+    "value": [
+      "Gan'an Shinomiya",
+      "四宮 雁庵"
+    ],
+    "text": "Gan'an Shinomiya is the patriarch of the Shinomiya Group, who by the time he appears is weakened by illness.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "patriarch of the Shinomiya Group"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-mikado-shijo-namesake-088",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "mikado-shijo"
+    },
+    "field": "namesake",
+    "value": "The emperor of the Bamboo Cutter tale",
+    "text": "Mikado shares his name with the emperor who courts the princess in the Tale of the Bamboo Cutter.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-25T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T17:37:52.000Z",
+    "excerpt": "He is named after the Emperor from The Tale of the Bamboo Cutter"
+  }
+]

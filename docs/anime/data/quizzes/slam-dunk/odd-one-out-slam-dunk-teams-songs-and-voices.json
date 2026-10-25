@@ -1,0 +1,331 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "slam-dunk",
+  "title": "Odd One Out: Slam Dunk Teams, Songs and Voices",
+  "slug": "odd-one-out-slam-dunk-teams-songs-and-voices",
+  "description": "Four choices, one that does not belong. Teams, nicknames, songs, voices and honors of Slam Dunk. Light spoilers up to the Kainan and Sannoh teams.",
+  "quiz_type": "intruder",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Intruder format: three real members of a group and one real outsider, every label from the series data.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Slam Dunk characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Slam Dunk episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_episodes"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: The First Slam Dunk",
+      "url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: Slam Dunk (manga)",
+      "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Three of these play for Shohoku. Which one plays for Kainan?",
+      "options": [
+        {
+          "label": "Kaede Rukawa"
+        },
+        {
+          "label": "Takenori Akagi"
+        },
+        {
+          "label": "Hanamichi Sakuragi"
+        },
+        {
+          "label": "Nobunaga Kiyota"
+        }
+      ],
+      "correct": 3,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-nobunaga-kiyota-name-077",
+        "slam-dunk-hanamichi-sakuragi-name-046",
+        "slam-dunk-takenori-akagi-name-050",
+        "slam-dunk-kaede-rukawa-name-053"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Three of these play for Kainan. Which one plays for Shoyo?",
+      "options": [
+        {
+          "label": "Toru Hanagata"
+        },
+        {
+          "label": "Nobunaga Kiyota"
+        },
+        {
+          "label": "Shinichi Maki"
+        },
+        {
+          "label": "Soichiro Jin"
+        }
+      ],
+      "correct": 0,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-toru-hanagata-name-081",
+        "slam-dunk-shinichi-maki-name-075",
+        "slam-dunk-nobunaga-kiyota-name-077",
+        "slam-dunk-soichiro-jin-name-079"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Three of these are team captains. Which one is not?",
+      "options": [
+        {
+          "label": "Takenori Akagi"
+        },
+        {
+          "label": "Nobunaga Kiyota"
+        },
+        {
+          "label": "Shinichi Maki"
+        },
+        {
+          "label": "Kazunari Fukatsu"
+        }
+      ],
+      "correct": 1,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 8,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-nobunaga-kiyota-name-077",
+        "slam-dunk-takenori-akagi-name-050",
+        "slam-dunk-shinichi-maki-name-075",
+        "slam-dunk-kazunari-fukatsu-name-082"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Three of these songs closed episodes of the TV anime. Which one opened them?",
+      "options": [
+        {
+          "label": "Sekai ga Owaru Made wa"
+        },
+        {
+          "label": "Kimi ga Suki da to Sakebitai"
+        },
+        {
+          "label": "Anata Dake Mitsumeteru"
+        },
+        {
+          "label": "My Friend"
+        }
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "slam-dunk-themes-op-032",
+        "slam-dunk-themes-ed-033"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_episodes"
+    },
+    {
+      "question": "Three of these acts sang an ending of the TV anime. Which one sang an opening?",
+      "options": [
+        {
+          "label": "Zard"
+        },
+        {
+          "label": "Maki Ohguro"
+        },
+        {
+          "label": "Wands"
+        },
+        {
+          "label": "Baad"
+        }
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "slam-dunk-themes-op-032",
+        "slam-dunk-themes-ed-033"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_episodes"
+    },
+    {
+      "question": "Three of these songs belong to the TV anime. Which one belongs to the 2022 film?",
+      "options": [
+        {
+          "label": "My Friend"
+        },
+        {
+          "label": "Sekai ga Owaru Made wa"
+        },
+        {
+          "label": "Love Rockets"
+        },
+        {
+          "label": "Zettai ni, Daremo"
+        }
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "slam-dunk-ichi-songs-041",
+        "slam-dunk-themes-op-032",
+        "slam-dunk-themes-ed-033"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk"
+    },
+    {
+      "question": "Three of these actors voice Shohoku people in the TV anime. Which one voices a Ryonan player?",
+      "options": [
+        {
+          "label": "Hōchū Ōtsuka"
+        },
+        {
+          "label": "Kiyoyuki Yanada"
+        },
+        {
+          "label": "Hikaru Midorikawa"
+        },
+        {
+          "label": "Takeshi Kusao"
+        }
+      ],
+      "correct": 0,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-akira-sendoh-voice-072",
+        "slam-dunk-hanamichi-sakuragi-voice-049",
+        "slam-dunk-kaede-rukawa-voice-054",
+        "slam-dunk-takenori-akagi-voice-052"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Three of these nicknames were given by Sakuragi. Which one was given to him?",
+      "options": [
+        {
+          "label": "Red Monkey"
+        },
+        {
+          "label": "Boss Monkey"
+        },
+        {
+          "label": "Gori"
+        },
+        {
+          "label": "Megane-kun"
+        }
+      ],
+      "correct": 0,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-nobunaga-kiyota-red-monkey-078",
+        "slam-dunk-takenori-akagi-gori-051",
+        "slam-dunk-kiminobu-kogure-nickname-064",
+        "slam-dunk-jun-uozumi-boss-monkey-074"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Three of these are anime films. Which one is a manga epilogue drawn on chalkboards?",
+      "options": [
+        {
+          "label": "Slam Dunk, the 1994 film"
+        },
+        {
+          "label": "10 Days After"
+        },
+        {
+          "label": "Zenkoku Seiha da! Sakuragi Hanamichi"
+        },
+        {
+          "label": "The First Slam Dunk"
+        }
+      ],
+      "correct": 1,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-ten-days-after-025",
+        "slam-dunk-early-films-035",
+        "slam-dunk-ichi-release-038"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "question": "Three of these honors went to the manga or its author. Which one went to a film?",
+      "options": [
+        {
+          "label": "Japan Academy Prize"
+        },
+        {
+          "label": "Japan Basketball Association commendation"
+        },
+        {
+          "label": "Top manga in a 2006 poll"
+        },
+        {
+          "label": "Shogakukan Manga Award"
+        }
+      ],
+      "correct": 0,
+      "kind": "odd_one_out",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-ichi-prize-040",
+        "slam-dunk-award-shogakukan-016",
+        "slam-dunk-jba-017",
+        "slam-dunk-poll-2006-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk"
+    }
+  ]
+}

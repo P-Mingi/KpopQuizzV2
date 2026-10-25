@@ -1,0 +1,2764 @@
+[
+  {
+    "id": "inuyasha-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "title_native",
+    "value": [
+      "犬夜叉",
+      "Dog Yaksha"
+    ],
+    "text": "The Japanese title 犬夜叉 means dog yaksha, a name that points to the half dog demon hero.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q182056",
+        "ref": "Q182056",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "lit. 'Dog Yaksha'"
+  },
+  {
+    "id": "inuyasha-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "author",
+    "value": "Rumiko Takahashi",
+    "text": "Rumiko Takahashi wrote and drew Inuyasha on her own.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q182056",
+        "ref": "Q182056",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/inuyasha",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "written and illustrated by Rumiko Takahashi"
+  },
+  {
+    "id": "inuyasha-magazine-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Sunday",
+    "text": "The manga ran in Weekly Shōnen Sunday for its whole serialization.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q182056",
+        "ref": "Q182056",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Weekly Shōnen Sunday"
+  },
+  {
+    "id": "inuyasha-publisher-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "publisher",
+    "value": "Shogakukan",
+    "text": "Shogakukan published the collected volumes in Japan under its Shōnen Sunday Comics label.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q182056",
+        "ref": "Q182056",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Shōnen Sunday Comics"
+  },
+  {
+    "id": "inuyasha-manga-start-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "manga_start",
+    "value": "November 13, 1996",
+    "text": "The first chapter appeared in Weekly Shōnen Sunday on November 13, 1996.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q182056",
+        "ref": "Q182056",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=76",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "debuted in Shogakukan's shōnen manga magazine Weekly Shōnen Sunday on November 13, 1996"
+  },
+  {
+    "id": "inuyasha-manga-end-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "manga_run",
+    "value": [
+      "November 13, 1996",
+      "June 18, 2008"
+    ],
+    "text": "The weekly run ended on June 18, 2008, after eleven years and seven months.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q182056",
+        "ref": "Q182056",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=76",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "finished after an 11-year and seven-month run"
+  },
+  {
+    "id": "inuyasha-volumes-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "volumes",
+    "value": 56,
+    "text": "The manga fills 56 collected volumes, released between April 1997 and February 2009.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q182056",
+        "ref": "Q182056",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=76",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Its 558 chapters were collected in 56 tankōbon volumes"
+  },
+  {
+    "id": "inuyasha-chapters-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "chapters",
+    "value": 558,
+    "text": "The story is told in 558 chapters.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Its 558 chapters"
+  },
+  {
+    "id": "inuyasha-wide-ban-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "manga_2",
+    "value": "30 volumes",
+    "text": "A 30 volume wide-ban edition was published between January 2013 and June 2015.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "a 30-volume wide-ban edition"
+  },
+  {
+    "id": "inuyasha-since-then-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "bonus_special",
+    "value": [
+      "Since Then",
+      "February 6, 2013"
+    ],
+    "text": "On February 6, 2013 Takahashi published an epilogue chapter called Since Then, in a charity anthology for areas hit by the 2011 Tōhoku earthquake and tsunami.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "to raise funds for recovery of the areas afflicted by the 2011 Tōhoku earthquake and tsunami"
+  },
+  {
+    "id": "inuyasha-after-ranma-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "background",
+    "value": "Ranma ½",
+    "text": "Takahashi began Inuyasha after finishing her previous manga, Ranma ½.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Takahashi wrote Inuyasha after finishing her previous manga"
+  },
+  {
+    "id": "inuyasha-darker-story-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "style",
+    "value": "A darker story",
+    "text": "Unlike her earlier comedies, Takahashi wanted a darker story, closer to her Mermaid Saga tales.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "she wanted to create a darker storyline"
+  },
+  {
+    "id": "inuyasha-sengoku-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "setting",
+    "value": "Sengoku period",
+    "text": "The story is set in the Sengoku period, an age of frequent wars, so that violence could be shown in a softer way.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "the story was set in the Sengoku period, when wars were common"
+  },
+  {
+    "id": "inuyasha-ending-unsure-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "planning",
+    "value": "No set ending by 2001",
+    "text": "By June 2001 Takahashi had no clear ending, because she was still unsure how to end the relationship between the two leads.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "a clear ending to the series had not been established"
+  },
+  {
+    "id": "inuyasha-hakkenden-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "inspiration",
+    "value": "Nansō Satomi Hakkenden",
+    "text": "The series draws some motifs from Nansō Satomi Hakkenden, a novel of the 19th century.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "a 19th-century novel from which Inuyasha draws some of its motifs"
+  },
+  {
+    "id": "inuyasha-premise-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "premise",
+    "value": [
+      "Bone Eater's Well",
+      "Shikon Jewel"
+    ],
+    "text": "A modern schoolgirl falls into an old well in her family shrine and lands in the Sengoku period, where she meets a half dog demon.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "transported to the Sengoku period after falling into a well in her family shrine"
+  },
+  {
+    "id": "inuyasha-shards-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "treasure",
+    "value": "Shikon Jewel shards",
+    "text": "After Kagome breaks the Shikon Jewel, which is said to grant any wish, the pieces fly all over Japan and the heroes set out to gather them.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "she inadvertently shatters it into dozens of fragments that scatter across Japan"
+  },
+  {
+    "id": "inuyasha-ending-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "mission",
+    "value": "The jewel disappears",
+    "text": "At the end Kagome wishes that the Shikon Jewel vanish forever, and three years later she comes back through the well and marries Inuyasha.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Kagome wishes for the Shikon Jewel to disappear forever"
+  },
+  {
+    "id": "inuyasha-award-shogakukan-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "manga_award",
+    "value": [
+      "47th Shogakukan Manga Award",
+      "shonen category",
+      "2002"
+    ],
+    "text": "The manga took the Shogakukan Manga Award, 47th edition, for shonen manga in 2002.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shogakukan-comic.jp/shogakukan-mangasho-archives",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "won the 47th Shogakukan Manga Award in the shōnen category"
+  },
+  {
+    "id": "inuyasha-award-jmaf-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "award",
+    "value": "Japan Media Arts Festival jury recommendation",
+    "text": "The manga was a Jury Recommended Work at the Japan Media Arts Festival in 2001 and again in 2008.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Jury Recommended Works at the fifth and 12th installments of the Japan Media Arts Festival"
+  },
+  {
+    "id": "inuyasha-sosenkyo-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "popularity",
+    "value": "28th in Manga Sōsenkyo 2021",
+    "text": "In the TV Asahi poll Manga Sōsenkyo 2021, where 150,000 people picked their top 100, Inuyasha ranked 28th.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Inuyasha ranked 28th"
+  },
+  {
+    "id": "inuyasha-copies-2020-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "copies",
+    "value": "Over 50 million",
+    "text": "As of September 2020, circulation of the manga was above 50 million copies.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "By September 2020, the manga had over 50 million copies in circulation"
+  },
+  {
+    "id": "inuyasha-copies-2010-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "print_run",
+    "value": "45 million by February 2010",
+    "text": "Circulation stood at more than 45 million copies in February 2010.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "By February 2010, Inuyasha had over 45 million copies in circulation"
+  },
+  {
+    "id": "inuyasha-viz-run-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "english_release",
+    "value": [
+      "Viz Media",
+      "April 1997",
+      "January 11, 2011"
+    ],
+    "text": "Viz Media began its English edition in April 1997, first as comic book issues, and it released the 56th and last volume on January 11, 2011.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/inuyasha",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Viz Media published the 56th and final volume of Inuyasha on January 11, 2011"
+  },
+  {
+    "id": "inuyasha-anime-studio-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "anime_studio",
+    "value": "Sunrise",
+    "text": "Sunrise produced the first anime series.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha_(TV_series)",
+        "ref": "1373125400",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q21587460",
+        "ref": "Q21587460",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Produced by Sunrise"
+  },
+  {
+    "id": "inuyasha-anime-start-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "anime_start",
+    "value": "October 16, 2000",
+    "text": "The first anime series began on October 16, 2000.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q21587460",
+        "ref": "Q21587460",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=159",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "from October 16, 2000, to September 13, 2004"
+  },
+  {
+    "id": "inuyasha-anime-end-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "anime_end",
+    "value": "September 13, 2004",
+    "text": "The first anime series ended on September 13, 2004.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q21587460",
+        "ref": "Q21587460",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=159",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "to September 13, 2004"
+  },
+  {
+    "id": "inuyasha-episodes-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "episodes",
+    "value": 167,
+    "text": "The first series has 167 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q21587460",
+        "ref": "Q21587460",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=159",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "broadcast for 167 episodes on Yomiuri TV"
+  },
+  {
+    "id": "inuyasha-anime-directors-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "anime_directors",
+    "value": [
+      "Masashi Ikeda",
+      "Yasunao Aoki"
+    ],
+    "text": "Masashi Ikeda directed the first 44 episodes, and Yasunao Aoki directed the rest.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha_(TV_series)",
+        "ref": "1373125400",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q21587460",
+        "ref": "Q21587460",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Directed by Masashi Ikeda"
+  },
+  {
+    "id": "inuyasha-music-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "composers",
+    "value": "Kaoru Wada",
+    "text": "Kaoru Wada composed the music of the first anime series.",
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha_(TV_series)",
+        "ref": "1373125400",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q21587460",
+        "ref": "Q21587460",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Music by Kaoru Wada"
+  },
+  {
+    "id": "inuyasha-writer-031",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "crew_roles",
+    "value": [
+      "Katsuyuki Sumisawa",
+      "Yoshihito Hishinuma"
+    ],
+    "text": "Katsuyuki Sumisawa developed the anime and wrote its films, and Yoshihito Hishinuma designed the characters.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=159",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "written by Katsuyuki Sumisawa"
+  },
+  {
+    "id": "inuyasha-season-1-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "season_1",
+    "value": [
+      "Season 1",
+      "44 episodes",
+      "October 16, 2000",
+      "September 17, 2001"
+    ],
+    "text": "The first season has 44 episodes and aired from October 16, 2000 to September 17, 2001.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_episodes",
+        "ref": "1379123442",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "October 16, 2000 (2000-10-16) September 17, 2001 (2001-09-17)"
+  },
+  {
+    "id": "inuyasha-season-2-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "season_2",
+    "value": [
+      "Season 2",
+      "43 episodes",
+      "October 8, 2001",
+      "September 16, 2002"
+    ],
+    "text": "The second season has 43 episodes and aired from October 8, 2001 to September 16, 2002.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_episodes",
+        "ref": "1379123442",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "October 8, 2001 (2001-10-08) September 16, 2002 (2002-09-16)"
+  },
+  {
+    "id": "inuyasha-season-3-034",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "season_3",
+    "value": [
+      "Season 3",
+      "40 episodes",
+      "October 14, 2002",
+      "September 15, 2003"
+    ],
+    "text": "The third season has 40 episodes and aired from October 14, 2002 to September 15, 2003.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_episodes",
+        "ref": "1379123442",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "October 14, 2002 (2002-10-14) September 15, 2003 (2003-09-15)"
+  },
+  {
+    "id": "inuyasha-season-4-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "season_4",
+    "value": [
+      "Season 4",
+      "40 episodes",
+      "October 13, 2003",
+      "September 13, 2004"
+    ],
+    "text": "The fourth season has 40 episodes and aired from October 13, 2003 to September 13, 2004.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_episodes",
+        "ref": "1379123442",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "October 13, 2003 (2003-10-13) September 13, 2004 (2004-09-13)"
+  },
+  {
+    "id": "inuyasha-final-act-announced-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "anime_announced",
+    "value": "July 2009",
+    "text": "In July 2009 a sequel TV series was announced, made by the same cast and crew, to cover the last volumes of the manga.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "it was announced that another anime television series adaptation"
+  },
+  {
+    "id": "inuyasha-final-act-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "anime_s2",
+    "value": [
+      "The Final Act",
+      "26 episodes",
+      "October 4, 2009",
+      "March 30, 2010"
+    ],
+    "text": "The Final Act has 26 episodes and aired from October 4, 2009 to March 30, 2010, adapting the rest of the manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3728811",
+        "ref": "Q3728811",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=10970",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "broadcast for 26 episodes on Nippon TV and Yomiuri TV"
+  },
+  {
+    "id": "inuyasha-themes-op-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP1: Change the World (V6)",
+      "OP2: I Am (Hitomi)",
+      "OP3: Owarinai Yume (Nanase Aikawa)",
+      "OP4: Grip! (Every Little Thing)",
+      "OP5: One Day, One Dream (Tackey & Tsubasa)",
+      "OP6: Angelus (Hitomi Shimatani)"
+    ],
+    "text": "Six openings were used in turn, from Change the World by V6 to Angelus by Hitomi Shimatani.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha_(TV_series)",
+        "ref": "1373125400",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=159",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "The first opening theme is titled \"Change the World\" performed by V6"
+  },
+  {
+    "id": "inuyasha-themes-ed-039",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED1: My Will (Dream)",
+      "ED2: Fukai Mori (Do As Infinity)",
+      "ED3: Dearest (Ayumi Hamasaki)",
+      "ED4: Every Heart (BoA)",
+      "ED5: Shinjitsu no Uta (Do As Infinity)",
+      "ED6: Itazura na Kiss (day after tomorrow)",
+      "ED7: Come (Namie Amuro)",
+      "ED8: Brand-New World (V6)"
+    ],
+    "text": "Eight endings were used, from My Will by Dream to Brand-New World by V6, with Ayumi Hamasaki, BoA and Namie Amuro in between.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha_(TV_series)",
+        "ref": "1373125400",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=159",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "the ending theme is titled \"My Will\" by Dream"
+  },
+  {
+    "id": "inuyasha-themes-fa-040",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP: Kimi ga Inai Mirai (Do As Infinity)",
+      "ED1: With You (AAA)",
+      "ED2: Diamond (Alan)",
+      "ED3: Tooi Michi no Saki de (Ai Takekawa)"
+    ],
+    "text": "The Final Act used one opening, Kimi ga Inai Mirai by Do As Infinity, and three endings by AAA, Alan and Ai Takekawa.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha:_The_Final_Act",
+        "ref": "1375602492",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=10970",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "was the opening theme song for the series, used throughout the series"
+  },
+  {
+    "id": "inuyasha-film-1-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "film",
+    "value": [
+      "Affections Touching Across Time",
+      "2001"
+    ],
+    "text": "The first film, Affections Touching Across Time, came out in 2001 and pits the heroes against a moth warrior woken by a jewel shard.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "In the film, Inuyasha and his friends confront Menomaru, a demonic moth warrior"
+  },
+  {
+    "id": "inuyasha-film-2-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "films",
+    "value": [
+      "The Castle Beyond the Looking Glass",
+      "2002"
+    ],
+    "text": "In the second film, from 2002, the villain is Kaguya, a character based on the Tale of the Bamboo Cutter.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "a character based on the literature The Tale of the Bamboo Cutter"
+  },
+  {
+    "id": "inuyasha-film-3-043",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "final_films",
+    "value": [
+      "Swords of an Honorable Ruler",
+      "Fire on the Mystic Island"
+    ],
+    "text": "The third film, from 2003, has the two brothers seal their father's third sword, and the fourth, from 2004, is set on a mystical island.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Inuyasha and Sesshomaru forcefully work together to seal the evil Sō'unga"
+  },
+  {
+    "id": "inuyasha-films-gross-044",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "record",
+    "value": "Over 20 million dollars",
+    "text": "Together the four films earned more than 20 million US dollars in Japanese theaters.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Together, the four films have earned over US$20 million at Japanese box offices"
+  },
+  {
+    "id": "inuyasha-ova-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "ova",
+    "value": [
+      "Black Tessaiga",
+      "July 30, 2008",
+      "October 20, 2010"
+    ],
+    "text": "The 30 minute OVA Black Tessaiga was shown on July 30, 2008 at an exhibit in Tokyo and went on sale in Japan on October 20, 2010.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "A 30-minute original video animation titled Black Tessaiga"
+  },
+  {
+    "id": "inuyasha-yasha-announced-046",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "new_anime",
+    "value": [
+      "Yashahime: Princess Half-Demon",
+      "May 2020"
+    ],
+    "text": "In May 2020 an anime-original sequel, Yashahime: Princess Half-Demon, was announced, and it premiered on October 3, 2020.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "an anime original sequel spin-off television series was announced"
+  },
+  {
+    "id": "inuyasha-yasha-run-047",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "spin_offs",
+    "value": [
+      "Yashahime",
+      "two seasons",
+      "October 2020",
+      "March 2022"
+    ],
+    "text": "Yashahime ran for two seasons between October 2020 and March 2022, and follows the daughters of the original heroes.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "aired for two seasons from October 2020 to March 2022"
+  },
+  {
+    "id": "inuyasha-adult-swim-048",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "english_dub",
+    "value": "Adult Swim",
+    "text": "In the United States both series aired on Adult Swim, and later on its revived Toonami block, between 2002 and 2015.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "aired in the United States on Adult Swim"
+  },
+  {
+    "id": "inuyasha-novel-049",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "novel",
+    "value": [
+      "Tomoko Komparu",
+      "December 10, 2004"
+    ],
+    "text": "A light novel by Tomoko Komparu, illustrated by Takahashi, was published by Shogakukan on December 10, 2004.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "A light novel, written by Tomoko Komparu"
+  },
+  {
+    "id": "inuyasha-stage-2017-050",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "live_action",
+    "value": [
+      "Stage play",
+      "April 2017",
+      "Tennozu Galaxy Theater"
+    ],
+    "text": "A stage play of Inuyasha ran at the Tennozu Galaxy Theater in Tokyo in April 2017, with Yutaka Kyan as Inuyasha and Yumi Wakatsuki as Kagome.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "featuring Yutaka Kyan from Golden Bomber as Inuyasha"
+  },
+  {
+    "id": "inuyasha-monster-hunter-051",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "franchise_titles",
+    "value": "Monster Hunter",
+    "text": "Inuyasha's sword Tessaiga appeared in Monster Hunter as a weapon that players could craft during a special event.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "has appeared in Monster Hunter as a craftable weapon"
+  },
+  {
+    "id": "inuyasha-arc-list-052",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "inuyasha"
+    },
+    "field": "arcs",
+    "value": [
+      "Season 1: episodes 1 to 44",
+      "Season 2: episodes 45 to 87",
+      "Season 3: episodes 88 to 127",
+      "Season 4: episodes 128 to 167",
+      "The Final Act: 26 episodes"
+    ],
+    "text": "The anime is cut into the four seasons of the first series plus the sequel series The Final Act.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_episodes",
+        "ref": "1379123442",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Series overview"
+  },
+  {
+    "id": "inuyasha-inuyasha-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "inuyasha"
+    },
+    "field": "name",
+    "value": [
+      "Inuyasha",
+      "犬夜叉"
+    ],
+    "text": "Inuyasha is a proud, stubborn half-demon whose mother was human and whose father was a dog demon, with a soft side under the pride.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "was born of a dog-demon father and a human mother"
+  },
+  {
+    "id": "inuyasha-inuyasha-voice-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "inuyasha"
+    },
+    "field": "voice_cast",
+    "value": "Kappei Yamaguchi",
+    "text": "Kappei Yamaguchi voices Inuyasha in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Voiced by: Kappei Yamaguchi"
+  },
+  {
+    "id": "inuyasha-kagome-higurashi-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "kagome-higurashi"
+    },
+    "field": "name",
+    "value": [
+      "Kagome Higurashi",
+      "日暮 かごめ"
+    ],
+    "text": "Kagome Higurashi is a brave and kind modern girl, the reincarnation of the priestess Kikyo, who never turns her back on someone in trouble.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "the reincarnation of the Sengoku period priestess Kikyo"
+  },
+  {
+    "id": "inuyasha-kagome-higurashi-archery-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "kagome-higurashi"
+    },
+    "field": "talent",
+    "value": "Archery",
+    "text": "As the series goes on Kagome becomes very skilled at archery and masters her strong spiritual powers.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "She becomes highly skilled in archery as the series progresses"
+  },
+  {
+    "id": "inuyasha-kagome-higurashi-voice-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "kagome-higurashi"
+    },
+    "field": "voice_cast",
+    "value": "Satsuki Yukino",
+    "text": "Satsuki Yukino voices Kagome in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Voiced by: Satsuki Yukino"
+  },
+  {
+    "id": "inuyasha-miroku-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "miroku"
+    },
+    "field": "name",
+    "value": [
+      "Miroku",
+      "弥勒"
+    ],
+    "text": "Miroku is an eighteen year old Buddhist monk who is clever and lecherous, and who often swindles rich clients.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "lecherous and intelligent Buddhist monk"
+  },
+  {
+    "id": "inuyasha-miroku-wind-tunnel-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "miroku"
+    },
+    "field": "ability",
+    "value": "Wind Tunnel",
+    "text": "Miroku's greatest weapon is the Wind Tunnel, a black hole in his right palm that is really a hereditary curse laid on his grandfather by Naraku.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Miroku's greatest weapon is the Wind Tunnel"
+  },
+  {
+    "id": "inuyasha-miroku-voice-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "miroku"
+    },
+    "field": "voice_cast",
+    "value": "Kōji Tsujitani",
+    "text": "Kōji Tsujitani voices Miroku in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Voiced by: Kōji Tsujitani"
+  },
+  {
+    "id": "inuyasha-sango-name-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "sango"
+    },
+    "field": "name",
+    "value": [
+      "Sango",
+      "珊瑚"
+    ],
+    "text": "Sango is a sixteen year old demon slayer, the most skilled of her village, the original home of the Shikon Jewel.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "a sixteen-year-old demon slayer"
+  },
+  {
+    "id": "inuyasha-sango-boomerang-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "sango"
+    },
+    "field": "ability",
+    "value": "Hiraikotsu",
+    "text": "Sango fights with the Hiraikotsu, a huge purified bone boomerang.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "a massive purified bone boomerang"
+  },
+  {
+    "id": "inuyasha-sango-voice-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "sango"
+    },
+    "field": "voice_cast",
+    "value": "Houko Kuwashima",
+    "text": "Houko Kuwashima voices Sango in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Voiced by: Houko Kuwashima"
+  },
+  {
+    "id": "inuyasha-shippo-name-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "shippo"
+    },
+    "field": "name",
+    "value": [
+      "Shippo",
+      "七宝"
+    ],
+    "text": "Shippo is an orphaned fox demon who first tries to steal the Shikon Jewel to avenge his father, then becomes a loyal companion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "an orphaned kitsune who initially tries stealing the Shikon Jewel"
+  },
+  {
+    "id": "inuyasha-kirara-name-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "kirara"
+    },
+    "field": "name",
+    "value": [
+      "Kirara",
+      "雲母"
+    ],
+    "text": "Kirara is the faithful two-tailed companion of Sango, who looks like a kitten but can grow big enough to carry several passengers through the air.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "usually appears to be a small kitten-sized feline with two tails"
+  },
+  {
+    "id": "inuyasha-sesshomaru-name-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "sesshomaru"
+    },
+    "field": "name",
+    "value": [
+      "Sesshomaru",
+      "殺生丸"
+    ],
+    "text": "Sesshomaru is a powerful dog demon feared across the feudal era, and the older half-brother of Inuyasha.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "a powerful dog demon (daiyōkai), feared throughout the feudal era"
+  },
+  {
+    "id": "inuyasha-sesshomaru-voice-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "sesshomaru"
+    },
+    "field": "voice_cast",
+    "value": "Ken Narita",
+    "text": "Ken Narita voices Sesshomaru in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Voiced by: Ken Narita"
+  },
+  {
+    "id": "inuyasha-naraku-name-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "naraku"
+    },
+    "field": "name",
+    "value": [
+      "Naraku",
+      "奈落"
+    ],
+    "text": "Naraku is the main villain, a half-demon born from the bandit Onigumo and the arch-enemy of Inuyasha and his friends.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "the main antagonist of the series"
+  },
+  {
+    "id": "inuyasha-naraku-voice-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "naraku"
+    },
+    "field": "voice_cast",
+    "value": "Toshiyuki Morikawa",
+    "text": "Toshiyuki Morikawa voices Naraku in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Voiced by: Toshiyuki Morikawa"
+  },
+  {
+    "id": "inuyasha-naraku-last-wish-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "naraku"
+    },
+    "field": "motivation",
+    "value": "Trapped in the jewel",
+    "text": "In the end Naraku confesses a desire for Kikyo that sits beside his hatred of her, then spends his wish on locking himself and Kagome in the Shikon Jewel and dies.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "he uses his wish to trap himself and Kagome inside the Shikon Jewel before dying"
+  },
+  {
+    "id": "inuyasha-kikyo-name-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "kikyo"
+    },
+    "field": "name",
+    "value": [
+      "Kikyo",
+      "桔梗"
+    ],
+    "text": "Kikyo is the priestess who guarded the Shikon Jewel five hundred years before the main story and who loved Inuyasha.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "tasked with guarding the Shikon Jewel 500 years before the main events"
+  },
+  {
+    "id": "inuyasha-kikyo-voice-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "kikyo"
+    },
+    "field": "voice_cast",
+    "value": "Noriko Hidaka",
+    "text": "Noriko Hidaka voices Kikyo in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Voiced by: Noriko Hidaka"
+  },
+  {
+    "id": "inuyasha-kikyo-sacrifice-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "kikyo"
+    },
+    "field": "role",
+    "value": "Gives her life to Kohaku",
+    "text": "Kikyo gives her own life so that Kohaku can live, just before Naraku gathers all the shards.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Kikyo sacrifices herself to give life to Kohaku"
+  },
+  {
+    "id": "inuyasha-kaede-name-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "kaede"
+    },
+    "field": "name",
+    "value": [
+      "Kaede",
+      "楓"
+    ],
+    "text": "Kaede is the younger sister of Kikyo, a strong shrine priestess who protects her village from demons.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Kikyo's younger sister"
+  },
+  {
+    "id": "inuyasha-kaede-beads-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "kaede"
+    },
+    "field": "ability",
+    "value": "Beads of subjugation",
+    "text": "Kaede keeps Inuyasha under control with a magical bead necklace after he is freed from the tree.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Inuyasha",
+        "ref": "1377936410",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "subdues him with a magical bead necklace"
+  },
+  {
+    "id": "inuyasha-koga-name-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "koga"
+    },
+    "field": "name",
+    "value": [
+      "Koga",
+      "鋼牙"
+    ],
+    "text": "Koga leads the Eastern Wolf Demon Tribe while still young, first fights Inuyasha as a rival, then becomes a grudging ally.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "the young leader of the Eastern Wolf Demon Tribe"
+  },
+  {
+    "id": "inuyasha-kohaku-name-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "kohaku"
+    },
+    "field": "name_native",
+    "value": [
+      "Kohaku",
+      "琥珀"
+    ],
+    "text": "Kohaku is the eleven year old younger brother of Sango, a demon exterminator like the rest of his family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Sango's eleven-year-old brother"
+  },
+  {
+    "id": "inuyasha-rin-name-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "rin"
+    },
+    "field": "name",
+    "value": [
+      "Rin",
+      "りん"
+    ],
+    "text": "Rin is a barefoot orphan girl who nursed the wounds of Sesshomaru when she found him under a tree.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "a barefoot orphan girl who tended to Sesshomaru's injuries"
+  },
+  {
+    "id": "inuyasha-jaken-name-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "jaken"
+    },
+    "field": "name",
+    "value": [
+      "Jaken",
+      "邪見"
+    ],
+    "text": "Jaken is a small, green, imp-like demon who serves Sesshomaru faithfully and carries the Staff of Two Heads.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "a small green imp-like demon loyal to Sesshomaru"
+  },
+  {
+    "id": "inuyasha-myoga-name-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "myoga"
+    },
+    "field": "name",
+    "value": [
+      "Myoga",
+      "冥加"
+    ],
+    "text": "Myoga is a flea demon who served Inuyasha's father and gives Inuyasha information, but tends to run away from danger.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "a flea demon in service to Toga"
+  },
+  {
+    "id": "inuyasha-totosai-name-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "totosai"
+    },
+    "field": "name",
+    "value": [
+      "Totosai",
+      "刀々斎"
+    ],
+    "text": "Totosai is an old demon blacksmith with bulging eyes who forged Tessaiga and Tenseiga from the fangs of the Great Dog General.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "an elderly yōkai blacksmith with large, bulging eyes"
+  },
+  {
+    "id": "inuyasha-kagura-name-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "kagura"
+    },
+    "field": "name_native",
+    "value": [
+      "Kagura",
+      "神楽"
+    ],
+    "text": "Kagura is a wind-controlling witch who fights with a fan, and the second detachment of Naraku.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "a wind-controlling witch who wields a fan"
+  },
+  {
+    "id": "inuyasha-kanna-name-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "kanna"
+    },
+    "field": "name",
+    "value": [
+      "Kanna",
+      "神無"
+    ],
+    "text": "Kanna is the first detachment of Naraku, a ten year old girl in white who carries a mirror.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "appearing in the form of a ten-year-old girl in white with a mirror"
+  },
+  {
+    "id": "inuyasha-bankotsu-name-084",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "bankotsu"
+    },
+    "field": "name",
+    "value": [
+      "Bankotsu",
+      "蛮骨"
+    ],
+    "text": "Bankotsu is the youngest and strongest member of the Band of Seven and its leader, a mercenary who keeps a sense of honor for his comrades.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "the leader of the Band of Seven, and its youngest and strongest member"
+  },
+  {
+    "id": "inuyasha-bankotsu-voice-085",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "bankotsu"
+    },
+    "field": "voice_cast",
+    "value": "Takeshi Kusao",
+    "text": "Takeshi Kusao voices Bankotsu in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "Voiced by: Takeshi Kusao"
+  },
+  {
+    "id": "inuyasha-hakudoshi-name-086",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "hakudoshi"
+    },
+    "field": "name",
+    "value": [
+      "Hakudoshi",
+      "白童子"
+    ],
+    "text": "Hakudoshi calls himself the essence of Naraku and his eighth detachment, a barefoot boy who is skilled with weapons.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-25T18:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:43:55.000Z",
+    "excerpt": "calling himself Naraku's \"essence\" and eighth detachment"
+  }
+]

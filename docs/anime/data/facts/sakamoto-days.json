@@ -1,0 +1,2508 @@
+[
+  {
+    "id": "sakamoto-days-title-native-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "title_native",
+    "value": [
+      "サカモトデイズ",
+      "SAKAMOTO DAYS",
+      "Sakamoto Deizu"
+    ],
+    "text": "The title is written in capital letters as SAKAMOTO DAYS, and in Japanese it is サカモトデイズ, romanized as Sakamoto Deizu.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Sakamoto Days (stylized in all caps)"
+  },
+  {
+    "id": "sakamoto-days-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "author",
+    "value": "Yuto Suzuki",
+    "text": "Yuto Suzuki writes and draws the manga on his own.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q105087026",
+        "ref": "Q105087026",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/sakamoto-days",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "written and illustrated by Yuto Suzuki"
+  },
+  {
+    "id": "sakamoto-days-magazine-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Jump",
+    "text": "The manga runs in Weekly Shōnen Jump, where it has been published since November 2020.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q105087026",
+        "ref": "Q105087026",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.shonenjump.com/j/rensai/sakamoto.html",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump since November 2020"
+  },
+  {
+    "id": "sakamoto-days-publisher-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "publisher",
+    "value": "Shueisha",
+    "text": "Shueisha publishes the collected volumes in Japan under its Jump Comics label.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Shueisha"
+  },
+  {
+    "id": "sakamoto-days-oneshot-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "debut",
+    "value": [
+      "Sakamoto",
+      "December 26, 2019"
+    ],
+    "text": "A one-shot simply called Sakamoto appeared in Jump Giga on December 26, 2019, a year before the weekly series.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Yuto Suzuki first published a one-shot titled Sakamoto"
+  },
+  {
+    "id": "sakamoto-days-manga-start-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "manga_start",
+    "value": "November 21, 2020",
+    "text": "The weekly serialization began on November 21, 2020.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q105087026",
+        "ref": "Q105087026",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=24170",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Sakamoto Days debuted in Shueisha's shōnen manga magazine Weekly Shōnen Jump on November 21, 2020"
+  },
+  {
+    "id": "sakamoto-days-volumes-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "volumes",
+    "value": 28,
+    "text": "As of August 2026 the series has 28 collected volumes, and the story is still running.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q105087026",
+        "ref": "Q105087026",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "As of August, 2026, 28 volumes have been released"
+  },
+  {
+    "id": "sakamoto-days-first-volume-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "manga_volumes",
+    "value": "April 2, 2021",
+    "text": "The first collected volume came out on April 2, 2021.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "The first volume was released on April 2, 2021"
+  },
+  {
+    "id": "sakamoto-days-copies-2026-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "copies",
+    "value": "Over 18 million",
+    "text": "By August 2026 the manga had more than 18 million copies in circulation.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "over 18 million copies in circulation by August 2026"
+  },
+  {
+    "id": "sakamoto-days-growth-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "print_run",
+    "value": [
+      "2.2 million by October 2022",
+      "12 million by June 2025",
+      "15 million by August 2025"
+    ],
+    "text": "Circulation grew from 2.2 million in October 2022 to 12 million in June 2025 and 15 million two months later.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "over 12 million copies in circulation by June 2025"
+  },
+  {
+    "id": "sakamoto-days-premise-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "premise",
+    "value": "A retired hitman",
+    "text": "A feared hitman retires for love, marries, becomes a father and runs a convenience store, until the underworld finds him again.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "a retired legendary hitman who has settled into a quiet and mundane life as a family man"
+  },
+  {
+    "id": "sakamoto-days-no-kill-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "mission",
+    "value": "The no-kill rule",
+    "text": "To date his wife, Sakamoto accepted her condition that he never kill again, and he has to protect his family under that rule.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "must quit being a hitman and never kill again"
+  },
+  {
+    "id": "sakamoto-days-why-fat-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "background",
+    "value": "Why is he fat",
+    "text": "Suzuki fixed the look of the hero by asking why a strong man would be fat, and answered that he retired and perhaps got married.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Why is he fat? Because he retired."
+  },
+  {
+    "id": "sakamoto-days-film-influences-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "inspiration",
+    "value": [
+      "Enter the Fat Dragon",
+      "The Equalizer",
+      "John Wick"
+    ],
+    "text": "The idea of a strong, heavy fighter was partly inspired by the comedy film Enter the Fat Dragon, and The Equalizer and the John Wick films also influenced Suzuki.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "partly influenced by the comedic action film Enter the Fat Dragon"
+  },
+  {
+    "id": "sakamoto-days-artist-influences-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "fond_of",
+    "value": [
+      "Katsuhiro Otomo",
+      "Takehiko Inoue",
+      "Hiroya Oku"
+    ],
+    "text": "Among the influences of Suzuki are Katsuhiro Otomo, Takehiko Inoue and Hiroya Oku, along with the movies of Christopher Nolan.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Suzuki was influenced by manga artists Katsuhiro Otomo, Takehiko Inoue, and Hiroya Oku"
+  },
+  {
+    "id": "sakamoto-days-nihonga-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "style",
+    "value": "Nihonga painting",
+    "text": "Suzuki's background in the Nihonga style of painting helps him create interesting page layouts, says his editor.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "his background in Nihonga style of painting allows him to create interesting layouts"
+  },
+  {
+    "id": "sakamoto-days-editor-shin-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "planning",
+    "value": "Shin the mind reader",
+    "text": "His editor says that pairing the quiet hero with a mind reader, Shin, revealed the motives of the hero and let the comedy flourish.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "pairing Taro Sakamoto with Shin, a mind-reading character"
+  },
+  {
+    "id": "sakamoto-days-dark-oneshots-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "talent",
+    "value": "Dark one-shots first",
+    "text": "Suzuki first drew dark one-shot stories and picked a lighter tone for Sakamoto Days because weekly serialization demanded it.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "originally drew dark one-shot stories"
+  },
+  {
+    "id": "sakamoto-days-final-battle-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "serialization",
+    "value": [
+      "Final battle",
+      "August 4, 2025"
+    ],
+    "text": "The story entered its final battle on August 4, 2025, and on July 21, 2026 it was announced that the series was heading to its climax.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "The series started its \"final battle\" on August 4, 2025"
+  },
+  {
+    "id": "sakamoto-days-award-next-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "award",
+    "value": [
+      "Next Manga Awards 2021",
+      "sixth place",
+      "U-Next Prize"
+    ],
+    "text": "At the 2021 Next Manga Awards the series placed sixth out of 50 nominees in the print category and won the U-Next Prize.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "It placed sixth out of 50 nominees, but won the U-Next Prize"
+  },
+  {
+    "id": "sakamoto-days-award-shogakukan-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "manga_award",
+    "value": [
+      "68th Shogakukan Manga Award",
+      "nominee",
+      "2022"
+    ],
+    "text": "The series earned a nomination in 2022 for the Shogakukan Manga Award, edition 68, among shonen titles.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "nominated for the 68th Shogakukan Manga Award in the shōnen category in 2022"
+  },
+  {
+    "id": "sakamoto-days-bookstore-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "popularity",
+    "value": "Sixth in the bookstore staff list of 2022",
+    "text": "Bookstore employees across Japan ranked the series sixth in their list of recommended comics of 2022.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "ranked sixth on the Nationwide Bookstore Employees' Recommended Comics of 2022"
+  },
+  {
+    "id": "sakamoto-days-viz-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "english_release",
+    "value": [
+      "Viz Media",
+      "Manga Plus",
+      "April 5, 2022"
+    ],
+    "text": "The manga is published in English at the same time as in Japan by Viz Media and on Manga Plus, and Viz began selling print volumes on April 5, 2022.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/sakamoto-days",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Viz Media started releasing the volumes in print on April 5, 2022"
+  },
+  {
+    "id": "sakamoto-days-holidays-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "spin_offs",
+    "value": [
+      "Sakamoto Holidays",
+      "Tetsu Ōkawa",
+      "July 4, 2024"
+    ],
+    "text": "A spin-off, Sakamoto Holidays, by Tetsu Ōkawa, a former assistant of Suzuki, began in Saikyō Jump on July 4, 2024.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "A spin-off manga by Tetsu Ōkawa"
+  },
+  {
+    "id": "sakamoto-days-novel-method-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "novel",
+    "value": [
+      "Sakamoto Days: Assassin's Method",
+      "Renka Misaki",
+      "April 4, 2023"
+    ],
+    "text": "The novel Assassin's Method, with an original story by Renka Misaki, was released on April 4, 2023, and its English edition on July 28, 2026.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "A novel adaptation with an exclusive story by Renka Misaki"
+  },
+  {
+    "id": "sakamoto-days-novel-blues-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "novel_history",
+    "value": [
+      "Sakamoto Days: Assassin's Blues",
+      "December 4, 2024"
+    ],
+    "text": "A second novel by Renka Misaki, Assassin's Blues, was released on December 4, 2024.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "was released on December 4, 2024"
+  },
+  {
+    "id": "sakamoto-days-game-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "franchise_titles",
+    "value": [
+      "Sakamoto Days: Dangerous Puzzle",
+      "April 2, 2025"
+    ],
+    "text": "A smartphone puzzle game, Dangerous Puzzle, developed by Goodroid, was released on April 2, 2025.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "was released on April 2, 2025"
+  },
+  {
+    "id": "sakamoto-days-anime-announced-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "anime_announced",
+    "value": "May 2024",
+    "text": "Reports in May 2024 revealed that TMS Entertainment would make a TV anime of the series.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "In May 2024, it was announced that the series would receive an anime television series adaptation"
+  },
+  {
+    "id": "sakamoto-days-anime-start-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "anime_start",
+    "value": "January 11, 2025",
+    "text": "The anime premiered on January 11, 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes",
+        "ref": "1376754875",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q126127689",
+        "ref": "Q126127689",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32767",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "The series ran in two split season cours, with the first cours aired from January 11 to March 22, 2025"
+  },
+  {
+    "id": "sakamoto-days-anime-studio-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "anime_studio",
+    "value": "TMS Entertainment",
+    "text": "TMS Entertainment produced the anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q126127689",
+        "ref": "Q126127689",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://sakamotodays.jp/",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "An anime television series adaptation produced by TMS Entertainment"
+  },
+  {
+    "id": "sakamoto-days-anime-director-031",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "anime_directors",
+    "value": [
+      "Masaki Watanabe",
+      "Daisuke Nakajima"
+    ],
+    "text": "Masaki Watanabe directed the first season, and Daisuke Nakajima is set to direct the second one.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q126127689",
+        "ref": "Q126127689",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=38152",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Directed by Masaki Watanabe (S1)"
+  },
+  {
+    "id": "sakamoto-days-crew-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "crew_roles",
+    "value": [
+      "Taku Kishimoto",
+      "Yō Moriyama",
+      "Yuki Hayashi"
+    ],
+    "text": "Taku Kishimoto wrote the scripts, Yō Moriyama designed the characters and Yuki Hayashi composed the music.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes",
+        "ref": "1376754875",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32767",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "character designs by Yō Moriyama"
+  },
+  {
+    "id": "sakamoto-days-cour-1-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "season_1",
+    "value": [
+      "First cour",
+      "11 episodes",
+      "January 11, 2025",
+      "March 22, 2025"
+    ],
+    "text": "The first cour has 11 episodes, broadcast between January 11 and March 22, 2025.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes",
+        "ref": "1376754875",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32767",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "11 January 11, 2025 (2025-01-11) March 22, 2025 (2025-03-22)"
+  },
+  {
+    "id": "sakamoto-days-cour-2-034",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "season_one_end",
+    "value": [
+      "Second cour",
+      "11 episodes",
+      "July 15, 2025",
+      "September 23, 2025"
+    ],
+    "text": "The second cour of the anime has 11 episodes too and aired from July 15 to September 23, 2025.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes",
+        "ref": "1376754875",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=35291",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "11 July 15, 2025 (2025-07-15) September 23, 2025 (2025-09-23)"
+  },
+  {
+    "id": "sakamoto-days-episodes-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "episodes",
+    "value": 22,
+    "text": "The first season adds up to 22 episodes in two cours.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q126127689",
+        "ref": "Q126127689",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Episodes 22"
+  },
+  {
+    "id": "sakamoto-days-netflix-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "streaming",
+    "value": "Netflix",
+    "text": "Netflix licensed the anime worldwide, with episodes released at the same time as the Japanese broadcast on TV Tokyo.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Netflix licensed the series for a worldwide streaming release"
+  },
+  {
+    "id": "sakamoto-days-netflix-views-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "views",
+    "value": "24.4 million views",
+    "text": "Sakamoto Days was the most watched anime on Netflix worldwide in the first half of 2025, with 24.4 million views.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Netflix's global most-watched anime in the first half of 2025"
+  },
+  {
+    "id": "sakamoto-days-season-2-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "new_anime",
+    "value": [
+      "Second season",
+      "January 2027"
+    ],
+    "text": "A second season was announced in December 2025 at Jump Festa and is set to premiere in January 2027, as of October 2026.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=38152",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "A second season is set to premiere in January 2027"
+  },
+  {
+    "id": "sakamoto-days-live-action-039",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "live_action",
+    "value": [
+      "Ren Meguro",
+      "Yūichi Fukuda",
+      "April 29, 2026"
+    ],
+    "text": "A live action film directed by Yūichi Fukuda, with Ren Meguro as Sakamoto, opened in Japan on April 29, 2026.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "stars Ren Meguro as Taro Sakamoto"
+  },
+  {
+    "id": "sakamoto-days-live-action-prime-040",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "broadcast",
+    "value": "Amazon Prime Video",
+    "text": "On October 30, 2026, Amazon Prime Video is set to start streaming the live action film around the world.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "The film is set to premiere worldwide on Amazon Prime Video on October 30, 2026"
+  },
+  {
+    "id": "sakamoto-days-themes-c1-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP1: Hashire Sakamoto (Vaundy)",
+      "ED1: Futsū (Conton Candy)",
+      "Special ED: Somebody Help Us (Vaundy)"
+    ],
+    "text": "The first cour opens with Hashire Sakamoto and ends with Futsū, but episode 7 uses a special ending, Somebody Help Us, by Vaundy.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32767",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "The special ending theme song \"Somebody Help Us\", performed by Vaundy, is used for episode 7"
+  },
+  {
+    "id": "sakamoto-days-themes-c2-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP2: Method (Kroi)",
+      "ED2: Dandelion (Go!Go!Vanillas)"
+    ],
+    "text": "The second cour uses Method by Kroi as the opening and Dandelion by Go!Go!Vanillas as the ending.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+        "ref": "1379833283",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=35291",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "is \"Method\", performed by Kroi"
+  },
+  {
+    "id": "sakamoto-days-arc-list-043",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "arcs",
+    "value": [
+      "First cour: episodes 1 to 11",
+      "Second cour: episodes 12 to 22",
+      "Final battle: manga only"
+    ],
+    "text": "The story as adapted so far is two cours of 11 episodes, and the manga has moved on to its final battle.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes",
+        "ref": "1376754875",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Series overview"
+  },
+  {
+    "id": "sakamoto-days-first-episode-044",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sakamoto-days"
+    },
+    "field": "tv_episodes",
+    "value": [
+      "The Legendary Hit Man",
+      "Jurassic Bastard"
+    ],
+    "text": "The anime starts with an episode called The Legendary Hit Man, and episode 7 is called Jurassic Bastard.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_episodes",
+        "ref": "1376754875",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "\"The Legendary Hit Man\""
+  },
+  {
+    "id": "sakamoto-days-taro-sakamoto-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "taro-sakamoto"
+    },
+    "field": "name",
+    "value": [
+      "Taro Sakamoto",
+      "坂本 太郎"
+    ],
+    "text": "Taro Sakamoto is a legendary ex-hitman turned convenience store owner, heavier and calmer now but still extremely skilled.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "legendary ex-hitman who gave up a life of wealth and crime"
+  },
+  {
+    "id": "sakamoto-days-taro-sakamoto-forms-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "taro-sakamoto"
+    },
+    "field": "ability",
+    "value": "Thirty percent of his prime",
+    "text": "Sakamoto keeps only about 30 percent of his prime strength, but in extreme moments he loses all his fat and becomes twice as powerful as before.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "he can lose all his fat and becomes skinny"
+  },
+  {
+    "id": "sakamoto-days-taro-sakamoto-voice-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "taro-sakamoto"
+    },
+    "field": "voice_cast",
+    "value": "Tomokazu Sugita",
+    "text": "Tomokazu Sugita voices Sakamoto in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Voiced by: Tomokazu Sugita"
+  },
+  {
+    "id": "sakamoto-days-shin-asakura-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "shin-asakura"
+    },
+    "field": "name",
+    "value": [
+      "Shin Asakura",
+      "朝倉 シン"
+    ],
+    "text": "Shin Asakura is a 21 year old former hitman, known as Shin the Clairvoyant for reading minds, who works at Sakamoto's store.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "known as Shin the Clairvoyant because he has the ability to read minds"
+  },
+  {
+    "id": "sakamoto-days-shin-asakura-gag-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "shin-asakura"
+    },
+    "field": "habits",
+    "value": "Senses Sakamoto's murder fantasies",
+    "text": "A running gag has Sakamoto imagine killing Shin when he is annoyed, and Shin always senses it.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "A running gag is Sakamoto imagining killing him when he annoys him"
+  },
+  {
+    "id": "sakamoto-days-shin-asakura-voice-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "shin-asakura"
+    },
+    "field": "voice_cast",
+    "value": "Nobunaga Shimazaki",
+    "text": "Nobunaga Shimazaki voices Shin in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Voiced by: Nobunaga Shimazaki"
+  },
+  {
+    "id": "sakamoto-days-lu-xiaotang-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "lu-xiaotang"
+    },
+    "field": "name",
+    "value": [
+      "Lu Xiaotang",
+      "陸 少糖"
+    ],
+    "text": "Lu Xiaotang, aged 18, is a scatterbrained girl whose father led a Chinese crime syndicate, and she later works in the store.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "18-year-old daughter of a Chinese mob boss"
+  },
+  {
+    "id": "sakamoto-days-lu-xiaotang-style-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "lu-xiaotang"
+    },
+    "field": "style",
+    "value": "Tai Chi mixed with Drunken Fist",
+    "text": "Lu fights with a style that mixes Tai Chi with Drunken Fist.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "mixes Tai Chi with Drunken Fist"
+  },
+  {
+    "id": "sakamoto-days-lu-xiaotang-voice-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "lu-xiaotang"
+    },
+    "field": "voice_cast",
+    "value": "Ayane Sakura",
+    "text": "Ayane Sakura voices Lu in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Voiced by: Ayane Sakura"
+  },
+  {
+    "id": "sakamoto-days-aoi-sakamoto-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "aoi-sakamoto"
+    },
+    "field": "name",
+    "value": [
+      "Aoi Sakamoto",
+      "坂本 葵"
+    ],
+    "text": "Aoi Sakamoto is the wife of Sakamoto, a former cashier whom he fell for at first sight.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "when he falls in love with her at first sight"
+  },
+  {
+    "id": "sakamoto-days-aoi-sakamoto-voice-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "aoi-sakamoto"
+    },
+    "field": "voice_cast",
+    "value": "Nao Tōyama",
+    "text": "Nao Tōyama voices Aoi in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Voiced by: Nao Tōyama"
+  },
+  {
+    "id": "sakamoto-days-hana-sakamoto-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "hana-sakamoto"
+    },
+    "field": "name",
+    "value": [
+      "Hana Sakamoto",
+      "坂本 花"
+    ],
+    "text": "Hana Sakamoto is the 6 year old daughter of Sakamoto and Aoi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "6-year-old daughter"
+  },
+  {
+    "id": "sakamoto-days-heisuke-mashimo-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "heisuke-mashimo"
+    },
+    "field": "name",
+    "value": [
+      "Heisuke Mashimo",
+      "眞霜 平助"
+    ],
+    "text": "Heisuke Mashimo is an emotional, gullible hitman who specializes in sniping and holds an all-time record at the JCC.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "a hitman who specializes in sniping"
+  },
+  {
+    "id": "sakamoto-days-heisuke-mashimo-parrot-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "heisuke-mashimo"
+    },
+    "field": "habits",
+    "value": "Pet parrot named Piisuke",
+    "text": "Heisuke has a pet parrot called Piisuke that acts as his spotter.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "pet parrot acting as his spotter"
+  },
+  {
+    "id": "sakamoto-days-heisuke-mashimo-voice-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "heisuke-mashimo"
+    },
+    "field": "voice_cast",
+    "value": "Ryōta Suzuki",
+    "text": "Ryōta Suzuki voices Heisuke in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Voiced by: Ryōta Suzuki"
+  },
+  {
+    "id": "sakamoto-days-yoichi-nagumo-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "yoichi-nagumo"
+    },
+    "field": "name",
+    "value": [
+      "Yoichi Nagumo",
+      "南雲 与市"
+    ],
+    "text": "Yoichi Nagumo is a cheerful old classmate and colleague of Sakamoto, a member of the Order who loves to disguise himself.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "highly skilled at disguising himself as other people"
+  },
+  {
+    "id": "sakamoto-days-yoichi-nagumo-voice-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "yoichi-nagumo"
+    },
+    "field": "voice_cast",
+    "value": "Natsuki Hanae",
+    "text": "Natsuki Hanae voices Nagumo in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Voiced by: Natsuki Hanae"
+  },
+  {
+    "id": "sakamoto-days-shishiba-name-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "shishiba"
+    },
+    "field": "name",
+    "value": [
+      "Shishiba",
+      "神々廻"
+    ],
+    "text": "Shishiba is a strict, cynical member of the Order who hates onions, and he fights with a hammer.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "hates onions with a murderous passion"
+  },
+  {
+    "id": "sakamoto-days-osaragi-name-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "osaragi"
+    },
+    "field": "name",
+    "value": [
+      "Osaragi",
+      "大佛"
+    ],
+    "text": "Osaragi is the youngest member of the Order, a snack loving, childish killer who fights with a large circular saw.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "the youngest member of the Order"
+  },
+  {
+    "id": "sakamoto-days-osaragi-voice-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "osaragi"
+    },
+    "field": "voice_cast",
+    "value": "Saori Hayami",
+    "text": "Saori Hayami voices Osaragi in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Voiced by: Saori Hayami"
+  },
+  {
+    "id": "sakamoto-days-hyo-name-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "hyo"
+    },
+    "field": "name",
+    "value": [
+      "Hyo",
+      "豹"
+    ],
+    "text": "Hyo is a harsh member of the Order who cares about the safety of others and fights with brass knuckles.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "His weapon of his choice is a pair of brass knuckles"
+  },
+  {
+    "id": "sakamoto-days-boiled-name-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "boiled"
+    },
+    "field": "name",
+    "value": [
+      "Boiled",
+      "ボイルド"
+    ],
+    "text": "Boiled is a former classmate of Sakamoto from the assassin agency Dondenkai, who fights with explosive balls and a rocket punch gauntlet.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "former classmate of Sakamoto"
+  },
+  {
+    "id": "sakamoto-days-lu-wutang-name-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "lu-wutang"
+    },
+    "field": "name",
+    "value": [
+      "Lu Wutang",
+      "魯 武堂"
+    ],
+    "text": "Lu Wutang is the former bodyguard of Lu Xiaotang, a weak fighter but a master strategist who ends up working at the store.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "vastly intelligent and a master strategist"
+  },
+  {
+    "id": "sakamoto-days-takamura-name-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "takamura"
+    },
+    "field": "name",
+    "value": [
+      "Takamura",
+      "篁"
+    ],
+    "text": "Takamura is the most formidable assassin of the Japan Assassin Association, a frail looking old man with a katana.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "the most formidable assassin in the Japan Assassin Association"
+  },
+  {
+    "id": "sakamoto-days-takamura-voice-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "takamura"
+    },
+    "field": "voice_cast",
+    "value": "Hōchū Ōtsuka",
+    "text": "Hōchū Ōtsuka voices Takamura in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Voiced by: Hōchū Ōtsuka"
+  },
+  {
+    "id": "sakamoto-days-kanaguri-name-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "kanaguri"
+    },
+    "field": "name",
+    "value": [
+      "Kanaguri",
+      "京"
+    ],
+    "text": "Kanaguri is an eccentric movie director famous for assassin films, and a member of the Order who works in secret for X.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "an eccentric movie director famous for movies about assassins"
+  },
+  {
+    "id": "sakamoto-days-akira-akao-name-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "akira-akao"
+    },
+    "field": "name",
+    "value": [
+      "Akira Akao",
+      "赤尾 晶"
+    ],
+    "text": "Akira Akao is a timid girl who befriends Sakamoto during the JCC entrance exam, and she is faster than she looks.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "very timid and anxious niece of Rion Akao"
+  },
+  {
+    "id": "sakamoto-days-akira-akao-voice-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "akira-akao"
+    },
+    "field": "voice_cast",
+    "value": "M.A.O",
+    "text": "M.A.O voices Akira in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Voiced by: M.A.O"
+  },
+  {
+    "id": "sakamoto-days-natsuki-seba-name-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "natsuki-seba"
+    },
+    "field": "name",
+    "value": [
+      "Natsuki Seba",
+      "勢羽 夏生"
+    ],
+    "text": "Natsuki Seba is a sarcastic student and gifted weapons maker whose invisibility suit makes him a tricky opponent.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "prodigious weapons maker"
+  },
+  {
+    "id": "sakamoto-days-natsuki-seba-voice-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "natsuki-seba"
+    },
+    "field": "voice_cast",
+    "value": "Nobuhiko Okamoto",
+    "text": "Nobuhiko Okamoto voices Natsuki in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Voiced by: Nobuhiko Okamoto"
+  },
+  {
+    "id": "sakamoto-days-kei-uzuki-name-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "kei-uzuki"
+    },
+    "field": "name",
+    "value": [
+      "Kei Uzuki",
+      "有月 憬"
+    ],
+    "text": "Kei Uzuki, also called X or Slur, is a serial killer who hunts assassins in order to dismantle the JAA.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "also known as \"X\" or \"Slur\""
+  },
+  {
+    "id": "sakamoto-days-kei-uzuki-voice-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "kei-uzuki"
+    },
+    "field": "voice_cast",
+    "value": "Daisuke Namikawa",
+    "text": "Daisuke Namikawa voices Uzuki in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "Voiced by: Daisuke Namikawa"
+  },
+  {
+    "id": "sakamoto-days-rion-akao-name-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "rion-akao"
+    },
+    "field": "name",
+    "value": [
+      "Rion Akao",
+      "赤尾 リオン"
+    ],
+    "text": "Rion Akao is a skilled assassin and a classmate of Sakamoto, gifted at seeing lethal paths, a talent shared by her niece Akira.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "possessing the ability to perceive lethal \"paths\""
+  },
+  {
+    "id": "sakamoto-days-gaku-name-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "gaku"
+    },
+    "field": "name",
+    "value": [
+      "Gaku",
+      "楽"
+    ],
+    "text": "Gaku is the lazy right-hand man of X, often asleep or playing video games, who fights with a mace that has a blaster in its head.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "highly lackadaisical towards everything, even killing"
+  },
+  {
+    "id": "sakamoto-days-kashima-name-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sakamoto-days",
+      "ref": "kashima"
+    },
+    "field": "name",
+    "value": [
+      "Kashima",
+      "鹿島"
+    ],
+    "text": "Kashima is a cyborg in a reindeer mask who works for X and has weapons built into his body.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters",
+        "ref": "1372317737",
+        "fetched_at": "2026-10-25T17:50:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:30:30.000Z",
+    "excerpt": "a cyborg who works for X"
+  }
+]

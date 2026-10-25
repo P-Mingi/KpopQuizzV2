@@ -1,0 +1,217 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "slam-dunk",
+  "title": "Slam Dunk in Numbers: Jerseys, Volumes and Episodes",
+  "slug": "slam-dunk-in-numbers-jerseys-volumes-and-episodes",
+  "description": "Ten questions where the answer is a number: jersey numbers, volumes, chapters, episodes, chalkboards and prizes of Slam Dunk. Some jerseys belong to players who only join later.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Numbers format: every answer is a figure from a cited fact; the circulation figure is dated 2025.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Slam Dunk characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Slam Dunk (manga)",
+      "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Which jersey number does Sakuragi wear?",
+      "options": [
+        "10",
+        "15",
+        "7",
+        "4"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-hanamichi-sakuragi-name-046"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Which jersey number does the Shohoku captain wear?",
+      "options": [
+        "11",
+        "5",
+        "4",
+        "9"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-takenori-akagi-name-050"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Which jersey number does Rukawa wear?",
+      "options": [
+        "8",
+        "11",
+        "14",
+        "6"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-kaede-rukawa-name-053"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Which jersey number does the vice-captain Kogure wear?",
+      "options": [
+        "12",
+        "5",
+        "14",
+        "3"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-kiminobu-kogure-name-063"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Which jersey number does the sharpshooter Mitsui wear?",
+      "options": [
+        "4",
+        "7",
+        "10",
+        "14"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-hisashi-mitsui-name-065"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "How many collected volumes does the original manga edition have?",
+      "options": [
+        "31",
+        "36",
+        "27",
+        "24"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "slam-dunk-volumes-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "question": "How many chapters make up the manga?",
+      "options": [
+        "231",
+        "276",
+        "180",
+        "312"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "slam-dunk-chapters-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "question": "As of 2025, how many copies were in circulation worldwide?",
+      "options": [
+        "100 million",
+        "50 million",
+        "185 million",
+        "250 million"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "slam-dunk-copies-2025-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "question": "On how many chalkboards was the epilogue 10 Days After drawn?",
+      "options": [
+        "9",
+        "15",
+        "23",
+        "31"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 3,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "slam-dunk-ten-days-after-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "question": "Which numbered Shogakukan Manga Award did the series win in 1994?",
+      "options": [
+        "The 30th",
+        "The 20th",
+        "The 40th",
+        "The 50th"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "slam-dunk-award-shogakukan-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    }
+  ]
+}

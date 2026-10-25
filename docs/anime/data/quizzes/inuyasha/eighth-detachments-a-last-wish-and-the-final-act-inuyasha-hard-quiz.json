@@ -1,0 +1,217 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "inuyasha",
+  "title": "Inuyasha Hard Quiz: Eighth Detachments, a Last Wish and the Final Act",
+  "slug": "eighth-detachments-a-last-wish-and-the-final-act-inuyasha-hard-quiz",
+  "description": "Ten hard questions on the villains, the ending and the sequels of Inuyasha. Spoilers for the whole story, The Final Act and Yashahime.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Hard quiz: late facts (arcs 3 to 5), spoilers named in the description.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Inuyasha characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Inuyasha",
+      "url": "https://en.wikipedia.org/wiki/Inuyasha"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Which detachment of Naraku does Hakudoshi call himself?",
+      "options": [
+        "The fifth",
+        "The third",
+        "The first",
+        "The eighth"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-hakudoshi-name-086"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "Which detachment of Naraku is Kanna?",
+      "options": [
+        "The fourth",
+        "The second",
+        "The first",
+        "The seventh"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-kanna-name-083"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "Who leads the revived mercenaries of the Band of Seven?",
+      "options": [
+        "Bankotsu",
+        "Jakotsu",
+        "Suikotsu",
+        "Renkotsu"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-bankotsu-name-084"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "What does Naraku do with his final wish?",
+      "options": [
+        "Reviving his bandit self",
+        "Locking himself and Kagome in the jewel",
+        "Making himself human",
+        "Destroying the well"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-naraku-last-wish-070"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "What does Kagome wish for at the end?",
+      "options": [
+        "That Naraku be reborn",
+        "That the Shikon Jewel vanish forever",
+        "That the well stay open",
+        "That Inuyasha become human"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-ending-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "For whom does Kikyo give her own life?",
+      "options": [
+        "Sango",
+        "Kagome",
+        "Shippo",
+        "Kohaku"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-kikyo-sacrifice-073"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "How long after the ending does Kagome come back through the well?",
+      "options": [
+        "Three years",
+        "Five years",
+        "One year",
+        "Ten years"
+      ],
+      "correct": 0,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-ending-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "What is the title of the epilogue chapter that Takahashi published in February 2013?",
+      "options": [
+        "The Last Well",
+        "Ever After",
+        "Since Then",
+        "Three Years On"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 5,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "inuyasha-since-then-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "How many episodes does the sequel series The Final Act have?",
+      "options": [
+        "26",
+        "13",
+        "39",
+        "52"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 5,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "inuyasha-final-act-037"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "On which date did the sequel Yashahime: Princess Half-Demon premiere?",
+      "options": [
+        "December 7, 2004",
+        "October 4, 2009",
+        "October 3, 2020",
+        "April 6, 2017"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 5,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "inuyasha-yasha-announced-046"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    }
+  ]
+}
