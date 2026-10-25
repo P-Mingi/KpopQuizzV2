@@ -43,4 +43,5 @@ export const SERIES_TYPE_BY_SLUG: Readonly<Record<string, string>> = {
   'tokyo-revengers': 'anime_manga',
   'tower-of-god': 'webtoon',
   'vinland-saga': 'anime_manga',
+  'violet-evergarden': 'anime_manga',
 };

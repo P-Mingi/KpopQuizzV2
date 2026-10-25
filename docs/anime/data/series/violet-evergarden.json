@@ -1,0 +1,344 @@
+{
+  "$comment": "Run O1 lane K1, new series batch 3 (K1-new-series): data for Violet Evergarden (tier C), built from pinned Wikipedia revisions (main article, the 2020 film and the 2019 side story film), Wikidata Q22101190 (light novels), Q57390937 (TV anime), Q106434135 (film) and Q73896191 (side story film), the official TV anime site tv.violet-evergarden.jp (music and staff pages), and Anime News Network (encyclopedia ids 19665 and 21959, news item on the 2020 film). Arcs follow the release order of the anime: the 13 episode TV series, the extra episode (OVA), the side story film and the 2020 film. Wikidata counts three light novel volumes and Wikipedia four (it adds the side story volume), so the volume count is not stated. The TV start date is January 11, 2018 on Wikipedia and Wikidata, while Anime News Network gives January 10 for the late night slot. Characters carry the arc where they first matter; levels are editorial judgments and the later arc was chosen when unsure. The fate of Gilbert is kept in facts tagged at the last arc.",
+  "group": {
+    "slug": "violet-evergarden",
+    "name": "Violet Evergarden",
+    "site": "anime",
+    "display_color": "#2E5E8C",
+    "text_color": "#FFFFFF"
+  },
+  "series": {
+    "type": "anime_manga",
+    "title_en": "Violet Evergarden",
+    "title_native": "ヴァイオレット・エヴァーガーデン",
+    "title_romaji": "Vaioretto Evāgāden",
+    "aliases": [
+      "Violet Evergarden: The Series"
+    ],
+    "studios": [
+      {
+        "name": "Kyoto Animation"
+      }
+    ],
+    "director": "Taichi Ishidate",
+    "authors": [
+      {
+        "name": "Kana Akatsuki",
+        "role": "story"
+      },
+      {
+        "name": "Akiko Takase",
+        "role": "art"
+      }
+    ],
+    "publisher": "Kyoto Animation",
+    "anime_start_year": 2018,
+    "anime_end_year": 2020,
+    "manga_start_year": 2015,
+    "status": "finished",
+    "episodes": 13,
+    "seasons": 1,
+    "official_url": "https://tv.violet-evergarden.jp/",
+    "wikidata_qid": "Q22101190",
+    "tier": "C",
+    "published": true
+  },
+  "arcs": [
+    {
+      "ord": 1,
+      "name": "TV series",
+      "kind": "season",
+      "episode_from": 1,
+      "episode_to": 13,
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "status": "published"
+    },
+    {
+      "ord": 2,
+      "name": "OVA",
+      "kind": "part",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "status": "published"
+    },
+    {
+      "ord": 3,
+      "name": "Eternity and the Auto Memory Doll",
+      "kind": "part",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll",
+      "status": "published"
+    },
+    {
+      "ord": 4,
+      "name": "The Movie",
+      "kind": "part",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie",
+      "status": "published"
+    }
+  ],
+  "characters": [
+    {
+      "slug": "violet-evergarden",
+      "name": "Violet Evergarden",
+      "name_native": "ヴァイオレット・エヴァーガーデン",
+      "role": "main",
+      "affiliation": "CH Postal Company",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A former child soldier who becomes an Auto Memory Doll and learns what feelings mean by writing other people's letters.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 1,
+      "status": "published"
+    },
+    {
+      "slug": "claudia-hodgins",
+      "name": "Claudia Hodgins",
+      "name_native": "クラウディア・ホッジンズ",
+      "role": "main",
+      "affiliation": "CH Postal Company",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The president of the CH Postal Company and Violet's guardian, a former army officer.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 2,
+      "status": "published"
+    },
+    {
+      "slug": "gilbert-bougainvillea",
+      "name": "Gilbert Bougainvillea",
+      "name_native": "ギルベルト・ブーゲンビリア",
+      "role": "main",
+      "affiliation": "Leidenschaftlich Army",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The aristocratic army major who gave Violet her name and whose memory drives her.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 3,
+      "status": "published"
+    },
+    {
+      "slug": "cattleya-baudelaire",
+      "name": "Cattleya Baudelaire",
+      "name_native": "カトレア・ボードレール",
+      "role": "supporting",
+      "affiliation": "CH Postal Company",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The most popular Doll of the company, warm and confident.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 4,
+      "status": "published"
+    },
+    {
+      "slug": "benedict-blue",
+      "name": "Benedict Blue",
+      "name_native": "ベネディクト・ブルー",
+      "role": "supporting",
+      "affiliation": "CH Postal Company",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The eccentric postman who delivers the letters that the Dolls write.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 5,
+      "status": "published"
+    },
+    {
+      "slug": "erica-brown",
+      "name": "Erica Brown",
+      "name_native": "エリカ・ブラウン",
+      "role": "supporting",
+      "affiliation": "CH Postal Company",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A Doll who struggles with clients but believes in the work.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 6,
+      "status": "published"
+    },
+    {
+      "slug": "iris-cannary",
+      "name": "Iris Cannary",
+      "name_native": "アイリス・カナリー",
+      "role": "supporting",
+      "affiliation": "CH Postal Company",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A Doll from a farming village who admires the working women of the city.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 7,
+      "status": "published"
+    },
+    {
+      "slug": "luculia-marlborough",
+      "name": "Luculia Marlborough",
+      "name_native": "ルクリア・モールバラ",
+      "role": "supporting",
+      "affiliation": "Auto Memory Dolls",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A fellow Doll who was Violet's friend at training school.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 8,
+      "status": "published"
+    },
+    {
+      "slug": "dietfried-bougainvillea",
+      "name": "Dietfried Bougainvillea",
+      "name_native": "ディートフリート・ブーゲンビリア",
+      "role": "antagonist",
+      "affiliation": "Navy",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A navy captain and Gilbert's elder brother who resents Violet.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 9,
+      "status": "published"
+    },
+    {
+      "slug": "charlotte-drossel",
+      "name": "Charlotte Abelfreyja Drossel",
+      "name_native": "シャルロッテ・エーベルフレイヤ・ドロッセル",
+      "role": "supporting",
+      "affiliation": "Kingdom of Drossel",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A young princess whose marriage is meant to bring peace.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 10,
+      "status": "published"
+    },
+    {
+      "slug": "leon-stephanotis",
+      "name": "Leon Stephanotis",
+      "name_native": "リオン・ステファノティス",
+      "role": "supporting",
+      "affiliation": "Shahar Observatory",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "An observatory staffer who is paired with Violet on a joint task.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 11,
+      "status": "published"
+    },
+    {
+      "slug": "oscar-webster",
+      "name": "Oscar Webster",
+      "name_native": "オスカー・ウェブスター",
+      "role": "supporting",
+      "affiliation": "Playwrights",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A famous playwright who has shut himself away from the world.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 12,
+      "status": "published"
+    },
+    {
+      "slug": "anne-magnolia",
+      "name": "Anne Magnolia",
+      "name_native": "アン・マグノリア",
+      "role": "supporting",
+      "affiliation": "Magnolia family",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A girl who loves dolls and takes Violet for a life-size one.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 13,
+      "status": "published"
+    },
+    {
+      "slug": "clara-magnolia",
+      "name": "Clara Magnolia",
+      "name_native": "クラーラ・マグノリア",
+      "role": "supporting",
+      "affiliation": "Magnolia family",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Anne's mother, who asks Violet for a very special favor.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 14,
+      "status": "published"
+    },
+    {
+      "slug": "isabella-york",
+      "name": "Isabella York",
+      "name_native": "イザベラ・ヨーク",
+      "role": "supporting",
+      "affiliation": "York family",
+      "debut_arc_ord": 3,
+      "debut_medium": "both",
+      "description": "A boarding school student who struggles to fit into aristocratic society.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 3,
+      "identity_spoiler": false,
+      "ord": 15,
+      "status": "published"
+    },
+    {
+      "slug": "taylor-bartlett",
+      "name": "Taylor Bartlett",
+      "name_native": "テイラー・バートレット",
+      "role": "supporting",
+      "affiliation": "Bartlett family",
+      "debut_arc_ord": 3,
+      "debut_medium": "both",
+      "description": "A young girl who looks up to the person who took her in.",
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "spoiler_level": 3,
+      "identity_spoiler": false,
+      "ord": 16,
+      "status": "published"
+    }
+  ],
+  "themes": [
+    {
+      "kind": "op",
+      "number": 1,
+      "title": "Sincerely",
+      "artist": "True",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 1,
+      "title": "Michishirube",
+      "artist": "Minori Chihara",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+      "status": "published"
+    }
+  ]
+}

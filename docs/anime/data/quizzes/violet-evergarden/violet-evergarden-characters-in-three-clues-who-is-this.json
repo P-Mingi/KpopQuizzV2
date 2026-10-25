@@ -1,0 +1,272 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "violet-evergarden",
+  "title": "Violet Evergarden Characters in Three Clues: Who Is This?",
+  "slug": "violet-evergarden-characters-in-three-clues-who-is-this",
+  "description": "Ten people from the world of the Dolls, three clues each, from the hint that is hard to read to the one that gives it away. Light spoilers up to the side story film.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Guess-from-clues format: every clue rests on a cited fact; names are never in the clues.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Violet Evergarden",
+      "url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This person is the boss of the firm that employs the Dolls.",
+        "Once an army officer, he held the rank of lieutenant colonel.",
+        "He was a good friend of Gilbert."
+      ],
+      "options": [
+        "Benedict Blue",
+        "Dietfried Bougainvillea",
+        "Claudia Hodgins",
+        "Gilbert Bougainvillea"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-claudia-hodgins-name-032",
+        "violet-evergarden-claudia-hodgins-past-033"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She is the most sought-after Doll at the company.",
+        "She has known the company's president since before it opened.",
+        "Her voice actress in Japanese is Aya Endō."
+      ],
+      "options": [
+        "Erica Brown",
+        "Iris Cannary",
+        "Cattleya Baudelaire",
+        "Luculia Marlborough"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-cattleya-baudelaire-name-035",
+        "violet-evergarden-cattleya-baudelaire-bond-036",
+        "violet-evergarden-cattleya-baudelaire-voice-037"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He delivers the letters that the Dolls write.",
+        "People find him a bit eccentric.",
+        "He knew the company's president long before the firm was set up."
+      ],
+      "options": [
+        "Claudia Hodgins",
+        "Dietfried Bougainvillea",
+        "Benedict Blue",
+        "Gilbert Bougainvillea"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-benedict-blue-name-038",
+        "violet-evergarden-benedict-blue-bond-039"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She is a Doll who struggles to deal with clients.",
+        "She keeps believing in the work all the same.",
+        "Her voice actress also sings the ending theme."
+      ],
+      "options": [
+        "Iris Cannary",
+        "Cattleya Baudelaire",
+        "Erica Brown",
+        "Luculia Marlborough"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-erica-brown-name-041",
+        "violet-evergarden-erica-brown-voice-042"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She came to the city from a small farming village.",
+        "She joined the company soon after Erica.",
+        "She wants to be a working woman."
+      ],
+      "options": [
+        "Erica Brown",
+        "Cattleya Baudelaire",
+        "Iris Cannary",
+        "Luculia Marlborough"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-iris-cannary-name-043",
+        "violet-evergarden-iris-cannary-village-044"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is an officer of high rank from a noble family.",
+        "He never said his true feelings to the girl he treasured.",
+        "A green gem is the only thing he left her."
+      ],
+      "options": [
+        "Dietfried Bougainvillea",
+        "Claudia Hodgins",
+        "Gilbert Bougainvillea",
+        "Benedict Blue"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-gilbert-bougainvillea-name-046",
+        "violet-evergarden-gilbert-bougainvillea-brooch-047",
+        "violet-evergarden-gilbert-bougainvillea-silence-048"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She became friends with Violet at school.",
+        "She trained to become a Doll.",
+        "Her voice actress in Japanese is Azusa Tadokoro."
+      ],
+      "options": [
+        "Erica Brown",
+        "Iris Cannary",
+        "Luculia Marlborough",
+        "Cattleya Baudelaire"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-luculia-marlborough-name-053",
+        "violet-evergarden-luculia-marlborough-voice-054"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She holds the title of princess in a kingdom called Drossel.",
+        "She is fourteen years old.",
+        "She is promised in marriage to a prince."
+      ],
+      "options": [
+        "Anne Magnolia",
+        "Cattleya Baudelaire",
+        "Charlotte Abelfreyja Drossel",
+        "Iris Cannary"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-charlotte-drossel-name-055"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is a well-known writer of plays.",
+        "He lives like a recluse and drinks.",
+        "He is shut away because of a loss in his family."
+      ],
+      "options": [
+        "Leon Stephanotis",
+        "Claudia Hodgins",
+        "Oscar Webster",
+        "Dietfried Bougainvillea"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-oscar-webster-name-059"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She is a young girl who is fond of dolls.",
+        "She first took Violet for a doll of human size.",
+        "Her mother has a very special request for Violet."
+      ],
+      "options": [
+        "Charlotte Abelfreyja Drossel",
+        "Erica Brown",
+        "Anne Magnolia",
+        "Iris Cannary"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-anne-magnolia-name-061",
+        "violet-evergarden-clara-magnolia-name-063"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    }
+  ]
+}
