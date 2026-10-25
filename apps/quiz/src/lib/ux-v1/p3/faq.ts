@@ -10,7 +10,9 @@
 import type { ReactNode } from 'react';
 
 export interface FaqSource { q: string; text: string; a: ReactNode }
-export interface ChunkSource { question: string; answer: string }
+/** `a`, when set, is the visible answer with its links (the generation answer and its
+ *  sources); `answer` stays the plain text. Chunks are never in the FAQPage JSON-LD. */
+export interface ChunkSource { question: string; answer: string; a?: ReactNode }
 export interface HubFaqItem { q: string; a: ReactNode; /** true when the item is in the FAQPage JSON-LD */ inJsonLd: boolean }
 
 const ORDER: Array<[string, RegExp]> = [
@@ -45,7 +47,7 @@ export function mergeHubFaqs(faqs: readonly FaqSource[], chunks: readonly ChunkS
   for (const c of chunks) {
     if (seen.has(c.question)) continue;
     seen.add(c.question);
-    items.push({ q: c.question, a: c.answer, inJsonLd: false, order: rank(c.question), n: n++ });
+    items.push({ q: c.question, a: c.a ?? c.answer, inJsonLd: false, order: rank(c.question), n: n++ });
   }
   return items
     .sort((a, b) => a.order - b.order || a.n - b.n)

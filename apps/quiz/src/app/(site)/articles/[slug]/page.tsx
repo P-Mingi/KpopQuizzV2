@@ -6,7 +6,7 @@ import { Mascot } from '@/components/ui/mascot';
 import { getArticleBySlug, getAllArticleSlugs } from '@/lib/articles/registry';
 import { FOUNDER, founderPerson } from '@/lib/seo/org';
 import { fillStats, getPublicStatsOrNull } from '@/lib/stats/site-stats';
-import { loadArticleContent } from '@/lib/articles/content';
+import { loadArticleContent, loadArticleMentions } from '@/lib/articles/content';
 
 import type { Metadata } from 'next';
 
@@ -120,6 +120,9 @@ export default async function ArticlePage({ params }: PageProps): Promise<React.
 
   const ArticleBody = await loadArticleContent(slug);
   if (!ArticleBody) notFound();
+  // SEO Mission 2 (owner, 2026-10-15): an article may name the groups it covers as
+  // MusicGroup mentions with Wikidata sameAs (the generations hub does, from its table rows).
+  const mentions = await loadArticleMentions(slug);
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -141,6 +144,7 @@ export default async function ArticlePage({ params }: PageProps): Promise<React.
       '@id': `${SITE_URL}/articles/${article.slug}`,
     },
     ...(article.ogImage ? { image: article.ogImage } : {}),
+    ...(mentions.length > 0 ? { mentions } : {}),
   };
 
   const breadcrumbJsonLd = {

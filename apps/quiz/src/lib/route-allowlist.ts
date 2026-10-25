@@ -26,8 +26,10 @@ export const KNOWN_ROUTES = [
   // next.config.ts redirects. '/g/' stays: /g/[slug] is the kept blind-test game.
   '/', '/q/', '/g/', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
   '/trivia',
-  '/terms', '/privacy', '/dmca', '/about', '/editorial-policy', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
+  '/terms', '/privacy', '/legal', '/dmca', '/about', '/editorial-policy', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
+  // SEO Mission 2 (owner, 2026-10-15): /kpop-games, every game of the site in one page.
+  '/kpop-games',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
   '/sitemap.xml', '/robots.txt', '/llms.txt',
   // '/me' (the passport, where /profile redirects) and '/notifications' (the
@@ -55,7 +57,8 @@ export const KNOWN_ROUTES = [
   // Workstream T0 monthly Pulse: /data/pulse (index) and /data/pulse/[month].
   // One '/data' prefix covers both via startsWith.
   '/data',
-  '/pt',
+  // SEO Mission 3, part F.2: the press kit.
+  '/press',
 ];
 
 // UX v1 redesign (NEXT_PUBLIC_UX_V1, default off): routes that exist only for the new

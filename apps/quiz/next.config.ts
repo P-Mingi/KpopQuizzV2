@@ -1,3 +1,6 @@
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
 import type { NextConfig } from 'next';
 
 import { buildUxStylesheet, uxStylesheetVersion } from './src/lib/ux-v1/a0/stylesheet';
@@ -11,6 +14,11 @@ const UX_V12_ON = on(process.env.NEXT_PUBLIC_UX_V1) && on(process.env.NEXT_PUBLI
 // /api/ux-v1/a0/styles serves for this build's flags, so its immutable address changes
 // whenever the CSS does, deployed from git or from the command line alike.
 const UX_CSS_VERSION = uxStylesheetVersion(buildUxStylesheet({ v12: UX_V12_ON }));
+
+// Mission U part B: the Deezer logo is shown only once its file is in the repo
+// (public/brand/deezer-logo.svg, added after the owner's OK). Until then the attribution is
+// text only and no page requests the file: no 404. Read at build time, from apps/quiz.
+const DEEZER_LOGO = existsSync(join(process.cwd(), 'public', 'brand', 'deezer-logo.svg')) ? '1' : '';
 
 // V12 G5: the groups that have a profile set in personality_profiles (read 2026-10-02).
 // "Which member are you" is relaunched for these only, and only with the flag on.
@@ -28,7 +36,7 @@ const nextConfig: NextConfig = {
   // V12 (G1 request R7, issue C3-002): the blindtest tracking switch is always inlined, as ''
   // when it is unset, so the legacy blindtest pages drop the tracking import() at build
   // and load no tracking chunk while tracking is off.
-  env: { NEXT_PUBLIC_BT_TRACKING: process.env.NEXT_PUBLIC_BT_TRACKING ?? '', UX_CSS_VERSION },
+  env: { NEXT_PUBLIC_BT_TRACKING: process.env.NEXT_PUBLIC_BT_TRACKING ?? '', UX_CSS_VERSION, NEXT_PUBLIC_DEEZER_LOGO: DEEZER_LOGO },
   async redirects() {
     const groupSlugs = [
       'bts', 'blackpink', 'stray-kids', 'seventeen', 'twice', 'aespa',

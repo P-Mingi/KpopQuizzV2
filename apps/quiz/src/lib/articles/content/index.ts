@@ -1,7 +1,12 @@
 // Article bodies may be plain OR async server components (the data-entangled ones read the DB).
 export type ArticleBodyComponent = () => React.ReactElement | Promise<React.ReactElement>;
 
-const CONTENT_MAP: Record<string, () => Promise<{ ArticleBody: ArticleBodyComponent }>> = {
+/** Optional extra Article JSON-LD a body module can export (the generations hub: its MusicGroup mentions). */
+export type ArticleMentions = () => Promise<Array<Record<string, unknown>>>;
+
+type ArticleModule = { ArticleBody: ArticleBodyComponent; articleJsonLdMentions?: ArticleMentions };
+
+const CONTENT_MAP: Record<string, () => Promise<ArticleModule>> = {
   'who-is-cortis': () => import('./who-is-cortis'),
   'kpop-blind-test-2026': () => import('./kpop-blind-test-2026'),
   'best-kpop-quiz-sites-2026': () => import('./best-kpop-quiz-sites-2026'),
@@ -32,4 +37,12 @@ export async function loadArticleContent(
   if (!loader) return null;
   const mod = await loader();
   return mod.ArticleBody;
+}
+
+/** The Article JSON-LD `mentions` of an article, when its body module exports them. */
+export async function loadArticleMentions(slug: string): Promise<Array<Record<string, unknown>>> {
+  const loader = CONTENT_MAP[slug];
+  if (!loader) return [];
+  const mod = await loader();
+  return mod.articleJsonLdMentions ? mod.articleJsonLdMentions() : [];
 }

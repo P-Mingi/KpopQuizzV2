@@ -1,0 +1,403 @@
+{
+  "version": 1,
+  "group": "ive",
+  "reviewed": "2026-10-15",
+  "wikipedia": "https://en.wikipedia.org/wiki/Ive_(group)",
+  "officialSite": "http://ive-official.com/",
+  "wikidata": "Q109375061",
+  "members": [
+    "Yujin",
+    "Gaeul",
+    "Rei",
+    "Wonyoung",
+    "Liz",
+    "Leeseo"
+  ],
+  "groupsData": {
+    "name": "IVE",
+    "generation": "4th Gen",
+    "memberCount": 6,
+    "readAt": "2026-10-15"
+  },
+  "facts": [
+    {
+      "id": "ive-members",
+      "level": "easy",
+      "question": "How many members are in IVE?",
+      "answer": "Six",
+      "text": "IVE has six members: Yujin, Gaeul, Rei, Wonyoung, Liz and Leeseo.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q109375061",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "IVE"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-agency",
+      "level": "easy",
+      "question": "Which company formed IVE?",
+      "answer": "Starship Entertainment",
+      "text": "IVE is a girl group formed by Starship Entertainment.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q109375061",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "IVE"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-debut",
+      "level": "easy",
+      "question": "When did IVE debut?",
+      "answer": "December 1, 2021",
+      "text": "IVE debuted on December 1, 2021, with the single album Eleven.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        },
+        {
+          "url": "https://www.wikidata.org/wiki/Q109375061",
+          "type": "wikidata",
+          "publisher": "Wikidata",
+          "title": "IVE"
+        }
+      ],
+      "loadBearing": true,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-name",
+      "level": "easy",
+      "question": "Which English phrase is the name IVE meant to evoke?",
+      "answer": "I have",
+      "text": "The name IVE is meant to evoke the English phrase I have, showing what the group has with confidence.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-after-like-sample",
+      "level": "medium",
+      "question": "Which IVE song samples I Will Survive by Gloria Gaynor?",
+      "answer": "After Like",
+      "text": "After Like, released by IVE on August 22, 2022, samples I Will Survive by Gloria Gaynor.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-ive-ive",
+      "level": "medium",
+      "question": "What is the name of the first IVE studio album?",
+      "answer": "I've IVE",
+      "text": "IVE released their first studio album, I've IVE, in April 2023.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-izone",
+      "level": "medium",
+      "question": "Which two IVE members were part of the project group IZ*ONE?",
+      "answer": "Wonyoung and Yujin",
+      "text": "Wonyoung and Yujin of IVE joined the project girl group IZ*ONE after the 2018 competition show Produce 48.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-prom-queens",
+      "level": "medium",
+      "question": "What was the name of the first IVE solo tour?",
+      "answer": "The Prom Queens",
+      "text": "IVE began their first solo tour, The Prom Queens, in February 2023, with dates in Seoul, Yokohama and Kobe.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-lollapalooza",
+      "level": "medium",
+      "question": "Which music festival did IVE perform at for the first time in 2024?",
+      "answer": "Lollapalooza",
+      "text": "IVE performed at Lollapalooza for the first time in 2024.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-first-win",
+      "level": "hard",
+      "question": "How long after debut did IVE earn their first music show win?",
+      "answer": "One week",
+      "text": "IVE earned their first music show win on Show Champion on December 8, 2021, one week after their debut.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-gaeul-scouted",
+      "level": "hard",
+      "question": "Where was Gaeul of IVE scouted by Starship Entertainment?",
+      "answer": "At a dance competition in Incheon",
+      "text": "Gaeul of IVE joined Starship Entertainment in 2017 after being scouted at a dance competition in Incheon.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-rei-audition",
+      "level": "hard",
+      "question": "Which audition did Rei of IVE pass in Japan in 2018?",
+      "answer": "The Loen Friends Global Audition",
+      "text": "Rei of IVE joined Starship Entertainment in 2018 after passing the Loen Friends Global Audition in Japan.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-frankfurt",
+      "level": "hard",
+      "question": "In which city did IVE give their first overseas performance?",
+      "answer": "Frankfurt",
+      "text": "IVE gave their first overseas performance at Kpop Flex in Frankfurt, Germany, in May 2022.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-queen-of-hearts",
+      "level": "hard",
+      "question": "What was the first original Japanese-language song by IVE?",
+      "answer": "Queen of Hearts",
+      "text": "Queen of Hearts, released by IVE in October 2022 with the Japanese version of Eleven, was the group's first original Japanese-language song.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-rec-eleven",
+      "level": "records",
+      "question": "How high did the IVE debut single Eleven reach on the Circle Digital Chart?",
+      "answer": "No. 2",
+      "text": "Eleven, the debut single of IVE, reached No. 2 on South Korea's Circle Digital Chart.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-rec-love-dive",
+      "level": "records",
+      "question": "Which song was the first IVE No. 1 on the Circle Digital Chart?",
+      "answer": "Love Dive",
+      "text": "Love Dive, released by IVE on April 5, 2022, became the group's first No. 1 song on the Circle Digital Chart.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-rec-love-dive-global",
+      "level": "records",
+      "question": "Which IVE song was the group's first top 10 on the Billboard Global Excl. US chart?",
+      "answer": "Love Dive",
+      "text": "Love Dive by IVE peaked at No. 10 on the Billboard Global Excl. US chart, the group's first song in its top 10.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-rec-after-like",
+      "level": "records",
+      "question": "Which IVE song was the group's second No. 1 on the Circle Digital Chart?",
+      "answer": "After Like",
+      "text": "After Like became the second IVE song to reach No. 1 on the Circle Digital Chart, in 2022.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    },
+    {
+      "id": "ive-rec-kitsch",
+      "level": "records",
+      "question": "Which IVE single debuted at No. 1 on the Circle Digital Chart in March 2023?",
+      "answer": "Kitsch",
+      "text": "Kitsch, a pre-release single from the first IVE studio album, debuted at No. 1 on the Circle Digital Chart in March 2023.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ive_(group)",
+          "type": "wikipedia",
+          "publisher": "Wikipedia",
+          "title": "Ive (group)"
+        }
+      ],
+      "loadBearing": false,
+      "status": "verified",
+      "verifiedBy": "Claude (sources opened 2026-10-15)",
+      "verifiedAt": "2026-10-15"
+    }
+  ]
+}

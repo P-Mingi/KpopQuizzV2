@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useSyncExternalStore } from 'react';
 
+import { DeezerAttribution } from '@/components/deezer-attribution';
 import { CoverImg } from '@/components/ux-v1/cover-img';
 import { Icon } from '@/components/ux-v1/icon';
 import { UxIconButton } from '@/components/ux-v1/button';
@@ -209,6 +210,8 @@ export function BtGame({ run, chip, intro, onTap, strings: s = BT_STRINGS_EN }: 
             </div>
           </div>
         ) : null}
+
+        <DeezerAttribution className="p6-dz" />
       </div>
 
       {answered && answer?.correct && round && !reduced ? (

@@ -19,6 +19,7 @@ import { isCategoryGroup, realFandomName } from '@/lib/ux-v1/p3/model';
 
 import { BRIDGE_RESULT_KEY, BRIDGE_SLUGS } from './bridge';
 import { isGroupSlug, parseCounts, parseProfiles, parseQuestions } from './parse';
+import { currentProfiles } from './rosters';
 
 import type { AxisQuestion } from './engine';
 import type { WmaProfile } from './parse';
@@ -29,6 +30,12 @@ export interface PersonalityGroup {
   name: string;
   /** Real fandom name, or null. */
   fandom: string | null;
+}
+
+/** Saved results per member name, and when they were read (ISO date-time). */
+export interface DatedCounts {
+  counts: Record<string, number>;
+  asOf: string;
 }
 
 export interface WmaData {
@@ -98,12 +105,14 @@ const readSlugs = unstable_cache(async (): Promise<string[]> => {
   return [...slugs.entries()].filter(([, n]) => n >= MIN_PROFILES).map(([s]) => s).sort();
 }, ['v12:g5:slugs:v1'], { revalidate: CACHE_TTL.catalog, tags: ['personality', 'groups'] });
 
-const readCounts = unstable_cache(async (groupId: number): Promise<Record<string, number>> => {
+// The counts with the moment they were read: a page prints the number with its date
+// (SEO Mission 2, part D: "Most common result" with n and date).
+const readCounts = unstable_cache(async (groupId: number): Promise<DatedCounts> => {
   const db = createPublicReadClient();
   const { data, error } = await db.rpc('get_personality_counts', { p_group_id: groupId, p_since: null });
   if (error) throw new Error(error.message);
-  return parseCounts(data);
-}, ['v12:g5:counts:v1'], { revalidate: CACHE_TTL.stats, tags: ['personality'] });
+  return { counts: parseCounts(data), asOf: new Date().toISOString() };
+}, ['v12:g5:counts:v2'], { revalidate: CACHE_TTL.stats, tags: ['personality'] });
 
 const readBridgeGroups = unstable_cache(async (): Promise<PersonalityGroup[]> => {
   const db = createPublicReadClient();
@@ -119,8 +128,12 @@ export async function getWmaData(slug: string): Promise<WmaData | null> {
     soft(() => readQuestions(), [] as AxisQuestion[], 'questions'),
     soft(() => readGroupProfiles(slug), null, 'profiles'),
   ]);
-  if (!gp || gp.profiles.length < MIN_PROFILES || questions.length === 0) return null;
-  return { group: gp.group, questions, profiles: gp.profiles };
+  if (!gp || questions.length === 0) return null;
+  // A member both sources list as former is not a result (rosters.ts). The page and the
+  // result route both read here, so the result saved is always the result shown.
+  const profiles = currentProfiles(gp.group.slug, gp.profiles);
+  if (profiles.length < MIN_PROFILES) return null;
+  return { group: gp.group, questions, profiles };
 }
 
 /** Slugs of the groups that have a profile set, A to Z. Empty when the read fails. */
@@ -130,7 +143,12 @@ export async function getWmaGroupSlugs(): Promise<string[]> {
 
 /** Real saved results per member name for one group, or null when the read fails. */
 export async function getMemberCounts(groupId: number): Promise<Record<string, number> | null> {
-  return soft<Record<string, number> | null>(() => readCounts(groupId), null, 'counts');
+  return (await getDatedMemberCounts(groupId))?.counts ?? null;
+}
+
+/** The same counts with the moment they were read, or null when the read fails. */
+export async function getDatedMemberCounts(groupId: number): Promise<DatedCounts | null> {
+  return soft<DatedCounts | null>(() => readCounts(groupId), null, 'counts');
 }
 
 /** The six bridge groups that exist in `groups`. */

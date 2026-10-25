@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useCallback } from 'react';
-import { validateSchedule } from '@/lib/quiz-bank-scheduling';
+import { bankRefillAlert, validateSchedule } from '@/lib/quiz-bank-scheduling';
 
 import type { QuizBankEntry } from '@/lib/quiz-bank-scheduling';
 
@@ -58,6 +58,9 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
     }, {});
     return { total, ...byStatus };
   }, [entries]);
+
+  // Mission U (owner, 2026-10-15): the refill alert, from the same rows the page shows.
+  const refillAlert = bankRefillAlert(entries.filter((e) => e.status === 'verified' || e.status === 'scheduled').length);
 
   const updateEntry = useCallback(async (id: string, patch: Partial<QuizBankEntry>) => {
     setSavingId(id);
@@ -160,6 +163,11 @@ export function QuizBankDashboard({ entries: initialEntries, groups }: Props): R
           <p className="text-sm text-secondary mt-0.5">
             Pre-verified quizzes that auto-publish as Quiz of the Day
           </p>
+          {refillAlert ? (
+            <p role="alert" data-testid="bank-refill-alert" className="mt-2 rounded-lg bg-[#FCEBEB] px-3 py-2 text-sm font-medium text-[#791F1F]">
+              {refillAlert}
+            </p>
+          ) : null}
         </div>
         <div className="flex gap-2">
           <button
