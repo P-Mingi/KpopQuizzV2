@@ -20,6 +20,7 @@ export const SERIES_TYPE_BY_SLUG: Readonly<Record<string, string>> = {
   'frieren': 'anime_manga',
   'fruits-basket': 'anime_manga',
   'fullmetal-alchemist': 'franchise',
+  'gintama': 'anime_manga',
   'haikyu': 'anime_manga',
   'hunter-x-hunter': 'anime_manga',
   'jojo': 'franchise',
