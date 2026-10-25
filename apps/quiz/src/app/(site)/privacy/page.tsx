@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -12,11 +13,20 @@ export default function PrivacyPage(): React.ReactElement {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-medium mb-2">Privacy Policy</h1>
-      <p className="text-sm text-secondary mb-8">Last updated: March 27, 2026</p>
+      <p className="text-sm text-secondary mb-8">Last updated: October 24, 2026</p>
 
       <p className="text-sm text-secondary leading-relaxed">
         KpopQuiz (kpopquiz.org) respects your privacy. This policy explains what data we collect, how we
         use it, and your rights.
+      </p>
+
+      <h2 className="text-lg font-medium mt-8 mb-3">Who is responsible</h2>
+      <p className="text-sm text-secondary leading-relaxed">
+        The data controller (responsable du traitement) is Louis Pecchia, entrepreneur individuel, 3560 chemin des Lauves,
+        13100 Aix-en-Provence, France, SIREN 109 686 634. Contact:{' '}
+        <a href="mailto:hello@kpopquiz.org" className="text-primary underline hover:no-underline">hello@kpopquiz.org</a>.
+        See also the{' '}
+        <Link href="/legal" className="text-primary underline hover:no-underline">legal notice</Link>.
       </p>
 
       <h2 className="text-lg font-medium mt-8 mb-3">1. What we collect</h2>
@@ -99,18 +109,22 @@ export default function PrivacyPage(): React.ReactElement {
 
       <h2 className="text-lg font-medium mt-8 mb-3">6. Data retention</h2>
       <p className="text-sm text-secondary leading-relaxed">
-        Your data is retained as long as your account is active. If you want to delete your account and all
-        associated data, contact us at{' '}
-        <a href="mailto:contact@kpopquiz.org" className="text-primary underline hover:no-underline">
-          contact@kpopquiz.org
+        Your data is retained as long as your account is active. We delete accounts by hand. Send a request
+        from the{' '}
+        <Link href="/contact" className="text-primary underline hover:no-underline">
+          contact page
+        </Link>{' '}
+        or to{' '}
+        <a href="mailto:hello@kpopquiz.org" className="text-primary underline hover:no-underline">
+          hello@kpopquiz.org
         </a>{' '}
-        and we will process your request within 30 days.
+        and we delete your account within 30 days. Your published quizzes are deleted with it.
       </p>
 
       <h2 className="text-lg font-medium mt-8 mb-3">7. Children&apos;s privacy</h2>
       <p className="text-sm text-secondary leading-relaxed">
-        KpopQuiz is not directed at children under 13. If you are under 13, please do not create an
-        account. If we learn that we have collected data from a child under 13, we will delete it promptly.
+        KpopQuiz is not directed at children under 15. If you are under 15, please do not create an
+        account. If we learn that we have collected data from a child under 15, we will delete it promptly.
       </p>
 
       <h2 className="text-lg font-medium mt-8 mb-3">8. Your rights</h2>
@@ -125,8 +139,8 @@ export default function PrivacyPage(): React.ReactElement {
       </ul>
       <p className="text-sm text-secondary leading-relaxed mt-3">
         To exercise these rights, contact us at{' '}
-        <a href="mailto:contact@kpopquiz.org" className="text-primary underline hover:no-underline">
-          contact@kpopquiz.org
+        <a href="mailto:hello@kpopquiz.org" className="text-primary underline hover:no-underline">
+          hello@kpopquiz.org
         </a>
         .
       </p>
@@ -147,8 +161,8 @@ export default function PrivacyPage(): React.ReactElement {
       <h2 className="text-lg font-medium mt-8 mb-3">11. Contact</h2>
       <p className="text-sm text-secondary leading-relaxed">
         For privacy-related questions or data requests, contact us at{' '}
-        <a href="mailto:contact@kpopquiz.org" className="text-primary underline hover:no-underline">
-          contact@kpopquiz.org
+        <a href="mailto:hello@kpopquiz.org" className="text-primary underline hover:no-underline">
+          hello@kpopquiz.org
         </a>
         .
       </p>

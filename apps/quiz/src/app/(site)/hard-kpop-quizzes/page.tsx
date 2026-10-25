@@ -14,7 +14,6 @@ export const metadata: Metadata = {
     canonical: '/hard-kpop-quizzes',
     languages: {
       en: '/hard-kpop-quizzes',
-      'pt-BR': '/pt/hard-kpop-quizzes',
       'x-default': '/hard-kpop-quizzes',
     },
   },

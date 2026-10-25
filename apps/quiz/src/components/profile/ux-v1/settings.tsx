@@ -510,7 +510,7 @@ export function UxSettings(): React.ReactElement {
             <button type="button" className="ux-btn ux-btn-ghost ux-btn-sm" onClick={() => { void signOut(); }}>Sign out</button>
           </div>
           <div className="p10-srow">
-            <span className="p10-srow-g"><b className="p10-danger">Delete account</b><small>Removes your passport. Your published quizzes stay, credited to a deleted user.</small></span>
+            <span className="p10-srow-g"><b className="p10-danger">Delete account</b><small>Removes your passport. Your published quizzes are deleted with it.</small></span>
             <button type="button" className="ux-btn ux-btn-ghost ux-btn-sm p10-danger" onClick={() => setDeleteOpen(true)} aria-haspopup="dialog">Delete</button>
           </div>
         </div>
@@ -543,7 +543,7 @@ export function UxSettings(): React.ReactElement {
       <ConfirmSheet
         open={deleteOpen}
         title="Delete your account?"
-        body={<>Your passport, scores and badges are removed. Your published quizzes stay, credited to a deleted user. We do it by hand for now: send us the request from the contact page and we confirm by email.</>}
+        body={<>Your passport, scores and badges are removed. We delete accounts by hand. Send a request from the contact page and we delete your account within 30 days. Your published quizzes are deleted with it.</>}
         confirmLabel="Go to the contact page"
         cancelLabel="Keep my account"
         onConfirm={() => { setDeleteOpen(false); router.push('/contact'); }}

@@ -6,7 +6,8 @@ import { NAME_ALL_GROUPS } from '@/lib/name-all/spellings';
 import { prettyPath } from '@/lib/name-all/round';
 import { isKnownRouteWith } from '@/lib/route-allowlist';
 import {
-  LEGACY_GROUP_ALIASES, LEGACY_NAME_ALL_PREFIX, battleQuizSlug, legacyNameAllAnswer,
+  LEGACY_GROUP_ALIASES, LEGACY_NAME_ALL_PREFIX, RETIRED_FAMILIES, RETIRED_PAGES, battleQuizSlug, legacyAnswer,
+  legacyNameAllAnswer, retiredFeatureAnswer, PORTUGUESE_PAGES, portugueseAnswer,
 } from './legacy-urls';
 
 // SEO (owner, 2026-10-14): the retired URLs Bing reported (docs/seo/bing-2026-10-14,
@@ -129,6 +130,83 @@ describe('/games/name-all: exact successor or 410', () => {
   });
 });
 
+/**
+ * Every URL shape the retired features served before REFONTE P1 (526364d^, app/ and
+ * app/(site)/), the duel rooms of the older app/battle tree, and the URLs the old
+ * next.config redirects and the e2e matrix named. Owner (2026-10-15): nothing replaces
+ * them, so each answers 410, never /quizzes, a group hub or the home page.
+ */
+const RETIRED_URLS = [
+  '/games',
+  '/games/sort-it', '/games/sort-it/bts-debut-order',
+  '/games/match-up', '/games/match-up/bts-members',
+  '/games/name-them-all', '/games/name-them-all/name-all-kpop-groups',
+  '/games/name-them-all/name-all-3rd-gen-groups', '/games/name-them-all/name-all-4th-gen-groups',
+  '/games/this-or-that', '/games/this-or-that/all', '/games/this-or-that/bts-songs',
+  '/games/name-allx', '/games/made-up-game',
+  '/pt/games', '/pt/games/x',
+  '/rankings', '/rankings/bts', '/rankings/bts/best-song', '/rankings/twice/best-member',
+  '/tier-list', '/tier-list/new', '/tier-list/create', '/tier-list/share',
+  '/tier-list/mine/abc', '/tier-list/subject/bts/visual', '/tier-list/subject/bts',
+  '/tier-list/l/some-list', '/tier-list/l/does-not-exist-xyz',
+  '/battle', '/battle/abc', '/battle/create', '/battle/join', '/battle/questions', '/battle/questions/new',
+  '/battle/r/ABC123', '/battle/r/ABC123/guest',
+  '/battle-preview', '/battle-preview/x',
+  '/personality',
+];
+
+describe('retired features: 410, never a generic page (owner, 2026-10-15)', () => {
+  it.each(RETIRED_URLS)('%s answers 410', (p) => {
+    expect(retiredFeatureAnswer(p)).toEqual({ status: 410 });
+    expect(legacyAnswer(p, LIVE)).toEqual({ status: 410 });
+    expect(legacyAnswer(p, false)).toEqual({ status: 410 });
+  });
+
+  it('every family root and page is in the list above', () => {
+    for (const p of [...RETIRED_FAMILIES, ...RETIRED_PAGES]) expect(RETIRED_URLS, p).toContain(p);
+  });
+
+  it('leaves kept pages and look-alike paths alone', () => {
+    for (const p of ['/', '/quizzes', '/gamesx', '/games-quiz', '/rankingsx', '/tier-lists',
+      '/battlefield', '/battle-previewx', '/battle-quiz', '/personality-quiz', '/personality/bts',
+      '/personality/bts/r/jimin', '/which-bts-member-are-you', '/name-all/bts', '/bts-name-all-members',
+      '/q/battle', '/blindtest', '/kpop-true-or-false', '/leaderboard']) {
+      expect(retiredFeatureAnswer(p), p).toBeNull();
+      expect(legacyAnswer(p, LIVE), p).toBeNull();
+    }
+  });
+
+  // Owner, 2026-10-23: the Portuguese mirror is retired; each former page 301s to the English
+  // page it translated (its exact successor), other /pt paths are unknown (404), /pt/games 410.
+  it('/pt pages 301 to their English page, nothing else under /pt', () => {
+    expect(legacyAnswer('/pt', LIVE)).toEqual({ status: 301, location: '/' });
+    expect(legacyAnswer('/pt/', LIVE)).toEqual({ status: 301, location: '/' });
+    for (const p of PORTUGUESE_PAGES.filter((x) => x !== '/')) {
+      expect(legacyAnswer(`/pt${p}`, LIVE), p).toEqual({ status: 301, location: p });
+      expect(portugueseAnswer(`/pt${p}/`), p).toEqual({ status: 301, location: p });
+    }
+    expect(legacyAnswer('/pt/games', LIVE)).toEqual({ status: 410 });
+    for (const p of ['/pt/unknown', '/pt/q/some-quiz', '/pt/bts-quiz', '/ptx', '/portugal']) {
+      expect(portugueseAnswer(p), p).toBeNull();
+    }
+    expect(retiredFeatureAnswer('/pt/quizzes')).toBeNull();
+  });
+
+  it('/games/name-all keeps its slug-by-slug answer', () => {
+    expect(legacyAnswer('/games/name-all/name-all-aespa', LIVE)).toEqual({ status: 301, location: '/aespa-name-all-members' });
+    expect(legacyAnswer('/games/name-all/name-all-aespa', false)).toEqual({ status: 410 });
+    expect(legacyAnswer('/games/name-all/name-top-10-bts-songs', LIVE)).toEqual({ status: 410 });
+  });
+
+  it('no retired URL is a served route in any flag state, so 410 hides no live page', () => {
+    for (const p of RETIRED_URLS.filter((u) => !u.startsWith('/pt/'))) {
+      for (const flags of [{ v1: false, v12: false }, { v1: true, v12: false }, BOTH]) {
+        expect(isKnownRouteWith(p, flags), `${p} ${JSON.stringify(flags)}`).toBe(false);
+      }
+    }
+  });
+});
+
 /** The first next.config redirect that applies, as Next picks it (source, then has/missing on the query). */
 async function firstRedirect(pathname: string, query: Record<string, string> = {}) {
   const redirects = await nextConfig.redirects!();
@@ -149,16 +227,19 @@ describe('next.config hands the legacy URLs to the middleware', () => {
     }
   });
 
-  it('the other retired /games URLs keep their redirect', async () => {
-    for (const p of ['/games', '/games/sort-it', '/games/this-or-that/all', '/games/name-them-all/name-all-kpop-groups', '/games/name-allx']) {
-      expect((await firstRedirect(p))?.destination, p).toBe('/quizzes');
-    }
+  it('no redirect catches a URL of the retired features (owner, 2026-10-15)', async () => {
+    for (const p of RETIRED_URLS) expect(await firstRedirect(p), p).toBeUndefined();
   });
 
-  it('/battle?quiz= reaches the middleware; a bare /battle keeps its redirect', async () => {
+  it('/battle?quiz= reaches the middleware, and so do a bare /battle and anything under it', async () => {
     expect(await firstRedirect('/battle', { quiz: 'illit-quiz' })).toBeUndefined();
-    expect((await firstRedirect('/battle'))?.destination).toBe('/quizzes');
-    expect((await firstRedirect('/battle/abc'))?.destination).toBe('/quizzes');
+    expect(await firstRedirect('/battle')).toBeUndefined();
+    expect(await firstRedirect('/battle/abc')).toBeUndefined();
+  });
+
+  it('the per-group personality URLs keep their redirect (not in the 2026-10-15 rule)', async () => {
+    expect((await firstRedirect('/personality/bts'))?.destination).toBe('/:group-quiz');
+    expect((await firstRedirect('/personality/bts/r/jimin'))?.destination).toBe('/:group-quiz');
   });
 });
 

@@ -32,7 +32,6 @@ export async function generateMetadata(): Promise<Metadata> {
     canonical: '/blindtest',
     languages: {
       en: '/blindtest',
-      'pt-BR': '/pt/blindtest',
       'x-default': '/blindtest',
     },
   },
@@ -152,7 +151,8 @@ export default async function BlindtestPage(): Promise<React.ReactElement> {
         <Breadcrumbs
           items={[
             { label: 'Home', href: '/' },
-            { label: 'Blind Test' },
+            { label: 'K-pop games', href: '/kpop-games' },
+            { label: 'Blind test' },
           ]}
         />
       </div>

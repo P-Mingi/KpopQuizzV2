@@ -71,7 +71,6 @@ export async function generateMetadata(): Promise<Metadata> {
     canonical: '/',
     languages: {
       en: '/',
-      'pt-BR': '/pt',
       'x-default': '/',
     },
   },
