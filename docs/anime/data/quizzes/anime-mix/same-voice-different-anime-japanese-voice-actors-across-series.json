@@ -1,0 +1,258 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Same Voice, Different Anime: Japanese Voice Actors Across Series",
+ "slug": "same-voice-different-anime-japanese-voice-actors-across-series",
+ "description": "Ten questions on Japanese voice actors who play major roles in more than one series of the catalogue, from detectives to demon slayers. Casting facts only, no spoilers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Cross-series set. Each question joins two or three roles of the same Japanese voice actor, each backed by a character fact. Arc 0; characters of spoiler level 0 only.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Death Note (2006 TV series)",
+   "url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Cowboy Bebop characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Tokyo Ghoul characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: List of Code Geass characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: List of Spy × Family characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: List of Jujutsu Kaisen characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: List of Gintama characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: List of Sword Art Online characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Which Japanese voice actor plays both Light Yagami in Death Note and Rintaro Okabe in Steins;Gate?",
+   "options": [
+    "Hiroshi Kamiya",
+    "Yuki Kaji",
+    "Daisuke Ono",
+    "Mamoru Miyano"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-light-voice-067",
+    "steins-gate-okabe-voice-070"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
+  },
+  {
+   "question": "Which voice actress plays Faye Valentine in Cowboy Bebop and Rei Ayanami in Neon Genesis Evangelion?",
+   "options": [
+    "Megumi Hayashibara",
+    "Kana Hanazawa",
+    "Yui Horie",
+    "Maaya Sakamoto"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "cowboy-bebop-faye-valentine-voice-035",
+    "evangelion-rei-ayanami-voice-048"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "Ken Kaneki in Tokyo Ghoul and Ken Takakura in Dandadan share one Japanese voice actor. Who?",
+   "options": [
+    "Kaito Ishikawa",
+    "Takuya Eguchi",
+    "Natsuki Hanae",
+    "Yoshitsugu Matsuoka"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tokyo-ghoul-ken-kaneki-voice-078",
+    "dandadan-ken-takakura-voice-071"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+  },
+  {
+   "question": "Suzaku Kururugi in Code Geass and Arataka Reigen in Mob Psycho 100 are voiced by whom?",
+   "options": [
+    "Tomokazu Sugita",
+    "Hiroshi Kamiya",
+    "Kenjiro Tsuda",
+    "Takahiro Sakurai"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "code-geass-suzaku-kururugi-voice-074",
+    "mob-psycho-100-arataka-reigen-voice-074"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+  },
+  {
+   "question": "Which voice actress plays both Yor Forger in Spy x Family and Rachel in Tower of God?",
+   "options": [
+    "Rie Takahashi",
+    "Saori Hayami",
+    "Atsumi Tanezaki",
+    "Ayane Sakura"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-yor-forger-voice-051",
+    "tower-of-god-rachel-voice-045"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters"
+  },
+  {
+   "question": "Which Evangelion character shares a Japanese voice actor with Spike Spiegel of Cowboy Bebop?",
+   "options": [
+    "Misato Katsuragi",
+    "Ryoji Kaji",
+    "Shinji Ikari",
+    "Asuka Langley Soryu"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "cowboy-bebop-spike-spiegel-voice-036",
+    "evangelion-ryoji-kaji-voice-049"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "Which voice actor plays both Lelouch Lamperouge in Code Geass and Finral Roulacase in Black Clover?",
+   "options": [
+    "Mamoru Miyano",
+    "Daisuke Ono",
+    "Jun Fukuyama",
+    "Yuki Kaji"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "code-geass-lelouch-lamperouge-voice-075",
+    "black-clover-finral-roulacase-voice-103"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+  },
+  {
+   "question": "Which voice actor lends his voice to Ryomen Sukuna, Yami Sukehiro and Shota Aizawa?",
+   "options": [
+    "Koichi Yamadera",
+    "Junichi Suwabe",
+    "Tomokazu Seki",
+    "Kenjiro Tsuda"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-ryomen-sukuna-voice-061",
+    "black-clover-yami-voice-073",
+    "my-hero-academia-shota-aizawa-voice-140"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+  },
+  {
+   "question": "Which Fairy Tail character shares a Japanese voice actress with Kagura of Gintama?",
+   "options": [
+    "Happy",
+    "Lucy Heartfilia",
+    "Erza Scarlet",
+    "Natsu Dragneel"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "gintama-kagura-voice-041",
+    "fairy-tail-voice-happy-042"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+  },
+  {
+   "question": "Which voice actor plays both Kirito in Sword Art Online and Inosuke Hashibira in Demon Slayer?",
+   "options": [
+    "Yoshitsugu Matsuoka",
+    "Hiro Shimono",
+    "Natsuki Hanae",
+    "Kaito Ishikawa"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sword-art-online-kirito-voice-092",
+    "demon-slayer-inosuke-hashibira-voice-100"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+  }
+ ]
+}

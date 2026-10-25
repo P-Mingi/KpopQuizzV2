@@ -2805,5 +2805,36 @@
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
     "excerpt": "a caretaker of the younger SAO players in Town of Beginnings on the 1st Floor"
+  },
+  {
+    "id": "sword-art-online-kirito-voice-092",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "kirito"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Yoshitsugu Matsuoka"
+    ],
+    "text": "Kirito is voiced in Japanese by Yoshitsugu Matsuoka.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Voiced by: Yoshitsugu Matsuoka (Japanese)"
   }
 ]

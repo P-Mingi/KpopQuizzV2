@@ -2196,5 +2196,36 @@
     "status": "verified",
     "verified_at": "2026-10-25T14:45:00.000Z",
     "excerpt": "None; wished to create artificial psychic powers"
+  },
+  {
+    "id": "mob-psycho-100-arataka-reigen-voice-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "mob-psycho-100",
+      "ref": "arataka-reigen"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Takahiro Sakurai"
+    ],
+    "text": "Arataka Reigen is voiced in Japanese by Takahiro Sakurai.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters",
+        "ref": "1370251193",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Voiced by: Takahiro Sakurai (Japanese)"
   }
 ]

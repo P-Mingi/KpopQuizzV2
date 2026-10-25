@@ -1,0 +1,363 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Where Did It Begin? Origins and Adaptations Odd One Out",
+ "slug": "where-did-it-begin-origins-and-adaptations-odd-one-out",
+ "description": "Ten rounds of four titles where one has a different start: web novels, webtoons and webcomics, light novels, a visual novel, and live-action versions. Sourced origins only, no spoilers.",
+ "quiz_type": "intruder",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Cross-series set on origins and adaptations. Three options share the property, one does not. Arc 0. Live-action status is as of the fact dates (October 2026).",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Tower of God",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Violet Evergarden",
+   "url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Case Closed",
+   "url": "https://en.wikipedia.org/wiki/Case_Closed"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Steins;Gate",
+   "url": "https://en.wikipedia.org/wiki/Steins;Gate"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: My Hero Academia",
+   "url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: Re:Zero",
+   "url": "https://en.wikipedia.org/wiki/Re:Zero"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: Bleach (manga)",
+   "url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: Fruits Basket",
+   "url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: One Piece",
+   "url": "https://en.wikipedia.org/wiki/One_Piece"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three of these stories began as web novels. Which one began as a webtoon?",
+   "options": [
+    {
+     "label": "Reincarnated as a Slime"
+    },
+    {
+     "label": "Re:Zero"
+    },
+    {
+     "label": "Tower of God"
+    },
+    {
+     "label": "Solo Leveling"
+    }
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-webtoon-launch-003",
+    "re-zero-web-novel-003",
+    "that-time-i-got-reincarnated-as-a-slime-creator-002",
+    "solo-leveling-novel-author-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "Three of these stories began as web novels. Which one began as a light novel that won a studio's award?",
+   "options": [
+    {
+     "label": "Omniscient Reader's Viewpoint"
+    },
+    {
+     "label": "Sword Art Online"
+    },
+    {
+     "label": "The Apothecary Diaries"
+    },
+    {
+     "label": "Violet Evergarden"
+    }
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "violet-evergarden-creator-002",
+    "violet-evergarden-award-novel-026",
+    "apothecary-diaries-novel-history-003",
+    "omniscient-readers-viewpoint-novel-run-004",
+    "sword-art-online-web-novel-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+  },
+  {
+   "question": "Three of these started as free online comics. Which one started in a print magazine?",
+   "options": [
+    {
+     "label": "Detective Conan"
+    },
+    {
+     "label": "One-Punch Man"
+    },
+    {
+     "label": "Tower of God"
+    },
+    {
+     "label": "Mob Psycho 100"
+    }
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "detective-conan-magazine-003",
+    "mob-psycho-100-manga-origin-003",
+    "one-punch-man-webcomic-start-003",
+    "tower-of-god-webtoon-launch-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Case_Closed"
+  },
+  {
+   "question": "Three of these were published as light novels. Which one began as a visual novel?",
+   "options": [
+    {
+     "label": "Sword Art Online"
+    },
+    {
+     "label": "Violet Evergarden"
+    },
+    {
+     "label": "Steins;Gate"
+    },
+    {
+     "label": "The Apothecary Diaries"
+    }
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "steins-gate-vn-release-003",
+    "sword-art-online-novel-start-003",
+    "violet-evergarden-novel-start-005",
+    "apothecary-diaries-novel-history-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+  },
+  {
+   "question": "Three of these have a live-action version that has been released. Which one has only had a live-action film announced, as of October 2026?",
+   "options": [
+    {
+     "label": "Mob Psycho 100"
+    },
+    {
+     "label": "My Hero Academia"
+    },
+    {
+     "label": "One Piece"
+    },
+    {
+     "label": "Gintama"
+    }
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "my-hero-academia-live-action-film-030",
+    "gintama-live-action-032",
+    "mob-psycho-100-live-action-015",
+    "one-piece-live-action-023"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+  },
+  {
+   "question": "Three of these stories started in South Korea. Which one started in Japan?",
+   "options": [
+    {
+     "label": "Tower of God"
+    },
+    {
+     "label": "Re:Zero"
+    },
+    {
+     "label": "Solo Leveling"
+    },
+    {
+     "label": "Omniscient Reader's Viewpoint"
+    }
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "re-zero-japanese-origin-087",
+    "tower-of-god-korean-origin-046",
+    "solo-leveling-korean-origin-074",
+    "omniscient-readers-viewpoint-korean-origin-028"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Re:Zero"
+  },
+  {
+   "question": "Three of these light novel series were put out by publishing houses. Which one was put out by an animation studio?",
+   "options": [
+    {
+     "label": "Reincarnated as a Slime"
+    },
+    {
+     "label": "Violet Evergarden"
+    },
+    {
+     "label": "Re:Zero"
+    },
+    {
+     "label": "Sword Art Online"
+    }
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "violet-evergarden-publisher-004",
+    "re-zero-light-novel-004",
+    "sword-art-online-novel-start-003",
+    "that-time-i-got-reincarnated-as-a-slime-light-novel-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+  },
+  {
+   "question": "Three of these started as web novels on Shosetsuka ni Naro. Which one started in a print manga magazine?",
+   "options": [
+    {
+     "label": "The Apothecary Diaries"
+    },
+    {
+     "label": "Re:Zero"
+    },
+    {
+     "label": "Reincarnated as a Slime"
+    },
+    {
+     "label": "Bleach"
+    }
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bleach-magazine-run-003",
+    "apothecary-diaries-novel-history-003",
+    "re-zero-web-novel-003",
+    "that-time-i-got-reincarnated-as-a-slime-web-novel-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+  },
+  {
+   "question": "Three of these began as web novels. Which one ran in a girls' print magazine?",
+   "options": [
+    {
+     "label": "Fruits Basket"
+    },
+    {
+     "label": "Sword Art Online"
+    },
+    {
+     "label": "Solo Leveling"
+    },
+    {
+     "label": "Omniscient Reader's Viewpoint"
+    }
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fruits-basket-magazine-003",
+    "solo-leveling-novel-author-003",
+    "omniscient-readers-viewpoint-novel-run-004",
+    "sword-art-online-web-novel-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+  },
+  {
+   "question": "Three of these got a live-action film in Japanese cinemas. Which one got a Netflix television series instead?",
+   "options": [
+    {
+     "label": "One Piece"
+    },
+    {
+     "label": "Tokyo Ghoul"
+    },
+    {
+     "label": "Gintama"
+    },
+    {
+     "label": "Tokyo Revengers"
+    }
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-live-action-023",
+    "gintama-live-action-032",
+    "tokyo-ghoul-live-action-film-016",
+    "tokyo-revengers-film-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  }
+ ]
+}

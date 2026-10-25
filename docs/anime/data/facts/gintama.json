@@ -2472,5 +2472,63 @@
     "status": "verified",
     "verified_at": "2026-10-25T18:00:00.000Z",
     "excerpt": "strongest within the organization's Three Wings"
+  },
+  {
+    "id": "gintama-gintoki-parfait-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "gintoki-sakata"
+    },
+    "field": "fond_of",
+    "value": "parfait",
+    "text": "Gintoki loves sweets so much that the first brawl of the story starts when Amanto officials spill his parfait.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T18:54:38Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:38.000Z",
+    "excerpt": "to get revenge for his spilled parfait"
+  },
+  {
+    "id": "gintama-kagura-appetite-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "kagura"
+    },
+    "field": "habits",
+    "value": "huge appetite",
+    "text": "Kagura has an enormous appetite and can put away a huge amount of food in a few seconds, though her tastes are plain.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T18:54:38Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:38.000Z",
+    "excerpt": "Kagura also has an unusually strong appetite"
   }
 ]
