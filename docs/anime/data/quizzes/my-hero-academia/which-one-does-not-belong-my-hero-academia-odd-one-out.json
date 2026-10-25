@@ -1,0 +1,322 @@
+{
+ "site": "anime",
+ "account": "oq_creator_09",
+ "group_slug": "my-hero-academia",
+ "title": "Which One Does Not Belong? My Hero Academia Odd One Out",
+ "slug": "which-one-does-not-belong-my-hero-academia-odd-one-out",
+ "description": "Ten rounds of four names where one is the outsider: classes, U.A. teachers, Quirks, hero names, the League of Villains, the Pussycats, a famous family and rival schools. Light spoilers up to Season 4.",
+ "quiz_type": "intruder",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Intruder format: three real members of a group and one real outsider; every option is a character, Quirk, hero name or school from the series.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of My Hero Academia characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three of these students are in Class 1-A. Which one is in Class 1-B?",
+   "options": [
+    {
+     "label": "Tenya Ida"
+    },
+    {
+     "label": "Tsuyu Asui"
+    },
+    {
+     "label": "Momo Yaoyorozu"
+    },
+    {
+     "label": "Itsuka Kendo"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "my-hero-academia-tsuyu-class-1a-100",
+    "my-hero-academia-momo-class-1a-101",
+    "my-hero-academia-tenya-class-1a-102",
+    "my-hero-academia-kendo-class-1b-103"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+  },
+  {
+   "question": "Three of these heroes teach at U.A. Which one is a Pro Hero who does not?",
+   "options": [
+    {
+     "label": "Cementoss"
+    },
+    {
+     "label": "Fat Gum"
+    },
+    {
+     "label": "Present Mic"
+    },
+    {
+     "label": "Midnight"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "my-hero-academia-present-mic-teacher-104",
+    "my-hero-academia-midnight-teacher-105",
+    "my-hero-academia-cementoss-teacher-106",
+    "my-hero-academia-fat-gum-intern-107"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+  },
+  {
+   "question": "Three of these Quirks belong to students of Class 1-A. Which one belongs to their homeroom teacher?",
+   "options": [
+    {
+     "label": "Half-Cold Half-Hot"
+    },
+    {
+     "label": "Erasure"
+    },
+    {
+     "label": "Zero Gravity"
+    },
+    {
+     "label": "Engine"
+    }
+   ],
+   "correct": 1,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "my-hero-academia-ochaco-zero-gravity-108",
+    "my-hero-academia-shoto-half-cold-109",
+    "my-hero-academia-tenya-engine-110",
+    "my-hero-academia-aizawa-erasure-111"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+  },
+  {
+   "question": "Three of these are hero names of Class 1-A students. Which one belongs to a third-year?",
+   "options": [
+    {
+     "label": "Froppy"
+    },
+    {
+     "label": "Uravity"
+    },
+    {
+     "label": "Creati"
+    },
+    {
+     "label": "Lemillion"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "my-hero-academia-uravity-name-112",
+    "my-hero-academia-froppy-name-113",
+    "my-hero-academia-creati-name-114",
+    "my-hero-academia-lemillion-name-115"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+  },
+  {
+   "question": "Three of these villains are members of the League of Villains. Which one runs a Yakuza gang instead?",
+   "options": [
+    {
+     "label": "Twice"
+    },
+    {
+     "label": "Overhaul"
+    },
+    {
+     "label": "Magne"
+    },
+    {
+     "label": "Spinner"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "my-hero-academia-twice-league-116",
+    "my-hero-academia-spinner-league-117",
+    "my-hero-academia-magne-league-118",
+    "my-hero-academia-overhaul-boss-119"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+  },
+  {
+   "question": "Three of these Pro Heroes are Wild Wild Pussycats. Which one belongs to another team?",
+   "options": [
+    {
+     "label": "Kamui Woods"
+    },
+    {
+     "label": "Mandalay"
+    },
+    {
+     "label": "Ragdoll"
+    },
+    {
+     "label": "Pixie-Bob"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "my-hero-academia-mandalay-pussycats-120",
+    "my-hero-academia-pixie-bob-pussycats-121",
+    "my-hero-academia-ragdoll-pussycats-122",
+    "my-hero-academia-kamui-woods-lurkers-123"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+  },
+  {
+   "question": "Three of these belong to Shoto Todoroki's family. Which one is a retired hero outside the family?",
+   "options": [
+    {
+     "label": "Gran Torino"
+    },
+    {
+     "label": "Endeavor"
+    },
+    {
+     "label": "Rei Todoroki"
+    },
+    {
+     "label": "Fuyumi Todoroki"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "my-hero-academia-endeavor-family-124",
+    "my-hero-academia-rei-family-125",
+    "my-hero-academia-fuyumi-family-126",
+    "my-hero-academia-gran-torino-mentor-127"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+  },
+  {
+   "question": "Three of these are hero schools. Which one is a Yakuza gang?",
+   "options": [
+    {
+     "label": "Shie Hassaikai"
+    },
+    {
+     "label": "Shiketsu High School"
+    },
+    {
+     "label": "Seiai Academy"
+    },
+    {
+     "label": "Ketsubutsu Academy"
+    }
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "my-hero-academia-shiketsu-rival-128",
+    "my-hero-academia-ketsubutsu-rival-129",
+    "my-hero-academia-seiai-anime-school-130",
+    "my-hero-academia-shie-hassaikai-yakuza-131"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+  },
+  {
+   "question": "Three of these Quirks belong to the Big Three of U.A. Which one belongs to a first-year of Class 1-A?",
+   "options": [
+    {
+     "label": "Manifest"
+    },
+    {
+     "label": "Wave Motion"
+    },
+    {
+     "label": "Frog"
+    },
+    {
+     "label": "Permeation"
+    }
+   ],
+   "correct": 2,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "my-hero-academia-mirio-permeation-132",
+    "my-hero-academia-tamaki-manifest-133",
+    "my-hero-academia-nejire-wave-motion-134",
+    "my-hero-academia-tsuyu-frog-135"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+  },
+  {
+   "question": "Three of these Quirks belong to Pro Heroes. Which one belongs to the Hero Killer?",
+   "options": [
+    {
+     "label": "Foldabody"
+    },
+    {
+     "label": "Cement"
+    },
+    {
+     "label": "Bloodcurdle"
+    },
+    {
+     "label": "Arbor"
+    }
+   ],
+   "correct": 2,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "my-hero-academia-cementoss-cement-136",
+    "my-hero-academia-kamui-woods-arbor-137",
+    "my-hero-academia-edgeshot-foldabody-138",
+    "my-hero-academia-stain-bloodcurdle-139"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+  }
+ ]
+}

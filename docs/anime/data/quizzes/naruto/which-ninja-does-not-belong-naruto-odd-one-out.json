@@ -1,0 +1,321 @@
+{
+ "site": "anime",
+ "account": "oq_creator_04",
+ "group_slug": "naruto",
+ "title": "Which Ninja Does Not Belong? Naruto Odd One Out",
+ "slug": "which-ninja-does-not-belong-naruto-odd-one-out",
+ "description": "Ten rounds of four names with one outsider: Naruto's teachers, ninja teams, Sannin, Hokage, Akatsuki, Tailed Beasts and the Kage. Spoilers up to the Five Kage summit in Shippuden.",
+ "quiz_type": "intruder",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Intruder format: three options share a trait from the Naruto world, one does not; every option is a character, beast or title.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Naruto characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three of these characters have taught Naruto something. Which one looks up to Naruto as a mentor instead?",
+   "options": [
+    {
+     "label": "Konohamaru"
+    },
+    {
+     "label": "Iruka"
+    },
+    {
+     "label": "Kakashi"
+    },
+    {
+     "label": "Jiraiya"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "naruto-iruka-academy-061",
+    "naruto-kakashi-trains-naruto-062",
+    "naruto-jiraiya-naruto-teacher-063",
+    "naruto-konohamaru-looks-up-064"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+  },
+  {
+   "question": "Three of these ninja are on Might Guy's team. Which one belongs to Team 8?",
+   "options": [
+    {
+     "label": "Hinata Hyuga"
+    },
+    {
+     "label": "Rock Lee"
+    },
+    {
+     "label": "Neji Hyuga"
+    },
+    {
+     "label": "Tenten"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "naruto-lee-team-guy-065",
+    "naruto-neji-team-guy-066",
+    "naruto-tenten-team-guy-067",
+    "naruto-hinata-team-8-068"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+  },
+  {
+   "question": "Three of these ninja are siblings from Sunagakure. Which one is from the Leaf?",
+   "options": [
+    {
+     "label": "Gaara"
+    },
+    {
+     "label": "Shikamaru Nara"
+    },
+    {
+     "label": "Temari"
+    },
+    {
+     "label": "Kankuro"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "naruto-sand-siblings-069",
+    "naruto-gaara-youngest-070",
+    "naruto-kankuro-middle-071",
+    "naruto-temari-oldest-072",
+    "naruto-shikamaru-team-10-073"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+  },
+  {
+   "question": "Three of these are the Legendary Sannin. Which one trained them?",
+   "options": [
+    {
+     "label": "Orochimaru"
+    },
+    {
+     "label": "Tsunade"
+    },
+    {
+     "label": "Hiruzen Sarutobi"
+    },
+    {
+     "label": "Jiraiya"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "naruto-sannin-trio-074",
+    "naruto-hiruzen-sannin-teacher-075"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+  },
+  {
+   "question": "Three of these characters have held the title of Hokage. Which one leads another village?",
+   "options": [
+    {
+     "label": "Hashirama Senju"
+    },
+    {
+     "label": "Gaara"
+    },
+    {
+     "label": "Hiruzen Sarutobi"
+    },
+    {
+     "label": "Tobirama Senju"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 8,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "naruto-hashirama-first-hokage-076",
+    "naruto-tobirama-second-hokage-077",
+    "naruto-hiruzen-third-hokage-078",
+    "naruto-gaara-kazekage-079"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+  },
+  {
+   "question": "Three of these ninja serve on Kakashi's team. Which one leads a different squad?",
+   "options": [
+    {
+     "label": "Yamato"
+    },
+    {
+     "label": "Might Guy"
+    },
+    {
+     "label": "Sai"
+    },
+    {
+     "label": "Sakura Haruno"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 8,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "naruto-team-7-members-080",
+    "naruto-sai-team-kakashi-100",
+    "naruto-yamato-team-kakashi-101",
+    "naruto-guy-team-leader-083"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+  },
+  {
+   "question": "Three of these ninja are members of the Akatsuki. Which one is a hunted jinchuriki instead?",
+   "options": [
+    {
+     "label": "Hidan"
+    },
+    {
+     "label": "Kakuzu"
+    },
+    {
+     "label": "Deidara"
+    },
+    {
+     "label": "Killer Bee"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 13,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "naruto-hidan-akatsuki-102",
+    "naruto-kakuzu-akatsuki-103",
+    "naruto-deidara-sasori-akatsuki-104",
+    "naruto-killer-bee-hunted-087"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+  },
+  {
+   "question": "Three of these are Tailed Beasts. Which one is a ninja dog?",
+   "options": [
+    {
+     "label": "Akamaru"
+    },
+    {
+     "label": "Shukaku"
+    },
+    {
+     "label": "Kurama"
+    },
+    {
+     "label": "Gyuki"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 13,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "naruto-kurama-most-powerful-088",
+    "naruto-shukaku-one-tail-089",
+    "naruto-gyuki-eight-tails-090",
+    "naruto-akamaru-ninja-dog-091"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+  },
+  {
+   "question": "Three of these ninja come from the Hidden Mist. Which one comes from the Hidden Rock?",
+   "options": [
+    {
+     "label": "Kisame Hoshigaki"
+    },
+    {
+     "label": "Zabuza Momochi"
+    },
+    {
+     "label": "Deidara"
+    },
+    {
+     "label": "Suigetsu Hozuki"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 15,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "naruto-zabuza-mist-sword-092",
+    "naruto-kisame-mist-093",
+    "naruto-suigetsu-mist-094",
+    "naruto-deidara-iwa-095"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+  },
+  {
+   "question": "Three of these hold the title of Kage. Which one is only an elder advisor?",
+   "options": [
+    {
+     "label": "Ay"
+    },
+    {
+     "label": "Onoki"
+    },
+    {
+     "label": "Mei Terumi"
+    },
+    {
+     "label": "Chiyo"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 17,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "naruto-mei-mizukage-096",
+    "naruto-onoki-tsuchikage-097",
+    "naruto-ay-raikage-098",
+    "naruto-chiyo-advisor-099"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+  }
+ ]
+}

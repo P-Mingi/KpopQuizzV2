@@ -1844,5 +1844,1174 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "The young granddaughter of the Shie Hassaikai's former crime boss. She was abused and experimented on by Overhaul to create the Quirk-destroying drug that he"
+  },
+  {
+    "id": "my-hero-academia-tsuyu-class-1a-100",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "tsuyu-asui"
+    },
+    "field": "role",
+    "value": "Class 1-A",
+    "text": "Tsuyu Asui is a frog-like girl who studies in the famous Class 1-A.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "Tsuyu Asui is a sincere frog-like girl in Class 1-A"
+  },
+  {
+    "id": "my-hero-academia-momo-class-1a-101",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "momo-yaoyorozu"
+    },
+    "field": "role",
+    "value": "vice president",
+    "text": "Momo Yaoyorozu serves as the deputy class representative of Class 1-A.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "is the mature and level-headed vice president of Class 1-A"
+  },
+  {
+    "id": "my-hero-academia-tenya-class-1a-102",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "tenya-ida"
+    },
+    "field": "role",
+    "value": "strait-laced president",
+    "text": "Tenya Ida is the class representative of Class 1-A and takes the job very seriously.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "is the strait-laced president of Class 1-A"
+  },
+  {
+    "id": "my-hero-academia-kendo-class-1b-103",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "role",
+    "value": "Class 1-B",
+    "text": "Itsuka Kendo is the class representative of the rival Class 1-B.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "is the spirited and sensible president of Class 1-B"
+  },
+  {
+    "id": "my-hero-academia-present-mic-teacher-104",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "present-mic"
+    },
+    "field": "occupation",
+    "value": "English teacher",
+    "text": "Present Mic, whose real name is Hizashi Yamada, teaches English at U.A.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "is the school's English teacher"
+  },
+  {
+    "id": "my-hero-academia-midnight-teacher-105",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "occupation",
+    "value": "art history teacher",
+    "text": "Midnight is a Pro Heroine who also teaches modern art history at U.A.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "a modern art history teacher at U.A."
+  },
+  {
+    "id": "my-hero-academia-cementoss-teacher-106",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "organization",
+    "value": "literature teacher",
+    "text": "Cementoss is a Pro Hero who teaches literature at U.A.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "is a Pro Hero and literature teacher at U.A."
+  },
+  {
+    "id": "my-hero-academia-fat-gum-intern-107",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "background",
+    "value": "Pro Hero",
+    "text": "Fat Gum is a Pro Hero with his own agency who takes interns, such as Tamaki Amajiki and Kirishima.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "is a Pro Hero who employs Tamaki Amajiki and Eijiro Kirishima as interns"
+  },
+  {
+    "id": "my-hero-academia-ochaco-zero-gravity-108",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "ochaco-uraraka"
+    },
+    "field": "quirks",
+    "value": "Zero Gravity",
+    "text": "Ochaco Uraraka makes things weightless with her Quirk Zero Gravity.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "whose Quirk, Zero Gravity"
+  },
+  {
+    "id": "my-hero-academia-shoto-half-cold-109",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "shoto-todoroki"
+    },
+    "field": "quirks",
+    "value": "Half-Cold Half-Hot",
+    "text": "Shoto Todoroki makes ice with one side of his body and fire with the other, thanks to Half-Cold Half-Hot.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "His Quirk Half-Cold Half-Hot"
+  },
+  {
+    "id": "my-hero-academia-tenya-engine-110",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "tenya-ida"
+    },
+    "field": "quirks",
+    "value": "Engine",
+    "text": "Tenya Ida owes his great speed to the Quirk Engine, with engines in his calves.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "His Quirk Engine"
+  },
+  {
+    "id": "my-hero-academia-aizawa-erasure-111",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "shota-aizawa"
+    },
+    "field": "quirks",
+    "value": "Erasure",
+    "text": "Aizawa, the homeroom teacher of Class 1-A, nullifies other Quirks with Erasure for as long as he does not blink.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "His Quirk Erasure"
+  },
+  {
+    "id": "my-hero-academia-uravity-name-112",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "ochaco-uraraka"
+    },
+    "field": "nickname",
+    "value": "Uravity",
+    "text": "Uravity is the hero name of Ochaco Uraraka.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "Ochaco Uraraka (麗日 お茶子, Uraraka Ochako) / Uravity"
+  },
+  {
+    "id": "my-hero-academia-froppy-name-113",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "tsuyu-asui"
+    },
+    "field": "nickname",
+    "value": "Froppy",
+    "text": "Froppy is the hero name of Tsuyu Asui.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "Tsuyu Asui (蛙吹 梅雨, Asui Tsuyu) / Froppy"
+  },
+  {
+    "id": "my-hero-academia-creati-name-114",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "momo-yaoyorozu"
+    },
+    "field": "nickname",
+    "value": "Creati",
+    "text": "Creati is the hero name of Momo Yaoyorozu.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "Momo Yaoyorozu (八百万 百, Yaoyorozu Momo) / Creati"
+  },
+  {
+    "id": "my-hero-academia-lemillion-name-115",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "mirio-togata"
+    },
+    "field": "nickname",
+    "value": "Lemillion",
+    "text": "Lemillion is the hero name of the third-year Mirio Togata, who hopes to help a million people.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "He chose the hero name Lemillion because he wanted to help at least a million people"
+  },
+  {
+    "id": "my-hero-academia-twice-league-116",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "twice"
+    },
+    "field": "organization",
+    "value": "League of Villains",
+    "text": "Twice joined the League because it took him as he was, flaws included.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "He joined the League of Villains because they accepted his flaws"
+  },
+  {
+    "id": "my-hero-academia-spinner-league-117",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "origin",
+    "value": "join the League",
+    "text": "Spinner is a gecko-like villain who joined the League out of admiration for Stain.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "He was inspired to join the League by Stain"
+  },
+  {
+    "id": "my-hero-academia-magne-league-118",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "setting",
+    "value": "Magne",
+    "text": "Magne is a sharp and ruthless criminal who belonged to the League and uses magnetism.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "During her time in the League, Magne was shown to be quite perceptive"
+  },
+  {
+    "id": "my-hero-academia-overhaul-boss-119",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "overhaul"
+    },
+    "field": "role",
+    "value": "crime boss",
+    "text": "Overhaul is the germ-fearing head of the Yakuza group Shie Hassaikai, not a member of the League.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "The mysophobic crime boss of the Shie Hassaikai"
+  },
+  {
+    "id": "my-hero-academia-mandalay-pussycats-120",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "terms",
+    "value": "leader",
+    "text": "Mandalay leads the Pussycats, the cat-themed team of Pro Heroes who help train the students.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "is the leader of the Pussycats"
+  },
+  {
+    "id": "my-hero-academia-pixie-bob-pussycats-121",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "specialty",
+    "value": "a member",
+    "text": "Pixie-Bob is one of the Pussycats and moves the earth with her Quirk.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "is a member of the Pussycats"
+  },
+  {
+    "id": "my-hero-academia-ragdoll-pussycats-122",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "talent",
+    "value": "former Quirk Search",
+    "text": "Ragdoll is the hyperactive Pussycat who can keep track of a hundred people.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "is a member of the Pussycats whose former Quirk Search"
+  },
+  {
+    "id": "my-hero-academia-kamui-woods-lurkers-123",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "style",
+    "value": "The Lurkers",
+    "text": "Kamui Woods is a tree-limbed Pro Hero who is part of the Lurkers team, not the Pussycats.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "is a Pro Hero and member of The Lurkers"
+  },
+  {
+    "id": "my-hero-academia-endeavor-family-124",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "endeavor"
+    },
+    "field": "role",
+    "value": "father of Shoto",
+    "text": "Endeavor, whose real name is Enji Todoroki, is the father of Shoto and his older siblings.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "Enji is the husband of Rei Himura and the father of Shoto"
+  },
+  {
+    "id": "my-hero-academia-rei-family-125",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "mission",
+    "value": "mother of their four children",
+    "text": "Rei Todoroki is the wife of Endeavor and the mother of his four children.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "Endeavor's wife and the mother of their four children"
+  },
+  {
+    "id": "my-hero-academia-fuyumi-family-126",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "premise",
+    "value": "older sister",
+    "text": "Fuyumi Todoroki is the big sister of Shoto and works as an elementary school teacher.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "Shoto's older sister"
+  },
+  {
+    "id": "my-hero-academia-gran-torino-mentor-127",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "ability",
+    "value": "retired hero",
+    "text": "Gran Torino is a retired hero who once mentored All Might and later Izuku, and is no relative of the Todorokis.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "is a retired hero, and a former mentor of All Might and Izuku Midoriya"
+  },
+  {
+    "id": "my-hero-academia-shiketsu-rival-128",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "power",
+    "value": "Shiketsu High School",
+    "text": "Shiketsu High School is the main rival of U.A. and one of the best hero schools in western Japan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "The primary rival of U.A. High School, Shiketsu High School"
+  },
+  {
+    "id": "my-hero-academia-ketsubutsu-rival-129",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "technique",
+    "value": "Ketsubutsu Academy",
+    "text": "Ketsubutsu Academy is a respected hero school that likes to see itself as a rival of U.A.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "is a high-ranking hero academy that claims a rivalry with U.A. High School"
+  },
+  {
+    "id": "my-hero-academia-seiai-anime-school-130",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "habits",
+    "value": "Seiai Academy",
+    "text": "Seiai Academy is a hero school for girls that only appears in the anime.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "is an all-girls hero academy that is exclusive to the anime"
+  },
+  {
+    "id": "my-hero-academia-shie-hassaikai-yakuza-131",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "trademark",
+    "value": "Yakuza group",
+    "text": "The Shie Hassaikai is not a school but a Yakuza gang that deals in drugs that destroy Quirks.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "is a Yakuza group that intends to gain power by producing and dealing Quirk-destroying drugs"
+  },
+  {
+    "id": "my-hero-academia-mirio-permeation-132",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "mirio-togata"
+    },
+    "field": "quirks",
+    "value": "Permeation",
+    "text": "Mirio Togata, the leader of the Big Three, passes through solid walls with Permeation.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "His Quirk Permeation"
+  },
+  {
+    "id": "my-hero-academia-tamaki-manifest-133",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "nickname",
+    "value": "Manifest",
+    "text": "Tamaki Amajiki, a member of the Big Three, borrows the traits of whatever he eats through Manifest.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "His Quirk Manifest"
+  },
+  {
+    "id": "my-hero-academia-nejire-wave-motion-134",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "epithet",
+    "value": "Wave Motion",
+    "text": "Nejire Hado, the third member of the Big Three, fires spiral shockwaves with Wave Motion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "Her Quirk Wave Motion"
+  },
+  {
+    "id": "my-hero-academia-tsuyu-frog-135",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "tsuyu-asui"
+    },
+    "field": "quirks",
+    "value": "Frog",
+    "text": "Tsuyu Asui, a first-year of Class 1-A, has a Quirk simply called Frog.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "Her Quirk Frog"
+  },
+  {
+    "id": "my-hero-academia-cementoss-cement-136",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "public_identity",
+    "value": "Cement",
+    "text": "The teacher and Pro Hero Cementoss controls concrete with his Quirk Cement.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "whose Quirk Cement"
+  },
+  {
+    "id": "my-hero-academia-kamui-woods-arbor-137",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "motivation",
+    "value": "Arbor",
+    "text": "The Pro Hero Kamui Woods grows tree-like limbs with the Quirk Arbor.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "whose Quirk Arbor"
+  },
+  {
+    "id": "my-hero-academia-edgeshot-foldabody-138",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "my-hero-academia"
+    },
+    "field": "popularity",
+    "value": "Foldabody",
+    "text": "The ninja-like Pro Hero Edgeshot slips through gaps by making himself paper thin with Foldabody.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "whose Quirk Foldabody"
+  },
+  {
+    "id": "my-hero-academia-stain-bloodcurdle-139",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "stain"
+    },
+    "field": "quirks",
+    "value": "Bloodcurdle",
+    "text": "Stain, the serial killer who targets heroes, paralyzes victims by tasting their blood with Bloodcurdle.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T18:59:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:01:04.000Z",
+    "excerpt": "His Quirk is Bloodcurdle"
+  },
+  {
+    "id": "my-hero-academia-shota-aizawa-voice-140",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "my-hero-academia",
+      "ref": "shota-aizawa"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Junichi Suwabe"
+    ],
+    "text": "Shota Aizawa is voiced in Japanese by Junichi Suwabe.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+        "ref": "1380243025",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:36.000Z",
+    "excerpt": "Voiced by: Junichi Suwabe (Japanese)"
   }
 ]

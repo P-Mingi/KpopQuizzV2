@@ -1224,5 +1224,1140 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "Fanī Varentain)"
+  },
+  {
+    "id": "jojo-jonathan-protagonist-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "jonathan-joestar"
+    },
+    "field": "role",
+    "value": "main protagonist",
+    "text": "Jonathan Joestar is the hero at the heart of Phantom Blood, the first part of the story.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "The main protagonist of Phantom Blood"
+  },
+  {
+    "id": "jojo-jotaro-protagonist-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "jotaro-kujo"
+    },
+    "field": "role",
+    "value": "main protagonist",
+    "text": "Jotaro Kujo is the lead of Stardust Crusaders, the third part, where he crosses the world to find Dio.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "The main protagonist of Stardust Crusaders"
+  },
+  {
+    "id": "jojo-giorno-protagonist-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "giorno-giovanna"
+    },
+    "field": "role",
+    "value": "main protagonist",
+    "text": "Giorno Giovanna is the lead of Golden Wind, the part set in Italy among the mafia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "The main protagonist of Golden Wind"
+  },
+  {
+    "id": "jojo-polnareff-traveler-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "polnareff"
+    },
+    "field": "origin",
+    "value": "French traveler",
+    "text": "Jean Pierre Polnareff is a Frenchman who becomes a companion of the heroes, not the lead of his part.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "A French traveler initially under Dio"
+  },
+  {
+    "id": "jojo-speedwagon-ally-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "role",
+    "value": "greatest friend",
+    "text": "Speedwagon starts out as a street thug but turns into the closest friend of Jonathan and helps him against Dio.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "becoming his greatest friend"
+  },
+  {
+    "id": "jojo-will-zeppeli-ally-046",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "organization",
+    "value": "trains Jonathan",
+    "text": "Will A. Zeppeli teaches Jonathan the Hamon technique and goes with him to take on Dio and the Stone Mask.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "He trains Jonathan in Hamon after the Joestar's house burns down"
+  },
+  {
+    "id": "jojo-dire-ally-047",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "occupation",
+    "value": "fight against Dio",
+    "text": "Dire is a pupil of the Hamon master Tonpetty who takes the field alongside Jonathan and Speedwagon against Dio.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "He joins them, Jonathan, and Speedwagon in their fight against Dio"
+  },
+  {
+    "id": "jojo-tarkus-zombie-knight-048",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "background",
+    "value": "zombies",
+    "text": "Tarkus is a knight of old Britain whom Dio brings back as a zombie and sends against Jonathan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "are resurrected by Dio and turned into zombies under Dio's control"
+  },
+  {
+    "id": "jojo-kars-pillar-leader-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "kars"
+    },
+    "field": "role",
+    "value": "Stone Masks",
+    "text": "Kars is the head of the Pillar Men and the maker of the Stone Masks.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "is the leader of the Pillar Men and the creator of the Stone Masks"
+  },
+  {
+    "id": "jojo-esidisi-heat-mode-050",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "origin",
+    "value": "erratic temper",
+    "text": "Esidisi, a Pillar Man, can heat his blood to a scorching temperature and flips between tears and calm.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "Esidisi has an erratic temper, quick to sob uncontrollably"
+  },
+  {
+    "id": "jojo-wamuu-wind-mode-051",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "setting",
+    "value": "honorable warrior",
+    "text": "Wamuu is a Pillar Man, a fighter who keeps to a code of honor and wields the wind.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "is Esidisi and Kars' loyal servant, who is a strong and honorable warrior"
+  },
+  {
+    "id": "jojo-stroheim-nazi-052",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "terms",
+    "value": "Nazi forces",
+    "text": "Rudol von Stroheim is a human officer in the Nazi army, sent to study the Pillar Man Santana in Mexico.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "is a commander of the Nazi forces sent to research Santana in Mexico"
+  },
+  {
+    "id": "jojo-caesar-hamon-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "caesar-zeppeli"
+    },
+    "field": "technique",
+    "value": "Hamon",
+    "text": "Caesar fights with Hamon, which he channels through soap bubbles blown from his gloves.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "He infuses the Hamon into soap bubbles he creates"
+  },
+  {
+    "id": "jojo-avdol-stand-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "avdol"
+    },
+    "field": "stands",
+    "value": "Magician's Red",
+    "text": "Avdol, the fortune teller from Cairo, commands the fiery Stand Magician's Red.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "His Stand is Magician's Red"
+  },
+  {
+    "id": "jojo-kakyoin-stand-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "kakyoin"
+    },
+    "field": "stands",
+    "value": "Hierophant Green",
+    "text": "Kakyoin's Stand is Hierophant Green, which can fire green blasts of energy from a distance.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "His Stand is Hierophant Green"
+  },
+  {
+    "id": "jojo-polnareff-stand-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "polnareff"
+    },
+    "field": "stands",
+    "value": "Silver Chariot",
+    "text": "Polnareff fights through his Stand Silver Chariot, a knight in armor with a rapier.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "His Stand is Silver Chariot"
+  },
+  {
+    "id": "jojo-iggy-dog-057",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "specialty",
+    "value": "Boston Terrier",
+    "text": "Iggy is a stray dog, a Boston Terrier, who joins the heroes on the road to Egypt and loves coffee gum.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "A stray Boston Terrier who thwarted the New York animal control officers"
+  },
+  {
+    "id": "jojo-coco-jumbo-turtle-058",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "talent",
+    "value": "turtle",
+    "text": "Coco Jumbo is a turtle that carries a hotel room inside its shell, handed to the gang by the boss.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "Coco Jumbo is a turtle gifted to the group by the boss"
+  },
+  {
+    "id": "jojo-danny-dog-059",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "style",
+    "value": "childhood dog",
+    "text": "Danny is the pet dog that Jonathan grew up with.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "Danny is Jonathan's childhood dog"
+  },
+  {
+    "id": "jojo-hol-horse-cowboy-060",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "mission",
+    "value": "arrogant cowboy",
+    "text": "Hol Horse is a gunslinger from the American West who wields the revolver-shaped Stand Emperor.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "An arrogant cowboy and the wielder of the Emperor"
+  },
+  {
+    "id": "jojo-joseph-grandson-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "joseph-joestar"
+    },
+    "field": "role",
+    "value": "grandson of Jonathan",
+    "text": "Joseph Joestar is the grandson of Jonathan and the lead of Battle Tendency.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "is the main protagonist of Battle Tendency and the grandson of Jonathan Joestar"
+  },
+  {
+    "id": "jojo-jotaro-grandson-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "jotaro-kujo"
+    },
+    "field": "origin",
+    "value": "grandson of Joseph",
+    "text": "Jotaro Kujo is the grandson of Joseph Joestar on his mother's side.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "the grandson of Joseph Joestar through Holly"
+  },
+  {
+    "id": "jojo-josuke-son-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "josuke-higashikata"
+    },
+    "field": "origin",
+    "value": "illegitimate son",
+    "text": "Josuke Higashikata is a son of Joseph Joestar from a relationship outside his marriage.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "is the illegitimate son of Joseph Joestar"
+  },
+  {
+    "id": "jojo-kakyoin-student-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "kakyoin"
+    },
+    "field": "occupation",
+    "value": "highschool student",
+    "text": "Noriaki Kakyoin is a high school student whom Jotaro frees from Dio's control and who joins the heroes as a friend.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "Kakyoin is a highschool student"
+  },
+  {
+    "id": "jojo-egypt-stands-065",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "premise",
+    "value": "Egyptian deities",
+    "text": "In Egypt the heroes meet a run of Stands named after Egyptian gods, a change from the tarot card names used earlier in the story.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Stardust_Crusaders",
+        "ref": "1380274815",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "the first of nine Stands named after Egyptian deities"
+  },
+  {
+    "id": "jojo-ndoul-geb-066",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "ability",
+    "value": "Geb",
+    "text": "The blind N'Doul controls water with his Stand Geb.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "His Stand, Geb"
+  },
+  {
+    "id": "jojo-daniel-osiris-067",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "power",
+    "value": "Osiris",
+    "text": "The gambler Daniel D'Arby holds the souls of his victims with the Stand Osiris.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "His Stand is Osiris"
+  },
+  {
+    "id": "jojo-terence-atum-068",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "technique",
+    "value": "Atum",
+    "text": "The butler Terence D'Arby, a game expert, owns the soul-stealing Stand Atum.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "his Stand Atum"
+  },
+  {
+    "id": "jojo-jgeil-hanged-man-069",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "habits",
+    "value": "Hanged Man",
+    "text": "J. Geil attacks through reflections with his Stand Hanged Man, which belongs to the earlier group of tarot-themed Stands.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "His Stand is Hanged Man"
+  },
+  {
+    "id": "jojo-koichi-echoes-070",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "trademark",
+    "value": "Echoes",
+    "text": "Koichi Hirose awakens the sound-effect Stand Echoes, which has three Acts.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "awakened his Stand Echoes"
+  },
+  {
+    "id": "jojo-okuyasu-the-hand-071",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "nickname",
+    "value": "The Hand",
+    "text": "Okuyasu Nijimura carves away whatever he swipes with his Stand The Hand.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "His Stand is The Hand"
+  },
+  {
+    "id": "jojo-rohan-heavens-door-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "rohan-kishibe"
+    },
+    "field": "stands",
+    "value": "Heaven's Door",
+    "text": "The manga artist Rohan Kishibe uses Heaven's Door to read people like a book.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "His Stand is Heaven's Door"
+  },
+  {
+    "id": "jojo-abbacchio-gang-073",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "epithet",
+    "value": "former policeman",
+    "text": "Abbacchio, once a policeman, is one of the men who follow Bucciarati.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "A member of Bucciarati's gang, Abbacchio is a former policeman"
+  },
+  {
+    "id": "jojo-mista-gang-074",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "public_identity",
+    "value": "Bucciarati's gang",
+    "text": "Guido Mista fights beside Bucciarati with a revolver and the Stand Sex Pistols.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "Another member of Bucciarati's gang"
+  },
+  {
+    "id": "jojo-narancia-gang-075",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "motivation",
+    "value": "Bucciarati's gang",
+    "text": "Narancia Ghirga is a young delinquent who swore to follow Bucciarati for good.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "A member of Bucciarati's gang. He was abandoned by his father"
+  },
+  {
+    "id": "jojo-prosciutto-squad-076",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "popularity",
+    "value": "Prosciutto",
+    "text": "Prosciutto is a hitman of the Passione execution squad, a team of Stand users who start out as enemies of the heroes.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "consisting of Formaggio, Illuso, Prosciutto, Pesci, Melone, Ghiaccio, Sorbet and Gelato"
+  },
+  {
+    "id": "jojo-part-phantom-blood-077",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "parts",
+    "value": "Phantom Blood",
+    "text": "Phantom Blood is the title of the first part of the manga, set in late nineteenth century England.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo's_Bizarre_Adventure",
+        "ref": "1381936842",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "Part 1 Phantom Blood"
+  },
+  {
+    "id": "jojo-part-battle-tendency-078",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "reputation",
+    "value": "Battle Tendency",
+    "text": "Battle Tendency is the name of the second part, which begins in 1938.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo's_Bizarre_Adventure",
+        "ref": "1381936842",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "Part 2 Battle Tendency"
+  },
+  {
+    "id": "jojo-part-golden-wind-079",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "jojo"
+    },
+    "field": "catchphrase",
+    "value": "Golden Wind",
+    "text": "Golden Wind is the title of the fifth part, set in Naples and Italy.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/JoJo's_Bizarre_Adventure",
+        "ref": "1381936842",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "Part 5 Golden Wind"
+  },
+  {
+    "id": "jojo-josuke-crazy-diamond-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "jojo",
+      "ref": "josuke-higashikata"
+    },
+    "field": "stands",
+    "value": "Crazy Diamond",
+    "text": "Crazy Diamond is the Stand of Josuke, a close range fighter that can restore broken things.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+        "ref": "1379244237",
+        "fetched_at": "2026-10-25T18:55:46Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:57:46.000Z",
+    "excerpt": "His Stand is Crazy Diamond"
   }
 ]

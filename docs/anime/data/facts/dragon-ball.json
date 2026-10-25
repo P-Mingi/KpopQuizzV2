@@ -1883,5 +1883,1068 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a demon gunman who appears in Dragon Ball Daima and serves as a guide and pilot for the main characters. Glorio has light blue skin"
+  },
+  {
+    "id": "dragon-ball-pilaf-leads-gang-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "emperor-pilaf"
+    },
+    "field": "organization",
+    "value": "Pilaf Gang",
+    "text": "Emperor Pilaf heads his own little crew of schemers and hunts the Dragon Balls to rule the world.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:27Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:27.000Z",
+    "excerpt": "is the leader of the Pilaf Gang"
+  },
+  {
+    "id": "dragon-ball-shu-mai-gang-062",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "organization",
+    "value": [
+      "Shu",
+      "Mai"
+    ],
+    "text": "Shu the ninja dog and Mai the gadget expert are the two henchmen who work for Pilaf.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:27Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:27.000Z",
+    "excerpt": "a humanoid dog in a ninja outfit; and Mai"
+  },
+  {
+    "id": "dragon-ball-oolong-wish-pig-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "oolong"
+    },
+    "field": "role",
+    "value": "shapeshifting pig",
+    "text": "Oolong is a pig who changes shape, joins Goku and Bulma, and makes his own wish before Pilaf can make one.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:27Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:27.000Z",
+    "excerpt": "Oolong's wish is granted by Shenron just before Pilaf can say his"
+  },
+  {
+    "id": "dragon-ball-dr-slump-universe-064",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "role",
+    "value": "Dr. Slump",
+    "text": "Dr. Slump is an earlier Toriyama manga, and Dragon Ball is set in the very same fictional world.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "takes place in the same fictional universe as Toriyama's other work, Dr. Slump"
+  },
+  {
+    "id": "dragon-ball-gt-sequel-series-065",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "spin_offs",
+    "value": "Dragon Ball GT",
+    "text": "Dragon Ball GT is a sequel series made only for anime, produced by Toei after Dragon Ball Z.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dragon_Ball",
+        "ref": "1381000548",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "an anime sequel series titled Dragon Ball GT (1996-1997)"
+  },
+  {
+    "id": "dragon-ball-krillin-roshi-pupil-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "krillin"
+    },
+    "field": "role",
+    "value": "pupil of Master Roshi",
+    "text": "Krillin is Goku's best friend, and both boys study martial arts together under Master Roshi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "he and Goku are under the tutelage of Master Roshi"
+  },
+  {
+    "id": "dragon-ball-yamcha-roshi-pupil-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "yamcha"
+    },
+    "field": "role",
+    "value": "pupil of Master Roshi",
+    "text": "Yamcha starts as a desert bandit, then turns into an ally and eventually studies under Master Roshi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "later becomes a pupil of Master Roshi"
+  },
+  {
+    "id": "dragon-ball-tien-master-shen-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "tien-shinhan"
+    },
+    "field": "origin",
+    "value": "trained by Master Shen",
+    "text": "Tien Shinhan first shows up as a rival, trained by Master Shen, the rival of Master Roshi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "trained by Master Roshi's rival Master Shen"
+  },
+  {
+    "id": "dragon-ball-saiyan-veg-bulma-underwear-069",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "name_pun",
+    "value": [
+      "Saiyans: vegetables",
+      "Bulma family: undergarments"
+    ],
+    "text": "Toriyama likes wordplay: Saiyan names are veggie jokes, while Bulma and her family are named for underwear.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "Bulma and her family are named after undergarments, members of the human-like alien race known as the Saiyans are named after vegetables"
+  },
+  {
+    "id": "dragon-ball-raditz-saiyan-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "raditz"
+    },
+    "field": "origin",
+    "value": "Saiyan",
+    "text": "Raditz belongs to the Saiyan race and is the older brother of Goku.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "is a Saiyan warrior and Goku's older brother"
+  },
+  {
+    "id": "dragon-ball-nappa-saiyan-071",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "origin",
+    "value": "Saiyan",
+    "text": "Nappa is a Saiyan elite who survived the destruction of Planet Vegeta and fights with Saibamen helpers.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "is one of the few remaining Saiyans that were known to survive the destruction of Planet Vegeta"
+  },
+  {
+    "id": "dragon-ball-vegeta-saiyan-prince-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "vegeta"
+    },
+    "field": "origin",
+    "value": "Saiyan prince",
+    "text": "Vegeta is the prince of the Saiyans, the fourth in his royal line to carry that name.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "is the last prince of the Saiyan warrior people"
+  },
+  {
+    "id": "dragon-ball-piccolo-namekian-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "piccolo"
+    },
+    "field": "origin",
+    "value": "Namekian",
+    "text": "Piccolo turns out to belong to the green-skinned Namekian people.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "He is later revealed to be a Namekian"
+  },
+  {
+    "id": "dragon-ball-dende-namekian-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "dende"
+    },
+    "field": "origin",
+    "value": "Namekian",
+    "text": "Dende is a young Namekian who ends up as Earth's new guardian god.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "A young Namekian named Dende later succeeds him as the new Kami"
+  },
+  {
+    "id": "dragon-ball-kami-namekian-075",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "occupation",
+    "value": "Namekian",
+    "text": "Kami, who guards Earth, was once one being with King Piccolo and is a Namekian too.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 9,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "later revealed to be a Namekian, who expelled the evil inside him"
+  },
+  {
+    "id": "dragon-ball-krillin-earth-fighter-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "krillin"
+    },
+    "field": "origin",
+    "value": "Earth",
+    "text": "Krillin is an Earthling monk, counted among the best martial artists on the planet.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "one of the most talented martial artists on Earth"
+  },
+  {
+    "id": "dragon-ball-ginyu-force-five-077",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "background",
+    "value": "Ginyu Force",
+    "text": "The Ginyu Force is Frieza's elite squad of five hired fighters, known for silly poses.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "is a team of five mercenaries who are hired by Frieza"
+  },
+  {
+    "id": "dragon-ball-guldo-ginyu-078",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "setting",
+    "value": "Guldo",
+    "text": "Guldo, a short Ginyu Force fighter with four eyes, can stop time while he holds his breath.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "named Guldo in the English anime dub, is a fat, short, four-eyed"
+  },
+  {
+    "id": "dragon-ball-recoome-ginyu-079",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "terms",
+    "value": "Recoome",
+    "text": "Recoome is the Ginyu Force brute with orange hair who names his attacks after himself.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "or Recoome in the English anime dub is a sadistic, orange-haired humanoid"
+  },
+  {
+    "id": "dragon-ball-burter-ginyu-080",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "specialty",
+    "value": "Burter",
+    "text": "Burter, a blue Ginyu Force member, brags that nobody in the universe moves faster than him.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "named Burter in the English anime dub, is a blue-skinned reptile-like humanoid"
+  },
+  {
+    "id": "dragon-ball-zarbon-frieza-henchman-081",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "talent",
+    "value": "Zarbon",
+    "text": "Zarbon, a handsome long-haired alien, is one of Frieza's top henchmen next to Dodoria, outside the five-man squad.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "are two of Frieza's top-ranking henchmen"
+  },
+  {
+    "id": "dragon-ball-chichi-wife-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "chi-chi"
+    },
+    "field": "role",
+    "value": "wife of Goku",
+    "text": "Chi-Chi is married to Goku and has two sons with him.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "is Goku's wife, Gohan and Goten's mother"
+  },
+  {
+    "id": "dragon-ball-gohan-eldest-son-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "gohan"
+    },
+    "field": "role",
+    "value": "eldest son of Goku",
+    "text": "Gohan is the first son born to Goku and Chi-Chi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "is Goku's eldest son with Chi-Chi"
+  },
+  {
+    "id": "dragon-ball-goten-youngest-son-084",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "goten"
+    },
+    "field": "role",
+    "value": "youngest son of Goku",
+    "text": "Goten is the second and younger son of Goku and Chi-Chi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 16,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "is the youngest son of Goku and Chi-Chi"
+  },
+  {
+    "id": "dragon-ball-trunks-vegeta-bulma-child-085",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "trunks"
+    },
+    "field": "role",
+    "value": "child of Vegeta and Bulma",
+    "text": "Trunks comes from another house: he is the child of Vegeta and Bulma, a traveller from the future.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 13,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "he is Vegeta and Bulma's future child"
+  },
+  {
+    "id": "dragon-ball-vados-attendant-087",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "style",
+    "value": "attendant of Champa",
+    "text": "Vados is Whis's sister, an Angel who waits on Champa and also teaches him martial arts.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 19,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "is an Angel from Universe 6 who is Champa's attendant and martial arts teacher"
+  },
+  {
+    "id": "dragon-ball-mr-popo-attendant-088",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "mission",
+    "value": "attendant of Earth's guardian",
+    "text": "Mr. Popo is a genie-like being who waits on whoever guards the Earth.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "serves as the attendant of Earth's guardian deity"
+  },
+  {
+    "id": "dragon-ball-roshi-instructor-089",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "master-roshi"
+    },
+    "field": "occupation",
+    "value": "martial arts teacher",
+    "text": "Master Roshi lives on a small island as an elderly martial arts teacher, not as anyone's attendant.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "is a lecherous elderly martial arts master instructor that lives on a small island"
+  },
+  {
+    "id": "dragon-ball-goku-giant-ape-090",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "goku"
+    },
+    "field": "ability",
+    "value": "giant ape form",
+    "text": "Goku can turn into a huge ape, and in the early story it happens by accident.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "When Goku transforms into a giant ape for the first time in the series"
+  },
+  {
+    "id": "dragon-ball-goku-super-saiyan-frieza-091",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "goku"
+    },
+    "field": "role",
+    "value": "Super Saiyan",
+    "text": "Goku first becomes a Super Saiyan during his fight on Namek, after Krillin is killed.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "Goku transforming into a Super Saiyan after Frieza kills Krillin"
+  },
+  {
+    "id": "dragon-ball-goku-super-saiyan-god-092",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "goku"
+    },
+    "field": "organization",
+    "value": "Super Saiyan God",
+    "text": "Goku takes the Super Saiyan God form when he faces the god Beerus.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 19,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "Son Goku transforms into the Super Saiyan God for his fight against Beerus"
+  },
+  {
+    "id": "dragon-ball-gotenks-fusion-093",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "ability",
+    "value": "Gotenks",
+    "text": "Goten and Trunks join through a fusion technique into one new fighter called Gotenks.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "allows them to form a single being, Gotenks"
+  },
+  {
+    "id": "dragon-ball-hit-universe-6-094",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "hit"
+    },
+    "field": "origin",
+    "value": "Universe 6",
+    "text": "Hit is a feared assassin who comes from Universe 6.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 21,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "is an assassin from Universe 6 introduced in Dragon Ball Super"
+  },
+  {
+    "id": "dragon-ball-cabba-universe-6-095",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "premise",
+    "value": "Universe 6",
+    "text": "Cabba is a polite Saiyan from Planet Sadala who joins the team of Universe 6.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 21,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:35Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:35.000Z",
+    "excerpt": "As one of Universe 6's strongest warriors, he is recruited to join Champa's team"
+  },
+  {
+    "id": "dragon-ball-whis-attendant-096",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "whis"
+    },
+    "field": "role",
+    "value": "Angel",
+    "text": "Whis is an Angel, one of the beings bound to serve a God of Destruction as guide and attendant.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 19,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:57.000Z",
+    "excerpt": "Each Angel is bound to the service of a God of Destruction of their respective universes as personal attendants and guides"
+  },
+  {
+    "id": "dragon-ball-champa-universe-6-097",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "power",
+    "value": "Universe 6 deity",
+    "text": "Champa is the twin of Beerus and the one who watches over Universe 6 as its God of Destruction.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 19,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:57.000Z",
+    "excerpt": "is Beerus's twin brother and the God of Destruction of Universe 6"
+  },
+  {
+    "id": "dragon-ball-beerus-universe-7-098",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "beerus"
+    },
+    "field": "role",
+    "value": "Universe 7 deity",
+    "text": "Beerus picks the Universe 7 team for the Tournament of Power, as the god who looks after that universe.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 19,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+        "ref": "1380310152",
+        "fetched_at": "2026-10-25T18:44:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:57.000Z",
+    "excerpt": "Beerus later forms another team consisting of notable fighters from Universe 7"
   }
 ]

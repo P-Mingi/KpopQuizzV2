@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_20",
+ "group_slug": "tower-of-god",
+ "title": "The Tower by the Numbers: Floors, Families and Years",
+ "slug": "the-tower-by-the-numbers-floors-families-and-years",
+ "description": "Ten numeric questions about the Tower of God webtoon and anime: launch and release years, team roles, floor layers, ruling families and one deep floor number. No real spoilers: only arc names and one Irregular's feat.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Numbers format: every answer is a number taken from the webtoon, the world of the Tower or the anime release.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Tower of God",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Tower of God season 2",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  }
+ ],
+ "questions": [
+  {
+   "question": "In which year did the Tower of God webtoon begin on Naver Webtoon?",
+   "options": [
+    "2008",
+    "2012",
+    "2014",
+    "2010"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-webtoon-launch-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "How many layers does every floor of the Tower have?",
+   "options": [
+    "3",
+    "2",
+    "4",
+    "5"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-floor-layers-three-042"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "In which year did the first official English translation of the webtoon start on Line Webtoon?",
+   "options": [
+    "2011",
+    "2014",
+    "2018",
+    "2016"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-english-release-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "Teams in the Tower give each fighter a role, such as spear-bearer or scout. How many basic positions are there?",
+   "options": [
+    "5",
+    "4",
+    "7",
+    "3"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-team-positions-five-041"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "In which year was the anime first revealed, at Seoul Comic-Con?",
+   "options": [
+    "2021",
+    "2019",
+    "2017",
+    "2018"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-announcement-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "How many Great Families sit at the top of the Tower as its governing body?",
+   "options": [
+    "5",
+    "12",
+    "10",
+    "7"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-great-families-ten-043"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "In which year did the second season of the anime air in Japan, from July to December?",
+   "options": [
+    "2023",
+    "2022",
+    "2024",
+    "2021"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-season-two-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "Counting episodes from the first season on, which episode begins the Workshop Battle arc?",
+   "options": [
+    "27",
+    "33",
+    "21",
+    "14"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-arc-structure-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "The author is said to plan big events and characters sometimes more than how many years before they show up?",
+   "options": [
+    "15",
+    "12",
+    "10",
+    "8"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-long-term-planning-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "Administrators were thought to be unkillable, until an Irregular slew the guardian of one floor. Which floor number was it?",
+   "options": [
+    "33",
+    "43",
+    "20",
+    "50"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-enryu-floor-43-044"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  }
+ ]
+}

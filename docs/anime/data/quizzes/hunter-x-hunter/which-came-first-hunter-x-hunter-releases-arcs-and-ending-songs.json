@@ -1,0 +1,246 @@
+{
+ "site": "anime",
+ "account": "oq_creator_17",
+ "group_slug": "hunter-x-hunter",
+ "title": "Which Came First? Hunter x Hunter Releases, Arcs and Ending Songs",
+ "slug": "which-came-first-hunter-x-hunter-releases-arcs-and-ending-songs",
+ "description": "Ten which-came-first rounds: manga, anime and film releases, ending songs of the 2011 anime and the order of the story arcs. Light spoilers up to the Election arc.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Which-came-first format: four releases, songs or story beats, with the earliest or latest as the answer. Dates come from the verified facts.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Hunter × Hunter",
+   "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Hunter × Hunter",
+   "url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Hunter × Hunter (2011 TV series)",
+   "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Which of these Hunter x Hunter releases came first?",
+   "options": [
+    "The manga in Weekly Shōnen Jump",
+    "The Fuji TV anime",
+    "The two animated films",
+    "The Madhouse anime"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "hunter-x-hunter-magazine-publisher-003",
+    "hunter-x-hunter-first-anime-1999-007",
+    "hunter-x-hunter-second-anime-2011-008",
+    "hunter-x-hunter-two-films-2013-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+  },
+  {
+   "question": "Which Hunter x Hunter anime or film reached screens first?",
+   "options": [
+    "The Madhouse anime",
+    "Phantom Rouge",
+    "The Fuji TV anime",
+    "The Last Mission"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "hunter-x-hunter-first-anime-1999-007",
+    "hunter-x-hunter-second-anime-2011-008",
+    "hunter-x-hunter-film-order-042",
+    "hunter-x-hunter-two-films-2013-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+  },
+  {
+   "question": "Before any Hunter x Hunter TV anime had been made, which of these was already shown?",
+   "options": [
+    "Phantom Rouge",
+    "The Studio Pierrot short film",
+    "The Fuji TV anime",
+    "The Madhouse anime"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "hunter-x-hunter-pierrot-short-film-041",
+    "hunter-x-hunter-first-anime-1999-007",
+    "hunter-x-hunter-second-anime-2011-008",
+    "hunter-x-hunter-two-films-2013-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter"
+  },
+  {
+   "question": "Which of these Hunter x Hunter events happened last?",
+   "options": [
+    "The two animated films",
+    "The Fuji TV anime",
+    "The Madhouse anime",
+    "The end of the manga's longest hiatus"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "hunter-x-hunter-longest-hiatus-006",
+    "hunter-x-hunter-first-anime-1999-007",
+    "hunter-x-hunter-second-anime-2011-008",
+    "hunter-x-hunter-two-films-2013-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+  },
+  {
+   "question": "Counting from 2013, which of these Hunter x Hunter events came first?",
+   "options": [
+    "The end of the manga's longest hiatus",
+    "Phantom Rouge",
+    "The Last Mission",
+    "The Madhouse anime finale"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "hunter-x-hunter-film-order-042",
+    "hunter-x-hunter-two-films-2013-016",
+    "hunter-x-hunter-second-anime-2011-008",
+    "hunter-x-hunter-longest-hiatus-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter"
+  },
+  {
+   "question": "Which of the 2011 anime ending songs plays first?",
+   "options": [
+    "Reason",
+    "Hyōri Ittai",
+    "Hunting for Your Dream",
+    "Nagareboshi Kirari"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "hunter-x-hunter-ending-themes-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+  },
+  {
+   "question": "Which of the 2011 anime ending songs plays last?",
+   "options": [
+    "Reason",
+    "Just Awake",
+    "Nagareboshi Kirari",
+    "Hyōri Ittai"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "hunter-x-hunter-ending-themes-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+  },
+  {
+   "question": "Which of these arcs comes first in the story?",
+   "options": [
+    "Greed Island",
+    "Yorknew City",
+    "Election",
+    "Chimera Ant"
+   ],
+   "correct": 1,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 6,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "hunter-x-hunter-yorknew-reunion-045",
+    "hunter-x-hunter-greed-island-game-047",
+    "hunter-x-hunter-ant-queen-kite-048",
+    "hunter-x-hunter-election-zodiacs-050"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter"
+  },
+  {
+   "question": "Which of these story beats happens first?",
+   "options": [
+    "Gon and Killua learn Nen at Heavens Arena",
+    "The Chimera Ants topple East Gorteau",
+    "Kurapika seals Chrollo's powers",
+    "Gon and Killua play Greed Island"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "hunter-x-hunter-heavens-arena-nen-044",
+    "hunter-x-hunter-kurapika-seals-chrollo-046",
+    "hunter-x-hunter-greed-island-game-047",
+    "hunter-x-hunter-east-gorteau-fall-049"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter"
+  },
+  {
+   "question": "Which of these arcs comes last in the story?",
+   "options": [
+    "Election",
+    "Heavens Arena",
+    "Hunter Exam",
+    "Greed Island"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 6,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "hunter-x-hunter-hunter-exam-start-043",
+    "hunter-x-hunter-heavens-arena-nen-044",
+    "hunter-x-hunter-greed-island-game-047",
+    "hunter-x-hunter-election-zodiacs-050"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter"
+  }
+ ]
+}
