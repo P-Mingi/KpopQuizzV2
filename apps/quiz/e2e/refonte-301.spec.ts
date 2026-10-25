@@ -1,11 +1,16 @@
 import { test, expect } from '@playwright/test';
 
-// REFONTE P1 - the kill's redirect matrix, proven live against the built app on
-// :3021 (next build + next start, never dev). Every removed feature's URL must land
-// on a kept surface with a PERMANENT redirect: Next's `permanent: true` emits 308
-// (the method-preserving sibling of 301; Google treats them identically for SEO),
-// and the tier-list resolver route returns 308 too. Group-scoped URLs carry their
-// fandom intent to /{group}-quiz; the rest go to /quizzes, never to home.
+// REFONTE P1 - the kill's URL matrix, proven live against the built app on :3021
+// (next build + next start, never dev).
+//
+// Owner rule, 2026-10-15 (an owner-approved change of this spec; it replaces the
+// many-to-one rows of 2026-09-19 that sent every killed URL to /quizzes or to a group
+// hub): "a 301 to the exact page that replaces it, else 410; an unknown URL answers a
+// real 404, never a redirect to the home page." Nothing replaces the games, rankings,
+// tier lists, battle or the personality index, so their URLs answer 410. The
+// per-group personality URLs were not part of that decision and keep their permanent
+// redirect to the group hub: Next's `permanent: true` emits 308 (the method-preserving
+// sibling of 301; Google treats them identically for SEO).
 //
 // maxRedirects: 0 so we read the FIRST hop's status + Location, not the final page.
 
@@ -21,27 +26,29 @@ function locationPath(location: string | undefined): string {
   }
 }
 
-// Killed hubs / maker surfaces -> the kept browse hub.
-const TO_QUIZZES = [
+// Killed hubs, mini games, maker surfaces and group-scoped pages: no successor, 410.
+const GONE = [
   '/games',
   '/games/sort-it',
   '/games/match-up',
   '/games/name-them-all',
   '/games/this-or-that',
+  '/pt/games',
   '/rankings',
+  '/rankings/bts/best-song',
   '/tier-list',
   '/tier-list/new',
   '/tier-list/create',
   '/tier-list/share',
+  '/tier-list/subject/bts/visual',
+  '/tier-list/l/does-not-exist-xyz',
   '/battle',
   '/battle-preview',
   '/personality',
 ];
 
-// Group-scoped killed URLs -> the group's kept hub /{group}-quiz.
+// Per-group personality URLs (not in the 2026-10-15 decision) -> the group's hub.
 const GROUP_SCOPED: Array<[string, string]> = [
-  ['/rankings/bts/best-song', '/bts-quiz'],
-  ['/tier-list/subject/bts/visual', '/bts-quiz'],
   ['/personality/bts', '/bts-quiz'],
   ['/personality/bts/r/jimin', '/bts-quiz'],
   ['/which-bts-member-are-you', '/bts-quiz'],
@@ -62,15 +69,18 @@ test.describe('Retired /games/name-all/* without a successor answer 410', () => 
   }
 });
 
-test.describe('REFONTE P1 kill: 301/308 redirect matrix', () => {
-  for (const path of TO_QUIZZES) {
-    test(`${path} -> /quizzes (permanent)`, async ({ request }) => {
+test.describe('REFONTE P1 kill: retired URLs without a successor answer 410', () => {
+  for (const path of GONE) {
+    test(`${path} -> 410 (noindex)`, async ({ request }) => {
       const res = await request.get(path, { maxRedirects: 0 });
-      expect(PERMANENT, `${path} status`).toContain(res.status());
-      expect(locationPath(res.headers()['location'])).toBe('/quizzes');
+      expect(res.status(), `${path} status`).toBe(410);
+      expect(res.headers()['location'], `${path} location`).toBeUndefined();
+      expect(res.headers()['x-robots-tag'], `${path} x-robots-tag`).toBe('noindex');
     });
   }
+});
 
+test.describe('REFONTE P1 kill: 301/308 redirect matrix', () => {
   for (const [path, dest] of GROUP_SCOPED) {
     test(`${path} -> ${dest} (permanent, group intent)`, async ({ request }) => {
       const res = await request.get(path, { maxRedirects: 0 });
@@ -78,26 +88,14 @@ test.describe('REFONTE P1 kill: 301/308 redirect matrix', () => {
       expect(locationPath(res.headers()['location'])).toBe(dest);
     });
   }
+});
 
-  test('/pt/games -> /pt/quizzes (locale preserved)', async ({ request }) => {
-    const res = await request.get('/pt/games', { maxRedirects: 0 });
-    expect(PERMANENT).toContain(res.status());
-    expect(locationPath(res.headers()['location'])).toBe('/pt/quizzes');
-  });
-
-  test('/tier-list/l/[slug] resolves to a kept surface (resolver route)', async ({ request }) => {
-    // The list slug may not exist in the shared DB, in which case the resolver
-    // falls back to /quizzes; if it does exist it 308s to its subject group hub.
-    // Either way it is a permanent redirect to a kept surface, never a 404/500.
-    const res = await request.get('/tier-list/l/does-not-exist-xyz', { maxRedirects: 0 });
-    expect(PERMANENT).toContain(res.status());
-    const dest = locationPath(res.headers()['location']);
-    expect(dest === '/quizzes' || dest.endsWith('-quiz')).toBe(true);
-  });
-
-  test('an unknown legacy path still 301s to home (middleware)', async ({ request }) => {
-    const res = await request.get('/zzz-totally-removed-xyz', { maxRedirects: 0 });
-    expect(res.status()).toBe(301);
-    expect(locationPath(res.headers()['location'])).toBe('/');
-  });
+test.describe('Unknown URLs answer a real 404 (owner, 2026-10-15)', () => {
+  for (const path of ['/zzz-totally-removed-xyz', '/random/deep/path']) {
+    test(`${path} -> 404, never a redirect`, async ({ request }) => {
+      const res = await request.get(path, { maxRedirects: 0 });
+      expect(res.status(), `${path} status`).toBe(404);
+      expect(res.headers()['location'], `${path} location`).toBeUndefined();
+    });
+  }
 });

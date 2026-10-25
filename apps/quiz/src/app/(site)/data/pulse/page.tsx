@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { Mascot } from '@/components/ui/mascot';
 import { listPulseReports } from '@/lib/pulse/data';
+import { CiteLicence } from '@/components/cite/cite-licence';
 
 import type { Metadata } from 'next';
 
@@ -109,6 +110,9 @@ export default async function PulseIndexPage(): Promise<React.ReactElement> {
           ))}
         </div>
       )}
+
+      {/* SEO Mission 3, part F.3: the licence block (credit line, CC BY 4.0, press contact). */}
+      <CiteLicence credit="Source: kpopquiz.org Monthly K-pop Pulse" />
 
       <p className="pulse-cite-foot">
         This data is free to cite with a link to{' '}

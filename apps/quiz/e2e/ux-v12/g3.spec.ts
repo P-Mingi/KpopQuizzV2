@@ -436,7 +436,7 @@ for (const theme of THEMES) {
       await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Play the free K-pop blind test: hear a 10-second clip and guess the song\./);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/blindtest$/);
       const alternates = await page.locator('link[rel="alternate"][hreflang]').evaluateAll((els) => Object.fromEntries(els.map((e) => [e.getAttribute('hreflang'), new URL((e as HTMLLinkElement).href).pathname])));
-      expect(alternates, 'the en / pt-BR pair, nothing added').toEqual({ en: '/blindtest', 'pt-BR': '/pt/blindtest', 'x-default': '/blindtest' });
+      expect(alternates, 'the en alternates, nothing added (pt-BR retired 2026-10-23)').toEqual({ en: '/blindtest', 'x-default': '/blindtest' });
       await expect(page.locator('h1')).toHaveCount(1);
       expect(await page.locator('h1').evaluate((e) => e.textContent)).toBe('Name thatK-pop song');
       await expect(page.locator('.p6-lead')).toHaveText('10 songs. 10 seconds each. Guess the song or the artist from a clip.');

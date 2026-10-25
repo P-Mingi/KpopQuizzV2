@@ -1,6 +1,8 @@
+import Link from 'next/link';
 import { UxPage } from '@/components/ux-v1/page';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 import { getGroupsDirectoryIndex } from '@/lib/ux-v1/p3/data';
+import { GENERATIONS_HUB_PATH } from '@/lib/generations/generations';
 import { directoryGenLine, directoryIntro, mostPlayed } from '@/lib/ux-v1/p3/model';
 import { READ_FAILED, failClosed, read } from '@/lib/ux-v1/p3/reads';
 
@@ -41,6 +43,10 @@ export async function GroupsIndexV11(): Promise<React.ReactElement> {
         <h1>All K-pop groups</h1>
         {ok ? <p>{directoryIntro(index.directory)}</p> : null}
         {genLine ? <p className="p3-genline">{genLine}</p> : null}
+        {/* SEO Mission 2, part C: the generations hub, linked with its cluster anchor. */}
+        <p className="p3-genline">
+          <Link href={GENERATIONS_HUB_PATH}>K-pop generations</Link>: which era each group belongs to, with sources.
+        </p>
       </header>
 
       {groups.length === 0 ? (

@@ -1,0 +1,4 @@
+-- Rollback of daily-bank-2026-10-lot1.sql: removes the rows of this lot that were not
+-- published yet (a published row is already a live quiz page; it stays).
+delete from public.quiz_bank
+where title in ('ILLIT: Magnetic Debut Quiz', 'K-pop at Big Sporting Events', 'BTS: The Dynamite to Proof Era', 'K-pop Weather and Season Songs', 'K-pop First Studio Albums True or False', 'Stray Kids: From 5-Star to KARMA', 'SEVENTEEN: The Face the Sun Era', 'K-pop Hits and Their Albums', 'K-pop Hitmakers and Their Groups', 'ENHYPEN: Sweet Venom to The Sin Quiz', 'K-pop Album Chart Peaks True or False', 'BLACKPINK: The Born Pink Era', 'K-pop on the Billboard Charts', 'Girls'' Generation: From Gee to Forever 1', 'K-pop Songs With Repeated Words', 'aespa: The Supernova Era', 'K-pop Solo Artists True or False', 'TWICE: Cheer Up to Fancy Quiz', 'K-pop Grand Prize Winners', 'K-pop Virtual Idols') and status in ('verified', 'scheduled') and published_quiz_id is null;

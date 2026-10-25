@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 
 import { updateSession } from '@/lib/supabase/middleware';
-import { isKnownRoute } from '@/lib/route-allowlist';
+import { NOT_FOUND_REWRITE, isFilePath, isKnownRoute } from '@/lib/route-allowlist';
 import {
-  GONE_HTML, LEGACY_BATTLE_HANDLER, LEGACY_BATTLE_PATH, legacyNameAllAnswer,
+  GONE_HTML, LEGACY_BATTLE_HANDLER, LEGACY_BATTLE_PATH, legacyAnswer,
 } from '@/lib/seo/legacy-urls';
 import { isUxV12 } from '@/lib/ux-v12';
 import { verseHidden, isGatedVersePath, hasAuthCookie } from '@/lib/verse/visibility';
@@ -66,30 +66,38 @@ export async function middleware(request: NextRequest) {
       to.search = request.nextUrl.search;
       return NextResponse.redirect(to);
     }
-    // SEO (owner, 2026-10-14): the retired /games/name-all/* URLs Bing still crawls. A
-    // name-all-<group> game goes 301 to its V12 page; the rest are 410 Gone
-    // (lib/seo/legacy-urls.ts). next.config leaves these paths to us.
-    const nameAll = legacyNameAllAnswer(pathname, isUxV12());
-    if (nameAll) {
-      if (nameAll.status === 301) return NextResponse.redirect(new URL(nameAll.location, request.url), 301);
-      return new NextResponse(GONE_HTML, { status: 410, headers: { 'content-type': 'text/html; charset=utf-8' } });
-    }
     // SEO (owner, 2026-10-14): /battle?quiz=<slug> goes 301 to /q/<slug> or 404. That needs
     // a database read, which the middleware never does: the request is handed to the route
-    // handler. A bare /battle never gets here (its next.config redirect runs first).
+    // handler. Checked before the retired families below, which answer a bare /battle 410.
     if (pathname === LEGACY_BATTLE_PATH && request.nextUrl.searchParams.has('quiz')) {
       const to = new URL(LEGACY_BATTLE_HANDLER, request.url);
       to.searchParams.set('quiz', request.nextUrl.searchParams.get('quiz') ?? '');
       return NextResponse.rewrite(to);
     }
+    // SEO (owner, 2026-10-14 and 2026-10-15): the URLs of the retired features (games,
+    // rankings, tier lists, battle, the personality index). A 301 to the exact successor
+    // (a name-all-<group> game -> its V12 page), else 410 Gone (lib/seo/legacy-urls.ts).
+    // next.config leaves these paths to us.
+    const legacy = legacyAnswer(pathname, isUxV12());
+    if (legacy) {
+      if (legacy.status === 301) return NextResponse.redirect(new URL(legacy.location, request.url), 301);
+      return new NextResponse(GONE_HTML, {
+        status: 410,
+        headers: { 'content-type': 'text/html; charset=utf-8', 'x-robots-tag': 'noindex' },
+      });
+    }
     // REFONTE P1: the /battle-preview -> /battle redirect and the
     // /which-{group}-member-are-you -> /personality rewrite were removed with the
-    // battle and personality features. The pretty /which-* URLs now 301 to the
-    // group hub via next.config.ts (an edge redirect that runs before this), and
-    // /battle-preview / /battle fall through to the unknown-route 301 below.
-    // SEO: unknown legacy URLs 301 to home so the link equity carries over.
+    // battle and personality features. The pretty /which-* URLs of groups without a V12
+    // page 301 to the group hub via next.config.ts (an edge redirect that runs before
+    // this); /battle-preview and /battle answer 410 above.
+    // SEO (owner, 2026-10-15): an unknown URL answers a real 404, never a redirect to the
+    // home page (it 301'd to / before). A page path renders the site's not-found page
+    // (a rewrite: status 404, the address bar keeps the URL); a file path goes on to
+    // Next, which serves it from public/ or answers 404 (lib/route-allowlist.ts).
     if (!isKnownRoute(pathname)) {
-      return NextResponse.redirect(new URL('/', request.url), 301);
+      if (isFilePath(pathname)) return passthrough();
+      return NextResponse.rewrite(new URL(NOT_FOUND_REWRITE, request.url));
     }
     return passthrough();
   }
@@ -121,20 +129,21 @@ export async function middleware(request: NextRequest) {
 //     /admin (auth), and the retired /blind-test, /create-preview 301s, all still
 //     handled here;
 //   - genuinely UNKNOWN paths (not in any excluded prefix), so the unknown-route
-//     301-to-home still fires.
+//     404 still fires.
 // Exclusion rules mirror isKnownRoute (route-allowlist.ts): slash-terminated prefixes
-// exclude WITH the slash so `/q` (unknown -> 301) still runs while `/q/slug` skips;
+// exclude WITH the slash so `/q` (unknown -> 404) still runs while `/q/slug` skips;
 // word prefixes use a `(?:/|$)` boundary so `/create-preview` (redirect) still runs
 // while `/create` skips; `$` excludes the home page. INVARIANT (subset property): the
 // excluded prefixes must be a subset of isKnownRoute, so a path is only skipped when
 // the allowlist already knows it. REFONTE P1 removed games, tier-list, rankings,
 // battle and personality from BOTH the allowlist and this exclusion together;
-// requests to those now reach the unknown-route 301 (or the next.config redirect that
-// runs before middleware). `g/` stays: /g/[slug] (blind test) is a kept cached page.
+// requests to those now reach the middleware's 410 (or, for the per-group personality
+// URLs, the next.config redirect that runs before it). `g/` stays: /g/[slug] (blind
+// test) is a kept cached page.
 // A prefix added to the allowlist but not here only costs a wasted invocation, never
 // wrong behaviour. See middleware-matcher.test.ts for the full path matrix.
 export const config = {
   matcher: [
-    '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|q/|g/|s/|u/|quiz/|group/|embed/|(?:quizzes|blindtest|leaderboard|trivia|articles|data|groups|trending|new|most-liked|build|search|profile|me|notifications|news|stats|create|guess-the-kpop-idol|kpop-true-or-false|easy-kpop-quizzes|hard-kpop-quizzes|kpop-quiz-2026|terms|privacy|dmca|about|faq|contact|daily)(?:/|$)|[^/]+-(?:quiz|trivia)(?:/|$)|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt)$|$).*)',
+    '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|q/|g/|s/|u/|quiz/|group/|embed/|(?:quizzes|blindtest|leaderboard|trivia|articles|data|groups|trending|new|most-liked|build|search|profile|me|notifications|news|stats|create|guess-the-kpop-idol|kpop-true-or-false|easy-kpop-quizzes|hard-kpop-quizzes|kpop-quiz-2026|terms|privacy|legal|dmca|about|faq|contact|daily)(?:/|$)|[^/]+-(?:quiz|trivia)(?:/|$)|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt)$|$).*)',
   ],
 };
