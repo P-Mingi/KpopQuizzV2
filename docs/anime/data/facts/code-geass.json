@@ -698,7 +698,7 @@
       "group_slug": "code-geass",
       "ref": "op-1"
     },
-    "field": "theme_op",
+    "field": "themes_op_a",
     "value": [
       "Colors",
       "FLOW"
@@ -735,7 +735,7 @@
       "group_slug": "code-geass",
       "ref": "op-2"
     },
-    "field": "theme_op",
+    "field": "themes_op_a",
     "value": [
       "Kaidoku Funō",
       "Jinn"
@@ -772,7 +772,7 @@
       "group_slug": "code-geass",
       "ref": "op-3"
     },
-    "field": "theme_op",
+    "field": "themes_op_a",
     "value": [
       "Hitomi no Tsubasa",
       "Access"
@@ -809,7 +809,7 @@
       "group_slug": "code-geass",
       "ref": "ed-1"
     },
-    "field": "theme_ed",
+    "field": "themes_ed_a",
     "value": [
       "Yūkyō Seishunka",
       "Ali Project"
@@ -846,7 +846,7 @@
       "group_slug": "code-geass",
       "ref": "ed-2"
     },
-    "field": "theme_ed",
+    "field": "themes_ed_a",
     "value": [
       "Mosaic Kakera",
       "SunSet Swish"
@@ -883,7 +883,7 @@
       "group_slug": "code-geass",
       "ref": "op-4"
     },
-    "field": "theme_op",
+    "field": "themes_op_a",
     "value": [
       "O2",
       "Orange Range"
@@ -920,7 +920,7 @@
       "group_slug": "code-geass",
       "ref": "op-5"
     },
-    "field": "theme_op",
+    "field": "themes_op_a",
     "value": [
       "World End",
       "FLOW"
@@ -957,7 +957,7 @@
       "group_slug": "code-geass",
       "ref": "ed-3"
     },
-    "field": "theme_ed",
+    "field": "themes_ed_a",
     "value": [
       "Shiawase Neiro",
       "Orange Range"
@@ -994,7 +994,7 @@
       "group_slug": "code-geass",
       "ref": "ed-4"
     },
-    "field": "theme_ed",
+    "field": "themes_ed_a",
     "value": [
       "Waga Rōtashi Aku no Hana",
       "Ali Project"

@@ -857,7 +857,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "op-1"
     },
-    "field": "theme_op",
+    "field": "themes_s1",
     "value": [
       "Unravel",
       "TK from Ling tosite Sigure"
@@ -889,7 +889,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "ed-1"
     },
-    "field": "theme_ed",
+    "field": "themes_s2",
     "value": [
       "The Saints",
       "People in the Box"
@@ -921,7 +921,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "op-2"
     },
-    "field": "theme_op",
+    "field": "themes_s1",
     "value": [
       "Munou",
       "Österreich"
@@ -953,7 +953,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "ed-2"
     },
-    "field": "theme_ed",
+    "field": "themes_s2",
     "value": [
       "Kisetsu wa Tsugitsugi Shinde Iku",
       "Amazarashi"
@@ -985,7 +985,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "op-3"
     },
-    "field": "theme_op",
+    "field": "themes_s1",
     "value": [
       "Asphyxia",
       "Cö shu Nie"
@@ -1017,7 +1017,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "ed-3"
     },
-    "field": "theme_ed",
+    "field": "themes_s2",
     "value": [
       "Half",
       "Queen Bee"
@@ -1049,7 +1049,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "op-4"
     },
-    "field": "theme_op",
+    "field": "themes_s1",
     "value": [
       "Katharsis",
       "TK from Ling tosite Sigure"
@@ -1081,7 +1081,7 @@
       "group_slug": "tokyo-ghoul",
       "ref": "ed-4"
     },
-    "field": "theme_ed",
+    "field": "themes_s2",
     "value": [
       "Rakuen no Kimi",
       "Österreich"

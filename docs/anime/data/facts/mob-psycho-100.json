@@ -856,7 +856,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "op-1"
     },
-    "field": "theme_op",
+    "field": "themes_s5",
     "value": [
       "99",
       "Mob Choir"
@@ -888,7 +888,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "ed-1"
     },
-    "field": "theme_ed",
+    "field": "themes_s6",
     "value": [
       "Refrain Boy",
       "All Off"
@@ -920,7 +920,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "op-2"
     },
-    "field": "theme_op",
+    "field": "themes_s5",
     "value": [
       "99.9",
       "Mob Choir with Sajou no Hana"
@@ -952,7 +952,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "op-3"
     },
-    "field": "theme_op",
+    "field": "themes_s5",
     "value": [
       "1",
       "Mob Choir"
@@ -984,7 +984,7 @@
       "group_slug": "mob-psycho-100",
       "ref": "ed-2"
     },
-    "field": "theme_ed",
+    "field": "themes_s6",
     "value": [
       "Cobalt",
       "Mob Choir"

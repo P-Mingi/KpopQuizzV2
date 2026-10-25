@@ -927,7 +927,7 @@
       "group_slug": "steins-gate",
       "ref": "op-1"
     },
-    "field": "theme_op",
+    "field": "themes_op_b",
     "value": [
       "Hacking to the Gate",
       "Kanako Itō"
@@ -964,7 +964,7 @@
       "group_slug": "steins-gate",
       "ref": "ed-1"
     },
-    "field": "theme_ed",
+    "field": "themes_ed_b",
     "value": [
       "Toki Tsukasadoru Jūni no Meiyaku",
       "Yui Sakakibara"
@@ -1001,7 +1001,7 @@
       "group_slug": "steins-gate",
       "ref": "ed-2"
     },
-    "field": "theme_ed",
+    "field": "themes_ed_b",
     "value": [
       "Skyclad no Kansokusha",
       "Kanako Itō"
@@ -1038,7 +1038,7 @@
       "group_slug": "steins-gate",
       "ref": "op-2"
     },
-    "field": "theme_op",
+    "field": "themes_op_b",
     "value": [
       "Fatima",
       "Kanako Itō"
@@ -1074,7 +1074,7 @@
       "group_slug": "steins-gate",
       "ref": "ed-3"
     },
-    "field": "theme_ed",
+    "field": "themes_ed_b",
     "value": [
       "Amadeus",
       "Kanako Itō"
@@ -1105,7 +1105,7 @@
       "group_slug": "steins-gate",
       "ref": "ed-4"
     },
-    "field": "theme_ed",
+    "field": "themes_ed_b",
     "value": [
       "Last Game",
       "Zwei"
@@ -1141,7 +1141,7 @@
       "group_slug": "steins-gate",
       "ref": "ed-5"
     },
-    "field": "theme_ed",
+    "field": "themes_ed_b",
     "value": [
       "World-Line",
       "Asami Imai"
@@ -1172,7 +1172,7 @@
       "group_slug": "steins-gate",
       "ref": "ed-6"
     },
-    "field": "theme_ed",
+    "field": "themes_ed_b",
     "value": [
       "Gate of Steiner",
       "Eri Sasaki"
