@@ -17,7 +17,6 @@ export const metadata: Metadata = {
     canonical: '/guess-the-kpop-idol',
     languages: {
       en: '/guess-the-kpop-idol',
-      'pt-BR': '/pt/guess-the-kpop-idol',
       'x-default': '/guess-the-kpop-idol',
     },
   },

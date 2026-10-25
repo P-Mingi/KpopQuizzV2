@@ -39,6 +39,8 @@ export interface PoolSong {
   /** Ranked answers recorded for this song (0 when none). */
   timesPlayed: number;
   timesCorrect: number;
+  /** The owner's manual songs.hide_cover switch, when known (lib/song-cover-overrides.ts). */
+  hideCover?: boolean;
 }
 
 export type Rng = () => number;
