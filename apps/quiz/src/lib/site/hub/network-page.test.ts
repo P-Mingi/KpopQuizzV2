@@ -55,6 +55,9 @@ describe('the sites list comes from the registry', () => {
       'lib/site/hub/network-page.ts',
       'lib/site/hub/passport-summary.ts',
       ...readdirSync(`${SRC}components/hub`).filter((f) => f.endsWith('.tsx') && !f.endsWith('.test.tsx')).map((f) => `components/hub/${f}`),
+      // lot H2a: the blocks of the new home and their loaders
+      ...readdirSync(`${SRC}components/hub/home`).filter((f) => /\.tsx?$/.test(f)).map((f) => `components/hub/home/${f}`),
+      ...readdirSync(`${SRC}lib/site/hub`).filter((f) => /^home-.*\.ts$/.test(f) && !f.endsWith('.test.ts')).map((f) => `lib/site/hub/${f}`),
     ];
     const words = [
       ...Object.values(REGISTRY).flatMap((s) => [s.url, s.domain, s.brand.name, s.brand.name.toLowerCase()]),
@@ -70,7 +73,8 @@ describe('the sites list comes from the registry', () => {
 
 describe('the copy of the page', () => {
   it('fills every placeholder from the registry or from the card', () => {
-    const vars = { name: 'X', topicPlural: 'tp', memberPlural: 'mp', level: 3 };
+    // lot H2a: the keys of the new home take more placeholders (a time, a number of songs, a title): any name is filled here
+    const vars = new Proxy({ name: 'X', topicPlural: 'tp', memberPlural: 'mp', level: 3 } as Record<string, string | number>, { get: (t, k: string) => t[k] ?? 'x' });
     for (const key of Object.keys(COPY) as (keyof typeof COPY)[]) expect(ht(key, vars), key).not.toMatch(/[{}]/);
     expect(fillHub('{network} / {brand} / {domain} / {nope}')).toBe(`${NETWORK.name} / ${REGISTRY.hub.brand.name} / ${REGISTRY.hub.domain} / {nope}`);
   });
@@ -79,12 +83,17 @@ describe('the copy of the page', () => {
     for (const [k, v] of Object.entries(COPY)) {
       expect(v, k).not.toMatch(DASHES);
       expect(v, k).not.toMatch(/\p{Extended_Pictographic}/u);
-      expect(v, k).not.toMatch(/\bk-?pop\b/i);
+      // The new home (hp.*, lot H2a) names K-pop and anime in its words, as the owner's design does; the other keys stay neutral.
+      if (!k.startsWith('hp.')) expect(v, k).not.toMatch(/\bk-?pop\b/i);
     }
   });
 
   it('uses every key it has, in the code of the page', () => {
-    const code = ['app/sites/[site]/home-hub.tsx', 'lib/site/hub/network-page.ts', 'components/hub/hub-shares.tsx'].map(read).join('\n');
+    const files = [
+      'app/sites/[site]/home-hub.tsx', 'lib/site/hub/network-page.ts', 'components/hub/hub-shares.tsx',
+      ...readdirSync(`${SRC}components/hub/home`).filter((f) => /\.tsx?$/.test(f)).map((f) => `components/hub/home/${f}`),
+    ];
+    const code = files.map(read).join('\n');
     for (const key of Object.keys(COPY)) expect(code.includes(`'${key}'`), key).toBe(true);
   });
 
