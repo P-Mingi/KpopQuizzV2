@@ -11,7 +11,7 @@ describe('privacy: who is responsible', () => {
   it('names the controller, the address, the SIREN, the mailbox and links the legal notice', () => {
     expect(html).toContain('>Who is responsible</h2>');
     expect(text).toContain('Louis Pecchia, entrepreneur individuel, 3560 chemin des Lauves, 13100 Aix-en-Provence, France, SIREN 109 686 634');
-    expect(html).toContain('href="mailto:contact@kpopquiz.org"');
+    expect(html).toContain('href="mailto:hello@kpopquiz.org"');
     expect(html).toContain('href="/legal"');
   });
 

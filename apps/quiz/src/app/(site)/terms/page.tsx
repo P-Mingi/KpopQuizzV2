@@ -108,8 +108,8 @@ export default function TermsPage(): React.ReactElement {
       <h2 className="text-lg font-medium mt-8 mb-3">11. Contact</h2>
       <p className="text-sm text-secondary leading-relaxed">
         For questions about these terms, reach out to us at{' '}
-        <a href="mailto:contact@kpopquiz.org" className="text-primary underline hover:no-underline">
-          contact@kpopquiz.org
+        <a href="mailto:hello@kpopquiz.org" className="text-primary underline hover:no-underline">
+          hello@kpopquiz.org
         </a>
         .
       </p>
