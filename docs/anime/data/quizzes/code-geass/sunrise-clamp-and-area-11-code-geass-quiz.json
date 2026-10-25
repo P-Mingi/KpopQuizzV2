@@ -1,0 +1,217 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "code-geass",
+  "title": "Code Geass Quiz: Sunrise, Clamp and Area 11",
+  "slug": "sunrise-clamp-and-area-11-code-geass-quiz",
+  "description": "Ten easy questions on the studio, the staff, the first ending, the setting, Geass and the English dub. No story knowledge needed, and no spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Code Geass",
+      "url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Code Geass: Lelouch of the Rebellion episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_episodes"
+    }
+  ],
+  "notes": "New series batch 1. Arc 0 facts only: production, premise and music. One fact per answer.",
+  "questions": [
+    {
+      "question": "Which studio made the Code Geass anime?",
+      "options": [
+        "Bones",
+        "Pierrot",
+        "Sunrise",
+        "A-1 Pictures"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-anime-studio-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "question": "Who directed Code Geass?",
+      "options": [
+        "Gorō Taniguchi",
+        "Shinichirō Watanabe",
+        "Yuzuru Tachikawa",
+        "Hideaki Anno"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-anime-director-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "question": "Which group created the original character designs?",
+      "options": [
+        "Gainax",
+        "Trigger",
+        "Studio Ghibli",
+        "Clamp"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-clamp-design-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "question": "Who handled the series composition, the overall structure of the scripts?",
+      "options": [
+        "Hiroshi Seko",
+        "Ichirō Ōkouchi",
+        "Jukki Hanada",
+        "Chūji Mikasano"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-anime-composition-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "question": "Which group sings the first ending, Yūkyō Seishunka?",
+      "options": [
+        "Ali Project",
+        "FLOW",
+        "Access",
+        "Orange Range"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-theme-ed-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_episodes"
+    },
+    {
+      "question": "What name does Britannia give to conquered Japan?",
+      "options": [
+        "Area 7",
+        "Area 9",
+        "Area 13",
+        "Area 11"
+      ],
+      "correct": 3,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-premise-britannia-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "question": "What is the power of Geass known as?",
+      "options": [
+        "The Power of Gods",
+        "The Power of Kings",
+        "The Power of Blood",
+        "The Power of Shadows"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-geass-power-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "question": "Code Geass first reached Japanese television in which year?",
+      "options": [
+        "2006",
+        "2004",
+        "2008",
+        "2010"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-anime-r1-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_episodes"
+    },
+    {
+      "question": "On which American channel block did the English dub air?",
+      "options": [
+        "Nickelodeon",
+        "Disney XD",
+        "Adult Swim",
+        "Boomerang"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-english-dub-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
+    },
+    {
+      "question": "Which prize did Code Geass win at the sixth Tokyo Anime Awards?",
+      "options": [
+        "Best film",
+        "Best television anime",
+        "Best director",
+        "Best music"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-anime-award-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Code_Geass"
+    }
+  ]
+}
