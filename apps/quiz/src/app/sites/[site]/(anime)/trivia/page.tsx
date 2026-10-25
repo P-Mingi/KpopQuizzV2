@@ -6,6 +6,7 @@ import { getSeriesDirectory } from '@/lib/anime/directory';
 import { getSeriesHub } from '@/lib/anime/series';
 import { uniqueFacts } from '@/lib/anime/series-model';
 import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
+import { ManhwaTag } from '@/components/anime/manhwa-tag';
 import { SeriesArt } from '@/components/anime/series-art';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
@@ -13,7 +14,11 @@ import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 import { SITE } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
+import type { SeriesType } from '@/lib/anime/types';
 import type { TriviaEligibleGroup } from '@/lib/db/queries/trivia';
+
+/** A series with a trivia page, and its `series.type` (a webtoon is a manhwa). */
+type EligibleSeries = TriviaEligibleGroup & { readonly seriesType?: SeriesType | undefined };
 
 // ISR: matches the group trivia pages (cookie-reading children force SSR today;
 // this window stays dormant until those reads are made cookie-free).
@@ -37,11 +42,11 @@ export const metadata: Metadata = {
 // The series that have a trivia page: the same gate as /{series}-trivia (the series' stored, sourced facts, at least
 // TRIVIA_MIN_FACTS unique ones), so this list never links to a page that answers 404. The kpop hub counts the facts
 // of the quizzes' questions instead, which is not what an anime series page is built from.
-async function getEligibleSeries(): Promise<TriviaEligibleGroup[]> {
+async function getEligibleSeries(): Promise<EligibleSeries[]> {
   const directory = await getSeriesDirectory();
   const hubs = await Promise.all(directory.map((row) => getSeriesHub(row.group.slug)));
   return hubs
-    .flatMap((hub) => (hub ? [{ group: hub.group, factCount: uniqueFacts(hub.trivia).length }] : []))
+    .flatMap((hub) => (hub ? [{ group: hub.group, factCount: uniqueFacts(hub.trivia).length, seriesType: hub.series.type }] : []))
     .filter((row) => row.factCount >= TRIVIA_MIN_FACTS)
     .sort((a, b) => b.factCount - a.factCount || a.group.name.localeCompare(b.group.name, 'en'));
 }
@@ -49,7 +54,7 @@ async function getEligibleSeries(): Promise<TriviaEligibleGroup[]> {
 export default async function TriviaHubPage(): Promise<React.ReactElement> {
   const eligible = await safeFetch(
     getEligibleSeries(),
-    [] as TriviaEligibleGroup[],
+    [] as EligibleSeries[],
     '[trivia-hub] getEligibleSeries',
   );
 
@@ -68,13 +73,13 @@ export default async function TriviaHubPage(): Promise<React.ReactElement> {
 
       {eligible.length > 0 ? (
         <ul className="trivia-hub-grid">
-          {eligible.map(({ group, factCount }) => (
+          {eligible.map(({ group, factCount, seriesType }) => (
             <li key={group.id}>
               <Link href={`/${group.slug}-trivia`} className="trivia-hub-card">
                 <span className="anime-o2-art-row" aria-hidden="true"><SeriesArt slug={group.slug} title={group.name} size="avatar" /></span>
                 <div className="trivia-hub-card-body">
                   <p className="trivia-hub-card-name">{group.name}</p>
-                  <p className="trivia-hub-card-meta anime-c1-quiet">{factCount} fun facts</p>
+                  <p className="trivia-hub-card-meta anime-c1-quiet"><ManhwaTag type={seriesType} />{factCount} fun facts</p>
                 </div>
                 <svg
                   className="trivia-hub-card-arrow"

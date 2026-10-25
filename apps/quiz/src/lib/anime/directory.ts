@@ -16,20 +16,24 @@ import { ANIME_MIX_SLUG } from './types';
 import type { DirectoryGroup } from '@/lib/db/queries/group-directory';
 import type { Group } from '@/lib/db/types';
 import type { SeriesDb } from './series';
+import type { SeriesType } from './types';
+
+/** A row of the series directory: the shared directory row and the `series.type` of the series (a webtoon is a manhwa). */
+export type SeriesDirectoryRow = DirectoryGroup & { readonly seriesType?: SeriesType | undefined };
 
 interface Result<T> { data: T | null; error: { message: string } | null }
 
 /** The directory rows, by name: a series earns a row by being published and having a published quiz. */
-export async function loadSeriesDirectory(db: SeriesDb): Promise<DirectoryGroup[]> {
+export async function loadSeriesDirectory(db: SeriesDb): Promise<SeriesDirectoryRow[]> {
   const [seriesRes, groupsRes, published] = await Promise.all([
-    db.from('series').select('group_id').eq('published', true) as PromiseLike<Result<{ group_id: number }[]>>,
+    db.from('series').select('group_id, type').eq('published', true) as PromiseLike<Result<{ group_id: number; type?: SeriesType }[]>>,
     forSite(db.from('groups').select('*'), 'anime') as PromiseLike<Result<Group[]>>,
     fetchAllRows<{ group_id: number | null }>(() => forSite(db.from('quizzes').select('group_id'), 'anime').eq('status', 'published')),
   ]);
   if (seriesRes.error) throw new Error(`series directory: series: ${seriesRes.error.message}`);
   if (groupsRes.error) throw new Error(`series directory: groups: ${groupsRes.error.message}`);
 
-  const listed = new Set((seriesRes.data ?? []).map((s) => s.group_id));
+  const listed = new Map((seriesRes.data ?? []).map((s) => [s.group_id, s.type] as const));
   const counts = new Map<number, number>();
   for (const q of published) {
     if (q.group_id == null) continue;
@@ -37,14 +41,14 @@ export async function loadSeriesDirectory(db: SeriesDb): Promise<DirectoryGroup[
   }
   return (groupsRes.data ?? [])
     .filter((g) => listed.has(g.id))
-    .map((group) => ({ group, quizzes: counts.get(group.id) ?? 0 }))
+    .map((group) => ({ group, quizzes: counts.get(group.id) ?? 0, seriesType: listed.get(group.id) }))
     .filter((row) => row.quizzes > 0)
     .sort((a, b) => a.group.name.localeCompare(b.group.name, 'en'));
 }
 
 export const getSeriesDirectory = unstable_cache(
-  async (): Promise<DirectoryGroup[]> => loadSeriesDirectory(createPublicReadClient()),
-  ['db:anime:series-directory:v1'],
+  async (): Promise<SeriesDirectoryRow[]> => loadSeriesDirectory(createPublicReadClient()),
+  ['db:anime:series-directory:v2'],
   { revalidate: CACHE_TTL.stats, tags: ['groups', 'series', 'quizzes'] },
 );
 

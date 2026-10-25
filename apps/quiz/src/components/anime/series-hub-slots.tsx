@@ -1,5 +1,6 @@
 import { SpoilerShieldIsland } from '@/components/spoilers/spoiler-shield';
 import { t, VOCAB_VARS } from '@/lib/anime/copy';
+import { kindEyebrow, kindName } from '@/lib/anime/manhwa';
 import { SERIES_TRIVIA_MIN, blindTestHref, groupQuizzesByArc, hubEyebrow, hubIntro, openingRows, quizLevels, safeUrl, seriesFaqs, shieldArcs, splitCharacters, storyMap, uniqueFacts, HUB_FACT_LIMIT } from '@/lib/anime/series-model';
 
 import { CharacterTiles } from './character-tiles';
@@ -47,7 +48,7 @@ export function buildSeriesSlots(hub: SeriesHub, related: readonly RelatedSeries
     origin: site.origin,
     brand: site.brand,
     crumb: { href: '/series', label: t('hub.crumbSeries') },
-    eyebrow: hubEyebrow(published),
+    eyebrow: kindEyebrow(series.type, hubEyebrow(published)),
     intro: hubIntro(group.name, published, group.seo_intro),
     startLabel: t('hub.start'),
     heroArt: <TitleCard title={group.name} slug={group.slug} />,
@@ -75,7 +76,7 @@ export function buildSeriesSlots(hub: SeriesHub, related: readonly RelatedSeries
       </>
     ),
     faqs: seriesFaqs(hub, site.brand),
-    related: related.map((r) => ({ ...r, art: <TitleCard title={r.name} slug={r.slug} variant="mono" /> })),
+    related: related.map((r) => ({ ...r, name: kindName(r.type, r.name), art: <TitleCard title={r.name} slug={r.slug} variant="mono" /> })),
     growthWords: growthWords(),
     labels: labels(),
   };

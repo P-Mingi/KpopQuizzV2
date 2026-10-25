@@ -95,6 +95,8 @@ export const COPY = {
   'series.h1': 'Every {topic} on {brand}',
   'series.lede': 'Pick a {topic} you love, test what you know, and choose how many spoilers you want to see.',
   'series.filter': 'Find a {topic}',
+  'series.manhwa': 'Manhwa',
+  'series.manhwaAdapts': 'The anime adapts the manhwa (Korean webtoon) {title}.',
   'mix.h1': 'Anime Mix Quiz',
   'mix.tail': 'Test how well you know anime',
   'mix.lede': 'One quiz, many {topicPlural}. The Anime Mix pulls questions from across the {brand} catalog, and the spoiler shield keeps each one safe for what you have seen.',

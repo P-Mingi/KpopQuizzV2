@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import { alphaKey } from '@/lib/db/queries/group-directory';
 import { getSeriesDirectory } from '@/lib/anime/directory';
+import { ManhwaTag } from '@/components/anime/manhwa-tag';
 import { SeriesArt } from '@/components/anime/series-art';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
@@ -15,7 +16,7 @@ import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 import { SITE_ID } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
-import type { DirectoryGroup } from '@/lib/db/queries/group-directory';
+import type { SeriesDirectoryRow } from '@/lib/anime/directory';
 
 export const revalidate = 3600;
 
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
   },
 };
 
-function SeriesRow({ row }: { row: DirectoryGroup }): React.ReactElement {
+function SeriesRow({ row }: { row: SeriesDirectoryRow }): React.ReactElement {
   const { group, quizzes } = row;
   return (
     <li className="gdir-item">
@@ -45,6 +46,7 @@ function SeriesRow({ row }: { row: DirectoryGroup }): React.ReactElement {
         <span className="gdir-text">
           <span className="gdir-name">{group.name}</span>
           <span className="gdir-meta anime-c1-quiet anime-o2-art-meta">
+            <ManhwaTag type={row.seriesType} />
             {quizzes} {quizzes === 1 ? 'quiz' : 'quizzes'}
             {group.total_plays > 0 && <> · {formatCount(group.total_plays)} plays</>}
           </span>
@@ -61,12 +63,12 @@ export default async function SeriesDirectoryPage(): Promise<React.ReactElement>
 
   const rows = await safeFetch(
     getSeriesDirectory(),
-    [] as DirectoryGroup[],
+    [] as SeriesDirectoryRow[],
     '[series-directory] getSeriesDirectory',
   );
 
   // A to Z. Letters with no series simply do not appear.
-  const letters = new Map<string, DirectoryGroup[]>();
+  const letters = new Map<string, SeriesDirectoryRow[]>();
   for (const row of rows) {
     const k = alphaKey(row.group.name);
     letters.set(k, [...(letters.get(k) ?? []), row]);
