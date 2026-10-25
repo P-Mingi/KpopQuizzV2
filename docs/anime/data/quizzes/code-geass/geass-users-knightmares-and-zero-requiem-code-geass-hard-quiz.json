@@ -104,7 +104,7 @@
       "options": [
         "Freeze time",
         "Read minds",
-        "Restore a cancelled Geass",
+        "Cancel the effects of another Geass",
         "Command any person"
       ],
       "correct": 2,
@@ -176,7 +176,7 @@
       "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
     },
     {
-      "question": "Lelouch of the Re;surrection is a sequel to which arc?",
+      "question": "Lelouch of the Re;surrection is set a year after which scheme?",
       "options": [
         "Black Rebellion",
         "Geass Order",
