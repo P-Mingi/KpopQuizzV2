@@ -14,15 +14,16 @@
 import { unstable_cache } from 'next/cache';
 
 import { CACHE_TTL } from '@/lib/db/cache-policy';
+import { SITE_ID } from '@/lib/site/registry';
 import { forSite } from '@/lib/site/scope';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { isCategoryGroup, realFandomName } from '@/lib/ux-v1/p3/model';
 
 import { BRIDGE_RESULT_KEY, BRIDGE_SLUGS } from './bridge';
-import { isGroupSlug, parseCounts, parseProfiles, parseQuestions } from './parse';
+import { isGroupSlug, parseCounts, parseProfiles, parseQuestions, parseSeriesProfiles, questionBand, QUESTION_BAND, SERIES_MIN_PROFILES } from './parse';
 
 import type { AxisQuestion } from './engine';
-import type { WmaProfile } from './parse';
+import type { SeriesProfile, WmaProfile } from './parse';
 
 export interface PersonalityGroup {
   id: number;
@@ -40,6 +41,11 @@ export interface WmaData {
 
 /** A "profile set" is at least two members: with one there is nothing to find out. */
 export const MIN_PROFILES = 2;
+
+/** Which character are you (anime build): the same data with the profile text and the character's role. */
+export interface SeriesWmaData extends WmaData {
+  profiles: SeriesProfile[];
+}
 
 function hasDbEnv(): boolean {
   return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
@@ -96,7 +102,9 @@ const readSlugs = unstable_cache(async (): Promise<string[]> => {
     }
     if (rows.length < 1000) break;
   }
-  return [...slugs.entries()].filter(([, n]) => n >= MIN_PROFILES).map(([s]) => s).sort();
+  // The kpop build keeps its floor of two; a series needs the six profiles its page opens at (O5).
+  const floor = SITE_ID === 'kpop' ? MIN_PROFILES : SERIES_MIN_PROFILES;
+  return [...slugs.entries()].filter(([, n]) => n >= floor).map(([s]) => s).sort();
 }, ['v12:g5:slugs:v1'], { revalidate: CACHE_TTL.catalog, tags: ['personality', 'groups'] });
 
 const readCounts = unstable_cache(async (groupId: number): Promise<Record<string, number>> => {
@@ -113,8 +121,37 @@ const readBridgeGroups = unstable_cache(async (): Promise<PersonalityGroup[]> =>
   return ((data ?? []) as unknown[]).map(toGroup).filter((g): g is PersonalityGroup => g !== null);
 }, ['v12:g5:bridge-groups:v1'], { revalidate: CACHE_TTL.catalog, tags: ['groups'] });
 
+// Anime build (lane PERS): the questions are the series' own (the band of its group, see series.ts), the profiles carry their text.
+const readSeriesData = unstable_cache(async (slug: string): Promise<{ group: PersonalityGroup; questions: AxisQuestion[]; profiles: SeriesProfile[] } | null> => {
+  const db = createPublicReadClient();
+  const g = await forSite(db.from('groups').select('id, slug, name, fandom_name')).eq('slug', slug).maybeSingle();
+  if (g.error) throw new Error(g.error.message);
+  const group = toGroup(g.data);
+  if (!group) return null;
+  const band = questionBand(group.id);
+  const [p, q] = await Promise.all([
+    forSite(db.from('personality_profiles').select('member_name, member_slug, axes, ord, trait_lines, characters(role, affiliation)'))
+      .eq('group_id', group.id).eq('active', true).order('ord').limit(100),
+    forSite(db.from('personality_questions').select('ord, question, options'))
+      .eq('active', true).gte('ord', band.from).lte('ord', band.to).order('ord').limit(QUESTION_BAND),
+  ]);
+  if (p.error) throw new Error(p.error.message);
+  if (q.error) throw new Error(q.error.message);
+  return { group, questions: parseQuestions(q.data), profiles: parseSeriesProfiles(p.data) };
+}, ['o1:pers:series:v1'], { revalidate: CACHE_TTL.catalog, tags: ['personality', 'groups'] });
+
+/** Everything a Which character are you page needs, or null (unknown series, fewer than six profiles, no eight questions, read failed). */
+export async function getSeriesWmaData(slug: string): Promise<SeriesWmaData | null> {
+  if (!isGroupSlug(slug)) return null;
+  const d = await soft(() => readSeriesData(slug), null, 'series quiz');
+  if (!d || d.profiles.length < SERIES_MIN_PROFILES || d.questions.length === 0) return null;
+  return d;
+}
+
 /** Everything a Which member are you page needs, or null (unknown group, no profile set, no questions, read failed). */
 export async function getWmaData(slug: string): Promise<WmaData | null> {
+  // Anime build: the series' own quiz. The kpop build never gets past this line.
+  if (SITE_ID !== 'kpop') return getSeriesWmaData(slug);
   if (!isGroupSlug(slug)) return null;
   const [questions, gp] = await Promise.all([
     soft(() => readQuestions(), [] as AxisQuestion[], 'questions'),

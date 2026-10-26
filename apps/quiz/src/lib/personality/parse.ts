@@ -93,3 +93,57 @@ export function parseCounts(rows: unknown): Record<string, number> {
 export function isGroupSlug(v: unknown): v is string {
   return typeof v === 'string' && /^[a-z0-9][a-z0-9-]{0,59}$/.test(v);
 }
+
+// ---- Which character are you (anime build, lane PERS). They live here, not in series.ts, because data.ts imports this file already:
+// a new static import in data.ts would change the module graph of the kpop pages that reach it (o1-kpop-name-all-tree).
+
+/** ord of the questions of group g: g * QUESTION_BAND + n, n = 1 to 8. Must equal ORD_BAND of scripts/anime/k1/personality-data.mjs. */
+export const QUESTION_BAND = 12;
+
+/** Profiles a series needs for its page to open (O5). Kpop opens at 2 (data.ts MIN_PROFILES). */
+export const SERIES_MIN_PROFILES = 6;
+
+/** The ord window of the questions of a group (both ends included). */
+export function questionBand(groupId: number): { from: number; to: number } {
+  return { from: groupId * QUESTION_BAND + 1, to: groupId * QUESTION_BAND + QUESTION_BAND };
+}
+
+export interface SeriesProfile extends WmaProfile {
+  /** The profile text, one line each (personality_profiles.trait_lines). Never empty. */
+  lines: string[];
+  /** characters.role of the character, or null. */
+  role: string | null;
+  /** characters.affiliation, or null. */
+  affiliation: string | null;
+}
+
+/**
+ * Active profiles of one series, in their stored order: the axes of parseProfiles (all six, 0 to 100), plus the profile text and the
+ * character's role and affiliation. A row without a profile text is dropped (a result with nothing to say is not a result).
+ * `characters` is the embedded row of the character (an object, or a one-item array), or null when the link is missing.
+ */
+export function parseSeriesProfiles(rows: unknown): SeriesProfile[] {
+  if (!Array.isArray(rows)) return [];
+  const out: SeriesProfile[] = [];
+  const seen = new Set<string>();
+  for (const r of rows) {
+    const base = parseProfiles([r])[0];
+    if (!base || seen.has(base.id) || !isRecord(r)) continue;
+    const lines = (Array.isArray(r.trait_lines) ? r.trait_lines : [])
+      .filter((l): l is string => typeof l === 'string')
+      .map((l) => l.trim())
+      .filter((l) => l !== '');
+    if (lines.length === 0) continue;
+    const ch = Array.isArray(r.characters) ? r.characters[0] : r.characters;
+    const c = isRecord(ch) ? ch : null;
+    seen.add(base.id);
+    out.push({
+      ...base,
+      lines,
+      role: c && typeof c.role === 'string' ? c.role : null,
+      affiliation: c && typeof c.affiliation === 'string' && c.affiliation.trim() !== '' ? c.affiliation.trim() : null,
+    });
+  }
+  return out;
+}
+

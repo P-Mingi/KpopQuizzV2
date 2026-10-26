@@ -6,12 +6,16 @@
 //
 //   node scripts/anime/k1/load-fixtures.mjs <scratch|dev> [--dry-run]
 //   node scripts/anime/k1/load-fixtures.mjs <scratch|dev> --data docs/anime/data [--dry-run]
+//   node scripts/anime/k1/load-fixtures.mjs <scratch|dev> --data docs/anime/data --only personality [--dry-run]
 //
 // With --data <dir> the contract fixtures are not loaded: every series file of <dir>/series (and the facts of
 // <dir>/facts) is loaded instead, with the `anime-mix` group created when missing; the facts land in `trivia` (those
 // with a text) and `entity_sources` (every source). Lane K2: when <dir>/creators.json and <dir>/quizzes exist, the Team
 // creators (their profiles must already exist on the branch) and their published quizzes are loaded too. See
-// data-load.mjs. Lane K3: when <dir>/daily/*.json exists, its daily bank rows are loaded into quiz_bank (site anime, draft,
+// data-load.mjs. Lane PERS: when <dir>/personality/*.json exists, the Which character are you quiz of each series is loaded too (the
+// questions of its band in personality_questions, one personality_profiles row per character) and the loaded line ends with
+// personality_questions and personality_profiles; `--only personality` writes only those rows (the series, groups and characters must
+// already be on the branch), so a branch that holds other data is not touched. Lane K3: when <dir>/daily/*.json exists, its daily bank rows are loaded into quiz_bank (site anime, draft,
 // no scheduled_date: the daily cron schedules them) and the loaded line ends with daily_rows and daily_questions.
 // Run it twice: the second line must be equal.
 //
@@ -41,10 +45,13 @@ const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
 const dataAt = args.indexOf('--data');
 const dataDir = dataAt >= 0 ? args[dataAt + 1] : null;
-const target = args.find((a, i) => !a.startsWith('--') && (dataAt < 0 || i !== dataAt + 1));
-const USAGE = 'usage: load-fixtures.mjs <scratch|dev> [--data <dir>] [--dry-run]';
-if (args.some((a) => a.startsWith('--') && a !== '--dry-run' && a !== '--data')) fail(USAGE, 2);
+const onlyAt = args.indexOf('--only');
+const only = onlyAt >= 0 ? args[onlyAt + 1] : null;
+const target = args.find((a, i) => !a.startsWith('--') && (dataAt < 0 || i !== dataAt + 1) && (onlyAt < 0 || i !== onlyAt + 1));
+const USAGE = 'usage: load-fixtures.mjs <scratch|dev> [--data <dir> [--only personality]] [--dry-run]';
+if (args.some((a) => a.startsWith('--') && a !== '--dry-run' && a !== '--data' && a !== '--only')) fail(USAGE, 2);
 if (dataAt >= 0 && (!dataDir || dataDir.startsWith('--'))) fail(USAGE, 2);
+if (onlyAt >= 0 && (only !== 'personality' || dataAt < 0)) fail(USAGE, 2);
 if (target !== 'scratch' && target !== 'dev') fail(`refused: the target must be scratch or dev (got ${target ?? 'none'})`, 2);
 
 function psql(sql, extra = []) {
@@ -57,7 +64,7 @@ function psql(sql, extra = []) {
 }
 
 if (dataDir) {
-  const { readDataDir, readExtras, buildDataPlan, countDataPlan, renderDataSql, countDataSql } = await import('./data-load.mjs');
+  const { readDataDir, readExtras, buildDataPlan, countDataPlan, renderDataSql, renderPersonalityOnlySql, countDataSql } = await import('./data-load.mjs');
   let plan;
   try {
     plan = buildDataPlan(readDataDir(resolve(ROOT, dataDir)), readExtras(resolve(ROOT, dataDir)));
@@ -68,6 +75,14 @@ if (dataDir) {
   console.log(`plan target=${target} data=${dataDir} ${Object.entries(counts).map(([k, v]) => `${k}=${v}`).join(' ')}`);
   if (dryRun) {
     console.log('dry-run: nothing written');
+    process.exit(0);
+  }
+  if (only === 'personality') {
+    // PERS: only the quiz rows; the count is the two numbers of the personality columns, after the seven of the series rows
+    psql(renderPersonalityOnlySql(plan), ['-v', 'ON_ERROR_STOP=1', '-f', '-']);
+    const row = psql(countDataSql(plan), ['-At', '-F', ' ', '-f', '-']).trim().split(/\s+/).map(Number);
+    const [pq, pp] = row.slice(-2);
+    console.log(`loaded target=${target} personality_questions=${pq} personality_profiles=${pp}`);
     process.exit(0);
   }
   psql(renderDataSql(plan), ['-v', 'ON_ERROR_STOP=1', '-f', '-']);
@@ -83,7 +98,12 @@ if (dataDir) {
   }
   if (plan.daily?.length) {
     const [bank, bankQuestions] = nums.slice(at, at + 2);
+    at += 2;
     k2 += ` daily_rows=${bank} daily_questions=${bankQuestions}`;
+  }
+  if (plan.personality?.length) {
+    const [pq, pp] = nums.slice(at, at + 2);
+    k2 += ` personality_questions=${pq} personality_profiles=${pp}`;
   }
   console.log(`loaded target=${target} groups=${groups} series=${series} arcs=${arcs} characters=${characters} themes=${themes} trivia=${trivia} entity_sources=${entitySources}${k2}`);
   process.exit(0);

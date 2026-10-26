@@ -6,6 +6,8 @@
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { loadSeriesDirectory } from '@/lib/anime/directory';
+import { whichCharacterPath } from '@/lib/personality/series';
+import { listSeriesSets } from '@/lib/personality/sets';
 
 import { indexingOpenFor, parseLaunchDate } from './indexing';
 import { forSite } from './scope';
@@ -65,7 +67,8 @@ export function sitemapXml(origin: string, entries: readonly SitemapEntry[]): st
  *   hub:   its home, and its /privacy and /legal once the network is open (NET_INDEXING); while it is closed /privacy is a noindex draft and stays out.
  *          (/legal is indexable only once its [BRACKETED] facts are filled: lib/site/hub/legal.ts fails an open build that still prints one.)
  *   anime: its home, /series, every series hub that has at least `seo.minPublishedForIndexableHub` published quizzes
- *          (below it the hub page is noindex, so it stays out), then every published quiz of the site, newest first.
+ *          (below it the hub page is noindex, so it stays out), the Which character are you page of every series that has a quiz
+ *          (six active profiles, lane PERS), then every published quiz of the site, newest first.
  * A read that fails is not swallowed into a half list: the error reaches the caller, which answers 500 and lets the
  * crawler retry (a sitemap without its quizzes would read as "the site lost them").
  */
@@ -88,8 +91,9 @@ export async function sitemapEntriesFor(site: SiteConfig, db: SeriesDb = createP
     { path: '/series', changeFrequency: 'weekly', priority: 0.8 },
   ];
 
-  const [series, quizzes] = await Promise.all([
+  const [series, sets, quizzes] = await Promise.all([
     loadSeriesDirectory(db),
+    listSeriesSets(db),
     fetchAllRows<{ slug: string; created_at: string }>(
       () => forSite(db.from('quizzes').select('slug, created_at'), site.id)
         .eq('status', 'published')
@@ -100,10 +104,11 @@ export async function sitemapEntriesFor(site: SiteConfig, db: SeriesDb = createP
   const hubs = series
     .filter((row) => row.quizzes >= site.seo.minPublishedForIndexableHub)
     .map((row): SitemapEntry => ({ path: `/${row.group.slug}-quiz`, changeFrequency: 'weekly', priority: 0.8 }));
+  const characterQuizzes = sets.map((slug): SitemapEntry => ({ path: whichCharacterPath(slug), changeFrequency: 'monthly', priority: 0.6 }));
   const plays = quizzes.slice(0, QUIZZES_LIMIT).map((q): SitemapEntry => ({
     path: `/q/${q.slug}`, lastModified: new Date(q.created_at), changeFrequency: 'monthly', priority: 0.6,
   }));
-  return [...home, ...hubs, ...plays];
+  return [...home, ...hubs, ...characterQuizzes, ...plays];
 }
 
 /**

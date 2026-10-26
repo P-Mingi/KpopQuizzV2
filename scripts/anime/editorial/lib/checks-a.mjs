@@ -5,6 +5,7 @@ import { validate } from './schema.mjs';
 import { hostIs, hostOf, normalize } from './text.mjs';
 import { SOURCE_HOSTS } from './thresholds.mjs';
 import { isStrongSource } from './strong-source.mjs';
+import { characterProblems, shapeProblems } from '../../k1/personality-data.mjs';
 import { Result, citedFacts, factsOfItem, factsOfSlug, isMixSlug, isObj, optionTexts, questionsOf, shapeOfQuestion } from './checks-base.mjs';
 
 // Lane quotas of the K1 brief by series tier (characters, facts): reported as warnings, never as failures.
@@ -62,6 +63,15 @@ export function c1(item, ctx) {
     if (quota && Array.isArray(d.characters) && d.characters.length < quota.characters) {
       r.warn('/characters', `tier ${d.series.tier} asks ${quota.characters} characters, has ${d.characters.length}`);
     }
+  } else if (item.kind === 'personality') {
+    // Lane PERS: the schema of the file, then (only for a valid file) the shape rules and the reach of the engine.
+    push(validate('personality.schema.json', item.data, reg).errors);
+    if (r.fails.length === 0) {
+      const sp = shapeProblems(item.data, ctx.thresholds);
+      sp.fails.forEach((f) => r.fail(f.path, f.message));
+      sp.warns.forEach((w) => r.warn(w.path, w.message));
+    }
+    if (isObj(item.data) && 'site' in item.data && item.data.site !== 'anime') r.fail('/site', 'site must be anime');
   } else if (item.kind === 'facts') {
     const nf = factsOfItem(item);
     nf.problems.forEach((p) => r.fail('', p));
@@ -115,7 +125,7 @@ export function sourcingProblems(fact, ctx) {
 
 export function c2(item, ctx) {
   const r = new Result('C2');
-  if (item.kind === 'series') return r.notApplicable();
+  if (item.kind === 'series' || item.kind === 'personality') return r.notApplicable();
   if (item.kind === 'facts') {
     for (const x of factsOfItem(item).facts) {
       const p = sourcingProblems(x.fact, ctx);
@@ -137,6 +147,14 @@ export function c2(item, ctx) {
 
 export function c3(item, ctx) {
   const r = new Result('C3');
+  if (item.kind === 'personality') {
+    // Lane PERS: the series file exists, the file is named after it, every profile is a published character of it.
+    const slug = item.data?.group_slug;
+    if (item.file.includes('/personality/') && typeof slug === 'string' && basename(item.file, '.json') !== slug) r.fail('/group_slug', `the file is named ${basename(item.file)} but the series slug is ${slug}`);
+    if (!Array.isArray(item.data?.profiles)) return r;
+    characterProblems(item.data, ctx.series.get(slug)?.data).forEach((f) => r.fail(f.path, f.message));
+    return r;
+  }
   if (item.kind === 'series') {
     const slug = item.data?.group?.slug;
     if (item.file.includes('/series/') && slug && basename(item.file, '.json') !== slug) r.fail('/group/slug', `the file is named ${basename(item.file)} but the series slug is ${slug}`);

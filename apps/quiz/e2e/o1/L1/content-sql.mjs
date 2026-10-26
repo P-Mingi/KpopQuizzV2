@@ -10,6 +10,7 @@
 //   L05-K1-facts           entity_sources and trivia
 //   L07-K2-catalogue       the quizzes (published, signed by the Team creators)
 //   L08-K3-daily-bank      the daily quiz bank (drafts with no date)
+//   L10-PERS-personality   the Which character are you quizzes: the questions and the character profiles of each series (lane PERS)
 //   L12-L1-sites-live      sites.status = 'live' for anime and hub (the last launch file)
 // each with its .rollback.sql, plus expected-counts.json, content-verify.sql and MANIFEST.json (sha256 of every output and of the input).
 //
@@ -33,6 +34,7 @@ import { fileURLToPath } from 'node:url';
 import {
   MIX_SLUG, SITE, buildDataPlan, countDataPlan, countDataSql, readDataDir, readExtras, renderDataSql, sqlText,
 } from '../../../../../scripts/anime/k1/data-load.mjs';
+import { MIN_PROFILES, ORD_BAND, personalityUndoSql } from '../../../../../scripts/anime/k1/personality-data.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 export const REPO = resolve(HERE, '../../../../..');
@@ -65,6 +67,13 @@ export function selectData(files, extras, { drafts = false } = {}) {
   // D-117: multi-series quizzes (group anime-mix, created by L04) launch like the series quizzes.
   const quizzes = (extras.quizzes ?? []).filter((q) => (q.group_slug === MIX_SLUG || loadedSlugs.has(q.group_slug)) && backed(q));
   const daily = (extras.daily ?? []).filter((r) => (r.group_slug === undefined || r.group_slug === MIX_SLUG || loadedSlugs.has(r.group_slug)) && backed(r));
+  // PERS: a set goes with its series, published sets only (all of them with --drafts), and only for the characters that load; under
+  // the six profiles the route does not open, so the set stays out.
+  const loadedChars = new Map(outFiles.map((f) => [f.slug, new Set((f.characters ?? []).map((c) => c.slug))]));
+  const personality = (extras.personality ?? [])
+    .filter((p) => loadedSlugs.has(p.group_slug) && (drafts || p.status === 'published'))
+    .map((p) => ({ ...p, profiles: (p.profiles ?? []).filter((x) => loadedChars.get(p.group_slug)?.has(x.character_slug)) }))
+    .filter((p) => p.profiles.length >= MIN_PROFILES);
   const count = (list) => list.reduce((n, f) => n + f.length, 0);
   const report = {
     mode: drafts ? 'drafts' : 'verified',
@@ -73,8 +82,9 @@ export function selectData(files, extras, { drafts = false } = {}) {
     quizzes: { total: (extras.quizzes ?? []).length, loaded: quizzes.length },
     daily: { total: (extras.daily ?? []).length, loaded: daily.length },
     creators: { total: (extras.creators ?? []).length, loaded: (extras.creators ?? []).length },
+    ...((extras.personality ?? []).length > 0 ? { personality: { total: extras.personality.length, loaded: personality.length } } : {}),
   };
-  return { files: outFiles, extras: { creators: extras.creators ?? [], quizzes, daily }, report };
+  return { files: outFiles, extras: { creators: extras.creators ?? [], quizzes, daily, personality }, report };
 }
 
 // ------------------------------------------------------------------ SQL cutting
@@ -112,6 +122,7 @@ const KINDS = [
   ['trivia', /^(create temp table _k1_trivia|insert into _k1_trivia |update public\.trivia t |insert into public\.trivia \(|delete from public\.trivia t )/],
   ['creators', /^(update public\.profiles p |insert into public\.editorial_accounts |insert into public\.world_memberships |update public\.sites set system_user_id)/],
   ['quizzes', /^insert into public\.quizzes /],
+  ['personality', /^(do \$k1p\$|insert into public\.personality_(questions|profiles) |delete from public\.personality_(questions|profiles) )/],
   ['daily', /^(create temp table _k3_bank|insert into _k3_bank |update public\.quiz_bank b |insert into public\.quiz_bank |delete from public\.quiz_bank b )/],
 ];
 
@@ -281,6 +292,31 @@ export function buildLaunchFiles(sel, { drafts = false, teamDomain = DEFAULT_TEA
           `do $o1l$ begin\n  if exists (select 1 from public.quiz_bank where site_id = ${A} and lower(btrim(title)) in (${titles}) and (scheduled_date is not null or published_quiz_id is not null)) then\n    raise exception 'L08 rollback refused: a bank row is scheduled or published';\n  end if;\nend $o1l$;`,
           `delete from public.quiz_bank where site_id = ${A} and lower(btrim(title)) in (${titles});`,
         ]),
+    });
+  }
+
+  // L10 -----------------------------------------------------------------------------------------------------------
+  if (plan.personality.length > 0) {
+    const sets = plan.personality;
+    const nQ = sets.reduce((n, r) => n + r.questions.length, 0);
+    const nP = sets.reduce((n, r) => n + r.profiles.length, 0);
+    const setList = sets.map((r) => sqlText(r.slug)).join(', ');
+    files.push({
+      name: 'L10-PERS-personality',
+      sql: header('L10-PERS-personality', drafts, [
+        `What:   ${sets.length} Which character are you quiz${sets.length === 1 ? '' : 'zes'} (${nQ} questions, ${nP} character profiles): the eight questions of a series are rows of personality_questions at ord = group id * ${ORD_BAND} + 1 to 8,`,
+        '        its profiles are rows of personality_profiles with their character_id. The page /which-{series}-character-are-you and the link on the series hub',
+        '        exist for a series as soon as its rows are there; a set marked draft is loaded inactive (the page answers 404).',
+        'Needs:  L04, 002a, 013.',
+        `Verify: select count(*) from public.personality_profiles where site_id = 'anime';   expect ${nP}`,
+        'Undo:   L10-PERS-personality.rollback.sql (readers\' saved results stay: they are rows of personality_results, which this file never touches).',
+      ]) + body([
+        guard('L10', `(select count(*) from public.groups where site_id = ${A} and slug in (${setList})) <> ${sets.length}`, 'the series groups are missing (apply L04 first)'),
+        ...sets.map((r) => guard('L10', `(select count(*) from public.characters where group_id = (select id from public.groups where slug = ${sqlText(r.slug)} and site_id = ${A}) and slug in (${r.profiles.map((x) => sqlText(x.character_slug)).join(', ')})) <> ${r.profiles.length}`, `the characters of ${r.slug} are missing (apply L04 first)`)),
+        ...by.personality,
+      ]),
+      rollback: header('L10-PERS-personality.rollback', drafts, ['What:   undoes L10: the question and profile rows of these series (nothing else; saved results stay).'])
+        + body(personalityUndoSql(sets)),
     });
   }
 

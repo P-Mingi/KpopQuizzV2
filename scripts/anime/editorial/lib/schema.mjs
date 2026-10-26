@@ -15,6 +15,8 @@ import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 export const REPO_ROOT = resolve(HERE, '../../../..');
+/** Schemas of the lanes that are not part of the contract (lane PERS): the personality quiz of a series. Read whatever the contract folder is. */
+export const EXTRA_SCHEMAS = [join(REPO_ROOT, 'scripts/anime/k1/personality.schema.json')];
 export const CONTRACT_DIR = process.env.E1A_CONTRACT_DIR
   ? resolve(process.env.E1A_CONTRACT_DIR)
   : join(REPO_ROOT, 'docs/o1/contracts');
@@ -30,6 +32,10 @@ export function loadRegistry(contractDir = CONTRACT_DIR) {
       if (!name.endsWith('.schema.json')) continue;
       registry[name] = JSON.parse(readFileSync(join(dir, name), 'utf8'));
     }
+  }
+  for (const file of EXTRA_SCHEMAS) {
+    const doc = JSON.parse(readFileSync(file, 'utf8'));
+    registry[doc.$id] = doc;
   }
   extendFactSourceKinds(registry);
   return registry;

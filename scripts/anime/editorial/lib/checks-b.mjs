@@ -1,6 +1,7 @@
 // Run O1, lane E1a: checks C4 (answers backed by cited facts), C5 (spoiler tags) and C6 (title).
 
 import { contentWords, mentions, normalize, shapeOf, words } from './text.mjs';
+import { spoilerProblems } from '../../k1/personality-data.mjs';
 import { Result, answerWords, citedFacts, correctText, evidenceWords, factsOfItem, isMixSlug, isObj, optionTexts, questionTexts, questionsOf, shapeOfQuestion } from './checks-base.mjs';
 
 const pct = (x) => `${Math.round(x * 100)}%`;
@@ -38,6 +39,7 @@ function seriesBacking(item, ctx, r) {
 
 export function c4(item, ctx) {
   const r = new Result('C4');
+  if (item.kind === 'personality') return r.notApplicable();
   const T = ctx.thresholds;
   if (item.kind === 'series') { seriesBacking(item, ctx, r); return r; }
   if (item.kind === 'facts') {
@@ -122,6 +124,12 @@ export function namedCharacters(text, slug, ctx, citedSlugs = []) {
 
 export function c5(item, ctx) {
   const r = new Result('C5');
+  if (item.kind === 'personality') {
+    // Lane PERS: the quiz's arc against the level of each character and each name in its texts (C3 says when there is no series).
+    const series = ctx.series.get(item.data?.group_slug)?.data;
+    if (series && Array.isArray(item.data?.profiles)) spoilerProblems(item.data, series).forEach((f) => r.fail(f.path, f.message));
+    return r;
+  }
   if (item.kind === 'series') {
     const d = item.data;
     const top = Array.isArray(d?.arcs) ? Math.max(0, ...d.arcs.map((a) => a?.ord ?? 0)) : 0;
@@ -195,7 +203,7 @@ const FILLER = new Set(['quiz', 'test', 'trivia', 'the', 'a', 'an', 'ultimate', 
 
 export function c6(item, ctx) {
   const r = new Result('C6');
-  if (item.kind === 'series' || item.kind === 'facts') return r.notApplicable();
+  if (item.kind === 'series' || item.kind === 'facts' || item.kind === 'personality') return r.notApplicable();
   const title = item.data?.title;
   if (typeof title !== 'string') return r;
   const slug = item.data?.group_slug ?? null;

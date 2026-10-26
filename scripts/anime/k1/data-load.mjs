@@ -21,9 +21,15 @@
 // it the plan also holds `daily`: each row is loaded into `quiz_bank` for site anime as a draft with no scheduled_date (the daily
 // cron's auto-scheduler sets dates, never this loader). Idempotent on the normalised title: a row already scheduled or published is
 // never touched, a second run changes nothing, and a still-draft unscheduled anime row that is no longer in the files is removed.
+//
+// Lane PERS extension (optional folder of the same directory): personality/<series>.json (the Which character are you quiz of a series,
+// personality.schema.json; the rules and the SQL are in personality-data.mjs). With it the plan also holds `personality`: the eight
+// questions of the series (personality_questions of site anime, in the band of the group) and one personality_profiles row per
+// character (character_id from the slug). A second run changes nothing; rows no longer in the file are removed.
 
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { buildPersonality, countPersonality, personalityCountColumns, readPersonality, renderPersonalitySql } from './personality-data.mjs';
 
 export const SITE = 'anime';
 export const MIX_SLUG = 'anime-mix';
@@ -99,7 +105,7 @@ export function readExtras(dir) {
       }
     }
   }
-  return { creators, quizzes, daily: readDaily(dir) };
+  return { creators, quizzes, daily: readDaily(dir), personality: readPersonality(dir) };
 }
 
 const DAILY_CATEGORIES = ['series_specific', 'true_false', 'who_am_i', 'name_the_series', 'music', 'creators_studios', 'odd_one_out', 'crossover'];
@@ -193,7 +199,7 @@ function buildQuizzes(list, creators, groups, arcsBySlug) {
 }
 
 /** Plan = the rows to write, one object per table. Throws on a duplicate natural key. `extras` is readExtras(dir) (K2). */
-export function buildDataPlan(files, extras = { creators: [], quizzes: [], daily: [] }) {
+export function buildDataPlan(files, extras = { creators: [], quizzes: [], daily: [], personality: [] }) {
   const groups = []; const series = []; const arcs = []; const characters = []; const themes = []; const trivia = []; const sources = [];
   const seenSrc = new Set(); const seenTrivia = new Set();
   for (const f of files) {
@@ -228,7 +234,8 @@ export function buildDataPlan(files, extras = { creators: [], quizzes: [], daily
   const arcsBySlug = new Map(files.map((f) => [f.slug, f.arcs ?? []]));
   const quizzes = buildQuizzes(extras.quizzes ?? [], creators, groups, arcsBySlug);
   const daily = buildDaily(extras.daily ?? [], groups);
-  return { groups, series, arcs, characters, themes, trivia, sources, creators, quizzes, daily };
+  const personality = buildPersonality(extras.personality ?? [], files);
+  return { groups, series, arcs, characters, themes, trivia, sources, creators, quizzes, daily, personality };
 }
 
 export function countDataPlan(plan) {
@@ -236,7 +243,8 @@ export function countDataPlan(plan) {
   const k2 = plan.creators?.length || plan.quizzes?.length
     ? { creators: plan.creators.length, quizzes: plan.quizzes.length, questions: plan.quizzes.reduce((n, q) => n + q.question_count, 0) } : {};
   const k3 = plan.daily?.length ? { daily: plan.daily.length, daily_questions: plan.daily.reduce((n, r) => n + r.questions.length, 0) } : {};
-  return { ...base, ...k2, ...k3 };
+  const pers = plan.personality?.length ? countPersonality(plan.personality) : {};
+  return { ...base, ...k2, ...k3, ...pers };
 }
 
 // ---------------------------------------------------------------- SQL
@@ -375,8 +383,17 @@ export function renderDataSql(plan) {
 
   if (plan.daily?.length) out.push(...renderDailySql(plan.daily));
 
+  // PERS: the characters are final here (upserted and cleaned above), so the profiles can name them
+  if (plan.personality?.length) out.push(...renderPersonalitySql(plan.personality));
+
   out.push('commit;');
   return out.join('\n') + '\n';
+}
+
+/** Only the personality rows of a plan (the series, groups and characters must already be on the branch): one transaction, safe to run again. */
+export function renderPersonalityOnlySql(plan) {
+  if (!plan.personality?.length) throw new Error('no personality file in the data folder');
+  return ['\\set ON_ERROR_STOP on', 'begin;', 'set local client_min_messages = warning;', ...renderPersonalitySql(plan.personality), 'commit;'].join('\n') + '\n';
 }
 
 const bankKey = (a, b) => `md5(lower(btrim(${a}.title))) = md5(lower(btrim(${b}.title)))`;
@@ -429,5 +446,6 @@ export function countDataSql(plan) {
       `(select coalesce(sum(jsonb_array_length(questions)), 0) from public.quiz_bank where site_id = ${sqlText(SITE)} and scheduled_date is null and lower(btrim(title)) in (${titles}))`,
     );
   }
+  if (plan.personality?.length) cols.push(...personalityCountColumns(plan.personality));
   return `select ${cols.join(',\n')};\n`;
 }
