@@ -1162,12 +1162,12 @@
       "Key of the Starry Heavens Arc: episodes 123 to 150",
       "Grand Magic Games Arc: episodes 151 to 203",
       "Eclipse Celestial Spirits Arc: episodes 204 to 226",
-      "Sun Valley Arc: episodes 227 to 237",
-      "Tartaros Arc: episodes 238 to 277",
+      "Sun Valley Arc: episodes 227 to 233",
+      "Tartaros Arc: episodes 234 to 265",
       "Avatar Arc: episodes 278 to 284",
       "Alvarez Arc: episodes 285 to 328"
     ],
-    "text": "The last story arc, Alvarez, fills episodes 285 to 328, while the Tenrou Island Arc starts the second half at episode 96.",
+    "text": "The Sun Valley Arc closes at episode 233 and the Tartaros Arc fills episodes 234 to 265, the Avatar Arc then runs from episode 278 to 284 and Alvarez ends the run at 328.",
     "category": "history",
     "load_bearing": false,
     "spoiler": {
@@ -1180,10 +1180,15 @@
         "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes",
         "ref": "1381404148",
         "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.tv-tokyo.co.jp/anime/fairytail2015/episodes/",
+        "fetched_at": "2026-10-26T09:00:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T14:30:00.000Z",
+    "verified_at": "2026-10-26T09:05:00.000Z",
     "excerpt": "Sun Valley Arc 227"
   },
   {
