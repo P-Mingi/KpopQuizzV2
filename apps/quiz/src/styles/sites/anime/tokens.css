@@ -11,6 +11,12 @@ html.ux-v1[data-site="anime"] {
   --ux-qotd-edge: #F7DCC7;
   --ux-bt-bg: linear-gradient(120deg, #FFF1E6 0%, #F2EBFA 68%, #EAF1FB 100%);
   --ux-hl: #C2410C;
+  --ux-acc-pink: #A8450C;
+  --ux-lt-a: #C96838;
+  --ux-th-hits26: linear-gradient(135deg, #F9D6C5 0%, #FCE3D2 100%);
+  --ux-th-viral: linear-gradient(135deg, #CFF2EA 0%, #F9DED0 100%);
+  --ux-th-kpdh: linear-gradient(135deg, #2B1B45 0%, #6B2A5B 55%, #C96838 100%);
+  --ux-host-bg: linear-gradient(135deg, #FDF5F1 0%, #F3EEFC 60%, #EAF2FB 100%);
 }
 
 html.ux-v1.dark[data-site="anime"] {
@@ -19,6 +25,12 @@ html.ux-v1.dark[data-site="anime"] {
   --ux-qotd-edge: #5A3820;
   --ux-bt-bg: linear-gradient(120deg, #3A2214 0%, #221D31 68%, #1B2130 100%);
   --ux-hl: #FDBA74;
+  --ux-acc-pink: #EB8F61;
+  --ux-lt-a: #C96838;
+  --ux-th-hits26: linear-gradient(135deg, #4A2A1A 0%, #43301F 100%);
+  --ux-th-viral: linear-gradient(135deg, #1F3A36 0%, #46281F 100%);
+  --ux-th-kpdh: linear-gradient(135deg, #2B1B45 0%, #6B2A5B 55%, #C96838 100%);
+  --ux-host-bg: linear-gradient(135deg, #2A201B 0%, #221D31 60%, #1B2130 100%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,5 +40,11 @@ html.ux-v1.dark[data-site="anime"] {
     --ux-qotd-edge: #5A3820;
     --ux-bt-bg: linear-gradient(120deg, #3A2214 0%, #221D31 68%, #1B2130 100%);
     --ux-hl: #FDBA74;
+    --ux-acc-pink: #EB8F61;
+    --ux-lt-a: #C96838;
+    --ux-th-hits26: linear-gradient(135deg, #4A2A1A 0%, #43301F 100%);
+    --ux-th-viral: linear-gradient(135deg, #1F3A36 0%, #46281F 100%);
+    --ux-th-kpdh: linear-gradient(135deg, #2B1B45 0%, #6B2A5B 55%, #C96838 100%);
+    --ux-host-bg: linear-gradient(135deg, #2A201B 0%, #221D31 60%, #1B2130 100%);
   }
 }

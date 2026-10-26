@@ -1,0 +1,40 @@
+No pink on otakuquiz.org: computed colours of every rendered element (e2e/o1/ORANGE/no-pink.mjs), anime build, 1280x900, light and dark.
+Pink = hue 325 to 347 degrees, saturation >= 0.35, lightness 0.38 to 0.97, or one of the five dark rose grounds of the kpop accent.
+Run 1: public pages. Run 2: signed in as a fixture user (settings and passport).
+Before the override sheets (same build, no legacy.css, old tokens): 34 pink values on /login and /about; the Pink swatch of the settings theme picker.
+
+== run 1
+light / (200 -> /): no pink
+light /series (200 -> /series): no pink
+light /death-note-quiz (200 -> /death-note-quiz): no pink
+light /q/fx-death-note-basics-rules-and-creators (200 -> /q/fx-death-note-basics-rules-and-creators): no pink
+light /quizzes (200 -> /quizzes): no pink
+light /trivia (200 -> /trivia): no pink
+light /community (200 -> /community): no pink
+light /leaderboard (200 -> /leaderboard): no pink
+light /login (200 -> /login): no pink
+light /me (200 -> /me): no pink
+light /about (200 -> /about): no pink
+light /create (200 -> /create): no pink
+light /search (200 -> /search): no pink
+dark / (200 -> /): no pink
+dark /series (200 -> /series): no pink
+dark /death-note-quiz (200 -> /death-note-quiz): no pink
+dark /q/fx-death-note-basics-rules-and-creators (200 -> /q/fx-death-note-basics-rules-and-creators): no pink
+dark /quizzes (200 -> /quizzes): no pink
+dark /trivia (200 -> /trivia): no pink
+dark /community (200 -> /community): no pink
+dark /leaderboard (200 -> /leaderboard): no pink
+dark /login (200 -> /login): no pink
+dark /me (200 -> /me): no pink
+dark /about (200 -> /about): no pink
+dark /create (200 -> /create): no pink
+dark /search (200 -> /search): no pink
+RESULT: no rendered page computes a kpop pink
+
+== run 2
+light /settings (200 -> /settings): no pink
+light /me (200 -> /me): no pink
+dark /settings (200 -> /settings): no pink
+dark /me (200 -> /me): no pink
+RESULT: no rendered page computes a kpop pink

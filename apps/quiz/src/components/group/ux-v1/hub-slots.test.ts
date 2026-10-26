@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { buildMixSlots, buildSeriesSlots } from '@/components/anime/series-hub-slots';
 import { FIXTURE_SLUGS, hubFromFixture, readFixture } from '@/lib/anime/test-support';
+import { isKnownRouteFor } from '@/lib/site/routing';
 
 import type { SeriesHub } from '@/lib/anime/series';
 
@@ -98,13 +99,15 @@ describe.each(FIXTURE_SLUGS)('the %s hub with the anime slots', (slug) => {
     });
   }
 
-  it('is a hub with no blind test button, and an openings quiz link only at 15 playable themes', async () => {
-    expect(await hubHtml(hub, false)).not.toContain('/blindtest');
+  it('is a hub with no blind test and no openings quiz link, whatever the number of playable themes, and no dead link', async () => {
     const many = { ...hub, themes: Array.from({ length: 15 }, (_, i) => ({ ...hub.themes[0]!, id: 800 + i, number: i + 1, deezer_playable: true })) };
-    const out = await hubHtml(many, false);
-    expect(out).toContain(`href="/${hub.group.slug}-openings-quiz"`);
-    expect(out).not.toContain('/blindtest');
-    expect(out).not.toMatch(/blind ?test/i);
+    for (const h of [hub, many]) {
+      const out = await hubHtml(h, false);
+      expect(out).not.toMatch(/blind ?test|openings-quiz|openings quiz/i);
+      const hrefs = [...out.matchAll(/<a\b[^>]*?\bhref="([^"]+)"/g)].map((m) => m[1]!).filter((u) => u.startsWith('/'));
+      expect(hrefs.length).toBeGreaterThan(3);
+      for (const u of hrefs) expect(isKnownRouteFor('anime', u.split(/[?#]/)[0]!, { v1: true, v12: true }), u).toBe(true);
+    }
   });
 });
 

@@ -15,6 +15,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { buildUxStylesheet } from '@/lib/ux-v1/a0/stylesheet';
 
 import { REGISTRY } from './registry';
+import { LEGACY_VARS, legacySheet, orange, pinkDeclarations, pinksIn, rootPinkProps, scoped } from './anime-legacy-pink';
 import { isKnownRouteFor, rewritesFor } from './routing';
 
 const SRC = fileURLToPath(new URL('../../', import.meta.url));
@@ -99,6 +100,7 @@ describe('contrast of the orange accent, light and dark (WCAG 2)', () => {
     ['pink', 'page', 3], ['pink', 'raised', 3], ['pink', 'surface', 3],
     ['pink-fill', 'page', 3], ['pink-fill', 'raised', 3], ['pink-fill-h', 'page', 3], ['pink-fill-h', 'raised', 3],
     ['hl', 'page', 3], ['hl', 'raised', 3],
+    ['acc-pink', 'page', 4.5], ['acc-pink', 'surface', 4.5], ['acc-pink', 'surface-2', 4.5], ['acc-pink', 'raised', 4.5],
   ];
   for (const { name, t } of themes) {
     it.each(PAIRS)(`${name}: %s on %s is at least %s`, (fg, bg, min) => {
@@ -156,7 +158,7 @@ const KPOP_PINKS = [
   '#E8457A', '#D13A6E', '#BE2F62', '#C43565', '#FCE8EF', '#B3305C', '#F2CFDB', '#FF7AA5', '#3A2129', '#FF9DBC', '#4A2A37', '#DB4B7E',
   '#FBE1EA', '#FCEBF1', '#FEF6F8', '#F4D6E1', '#36202B', '#2B1D25', '#221B1F', '#40283A', '#FF8FB4', '#8A2A4C', '#F9A8D4', '#B41758',
 ];
-const hasPink = (text: string): string[] => KPOP_PINKS.filter((p) => text.toUpperCase().includes(p));
+const hasPink = (text: string): string[] => [...new Set([...KPOP_PINKS.filter((p) => text.toUpperCase().includes(p)), ...pinksIn(text)])];
 
 function filesUnder(dir: string, test: (f: string) => boolean): string[] {
   const out: string[] = [];
@@ -177,11 +179,11 @@ describe('no pink on otakuquiz.org', () => {
     }
   });
 
-  it('the anime sheets use tokens only: no kpop pink and no colour literal in any rule outside tokens.css', () => {
+  it('the anime sheets use tokens only: no kpop pink anywhere, and no colour literal in a rule outside tokens.css and the generated legacy.css', () => {
     for (const f of filesUnder('styles/sites/anime', (x) => x.endsWith('.css'))) {
       const css = read(f);
       expect(hasPink(css), f).toEqual([]);
-      if (!f.endsWith('/tokens.css')) {
+      if (!f.endsWith('/tokens.css') && !f.endsWith('/legacy.css')) {
         const body = css.replace(/\/\*[\s\S]*?\*\//g, '');
         expect(body.match(/#[0-9A-Fa-f]{3,8}\b|rgba?\(|hsla?\(/g) ?? [], f).toEqual([]);
         expect(body, f).not.toMatch(/\bpink\b(?!-)/i);
@@ -203,26 +205,73 @@ describe('no pink on otakuquiz.org', () => {
   describe('the stylesheet the anime build serves', () => {
     const sheet = buildUxStylesheet({ v12: true, site: 'anime', stylesDir: `${SRC}styles` });
     const siteTokens = new Set(Object.keys(vars(read('styles/sites/anime/tokens.css'), SC)).map((n) => `--${n}`));
+    const shared = [
+      { name: 'globals.css', css: read('styles/globals.css') },
+      ...filesUnder('styles/ux-v1', (f) => f.endsWith('.css')).sort().map((f) => ({ name: f, css: read(f) })),
+      ...filesUnder('styles/ux-v12', (f) => f.endsWith('.css')).sort().map((f) => ({ name: f, css: read(f) })),
+    ];
+    const legacy = read('styles/sites/anime/legacy.css');
 
-    it('overrides, in the anime sheet, every --ux custom property of the shared sheets that holds a kpop pink', () => {
-      const shared = sheet.slice(0, sheet.indexOf('/* sites/anime/'));
-      const pinkProps = new Set<string>();
-      for (const m of shared.matchAll(/(--ux-[a-z0-9-]+):\s*([^;}]+)[;}]/g)) if (hasPink(m[2]!).length > 0) pinkProps.add(m[1]!);
-      // acc-pink is not in the set: no kpop pink hex above is its value.
-      expect([...pinkProps].sort().filter((p) => !siteTokens.has(p))).toEqual([]);
+    it('serves tokens.css and legacy.css after the shared sheets', () => {
+      expect(sheet.indexOf('/* sites/anime/tokens.css */')).toBeGreaterThan(sheet.indexOf('/* ux-v12/'));
+      expect(sheet.indexOf('/* sites/anime/legacy.css */')).toBeGreaterThan(sheet.indexOf('/* sites/anime/tokens.css */'));
     });
 
-    it('keeps a pink literal only in the shared rules of features the anime site does not have', () => {
-      const shared = sheet.slice(0, sheet.indexOf('/* sites/anime/'));
-      const rules: string[] = [];
-      for (const m of shared.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
-        const body = m[2]!.replace(/--ux-[a-z0-9-]+:[^;]*;?/g, '');
-        if (hasPink(body).length > 0) rules.push(m[1]!.trim());
+    it('legacy.css is what the generator writes from the shared sheets today (a pink added to one of them fails here until it is regenerated)', () => {
+      expect(legacy).toBe(legacySheet(shared));
+    });
+
+    it('replaces every pink custom property of the shared root blocks: by a --ux token of tokens.css or by a legacy variable of legacy.css', () => {
+      const names = rootPinkProps(shared);
+      expect(names.length).toBeGreaterThan(20);
+      const legacyVars = new Set([...Object.keys(LEGACY_VARS), '--shadow-lift', '--halo']);
+      expect(names.filter((n) => !(n.startsWith('--ux-') ? siteTokens.has(n) : legacyVars.has(n)))).toEqual([]);
+      expect(Object.keys(vars(legacy, SC))).toEqual(expect.arrayContaining(Object.keys(LEGACY_VARS).map((n) => n.slice(2))));
+    });
+
+    it('repeats every other pink declaration of the shared sheets under the anime scope, in orange, and leaves no pink of its own', () => {
+      const decls = pinkDeclarations(shared).filter((d) => !d.prop.startsWith('--ux-'));
+      expect(decls.length).toBeGreaterThan(50);
+      for (const d of decls) {
+        expect(legacy, `${d.source} ${d.selector} { ${d.prop} }`).toContain(`${scoped(d.selector)} { ${d.prop}: ${orange(d.value)}; }`);
       }
-      // The live pulse (live is off), the equaliser bars and bars of the blind test band and hero (both gone), the tier list legend
-      // (no tier list) and the fallback tint of the passport band (the band always sets --p10-tint inline).
-      expect(rules).toEqual(['.p1-pulse', '.p1-eqv i', '.p10-band', '.p6-bars i', '.p6-eq i', '.p7-t-legend']);
+      expect(pinksIn(legacy)).toEqual([]);
     });
+
+    it('the override selectors all start with the anime scope, so the kpop sheets (which never read this file) keep their bytes', () => {
+      for (const sel of legacy.matchAll(/^\s*((?:html\.ux-v1)[^{]*)\{/gm)) {
+        for (const one of sel[1]!.split(',')) expect(one.trim().startsWith('html.ux-v1[data-site="anime"]') || one.trim().startsWith('html.ux-v1.dark[data-site="anime"]'), one).toBe(true);
+      }
+      expect(buildUxStylesheet({ v12: true, site: 'kpop', stylesDir: `${SRC}styles` })).not.toContain('legacy.css');
+      expect(buildUxStylesheet({ v12: true, site: 'hub', stylesDir: `${SRC}styles` })).not.toContain('data-site="anime"');
+    });
+  });
+});
+
+describe('the passport settings offer no pink on anime', () => {
+  afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); });
+  it('anime: no Pink name colour, no Blossom avatar, the default passport theme shows as the orange of the site', async () => {
+    vi.resetModules();
+    vi.unstubAllEnvs();
+    vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'anime');
+    const o = await import('@/lib/passport-ui/site-options');
+    expect(o.OFFERED_NAME_ACCENT_KEYS).not.toContain('pink');
+    expect(o.OFFERED_AVATAR_PRESET_KEYS).not.toContain('blossom');
+    expect(o.themeOption('default')).toEqual({ label: 'Orange', swatch: '#C2410C' });
+    for (const k of o.OFFERED_THEME_KEYS) expect(pinksIn(o.themeOption(k).swatch), k).toEqual([]);
+    for (const k of o.OFFERED_AVATAR_PRESET_KEYS) expect(pinksIn((await import('@/lib/passport-flair')).AVATAR_PRESETS[k]!.bg), k).toEqual([]);
+    for (const k of o.OFFERED_NAME_ACCENT_KEYS) expect(pinksIn((await import('@/lib/passport-flair')).NAME_ACCENTS[k]!.color), k).toEqual([]);
+  });
+  it('kpop: the very same sets as before', async () => {
+    vi.resetModules();
+    vi.unstubAllEnvs();
+    const o = await import('@/lib/passport-ui/site-options');
+    const flair = await import('@/lib/passport-flair');
+    const themes = await import('@/lib/passport-themes');
+    expect(o.OFFERED_NAME_ACCENT_KEYS).toBe(flair.NAME_ACCENT_KEYS);
+    expect(o.OFFERED_AVATAR_PRESET_KEYS).toBe(flair.AVATAR_PRESET_KEYS);
+    expect(o.OFFERED_THEME_KEYS).toBe(themes.PASSPORT_THEME_KEYS);
+    expect(o.themeOption('default')).toBe(themes.PASSPORT_THEMES.default);
   });
 });
 
@@ -310,6 +359,37 @@ describe('OtakuQuiz has no blind test', () => {
       for (const u of hrefs) expect(known(u), u).toBe(true);
     });
 
+    it('which-character: its own links are routes of the site, none a blind test or an openings quiz (that page does not render)', async () => {
+      vi.doMock('next/navigation', () => ({ notFound: () => { throw new Error('404'); }, redirect: () => { throw new Error('redirect'); } }));
+      vi.doMock('@/lib/ux-v12', () => ({ isUxV12: () => true }));
+      vi.doMock('@/lib/personality/data', () => ({ getWmaGroupSlugs: async () => ['death-note'] }));
+      vi.doMock('@/lib/db/queries/groups', () => ({ getAllGroups: async () => [{ slug: 'death-note', name: 'Death Note' }] }));
+      vi.doMock('@/lib/personality/server', () => ({
+        SITE: 'https://otakuquiz.org',
+        getWmaPage: async () => ({ group: { slug: 'death-note', name: 'Death Note' }, view: {}, blindtestSongs: 20 }),
+      }));
+      vi.doMock('@/components/personality/quiz', () => ({ PersonalityQuiz: (p: { also?: React.ReactNode }) => h('div', null, p.also) }));
+      vi.doMock('@/components/personality/about', () => ({ WmaAbout: () => null }));
+      const page = await onAnime(() => import('@/app/sites/[site]/(anime)/which-character/[group]/page'));
+      const html = renderToString(await page.default({ params: Promise.resolve({ group: 'death-note' }) }));
+      const hrefs = internal(hrefsOf(html));
+      expect(hrefs.length).toBeGreaterThan(2);
+      for (const u of hrefs) {
+        expect(u, u).not.toMatch(/blindtest|openings-quiz/);
+        expect(known(u), u).toBe(true);
+      }
+      expect(html).not.toMatch(/blind ?test|openings quiz/i);
+    });
+
+    it('opening-of-the-day goes to /series, never to a page that answers 404', async () => {
+      const target: string[] = [];
+      vi.doMock('next/navigation', () => ({ redirect: (to: string) => { target.push(to); throw new Error('redirect'); } }));
+      const page = await onAnime(() => import('@/app/sites/[site]/(anime)/opening-of-the-day/page'));
+      expect(() => page.default()).toThrow('redirect');
+      expect(target).toEqual(['/series']);
+      expect(known('/series')).toBe(true);
+    });
+
     it('the default passport theme is the site accent: orange on anime, the kpop values kept on kpop', async () => {
       const anime = await onAnime(() => import('@/lib/ux-v1/p10/passport-model'));
       expect(anime.themeColours(null)).toEqual({ band: '#FFF1E6', bar: '#C2410C' });
@@ -340,7 +420,8 @@ describe('OtakuQuiz has no blind test', () => {
       ...filesUnder('lib/anime', (f) => /\.tsx?$/.test(f) && !/\.test\./.test(f)),
       ...filesUnder('copy/anime', (f) => f.endsWith('.ts')),
     ].filter((f) => !f.startsWith('app/sites/[site]/(anime)/blindtest/'));
-    // The slot of the shared series hub the prop of the shared name-all block and the field of the shared personality page are named after the blind test; anime fills them with nothing or renames them.
-    for (const f of files) expect(read(f).replace(/\/\/[^\n]*|\/\*[\s\S]*?\*\//g, '').replace(/\bblindtest: null|\bblindtestSlugs=\{\[\]\}|\bblindtestSongs: openingSongs/g, ''), f).not.toMatch(/\/blindtest|blind ?test/i);
+    // The slot of the shared series hub and the prop of the shared name-all block are named after the blind test; anime fills them with nothing.
+    for (const f of files) expect(read(f).replace(/\/\/[^\n]*|\/\*[\s\S]*?\*\//g, ''), f).not.toMatch(/openings-quiz/);
+    for (const f of files) expect(read(f).replace(/\/\/[^\n]*|\/\*[\s\S]*?\*\//g, '').replace(/\bblindtest: null|\bblindtestSlugs=\{\[\]\}/g, ''), f).not.toMatch(/\/blindtest|blind ?test/i);
   });
 });

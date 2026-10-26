@@ -69,26 +69,26 @@ export default async function WhichMemberPage({ params }: Props): Promise<React.
   const { group: slug } = await params;
   const page = await getWmaPage(slug);
   if (!page) notFound();
-  const { group, view, blindtestSongs: openingSongs } = page;
+  const { group, view } = page;
   const hub = `/${group.slug}-quiz`;
   // The cross-links below the quiz: settled reads, so a blip drops a link, never the page.
   const [wma, groups] = await Promise.all([getWmaGroupSlugs(), settle(() => getAllGroups(), null)]);
   const names = new Map((groups.value ?? []).map((g) => [g.slug, g.name] as const));
 
-  // "Also on <group>": real doors only, and the grid only with two of them.
-  const also = openingSongs !== null ? (
+  // "Also on <group>": real doors only (OtakuQuiz has no blind test, and the openings quiz page does not render yet).
+  const also = (
     <section className="ux-sec ux-pers-also" aria-labelledby="pers-also-h">
       <SectionHeader id="pers-also-h" title={`Also on ${group.name}`} icon="users" />
       <WaysTiles columns={2}>
-        <WaysTile href={`/${group.slug}-openings-quiz`} icon="music" title={`${group.name} openings quiz`}>
-          {openingSongs} songs, ten-second clips.
-        </WaysTile>
         <WaysTile href={hub} icon="layers" title={`${group.name} quizzes`}>
           Every {group.name} quiz, made by fans.
         </WaysTile>
+        <WaysTile href="/series" icon="users" title="More series">
+          Every series with fan-made quizzes.
+        </WaysTile>
       </WaysTiles>
     </section>
-  ) : null;
+  );
 
   return (
     <UxPage width="wide" className="ux-pers">

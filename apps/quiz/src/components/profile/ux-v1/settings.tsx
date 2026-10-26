@@ -22,8 +22,9 @@ import { badgeRarity } from '@/lib/badges';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { isSoundEnabled, setSoundEnabled } from '@/lib/sounds';
-import { AVATAR_PRESETS, AVATAR_PRESET_KEYS, NAME_ACCENTS, NAME_ACCENT_KEYS, NAME_FONTS, NAME_FONT_KEYS } from '@/lib/passport-flair';
-import { BIAS_MAX, PASSPORT_THEMES, PASSPORT_THEME_KEYS, ULT_MAX } from '@/lib/passport-themes';
+import { AVATAR_PRESETS, NAME_ACCENTS, NAME_FONTS, NAME_FONT_KEYS } from '@/lib/passport-flair';
+import { OFFERED_AVATAR_PRESET_KEYS, OFFERED_NAME_ACCENT_KEYS, OFFERED_THEME_KEYS, themeOption } from '@/lib/passport-ui/site-options';
+import { BIAS_MAX, ULT_MAX } from '@/lib/passport-themes';
 import { flagOn } from '@/lib/site/registry';
 import { applyTheme, storedTheme } from '@/lib/ux-v1/a0/theme';
 import { groupPhotoUrl, SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
@@ -461,7 +462,7 @@ export function UxSettings({ world }: { world?: SettingsWorld | undefined } = {}
         <div className="ux-field">
           <div className="ux-flabel" id="p10-s-acc">Name colour</div>
           <RadioGroup label="Name colour">
-            {NAME_ACCENT_KEYS.map((k) => (
+            {OFFERED_NAME_ACCENT_KEYS.map((k) => (
               <Opt key={k} on={form.name_accent === k} onPick={() => set('name_accent', k)}>
                 <i className={`p10-dot ${k === 'default' ? 'is-ink' : `ux-acc-${k}`}`} aria-hidden="true" />{NAME_ACCENTS[k]!.label}
               </Opt>
@@ -512,8 +513,8 @@ export function UxSettings({ world }: { world?: SettingsWorld | undefined } = {}
         <div className="ux-field">
           <div className="ux-flabel">Passport theme <small>Colours your header and XP bar</small></div>
           <RadioGroup label="Passport theme" className="p10-swatches">
-            {PASSPORT_THEME_KEYS.map((k) => (
-              <Opt key={k} on={form.profile_theme === k} onPick={() => set('profile_theme', k)} className="p10-sw" style={{ background: PASSPORT_THEMES[k]!.swatch }} label={PASSPORT_THEMES[k]!.label}>{null}</Opt>
+            {OFFERED_THEME_KEYS.map((k) => (
+              <Opt key={k} on={form.profile_theme === k} onPick={() => set('profile_theme', k)} className="p10-sw" style={{ background: themeOption(k).swatch }} label={themeOption(k).label}>{null}</Opt>
             ))}
           </RadioGroup>
         </div>
@@ -664,10 +665,10 @@ function PhotoSheet({ open, onClose, form, onPhoto, onPreset, onUsePhoto, onRemo
       {err ? <p className="ux-err" role="alert">{err}</p> : <p className="ux-help">A direct link to a JPG or PNG. It shows next to your name.</p>}
       <div className="ux-or">or pick a colour</div>
       <div className="p10-flair-row" role="radiogroup" aria-label="Colour avatar" onKeyDown={radioKeys}>
-        {AVATAR_PRESET_KEYS.map((k) => {
+        {OFFERED_AVATAR_PRESET_KEYS.map((k) => {
           const p = AVATAR_PRESETS[k]!;
           const on = form.avatar_kind === 'preset' && form.avatar_ref === k;
-          return <button key={k} type="button" role="radio" aria-checked={on} tabIndex={on || (form.avatar_kind !== 'preset' && k === AVATAR_PRESET_KEYS[0]) ? 0 : -1} aria-label={p.label} className="p10-fopt p10-sw" style={{ background: p.bg }} onClick={() => { onPreset(k); onClose(); }} />;
+          return <button key={k} type="button" role="radio" aria-checked={on} tabIndex={on || (form.avatar_kind !== 'preset' && k === OFFERED_AVATAR_PRESET_KEYS[0]) ? 0 : -1} aria-label={p.label} className="p10-fopt p10-sw" style={{ background: p.bg }} onClick={() => { onPreset(k); onClose(); }} />;
         })}
       </div>
       <div className="ux-sh-right p10-photo-acts">

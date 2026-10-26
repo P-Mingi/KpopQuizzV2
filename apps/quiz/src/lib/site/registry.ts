@@ -82,6 +82,14 @@ const ANIME_LIGHT: ThemeTokens = {
   'qotd-bg': 'linear-gradient(110deg, #FFE3CC 0%, #FFEEDF 48%, #FFF8F2 100%)', 'qotd-edge': '#F7DCC7',
   'bt-bg': 'linear-gradient(120deg, #FFF1E6 0%, #F2EBFA 68%, #EAF1FB 100%)',
   hl: '#C2410C',
+  // The tokens of kpop that carry a pink hue outside the accent family: the name colour "pink" of the passport, the live colour A, the pink themed
+  // covers and the host screen. Same lightness and saturation, hue turned to orange (#A8450C clears 4.5 on every light ground).
+  'acc-pink': '#A8450C',
+  'lt-a': '#C96838',
+  'th-hits26': 'linear-gradient(135deg, #F9D6C5 0%, #FCE3D2 100%)',
+  'th-viral': 'linear-gradient(135deg, #CFF2EA 0%, #F9DED0 100%)',
+  'th-kpdh': 'linear-gradient(135deg, #2B1B45 0%, #6B2A5B 55%, #C96838 100%)',
+  'host-bg': 'linear-gradient(135deg, #FDF5F1 0%, #F3EEFC 60%, #EAF2FB 100%)',
 };
 const ANIME_DARK: ThemeTokens = {
   ...KPOP_DARK,
@@ -90,6 +98,12 @@ const ANIME_DARK: ThemeTokens = {
   'qotd-bg': 'linear-gradient(110deg, #3A2214 0%, #2B1A10 50%, #221B17 100%)', 'qotd-edge': '#5A3820',
   'bt-bg': 'linear-gradient(120deg, #3A2214 0%, #221D31 68%, #1B2130 100%)',
   hl: '#FDBA74',
+  'acc-pink': '#EB8F61',
+  'lt-a': '#C96838',
+  'th-hits26': 'linear-gradient(135deg, #4A2A1A 0%, #43301F 100%)',
+  'th-viral': 'linear-gradient(135deg, #1F3A36 0%, #46281F 100%)',
+  'th-kpdh': 'linear-gradient(135deg, #2B1B45 0%, #6B2A5B 55%, #C96838 100%)',
+  'host-bg': 'linear-gradient(135deg, #2A201B 0%, #221D31 60%, #1B2130 100%)',
 };
 
 const KPOP: SiteConfig = {
