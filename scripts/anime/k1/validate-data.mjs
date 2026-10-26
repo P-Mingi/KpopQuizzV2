@@ -12,6 +12,9 @@
 //    slots are unique, fact ids are unique, every fact refers to a character of its series, every spoiler arc exists,
 //    no U+2013 or U+2014 anywhere, tier counts (A 30 characters/facts, B 20, C 12/15; the fact count is a floor on the non-rejected facts) when --tier-counts is given.
 // 4. Backing: every number, date, name and title of the series file occurs in the value or text of at least one fact.
+// 5. Lane PERS: every personality/<slug>.json (the Which character are you quiz of a series) against personality.schema.json, then the
+//    rules the editorial check C1, C3, C5 and C12 apply to it (distinct answers, every profile reachable, a published character of the
+//    series, spoiler arc 0, a profile speaks to the reader); no U+2013 or U+2014, no emoji.
 // Exit 0 only when nothing fails. Prints the failures, at most 12 per file.
 
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
@@ -30,6 +33,7 @@ const tierCounts = args.includes('--tier-counts');
 const dataDir = resolve(ROOT, args.find((a) => !a.startsWith('--')) ?? 'docs/anime/data');
 
 import { meetsTwoSourceRule } from '../editorial/lib/strong-source.mjs';
+import { characterProblems, schemaErrors, shapeProblems, spoilerProblems, voiceProblems } from './personality-data.mjs';
 
 const { tsImport } = await import('tsx/esm/api');
 const { validate } = await tsImport(resolve(ROOT, 'apps/quiz/scripts/o1/contract/json-schema.ts'), import.meta.url);
@@ -191,5 +195,24 @@ for (const slug of slugs) {
   }
   report(slug, msgs);
 }
-console.log(failed === 0 ? `validate-data: ${slugs.length} series ok` : `validate-data: ${failed} problem(s)`);
+// personality quizzes (lane PERS)
+const persDir = join(dataDir, 'personality');
+const persSlugs = existsSync(persDir) ? readdirSync(persDir).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -5)).sort() : [];
+for (const slug of persSlugs) {
+  const msgs = [];
+  const doc = JSON.parse(readFileSync(join(persDir, `${slug}.json`), 'utf8'));
+  if (doc.group_slug !== slug) msgs.push(`group_slug ${doc.group_slug} is not the file name ${slug}`);
+  const errs = schemaErrors(doc);
+  for (const e of errs) msgs.push(`schema ${e.path || '/'}: ${e.message}`);
+  const raw = JSON.stringify(doc);
+  if (BANNED.test(raw)) msgs.push('personality file holds a U+2013 or U+2014 character');
+  if (EMOJI.test(raw)) msgs.push('personality file holds an emoji');
+  const seriesFile = join(seriesDir, `${slug}.json`);
+  const series = existsSync(seriesFile) ? JSON.parse(readFileSync(seriesFile, 'utf8')) : null;
+  if (errs.length === 0) {
+    for (const f of [...characterProblems(doc, series), ...spoilerProblems(doc, series ?? {}), ...shapeProblems(doc).fails, ...voiceProblems(doc, series)]) msgs.push(`${f.path || '/'}: ${f.message}`);
+  }
+  report(`personality/${slug}`, msgs);
+}
+console.log(failed === 0 ? `validate-data: ${slugs.length} series${persSlugs.length ? ` and ${persSlugs.length} personality quiz${persSlugs.length === 1 ? '' : 'zes'}` : ''} ok` : `validate-data: ${failed} problem(s)`);
 process.exit(failed === 0 ? 0 : 1);

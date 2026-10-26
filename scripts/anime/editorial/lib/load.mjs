@@ -6,6 +6,7 @@
 //   facts   docs/anime/data/facts/<slug>.json             facts of C/schemas/fact.schema.json plus the source excerpts
 //   quiz    docs/anime/data/quizzes/<slug>/<quiz>.json    a quiz draft (one entry or an array)
 //   daily   docs/anime/data/daily/<batch>.json            daily bank rows (an array, or one row)
+//   personality  docs/anime/data/personality/<slug>.json  the Which character are you quiz of a series (lane PERS, personality.schema.json)
 //
 // The contract leaves the facts file layout open. This loader reads: an array of facts, an object { slug?, facts: [...],
 // excerpts?: { <fact id>: text } }, or an object keyed by fact id. A fact may carry the source text it rests on as
@@ -19,8 +20,8 @@ import { REPO_ROOT, loadRegistry } from './schema.mjs';
 import { THRESHOLDS } from './thresholds.mjs';
 import { hostOf } from './text.mjs';
 
-export const KINDS = ['series', 'facts', 'quiz', 'daily'];
-const DIR_KIND = { series: 'series', facts: 'facts', quizzes: 'quiz', daily: 'daily' };
+export const KINDS = ['series', 'facts', 'quiz', 'daily', 'personality'];
+const DIR_KIND = { series: 'series', facts: 'facts', quizzes: 'quiz', daily: 'daily', personality: 'personality' };
 const EXCERPT_KEYS = ['excerpt', 'source_excerpt', 'source_text', 'excerpts', 'source_excerpts'];
 const REVISION_KEYS = ['revision_id', 'revision', 'revid', 'rev_id', 'oldid'];
 
@@ -84,6 +85,7 @@ export function detectKind(file, data) {
   const first = Array.isArray(data) ? data[0] : data;
   if (!isObj(first)) return null;
   if (isObj(first.group) && isObj(first.series) && Array.isArray(first.arcs)) return 'series';
+  if (Array.isArray(first.profiles) && Array.isArray(first.questions) && 'group_slug' in first) return 'personality';
   if ('account' in first && Array.isArray(first.questions)) return 'quiz';
   if (Array.isArray(first.questions) && 'category' in first) return 'daily';
   if (Array.isArray(first.facts) || (isObj(first.entity) && 'sources' in first && 'value' in first)) return 'facts';
@@ -161,7 +163,7 @@ export function normalizeFactsFile(raw, file) {
 export function expandItems(file, kind, data) {
   const rel = relPath(file);
   const mk = (entry, index, many) => ({ kind, file: rel, abs: file, index: many ? index : null, ref: many ? `${rel}:${index + 1}` : rel, data: entry });
-  if (kind === 'series') return [mk(data, 0, false)];
+  if (kind === 'series' || kind === 'personality') return [mk(data, 0, false)];
   if (kind === 'facts') return [mk(data, 0, false)];
   let list = [data];
   let many = false;
@@ -174,6 +176,7 @@ export function expandItems(file, kind, data) {
 export function itemSlug(item) {
   const d = item.data;
   if (item.kind === 'series') return d?.group?.slug ?? null;
+  if (item.kind === 'personality') return d?.group_slug ?? null;
   if (item.kind === 'facts') return d?.slug ?? null;
   return d?.group_slug ?? null;
 }
@@ -181,6 +184,7 @@ export function itemSlug(item) {
 export function itemTitle(item) {
   const d = item.data;
   if (item.kind === 'series') return d?.series?.title_en ?? d?.group?.name ?? basename(item.file);
+  if (item.kind === 'personality') return `Which character are you: ${d?.group_slug ?? basename(item.file, '.json')}`;
   if (item.kind === 'facts') return `Facts of ${d?.slug ?? basename(item.file, '.json')}`;
   return typeof d?.title === 'string' ? d.title : basename(item.file);
 }
@@ -215,6 +219,7 @@ export function buildContext(targets, options = {}) {
   const facts = new Map();
   const factIndex = new Map();
   const corpus = [];
+  const personalities = [];
   const officialHosts = new Set();
   for (const f of [...files.values()].sort((a, b) => a.path.localeCompare(b.path))) {
     if (f.parseError || !f.kind) continue;
@@ -239,6 +244,8 @@ export function buildContext(targets, options = {}) {
       }
     } else if (f.kind === 'quiz' || f.kind === 'daily') {
       for (const it of expandItems(f.path, f.kind, f.data)) corpus.push(it);
+    } else if (f.kind === 'personality') {
+      for (const it of expandItems(f.path, f.kind, f.data)) personalities.push(it);
     }
   }
   return {
@@ -253,6 +260,7 @@ export function buildContext(targets, options = {}) {
     facts,
     factIndex,
     corpus,
+    personalities,
     officialHosts,
   };
 }

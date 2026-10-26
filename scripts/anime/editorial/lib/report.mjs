@@ -17,7 +17,7 @@ export function toJson(report) {
     files: report.files.map((f) => ({
       file: f.file, kind: f.kind, skipped: f.skipped,
       items: f.items.map((x) => ({
-        ref: x.ref, title: x.title, slug: x.slug, pass: x.pass, questions: x.questions, facts: x.facts, characters: x.characters, themes: x.themes, warnings: x.warnings,
+        ref: x.ref, title: x.title, slug: x.slug, pass: x.pass, questions: x.questions, facts: x.facts, characters: x.characters, themes: x.themes, profiles: x.profiles, warnings: x.warnings,
         checks: x.checks,
       })),
     })),

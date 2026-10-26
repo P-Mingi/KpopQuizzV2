@@ -1,6 +1,7 @@
 // Run O1, lane E1a: checks C7 (copy guard), C8 (lyrics and quotes) and C9 (dedupe against the corpus).
 
 import { contentWords, longestRun, ngrams, normalize, quotedSegments, words } from './text.mjs';
+import { textsOf } from '../../k1/personality-data.mjs';
 import { Result, correctText, excerptsFor, factsOfItem, isMixSlug, isObj, questionTexts, questionsOf } from './checks-base.mjs';
 
 const wordCache = new Map();
@@ -60,6 +61,11 @@ export function c7(item, ctx) {
     run(texts, excerptIndex(slug ?? null, ctx), slug ?? 'the series');
     return r;
   }
+  if (item.kind === 'personality') {
+    const slug = typeof item.data?.group_slug === 'string' ? item.data.group_slug : null;
+    run(textsOf(item.data), excerptIndex(slug, ctx), slug ?? 'the series');
+    return r;
+  }
   if (item.kind === 'facts') {
     const nf = factsOfItem(item);
     const all = excerptIndex(nf.slug, ctx);
@@ -113,7 +119,8 @@ export function c8(item, ctx) {
   const slug = item.kind === 'series' ? item.data?.group?.slug : item.kind === 'facts' ? factsOfItem(item).slug : (item.data?.group_slug ?? null);
   const known = knownNames(slug, ctx);
   const units = []; // { path, text, music }
-  if (item.kind === 'series') (item.data?.characters ?? []).forEach((c, i) => typeof c?.description === 'string' && units.push({ path: `/characters/${i}/description`, text: c.description, music: false }));
+  if (item.kind === 'personality') for (const t of textsOf(item.data)) units.push({ ...t, music: false });
+  else if (item.kind === 'series') (item.data?.characters ?? []).forEach((c, i) => typeof c?.description === 'string' && units.push({ path: `/characters/${i}/description`, text: c.description, music: false }));
   else if (item.kind === 'facts') {
     for (const x of factsOfItem(item).facts) {
       const f = x.fact;
@@ -211,6 +218,23 @@ export function c9(item, ctx) {
     dupes(d?.themes, (t) => `${t?.kind} ${t?.number}`, '/themes', 'theme');
     const same = [...ctx.files.values()].filter((f) => f.kind === 'series' && isObj(f.data?.group) && f.data.group.slug === d?.group?.slug);
     if (same.length > 1) r.fail('/group/slug', `the series ${d.group.slug} is defined in ${same.length} files`);
+    return r;
+  }
+  if (item.kind === 'personality') {
+    // Lane PERS: a question or a profile line is written once, in this file and in every other personality quiz of the corpus.
+    const mine = textsOf(item.data).filter((t) => t.role !== 'option');
+    const seen = new Map();
+    for (const t of mine) {
+      const key = `${t.role}|${normalize(t.text)}`;
+      if (seen.has(key)) r.fail(t.path, `repeats ${seen.get(key)} of this file`); else seen.set(key, t.path);
+    }
+    for (const other of ctx.personalities ?? []) {
+      if (other.ref === item.ref) continue;
+      for (const t of textsOf(other.data).filter((x) => x.role !== 'option')) {
+        const hit = mine.find((m) => m.role === t.role && normalize(m.text) === normalize(t.text));
+        if (hit) r.fail(hit.path, `is also ${t.role === 'question' ? 'a question' : 'a profile line'} of ${other.ref} (${t.path})`);
+      }
+    }
     return r;
   }
   if (item.kind === 'facts') {

@@ -27,6 +27,12 @@
 //   C13 title similarity against the inspiration titles
 //   C14 no image field, no image link, no artwork
 //
+// A fifth kind of file (lane PERS): docs/anime/data/personality/<slug>.json, the Which character are you quiz of a series. C1 reads it
+// against scripts/anime/k1/personality.schema.json and measures that every profile can be the result; C3 needs the series and its
+// published characters; C5 the quiz's arc (0: the page has no spoiler shield) against the level of each character and each name in the
+// text; C7 to C9 compare its texts with the source excerpts and the other quizzes; C11 and C12 read every text, and C12 adds the voice:
+// a profile speaks to the reader. C2, C4, C6 and C13 do not apply.
+//
 // THRESHOLDS (lib/thresholds.mjs; a value at or beyond the line fails):
 //   c4_answer_coverage 0.75       share of the right answer's content words found in the cited facts
 //   c4_tf_shared_words 2          content words a true or false statement shares with the cited facts
@@ -41,6 +47,9 @@
 //   c9_question_jaccard 0.8       word overlap of two questions with the same answer
 //   c13_title_dice 0.8            character trigram Dice score against an inspiration title
 //   sample_fraction 0.25          share of questions in a review packet sample (packet.mjs)
+//   personality_min_share 0.03    share of the answer sheets each profile of a personality quiz must win
+//   personality_max_share 0.4     share of the answer sheets no profile may win more than
+//   personality_min_distance 25   distance between two profiles of a personality quiz on the six axes
 
 import { runChecks } from './lib/run.mjs';
 import { toJson, toText } from './lib/report.mjs';

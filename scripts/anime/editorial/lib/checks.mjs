@@ -22,7 +22,8 @@ export function checkItem(item, ctx) {
   const pass = results.every((x) => x.pass);
   const counts = item.kind === 'facts' ? { facts: normalizeFactsFile(item.data, item.abs ?? item.file).facts.length }
     : item.kind === 'series' ? { characters: (item.data?.characters ?? []).length, themes: (item.data?.themes ?? []).length }
-      : { questions: questionsOf(item).length };
+      : item.kind === 'personality' ? { questions: questionsOf(item).length, profiles: (item.data?.profiles ?? []).length }
+        : { questions: questionsOf(item).length };
   return {
     ref: item.ref, file: item.file, kind: item.kind, title: itemTitle(item), slug: itemSlug(item), ...counts,
     pass, checks: results, warnings: results.reduce((n, x) => n + x.warnings.length, 0),

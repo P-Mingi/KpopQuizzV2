@@ -28,6 +28,11 @@ export const THRESHOLDS = {
   c13_title_dice: 0.8,
   // Review packet: share of the questions drawn for the reviewer.
   sample_fraction: 0.25,
+  // Personality quiz (Which character are you): every profile is the nearest result for at least this share of the answer sheets
+  // and for at most the second; two profiles are at least this far apart on the six axes (0 to 100).
+  personality_min_share: 0.03,
+  personality_max_share: 0.4,
+  personality_min_distance: 25,
 };
 
 export const BANNED_HOSTS = ['myanimelist.net', 'jikan.moe', 'fandom.com', 'animethemes.moe', 'kprofiles.com', 'anilist.co', 'sporcle.com'];

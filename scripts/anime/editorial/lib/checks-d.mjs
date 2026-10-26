@@ -3,6 +3,7 @@
 
 import { BANNED_HOSTS, SOURCE_HOSTS } from './thresholds.mjs';
 import { DASH_RE, EMOJI_RE, diceTrigrams, hostIs, hostOf, looksLikeUrl, normalize, walkKeys, walkStrings, words } from './text.mjs';
+import { voiceProblems } from '../../k1/personality-data.mjs';
 import { Result, citedFacts, factsOfItem, isObj, questionsOf } from './checks-base.mjs';
 
 /** What a checker scans: the item's data, with a facts file reduced to its clean facts (no source excerpts). */
@@ -51,9 +52,13 @@ export function c11(item) {
   return r;
 }
 
-export function c12(item) {
+export function c12(item, ctx) {
   const r = new Result('C12');
   walkStrings(viewOf(item), (s, path) => { if (EMOJI_RE.test(s)) r.fail(path, 'contains an emoji'); });
+  // Lane PERS, the voice of a personality quiz: a profile speaks to the reader ("You ..."), never about the character.
+  if (item.kind === 'personality' && Array.isArray(item.data?.profiles)) {
+    voiceProblems(item.data, ctx?.series?.get(item.data.group_slug)?.data).forEach((f) => r.fail(f.path, f.message));
+  }
   return r;
 }
 

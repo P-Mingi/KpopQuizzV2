@@ -18,12 +18,14 @@ import { getNameAllSet, getNameAllStats } from '@/lib/name-all/server';
 import { prettyPath } from '@/lib/name-all/round';
 import { isNameAllGroup } from '@/lib/name-all/spellings';
 import { getMemberCounts, getWmaGroupSlugs } from '@/lib/personality/data';
-import { MIN_RESULTS_FOR_SHARES, whichMemberPath } from '@/lib/personality/view';
+import { whichPath } from '@/lib/personality/series';
+import { MIN_RESULTS_FOR_SHARES } from '@/lib/personality/view';
 import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isMissingTable } from '@/lib/ux-v1/p8/features';
 
 import { NUDGE_DAYS, hubState, resultsTotal } from './growth';
 import { isCategoryGroup } from './model';
+import { SITE_ID } from '@/lib/site/registry';
 import { forSite } from '@/lib/site/scope';
 
 import type { FansPickedResponse } from '@/lib/duel/types';
@@ -165,7 +167,8 @@ export async function getHubGrowth(g: { id: number; slug: string; name: string }
       quizzes: published,
       songs,
       nameAll: set ? { href: prettyPath(g.slug), members: set.members.length, perfectPct: stats?.perfectPct ?? null } : null,
-      whichMember: hasWma ? { href: whichMemberPath(g.slug), results: resultsTotal(counts, MIN_RESULTS_FOR_SHARES) } : null,
+      // Anime build: the pretty URL of Which character are you (lane PERS). Kpop keeps /which-<group>-member-are-you.
+      whichMember: hasWma ? { href: whichPath(SITE_ID, g.slug), results: resultsTotal(counts, MIN_RESULTS_FOR_SHARES) } : null,
       thisOrThat: ranked ? { votes: fansPicked?.votes ?? null } : null,
       live,
     },

@@ -1,6 +1,6 @@
 {
   "mode": "verified",
-  "input_sha256": "85fd5e00bc19a1af5e532ff83a0b65dd6a24083dcf672cc52a17cdc5b26dc687",
+  "input_sha256": "3e1cf1695d90fe744a2946bdee7b3b06e271a4ad20b14410e4331998d424340d",
   "files": [
     {
       "name": "L02-K2-team-accounts.sql",
@@ -41,6 +41,14 @@
     {
       "name": "L08-K3-daily-bank.rollback.sql",
       "sha256": "812e6cb1ac9e8e62c8335d5cf8732a2dd8ddc41b64c88c3cc9589cb57ebc0913"
+    },
+    {
+      "name": "L10-PERS-personality.sql",
+      "sha256": "a2fb35558640b4e5eeee4bac3e8c95a516d52c67cfb0d02952855ade4a88be3d"
+    },
+    {
+      "name": "L10-PERS-personality.rollback.sql",
+      "sha256": "49a4ba3d4dc5910dbf1d8598e2a051863805e3433bf1433c081e13387440ad5f"
     },
     {
       "name": "L12-L1-sites-live.sql",

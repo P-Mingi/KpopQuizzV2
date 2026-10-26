@@ -1,5 +1,5 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/personality/[group]/page.tsx, rows 14: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
-import { SITE_ID as O1_SITE_ID } from '@/lib/site/registry';
+import { SITE as O1_SITE, SITE_ID as O1_SITE_ID } from '@/lib/site/registry';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -8,11 +8,8 @@ import { PersonalityQuiz } from '@/components/personality/quiz';
 import { UxPage } from '@/components/ux-v1/page';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { WaysTile, WaysTiles } from '@/components/ux-v1/ways-tile';
-import { getAllGroups } from '@/lib/db/queries/groups';
-import { getWmaGroupSlugs } from '@/lib/personality/data';
-import { getWmaPage, SITE } from '@/lib/personality/server';
-import { settle } from '@/lib/ux-v1/p6/hub-data';
-import { whichMemberPath } from '@/lib/personality/view';
+import { getWmaPage } from '@/lib/personality/server';
+import { whichCharacterPath } from '@/lib/personality/series';
 import { isUxV12 } from '@/lib/ux-v12';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 import { groupOgImage } from '@/lib/seo/og';
@@ -29,6 +26,10 @@ import type { Metadata } from 'next';
 //
 // Flag off: the redirects of next.config.ts answer before this file is reached,
 // exactly as today; if it were reached anyway it answers 404.
+//
+// Run O1, lane PERS: on the anime build getWmaPage reads the series' own quiz (lib/personality/character-page.ts: the eight questions
+// of the series, a profile text per character) and the pretty URL is /which-<series>-character-are-you (whichCharacterPath). The
+// origin of the breadcrumb is the site's own (the registry), never kpopquiz.org's.
 //
 // ISR like the group hub: nothing is prerendered at build (no database call in
 // the build), each page renders on its first hit and is cached for an hour.
@@ -55,7 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     `Which ${name} character are you?`,
   );
   const description = `Eight questions about you, no right answers, no timer. Find out which ${name} character matches how you move through life, then see how other fans came out.`;
-  const url = whichMemberPath(page.group.slug);
+  const url = whichCharacterPath(page.group.slug);
   return {
     title,
     description,
@@ -71,9 +72,6 @@ export default async function WhichMemberPage({ params }: Props): Promise<React.
   if (!page) notFound();
   const { group, view } = page;
   const hub = `/${group.slug}-quiz`;
-  // The cross-links below the quiz: settled reads, so a blip drops a link, never the page.
-  const [wma, groups] = await Promise.all([getWmaGroupSlugs(), settle(() => getAllGroups(), null)]);
-  const names = new Map((groups.value ?? []).map((g) => [g.slug, g.name] as const));
 
   // "Also on <group>": real doors only (OtakuQuiz has no blind test, and the openings quiz page does not render yet).
   const also = (
@@ -96,8 +94,8 @@ export default async function WhichMemberPage({ params }: Props): Promise<React.
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Series', item: `${SITE}/series` },
-          { '@type': 'ListItem', position: 2, name: group.name, item: `${SITE}${hub}` },
+          { '@type': 'ListItem', position: 1, name: 'Series', item: `${O1_SITE.url}/series` },
+          { '@type': 'ListItem', position: 2, name: group.name, item: `${O1_SITE.url}${hub}` },
           { '@type': 'ListItem', position: 3, name: 'Which character are you' },
         ],
       })}
@@ -111,7 +109,8 @@ export default async function WhichMemberPage({ params }: Props): Promise<React.
       <div className="ux-pers-body">
         <PersonalityQuiz view={view} also={also} />
       </div>
-      <WmaAbout group={group} view={view} wmaSlugs={wma} names={names} />
+      {/* No "for another series" links yet: the shared block builds /which-<group>-member-are-you (docs/o1/requests/PERS.md). */}
+      <WmaAbout group={group} view={view} wmaSlugs={[]} names={new Map<string, string>()} />
     </UxPage>
   );
 }

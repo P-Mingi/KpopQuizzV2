@@ -21,6 +21,10 @@
     "creators": {
       "total": 31,
       "loaded": 31
+    },
+    "personality": {
+      "total": 1,
+      "loaded": 1
     }
   },
   "counts": {
@@ -35,6 +39,9 @@
     "quizzes": 258,
     "questions": 2550,
     "daily": 99,
-    "daily_questions": 792
+    "daily_questions": 792,
+    "personality": 1,
+    "personality_questions": 8,
+    "personality_profiles": 6
   }
 }

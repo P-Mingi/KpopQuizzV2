@@ -1,0 +1,419 @@
+{
+  "$comment": "Run O1 lane PERS: the Which character are you quiz of Death Note, written by us (owner, 2026-10-26). It proves the path end to end (data, check, loader, launch file, page); the other series come in the content lot. Eight questions about the reader with Death Note flavour and no story detail beyond the premise (spoiler arc 0, scope both). Six profiles, all spoiler level 0 characters of docs/anime/data/series/death-note.json: Light Yagami, L, Ryuk, Soichiro Yagami, Touta Matsuda and Kanzo Mogi. traits are where the character sits on the six axes of the engine (energy, chaos, care, craft, heart, spotlight; 0 is the first pole of lib/personality/traits.ts, 100 the second); the answer weights are positions 0 to 5 on the same axes. The profile lines describe the reader, never the real world, and use no source text. Every profile is the nearest result for a share of the 65536 possible answer sheets (the check C1 measures it).",
+  "site": "anime",
+  "group_slug": "death-note",
+  "status": "published",
+  "spoiler": {
+    "arc": 0,
+    "scope": "both"
+  },
+  "questions": [
+    {
+      "ord": 1,
+      "question": "A black notebook drops onto your desk and nobody saw it land. What do you do?",
+      "options": [
+        {
+          "text": "Read every page twice before deciding anything",
+          "weights": {
+            "energy": 1,
+            "chaos": 0,
+            "craft": 5
+          }
+        },
+        {
+          "text": "Wave it around and tell the whole class",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Hand it to the nearest grown-up and let them sort it out",
+          "weights": {
+            "chaos": 0,
+            "care": 0,
+            "heart": 5
+          }
+        },
+        {
+          "text": "Poke it, shrug, and go find a snack",
+          "weights": {
+            "energy": 1,
+            "chaos": 5,
+            "craft": 1
+          }
+        }
+      ]
+    },
+    {
+      "ord": 2,
+      "question": "How do you like to solve a hard problem?",
+      "options": [
+        {
+          "text": "Alone, late at night, with a plan on paper",
+          "weights": {
+            "energy": 1,
+            "craft": 5,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "Out loud, with a crowd, thinking as I talk",
+          "weights": {
+            "energy": 5,
+            "care": 4,
+            "spotlight": 1
+          }
+        },
+        {
+          "text": "Step by step, by the book",
+          "weights": {
+            "chaos": 0,
+            "craft": 2,
+            "heart": 4
+          }
+        },
+        {
+          "text": "By trying silly things until one of them works",
+          "weights": {
+            "energy": 3,
+            "chaos": 5,
+            "craft": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 3,
+      "question": "Your friends cannot agree what to do on Saturday. You:",
+      "options": [
+        {
+          "text": "Decide for everyone and make it sound obvious",
+          "weights": {
+            "energy": 4,
+            "heart": 2,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Suggest something unexpected just to see what happens",
+          "weights": {
+            "energy": 3,
+            "chaos": 5
+          }
+        },
+        {
+          "text": "Say little, then quietly book the thing everyone half agreed on",
+          "weights": {
+            "energy": 0,
+            "care": 0,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Ask each person what they actually want",
+          "weights": {
+            "energy": 3,
+            "care": 0,
+            "heart": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 4,
+      "question": "Which snack table is yours?",
+      "options": [
+        {
+          "text": "A tidy lunch, eaten on time",
+          "weights": {
+            "chaos": 0,
+            "care": 0,
+            "craft": 2
+          }
+        },
+        {
+          "text": "Sweets. Many. All day",
+          "weights": {
+            "energy": 1,
+            "chaos": 4,
+            "craft": 4
+          }
+        },
+        {
+          "text": "Whatever my friends are sharing",
+          "weights": {
+            "energy": 4,
+            "chaos": 3,
+            "care": 5
+          }
+        },
+        {
+          "text": "An apple. Always an apple",
+          "weights": {
+            "energy": 1,
+            "chaos": 5,
+            "spotlight": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 5,
+      "question": "Someone you trust turns out to have lied to you. What happens next?",
+      "options": [
+        {
+          "text": "I work out exactly why, then decide what it costs them",
+          "weights": {
+            "chaos": 0,
+            "craft": 4,
+            "heart": 1
+          }
+        },
+        {
+          "text": "I tell them straight away that I know",
+          "weights": {
+            "energy": 3,
+            "heart": 5,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "I laugh it off and ask for the full story",
+          "weights": {
+            "energy": 4,
+            "chaos": 5,
+            "care": 4
+          }
+        },
+        {
+          "text": "I go quiet and keep my distance for a while",
+          "weights": {
+            "energy": 0,
+            "care": 1,
+            "spotlight": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 6,
+      "question": "Pick the reputation you would like:",
+      "options": [
+        {
+          "text": "The sharpest mind in the building",
+          "weights": {
+            "craft": 5,
+            "heart": 3,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "The one everyone likes immediately",
+          "weights": {
+            "energy": 5,
+            "chaos": 3,
+            "care": 5
+          }
+        },
+        {
+          "text": "The one you can trust with anything",
+          "weights": {
+            "chaos": 0,
+            "care": 0,
+            "heart": 5
+          }
+        },
+        {
+          "text": "The one nobody quite understands",
+          "weights": {
+            "chaos": 4,
+            "craft": 4,
+            "spotlight": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 7,
+      "question": "A lazy Sunday. Where are you?",
+      "options": [
+        {
+          "text": "Perched on a chair, deep in a case file of my own invention",
+          "weights": {
+            "energy": 0,
+            "chaos": 3,
+            "craft": 5
+          }
+        },
+        {
+          "text": "Out and about, talking to someone new",
+          "weights": {
+            "energy": 5,
+            "care": 3,
+            "spotlight": 1
+          }
+        },
+        {
+          "text": "Watching the world from a rooftop, mildly bored",
+          "weights": {
+            "energy": 1,
+            "chaos": 5,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Helping out at home, then a proper dinner",
+          "weights": {
+            "chaos": 0,
+            "care": 0,
+            "heart": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 8,
+      "question": "Someone offers you a shortcut to everything you want. You:",
+      "options": [
+        {
+          "text": "Read the fine print, then probably take it",
+          "weights": {
+            "chaos": 0,
+            "craft": 4,
+            "heart": 0
+          }
+        },
+        {
+          "text": "Say no and keep doing it the slow way",
+          "weights": {
+            "chaos": 0,
+            "care": 0,
+            "heart": 5
+          }
+        },
+        {
+          "text": "Ask what the catch is, and whether it is funny",
+          "weights": {
+            "chaos": 5,
+            "craft": 3,
+            "heart": 3
+          }
+        },
+        {
+          "text": "Take it, share it, and hope it works out for everyone",
+          "weights": {
+            "energy": 4,
+            "chaos": 4,
+            "care": 5
+          }
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "character_slug": "light-yagami",
+      "traits": {
+        "energy": 50,
+        "chaos": 0,
+        "care": 50,
+        "craft": 75,
+        "heart": 30,
+        "spotlight": 20
+      },
+      "profile": [
+        "You have a plan, a backup plan, and a calm face for the moment neither works.",
+        "People see the top of the class. You are already thinking three moves ahead.",
+        "You get restless when nothing is hard enough to hold your attention."
+      ],
+      "ord": 1
+    },
+    {
+      "character_slug": "l",
+      "traits": {
+        "energy": 10,
+        "chaos": 70,
+        "care": 60,
+        "craft": 95,
+        "heart": 85,
+        "spotlight": 90
+      },
+      "profile": [
+        "You think best crouched on a chair, a sweet in one hand and a theory in the other.",
+        "You say little, notice everything, and trust your own odd methods over anyone's advice.",
+        "You would rather be right than popular, and you rarely need to choose."
+      ],
+      "ord": 2
+    },
+    {
+      "character_slug": "ryuk",
+      "traits": {
+        "energy": 35,
+        "chaos": 85,
+        "care": 75,
+        "craft": 35,
+        "heart": 80,
+        "spotlight": 50
+      },
+      "profile": [
+        "You are here for the entertainment, and you are honest about it.",
+        "Rules bore you, drama delights you, and an apple fixes most afternoons.",
+        "You watch from the edge of the room and step in when it gets interesting."
+      ],
+      "ord": 3
+    },
+    {
+      "character_slug": "soichiro-yagami",
+      "traits": {
+        "energy": 65,
+        "chaos": 5,
+        "care": 0,
+        "craft": 45,
+        "heart": 90,
+        "spotlight": 45
+      },
+      "profile": [
+        "You are the one people lean on, and you carry it without a word of complaint.",
+        "You say what you mean, do what you said, and check on everyone before you sit down.",
+        "Right is right to you, even when it costs you a night of sleep."
+      ],
+      "ord": 4
+    },
+    {
+      "character_slug": "touta-matsuda",
+      "traits": {
+        "energy": 85,
+        "chaos": 65,
+        "care": 75,
+        "craft": 35,
+        "heart": 40,
+        "spotlight": 50
+      },
+      "profile": [
+        "You walk in smiling and the room gets lighter.",
+        "You ask the question everyone else was too proud to ask, and you learn faster for it.",
+        "You may be the newest person on the team, but you make it feel like a team."
+      ],
+      "ord": 5
+    },
+    {
+      "character_slug": "kanzo-mogi",
+      "traits": {
+        "energy": 10,
+        "chaos": 15,
+        "care": 10,
+        "craft": 55,
+        "heart": 75,
+        "spotlight": 90
+      },
+      "profile": [
+        "You say the least in the room and notice a lot.",
+        "You turn up early, do the job properly, and never need a thank you.",
+        "People forget you are there, then realise you were holding things together."
+      ],
+      "ord": 6
+    }
+  ]
+}
