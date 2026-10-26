@@ -103,6 +103,10 @@ fi
 
 # ---- A1 ----------------------------------------------------------------------------------------------------------------------
 major_of() { sed -n 's/.* \([0-9][0-9]*\)\.[0-9].*/\1/p;s/.* \([0-9][0-9]*\) .*/\1/p' | head -n 1; }
+# The Homebrew Postgres 18 tools come first when present (the system psql of this Mac is 14).
+for d in /opt/homebrew/opt/postgresql@18/bin /opt/homebrew/opt/postgresql@17/bin /opt/homebrew/opt/postgresql@16/bin /opt/homebrew/opt/postgresql@15/bin; do
+  if [ -x "$d/psql" ] && [ -x "$d/pg_dump" ]; then PATH="$d:$PATH"; export PATH; break; fi
+done
 command -v psql >/dev/null 2>&1 || fail "A1 tools: psql not found"
 command -v pg_dump >/dev/null 2>&1 || fail "A1 tools: pg_dump not found"
 command -v pg_restore >/dev/null 2>&1 || fail "A1 tools: pg_restore not found"
