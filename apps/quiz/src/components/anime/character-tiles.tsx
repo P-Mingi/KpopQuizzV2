@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -8,9 +9,11 @@ import { useSpoilerProgress } from '@/components/spoilers/use-spoiler-progress';
 import { Icon } from '@/components/ux-v1/icon';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { t, tPlural } from '@/lib/anime/copy';
+import { characterImageSlug, ownerPictureOf } from '@/lib/anime/entity-images-rules';
 import { MIN_OSHI_PICKS } from '@/lib/anime/types';
 
 import type { MemberTile } from '@/components/group/ux-v1/member-tiles';
+import type { EntityImage, OwnerPicture } from '@/lib/anime/entity-images-rules';
 import type { CharacterTileData } from '@/lib/anime/series-model';
 import type { CharacterRole } from '@/lib/anime/types';
 
@@ -70,7 +73,7 @@ function useOshi(groupId: number, signedIn: boolean): { pick: number | null; set
 }
 
 /** Characters the reader's progress unlocks, read from the public table (RLS: published rows only). */
-function useRevealed(groupId: number, arc: number, ready: boolean, lockedCount: number): CharacterTileData[] {
+function useRevealed(seriesSlug: string, groupId: number, arc: number, ready: boolean, lockedCount: number): CharacterTileData[] {
   const [revealed, setRevealed] = useState<CharacterTileData[]>([]);
   useEffect(() => {
     if (!ready || lockedCount === 0 || arc <= 0) { setRevealed([]); return; }
@@ -80,12 +83,45 @@ function useRevealed(groupId: number, arc: number, ready: boolean, lockedCount: 
         const { createBrowserClient } = await import('@/lib/supabase/client');
         const { data } = await createBrowserClient().from('characters').select('id, slug, name, role')
           .eq('group_id', groupId).gt('spoiler_level', 0).lte('spoiler_level', arc).order('ord', { ascending: true });
-        if (live && Array.isArray(data)) setRevealed((data as Array<Pick<CharacterTileData, 'id' | 'slug' | 'name' | 'role'>>).map((c) => ({ ...c, picks: null })));
+        if (!live || !Array.isArray(data)) return;
+        const rows = data as Array<Pick<CharacterTileData, 'id' | 'slug' | 'name' | 'role'>>;
+        // The owner's portraits of the characters this reader has just unlocked, from the public table (anon may select the display columns).
+        const pics: Record<string, OwnerPicture> = {};
+        try {
+          const keys = rows.map((c) => characterImageSlug(seriesSlug, c.slug));
+          if (keys.length > 0) {
+            const { data: imgs } = await createBrowserClient().from('entity_images')
+              .select('kind, slug, path, width, height, focal_x, focal_y, source_url, author, license, license_note, updated_at')
+              .eq('site_id', 'anime').eq('kind', 'character').in('slug', keys);
+            for (const i of (Array.isArray(imgs) ? imgs : []) as EntityImage[]) pics[i.slug.slice(seriesSlug.length + 1)] = ownerPictureOf(i);
+          }
+        } catch { /* the tiles keep their monograms */ }
+        if (live) setRevealed(rows.map((c) => ({ ...c, picks: null, ...(pics[c.slug] ? { image: pics[c.slug]! } : {}) })));
       } catch { /* the tiles stay locked */ }
     })();
     return () => { live = false; };
-  }, [groupId, arc, ready, lockedCount]);
+  }, [seriesSlug, groupId, arc, ready, lockedCount]);
   return revealed;
+}
+
+/** The owner's portrait of a character, laid over the face of its tile (the monogram stays under it for as long as the picture loads). The name is printed under it, so the picture is decorative. */
+function Portrait({ picture }: { readonly picture: OwnerPicture }): React.ReactElement {
+  return (
+    <span className="anime-adm-portrait" data-testid="character-portrait">
+      <Image src={picture.src} alt="" width={80} height={80} sizes="80px" className="anime-adm-portrait-img" style={{ objectPosition: picture.position }} />
+    </span>
+  );
+}
+
+/** The credit line of a portrait under CC BY or CC BY-SA (the others are credited on /credits). */
+function PortraitCredit({ credit }: { readonly credit: NonNullable<OwnerPicture['credit']> }): React.ReactElement {
+  return (
+    <small className="anime-adm-credit" data-testid="portrait-credit">
+      <a href={credit.sourceUrl} rel="noopener noreferrer" target="_blank">Photo: {credit.author}</a>
+      {', '}
+      <a href={credit.licenseUrl} rel="noopener noreferrer" target="_blank">{credit.license}</a>
+    </small>
+  );
 }
 
 /**
@@ -97,7 +133,7 @@ function useRevealed(groupId: number, arc: number, ready: boolean, lockedCount: 
 export function CharacterTiles({ seriesSlug, groupId, name, open, lockedCount }: CharacterTilesProps): React.ReactElement | null {
   const { progress, ready, signedIn } = useSpoilerProgress(seriesSlug, groupId);
   const oshi = useOshi(groupId, signedIn);
-  const revealed = useRevealed(groupId, progress.arc, ready, lockedCount);
+  const revealed = useRevealed(seriesSlug, groupId, progress.arc, ready, lockedCount);
   if (open.length === 0 && lockedCount === 0) return null;
   const visible = [...open, ...revealed.filter((r) => !open.some((o) => o.id === r.id))];
   const locked = Math.max(0, lockedCount - revealed.length);
@@ -123,10 +159,16 @@ export function CharacterTiles({ seriesSlug, groupId, name, open, lockedCount }:
     monogram: characterMonogram(c.name),
     className: 'anime-o2-tile',
     faceClass: `anime-o2-role-${c.role}`,
-    lead: star(c),
+    lead: (
+      <>
+        {c.image ? <Portrait picture={c.image} /> : null}
+        {star(c)}
+      </>
+    ),
     note: (
       <>
         <small className="anime-o2-role">{ROLE_LABEL[c.role]}</small>
+        {c.image?.credit ? <PortraitCredit credit={c.image.credit} /> : null}
         {c.picks !== null && c.picks >= MIN_OSHI_PICKS ? <small className="anime-o2-picks">{t('oshi.count', { count: c.picks.toLocaleString('en-US'), name: c.name })}</small> : null}
       </>
     ),

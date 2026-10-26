@@ -54,4 +54,13 @@ export interface SeriesPhoto {
   readonly file: string;
   readonly alt: string;
   readonly attribution: SeriesImageAttribution | null;
+  /** Set for the owner's own image (run O1, ADM): the bundled photos never carry it. */
+  readonly owner?: {
+    /** CSS object-position of the focal point. */
+    readonly position: string;
+    readonly width: number;
+    readonly height: number;
+    /** The 1x and the 2x file by width (`url 736w, url 1472w`), or null when the image has no 2x file. */
+    readonly srcSet: string | null;
+  } | undefined;
 }

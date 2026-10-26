@@ -3,11 +3,13 @@ import { SITE as O1_SITE, SITE_ID as O1_SITE_ID } from '@/lib/site/registry';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { PortraitCredits, portraitCreditItems } from '@/components/anime/portrait-credits';
 import { WmaAbout } from '@/components/personality/about';
 import { PersonalityQuiz } from '@/components/personality/quiz';
 import { UxPage } from '@/components/ux-v1/page';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { WaysTile, WaysTiles } from '@/components/ux-v1/ways-tile';
+import { getOwnerCharacterPictures } from '@/lib/anime/entity-images-read';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { getWmaGroupSlugs } from '@/lib/personality/data';
 import { getWmaPage } from '@/lib/personality/server';
@@ -81,7 +83,9 @@ export default async function WhichMemberPage({ params }: Props): Promise<React.
   const { group, view } = page;
   const hub = `/${group.slug}-quiz`;
   // The other series with a quiz (six active profiles at least, getWmaGroupSlugs): settled reads, so a blip drops the block, never the page.
-  const [sets, series] = await Promise.all([getWmaGroupSlugs(), settle(() => getAllGroups(), null)]);
+  const [sets, series, pictures] = await Promise.all([getWmaGroupSlugs(), settle(() => getAllGroups(), null), getOwnerCharacterPictures(group.slug)]);
+  // The credit lines of the portraits that ask for one (CC BY, CC BY-SA); a portrait shows only in the result, after the quiz.
+  const credits = portraitCreditItems(view.results, pictures);
   const names = new Map((series.value ?? []).map((g) => [g.slug, g.name] as const));
 
   // "Also on <group>": real doors only (OtakuQuiz has no blind test, and the openings quiz page does not render yet).
@@ -120,6 +124,7 @@ export default async function WhichMemberPage({ params }: Props): Promise<React.
       <div className="ux-pers-body">
         <PersonalityQuiz view={view} also={also} />
       </div>
+      <PortraitCredits items={credits} />
       <WmaAbout
         group={group}
         view={view}

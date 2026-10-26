@@ -10,6 +10,7 @@ import { UX_V1 } from '@/lib/ux-v1';
 import { GroupHubV11 } from '@/components/group/ux-v1/hub';
 import { CREDITS_DESCRIPTION, CREDITS_PATH, CREDITS_TITLE, CreditsPage } from '@/components/anime/credits-page';
 import { buildMixSlots, buildSeriesSlots, buildTriviaVariant } from '@/components/anime/series-hub-slots';
+import { getOwnerCharacterPictures, getOwnerCreditRows } from '@/lib/anime/entity-images-read';
 import { getRelatedSeries, getSeriesHub } from '@/lib/anime/series';
 import { getSeriesHubSlugs } from '@/lib/anime/directory';
 import { mixHubMetadata, seriesHubMetadata, seriesTriviaMetadata, uniqueFacts } from '@/lib/anime/series-model';
@@ -88,7 +89,7 @@ export async function generateMetadata({ params }: SlugPageProps): Promise<Metad
 
 export default async function SlugPage({ params }: SlugPageProps): Promise<React.ReactElement> {
   const { slug } = await params;
-  if (slug === CREDITS_SLUG) return CreditsPage({});
+  if (slug === CREDITS_SLUG) return CreditsPage({ owner: await getOwnerCreditRows() });
   const parsed = parseSlug(slug);
   if (!parsed) notFound();
   const site = { origin: SITE.url, brand: SITE.brand.name };
@@ -107,7 +108,8 @@ export default async function SlugPage({ params }: SlugPageProps): Promise<React
   if (parsed.type === 'quiz') {
     if (!UX_V1) return GroupQuizPage({ group: hub.group });
     const related = await getRelatedSeries(hub.group.id);
-    return GroupHubV11({ group: hub.group, slots: buildSeriesSlots(hub, related, site) });
+    const portraits = await getOwnerCharacterPictures(hub.group.slug);
+    return GroupHubV11({ group: hub.group, slots: buildSeriesSlots(hub, related, site, portraits) });
   }
   return GroupTriviaPage({ group: hub.group, variant: buildTriviaVariant(hub, site) });
 }

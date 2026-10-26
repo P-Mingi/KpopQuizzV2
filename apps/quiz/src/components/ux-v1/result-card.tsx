@@ -17,8 +17,10 @@ interface ResultCardProps {
   /** Up to three trait pills. */
   traits?: readonly string[] | undefined;
   /** Group photo from `public/idols/` (groups only; a member result shows the
-   *  initial, never a picture). */
-  photo?: { src: string; alt: string } | undefined;
+   *  initial, never a picture). `position` is a CSS object-position (the focal
+   *  point of an uploaded portrait on otakuquiz.org); without it the card is
+   *  exactly what it always was. */
+  photo?: { src: string; alt: string; position?: string | undefined } | undefined;
   /** "16% of STAY got Bang Chan": pass it only when the share is real. */
   same?: React.ReactNode;
   /** The buttons row (share, retake). */
@@ -49,7 +51,7 @@ export function ResultCard({ eyebrow, name, role, description, traits, photo, sa
           // A 92px local photo from public/idols. CoverImg never paints the alt text while the
           // photo loads or after it fails (Firefox does with a plain img), and falls back to
           // the placeholder (owner request, 2026-10-04).
-          <span className="ux-rescard-ph"><CoverImg src={photo.src} alt={photo.alt} width={92} height={92} /></span>
+          <span className="ux-rescard-ph"><CoverImg src={photo.src} alt={photo.alt} width={92} height={92} {...(photo.position ? { style: { objectPosition: photo.position } } : {})} /></span>
         ) : <span className="ux-rescard-ph" aria-hidden="true">{initial}</span>}
         <div>
           <div className="ux-rescard-you">{eyebrow}</div>

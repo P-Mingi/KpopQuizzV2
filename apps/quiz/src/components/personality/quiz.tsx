@@ -268,7 +268,7 @@ export function PersonalityQuiz({ view, also }: { view: QuizView; also?: React.R
           role={result.role}
           description={result.description}
           traits={result.traits}
-          photo={result.photo ? { src: result.photo, alt: result.name } : undefined}
+          photo={result.photo ? { src: result.photo, alt: result.name, ...(result.photoPosition ? { position: result.photoPosition } : {}) } : undefined}
           same={share !== null ? <><b>{share}%</b> of {view.who} got {result.name}</> : undefined}
           actions={(
             <>

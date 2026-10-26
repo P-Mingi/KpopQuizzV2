@@ -17,7 +17,9 @@ export async function getCharacterPage(slug: string): Promise<WmaPage | null> {
   const data = await getSeriesWmaData(slug);
   if (!data) return null;
   const { group, questions, profiles } = data;
-  const counts = await getMemberCounts(group.id);
+  // Loaded here, not at the top: the kpop build reaches this module too and must keep its module graph (the owner's images exist on this build only).
+  const { getOwnerCharacterPictures } = await import('@/lib/anime/entity-images-read');
+  const [counts, pictures] = await Promise.all([getMemberCounts(group.id), getOwnerCharacterPictures(group.slug)]);
 
   const results: ResultView[] = profiles.map((p) => ({
     id: p.id,
@@ -25,7 +27,10 @@ export async function getCharacterPage(slug: string): Promise<WmaPage | null> {
     role: characterRoleLine(p.role, p.affiliation, group.name),
     description: profileText(p),
     traits: playerTraits(p.axes),
-    photo: null,
+    // The owner's portrait of the character (run O1, ADM) when one was uploaded; a result is shown only after the quiz, so no name is given away.
+    photo: pictures[p.id]?.src ?? null,
+    // The focal point the owner set: the card keeps the face of the portrait in its small circle.
+    ...(pictures[p.id] ? { photoPosition: pictures[p.id]!.position } : {}),
   }));
 
   const view: QuizView = {
