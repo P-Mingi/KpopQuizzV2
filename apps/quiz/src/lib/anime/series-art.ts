@@ -15,7 +15,7 @@ export interface ArtColor {
   readonly text: typeof ART_LIGHT_TEXT | typeof ART_DARK_TEXT;
 }
 
-/** The curated palette, mapped by slug. Every entry holds AA with its own text colour (proved by the unit test). */
+/** The curated palette, mapped by slug. Every entry holds AA with its own text colour (proved by the unit test). No pink: OtakuQuiz is orange (owner, 2026-10-26). */
 export const ART_PALETTE: readonly ArtColor[] = [
   { name: 'crimson', bg: '#AA263C', text: ART_LIGHT_TEXT },
   { name: 'persimmon', bg: '#9D3309', text: ART_LIGHT_TEXT },
@@ -27,7 +27,7 @@ export const ART_PALETTE: readonly ArtColor[] = [
   { name: 'indigo', bg: '#4338CA', text: ART_LIGHT_TEXT },
   { name: 'violet', bg: '#6D28D9', text: ART_LIGHT_TEXT },
   { name: 'orchid', bg: '#9C1BA8', text: ART_LIGHT_TEXT },
-  { name: 'raspberry', bg: '#B41758', text: ART_LIGHT_TEXT },
+  { name: 'navy', bg: '#1E3A8A', text: ART_LIGHT_TEXT },
   { name: 'slate', bg: '#334155', text: ART_LIGHT_TEXT },
   { name: 'oxblood', bg: '#7C2D12', text: ART_LIGHT_TEXT },
   { name: 'apricot', bg: '#FDBA74', text: ART_DARK_TEXT },
@@ -35,7 +35,7 @@ export const ART_PALETTE: readonly ArtColor[] = [
   { name: 'mint', bg: '#86EFAC', text: ART_DARK_TEXT },
   { name: 'aqua', bg: '#67E8F9', text: ART_DARK_TEXT },
   { name: 'lilac', bg: '#C4B5FD', text: ART_DARK_TEXT },
-  { name: 'blush', bg: '#F9A8D4', text: ART_DARK_TEXT },
+  { name: 'sky', bg: '#93C5FD', text: ART_DARK_TEXT },
   { name: 'lime', bg: '#BEF264', text: ART_DARK_TEXT },
 ];
 

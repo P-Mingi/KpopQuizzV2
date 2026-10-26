@@ -98,10 +98,13 @@ describe.each(FIXTURE_SLUGS)('the %s hub with the anime slots', (slug) => {
     });
   }
 
-  it('is a hub with a blind test button only at 15 playable themes', async () => {
-    expect(await hubHtml(hub, false)).not.toContain('/blindtest/');
+  it('is a hub with no blind test button, and an openings quiz link only at 15 playable themes', async () => {
+    expect(await hubHtml(hub, false)).not.toContain('/blindtest');
     const many = { ...hub, themes: Array.from({ length: 15 }, (_, i) => ({ ...hub.themes[0]!, id: 800 + i, number: i + 1, deezer_playable: true })) };
-    expect(await hubHtml(many, false)).toContain(`href="/blindtest/series-${hub.group.slug}"`);
+    const out = await hubHtml(many, false);
+    expect(out).toContain(`href="/${hub.group.slug}-openings-quiz"`);
+    expect(out).not.toContain('/blindtest');
+    expect(out).not.toMatch(/blind ?test/i);
   });
 });
 

@@ -5,6 +5,7 @@
 import { badgeRarity, RARITY_ORDER } from '@/lib/badges';
 import { isValidTheme, PASSPORT_THEMES } from '@/lib/passport-themes';
 import { MASTERY } from '@/lib/passport';
+import { SITE } from '@/lib/site/registry';
 
 import type { Rarity } from '@/lib/badges';
 import type { PassportWords } from '@/lib/passport-ui/words';
@@ -35,6 +36,8 @@ export function themeKey(theme: string | null | undefined): string {
 /** Band tint + XP bar colour for a stored profiles.profile_theme. */
 export function themeColours(theme: string | null | undefined): { band: string; bar: string } {
   const k = themeKey(theme);
+  // The default theme is the accent of the site (owner, 2026-10-26: OtakuQuiz is orange, no pink there); kpop keeps the values above.
+  if (k === 'default' && SITE.id !== 'kpop') return { band: SITE.theme.light['pink-soft'] ?? THEME_BAND.default!, bar: SITE.theme.light.pink ?? PASSPORT_THEMES.default!.swatch };
   return { band: THEME_BAND[k] ?? '#FCE8EF', bar: PASSPORT_THEMES[k]?.swatch ?? '#E8457A' };
 }
 
@@ -155,7 +158,7 @@ export function personalStats(s: { quizzesPlayed: number; averagePct: number | n
   if (s.averagePct !== null) out.push({ value: `${s.averagePct}%`, label: 'average score' });
   out.push({ value: streakLabel(s.streak), label: words ? words.streak : 'streak' });
   out.push({ value: countLabel(s.quizzesMade), label: words ? words.made : 'quizzes made' });
-  out.push({ value: countLabel(s.blindtestsPlayed), label: 'blindtests played' });
+  if (SITE.features.blindTest) out.push({ value: countLabel(s.blindtestsPlayed), label: 'blindtests played' });
   return out;
 }
 

@@ -36,8 +36,9 @@ describe('UxNavLinks, anime', () => {
     const links = [...html.matchAll(/<a data-nav="([a-z]+)"[^>]*?href="([^"]+)"[^>]*>(?:<svg.*?<\/svg>)?([^<]*)<\/a>/g)].map((m) => [m[1], m[2], m[3]]);
     expect(links).toEqual([
       ['home', '/', 'Home'], ['quizzes', '/quizzes', 'Quizzes'], ['groups', '/series', 'Series'],
-      ['blindtest', '/blindtest', 'Blindtest'], ['community', '/community', 'Community'], ['leaderboard', '/leaderboard', 'Leaderboard'],
+      ['community', '/community', 'Community'], ['leaderboard', '/leaderboard', 'Leaderboard'],
     ]);
+    expect(html).not.toMatch(/blindtest|Blindtest/i);
     expect(html).not.toMatch(/\/groups|Groups/);
     expect(html).toMatch(/<a data-nav="groups" aria-current="page" href="\/series"/);
   });

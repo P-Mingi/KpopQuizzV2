@@ -1,0 +1,32 @@
+/* Run O1, owner order of 2026-10-26: OtakuQuiz is orange. The accent family the shell paints its navigation, its active pill, its primary
+   buttons and its focus ring with (the tokens still named pink) is orange here: fill #C2410C, soft #FFF1E6, ink #9A3412, line #F7DCC7 and
+   the dot #F97316 of docs/o1/design/fanquiz-hub/Main.dc.html, and in the dark theme the steps the hub paints its OtakuQuiz card with
+   (#FDBA74 on #3A2214, line #5A3820). The quiz of the day band, the band behind a game hero and the highlight word carried a pink tint, so they are orange
+   too. Grounds, lines, feedback colours and every other name stay the kpop value. Same values as the anime entry of lib/site/registry.ts
+   (a test compares them and computes the contrast of every text pair). A name set in one theme is set in all three blocks (tokens.md 3.2). */
+
+html.ux-v1[data-site="anime"] {
+  --ux-pink: #C2410C; --ux-pink-fill: #C2410C; --ux-pink-fill-h: #9A3412; --ux-pink-ink: #9A3412; --ux-pink-soft: #FFF1E6; --ux-pink-soft-ink: #9A3412; --ux-pink-line: #F7DCC7;
+  --ux-qotd-bg: linear-gradient(110deg, #FFE3CC 0%, #FFEEDF 48%, #FFF8F2 100%);
+  --ux-qotd-edge: #F7DCC7;
+  --ux-bt-bg: linear-gradient(120deg, #FFF1E6 0%, #F2EBFA 68%, #EAF1FB 100%);
+  --ux-hl: #C2410C;
+}
+
+html.ux-v1.dark[data-site="anime"] {
+  --ux-pink: #F97316; --ux-pink-fill: #C2410C; --ux-pink-fill-h: #D0490E; --ux-pink-ink: #FDBA74; --ux-pink-soft: #3A2214; --ux-pink-soft-ink: #FDBA74; --ux-pink-line: #5A3820;
+  --ux-qotd-bg: linear-gradient(110deg, #3A2214 0%, #2B1A10 50%, #221B17 100%);
+  --ux-qotd-edge: #5A3820;
+  --ux-bt-bg: linear-gradient(120deg, #3A2214 0%, #221D31 68%, #1B2130 100%);
+  --ux-hl: #FDBA74;
+}
+
+@media (prefers-color-scheme: dark) {
+  html.ux-v1[data-site="anime"]:not(.light) {
+    --ux-pink: #F97316; --ux-pink-fill: #C2410C; --ux-pink-fill-h: #D0490E; --ux-pink-ink: #FDBA74; --ux-pink-soft: #3A2214; --ux-pink-soft-ink: #FDBA74; --ux-pink-line: #5A3820;
+    --ux-qotd-bg: linear-gradient(110deg, #3A2214 0%, #2B1A10 50%, #221B17 100%);
+    --ux-qotd-edge: #5A3820;
+    --ux-bt-bg: linear-gradient(120deg, #3A2214 0%, #221D31 68%, #1B2130 100%);
+    --ux-hl: #FDBA74;
+  }
+}

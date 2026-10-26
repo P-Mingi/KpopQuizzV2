@@ -69,6 +69,29 @@ const HUB_DARK: ThemeTokens = {
   'pink-soft': '#232120', 'pink-soft-ink': '#F3F0EB', 'pink-line': '#35312E', 'on-accent': '#141312',
 };
 
+// OtakuQuiz is orange (owner, 2026-10-26; docs/o1/design/fanquiz-hub/Main.dc.html: fill #C2410C, soft #FFF1E6, ink #9A3412, dot #F97316,
+// line #F7DCC7, and the dark steps #FDBA74 and #5A3820 the hub already uses for the OtakuQuiz card). Only the accent family changes, plus the
+// tokens that carry a pink tint (the quiz of the day band, the highlight word); the grounds, lines and feedback colours are kpop's.
+// styles/sites/anime/tokens.css declares the same values (a test compares them). Contrast, computed on the exact values (WCAG 2):
+// light: white on fill 5.18, white on fill-h 7.31, ink 6.89 on page / 6.36 on surface / 7.31 on raised, ink on soft 6.60, pink 4.89 on page;
+// dark: white on fill 5.18, white on fill-h 4.52, ink 11.00 on page / 10.21 on surface, ink on soft 8.78, pink 6.62 on page, fill 3.58 on page.
+const ANIME_LIGHT: ThemeTokens = {
+  ...KPOP_LIGHT,
+  pink: '#C2410C', 'pink-fill': '#C2410C', 'pink-fill-h': '#9A3412', 'pink-ink': '#9A3412',
+  'pink-soft': '#FFF1E6', 'pink-soft-ink': '#9A3412', 'pink-line': '#F7DCC7',
+  'qotd-bg': 'linear-gradient(110deg, #FFE3CC 0%, #FFEEDF 48%, #FFF8F2 100%)', 'qotd-edge': '#F7DCC7',
+  'bt-bg': 'linear-gradient(120deg, #FFF1E6 0%, #F2EBFA 68%, #EAF1FB 100%)',
+  hl: '#C2410C',
+};
+const ANIME_DARK: ThemeTokens = {
+  ...KPOP_DARK,
+  pink: '#F97316', 'pink-fill': '#C2410C', 'pink-fill-h': '#D0490E', 'pink-ink': '#FDBA74',
+  'pink-soft': '#3A2214', 'pink-soft-ink': '#FDBA74', 'pink-line': '#5A3820',
+  'qotd-bg': 'linear-gradient(110deg, #3A2214 0%, #2B1A10 50%, #221B17 100%)', 'qotd-edge': '#5A3820',
+  'bt-bg': 'linear-gradient(120deg, #3A2214 0%, #221D31 68%, #1B2130 100%)',
+  hl: '#FDBA74',
+};
+
 const KPOP: SiteConfig = {
   id: 'kpop',
   kind: 'world',
@@ -168,18 +191,19 @@ const ANIME: SiteConfig = {
     },
   },
   // BACKLOG lane O1: image quiz off, fandom war off, MV pulse off, airing banner on, live off
-  // at launch (G0, confirmed by the owner 2026-10-16), Verse off. CR-001 (rule 18): leaderboards on (TWINS row 35, Team
+  // at launch (G0, confirmed by the owner 2026-10-16), Verse off. Blind test and daily blind test off (owner, 2026-10-26: OtakuQuiz drops the
+  // blind test; the openings quiz pages and the opening of the day stay). CR-001 (rule 18): leaderboards on (TWINS row 35, Team
   // accounts off every board); news, articles, data pages and ranked stay off (code F).
   features: {
     ...ALL_OFF,
     quizzes: true, topicHubs: true, trivia: true, create: true, dailyQuiz: true,
-    blindTest: true, openingOfTheDay: true, nameAll: true, personality: true, thisOrThat: true,
+    openingOfTheDay: true, nameAll: true, personality: true, thisOrThat: true,
     airingBanner: true, spoilers: true, community: true, challenges: true, leaderboards: true,
   },
   routes: {
     allow: [
       '/', '/series', '/{series}-quiz', '/anime-mix-quiz', '/{series}-trivia', '/q/{slug}',
-      '/which-{series}-character-are-you', '/{series}-openings-quiz', '/blindtest/**',
+      '/which-{series}-character-are-you', '/{series}-openings-quiz',
       '/name-all/{series}/{set}', '/daily', '/opening-of-the-day',
       '/create/**', '/me', '/u/{username}', '/settings/**', '/login', '/onboarding/**',
       '/notifications', '/search', '/community/**', '/about', '/editorial-policy', '/privacy',
@@ -203,8 +227,7 @@ const ANIME: SiteConfig = {
     llmsTxt: { title: 'otakuquiz.org' },
   },
   audio: { source: 'deezer', kit: 'required' },
-  // Option A values arrive with O1 (D0 prototype, G5); until then the kpop values stand in.
-  theme: { light: KPOP_LIGHT, dark: KPOP_DARK, fontDisplay: 'M PLUS Rounded 1c' },
+  theme: { light: ANIME_LIGHT, dark: ANIME_DARK, fontDisplay: 'M PLUS Rounded 1c' },
   // The anime ladder of the v2 plan (section 3, validated: decision 9, confirmed by the owner
   // with G0 on 2026-10-16), on the kpop thresholds (rule 18: same seven steps, new words).
   levelTitles: {
@@ -298,7 +321,7 @@ export const PLACEHOLDERS: Readonly<Record<SiteId, readonly string[]>> = {
   kpop: [],
   anime: [
     'brand.logo (kpopquiz file, owner D-099)', 'brand.favicon (kpopquiz file, owner D-099)', 'brand.mascot (G18, Fuki placeholder)',
-    'vocabulary.* text (O1)', 'theme.light and theme.dark (O1, Option A after G5)', 'daily.systemUserId (launch L02)',
+    'vocabulary.* text (O1)', 'daily.systemUserId (launch L02)',
   ],
   hub: [
     'brand.logo (kpopquiz file, owner D-099)', 'brand.favicon (kpopquiz file, owner D-099)', 'vocabulary.* text (H1)',

@@ -5,6 +5,7 @@
 // mig-122 gate trigger mirrors). Client-safe (no server imports).
 
 import { NOTIFICATION_CATEGORIES } from '@/lib/notification-types';
+import { SITE } from '@/lib/site/registry';
 
 import type { NotificationType } from '@/lib/notification-types';
 import type { UxIconName } from '@/lib/ux-v1/a0/icons';
@@ -191,7 +192,7 @@ export function streakRow(v: { state: 'at_risk' | 'played_today'; days: number; 
     return {
       state: 'at_risk',
       title: `Your ${v.days.toLocaleString('en-US')}-day streak ends in ${v.left}`,
-      sub: 'Play the daily quiz or the daily blindtest to keep it.',
+      sub: SITE.features.dailyBlindTest ? 'Play the daily quiz or the daily blindtest to keep it.' : 'Play the daily quiz to keep it.',
       action: { href: '/daily', label: "Play today's daily" },
     };
   }

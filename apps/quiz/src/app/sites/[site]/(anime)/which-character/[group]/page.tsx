@@ -69,19 +69,19 @@ export default async function WhichMemberPage({ params }: Props): Promise<React.
   const { group: slug } = await params;
   const page = await getWmaPage(slug);
   if (!page) notFound();
-  const { group, view, blindtestSongs } = page;
+  const { group, view, blindtestSongs: openingSongs } = page;
   const hub = `/${group.slug}-quiz`;
   // The cross-links below the quiz: settled reads, so a blip drops a link, never the page.
   const [wma, groups] = await Promise.all([getWmaGroupSlugs(), settle(() => getAllGroups(), null)]);
   const names = new Map((groups.value ?? []).map((g) => [g.slug, g.name] as const));
 
   // "Also on <group>": real doors only, and the grid only with two of them.
-  const also = blindtestSongs !== null ? (
+  const also = openingSongs !== null ? (
     <section className="ux-sec ux-pers-also" aria-labelledby="pers-also-h">
       <SectionHeader id="pers-also-h" title={`Also on ${group.name}`} icon="users" />
       <WaysTiles columns={2}>
-        <WaysTile href={`/blindtest/series-${group.slug}`} icon="music" title={`${group.name} blindtest`}>
-          {blindtestSongs} songs, ten-second clips.
+        <WaysTile href={`/${group.slug}-openings-quiz`} icon="music" title={`${group.name} openings quiz`}>
+          {openingSongs} songs, ten-second clips.
         </WaysTile>
         <WaysTile href={hub} icon="layers" title={`${group.name} quizzes`}>
           Every {group.name} quiz, made by fans.

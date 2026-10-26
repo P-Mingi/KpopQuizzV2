@@ -7,6 +7,7 @@ import { BadgeMedal, MedalTile, RarityKey } from '@/components/ux-v1/badge-medal
 import { BiasTag } from '@/components/ux-v1/person-name';
 import { UxAvatar } from '@/components/ux-v1/avatar';
 import { TeamNote, TeamTag } from '@/components/ux-v1/team';
+import { SITE } from '@/lib/site/registry';
 import { isUxV12 } from '@/lib/ux-v12';
 import { AVATAR_PRESETS, isValidNameAccent, isValidNameFont, NAME_FONTS } from '@/lib/passport-flair';
 import { fmt } from '@/lib/passport-ui/fmt';
@@ -202,9 +203,9 @@ export function UxPassport(p: UxPassportProps): React.ReactElement {
       <SectionHeader
         id="p10-history-h"
         title="History"
-        sub={`${compact(p.history.quizzesPlayed)} ${p.history.quizzesPlayed === 1 ? 'quiz' : 'quizzes'} and ${compact(p.history.blindtestsPlayed)} ${p.history.blindtestsPlayed === 1 ? 'blindtest' : 'blindtests'}`}
+        sub={SITE.features.blindTest ? `${compact(p.history.quizzesPlayed)} ${p.history.quizzesPlayed === 1 ? 'quiz' : 'quizzes'} and ${compact(p.history.blindtestsPlayed)} ${p.history.blindtestsPlayed === 1 ? 'blindtest' : 'blindtests'}` : `${compact(p.history.quizzesPlayed)} ${p.history.quizzesPlayed === 1 ? 'quiz' : 'quizzes'}`}
       />
-      {p.history.rows.length > 0 ? <HistoryList rows={p.history.rows} now={p.now} /> : <div className="ux-empty"><b>Nothing played yet</b>Your quizzes and blindtests show up here.</div>}
+      {p.history.rows.length > 0 ? <HistoryList rows={p.history.rows} now={p.now} /> : <div className="ux-empty"><b>Nothing played yet</b>{SITE.features.blindTest ? 'Your quizzes and blindtests show up here.' : 'Your quizzes show up here.'}</div>}
     </section>
   ) : null;
 

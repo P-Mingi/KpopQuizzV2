@@ -1,7 +1,7 @@
 import { SpoilerShieldIsland } from '@/components/spoilers/spoiler-shield';
 import { t, VOCAB_VARS } from '@/lib/anime/copy';
 import { kindEyebrow, kindName } from '@/lib/anime/manhwa';
-import { SERIES_TRIVIA_MIN, blindTestHref, groupQuizzesByArc, hubEyebrow, hubIntro, openingRows, quizLevels, safeUrl, seriesFaqs, shieldArcs, splitCharacters, storyMap, uniqueFacts, HUB_FACT_LIMIT } from '@/lib/anime/series-model';
+import { SERIES_TRIVIA_MIN, groupQuizzesByArc, hubEyebrow, hubIntro, openingRows, openingsQuizHref, quizLevels, safeUrl, seriesFaqs, shieldArcs, splitCharacters, storyMap, uniqueFacts, HUB_FACT_LIMIT } from '@/lib/anime/series-model';
 
 import { CharacterTiles } from './character-tiles';
 import { OpeningsTable } from './openings-table';
@@ -43,7 +43,7 @@ export function buildSeriesSlots(hub: SeriesHub, related: readonly RelatedSeries
   const published = hub.quizzes.length;
   const facts = uniqueFacts(hub.trivia);
   const characters = splitCharacters(hub.characters, hub.oshiCounts);
-  const href = blindTestHref(group.slug, hub.themes);
+  const href = openingsQuizHref(group.slug, hub.themes);
   return {
     origin: site.origin,
     brand: site.brand,
@@ -53,7 +53,7 @@ export function buildSeriesSlots(hub: SeriesHub, related: readonly RelatedSeries
     startLabel: t('hub.start'),
     heroArt: <TitleCard title={group.name} slug={group.slug} />,
     heroFacts: <SeriesFacts series={series} sources={hub.sources} name={group.name} />,
-    blindtest: href ? { href } : null,
+    blindtest: null,
     triviaAvailable: facts.length >= SERIES_TRIVIA_MIN,
     beforeQuizzes: (
       <>
@@ -71,7 +71,7 @@ export function buildSeriesSlots(hub: SeriesHub, related: readonly RelatedSeries
     main: (
       <>
         <CharacterTiles seriesSlug={group.slug} groupId={group.id} name={group.name} open={characters.open} lockedCount={characters.lockedCount} />
-        <OpeningsTable name={group.name} rows={openingRows(hub.themes)} blindTestHref={href} />
+        <OpeningsTable name={group.name} rows={openingRows(hub.themes)} quizHref={href} />
         <SeriesFactList name={group.name} facts={facts.slice(0, HUB_FACT_LIMIT)} total={facts.length} triviaHref={facts.length >= SERIES_TRIVIA_MIN ? `/${group.slug}-trivia` : null} />
       </>
     ),

@@ -10,7 +10,6 @@ import { HomeHero } from '@/components/home/home-hero';
 import { ActivityTicker } from '@/components/home/activity-ticker';
 import { HomeStreakNudge } from '@/components/home/home-streak-nudge';
 import { HomeQotd } from '@/components/home/home-qotd';
-import { HomeBtotd } from '@/components/home/home-btotd';
 import { QuizCardHover } from '@/components/quiz/quiz-card-hover';
 import { buildTeaser } from '@/lib/quiz/teaser';
 import { DiscordCommunityStrip } from '@/components/discord/discord-community';
@@ -111,14 +110,12 @@ function SkelGroups(): React.ReactElement {
 /* ---------- Async streaming sections ---------- */
 
 async function QotdSection(): Promise<React.ReactElement> {
-  // Premium daily pair: Quiz of the day + Blindtest of the day. BToTD is a
-  // client island (always present), so this section always renders.
+  // The quiz of the day (OtakuQuiz has no blind test, so no daily pair).
   const qotd = await safeFetch(getQuizOfTheDay(), null, '[home] getQuizOfTheDay');
   return (
     <section className="home-section">
       <div className="daily-twoup">
         {qotd && <HomeQotd quiz={qotd} />}
-        <HomeBtotd />
       </div>
     </section>
   );
@@ -316,10 +313,10 @@ export default function HomePage(): React.ReactElement {
       {/* 1b. Streak surface (client island; home stays static/ISR) */}
       <HomeStreakNudge />
 
-      {/* 2. The daily pair (quiz of the day + blindtest of the day) now takes the
+      {/* 2. The quiz of the day takes the
           high content slot directly under the hero. The retired tier-list launch
           band and the game/battle-of-the-day rows freed this space; the energy
-          re-routes to the two daily surfaces that remain (REFONTE P1). */}
+          re-routes to the daily surface that remains (REFONTE P1). */}
       <Suspense fallback={<SkelDaily />}>
         <QotdSection />
       </Suspense>
