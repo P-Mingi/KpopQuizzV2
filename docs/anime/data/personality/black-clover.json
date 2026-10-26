@@ -1,0 +1,420 @@
+{
+  "$comment": "Which Black Clover character are you, written by us (lane K1 which, 2026-10-26): eight questions about the player with a flavour of the premise only, six profiles of the spoiler level 0 characters, arc 0. Facts cited (D/facts/black-clover.json): asta: black-clover-character-name-043, black-clover-asta-grimoire-063, black-clover-asta-limits-104, black-clover-asta-strength-105, black-clover-yuno-grinberryall-goal-107; yuno-grinberryall: black-clover-character-name-044, black-clover-yuno-wind-065, black-clover-yuno-grinberryall-rival-106, black-clover-yuno-grinberryall-goal-107; noelle-silva: black-clover-character-name-045, black-clover-noelle-water-069; yami-sukehiro: black-clover-yami-nick-072, black-clover-yami-sukehiro-captain-108, black-clover-yami-sukehiro-dark-magic-109, black-clover-asta-limits-104; finral-roulacase: black-clover-finral-spatial-075, black-clover-finral-roulacase-courage-110; magna-swing: black-clover-character-name-048, black-clover-magna-broom-076, black-clover-magna-swing-fiery-111, black-clover-magna-swing-fireballs-112.",
+  "site": "anime",
+  "group_slug": "black-clover",
+  "status": "published",
+  "spoiler": {
+    "arc": 0,
+    "scope": "both"
+  },
+  "questions": [
+    {
+      "ord": 1,
+      "question": "The grimoire you receive at fifteen opens for the first time. What do you hope is inside?",
+      "options": [
+        {
+          "text": "A rare talent I can polish until it is perfect",
+          "weights": {
+            "craft": 5,
+            "energy": 1,
+            "chaos": 0
+          }
+        },
+        {
+          "text": "Whatever it is, I will outwork it and make it mine",
+          "weights": {
+            "energy": 5,
+            "heart": 4,
+            "craft": 1
+          }
+        },
+        {
+          "text": "A spell that gets people safely from here to there",
+          "weights": {
+            "care": 0,
+            "spotlight": 5,
+            "chaos": 3
+          }
+        },
+        {
+          "text": "A lot of raw power, and time to learn to steady it",
+          "weights": {
+            "care": 4,
+            "craft": 3,
+            "energy": 2
+          }
+        }
+      ]
+    },
+    {
+      "ord": 2,
+      "question": "Your squad is badly outnumbered. What is your move?",
+      "options": [
+        {
+          "text": "Charge in first and shout so every eye is on me",
+          "weights": {
+            "energy": 5,
+            "spotlight": 0,
+            "craft": 1
+          }
+        },
+        {
+          "text": "Get everyone out the back way, then follow",
+          "weights": {
+            "care": 0,
+            "spotlight": 5,
+            "energy": 2
+          }
+        },
+        {
+          "text": "Pick the biggest opponent myself, grinning",
+          "weights": {
+            "chaos": 5,
+            "heart": 5,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Wait for a clear shot, then strike clean",
+          "weights": {
+            "energy": 1,
+            "craft": 4,
+            "chaos": 0
+          }
+        }
+      ]
+    },
+    {
+      "ord": 3,
+      "question": "Which seat do you take in the squad?",
+      "options": [
+        {
+          "text": "Captain, with the loudest laugh at the table",
+          "weights": {
+            "chaos": 5,
+            "heart": 5,
+            "care": 1
+          }
+        },
+        {
+          "text": "Right hand of the captain, always watching their back",
+          "weights": {
+            "energy": 4,
+            "care": 3,
+            "craft": 4
+          }
+        },
+        {
+          "text": "The one who gets people home, unnoticed until it matters",
+          "weights": {
+            "care": 0,
+            "spotlight": 5,
+            "energy": 1
+          }
+        },
+        {
+          "text": "The best student, with everyone expecting results",
+          "weights": {
+            "craft": 4,
+            "energy": 1,
+            "care": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 4,
+      "question": "How do you deal with your own temper?",
+      "options": [
+        {
+          "text": "It flares, I shout, and ten minutes later it is gone",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "heart": 4
+          }
+        },
+        {
+          "text": "I bottle it up, and the power leaks out anyway",
+          "weights": {
+            "energy": 1,
+            "care": 5,
+            "heart": 1
+          }
+        },
+        {
+          "text": "I laugh and turn it into a dare",
+          "weights": {
+            "chaos": 5,
+            "heart": 3,
+            "care": 1
+          }
+        },
+        {
+          "text": "I cool down and look for a smarter way",
+          "weights": {
+            "chaos": 0,
+            "craft": 4,
+            "energy": 1
+          }
+        }
+      ]
+    },
+    {
+      "ord": 5,
+      "question": "Someone beats you at the thing you trained for. You:",
+      "options": [
+        {
+          "text": "Train twice as hard tomorrow and say so out loud",
+          "weights": {
+            "energy": 5,
+            "heart": 4,
+            "craft": 1
+          }
+        },
+        {
+          "text": "Call them a rival and a friend in the same breath",
+          "weights": {
+            "care": 4,
+            "heart": 4,
+            "energy": 3
+          }
+        },
+        {
+          "text": "Blame my nerves and feel awful about it",
+          "weights": {
+            "care": 5,
+            "heart": 1,
+            "energy": 1
+          }
+        },
+        {
+          "text": "Shrug, I was thinking about dinner anyway",
+          "weights": {
+            "chaos": 5,
+            "craft": 3,
+            "spotlight": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 6,
+      "question": "Which part of a mission would you want to own?",
+      "options": [
+        {
+          "text": "The flashy finish, with the biggest explosion",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "craft": 4
+          }
+        },
+        {
+          "text": "Making sure the whole team gets home",
+          "weights": {
+            "care": 0,
+            "heart": 2,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "Telling the crew to go further than they think they can",
+          "weights": {
+            "heart": 5,
+            "chaos": 4,
+            "care": 0
+          }
+        },
+        {
+          "text": "The plan, worked out in advance",
+          "weights": {
+            "craft": 4,
+            "chaos": 0,
+            "energy": 1
+          }
+        }
+      ]
+    },
+    {
+      "ord": 7,
+      "question": "After a long day on duty, what do you want most?",
+      "options": [
+        {
+          "text": "A giant meal and a loud table full of friends",
+          "weights": {
+            "energy": 5,
+            "care": 4,
+            "chaos": 3
+          }
+        },
+        {
+          "text": "A quiet corner and a long bath to myself",
+          "weights": {
+            "energy": 0,
+            "care": 4,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "A fast ride somewhere with a view and no rules",
+          "weights": {
+            "chaos": 5,
+            "craft": 4,
+            "energy": 3
+          }
+        },
+        {
+          "text": "One more round of training before bed",
+          "weights": {
+            "craft": 2,
+            "heart": 4,
+            "energy": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 8,
+      "question": "What would you most like people to say about you?",
+      "options": [
+        {
+          "text": "That I never quit, whatever anyone said",
+          "weights": {
+            "heart": 5,
+            "energy": 5,
+            "craft": 1
+          }
+        },
+        {
+          "text": "That I had real talent and used it well",
+          "weights": {
+            "craft": 4,
+            "heart": 3,
+            "spotlight": 2
+          }
+        },
+        {
+          "text": "That I had their back when it counted",
+          "weights": {
+            "care": 0,
+            "spotlight": 5,
+            "heart": 2
+          }
+        },
+        {
+          "text": "That I was wild enough to be worth following",
+          "weights": {
+            "chaos": 5,
+            "heart": 4,
+            "care": 1
+          }
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "character_slug": "asta",
+      "traits": {
+        "energy": 65,
+        "chaos": 70,
+        "care": 55,
+        "craft": 30,
+        "heart": 75,
+        "spotlight": 25
+      },
+      "profile": [
+        "You were dealt a weaker hand than most, and you decided that was no reason to aim lower.",
+        "You make up for missing magic with raw strength and stubborn training, aiming for the kingdom's top job.",
+        "You take a tough captain's advice to heart and keep pushing past what you thought were your limits."
+      ],
+      "ord": 1
+    },
+    {
+      "character_slug": "yuno-grinberryall",
+      "traits": {
+        "energy": 45,
+        "chaos": 15,
+        "care": 50,
+        "craft": 80,
+        "heart": 60,
+        "spotlight": 40
+      },
+      "profile": [
+        "You have a gift that people notice at once, and a natural talent for riding the wind.",
+        "You share a big dream with your closest rival, who is also your best friend.",
+        "You are aiming for the top job in the kingdom, side by side with the person who pushes you hardest."
+      ],
+      "ord": 2
+    },
+    {
+      "character_slug": "noelle-silva",
+      "traits": {
+        "energy": 35,
+        "chaos": 50,
+        "care": 85,
+        "craft": 70,
+        "heart": 40,
+        "spotlight": 55
+      },
+      "profile": [
+        "You come from a famous family, and you found a squad that took you in.",
+        "You have a huge amount of power inside you, and at first you could not keep it under control.",
+        "Something from your childhood left a mark, and you are learning to master your gift one day at a time."
+      ],
+      "ord": 3
+    },
+    {
+      "character_slug": "yami-sukehiro",
+      "traits": {
+        "energy": 60,
+        "chaos": 75,
+        "care": 30,
+        "craft": 55,
+        "heart": 90,
+        "spotlight": 15
+      },
+      "profile": [
+        "You are the captain of your own crew, and nobody has to guess who is in charge.",
+        "You have a nickname that makes people nervous, and a knack for cancelling out anyone's best trick.",
+        "You teach by example that the only way to grow is to push past your limits."
+      ],
+      "ord": 4
+    },
+    {
+      "character_slug": "finral-roulacase",
+      "traits": {
+        "energy": 30,
+        "chaos": 50,
+        "care": 10,
+        "craft": 40,
+        "heart": 15,
+        "spotlight": 90
+      },
+      "profile": [
+        "You are the one who gets everyone where they need to go, with a gift for moving people through space.",
+        "You started out timid and careless, shaped by pressure from your family.",
+        "You are braver now than you used to be, and you are still growing into it."
+      ],
+      "ord": 5
+    },
+    {
+      "character_slug": "magna-swing",
+      "traits": {
+        "energy": 80,
+        "chaos": 65,
+        "care": 55,
+        "craft": 70,
+        "heart": 60,
+        "spotlight": 25
+      },
+      "profile": [
+        "You have a fiery temper and a loyal streak, and you stay at the side of the person who leads.",
+        "You throw fireballs in inventive ways, because one plain one is just not your style.",
+        "You travel on your own signature broom, and of course you have given it a name."
+      ],
+      "ord": 6
+    }
+  ]
+}

@@ -1,0 +1,434 @@
+{
+  "$comment": "Run O1 lane K1 which: the Which character are you quiz of Oshi no Ko, written by us, one quiz per series, arc 0. Facts cited per character: ai-hoshino: oshi-no-ko-ai-scouted-strawberry-043, oshi-no-ko-ai-bkomachi-centerpiece-044, oshi-no-ko-ai-hoshino-personality-054, oshi-no-ko-ai-hoshino-performs-affection-055; kana-arima: oshi-no-ko-kana-child-prodigy-019, oshi-no-ko-kana-arima-restrains-talent-056; akane-kurokawa: oshi-no-ko-akane-kurokawa-stage-actress-057, oshi-no-ko-akane-kurokawa-method-acting-058; taishi-gotanda: oshi-no-ko-taishi-gotanda-film-director-059, oshi-no-ko-taishi-gotanda-scouts-talent-060; ichigo-saito: oshi-no-ko-ichigo-strawberry-president-041, oshi-no-ko-ichigo-saito-recruits-ai-061; miyako-saito: oshi-no-ko-miyako-runs-agency-042, oshi-no-ko-miyako-saito-married-to-ichigo-062; melt-narushima: oshi-no-ko-melt-narushima-arrogant-start-063, oshi-no-ko-melt-narushima-humbled-064, oshi-no-ko-melt-narushima-improves-065. Every profile line rests on those verified facts and says nothing about a later arc.",
+  "site": "anime",
+  "group_slug": "oshi-no-ko",
+  "status": "published",
+  "spoiler": {
+    "arc": 0,
+    "scope": "both"
+  },
+  "questions": [
+    {
+      "ord": 1,
+      "question": "Your school is putting on a talent show next month. What is your move?",
+      "options": [
+        {
+          "text": "Sign up first and worry about the stage later",
+          "weights": {
+            "energy": 5,
+            "spotlight": 0,
+            "craft": 0
+          }
+        },
+        {
+          "text": "Watch other acts, take notes, and write a detailed plan",
+          "weights": {
+            "craft": 5,
+            "energy": 1,
+            "chaos": 0
+          }
+        },
+        {
+          "text": "Run the sign-up table and make sure every act gets a slot",
+          "weights": {
+            "care": 0,
+            "heart": 4,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Find the shy friend with a hidden talent and talk them into it",
+          "weights": {
+            "energy": 3,
+            "craft": 4,
+            "heart": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 2,
+      "question": "You are handed a brand new part to play. How do you prepare?",
+      "options": [
+        {
+          "text": "Study the character from every angle until I disappear into them",
+          "weights": {
+            "craft": 5,
+            "spotlight": 3,
+            "energy": 1
+          }
+        },
+        {
+          "text": "Trust my instincts and the skills I have always had",
+          "weights": {
+            "craft": 0,
+            "energy": 4,
+            "heart": 4
+          }
+        },
+        {
+          "text": "Charm the whole cast so the work feels easy for everyone",
+          "weights": {
+            "care": 5,
+            "energy": 5,
+            "chaos": 3
+          }
+        },
+        {
+          "text": "Panic a little, wing it, and get better in front of the crowd",
+          "weights": {
+            "chaos": 5,
+            "craft": 1,
+            "energy": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 3,
+      "question": "Someone you know is quietly brilliant at something. What do you do?",
+      "options": [
+        {
+          "text": "Tell them plainly what I see and push them to go further",
+          "weights": {
+            "heart": 5,
+            "energy": 3,
+            "craft": 4
+          }
+        },
+        {
+          "text": "Offer them a place on my team before anyone else does",
+          "weights": {
+            "energy": 4,
+            "chaos": 3,
+            "craft": 3
+          }
+        },
+        {
+          "text": "Hold back a little so I do not steal their shine",
+          "weights": {
+            "care": 0,
+            "spotlight": 4,
+            "heart": 3
+          }
+        },
+        {
+          "text": "Cheer louder than anyone and make them a banner",
+          "weights": {
+            "energy": 5,
+            "care": 5,
+            "chaos": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 4,
+      "question": "Your plans fall apart an hour before the big day. You:",
+      "options": [
+        {
+          "text": "Rebalance the budget and fix it quietly in the background",
+          "weights": {
+            "chaos": 0,
+            "heart": 5,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Smile at everyone and carry the room through it",
+          "weights": {
+            "energy": 5,
+            "care": 4,
+            "heart": 1
+          }
+        },
+        {
+          "text": "Admit I was overconfident, learn the lesson, and train harder",
+          "weights": {
+            "craft": 4,
+            "heart": 4,
+            "chaos": 4
+          }
+        },
+        {
+          "text": "Make a bold new call and see who wants to follow",
+          "weights": {
+            "chaos": 4,
+            "energy": 4,
+            "craft": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 5,
+      "question": "How do you honestly feel about the spotlight?",
+      "options": [
+        {
+          "text": "I belong in it, and I have worked for it since I was little",
+          "weights": {
+            "spotlight": 0,
+            "energy": 4,
+            "heart": 4
+          }
+        },
+        {
+          "text": "I like it best when a whole team shares it with me",
+          "weights": {
+            "spotlight": 1,
+            "care": 4,
+            "energy": 5
+          }
+        },
+        {
+          "text": "I would rather be in the wings making the show possible",
+          "weights": {
+            "spotlight": 5,
+            "care": 0,
+            "energy": 1
+          }
+        },
+        {
+          "text": "I like standing behind the camera, framing it for someone else",
+          "weights": {
+            "spotlight": 4,
+            "craft": 5,
+            "heart": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 6,
+      "question": "Pick a free Saturday.",
+      "options": [
+        {
+          "text": "Rehearsing alone in a quiet studio",
+          "weights": {
+            "energy": 0,
+            "craft": 5,
+            "chaos": 1
+          }
+        },
+        {
+          "text": "A big fan meet where I get to talk with everybody",
+          "weights": {
+            "energy": 5,
+            "care": 5,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "A tidy desk and a long list I actually finish",
+          "weights": {
+            "chaos": 0,
+            "care": 0,
+            "heart": 4
+          }
+        },
+        {
+          "text": "Out looking at small shows for someone worth betting on",
+          "weights": {
+            "energy": 3,
+            "craft": 4,
+            "chaos": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 7,
+      "question": "You get praised in front of a crowd. How does it land?",
+      "options": [
+        {
+          "text": "I enjoy every second and hope it does not go to my head",
+          "weights": {
+            "care": 5,
+            "energy": 4,
+            "heart": 1
+          }
+        },
+        {
+          "text": "I say the praise is too generous, and I mean it",
+          "weights": {
+            "heart": 5,
+            "spotlight": 4,
+            "energy": 2
+          }
+        },
+        {
+          "text": "It goes straight to my head until the world corrects me",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "I thank them warmly and keep my real thoughts for later",
+          "weights": {
+            "care": 5,
+            "heart": 1,
+            "spotlight": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 8,
+      "question": "Your group is stuck on a big decision. You:",
+      "options": [
+        {
+          "text": "Say the blunt thing nobody wants to say",
+          "weights": {
+            "heart": 5,
+            "energy": 4,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Lay out a careful plan with every step written down",
+          "weights": {
+            "craft": 5,
+            "chaos": 0,
+            "spotlight": 3
+          }
+        },
+        {
+          "text": "Pick the bold option and bring the others along",
+          "weights": {
+            "chaos": 4,
+            "energy": 4,
+            "craft": 2
+          }
+        },
+        {
+          "text": "Quietly handle the logistics so a decision becomes possible",
+          "weights": {
+            "care": 0,
+            "heart": 4,
+            "spotlight": 5
+          }
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "character_slug": "ai-hoshino",
+      "traits": {
+        "energy": 80,
+        "chaos": 60,
+        "care": 80,
+        "craft": 45,
+        "heart": 35,
+        "spotlight": 30
+      },
+      "profile": [
+        "You light up a room for other people and put their feelings ahead of your own.",
+        "You are warm and attentive, though you keep some of your thoughts to yourself.",
+        "You started small, got noticed early, and learned to give a crowd what it needs."
+      ],
+      "ord": 1
+    },
+    {
+      "character_slug": "kana-arima",
+      "traits": {
+        "energy": 70,
+        "chaos": 60,
+        "care": 45,
+        "craft": 35,
+        "heart": 65,
+        "spotlight": 30
+      },
+      "profile": [
+        "You have been great at your craft since you were small, and everyone knows it.",
+        "You can bring up a feeling exactly when a moment needs it.",
+        "You sometimes hold back so you do not outshine the people beside you."
+      ],
+      "ord": 2
+    },
+    {
+      "character_slug": "akane-kurokawa",
+      "traits": {
+        "energy": 45,
+        "chaos": 20,
+        "care": 40,
+        "craft": 80,
+        "heart": 60,
+        "spotlight": 50
+      },
+      "profile": [
+        "You prepare like a professional and study every part you take in depth.",
+        "You treat acting as a craft, and you pour yourself into each role.",
+        "You will happily take a stage that helps your troupe get noticed."
+      ],
+      "ord": 3
+    },
+    {
+      "character_slug": "taishi-gotanda",
+      "traits": {
+        "energy": 70,
+        "chaos": 30,
+        "care": 25,
+        "craft": 95,
+        "heart": 75,
+        "spotlight": 55
+      },
+      "profile": [
+        "You have an eye for potential and cannot help pointing it out in people.",
+        "You like working behind the camera, directing a story for someone else.",
+        "You nudge people toward acting when you see what they could do."
+      ],
+      "ord": 4
+    },
+    {
+      "character_slug": "ichigo-saito",
+      "traits": {
+        "energy": 55,
+        "chaos": 75,
+        "care": 25,
+        "craft": 50,
+        "heart": 75,
+        "spotlight": 45
+      },
+      "profile": [
+        "You like leading a small team and betting on people before they are famous.",
+        "You are the one who spots a rising star and brings them on board."
+      ],
+      "ord": 5
+    },
+    {
+      "character_slug": "miyako-saito",
+      "traits": {
+        "energy": 45,
+        "chaos": 25,
+        "care": 25,
+        "craft": 60,
+        "heart": 75,
+        "spotlight": 70
+      },
+      "profile": [
+        "You are the one who keeps the whole operation running behind the scenes.",
+        "You manage the business side and keep things afloat, and you work best as half of a team."
+      ],
+      "ord": 6
+    },
+    {
+      "character_slug": "melt-narushima",
+      "traits": {
+        "energy": 80,
+        "chaos": 70,
+        "care": 70,
+        "craft": 40,
+        "heart": 70,
+        "spotlight": 10
+      },
+      "profile": [
+        "You walk in sure of yourself long before you have earned it.",
+        "You can be humbled, and then you quietly go and work on your skills."
+      ],
+      "ord": 7
+    }
+  ]
+}
