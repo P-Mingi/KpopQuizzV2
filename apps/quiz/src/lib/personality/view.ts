@@ -122,10 +122,12 @@ export function whichMemberPath(groupSlug: string): string {
  * Run O1 (PERS-2): the words of the pick offer under a result ("Make X your bias tag?") and the call to action of the story image, from
  * the site (`vocabulary.favourites.pickLabel`, `domain`). Pure, so the kpop strings are pinned by a test: Bias gives today's words.
  */
-export function pickOfferWords(pickLabel: string): { word: string; button: string; tag: string; doneToast: (name: string) => string } {
+export function pickOfferWords(pickLabel: string): { word: string; button: string; tag: string; where: string; doneToast: (name: string) => string } {
   const word = pickLabel.toLowerCase();
   const tag = `${word} tag`;
-  return { word, tag, button: word === 'bias' ? 'Set bias' : `Set as ${word}`, doneToast: (name) => `${tag.charAt(0).toUpperCase()}${tag.slice(1)} set to ${name}` };
+  // Where the pick shows: kpop next to the name in Community (the shared profile's bias); the oshi of OtakuQuiz on the fan's own profile there.
+  const where = word === 'bias' ? 'next to your name in Community' : 'on your profile';
+  return { word, tag, where, button: word === 'bias' ? 'Set bias' : `Set as ${word}`, doneToast: (name) => `${tag.charAt(0).toUpperCase()}${tag.slice(1)} set to ${name}` };
 }
 
 export function playCta(domain: string): string {

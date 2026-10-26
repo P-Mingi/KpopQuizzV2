@@ -61,7 +61,7 @@ describe('getCharacterPage', () => {
     expect(v.shareKicker).toBe('Which Death Note character are you');
     expect(v.meta).toEqual(['8 questions', 'About 2 minutes', 'No pictures needed']);
     expect(v.questions).toHaveLength(8);
-    expect(v.biasOffer).toBe(false);
+    expect(v.biasOffer).toBe(true);
     expect(v.who).toBe('fans');
     expect(v.results).toHaveLength(6);
     expect(v.results[0]).toEqual({

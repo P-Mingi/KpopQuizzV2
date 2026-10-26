@@ -108,6 +108,18 @@ export function PersonalityQuiz({ view, also }: { view: QuizView; also?: React.R
   const sendBias = useCallback(async (name: string): Promise<void> => {
     setBiasBusy(true);
     try {
+      // Run O1 (OSHI): on a world site the oshi of the series, stored for this site only (never the shared profile's bias).
+      if (SITE.id !== 'kpop') {
+        const result = view.results.find((r) => r.name === name);
+        if (!result || !view.groupSlug) throw new Error('unknown result');
+        const [{ saveOshiFromResult }, { createBrowserClient }] = await Promise.all([import('@/lib/personality/oshi-offer'), import('@/lib/supabase/client')]);
+        const done = await saveOshiFromResult(createBrowserClient() as unknown as Parameters<typeof saveOshiFromResult>[0], { site: SITE.id, groupSlug: view.groupSlug, characterSlug: result.id });
+        if (!done.ok) { toast(done.message); return; }
+        setBiasSet(name);
+        toast(OFFER.doneToast(name));
+        refreshUxMe();
+        return;
+      }
       const r = await fetch('/api/auth/update-profile', {
         method: 'POST',
         credentials: 'include',
@@ -123,7 +135,7 @@ export function PersonalityQuiz({ view, also }: { view: QuizView; also?: React.R
     } finally {
       setBiasBusy(false);
     }
-  }, [toast]);
+  }, [toast, view.results, view.groupSlug]);
 
   // Back from the sign-in sheet: finish the bias the fan asked for (16.6).
   useEffect(() => {
@@ -155,7 +167,7 @@ export function PersonalityQuiz({ view, also }: { view: QuizView; also?: React.R
   const askBias = (name: string): void => {
     if (biasBusy) return;
     if (!signedIn) {
-      signIn({ title: `Sign in to set ${name} as your ${OFFER.tag}`, sub: 'It shows next to your name in Community. No password needed.', action: { id: BIAS_ACTION, payload: { bias: name } } });
+      signIn({ title: `Sign in to set ${name} as your ${OFFER.tag}`, sub: `It shows ${OFFER.where}. No password needed.`, action: { id: BIAS_ACTION, payload: { bias: name } } });
       return;
     }
     void sendBias(name);
@@ -274,10 +286,10 @@ export function PersonalityQuiz({ view, also }: { view: QuizView; also?: React.R
 
         {view.biasOffer ? (
           <div className="ux-pers-bias" data-testid="pers-bias">
-            <Icon name="heart" />
+            <Icon name={SITE.vocabulary.favourites.pickIcon} />
             {biasSet === result.name
-              ? <span className="ux-pers-grow"><b>{result.name}</b> is your {OFFER.tag}. It shows next to your name in Community.</span>
-              : <span className="ux-pers-grow">Make <b>{result.name}</b> your {OFFER.tag}? It shows next to your name in Community.</span>}
+              ? <span className="ux-pers-grow"><b>{result.name}</b> is your {OFFER.tag}{`. It shows ${OFFER.where}.`}</span>
+              : <span className="ux-pers-grow">Make <b>{result.name}</b> your {OFFER.tag}{`? It shows ${OFFER.where}.`}</span>}
             {biasSet === result.name ? null : (
               <UxButton variant="ghost" size="sm" disabled={biasBusy} onClick={() => askBias(result.name)}>{OFFER.button}</UxButton>
             )}

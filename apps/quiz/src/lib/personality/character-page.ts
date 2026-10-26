@@ -45,8 +45,8 @@ export async function getCharacterPage(slug: string): Promise<WmaPage | null> {
     distribution: buildDistribution(counts, profiles.map((p) => ({ id: p.id, label: p.name, key: p.name }))),
     shareUrl: `${SITE.url}${whichCharacterPath(group.slug)}`,
     shareKicker: `Which ${group.name} character are you`,
-    // The oshi tag of an anime fan is set from the series page; this quiz does not offer it (the component's wording is the kpop bias).
-    biasOffer: false,
+    // "Set as oshi" under the result (owner, 2026-10-26): saved for this series and this site only (the oshi save module of lib/personality).
+    biasOffer: true,
   };
   return { group, view, blindtestSongs: null };
 }

@@ -37,6 +37,11 @@ import type { Metadata } from 'next';
 // ISR like the group hub: nothing is prerendered at build (no database call in
 // the build), each page renders on its first hit and is cached for an hour.
 export const revalidate = 3600;
+// Run O1 (OSHI): the [site] layout allows no param that was not generated at build (dynamicParams off) and this page generates none (no
+// database call at build), so on a production build every series answered NoFallbackError, a 404. Rendered per request instead, as the
+// profile page does (its reads are cached by lib/personality/data.ts for an hour, so the cost is the render).
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 
 async function kpopStaticParams(): Promise<Array<{ group: string }>> {
   return [];
