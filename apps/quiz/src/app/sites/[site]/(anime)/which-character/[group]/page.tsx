@@ -8,8 +8,11 @@ import { PersonalityQuiz } from '@/components/personality/quiz';
 import { UxPage } from '@/components/ux-v1/page';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { WaysTile, WaysTiles } from '@/components/ux-v1/ways-tile';
+import { getAllGroups } from '@/lib/db/queries/groups';
+import { getWmaGroupSlugs } from '@/lib/personality/data';
 import { getWmaPage } from '@/lib/personality/server';
 import { whichCharacterPath } from '@/lib/personality/series';
+import { settle } from '@/lib/ux-v1/p6/hub-data';
 import { isUxV12 } from '@/lib/ux-v12';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 import { groupOgImage } from '@/lib/seo/og';
@@ -72,6 +75,9 @@ export default async function WhichMemberPage({ params }: Props): Promise<React.
   if (!page) notFound();
   const { group, view } = page;
   const hub = `/${group.slug}-quiz`;
+  // The other series with a quiz (six active profiles at least, getWmaGroupSlugs): settled reads, so a blip drops the block, never the page.
+  const [sets, series] = await Promise.all([getWmaGroupSlugs(), settle(() => getAllGroups(), null)]);
+  const names = new Map((series.value ?? []).map((g) => [g.slug, g.name] as const));
 
   // "Also on <group>": real doors only (OtakuQuiz has no blind test, and the openings quiz page does not render yet).
   const also = (
@@ -109,8 +115,14 @@ export default async function WhichMemberPage({ params }: Props): Promise<React.
       <div className="ux-pers-body">
         <PersonalityQuiz view={view} also={also} />
       </div>
-      {/* No "for another series" links yet: the shared block builds /which-<group>-member-are-you (docs/o1/requests/PERS.md). */}
-      <WmaAbout group={group} view={view} wmaSlugs={[]} names={new Map<string, string>()} />
+      <WmaAbout
+        group={group}
+        view={view}
+        wmaSlugs={sets}
+        names={names}
+        words={{ member: O1_SITE.vocabulary.member, bias: O1_SITE.vocabulary.favourites.pickLabel.toLowerCase(), topic: O1_SITE.vocabulary.topic }}
+        pathFor={whichCharacterPath}
+      />
     </UxPage>
   );
 }
