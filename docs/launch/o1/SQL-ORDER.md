@@ -49,6 +49,7 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 | 12 | `M/009-daily-prep.sql` | P3 | none | 002a | 2 valid unique indexes; check validated | `M/009-daily-prep.rollback.sql` | V5 |
 | 13 | `M/010-daily-v2.sql` | P3 (DANGEROUS), never alone | single | 009 | 2 old unique constraints gone; v2 function present | `M/010-daily-v2.rollback.sql` | V5 |
 | 14 | `M/011-anime-series.sql` | P5, after P4 | single | 002a, 001 | 7 tables with RLS; `series` is empty | `M/011-anime-series.rollback.sql` | V6 |
+| 14b | M/018-entity-images.sql (ADM back) | P5, after 14 (011); must be applied before K5 step 3c | single | 001 | table entity_images with RLS on; anon has no insert and no update, may select only the display columns; bucket entity-images public, 4 MB, image/webp | M/018-entity-images.rollback.sql (refused while a row or a file exists) | V6 |
 | 15 | `M/012-editorial-quiz.sql` | P5 | single | 002a, 001 | `review_batches` RLS on, 0 policies | `M/012-editorial-quiz.rollback.sql` | V6 |
 | 16 | `M/013-formats.sql` | P5 | single | 011 | `games_game_type_check` validated; column `character_id` | `M/013-formats.rollback.sql` | V6 |
 | 17 | `M/014-daily-openings.sql` | P5 | single | 011, 001 | table and function present; function closed to anon | `M/014-daily-openings.rollback.sql` | V6 |

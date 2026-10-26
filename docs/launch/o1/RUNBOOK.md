@@ -318,6 +318,21 @@ Order, from the manifest (section 2, P7) and Verrou 0: the database first (L01 t
 Allow a full day; start in the morning UTC, after the 00:30 window, and finish before 22:00. Everything before K8 is invisible to readers, and until K10 the two new sites ask search engines not to index them.
 L09 to L11 (openings, formats, crossover quiz) are not part of the launch (section "After launch" of `SQL-ORDER.md`). The personality file `L10-PERS-personality.sql` is a different file and is on the launch path (K5.3b, D-124).
 
+3c. **K5.3c** Promote the admin images (only if you uploaded images on o1-dev, from /admin on the preview of otakuquiz.org). Needs `M/018-entity-images.sql` (SQL-ORDER row 14b).
+It copies the files of the bucket `entity-images` and the rows of `public.entity_images` from o1-dev to production; it never deletes anything there and a second run changes nothing.
+Run it before you delete the o1-dev branch (After launch). The production key is typed into your shell, never saved:
+
+read -rs PROMOTE_TARGET_SERVICE_KEY; export PROMOTE_TARGET_SERVICE_KEY      # production service role key (Settings, API)
+export PROMOTE_TARGET_URL=https://<the 20 character production project ref>.supabase.co
+scripts/o1/env.sh dev -- node scripts/anime/images/promote.mjs              # dry run: prints the plan, writes nothing
+scripts/o1/env.sh dev -- node scripts/anime/images/promote.mjs --apply      # writes the files first, then the rows
+unset PROMOTE_TARGET_SERVICE_KEY PROMOTE_TARGET_URL
+
+Without `scripts/o1/env.sh`, export `PROMOTE_SOURCE_URL` and `PROMOTE_SOURCE_SERVICE_KEY` (o1-dev's) instead. The dry run prints three lines of counts
+(`rows: N insert, N update, N identical`, `files: N copy, N overwrite, N identical`). It refuses when source and target are the same project and when the source is production.
+Check: dashboard, Storage, `entity-images`: the folder `anime/` exists; `q "select kind, count(*) from public.entity_images group by 1"` matches the dry run.
+Back: `delete` the rows you do not want from the admin page of otakuquiz.org (it removes the files too), or run `M/018-entity-images.rollback.sql` after emptying the bucket and the table.
+
 **K1  Go / no-go (the evening before).** All true, or the date moves:
 - V1 to V7 passed in their phases; the last daily watch is clean; V9 passes for the three projects.
 - `ls $M/launch/` shows L01 to L08, L10-PERS and L12 with their rollbacks, `shasum` equals `MANIFEST.json` (J2) and `grep -l '^-- DRAFTS' $M/launch/*.sql` prints nothing.
