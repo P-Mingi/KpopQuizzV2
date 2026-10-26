@@ -181,3 +181,15 @@ No difference was added or removed. Every page path and every component path of 
 9. Row 12: the internal folder is `blindtest/[mode]`, the twin's name (was `[playlist]` in routes.md).
 10. Rows 23, 26, 30, 31, 32 are split per page file (`23b`, `26b`, `26c`, `30b`, `31b` to `31d`, `32b`, `32c`); row
     27b is the catch-all page of the spike, listed so check a covers every page file.
+
+
+## Amendment D-120 (owner, 2026-10-26: OtakuQuiz orange, no blind test on OtakuQuiz)
+
+These points supersede the lines they name above.
+
+3. `docs/o1/contracts/TWINS.md` and `twins.json`: row 11 (`/blindtest`, anime) is withdrawn as a route. Its page file stays but answers 404 (it calls
+   `notFound()` when `SITE.features.blindTest` is off) and nothing reaches it: deleting it moved the client chunk grouping of kpopquiz.org's `/blindtest`
+   and `/pt/blindtest` (7 to 6 and 8 to 7 chunk files, `e2e/o1/O2/kpop-chunk-count.sh`), because those chunks were grouped by the routes that share a module.
+   Delete the file, and drop the row, when the kpop chunk baseline is re-cut. Row 12 keeps its file (the internal file the openings quiz rewrite reaches);
+   row 13 note: "redirects to /series". Row 14 (which-character) keeps its `ways-tile` and `section-header` mustImports: its "Also on" block now holds two real doors (the series hub and /series). The O6 lane card (`briefs/O6.md`) loses the blind test hub, the Deezer playlist hub
+   and the daily band.

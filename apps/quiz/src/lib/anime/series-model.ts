@@ -7,7 +7,7 @@ import { normalizeFactKey } from '@/lib/trivia/fact-key';
 
 import { t, tPlural } from './copy';
 import { SPOILER_FREE_LEVEL, computeSpoilerLevel, isRevealedTo, levelOfRow } from './spoilers/core';
-import { MIN_OSHI_PICKS, MIN_PLAYABLE_THEMES } from './types';
+import { MIN_OSHI_PICKS } from './types';
 
 import type { Metadata } from 'next';
 import type { SeriesFactRow, SeriesHub, SeriesQuizRow, SeriesSourceRow } from './series';
@@ -311,11 +311,6 @@ export function playableThemeCount(themes: readonly Pick<SeriesThemeRow, 'deezer
   return themes.filter((th) => th.deezer_playable === true).length;
 }
 
-/** The blind test link of the series, only at MIN_PLAYABLE_THEMES playable themes or more. */
-export function blindTestHref(slug: string, themes: readonly Pick<SeriesThemeRow, 'deezer_playable'>[]): string | null {
-  return playableThemeCount(themes) >= MIN_PLAYABLE_THEMES ? `/blindtest/series-${slug}` : null;
-}
-
 // ---------------------------------------------------------------------------------------------------------------
 // Facts (trivia) and the FAQ
 // ---------------------------------------------------------------------------------------------------------------
@@ -340,7 +335,7 @@ export function hasTriviaPage(trivia: readonly SeriesFactRow[], min: number = SE
 
 export interface SeriesFaq { readonly q: string; readonly a: string; readonly text: string }
 
-/** The FAQ of the hub: each answer only from a real value of the data (count, studios, length, blind test). */
+/** The FAQ of the hub: each answer only from a real value of the data (count, studios, length). */
 export function seriesFaqs(hub: SeriesHub, brand: string): SeriesFaq[] {
   const name = hub.series.title_en;
   const vars = { name, brand };
@@ -354,7 +349,6 @@ export function seriesFaqs(hub: SeriesHub, brand: string): SeriesFaq[] {
   if (studios.length) add(t('hub.faq.studio.q', vars), t('hub.faq.studio.a', { ...vars, studios: studios.join(', ') }));
   const length = lengthText(hub.series);
   if (length) add(t('hub.faq.length.q', vars), t('hub.faq.length.a', { ...vars, length }));
-  if (blindTestHref(hub.group.slug, hub.themes)) add(t('hub.faq.openings.q', vars), t('hub.faq.openings.a', vars));
   return out;
 }
 

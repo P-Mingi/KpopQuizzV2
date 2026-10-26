@@ -213,3 +213,20 @@ token.
 - The kit panes (`.ux-theme-light`, `.ux-theme-dark`) belong to the kpop kit page and get no per-site selector.
 - The D0 prototype may declare `on-no`, `accent2` and `font-display` on its kpop frames for convenience; production
   kpop CSS never does (section 2).
+
+
+## Amendment D-120 (owner, 2026-10-26: OtakuQuiz orange, no blind test on OtakuQuiz)
+
+These points supersede the lines they name above.
+
+4. `docs/o1/contracts/tokens.md` section 4.2: the anime values are not Option A "Persimmon and Sumi" but the owner's order: only the accent family
+   (`pink`, `pink-fill`, `pink-fill-h`, `pink-ink`, `pink-soft`, `pink-soft-ink`, `pink-line`) plus `qotd-bg`, `qotd-edge`, `bt-bg` and `hl` are orange;
+   grounds, lines, feedback and the other names are kpop's. The table of the values is `ANIME_LIGHT` and `ANIME_DARK` of `lib/site/registry.ts`
+   and `styles/sites/anime/tokens.css`; the contrast test is `lib/site/anime-orange.test.ts`.
+7. `docs/o1/contracts/tokens.md` section 3.3, rule 6 (and the exemption list of `checkSiteSheet` in `lib/site/contract.test.ts`): a sheet of anime named
+   `legacy.css` is allowed to repeat a shared selector under the anime scope, with colour properties only (colour, background, border, outline, shadow, fill,
+   stroke, custom properties), and to set on the bare scope only the legacy custom properties of `LEGACY_VARS` in `lib/site/anime-legacy-pink.ts` (--brand and the
+   others of `styles/globals.css`, which are not `--ux-*` names). Owner order of 2026-10-26 (no pink on otakuquiz.org). The file is generated from the shared
+   sheets by that module and a test regenerates it and compares; planted cases in `contract.test.ts` prove that a layout property, an unscoped selector or a
+   foreign custom property in it still fail. Every other sheet of every site keeps rule 6. Also `tokens.md` 1.1: the anime sheet now sets `acc-pink`, `lt-a`,
+   `th-hits26`, `th-viral`, `th-kpdh` and `host-bg` (their kpop values carry a pink hue).

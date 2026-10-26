@@ -248,13 +248,15 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
               </span>
             </Link>
           ))}
-          <Link className="ux-row" href={quiz.playlist ? `/blindtest/group-${quiz.groupSlug}` : '/blindtest'}>
-            <span className="ux-thumb is-bt"><Icon name="music" /></span>
-            <span className="ux-row-grow">
-              <span className="ux-rt">{quiz.playlist ? `${quiz.groupName} blindtest` : SITE.id === 'kpop' ? 'K-pop blindtest' : 'Blindtest'}</span>
-              <span className="ux-rs">{quiz.playlist ? `${quiz.playlist.songs} songs · guess from a ten-second clip` : 'Guess the song from a ten-second clip'}</span>
-            </span>
-          </Link>
+          {SITE.features.blindTest ? (
+            <Link className="ux-row" href={quiz.playlist ? `/blindtest/group-${quiz.groupSlug}` : '/blindtest'}>
+              <span className="ux-thumb is-bt"><Icon name="music" /></span>
+              <span className="ux-row-grow">
+                <span className="ux-rt">{quiz.playlist ? `${quiz.groupName} blindtest` : SITE.id === 'kpop' ? 'K-pop blindtest' : 'Blindtest'}</span>
+                <span className="ux-rs">{quiz.playlist ? `${quiz.playlist.songs} songs · guess from a ten-second clip` : 'Guess the song from a ten-second clip'}</span>
+              </span>
+            </Link>
+          ) : null}
         </div>
       </section>
 

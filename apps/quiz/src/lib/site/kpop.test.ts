@@ -87,7 +87,7 @@ describe('site navigation JSON-LD (app/(site)/layout.tsx before B1)', () => {
 
   it('other sites list the links of their own features, on their own origin', () => {
     const anime = siteNavigationJsonLd(REGISTRY.anime).hasPart as { url: string }[];
-    expect(anime.map((p) => p.url)).toEqual(['/quizzes', '/blindtest', '/leaderboard', '/trivia'].map((p) => `https://otakuquiz.org${p}`));
+    expect(anime.map((p) => p.url)).toEqual(['/quizzes', '/leaderboard', '/trivia'].map((p) => `https://otakuquiz.org${p}`));
     expect(siteNavigationJsonLd(REGISTRY.hub).hasPart).toEqual([]);
   });
 });

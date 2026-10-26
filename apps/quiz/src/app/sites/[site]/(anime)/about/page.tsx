@@ -12,7 +12,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'About OtakuQuiz',
   description:
-    'OtakuQuiz is a free fan-made site to play and create anime quizzes about every series, with blind tests and leaderboards.',
+    'OtakuQuiz is a free fan-made site to play and create anime quizzes about every series, with leaderboards.',
   alternates: {
     canonical: '/about',
     languages: {

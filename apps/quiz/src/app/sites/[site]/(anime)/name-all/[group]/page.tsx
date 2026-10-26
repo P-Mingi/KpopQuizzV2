@@ -10,7 +10,7 @@ import { getNameAllSet, getNameAllStats } from '@/lib/name-all/server';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { getWmaGroupSlugs } from '@/lib/personality/data';
 import { jsonLdString } from '@/lib/seo/json-ld';
-import { getPlayableGroups, settle } from '@/lib/ux-v1/p6/hub-data';
+import { settle } from '@/lib/ux-v1/p6/hub-data';
 import { isUxV12 } from '@/lib/ux-v12';
 import { groupOgImage } from '@/lib/seo/og';
 import { robotsFor } from '@/lib/site/indexing';
@@ -83,10 +83,9 @@ export default async function NameAllPage({ params }: PageProps): Promise<React.
   const set = await load(group);
   if (!set) notFound();
   // The links below the game: settled reads, so a blip drops a link, never the page.
-  const [stats, wma, bt, groups] = await Promise.all([
+  const [stats, wma, groups] = await Promise.all([
     getNameAllStats(set),
     getWmaGroupSlugs(),
-    settle(() => getPlayableGroups(), null),
     settle(() => getAllGroups(), null),
   ]);
   const names = new Map((groups.value ?? []).map((g) => [g.slug, g.name] as const));
@@ -116,7 +115,7 @@ export default async function NameAllPage({ params }: PageProps): Promise<React.
         path={prettyPath(set.group.slug)}
         words={WORDS}
       />
-      <NameAllAbout set={set} stats={stats} wmaSlugs={wma} blindtestSlugs={(bt.value ?? []).map((g) => g.slug)} names={names} words={WORDS} />
+      <NameAllAbout set={set} stats={stats} wmaSlugs={wma} blindtestSlugs={[]} names={names} words={WORDS} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(breadcrumb) }} />
     </UxPage>
   );

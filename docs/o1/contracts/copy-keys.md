@@ -150,3 +150,11 @@ Topic and member words (series, character, oshi, group, bias) come from `SITE.vo
 copy files: a component that says "Your series" on anime and "Your groups" on kpop composes the registry word with
 its own lane key. "worlds" appears only on fanquiz.org copy; kpopquiz.org and otakuquiz.org say "sites" (v2 decision 3,
 confirmed by the owner, G0, 2026-10-16).
+
+
+## Amendment D-120 (owner, 2026-10-26: OtakuQuiz orange, no blind test on OtakuQuiz)
+
+These points supersede the lines they name above.
+
+5. `docs/o1/contracts/copy-keys.md`: anime keys `hub.openingsBlindTest`, `hub.faq.openings.q` and `hub.faq.openings.a` are removed (the series hub has no
+   openings quiz link and no such FAQ answer); `signin.statB` and `signin.statBLabel` read "Spoiler" and "shield".

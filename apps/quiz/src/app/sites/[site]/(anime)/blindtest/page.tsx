@@ -1,6 +1,12 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/blindtest/page.tsx, rows 11: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
+//
+// OtakuQuiz has no blind test (owner, 2026-10-26). This page answers 404 and nothing reaches it: rewritesFor('anime') sends /blindtest and
+// everything below it to /sites/anime/gone (BLOCKED_PUBLIC in lib/site/routing.ts), and the site's route map and nav do not list it. The file
+// stays, with its imports, only because the kpop client chunks are grouped by the routes that share a module: deleting this page moved
+// the chunk grouping of kpopquiz.org's /blindtest from 7 files to 6 (e2e/o1/O2/kpop-chunk-count.sh). Delete it with the kpop chunk baseline re-cut.
 import { jsonLdString } from '@/lib/seo/json-ld';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 import { BlindtestGame } from '@/components/blind-test/blindtest-game';
 import { BlindtestHubV11 } from '@/components/blindtest/ux-v1/hub';
@@ -126,6 +132,7 @@ const webAppJsonLdOf = (stats: PublicStats | null): Record<string, unknown> => (
 });
 
 export default async function BlindtestPage(): Promise<React.ReactElement> {
+  if (!SITE.features.blindTest) notFound();
   // UX v11 (NEXT_PUBLIC_UX_V1, default off): the day-mode hub. Same metadata, H1,
   // intro, FAQ and JSON-LD; flag off renders exactly the page below.
   const live = await getPublicStatsOrNull();

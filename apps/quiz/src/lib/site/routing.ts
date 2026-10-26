@@ -96,11 +96,23 @@ export function keyFileBlocksFor(site: SiteId): readonly SiteRewrite[] {
 const PRETTY_REWRITES: Readonly<Record<SiteId, readonly { source: string; internal: string }[]>> = {
   kpop: [],
   anime: [
-    // O6: the openings blind test of a series lives at /blindtest/series-{series}.
+    // O6: the openings quiz of a series is served by the page of /blindtest/series-{series}. That internal path is no public route:
+    // BLOCKED_PUBLIC below sends a request to /blindtest to the site's 404 before this rule can reach it.
     { source: '/:series-openings-quiz', internal: '/blindtest/series-:series' },
     // O5: Which character are you.
     { source: '/which-:series-character-are-you', internal: '/which-character/:series' },
   ],
+  hub: [],
+};
+
+/**
+ * Public paths a site answers with its own 404 though a page file serves them internally (anime only: owner, 2026-10-26, OtakuQuiz drops the
+ * blind test; the openings quiz pages stay and are served by the /blindtest/series-{series} file, reached only through the pretty rule).
+ * A path `P` here, and every path below it, is sent to `/sites/<site>/gone`, which no page matches, so [...rest] answers 404.
+ */
+const BLOCKED_PUBLIC: Readonly<Record<SiteId, readonly string[]>> = {
+  kpop: [],
+  anime: ['/blindtest'],
   hub: [],
 };
 
@@ -138,6 +150,8 @@ export function internalPath(site: SiteId, pathname: string): string {
  *   3. the per-site root files (dotted, so not caught by 1) go to their /sites/<site> routes;
  *   3b. the root brand files (dotted too) go to the site's public/brand/<site>/ file;
  *   3c. the key files of the other sites (dotted too) go to the site's own 404 (keyFileBlocksFor);
+ *   3d. the blocked public paths (BLOCKED_PUBLIC) match the prefixed path and go to the site's own 404, before the pretty URLs
+ *       can send an openings quiz to the internal file under the same folder;
  *   4. the pretty URLs match the already prefixed path.
  * A dotted path these rules leave (a shared public file, or none) then meets Next's filesystem
  * check, and what that check does not serve meets afterFilesFor before any dynamic route.
@@ -151,6 +165,10 @@ export function rewritesFor(site: SiteId): readonly SiteRewrite[] {
     ...PER_SITE_ROOT_FILES.map((f) => ({ source: f, destination: `${base}${f}` })),
     ...PER_SITE_BRAND_FILES.map((f) => ({ source: f, destination: brandPath(site, f) })),
     ...keyFileBlocksFor(site),
+    ...BLOCKED_PUBLIC[site].flatMap((p) => [
+      { source: `${base}${p}`, destination: `${base}/gone` },
+      { source: `${base}${p}/:rest*`, destination: `${base}/gone` },
+    ]),
     ...PRETTY_REWRITES[site].map((r) => ({ source: `${base}${r.source}`, destination: `${base}${r.internal}` })),
   ];
 }
@@ -332,6 +350,7 @@ export const KPOP_ONLY_SAMPLES: readonly string[] = [
   '/guess-the-kpop-idol', '/guess-the-kpop-song', '/kpop-true-or-false', '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/idols-in-kdramas', '/pt', '/pt/faq', '/fr', '/es', '/id', '/verse', '/verse/bts',
   '/live', '/join', '/embed/q/sample', '/g/sample', '/groups', '/group/bts', '/stats',
+  '/blindtest', '/blindtest/ranked', '/blindtest/series-naruto', '/blindtest/group-bts',
   '/data/pulse', '/data/knowledge-report-2026', '/articles', '/news', '/creators',
   '/personality/bts', '/name-all/bts',
   '/bts-name-all-members', '/which-bts-member-are-you', '/tier-list/l/sample', '/build/sample',
@@ -348,11 +367,11 @@ export const TWIN_SAMPLES: readonly string[] = [
 ];
 
 /**
- * kpop paths shaped like an anime route (/{series}-quiz, /{series}-trivia, /blindtest/{mode}):
- * known to the anime route map, they 404 there because no anime series or mode has the slug
- * (the [slug] page reads through the site scope; the blindtest [mode] page knows no ranked
- * mode, code F). The hub knows none of them.
+ * kpop paths shaped like an anime route (/{series}-quiz, /{series}-trivia):
+ * known to the anime route map, they 404 there because no anime series has the slug
+ * (the [slug] page reads through the site scope). The hub knows none of them. /blindtest/** is not one of them any more:
+ * OtakuQuiz has no blind test (owner, 2026-10-26), so it is kpop only (KPOP_ONLY_SAMPLES).
  */
 export const KPOP_DATA_SAMPLES: readonly string[] = [
-  '/bts-quiz', '/kpop-demon-hunters-quiz', '/general-kpop-quiz', '/twice-trivia', '/blindtest/ranked',
+  '/bts-quiz', '/kpop-demon-hunters-quiz', '/general-kpop-quiz', '/twice-trivia',
 ];

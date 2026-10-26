@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 
 import { UxButton } from '@/components/ux-v1/button';
 import { GENRE, titleCase } from '@/lib/site/genre';
+import { SITE } from '@/lib/site/registry';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { streakView } from '@/lib/ux-v1/a0/streak';
 import { greetingFor } from '@/lib/ux-v1/p1/format';
@@ -19,8 +20,9 @@ import { greetingFor } from '@/lib/ux-v1/p1/format';
 // C2-002), said with the words of A0's streak popover.
 function streakLine(days: number | undefined, last: string | null | undefined): string {
   const v = streakView(days, last);
-  if (!v) return 'Your quiz of the day is ready. Play the daily quiz or the daily blindtest today to start a streak.';
-  if (v.state === 'at_risk') return `Your quiz of the day is ready. Play the daily quiz or the daily blindtest today to keep your ${v.days}-day streak.`;
+  const daily = SITE.features.dailyBlindTest ? 'the daily quiz or the daily blindtest' : 'the daily quiz';
+  if (!v) return `Your quiz of the day is ready. Play ${daily} today to start a streak.`;
+  if (v.state === 'at_risk') return `Your quiz of the day is ready. Play ${daily} today to keep your ${v.days}-day streak.`;
   return `Streak saved: ${v.days} ${v.days === 1 ? 'day' : 'days'}. Come back tomorrow to make it ${v.days + 1}.`;
 }
 

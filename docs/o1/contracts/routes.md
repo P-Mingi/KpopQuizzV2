@@ -256,3 +256,20 @@ read 500. They take the kpop branch's not-found rewrite (section 1, M3), and und
 `localhost` on the middleware side only); `o1/integration` answers the same paths 500 there too, and both answer 404
 with the kpop 404 page when served at `localhost` (measured in dev). The lines stay as the brief fixes them; the
 gate's serving is request F0-22. Details in `docs/o1/reports/F0.md`.
+
+
+## Amendment D-120 (owner, 2026-10-26: OtakuQuiz orange, no blind test on OtakuQuiz)
+
+These points supersede the lines they name above.
+
+2. `docs/o1/contracts/routes.md`:
+   - the anime allowlist loses `/blindtest/**` (the registry `routes.allow` of anime no longer holds it); line 172 (`/blindtest`,
+     `/blindtest/series-{series}`) is no public route (the page `blindtest/page.tsx` answers 404, see 3); `/blindtest/**` joins the "Must 404" paths of anime
+     (`KPOP_ONLY_SAMPLES` of `lib/site/routing.ts` now lists `/blindtest`, `/blindtest/ranked`, `/blindtest/series-naruto`, `/blindtest/group-bts`;
+     `/blindtest/ranked` left `KPOP_DATA_SAMPLES`);
+   - line 194: the internal file of the openings quiz (`blindtest/[mode]/page.tsx`) is no longer public at its own path. `rewritesFor('anime')`
+     has two rules (`BLOCKED_PUBLIC` in `lib/site/routing.ts`) that send `/sites/anime/blindtest` and everything below it to `/sites/anime/gone`
+     (the site's 404) before the pretty rule `/{series}-openings-quiz` rewrites to `/sites/anime/blindtest/series-{series}`;
+   - line 176 (`/opening-of-the-day`): it redirects to `/series` (no redirect to `/blindtest`, D-048 superseded, and none to the openings quiz
+     page, which does not render yet);
+   - `/{series}-openings-quiz` stays in the allowlist and the rewrite stays, but no page of the site links to it (it answers 404 until O6 builds it).

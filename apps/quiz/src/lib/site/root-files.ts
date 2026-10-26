@@ -144,7 +144,6 @@ questions beyond the episode or chapter a visitor has reached out of sight. Quiz
 - /series: every series with quizzes, A to Z
 - /{series}-quiz: a series hub with its quizzes, e.g. /attack-on-titan-quiz
 - /trivia: sourced trivia and fun facts by series
-- /blindtest: guess the opening from a short clip
 - /community: threads, blogs and debates from the fandoms
 
 ## What we do not publish

@@ -55,13 +55,15 @@ function TodayPanel({ today, qotd }: Pick<AroundData, 'today' | 'qotd'>): React.
             </span>
           </div>
         ) : null}
-        <div className="p9-hn">
-          <Tile icon="music" />
-          <span className="p9-hn-b">
-            <Link href="/blindtest?daily=true" className="p9-hn-t">{`Name that ${GENRE} ${SITE.vocabulary.song}`}</Link>
-            <span className="p9-tm">Blindtest of the day</span>
-          </span>
-        </div>
+        {SITE.features.dailyBlindTest ? (
+          <div className="p9-hn">
+            <Tile icon="music" />
+            <span className="p9-hn-b">
+              <Link href="/blindtest?daily=true" className="p9-hn-t">{`Name that ${GENRE} ${SITE.vocabulary.song}`}</Link>
+              <span className="p9-tm">Blindtest of the day</span>
+            </span>
+          </div>
+        ) : null}
         {today?.hot ? (
           <div className="p9-hn">
             <GroupAvatar photo={today.hot.photo} initials={today.hot.initials} size="sm" />

@@ -5,7 +5,7 @@ import { COPY as O3 } from '@/copy/anime/o3';
 
 import { fill, t, tPlural } from './copy';
 import {
-  HUB_FACT_LIMIT, MIN_PUBLISHED_FOR_INDEX, SERIES_TRIVIA_MIN, airingRecord, blindTestHref, groupQuizzesByArc, hasTriviaPage, headerFacts,
+  HUB_FACT_LIMIT, MIN_PUBLISHED_FOR_INDEX, SERIES_TRIVIA_MIN, airingRecord, groupQuizzesByArc, hasTriviaPage, headerFacts,
   hubEyebrow, hubIndexable, hubIntro, lengthText, mixHubMetadata, openingRows, playableThemeCount, quizLevels, quizSpoilerLevel,
   safeUrl, seriesFaqs, seriesHubMetadata, seriesTriviaMetadata, shieldArcs, sourceLinks, splitCharacters, storyMap, uniqueFacts,
 } from './series-model';
@@ -151,13 +151,9 @@ describe('A4 openings and endings', () => {
     expect(rows[0]).toMatchObject({ kind: 'op', kindLabel: 'Opening', number: 1, title: 'the WORLD', artist: 'Nightmare' });
   });
 
-  it('links to /blindtest/series-{series} only at 15 playable themes or more', () => {
+  it('counts the playable themes (15 or more is MIN_PLAYABLE_THEMES)', () => {
     expect(MIN_PLAYABLE_THEMES).toBe(15);
-    const hub = hubFromFixture('death-note');
     const many = (n: number) => Array.from({ length: 20 }, (_, i) => ({ deezer_playable: i < n }));
-    expect(blindTestHref('death-note', many(14))).toBeNull();
-    expect(blindTestHref('death-note', many(15))).toBe('/blindtest/series-death-note');
-    expect(blindTestHref('death-note', hub.themes)).toBeNull();
     expect(playableThemeCount(many(15))).toBe(15);
     // unchecked themes (null) are not playable
     expect(playableThemeCount([{ deezer_playable: null }, { deezer_playable: false }])).toBe(0);
@@ -183,7 +179,6 @@ describe('facts, FAQ and texts', () => {
       'Are the Death Note quizzes free?',
       'Who made Death Note?',
       'How long is Death Note?',
-      'Is there a Death Note blind test?',
     ]);
     const hub = hubFromFixture('one-piece');
     const bare: SeriesHub = { ...hub, quizzes: [], themes: [], series: { ...hub.series, studios: [], episodes: null, chapters: null, seasons: null } };

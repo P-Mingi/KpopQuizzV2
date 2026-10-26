@@ -33,7 +33,8 @@ describe('HowPoints', () => {
     const { HowPoints } = await onSite('anime', () => import('./points'));
     const html = renderToString(h(HowPoints, { creatorViews: ['week', 'rising'] }));
     expect(html).not.toMatch(KPOP_WORDS);
-    expect(html).toContain('General anime quizzes and blindtests do not count.');
+    expect(html).toContain('General anime quizzes do not count.');
+    expect(html).not.toMatch(/blindtest/i);
   });
 });
 
@@ -46,7 +47,9 @@ describe('AroundCommunity', () => {
     const { AroundCommunity } = await onSite('anime', () => import('./around'));
     const html = renderToString(h(AroundCommunity, { data: AROUND }));
     expect(html).not.toMatch(KPOP_WORDS);
-    expect(html).toContain('Name that anime opening');
+    // OtakuQuiz has no blind test (owner, 2026-10-26): no daily blindtest row, no link to /blindtest.
+    expect(html).not.toMatch(/Name that|Blindtest of the day/);
+    expect([...html.matchAll(/<a\b[^>]*?\bhref="([^"]+)"/g)].map((m) => m[1]).filter((u) => u?.startsWith('/blindtest'))).toEqual([]);
     expect([...html.matchAll(/<a\b[^>]*?\bhref="([^"]+)"/g)].map((m) => m[1])).not.toContain('/stats');
   });
 });

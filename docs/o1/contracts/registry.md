@@ -68,3 +68,13 @@ Leaderboards are on (CR-001, TWINS row 35): the twin of `/leaderboard` exists, T
 - No code outside `lib/site/` reads `process.env.NEXT_PUBLIC_SITE_ID` or `process.env.SITE_ID`: it imports `SITE` or
   `SITE_ID`.
 - The hub reads the other entries with `siteConfig(id)`, never by importing a world's files.
+
+
+## Amendment D-120 (owner, 2026-10-26: OtakuQuiz orange, no blind test on OtakuQuiz)
+
+These points supersede the lines they name above.
+
+1. `docs/o1/contracts/registry.md` line 51: the anime features lose `blindTest` (they are: quizzes, topicHubs, trivia, create, dailyQuiz,
+   openingOfTheDay, nameAll, personality, thisOrThat, airingBanner, spoilers, community, challenges, leaderboards).
+6. `PLACEHOLDERS.anime` no longer lists the theme (`theme.light and theme.dark`); the entry in `docs/o1/contracts/registry.md` section on placeholders
+   should drop it too.

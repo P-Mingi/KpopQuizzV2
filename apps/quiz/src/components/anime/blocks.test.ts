@@ -9,7 +9,7 @@ import { SpoilerGate } from '@/components/spoilers/spoiler-gate';
 import { SpoilerShield } from '@/components/spoilers/spoiler-shield';
 import { TextCard } from '@/components/ux-v1/text-card';
 import {
-  blindTestHref, groupQuizzesByArc, openingRows, quizLevels, shieldArcs, splitCharacters, storyMap, uniqueFacts,
+  groupQuizzesByArc, openingRows, quizLevels, shieldArcs, splitCharacters, storyMap, uniqueFacts,
 } from '@/lib/anime/series-model';
 import { FIXTURE_SLUGS, hubFromFixture, readFixture } from '@/lib/anime/test-support';
 
@@ -115,15 +115,15 @@ describe.each(FIXTURE_SLUGS)('the blocks of the %s fixture', (slug) => {
     if (picked) expect(out).toContain(`${picked.picks} fans picked ${picked.name} as their oshi`);
   });
 
-  it('A4 prints the openings table with an empty credit slot, and the blind test link only from 15 playable themes', () => {
+  it('A4 prints the openings table with an empty credit slot, and no link to a blind test or an openings quiz', () => {
     const rows = openingRows(hub.themes);
-    const out = html(h(OpeningsTable, { name: hub.group.name, rows, blindTestHref: blindTestHref(hub.group.slug, hub.themes) }));
-    for (const r of rows) expect(plain(out)).toContain(r.title);
-    expect(out).toContain('data-slot="credit"');
-    expect(out).not.toContain('/blindtest/');
-    const full = with15Playable(hub);
-    const link = html(h(OpeningsTable, { name: full.group.name, rows: openingRows(full.themes), blindTestHref: blindTestHref(full.group.slug, full.themes) }));
-    expect(link).toContain(`href="/blindtest/series-${hub.group.slug}"`);
+    for (const themes of [hub.themes, with15Playable(hub).themes]) {
+      const out = html(h(OpeningsTable, { name: hub.group.name, rows: openingRows(themes) }));
+      for (const r of rows) expect(plain(out)).toContain(r.title);
+      expect(out).toContain('data-slot="credit"');
+      expect(out).not.toContain('href=');
+      expect(out).not.toMatch(/blindtest|blind test|openings-quiz|openings quiz/i);
+    }
   });
 
   it('A5 prints the shield on the spoiler-free view, with the medium and the arc to pick', () => {
@@ -176,7 +176,7 @@ describe.each(FIXTURE_SLUGS)('the blocks of the %s fixture', (slug) => {
     const parts = [
       html(h(SeriesFacts, { series: hub.series, sources: [] })),
       renderToString(h(CharacterTiles, { seriesSlug: hub.group.slug, groupId: hub.group.id, name: hub.group.name, open: split.open, lockedCount: split.lockedCount })),
-      html(h(OpeningsTable, { name: hub.group.name, rows: openingRows(with15Playable(hub).themes), blindTestHref: '/blindtest/series-x' })),
+      html(h(OpeningsTable, { name: hub.group.name, rows: openingRows(with15Playable(hub).themes) })),
       renderToString(h(SpoilerShield, { seriesSlug: hub.group.slug, groupId: hub.group.id, arcs: shieldArcs(hub.arcs), signedIn: true })),
       html(h(TitleCard, { title: hub.group.name })),
     ].join('');

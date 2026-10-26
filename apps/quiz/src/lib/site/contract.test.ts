@@ -36,6 +36,7 @@ import {
   PASSPORT_LIMITS, PASSPORT_SECONDS, PROFILE_FROM_MEMBERSHIP, TX_COOKIE_NAMES,
 } from '../passport/types';
 import { AXIS_KEYS } from '../personality/engine';
+import { LEGACY_VARS } from './anime-legacy-pink';
 import { O1_FLAGS, O1_SECRET_NAMES, REGISTRY, UNTOUCHED_FLAGS } from './registry';
 import { SITE_IDS, UX_NEW_TOKEN_NAMES, UX_TOKEN_NAMES } from './types';
 
@@ -97,6 +98,9 @@ function splitSelectors(prelude: string): string[] {
  * The token swaps a site sheet may write on a shared class (tokens.md 3.3 rule 6): the selector
  * after the site scope, and the one property it may set, always to a token.
  */
+const LEGACY_BARE_VARS: ReadonlySet<string> = new Set([...Object.keys(LEGACY_VARS), '--shadow-lift', '--halo']);
+const LEGACY_COLOUR_PROP = /^(?:color|background(?:-color|-image)?|border(?:-(?:top|right|bottom|left))?(?:-color)?|outline(?:-color)?|box-shadow|text-shadow|fill|stroke|caret-color|--[a-z0-9-]+)$/;
+
 const TOKEN_SWAPS: readonly { readonly tail: string; readonly prop: string }[] = [
   { tail: '.p4-ans.is-no .p4-k', prop: 'color' },
   { tail: '.p6-ans.is-no .p6-k', prop: 'color' },
@@ -112,6 +116,10 @@ export function checkSiteSheet(site: SiteId, raw: string, file = 'tokens.css'): 
   const problems: string[] = [];
   const lane = file.replace(/\.css$/, '');
   const blockPrefix = lane === 'tokens' ? null : `${site}-${lane}-`;
+  // Owner order of 2026-10-26 (no pink on otakuquiz.org): anime only, `legacy.css` is the generated override of the pink of the shared sheets
+  // (lib/site/anime-legacy-pink.ts). It may repeat a shared selector under the site scope, but only with colour properties, and its bare scope
+  // blocks declare only the legacy custom properties that module lists (docs/o1/requests/ORANGE.md, 7).
+  const legacy = site === 'anime' && file === 'legacy.css';
   if (DASHES.test(raw)) problems.push('dash character');
   if (EMOJI.test(raw)) problems.push('emoji');
   const css = stripComments(raw);
@@ -122,6 +130,7 @@ export function checkSiteSheet(site: SiteId, raw: string, file = 'tokens.css'): 
   const checkDecls = (body: string, where: string): void => {
     for (const d of body.matchAll(/(^|[;{\s])--([a-z0-9-]+)\s*:/g)) {
       const name = d[2]!;
+      if (legacy) continue; // judged in checkTarget
       if (name.startsWith('ux-')) {
         if (!FROZEN.has(name.slice(3))) problems.push(`unknown token --${name} in ${where}`);
       } else if (!name.startsWith(`${site}-`)) {
@@ -135,7 +144,16 @@ export function checkSiteSheet(site: SiteId, raw: string, file = 'tokens.css'): 
   const checkTarget = (sel: string, body: string): void => {
     const p = scopes.find((x) => sel.startsWith(x))!;
     const tail = sel.slice(p.length).replace(/^:not\(\.light\)/, '').trim().replace(/\s+/g, ' ');
-    const decls = body.split(';').map((d) => d.trim()).filter(Boolean);
+    const decls = (legacy ? body.split(/;(?![^(]*\))/) : body.split(';')).map((d) => d.trim()).filter(Boolean);
+    if (legacy) {
+      for (const d of decls) {
+        const prop = d.slice(0, d.indexOf(':')).trim();
+        if (tail === '') {
+          if (!LEGACY_BARE_VARS.has(prop)) problems.push(`legacy token block "${sel}" sets ${prop}`);
+        } else if (!LEGACY_COLOUR_PROP.test(prop)) problems.push(`legacy rule "${sel}" sets ${prop}, which is not a colour property`);
+      }
+      return;
+    }
     if (tail === '') {
       for (const d of decls) if (!d.startsWith('--')) problems.push(`token block "${sel}" sets ${d.split(':')[0]!.trim()}`);
       return;
@@ -312,6 +330,27 @@ html.ux-v1[data-site="anime"] .ux-app :focus-visible { outline-color: var(--ux-p
       ['html.ux-v1[data-site="anime"] .ux-app :focus-visible { outline: 4px solid var(--ux-pink); }', 'tokens.css', /token swap/],
     ];
     for (const [css, f, re] of others) expect(checkSiteSheet('anime', css, f).join('; '), css).toMatch(re);
+  });
+
+  it('legacy.css of anime (no pink, 2026-10-26): colour properties on shared selectors under the scope, the legacy custom properties on the bare scope, nothing else', () => {
+    const ok = `html.ux-v1[data-site="anime"] { --brand: var(--ux-pink); --shadow-lift: 0 8px 24px color-mix(in srgb, var(--ux-pink) 10%, transparent), 0 2px 8px rgba(0,0,0,0.06); }
+@media (prefers-color-scheme: dark) { html.ux-v1[data-site="anime"]:not(.light) { --halo: color-mix(in srgb, var(--ux-pink) 22%, transparent); } }
+html.ux-v1[data-site="anime"] .quiz-card:hover { box-shadow: 0 8px 24px rgba(232,123,69,0.10), 0 2px 8px rgba(0,0,0,0.06); }
+html.ux-v1.dark[data-site="anime"] .uxv1-tag-image { background: #3A2A1F; color: #F0A27B; }
+`;
+    expect(checkSiteSheet('anime', ok, 'legacy.css')).toEqual([]);
+    const bad: [string, RegExp][] = [
+      ['.quiz-card { color: red; }', /not scoped/],
+      ['html.ux-v1[data-site="anime"] .ux-panel { display: grid; }', /not a colour property/],
+      ['html.ux-v1[data-site="anime"] .ux-panel { padding: 40px; color: red; }', /not a colour property/],
+      ['html.ux-v1[data-site="anime"] { --my-own: red; }', /legacy token block/],
+      ['html.ux-v1[data-site="anime"] { color: red; }', /legacy token block/],
+      ['@import url("x.css");', /@import/],
+    ];
+    for (const [css, re] of bad) expect(checkSiteSheet('anime', css, 'legacy.css').join('; '), css).toMatch(re);
+    // The exemption is for that one file of anime: any other sheet name, and every other site, keeps the rules.
+    expect(checkSiteSheet('anime', 'html.ux-v1[data-site="anime"] .quiz-card:hover { color: red; }', 'o2.css').join('; ')).toMatch(/shared class/);
+    expect(checkSiteSheet('hub', 'html.ux-v1[data-site="hub"] .quiz-card:hover { color: red; }', 'legacy.css').join('; ')).toMatch(/shared class|names no hub-legacy/);
   });
 
   it('reports each planted break', () => {

@@ -152,6 +152,13 @@ describe('anime and hub rewrites (Next matcher)', () => {
     ['anime', '/bts-quiz', '/sites/anime/bts-quiz'],
     ['anime', '/death-note-trivia', '/sites/anime/death-note-trivia'],
     ['anime', '/one-piece-openings-quiz', '/sites/anime/blindtest/series-one-piece'],
+    // The blind test is no public route of OtakuQuiz: the internal file of the openings quiz is never reachable by its own path.
+    ['anime', '/blindtest', '/sites/anime/gone'],
+    ['anime', '/blindtest/series-one-piece', '/sites/anime/gone'],
+    ['anime', '/blindtest/group-bts', '/sites/anime/gone'],
+    ['anime', '/blindtest/ranked', '/sites/anime/gone'],
+    ['anime', '/blindtest/a/b', '/sites/anime/gone'],
+    ['anime', '/blindtests', '/sites/anime/blindtests'],
     ['anime', '/which-spy-x-family-character-are-you', '/sites/anime/which-character/spy-x-family'],
     ['anime', '/q/who-is-l', '/sites/anime/q/who-is-l'],
     ['anime', '/name-all/one-piece/straw-hats', '/sites/anime/name-all/one-piece/straw-hats'],
@@ -341,7 +348,7 @@ describe('the route map of anime and hub', () => {
   it('anime routes of BACKLOG 5.1 are known', () => {
     for (const p of [
       '/', '/series', '/one-piece-quiz', '/anime-mix-quiz', '/death-note-trivia', '/q/who-is-l',
-      '/which-naruto-character-are-you', '/naruto-openings-quiz', '/blindtest', '/blindtest/series-naruto',
+      '/which-naruto-character-are-you', '/naruto-openings-quiz',
       '/name-all/naruto/akatsuki', '/daily', '/opening-of-the-day', '/create', '/me', '/u/mina_92',
       '/settings', '/settings/profile', '/login', '/onboarding', '/notifications', '/search',
       '/community', '/community/threads/1', '/about', '/editorial-policy', '/privacy', '/terms',
@@ -350,6 +357,14 @@ describe('the route map of anime and hub', () => {
     ]) {
       expect(isKnownRouteFor('anime', p, flags), p).toBe(true);
     }
+  });
+
+  it('OtakuQuiz has no blind test (owner, 2026-10-26): no /blindtest route, the openings quiz and the Opening of the day stay', () => {
+    for (const p of ['/blindtest', '/blindtest/series-naruto', '/blindtest/group-bts', '/blindtest/ranked', '/blindtest/leaderboard', '/blindtest/classic']) {
+      expect(isKnownRouteFor('anime', p, flags), p).toBe(false);
+    }
+    for (const p of ['/naruto-openings-quiz', '/opening-of-the-day']) expect(isKnownRouteFor('anime', p, flags), p).toBe(true);
+    expect(isKnownRouteWith('/blindtest/ranked', flags)).toBe(true);
   });
 
   it('hub routes of BACKLOG 5.1 are known, quiz routes are not', () => {
