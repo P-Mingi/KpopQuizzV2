@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Segmented } from '@/components/ux-v1/segmented';
-import { Panel } from '@/components/ux-v1/panel';
 import { importImage, listImages, removeImage, saveFocal, uploadImage } from '@/lib/anime/entity-images-api';
 import { characterImageSlug, countImages, countsLine, filterSeries, withImage } from '@/lib/anime/entity-images-rules';
 
@@ -73,7 +72,8 @@ export function ImagesAdmin({ initial, fetcher, api }: ImagesAdminProps): React.
     <div className="anime-adm-images" data-testid="images-admin">
       <p className="anime-adm-counts" aria-live="polite" data-testid="counts">{countsLine(counts)}</p>
       <div className="anime-adm-cols">
-        <Panel title="Series" titleAs="h2" as="section" className="anime-adm-list-box">
+        <section className="ux-panel anime-adm-list-box" aria-labelledby="anime-adm-list-h">
+          <h2 id="anime-adm-list-h" className="ux-panel-h"><span>Series</span></h2>
           <div className="anime-adm-search">
             <label htmlFor="anime-adm-q" className="anime-adm-label">Search series or characters</label>
             <input id="anime-adm-q" className="ux-inp" type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Death Note, Light..." autoComplete="off" />
@@ -102,7 +102,7 @@ export function ImagesAdmin({ initial, fetcher, api }: ImagesAdminProps): React.
               {shown.length === 0 ? <li className="anime-adm-state">No series match.</li> : null}
             </ul>
           ) : null}
-        </Panel>
+        </section>
 
         <div className="anime-adm-detail" aria-live="off">
           {current ? (
