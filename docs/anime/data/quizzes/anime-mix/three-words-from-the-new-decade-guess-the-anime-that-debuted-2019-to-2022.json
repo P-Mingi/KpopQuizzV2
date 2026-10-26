@@ -1,0 +1,272 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Three Words from the New Decade: Guess the Anime That Debuted 2019 to 2022",
+ "slug": "three-words-from-the-new-decade-guess-the-anime-that-debuted-2019-to-2022",
+ "description": "Ten anime whose first TV season aired between 2019 and 2022, each to name from three words. Settings, roles and objects only. No titles, no full names, no spoilers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Era cut: first TV anime started 2019 to 2022 (Kaguya-sama 2019, Demon Slayer 2019, Dr. Stone 2019, Vinland Saga 2019, Jujutsu Kaisen 2020, Tower of God 2020, Tokyo Revengers 2021, Chainsaw Man 2022, Bocchi the Rock 2022, Blue Lock 2022). Words come from the cited arc 0 facts.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Kaguya-sama: Love Is War",
+   "url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Demon Slayer: Kimetsu no Yaiba characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Dr. Stone characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Vinland Saga (manga)",
+   "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: Jujutsu Kaisen 0",
+   "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: Tower of God",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: List of Tokyo Revengers characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: List of Chainsaw Man characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: Bocchi the Rock!",
+   "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+  },
+  {
+   "id": "S10",
+   "title": "Wikipedia: Blue Lock",
+   "url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three words: Tale of the Bamboo Cutter, typewriter, conglomerate family. Which anime do they point to?",
+   "options": [
+    "Kaguya-sama: Love Is War",
+    "Dr. Stone",
+    "Jujutsu Kaisen",
+    "Tower of God"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaguya-sama-love-is-war-names-011",
+    "kaguya-sama-love-is-war-kaguya-shinomiya-typewriter-050",
+    "kaguya-sama-love-is-war-kaguya-shinomiya-name-049"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War"
+  },
+  {
+   "question": "Which anime fits these three words: boar mask, Hashira, sleeping to stay strong?",
+   "options": [
+    "Vinland Saga",
+    "Tower of God",
+    "Blue Lock",
+    "Demon Slayer"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "demon-slayer-inosuke-mask-030",
+    "demon-slayer-giyu-water-hashira-069",
+    "demon-slayer-nezuko-sleep-028"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+  },
+  {
+   "question": "Kingdom of Science, Ishigami Village, lion-skin cloak: these three words belong to which anime?",
+   "options": [
+    "Vinland Saga",
+    "Tokyo Revengers",
+    "Dr. Stone",
+    "Bocchi the Rock!"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dr-stone-ruri-name-066",
+    "dr-stone-kohaku-name-053",
+    "dr-stone-tsukasa-shishio-pelt-051"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+  },
+  {
+   "question": "Three words: England in 1013 AD, Danish king, Flateyjarbók. Which anime do they point to?",
+   "options": [
+    "Demon Slayer",
+    "Vinland Saga",
+    "Jujutsu Kaisen",
+    "Blue Lock"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-setting-england-1013-044",
+    "vinland-saga-historical-sources-045"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "Which anime fits these three words: Curse Technical School, Jump Giga, Christmas Eve 2021 film?",
+   "options": [
+    "Jujutsu Kaisen",
+    "Kaguya-sama: Love Is War",
+    "Tower of God",
+    "Tokyo Revengers"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-prequel-manga-018",
+    "jujutsu-kaisen-prequel-film-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0"
+  },
+  {
+   "question": "10 Great Families, fisherman role, Naver webtoon: these three words belong to which anime?",
+   "options": [
+    "Demon Slayer",
+    "Vinland Saga",
+    "Chainsaw Man",
+    "Tower of God"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-great-families-ten-043",
+    "tower-of-god-team-positions-five-041",
+    "tower-of-god-webtoon-launch-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "Three words: Kanto delinquents, back to 2005, golden era. Which anime do they point to?",
+   "options": [
+    "Jujutsu Kaisen",
+    "Chainsaw Man",
+    "Tokyo Revengers",
+    "Blue Lock"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tokyo-revengers-toman-023",
+    "tokyo-revengers-timeline-022"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+  },
+  {
+   "question": "Which anime fits these three words: Blood Fiend, grandson of a yakuza boss, Fire Punch creator?",
+   "options": [
+    "Jujutsu Kaisen",
+    "Chainsaw Man",
+    "Bocchi the Rock!",
+    "Blue Lock"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "chainsaw-man-power-hunter-060",
+    "chainsaw-man-katana-yakuza-062",
+    "chainsaw-man-fire-punch-056"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+  },
+  {
+   "question": "Zip tie band, eating weeds, Shimokitazawa: these three words belong to which anime?",
+   "options": [
+    "Bocchi the Rock!",
+    "Dr. Stone",
+    "Tower of God",
+    "Chainsaw Man"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bocchi-the-rock-band-name-021",
+    "bocchi-the-rock-ryo-yamada-weeds-047",
+    "bocchi-the-rock-starry-shelter-026"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+  },
+  {
+   "question": "Three words: 16th place, 2018 World Cup, football association. Which anime do they point to?",
+   "options": [
+    "Dr. Stone",
+    "Tokyo Revengers",
+    "Bocchi the Rock!",
+    "Blue Lock"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-japan-16th-world-cup-029"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  }
+ ]
+}
