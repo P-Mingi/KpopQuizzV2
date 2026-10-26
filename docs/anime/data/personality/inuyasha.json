@@ -1,0 +1,437 @@
+{
+  "$comment": "Run O1 lane K1 which: the Which character are you quiz of Inuyasha, written by us. Facts cited: inuyasha: inuyasha-inuyasha-name-053, inuyasha-inuyasha-lonely-childhood-088; kagome-higurashi: inuyasha-kagome-higurashi-name-055, inuyasha-kagome-higurashi-archery-056; miroku: inuyasha-miroku-name-058, inuyasha-miroku-wind-tunnel-059; sango: inuyasha-sango-name-061, inuyasha-sango-boomerang-062; shippo: inuyasha-shippo-name-064, inuyasha-shippo-pranks-089, inuyasha-shippo-surrogate-family-090; sesshomaru: inuyasha-sesshomaru-name-066, inuyasha-sesshomaru-disdain-091; kaede: inuyasha-kaede-name-074, inuyasha-kaede-beads-075, inuyasha-kaede-defended-village-093. Eight questions about the reader, premise level only, spoiler arc 0 scope both; seven profiles, all spoiler level 0 characters.",
+  "site": "anime",
+  "group_slug": "inuyasha",
+  "status": "published",
+  "spoiler": {
+    "arc": 0,
+    "scope": "both"
+  },
+  "questions": [
+    {
+      "ord": 1,
+      "question": "A mossy old well in the garden hums when you walk by. What do you do?",
+      "options": [
+        {
+          "text": "Jump in before anyone can talk me out of it",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "heart": 1
+          }
+        },
+        {
+          "text": "Check the rim, the rope and the lid before I touch anything",
+          "weights": {
+            "energy": 1,
+            "chaos": 0,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "Walk past with a raised eyebrow, since wells are not my business",
+          "weights": {
+            "energy": 0,
+            "care": 5,
+            "heart": 4
+          }
+        },
+        {
+          "text": "Peek in, grin, and drop a pebble to see what happens",
+          "weights": {
+            "chaos": 5,
+            "craft": 4,
+            "energy": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 2,
+      "question": "Someone picks a fight with you in the street. How do you answer?",
+      "options": [
+        {
+          "text": "Loudly, and I do not back down an inch",
+          "weights": {
+            "energy": 5,
+            "heart": 4,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "With a joke so clever they forget why they were angry",
+          "weights": {
+            "chaos": 4,
+            "craft": 4,
+            "care": 4
+          }
+        },
+        {
+          "text": "I step in front of whoever they are really picking on",
+          "weights": {
+            "energy": 4,
+            "care": 0,
+            "heart": 1
+          }
+        },
+        {
+          "text": "I do not answer at all, and let my record speak",
+          "weights": {
+            "energy": 0,
+            "care": 5,
+            "spotlight": 2
+          }
+        }
+      ]
+    },
+    {
+      "ord": 3,
+      "question": "Your travelling group needs someone to take a job. You volunteer to:",
+      "options": [
+        {
+          "text": "Cook for everyone and keep spirits up",
+          "weights": {
+            "energy": 4,
+            "care": 0,
+            "heart": 0
+          }
+        },
+        {
+          "text": "Scout ahead on my own and report back",
+          "weights": {
+            "energy": 1,
+            "chaos": 1,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "Haggle with the villagers for food and a place to sleep",
+          "weights": {
+            "chaos": 4,
+            "craft": 4,
+            "heart": 2
+          }
+        },
+        {
+          "text": "Keep watch through the night so nobody else has to",
+          "weights": {
+            "energy": 0,
+            "care": 0,
+            "spotlight": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 4,
+      "question": "Pick your road trip snack:",
+      "options": [
+        {
+          "text": "Instant ramen, hot, shared around the fire",
+          "weights": {
+            "energy": 4,
+            "care": 1,
+            "craft": 2
+          }
+        },
+        {
+          "text": "Sweets, as many as my pockets hold",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Plain rice and tea, the same as always",
+          "weights": {
+            "chaos": 0,
+            "care": 0,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "Nothing, I travel light and I do not snack",
+          "weights": {
+            "energy": 0,
+            "care": 5,
+            "heart": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 5,
+      "question": "You have a soft spot you would rather nobody noticed. What do you do with it?",
+      "options": [
+        {
+          "text": "Hide it behind a scowl and hope no one pokes it",
+          "weights": {
+            "energy": 3,
+            "heart": 4,
+            "care": 3
+          }
+        },
+        {
+          "text": "Let it show, because feelings are meant to be shared",
+          "weights": {
+            "care": 0,
+            "heart": 0,
+            "energy": 4
+          }
+        },
+        {
+          "text": "Turn it into a joke before anyone can say a word",
+          "weights": {
+            "chaos": 5,
+            "craft": 3,
+            "spotlight": 1
+          }
+        },
+        {
+          "text": "Keep it so far inside that I almost forget it exists",
+          "weights": {
+            "energy": 0,
+            "spotlight": 3,
+            "care": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 6,
+      "question": "A friend is about to make a very bad bet. You:",
+      "options": [
+        {
+          "text": "Tell them straight that it is a terrible idea",
+          "weights": {
+            "heart": 5,
+            "energy": 3,
+            "chaos": 1
+          }
+        },
+        {
+          "text": "Quietly pay for it, then say nothing about it",
+          "weights": {
+            "energy": 1,
+            "care": 0,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Place a smaller, smarter bet beside theirs and see who wins",
+          "weights": {
+            "chaos": 4,
+            "craft": 4,
+            "heart": 1
+          }
+        },
+        {
+          "text": "Make them promise to be careful and then hug them",
+          "weights": {
+            "care": 0,
+            "heart": 0,
+            "energy": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 7,
+      "question": "Which sidekick would you bring along on a long trek?",
+      "options": [
+        {
+          "text": "A fast loyal pet that grows huge when it counts",
+          "weights": {
+            "energy": 2,
+            "chaos": 2,
+            "care": 1
+          }
+        },
+        {
+          "text": "A talkative friend who never stops asking questions",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "care": 4
+          }
+        },
+        {
+          "text": "A trusty weapon I have spent years mastering",
+          "weights": {
+            "energy": 1,
+            "craft": 2,
+            "spotlight": 3
+          }
+        },
+        {
+          "text": "No one. A strong person walks alone",
+          "weights": {
+            "energy": 0,
+            "care": 5,
+            "heart": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 8,
+      "question": "A village elder hands you a charm that can calm your temper. You:",
+      "options": [
+        {
+          "text": "Wear it, grumbling the whole time",
+          "weights": {
+            "energy": 3,
+            "heart": 4,
+            "chaos": 2
+          }
+        },
+        {
+          "text": "Thank them and wear it properly, since I try to keep the peace",
+          "weights": {
+            "care": 0,
+            "heart": 0,
+            "spotlight": 3
+          }
+        },
+        {
+          "text": "Hand it to the person who really needs it, with a wink",
+          "weights": {
+            "chaos": 4,
+            "craft": 3,
+            "care": 4
+          }
+        },
+        {
+          "text": "Hand it back. I have never needed one",
+          "weights": {
+            "energy": 0,
+            "care": 5,
+            "heart": 4
+          }
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "character_slug": "inuyasha",
+      "traits": {
+        "energy": 50,
+        "chaos": 70,
+        "care": 45,
+        "craft": 45,
+        "heart": 60,
+        "spotlight": 50
+      },
+      "profile": [
+        "You are proud and stubborn, and you rarely back down once you have decided.",
+        "Being on the outside of the crowd as a kid left its mark on you.",
+        "Under all that pride, you are far softer than you let anyone see."
+      ],
+      "ord": 1
+    },
+    {
+      "character_slug": "kagome-higurashi",
+      "traits": {
+        "energy": 60,
+        "chaos": 55,
+        "care": 25,
+        "craft": 55,
+        "heart": 20,
+        "spotlight": 35
+      },
+      "profile": [
+        "You are the one who turns around when someone is in trouble.",
+        "You grow into your strengths, and you keep getting better at the hard things with practice.",
+        "You are kind first, and brave when it counts."
+      ],
+      "ord": 2
+    },
+    {
+      "character_slug": "miroku",
+      "traits": {
+        "energy": 60,
+        "chaos": 90,
+        "care": 45,
+        "craft": 60,
+        "heart": 55,
+        "spotlight": 60
+      },
+      "profile": [
+        "You are clever, a bit of a flirt, and you know it.",
+        "You have a habit of getting more out of wealthy clients than you should, and you do it with a straight face.",
+        "You carry a burden that was handed down to you, and you keep going."
+      ],
+      "ord": 3
+    },
+    {
+      "character_slug": "sango",
+      "traits": {
+        "energy": 50,
+        "chaos": 35,
+        "care": 35,
+        "craft": 65,
+        "heart": 70,
+        "spotlight": 55
+      },
+      "profile": [
+        "You are seriously skilled at your trade, one of the best around.",
+        "Your job is a dangerous one, and you do it well.",
+        "You have a signature tool, a big one, and you handle it with real strength."
+      ],
+      "ord": 4
+    },
+    {
+      "character_slug": "shippo",
+      "traits": {
+        "energy": 70,
+        "chaos": 75,
+        "care": 55,
+        "craft": 65,
+        "heart": 55,
+        "spotlight": 30
+      },
+      "profile": [
+        "You are a born prankster, and you have never met a cheeky remark you could keep to yourself.",
+        "You say the blunt thing out loud, and the comic payback usually finds you.",
+        "You lost your family early, and the friends around you now feel like the family you chose."
+      ],
+      "ord": 5
+    },
+    {
+      "character_slug": "sesshomaru",
+      "traits": {
+        "energy": 35,
+        "chaos": 30,
+        "care": 70,
+        "craft": 65,
+        "heart": 65,
+        "spotlight": 40
+      },
+      "profile": [
+        "You are the one people are wary of, and your reputation arrives before you do.",
+        "You are drawn to power and strength, and you do not hide it.",
+        "You are powerful, and everyone around you knows it."
+      ],
+      "ord": 6
+    },
+    {
+      "character_slug": "kaede",
+      "traits": {
+        "energy": 55,
+        "chaos": 45,
+        "care": 20,
+        "craft": 50,
+        "heart": 35,
+        "spotlight": 90
+      },
+      "profile": [
+        "You stand guard over your corner of the world.",
+        "You keep a firm hand on anyone who needs it, with a charm if that is what it takes.",
+        "You are unusually strong in your own right, and you do not need to announce it."
+      ],
+      "ord": 7
+    }
+  ]
+}

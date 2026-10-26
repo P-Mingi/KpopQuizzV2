@@ -2794,5 +2794,179 @@
     "status": "verified",
     "verified_at": "2026-10-25T21:30:00.000Z",
     "excerpt": "It premiered on October 3, 2020"
+  },
+  {
+    "id": "inuyasha-inuyasha-lonely-childhood-088",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "inuyasha"
+    },
+    "field": "background",
+    "value": "Lonely childhood",
+    "text": "Inuyasha's mixed blood made his childhood a hard and lonely one.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "had a difficult and lonely childhood"
+  },
+  {
+    "id": "inuyasha-shippo-pranks-089",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "shippo"
+    },
+    "field": "style",
+    "value": "Pranks and blunt remarks",
+    "text": "Shippo is the group's prankster, and his cheeky remarks tend to earn him comic payback.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "suffers comedic retaliation for his pranks and blunt remarks"
+  },
+  {
+    "id": "inuyasha-shippo-surrogate-family-090",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "shippo"
+    },
+    "field": "organization",
+    "value": "Surrogate family",
+    "text": "Shippo thinks of the travelling group as the family he lost.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "considers the group his surrogate family"
+  },
+  {
+    "id": "inuyasha-sesshomaru-disdain-091",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "sesshomaru"
+    },
+    "field": "style",
+    "value": "Disdain for humans and half-demons; seeks power",
+    "text": "Sesshomaru starts out looking down on humans and half-demons and chasing power.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "showed disdain towards humans and half-demons"
+  },
+  {
+    "id": "inuyasha-kirara-size-change-092",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "kirara"
+    },
+    "field": "ability",
+    "value": "Grows large enough to carry passengers",
+    "text": "Kirara can swell from kitten size to a mount big enough to fly several riders.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "become large enough to carry several passengers across the air"
+  },
+  {
+    "id": "inuyasha-kaede-defended-village-093",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "inuyasha",
+      "ref": "kaede"
+    },
+    "field": "role",
+    "value": "Defended the village against demons",
+    "text": "Kaede is the village priestess who stands guard against demons.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+        "ref": "1375701088",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "defended the village against demons"
   }
 ]
