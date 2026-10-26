@@ -92,26 +92,34 @@ const V12_BLINDTEST_PATHS: ReadonlySet<string> = new Set([
 ]);
 /** Name them all and Which member are you, pretty URL or internal route: a group page
  *  (Groups in the top bar, Quizzes in the tab bar). */
-const isV12GroupPage = (p: string): boolean =>
-  /^\/[^/]+-name-all-members$/.test(p) || /^\/which-[^/]+-member-are-you$/.test(p)
+const isV12GroupPage = (p: string, member: string): boolean =>
+  /^\/[^/]+-name-all-members$/.test(p) || whichPage(member).test(p)
   || p.startsWith('/name-all/') || p.startsWith('/personality/');
+// Run O1 (PERS-2): Which member are you is "Which character are you" on another site (the site's `vocabulary.member`: /which-*-character-are-you
+// on anime). On kpop the word is "member" and the pattern is today's.
+const WHICH_PAGE = new Map<string, RegExp>();
+function whichPage(member: string): RegExp {
+  let re = WHICH_PAGE.get(member);
+  if (!re) { re = new RegExp(`^/which-[^/]+-${member.replace(/[^a-z]/g, '')}-are-you$`); WHICH_PAGE.set(member, re); }
+  return re;
+}
 
-function v12Section(path: string): 'blindtest' | 'groups' | null {
+function v12Section(path: string, member: string): 'blindtest' | 'groups' | null {
   const p = path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
   if (V12_BLINDTEST_PATHS.has(p)) return 'blindtest';
   // G4 R2: a live room (host setup, room, join) is Blindtest (prototype `livegame`).
   if (under(p, '/live') || under(p, '/join')) return 'blindtest';
-  if (isV12GroupPage(p)) return 'groups';
+  if (isV12GroupPage(p, member)) return 'groups';
   return null;
 }
 
 /** Which top-nav item is active for a path (prototype NAVMAP), or null. `v12` is the
  *  flag (a parameter only so the tests can set it). */
-export function activeNav(pathname: string, v12: boolean = isUxV12()): NavKey | null {
+export function activeNav(pathname: string, v12: boolean = isUxV12(), member: string = SITE.vocabulary.member): NavKey | null {
   const p = base(pathname);
   if (p === '/') return 'home';
   if (v12) {
-    const s = v12Section(p);
+    const s = v12Section(p, member);
     if (s) return s;
   }
   if (under(p, '/quizzes') || under(p, '/q')) return 'quizzes';
@@ -123,11 +131,11 @@ export function activeNav(pathname: string, v12: boolean = isUxV12()): NavKey | 
 }
 
 /** Which bottom tab is active for a path (prototype TABMAP), or null. */
-export function activeTab(pathname: string, v12: boolean = isUxV12()): TabKey | null {
+export function activeTab(pathname: string, v12: boolean = isUxV12(), member: string = SITE.vocabulary.member): TabKey | null {
   const p = base(pathname);
   if (p === '/') return 'home';
   if (v12) {
-    const s = v12Section(p);
+    const s = v12Section(p, member);
     if (s) return s === 'groups' ? 'quizzes' : 'blindtest';
   }
   if (under(p, '/quizzes') || under(p, '/q') || under(p, '/groups') || under(p, '/group') || isHub(p)) return 'quizzes';

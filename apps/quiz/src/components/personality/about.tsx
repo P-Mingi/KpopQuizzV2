@@ -26,7 +26,22 @@ export interface WmaAboutProps {
   wmaSlugs: readonly string[];
   /** Display names by slug, for the other pages; a slug without one is left out. */
   names: ReadonlyMap<string, string>;
+  /**
+   * Run O1 (PERS-2): the words of the site for the prose and for the list of other pages. Absent: today's kpop words (member, bias,
+   * group). The anime page passes character, oshi and series.
+   */
+  words?: WmaAboutWords;
+  /** The public path of another group's page. Absent: /which-<slug>-member-are-you (whichMemberPath). */
+  pathFor?: (slug: string) => string;
 }
+
+export interface WmaAboutWords {
+  member: string;
+  bias: string;
+  topic?: string;
+}
+
+const KPOP_WORDS: Required<WmaAboutWords> = { member: 'member', bias: 'bias', topic: 'group' };
 
 /** The most common results, biggest first, at most `max`, each rounded to a whole percent above zero. */
 export function topResults(d: DistributionView | null, max = 3): Array<{ label: string; pct: number }> {
@@ -38,7 +53,8 @@ export function topResults(d: DistributionView | null, max = 3): Array<{ label: 
     .slice(0, max);
 }
 
-export function WmaAbout({ group, view, wmaSlugs, names }: WmaAboutProps): React.ReactElement {
+export function WmaAbout({ group, view, wmaSlugs, names, words, pathFor = whichMemberPath }: WmaAboutProps): React.ReactElement {
+  const w = { ...KPOP_WORDS, ...words };
   const results = view.results;
   const top = topResults(view.distribution);
   const links: Array<{ href: string; label: string }> = [];
@@ -51,8 +67,7 @@ export function WmaAbout({ group, view, wmaSlugs, names }: WmaAboutProps): React
         <SectionHeader id="pers-res-h" title={`The ${results.length} possible results`} icon="users" />
         <div className="g3-prose">
           <p>
-            Each answer moves you along a few personality axes, and your result is the {group.name} member whose profile is closest.
-            There are no right answers and no timer: answer for yourself, not for your bias.
+            Each answer moves you along a few personality axes, and your result is the {group.name}{` ${w.member} whose profile is closest. There are no right answers and no timer: answer for yourself, not for your ${w.bias}.`}
           </p>
           {top.length > 0 && view.distribution ? (
             <p data-testid="pers-top">
@@ -86,9 +101,9 @@ export function WmaAbout({ group, view, wmaSlugs, names }: WmaAboutProps): React
 
       {others.length > 0 ? (
         <section className="ux-sec" aria-labelledby="pers-other-h">
-          <SectionHeader id="pers-other-h" title="Which member are you, for another group" icon="users" />
+          <SectionHeader id="pers-other-h" title={`Which ${w.member} are you, for another ${w.topic}`} icon="users" />
           <ul className="g3-links">
-            {others.map((s) => <li key={s}><Link href={whichMemberPath(s)} className="ux-lnk">Which {names.get(s)} member are you?</Link></li>)}
+            {others.map((s) => <li key={s}><Link href={pathFor(s)} className="ux-lnk">Which {names.get(s)}{` ${w.member} are you?`}</Link></li>)}
           </ul>
         </section>
       ) : null}

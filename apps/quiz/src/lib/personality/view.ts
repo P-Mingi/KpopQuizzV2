@@ -117,3 +117,17 @@ export function axisOptionIcon(weights: Weights): UxIconName {
 export function whichMemberPath(groupSlug: string): string {
   return `/which-${groupSlug}-member-are-you`;
 }
+
+/**
+ * Run O1 (PERS-2): the words of the pick offer under a result ("Make X your bias tag?") and the call to action of the story image, from
+ * the site (`vocabulary.favourites.pickLabel`, `domain`). Pure, so the kpop strings are pinned by a test: Bias gives today's words.
+ */
+export function pickOfferWords(pickLabel: string): { word: string; button: string; tag: string; doneToast: (name: string) => string } {
+  const word = pickLabel.toLowerCase();
+  const tag = `${word} tag`;
+  return { word, tag, button: word === 'bias' ? 'Set bias' : `Set as ${word}`, doneToast: (name) => `${tag.charAt(0).toUpperCase()}${tag.slice(1)} set to ${name}` };
+}
+
+export function playCta(domain: string): string {
+  return `Play at ${domain}`;
+}

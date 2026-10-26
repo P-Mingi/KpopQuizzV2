@@ -11,22 +11,32 @@ import type { SeriesWmaData } from '@/lib/personality/data';
 import type { Axes } from '@/lib/personality/engine';
 
 const data = vi.hoisted(() => ({ series: null as unknown }));
+const groups = vi.hoisted(() => ({ rows: [{ slug: 'death-note', name: 'Death Note' }, { slug: 'attack-on-titan', name: 'Attack on Titan' }, { slug: 'naruto', name: 'Naruto' }] as Array<{ slug: string; name: string }> }));
 vi.mock('@/lib/personality/data', () => ({
   getSeriesWmaData: async () => data.series,
   getWmaData: async () => data.series,
   getMemberCounts: async () => null,
   getBridgeCounts: async () => null,
   getBridgeGroups: async () => [],
-  getWmaGroupSlugs: async () => ['death-note'],
+  getWmaGroupSlugs: async () => ['attack-on-titan', 'death-note'],
 }));
-vi.mock('@/lib/ux-v1/p6/hub-data', () => ({ getPlayableGroups: async () => [], settle: async () => ({ value: null }) }));
+vi.mock('@/lib/ux-v1/p6/hub-data', () => ({
+  getPlayableGroups: async () => [],
+  settle: async <T>(read: () => Promise<T>, fallback: T) => {
+    try { return { value: await read(), ok: true }; } catch { return { value: fallback, ok: false }; }
+  },
+}));
+vi.mock('@/lib/db/queries/groups', () => ({ getAllGroups: async () => groups.rows }));
 vi.mock('@/lib/ux-v12', () => ({ isUxV12: () => true }));
 vi.mock('next/navigation', () => ({ notFound: () => { throw new Error('404'); }, redirect: () => { throw new Error('redirect'); }, usePathname: () => '/which-death-note-character-are-you' }));
 vi.mock('@/components/ux-v1/use-ux-me', () => ({ useUxMe: () => null, refreshUxMe: () => {} }));
 vi.mock('@/components/ux-v1/sign-in-sheet', () => ({ useSignIn: () => () => {} }));
 vi.mock('@/components/ux-v1/toast', () => ({ useAnnounce: () => () => {}, useUxToast: () => () => {} }));
 
-afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); data.series = null; });
+afterEach(() => {
+  vi.unstubAllEnvs(); vi.resetModules(); data.series = null;
+  groups.rows = [{ slug: 'death-note', name: 'Death Note' }, { slug: 'attack-on-titan', name: 'Attack on Titan' }, { slug: 'naruto', name: 'Naruto' }];
+});
 
 const AX = (energy: number): Axes => ({ energy, chaos: 50, care: 50, craft: 50, heart: 50, spotlight: 50 });
 const question = (n: number): { text: string; options: Array<{ text: string; weights: Record<string, number> }> } => ({
@@ -110,6 +120,30 @@ describe('a series with a quiz', () => {
     expect(meta.openGraph).toMatchObject({ url: '/which-death-note-character-are-you', type: 'website' });
     expect(String((meta.openGraph as { title?: string }).title)).toContain('| OtakuQuiz');
     expect(String(meta.description)).toContain('Death Note character');
+  });
+});
+
+describe('the other series', () => {
+  it('lists the series that have a quiz, with character and series words and their own pretty URLs, never the series itself or one without a set', async () => {
+    data.series = SERIES;
+    const page = await onAnime();
+    const html = renderToString(await page.default({ params: Promise.resolve({ group: 'death-note' }) }));
+    expect(text(html)).toContain('Which character are you, for another series');
+    expect(text(html)).toContain('Which Attack on Titan character are you?');
+    expect(hrefsOf(html)).toContain('/which-attack-on-titan-character-are-you');
+    expect(hrefsOf(html)).not.toContain('/which-death-note-character-are-you');
+    expect(text(html)).not.toContain('Which Naruto');
+    expect(text(html)).toContain('your result is the Death Note character whose profile is closest');
+    expect(text(html)).toContain('answer for yourself, not for your oshi');
+    expect(text(html)).not.toMatch(/\bmember|\bbias\b|another group/i);
+  });
+
+  it('shows no block when no other series has a quiz', async () => {
+    data.series = SERIES;
+    groups.rows = [{ slug: 'death-note', name: 'Death Note' }];
+    const page = await onAnime();
+    const html = renderToString(await page.default({ params: Promise.resolve({ group: 'death-note' }) }));
+    expect(text(html)).not.toContain('for another series');
   });
 });
 

@@ -1,0 +1,1016 @@
+{
+ "exports": [
+  "default",
+  "generateMetadata",
+  "generateStaticParams",
+  "revalidate"
+ ],
+ "metadata": {
+  "title": "Which BTS member are you? Personality quiz",
+  "description": "Eight questions about you, no right answers, no timer. Find out which BTS member matches how you move through life, then see how other fans came out.",
+  "alternates": {
+   "canonical": "/which-bts-member-are-you"
+  },
+  "openGraph": {
+   "title": "Which BTS member are you? Personality quiz | KpopQuiz",
+   "description": "Eight questions about you, no right answers, no timer. Find out which BTS member matches how you move through life, then see how other fans came out.",
+   "url": "/which-bts-member-are-you",
+   "type": "website",
+   "images": [
+    {
+     "url": "/api/og/group/bts",
+     "width": 1200,
+     "height": 630,
+     "alt": "Which BTS member are you? Personality quiz"
+    }
+   ]
+  }
+ },
+ "tree": [
+  "$",
+  "div",
+  null,
+  {
+   "id": "$undefined",
+   "className": "ux-page ux-wrap ux-pg ux-pers",
+   "data-shell": "$undefined",
+   "children": [
+    [
+     "$",
+     "script",
+     null,
+     {
+      "type": "application/ld+json",
+      "dangerouslySetInnerHTML": {
+       "__html": "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Groups\",\"item\":\"https://kpopquiz.org/groups\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"BTS\",\"item\":\"https://kpopquiz.org/bts-quiz\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"Which member are you\"}]}"
+      }
+     }
+    ],
+    [
+     "$",
+     "nav",
+     null,
+     {
+      "className": "ux-crumb",
+      "aria-label": "Breadcrumb",
+      "children": [
+       [
+        "$L",
+        "Link",
+        {
+         "href": "/groups",
+         "children": "Groups"
+        }
+       ],
+       [
+        "$",
+        "span",
+        null,
+        {
+         "className": "ux-pers-sep",
+         "aria-hidden": "true",
+         "children": "/"
+        }
+       ],
+       [
+        "$L",
+        "Link",
+        {
+         "href": "/bts-quiz",
+         "children": "BTS"
+        }
+       ],
+       [
+        "$",
+        "span",
+        null,
+        {
+         "className": "ux-pers-sep",
+         "aria-hidden": "true",
+         "children": "/"
+        }
+       ],
+       [
+        "$",
+        "span",
+        null,
+        {
+         "aria-current": "page",
+         "children": "Which member are you"
+        }
+       ]
+      ]
+     }
+    ],
+    [
+     "$",
+     "div",
+     null,
+     {
+      "className": "ux-pers-body",
+      "children": [
+       "$L",
+       "PersonalityQuiz",
+       {
+        "view": {
+         "quiz": "wma",
+         "groupSlug": "bts",
+         "kicker": "Which member are you",
+         "kickerIcon": "users",
+         "title": {
+          "before": "Which ",
+          "em": "BTS",
+          "after": " member are you?"
+         },
+         "lead": "Eight questions about you.",
+         "meta": [
+          "2 questions",
+          "About 2 minutes"
+         ],
+         "cta": "Start",
+         "eyebrow": "You are",
+         "who": "ARMY",
+         "questions": [
+          {
+           "text": "Question 1?",
+           "options": [
+            {
+             "text": "Quiet",
+             "icon": "users"
+            },
+            {
+             "text": "Loud",
+             "icon": "music"
+            }
+           ]
+          },
+          {
+           "text": "Question 2?",
+           "options": [
+            {
+             "text": "Quiet",
+             "icon": "users"
+            },
+            {
+             "text": "Loud",
+             "icon": "music"
+            }
+           ]
+          }
+         ],
+         "engine": {
+          "kind": "axes",
+          "questions": [],
+          "profiles": [
+           {
+            "id": "rm",
+            "name": "RM",
+            "axes": {
+             "energy": 0,
+             "chaos": 50,
+             "care": 50,
+             "craft": 50,
+             "heart": 50,
+             "spotlight": 50
+            }
+           },
+           {
+            "id": "jin",
+            "name": "Jin",
+            "axes": {
+             "energy": 40,
+             "chaos": 50,
+             "care": 50,
+             "craft": 50,
+             "heart": 50,
+             "spotlight": 50
+            }
+           },
+           {
+            "id": "suga",
+            "name": "Suga",
+            "axes": {
+             "energy": 80,
+             "chaos": 50,
+             "care": 50,
+             "craft": 50,
+             "heart": 50,
+             "spotlight": 50
+            }
+           }
+          ]
+         },
+         "results": [
+          {
+           "id": "rm",
+           "name": "RM",
+           "role": "Leader",
+           "description": "About RM.",
+           "traits": [
+            "Calm",
+            "Loyal"
+           ],
+           "photo": null
+          },
+          {
+           "id": "jin",
+           "name": "Jin",
+           "role": "Leader",
+           "description": "About Jin.",
+           "traits": [
+            "Calm",
+            "Loyal"
+           ],
+           "photo": null
+          },
+          {
+           "id": "suga",
+           "name": "Suga",
+           "role": "Leader",
+           "description": "About Suga.",
+           "traits": [
+            "Calm",
+            "Loyal"
+           ],
+           "photo": null
+          }
+         ],
+         "distribution": {
+          "total": 140,
+          "rows": [
+           {
+            "id": "rm",
+            "label": "RM",
+            "pct": 54.29
+           },
+           {
+            "id": "jin",
+            "label": "Jin",
+            "pct": 30
+           },
+           {
+            "id": "suga",
+            "label": "Suga",
+            "pct": 15.71
+           }
+          ]
+         },
+         "shareUrl": "https://kpopquiz.org/which-bts-member-are-you",
+         "shareKicker": "Which BTS member are you",
+         "biasOffer": true
+        },
+        "also": [
+         "$",
+         "section",
+         null,
+         {
+          "className": "ux-sec ux-pers-also",
+          "aria-labelledby": "pers-also-h",
+          "children": [
+           [
+            "$",
+            "div",
+            null,
+            {
+             "className": "ux-sec-h",
+             "children": [
+              [
+               "$",
+               "h2",
+               null,
+               {
+                "id": "pers-also-h",
+                "children": [
+                 [
+                  "$",
+                  "svg",
+                  null,
+                  {
+                   "className": "ux-ico ux-si",
+                   "viewBox": "0 0 24 24",
+                   "style": "$undefined",
+                   "aria-hidden": true,
+                   "role": "$undefined",
+                   "aria-label": "$undefined",
+                   "focusable": "false",
+                   "dangerouslySetInnerHTML": {
+                    "__html": "<circle cx=\"9\" cy=\"8.5\" r=\"3\"/><path d=\"M3.5 19.5c.4-3 2.7-5 5.5-5s5.1 2 5.5 5\"/><circle cx=\"17\" cy=\"9.5\" r=\"2.4\"/><path d=\"M16 14.6c2.3.2 4 1.9 4.4 4.9\"/>"
+                   }
+                  }
+                 ],
+                 "Also on BTS"
+                ]
+               }
+              ],
+              null,
+              null,
+              null
+             ]
+            }
+           ],
+           [
+            "$",
+            "div",
+            null,
+            {
+             "className": "ux-gtiles ux-gtiles-2",
+             "children": [
+              [
+               "$L",
+               "Link",
+               {
+                "href": "/blindtest/group-bts",
+                "className": "ux-gtile",
+                "prefetch": false,
+                "children": [
+                 [
+                  "$",
+                  "span",
+                  null,
+                  {
+                   "className": "ux-gtile-ic",
+                   "children": [
+                    "$",
+                    "svg",
+                    null,
+                    {
+                     "className": "ux-ico",
+                     "viewBox": "0 0 24 24",
+                     "style": "$undefined",
+                     "aria-hidden": true,
+                     "role": "$undefined",
+                     "aria-label": "$undefined",
+                     "focusable": "false",
+                     "dangerouslySetInnerHTML": {
+                      "__html": "<path d=\"M9 18V6l11-2v12\"/><circle cx=\"6.5\" cy=\"18\" r=\"2.5\"/><circle cx=\"17.5\" cy=\"16\" r=\"2.5\"/>"
+                     }
+                    }
+                   ]
+                  }
+                 ],
+                 [
+                  "$",
+                  "h3",
+                  null,
+                  {
+                   "className": "ux-gtile-t",
+                   "children": [
+                    "BTS blindtest",
+                    null
+                   ]
+                  }
+                 ],
+                 [
+                  "$",
+                  "p",
+                  null,
+                  {
+                   "className": "ux-gtile-d",
+                   "children": [
+                    40,
+                    " songs, ten-second clips."
+                   ]
+                  }
+                 ],
+                 null
+                ]
+               }
+              ],
+              [
+               "$L",
+               "Link",
+               {
+                "href": "/bts-quiz",
+                "className": "ux-gtile",
+                "prefetch": false,
+                "children": [
+                 [
+                  "$",
+                  "span",
+                  null,
+                  {
+                   "className": "ux-gtile-ic",
+                   "children": [
+                    "$",
+                    "svg",
+                    null,
+                    {
+                     "className": "ux-ico",
+                     "viewBox": "0 0 24 24",
+                     "style": "$undefined",
+                     "aria-hidden": true,
+                     "role": "$undefined",
+                     "aria-label": "$undefined",
+                     "focusable": "false",
+                     "dangerouslySetInnerHTML": {
+                      "__html": "<path d=\"m12 4 8.5 4.2L12 12.4 3.5 8.2 12 4Z\"/><path d=\"m3.5 12.2 8.5 4.2 8.5-4.2M3.5 16.2l8.5 4.2 8.5-4.2\"/>"
+                     }
+                    }
+                   ]
+                  }
+                 ],
+                 [
+                  "$",
+                  "h3",
+                  null,
+                  {
+                   "className": "ux-gtile-t",
+                   "children": [
+                    "BTS quizzes",
+                    null
+                   ]
+                  }
+                 ],
+                 [
+                  "$",
+                  "p",
+                  null,
+                  {
+                   "className": "ux-gtile-d",
+                   "children": [
+                    "Every ",
+                    "BTS",
+                    " quiz, made by fans."
+                   ]
+                  }
+                 ],
+                 null
+                ]
+               }
+              ]
+             ]
+            }
+           ]
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    [
+     [
+      "$",
+      "section",
+      null,
+      {
+       "className": "ux-sec",
+       "aria-labelledby": "pers-res-h",
+       "children": [
+        [
+         "$",
+         "div",
+         null,
+         {
+          "className": "ux-sec-h",
+          "children": [
+           [
+            "$",
+            "h2",
+            null,
+            {
+             "id": "pers-res-h",
+             "children": [
+              [
+               "$",
+               "svg",
+               null,
+               {
+                "className": "ux-ico ux-si",
+                "viewBox": "0 0 24 24",
+                "style": "$undefined",
+                "aria-hidden": true,
+                "role": "$undefined",
+                "aria-label": "$undefined",
+                "focusable": "false",
+                "dangerouslySetInnerHTML": {
+                 "__html": "<circle cx=\"9\" cy=\"8.5\" r=\"3\"/><path d=\"M3.5 19.5c.4-3 2.7-5 5.5-5s5.1 2 5.5 5\"/><circle cx=\"17\" cy=\"9.5\" r=\"2.4\"/><path d=\"M16 14.6c2.3.2 4 1.9 4.4 4.9\"/>"
+                }
+               }
+              ],
+              "The 3 possible results"
+             ]
+            }
+           ],
+           null,
+           null,
+           null
+          ]
+         }
+        ],
+        [
+         "$",
+         "div",
+         null,
+         {
+          "className": "g3-prose",
+          "children": [
+           [
+            "$",
+            "p",
+            null,
+            {
+             "children": [
+              "Each answer moves you along a few personality axes, and your result is the ",
+              "BTS",
+              " member whose profile is closest. There are no right answers and no timer: answer for yourself, not for your bias."
+             ]
+            }
+           ],
+           [
+            "$",
+            "p",
+            null,
+            {
+             "data-testid": "pers-top",
+             "children": [
+              "Across ",
+              "140",
+              " results so far, the most common ",
+              "are",
+              " ",
+              "RM (54%), Jin (30%), Suga (16%)",
+              "."
+             ]
+            }
+           ]
+          ]
+         }
+        ],
+        [
+         "$",
+         "details",
+         null,
+         {
+          "className": "g3-acc",
+          "children": [
+           [
+            "$",
+            "summary",
+            null,
+            {
+             "children": [
+              "See every result",
+              [
+               "$",
+               "svg",
+               null,
+               {
+                "className": "ux-ico",
+                "viewBox": "0 0 24 24",
+                "style": "$undefined",
+                "aria-hidden": true,
+                "role": "$undefined",
+                "aria-label": "$undefined",
+                "focusable": "false",
+                "dangerouslySetInnerHTML": {
+                 "__html": "<path d=\"m6 9 6 6 6-6\"/>"
+                }
+               }
+              ]
+             ]
+            }
+           ],
+           [
+            "$",
+            "ul",
+            null,
+            {
+             "className": "g3-lineup g3-results",
+             "children": [
+              [
+               "$",
+               "li",
+               "rm",
+               {
+                "children": [
+                 [
+                  "$",
+                  "b",
+                  null,
+                  {
+                   "children": "RM"
+                  }
+                 ],
+                 " ",
+                 [
+                  "$",
+                  "span",
+                  null,
+                  {
+                   "className": "ux-muted",
+                   "children": [
+                    "· ",
+                    "Leader"
+                   ]
+                  }
+                 ],
+                 [
+                  "$",
+                  "p",
+                  null,
+                  {
+                   "children": "About RM."
+                  }
+                 ],
+                 [
+                  "$",
+                  "p",
+                  null,
+                  {
+                   "className": "ux-muted",
+                   "children": "Calm, Loyal"
+                  }
+                 ]
+                ]
+               }
+              ],
+              [
+               "$",
+               "li",
+               "jin",
+               {
+                "children": [
+                 [
+                  "$",
+                  "b",
+                  null,
+                  {
+                   "children": "Jin"
+                  }
+                 ],
+                 " ",
+                 [
+                  "$",
+                  "span",
+                  null,
+                  {
+                   "className": "ux-muted",
+                   "children": [
+                    "· ",
+                    "Leader"
+                   ]
+                  }
+                 ],
+                 [
+                  "$",
+                  "p",
+                  null,
+                  {
+                   "children": "About Jin."
+                  }
+                 ],
+                 [
+                  "$",
+                  "p",
+                  null,
+                  {
+                   "className": "ux-muted",
+                   "children": "Calm, Loyal"
+                  }
+                 ]
+                ]
+               }
+              ],
+              [
+               "$",
+               "li",
+               "suga",
+               {
+                "children": [
+                 [
+                  "$",
+                  "b",
+                  null,
+                  {
+                   "children": "Suga"
+                  }
+                 ],
+                 " ",
+                 [
+                  "$",
+                  "span",
+                  null,
+                  {
+                   "className": "ux-muted",
+                   "children": [
+                    "· ",
+                    "Leader"
+                   ]
+                  }
+                 ],
+                 [
+                  "$",
+                  "p",
+                  null,
+                  {
+                   "children": "About Suga."
+                  }
+                 ],
+                 [
+                  "$",
+                  "p",
+                  null,
+                  {
+                   "className": "ux-muted",
+                   "children": "Calm, Loyal"
+                  }
+                 ]
+                ]
+               }
+              ]
+             ]
+            }
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "$",
+      "section",
+      null,
+      {
+       "className": "ux-sec",
+       "aria-labelledby": "pers-more-h",
+       "children": [
+        [
+         "$",
+         "div",
+         null,
+         {
+          "className": "ux-sec-h",
+          "children": [
+           [
+            "$",
+            "h2",
+            null,
+            {
+             "id": "pers-more-h",
+             "children": [
+              [
+               "$",
+               "svg",
+               null,
+               {
+                "className": "ux-ico ux-si",
+                "viewBox": "0 0 24 24",
+                "style": "$undefined",
+                "aria-hidden": true,
+                "role": "$undefined",
+                "aria-label": "$undefined",
+                "focusable": "false",
+                "dangerouslySetInnerHTML": {
+                 "__html": "<path d=\"m12 4 8.5 4.2L12 12.4 3.5 8.2 12 4Z\"/><path d=\"m3.5 12.2 8.5 4.2 8.5-4.2M3.5 16.2l8.5 4.2 8.5-4.2\"/>"
+                }
+               }
+              ],
+              "More BTS games"
+             ]
+            }
+           ],
+           null,
+           null,
+           null
+          ]
+         }
+        ],
+        [
+         "$",
+         "ul",
+         null,
+         {
+          "className": "g3-links",
+          "children": [
+           [
+            "$",
+            "li",
+            "/bts-name-all-members",
+            {
+             "children": [
+              "$L",
+              "Link",
+              {
+               "href": "/bts-name-all-members",
+               "className": "ux-lnk",
+               "children": "Name all BTS members"
+              }
+             ]
+            }
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "$",
+      "section",
+      null,
+      {
+       "className": "ux-sec",
+       "aria-labelledby": "pers-other-h",
+       "children": [
+        [
+         "$",
+         "div",
+         null,
+         {
+          "className": "ux-sec-h",
+          "children": [
+           [
+            "$",
+            "h2",
+            null,
+            {
+             "id": "pers-other-h",
+             "children": [
+              [
+               "$",
+               "svg",
+               null,
+               {
+                "className": "ux-ico ux-si",
+                "viewBox": "0 0 24 24",
+                "style": "$undefined",
+                "aria-hidden": true,
+                "role": "$undefined",
+                "aria-label": "$undefined",
+                "focusable": "false",
+                "dangerouslySetInnerHTML": {
+                 "__html": "<circle cx=\"9\" cy=\"8.5\" r=\"3\"/><path d=\"M3.5 19.5c.4-3 2.7-5 5.5-5s5.1 2 5.5 5\"/><circle cx=\"17\" cy=\"9.5\" r=\"2.4\"/><path d=\"M16 14.6c2.3.2 4 1.9 4.4 4.9\"/>"
+                }
+               }
+              ],
+              "Which member are you, for another group"
+             ]
+            }
+           ],
+           null,
+           null,
+           null
+          ]
+         }
+        ],
+        [
+         "$",
+         "ul",
+         null,
+         {
+          "className": "g3-links",
+          "children": [
+           [
+            "$",
+            "li",
+            "stray-kids",
+            {
+             "children": [
+              "$L",
+              "Link",
+              {
+               "href": "/which-stray-kids-member-are-you",
+               "className": "ux-lnk",
+               "children": [
+                "Which ",
+                "Stray Kids",
+                " member are you?"
+               ]
+              }
+             ]
+            }
+           ],
+           [
+            "$",
+            "li",
+            "twice",
+            {
+             "children": [
+              "$L",
+              "Link",
+              {
+               "href": "/which-twice-member-are-you",
+               "className": "ux-lnk",
+               "children": [
+                "Which ",
+                "TWICE",
+                " member are you?"
+               ]
+              }
+             ]
+            }
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ]
+    ]
+   ]
+  }
+ ],
+ "graph": {
+  "page": [
+   "app/(site)/personality/[group]/page.tsx",
+   "components/personality/about.tsx",
+   "components/personality/quiz.tsx",
+   "components/ux-v1/button.tsx",
+   "components/ux-v1/cover-img.tsx",
+   "components/ux-v1/icon.tsx",
+   "components/ux-v1/page.tsx",
+   "components/ux-v1/result-card.tsx",
+   "components/ux-v1/section-header.tsx",
+   "components/ux-v1/share-sheet.tsx",
+   "components/ux-v1/sheet.tsx",
+   "components/ux-v1/sign-in-sheet.tsx",
+   "components/ux-v1/story-image.ts",
+   "components/ux-v1/toast.tsx",
+   "components/ux-v1/use-is-client.ts",
+   "components/ux-v1/use-ux-me.ts",
+   "components/ux-v1/ways-tile.tsx",
+   "lib/auth/use-me.ts",
+   "lib/blind-test-curated.ts",
+   "lib/blind-test-modes.ts",
+   "lib/blind-test-playlists.ts",
+   "lib/db/cache-policy.ts",
+   "lib/db/fetch-all.ts",
+   "lib/db/queries/groups.ts",
+   "lib/error-handling.ts",
+   "lib/name-all/round.ts",
+   "lib/name-all/spellings.ts",
+   "lib/personality/bridge.ts",
+   "lib/personality/character-page.ts",
+   "lib/personality/data.ts",
+   "lib/personality/engine.ts",
+   "lib/personality/parse.ts",
+   "lib/personality/roles.ts",
+   "lib/personality/series.ts",
+   "lib/personality/server.ts",
+   "lib/personality/traits.ts",
+   "lib/personality/view.ts",
+   "lib/quiz/scoring.ts",
+   "lib/seo/json-ld.ts",
+   "lib/seo/og.ts",
+   "lib/seo/quiz-meta.ts",
+   "lib/seo/title-fit.ts",
+   "lib/site/genre.ts",
+   "lib/site/registry.ts",
+   "lib/site/scope.ts",
+   "lib/site/types.ts",
+   "lib/soundtrack-album.ts",
+   "lib/supabase/server.ts",
+   "lib/ux-v1.ts",
+   "lib/ux-v1/a0/distribution.ts",
+   "lib/ux-v1/a0/group-photo-credits.ts",
+   "lib/ux-v1/a0/group-photos.ts",
+   "lib/ux-v1/a0/icons.ts",
+   "lib/ux-v1/a0/pending-action.ts",
+   "lib/ux-v1/a0/type-glyphs.ts",
+   "lib/ux-v1/p3/model.ts",
+   "lib/ux-v1/p6/hub-data.ts",
+   "lib/ux-v12.ts",
+   "lib/verse/jsonld.tsx"
+  ],
+  "quiz": [
+   "components/personality/quiz.tsx",
+   "components/ux-v1/button.tsx",
+   "components/ux-v1/cover-img.tsx",
+   "components/ux-v1/icon.tsx",
+   "components/ux-v1/result-card.tsx",
+   "components/ux-v1/section-header.tsx",
+   "components/ux-v1/share-sheet.tsx",
+   "components/ux-v1/sheet.tsx",
+   "components/ux-v1/sign-in-sheet.tsx",
+   "components/ux-v1/story-image.ts",
+   "components/ux-v1/toast.tsx",
+   "components/ux-v1/use-is-client.ts",
+   "components/ux-v1/use-ux-me.ts",
+   "lib/auth/use-me.ts",
+   "lib/personality/engine.ts",
+   "lib/personality/view.ts",
+   "lib/site/registry.ts",
+   "lib/site/types.ts",
+   "lib/ux-v1.ts",
+   "lib/ux-v1/a0/distribution.ts",
+   "lib/ux-v1/a0/icons.ts",
+   "lib/ux-v1/a0/pending-action.ts",
+   "lib/ux-v1/a0/type-glyphs.ts",
+   "lib/ux-v12.ts"
+  ],
+  "about": [
+   "components/personality/about.tsx",
+   "components/ux-v1/button.tsx",
+   "components/ux-v1/icon.tsx",
+   "components/ux-v1/section-header.tsx",
+   "lib/name-all/round.ts",
+   "lib/name-all/spellings.ts",
+   "lib/personality/engine.ts",
+   "lib/personality/view.ts",
+   "lib/ux-v1/a0/icons.ts",
+   "lib/ux-v1/a0/type-glyphs.ts"
+  ]
+ }
+}
