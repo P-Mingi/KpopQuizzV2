@@ -16,7 +16,7 @@ import { CreditsPage } from './credits-page';
 import { PhotoCredit } from './photo-credit';
 import { OwnerPictures } from './owner-pictures';
 import { PortraitCredits, portraitCreditItems } from './portrait-credits';
-import { SeriesArt } from './series-art';
+import { PHOTO_SIZES, SeriesArt } from './series-art';
 
 import type { EntityImage } from '@/lib/anime/entity-images-rules';
 
@@ -36,10 +36,37 @@ describe('a series: the owner image, then the bundled photo, then the placeholde
     setOwnerSeriesPictures({ 'death-note': ownerPictureOf(row(), BASE) });
     const out = html(h(SeriesArt, { slug: 'death-note', title: 'Death Note', size: 'hub' }));
     expect(out).toContain('anime-o2-photo');
-    expect(out).toContain(encodeURIComponent('/storage/v1/object/public/entity-images/series/death-note.webp'));
+    expect(out).toContain(`src="${BASE}/storage/v1/object/public/entity-images/series/death-note.webp?v=`);
     expect(out).toContain('object-position:40% 25%');
     expect(out).toContain('alt="Death Note"');
     expect(out).not.toContain('<svg');
+  });
+
+  it('offers the 2x file as a srcset by width, so a sharp screen gets the large one and a small box the small one', () => {
+    setOwnerSeriesPictures({ 'death-note': ownerPictureOf(row(), BASE) });
+    for (const size of ['avatar', 'card', 'hub'] as const) {
+      const out = html(h(SeriesArt, { slug: 'death-note', title: 'Death Note', size }));
+      expect(out, size).toContain('736w');
+      expect(out, size).toContain('entity-images/series/death-note-2x.webp?v=');
+      expect(out, size).toContain('1472w');
+      expect(out, size).toContain(`sizes="${PHOTO_SIZES[size]}"`);
+      expect(out, size).toContain('width="736"');
+      expect(out, size).toContain('height="981"');
+    }
+  });
+
+  it('draws the hub header image eagerly and the others lazily', () => {
+    setOwnerSeriesPictures({ 'death-note': ownerPictureOf(row(), BASE) });
+    expect(html(h(SeriesArt, { slug: 'death-note', title: 'Death Note', size: 'hub' }))).toContain('loading="eager"');
+    expect(html(h(SeriesArt, { slug: 'death-note', title: 'Death Note', size: 'card' }))).toContain('loading="lazy"');
+  });
+
+  it('sends no srcset for an image that has no 2x file to name, and still draws it', () => {
+    setOwnerSeriesPictures({ 'death-note': ownerPictureOf(row({ path: 'https://cdn.example/x.png' }), BASE) });
+    const out = html(h(SeriesArt, { slug: 'death-note', title: 'Death Note', size: 'card' }));
+    expect(out).toContain('src="https://cdn.example/x.png?v=');
+    expect(out).not.toContain('srcSet');
+    expect(out).not.toContain('srcset');
   });
 
   it('draws the owner image in each size and for a series that has no bundled photo', () => {

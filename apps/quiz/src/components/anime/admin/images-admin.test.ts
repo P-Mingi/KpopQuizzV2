@@ -4,28 +4,33 @@ import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 
-import { characterImageSlug } from '@/lib/anime/entity-images-rules';
-
 import { ImagesAdmin } from './images-admin';
 
-import type { AdminSeries, EntityImage } from '@/lib/anime/entity-images-rules';
+import type { AdminImage, AdminSeries } from '@/lib/anime/entity-images-rules';
 
 vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://proj.supabase.co');
 vi.mock('next/image', () => ({ default: (p: Record<string, unknown>) => h('img', { src: p.src as string, alt: p.alt as string }) }));
 
-const img = (kind: 'series' | 'character', slug: string, over: Partial<EntityImage> = {}): EntityImage => ({
-  kind, slug, path: `${kind}/${slug}.webp`, width: 736, height: 981, focal_x: 30, focal_y: 60, source_url: 'https://example.org/p', author: 'Ana', license: 'cc_by_sa', license_note: null, updated_at: '2026-10-26T10:00:00.000Z', ...over,
+// Typed with the answer of GET /api/admin/images/list itself (part 1): a field the routes do not send fails tsc here.
+const BUCKET = 'https://proj.supabase.co/storage/v1/object/public/entity-images';
+const img = (kind: 'series' | 'character', slug: string, over: Partial<AdminImage> = {}): AdminImage => ({
+  kind, slug, url: `${BUCKET}/anime/${kind}/${slug}/0123456789abcdef.webp`, url2x: `${BUCKET}/anime/${kind}/${slug}/0123456789abcdef-2x.webp`,
+  width: 736, height: 981, focalX: 30, focalY: 60, license: 'cc_by_sa', author: 'Ana', sourceUrl: 'https://example.org/p', licenseNote: null, updatedAt: '2026-10-26T10:00:00.000Z', ...over,
 });
 const LIST: AdminSeries[] = [
   {
-    slug: 'death-note', name: 'Death Note', image: img('series', 'death-note'), bundled: { file: '/series/death-note.webp', alt: 'A notebook' },
+    slug: 'death-note', name: 'Death Note', published: true, image: img('series', 'death-note'), bundled: { url: '/series/death-note.webp', alt: 'A notebook' }, source: 'upload',
+    characterCount: 2, characterImageCount: 1,
     characters: [
-      { slug: 'light', name: 'Light Yagami', role: 'main', image: img('character', characterImageSlug('death-note', 'light')) },
-      { slug: 'l', name: 'L', role: 'main', image: null },
+      { slug: 'death-note/light', name: 'Light Yagami', role: 'main', status: 'published', image: img('character', 'death-note/light') },
+      { slug: 'death-note/l', name: 'L', role: 'main', status: 'published', image: null },
     ],
   },
-  { slug: 'naruto', name: 'Naruto', image: null, bundled: { file: '/series/naruto.webp', alt: 'A leaf' }, characters: [{ slug: 'naruto', name: 'Naruto Uzumaki', role: 'main', image: null }] },
-  { slug: 'zzz', name: 'Zzz', image: null, bundled: null, characters: [] },
+  {
+    slug: 'naruto', name: 'Naruto', published: true, image: null, bundled: { url: '/series/naruto.webp', alt: 'A leaf' }, source: 'bundled', characterCount: 1, characterImageCount: 0,
+    characters: [{ slug: 'naruto/naruto', name: 'Naruto Uzumaki', role: 'main', status: 'published', image: null }],
+  },
+  { slug: 'zzz', name: 'Zzz', published: true, image: null, bundled: null, source: 'none', characterCount: 0, characterImageCount: 0, characters: [] },
 ];
 const out = renderToStaticMarkup(h(ImagesAdmin, { initial: LIST }));
 
@@ -65,7 +70,7 @@ describe('the Images tab', () => {
   it('shows the owner image where there is one, with Replace, Set focal point and Remove, and the bundled photo or the placeholder where there is none', () => {
     const cover = out.slice(out.indexOf('data-testid="slot-death-note"'), out.indexOf('data-testid="slot-death-note/light"'));
     expect(cover).toContain('data-state="owner"');
-    expect(cover).toContain('entity-images/series/death-note.webp');
+    expect(cover).toContain('entity-images/anime/series/death-note/0123456789abcdef.webp');
     expect(cover).toContain('object-position:30% 60%');
     for (const s of ['>Replace<', '>Set focal point<', '>Remove<', 'Preview in place', 'Quiz card', 'Series header']) expect(cover, s).toContain(s);
     const empty = out.slice(out.indexOf('data-testid="slot-death-note/l"'));

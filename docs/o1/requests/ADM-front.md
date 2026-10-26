@@ -1,5 +1,8 @@
 # ADM front: requests, assumptions on part 1, and decisions
 
+> Superseded in part by the join (docs/o1/requests/ADM-join.md): assumptions 1, 2, 3, 4 and 5 below were replaced by the real routes, shapes, 2x naming and cache tags of ADM back; R-1 was done.
+> The text below is kept as it was written, before part 1 was merged.
+
 Lane ADM front (branch o1/admfront). The admin UI and the display of the owner's images on otakuquiz.org. Part 1 (ADM back) was not merged when this
 was written, so everything below that touches its API is an assumption, held in one place: `lib/anime/entity-images-api.ts` (paths, shapes) and
 `lib/anime/entity-images-rules.ts` (types, the character key). ORCH: read this list before the two lanes are merged and reconcile.

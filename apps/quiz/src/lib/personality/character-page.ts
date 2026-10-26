@@ -29,6 +29,8 @@ export async function getCharacterPage(slug: string): Promise<WmaPage | null> {
     traits: playerTraits(p.axes),
     // The owner's portrait of the character (run O1, ADM) when one was uploaded; a result is shown only after the quiz, so no name is given away.
     photo: pictures[p.id]?.src ?? null,
+    // The focal point the owner set: the card keeps the face of the portrait in its small circle.
+    ...(pictures[p.id] ? { photoPosition: pictures[p.id]!.position } : {}),
   }));
 
   const view: QuizView = {

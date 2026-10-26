@@ -29,7 +29,7 @@ const SERIES: SeriesWmaData = {
   questions: [1, 2, 3, 4, 5, 6, 7, 8].map(Q),
   profiles: ['light-yagami', 'l', 'ryuk', 'soichiro', 'matsuda', 'mogi'].map((id, i) => ({ id, name: id, axes: AX(10 + i * 15), lines: ['A line.'], role: 'main', affiliation: null })),
 };
-const PIC: OwnerPicture = { src: 'https://proj.supabase.co/storage/v1/object/public/entity-images/death-note/ryuk.webp', width: 552, height: 736, position: '30% 20%', credit: null };
+const PIC: OwnerPicture = { src: 'https://proj.supabase.co/storage/v1/object/public/entity-images/death-note/ryuk.webp', src2x: null, width: 552, height: 736, position: '30% 20%', credit: null };
 
 describe('getCharacterPage with portraits', () => {
   it('puts the portrait of a character on its result, and no photo on the others', async () => {
@@ -41,6 +41,18 @@ describe('getCharacterPage with portraits', () => {
     const photos = Object.fromEntries(page!.view.results.map((r) => [r.id, r.photo]));
     expect(photos.ryuk).toBe(PIC.src);
     expect(Object.values(photos).filter(Boolean)).toHaveLength(1);
+  });
+
+  it('carries the focal point of the portrait to its result, and no position on a result without a portrait', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'anime');
+    data.series = SERIES;
+    data.pictures = { ryuk: PIC };
+    const { getCharacterPage } = await import('./character-page');
+    const page = await getCharacterPage('death-note');
+    const byId = Object.fromEntries(page!.view.results.map((r) => [r.id, r]));
+    expect(byId.ryuk!.photoPosition).toBe('30% 20%');
+    expect('photoPosition' in byId.l!).toBe(false);
+    expect('photoPosition' in byId['light-yagami']!).toBe(false);
   });
 
   it('keeps every photo empty when the owner has uploaded nothing', async () => {

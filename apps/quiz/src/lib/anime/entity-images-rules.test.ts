@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest';
 
 import {
   CENTER_FOCAL, EMPTY_META, LICENSE_CODES, LICENSE_LABEL, MAX_UPLOAD_BYTES, characterImageSlug, checkImport, checkUpload, countImages, countsLine, creditOf, entityImageUrl, errorWords,
-  fileProblem, filterSeries, focalFromPoint, metaPayload, nudgeFocal, objectPositionOf, ownerCreditRows, ownerPictureOf, pickImage, requiresCredit, validateMeta, withImage,
+  fileProblem, filterSeries, focalFromPoint, metaPayload, nudgeFocal, objectPositionOf, ownerCreditRows, ownerPictureOf, ownerSrcSet, pickImage, requiresCredit, validateMeta, withImage,
 } from './entity-images-rules';
 
-import type { AdminSeries, EntityImage, ImageMeta } from './entity-images-rules';
+import type { AdminImage, AdminSeries, EntityImage, ImageMeta } from './entity-images-rules';
 
 // Run O1 (ADM front): the rules of the admin images and of their display.
 
@@ -13,6 +13,12 @@ const BASE = 'https://proj.supabase.co';
 const img = (over: Partial<EntityImage> = {}): EntityImage => ({
   kind: 'series', slug: 'death-note', path: 'series/death-note.webp', width: 736, height: 981, focal_x: 40, focal_y: 25,
   source_url: 'https://commons.wikimedia.org/wiki/File:X.jpg', author: 'A. Author', license: 'cc_by', license_note: null, updated_at: '2026-10-26T10:00:00.000Z', ...over,
+});
+/** An image as the admin routes answer it (the type is the one of part 1, so a field the routes do not have fails tsc here). */
+const dto = (kind: 'series' | 'character', slug: string, over: Partial<AdminImage> = {}): AdminImage => ({
+  kind, slug, url: `${BASE}/storage/v1/object/public/entity-images/anime/${kind}/${slug}/0123456789abcdef.webp`,
+  url2x: `${BASE}/storage/v1/object/public/entity-images/anime/${kind}/${slug}/0123456789abcdef-2x.webp`, width: 736, height: 981, focalX: 40, focalY: 25,
+  license: 'cc_by', author: 'A. Author', sourceUrl: 'https://commons.wikimedia.org/wiki/File:X.jpg', licenseNote: null, updatedAt: '2026-10-26T10:00:00.000Z', ...over,
 });
 const META: ImageMeta = { source_url: 'https://example.org/x', author: 'Ana', license: 'cc0', license_note: '' };
 
@@ -73,14 +79,28 @@ describe('what stops a Save or an Import', () => {
     expect(fileProblem({ name: 'a', size: 10, type: 'image/svg+xml' })).toMatch(/not a picture/);
     for (const t of ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif']) expect(fileProblem({ name: 'a', size: 10, type: t })).toBeNull();
   });
-  it('says a server failure in plain words', () => {
+  it('says every failure code of the routes in plain words, and each in a sentence of its own', () => {
+    const codes = ['not_found', 'forbidden', 'bad_request', 'bad_kind', 'bad_slug', 'bad_meta', 'bad_focal', 'unknown_entity', 'no_image', 'too_large', 'unsupported_type', 'invalid_image', 'image_too_small', 'bad_url', 'blocked_address', 'dns_failed', 'too_many_redirects', 'timeout', 'fetch_failed', 'storage_failed', 'db_failed', 'server_error'];
+    for (const c of codes) {
+      const words = errorWords(c, 400, 'ignored sentence');
+      expect(words, c).toMatch(/^[A-Z].*[.]$/);
+      expect(words, c).not.toBe('Something went wrong. Try again.');
+      expect(words, c).not.toContain(c);
+      expect(words, c).not.toMatch(/[\u2013\u2014]/);
+    }
     expect(errorWords('too_large')).toMatch(/8 MB/);
-    expect(errorWords('url_blocked')).toMatch(/public https/);
-    expect(errorWords('The image could not be decoded')).toBe('The image could not be decoded.');
+    expect(errorWords('blocked_address')).toMatch(/public https/);
+    expect(errorWords('bad_meta')).toMatch(/licence/);
+  });
+  it('falls back to the sentence of the server, then to the status, for a code it does not know', () => {
+    expect(errorWords('brand_new', 400, 'the image could not be decoded')).toBe('The image could not be decoded.');
     expect(errorWords(undefined, 413)).toMatch(/too big/);
+    expect(errorWords(undefined, 415)).toMatch(/not a picture/);
     expect(errorWords(undefined, 403)).toMatch(/not allowed/);
+    expect(errorWords(undefined, 404)).toMatch(/not found/);
     expect(errorWords(undefined, 500)).toMatch(/server had a problem/);
     expect(errorWords('zzz')).toBe('Something went wrong. Try again.');
+    expect(errorWords('constructor', 400)).toBe('Something went wrong. Try again.');
   });
 });
 
@@ -115,6 +135,17 @@ describe('where the file is', () => {
     expect(u).toBe(`${BASE}/storage/v1/object/public/entity-images/series/death-note.webp?v=${Date.parse('2026-10-26T10:00:00.000Z')}`);
     expect(entityImageUrl('a/b c.webp', null, `${BASE}/`)).toBe(`${BASE}/storage/v1/object/public/entity-images/a/b%20c.webp`);
     expect(entityImageUrl('https://cdn.example/x.webp', null, BASE)).toBe('https://cdn.example/x.webp');
+  });
+  it('names the 2x file the way part 1 does and offers both files by width', () => {
+    const pic = ownerPictureOf(img({ path: 'anime/series/death-note/0123456789abcdef.webp' }), BASE);
+    expect(pic.src2x).toBe(`${BASE}/storage/v1/object/public/entity-images/anime/series/death-note/0123456789abcdef-2x.webp?v=${Date.parse('2026-10-26T10:00:00.000Z')}`);
+    expect(ownerSrcSet(pic)).toBe(`${pic.src} 736w, ${pic.src2x} 1472w`);
+  });
+  it('has no 2x to offer for a path it cannot name one for, or for a picture with no width', () => {
+    const pic = ownerPictureOf(img({ path: 'https://cdn.example/x.png' }), BASE);
+    expect(pic.src2x).toBeNull();
+    expect(ownerSrcSet(pic)).toBeNull();
+    expect(ownerSrcSet({ src: 'a', src2x: 'b', width: 0 })).toBeNull();
   });
   it('keys a character by its series first', () => {
     expect(characterImageSlug('death-note', 'light-yagami')).toBe('death-note/light-yagami');
@@ -156,8 +187,9 @@ describe('the attribution rule', () => {
 
 describe('the list: search, filter, counter', () => {
   const series = (slug: string, name: string, cover: boolean, chars: Array<[string, string, boolean]>): AdminSeries => ({
-    slug, name, image: cover ? img({ slug }) : null, bundled: null,
-    characters: chars.map(([s, n, has]) => ({ slug: s, name: n, image: has ? img({ kind: 'character', slug: characterImageSlug(slug, s) }) : null })),
+    slug, name, published: true, image: cover ? dto('series', slug) : null, bundled: null, source: cover ? 'upload' : 'none',
+    characterCount: chars.length, characterImageCount: chars.filter(([, , has]) => has).length,
+    characters: chars.map(([s, n, has]) => ({ slug: characterImageSlug(slug, s), name: n, role: 'main', status: 'published', image: has ? dto('character', characterImageSlug(slug, s)) : null })),
   });
   const LIST: AdminSeries[] = [
     series('death-note', 'Death Note', true, [['light', 'Light Yagami', true], ['l', 'L', false]]),
@@ -189,13 +221,22 @@ describe('the list: search, filter, counter', () => {
   });
   it('sets and removes one image without touching the list it was given', () => {
     const before = JSON.stringify(LIST);
-    const added = withImage(LIST, 'series', 'naruto', img({ slug: 'naruto' }));
+    const added = withImage(LIST, 'series', 'naruto', dto('series', 'naruto'));
     expect(countImages(added).seriesWith).toBe(3);
+    expect(added.find((s) => s.slug === 'naruto')).toMatchObject({ source: 'upload' });
     const noChar = withImage(LIST, 'character', 'death-note/light', null);
     expect(countImages(noChar).charactersWith).toBe(1);
-    const withChar = withImage(LIST, 'character', 'one-piece/luffy', img({ kind: 'character', slug: 'one-piece/luffy' }));
+    expect(noChar[0]).toMatchObject({ characterCount: 2, characterImageCount: 0 });
+    const withChar = withImage(LIST, 'character', 'one-piece/luffy', dto('character', 'one-piece/luffy'));
     expect(countImages(withChar).charactersWith).toBe(3);
+    expect(withChar[3]).toMatchObject({ characterCount: 1, characterImageCount: 1 });
     expect(JSON.stringify(LIST)).toBe(before);
+  });
+  it('goes back to the bundled photo or to nothing when the cover is removed', () => {
+    const bundled = { url: '/series/death-note.webp', alt: 'A notebook' };
+    const list: AdminSeries[] = [{ ...LIST[0]!, bundled }, { ...LIST[0]!, slug: 'x', bundled: null }];
+    expect(withImage(list, 'series', 'death-note', null)[0]).toMatchObject({ image: null, source: 'bundled' });
+    expect(withImage(list, 'series', 'x', null)[1]).toMatchObject({ image: null, source: 'none' });
   });
 });
 

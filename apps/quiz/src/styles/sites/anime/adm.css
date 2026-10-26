@@ -86,6 +86,8 @@ html.ux-v1[data-site="anime"] .anime-adm-bar > span { display: block; height: 10
 /* a portrait on a character tile of the series page, and the credit lines under pictures */
 html.ux-v1[data-site="anime"] .anime-adm-portrait { position: absolute; top: 0; left: 12px; width: 80px; height: 80px; overflow: hidden; border-radius: 50%; background: var(--ux-surface-2); box-shadow: var(--ux-photo-edge); }
 html.ux-v1[data-site="anime"] .anime-adm-portrait-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* The owner's series image is a plain img (a fixed-size WebP with a 1x and a 2x file), so it fills the photo box the way next/image fill does. */
+html.ux-v1[data-site="anime"] .anime-adm-photo-img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
 html.ux-v1[data-site="anime"] .anime-adm-credit { font-size: 11px; line-height: 1.35; color: var(--ux-muted); overflow-wrap: anywhere; white-space: normal; }
 html.ux-v1[data-site="anime"] .anime-adm-credit a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 html.ux-v1[data-site="anime"] .anime-adm-credits-h { margin: 32px 0 12px; font-size: 20px; font-weight: 600; }

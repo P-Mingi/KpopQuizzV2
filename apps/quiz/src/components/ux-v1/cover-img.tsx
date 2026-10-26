@@ -17,6 +17,8 @@ interface CoverImgProps {
   height?: number | undefined;
   loading?: 'lazy' | 'eager' | undefined;
   decoding?: 'async' | 'sync' | 'auto' | undefined;
+  /** Inline style of the picture (an object-position for a focal point). Left out, nothing changes. */
+  style?: React.CSSProperties | undefined;
 }
 
 /**
@@ -29,14 +31,14 @@ interface CoverImgProps {
  */
 export function CoverImg(props: CoverImgProps): React.ReactElement | null {
   if (!isUxV12()) {
-    const { src, alt, className, width, height, loading, decoding } = props;
+    const { src, alt, className, width, height, loading, decoding, style } = props;
     // eslint-disable-next-line @next/next/no-img-element -- the v11 picture, as before
-    return src ? <img className={className} src={src} alt={alt} width={width} height={height} loading={loading} decoding={decoding} /> : null;
+    return src ? <img className={className} src={src} alt={alt} width={width} height={height} loading={loading} decoding={decoding} style={style} /> : null;
   }
   return <V12Cover {...props} />;
 }
 
-function V12Cover({ src, alt, className, width, height, loading }: CoverImgProps): React.ReactElement {
+function V12Cover({ src, alt, className, width, height, loading, style }: CoverImgProps): React.ReactElement {
   const [failed, setFailed] = useState<string | null>(null);
   const [loaded, setLoaded] = useState<string | null>(null);
   const cls = className ? ` ${className}` : '';
@@ -65,6 +67,7 @@ function V12Cover({ src, alt, className, width, height, loading }: CoverImgProps
       height={height}
       loading={loading}
       decoding="async"
+      style={style}
       onLoad={() => setLoaded(src)}
       onError={() => setFailed(src)}
     />

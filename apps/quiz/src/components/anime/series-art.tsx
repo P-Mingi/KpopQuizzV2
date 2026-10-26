@@ -40,7 +40,24 @@ export function SeriesArt({ slug, title, size, className, label }: SeriesArtProp
     const pcls = ['anime-o2-art', `anime-o2-art-${size}`, 'anime-o2-photo', className ?? ''].filter(Boolean).join(' ');
     return (
       <span className={pcls} data-photo={key}>
-        <Image src={photo.file} alt={photo.alt} fill sizes={PHOTO_SIZES[size]} priority={size === 'hub'} className="anime-o2-photo-img" {...(photo.owner ? { style: { objectPosition: photo.owner.position } } : {})} />
+        {photo.owner ? (
+          // The owner's image is a fixed-size WebP (1x and 2x files of the bucket, cached for a year), so it is not sent through the image optimizer:
+          // the browser picks the file by the width of the box and the screen (srcset in widths), and the focal point is the object-position.
+          // eslint-disable-next-line @next/next/no-img-element -- see above
+          <img
+            src={photo.file}
+            {...(photo.owner.srcSet ? { srcSet: photo.owner.srcSet, sizes: PHOTO_SIZES[size] } : {})}
+            alt={photo.alt}
+            width={photo.owner.width}
+            height={photo.owner.height}
+            loading={size === 'hub' ? 'eager' : 'lazy'}
+            decoding="async"
+            className="anime-adm-photo-img"
+            style={{ objectPosition: photo.owner.position }}
+          />
+        ) : (
+          <Image src={photo.file} alt={photo.alt} fill sizes={PHOTO_SIZES[size]} priority={size === 'hub'} className="anime-o2-photo-img" />
+        )}
       </span>
     );
   }

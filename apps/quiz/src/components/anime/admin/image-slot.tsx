@@ -6,18 +6,18 @@ import { Icon } from '@/components/ux-v1/icon';
 import { UxButton } from '@/components/ux-v1/button';
 import { UxField } from '@/components/ux-v1/form';
 import {
-  CENTER_FOCAL, EMPTY_META, LICENSE_CODES, LICENSE_LABEL, MAX_UPLOAD_BYTES, checkImport, checkUpload, entityImageUrl, fileProblem, focalFromPoint, nudgeFocal, objectPositionOf,
+  CENTER_FOCAL, EMPTY_META, LICENSE_CODES, LICENSE_LABEL, MAX_UPLOAD_BYTES, checkImport, checkUpload, fileProblem, focalFromPoint, nudgeFocal, objectPositionOf,
 } from '@/lib/anime/entity-images-rules';
 
-import type { BundledPicture, EntityImage, EntityKind, Focal, ImageMeta, LicenseCode, MetaErrors } from '@/lib/anime/entity-images-rules';
+import type { AdminImage, EntityKind, Focal, ImageMeta, LicenseCode, MetaErrors } from '@/lib/anime/entity-images-rules';
 import type { ApiResult, UploadHandle } from '@/lib/anime/entity-images-api';
 
 /** What a slot calls on the server: the real one is built from entity-images-api.ts, a test passes its own. */
 export interface ImagesApi {
   upload(args: { kind: EntityKind; slug: string; file: File; meta: ImageMeta }, onProgress: (percent: number) => void): UploadHandle;
-  importUrl(args: { kind: EntityKind; slug: string; url: string; meta: ImageMeta }): Promise<ApiResult<EntityImage>>;
-  focal(args: { kind: EntityKind; slug: string; x: number; y: number }): Promise<ApiResult<EntityImage>>;
-  remove(args: { kind: EntityKind; slug: string }): Promise<ApiResult<null>>;
+  importUrl(args: { kind: EntityKind; slug: string; url: string; meta: ImageMeta }): Promise<ApiResult<AdminImage>>;
+  focal(args: { kind: EntityKind; slug: string; x: number; y: number }): Promise<ApiResult<AdminImage>>;
+  remove(args: { kind: EntityKind; slug: string }): Promise<ApiResult<AdminImage | null>>;
 }
 
 export type SlotFrame = 'cover' | 'portrait';
@@ -29,10 +29,11 @@ interface SlotProps {
   readonly title: string;
   readonly hint?: string | undefined;
   readonly frame: SlotFrame;
-  readonly image: EntityImage | null;
-  readonly bundled: BundledPicture | null;
+  readonly image: AdminImage | null;
+  /** The photo bundled with the site (the list answers { url, alt }), shown when there is no image of the owner's. */
+  readonly bundled: { readonly url: string; readonly alt: string } | null;
   readonly api: ImagesApi;
-  readonly onChange: (image: EntityImage | null) => void;
+  readonly onChange: (image: AdminImage | null) => void;
 }
 
 type Mode = 'view' | 'edit' | 'focal' | 'confirm';
@@ -72,7 +73,7 @@ export function ImageSlot({ kind, slug, title, hint, frame, image, bundled, api,
   const [problem, setProblem] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [dragging, setDragging] = useState(false);
-  const [pending, setPending] = useState<Focal>(image ? { x: image.focal_x, y: image.focal_y } : CENTER_FOCAL);
+  const [pending, setPending] = useState<Focal>(image ? { x: image.focalX, y: image.focalY } : CENTER_FOCAL);
   const fileInput = useRef<HTMLInputElement>(null);
   const upload = useRef<UploadHandle | null>(null);
   const box = useRef<HTMLDivElement>(null);
@@ -94,12 +95,11 @@ export function ImageSlot({ kind, slug, title, hint, frame, image, bundled, api,
     focusAfter.current = null;
   }, [mode]);
 
-  useEffect(() => { if (image) setPending({ x: image.focal_x, y: image.focal_y }); }, [image]);
+  useEffect(() => { if (image) setPending({ x: image.focalX, y: image.focalY }); }, [image]);
 
-  const ownerSrc = image ? entityImageUrl(image.path, image.updated_at) : null;
-  const shownSrc = fileUrl ?? ownerSrc ?? bundled?.file ?? null;
+  const shownSrc = fileUrl ?? image?.url ?? bundled?.url ?? null;
   const shownAlt = fileUrl ? 'The file you chose' : image ? title : bundled?.alt ?? '';
-  const position = mode === 'focal' ? objectPositionOf(pending) : image ? objectPositionOf(image) : 'center';
+  const position = mode === 'focal' ? objectPositionOf(pending) : image ? objectPositionOf({ x: image.focalX, y: image.focalY }) : 'center';
   const source = image ? 'Your image' : bundled ? 'Bundled photo' : 'No image yet';
 
   const close = (): void => {
@@ -122,7 +122,7 @@ export function ImageSlot({ kind, slug, title, hint, frame, image, bundled, api,
     setFile(f);
   };
 
-  const saved = (next: EntityImage, words: string): void => {
+  const saved = (next: AdminImage, words: string): void => {
     onChange(next);
     setBusy(null);
     focusAfter.current = 'edit';
@@ -200,7 +200,7 @@ export function ImageSlot({ kind, slug, title, hint, frame, image, bundled, api,
   };
 
   const onFocalKey = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
-    if (e.key === 'Escape') { e.stopPropagation(); focusAfter.current = 'focal'; setMode('view'); setPending(image ? { x: image.focal_x, y: image.focal_y } : CENTER_FOCAL); return; }
+    if (e.key === 'Escape') { e.stopPropagation(); focusAfter.current = 'focal'; setMode('view'); setPending(image ? { x: image.focalX, y: image.focalY } : CENTER_FOCAL); return; }
     if (e.key.startsWith('Arrow')) { e.preventDefault(); setPending(nudgeFocal(pending, e.key, e.shiftKey ? 10 : 2)); }
   };
 
@@ -268,8 +268,8 @@ export function ImageSlot({ kind, slug, title, hint, frame, image, bundled, api,
 
       {image ? (
         <p className="anime-adm-credit-line" data-testid="slot-credit">
-          <a href={image.source_url} rel="noopener noreferrer" target="_blank">{image.author}</a>, {LICENSE_LABEL[image.license]}
-          {image.license_note ? ` (${image.license_note})` : ''}
+          <a href={image.sourceUrl} rel="noopener noreferrer" target="_blank">{image.author}</a>, {LICENSE_LABEL[image.license]}
+          {image.licenseNote ? ` (${image.licenseNote})` : ''}
         </p>
       ) : null}
 

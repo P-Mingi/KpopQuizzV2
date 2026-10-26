@@ -1,10 +1,16 @@
-// Run O1 (ADM front): the owner's own images of the series and the characters of otakuquiz.org. Pure rules, no React and no I/O: the
-// shapes of the admin API (part 1, docs/o1/briefs/ADM-back.md), the form rules, the focal point, the order in which an image is
-// picked for display (the owner's, else the bundled photo, else the neutral placeholder), the credit rule and the rows of /credits.
-// The admin UI, the display components, the credits page and their tests all read this file.
+// Run O1 (ADM front, joined to ADM back): the owner's own images of the series and the characters of otakuquiz.org. Pure rules, no React and
+// no I/O: the form rules, the focal point, the order in which an image is picked for display (the owner's, else the bundled photo, else the
+// neutral placeholder), the credit rule and the rows of /credits. The shapes of the admin API are those of part 1 itself (type-only imports
+// of lib/entity-images: the answers of the routes are EntityImageDto and ListedSeries, nothing is restated here). The admin UI, the display
+// components, the credits page and their tests all read this file.
+
+import { path2x } from '@/lib/entity-images/constants';
 
 import { creditLine } from './series-images-rules';
 
+import type { ImageErrorCode } from '@/lib/entity-images/errors';
+import type { ListedCharacter, ListedSeries } from '@/lib/entity-images/list';
+import type { EntityImageDto } from '@/lib/entity-images/types';
 import type { SeriesImageAttribution } from './series-images-rules';
 
 export { creditLine };
@@ -41,6 +47,9 @@ export function requiresCredit(license: string): boolean {
 export function isLicenseCode(v: unknown): v is LicenseCode {
   return typeof v === 'string' && (LICENSE_CODES as readonly string[]).includes(v);
 }
+
+/** An image as the admin routes answer it (camelCase, with the public url and url2x): the shape of part 1, not a copy of it. */
+export type AdminImage = EntityImageDto;
 
 /** One row of the display columns of public.entity_images (the columns anon and authenticated may select). */
 export interface EntityImage {
@@ -145,31 +154,49 @@ export function checkImport(address: string, meta: ImageMeta): ImportCheck {
   return Object.keys(errors).length > 0 ? { ok: false, errors } : { ok: true, url };
 }
 
-/** An API failure in plain words. `error` is the `error` of the answer (a code or a sentence), `status` the HTTP status. */
-export function errorWords(error: string | null | undefined, status?: number): string {
-  const code = (error ?? '').trim();
-  const known: Readonly<Record<string, string>> = {
-    not_found: 'This page or item was not found. Reload and try again.',
-    unauthorized: 'Your session has ended. Sign in again.',
-    forbidden: 'This account is not allowed to change images.',
-    too_large: 'The image is too big. The limit is 8 MB.',
-    unsupported_type: 'This is not a picture we can use. Send a JPEG, PNG, WebP, GIF or AVIF file.',
-    not_an_image: 'This file is not a picture.',
-    invalid_meta: 'Fill in the source, the author and the licence.',
-    license_note_required: 'Explain the licence in a few words.',
-    url_blocked: 'This address cannot be imported. Use a public https address.',
-    url_not_https: 'The address must start with https://.',
-    fetch_failed: 'The image could not be downloaded from that address.',
-    timeout: 'The address took too long to answer.',
-    too_many_redirects: 'The address sent us around too many times.',
-  };
-  if (known[code]) return known[code]!;
-  if (/\s/.test(code) && code.length < 200) return code.charAt(0).toUpperCase() + code.slice(1) + (/[.!?]$/.test(code) ? '' : '.');
-  if (status === 413) return known.too_large!;
-  if (status === 401) return known.unauthorized!;
-  if (status === 403) return known.forbidden!;
-  if (status === 404) return known.not_found!;
-  if (status !== undefined && status >= 500) return 'The server had a problem. Try again in a moment.';
+/** Every code the routes of part 1 answer (ImageErrorCode, plus the 404 of the gate), in plain words. A new code there fails tsc here. */
+const CODE_WORDS: Readonly<Record<ImageErrorCode | 'not_found', string>> = {
+  not_found: 'This page or item was not found. Reload and try again.',
+  forbidden: 'This request did not come from the admin page. Reload the page and try again.',
+  bad_request: 'The request could not be read. Reload the page and try again.',
+  bad_kind: 'This picture slot is not valid. Reload the page and try again.',
+  bad_slug: 'This picture slot is not valid. Reload the page and try again.',
+  bad_meta: 'Fill in the source (an https address), the author and the licence. The licence "Other" needs a note.',
+  bad_focal: 'The focal point must be inside the picture.',
+  unknown_entity: 'That series or character no longer exists. Reload the page.',
+  no_image: 'There is no image of yours here yet. Upload or import one first.',
+  too_large: 'The image is too big. The limit is 8 MB.',
+  unsupported_type: 'This is not a picture we can use. Send a JPEG, PNG, WebP, GIF or AVIF file.',
+  invalid_image: 'This file could not be read as a picture. Try another file.',
+  image_too_small: 'This picture is too small and would look blurry. Use a larger one.',
+  bad_url: 'Paste the full address of a picture, starting with https://.',
+  blocked_address: 'This address cannot be imported. Use a public https address.',
+  dns_failed: 'The address could not be found. Check it and try again.',
+  too_many_redirects: 'The address sent us around too many times.',
+  timeout: 'The address took too long to answer.',
+  fetch_failed: 'The image could not be downloaded from that address.',
+  storage_failed: 'The picture could not be stored. Try again in a moment.',
+  db_failed: 'The server had a problem. Try again in a moment.',
+  server_error: 'The server had a problem. Try again in a moment.',
+};
+
+const KNOWN_CODES = CODE_WORDS as Readonly<Record<string, string>>;
+
+/**
+ * An API failure in plain words. `code` is the `code` of the answer ({ error, code }), `status` the HTTP status, `sentence` the `error` of the
+ * answer (the server's own plain words, used only for a code this client does not know).
+ */
+export function errorWords(code: string | null | undefined, status?: number, sentence?: string | null): string {
+  const c = (code ?? '').trim();
+  if (Object.prototype.hasOwnProperty.call(KNOWN_CODES, c)) return KNOWN_CODES[c]!;
+  const s = (sentence ?? '').trim();
+  if (s && /\s/.test(s) && s.length < 200) return s.charAt(0).toUpperCase() + s.slice(1) + (/[.!?]$/.test(s) ? '' : '.');
+  if (status === 413) return CODE_WORDS.too_large;
+  if (status === 415) return CODE_WORDS.unsupported_type;
+  if (status === 401) return 'Your session has ended. Sign in again.';
+  if (status === 403) return 'This account is not allowed to change images.';
+  if (status === 404) return CODE_WORDS.not_found;
+  if (status !== undefined && status >= 500) return CODE_WORDS.server_error;
   return 'Something went wrong. Try again.';
 }
 
@@ -224,6 +251,8 @@ export const characterImageSlug = (seriesSlug: string, characterSlug: string): s
 /** What a component needs to draw an image of the owner's. */
 export interface OwnerPicture {
   readonly src: string;
+  /** The 2x file (twice the pixels, the name part 1 gives it), or null when there is none to name. */
+  readonly src2x: string | null;
   readonly width: number;
   readonly height: number;
   /** CSS object-position, from the focal point. */
@@ -239,7 +268,14 @@ export function creditOf(i: Pick<EntityImage, 'license' | 'author' | 'source_url
 }
 
 export function ownerPictureOf(i: EntityImage, base?: string): OwnerPicture {
-  return { src: entityImageUrl(i.path, i.updated_at, base), width: i.width, height: i.height, position: objectPositionOf(i), credit: creditOf(i) };
+  const src = entityImageUrl(i.path, i.updated_at, base);
+  const src2x = entityImageUrl(path2x(i.path), i.updated_at, base);
+  return { src, src2x: src2x === src ? null : src2x, width: i.width, height: i.height, position: objectPositionOf(i), credit: creditOf(i) };
+}
+
+/** The srcset of an owner picture: the 1x and the 2x file, by their widths (the browser picks by the box and the screen), or null with no 2x. */
+export function ownerSrcSet(p: Pick<OwnerPicture, 'src' | 'src2x' | 'width'>): string | null {
+  return p.src2x && p.width > 0 ? `${p.src} ${p.width}w, ${p.src2x} ${p.width * 2}w` : null;
 }
 
 export interface BundledPicture { readonly file: string; readonly alt: string }
@@ -261,21 +297,11 @@ export function pickImage(owner: OwnerPicture | EntityImage | null | undefined, 
 
 // ---- the admin list -------------------------------------------------------------------------------------------------------------
 
-export interface AdminCharacter {
-  readonly slug: string;
-  readonly name: string;
-  readonly role?: string | null | undefined;
-  readonly image: EntityImage | null;
-}
+/** A character of the admin list: the slug is `<series>/<character>`, the key the other routes take. */
+export type AdminCharacter = ListedCharacter;
 
-export interface AdminSeries {
-  readonly slug: string;
-  readonly name: string;
-  readonly image: EntityImage | null;
-  /** The photo bundled with the site for this series, shown when the owner has set none. */
-  readonly bundled: BundledPicture | null;
-  readonly characters: readonly AdminCharacter[];
-}
+/** A series of the admin list, exactly as GET /api/admin/images/list answers it (image, bundled { url, alt }, source, counts, characters). */
+export type AdminSeries = ListedSeries;
 
 export type ImageFilter = 'all' | 'with' | 'without';
 
@@ -306,11 +332,18 @@ export function countsLine(c: ImageCounts): string {
   return `${c.seriesWith}/${c.seriesTotal} series, ${c.charactersWith}/${c.charactersTotal} characters`;
 }
 
-/** A copy of the list with one image set (or removed, with null). The list is never changed in place. */
-export function withImage(list: readonly AdminSeries[], kind: EntityKind, slug: string, image: EntityImage | null): AdminSeries[] {
+/**
+ * A copy of the list with one image set (or removed, with null). The list is never changed in place. `source` (what the page shows) and
+ * the character count follow the image, as the server would have answered them.
+ */
+export function withImage(list: readonly AdminSeries[], kind: EntityKind, slug: string, image: AdminImage | null): AdminSeries[] {
   return list.map((s) => {
-    if (kind === 'series') return s.slug === slug ? { ...s, image } : s;
-    return { ...s, characters: s.characters.map((c) => (characterImageSlug(s.slug, c.slug) === slug ? { ...c, image } : c)) };
+    if (kind === 'series') {
+      return s.slug === slug ? { ...s, image, source: image ? 'upload' : s.bundled ? 'bundled' : 'none' } : s;
+    }
+    if (!s.characters.some((c) => c.slug === slug)) return s;
+    const characters = s.characters.map((c) => (c.slug === slug ? { ...c, image } : c));
+    return { ...s, characters, characterImageCount: characters.filter((c) => c.image).length };
   });
 }
 

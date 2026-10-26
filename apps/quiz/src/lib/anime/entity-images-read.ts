@@ -1,7 +1,7 @@
 // Run O1 (ADM front): the server reads of the owner's images (public.entity_images, SQL 018 of part 1) for the display: the pictures of the
 // series for the site layout, the pictures of the characters of one series for its hub and its personality page, and the rows of /credits.
-// One cached read of the whole table (a few hundred small rows, paged past the 1000 row cap), tagged 'entity-images' so a write of
-// part 1 can revalidate it; it also expires with the stats TTL. Any failure (the table is not there yet, the network) is an empty list:
+// One cached read of the whole table (a few hundred small rows, paged past the 1000 row cap), tagged IMAGES_LIST_TAG, which every write of
+// part 1 expires with the tag of the image it touched (lib/entity-images/cache.ts); it also expires with the stats TTL. Any failure (the table is not there yet, the network) is an empty list:
 // the pages then show the bundled photo or the placeholder, as they did before this lane.
 
 import { unstable_cache } from 'next/cache';
@@ -9,6 +9,7 @@ import { unstable_cache } from 'next/cache';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { forSite } from '@/lib/site/scope';
+import { IMAGES_LIST_TAG } from '@/lib/entity-images/constants';
 import { createPublicReadClient } from '@/lib/supabase/server';
 
 import { characterImageSlug, isLicenseCode, ownerCreditRows, ownerPictureOf } from './entity-images-rules';
@@ -16,8 +17,8 @@ import { setOwnerSeriesPictures } from './entity-images-store';
 
 import type { EntityImage, OwnerCreditRow, OwnerPicture } from './entity-images-rules';
 
-/** The tag a write of the admin API revalidates (part 1 also tags each slug: `entity-image:<kind>:<slug>`). */
-export const ENTITY_IMAGES_TAG = 'entity-images';
+/** The tag a write of the admin API expires (revalidateImage expires it with the tag of the image: one scheme, constants.ts). */
+export const ENTITY_IMAGES_TAG = IMAGES_LIST_TAG;
 
 /** The columns anon and authenticated may select (SQL 018). */
 export const ENTITY_IMAGE_COLUMNS = 'kind, slug, path, width, height, focal_x, focal_y, source_url, author, license, license_note, updated_at';
@@ -47,7 +48,7 @@ export const getEntityImageRows = unstable_cache(
     }
     return loadEntityImageRows(db);
   },
-  ['db:anime:entity-images:v1'],
+  ['db:anime:entity-images:v2'],
   { revalidate: CACHE_TTL.stats, tags: [ENTITY_IMAGES_TAG] },
 );
 

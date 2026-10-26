@@ -1,6 +1,7 @@
 // Run O1 (IMG): the free photo of a series, as the anime components read it: the types and licence rules of series-images-rules.ts
 // and the lookup in the generated map (series-images.generated.ts, from docs/anime/images/*.json by scripts/gen-series-images.mts).
 
+import { ownerSrcSet } from './entity-images-rules';
 import { ownerSeriesPicture } from './entity-images-store';
 import { SERIES_IMAGES } from './series-images.generated';
 import { creditLine, LICENSE_PATTERN, licenseRequiresAttribution } from './series-images-rules';
@@ -28,6 +29,6 @@ export function seriesImageOf(slug: string | null | undefined, map: Readonly<Rec
  */
 export function seriesPhotoOf(slug: string | null | undefined, alt = '', map: Readonly<Record<string, SeriesImage>> = SERIES_IMAGES): SeriesPhoto | null {
   const own = ownerSeriesPicture(slug);
-  if (own) return { file: own.src, alt, attribution: own.credit, owner: { position: own.position, width: own.width, height: own.height } };
+  if (own) return { file: own.src, alt, attribution: own.credit, owner: { position: own.position, width: own.width, height: own.height, srcSet: ownerSrcSet(own) } };
   return seriesImageOf(slug, map);
 }

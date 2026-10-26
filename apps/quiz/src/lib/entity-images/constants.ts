@@ -60,6 +60,18 @@ export function imageTag(kind: ImageKind, slug: string, site: string = IMAGE_SIT
   return `entity-image:${site}:${kind}:${slug}`;
 }
 
+/**
+ * The tag of the list read of the display (lib/anime/entity-images-read.ts keeps every image row of the site in one cached read, because
+ * a page needs the pictures of a whole series and the layout needs all of them). One scheme for both sides: every write expires this tag
+ * and the tag of the image it touched (tagsOfImage), so whatever the display reads, per image or as a list, is fresh at once.
+ */
+export const IMAGES_LIST_TAG = `entity-images:${IMAGE_SITE}`;
+
+/** Every tag a write of one image expires: its own and the list's. */
+export function tagsOfImage(kind: ImageKind, slug: string, site: string = IMAGE_SITE): string[] {
+  return [imageTag(kind, slug, site), IMAGES_LIST_TAG];
+}
+
 /** The bucket folder of an image: anime/series/<series> or anime/character/<series>/<character>. */
 export function folderOf(kind: ImageKind, slug: string, site: string = IMAGE_SITE): string {
   return `${site}/${kind}/${slug}`;

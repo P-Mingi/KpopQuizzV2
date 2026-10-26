@@ -4,12 +4,12 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Segmented } from '@/components/ux-v1/segmented';
 import { importImage, listImages, removeImage, saveFocal, uploadImage } from '@/lib/anime/entity-images-api';
-import { characterImageSlug, countImages, countsLine, filterSeries, withImage } from '@/lib/anime/entity-images-rules';
+import { countImages, countsLine, filterSeries, withImage } from '@/lib/anime/entity-images-rules';
 
 import { ImageSlot } from './image-slot';
 
 import type { FetchLike } from '@/lib/anime/entity-images-api';
-import type { AdminSeries, EntityImage, EntityKind, ImageFilter } from '@/lib/anime/entity-images-rules';
+import type { AdminImage, AdminSeries, EntityKind, ImageFilter } from '@/lib/anime/entity-images-rules';
 import type { ImagesApi } from './image-slot';
 
 /** The calls of the real API (part 1), over the browser's fetch and XMLHttpRequest. */
@@ -64,7 +64,7 @@ export function ImagesAdmin({ initial, fetcher, api }: ImagesAdminProps): React.
   const shown = useMemo(() => filterSeries(list, query, filter), [list, query, filter]);
   const current = list.find((s) => s.slug === chosen) ?? null;
 
-  const change = useCallback((kind: EntityKind, key: string, image: EntityImage | null) => {
+  const change = useCallback((kind: EntityKind, key: string, image: AdminImage | null) => {
     setList((l) => withImage(l, kind, key, image));
   }, []);
 
@@ -125,7 +125,8 @@ export function ImagesAdmin({ initial, fetcher, api }: ImagesAdminProps): React.
               {current.characters.length === 0 ? <p className="anime-adm-hint">This series has no published characters yet.</p> : null}
               <div className="anime-adm-grid" data-testid="characters-grid">
                 {current.characters.map((c) => {
-                  const key = characterImageSlug(current.slug, c.slug);
+                  // The slug of a listed character is already the key of the routes: `<series>/<character>`.
+                  const key = c.slug;
                   return (
                     <ImageSlot
                       key={`character:${key}`}
