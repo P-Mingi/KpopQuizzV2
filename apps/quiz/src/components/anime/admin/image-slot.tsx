@@ -148,7 +148,7 @@ export function ImageSlot({ kind, slug, title, hint, frame, image, bundled, api,
     upload.current = handle;
     void handle.result.then((r) => {
       upload.current = null;
-      if (r.ok) saved(r.value, 'Saved. The picture is live within a few minutes.');
+      if (r.ok) saved(r.value, 'Saved. The picture is live on the site.');
       else { setBusy(null); setProblem(r.message); }
     });
   };
@@ -162,7 +162,7 @@ export function ImageSlot({ kind, slug, title, hint, frame, image, bundled, api,
     setNotice(null);
     setBusy('import');
     void api.importUrl({ kind, slug, url: check.url, meta }).then((r) => {
-      if (r.ok) saved(r.value, 'Imported. The picture is live within a few minutes.');
+      if (r.ok) saved(r.value, 'Imported. The picture is live on the site.');
       else { setBusy(null); setProblem(r.message); }
     });
   };
