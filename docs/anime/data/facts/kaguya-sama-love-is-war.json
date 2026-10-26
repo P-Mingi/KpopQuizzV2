@@ -2815,5 +2815,353 @@
     "status": "verified",
     "verified_at": "2026-10-25T17:37:52.000Z",
     "excerpt": "He is named after the Emperor from The Tale of the Bamboo Cutter"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-kaguya-shinomiya-manner-089",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "kaguya-shinomiya"
+    },
+    "field": "style",
+    "value": "Proud, cold, calculating",
+    "text": "Raised in a wealthy family, Kaguya comes across as proud, cold and calculating.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:31:00.000Z",
+    "excerpt": "prideful, cold and calculating"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-miyuki-shirogane-composed-090",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "miyuki-shirogane"
+    },
+    "field": "style",
+    "value": "Looks calm outside, racing inside",
+    "text": "The author wanted Miyuki to look calm and composed outwardly while his mind races within.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:31:00.000Z",
+    "excerpt": "calm and composed on the outside, but his mind would be racing on the inside"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-chika-fujiwara-schoolwork-091",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "chika-fujiwara"
+    },
+    "field": "habits",
+    "value": "Not serious about schoolwork",
+    "text": "Chika does not treat her schoolwork very seriously.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:31:00.000Z",
+    "excerpt": "doesn't take academic schoolwork seriously"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-chika-fujiwara-emotions-092",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "chika-fujiwara"
+    },
+    "field": "talent",
+    "value": "Expert on reading emotions",
+    "text": "Chika says she is an expert at reading emotions, though her readings often miss.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:31:00.000Z",
+    "excerpt": "claims to be an expert on reading emotions"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-yu-ishigami-observer-093",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "yu-ishigami"
+    },
+    "field": "talent",
+    "value": "Keen observer of people",
+    "text": "Yu is a sharp watcher of people who spots things others would rather hide.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:31:00.000Z",
+    "excerpt": "a keen observer of people"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-yu-ishigami-keeps-to-himself-094",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "yu-ishigami"
+    },
+    "field": "habits",
+    "value": "Usually keeps to himself",
+    "text": "Yu is a loner by habit and keeps to himself most of the time.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:31:00.000Z",
+    "excerpt": "usually keeps to himself"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-ai-hayasaka-aware-095",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "ai-hayasaka"
+    },
+    "field": "talent",
+    "value": "More socially aware than Kaguya",
+    "text": "Ai reads social situations better than Kaguya does.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:31:00.000Z",
+    "excerpt": "more socially aware than Kaguya"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-nagisa-kashiwagi-top-ten-096",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "nagisa-kashiwagi"
+    },
+    "field": "talent",
+    "value": "Top ten of her class",
+    "text": "Nagisa ranks in the top ten of her class for grades.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:31:00.000Z",
+    "excerpt": "academically ranks in the top ten of the class"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-nagisa-kashiwagi-girlfriend-097",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "nagisa-kashiwagi"
+    },
+    "field": "habits",
+    "value": "Chatty, moody, jealous as a girlfriend",
+    "text": "Nagisa is chatty with her boyfriend, and prone to mood swings and jealousy.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:31:00.000Z",
+    "excerpt": "exhibits many girlfriend behaviors such as talking a lot, being moody, or even jealousy"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-tsubasa-tanuma-clueless-098",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "tsubasa-tanuma"
+    },
+    "field": "habits",
+    "value": "Clueless about sharing details",
+    "text": "Tsubasa is oblivious to how little he tells the council about his new relationship, which irritates them.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:31:00.000Z",
+    "excerpt": "His cluelessness about sharing details about his successful relationship annoys the council members"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-tsubasa-tanuma-family-099",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "tsubasa-tanuma"
+    },
+    "field": "origin",
+    "value": "Son of a hospital director",
+    "text": "Tsubasa's father directs a hospital, and his grandfather is the physician of the Shinomiya family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:31:00.000Z",
+    "excerpt": "He is the son of a hospital director, as well as the grandson of the Shinomiya family physician"
+  },
+  {
+    "id": "kaguya-sama-love-is-war-kaguya-shinomiya-kind-100",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kaguya-sama-love-is-war",
+      "ref": "kaguya-shinomiya"
+    },
+    "field": "motivation",
+    "value": "Kind and fair-minded underneath",
+    "text": "Beneath the proud front, Kaguya is innocent, kind and fair.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters",
+        "ref": "1372942368",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:31:00.000Z",
+    "excerpt": "innocent, kind and fair-minded"
   }
 ]
