@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { seriesImageOf } from '@/lib/anime/series-images';
+import { seriesPhotoOf } from '@/lib/anime/series-images';
 import { ART_BOX, ART_DISC_OPACITY, ART_PATTERN_OPACITY, artFor, artMonogram, fitArtText, slugOfTitle } from '@/lib/anime/series-art';
 
 import type { ArtSize } from '@/lib/anime/series-art';
@@ -35,12 +35,12 @@ export const PHOTO_SIZES: Readonly<Record<ArtSize, string>> = {
  */
 export function SeriesArt({ slug, title, size, className, label }: SeriesArtProps): React.ReactElement {
   const key = slug ?? slugOfTitle(title);
-  const photo = seriesImageOf(key);
+  const photo = seriesPhotoOf(key, title);
   if (photo) {
     const pcls = ['anime-o2-art', `anime-o2-art-${size}`, 'anime-o2-photo', className ?? ''].filter(Boolean).join(' ');
     return (
       <span className={pcls} data-photo={key}>
-        <Image src={photo.file} alt={photo.alt} fill sizes={PHOTO_SIZES[size]} priority={size === 'hub'} className="anime-o2-photo-img" />
+        <Image src={photo.file} alt={photo.alt} fill sizes={PHOTO_SIZES[size]} priority={size === 'hub'} className="anime-o2-photo-img" {...(photo.owner ? { style: { objectPosition: photo.owner.position } } : {})} />
       </span>
     );
   }

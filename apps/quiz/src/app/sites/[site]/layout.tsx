@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 
 import type { Metadata } from 'next';
 
-import { SITE } from '@/lib/site/registry';
+import { SITE, SITE_ID } from '@/lib/site/registry';
 import { robotsFor } from '@/lib/site/indexing';
 import { isServedSite, siteStaticParams } from '@/lib/site/routing';
 
@@ -24,6 +24,10 @@ import { UxShell } from '@/components/layout/ux-v1/ux-shell';
 // client graph (first node below, before the shell); no shared component imports the art. Anime-only modules: this layout is not kpop's.
 import '@/components/anime/register-art';
 import { ArtRegistry } from '@/components/anime/art-registry';
+import { OwnerPictures } from '@/components/anime/owner-pictures';
+// Run O1 (ADM): the owner's own pictures of the series (public.entity_images), read once per render from a cached read and handed to the server
+// store and to the ArtRegistry island. Empty on every build but the anime one, and on any failure of the read.
+import { primeOwnerSeriesPictures } from '@/lib/anime/entity-images-read';
 
 // RENDER-FIX: the site chrome. Moved OUT of the root layout so the root can drop
 // its one dynamic call (await headers() for the embed branch) and let every route
@@ -55,9 +59,11 @@ export const metadata: Metadata = {
 export default async function SiteLayout({ children, params }: { children: React.ReactNode; params: Promise<{ site: string }> }): Promise<React.ReactElement> {
   const { site } = await params;
   if (!isServedSite(site)) notFound();
+  const owner = SITE_ID === 'anime' ? await primeOwnerSeriesPictures() : undefined;
   return (
     <>
       <ArtRegistry />
+      {owner ? <OwnerPictures owner={owner} /> : null}
       {/* Site-wide JSON-LD lives with the chrome (moved from the root layout), so
           /embed - which is outside this group - never carries these nav labels. */}
       <script

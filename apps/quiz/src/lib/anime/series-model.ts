@@ -10,6 +10,7 @@ import { SPOILER_FREE_LEVEL, computeSpoilerLevel, isRevealedTo, levelOfRow } fro
 import { MIN_OSHI_PICKS } from './types';
 
 import type { Metadata } from 'next';
+import type { OwnerPicture } from './entity-images-rules';
 import type { SeriesFactRow, SeriesHub, SeriesQuizRow, SeriesSourceRow } from './series';
 import type { ArcKind, ArcRow, CharacterRole, CharacterRow, QuestionSpoiler, SeriesRow, SeriesThemeRow, SpoilerArc, SpoilerLevel, SpoilerProgress, SpoilerScope, ThemeKind } from './types';
 
@@ -257,6 +258,8 @@ export interface CharacterTileData {
   readonly role: CharacterRole;
   /** Oshi picks, only at MIN_OSHI_PICKS or more (the threshold rule), else null. */
   readonly picks: number | null;
+  /** The owner's portrait of the character (run O1, ADM), when one was uploaded; without it the tile shows its monogram. */
+  readonly image?: OwnerPicture | null | undefined;
 }
 
 export interface CharacterSplit {
@@ -268,6 +271,11 @@ export interface CharacterSplit {
 export function characterTile(c: Pick<CharacterRow, 'id' | 'slug' | 'name' | 'role'>, oshiCounts: Readonly<Record<number, number>>): CharacterTileData {
   const picks = oshiCounts[c.id];
   return { id: c.id, slug: c.slug, name: c.name, role: c.role, picks: typeof picks === 'number' && picks >= MIN_OSHI_PICKS ? picks : null };
+}
+
+/** The tiles with the owner's portraits set where a character has one (by the slug of the character); a tile without one is returned as it is. */
+export function withPortraits(tiles: readonly CharacterTileData[], pictures: Readonly<Record<string, OwnerPicture>>): CharacterTileData[] {
+  return tiles.map((t) => (Object.prototype.hasOwnProperty.call(pictures, t.slug) ? { ...t, image: pictures[t.slug]! } : t));
 }
 
 /** The characters a reader may see: spoiler_level 0 for the spoiler-free view (what the HTML carries), the rest locked. */

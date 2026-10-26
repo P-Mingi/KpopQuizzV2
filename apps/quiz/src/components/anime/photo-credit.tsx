@@ -1,4 +1,4 @@
-import { seriesImageOf } from '@/lib/anime/series-images';
+import { seriesPhotoOf } from '@/lib/anime/series-images';
 
 import type { SeriesImage } from '@/lib/anime/series-images';
 
@@ -15,7 +15,7 @@ interface PhotoCreditProps {
  * that asks for no credit (Unsplash, Pexels, CC0, public domain: those are listed on /credits). Server component, no hooks.
  */
 export function PhotoCredit({ slug, map }: PhotoCreditProps): React.ReactElement | null {
-  const photo = map ? seriesImageOf(slug, map) : seriesImageOf(slug);
+  const photo = map ? seriesPhotoOf(slug, '', map) : seriesPhotoOf(slug);
   const a = photo?.attribution;
   if (!a) return null;
   return (
