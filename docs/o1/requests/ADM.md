@@ -26,10 +26,10 @@ ADM back added `docs/pending-migrations/multisite/018-entity-images.sql` (+ roll
    > Check: dashboard, Storage, `entity-images`: the folder `anime/` exists; `q "select kind, count(*) from public.entity_images group by 1"` matches the dry run.
    > Back: `delete` the rows you do not want from the admin page of otakuquiz.org (it removes the files too), or run `M/018-entity-images.rollback.sql` after emptying the bucket and the table.
 
-3. Contract for ADM front (the routes, all under `/api/admin/images`, anime build only, 404 for anyone who is not in `ADMIN_USER_IDS` and on every other build; writes also refuse
-   a foreign `Origin` with 403). Answers: `{ ok: true, ... }` or `{ error: "plain words", code: "<machine code>" }`.
+3. Contract for ADM front (the routes, all under `/api/admin/images`, anime build only, 404 for anyone who is not in `ADMIN_USER_IDS` and on every other build; writes need `Origin` of the page's own host, or, with no `Origin`, `Sec-Fetch-Site: same-origin`, else 403; the JSON routes need `Content-Type: application/json`, else 415;
+   a method a route does not implement answers 404). Answers: `{ ok: true, ... }` or `{ error: "plain words", code: "<machine code>" }`.
    - `GET list?site=anime` -> `{ ok, site, counts: { series, seriesWithImage, seriesWithUpload, characters, charactersWithImage }, series: [{ slug, name, published, image, bundled: { url, alt } | null, source: 'upload' | 'bundled' | 'none', characterCount, characterImageCount, characters: [{ slug, name, role, status, image }] }] }`
-   - `POST upload` multipart: `kind`, `slug`, `file`, `meta` (a JSON string `{ source_url, author, license, license_note }`; the four fields may also be sent as separate form fields) -> `{ ok, image }`
+   - `POST upload` multipart: `kind`, `slug`, `file`, `meta` (a JSON string `{ source_url (https only), author, license, license_note }`; the four fields may also be sent as separate form fields) -> `{ ok, image }`
    - `POST import` json `{ kind, slug, url, meta }` -> `{ ok, image }`
    - `PATCH focal` json `{ kind, slug, x, y }` (0 to 100) -> `{ ok, image }`
    - `DELETE` at `/api/admin/images` or `/api/admin/images/delete`, json `{ kind, slug }` (or `?kind=&slug=`) -> `{ ok, image }` (the row that was removed)

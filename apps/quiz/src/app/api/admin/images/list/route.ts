@@ -1,4 +1,4 @@
-import { adminGate, failure, ok } from '@/lib/entity-images/route-kit';
+import { adminGate, failure, notFoundHandler, ok } from '@/lib/entity-images/route-kit';
 import { IMAGE_SITE } from '@/lib/entity-images/constants';
 import { ImageError } from '@/lib/entity-images/errors';
 import { listImages } from '@/lib/entity-images/list';
@@ -21,3 +21,10 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     return failure(e);
   }
 }
+
+// Every other method answers 404, not Next's 405.
+export const POST = notFoundHandler;
+export const PUT = notFoundHandler;
+export const PATCH = notFoundHandler;
+export const DELETE = notFoundHandler;
+export const OPTIONS = notFoundHandler;

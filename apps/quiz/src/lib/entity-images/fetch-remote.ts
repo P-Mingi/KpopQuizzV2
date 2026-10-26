@@ -105,8 +105,10 @@ async function readCapped(stream: AsyncIterable<Uint8Array>, max: number): Promi
 export async function fetchRemoteImage(rawUrl: string, deps: RemoteDeps = realDeps, timeoutMs: number = IMPORT_TIMEOUT_MS): Promise<Buffer> {
   let active: RemoteResponse | null = null;
   let timer: ReturnType<typeof setTimeout> | undefined;
+  let timedOut = false;
   const expired = new Promise<never>((_, reject) => {
     timer = setTimeout(() => {
+      timedOut = true;
       active?.destroy();
       reject(new ImageError('timeout', 504, 'The host took longer than 10 seconds.'));
     }, timeoutMs);
@@ -114,6 +116,8 @@ export async function fetchRemoteImage(rawUrl: string, deps: RemoteDeps = realDe
   const work = async (): Promise<Buffer> => {
     let current = checkRemoteUrl(rawUrl);
     for (let hops = 0; ; hops++) {
+      // The timer has fired: do not start another lookup or request (the race above has already answered).
+      if (timedOut) throw new ImageError('timeout', 504, 'The host took longer than 10 seconds.');
       const to = await resolvePublic(current, deps.lookup);
       let res: RemoteResponse;
       try { res = await deps.request(current, to); } catch { throw new ImageError('fetch_failed', 502, 'The host could not be reached.'); }

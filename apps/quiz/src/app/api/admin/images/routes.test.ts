@@ -21,6 +21,12 @@ vi.mock('@/lib/entity-images/fetch-remote', async (orig) => ({
   fetchRemoteImage: async (url: string) => { state.remoteCalls.push(url); if (!state.remote) throw new Error('unexpected network'); return state.remote(url); },
 }));
 
+import * as rootModule from './route';
+import * as deleteModule from './delete/route';
+import * as focalModule from './focal/route';
+import * as importModule from './import/route';
+import * as listModule from './list/route';
+import * as uploadModule from './upload/route';
 import { DELETE as deleteRoot } from './route';
 import { DELETE as deleteSub } from './delete/route';
 import { PATCH as focal } from './focal/route';
@@ -30,7 +36,7 @@ import { POST as upload } from './upload/route';
 
 const BASE = 'http://localhost:3021';
 const json = (path: string, method: string, body: unknown, headers: Record<string, string> = {}): NextRequest =>
-  new NextRequest(`${BASE}${path}`, { method, body: JSON.stringify(body), headers: { 'content-type': 'application/json', ...headers } });
+  new NextRequest(`${BASE}${path}`, { method, body: JSON.stringify(body), headers: { 'content-type': 'application/json', origin: BASE, ...headers } });
 
 async function form(over: Record<string, unknown> = {}, file: Buffer | null = null): Promise<NextRequest> {
   const f = new FormData();
@@ -38,7 +44,7 @@ async function form(over: Record<string, unknown> = {}, file: Buffer | null = nu
   f.set('slug', String(over.slug ?? 'death-note'));
   f.set('meta', typeof over.meta === 'string' ? over.meta : JSON.stringify(over.meta ?? GOOD_META));
   if (over.file !== null) f.set('file', new File([new Uint8Array(file ?? await makeImage(1000, 1400, 'png'))], 'whatever.txt', { type: 'text/plain' }));
-  return new NextRequest(`${BASE}/api/admin/images/upload`, { method: 'POST', body: f });
+  return new NextRequest(`${BASE}/api/admin/images/upload`, { method: 'POST', body: f, headers: { origin: BASE } });
 }
 
 const dbOf = (): FakeDb => state.db as FakeDb;
@@ -168,7 +174,7 @@ describe('POST upload', () => {
   it('refuses a body far over the cap without reading it all', async () => {
     const f = new FormData();
     f.set('file', new File([new Uint8Array(12 * 1024 * 1024)], 'a.jpg'));
-    const res = await upload(new NextRequest(`${BASE}/api/admin/images/upload`, { method: 'POST', body: f }));
+    const res = await upload(new NextRequest(`${BASE}/api/admin/images/upload`, { method: 'POST', body: f, headers: { origin: BASE } }));
     expect(res.status).toBe(413);
   });
 
@@ -245,7 +251,7 @@ describe('POST import', () => {
   });
 
   it('a bad body is a 400', async () => {
-    const res = await importUrl(new NextRequest(`${BASE}/api/admin/images/import`, { method: 'POST', body: 'nope', headers: { 'content-type': 'application/json' } }));
+    const res = await importUrl(new NextRequest(`${BASE}/api/admin/images/import`, { method: 'POST', body: 'nope', headers: { 'content-type': 'application/json', origin: BASE } }));
     expect(res.status).toBe(400);
   });
 });
@@ -284,7 +290,7 @@ describe('DELETE', () => {
     expect(dbOf().files.size).toBe(0);
     expect(revalidateTag).toHaveBeenCalledWith('entity-image:anime:series:death-note', { expire: 0 });
     await upload(await form());
-    const again = await deleteSub(new NextRequest(`${BASE}/api/admin/images/delete?kind=series&slug=death-note`, { method: 'DELETE' }));
+    const again = await deleteSub(new NextRequest(`${BASE}/api/admin/images/delete?kind=series&slug=death-note`, { method: 'DELETE', headers: { origin: BASE } }));
     expect(again.status).toBe(200);
     expect(dbOf().tables.entity_images).toHaveLength(0);
   });
@@ -294,6 +300,99 @@ describe('DELETE', () => {
     expect(none.status).toBe(404);
     expect((await none.json()).code).toBe('no_image');
     expect((await deleteRoot(json('/api/admin/images', 'DELETE', { kind: 'series' }))).status).toBe(400);
-    expect((await deleteRoot(new NextRequest(`${BASE}/api/admin/images`, { method: 'DELETE' }))).status).toBe(400);
+    expect((await deleteRoot(new NextRequest(`${BASE}/api/admin/images`, { method: 'DELETE', headers: { origin: BASE } }))).status).toBe(400);
+  });
+});
+
+describe('every method a route does not implement answers 404, not 405', () => {
+  const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'] as const;
+  const MODULES: Array<[string, Record<string, unknown>, string[]]> = [
+    ['/api/admin/images', rootModule, ['DELETE']],
+    ['/api/admin/images/delete', deleteModule, ['DELETE']],
+    ['/api/admin/images/focal', focalModule, ['PATCH']],
+    ['/api/admin/images/import', importModule, ['POST']],
+    ['/api/admin/images/list', listModule, ['GET']],
+    ['/api/admin/images/upload', uploadModule, ['POST']],
+  ];
+  for (const [path, mod, implemented] of MODULES) {
+    for (const method of METHODS) {
+      if (implemented.includes(method)) continue;
+      // Next derives HEAD from GET when GET exists, so a GET route does not export HEAD itself.
+      if (method === 'HEAD' && implemented.includes('GET')) continue;
+      it(`${method} ${path} is 404 for an admin, a visitor and the kpop build`, async () => {
+        const handler = mod[method] as (req: NextRequest) => Response | Promise<Response>;
+        expect(typeof handler, `${path} exports ${method}`).toBe('function');
+        for (const setup of [() => undefined, () => { state.user = null; }, () => { state.site = 'kpop'; }]) {
+          state.site = 'anime'; state.user = { id: 'admin-1' }; setup();
+          const res = await handler(new NextRequest(`${BASE}${path}`, { method, headers: { origin: BASE } }));
+          expect(res.status).toBe(404);
+        }
+        expect(dbOf().files.size).toBe(0);
+      });
+    }
+  }
+});
+
+describe('writes need a same-site signal', () => {
+  const body = { kind: 'series', slug: 'death-note', x: 10, y: 20 };
+  const bare = (headers: Record<string, string>): NextRequest =>
+    new NextRequest(`${BASE}/api/admin/images/focal`, { method: 'PATCH', body: JSON.stringify(body), headers: { 'content-type': 'application/json', ...headers } });
+
+  beforeEach(async () => { await upload(await form()); });
+
+  it('no Origin and no Sec-Fetch-Site: refused with 403', async () => {
+    const res = await focal(bare({}));
+    expect(res.status).toBe(403);
+    expect((await res.json()).code).toBe('forbidden');
+  });
+
+  it('no Origin but Sec-Fetch-Site same-origin: accepted', async () => {
+    expect((await focal(bare({ 'sec-fetch-site': 'same-origin' }))).status).toBe(200);
+  });
+
+  it.each(['cross-site', 'same-site', 'none', ''])('no Origin and Sec-Fetch-Site "%s": refused', async (v) => {
+    expect((await focal(bare({ 'sec-fetch-site': v }))).status).toBe(403);
+  });
+
+  it('every state-changing route refuses a request with neither header', async () => {
+    const json = { 'content-type': 'application/json' };
+    const f = new FormData();
+    f.set('kind', 'series');
+    const calls = [
+      importUrl(new NextRequest(`${BASE}/api/admin/images/import`, { method: 'POST', body: JSON.stringify({}), headers: json })),
+      upload(new NextRequest(`${BASE}/api/admin/images/upload`, { method: 'POST', body: f })),
+      deleteRoot(new NextRequest(`${BASE}/api/admin/images`, { method: 'DELETE', body: JSON.stringify(body), headers: json })),
+      deleteSub(new NextRequest(`${BASE}/api/admin/images/delete`, { method: 'DELETE', body: JSON.stringify(body), headers: json })),
+    ];
+    for (const res of await Promise.all(calls)) expect(res.status).toBe(403);
+    expect(dbOf().tables.entity_images).toHaveLength(1);
+  });
+
+  it('a foreign Origin is refused', async () => {
+    expect((await focal(bare({ origin: 'https://evil.example', host: 'localhost:3021' }))).status).toBe(403);
+  });
+});
+
+describe('the JSON routes take application/json only', () => {
+  const post = (path: string, method: string, type: string | null, body = '{}'): NextRequest =>
+    new NextRequest(`${BASE}${path}`, { method, body, headers: { origin: BASE, ...(type ? { 'content-type': type } : {}) } });
+
+  it.each([['text/plain'], ['application/x-www-form-urlencoded'], ['multipart/form-data; boundary=x'], [null]])('content type %s is a 415 on import, focal and delete', async (type) => {
+    const payload = JSON.stringify({ kind: 'series', slug: 'death-note', x: 1, y: 1, url: 'https://x.test/a.png', meta });
+    for (const res of [
+      await importUrl(post('/api/admin/images/import', 'POST', type, payload)),
+      await focal(post('/api/admin/images/focal', 'PATCH', type, payload)),
+      await deleteRoot(post('/api/admin/images', 'DELETE', type, payload)),
+    ]) {
+      expect(res.status).toBe(415);
+      expect((await res.json()).code).toBe('unsupported_type');
+    }
+    expect(state.remoteCalls).toEqual([]);
+  });
+
+  it('application/json with a charset is accepted', async () => {
+    await upload(await form());
+    const res = await focal(post('/api/admin/images/focal', 'PATCH', 'application/json; charset=utf-8', JSON.stringify({ kind: 'series', slug: 'death-note', x: 1, y: 1 })));
+    expect(res.status).toBe(200);
   });
 });

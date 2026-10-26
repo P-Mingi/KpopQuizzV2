@@ -242,4 +242,17 @@ describe('fetchRemoteImage: the body', () => {
     };
     expect(await codeOf(fetchRemoteImage('https://a.example/0', deps, 150))).toBe('timeout');
   });
+
+  it('once the timer has fired, no further lookup or request starts', async () => {
+    let lookups = 0;
+    let requests = 0;
+    const deps: RemoteDeps = {
+      lookup: async () => { lookups++; return [{ address: '93.184.216.34', family: 4 as const }]; },
+      request: async () => { requests++; await new Promise((r) => setTimeout(r, 80)); return redirect('https://a.example/next'); },
+    };
+    expect(await codeOf(fetchRemoteImage('https://a.example/0', deps, 30))).toBe('timeout');
+    await new Promise((r) => setTimeout(r, 200));
+    expect([lookups, requests]).toEqual([1, 1]);
+  });
 });
+

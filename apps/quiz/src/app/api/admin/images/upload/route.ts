@@ -2,7 +2,7 @@ import { MAX_SOURCE_BYTES } from '@/lib/entity-images/constants';
 import { ImageError } from '@/lib/entity-images/errors';
 import { revalidateImage } from '@/lib/entity-images/cache';
 import { processImage } from '@/lib/entity-images/process';
-import { adminGate, failure, forbidden, ok, readForm, sameOrigin } from '@/lib/entity-images/route-kit';
+import { adminGate, failure, forbidden, notFoundHandler, ok, readForm, sameOrigin } from '@/lib/entity-images/route-kit';
 import { assertEntity, saveImage } from '@/lib/entity-images/store';
 import { parseKind, parseMeta, parseSlug } from '@/lib/entity-images/validate';
 import { createServiceRoleClient } from '@/lib/supabase/server';
@@ -41,3 +41,11 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return failure(e);
   }
 }
+
+// Every other method answers 404, not Next's 405.
+export const GET = notFoundHandler;
+export const PUT = notFoundHandler;
+export const PATCH = notFoundHandler;
+export const DELETE = notFoundHandler;
+export const HEAD = notFoundHandler;
+export const OPTIONS = notFoundHandler;

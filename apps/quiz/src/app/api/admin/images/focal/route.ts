@@ -1,5 +1,5 @@
 import { revalidateImage } from '@/lib/entity-images/cache';
-import { adminGate, failure, forbidden, ok, readJson, sameOrigin } from '@/lib/entity-images/route-kit';
+import { adminGate, failure, forbidden, notFoundHandler, ok, readJson, sameOrigin } from '@/lib/entity-images/route-kit';
 import { setFocal } from '@/lib/entity-images/store';
 import { parseFocal, parseKind, parseSlug } from '@/lib/entity-images/validate';
 import { createServiceRoleClient } from '@/lib/supabase/server';
@@ -24,3 +24,11 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
     return failure(e);
   }
 }
+
+// Every other method answers 404, not Next's 405.
+export const GET = notFoundHandler;
+export const POST = notFoundHandler;
+export const PUT = notFoundHandler;
+export const DELETE = notFoundHandler;
+export const HEAD = notFoundHandler;
+export const OPTIONS = notFoundHandler;

@@ -31,12 +31,26 @@ export async function adminGate(): Promise<Gate> {
   }
 }
 
-/** A write that carries an Origin header must come from the page's own host (the session cookie rides on it). */
+/**
+ * A write must come from the page's own site. With an Origin header, its host must be the request's host. Without one (some browsers
+ * leave it off), the browser's own Sec-Fetch-Site header must say same-origin; a caller that sends neither is refused.
+ */
 export function sameOrigin(req: NextRequest): boolean {
   const origin = req.headers.get('origin');
-  if (!origin) return true;
+  if (!origin) return req.headers.get('sec-fetch-site') === 'same-origin';
   const host = req.headers.get('x-forwarded-host') ?? req.headers.get('host');
   try { return !host || new URL(origin).host === host; } catch { return false; }
+}
+
+/** The JSON routes take application/json only (a form post from another site cannot send it without a preflight). */
+export function assertJson(req: NextRequest): void {
+  const type = (req.headers.get('content-type') ?? '').split(';')[0]!.trim().toLowerCase();
+  if (type !== 'application/json') throw new ImageError('unsupported_type', 415, 'The request body must be application/json.');
+}
+
+/** Answers 404 (never Next's 405) for a method a route does not implement. */
+export function notFoundHandler(): NextResponse {
+  return notFound();
 }
 
 export const forbidden = (): NextResponse => NextResponse.json({ error: 'This request does not come from the admin page.', code: 'forbidden' }, { status: 403 });
@@ -74,6 +88,7 @@ export async function readBody(req: NextRequest, max: number): Promise<Buffer> {
 }
 
 export async function readJson(req: NextRequest): Promise<Record<string, unknown>> {
+  assertJson(req);
   const raw = await readBody(req, 64 * 1024);
   try {
     const v: unknown = JSON.parse(raw.toString('utf8'));

@@ -45,9 +45,10 @@ describe('parseMeta', () => {
     expect(code(() => parseMeta({ ...meta, license: 'other', license_note: '  ' }))).toBe('bad_meta');
   });
 
-  it('the source is a web address: no script, file or relative link', () => {
+  it('the source is an https address: no http, script, file or relative link', () => {
     for (const bad of ['javascript:alert(1)', 'file:///etc/passwd', 'data:text/html,x', 'ftp://x.test/a', '/relative', 'unsplash.com/x']) expect(code(() => parseMeta({ ...meta, source_url: bad }))).toBe('bad_meta');
-    expect(parseMeta({ ...meta, source_url: 'http://example.org/page' }).source_url).toBe('http://example.org/page');
+    expect(code(() => parseMeta({ ...meta, source_url: 'http://example.org/page' }))).toBe('bad_meta');
+    expect(parseMeta({ ...meta, source_url: 'https://example.org/page' }).source_url).toBe('https://example.org/page');
   });
 
   it('caps the lengths and refuses control characters', () => {

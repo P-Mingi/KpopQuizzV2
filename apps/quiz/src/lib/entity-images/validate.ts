@@ -30,7 +30,7 @@ export function parseMeta(v: unknown): ImageMeta {
   const source = str(o.source_url);
   let parsed: URL | null = null;
   try { parsed = source ? new URL(source) : null; } catch { parsed = null; }
-  if (!parsed || (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') || source.length > MAX_SOURCE_URL) {
+  if (!parsed || parsed.protocol !== 'https:' || source.length > MAX_SOURCE_URL) {
     throw new ImageError('bad_meta', 400, 'The source must be a web address starting with https:// (the page of the picture).');
   }
   const author = str(o.author);
