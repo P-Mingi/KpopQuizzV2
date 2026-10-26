@@ -179,13 +179,28 @@ test('import by URL: our own bucket address is fetched and copied; unsafe addres
 });
 
 test('delete: the row and the files are gone, and the list falls back', async () => {
+  test.setTimeout(240_000);
   const before = await jsonOf(await api.get('/api/admin/images/list'));
   const urls: string[] = [before.series.find((s: { slug: string }) => s.slug === SERIES_A).image.url, before.series.find((s: { slug: string }) => s.slug === SERIES_B).image.url];
   for (const [kind, slug] of [['series', SERIES_A], ['series', SERIES_B], ['character', CHARACTER]] as const) {
     const res = await api.delete('/api/admin/images', { data: { kind, slug } });
     expect([res.status(), (await jsonOf(res)).ok], `${kind} ${slug}`).toEqual([200, true]);
   }
-  for (const u of urls) expect((await visitor.get(u)).status(), 'the file is gone from the bucket').toBeGreaterThanOrEqual(400);
+  // The bucket is the authority: listing the folders (service role, no CDN) shows no object.
+  for (const folder of [`anime/series/${SERIES_A}`, `anime/series/${SERIES_B}`, `anime/character/${CHARACTER}`]) {
+    const listed = await db.storage.from('entity-images').list(folder);
+    expect([listed.error, listed.data?.length], `objects left in ${folder}`).toEqual([null, 0]);
+  }
+  // The public CDN may keep serving a deleted object for a while (cache-control is a year, the name carries a hash): poll up to 150 s.
+  const started = Date.now();
+  let served = urls.length;
+  while (served > 0 && Date.now() - started < 150_000) {
+    served = 0;
+    for (const u of urls) if ((await visitor.get(u)).status() < 400) served++;
+    if (served > 0) await new Promise((r) => setTimeout(r, 10_000));
+  }
+  test.info().annotations.push({ type: 'cdn', description: `deleted files stopped being served after ${Math.round((Date.now() - started) / 1000)} s (${served} still served)` });
+  expect(served, 'the CDN stops serving the deleted files').toBe(0);
   const rows = await db.from('entity_images').select('slug').eq('site_id', 'anime').in('slug', [SERIES_A, SERIES_B, CHARACTER]);
   expect(rows.data).toEqual([]);
   expect((await api.delete('/api/admin/images/delete', { data: { kind: 'series', slug: SERIES_A } })).status()).toBe(404);
