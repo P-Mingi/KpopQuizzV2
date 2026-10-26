@@ -1,8 +1,8 @@
 import { SpoilerShieldIsland } from '@/components/spoilers/spoiler-shield';
 import { t, VOCAB_VARS } from '@/lib/anime/copy';
-import { seriesImageOf } from '@/lib/anime/series-images';
+import { seriesPhotoOf } from '@/lib/anime/series-images';
 import { kindEyebrow, kindName } from '@/lib/anime/manhwa';
-import { SERIES_TRIVIA_MIN, groupQuizzesByArc, hubEyebrow, hubIntro, openingRows, quizLevels, safeUrl, seriesFaqs, shieldArcs, splitCharacters, storyMap, uniqueFacts, HUB_FACT_LIMIT } from '@/lib/anime/series-model';
+import { SERIES_TRIVIA_MIN, groupQuizzesByArc, hubEyebrow, hubIntro, openingRows, quizLevels, safeUrl, seriesFaqs, shieldArcs, splitCharacters, storyMap, uniqueFacts, withPortraits, HUB_FACT_LIMIT } from '@/lib/anime/series-model';
 
 import { CharacterTiles } from './character-tiles';
 import { OpeningsTable } from './openings-table';
@@ -16,13 +16,14 @@ import type { HubSlots } from '@/components/group/ux-v1/hub-slots';
 import type { GrowthWords } from '@/lib/ux-v1/p3/growth';
 import type { TriviaVariant } from '@/app/(site)/[slug]/group-trivia-page';
 import type { RelatedSeries, SeriesHub } from '@/lib/anime/series';
+import type { OwnerPicture } from '@/lib/anime/entity-images-rules';
 import type { Group } from '@/lib/db/types';
 
 /** The site the slots are for: its origin and brand name (the page passes SITE.url and SITE.brand.name). */
 export interface SlotSite { readonly origin: string; readonly brand: string }
 
 /** True when the photo of this slug asks for a credit line (CC BY, CC BY-SA); false for a title card or any other licence. */
-const photoCreditOf = (slug: string): boolean => Boolean(seriesImageOf(slug)?.attribution);
+const photoCreditOf = (slug: string): boolean => Boolean(seriesPhotoOf(slug)?.attribution);
 
 /** The words of the growth blocks of the hub (ways to play, "be the first"), from the vocabulary of the anime site. */
 const growthWords = (): GrowthWords => {
@@ -43,11 +44,13 @@ const labels = (): HubSlots['labels'] => ({
  * A2 quizzes by arc through `grouping`, A3 characters, A4 openings and the facts first in the lower band, and the
  * series' own FAQ. The HTML is built for the spoiler-free view; the islands refine it from the reader's progress.
  */
-export function buildSeriesSlots(hub: SeriesHub, related: readonly RelatedSeries[], site: SlotSite): HubSlots {
+export function buildSeriesSlots(hub: SeriesHub, related: readonly RelatedSeries[], site: SlotSite, portraits: Readonly<Record<string, OwnerPicture>> = {}): HubSlots {
   const { group, series } = hub;
   const published = hub.quizzes.length;
   const facts = uniqueFacts(hub.trivia);
-  const characters = splitCharacters(hub.characters, hub.oshiCounts);
+  const split = splitCharacters(hub.characters, hub.oshiCounts);
+  // The owner's portraits go on the characters a reader may see; a locked character never gets one (its name is not in the page either).
+  const characters = { open: withPortraits(split.open, portraits), lockedCount: split.lockedCount };
   return {
     origin: site.origin,
     brand: site.brand,

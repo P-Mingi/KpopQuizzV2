@@ -54,4 +54,11 @@ export interface SeriesPhoto {
   readonly file: string;
   readonly alt: string;
   readonly attribution: SeriesImageAttribution | null;
+  /** Set for the owner's own image (run O1, ADM): the bundled photos never carry it. */
+  readonly owner?: {
+    /** CSS object-position of the focal point. */
+    readonly position: string;
+    readonly width: number;
+    readonly height: number;
+  } | undefined;
 }
