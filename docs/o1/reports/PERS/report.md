@@ -23,3 +23,11 @@ possible results opened, and the "Ways to play" tile of the Death Note hub. No p
 - One quiz per series (the owner's brief) over the contract's one question set per site: stored in the existing tables with no DDL (requests 3).
 - The Death Note set is `published`; flip `status` to `draft` to hold it (the rows load inactive and the page answers 404).
 - The quiz arc is 0 and every result is a spoiler level 0 character: the page has no spoiler shield (TWINS row 14).
+
+## Checks (all green at the last commit)
+- tsc 0 errors; vitest full 278 files, 4156 tests (with --testTimeout=30000); node tests of scripts/anime and e2e/o1/L1: 156 of 156; `scripts/o1/check.sh`: twins ok.
+- Builds (offline, UX flags): kpop, anime and hub green. `kpop-chunk-count.sh compare` base 1f3ccf6 against head: 164 routes, same client modules and same chunk files
+  for every one; `kpop-render-count.sh compare`: the same scripts and preload tags on the five pages.
+- o1-scratch: `load-fixtures.mjs scratch --data docs/anime/data` twice, the two `loaded` lines equal (personality_questions=8, personality_profiles=6);
+  L10 applied twice, rolled back, applied twice: the md5 of the 8 questions and of the 6 profiles are the same each time.
+- o1-dev: `load-fixtures.mjs dev --data docs/anime/data --only personality` twice, equal; the kpop rows (10 questions, 97 profiles) untouched.

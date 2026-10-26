@@ -43,3 +43,10 @@ state; patches for ORCH. Nothing in docs/o1/contracts was edited.
 8. Indexing. The page sets no robots of its own, like the kpop page: the anime layout answers `noindex, nofollow` while the site is `building` (o1-dev today) and
    index once `sites.status` is `live`. The anime sitemap (`lib/site/root-files.ts`) lists the page of every series with six active profiles, strictly (a failed read
    is an error, not a shorter list).
+9. Kpop reads (owner of `lib/personality/data.ts`, B2/C2). `readQuestions` (Which member are you) is the one personality read that is not behind `forSite`. Today that
+   is the shipped behaviour and the kpop test pins it, so PERS did not touch it. Once L10 is applied in production the table also holds the anime band rows (ord 13 and
+   up), and the kpop read returns them after the ten kpop ones: harmless, because the page asks the first eight by `ord`, but a read that names its site would not
+   depend on that. Wanted when `SITE_SCOPE` is on for kpop: `forSite(...)` on that read (a no-op while the flag is off, so the kpop queries stay as they are).
+10. The kpop module graph. `apps/quiz/src/components/name-all/__o1_kpop_name_all_tree__/page.json` snapshots the static imports under `lib/personality/data.ts`.
+    PERS added its anime-only parsing to `parse.ts` (already in that graph) instead of a new file imported by `data.ts`, so the snapshot is unchanged. A later change
+    that gives `data.ts` a new static import must re-cut that snapshot with the owner's approval.
