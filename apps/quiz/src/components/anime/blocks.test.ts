@@ -22,6 +22,11 @@ import { TitleCard } from './title-card';
 
 import type { SeriesHub } from '@/lib/anime/series';
 
+// The title-card tests below name series that now have a free photo (docs/anime/images): they run on an empty photo map, so the card
+// is what they draw. The photo path is held by lib/anime/series-images-real.test.ts on the real map.
+vi.mock('@/lib/anime/series-images.generated', () => ({ SERIES_IMAGES: {}, SERIES_IMAGE_CREDITS: {} }));
+
+
 vi.mock('next/image', () => ({ default: (p: Record<string, unknown>) => h('img', { src: p.src as string, alt: p.alt as string, className: p.className as string }) }));
 
 const html = (el: React.ReactElement): string => renderToStaticMarkup(el);

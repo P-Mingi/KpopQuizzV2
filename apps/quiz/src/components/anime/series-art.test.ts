@@ -6,6 +6,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { UxQuizCardData } from '@/components/ux-v1/quiz-card';
 
+// The title-card tests below name series that now have a free photo (docs/anime/images): they run on an empty photo map, so the card
+// is what they draw. The photo path is held by lib/anime/series-images-real.test.ts on the real map.
+vi.mock('@/lib/anime/series-images.generated', () => ({ SERIES_IMAGES: {}, SERIES_IMAGE_CREDITS: {} }));
+
+
 // Lane O2: the series art in its components. A build of the anime site shows the art where kpop shows a photo or initials;
 // a build of kpop is untouched (the Flight trees of o1-o2-art-tree.test.ts hold that).
 
