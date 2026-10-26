@@ -166,8 +166,8 @@ Le chemin le plus court en calendrier est fixé par le RUNBOOK : B au plus tard 
 2. T0, la date du lancement (RUNBOOK, "Still to decide").
 3. Le jour de la séance E, la fenêtre du daily (RUNBOOK, "Still to decide").
 4. Les deux tables optionnelles du hub (`docs/pending-migrations/hub/001-quiz-daily-plays.sql`, `002-xp-daily-snapshots.sql`) et leurs deux crons nocturnes : oui ou non (D-118, `docs/o1/requests/H2b.md` points 1 et 2). Sans elles la home FanQuiz marche.
-5. Les règles d'images par série : elles ne sont jamais arrivées, redemandées (D-120).
+5. Les images par série : règles reçues le 2026-10-26, lot en cours (D-122).
 6. Valeurs de la marque encore à poser ou à accepter : textes de vocabulaire, thème et titres de niveaux du hub, mascotte anime (RUNBOOK K1, liste `PLACEHOLDERS` du registre ; logos kpop gardés pour l'instant, D-099).
-7. Pousser et merger les branches `legal/notice` (page légale de kpopquiz.org) et `privacy/age-15` : non poussées, c'est toi qui pousses (D-113, D-111).
+7. Les branches `legal/notice` et `privacy/age-15` (kpopquiz.org) sont suivies par l autre conversation ; rien à faire ici.
 8. Mission U partie D : lancer `account-deletion.sql` en production s'il n'est pas déjà passé (RUNBOOK A4, G2). Sans elle, 016, 017 et le bouton de suppression restent éteints.
 9. Redéployer la fonction `send-email` : sans objet tant que le hook reste éteint (D-115, `H1.md` H2c point 1). À faire le jour où tu activeras Resend.
