@@ -1,6 +1,6 @@
 {
   "mode": "verified",
-  "input_sha256": "c01d4f815fe6607c3264068ada96141e4ad6e15be653bd65e5578e4155a8e71e",
+  "input_sha256": "8dad26b4c1a323ae4239a776008bf0bcf56bcd1dd600a95752c22f8855536b74",
   "files": [
     {
       "name": "L02-K2-team-accounts.sql",
@@ -12,7 +12,7 @@
     },
     {
       "name": "L04-K1-series.sql",
-      "sha256": "1043f80ae2be65840cecbfbdb10b6e97d464c71b91a81ad31160d9adb24cde48"
+      "sha256": "c299d07492e8e46eea2fddf17860e7bae7cdc971df0972a57879cfd1df37a758"
     },
     {
       "name": "L04-K1-series.rollback.sql",
@@ -20,11 +20,11 @@
     },
     {
       "name": "L05-K1-facts.sql",
-      "sha256": "425ac1c5c588b65566d2ecb234332e45bdfffad15535a6796a990c0ce0c26a11"
+      "sha256": "02f70ca6bcd57d380fb6a99fab218a4c23ae323ac089ce424b6ad31b58d9314e"
     },
     {
       "name": "L05-K1-facts.rollback.sql",
-      "sha256": "c770a3c2fb98f91ce04ce43b11caf44d8139d8234c264ccd38862e91d0436b80"
+      "sha256": "404ef89b3311b518e5d3ed6ff25670a9c98ff45616b872b18e55c49ad75418a1"
     },
     {
       "name": "L07-K2-catalogue.sql",
@@ -44,11 +44,11 @@
     },
     {
       "name": "L10-PERS-personality.sql",
-      "sha256": "a2fb35558640b4e5eeee4bac3e8c95a516d52c67cfb0d02952855ade4a88be3d"
+      "sha256": "c30c9bc21203884d39dc7723945c5cdfc2dd5f32b779bff2a6ed3402fa9c3a4c"
     },
     {
       "name": "L10-PERS-personality.rollback.sql",
-      "sha256": "49a4ba3d4dc5910dbf1d8598e2a051863805e3433bf1433c081e13387440ad5f"
+      "sha256": "ea4de426e396a5c97ac24d0a51d0aac842306d1801a8b80231fa8d85b08ed975"
     },
     {
       "name": "L12-L1-sites-live.sql",

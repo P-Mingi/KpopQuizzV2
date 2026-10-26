@@ -64,6 +64,7 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 | 25 | `LAUNCH/L06-B3-badges.sql` | P7 | single | L01, 002a, 007 | 6 badge definitions with `site_id = 'anime'`, none for any other site but kpop | `LAUNCH/L06-B3-badges.rollback.sql` | V8 |
 | 26 | `LAUNCH/L07-K2-catalogue.sql` (generated, only quizzes whose facts are all verified) | P7 | single | L02, L04, 002d | published quizzes count | `LAUNCH/L07-K2-catalogue.rollback.sql` | V8 |
 | 27 | `LAUNCH/L08-K3-daily-bank.sql` (generated, only rows whose facts are all verified) | P7 | single | L04, 009 | `quiz_bank` rows, site anime | `LAUNCH/L08-K3-daily-bank.rollback.sql` | V8 |
+| 27b | `LAUNCH/L10-PERS-personality.sql` (generated, 10 series, by apps/quiz/e2e/o1/L1/content-sql.mjs, only the sets marked published) | PERS | single | L04, 002a, 013 | personality_questions and personality_profiles rows, site anime | `LAUNCH/L10-PERS-personality.rollback.sql` | V8 |
 | 31 | `LAUNCH/L12-L1-sites-live.sql` (generated) | P7 last | single | L01 to L08 | anime and hub `live` | `LAUNCH/L12-L1-sites-live.rollback.sql` | V8 |
 
 Rows 28, 29 and 30 (L09 openings, L10 formats, L11 crossover quiz) are not on the launch path (owner decision D-099): see "After launch" below.

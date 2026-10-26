@@ -2336,5 +2336,527 @@
     "status": "verified",
     "verified_at": "2026-10-25T18:58:01.000Z",
     "excerpt": "Franky recharges his energy by drinking cola from glass bottles"
+  },
+  {
+    "id": "one-piece-luffy-carefree-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "monkey-d-luffy"
+    },
+    "field": "style",
+    "value": "cheerful and carefree",
+    "text": "Luffy is cheerful and carefree, and he rarely stops to worry about what his actions will cost.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Monkey_D._Luffy",
+        "ref": "1379660000",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "Usually cheerful and carefree"
+  },
+  {
+    "id": "one-piece-luffy-loyal-captain-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "monkey-d-luffy"
+    },
+    "field": "motivation",
+    "value": "loyal captain, many friends",
+    "text": "As captain Luffy is fiercely loyal to his crew, and he makes friends wherever he goes.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Monkey_D._Luffy",
+        "ref": "1379660000",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "an extremely loyal captain"
+  },
+  {
+    "id": "one-piece-zoro-train-or-nap-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "roronoa-zoro"
+    },
+    "field": "habits",
+    "value": "training or sleeping",
+    "text": "Between fights Zoro is usually found napping or training toward his goal of being the best swordsman in the world.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Roronoa_Zoro",
+        "ref": "1380100680",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "Zoro can usually be found sleeping or training to achieve his goal of becoming the world's greatest swordsman"
+  },
+  {
+    "id": "one-piece-zoro-direction-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "roronoa-zoro"
+    },
+    "field": "quirks",
+    "value": "poor sense of direction",
+    "text": "Zoro is famous for a terrible sense of direction, and he has got lost even on a straight path.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Roronoa_Zoro",
+        "ref": "1380100680",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "notoriously poor sense of direction"
+  },
+  {
+    "id": "one-piece-zoro-loyalty-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "roronoa-zoro"
+    },
+    "field": "style",
+    "value": "loyal to his crewmates",
+    "text": "Zoro feels deep loyalty and respect toward his crewmates.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Roronoa_Zoro",
+        "ref": "1380100680",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "a strong sense of loyalty and mutual respect for his crewmates"
+  },
+  {
+    "id": "one-piece-zoro-strong-drinker-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "roronoa-zoro"
+    },
+    "field": "ability",
+    "value": "never gets drunk",
+    "text": "No amount of drink gets Zoro drunk, thanks to his huge endurance and tolerance.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Roronoa_Zoro",
+        "ref": "1380100680",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "never gets drunk due to his inhumanly high endurance and tolerance for alcohol"
+  },
+  {
+    "id": "one-piece-shanks-mentor-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "shanks"
+    },
+    "field": "role",
+    "value": "mentor and hero to Luffy",
+    "text": "Shanks has known Luffy since Luffy was small and is both a mentor and a hero to him.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Four_Emperors_(One_Piece)",
+        "ref": "1380934951",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "He is a mentor and hero to Luffy, having known Luffy since the latter was a young child"
+  },
+  {
+    "id": "one-piece-shanks-straw-hat-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "shanks"
+    },
+    "field": "treasure",
+    "value": "gave Luffy the straw hat",
+    "text": "As a gift Shanks handed the young Luffy the straw hat that Luffy still treasures.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Four_Emperors_(One_Piece)",
+        "ref": "1380934951",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "gave the boy his straw hat"
+  },
+  {
+    "id": "one-piece-shanks-lost-arm-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "shanks"
+    },
+    "field": "background",
+    "value": "lost his left arm",
+    "text": "Shanks lost his left arm in saving Luffy from a sea monster.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Four_Emperors_(One_Piece)",
+        "ref": "1380934951",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "which cost Shanks his left arm"
+  },
+  {
+    "id": "one-piece-shanks-own-crew-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "shanks"
+    },
+    "field": "organization",
+    "value": "leads the Red-Haired Pirates",
+    "text": "Shanks captains a crew of his own, the Red-Haired Pirates.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Four_Emperors_(One_Piece)",
+        "ref": "1380934951",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "formed his own crew of pirates called the Red-Haired Pirates"
+  },
+  {
+    "id": "one-piece-roger-treasure-open-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "gol-d-roger"
+    },
+    "field": "setting",
+    "value": "treasure open to anyone who can find it",
+    "text": "Roger's treasure is there for the taking, but whoever wants it has to find it first.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_pirates",
+        "ref": "1379094181",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "is up for the taking, though they will have to find it first"
+  },
+  {
+    "id": "one-piece-makino-name-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "makino"
+    },
+    "field": "name",
+    "value": "Makino (マキノ)",
+    "text": "Makino is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1381843819",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "Makino (マキノ): A bartender and friend of Luffy."
+  },
+  {
+    "id": "one-piece-makino-bartender-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "makino"
+    },
+    "field": "occupation",
+    "value": "bartender",
+    "text": "Makino works as a bartender and counts Luffy among her friends.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1381843819",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "A bartender and friend of Luffy."
+  },
+  {
+    "id": "one-piece-makino-raised-luffy-084",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "makino"
+    },
+    "field": "background",
+    "value": "helped raise Luffy",
+    "text": "Makino played a large part in bringing Luffy up during his early childhood.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1381843819",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "She played a huge part in raising Luffy before the age of 7."
+  },
+  {
+    "id": "one-piece-koby-name-085",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "koby"
+    },
+    "field": "name",
+    "value": "Koby (Coby)",
+    "text": "Koby is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/World_Government_(One_Piece)",
+        "ref": "1379486711",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "is the first friend Luffy makes on his journey"
+  },
+  {
+    "id": "one-piece-koby-first-friend-086",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "koby"
+    },
+    "field": "role",
+    "value": "first friend Luffy makes",
+    "text": "Koby turns out to be the first friend Luffy makes on his voyage.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/World_Government_(One_Piece)",
+        "ref": "1379486711",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "is the first friend Luffy makes on his journey"
+  },
+  {
+    "id": "one-piece-koby-chore-boy-087",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "koby"
+    },
+    "field": "background",
+    "value": "chore boy on a pirate ship",
+    "text": "Koby is first met forced to do the chores on a pirate ship.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/World_Government_(One_Piece)",
+        "ref": "1379486711",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "finding him forced to work as a chore boy on"
+  },
+  {
+    "id": "one-piece-koby-escape-088",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "koby"
+    },
+    "field": "motivation",
+    "value": "escapes with Luffy's help",
+    "text": "Inspired by Luffy, Koby gets away from the ship with Luffy's help.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/World_Government_(One_Piece)",
+        "ref": "1379486711",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "Inspired by Luffy, and with his help, Koby escapes"
   }
 ]

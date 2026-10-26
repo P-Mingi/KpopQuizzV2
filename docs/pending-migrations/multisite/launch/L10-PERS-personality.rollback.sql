@@ -5,6 +5,42 @@
 
 set lock_timeout = '5s';
 set client_min_messages = warning;
+delete from public.personality_questions where site_id = 'anime' and ord between (select id from public.groups where slug = 'apothecary-diaries' and site_id = 'anime') * 12 + 1 and (select id from public.groups where slug = 'apothecary-diaries' and site_id = 'anime') * 12 + 12;
+
+delete from public.personality_profiles where site_id = 'anime' and group_id = (select id from public.groups where slug = 'apothecary-diaries' and site_id = 'anime');
+
+delete from public.personality_questions where site_id = 'anime' and ord between (select id from public.groups where slug = 'black-clover' and site_id = 'anime') * 12 + 1 and (select id from public.groups where slug = 'black-clover' and site_id = 'anime') * 12 + 12;
+
+delete from public.personality_profiles where site_id = 'anime' and group_id = (select id from public.groups where slug = 'black-clover' and site_id = 'anime');
+
 delete from public.personality_questions where site_id = 'anime' and ord between (select id from public.groups where slug = 'death-note' and site_id = 'anime') * 12 + 1 and (select id from public.groups where slug = 'death-note' and site_id = 'anime') * 12 + 12;
 
 delete from public.personality_profiles where site_id = 'anime' and group_id = (select id from public.groups where slug = 'death-note' and site_id = 'anime');
+
+delete from public.personality_questions where site_id = 'anime' and ord between (select id from public.groups where slug = 'inuyasha' and site_id = 'anime') * 12 + 1 and (select id from public.groups where slug = 'inuyasha' and site_id = 'anime') * 12 + 12;
+
+delete from public.personality_profiles where site_id = 'anime' and group_id = (select id from public.groups where slug = 'inuyasha' and site_id = 'anime');
+
+delete from public.personality_questions where site_id = 'anime' and ord between (select id from public.groups where slug = 'jujutsu-kaisen' and site_id = 'anime') * 12 + 1 and (select id from public.groups where slug = 'jujutsu-kaisen' and site_id = 'anime') * 12 + 12;
+
+delete from public.personality_profiles where site_id = 'anime' and group_id = (select id from public.groups where slug = 'jujutsu-kaisen' and site_id = 'anime');
+
+delete from public.personality_questions where site_id = 'anime' and ord between (select id from public.groups where slug = 'kaguya-sama-love-is-war' and site_id = 'anime') * 12 + 1 and (select id from public.groups where slug = 'kaguya-sama-love-is-war' and site_id = 'anime') * 12 + 12;
+
+delete from public.personality_profiles where site_id = 'anime' and group_id = (select id from public.groups where slug = 'kaguya-sama-love-is-war' and site_id = 'anime');
+
+delete from public.personality_questions where site_id = 'anime' and ord between (select id from public.groups where slug = 'one-piece' and site_id = 'anime') * 12 + 1 and (select id from public.groups where slug = 'one-piece' and site_id = 'anime') * 12 + 12;
+
+delete from public.personality_profiles where site_id = 'anime' and group_id = (select id from public.groups where slug = 'one-piece' and site_id = 'anime');
+
+delete from public.personality_questions where site_id = 'anime' and ord between (select id from public.groups where slug = 'oshi-no-ko' and site_id = 'anime') * 12 + 1 and (select id from public.groups where slug = 'oshi-no-ko' and site_id = 'anime') * 12 + 12;
+
+delete from public.personality_profiles where site_id = 'anime' and group_id = (select id from public.groups where slug = 'oshi-no-ko' and site_id = 'anime');
+
+delete from public.personality_questions where site_id = 'anime' and ord between (select id from public.groups where slug = 'slam-dunk' and site_id = 'anime') * 12 + 1 and (select id from public.groups where slug = 'slam-dunk' and site_id = 'anime') * 12 + 12;
+
+delete from public.personality_profiles where site_id = 'anime' and group_id = (select id from public.groups where slug = 'slam-dunk' and site_id = 'anime');
+
+delete from public.personality_questions where site_id = 'anime' and ord between (select id from public.groups where slug = 'spy-x-family' and site_id = 'anime') * 12 + 1 and (select id from public.groups where slug = 'spy-x-family' and site_id = 'anime') * 12 + 12;
+
+delete from public.personality_profiles where site_id = 'anime' and group_id = (select id from public.groups where slug = 'spy-x-family' and site_id = 'anime');

@@ -1906,5 +1906,469 @@
   "status": "verified",
   "verified_at": "2026-10-25T21:12:01.000Z",
   "excerpt": "Voiced by: Junichi Suwabe (Japanese)"
+ },
+ {
+  "id": "jujutsu-kaisen-yuji-itadori-outgoing-062",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "yuji-itadori"
+  },
+  "field": "habits",
+  "value": "Outgoing demeanor",
+  "text": "Yuji is the sociable one of the cast, with an outgoing manner.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "Itadori is characterized by an outgoing demeanor"
+ },
+ {
+  "id": "jujutsu-kaisen-yuji-itadori-school-063",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "yuji-itadori"
+  },
+  "field": "role",
+  "value": "Brought to Tokyo Jujutsu High for training",
+  "text": "Yuji ends up at Tokyo Prefectural Jujutsu High School, where he is trained.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "ref": "1381182639",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "brings him to the Tokyo Prefectural Jujutsu High School for training"
+ },
+ {
+  "id": "jujutsu-kaisen-satoru-gojo-teacher-064",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "satoru-gojo"
+  },
+  "field": "role",
+  "value": "Special Grade sorcerer and teacher",
+  "text": "Gojo holds the top Special Grade rank among sorcerers and also teaches at the school.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "is a renowned Special Grade Jujutsu Sorcerer and teacher at Tokyo Jujutsu High"
+ },
+ {
+  "id": "jujutsu-kaisen-megumi-fushiguro-first-year-065",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "megumi-fushiguro"
+  },
+  "field": "role",
+  "value": "First-year student trained by Gojo",
+  "text": "Megumi studies at Tokyo Jujutsu High in the first-year class, under Gojo.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "is a first-year student at Tokyo Jujutsu High, trained by Satoru Gojo"
+ },
+ {
+  "id": "jujutsu-kaisen-megumi-fushiguro-ten-shadows-066",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "megumi-fushiguro"
+  },
+  "field": "ability",
+  "value": "Ten Shadows Technique",
+  "text": "Megumi fights with a technique called the Ten Shadows Technique.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "wields the Ten Shadows Technique"
+ },
+ {
+  "id": "jujutsu-kaisen-megumi-fushiguro-spares-067",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "megumi-fushiguro"
+  },
+  "field": "motivation",
+  "value": "Argues for sparing Yuji",
+  "text": "Megumi is the one who argues for letting Yuji live after they first meet.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "advocates sparing Yuji"
+ },
+ {
+  "id": "jujutsu-kaisen-nobara-kugisaki-first-year-068",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "nobara-kugisaki"
+  },
+  "field": "role",
+  "value": "First-year student trained by Gojo",
+  "text": "Nobara is in the same first-year class at Tokyo Jujutsu High as Megumi, and Gojo trains her too.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "is a first-year student at Tokyo Jujutsu High, trained by Satoru Gojo"
+ },
+ {
+  "id": "jujutsu-kaisen-nobara-kugisaki-straw-doll-069",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "nobara-kugisaki"
+  },
+  "field": "ability",
+  "value": "Straw Doll Technique",
+  "text": "Nobara's cursed technique is called the Straw Doll Technique.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "She wields the Straw Doll Technique"
+ },
+ {
+  "id": "jujutsu-kaisen-nobara-kugisaki-village-070",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "nobara-kugisaki"
+  },
+  "field": "origin",
+  "value": "From a rural village",
+  "text": "Nobara comes from a small country village.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "Originally from a rural village"
+ },
+ {
+  "id": "jujutsu-kaisen-maki-zenin-no-cursed-energy-071",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "maki-zenin"
+  },
+  "field": "background",
+  "value": "Born without Cursed Energy",
+  "text": "Maki was born into the Zen'in family without any Cursed Energy of her own.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "Born into the Zen'in clan without Cursed Energy"
+ },
+ {
+  "id": "jujutsu-kaisen-maki-zenin-physical-072",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "maki-zenin"
+  },
+  "field": "ability",
+  "value": "Superhuman physical abilities",
+  "text": "To make up for having no Cursed Energy, Maki relies on exceptional physical strength.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "she compensates with superhuman physical abilities"
+ },
+ {
+  "id": "jujutsu-kaisen-toge-inumaki-rice-balls-073",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "toge-inumaki"
+  },
+  "field": "habits",
+  "value": "Covered mouth, speaks in rice ball ingredients",
+  "text": "Toge hides his mouth and talks only in the names of rice ball fillings.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "He keeps his mouth covered and speaks only in various ingredients of rice balls"
+ },
+ {
+  "id": "jujutsu-kaisen-toge-inumaki-cursed-speech-074",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "toge-inumaki"
+  },
+  "field": "ability",
+  "value": "Cursed Speech",
+  "text": "Toge's cursed technique is Cursed Speech, which works through his voice.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "Inumaki's Cursed Technique is Cursed Speech"
+ },
+ {
+  "id": "jujutsu-kaisen-panda-cursed-corpse-075",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "panda"
+  },
+  "field": "origin",
+  "value": "Sentient Cursed Corpse, second-year student",
+  "text": "Panda is a Cursed Corpse with a mind of his own, studying in the second-year class.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "is a sentient Cursed Corpse and second-year student at Tokyo Jujutsu High"
+ },
+ {
+  "id": "jujutsu-kaisen-panda-three-cores-076",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "panda"
+  },
+  "field": "ability",
+  "value": "Three interchangeable cores",
+  "text": "Panda carries three cores he can swap, which changes both his form and his abilities.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "possesses three interchangeable cores"
+ },
+ {
+  "id": "jujutsu-kaisen-ryomen-sukuna-heian-legend-077",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "ryomen-sukuna"
+  },
+  "field": "origin",
+  "value": "Legendary Heian-era sorcerer",
+  "text": "Sukuna is a famous sorcerer from the Heian period who returns through twenty fingers that cannot be destroyed.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "is a legendary Heian-era sorcerer who reincarnates through 20 indestructible fingers"
  }
 ]

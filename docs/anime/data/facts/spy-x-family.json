@@ -1552,5 +1552,556 @@
     "status": "verified",
     "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Saori Hayami (Japanese)"
+  },
+  {
+    "id": "spy-x-family-loid-forger-disguises-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "loid-forger"
+    },
+    "field": "ability",
+    "value": "Master of disguise",
+    "text": "Loid is a master of disguise who takes on a different face and name for every mission.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "As a master of disguise, he uses various faces and names for each mission"
+  },
+  {
+    "id": "spy-x-family-loid-forger-pragmatic-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "loid-forger"
+    },
+    "field": "style",
+    "value": "Pragmatic on missions, soft at home",
+    "text": "On a mission Loid seems calculating and practical, and only gradually lets his family see a softer side.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "he appears manipulative and pragmatic when accomplishing his missions"
+  },
+  {
+    "id": "spy-x-family-loid-forger-psychiatrist-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "loid-forger"
+    },
+    "field": "occupation",
+    "value": "Psychiatrist at Berlint General Hospital",
+    "text": "By day Loid works as a psychiatrist at Berlint General Hospital.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "psychiatrist at Berlint General Hospital"
+  },
+  {
+    "id": "spy-x-family-anya-forger-innocent-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "anya-forger"
+    },
+    "field": "style",
+    "value": "Naive child",
+    "text": "Anya is a very innocent child who does not understand much of the world around her.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "very innocent and ignorant of the world around her"
+  },
+  {
+    "id": "spy-x-family-anya-forger-quick-witted-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "anya-forger"
+    },
+    "field": "talent",
+    "value": "Flexible and quick-witted",
+    "text": "For a child of her age Anya adapts well and thinks fast.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "quick-witted for a child her age"
+  },
+  {
+    "id": "spy-x-family-yor-forger-gentle-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yor-forger"
+    },
+    "field": "style",
+    "value": "Soft, caring, formal",
+    "text": "Yor is gentle and thoughtful toward others, and she speaks in a formal way.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "soft, caring, formally spoken and considerate to others"
+  },
+  {
+    "id": "spy-x-family-yor-forger-absent-minded-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yor-forger"
+    },
+    "field": "habits",
+    "value": "Absent-minded, poor at chores and cooking",
+    "text": "Yor can be scatterbrained and absent-minded, and she is weak at housework, cooking above all.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "not good with basic household chores, particularly cooking"
+  },
+  {
+    "id": "spy-x-family-bond-forger-loyal-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "bond-forger"
+    },
+    "field": "style",
+    "value": "Unconditional love and loyalty",
+    "text": "Bond is devoted to the Forgers and stays loyal to them without conditions.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "shows an unconditional love and steadfast loyalty to the Forgers"
+  },
+  {
+    "id": "spy-x-family-bond-forger-distracted-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "bond-forger"
+    },
+    "field": "quirks",
+    "value": "Easily distracted but smart and strong",
+    "text": "Bond loses focus easily, yet he is a clever and strong dog.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "Despite his easily-distracted nature, he is a smart and strong dog"
+  },
+  {
+    "id": "spy-x-family-damian-desmond-diligent-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "damian-desmond"
+    },
+    "field": "talent",
+    "value": "Diligent student, excels in History",
+    "text": "Damian studies diligently and does especially well in History.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "is diligent in his studies, and excels in History"
+  },
+  {
+    "id": "spy-x-family-damian-desmond-approval-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "damian-desmond"
+    },
+    "field": "motivation",
+    "value": "Works for his father's approval",
+    "text": "Damian works hard to win the attention and approval of his father.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "works hard to gain his father's attention and approval"
+  },
+  {
+    "id": "spy-x-family-becky-blackbell-adult-like-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "becky-blackbell"
+    },
+    "field": "style",
+    "value": "Tries to act more adult",
+    "text": "Becky, a first grader, often tries to behave in a more grown-up way than her age suggests.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "often tries to act more adult-like"
+  },
+  {
+    "id": "spy-x-family-becky-blackbell-admires-yor-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "becky-blackbell"
+    },
+    "field": "motivation",
+    "value": "Admires Yor for her strength",
+    "text": "Becky looks up to Yor because of her strength.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "admires Yor for her strength"
+  },
+  {
+    "id": "spy-x-family-yuri-briar-exemplary-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yuri-briar"
+    },
+    "field": "talent",
+    "value": "Exemplary at his job",
+    "text": "Yuri does his work to an exemplary standard.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "is exemplary at his job"
+  },
+  {
+    "id": "spy-x-family-yuri-briar-attached-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yuri-briar"
+    },
+    "field": "style",
+    "value": "Very close to his sister",
+    "text": "Yuri is somewhat too attached to his sister.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "a bit too attached to his sister"
+  },
+  {
+    "id": "spy-x-family-franky-franklin-tobacconist-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "franky-franklin"
+    },
+    "field": "occupation",
+    "value": "Tobacconist by day, inventor in free time",
+    "text": "Franky runs a tobacco shop in the daytime and invents things in his spare time.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "works as a tobacconist during the day and an inventor in his free time"
+  },
+  {
+    "id": "spy-x-family-franky-franklin-caretaker-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "franky-franklin"
+    },
+    "field": "habits",
+    "value": "Often cares for Anya and Bond",
+    "text": "Franky is often the one who looks after Anya and Bond.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "frequently acts as a caretaker for Anya and Bond"
+  },
+  {
+    "id": "spy-x-family-franky-franklin-romance-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "franky-franklin"
+    },
+    "field": "style",
+    "value": "Hopeless in romance",
+    "text": "Franky has no luck at all in his romantic pursuits.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "hopeless in his romantic pursuits"
+  },
+  {
+    "id": "spy-x-family-loid-forger-spy-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "loid-forger"
+    },
+    "field": "role",
+    "value": "Spy code-named Twilight",
+    "text": "Loid is the enigmatic spy known by the code name Twilight.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "Agent Twilight, an enigmatic spy"
   }
 ]

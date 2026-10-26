@@ -1440,7 +1440,7 @@
       "Hanamichi Sakuragi",
       "桜木 花道"
     ],
-    "text": "Hanamichi Sakuragi is the hot-tempered first-year who plays power forward for Shohoku in the number 10 jersey.",
+    "text": "Hanamichi Sakuragi is the first-year who plays power forward for Shohoku in the number 10 jersey.",
     "category": "members",
     "load_bearing": false,
     "spoiler": {
@@ -1954,7 +1954,7 @@
       "Kiminobu Kogure",
       "木暮 公延"
     ],
-    "text": "Kiminobu Kogure is the gentle vice-captain of Shohoku in the number 5 jersey, a senior who rarely appears without his glasses.",
+    "text": "Wearing number 5, Kiminobu Kogure serves as the team's deputy leader and stays close to Akagi and Mitsui.",
     "category": "members",
     "load_bearing": false,
     "spoiler": {
@@ -1971,7 +1971,7 @@
     ],
     "status": "verified",
     "verified_at": "2026-10-25T18:43:15.000Z",
-    "excerpt": "Shohoku's vice-captain, backup shooting guard ... His jersey number is 5"
+    "excerpt": "is Shohoku's vice-captain, backup shooting guard, and a good friend of Akagi and Mitsui. His jersey number is 5"
   },
   {
     "id": "slam-dunk-kiminobu-kogure-nickname-064",
@@ -2617,5 +2617,498 @@
     "status": "verified",
     "verified_at": "2026-10-25T18:43:15.000Z",
     "excerpt": "considered the top high school center in Japan"
+  },
+  {
+    "id": "slam-dunk-hanamichi-sakuragi-confidence-085",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "hanamichi-sakuragi"
+    },
+    "field": "style",
+    "value": "Confidence bordering on arrogance",
+    "text": "Sakuragi thinks of himself as a genius, and his self-belief runs close to arrogance.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "self-confidence that borders on arrogance"
+  },
+  {
+    "id": "slam-dunk-takenori-akagi-discipline-086",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "takenori-akagi"
+    },
+    "field": "motivation",
+    "value": "Dreams of leading Shohoku to the national championship",
+    "text": "Akagi is serious and disciplined, and he dreams of taking Shohoku all the way to the national title.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "Serious and disciplined, Akagi's dream is to lead Shohoku to the national championship"
+  },
+  {
+    "id": "slam-dunk-takenori-akagi-caring-side-087",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "takenori-akagi"
+    },
+    "field": "style",
+    "value": "A caring side under a rough surface",
+    "text": "Under his rough manner, Akagi has a caring side.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "He had a caring side beneath his roughness"
+  },
+  {
+    "id": "slam-dunk-takenori-akagi-best-center-088",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "takenori-akagi"
+    },
+    "field": "reputation",
+    "value": "Best center in Kanagawa Prefecture",
+    "text": "Akagi has a name as the best center in all of Kanagawa Prefecture.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "Regarded as the best center in the Kanagawa Prefecture"
+  },
+  {
+    "id": "slam-dunk-kiminobu-kogure-gentle-089",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "kiminobu-kogure"
+    },
+    "field": "style",
+    "value": "Gentle, empathetic and friendly",
+    "text": "Kogure is gentle, empathetic and friendly, and nearly always wears his glasses.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "Gentle, empathetic, and friendly, he is rarely seen without his glasses"
+  },
+  {
+    "id": "slam-dunk-kiminobu-kogure-supports-sakuragi-090",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "kiminobu-kogure"
+    },
+    "field": "role",
+    "value": "Helps bring out Sakuragi's talent",
+    "text": "Kogure steadily helps Sakuragi grow into his talent, together with two of his teammates.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "Kogure consistently works to bring out the best in Sakuragi's talent"
+  },
+  {
+    "id": "slam-dunk-kaede-rukawa-aloof-091",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "kaede-rukawa"
+    },
+    "field": "style",
+    "value": "Cold and aloof",
+    "text": "Rukawa is a talented first-year with a very cool, distant manner.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "very cold and aloof"
+  },
+  {
+    "id": "slam-dunk-kaede-rukawa-sleeping-092",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "kaede-rukawa"
+    },
+    "field": "habits",
+    "value": "Sleeping is his chief hobby",
+    "text": "Away from basketball, Rukawa's favourite pastime is sleeping.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "chief hobby outside basketball is sleeping"
+  },
+  {
+    "id": "slam-dunk-kaede-rukawa-rival-093",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "kaede-rukawa"
+    },
+    "field": "role",
+    "value": "Rival of Sakuragi",
+    "text": "Rukawa is the player who stands as Sakuragi's rival.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "Hanamichi Sakuragi's rival"
+  },
+  {
+    "id": "slam-dunk-haruko-akagi-sweet-094",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "haruko-akagi"
+    },
+    "field": "style",
+    "value": "Sweet, captivating, always cheering",
+    "text": "Haruko is a sweet and charming presence who keeps showing up to cheer the players on.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "Sweet and with a captivating personality, she is always around to cheer on the players"
+  },
+  {
+    "id": "slam-dunk-haruko-akagi-uncovers-talent-095",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "haruko-akagi"
+    },
+    "field": "specialty",
+    "value": "Uncovered Sakuragi's athletic talent",
+    "text": "It was Haruko who first brought Sakuragi's athletic gift to light.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "Haruko was responsible for uncovering Sakuragi's athletic talent"
+  },
+  {
+    "id": "slam-dunk-ayako-personality-096",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "ayako"
+    },
+    "field": "style",
+    "value": "Strong-willed and good-natured",
+    "text": "Ayako has a strong will, a slightly tomboyish streak and a good nature.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "Strong-willed, somewhat tomboyish and good-natured"
+  },
+  {
+    "id": "slam-dunk-ayako-sharpens-sakuragi-097",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "ayako"
+    },
+    "field": "role",
+    "value": "Sharpens Sakuragi for real matches",
+    "text": "Ayako is the one who most directly gets Sakuragi ready for real games.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "directly responsible for sharpening Hanamichi Sakuragi's abilities for real matches"
+  },
+  {
+    "id": "slam-dunk-mitsuyoshi-anzai-strategist-098",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "mitsuyoshi-anzai"
+    },
+    "field": "talent",
+    "value": "Brilliant strategist",
+    "text": "Anzai is a gifted tactician who can swing a game back in his team's favour.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "a brilliant strategist who always knows how to turn the tide of a match for his team"
+  },
+  {
+    "id": "slam-dunk-mitsuyoshi-anzai-charisma-099",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "mitsuyoshi-anzai"
+    },
+    "field": "style",
+    "value": "Charismatic, inspires his players",
+    "text": "Anzai has the charisma to lift his players beyond what they thought they could do.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "very charismatic and able to inspire his players to greater heights"
+  },
+  {
+    "id": "slam-dunk-yohei-mito-advice-100",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "yohei-mito"
+    },
+    "field": "role",
+    "value": "The gang member who gives real advice",
+    "text": "Among the gang, Mito is the one who can actually offer sound advice.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "the sole member of the gang who is able to help with actual advice"
+  },
+  {
+    "id": "slam-dunk-yohei-mito-childhood-friend-101",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "slam-dunk",
+      "ref": "yohei-mito"
+    },
+    "field": "background",
+    "value": "Best friend since childhood, skilled fighter",
+    "text": "Mito has been Sakuragi's best friend since they were children, and he can fight well.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters",
+        "ref": "1379124925",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:05:00.000Z",
+    "excerpt": "best friend from childhood, as well as a skilled fighter"
   }
 ]

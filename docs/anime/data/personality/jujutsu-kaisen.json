@@ -1,0 +1,448 @@
+{
+  "$comment": "Run O1 lane K1 (which): the Which Jujutsu Kaisen character are you quiz, written by us, arc 0 (premise only). Eight questions about the reader; eight profiles, all spoiler level 0 characters. Facts cited per character (D/facts/jujutsu-kaisen.json): yuji-itadori: jujutsu-kaisen-yuji-itadori-name-031, jujutsu-kaisen-twenty-fingers-027, jujutsu-kaisen-yuji-itadori-outgoing-062, jujutsu-kaisen-yuji-itadori-school-063; satoru-gojo: jujutsu-kaisen-strongest-sorcerer-028, jujutsu-kaisen-satoru-gojo-teacher-064; megumi-fushiguro: jujutsu-kaisen-megumi-fushiguro-first-year-065, jujutsu-kaisen-megumi-fushiguro-ten-shadows-066, jujutsu-kaisen-megumi-fushiguro-spares-067; nobara-kugisaki: jujutsu-kaisen-nobara-kugisaki-first-year-068, jujutsu-kaisen-nobara-kugisaki-straw-doll-069, jujutsu-kaisen-nobara-kugisaki-village-070; maki-zenin: jujutsu-kaisen-maki-zenin-no-cursed-energy-071, jujutsu-kaisen-maki-zenin-physical-072; toge-inumaki: jujutsu-kaisen-toge-inumaki-rice-balls-073, jujutsu-kaisen-toge-inumaki-cursed-speech-074; panda: jujutsu-kaisen-panda-cursed-corpse-075, jujutsu-kaisen-panda-three-cores-076; ryomen-sukuna: jujutsu-kaisen-ryomen-sukuna-heian-legend-077, jujutsu-kaisen-ryomen-sukuna-name-035. Traits are positions on the six axes of the engine, tuned so each profile wins about an eighth of the answer sheets.",
+  "site": "anime",
+  "group_slug": "jujutsu-kaisen",
+  "status": "published",
+  "spoiler": {
+    "arc": 0,
+    "scope": "both"
+  },
+  "questions": [
+    {
+      "ord": 1,
+      "question": "A worn charm you do not remember buying turns up in your school bag. What do you do?",
+      "options": [
+        {
+          "text": "Show it around at lunch and let everyone guess",
+          "weights": {
+            "energy": 5,
+            "chaos": 3,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Study it quietly before touching anything else",
+          "weights": {
+            "energy": 0,
+            "craft": 4,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Test it on something small, just to see what happens",
+          "weights": {
+            "chaos": 5,
+            "craft": 3,
+            "heart": 3
+          }
+        },
+        {
+          "text": "Wear it, say nothing, and let the rumours grow",
+          "weights": {
+            "care": 4,
+            "chaos": 3,
+            "spotlight": 0
+          }
+        }
+      ]
+    },
+    {
+      "ord": 2,
+      "question": "Your group splits up for the afternoon. Who do you want as a partner?",
+      "options": [
+        {
+          "text": "The loudest friend, so it never gets dull",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "care": 4
+          }
+        },
+        {
+          "text": "The calm one who actually reads the map",
+          "weights": {
+            "energy": 1,
+            "craft": 4,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Whoever is left, I will make it work",
+          "weights": {
+            "energy": 3,
+            "care": 1,
+            "heart": 3
+          }
+        },
+        {
+          "text": "Nobody, I will meet you all there",
+          "weights": {
+            "energy": 0,
+            "heart": 5,
+            "spotlight": 0
+          }
+        }
+      ]
+    },
+    {
+      "ord": 3,
+      "question": "Someone says you are not built for this. What happens next?",
+      "options": [
+        {
+          "text": "I train twice as hard until the doubt is gone",
+          "weights": {
+            "care": 0,
+            "craft": 2,
+            "heart": 5
+          }
+        },
+        {
+          "text": "I prove them wrong on the spot, loudly",
+          "weights": {
+            "energy": 5,
+            "chaos": 2,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "I find another way to win the same thing",
+          "weights": {
+            "chaos": 3,
+            "craft": 5,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "I smile, say nothing, and keep going",
+          "weights": {
+            "energy": 1,
+            "care": 3,
+            "spotlight": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 4,
+      "question": "How do you act when you are nervous?",
+      "options": [
+        {
+          "text": "I use fewer words, as few as I can",
+          "weights": {
+            "energy": 0,
+            "craft": 3,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "I crack jokes until the feeling passes",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "care": 4
+          }
+        },
+        {
+          "text": "I say exactly what is bothering me",
+          "weights": {
+            "energy": 3,
+            "heart": 5,
+            "spotlight": 1
+          }
+        },
+        {
+          "text": "I get busy helping someone else",
+          "weights": {
+            "care": 0,
+            "heart": 1,
+            "spotlight": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 5,
+      "question": "Pick your weekend practice:",
+      "options": [
+        {
+          "text": "A long run, then lifting until my arms shake",
+          "weights": {
+            "energy": 2,
+            "craft": 0,
+            "heart": 4
+          }
+        },
+        {
+          "text": "Sketching plans and making odd little tricks",
+          "weights": {
+            "energy": 1,
+            "craft": 5,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "Hanging out with the whole crowd and trying new food",
+          "weights": {
+            "energy": 5,
+            "care": 3,
+            "chaos": 4
+          }
+        },
+        {
+          "text": "Napping in a sunny spot, ready when called",
+          "weights": {
+            "energy": 0,
+            "chaos": 4,
+            "care": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 6,
+      "question": "A new classmate arrives and half the school does not trust them. You:",
+      "options": [
+        {
+          "text": "Speak up for them before anyone else does",
+          "weights": {
+            "energy": 3,
+            "care": 0,
+            "heart": 2
+          }
+        },
+        {
+          "text": "Introduce myself loudly and ask for their story",
+          "weights": {
+            "energy": 5,
+            "chaos": 3,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Wait, watch, and judge by what they do",
+          "weights": {
+            "energy": 0,
+            "craft": 3,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Challenge them to a friendly game and see",
+          "weights": {
+            "chaos": 5,
+            "craft": 1,
+            "heart": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 7,
+      "question": "Which role do you take on a team?",
+      "options": [
+        {
+          "text": "The teacher everyone leans on",
+          "weights": {
+            "energy": 4,
+            "care": 2,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "The backbone who does the heavy lifting",
+          "weights": {
+            "care": 0,
+            "heart": 4,
+            "spotlight": 3
+          }
+        },
+        {
+          "text": "The planner who sees three steps ahead",
+          "weights": {
+            "energy": 1,
+            "craft": 5,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "The wild card who changes shape as needed",
+          "weights": {
+            "chaos": 5,
+            "craft": 3,
+            "care": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 8,
+      "question": "What reputation would you like?",
+      "options": [
+        {
+          "text": "Legendary, mentioned in hushed voices",
+          "weights": {
+            "energy": 3,
+            "care": 5,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Everyone's dependable friend",
+          "weights": {
+            "energy": 4,
+            "care": 1,
+            "heart": 3
+          }
+        },
+        {
+          "text": "The one who never backs down",
+          "weights": {
+            "chaos": 1,
+            "heart": 5,
+            "spotlight": 1
+          }
+        },
+        {
+          "text": "A mystery with a fun side",
+          "weights": {
+            "energy": 1,
+            "chaos": 4,
+            "spotlight": 5
+          }
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "character_slug": "yuji-itadori",
+      "traits": {
+        "energy": 70,
+        "chaos": 55,
+        "care": 50,
+        "craft": 30,
+        "heart": 65,
+        "spotlight": 40
+      },
+      "profile": [
+        "You are outgoing, the kind of person who talks to everyone.",
+        "You took a strange deal: swallow twenty fingers and your execution waits.",
+        "You carry a powerful curse inside you and still turn up to class."
+      ],
+      "ord": 1
+    },
+    {
+      "character_slug": "satoru-gojo",
+      "traits": {
+        "energy": 60,
+        "chaos": 75,
+        "care": 50,
+        "craft": 50,
+        "heart": 70,
+        "spotlight": 5
+      },
+      "profile": [
+        "You are the one people point to when they ask who is strongest in the room.",
+        "You hold the top rank among your peers, and you teach the class as well."
+      ],
+      "ord": 2
+    },
+    {
+      "character_slug": "megumi-fushiguro",
+      "traits": {
+        "energy": 40,
+        "chaos": 30,
+        "care": 15,
+        "craft": 90,
+        "heart": 60,
+        "spotlight": 50
+      },
+      "profile": [
+        "You are a first-year who trains under a famous teacher.",
+        "You fight with a technique built around shadows.",
+        "You argue for sparing a stranger when others would not."
+      ],
+      "ord": 3
+    },
+    {
+      "character_slug": "nobara-kugisaki",
+      "traits": {
+        "energy": 85,
+        "chaos": 60,
+        "care": 45,
+        "craft": 60,
+        "heart": 75,
+        "spotlight": 15
+      },
+      "profile": [
+        "You are a first-year at Tokyo Jujutsu High, trained by a renowned teacher.",
+        "You come from a rural village and fight with a straw doll technique."
+      ],
+      "ord": 4
+    },
+    {
+      "character_slug": "maki-zenin",
+      "traits": {
+        "energy": 45,
+        "chaos": 35,
+        "care": 50,
+        "craft": 40,
+        "heart": 85,
+        "spotlight": 30
+      },
+      "profile": [
+        "You were born without cursed energy of your own.",
+        "You make up for it with superhuman physical strength."
+      ],
+      "ord": 5
+    },
+    {
+      "character_slug": "toge-inumaki",
+      "traits": {
+        "energy": 15,
+        "chaos": 55,
+        "care": 45,
+        "craft": 75,
+        "heart": 25,
+        "spotlight": 90
+      },
+      "profile": [
+        "You keep your mouth covered and answer in rice ball fillings.",
+        "Your voice is your technique, and it is called Cursed Speech."
+      ],
+      "ord": 6
+    },
+    {
+      "character_slug": "panda",
+      "traits": {
+        "energy": 55,
+        "chaos": 50,
+        "care": 30,
+        "craft": 40,
+        "heart": 40,
+        "spotlight": 45
+      },
+      "profile": [
+        "You are a second-year student, and a sentient Cursed Corpse at that.",
+        "You were made, not born, and you still have a mind entirely your own."
+      ],
+      "ord": 7
+    },
+    {
+      "character_slug": "ryomen-sukuna",
+      "traits": {
+        "energy": 60,
+        "chaos": 85,
+        "care": 65,
+        "craft": 20,
+        "heart": 75,
+        "spotlight": 30
+      },
+      "profile": [
+        "You are a legendary sorcerer from the Heian era.",
+        "You return through twenty fingers that cannot be destroyed."
+      ],
+      "ord": 8
+    }
+  ]
+}

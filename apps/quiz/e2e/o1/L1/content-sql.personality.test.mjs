@@ -84,16 +84,16 @@ test('the cut covers the quiz statements too: nothing of the loader is left over
   assert.ok(by.personality.every((s) => /personality_|k1p/.test(s)));
 });
 
-test('the real data folder: L10 carries the Death Note quiz, and the others files are the same as without it', () => {
+test('the real data folder: L10 carries the ten quizzes of the data folder, and the others files are the same as without it', () => {
   const a = generate({ data: 'docs/anime/data', out: mkdtempSync(join(tmpdir(), 'l10-a-')), drafts: false, teamDomain: 'otakuquiz.org' });
   assert.ok(a.files.includes('L10-PERS-personality'));
-  assert.equal(a.counts.personality, 1);
-  assert.deepEqual(a.report.personality, { total: 1, loaded: 1 });
+  assert.equal(a.counts.personality, 10);
+  assert.deepEqual(a.report.personality, { total: 10, loaded: 10 });
   const out = readdirSync(a.outDir);
   assert.ok(out.includes('L10-PERS-personality.sql') && out.includes('L10-PERS-personality.rollback.sql'));
   const manifest = JSON.parse(readFileSync(join(a.outDir, 'MANIFEST.json'), 'utf8'));
   assert.ok(manifest.files.some((f) => f.name === 'L10-PERS-personality.sql'));
   const verify = readFileSync(join(a.outDir, 'content-verify.sql'), 'utf8');
   assert.match(verify, /personality_profiles/);
-  assert.equal(JSON.parse(readFileSync(join(a.outDir, 'expected-counts.json'), 'utf8')).counts.personality_profiles, 6);
+  assert.equal(JSON.parse(readFileSync(join(a.outDir, 'expected-counts.json'), 'utf8')).counts.personality_profiles, 70);
 });

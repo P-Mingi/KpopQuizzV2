@@ -1572,5 +1572,353 @@
     "status": "verified",
     "verified_at": "2026-10-25T18:57:26.000Z",
     "excerpt": "by the time he joined the stage production of Tokyo Blade"
+  },
+  {
+    "id": "oshi-no-ko-ai-hoshino-personality-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "ai-hoshino"
+    },
+    "field": "habits",
+    "value": "Selfless and empathetic idol from humble beginnings",
+    "text": "Ai Hoshino is a giving, empathetic idol with modest origins, who is not always open with the people around her.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:25:00.000Z",
+    "excerpt": "selfless, empathetic but altruisticly deceptive pop idol who rose from humble beginnings"
+  },
+  {
+    "id": "oshi-no-ko-ai-hoshino-performs-affection-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "ai-hoshino"
+    },
+    "field": "talent",
+    "value": "Practised showing love to her audience",
+    "text": "Ai had to learn how to show affection to her fans on stage before she became the centerpiece of her group.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:25:00.000Z",
+    "excerpt": "she learns to perform affection for fans"
+  },
+  {
+    "id": "oshi-no-ko-kana-arima-restrains-talent-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "kana-arima"
+    },
+    "field": "talent",
+    "value": "Her talent overshadows her peers, so she holds back",
+    "text": "Kana is so gifted that she outshines the people around her, so she holds her performances back.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:25:00.000Z",
+    "excerpt": "her talent overshadows peers, forcing her to restrain her performances"
+  },
+  {
+    "id": "oshi-no-ko-akane-kurokawa-stage-actress-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "akane-kurokawa"
+    },
+    "field": "occupation",
+    "value": "Stage actress with a theatre troupe",
+    "text": "Akane Kurokawa is a stage actress who has a theatre troupe to promote.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:25:00.000Z",
+    "excerpt": "is a stage actress who joins the reality show"
+  },
+  {
+    "id": "oshi-no-ko-akane-kurokawa-method-acting-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "akane-kurokawa"
+    },
+    "field": "style",
+    "value": "Meticulous method actor",
+    "text": "Akane prepares with great care and uses a method-acting approach, studying each role in depth.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:25:00.000Z",
+    "excerpt": "A meticulous performer, Akane employs a method-acting approach, deeply analyzing her roles"
+  },
+  {
+    "id": "oshi-no-ko-taishi-gotanda-film-director-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "taishi-gotanda"
+    },
+    "field": "occupation",
+    "value": "Film director",
+    "text": "Taishi Gotanda works as a film director.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:25:00.000Z",
+    "excerpt": "the film director who scouted Aqua"
+  },
+  {
+    "id": "oshi-no-ko-taishi-gotanda-scouts-talent-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "taishi-gotanda"
+    },
+    "field": "role",
+    "value": "Scouted Aqua and talked him into acting",
+    "text": "Gotanda spotted potential in Aqua and persuaded him to take up acting.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:25:00.000Z",
+    "excerpt": "scouted Aqua and convinced him to become an actor when he saw his potential"
+  },
+  {
+    "id": "oshi-no-ko-ichigo-saito-recruits-ai-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "ichigo-saito"
+    },
+    "field": "role",
+    "value": "Recruited Ai to B-Komachi",
+    "text": "Ichigo is the one who brought Ai into the idol group B-Komachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:25:00.000Z",
+    "excerpt": "responsible for the recruitment of Ai Hoshino to B-Komachi"
+  },
+  {
+    "id": "oshi-no-ko-miyako-saito-married-to-ichigo-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "miyako-saito"
+    },
+    "field": "organization",
+    "value": "Wife of Ichigo Saito",
+    "text": "Miyako Saitō is married to Ichigo, the president of the agency.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:25:00.000Z",
+    "excerpt": "is the wife of Ichigo Saitō"
+  },
+  {
+    "id": "oshi-no-ko-melt-narushima-arrogant-start-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "melt-narushima"
+    },
+    "field": "habits",
+    "value": "Starts out arrogant and untrained",
+    "text": "Melt Narushima starts out as a cocky actor with no real training.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:25:00.000Z",
+    "excerpt": "an arrogant and untrained actor"
+  },
+  {
+    "id": "oshi-no-ko-melt-narushima-humbled-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "melt-narushima"
+    },
+    "field": "motivation",
+    "value": "Was humbled by the experience",
+    "text": "Early experience on a set humbled Melt.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:25:00.000Z",
+    "excerpt": "The experience humbled him"
+  },
+  {
+    "id": "oshi-no-ko-melt-narushima-improves-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "oshi-no-ko",
+      "ref": "melt-narushima"
+    },
+    "field": "talent",
+    "value": "Works on improving his acting",
+    "text": "Melt has since worked at getting better as an actor.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+        "ref": "1377609994",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:25:00.000Z",
+    "excerpt": "has worked on improving his acting skills"
   }
 ]

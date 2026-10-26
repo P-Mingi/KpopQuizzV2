@@ -7,8 +7,8 @@
       "loaded": 50
     },
     "facts": {
-      "total": 3491,
-      "loaded": 3333
+      "total": 3611,
+      "loaded": 3453
     },
     "quizzes": {
       "total": 268,
@@ -23,25 +23,25 @@
       "loaded": 31
     },
     "personality": {
-      "total": 1,
-      "loaded": 1
+      "total": 10,
+      "loaded": 10
     }
   },
   "counts": {
     "groups": 50,
     "series": 50,
     "arcs": 364,
-    "characters": 998,
+    "characters": 1000,
     "themes": 704,
-    "trivia": 3307,
-    "entity_sources": 4025,
+    "trivia": 3427,
+    "entity_sources": 4145,
     "creators": 31,
     "quizzes": 268,
     "questions": 2650,
     "daily": 99,
     "daily_questions": 792,
-    "personality": 1,
-    "personality_questions": 8,
-    "personality_profiles": 6
+    "personality": 10,
+    "personality_questions": 80,
+    "personality_profiles": 70
   }
 }

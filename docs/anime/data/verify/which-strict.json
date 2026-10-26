@@ -1,0 +1,22 @@
+{
+  "method": "curl https://en.wikipedia.org/w/api.php?action=parse&oldid=<rev>&prop=text&format=json&formatversion=2 for each cited revision, HTML stripped to plain text, spaces collapsed, quotes and dashes normalised (NFKC), excerpt tested as a literal case-sensitive substring",
+  "checked": 178,
+  "checked_new_facts": 120,
+  "checked_cited_facts": 175,
+  "revisions": 20,
+  "misses": [
+    {
+      "fact_id": "slam-dunk-kiminobu-kogure-name-063",
+      "revision": "1379124925",
+      "excerpt_before": "Shohoku's vice-captain, backup shooting guard ... His jersey number is 5",
+      "reason": "two passages joined with an ellipsis, not one literal string",
+      "action": "fixed",
+      "excerpt_after": [
+        "is Shohoku's vice-captain, backup shooting guard, and a good friend of Akagi and Mitsui. His jersey number is 5",
+        "Gentle, empathetic, and friendly, he is rarely seen without his glasses"
+      ]
+    }
+  ],
+  "dropped": [],
+  "note": "A first pass that put a space where an inline tag sat flagged 4 more excerpts (Sesshomaru name-066, Yuji name-031, Makino name-082, Roger treasure-026); they are literal on the page, the flag came from the stripping, so no change was made."
+}

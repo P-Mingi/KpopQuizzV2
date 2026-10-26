@@ -1,0 +1,448 @@
+{
+  "$comment": "Run O1, lane K1 which: the Which Spy x Family character are you quiz, written by us (owner, 2026-10-26). Eight questions about the reader with the premise as flavour and no story detail (spoiler arc 0). Facts cited per profile (D/facts/spy-x-family.json, all verified, arc 0): loid-forger: spy-x-family-loid-forger-disguises-052, spy-x-family-loid-forger-pragmatic-053, spy-x-family-loid-forger-psychiatrist-054, spy-x-family-loid-forger-spy-070; anya-forger: spy-x-family-anya-telepath-013, spy-x-family-anya-forger-innocent-055, spy-x-family-anya-forger-quick-witted-056; yor-forger: spy-x-family-yor-forger-gentle-057, spy-x-family-yor-thorn-princess-014, spy-x-family-yor-forger-absent-minded-058; bond-forger: spy-x-family-bond-forger-loyal-059, spy-x-family-bond-forger-distracted-060; damian-desmond: spy-x-family-damian-desmond-diligent-061, spy-x-family-damian-desmond-approval-062; becky-blackbell: spy-x-family-becky-blackbell-adult-like-063, spy-x-family-becky-blackbell-admires-yor-064; yuri-briar: spy-x-family-yuri-briar-exemplary-065, spy-x-family-yuri-briar-attached-066; franky-franklin: spy-x-family-franky-franklin-tobacconist-067, spy-x-family-franky-franklin-caretaker-068, spy-x-family-franky-franklin-romance-069.",
+  "site": "anime",
+  "group_slug": "spy-x-family",
+  "status": "published",
+  "spoiler": {
+    "arc": 0,
+    "scope": "both"
+  },
+  "questions": [
+    {
+      "ord": 1,
+      "question": "You get a secret mission with a very short deadline. How do you begin?",
+      "options": [
+        {
+          "text": "Build a cover story, a new name and a new look",
+          "weights": {
+            "craft": 5,
+            "spotlight": 5,
+            "chaos": 2
+          }
+        },
+        {
+          "text": "Follow the checklist, one step at a time",
+          "weights": {
+            "chaos": 0,
+            "craft": 2,
+            "heart": 4
+          }
+        },
+        {
+          "text": "Rope in a friend and make it a team effort",
+          "weights": {
+            "energy": 5,
+            "care": 4
+          }
+        },
+        {
+          "text": "Improvise and trust my luck",
+          "weights": {
+            "chaos": 5,
+            "energy": 4,
+            "craft": 2
+          }
+        }
+      ]
+    },
+    {
+      "ord": 2,
+      "question": "A new school year starts and you know nobody. You:",
+      "options": [
+        {
+          "text": "Walk up to the first person and declare us best friends",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Size up the room and find the person worth impressing",
+          "weights": {
+            "energy": 1,
+            "craft": 4,
+            "spotlight": 3
+          }
+        },
+        {
+          "text": "Act older and calmer than you actually feel",
+          "weights": {
+            "energy": 3,
+            "chaos": 0,
+            "spotlight": 1
+          }
+        },
+        {
+          "text": "Take the seat by the window and watch quietly",
+          "weights": {
+            "energy": 0,
+            "spotlight": 5,
+            "care": 2
+          }
+        }
+      ]
+    },
+    {
+      "ord": 3,
+      "question": "It is dinner time. What is your place in the kitchen?",
+      "options": [
+        {
+          "text": "Head chef, with a timer and measured quantities",
+          "weights": {
+            "chaos": 0,
+            "craft": 3,
+            "heart": 4
+          }
+        },
+        {
+          "text": "Brave but hopeless, and the takeaway menu is ready",
+          "weights": {
+            "chaos": 5,
+            "craft": 1,
+            "care": 5
+          }
+        },
+        {
+          "text": "Setting the table and checking everyone has enough",
+          "weights": {
+            "care": 0,
+            "energy": 2,
+            "heart": 1
+          }
+        },
+        {
+          "text": "Waiting loyally by the table, hoping for scraps",
+          "weights": {
+            "energy": 3,
+            "chaos": 4,
+            "care": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 4,
+      "question": "Someone promises to be proud of you if you do one thing. Which one?",
+      "options": [
+        {
+          "text": "Come first in the hardest class",
+          "weights": {
+            "heart": 4,
+            "spotlight": 0,
+            "energy": 3
+          }
+        },
+        {
+          "text": "Build a clever gadget for the house",
+          "weights": {
+            "craft": 5,
+            "chaos": 3,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "Make the whole table laugh at dinner",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Quietly fix a problem nobody had noticed",
+          "weights": {
+            "care": 0,
+            "spotlight": 5,
+            "energy": 1
+          }
+        }
+      ]
+    },
+    {
+      "ord": 5,
+      "question": "You are carrying a secret you must not share. How does it go?",
+      "options": [
+        {
+          "text": "I smile, nod and change the subject smoothly",
+          "weights": {
+            "craft": 4,
+            "heart": 0,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "I keep it, but I get clumsy and jumpy about it",
+          "weights": {
+            "chaos": 4,
+            "energy": 2,
+            "heart": 1
+          }
+        },
+        {
+          "text": "I tell my best friend and swear them to silence",
+          "weights": {
+            "energy": 4,
+            "care": 3,
+            "spotlight": 1
+          }
+        },
+        {
+          "text": "I carry it alone, even when it weighs on me",
+          "weights": {
+            "energy": 0,
+            "heart": 4,
+            "spotlight": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 6,
+      "question": "Your best friend is in trouble. What do you do?",
+      "options": [
+        {
+          "text": "Turn up before they have finished asking",
+          "weights": {
+            "care": 0,
+            "energy": 4,
+            "heart": 1
+          }
+        },
+        {
+          "text": "Bring a plan, a map and a spare gadget",
+          "weights": {
+            "craft": 5,
+            "care": 0,
+            "chaos": 2
+          }
+        },
+        {
+          "text": "Get side-tracked by a snack, then arrive eventually",
+          "weights": {
+            "chaos": 5,
+            "energy": 2,
+            "care": 5
+          }
+        },
+        {
+          "text": "Tell them straight where they went wrong, then help",
+          "weights": {
+            "heart": 5,
+            "energy": 3,
+            "care": 1
+          }
+        }
+      ]
+    },
+    {
+      "ord": 7,
+      "question": "A free afternoon in the city. Where do you end up?",
+      "options": [
+        {
+          "text": "In a workshop, tinkering with something full of wires",
+          "weights": {
+            "craft": 5,
+            "energy": 0,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "In a cafe, talking through everyone's problems",
+          "weights": {
+            "energy": 5,
+            "care": 1,
+            "craft": 1
+          }
+        },
+        {
+          "text": "In the park with a dog, chasing every smell",
+          "weights": {
+            "chaos": 5,
+            "energy": 3,
+            "care": 4
+          }
+        },
+        {
+          "text": "In a library, quietly beating my own record",
+          "weights": {
+            "craft": 2,
+            "chaos": 0,
+            "spotlight": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 8,
+      "question": "How would you like people to describe you?",
+      "options": [
+        {
+          "text": "Reliable, always where I said I would be",
+          "weights": {
+            "chaos": 0,
+            "heart": 5,
+            "care": 0
+          }
+        },
+        {
+          "text": "Impressive, someone whose name sticks",
+          "weights": {
+            "spotlight": 0,
+            "craft": 4,
+            "energy": 4
+          }
+        },
+        {
+          "text": "Sweet, the one people want to feed",
+          "weights": {
+            "care": 5,
+            "chaos": 4,
+            "energy": 3
+          }
+        },
+        {
+          "text": "Mysterious, never quite figured out",
+          "weights": {
+            "spotlight": 5,
+            "craft": 5,
+            "heart": 1
+          }
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "character_slug": "loid-forger",
+      "traits": {
+        "energy": 45,
+        "chaos": 20,
+        "care": 40,
+        "craft": 80,
+        "heart": 35,
+        "spotlight": 75
+      },
+      "profile": [
+        "You take on a new face and a new name whenever a situation calls for one.",
+        "You stay practical and unruffled when a plan is on the line, and keep your softer side for family.",
+        "You hold a respectable day job, and nobody around you guesses what else you do."
+      ],
+      "ord": 1
+    },
+    {
+      "character_slug": "anya-forger",
+      "traits": {
+        "energy": 70,
+        "chaos": 75,
+        "care": 75,
+        "craft": 55,
+        "heart": 65,
+        "spotlight": 20
+      },
+      "profile": [
+        "You are innocent about how the world works, and quick on your feet anyway.",
+        "You pick up on what other people are thinking before they say a word."
+      ],
+      "ord": 2
+    },
+    {
+      "character_slug": "yor-forger",
+      "traits": {
+        "energy": 40,
+        "chaos": 70,
+        "care": 20,
+        "craft": 55,
+        "heart": 35,
+        "spotlight": 70
+      },
+      "profile": [
+        "You are soft-spoken, formal and thoughtful toward everyone you meet.",
+        "You work a steady office job by day and keep a sharper side of yourself out of sight.",
+        "You are a little absent-minded, and the kitchen is where it shows most."
+      ],
+      "ord": 3
+    },
+    {
+      "character_slug": "bond-forger",
+      "traits": {
+        "energy": 45,
+        "chaos": 75,
+        "care": 70,
+        "craft": 30,
+        "heart": 55,
+        "spotlight": 55
+      },
+      "profile": [
+        "You are loyal without conditions, and your family always knows it.",
+        "You are easily distracted, yet sharper and stronger than anyone gives you credit for."
+      ],
+      "ord": 4
+    },
+    {
+      "character_slug": "damian-desmond",
+      "traits": {
+        "energy": 60,
+        "chaos": 40,
+        "care": 45,
+        "craft": 70,
+        "heart": 75,
+        "spotlight": 15
+      },
+      "profile": [
+        "You are diligent in class, and History is where you shine.",
+        "You work hard to be noticed by someone whose approval matters to you."
+      ],
+      "ord": 5
+    },
+    {
+      "character_slug": "becky-blackbell",
+      "traits": {
+        "energy": 65,
+        "chaos": 50,
+        "care": 60,
+        "craft": 60,
+        "heart": 25,
+        "spotlight": 25
+      },
+      "profile": [
+        "You often try to act more grown up than your age.",
+        "You look up to people who are strong."
+      ],
+      "ord": 6
+    },
+    {
+      "character_slug": "yuri-briar",
+      "traits": {
+        "energy": 50,
+        "chaos": 20,
+        "care": 15,
+        "craft": 75,
+        "heart": 85,
+        "spotlight": 75
+      },
+      "profile": [
+        "You do your job to an exemplary standard.",
+        "You are a bit too attached to your sibling, and everyone knows it."
+      ],
+      "ord": 7
+    },
+    {
+      "character_slug": "franky-franklin",
+      "traits": {
+        "energy": 60,
+        "chaos": 60,
+        "care": 20,
+        "craft": 95,
+        "heart": 30,
+        "spotlight": 60
+      },
+      "profile": [
+        "You run a shop by day and tinker with inventions in your free time.",
+        "You often end up looking after the kids and pets around you.",
+        "You are hopeless in romance, whatever your talents elsewhere."
+      ],
+      "ord": 8
+    }
+  ]
+}

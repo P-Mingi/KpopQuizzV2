@@ -1002,6 +1002,38 @@
       "identity_spoiler": false,
       "ord": 30,
       "status": "published"
+    },
+    {
+      "slug": "makino",
+      "name": "Makino",
+      "name_native": "マキノ",
+      "role": "supporting",
+      "affiliation": "Windmill Village",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A bartender in Luffy's home village who had a big part in raising him.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 31,
+      "status": "published"
+    },
+    {
+      "slug": "koby",
+      "name": "Koby",
+      "aliases": [
+        "Coby"
+      ],
+      "role": "supporting",
+      "affiliation": "Alvida Pirates",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A young hand pressed into chores aboard a pirate ship, and Luffy's first friend at sea.",
+      "source_url": "https://en.wikipedia.org/wiki/World_Government_(One_Piece)",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 32,
+      "status": "published"
     }
   ],
   "themes": [

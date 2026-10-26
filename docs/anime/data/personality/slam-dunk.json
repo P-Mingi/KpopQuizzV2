@@ -1,0 +1,454 @@
+{
+  "$comment": "Run O1 lane K1 which: Which Slam Dunk character are you, written by us, one quiz per series, arc 0 (every result is a spoiler level 0 character). Facts cited per character (D/facts/slam-dunk.json, all verified, spoiler arc 0, Wikipedia List of Slam Dunk characters revision 1379124925): hanamichi-sakuragi: slam-dunk-hanamichi-sakuragi-confidence-085, slam-dunk-hanamichi-sakuragi-rejections-047, slam-dunk-hanamichi-sakuragi-gang-048; kaede-rukawa: slam-dunk-kaede-rukawa-aloof-091, slam-dunk-kaede-rukawa-sleeping-092, slam-dunk-kaede-rukawa-rival-093; takenori-akagi: slam-dunk-takenori-akagi-discipline-086, slam-dunk-takenori-akagi-caring-side-087, slam-dunk-takenori-akagi-best-center-088; haruko-akagi: slam-dunk-haruko-akagi-sweet-094, slam-dunk-haruko-akagi-uncovers-talent-095, slam-dunk-haruko-akagi-talent-spotter-057; ayako: slam-dunk-ayako-personality-096, slam-dunk-ayako-sharpens-sakuragi-097, slam-dunk-ayako-name-059; mitsuyoshi-anzai: slam-dunk-mitsuyoshi-anzai-strategist-098, slam-dunk-mitsuyoshi-anzai-charisma-099, slam-dunk-mitsuyoshi-anzai-name-060; yohei-mito: slam-dunk-yohei-mito-advice-100, slam-dunk-yohei-mito-childhood-friend-101, slam-dunk-yohei-mito-name-062; kiminobu-kogure: slam-dunk-kiminobu-kogure-gentle-089, slam-dunk-kiminobu-kogure-supports-sakuragi-090, slam-dunk-kiminobu-kogure-name-063.",
+  "site": "anime",
+  "group_slug": "slam-dunk",
+  "status": "published",
+  "spoiler": {
+    "arc": 0,
+    "scope": "both"
+  },
+  "questions": [
+    {
+      "ord": 1,
+      "question": "You walk into the gym on the first day of school and the basketball team is practising. What do you do?",
+      "options": [
+        {
+          "text": "Announce that you are a genius and will win everything",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Lean on the wall, watch, and say nothing",
+          "weights": {
+            "energy": 0,
+            "heart": 4,
+            "spotlight": 2
+          }
+        },
+        {
+          "text": "Ask if there is anything that needs carrying or fixing",
+          "weights": {
+            "energy": 1,
+            "care": 0,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Ask the captain straight out what the goal is",
+          "weights": {
+            "energy": 3,
+            "chaos": 0,
+            "heart": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 2,
+      "question": "A teammate cannot get the basics right. What do you do?",
+      "options": [
+        {
+          "text": "Drill them on dribbling until it sticks",
+          "weights": {
+            "energy": 4,
+            "care": 0,
+            "heart": 4
+          }
+        },
+        {
+          "text": "Cheer them on from the sideline",
+          "weights": {
+            "energy": 4,
+            "care": 5,
+            "heart": 1
+          }
+        },
+        {
+          "text": "Tell them plainly they are not ready yet",
+          "weights": {
+            "chaos": 0,
+            "care": 3,
+            "heart": 5
+          }
+        },
+        {
+          "text": "Say nothing and quietly stay late to practise with them",
+          "weights": {
+            "energy": 0,
+            "care": 0,
+            "spotlight": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 3,
+      "question": "It is your day off. Where will you be?",
+      "options": [
+        {
+          "text": "Asleep, anywhere, for as long as possible",
+          "weights": {
+            "energy": 0,
+            "chaos": 2,
+            "craft": 1
+          }
+        },
+        {
+          "text": "Out with friends, causing a little harmless trouble",
+          "weights": {
+            "energy": 4,
+            "chaos": 5,
+            "care": 2
+          }
+        },
+        {
+          "text": "Replaying an old match in your head, looking for the turning point",
+          "weights": {
+            "chaos": 3,
+            "craft": 5,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "At home with a notebook, planning the next big goal",
+          "weights": {
+            "chaos": 0,
+            "craft": 3,
+            "heart": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 4,
+      "question": "Someone says you are not good enough. You:",
+      "options": [
+        {
+          "text": "Laugh and tell them they will take it back soon",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Train harder in silence and let the results talk",
+          "weights": {
+            "energy": 0,
+            "heart": 4,
+            "spotlight": 3
+          }
+        },
+        {
+          "text": "Ask them what exactly you should work on",
+          "weights": {
+            "care": 0,
+            "craft": 3,
+            "heart": 0
+          }
+        },
+        {
+          "text": "Feel it, smile anyway, and keep going",
+          "weights": {
+            "energy": 3,
+            "care": 5,
+            "heart": 1
+          }
+        }
+      ]
+    },
+    {
+      "ord": 5,
+      "question": "What kind of best friend do you want?",
+      "options": [
+        {
+          "text": "One loud enough to make every day an adventure",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "One steady enough to give you honest advice",
+          "weights": {
+            "care": 0,
+            "heart": 5,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "One warm enough to cheer for you every time",
+          "weights": {
+            "energy": 4,
+            "care": 5,
+            "heart": 1
+          }
+        },
+        {
+          "text": "One clever enough to know when to step back",
+          "weights": {
+            "chaos": 3,
+            "craft": 5,
+            "spotlight": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 6,
+      "question": "A rival shows up and they are good. How do you react?",
+      "options": [
+        {
+          "text": "Turn it into a loud contest that lasts all term",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Beat them quietly and walk away",
+          "weights": {
+            "energy": 0,
+            "heart": 4,
+            "spotlight": 2
+          }
+        },
+        {
+          "text": "Respect them and learn what you can",
+          "weights": {
+            "care": 1,
+            "craft": 4,
+            "heart": 1
+          }
+        },
+        {
+          "text": "Keep a close watch so nobody on your side gets hurt",
+          "weights": {
+            "chaos": 0,
+            "care": 0,
+            "heart": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 7,
+      "question": "Before a big game, you are the one who:",
+      "options": [
+        {
+          "text": "Gathers everyone and says what you are here to win",
+          "weights": {
+            "energy": 4,
+            "heart": 5,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Checks every detail, then checks it again",
+          "weights": {
+            "chaos": 0,
+            "care": 0,
+            "craft": 3
+          }
+        },
+        {
+          "text": "Cracks jokes until the room loosens up",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "care": 3
+          }
+        },
+        {
+          "text": "Sits back calmly and trusts the plan",
+          "weights": {
+            "chaos": 2,
+            "craft": 4,
+            "spotlight": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 8,
+      "question": "Which reputation at school would you pick?",
+      "options": [
+        {
+          "text": "The strictest and most dependable senior",
+          "weights": {
+            "chaos": 0,
+            "care": 0,
+            "heart": 5
+          }
+        },
+        {
+          "text": "The mellow friend everyone can count on",
+          "weights": {
+            "chaos": 0,
+            "heart": 0,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "The legend nobody can ignore",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "The sweet one who brightens the room",
+          "weights": {
+            "energy": 4,
+            "care": 5,
+            "heart": 0
+          }
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "character_slug": "hanamichi-sakuragi",
+      "traits": {
+        "energy": 95,
+        "chaos": 70,
+        "care": 50,
+        "craft": 40,
+        "heart": 55,
+        "spotlight": 15
+      },
+      "profile": [
+        "You walk in like you have already won, and everyone else just needs to catch up.",
+        "You are sure you are a genius, and your confidence edges toward arrogance.",
+        "You have lost count of the times you were turned down, and you still throw yourself back in."
+      ],
+      "ord": 1
+    },
+    {
+      "character_slug": "kaede-rukawa",
+      "traits": {
+        "energy": 30,
+        "chaos": 40,
+        "care": 55,
+        "craft": 40,
+        "heart": 60,
+        "spotlight": 45
+      },
+      "profile": [
+        "You come across as cool and distant, and you are fine with that.",
+        "You would honestly rather sleep than make small talk.",
+        "You know exactly who your rival is, and you want to beat them."
+      ],
+      "ord": 2
+    },
+    {
+      "character_slug": "takenori-akagi",
+      "traits": {
+        "energy": 45,
+        "chaos": 15,
+        "care": 15,
+        "craft": 40,
+        "heart": 85,
+        "spotlight": 40
+      },
+      "profile": [
+        "You are serious and disciplined, and you dream of taking your whole team to the top.",
+        "You look rough on the outside, and you care a lot underneath.",
+        "You are known as the best in your area at what you do."
+      ],
+      "ord": 3
+    },
+    {
+      "character_slug": "haruko-akagi",
+      "traits": {
+        "energy": 55,
+        "chaos": 40,
+        "care": 75,
+        "craft": 80,
+        "heart": 15,
+        "spotlight": 50
+      },
+      "profile": [
+        "You are sweet and friendly, and you are always there to cheer people on.",
+        "You spot talent in others before they have noticed it themselves.",
+        "You have a captivating, warm presence that people remember."
+      ],
+      "ord": 4
+    },
+    {
+      "character_slug": "ayako",
+      "traits": {
+        "energy": 85,
+        "chaos": 20,
+        "care": 15,
+        "craft": 55,
+        "heart": 55,
+        "spotlight": 25
+      },
+      "profile": [
+        "You are strong-willed and good-natured, with a little tomboy in you.",
+        "You get people ready for the real thing, and you start with the basics.",
+        "You know how to sharpen a friend's skills so they hold up when it counts."
+      ],
+      "ord": 5
+    },
+    {
+      "character_slug": "mitsuyoshi-anzai",
+      "traits": {
+        "energy": 20,
+        "chaos": 75,
+        "care": 40,
+        "craft": 85,
+        "heart": 45,
+        "spotlight": 55
+      },
+      "profile": [
+        "You are a brilliant strategist who knows how to turn a game around.",
+        "You are charismatic, and you lift people to do more than they thought they could.",
+        "You are well loved by the people you lead."
+      ],
+      "ord": 6
+    },
+    {
+      "character_slug": "yohei-mito",
+      "traits": {
+        "energy": 75,
+        "chaos": 55,
+        "care": 30,
+        "craft": 35,
+        "heart": 50,
+        "spotlight": 80
+      },
+      "profile": [
+        "You have been a best friend since childhood, and you are good in a fight.",
+        "You are the one in the group who gives real advice when it is needed.",
+        "You are happy to be the deputy to the loudest person you know."
+      ],
+      "ord": 7
+    },
+    {
+      "character_slug": "kiminobu-kogure",
+      "traits": {
+        "energy": 40,
+        "chaos": 25,
+        "care": 25,
+        "craft": 75,
+        "heart": 15,
+        "spotlight": 80
+      },
+      "profile": [
+        "You are gentle, empathetic and friendly, a glasses wearer through and through.",
+        "You work behind the scenes to bring out the best in a friend's talent.",
+        "You are happy to be second in command, the steady one beside the captain."
+      ],
+      "ord": 8
+    }
+  ]
+}

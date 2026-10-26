@@ -49,8 +49,8 @@ test('the schema asks for what the engine reads: eight questions of four answers
 
 test('the file in the data folder is named after its series, and the loader reads the folder', () => {
   const list = readPersonality(DATA);
-  assert.deepEqual(list.map((p) => p.slug), ['death-note']);
-  assert.equal(list[0].file, 'personality/death-note.json');
+  assert.deepEqual(list.map((p) => p.slug), ['apothecary-diaries', 'black-clover', 'death-note', 'inuyasha', 'jujutsu-kaisen', 'kaguya-sama-love-is-war', 'one-piece', 'oshi-no-ko', 'slam-dunk', 'spy-x-family']);
+  assert.equal(list.find((p) => p.slug === 'death-note').file, 'personality/death-note.json');
   const dir = mkdtempSync(join(tmpdir(), 'pers-read-'));
   assert.deepEqual(readPersonality(dir), []);
   mkdirSync(join(dir, 'personality'));
@@ -131,7 +131,7 @@ test('characters, spoilers and voice read the series data', () => {
 });
 
 test('buildPersonality: rows with the name of the character taken from the series, and every fault refused with its file', () => {
-  const rows = buildPersonality(readPersonality(DATA), [realSeries()], registry);
+  const rows = buildPersonality(readPersonality(DATA).filter((p) => p.slug === 'death-note'), [realSeries()], registry);
   assert.equal(rows.length, 1);
   assert.equal(rows[0].slug, 'death-note');
   assert.equal(rows[0].status, 'published');
@@ -151,7 +151,7 @@ test('buildPersonality: rows with the name of the character taken from the serie
 });
 
 test('SQL: questions in the band of the group, profiles on (group_id, member_slug), only anime rows touched, stale rows removed, active follows the status', () => {
-  const rows = buildPersonality(readPersonality(DATA), [realSeries()], registry);
+  const rows = buildPersonality(readPersonality(DATA).filter((p) => p.slug === 'death-note'), [realSeries()], registry);
   const sql = renderPersonalitySql(rows).join('\n');
   assert.equal(renderPersonalitySql([]).length, 0);
   assert.equal((sql.match(/insert into public\.personality_questions/g) ?? []).length, 8);
@@ -185,7 +185,7 @@ test('SQL: questions in the band of the group, profiles on (group_id, member_slu
 });
 
 test('SQL: the count columns and the undo name only the rows of the series of the plan', () => {
-  const rows = buildPersonality(readPersonality(DATA), [realSeries()], registry);
+  const rows = buildPersonality(readPersonality(DATA).filter((p) => p.slug === 'death-note'), [realSeries()], registry);
   const cols = personalityCountColumns(rows);
   assert.equal(cols.length, 2);
   assert.match(cols[0], /personality_questions q join public\.groups g on g\.site_id = 'anime' and g\.slug in \('death-note'\) where q\.site_id = 'anime' and q\.ord between g\.id \* 12 \+ 1 and g\.id \* 12 \+ 8/);
@@ -269,6 +269,6 @@ test('load-fixtures: --only personality needs --data, refuses another value, and
   assert.match(production.stderr, /the target must be scratch or dev/);
   const dry = run('scratch', '--data', DATA, '--only', 'personality', '--dry-run');
   assert.equal(dry.status, 0, dry.stderr);
-  assert.match(dry.stdout, /personality=1 personality_questions=8 personality_profiles=6/);
+  assert.match(dry.stdout, /personality=10 personality_questions=80 personality_profiles=70/);
   assert.match(dry.stdout, /dry-run: nothing written/);
 });

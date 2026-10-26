@@ -1481,13 +1481,13 @@
     "sources": [
       {
         "source": "wikipedia",
-        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
-        "ref": "1381757229",
-        "fetched_at": "2026-10-25T14:15:00Z"
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-26T10:05:00Z"
       }
     ],
     "status": "verified",
-    "verified_at": "2026-10-25T14:30:00.000Z",
+    "verified_at": "2026-10-26T10:20:00.000Z",
     "excerpt": "born as a prodigy with immense magical power"
   },
   {
@@ -3308,5 +3308,266 @@
     "status": "verified",
     "verified_at": "2026-10-25T21:12:01.000Z",
     "excerpt": "Voiced by: Jun Fukuyama (Japanese)"
+  },
+  {
+    "id": "black-clover-asta-limits-104",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "asta"
+    },
+    "field": "habits",
+    "value": "Follows Yami's philosophy of surpassing limits",
+    "text": "In the Black Bulls, Asta takes on his captain's belief that you grow by pushing past your own limits.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "embracing their captain Yami's philosophy to surpass his limits"
+  },
+  {
+    "id": "black-clover-asta-strength-105",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "asta"
+    },
+    "field": "talent",
+    "value": "Immense physical strength",
+    "text": "Without any magic to rely on, Asta makes up for it with enormous physical strength.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "possesses immense physical strength"
+  },
+  {
+    "id": "black-clover-yuno-grinberryall-rival-106",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yuno-grinberryall"
+    },
+    "field": "role",
+    "value": "Asta's rival and best friend",
+    "text": "Yuno is Asta's friendly rival and best friend, a fellow orphan from the village of Hage.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "Asta's rival, best friend, and a fellow orphan raised in Hage"
+  },
+  {
+    "id": "black-clover-yuno-grinberryall-goal-107",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yuno-grinberryall"
+    },
+    "field": "motivation",
+    "value": "Wants to become Wizard King",
+    "text": "Yuno shares Asta's goal of one day becoming the Wizard King.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "sharing the goal of becoming the Wizard King"
+  },
+  {
+    "id": "black-clover-yami-sukehiro-captain-108",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yami-sukehiro"
+    },
+    "field": "role",
+    "value": "Captain of the Black Bulls",
+    "text": "Yami is the captain of the Black Bulls, one of the squads of the Magic Knights.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "is the captain of the Black Bulls"
+  },
+  {
+    "id": "black-clover-yami-sukehiro-dark-magic-109",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yami-sukehiro"
+    },
+    "field": "power",
+    "value": "Dark Magic that negates spells",
+    "text": "Yami's Dark Magic is able to cancel out other spells.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "wields Dark Magic capable of negating other spells"
+  },
+  {
+    "id": "black-clover-finral-roulacase-courage-110",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "finral-roulacase"
+    },
+    "field": "habits",
+    "value": "Starts cowardly and careless, grows brave",
+    "text": "Finral begins as a timid, careless mage shaped by pressure at home, and later grows into a brave one.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "Initially cowardly and irresponsible due to family pressures"
+  },
+  {
+    "id": "black-clover-magna-swing-fiery-111",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "magna-swing"
+    },
+    "field": "habits",
+    "value": "Fiery temper",
+    "text": "Magna has a hot temper and serves as Yami's right-hand man in the Black Bulls.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "a fiery-tempered Black Bulls member"
+  },
+  {
+    "id": "black-clover-magna-swing-fireballs-112",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "magna-swing"
+    },
+    "field": "power",
+    "value": "Inventive fireballs",
+    "text": "Magna uses Fire Magic in inventive ways, throwing many different kinds of fireball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "creatively wields Fire Magic through varied fireball attacks"
   }
 ]

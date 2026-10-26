@@ -1191,5 +1191,324 @@
     "status": "verified",
     "verified_at": "2026-10-25T18:53:36.000Z",
     "excerpt": "youngest of the Emperor's four high-ranking"
+  },
+  {
+    "id": "apothecary-diaries-maomao-curiosity-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "maomao"
+    },
+    "field": "style",
+    "value": "Insatiable curiosity",
+    "text": "Maomao keeps helping with the mysteries she is handed because her curiosity will not let her drop them.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "she often helps him solve whatever mystery he brings to her attention because of her insatiable curiosity"
+  },
+  {
+    "id": "apothecary-diaries-maomao-experiments-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "maomao"
+    },
+    "field": "habits",
+    "value": "Experiments with poisons and remedies",
+    "text": "Maomao enjoys trying out poisons and medicines in her spare time, and now and then the test subject is herself.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "she prefers to spend time testing out different poisons and medicines, sometimes on herself."
+  },
+  {
+    "id": "apothecary-diaries-gyokuyo-supporter-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gyokuyo"
+    },
+    "field": "mission",
+    "value": "Supports Jinshi and Maomao",
+    "text": "Gyokuyō is one of the people who stands behind Jinshi and Maomao.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "She is also one who supports Jinshi and Maomao."
+  },
+  {
+    "id": "apothecary-diaries-lakan-face-blind-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lakan"
+    },
+    "field": "ability",
+    "value": "Face-blind, wears a monocle",
+    "text": "Lakan cannot tell faces apart and wears a monocle.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "the face-blind, monocle-wearing tactician of the emperor's army"
+  },
+  {
+    "id": "apothecary-diaries-lakan-tactician-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lakan"
+    },
+    "field": "role",
+    "value": "Strategist for the army, leader of the La clan",
+    "text": "Lakan is a strategist serving the emperor's army and the leader of his clan, the La.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "tactician of the emperor's army and the head of the La clan"
+  },
+  {
+    "id": "apothecary-diaries-xiaolan-friend-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "xiaolan"
+    },
+    "field": "role",
+    "value": "Rear palace servant, Maomao's close friend",
+    "text": "Xiaolan is a rear palace servant and one of Maomao's close friends.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "A servant at the rear palace who is Maomao's close friend."
+  },
+  {
+    "id": "apothecary-diaries-xiaolan-gossip-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "xiaolan"
+    },
+    "field": "habits",
+    "value": "Shares palace gossip",
+    "text": "Xiaolan often passes on the latest gossip and news from around the palace.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "she sometimes shares the latest gossip and intel from all over the palace."
+  },
+  {
+    "id": "apothecary-diaries-gaoshun-loyal-attendant-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gaoshun"
+    },
+    "field": "role",
+    "value": "Loyal attendant to Jinshi",
+    "text": "Gaoshun is a loyal attendant who backs up others quietly rather than loudly.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "loyal attendant, often supporting him and Maomao more quietly."
+  },
+  {
+    "id": "apothecary-diaries-gaoshun-second-son-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gaoshun"
+    },
+    "field": "background",
+    "value": "Father of Basen, who also serves Jinshi",
+    "text": "Gaoshun has a second son, Basen, who is also a reliable attendant.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "Gaoshun's straight-laced second son and one of Jinshi's most reliable attendants"
+  },
+  {
+    "id": "apothecary-diaries-luomen-adoptive-father-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "luomen"
+    },
+    "field": "role",
+    "value": "Apothecary and doctor, Maomao's adoptive father",
+    "text": "Luomen is an apothecary and doctor who raised Maomao as his adopted daughter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "an apothecary and doctor named Luomen"
+  },
+  {
+    "id": "apothecary-diaries-luomen-brothels-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "luomen"
+    },
+    "field": "occupation",
+    "value": "Provides services to several brothels in the capital",
+    "text": "Luomen and Maomao offer their services to several other brothels in the capital.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "also provide their services to a number of other brothels in the capital"
   }
 ]

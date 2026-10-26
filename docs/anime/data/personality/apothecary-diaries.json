@@ -1,0 +1,436 @@
+{
+  "$comment": "Run O1 K1-which: the Which character are you quiz of The Apothecary Diaries, written by us (arc 0, scope both, no story spoilers, no quote). Questions are about the reader. Facts cited per character (D/facts/apothecary-diaries.json, all verified, spoiler arc 0): maomao: apothecary-diaries-maomao-verdigris-035, apothecary-diaries-maomao-curiosity-043, apothecary-diaries-maomao-experiments-044; gyokuyo: apothecary-diaries-gyokuyo-favourite-040, apothecary-diaries-gyokuyo-hires-maomao-031, apothecary-diaries-gyokuyo-supporter-045; lishu: apothecary-diaries-lishu-youngest-042, apothecary-diaries-lishu-allergies-034; lakan: apothecary-diaries-lakan-face-blind-046, apothecary-diaries-lakan-tactician-047; xiaolan: apothecary-diaries-xiaolan-friend-048, apothecary-diaries-xiaolan-gossip-049; gaoshun: apothecary-diaries-gaoshun-loyal-attendant-050, apothecary-diaries-gaoshun-second-son-051; luomen: apothecary-diaries-luomen-adoptive-father-052, apothecary-diaries-luomen-brothels-053.",
+  "site": "anime",
+  "group_slug": "apothecary-diaries",
+  "status": "published",
+  "spoiler": {
+    "arc": 0,
+    "scope": "both"
+  },
+  "questions": [
+    {
+      "ord": 1,
+      "question": "A strange smell is drifting out of the kitchen and nobody knows why. You:",
+      "options": [
+        {
+          "text": "Sniff around until I find the cause, however long it takes",
+          "weights": {
+            "craft": 5,
+            "heart": 4,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "Ask around, because somebody always knows something",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Open the windows and check everyone feels all right",
+          "weights": {
+            "energy": 3,
+            "care": 0,
+            "heart": 0
+          }
+        },
+        {
+          "text": "Quietly tell whoever is in charge, then step back",
+          "weights": {
+            "energy": 0,
+            "chaos": 0,
+            "spotlight": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 2,
+      "question": "How do you pick up a new skill?",
+      "options": [
+        {
+          "text": "By trying it on myself first, to be sure it works",
+          "weights": {
+            "chaos": 5,
+            "craft": 5,
+            "heart": 4
+          }
+        },
+        {
+          "text": "I read the whole guide twice and draw up a plan",
+          "weights": {
+            "energy": 1,
+            "chaos": 0,
+            "craft": 4
+          }
+        },
+        {
+          "text": "From someone patient who shows me, step by step",
+          "weights": {
+            "energy": 2,
+            "care": 5,
+            "heart": 0
+          }
+        },
+        {
+          "text": "By chatting with everyone who has done it before",
+          "weights": {
+            "energy": 5,
+            "chaos": 3,
+            "spotlight": 1
+          }
+        }
+      ]
+    },
+    {
+      "ord": 3,
+      "question": "Someone close to you keeps ignoring a health warning. You:",
+      "options": [
+        {
+          "text": "Say it plainly, even if it stings",
+          "weights": {
+            "care": 1,
+            "heart": 5,
+            "spotlight": 3
+          }
+        },
+        {
+          "text": "Leave a remedy beside their dinner and say nothing",
+          "weights": {
+            "energy": 0,
+            "care": 0,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Keep gently checking in until they listen",
+          "weights": {
+            "energy": 3,
+            "care": 0,
+            "heart": 0
+          }
+        },
+        {
+          "text": "Hope it passes and keep my worries to myself",
+          "weights": {
+            "energy": 0,
+            "care": 5,
+            "heart": 1
+          }
+        }
+      ]
+    },
+    {
+      "ord": 4,
+      "question": "Where do you sit at a big banquet?",
+      "options": [
+        {
+          "text": "Beside the host, at the heart of the table",
+          "weights": {
+            "energy": 4,
+            "care": 1,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Nowhere for long, I move between tables collecting stories",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "spotlight": 2
+          }
+        },
+        {
+          "text": "At the edge, watching the whole room",
+          "weights": {
+            "energy": 0,
+            "craft": 4,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Wherever there is a quiet corner and a kind face",
+          "weights": {
+            "energy": 1,
+            "care": 5,
+            "spotlight": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 5,
+      "question": "A friend trusts you with a secret that could cause trouble. You:",
+      "options": [
+        {
+          "text": "Keep it safe and never say a word",
+          "weights": {
+            "energy": 0,
+            "heart": 3,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Trade it for something better, news is worth something",
+          "weights": {
+            "energy": 4,
+            "chaos": 4,
+            "spotlight": 1
+          }
+        },
+        {
+          "text": "Work out what is really going on before I react",
+          "weights": {
+            "chaos": 2,
+            "craft": 5,
+            "heart": 3
+          }
+        },
+        {
+          "text": "Worry for them and offer every bit of help I have",
+          "weights": {
+            "energy": 3,
+            "care": 0,
+            "heart": 0
+          }
+        }
+      ]
+    },
+    {
+      "ord": 6,
+      "question": "What would your friends say about you?",
+      "options": [
+        {
+          "text": "Blunt, but you always get the honest answer",
+          "weights": {
+            "care": 1,
+            "heart": 5,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "You make everyone feel welcome",
+          "weights": {
+            "energy": 5,
+            "chaos": 2,
+            "care": 0
+          }
+        },
+        {
+          "text": "Sweet, a little shy, and easy to look after",
+          "weights": {
+            "energy": 0,
+            "care": 5,
+            "heart": 0
+          }
+        },
+        {
+          "text": "Calm, reliable, exactly where you said you would be",
+          "weights": {
+            "energy": 1,
+            "chaos": 0,
+            "spotlight": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 7,
+      "question": "How do you spend a rare free afternoon?",
+      "options": [
+        {
+          "text": "Mixing something odd in the kitchen to see what happens",
+          "weights": {
+            "chaos": 5,
+            "craft": 5,
+            "spotlight": 3
+          }
+        },
+        {
+          "text": "Wandering the market and catching up on the news",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "craft": 1
+          }
+        },
+        {
+          "text": "Playing a board game where I plan five moves ahead",
+          "weights": {
+            "energy": 2,
+            "chaos": 3,
+            "craft": 5
+          }
+        },
+        {
+          "text": "Making tea for anyone who looks tired",
+          "weights": {
+            "energy": 1,
+            "care": 1,
+            "craft": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 8,
+      "question": "Which compliment would you treasure most?",
+      "options": [
+        {
+          "text": "You noticed what nobody else did",
+          "weights": {
+            "craft": 5,
+            "heart": 3,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "You made me feel like family",
+          "weights": {
+            "energy": 3,
+            "care": 0,
+            "heart": 0
+          }
+        },
+        {
+          "text": "You never let me down",
+          "weights": {
+            "energy": 0,
+            "heart": 4,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Everyone is better off with you around",
+          "weights": {
+            "energy": 5,
+            "care": 2,
+            "spotlight": 0
+          }
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "character_slug": "maomao",
+      "traits": {
+        "energy": 45,
+        "chaos": 80,
+        "care": 40,
+        "craft": 95,
+        "heart": 70,
+        "spotlight": 85
+      },
+      "profile": [
+        "You cannot walk past a mystery, because your curiosity will not let you drop it.",
+        "You enjoy testing potions and poisons in your spare time, and sometimes you are the test subject.",
+        "You grew up in a well-known house in the capital."
+      ],
+      "ord": 1
+    },
+    {
+      "character_slug": "gyokuyo",
+      "traits": {
+        "energy": 45,
+        "chaos": 35,
+        "care": 30,
+        "craft": 60,
+        "heart": 45,
+        "spotlight": 45
+      },
+      "profile": [
+        "You are somebody's favourite, and you wear it gracefully.",
+        "You back up the people you believe in, and you listen when someone warns you.",
+        "When someone does you a good turn, you repay it with a place by your side."
+      ],
+      "ord": 2
+    },
+    {
+      "character_slug": "lishu",
+      "traits": {
+        "energy": 35,
+        "chaos": 50,
+        "care": 75,
+        "craft": 70,
+        "heart": 45,
+        "spotlight": 50
+      },
+      "profile": [
+        "You are the youngest of your circle, and people want to look after you.",
+        "People sometimes mistake your real troubles for fussiness."
+      ],
+      "ord": 3
+    },
+    {
+      "character_slug": "lakan",
+      "traits": {
+        "energy": 25,
+        "chaos": 80,
+        "care": 40,
+        "craft": 100,
+        "heart": 60,
+        "spotlight": 50
+      },
+      "profile": [
+        "You think like a tactician, always a few moves ahead.",
+        "You cannot tell faces apart, and you manage fine anyway.",
+        "You lead your own family clan, and you wear a monocle."
+      ],
+      "ord": 4
+    },
+    {
+      "character_slug": "xiaolan",
+      "traits": {
+        "energy": 70,
+        "chaos": 65,
+        "care": 35,
+        "craft": 45,
+        "heart": 35,
+        "spotlight": 40
+      },
+      "profile": [
+        "You always have the latest gossip, and you love to pass it on.",
+        "You are the close friend someone is lucky to have.",
+        "A quiet corridor is a waste of a good chat to you."
+      ],
+      "ord": 5
+    },
+    {
+      "character_slug": "gaoshun",
+      "traits": {
+        "energy": 25,
+        "chaos": 20,
+        "care": 30,
+        "craft": 75,
+        "heart": 55,
+        "spotlight": 85
+      },
+      "profile": [
+        "You are loyal to the people you serve, and you support them quietly.",
+        "You do your best work quietly, behind the scenes.",
+        "You pass on your reliability, and your family shows it."
+      ],
+      "ord": 6
+    },
+    {
+      "character_slug": "luomen",
+      "traits": {
+        "energy": 65,
+        "chaos": 40,
+        "care": 0,
+        "craft": 100,
+        "heart": 20,
+        "spotlight": 65
+      },
+      "profile": [
+        "You are happy to take someone in and treat them as your own.",
+        "You are an apothecary at heart, and a doctor when it is needed.",
+        "You offer your services wherever they are needed, in more than one house."
+      ],
+      "ord": 7
+    }
+  ]
+}
