@@ -1,0 +1,12 @@
+{
+  "slug": "fixture-unsplash",
+  "file": "/series/fixture-unsplash.webp",
+  "source_url": "https://unsplash.com/photos/fixture-two",
+  "author": "Fixture Photographer",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "attribution_required": false,
+  "retrieved": "2026-10-26",
+  "alt": "A flat brown rectangle used by the tests",
+  "why": "Fixture for the tests, not real data."
+}

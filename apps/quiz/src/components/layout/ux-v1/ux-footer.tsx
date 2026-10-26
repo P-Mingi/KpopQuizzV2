@@ -83,6 +83,8 @@ function columns(showFandoms: boolean): FooterCol[] {
       ...(KPOP && !NET_PRIVACY ? [] : link('Legal notice', '/legal')),
       ...link('Terms', '/terms'),
       ...link('DMCA', '/dmca'),
+      // Run O1 (IMG): the photo credits of OtakuQuiz. Off on kpop (feature flag false), so the kpop footer stays today's.
+      ...link('Credits', '/credits', !KPOP),
     ] },
   ].filter((c) => c.links.length > 0);
 }

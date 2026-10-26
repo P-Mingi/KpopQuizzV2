@@ -1411,6 +1411,26 @@
       "notes": "Thin re-export of the kpop page (lot e part 2): the read goes through forSite, so a quiz of another site is a 404."
     },
     {
+      "id": "42",
+      "site": "anime",
+      "route": "/credits",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/[slug]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/anime/credits-page.tsx",
+        "components/ux-v1/page.tsx"
+      ],
+      "allowed": [
+        "T",
+        "B",
+        "C"
+      ],
+      "owner": "O1",
+      "body": "local",
+      "notes": "The series photo credits (IMG, owner rules 2026-10-26): OtakuQuiz only, no kpop twin page, so the twin is the kpop [slug] page of rows 3 to 5, whose file serves it (it dispatches on the slug credits). Page-local body, plain English text, no K-pop text. Links the footer of row 28."
+    },
+    {
       "id": "H-0",
       "site": "hub",
       "route": "shell: nav, tab bar, footer",

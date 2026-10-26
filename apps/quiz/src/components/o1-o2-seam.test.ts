@@ -5,6 +5,11 @@ import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+// The title-card tests below name series that now have a free photo (docs/anime/images): they run on an empty photo map, so the card
+// is what they draw. The photo path is held by lib/anime/series-images-real.test.ts on the real map.
+vi.mock('@/lib/anime/series-images.generated', () => ({ SERIES_IMAGES: {}, SERIES_IMAGE_CREDITS: {} }));
+
+
 // Run O1, lane O2: the series art reaches the shared components only through the SERIES_ART slot of lib/ux-v1/a0/group-photos.ts, which the
 // anime-only components/anime/register-art.tsx fills (the anime layout imports it, and mounts components/anime/art-registry.tsx for
 // the client graph). The kpop build must load the chunks it loaded before the art, so nothing the kpop pages import may name the
