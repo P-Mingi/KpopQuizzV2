@@ -7,12 +7,12 @@
       "loaded": 50
     },
     "facts": {
-      "total": 3483,
-      "loaded": 3325
+      "total": 3487,
+      "loaded": 3329
     },
     "quizzes": {
-      "total": 258,
-      "loaded": 258
+      "total": 268,
+      "loaded": 268
     },
     "daily": {
       "total": 99,
@@ -29,11 +29,11 @@
     "arcs": 364,
     "characters": 998,
     "themes": 704,
-    "trivia": 3299,
-    "entity_sources": 4016,
+    "trivia": 3303,
+    "entity_sources": 4020,
     "creators": 31,
-    "quizzes": 258,
-    "questions": 2550,
+    "quizzes": 268,
+    "questions": 2650,
     "daily": 99,
     "daily_questions": 792
   }

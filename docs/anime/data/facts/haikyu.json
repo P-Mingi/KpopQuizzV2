@@ -1342,5 +1342,61 @@
     "status": "verified",
     "verified_at": "2026-10-23T17:38:18.790Z",
     "excerpt": "is a second-year student at Kamomedai High. He is a wing spiker and ace for his volleyball team. He is first introduced"
+  },
+  {
+    "id": "haikyu-hinata-sole-club-member-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "premise",
+    "value": "Hinata is the only member of his junior high volleyball club",
+    "text": "Hinata is the sole member of his junior high volleyball club, and it takes him two years to find classmates willing to practise with him.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:00:00.000Z",
+    "excerpt": "He joins his school's volleyball club ... only to find he is its sole member"
+  },
+  {
+    "id": "haikyu-kageyama-king-of-the-court-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "haikyu"
+    },
+    "field": "epithet",
+    "value": "King of the Court",
+    "text": "Tobio Kageyama is a setter prodigy whom people call the King of the Court because of his talent and his harsh way of playing.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+        "ref": "1380484279",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:00:00.000Z",
+    "excerpt": "a prodigy setter nicknamed 'The King of the Court' for both his skill and his brutal play style"
   }
 ]

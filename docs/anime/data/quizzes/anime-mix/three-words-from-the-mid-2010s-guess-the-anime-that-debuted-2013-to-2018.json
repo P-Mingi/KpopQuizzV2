@@ -1,0 +1,273 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Three Words from the Mid-2010s: Guess the Anime That Debuted 2013 to 2018",
+ "slug": "three-words-from-the-mid-2010s-guess-the-anime-that-debuted-2013-to-2018",
+ "description": "Ten anime whose first TV season aired between 2013 and 2018, each to name from three words that lean on lesser-known details. No titles, no full names, no spoilers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Era cut: first TV anime started 2013 to 2018 (Attack on Titan 2013, Haikyu 2014, Tokyo Ghoul 2014, One-Punch Man 2015, Mob Psycho 2016, My Hero Academia 2016, Re:Zero 2016, Black Clover 2017, Violet Evergarden 2018, Slime 2018). Words come from the cited arc 0 facts.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Attack on Titan characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Haikyu!!",
+   "url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Tokyo Ghoul characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: One-Punch Man",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: List of Mob Psycho 100 characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: List of My Hero Academia characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: Re:Zero",
+   "url": "https://en.wikipedia.org/wiki/Re:Zero"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: Black Clover",
+   "url": "https://en.wikipedia.org/wiki/Black_Clover"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: Violet Evergarden",
+   "url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+  },
+  {
+   "id": "S10",
+   "title": "Wikipedia: List of That Time I Got Reincarnated as a Slime characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three words: Garrison, Military Police, Training Corps. Which anime do they point to?",
+   "options": [
+    "Tokyo Ghoul",
+    "Violet Evergarden",
+    "Reincarnated as a Slime",
+    "Attack on Titan"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "attack-on-titan-military-divisions-061",
+    "attack-on-titan-training-corps-school-062"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+  },
+  {
+   "question": "Which anime fits these three words: sole club member, prodigy setter, King of the Court?",
+   "options": [
+    "Tokyo Ghoul",
+    "Re:Zero",
+    "Haikyu!!",
+    "Black Clover"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-hinata-sole-club-member-041",
+    "haikyu-kageyama-king-of-the-court-042"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Gourmet, 20th ward, university freshman: these three words belong to which anime?",
+   "options": [
+    "One-Punch Man",
+    "Tokyo Ghoul",
+    "Violet Evergarden",
+    "Reincarnated as a Slime"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tokyo-ghoul-character-detail-077",
+    "tokyo-ghoul-character-name-041",
+    "tokyo-ghoul-character-name-035"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+  },
+  {
+   "question": "Three words: Anpanman riff, Kamen Rider send-up, bored hero. Which anime do they point to?",
+   "options": [
+    "One-Punch Man",
+    "Haikyu!!",
+    "Tokyo Ghoul",
+    "Re:Zero"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-title-wordplay-010",
+    "one-punch-man-mumen-rider-name-014",
+    "one-punch-man-saitama-age-028"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "question": "Which anime fits these three words: Body Improvement Club, Telepathy Club, evil spirit?",
+   "options": [
+    "Tokyo Ghoul",
+    "One-Punch Man",
+    "Reincarnated as a Slime",
+    "Mob Psycho 100"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "mob-psycho-100-body-improvement-club-024",
+    "mob-psycho-100-character-detail-058"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+  },
+  {
+   "question": "Zero Gravity, Half-Cold Half-Hot, Erasure: these three words belong to which anime?",
+   "options": [
+    "Attack on Titan",
+    "Mob Psycho 100",
+    "My Hero Academia",
+    "Reincarnated as a Slime"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "my-hero-academia-ochaco-zero-gravity-108",
+    "my-hero-academia-shoto-half-cold-109",
+    "my-hero-academia-aizawa-erasure-111"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+  },
+  {
+   "question": "Three words: Lugunica, Prague-inspired capital, Sword Saint. Which anime do they point to?",
+   "options": [
+    "Attack on Titan",
+    "Re:Zero",
+    "Haikyu!!",
+    "Tokyo Ghoul"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "re-zero-prague-023",
+    "re-zero-reinhard-title-065"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Re:Zero"
+  },
+  {
+   "question": "Which anime fits these three words: Golden Dawn, Spatial Magic, Lord of Destruction?",
+   "options": [
+    "Black Clover",
+    "Attack on Titan",
+    "One-Punch Man",
+    "Re:Zero"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "black-clover-squads-020",
+    "black-clover-finral-spatial-075",
+    "black-clover-yami-nick-072"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Black_Clover"
+  },
+  {
+   "question": "Prosthetic hands, emerald brooch, Telesis: these three words belong to which anime?",
+   "options": [
+    "Haikyu!!",
+    "One-Punch Man",
+    "Re:Zero",
+    "Violet Evergarden"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "violet-evergarden-violet-evergarden-soldier-030",
+    "violet-evergarden-gilbert-bougainvillea-brooch-047",
+    "violet-evergarden-setting-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+  },
+  {
+   "question": "Three words: Storm Dragon, hobgoblin riders, dire wolf. Which anime do they point to?",
+   "options": [
+    "Attack on Titan",
+    "Tokyo Ghoul",
+    "Reincarnated as a Slime",
+    "My Hero Academia"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "that-time-i-got-reincarnated-as-a-slime-character-name-042",
+    "that-time-i-got-reincarnated-as-a-slime-character-name-043",
+    "that-time-i-got-reincarnated-as-a-slime-character-name-044"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+  }
+ ]
+}

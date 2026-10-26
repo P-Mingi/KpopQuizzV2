@@ -1,0 +1,273 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Three Words, One Brawl: Guess the Battle Shonen",
+ "slug": "three-words-one-brawl-guess-the-battle-shonen",
+ "description": "Ten battle shonen to name from just three words each. The words come from settings, roles and objects, never from a title or a full name. No spoilers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Genre set 1 of 2 (genre cut). Each series is the answer twice in the ten 3-words quizzes: once in a genre quiz, once in an era quiz. Words come from the cited arc 0 facts; no title word, no full character name.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Naruto characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Bleach (manga)",
+   "url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Black Clover",
+   "url": "https://en.wikipedia.org/wiki/Black_Clover"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: My Hero Academia",
+   "url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: Jujutsu Kaisen",
+   "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: List of Demon Slayer: Kimetsu no Yaiba characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: Dragon Ball",
+   "url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: One Piece",
+   "url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: Hunter × Hunter",
+   "url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter"
+  },
+  {
+   "id": "S10",
+   "title": "Wikipedia: Fairy Tail",
+   "url": "https://en.wikipedia.org/wiki/Fairy_Tail"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three words: Hokage, Ninja Academy, Team 7. Which anime do they point to?",
+   "options": [
+    "Naruto",
+    "Bleach",
+    "My Hero Academia",
+    "Demon Slayer"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "naruto-hiruzen-third-hokage-078",
+    "naruto-iruka-academy-061",
+    "naruto-team-7-members-080"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+  },
+  {
+   "question": "Which anime fits these three words: Soul Reaper, gigai, Quincy?",
+   "options": [
+    "Black Clover",
+    "Demon Slayer",
+    "Fairy Tail",
+    "Bleach"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bleach-ichigo-substitute-020",
+    "bleach-gigai-term-067",
+    "bleach-uryu-quincy-057"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+  },
+  {
+   "question": "Mana-less orphan, five-leaf grimoire, Wizard King: these three words belong to which anime?",
+   "options": [
+    "My Hero Academia",
+    "Demon Slayer",
+    "Black Clover",
+    "Hunter × Hunter"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "black-clover-premise-017",
+    "black-clover-grimoire-019",
+    "black-clover-wizard-king-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Black_Clover"
+  },
+  {
+   "question": "Three words: Quirk, Class 1-A, U.A. High School. Which anime do they point to?",
+   "options": [
+    "Bleach",
+    "My Hero Academia",
+    "Demon Slayer",
+    "Fairy Tail"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "my-hero-academia-quirk-world-026",
+    "my-hero-academia-tsuyu-class-1a-100",
+    "my-hero-academia-present-mic-teacher-104"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+  },
+  {
+   "question": "Which anime fits these three words: twenty fingers, strongest sorcerer, postponed execution?",
+   "options": [
+    "Jujutsu Kaisen",
+    "My Hero Academia",
+    "Demon Slayer",
+    "Hunter × Hunter"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-twenty-fingers-027",
+    "jujutsu-kaisen-strongest-sorcerer-028"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+  },
+  {
+   "question": "Water Breathing, Nichirin sword, wooden box: these three words belong to which anime?",
+   "options": [
+    "Bleach",
+    "Dragon Ball",
+    "Hunter × Hunter",
+    "Demon Slayer"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "demon-slayer-tanjiro-water-style-065",
+    "demon-slayer-tanjiro-black-sword-081",
+    "demon-slayer-nezuko-box-062"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+  },
+  {
+   "question": "Three words: Journey to the West, Monkey King, kung fu. Which anime do they point to?",
+   "options": [
+    "Bleach",
+    "My Hero Academia",
+    "Dragon Ball",
+    "Demon Slayer"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dragon-ball-journey-to-the-west-023",
+    "dragon-ball-goku-sun-wukong-024"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball"
+  },
+  {
+   "question": "Which anime fits these three words: Gum-Gum Fruit, rubber body, pirate treasure?",
+   "options": [
+    "Demon Slayer",
+    "One Piece",
+    "Dragon Ball",
+    "Hunter × Hunter"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-luffy-rubber-fruit-018",
+    "one-piece-roger-treasure-026"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Heavens Arena, Nen, island boy's exam: these three words belong to which anime?",
+   "options": [
+    "Hunter × Hunter",
+    "Bleach",
+    "Jujutsu Kaisen",
+    "Dragon Ball"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "hunter-x-hunter-heavens-arena-nen-044",
+    "hunter-x-hunter-hunter-exam-start-043"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Hunter_×_Hunter"
+  },
+  {
+   "question": "Three words: Fiore, guild, S-Class wizards. Which anime do they point to?",
+   "options": [
+    "Naruto",
+    "Dragon Ball",
+    "Hunter × Hunter",
+    "Fairy Tail"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fairy-tail-premise-026",
+    "fairy-tail-guild-life-027",
+    "fairy-tail-s-class-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail"
+  }
+ ]
+}
