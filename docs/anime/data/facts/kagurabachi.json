@@ -1002,5 +1002,128 @@
     "status": "verified",
     "verified_at": "2026-10-25T18:54:44.000Z",
     "excerpt": "he embarks on a quest to avenge his father's murder and reclaim the six other stolen Enchanted Blades"
+  },
+  {
+    "id": "kagurabachi-arc-rakuzaichi-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "arc_2",
+    "value": [
+      "Rakuzaichi: chapters 19 to 46",
+      "Volumes 3 to 5"
+    ],
+    "text": "The Rakuzaichi auction carries volumes 3 to 5 of the manga, which cover chapters 19 to 46.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-26T09:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:05:00.000Z",
+    "excerpt": "is set for auction at the Rakuzaichi, overseen by the Sazanami crime family."
+  },
+  {
+    "id": "kagurabachi-arc-uruha-samura-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "arc_3",
+    "value": [
+      "Uruha and Samura: chapters 47 to 74",
+      "Volumes 6 to 8"
+    ],
+    "text": "Volumes 6 to 8, chapters 47 to 74, follow Uruha and Seiichi Samura, the master of the Tobimune blade.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-26T09:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:05:00.000Z",
+    "excerpt": "Samura betrays and kills Uruha with Tobimune."
+  },
+  {
+    "id": "kagurabachi-arc-kamunabi-attack-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "arc_4",
+    "value": [
+      "Hishaku Attack on the Kamunabi: chapters 75 to 105",
+      "Volumes 9 to 11"
+    ],
+    "text": "Volumes 9 to 11, chapters 75 to 105, show the Hishaku striking the Kamunabi, from its Tokyo headquarters down to its lower levels.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-26T09:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:05:00.000Z",
+    "excerpt": "the Hishaku attack the Kamunabi headquarters in Tokyo"
+  },
+  {
+    "id": "kagurabachi-arc-irishima-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "arc_list",
+    "value": [
+      "The Irishima Talks: chapters 117 to 121"
+    ],
+    "text": "The Irishima Talks fill five chapters, 117 to 121, opening with the chapter that carries that title.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-26T09:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:05:00.000Z",
+    "excerpt": "The Irishima Talks"
   }
 ]

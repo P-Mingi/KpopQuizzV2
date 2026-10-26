@@ -197,7 +197,7 @@
       "name": "Tartaros Arc",
       "kind": "arc",
       "episode_from": 234,
-      "episode_to": 275,
+      "episode_to": 265,
       "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes",
       "status": "published"
     },
@@ -205,7 +205,7 @@
       "ord": 16,
       "name": "Avatar Arc",
       "kind": "arc",
-      "episode_from": 276,
+      "episode_from": 278,
       "episode_to": 284,
       "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes",
       "status": "published"

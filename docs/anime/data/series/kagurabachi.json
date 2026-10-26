@@ -49,7 +49,7 @@
     },
     {
       "ord": 3,
-      "name": "Samura and the Sword Bearers",
+      "name": "Uruha and Samura",
       "kind": "arc",
       "chapter_from": 47,
       "chapter_to": 74,
@@ -58,20 +58,21 @@
     },
     {
       "ord": 4,
-      "name": "Kamunabi Headquarters",
+      "name": "Hishaku Attack on the Kamunabi",
       "kind": "arc",
       "chapter_from": 75,
-      "chapter_to": 113,
+      "chapter_to": 105,
       "source_url": "https://en.wikipedia.org/wiki/Kagurabachi",
       "status": "published"
     },
     {
       "ord": 5,
-      "name": "Irishima Talks and Smelting",
+      "name": "The Irishima Talks",
       "kind": "arc",
-      "chapter_from": 114,
+      "chapter_from": 117,
       "source_url": "https://en.wikipedia.org/wiki/Kagurabachi",
-      "status": "published"
+      "status": "published",
+      "chapter_to": 121
     }
   ],
   "characters": [
