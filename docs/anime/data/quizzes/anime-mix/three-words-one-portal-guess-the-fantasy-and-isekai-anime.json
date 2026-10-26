@@ -1,0 +1,269 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Three Words, One Portal: Guess the Fantasy and Isekai Anime",
+ "slug": "three-words-one-portal-guess-the-fantasy-and-isekai-anime",
+ "description": "Ten fantasy, isekai and other-world anime to name from three words each. Words describe worlds, powers and objects, with no titles and no full names. No spoilers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Genre set 2 of 2 (genre cut). Words come from the cited arc 0 facts; no title word, no full character name.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Re:Zero",
+   "url": "https://en.wikipedia.org/wiki/Re:Zero"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: That Time I Got Reincarnated as a Slime (TV series)",
+   "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Sword Art Online",
+   "url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Solo Leveling",
+   "url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: Tower of God",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: Omniscient Reader's Viewpoint",
+   "url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: List of Frieren characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: Inuyasha",
+   "url": "https://en.wikipedia.org/wiki/Inuyasha"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: List of Fullmetal Alchemist characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "id": "S10",
+   "title": "Wikipedia: Dr. Stone",
+   "url": "https://en.wikipedia.org/wiki/Dr._Stone"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three words: NEET, fantasy world, time rewinds on death. Which anime do they point to?",
+   "options": [
+    "Solo Leveling",
+    "Re:Zero",
+    "Frieren: Beyond Journey's End",
+    "Fullmetal Alchemist"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "re-zero-premise-027",
+    "re-zero-subaru-return-059"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Re:Zero"
+  },
+  {
+   "question": "Which anime fits these three words: 37-year-old salaryman, stabbed in Tokyo, Predator skill?",
+   "options": [
+    "Reincarnated as a Slime",
+    "Sword Art Online",
+    "Solo Leveling",
+    "Omniscient Reader's Viewpoint"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "that-time-i-got-reincarnated-as-a-slime-satoru-age-023",
+    "that-time-i-got-reincarnated-as-a-slime-premise-022",
+    "that-time-i-got-reincarnated-as-a-slime-predator-024"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)"
+  },
+  {
+   "question": "Virtual reality game, cannot log out, 10,000 players: these three words belong to which anime?",
+   "options": [
+    "Solo Leveling",
+    "Frieren: Beyond Journey's End",
+    "Fullmetal Alchemist",
+    "Sword Art Online"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sword-art-online-premise-007",
+    "sword-art-online-first-day-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+  },
+  {
+   "question": "Three words: E-Rank Hunter, The System, double dungeon. Which anime do they point to?",
+   "options": [
+    "Reincarnated as a Slime",
+    "Omniscient Reader's Viewpoint",
+    "Solo Leveling",
+    "Frieren: Beyond Journey's End"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "solo-leveling-jin-woo-intro-025",
+    "solo-leveling-double-dungeon-065"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+  },
+  {
+   "question": "Which anime fits these three words: Shinsu, Regulars, Rankers?",
+   "options": [
+    "Re:Zero",
+    "Tower of God",
+    "Inuyasha",
+    "Dr. Stone"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-shinsu-017",
+    "tower-of-god-regulars-irregulars-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "Three Ways to Survive, ruined world, 3,149 chapters: these three words belong to which anime?",
+   "options": [
+    "Omniscient Reader's Viewpoint",
+    "Solo Leveling",
+    "Fullmetal Alchemist",
+    "Dr. Stone"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "omniscient-readers-viewpoint-novel-within-novel-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint"
+  },
+  {
+   "question": "Three words: thousand-year-old elf, Hero Party, Demon King. Which anime do they point to?",
+   "options": [
+    "Re:Zero",
+    "Reincarnated as a Slime",
+    "Tower of God",
+    "Frieren: Beyond Journey's End"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "frieren-frieren-age-018",
+    "frieren-himmel-party-hero-041",
+    "frieren-sages-powerful-demons-065"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+  },
+  {
+   "question": "Which anime fits these three words: Sengoku period, old well, Shikon Jewel?",
+   "options": [
+    "Re:Zero",
+    "Sword Art Online",
+    "Inuyasha",
+    "Solo Leveling"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "inuyasha-sengoku-013",
+    "inuyasha-premise-016",
+    "inuyasha-shards-017"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+  },
+  {
+   "question": "Amestris, homunculus, automail: these three words belong to which anime?",
+   "options": [
+    "Reincarnated as a Slime",
+    "Fullmetal Alchemist",
+    "Frieren: Beyond Journey's End",
+    "Dr. Stone"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-amestris-country-062",
+    "fullmetal-alchemist-homunculi-sins-044",
+    "fullmetal-alchemist-edward-automail-070"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Three words: green flash, 3,700 years later, teenage genius. Which anime do they point to?",
+   "options": [
+    "Dr. Stone",
+    "Reincarnated as a Slime",
+    "Tower of God",
+    "Frieren: Beyond Journey's End"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dr-stone-setting-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dr._Stone"
+  }
+ ]
+}

@@ -1,0 +1,269 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Three Words from the Clubroom: Guess the Sports, Music and Drama Anime",
+ "slug": "three-words-from-the-clubroom-guess-the-sports-music-and-drama-anime",
+ "description": "Ten sports, music, school and drama anime to name from three words each. The words are places, roles and objects from the story, never titles or full names. No spoilers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Genre cut. Words come from the cited arc 0 facts; no title word, no full character name.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Haikyu!!",
+   "url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Slam Dunk (manga)",
+   "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Blue Lock characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Bocchi the Rock!",
+   "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: Fruits Basket",
+   "url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: List of Sailor Moon characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: Violet Evergarden",
+   "url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: The Apothecary Diaries",
+   "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: Tokyo Revengers",
+   "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+  },
+  {
+   "id": "S10",
+   "title": "Wikipedia: Vinland Saga (manga)",
+   "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three words: volleyball, Karasuno, Little Giant. Which anime do they point to?",
+   "options": [
+    "Sailor Moon",
+    "The Apothecary Diaries",
+    "Tokyo Revengers",
+    "Haikyu!!"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-japanese-title-001",
+    "haikyu-hinata-little-giant-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which anime fits these three words: basketball, Shohoku, number 10 jersey?",
+   "options": [
+    "Sailor Moon",
+    "Violet Evergarden",
+    "Slam Dunk",
+    "Vinland Saga"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "slam-dunk-love-of-basketball-011",
+    "slam-dunk-hanamichi-sakuragi-name-046"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+  },
+  {
+   "question": "300 participants, egotistical striker, training regimen: these three words belong to which anime?",
+   "options": [
+    "Haikyu!!",
+    "Blue Lock",
+    "The Apothecary Diaries",
+    "Tokyo Revengers"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-isagi-300-participants-028",
+    "blue-lock-program-premise-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "question": "Three words: anxious guitarist, live house, pink tracksuit. Which anime do they point to?",
+   "options": [
+    "Bocchi the Rock!",
+    "Haikyu!!",
+    "Slam Dunk",
+    "The Apothecary Diaries"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bocchi-the-rock-premise-032",
+    "bocchi-the-rock-starry-shelter-026",
+    "bocchi-the-rock-hitori-goto-tracksuit-038"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+  },
+  {
+   "question": "Which anime fits these three words: Chinese zodiac, cursed family, orphaned housekeeper?",
+   "options": [
+    "Haikyu!!",
+    "Blue Lock",
+    "The Apothecary Diaries",
+    "Fruits Basket"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fruits-basket-premise-009",
+    "fruits-basket-tohru-honda-name-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+  },
+  {
+   "question": "Dark Kingdom, planet-named guardians, cake lover: these three words belong to which anime?",
+   "options": [
+    "Slam Dunk",
+    "Fruits Basket",
+    "Sailor Moon",
+    "Vinland Saga"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-beryl-dark-kingdom-055",
+    "sailor-moon-inner-four-046",
+    "sailor-moon-usagi-cake-lover-032"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+  },
+  {
+   "question": "Three words: Auto Memory Doll, CH Postal Company, letters for clients. Which anime do they point to?",
+   "options": [
+    "Bocchi the Rock!",
+    "Violet Evergarden",
+    "The Apothecary Diaries",
+    "Vinland Saga"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "violet-evergarden-premise-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+  },
+  {
+   "question": "Which anime fits these three words: Tang-era empire, Rear Palace, poisoned makeup?",
+   "options": [
+    "The Apothecary Diaries",
+    "Haikyu!!",
+    "Bocchi the Rock!",
+    "Vinland Saga"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-setting-tang-009",
+    "apothecary-diaries-gyokuyo-jade-pavilion-029",
+    "apothecary-diaries-gyokuyo-hires-maomao-031"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Time leap, part-timer, Toman gang: these three words belong to which anime?",
+   "options": [
+    "Blue Lock",
+    "Fruits Basket",
+    "Violet Evergarden",
+    "Tokyo Revengers"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tokyo-revengers-premise-021",
+    "tokyo-revengers-toman-023"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+  },
+  {
+   "question": "Three words: Icelandic explorer, War Arc, Eastern Expedition. Which anime do they point to?",
+   "options": [
+    "Haikyu!!",
+    "Sailor Moon",
+    "Vinland Saga",
+    "Tokyo Revengers"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-historical-basis-014",
+    "vinland-saga-story-arcs-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  }
+ ]
+}

@@ -1126,5 +1126,65 @@
     "status": "verified",
     "verified_at": "2026-10-25T21:28:58.000Z",
     "excerpt": "13th Japan Media Arts Festival's Grand Prize in 2009"
+  },
+  {
+    "id": "vinland-saga-setting-england-1013-044",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "premise",
+    "value": "England in 1013 AD under the Danish King Sweyn Forkbeard",
+    "text": "Most of the opening story plays out in England in 1013 AD, a country that the Danish king Sweyn Forkbeard has largely taken over.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:00:00.000Z",
+    "excerpt": "Vinland Saga is initially set mostly in England in 1013 AD, which has been mostly conquered by the Danish King Sweyn Forkbeard."
+  },
+  {
+    "id": "vinland-saga-historical-sources-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "inspiration",
+    "value": [
+      "Flateyjarbók",
+      "Saga of the Greenlanders",
+      "Saga of Erik the Red"
+    ],
+    "text": "Yukimura took material for the voyage and the period from medieval accounts such as the Flateyjarbók and the Saga of the Greenlanders.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:00:00.000Z",
+    "excerpt": "The story draws elements from historical accounts of the period, such as The Flateyjarbók, The Saga of the Greenlanders, and The Saga of Erik the Red."
   }
 ]
