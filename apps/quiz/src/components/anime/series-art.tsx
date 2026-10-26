@@ -1,3 +1,6 @@
+import Image from 'next/image';
+
+import { seriesImageOf } from '@/lib/anime/series-images';
 import { ART_BOX, ART_DISC_OPACITY, ART_PATTERN_OPACITY, artFor, artMonogram, fitArtText, slugOfTitle } from '@/lib/anime/series-art';
 
 import type { ArtSize } from '@/lib/anime/series-art';
@@ -15,12 +18,33 @@ interface SeriesArtProps {
 }
 
 /**
- * The art of a series (lane O2), a deterministic SVG from the slug and the title: one colour of the curated palette, one
- * geometric pattern, the title in the display font. No image of the work. Fills the box it is put in. No hooks and no
- * client code, so a server component and a client island share it.
+ * The sizes of the photo of a series, as the kpop group photo has them where the same box is used: the quiz card (UxQuizCard) for
+ * the strip, the hub photo column (GroupHubV11) for the header, and a fixed square for the rows, rails and chips.
+ */
+export const PHOTO_SIZES: Readonly<Record<ArtSize, string>> = {
+  avatar: '64px',
+  card: '(max-width: 760px) 72vw, (max-width: 1100px) 33vw, 262px',
+  hub: '(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 520px',
+};
+
+/**
+ * The art of a series (lane O2): the free photo of the series when it has one (docs/anime/images, run O1 IMG), else a
+ * deterministic SVG from the slug and the title: one colour of the curated palette, one geometric pattern, the title in the
+ * display font. The photo is the picture alone: the title is the page's own (the h1, the card title), never written over it.
+ * Fills the box it is put in. No hooks and no client code, so a server component and a client island share it.
  */
 export function SeriesArt({ slug, title, size, className, label }: SeriesArtProps): React.ReactElement {
-  const a = artFor(slug ?? slugOfTitle(title));
+  const key = slug ?? slugOfTitle(title);
+  const photo = seriesImageOf(key);
+  if (photo) {
+    const pcls = ['anime-o2-art', `anime-o2-art-${size}`, 'anime-o2-photo', className ?? ''].filter(Boolean).join(' ');
+    return (
+      <span className={pcls} data-photo={key}>
+        <Image src={photo.file} alt={photo.alt} fill sizes={PHOTO_SIZES[size]} priority={size === 'hub'} className="anime-o2-photo-img" />
+      </span>
+    );
+  }
+  const a = artFor(key);
   const { w, h, unit } = ART_BOX[size];
   const ink = a.color.text;
   const cls = ['anime-o2-art', `anime-o2-art-${size}`, className ?? ''].filter(Boolean).join(' ');

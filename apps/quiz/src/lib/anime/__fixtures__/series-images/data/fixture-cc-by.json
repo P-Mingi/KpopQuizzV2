@@ -1,0 +1,12 @@
+{
+  "slug": "fixture-cc-by",
+  "file": "/series/fixture-cc-by.webp",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Fixture_one.jpg",
+  "author": "Fixture Author",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "attribution_required": true,
+  "retrieved": "2026-10-26",
+  "alt": "A flat grey rectangle used by the tests",
+  "why": "Fixture for the tests, not real data."
+}

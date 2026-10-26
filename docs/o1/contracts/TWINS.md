@@ -128,6 +128,7 @@ and security, your data) with Leave a world and Delete my passport (S6 steps).
 | 39 | /admin | `app/sites/[site]/(anime)/admin/page.tsx` | `app/(site)/admin/page.tsx` | (none) | app/(site)/admin/page.tsx, admin-dashboard.tsx | T C | O1 | shared | Thin re-export of the kpop page (lot e part 2): its quizzes, reports and groups reads go through forSite. Admin only, never indexed. |
 | 40 | /admin/quiz/search | `app/sites/[site]/(anime)/admin/quiz/search/page.tsx` | `app/(site)/admin/quiz/search/page.tsx` | (none) | app/(site)/admin/quiz/search/page.tsx, quiz-search-list.tsx | T C | O1 | shared | Thin re-export of the kpop page (lot e part 2): the read goes through forSite. |
 | 41 | /admin/quiz/{id}/edit | `app/sites/[site]/(anime)/admin/quiz/[id]/edit/page.tsx` | `app/(site)/admin/quiz/[id]/edit/page.tsx` | (none) | app/(site)/admin/quiz/[id]/edit/page.tsx, components/quiz/quiz-editor.tsx | T C | O1 | shared | Thin re-export of the kpop page (lot e part 2): the read goes through forSite, so a quiz of another site is a 404. |
+| 42 | /credits | `app/sites/[site]/(anime)/[slug]/page.tsx` | `app/(site)/[slug]/page.tsx` | (none) | components/anime/credits-page.tsx, components/ux-v1/page.tsx | T B C | O1 | local | The series photo credits (IMG, owner rules 2026-10-26): OtakuQuiz only, no kpop twin page, so the twin is the kpop [slug] page of rows 3 to 5, whose file serves it (it dispatches on the slug credits). Page-local body, plain English text, no K-pop text. Links the footer of row 28. |
 
 ## 4. fanquiz.org
 

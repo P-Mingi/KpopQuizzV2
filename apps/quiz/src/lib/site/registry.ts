@@ -225,6 +225,8 @@ const ANIME: SiteConfig = {
       // CR-001 (rule 18): the twins of the browse, help and board pages (TWINS rows 31 to 36).
       '/quizzes', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
       '/new', '/most-liked', '/trending', '/trivia', '/faq', '/leaderboard', '/dmca',
+      // Run O1 (IMG): the credits of the series photos (served by the [slug] page of the anime build).
+      '/credits',
     ],
   },
   seo: {
