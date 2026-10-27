@@ -92,15 +92,44 @@ can-you-recognize-these-idols-as-kids, kpop-geral, et le doublon this-is-only-fo
 Les deux sondages restent publiés. Je vérifie : ces 6 quiz en brouillon, rien d'autre. Ensuite
 je merge #137 : l'adresse du doublon renvoie (301) vers this-is-only-for-true-gllits-2.
 
-## À venir (pas encore prêts, je les ajouterai ici)
+## Prêts, en attente de ton go (même méthode : colle, puis dis-moi « collé »)
 
-- Les corrections des quiz Team aux réponses fausses, dans un seul fichier (MAMAMOO « Curtain
-  Call » y passe en brouillon). À coller après le n° 4.
-- Le schéma des demandes de correction aux créateurs (nouveau type de notification, table des
-  demandes) et les 5 premières demandes.
-- La déclaration du compte kpopquizz en compte Team : pas avant ton accord sur la liste de ce que
-  ça change.
-- Les lots d'explications E2 et suivants.
+### 8. Les corrections des quiz Team (à coller après le n° 4)
+
+```bash
+cd /Users/louis/IT/Dev/projects/KpopQuizzV2 && git fetch -q origin && git show origin/main:docs/pending-migrations/quiz-team-fixes-2026-10-27.sql | pbcopy
+```
+
+Cinq quiz Team corrigés (gi-dle-the-tomboy-era, 4th-gen-groups-true-or-false,
+k-pop-streaming-records, bts-music-video-trivia-can-you-get-100, twice-members-facts-quiz) et
+MAMAMOO « Curtain Call » en brouillon. Une preuve par changement :
+`quiz-team-fixes-2026-10-27.md`. Résultat attendu : « Success. No rows returned ». S'il répond
+« not in the read on 2026-10-27 state », un de ces quiz a changé : rien n'a changé, dis-le moi. Je
+vérifie : les md5 corrigés des 5 quiz et de leurs lignes de banque, MAMAMOO en brouillon, et les 4
+explications E1 mises à jour (3 suivent leur question, 1 retirée).
+
+### 9. Les demandes de correction aux créateurs (schéma, puis les 5 demandes)
+
+```bash
+cd /Users/louis/IT/Dev/projects/KpopQuizzV2 && git fetch -q origin && git show origin/main:docs/pending-migrations/quiz-corrections-schema.sql | pbcopy
+```
+
+puis
+
+```bash
+cd /Users/louis/IT/Dev/projects/KpopQuizzV2 && git fetch -q origin && git show origin/main:docs/pending-migrations/quiz-corrections-e1.sql | pbcopy
+```
+
+Le schéma ajoute le type de notification `quiz_correction` et la table des demandes ; le second
+fichier crée les 5 demandes (pas encore envoyées). Rien n'est envoyé aux créateurs tant que le
+cron n'est pas déclaré : je l'ajoute juste après la fusion A5, puis le job envoie les messages au
+passage suivant (09 h 30 UTC). Résultat attendu pour chacun : « Success. No rows returned ».
+
+## Pas encore prêt ou pas encore accordé
+
+- La déclaration du compte kpopquizz en compte Team : la liste de ce que ça change est dans
+  `docs/seo/strategy-2026-10-27/KPOPQUIZZ-TEAM-IMPACT.md`. Pas avant ton accord.
+- Les lots d'explications E2 et suivants : je les ajouterai ici quand ils seront prêts.
 
 ## Retours arrière
 
