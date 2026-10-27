@@ -98,13 +98,13 @@ NEWJEANS quiz · player (newjeans) · 16 plays · 15 questions
 
 | Q | Verdict | Note |
 |---|---|---|
-| 2 | answer_wrong | Outdated. English Wikipedia (https://en.wikipedia.org/wiki/NewJeans, read 2026-10-27) lists four current members (Minji, Hanni, Haerin, Hyein) and Danielle as a past member after ADOR terminated her contract on 2025-12-29 (Korea Herald, Dec 29 2025, cited there). A footnote says Minji's status is not yet confirmed (talks ongoing per Korea JoongAng Daily, May 7 2026). Correct answer today per Wikip |
+| 2 | answer_wrong | Outdated: as of 2026-10-27 Wikipedia lists four current members (https://en.wikipedia.org/wiki/NewJeans). A neutral correction request goes to the creator. |
 | 3 | out_of_rules | a contract dispute or controversy; no explanation published |
 | 4 | ambiguous | Opinion question (best footwork, based on most people's opinions). No allowed source can settle it. |
 | 6 | out_of_rules | a minor's personal data; no explanation published |
 | 8 | ambiguous | Opinion/appearance question (which member looks like a cat). Cannot be settled by an allowed source. |
 | 9 | out_of_rules | height; no explanation published |
-| 11 | ambiguous | Question text is garbled (had to gaurr?). On the readable part (From Australia), two options fit: Hanni was born in Melbourne (Wikipedia Hanni) and Danielle in Newcastle, New South Wales (Korean Wikipedia NewJeans). If it means Danielle had to go, that is her contract termination, a departure tied to a dispute (out of rules). |
+| 11 | ambiguous | The question text is garbled; on its readable part, two options fit (two adult members born in Australia, per Wikipedia). No explanation published. |
 | 12 | out_of_rules | a minor's personal data; no explanation published |
 | 13 | out_of_rules | a minor's personal data; no explanation published |
 
