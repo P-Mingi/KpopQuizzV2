@@ -194,6 +194,23 @@ export function portugueseAnswer(pathname: string): LegacyAnswer | null {
   return (PORTUGUESE_PAGES as readonly string[]).includes(english) && english !== '/' ? { status: 301, location: english } : null;
 }
 
+// Quizzes merged into another one (owner, 2026-10-27, docs/seo/strategy-2026-10-27/DUPLICATES):
+// the duplicate is moved to draft by docs/pending-migrations/quizzes-draft-2026-10-27.sql and
+// its URL goes 301 to the quiz it duplicated, its exact successor. Only true duplicates (more
+// than 60 % of the same questions) are listed here; every target is a published quiz.
+export const MERGED_QUIZZES: Readonly<Record<string, string>> = {
+  // Same creator, same day, the same 10 questions; the kept one has more plays (105 to 41).
+  'this-is-only-for-true-gllits': 'this-is-only-for-true-gllits-2',
+};
+
+/** 301 from a merged duplicate quiz to the quiz it duplicated, or null. */
+export function mergedQuizAnswer(pathname: string): LegacyAnswer | null {
+  if (!pathname.startsWith('/q/')) return null;
+  const slug = pathname.slice(3).replace(/\/+$/, '');
+  const target = MERGED_QUIZZES[slug];
+  return target ? { status: 301, location: `/q/${target}` } : null;
+}
+
 export function legacyAnswer(pathname: string, prettyUrlsLive: boolean): LegacyAnswer | null {
-  return legacyNameAllAnswer(pathname, prettyUrlsLive) ?? retiredFeatureAnswer(pathname) ?? portugueseAnswer(pathname);
+  return mergedQuizAnswer(pathname) ?? legacyNameAllAnswer(pathname, prettyUrlsLive) ?? retiredFeatureAnswer(pathname) ?? portugueseAnswer(pathname);
 }
