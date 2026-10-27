@@ -179,7 +179,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
               <p className="sec-label">Groups</p>
               <div className="flex flex-wrap gap-2">
                 {groups.map((g) => (
-                  <Link key={g.id} href={`/quizzes?group=${g.slug}`} className="px-4 py-2 rounded-full text-sm font-medium transition-opacity hover:opacity-85"
+                  <Link key={g.id} href={`/${g.slug}-quiz`} className="px-4 py-2 rounded-full text-sm font-medium transition-opacity hover:opacity-85"
                     style={{ backgroundColor: g.display_color, color: g.text_color }}>
                     {g.name} ({g.quiz_count})
                   </Link>

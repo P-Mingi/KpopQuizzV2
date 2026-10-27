@@ -2,7 +2,8 @@ import { notFound } from 'next/navigation';
 
 import { getModeById, isGroupModeId, getGroupSlugFromModeId, STATIC_MODES } from '@/lib/blind-test-modes';
 import { getGroupBySlug } from '@/lib/db/queries/groups';
-import { getPlayableStaticModes, isThemedModePlayable } from '@/lib/blind-test-playlists';
+import { getPlayableStaticModes } from '@/lib/blind-test-playlists';
+import { hiddenTheme, playableGroup } from '@/lib/blind-test/mode-page';
 import { BlindTestPlayer } from '@/components/blind-test/blind-test-player';
 import { BlindtestGroupV12, groupBlindtestMetadata } from '@/components/blindtest/ux-v1/group-page';
 import { BlindtestModeV11 } from '@/components/blindtest/ux-v1/mode-page';
@@ -11,12 +12,10 @@ import { DUPLICATE_CANONICAL, isDuplicateMode } from '@/lib/growth/bt-mode-pool'
 import { isThemePage, themeById } from '@/lib/growth/bt-themes';
 import { UX_V1 } from '@/lib/ux-v1';
 import { modeRun } from '@/lib/ux-v1/p6/modes';
-import { getPlayableGroups, hasDbEnv, settle } from '@/lib/ux-v1/p6/hub-data';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import type { Metadata } from 'next';
 import type { BlindTestMode } from '@/lib/blind-test-modes';
-import type { BtGroup } from '@/lib/ux-v1/p6/playlists';
 
 interface ModePageProps {
   params: Promise<{ mode: string }>;
@@ -47,28 +46,8 @@ export async function generateStaticParams(): Promise<Array<{ mode: string }>> {
   return modes.map((m) => ({ mode: m.id }));
 }
 
-/** Flag on: is this id a themed mode that must stay hidden? Flag off: never (no query). */
-async function hiddenTheme(modeId: string): Promise<boolean> {
-  if (!isUxV12() || !isThemePage(modeId)) return false;
-  try {
-    return !(await isThemedModePlayable(modeId));
-  } catch {
-    return true; // fail closed: no dead door when the count cannot be read
-  }
-}
-
-/**
- * V12 (owner, 2026-10-13: SEO): a group page is a real group with a playable pool, else a
- * true 404 (any made-up group-<slug> used to answer 200 with an empty page). `list` is the
- * playable groups; null when that read failed (a DB blip keeps the v11 page, never a false 404).
- */
-async function playableGroup(modeId: string): Promise<{ group: BtGroup | null; list: BtGroup[] | null }> {
-  if (!isUxV12() || !hasDbEnv()) return { group: null, list: null };
-  const slug = getGroupSlugFromModeId(modeId);
-  const read = await settle<BtGroup[] | null>(() => getPlayableGroups(), null);
-  if (!read.ok || !read.value) return { group: null, list: null };
-  return { group: read.value.find((g) => g.slug === slug) ?? null, list: read.value };
-}
+// hiddenTheme and playableGroup (lib/blind-test/mode-page.ts) decide the 404s below; the
+// legacy /blind-test handler asks the same functions before it sends a 301 here.
 
 /**
  * The group's name as the groups table writes it (BTS, aespa), for the fallback path when the

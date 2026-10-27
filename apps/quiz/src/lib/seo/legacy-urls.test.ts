@@ -8,6 +8,8 @@ import { isKnownRouteWith } from '@/lib/route-allowlist';
 import {
   LEGACY_GROUP_ALIASES, LEGACY_NAME_ALL_PREFIX, RETIRED_FAMILIES, RETIRED_PAGES, battleQuizSlug, legacyAnswer,
   legacyNameAllAnswer, retiredFeatureAnswer, PORTUGUESE_PAGES, portugueseAnswer,
+  BLINDTEST_PATH, LEGACY_BLIND_TEST_HANDLER, LEGACY_BLIND_TEST_PATH, LEGACY_PATH_HEADER, LEGACY_SEARCH_HEADER,
+  battleQuizRef, blindTestAnswer,
 } from './legacy-urls';
 
 // SEO (owner, 2026-10-14): the retired URLs Bing reported (docs/seo/bing-2026-10-14,
@@ -255,5 +257,121 @@ describe('/battle?quiz=: the slug worth a database read', () => {
     for (const s of [null, '', '-', '---', '../admin', 'a/b', 'Illit-Quiz', 'illit quiz', 'x'.repeat(121), 'quiz?x=1']) {
       expect(battleQuizSlug(s), String(s)).toBeNull();
     }
+  });
+});
+
+// Owner, 2026-10-27: Search Console lists /battle?quiz=<a quiz id>. An id is read to its slug.
+describe('/battle?quiz=: a quiz id or a quiz slug', () => {
+  const ID = '30d97824-ce02-4d3b-8e91-cecfd66c62f5'; // the id Search Console reported
+
+  it('reads a UUID as a quiz id, lowercased and trimmed', () => {
+    expect(battleQuizRef(ID)).toEqual({ kind: 'id', value: ID });
+    expect(battleQuizRef(` ${ID.toUpperCase()} `)).toEqual({ kind: 'id', value: ID });
+  });
+
+  it('reads anything else slug-shaped as a slug, exactly as battleQuizSlug does', () => {
+    for (const s of ['illit-quiz', 'bts-quiz', 'itzy-the-crazy-in-love-era', '-nct-find-the-intruder', ID.slice(0, -1), `${ID}-2`]) {
+      expect(battleQuizRef(s), s).toEqual({ kind: 'slug', value: battleQuizSlug(s) });
+    }
+  });
+
+  it('names no quiz for an empty, missing or malformed value (410 without a read)', () => {
+    for (const s of [null, '', '  ', '-', '../admin', 'Illit-Quiz', 'quiz?x=1', `{${ID}}`, ID.replace(/-/g, ' ')]) {
+      expect(battleQuizRef(s), String(s)).toBeNull();
+    }
+  });
+});
+
+/** A page check that renders exactly `live` and records what it was asked, in order. */
+function pages(live: readonly string[], unknown: readonly string[] = []) {
+  const asked: string[] = [];
+  const renders = async (segment: string): Promise<boolean | null> => {
+    asked.push(segment);
+    if (unknown.includes(segment)) return null;
+    return live.includes(segment);
+  };
+  return { asked, renders };
+}
+
+describe('/blind-test: 301 only to a /blindtest page that renders, else 410 (owner, 2026-10-27)', () => {
+  it('the bare path goes to the blindtest hub, without a check', async () => {
+    for (const p of [LEGACY_BLIND_TEST_PATH, `${LEGACY_BLIND_TEST_PATH}/`]) {
+      const { asked, renders } = pages([]);
+      expect(await blindTestAnswer(p, renders), p).toEqual({ status: 301, location: BLINDTEST_PATH });
+      expect(asked).toEqual([]);
+    }
+  });
+
+  it('a mode or group page that renders is its own successor', async () => {
+    for (const seg of ['2nd-gen', 'group-rose', 'group-bts', 'kpop-legends', 'leaderboard']) {
+      const { asked, renders } = pages([seg]);
+      expect(await blindTestAnswer(`/blind-test/${seg}`, renders), seg).toEqual({ status: 301, location: `/blindtest/${seg}` });
+      expect(asked).toEqual([seg]);
+    }
+  });
+
+  it('a group slug written without "group-" goes to the group page when that renders', async () => {
+    const { asked, renders } = pages(['group-bts']);
+    expect(await blindTestAnswer('/blind-test/bts', renders)).toEqual({ status: 301, location: '/blindtest/group-bts' });
+    expect(asked).toEqual(['bts', 'group-bts']);
+  });
+
+  it('the path itself wins over the group page when both render', async () => {
+    const { asked, renders } = pages(['2nd-gen', 'group-2nd-gen']);
+    expect(await blindTestAnswer('/blind-test/2nd-gen', renders)).toEqual({ status: 301, location: '/blindtest/2nd-gen' });
+    expect(asked).toEqual(['2nd-gen']);
+  });
+
+  it('410 when no page renders, never a 301 onto a 404', async () => {
+    const boyz = pages(['group-bts']);
+    expect(await blindTestAnswer('/blind-test/group-the-boyz', boyz.renders)).toEqual({ status: 410 });
+    expect(boyz.asked).toEqual(['group-the-boyz']); // never group-group-the-boyz
+    const none = pages(['group-bts']);
+    expect(await blindTestAnswer('/blind-test/nonexistent', none.renders)).toEqual({ status: 410 });
+    expect(none.asked).toEqual(['nonexistent', 'group-nonexistent']);
+  });
+
+  it('503 when a check cannot tell, never a 410 for a page that may exist', async () => {
+    expect(await blindTestAnswer('/blind-test/group-bts', pages([], ['group-bts']).renders)).toEqual({ status: 503 });
+    expect(await blindTestAnswer('/blind-test/bts', pages([], ['group-bts']).renders)).toEqual({ status: 503 });
+    const first = pages(['group-x'], ['x']);
+    expect(await blindTestAnswer('/blind-test/x', first.renders)).toEqual({ status: 503 });
+    expect(first.asked).toEqual(['x']);
+  });
+
+  it('a segment no page can have, or a deeper path, is 410 without a check', async () => {
+    for (const seg of ['BTS', 'Group-BTS', 'bts/x', 'group-bts/play', 'group-', '-bts', 'bts-', 'b%20ts', 'b_ts', 'a//b']) {
+      const { asked, renders } = pages(['bts', 'group-bts', 'group-BTS']);
+      expect(await blindTestAnswer(`/blind-test/${seg}`, renders), seg).toEqual({ status: 410 });
+      expect(asked, seg).toEqual([]);
+    }
+  });
+
+  it('leaves every other path alone', async () => {
+    for (const p of ['/', '/blindtest', '/blindtest/group-bts', '/blind-testx', '/blind-tests/bts', '/blind', '/g/blind-test']) {
+      expect(await blindTestAnswer(p, pages(['bts']).renders), p).toBeNull();
+    }
+  });
+
+  it('no chain: next.config redirects neither a /blind-test URL nor its successors', async () => {
+    for (const p of ['/blind-test', '/blind-test/bts', '/blind-test/group-bts', '/blind-test/2nd-gen']) {
+      expect(await firstRedirect(p), p).toBeUndefined();
+    }
+    for (const to of ['/blindtest', '/blindtest/group-bts', '/blindtest/2nd-gen']) {
+      expect(await firstRedirect(to), to).toBeUndefined();
+      expect(isKnownRouteWith(to, BOTH), to).toBe(true);
+    }
+  });
+
+  it('the middleware hands /blind-test to the handler, a route the allowlist already knows', async () => {
+    const { readFileSync } = await import('node:fs');
+    const { fileURLToPath } = await import('node:url');
+    const src = readFileSync(fileURLToPath(new URL('../../middleware.ts', import.meta.url)), 'utf8');
+    expect(src).toContain(`new URL('${LEGACY_BLIND_TEST_HANDLER}', request.url)`);
+    expect(src).toContain(`headers.set('${LEGACY_PATH_HEADER}', pathname)`);
+    expect(src).toContain(`headers.set('${LEGACY_SEARCH_HEADER}', request.nextUrl.search)`);
+    const handler = fileURLToPath(new URL(`../../app${LEGACY_BLIND_TEST_HANDLER}/route.ts`, import.meta.url));
+    expect(readFileSync(handler, 'utf8')).toContain('blindTestAnswer');
+    for (const flags of [{ v1: false, v12: false }, BOTH]) expect(isKnownRouteWith(LEGACY_BLIND_TEST_HANDLER, flags)).toBe(true);
   });
 });
