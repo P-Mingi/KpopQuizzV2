@@ -8,6 +8,7 @@ interface Suggestion {
   label: string;
   quizCount?: number;
   author?: string;
+  /** The quiz slug of a quiz suggestion, the group slug of a group suggestion. */
   slug?: string;
 }
 
@@ -60,8 +61,9 @@ export function SearchAutocomplete({ placeholder = 'Search quizzes, groups, idol
   const handleSelect = (s: Suggestion) => {
     setShowDropdown(false);
     setQuery('');
-    if (s.type === 'group') {
-      router.push(`/quizzes?group=${encodeURIComponent(s.label)}`);
+    if (s.type === 'group' && s.slug) {
+      // SEO: the group hub owns this intent (as in home-group-pills); without a slug, the search page below.
+      router.push(`/${encodeURIComponent(s.slug)}-quiz`);
     } else if (s.type === 'quiz' && s.slug) {
       router.push(`/q/${s.slug}`);
     } else if (s.type === 'tag') {

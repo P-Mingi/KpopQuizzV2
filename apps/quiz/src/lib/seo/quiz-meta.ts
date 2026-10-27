@@ -12,6 +12,7 @@
 
 import { GENRE } from '@/lib/site/genre';
 import { SITE } from '@/lib/site/registry';
+import { contentTopics, TOPIC_QUALIFIER } from '@/lib/hubs/topics';
 
 export const TITLE_MAX = 49;
 export const DESCRIPTION_MAX = 158;
@@ -94,4 +95,62 @@ export function quizDescription(q: QuizDescriptionInput): string {
   const tail = ' Free to play, no sign-up.';
   if (s.length < DESCRIPTION_MIN && (s + tail).length <= DESCRIPTION_MAX) s += tail;
   return clipWords(s, DESCRIPTION_MAX);
+}
+
+// ---------------------------------------------------------------------------
+// SEO Mission 2 (owner, 2026-10-14; rulebook 1.5): only the hub /{group}-quiz may be titled
+// "{Group} Quiz". A fan quiz whose title, normalized, is exactly "{group} quiz", "{group} test"
+// or "quiz {group}" competes with its hub for the same query, so its SEO title and its H1 get
+// a qualifier read from its own content ("ILLIT members quiz"); the creator's title stays on
+// the page as the subtitle. Nothing is stored or rewritten: the slug and the stored title stay.
+// ---------------------------------------------------------------------------
+
+/** Lowercase, accents folded, every run of non-alphanumerics one space. */
+export function normalizeTitle(s: string): string {
+  return s.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+/** True when the title is only "{group} quiz", "{group} test" or "quiz {group}". */
+export function isGenericGroupTitle(title: string, groupName: string, groupSlug?: string | null): boolean {
+  const t = normalizeTitle(title);
+  const names = new Set([normalizeTitle(groupName), groupSlug ? normalizeTitle(groupSlug) : ''].filter(Boolean));
+  for (const n of names) {
+    if (t === `${n} quiz` || t === `${n} test` || t === `quiz ${n}`) return true;
+  }
+  return false;
+}
+
+const TYPE_QUALIFIER: Record<string, string> = {
+  true_false: 'true or false',
+  guess_from_clues: 'guess from clues',
+  image: 'picture',
+  intruder: 'odd one out',
+};
+
+export interface QualifierInput {
+  title: string;
+  groupName: string;
+  groupSlug?: string | null;
+  quizType: string;
+  difficulty: string;
+  /** The question prompts (the quiz's own content). */
+  prompts: readonly string[];
+}
+
+/**
+ * The title a quiz page shows in its <title> and H1: the creator's own title, unless it is a
+ * generic "{group} quiz". Then "{Group} {qualifier} quiz", the qualifier read from the quiz:
+ * the topic most of its questions are about ("members", "songs", "history"...) or its two
+ * main topics ("members and songs"), else its format ("true or false", "picture"...), else
+ * its difficulty ("hard trivia", "fan trivia"). The group is written as the groups table
+ * writes it (rulebook 2.5).
+ */
+export function qualifiedQuizTitle(q: QualifierInput): string {
+  const own = clean(q.title);
+  if (!isGenericGroupTitle(own, q.groupName, q.groupSlug)) return own;
+  const topics = contentTopics(q.prompts);
+  const qualifier = topics.length > 0
+    ? topics.map((t) => TOPIC_QUALIFIER[t]).join(' and ')
+    : TYPE_QUALIFIER[q.quizType] ?? (q.difficulty === 'easy' || q.difficulty === 'hard' ? `${q.difficulty} trivia` : 'fan trivia');
+  return `${clean(q.groupName)} ${qualifier} quiz`;
 }

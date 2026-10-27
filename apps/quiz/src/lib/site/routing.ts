@@ -41,6 +41,13 @@ export const SHARED_PREFIXES: readonly string[] = ['/api/', '/auth/'];
  */
 export const PER_SITE_ROOT_FILES: readonly string[] = ['/robots.txt', '/sitemap.xml', '/llms.txt'];
 
+/**
+ * Fusion A5: the dotted kpop routes main added (a data image). Next's filesystem check serves a dotted route before the
+ * afterFiles rules, so on anime and hub it would answer with the kpop file; each of these route handlers answers 404 off the
+ * kpop build itself (SITE_ID guard at the top of its GET), and routing.test.ts checks both the list and the guard.
+ */
+export const KPOP_ONLY_DOTTED_ROUTES: readonly string[] = ['/data/kpop-generations-timeline.svg'];
+
 /** Where a site's own brand files live: public/brand/<site>/ (registry.md, routes.md). */
 export function brandPath(site: SiteId, file: string): string {
   return `/brand/${site}${file}`;

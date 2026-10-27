@@ -28,6 +28,7 @@ describe('topResults', () => {
 const VIEW = {
   results: [{ id: 'rm', name: 'RM', role: 'Leader', description: 'About RM.', traits: ['Calm'] }],
   distribution: null,
+  questions: [], // main's kpop block counts them
 } as unknown as QuizView;
 const GROUP = { slug: 'bts', name: 'BTS' };
 const NAMES = new Map([['bts', 'BTS'], ['twice', 'TWICE']]);
@@ -37,7 +38,8 @@ const hrefs = (html: string): string[] => [...html.matchAll(/\bhref="([^"]+)"/g)
 describe('WmaAbout words and paths', () => {
   it('default: member, bias, group and /which-<slug>-member-are-you', () => {
     const html = renderToString(h(WmaAbout, { group: GROUP, view: VIEW, wmaSlugs: ['bts', 'twice'], names: NAMES }));
-    expect(text(html)).toContain('your result is the BTS member whose profile is closest. There are no right answers and no timer: answer for yourself, not for your bias.');
+    // Fusion A5: the kpop block is main's (sourced members, how the result is calculated); its prose says member and group.
+    expect(text(html)).toContain('Your result is the BTS member whose quiz profile is closest to your answers, across six scales.');
     expect(text(html)).toContain('Which member are you, for another group');
     expect(text(html)).toContain('Which TWICE member are you?');
     expect(hrefs(html)).toContain('/which-twice-member-are-you');

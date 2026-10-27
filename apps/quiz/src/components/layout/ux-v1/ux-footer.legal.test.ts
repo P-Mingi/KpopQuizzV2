@@ -1,5 +1,5 @@
-// Run O1, lane H1 (brief H1-legal.md): the "Legal notice" link of the footer, beside Privacy. OtakuQuiz and FanQuiz always show it; kpop
-// shows it only with NEXT_PUBLIC_NET_PRIVACY on, and with the flag off the markup is the one pinned by ux-footer.site.test.ts.
+// Run O1, lane H1 (brief H1-legal.md): the "Legal notice" link of the footer, beside Privacy. Fusion A5 (main wins for kpop): main
+// shows it on kpopquiz.org, so all three sites show it whatever NEXT_PUBLIC_NET_PRIVACY says.
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -22,28 +22,15 @@ const PRIVACY = '<a href="/privacy">Privacy</a>';
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); });
 
 describe('UxFooter legal notice link', () => {
-  for (const site of ['anime', 'hub'] as const) {
+  for (const site of ['kpop', 'anime', 'hub'] as const) {
     it(`${site}: the link is right after Privacy, whatever the flag says`, async () => {
-      for (const flag of [null, '0', '1']) {
+      const off = await footer(site, null);
+      for (const flag of [null, '0', '1', 'true']) {
         const html = await footer(site, flag);
         expect(html, String(flag)).toContain(`${PRIVACY}${LEGAL}`);
         expect(html.match(/href="\/legal"/g), String(flag)).toHaveLength(1);
+        expect(html, String(flag)).toBe(off);
       }
     });
   }
-
-  it('kpop: flag off or any value but 1 or true: no link, the same markup', async () => {
-    const off = await footer('kpop', null);
-    expect(off).not.toContain('/legal');
-    expect(await footer('kpop', '0')).toBe(off);
-    expect(await footer('kpop', 'yes')).toBe(off);
-  });
-
-  it('kpop: flag on: the link after Privacy, and only that is added', async () => {
-    const on = await footer('kpop', '1');
-    const off = await footer('kpop', null);
-    expect(on).toContain(`${PRIVACY}${LEGAL}`);
-    expect(on.replace(LEGAL, '')).toBe(off);
-    expect(await footer('kpop', 'true')).toBe(on);
-  });
 });

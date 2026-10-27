@@ -13,6 +13,7 @@ import { completeDaily } from '@/lib/daily-played';
 import { recordGuestDaily } from '@/lib/guest-streak';
 import { haptic } from '@/lib/haptics';
 import { SITE } from '@/lib/site/registry';
+import { percentileShown } from '@/lib/quiz/result-levels';
 import { playCorrect, playShare, playTap, playWrong } from '@/lib/sounds';
 import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
 import { challengeOutcome, parseChallengeParam } from '@/lib/ux-v1/p4/challenge';
@@ -293,7 +294,9 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
         const d = (await res.json()) as { play_id?: string | null; percentile?: number; xp_earned?: number; pass_rate?: number | null; leveled_up?: boolean; new_level?: number | null; new_level_name?: string | null };
         saved = true;
         playId = d.play_id ?? null;
-        percentile = typeof d.percentile === 'number' ? d.percentile : null;
+        // A level-result quiz shows its percentile only from 200 attempts (lib/quiz/result-levels.ts);
+        // every other quiz keeps it as before.
+        percentile = percentileShown(typeof d.percentile === 'number' ? d.percentile : null, quiz);
         xpEarned = d.xp_earned ?? 0;
         passRate = d.pass_rate ?? null;
         leveledUp = d.leveled_up ?? false;

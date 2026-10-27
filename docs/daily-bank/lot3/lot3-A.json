@@ -1,0 +1,661 @@
+[
+  {
+    "scheduled_date": "2026-12-03",
+    "title": "ITZY: From Debut to Born to Be",
+    "description": "How well do you know ITZY? Ten questions on the JYP girl group's debut, its name, its early singles and its EPs up to Born to Be.",
+    "group_slug": "itzy",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "On February 12, 2019, ITZY debuted with a single album. What was it called?",
+        "options": [
+          "It'z Itzy",
+          "Voltage",
+          "It'z Me",
+          "It'z Different"
+        ],
+        "correct": 3,
+        "fun_fact": "It held just two songs: the lead single Dalla Dalla and a second track, Want It?",
+        "source": "https://en.wikipedia.org/wiki/It%27z_Different"
+      },
+      {
+        "question": "The name ITZY comes from a Korean word. What does that word mean?",
+        "options": [
+          "To shine",
+          "To dream",
+          "To fly",
+          "To have"
+        ],
+        "correct": 3,
+        "fun_fact": "Lia has tied the name to All in us, a line the members repeat often: the idea is that ITZY already holds whatever fans hope to find.",
+        "source": "https://en.wikipedia.org/wiki/Itzy"
+      },
+      {
+        "question": "Which single led ITZY's first EP, released on July 29, 2019?",
+        "options": [
+          "Not Shy",
+          "Wannabe",
+          "Icy",
+          "Loco"
+        ],
+        "correct": 2,
+        "fun_fact": "It became the group's first No. 1 on Billboard's K-pop Hot 100 and picked up twelve music show trophies.",
+        "source": "https://en.wikipedia.org/wiki/Icy_(Itzy_song)"
+      },
+      {
+        "question": "Which ITZY single from August 2020 was described as the group's first love-themed song?",
+        "options": [
+          "Wannabe",
+          "Icy",
+          "Not Shy",
+          "Loco"
+        ],
+        "correct": 2,
+        "fun_fact": "An English version arrived in January 2021, with a music video starring 3D Zepeto avatars of the five members.",
+        "source": "https://en.wikipedia.org/wiki/Not_Shy_(song)"
+      },
+      {
+        "question": "In the Morning, also called Mafia in the Morning, was the lead single of which 2021 ITZY EP?",
+        "options": [
+          "Not Shy",
+          "Guess Who",
+          "It'z Me",
+          "Checkmate"
+        ],
+        "correct": 1,
+        "fun_fact": "The title is a nod to Mafia, the party game, and J.Y. Park is one of the song's writers.",
+        "source": "https://en.wikipedia.org/wiki/In_the_Morning_(Itzy_song)"
+      },
+      {
+        "question": "Which ITZY single was nominated for Best K-Pop at the 2022 MTV Video Music Awards?",
+        "options": [
+          "Wannabe",
+          "Loco",
+          "Sneakers",
+          "Cake"
+        ],
+        "correct": 1,
+        "fun_fact": "ITZY also sang it on The Kelly Clarkson Show on September 27, 2021, three days after its release.",
+        "source": "https://en.wikipedia.org/wiki/Loco_(Itzy_song)"
+      },
+      {
+        "question": "Which 2022 EP became ITZY's first album certified Million in South Korea?",
+        "options": [
+          "Cheshire",
+          "Gold",
+          "Crazy in Love",
+          "Checkmate"
+        ],
+        "correct": 3,
+        "fun_fact": "In the US it opened at No. 8 on the Billboard 200 with 33,000 units, the group's first album to reach the top ten there.",
+        "source": "https://en.wikipedia.org/wiki/Checkmate_(EP)"
+      },
+      {
+        "question": "Cake, a summer single from July 2023, was the lead single of which ITZY EP?",
+        "options": [
+          "Cheshire",
+          "Gold",
+          "Kill My Doubt",
+          "Guess Who"
+        ],
+        "correct": 2,
+        "fun_fact": "The producing duo Black Eyed Pilseung wrote and composed it, and it took first place on Music Bank on August 11, 2023.",
+        "source": "https://en.wikipedia.org/wiki/Cake_(Itzy_song)"
+      },
+      {
+        "question": "Which single led ITZY's January 2024 EP Born to Be?",
+        "options": [
+          "Untouchable",
+          "Gold",
+          "Cake",
+          "Sneakers"
+        ],
+        "correct": 0,
+        "fun_fact": "Bang Hye-hyun and Lee Seu-ran wrote the lyrics, and the song won on Music Bank on January 19, 2024.",
+        "source": "https://en.wikipedia.org/wiki/Untouchable_(Itzy_song)"
+      },
+      {
+        "question": "Which ITZY member was cast by JYP Entertainment at a GOT7 fan event?",
+        "options": [
+          "Ryujin",
+          "Chaeryeong",
+          "Yeji",
+          "Yuna"
+        ],
+        "correct": 0,
+        "fun_fact": "Before the debut, she and Yuna appeared in BTS's Love Yourself highlight reel in 2017.",
+        "source": "https://en.wikipedia.org/wiki/Ryujin_(rapper)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Itzy",
+      "https://www.wikidata.org/wiki/Q60732823",
+      "https://en.wikipedia.org/wiki/It%27z_Different",
+      "https://www.nme.com/features/music-interviews/itzy-interview-crazy-in-love-loco-3059287",
+      "https://en.wikipedia.org/wiki/Icy_(Itzy_song)",
+      "https://en.wikipedia.org/wiki/Not_Shy_(song)",
+      "https://en.wikipedia.org/wiki/In_the_Morning_(Itzy_song)",
+      "https://en.wikipedia.org/wiki/Loco_(Itzy_song)",
+      "https://en.wikipedia.org/wiki/MTV_Video_Music_Award_for_Best_K-Pop",
+      "https://en.wikipedia.org/wiki/Checkmate_(EP)",
+      "https://en.wikipedia.org/wiki/Cake_(Itzy_song)",
+      "https://en.wikipedia.org/wiki/Untouchable_(Itzy_song)",
+      "https://en.wikipedia.org/wiki/Born_to_Be_(EP)",
+      "https://en.wikipedia.org/wiki/Ryujin_(rapper)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-04",
+    "title": "K-pop Idol MCs Through the Years",
+    "description": "Idols who hosted Korea's weekly music shows from 2011 to 2024. Can you match each one to the right stage?",
+    "group_slug": null,
+    "category": "knowledge",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Which show did IVE's Jang Won-young co-host with ENHYPEN's Sunghoon from October 2021?",
+        "options": [
+          "Music Bank",
+          "M Countdown",
+          "Inkigayo",
+          "Show! Music Core"
+        ],
+        "correct": 0,
+        "fun_fact": "Their pairing lasted until September 2022, and Lee Chae-min then hosted alongside her until January 2023.",
+        "source": "https://en.wikipedia.org/wiki/Music_Bank"
+      },
+      {
+        "question": "Which SISTAR member co-hosted Music Bank with actor Park Seo-joon from 2013 to 2015?",
+        "options": [
+          "Soyou",
+          "Bora",
+          "Hyolyn",
+          "Dasom"
+        ],
+        "correct": 1,
+        "fun_fact": "The pair took over in October 2013 from Jeong Jinwoon and Park Se-young, who had hosted since that April.",
+        "source": "https://en.wikipedia.org/wiki/Music_Bank"
+      },
+      {
+        "question": "IU was a regular host of which weekly music show from 2011 to 2013?",
+        "options": [
+          "Inkigayo",
+          "M Countdown",
+          "Show Champion",
+          "Music Bank"
+        ],
+        "correct": 0,
+        "fun_fact": "Over those years her co-hosts included Jo Kwon, Lee Gi-kwang, Lee Jong-suk and Hwang Kwang-hee.",
+        "source": "https://en.wikipedia.org/wiki/Inkigayo"
+      },
+      {
+        "question": "Which SEVENTEEN member hosted Inkigayo from February 2018 to October 2019?",
+        "options": [
+          "Hoshi",
+          "Seungkwan",
+          "Mingyu",
+          "DK"
+        ],
+        "correct": 2,
+        "fun_fact": "He started next to Jung Chae-yeon and Song Kang, and ended his run alongside Shin Eun-soo.",
+        "source": "https://en.wikipedia.org/wiki/Inkigayo"
+      },
+      {
+        "question": "Taeyeon, Tiffany and Seohyun of Girls' Generation co-hosted which show from 2012 to 2013?",
+        "options": [
+          "Music Bank",
+          "Inkigayo",
+          "Show! Music Core",
+          "M Countdown"
+        ],
+        "correct": 2,
+        "fun_fact": "Tiffany had already hosted the same program with Yuri, from April 2009 to July 2010.",
+        "source": "https://en.wikipedia.org/wiki/Show!_Music_Core"
+      },
+      {
+        "question": "Which ASTRO member hosted Show! Music Core from October 2016 to February 2018?",
+        "options": [
+          "Rocky",
+          "MJ",
+          "Jinjin",
+          "Cha Eun-woo"
+        ],
+        "correct": 3,
+        "fun_fact": "From April 2017 his co-host was Xiyeon, and he came back to the show for a short stint in early 2019.",
+        "source": "https://en.wikipedia.org/wiki/Show!_Music_Core"
+      },
+      {
+        "question": "Which show did SHINee's Key host from March 2015 to April 2017, alone in his final months?",
+        "options": [
+          "The Show",
+          "M Countdown",
+          "Music Bank",
+          "Inkigayo"
+        ],
+        "correct": 1,
+        "fun_fact": "After he left, the show turned to guest MCs, starting with EXID's Hani and Pristin's Kyulkyung and Nayoung on April 20, 2017.",
+        "source": "https://en.wikipedia.org/wiki/M_Countdown"
+      },
+      {
+        "question": "Which member of (G)I-DLE, now i-dle, hosted M Countdown from February 2021 to November 2023?",
+        "options": [
+          "Soyeon",
+          "Miyeon",
+          "Yuqi",
+          "Minnie"
+        ],
+        "correct": 1,
+        "fun_fact": "Her co-hosts over that stretch were Nam Yoon-su, then Joohoney, then Sung Han-bin.",
+        "source": "https://en.wikipedia.org/wiki/M_Countdown"
+      },
+      {
+        "question": "Which f(x) member co-hosted Show Champion through 2013?",
+        "options": [
+          "Luna",
+          "Krystal",
+          "Victoria",
+          "Amber"
+        ],
+        "correct": 3,
+        "fun_fact": "From January to August 2013 she shared hosting duties with Hahm Eun-jung.",
+        "source": "https://en.wikipedia.org/wiki/Show_Champion"
+      },
+      {
+        "question": "Which ATEEZ member hosted The Show from March 2021 to March 2024?",
+        "options": [
+          "Yeosang",
+          "San",
+          "Wooyoung",
+          "Jongho"
+        ],
+        "correct": 0,
+        "fun_fact": "He started with Kim Yo-han and Weeekly's Jihan, and his set of co-hosts changed twice during those three years.",
+        "source": "https://en.wikipedia.org/wiki/The_Show_(South_Korean_TV_program)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Music_Bank",
+      "https://en.wikipedia.org/wiki/Inkigayo",
+      "https://en.wikipedia.org/wiki/Show!_Music_Core",
+      "https://en.wikipedia.org/wiki/M_Countdown",
+      "https://en.wikipedia.org/wiki/Miyeon",
+      "https://en.wikipedia.org/wiki/Show_Champion",
+      "https://en.wikipedia.org/wiki/The_Show_(South_Korean_TV_program)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-05",
+    "title": "EXO: The XOXO Era",
+    "description": "Ten questions on EXO's 2013 XOXO era: the Wolf single, the Growl repackage, the two editions, the charts and the year-end awards.",
+    "group_slug": "exo",
+    "category": "era",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "XOXO came in a Korean edition called Kiss and a Mandarin edition called what?",
+        "options": [
+          "Love",
+          "Hug",
+          "Wink",
+          "Heart"
+        ],
+        "correct": 1,
+        "fun_fact": "Both editions came out on June 3, 2013, and the album climbed to No. 1 on Billboard's World Albums chart.",
+        "source": "https://en.wikipedia.org/wiki/XOXO_(Exo_album)"
+      },
+      {
+        "question": "Wolf's full Korean title translates into English as what?",
+        "options": [
+          "The Lone Wolf",
+          "Night of the Wolf",
+          "The Wolf and the Moon",
+          "The Wolf and the Beauty"
+        ],
+        "correct": 3,
+        "fun_fact": "Its sound blends dubstep into hip-hop, and its story pairs a werewolf with a beautiful woman in a tragic romance.",
+        "source": "https://en.wikipedia.org/wiki/Wolf_(Exo_song)"
+      },
+      {
+        "question": "Which XOXO song was the first that all twelve EXO members recorded together?",
+        "options": [
+          "Let Out the Beast",
+          "Black Pearl",
+          "Wolf",
+          "Baby Don't Cry"
+        ],
+        "correct": 2,
+        "fun_fact": "It peaked at No. 10 on the Gaon Digital Chart and at No. 4 on Billboard's World Digital Songs chart.",
+        "source": "https://en.wikipedia.org/wiki/Wolf_(Exo_song)"
+      },
+      {
+        "question": "The Growl repackage, released on August 5, 2013, added how many new tracks to XOXO?",
+        "options": [
+          "One",
+          "Two",
+          "Three",
+          "Five"
+        ],
+        "correct": 2,
+        "fun_fact": "In South Korea the original album sold over 570,000 copies and the repackage over 760,000.",
+        "source": "https://en.wikipedia.org/wiki/XOXO_(Exo_album)"
+      },
+      {
+        "question": "Growl's first music videos, out on August 1, 2013, show EXO performing in what kind of place?",
+        "options": [
+          "A subway station",
+          "A school classroom",
+          "A forest at night",
+          "A dimly lit warehouse"
+        ],
+        "correct": 3,
+        "fun_fact": "Styled to look like one unbroken take, they were followed on August 20, 2013 by a second set shot somewhere else.",
+        "source": "https://en.wikipedia.org/wiki/Growl_(song)"
+      },
+      {
+        "question": "How many first-place trophies did Growl win on South Korean music shows?",
+        "options": [
+          "6",
+          "9",
+          "11",
+          "14"
+        ],
+        "correct": 3,
+        "fun_fact": "The wins came on Music Bank, Inkigayo, Show Champion, M Countdown and Show! Music Core.",
+        "source": "https://en.wikipedia.org/wiki/Growl_(song)"
+      },
+      {
+        "question": "Growl won the Song of the Year daesang at the 2013 edition of which awards show?",
+        "options": [
+          "Mnet Asian Music Awards",
+          "Golden Disc Awards",
+          "Melon Music Awards",
+          "Korean Music Awards"
+        ],
+        "correct": 2,
+        "fun_fact": "The ceremony took place on November 14, 2013 at the Olympic Gymnastics Arena, and EXO left with three awards, the most of the night.",
+        "source": "https://en.wikipedia.org/wiki/2013_Melon_Music_Awards"
+      },
+      {
+        "question": "XOXO took which top prize at the 28th Golden Disc Awards in January 2014?",
+        "options": [
+          "Disc Daesang",
+          "Digital Daesang",
+          "Rookie of the Year",
+          "Popularity Award"
+        ],
+        "correct": 0,
+        "fun_fact": "XOXO also took an album Bonsang at that ceremony, held at Kyung Hee University in Seoul.",
+        "source": "https://en.wikipedia.org/wiki/28th_Golden_Disc_Awards"
+      },
+      {
+        "question": "Growl peaked at which position on the Gaon Digital Chart?",
+        "options": [
+          "No. 1",
+          "No. 2",
+          "No. 5",
+          "No. 10"
+        ],
+        "correct": 1,
+        "fun_fact": "It also climbed to No. 3 on both Billboard's K-pop Hot 100 and its World Digital Songs chart.",
+        "source": "https://en.wikipedia.org/wiki/Growl_(song)"
+      },
+      {
+        "question": "Which SM songwriter wrote Wolf's Korean lyrics and co-composed the song?",
+        "options": [
+          "Kenzie",
+          "Yoo Young-jin",
+          "Hitchhiker",
+          "Hwang Hyun"
+        ],
+        "correct": 0,
+        "fun_fact": "Kenzie also co-produced the track with Will Simms, while Zhou Weijie wrote the Mandarin lyrics.",
+        "source": "https://en.wikipedia.org/wiki/Wolf_(Exo_song)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/XOXO_(Exo_album)",
+      "https://musicbrainz.org/release/16888bbd-7d3f-459f-bfee-299070fc0c4e",
+      "https://musicbrainz.org/release/eec94b88-9ef4-4713-b500-a48294654cbd",
+      "https://en.wikipedia.org/wiki/Exo",
+      "https://en.wikipedia.org/wiki/Wolf_(Exo_song)",
+      "https://en.wikipedia.org/wiki/Growl_(song)",
+      "https://en.wikipedia.org/wiki/2013_Melon_Music_Awards",
+      "https://en.wikipedia.org/wiki/28th_Golden_Disc_Awards",
+      "https://www.koreajoongangdaily.com/korea/psy-exo-take-top-prizes-at-28th-golden-disks/10983706"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-06",
+    "title": "K-pop Songs With a Flower in the Title",
+    "description": "Ten K-pop songs with a flower in the title, from cherry blossoms and lilacs to daisies and sunflowers. How well do you know them?",
+    "group_slug": null,
+    "category": "fun",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Lilac (2021) shares its name with the fifth studio album of which singer?",
+        "options": [
+          "IU",
+          "Taeyeon",
+          "Chungha",
+          "BoA"
+        ],
+        "correct": 0,
+        "fun_fact": "Out on March 25, 2021, it draws on 1970s and 1980s disco, and IU compared the song to a typhoon in springtime.",
+        "source": "https://en.wikipedia.org/wiki/Lilac_(IU_album)"
+      },
+      {
+        "question": "Which band's Cherry Blossom Ending climbs back up the Korean charts almost every spring?",
+        "options": [
+          "Busker Busker",
+          "Hyukoh",
+          "The Rose",
+          "Day6"
+        ],
+        "correct": 0,
+        "fun_fact": "Member Jang Beom-june wrote it, and the band first became known as runner-up on Superstar K3 in 2011.",
+        "source": "https://en.wikipedia.org/wiki/Cherry_Blossom_Ending"
+      },
+      {
+        "question": "Which boy group released Daisy in October 2020 as the lead single of its EP WE:TH?",
+        "options": [
+          "SF9",
+          "Pentagon",
+          "Victon",
+          "Golden Child"
+        ],
+        "correct": 1,
+        "fun_fact": "Members Hui and Wooseok co-wrote it, and its choreography includes a move called the Sowing Dance.",
+        "source": "https://en.wikipedia.org/wiki/Daisy_(Pentagon_song)"
+      },
+      {
+        "question": "Wind Flower (2018), the lead single of the EP Blue;s, is by which girl group?",
+        "options": [
+          "Lovelyz",
+          "Mamamoo",
+          "Oh My Girl",
+          "GFriend"
+        ],
+        "correct": 1,
+        "fun_fact": "Moonbyul helped write it, and a Japanese version came out as a single in February 2019.",
+        "source": "https://en.wikipedia.org/wiki/Wind_Flower"
+      },
+      {
+        "question": "Which Red Velvet member made her solo debut with Like a Flower in November 2024?",
+        "options": [
+          "Seulgi",
+          "Wendy",
+          "Joy",
+          "Irene"
+        ],
+        "correct": 3,
+        "fun_fact": "SM released the song with its EP on November 26, 2024, and Irene performed it on Music Bank, Show! Music Core and Inkigayo in the days after.",
+        "source": "https://en.wikipedia.org/wiki/Like_a_Flower_(song)"
+      },
+      {
+        "question": "RM's Wild Flower, the title track of his album Indigo, features Youjeen of which rock band?",
+        "options": [
+          "YB",
+          "Nell",
+          "Jaurim",
+          "Cherry Filter"
+        ],
+        "correct": 3,
+        "fun_fact": "It came out on December 2, 2022, and Indigo was RM's debut studio album.",
+        "source": "https://en.wikipedia.org/wiki/Wild_Flower_(RM_song)"
+      },
+      {
+        "question": "Rose led the 2021 debut EP Empathy of which EXO member?",
+        "options": [
+          "Kai",
+          "Baekhyun",
+          "D.O.",
+          "Suho"
+        ],
+        "correct": 2,
+        "fun_fact": "The song was first written in English, and the singer translated the lyrics into Korean himself.",
+        "source": "https://en.wikipedia.org/wiki/Rose_(D.O._song)"
+      },
+      {
+        "question": "Sunflower, a 2022 single album, was the solo debut of which I.O.I member?",
+        "options": [
+          "Somi",
+          "Chungha",
+          "Sejeong",
+          "Yoojung"
+        ],
+        "correct": 3,
+        "fun_fact": "After I.O.I's first run ended in 2017, she debuted with Weki Meki that August.",
+        "source": "https://en.wikipedia.org/wiki/Choi_Yoo-jung_(singer)"
+      },
+      {
+        "question": "Which singer released Flower Shower in November 2019, her first song with P Nation?",
+        "options": [
+          "Sunmi",
+          "Hyolyn",
+          "Hyuna",
+          "Heize"
+        ],
+        "correct": 2,
+        "fun_fact": "Psy and Hyuna wrote the lyrics together, and the song later appeared on her seventh EP, I'm Not Cool.",
+        "source": "https://en.wikipedia.org/wiki/Flower_Shower"
+      },
+      {
+        "question": "Jisoo's Flower blends traditional Korean melodies with elements of which region's music?",
+        "options": [
+          "Celtic",
+          "Caribbean",
+          "Andean",
+          "Nordic"
+        ],
+        "correct": 1,
+        "fun_fact": "Released on March 31, 2023, it peaked at No. 2 on both the Billboard Global 200 and the Circle Digital Chart.",
+        "source": "https://en.wikipedia.org/wiki/Flower_(Jisoo_song)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Lilac_(IU_song)",
+      "https://en.wikipedia.org/wiki/Lilac_(IU_album)",
+      "https://en.wikipedia.org/wiki/Cherry_Blossom_Ending",
+      "https://en.wikipedia.org/wiki/Daisy_(Pentagon_song)",
+      "https://en.wikipedia.org/wiki/Wind_Flower",
+      "https://en.wikipedia.org/wiki/Like_a_Flower_(song)",
+      "https://en.wikipedia.org/wiki/Wild_Flower_(RM_song)",
+      "https://en.wikipedia.org/wiki/Rose_(D.O._song)",
+      "https://en.wikipedia.org/wiki/Empathy_(EP)",
+      "https://en.wikipedia.org/wiki/Choi_Yoo-jung_(singer)",
+      "https://en.wikipedia.org/wiki/Sunflower_(single_album)",
+      "https://en.wikipedia.org/wiki/Flower_Shower",
+      "https://en.wikipedia.org/wiki/I%27m_Not_Cool",
+      "https://en.wikipedia.org/wiki/Flower_(Jisoo_song)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-12-07",
+    "title": "GOT7 True or False",
+    "description": "Ten true or false statements on GOT7's story, from the 2014 debut and the Japanese releases to the group's 2022 EP.",
+    "group_slug": "got7",
+    "category": "true_false",
+    "quiz_type": "true_false",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "Before GOT7, Jay B and Jinyoung debuted in 2012 as the duo JJ Project.",
+        "correct": true,
+        "fun_fact": "The duo's single album Bounce came out on May 20, 2012, after the pair had acted in the drama Dream High 2.",
+        "source": "https://en.wikipedia.org/wiki/JJ_Project"
+      },
+      {
+        "question": "Get7 was a working name for the group before JYP settled on Got7 in December 2013.",
+        "correct": true,
+        "fun_fact": "J.Y. Park linked the name to g.o.d: he was once meant to debut with that group, whose working name was Got6.",
+        "source": "https://en.wikipedia.org/wiki/Got7"
+      },
+      {
+        "question": "GOT7's debut single, Girls Girls Girls, samples an exclamation from Wonder Girls' hit Tell Me.",
+        "correct": true,
+        "fun_fact": "J.Y. Park wrote and composed it, and GOT7 first performed it on M Countdown on January 16, 2014.",
+        "source": "https://en.wikipedia.org/wiki/Girls_Girls_Girls_(Got7_song)"
+      },
+      {
+        "question": "Got It?, GOT7's debut EP, peaked at No. 1 on South Korea's Gaon Album Chart.",
+        "correct": false,
+        "fun_fact": "It stopped at No. 2 in Korea, but it did reach No. 1 on Billboard's World Albums chart.",
+        "source": "https://en.wikipedia.org/wiki/Got_It%3F"
+      },
+      {
+        "question": "GOT7 made their Japanese debut in 2016 with the album Moriagatteyo.",
+        "correct": false,
+        "fun_fact": "Their Japanese debut was the single Around the World on October 22, 2014. Moriagatteyo, out in February 2016, was their first Japanese studio album.",
+        "source": "https://en.wikipedia.org/wiki/Got7"
+      },
+      {
+        "question": "Just Right was the lead single of GOT7's first studio album, Identify.",
+        "correct": false,
+        "fun_fact": "Identify, released in November 2014, was led by Stop Stop It. Just Right was the title track of a separate EP in July 2015.",
+        "source": "https://en.wikipedia.org/wiki/Got7"
+      },
+      {
+        "question": "J.Y. Park wrote and composed GOT7's 2016 single Hard Carry.",
+        "correct": false,
+        "fun_fact": "Earattack and Yoogeun wrote the lyrics and composed it with Lish. GOT7 first performed it on M Countdown on September 29, 2016.",
+        "source": "https://en.wikipedia.org/wiki/Hard_Carry"
+      },
+      {
+        "question": "The album Present: You includes Lullaby in Korean, English, Chinese and Japanese.",
+        "correct": false,
+        "fun_fact": "The fourth language was Spanish, and on the 2018 album each member also has a solo song he co-produced.",
+        "source": "https://en.wikipedia.org/wiki/Present:_You"
+      },
+      {
+        "question": "In February 2021, a month after leaving JYP Entertainment, GOT7 released the single Encore.",
+        "correct": true,
+        "fun_fact": "It came out on February 20, 2021 through Warner Music Korea.",
+        "source": "https://en.wikipedia.org/wiki/Got7"
+      },
+      {
+        "question": "GOT7's 2022 self-titled EP was led by the song Nanana.",
+        "correct": true,
+        "fun_fact": "Released on May 23, 2022, the six-track EP followed the Got7 Homecoming 2022 FanCon held in Seoul on May 21 and 22.",
+        "source": "https://en.wikipedia.org/wiki/Got7_(EP)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Got7",
+      "https://www.wikidata.org/wiki/Q23772001",
+      "https://en.wikipedia.org/wiki/JJ_Project",
+      "https://en.wikipedia.org/wiki/Girls_Girls_Girls_(Got7_song)",
+      "https://en.wikipedia.org/wiki/Got_It%3F",
+      "https://en.wikipedia.org/wiki/Got7_discography",
+      "https://en.wikipedia.org/wiki/Identify_(album)",
+      "https://en.wikipedia.org/wiki/Hard_Carry",
+      "https://en.wikipedia.org/wiki/Present:_You",
+      "https://en.wikipedia.org/wiki/Got7_(EP)"
+    ]
+  }
+]

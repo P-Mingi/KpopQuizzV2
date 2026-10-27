@@ -35,7 +35,8 @@ import type { BtGroup } from '@/lib/ux-v1/p6/playlists';
 // crawler reads is in the HTML. SEO lock (brief + 16.10): the H1, the intro, the
 // FAQ (questions, answers, FAQPage JSON-LD), the WebApplication and BreadcrumbList
 // JSON-LD, the metadata and every playlist link of today's page are unchanged;
-// only the layout around them is the prototype's.
+// only the layout around them is the prototype's. The breadcrumb alone moved, with the
+// flag-off page, to K-pop games > Blind test (SEO Mission 2, 2026-10-15).
 
 export interface FaqItem { q: string; a: string }
 
@@ -45,11 +46,18 @@ interface HubProps {
   webAppJsonLd: Record<string, unknown>;
 }
 
-// Same BreadcrumbList JSON-LD as today's <Breadcrumbs> (Home > Blind Test).
+// SEO Mission 2 (owner, 2026-10-15): the blind test is one of the K-pop games, so its
+// breadcrumb is K-pop games > Blind test, visible above the hero and in this BreadcrumbList,
+// the same names as the visible links. The flag-off page (app/(site)/blindtest/page.tsx)
+// carries the same trail.
 const BREADCRUMB_JSONLD = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
-  itemListElement: [
+  // Run O1: /kpop-games is a kpop page; another site keeps the trail it had (Home > Blind Test, its own origin).
+  itemListElement: IS_KPOP ? [
+    { '@type': 'ListItem', position: 1, name: 'K-pop games', item: 'https://kpopquiz.org/kpop-games' },
+    { '@type': 'ListItem', position: 2, name: 'Blind test', item: 'https://kpopquiz.org/blindtest' },
+  ] : [
     { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
     { '@type': 'ListItem', position: 2, name: 'Blind Test' },
   ],
@@ -127,6 +135,13 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
     <UxPage width="full" padded={false} className="p6">
       {jsonLdScript(BREADCRUMB_JSONLD)}
       <BtHubControllerLoader groups={groups} songs={songs.value} {...(themePicks ? { themes: themePicks } : {})}>
+        {IS_KPOP ? (
+          <nav className="ux-crumb kg-crumb" aria-label="Breadcrumb">
+            <Link href="/kpop-games">K-pop games</Link>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">Blind test</span>
+          </nav>
+        ) : null}
         <section className="p6-hero" id="bt-start" aria-labelledby="p6-h1">
           <div className="p6-bars" aria-hidden="true">
             {Array.from({ length: 10 }, (_, i) => <i key={i} />)}

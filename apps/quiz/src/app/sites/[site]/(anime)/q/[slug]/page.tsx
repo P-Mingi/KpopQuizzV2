@@ -459,6 +459,8 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   if (UX_V1) {
     return renderUxQuizPage({
       quiz,
+      // Fusion A5: main's page takes the shown title; the anime H1 stays the stored title until the SEO lot of the quiz pages.
+      heading: quiz.title,
       questionCount,
       intro,
       introAvg,

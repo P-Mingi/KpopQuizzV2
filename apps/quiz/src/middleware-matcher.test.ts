@@ -20,7 +20,7 @@ import { isKnownRoute, isKnownRouteWith, UX_V12_ROUTES } from '@/lib/route-allow
 // stays excluded: /g/[slug] (blind test) is a kept cached page.
 
 const MATCHER =
-  '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|q/|g/|s/|u/|quiz/|group/|embed/|(?:quizzes|blindtest|leaderboard|trivia|articles|data|groups|trending|new|most-liked|build|search|profile|me|notifications|news|stats|create|guess-the-kpop-idol|kpop-true-or-false|easy-kpop-quizzes|hard-kpop-quizzes|kpop-quiz-2026|terms|privacy|dmca|about|faq|contact|daily)(?:/|$)|[^/]+-(?:quiz|trivia)(?:/|$)|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt)$|$).*)';
+  '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|q/|g/|s/|u/|quiz/|group/|embed/|(?:quizzes|blindtest|leaderboard|trivia|articles|data|groups|trending|new|most-liked|build|search|profile|me|notifications|news|stats|create|guess-the-kpop-idol|kpop-true-or-false|easy-kpop-quizzes|hard-kpop-quizzes|kpop-quiz-2026|terms|privacy|legal|dmca|about|faq|contact|daily)(?:/|$)|[^/]+-(?:quiz|trivia)(?:/|$)|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt)$|$).*)';
 
 // Next compiles the matcher string into a regex that tests the pathname.
 const re = new RegExp('^' + MATCHER + '$');
@@ -57,7 +57,7 @@ describe('middleware matcher: excluded (skipped) cached page prefixes', () => {
     '/bts-quiz', '/le-sserafim-quiz', '/twice-trivia', // generated group pages
     '/g/abc123', '/s/xyz', '/u/someone', '/quiz/123/edit', '/group/bts', '/embed/q/slug',
     '/create',
-    '/faq', '/about', '/terms', '/privacy', '/dmca', '/contact', '/search',
+    '/faq', '/about', '/terms', '/privacy', '/legal', '/dmca', '/contact', '/search',
     '/articles/knowledge-report', '/data/pulse', '/me', '/notifications', '/profile',
     '/daily', '/new', '/trending', '/most-liked', '/build/slug', '/news', '/stats', '/groups',
     '/guess-the-kpop-idol', '/kpop-true-or-false', '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
@@ -168,11 +168,13 @@ describe('V12 routes: known only with both flags on', () => {
   });
 
   it('existing routes do not depend on the flags', () => {
-    for (const p of ['/', '/bts-quiz', '/twice-trivia', '/blindtest', '/blindtest/kpop-hits-2025', '/pt/blindtest',
+    for (const p of ['/', '/bts-quiz', '/twice-trivia', '/blindtest', '/blindtest/kpop-hits-2025',
       '/quizzes', '/kpop-demon-hunters-quiz']) {
       for (const f of [OFF, V11, BOTH]) expect(isKnownRouteWith(p, f), p).toBe(true);
     }
-    for (const p of ['/games', '/fr', '/idols', '/frances']) {
+    // The Portuguese mirror was retired on 2026-10-23 (owner): /pt pages are no longer routes
+    // (the middleware 301s each former page to its English page before this check).
+    for (const p of ['/games', '/fr', '/idols', '/frances', '/pt', '/pt/blindtest', '/pt/quizzes']) {
       for (const f of [OFF, V11, BOTH]) expect(isKnownRouteWith(p, f), p).toBe(false);
     }
   });

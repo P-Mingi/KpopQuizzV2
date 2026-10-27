@@ -26,8 +26,10 @@ export const KNOWN_ROUTES = [
   // next.config.ts redirects. '/g/' stays: /g/[slug] is the kept blind-test game.
   '/', '/q/', '/g/', '/blindtest', '/create', '/group/', '/u/', '/trending', '/new', '/most-liked',
   '/trivia',
-  '/terms', '/privacy', '/dmca', '/about', '/editorial-policy', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
+  '/terms', '/privacy', '/legal', '/dmca', '/about', '/editorial-policy', '/faq', '/contact', '/search', '/guess-the-kpop-idol', '/kpop-true-or-false',
   '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
+  // SEO Mission 2 (owner, 2026-10-15): /kpop-games, every game of the site in one page.
+  '/kpop-games',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
   '/sitemap.xml', '/robots.txt', '/llms.txt',
   // '/me' (the passport, where /profile redirects) and '/notifications' (the
@@ -55,12 +57,13 @@ export const KNOWN_ROUTES = [
   // Workstream T0 monthly Pulse: /data/pulse (index) and /data/pulse/[month].
   // One '/data' prefix covers both via startsWith.
   '/data',
-  '/pt',
   // Run O1 (contract routes.md): the anime and hub pages live under app/sites/[site]/. Known
   // so the build guard passes; a direct /sites/... request is still a 404 on every build
   // (the sites/[site] layout calls notFound() unless the param is the build's own site, and
   // anime and hub builds rewrite every public path under /sites/<site>).
   '/sites/',
+  // SEO Mission 3, part F.2: the press kit.
+  '/press',
 ];
 
 // UX v1 redesign (NEXT_PUBLIC_UX_V1, default off): routes that exist only for the new
@@ -100,29 +103,21 @@ function isV12PrettyUrl(pathname: string): boolean {
   );
 }
 
-// Run O1, lane H1 (NEXT_PUBLIC_NET_PRIVACY, default off): the legal notice of kpopquiz.org, /legal. The page file always exists (the anime and
-// hub pages re-export it), but the kpop build answers it only with the flag on; off, it answers 404 like any unknown URL, as today.
-// Same inline flag test as flagOn() in lib/site/registry.ts, which this import-free module cannot import.
-const NET_PRIVACY_ROUTES = ['/legal'];
-const NET_PRIVACY_ON =
-  process.env.NEXT_PUBLIC_NET_PRIVACY === '1' || process.env.NEXT_PUBLIC_NET_PRIVACY === 'true';
-
-// Every flag-only prefix, v11 and v12 (and the H1 one, which the guard skips the same way). This is the list the build-time guard
+// Every flag-only prefix, v11 and v12. This is the list the build-time guard
 // (scripts/check-route-allowlist.mts) reads to skip pages that are unreachable on
 // purpose while their flag is off; isKnownRoute() below still opens the v11 ones with
 // NEXT_PUBLIC_UX_V1 alone and the v12 ones only with both flags.
-export const UX_V1_ROUTES = [...UX_V11_ROUTES, ...UX_V12_ROUTES, ...NET_PRIVACY_ROUTES];
+export const UX_V1_ROUTES = [...UX_V11_ROUTES, ...UX_V12_ROUTES];
 
 /**
  * The allowlist decision for an explicit flag state. isKnownRoute() calls it with the
  * build's flags; tests call it with each combination.
  */
-export function isKnownRouteWith(pathname: string, flags: { v1: boolean; v12: boolean; netPrivacy?: boolean }): boolean {
+export function isKnownRouteWith(pathname: string, flags: { v1: boolean; v12: boolean }): boolean {
   if (pathname === '/') return true;
   // Group landing pages are generated: /bts-quiz, /twice-trivia, and so on.
   if (pathname.endsWith('-quiz')) return true;
   if (pathname.endsWith('-trivia')) return true;
-  if ((flags.netPrivacy ?? NET_PRIVACY_ON) && NET_PRIVACY_ROUTES.some((r) => pathname === r)) return true;
   if (flags.v1 && UX_V11_ROUTES.some((r) => pathname.startsWith(r))) return true;
   if (flags.v1 && flags.v12) {
     if (UX_V12_ROUTES.some((r) => pathname.startsWith(r))) return true;

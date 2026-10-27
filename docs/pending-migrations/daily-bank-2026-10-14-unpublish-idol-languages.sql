@@ -1,3 +1,4 @@
+-- applied in production on 2026-10-25 (the quiz c77955af is a draft, checked on 2026-10-25).
 -- OWNER-GATED. Unpublishes the daily quiz of 2026-10-14, "K-pop Idol Languages"
 -- (/q/k-pop-idol-languages, quiz c77955af-e465-446f-91cb-292a0d13fa6d, 18 plays on 2026-10-15).
 -- Found while preparing lot 1 (Mission U). It has four errors, so it cannot stay public:

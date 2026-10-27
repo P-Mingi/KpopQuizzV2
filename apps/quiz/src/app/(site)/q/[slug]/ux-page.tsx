@@ -1,8 +1,10 @@
 import { P4QuizPage } from '@/components/quiz/ux-v1/quiz-page';
+import { P4EmbedButton } from '@/components/quiz/ux-v1/embed-island';
 import { safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { averagePct } from '@/lib/ux-v1/p4/engine';
+import { parseResultLevels } from '@/lib/quiz/result-levels';
 import {
   getP4Creator, getP4GroupPlaylist, getP4GroupQuizCount, getP4HallOfFame, relaxedRunsLive,
 } from '@/lib/ux-v1/p4/queries';
@@ -23,6 +25,8 @@ const MAX_PROMPT = 160;
 
 interface Args {
   quiz: QuizWithGroup;
+  /** The H1 (page.tsx shownTitle): the creator's title, or its qualified form. */
+  heading: string;
   questionCount: number;
   intro: string;
   introAvg: number | null;
@@ -89,6 +93,9 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
       .slice(0, 2)
       .map((r) => ({ slug: r.slug, title: r.title, quizType: r.quiz_type, difficulty: r.difficulty, plays: r.play_count, photo: groupPhotoUrl(r.group_slug) ?? r.cover_image_url })),
     playlist,
+    // SEO Mission 2: a level-result quiz (the Team "BTS ARMY level test"); null for every other quiz.
+    resultLevels: parseResultLevels(quiz.settings),
+    attempts: quiz.total_completions ?? 0,
   };
 
   const breadcrumbJsonLd = {
@@ -109,6 +116,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
         id: quiz.id,
         slug: quiz.slug,
         title: quiz.title,
+        heading: a.heading,
         quizType: quiz.quiz_type,
         difficulty: quiz.difficulty,
         questionCount: a.questionCount,
@@ -143,6 +151,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
       articleLinks={getGroupArticleLinks(quiz.group_slug).map((l) => ({ slug: l.slug, label: l.label }))}
       creator={creator}
       {...(a.gate ? { gate: a.gate } : {})}
+      embedAction={<P4EmbedButton slug={quiz.slug} title={quiz.title} />}
     />
   );
 }

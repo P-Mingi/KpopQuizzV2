@@ -9,7 +9,7 @@ import { NetFooterLine } from '@/components/network/net-footer-line';
 import { SITE, SITE_ID, flagOn } from '@/lib/site/registry';
 import { isKnownRouteFor } from '@/lib/site/routing';
 
-import { UxFooterLocale, UxFooterTheme } from './ux-footer-controls';
+import { UxFooterTheme } from './ux-footer-controls';
 
 import type { FooterCol } from '@/lib/ux-v1/a0/nav';
 
@@ -30,9 +30,6 @@ const KPOP = SITE_ID === 'kpop';
 const FLAGS = { v1: true, v12: true } as const;
 // Run O1 (B6): the one anonymous cross-site link (link-allowlist.json "footer"), off unless the flag is on.
 const NET_FOOTER = flagOn(process.env.NEXT_PUBLIC_NET_FOOTER);
-// Run O1 (H1): the "Legal notice" link beside Privacy. On anime and hub it is a normal link of the route map ('/legal' is allowed there);
-// on kpop it appears only with NEXT_PUBLIC_NET_PRIVACY on, so the kpop footer is today's with the flag off.
-const NET_PRIVACY = flagOn(process.env.NEXT_PUBLIC_NET_PRIVACY);
 
 /** One internal link: shown when its feature is on and the site's route map has its path. */
 function link(label: string, href: string, feature: boolean = true): FooterLink[] {
@@ -49,6 +46,8 @@ const capitalize = (w: string): string => w.charAt(0).toUpperCase() + w.slice(1)
 function columns(showFandoms: boolean): FooterCol[] {
   return [
     { title: 'Play', links: [
+      // main (SEO Mission 2 A): /kpop-games, the page of every game of kpopquiz.org.
+      ...link('K-pop games', '/kpop-games', KPOP),
       ...link('Daily quiz', '/daily', F.dailyQuiz),
       ...link('Blindtest', '/blindtest', F.blindTest),
       ...link('Ranked', '/blindtest/ranked', F.ranked),
@@ -79,8 +78,8 @@ function columns(showFandoms: boolean): FooterCol[] {
       ...link('About', '/about'),
       ...link('Editorial policy', '/editorial-policy'),
       ...link('Contact', '/contact'),
-      ...link('Privacy', '/privacy'),
-      ...(KPOP && !NET_PRIVACY ? [] : link('Legal notice', '/legal')),
+      // Main's two links, written as main writes them (lib/legal-notice.test.ts reads this pair); every site shows both.
+      ...(KPOP ? [{ label: 'Privacy', href: '/privacy' }, { label: 'Legal notice', href: '/legal' }] : [...link('Privacy', '/privacy'), ...link('Legal notice', '/legal')]),
       ...link('Terms', '/terms'),
       ...link('DMCA', '/dmca'),
       // Run O1 (IMG): the photo credits of OtakuQuiz. Off on kpop (feature flag false), so the kpop footer stays today's.
@@ -139,7 +138,7 @@ export function UxFooter({ showFandoms, year }: { showFandoms: boolean; year: nu
         {NET_FOOTER ? <NetFooterLine /> : null}
         <div className="ux-fbot">
           <span>{'\u00A9 '}{year}{COPYRIGHT_TAIL}</span>
-          <span className="ux-fbot-r">{F.localizedLandings ? <UxFooterLocale /> : null}<UxFooterTheme /></span>
+          <span className="ux-fbot-r"><UxFooterTheme /></span>
         </div>
       </div>
     </footer>

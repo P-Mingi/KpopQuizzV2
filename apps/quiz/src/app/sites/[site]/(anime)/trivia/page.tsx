@@ -46,7 +46,7 @@ async function getEligibleSeries(): Promise<EligibleSeries[]> {
   const directory = await getSeriesDirectory();
   const hubs = await Promise.all(directory.map((row) => getSeriesHub(row.group.slug)));
   return hubs
-    .flatMap((hub) => (hub ? [{ group: hub.group, factCount: uniqueFacts(hub.trivia).length, seriesType: hub.series.type }] : []))
+    .flatMap((hub) => (hub ? [{ group: hub.group, factCount: uniqueFacts(hub.trivia).length, sourced: true, seriesType: hub.series.type }] : []))
     .filter((row) => row.factCount >= TRIVIA_MIN_FACTS)
     .sort((a, b) => b.factCount - a.factCount || a.group.name.localeCompare(b.group.name, 'en'));
 }

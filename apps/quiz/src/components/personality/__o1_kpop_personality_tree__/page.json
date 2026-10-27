@@ -7,13 +7,13 @@
  ],
  "metadata": {
   "title": "Which BTS member are you? Personality quiz",
-  "description": "Eight questions about you, no right answers, no timer. Find out which BTS member matches how you move through life, then see how other fans came out.",
+  "description": "Which BTS member are you? Answer 2 questions about yourself and get the BTS member whose quiz profile is closest. Free, no timer.",
   "alternates": {
    "canonical": "/which-bts-member-are-you"
   },
   "openGraph": {
    "title": "Which BTS member are you? Personality quiz | KpopQuiz",
-   "description": "Eight questions about you, no right answers, no timer. Find out which BTS member matches how you move through life, then see how other fans came out.",
+   "description": "Which BTS member are you? Answer 2 questions about yourself and get the BTS member whose quiz profile is closest. Free, no timer.",
    "url": "/which-bts-member-are-you",
    "type": "website",
    "images": [
@@ -46,6 +46,7 @@
       }
      }
     ],
+    null,
     [
      "$",
      "nav",
@@ -449,13 +450,15 @@
      }
     ],
     [
+     null,
      [
       "$",
       "section",
       null,
       {
        "className": "ux-sec",
-       "aria-labelledby": "pers-res-h",
+       "aria-labelledby": "pers-how-h",
+       "data-testid": "pers-how",
        "children": [
         [
          "$",
@@ -469,7 +472,7 @@
             "h2",
             null,
             {
-             "id": "pers-res-h",
+             "id": "pers-how-h",
              "children": [
               [
                "$",
@@ -484,11 +487,11 @@
                 "aria-label": "$undefined",
                 "focusable": "false",
                 "dangerouslySetInnerHTML": {
-                 "__html": "<circle cx=\"9\" cy=\"8.5\" r=\"3\"/><path d=\"M3.5 19.5c.4-3 2.7-5 5.5-5s5.1 2 5.5 5\"/><circle cx=\"17\" cy=\"9.5\" r=\"2.4\"/><path d=\"M16 14.6c2.3.2 4 1.9 4.4 4.9\"/>"
+                 "__html": "<circle cx=\"12\" cy=\"12\" r=\"8.5\"/><circle cx=\"12\" cy=\"12\" r=\"4.5\"/><circle cx=\"12\" cy=\"12\" r=\"1\"/>"
                 }
                }
               ],
-              "The 3 possible results"
+              "How your result is calculated"
              ]
             }
            ],
@@ -511,26 +514,67 @@
             null,
             {
              "children": [
-              "Each answer moves you along a few personality axes, and your result is the ",
+              "Your result is the ",
               "BTS",
-              " member whose profile is closest. There are no right answers and no timer: answer for yourself, not for your bias."
+              " member whose quiz profile is closest to your answers, across six scales. The same answers always give the same result: there is no randomness and no AI."
              ]
             }
            ],
            [
             "$",
-            "p",
+            "ol",
             null,
             {
-             "data-testid": "pers-top",
+             "className": "ux-pers-steps",
              "children": [
-              "Across ",
-              "140",
-              " results so far, the most common ",
-              "are",
-              " ",
-              "RM (54%), Jin (30%), Suga (16%)",
-              "."
+              [
+               "$",
+               "li",
+               null,
+               {
+                "children": [
+                 "Each of the ",
+                 2,
+                 " answers you pick sets a position on one or more of the six scales below."
+                ]
+               }
+              ],
+              [
+               "$",
+               "li",
+               null,
+               {
+                "children": "On each scale, your position is the average of what your answers set. A scale none of your answers touched stays in the middle."
+               }
+              ],
+              [
+               "$",
+               "li",
+               null,
+               {
+                "children": [
+                 "Each ",
+                 "BTS",
+                 " member has a quiz profile on the same six scales, written by the kpopquiz.org team. A profile is a setting of this quiz, not a statement about the real person."
+                ]
+               }
+              ],
+              [
+               "$",
+               "li",
+               null,
+               {
+                "children": "Your result is the member whose profile is the shortest distance from your position over all six scales. A tie goes to the member listed first."
+               }
+              ],
+              [
+               "$",
+               "li",
+               null,
+               {
+                "children": "The result card then describes you, from the three scales where that profile is strongest."
+               }
+              ]
              ]
             }
            ]
@@ -539,195 +583,438 @@
         ],
         [
          "$",
-         "details",
+         "div",
          null,
          {
-          "className": "g3-acc",
+          "className": "ux-pers-tw",
           "children": [
-           [
-            "$",
-            "summary",
-            null,
-            {
-             "children": [
-              "See every result",
-              [
-               "$",
-               "svg",
-               null,
-               {
-                "className": "ux-ico",
-                "viewBox": "0 0 24 24",
-                "style": "$undefined",
-                "aria-hidden": true,
-                "role": "$undefined",
-                "aria-label": "$undefined",
-                "focusable": "false",
-                "dangerouslySetInnerHTML": {
-                 "__html": "<path d=\"m6 9 6 6 6-6\"/>"
+           "$",
+           "table",
+           null,
+           {
+            "className": "ux-pers-table",
+            "children": [
+             [
+              "$",
+              "caption",
+              null,
+              {
+               "children": "The six scales"
+              }
+             ],
+             [
+              "$",
+              "thead",
+              null,
+              {
+               "children": [
+                "$",
+                "tr",
+                null,
+                {
+                 "children": [
+                  [
+                   "$",
+                   "th",
+                   null,
+                   {
+                    "scope": "col",
+                    "children": "Scale"
+                   }
+                  ],
+                  [
+                   "$",
+                   "th",
+                   null,
+                   {
+                    "scope": "col",
+                    "children": "One end"
+                   }
+                  ],
+                  [
+                   "$",
+                   "th",
+                   null,
+                   {
+                    "scope": "col",
+                    "children": "Other end"
+                   }
+                  ]
+                 ]
                 }
-               }
-              ]
+               ]
+              }
+             ],
+             [
+              "$",
+              "tbody",
+              null,
+              {
+               "children": [
+                [
+                 "$",
+                 "tr",
+                 "energy",
+                 {
+                  "children": [
+                   [
+                    "$",
+                    "th",
+                    null,
+                    {
+                     "scope": "row",
+                     "children": "Energy"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Quiet"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Outgoing"
+                    }
+                   ]
+                  ]
+                 }
+                ],
+                [
+                 "$",
+                 "tr",
+                 "chaos",
+                 {
+                  "children": [
+                   [
+                    "$",
+                    "th",
+                    null,
+                    {
+                     "scope": "row",
+                     "children": "Chaos"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Calm"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Playful"
+                    }
+                   ]
+                  ]
+                 }
+                ],
+                [
+                 "$",
+                 "tr",
+                 "care",
+                 {
+                  "children": [
+                   [
+                    "$",
+                    "th",
+                    null,
+                    {
+                     "scope": "row",
+                     "children": "Care"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Caring"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Easy to love"
+                    }
+                   ]
+                  ]
+                 }
+                ],
+                [
+                 "$",
+                 "tr",
+                 "craft",
+                 {
+                  "children": [
+                   [
+                    "$",
+                    "th",
+                    null,
+                    {
+                     "scope": "row",
+                     "children": "Craft"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Performer"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Creative"
+                    }
+                   ]
+                  ]
+                 }
+                ],
+                [
+                 "$",
+                 "tr",
+                 "heart",
+                 {
+                  "children": [
+                   [
+                    "$",
+                    "th",
+                    null,
+                    {
+                     "scope": "row",
+                     "children": "Heart"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Soft-hearted"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Honest"
+                    }
+                   ]
+                  ]
+                 }
+                ],
+                [
+                 "$",
+                 "tr",
+                 "spotlight",
+                 {
+                  "children": [
+                   [
+                    "$",
+                    "th",
+                    null,
+                    {
+                     "scope": "row",
+                     "children": "Spotlight"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Bold"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Low-key"
+                    }
+                   ]
+                  ]
+                 }
+                ]
+               ]
+              }
              ]
-            }
-           ],
-           [
-            "$",
-            "ul",
-            null,
-            {
-             "className": "g3-lineup g3-results",
-             "children": [
-              [
-               "$",
-               "li",
-               "rm",
-               {
-                "children": [
-                 [
-                  "$",
-                  "b",
-                  null,
-                  {
-                   "children": "RM"
-                  }
-                 ],
-                 " ",
-                 [
-                  "$",
-                  "span",
-                  null,
-                  {
-                   "className": "ux-muted",
-                   "children": [
-                    "· ",
-                    "Leader"
-                   ]
-                  }
-                 ],
-                 [
-                  "$",
-                  "p",
-                  null,
-                  {
-                   "children": "About RM."
-                  }
-                 ],
-                 [
-                  "$",
-                  "p",
-                  null,
-                  {
-                   "className": "ux-muted",
-                   "children": "Calm, Loyal"
-                  }
+            ]
+           }
+          ]
+         }
+        ],
+        [
+         "$",
+         "div",
+         null,
+         {
+          "className": "ux-pers-tw",
+          "children": [
+           "$",
+           "table",
+           null,
+           {
+            "className": "ux-pers-table",
+            "data-testid": "pers-map",
+            "children": [
+             [
+              "$",
+              "caption",
+              null,
+              {
+               "children": "The 3 possible results"
+              }
+             ],
+             [
+              "$",
+              "thead",
+              null,
+              {
+               "children": [
+                "$",
+                "tr",
+                null,
+                {
+                 "children": [
+                  [
+                   "$",
+                   "th",
+                   null,
+                   {
+                    "scope": "col",
+                    "children": "Result"
+                   }
+                  ],
+                  [
+                   "$",
+                   "th",
+                   null,
+                   {
+                    "scope": "col",
+                    "children": "Your answers lean toward"
+                   }
+                  ]
                  ]
-                ]
-               }
-              ],
-              [
-               "$",
-               "li",
-               "jin",
-               {
-                "children": [
-                 [
-                  "$",
-                  "b",
-                  null,
-                  {
-                   "children": "Jin"
-                  }
-                 ],
-                 " ",
-                 [
-                  "$",
-                  "span",
-                  null,
-                  {
-                   "className": "ux-muted",
-                   "children": [
-                    "· ",
-                    "Leader"
+                }
+               ]
+              }
+             ],
+             [
+              "$",
+              "tbody",
+              null,
+              {
+               "children": [
+                [
+                 "$",
+                 "tr",
+                 "rm",
+                 {
+                  "children": [
+                   [
+                    "$",
+                    "th",
+                    null,
+                    {
+                     "scope": "row",
+                     "children": "RM"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Calm, Loyal"
+                    }
                    ]
-                  }
-                 ],
-                 [
-                  "$",
-                  "p",
-                  null,
-                  {
-                   "children": "About Jin."
-                  }
-                 ],
-                 [
-                  "$",
-                  "p",
-                  null,
-                  {
-                   "className": "ux-muted",
-                   "children": "Calm, Loyal"
-                  }
-                 ]
-                ]
-               }
-              ],
-              [
-               "$",
-               "li",
-               "suga",
-               {
-                "children": [
-                 [
-                  "$",
-                  "b",
-                  null,
-                  {
-                   "children": "Suga"
-                  }
-                 ],
-                 " ",
-                 [
-                  "$",
-                  "span",
-                  null,
-                  {
-                   "className": "ux-muted",
-                   "children": [
-                    "· ",
-                    "Leader"
+                  ]
+                 }
+                ],
+                [
+                 "$",
+                 "tr",
+                 "jin",
+                 {
+                  "children": [
+                   [
+                    "$",
+                    "th",
+                    null,
+                    {
+                     "scope": "row",
+                     "children": "Jin"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Calm, Loyal"
+                    }
                    ]
-                  }
-                 ],
-                 [
-                  "$",
-                  "p",
-                  null,
-                  {
-                   "children": "About Suga."
-                  }
-                 ],
-                 [
-                  "$",
-                  "p",
-                  null,
-                  {
-                   "className": "ux-muted",
-                   "children": "Calm, Loyal"
-                  }
-                 ]
+                  ]
+                 }
+                ],
+                [
+                 "$",
+                 "tr",
+                 "suga",
+                 {
+                  "children": [
+                   [
+                    "$",
+                    "th",
+                    null,
+                    {
+                     "scope": "row",
+                     "children": "Suga"
+                    }
+                   ],
+                   [
+                    "$",
+                    "td",
+                    null,
+                    {
+                     "children": "Calm, Loyal"
+                    }
+                   ]
+                  ]
+                 }
                 ]
-               }
-              ]
+               ]
+              }
              ]
-            }
-           ]
+            ]
+           }
           ]
          }
         ]
        ]
       }
      ],
+     null,
      [
       "$",
       "section",
@@ -735,6 +1022,7 @@
       {
        "className": "ux-sec",
        "aria-labelledby": "pers-more-h",
+       "data-testid": "pers-more",
        "children": [
         [
          "$",
@@ -787,16 +1075,84 @@
            [
             "$",
             "li",
+            "/bts-quiz",
+            {
+             "children": [
+              [
+               "$L",
+               "Link",
+               {
+                "href": "/bts-quiz",
+                "className": "ux-lnk",
+                "children": "BTS quiz"
+               }
+              ],
+              " ",
+              [
+               "$",
+               "span",
+               null,
+               {
+                "className": "ux-muted",
+                "children": "The BTS quizzes made by fans."
+               }
+              ]
+             ]
+            }
+           ],
+           [
+            "$",
+            "li",
+            "/blindtest/group-bts",
+            {
+             "children": [
+              [
+               "$L",
+               "Link",
+               {
+                "href": "/blindtest/group-bts",
+                "className": "ux-lnk",
+                "children": "BTS blind test"
+               }
+              ],
+              " ",
+              [
+               "$",
+               "span",
+               null,
+               {
+                "className": "ux-muted",
+                "children": "Guess the song from ten-second clips: 40 songs."
+               }
+              ]
+             ]
+            }
+           ],
+           [
+            "$",
+            "li",
             "/bts-name-all-members",
             {
              "children": [
-              "$L",
-              "Link",
-              {
-               "href": "/bts-name-all-members",
-               "className": "ux-lnk",
-               "children": "Name all BTS members"
-              }
+              [
+               "$L",
+               "Link",
+               {
+                "href": "/bts-name-all-members",
+                "className": "ux-lnk",
+                "children": "Name all BTS members"
+               }
+              ],
+              " ",
+              [
+               "$",
+               "span",
+               null,
+               {
+                "className": "ux-muted",
+                "children": "Type every member you can name from memory."
+               }
+              ]
              ]
             }
            ]
@@ -938,15 +1294,18 @@
    "lib/db/cache-policy.ts",
    "lib/db/fetch-all.ts",
    "lib/db/queries/groups.ts",
+   "lib/db/queries/trivia.ts",
    "lib/error-handling.ts",
+   "lib/hubs/topics.ts",
    "lib/name-all/round.ts",
    "lib/name-all/spellings.ts",
    "lib/personality/bridge.ts",
    "lib/personality/character-page.ts",
    "lib/personality/data.ts",
    "lib/personality/engine.ts",
+   "lib/personality/page-copy.ts",
    "lib/personality/parse.ts",
-   "lib/personality/roles.ts",
+   "lib/personality/rosters.ts",
    "lib/personality/series.ts",
    "lib/personality/server.ts",
    "lib/personality/traits.ts",
@@ -962,6 +1321,13 @@
    "lib/site/types.ts",
    "lib/soundtrack-album.ts",
    "lib/supabase/server.ts",
+   "lib/trivia/categorize.ts",
+   "lib/trivia/fact-key.ts",
+   "lib/trivia/fact-quality.ts",
+   "lib/trivia/facts.ts",
+   "lib/trivia/overrides.ts",
+   "lib/trivia/sourced/store.ts",
+   "lib/trivia/sourced/types.ts",
    "lib/ux-v1.ts",
    "lib/ux-v1/a0/distribution.ts",
    "lib/ux-v1/a0/group-photo-credits.ts",
@@ -1008,6 +1374,8 @@
    "lib/name-all/round.ts",
    "lib/name-all/spellings.ts",
    "lib/personality/engine.ts",
+   "lib/personality/page-copy.ts",
+   "lib/personality/traits.ts",
    "lib/personality/view.ts",
    "lib/ux-v1/a0/icons.ts",
    "lib/ux-v1/a0/type-glyphs.ts"

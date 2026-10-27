@@ -15,11 +15,13 @@ import { getQuizHallOfFame } from '@/lib/db/queries/community';
 import { getQuizSocialCounts } from '@/lib/db/queries/quiz-social';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
+import { EmbedQuizToggle } from '@/components/embed/embed-quiz-toggle';
 import { QuizHallOfFame } from '@/components/quiz/quiz-hall-of-fame';
 import { QuizStatsBlock } from '@/components/quiz/quiz-stats-block';
 import { AboutQuizDrawer } from '@/components/quiz/about-quiz-drawer';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { isNextInternalError, safeFetch } from '@/lib/error-handling';
+import { READ_RETRY_DELAY_MS } from '@/lib/ux-v1/p3/reads';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { avgScorePct, scoreIsPerQuestion } from '@/lib/quiz/scoring';
 import { buildInThisQuiz } from '@/lib/quiz/in-this-quiz';
@@ -27,7 +29,7 @@ import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
 import { UX_V1 } from '@/lib/ux-v1';
 import { renderUxQuizPage } from './ux-page';
 
-import { quizDescription, quizTitle } from '@/lib/seo/quiz-meta';
+import { qualifiedQuizTitle, quizDescription, quizTitle } from '@/lib/seo/quiz-meta';
 
 import type { Metadata } from 'next';
 import type { BreadcrumbItem } from '@/components/ui/breadcrumbs';
@@ -76,8 +78,23 @@ interface QuizPageProps {
 }
 
 /**
+ * SEO Mission 2 (rulebook 1.5): the title the page shows in its <title>, H1 and Quiz JSON-LD.
+ * The creator's own title, unless it is a generic "{group} quiz" that competes with the hub:
+ * then a qualifier read from the questions (lib/seo/quiz-meta.ts qualifiedQuizTitle).
+ */
+function shownTitle(quiz: NonNullable<Awaited<ReturnType<typeof getQuizBySlug>>>): string {
+  const prompts = ((quiz.questions as Array<{ question?: unknown }> | null) ?? [])
+    .map((q) => (q && typeof q.question === 'string' ? q.question : ''))
+    .filter(Boolean);
+  return qualifiedQuizTitle({
+    title: quiz.title, groupName: quiz.group_name, groupSlug: quiz.group_slug,
+    quizType: quiz.quiz_type, difficulty: quiz.difficulty, prompts,
+  });
+}
+
+/**
  * The quiz row, or a true 404 when no published quiz has this slug. SEO (owner, 2026-10-13):
- * at request time a failed or slow read THROWS instead of falling back to null. With the null
+ * at request time a failed or slow read is tried once more, then THROWS instead of falling back to null. With the null
  * fallback a database blip became a cached "not found" (noindex) for an hour on a real,
  * indexed quiz; thrown, the render fails uncached and ISR keeps serving the last good page.
  *
@@ -106,10 +123,20 @@ async function quizOr404(slug: string): Promise<NonNullable<Awaited<ReturnType<t
     console.warn(`[q/[slug]] build: the quiz read failed twice for ${slug}; on-demand ISR re-renders it`);
     notFound();
   }
-  const quiz = await read(8000);
-  if (quiz === TIMEOUT) throw new Error(`[q/[slug]] getQuizBySlug timed out for ${slug}`);
-  if (!quiz) notFound();
-  return quiz;
+  // Request time: two tries, 750 ms apart (owner, 2026-10-25: the bursts of reads after a
+  // deploy). A quiz that still cannot be read throws: never a cached 404 on a real quiz.
+  for (let attempt = 0; attempt < 2; attempt++) {
+    if (attempt > 0) await new Promise((resolve) => setTimeout(resolve, READ_RETRY_DELAY_MS));
+    try {
+      const quiz = await read(8000);
+      if (quiz === TIMEOUT) continue;
+      if (!quiz) notFound();
+      return quiz;
+    } catch (err) {
+      if (isNextInternalError(err)) throw err;
+    }
+  }
+  throw new Error(`[q/[slug]] getQuizBySlug failed twice for ${slug}`);
 }
 
 export async function generateMetadata({ params }: QuizPageProps): Promise<Metadata> {
@@ -122,11 +149,12 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
   // SEO indexguard PART 4 + 2026-10-13: the creator's note when it says something, else a
   // sentence from the quiz's real data; the title never cut inside a word (lib/seo/quiz-meta.ts).
   const creatorNote = sanitizeCreatorNote(quiz.settings?.creator_note);
+  const shown = shownTitle(quiz);
   const description = quizDescription({
-    title: quiz.title, difficulty: quiz.difficulty, questionCount: questionLen, groupName: quiz.group_name,
+    title: shown, difficulty: quiz.difficulty, questionCount: questionLen, groupName: quiz.group_name,
     creator: quiz.creator_username, plays: quiz.play_count, avgScore, creatorNote: creatorNote ?? null,
   });
-  const title = quizTitle(quiz.title, questionLen);
+  const title = quizTitle(shown, questionLen);
   const ogImageUrl = `/api/og/${slug}`;
 
   return {
@@ -369,10 +397,12 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   // - `interactionStatistic`: play count + a second counter for
   //   completions when total_completions > 0
   // - Multiple crawlable stats already inline in DOM via QuizStatsBlock.
+  const heading = shownTitle(quiz);
   const quizJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Quiz',
-    name: quiz.title,
+    // The H1 (the qualified title for a generic "{group} quiz", else the creator's title).
+    name: heading,
     description: `A ${quiz.group_name} quiz created by ${quiz.creator_username} on KpopQuiz`,
     educationalAlignment: {
       '@type': 'AlignmentObject',
@@ -434,6 +464,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   if (UX_V1) {
     return renderUxQuizPage({
       quiz,
+      heading,
       questionCount,
       intro,
       introAvg,
@@ -463,6 +494,9 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       {/* Owner / admin actions (Edit, Delete, Remove). Renders nothing for
           everyone else - client island so the page shell stays cacheable. */}
       <QuizOwnerActions quizId={quiz.id} creatorId={quizIntro.creatorId} />
+
+      {/* SEO Mission 3, part F.1: the public embed generator (a client island). */}
+      <EmbedQuizToggle slug={quiz.slug} title={quiz.title} />
 
       {/* UI-1 zone 5 - every server-rendered SEO block below the player now
           lives inside one "About this quiz" drawer. Server renders it OPEN, so

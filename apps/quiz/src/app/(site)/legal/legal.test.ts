@@ -10,11 +10,16 @@ import { LEGAL_KEYS, LEGAL_PLACEHOLDER_KEYS } from '@/lib/site/hub/network-page'
 import { REGISTRY } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 
+import type { Metadata } from 'next';
+
 // Lot (d), H1 (owner, 2026-10-24, brief H1-legal.md): the legal notice of the three sites. One route, the kpop one, is the source; the
 // OtakuQuiz and FanQuiz page re-exports it. One copy file (legal.* keys of copy/hub/h1.ts); the publisher is Louis Pecchia, entrepreneur
 // individuel (owner, 2026-10-25) and his phone is given (owner, 2026-10-25): the real copy holds no placeholder. The launch gate stays, and
 // the tests that need a [BRACKETED] line printed mock 'legal.phone' as '[TELEPHONE]' (render option `placeholder`); a build with NET_INDEXING on
 // refuses to print it.
+// Fusion A5 (owner, 2026-10-27: main wins for kpop): kpopquiz.org now serves main's page (lib/legal-notice.ts, static metadata, /legal always
+// a known route); OtakuQuiz and FanQuiz serve the copy-key page through the twin, which exports networkLegalMetadata. The kpop cases below
+// check main's page, the anime and hub cases the network one.
 
 const SRC = join(__dirname, '../../..');
 const read = (rel: string): string => readFileSync(join(SRC, rel), 'utf8');
@@ -23,7 +28,7 @@ const KEYS = Object.keys(COPY).filter((k) => k.startsWith('legal.')) as (keyof t
 const PLACEHOLDERS = ['[TELEPHONE]'];
 const PHONE = '+33 7 81 55 70 19';
 
-afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); vi.doUnmock('@/copy/hub/h1'); });
+afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); vi.doUnmock('@/copy/hub/h1'); vi.doUnmock('@/lib/legal-notice'); });
 
 type Site = 'kpop' | 'anime' | 'hub';
 interface Env { indexing?: '1' | ''; placeholder?: boolean }
@@ -43,12 +48,14 @@ async function render(site: Site, env: Env = {}) {
   vi.stubEnv('NET_INDEXING', env.indexing ?? '');
   if (env.placeholder) await mockPlaceholder();
   const page = await import('./page');
+  const twin = site === 'kpop' ? null : await import('@/app/sites/[site]/legal/page');
+  const meta = (): Metadata => (twin ? twin.generateMetadata() : page.metadata);
   const html = renderToStaticMarkup(page.default());
   const text = html
     .replace(/<[^>]+>/g, ' ')
     .replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&amp;/g, '&')
     .replace(/\s+/g, ' ');
-  return { page, html, text };
+  return { page, meta, html, text };
 }
 
 describe('the keys and the one copy file', () => {
@@ -133,7 +140,7 @@ describe('the page, on each site', () => {
       expect(text).not.toMatch(/\[[A-ZÉ ]+\]/);
     });
 
-    it(`${site}: with a placeholder mocked in, each placeholder is printed once`, async () => {
+    if (site !== 'kpop') it(`${site}: with a placeholder mocked in, each placeholder is printed once`, async () => {
       const { text } = await render(site, { placeholder: true });
       for (const p of PLACEHOLDERS) expect(text.split(p), p).toHaveLength(2);
       expect(text).toContain('Phone: [TELEPHONE] Email:');
@@ -156,9 +163,10 @@ describe('the page, on each site', () => {
     expect(kpop.html.includes('fanquiz.org')).toBe(false);
   });
 
-  it('the twin of OtakuQuiz and FanQuiz re-exports the page of the kpop route', () => {
+  it('the twin of OtakuQuiz and FanQuiz re-exports the page of the kpop route, and its metadata is the network one', () => {
     const twin = read('app/sites/[site]/legal/page.tsx');
-    expect(twin).toMatch(/export \{ default, generateMetadata \} from '@\/app\/\(site\)\/legal\/page';/);
+    expect(twin).toMatch(/export \{ default \} from '@\/app\/\(site\)\/legal\/page';/);
+    expect(twin).toMatch(/return networkLegalMetadata\(\);/);
     expect(twin).not.toMatch(/<\w+/);
   });
 });
@@ -166,8 +174,8 @@ describe('the page, on each site', () => {
 describe('the metadata', () => {
   for (const site of ['kpop', 'anime', 'hub'] as const) {
     it(`${site}: title, a description of 120 to 160 characters, canonical /legal`, async () => {
-      const { page } = await render(site);
-      const meta = page.generateMetadata();
+      const { meta: m } = await render(site);
+      const meta = m();
       expect(meta.title).toBe('Legal notice');
       expect(String(meta.title).length + ` | ${REGISTRY[site].brand.name}`.length).toBeLessThanOrEqual(60);
       const d = String(meta.description);
@@ -183,29 +191,34 @@ describe('the metadata', () => {
   it('closed (anime, hub): noindex, nofollow, and the build does not fail, with a placeholder printed or not', async () => {
     for (const site of ['anime', 'hub'] as const) {
       for (const placeholder of [true, false]) {
-        const { page } = await render(site, { indexing: '', placeholder });
-        expect(page.generateMetadata().robots, `${site} placeholder ${placeholder}`).toEqual({ index: false, follow: false });
+        const { meta } = await render(site, { indexing: '', placeholder });
+        expect(meta().robots, `${site} placeholder ${placeholder}`).toEqual({ index: false, follow: false });
       }
     }
   });
 
   it('a placeholder still printed: kpop says noindex too, so nothing half written is indexed', async () => {
-    const { page } = await render('kpop', { placeholder: true });
-    expect(page.generateMetadata().robots).toEqual({ index: false, follow: true });
+    // kpop reads main's lib/legal-notice.ts: its completeness check decides the robots line.
+    vi.resetModules();
+    const real = await vi.importActual<typeof import('@/lib/legal-notice')>('@/lib/legal-notice');
+    vi.doMock('@/lib/legal-notice', () => ({ ...real, LEGAL: { ...real.LEGAL, phone: '[TELEPHONE]' }, legalIsComplete: () => false }));
+    const page = await import('./page');
+    expect(page.metadata.robots).toEqual({ index: false, follow: true });
+    expect(renderToStaticMarkup(page.default())).toContain('Phone: [TELEPHONE]');
   });
 
   it('open with a placeholder printed: the build fails and the message names the keys', async () => {
     for (const site of ['anime', 'hub'] as const) {
-      const { page } = await render(site, { indexing: '1', placeholder: true });
-      expect(() => page.generateMetadata(), site).toThrow(/NET_INDEXING is on[\s\S]*\[TELEPHONE\][\s\S]*legal\.phone/);
+      const { meta } = await render(site, { indexing: '1', placeholder: true });
+      expect(() => meta(), site).toThrow(/NET_INDEXING is on[\s\S]*\[TELEPHONE\][\s\S]*legal\.phone/);
     }
   });
 
   it('the real copy, anime and hub open: no placeholder, indexable, the build does not fail, the phone is printed', async () => {
     for (const site of ['anime', 'hub'] as const) {
-      const { page, text } = await render(site, { indexing: '1' });
-      expect(() => page.generateMetadata(), site).not.toThrow();
-      expect(page.generateMetadata().robots).toEqual({ index: true, follow: true });
+      const { meta, text } = await render(site, { indexing: '1' });
+      expect(() => meta(), site).not.toThrow();
+      expect(meta().robots).toEqual({ index: true, follow: true });
       expect(text).toContain(`Phone: ${PHONE}`);
       expect(text).toContain('The publication director is: Louis Pecchia');
       expect(text).not.toMatch(/\[[A-ZÉ ]+\]/);
@@ -213,14 +226,14 @@ describe('the metadata', () => {
   });
 
   it('the real copy, kpop with the flag: no placeholder, indexable', async () => {
-    const { page } = await render('kpop', { indexing: '1' });
-    expect(() => page.generateMetadata()).not.toThrow();
-    expect(page.generateMetadata().robots).toEqual({ index: true, follow: true });
+    const { meta } = await render('kpop', { indexing: '1' });
+    expect(() => meta()).not.toThrow();
+    expect(meta().robots).toEqual({ index: true, follow: true });
   });
 
   it('the real copy, kpop without the flag: indexable too (kpop is never closed by it)', async () => {
-    const { page } = await render('kpop');
-    expect(page.generateMetadata().robots).toEqual({ index: true, follow: true });
+    const { meta } = await render('kpop');
+    expect(meta().robots).toEqual({ index: true, follow: true });
   });
 });
 
@@ -262,20 +275,17 @@ describe('the launch gate', () => {
 });
 
 describe('the routes', () => {
-  it('OtakuQuiz and FanQuiz allow /legal; kpop answers it only with NEXT_PUBLIC_NET_PRIVACY on', () => {
+  it('OtakuQuiz and FanQuiz allow /legal; kpop knows it on every build, like /privacy (main lists it in KNOWN_ROUTES)', () => {
     expect(REGISTRY.anime.routes.allow).toContain('/legal');
     expect(REGISTRY.hub.routes.allow).toContain('/legal');
     const on = { v1: true, v12: true };
-    expect(isKnownRouteWith('/legal', on)).toBe(false);
-    expect(isKnownRouteWith('/legal', { ...on, netPrivacy: false })).toBe(false);
-    expect(isKnownRouteWith('/legal', { ...on, netPrivacy: true })).toBe(true);
-    expect(isKnownRouteWith('/legal', { v1: false, v12: false, netPrivacy: true })).toBe(true);
-    expect(isKnownRouteWith('/legal/x', { ...on, netPrivacy: true })).toBe(false);
+    expect(isKnownRouteWith('/legal', on)).toBe(true);
+    expect(isKnownRouteWith('/legal', { v1: false, v12: false })).toBe(true);
     expect(isKnownRouteWith('/privacy', on)).toBe(true);
   });
 
-  it('the flag is read like every flag: 1 and true', async () => {
-    for (const [v, known] of [['1', true], ['true', true], ['0', false], ['false', false], ['', false]] as const) {
+  it('NEXT_PUBLIC_NET_PRIVACY no longer decides /legal on kpop: known whatever it says', async () => {
+    for (const [v, known] of [['1', true], ['true', true], ['0', true], ['false', true], ['', true]] as const) {
       vi.resetModules();
       vi.stubEnv('NEXT_PUBLIC_NET_PRIVACY', v);
       const { isKnownRoute } = await import('@/lib/route-allowlist');

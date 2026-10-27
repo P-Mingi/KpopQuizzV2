@@ -53,5 +53,6 @@ export async function getCharacterPage(slug: string): Promise<WmaPage | null> {
     // "Set as oshi" under the result (owner, 2026-10-26): saved for this series and this site only (the oshi save module of lib/personality).
     biasOffer: true,
   };
-  return { group, view, blindtestSongs: null };
+  // The kpop page's sourced sections (main, SEO Mission 2 D) are kpop only: no roster, no saved block, no trivia link here.
+  return { group, view, blindtestSongs: null, roster: null, saved: null, common: null, trivia: false };
 }

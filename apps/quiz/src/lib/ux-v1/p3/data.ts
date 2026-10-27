@@ -9,7 +9,7 @@ import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
-import { teamUsernames } from '@/lib/editorial/surfaces/team';
+import { teamCacheKey, teamUsernames } from '@/lib/editorial/surfaces/team';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
@@ -193,12 +193,21 @@ export const getGroupComments = unstable_cache(
   { revalidate: CACHE_TTL.stats, tags: ['community'] },
 );
 
+// The team's usernames, cached like the comments they mark (owner, 2026-10-25: every hub
+// render read them from the database, one of the reads that failed in the bursts after a
+// deploy). A failed read throws and is not cached. A list, because a cache value is JSON.
+const getTeamUsernameList = unstable_cache(
+  async (): Promise<string[]> => [...(await teamUsernames())],
+  teamCacheKey(['db:ux-v1:p3:team-usernames:v1']),
+  { revalidate: CACHE_TTL.stats, tags: ['community'] },
+);
+
 /** The hub's "From the community" rows with an editorial author marked (author.team:
  *  Team badge, team avatar). Nobody editorial (flag off, SQL pending): no extra read and
  *  getGroupComments' rows as they are. */
 export async function getGroupCommentsWithTeam(groupId: number): Promise<HubComment[]> {
-  const [rows, team] = await Promise.all([getGroupComments(groupId), teamUsernames()]);
-  return markTeamAuthors(rows, team);
+  const [rows, team] = await Promise.all([getGroupComments(groupId), getTeamUsernameList()]);
+  return markTeamAuthors(rows, new Set(team));
 }
 
 /** Pure: author.team on the rows whose author is in `team`. */

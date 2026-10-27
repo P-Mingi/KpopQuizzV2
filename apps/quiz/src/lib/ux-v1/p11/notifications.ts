@@ -42,8 +42,15 @@ export function categoryOf(type: string): string | null {
   return CATEGORY_OF_TYPE[type] ?? null;
 }
 
+/** Types that no settings category lists (they cannot be turned off) but that a filter tab
+ *  still shows: a correction to one of your quizzes is about your quizzes. */
+const FILTER_ONLY: Partial<Record<P11Filter, readonly NotificationType[]>> = {
+  your_quizzes: ['quiz_correction'],
+};
+
 export function matchesFilter(n: Pick<P11Notification, 'type'>, filter: P11Filter): boolean {
-  return filter === 'all' || categoryOf(n.type) === filter;
+  if (filter === 'all') return true;
+  return categoryOf(n.type) === filter || (FILTER_ONLY[filter] ?? []).includes(n.type as NotificationType);
 }
 
 /** Row icon per type (prototype NF: play, msg, trophy, star, user, heart, flame,
@@ -65,6 +72,8 @@ const TYPE_ICON: Record<NotificationType, UxIconName> = {
   // v12 community replies and comments (lib/ux-v1/p8/notify.ts)
   community_reply: 'msg',
   community_comment: 'msg',
+  // a sourced correction to fix in one of your quizzes (lib/quiz-corrections): the editor pen
+  quiz_correction: 'pen',
 };
 
 export function iconOf(type: string): UxIconName {

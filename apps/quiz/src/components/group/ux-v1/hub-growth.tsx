@@ -4,6 +4,7 @@ import { UxButton } from '@/components/ux-v1/button';
 import { Icon } from '@/components/ux-v1/icon';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { WaysTile, WaysTiles } from '@/components/ux-v1/ways-tile';
+import { GROUP_GAMES_ID, groupGames, groupGamesAnswer, groupGamesTitle } from '@/lib/games/registry';
 import {
   KPOP_GROWTH_WORDS,
   HUB_QUIZZES_ID,
@@ -34,7 +35,8 @@ interface HubGrowthProps {
 /**
  * The v12 additions of the group hub (SYSTEM.md 5.4, prototype hubGrowth()), in
  * the prototype's order: "Be the first" or the thin hub nudge, Ways to play, the
- * v11 quizzes list (passed through untouched), then "<Fandom> picked".
+ * v11 quizzes list (passed through untouched), then "<Fandom> picked", then the
+ * "<Group> games" list (SEO Mission 2: every game of the group, linked from /kpop-games).
  *
  * Mounted by hub.tsx only when isUxV12(), in the slot of the v11 quizzes list, so
  * the v11-only tree keeps its exact shape (and its useId values). Server
@@ -48,6 +50,10 @@ export async function HubGrowth({ group: g, published, songs, children, words = 
   const empty = published <= 0;
   const templates = empty ? hubTemplates(g.slug, words) : [];
   const picked = d.fansPicked;
+  // SEO Mission 2 (owner, 2026-10-15): every game of the group, uncapped, the target of the
+  // "K-pop games by group" grid of /kpop-games (/<slug>-quiz#games). Two games or more.
+  // Run O1: /kpop-games and its per-group list are kpop pages; a site that passes its own words gets none.
+  const games = words === KPOP_GROWTH_WORDS ? groupGames(d.ways) : [];
 
   return (
     <>
@@ -120,6 +126,22 @@ export async function HubGrowth({ group: g, published, songs, children, words = 
           hasMovement={picked.hasMovement}
           songs={picked.songs.map((s) => ({ id: s.id, rank: s.rank, title: s.title, year: s.year, votes: s.votes, movement: s.movement, isNew: s.isNew }))}
         />
+      ) : null}
+
+      {games.length >= 2 ? (
+        <section className="ux-sec kg-hub" id={GROUP_GAMES_ID} aria-labelledby="kg-hub-h">
+          <SectionHeader id="kg-hub-h" title={groupGamesTitle(g.name)} icon="play" />
+          <p>{groupGamesAnswer(g.name, games)}</p>
+          <ul className="kg-hub-list">
+            {games.map((x) => (
+              <li key={x.key}>
+                <Link href={x.href} prefetch={false}>{x.title}</Link>
+                <span>{x.line}</span>
+              </li>
+            ))}
+          </ul>
+          <p>Every game for every group: <Link href="/kpop-games" prefetch={false}>K-pop games</Link>.</p>
+        </section>
       ) : null}
     </>
   );

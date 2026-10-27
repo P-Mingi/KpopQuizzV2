@@ -14,6 +14,8 @@ vi.mock('./data', () => ({
   getSeriesWmaData: async () => data.series,
   getWmaData: async () => data.wma,
   getMemberCounts: async () => data.counts,
+  // Fusion A5: main's kpop page reads the counts with their date.
+  getDatedMemberCounts: async () => (data.counts ? { counts: data.counts, asOf: '2026-10-27T00:00:00.000Z' } : null),
   getBridgeCounts: async () => null,
   getBridgeGroups: async () => [],
 }));
@@ -144,7 +146,8 @@ describe('getWmaPage', () => {
     expect(v.biasOffer).toBe(true);
     expect(v.shareUrl).toBe('https://kpopquiz.org/which-stray-kids-member-are-you');
     expect(v.results[0]).toEqual({
-      id: 'bang-chan', name: 'Bang Chan', role: 'Leader and producer', description: expect.stringMatching(/^You /), traits: expect.any(Array), photo: null,
+      // Fusion A5: main prints the sourced role (rosters.ts, Wikipedia line), no longer the old written one.
+      id: 'bang-chan', name: 'Bang Chan', role: 'Leader, vocalist, rapper, dancer', description: expect.stringMatching(/^You /), traits: expect.any(Array), photo: null,
     });
     expect(Object.keys(v.results[0]!).sort()).toEqual(['description', 'id', 'name', 'photo', 'role', 'traits']);
     expect(Object.keys(v).sort()).toEqual([

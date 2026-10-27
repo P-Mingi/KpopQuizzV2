@@ -858,6 +858,7 @@
    "lib/personality/data.ts",
    "lib/personality/engine.ts",
    "lib/personality/parse.ts",
+   "lib/personality/rosters.ts",
    "lib/personality/view.ts",
    "lib/quiz/scoring.ts",
    "lib/seo/json-ld.ts",

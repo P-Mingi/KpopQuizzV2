@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { generateSlug } from '@/lib/utils';
+import { avoidHubSlug } from '@/lib/seo/hub-slugs';
 import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
 import { onQuizChanged } from '@/lib/seo/quiz-freshness';
 import { validateQuestions } from '@/lib/quiz-validation';
@@ -184,6 +185,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   // A title with no Latin letter (Korean, Japanese) has no slug of its own: name the
   // URL after the group ("bts-fan-quiz", then "-2"...), never "quiz-<timestamp>".
   if (!slug) slug = `${groupSlug ?? 'kpop'}-fan-quiz`;
+  // SEO Mission 2 (rulebook 1.6): never "{group}-quiz", "{group}-test" or "{group}-trivia",
+  // the URLs of the hubs' query ("BTS quiz" gives bts-fan-quiz). A failed group read counts
+  // as a group: the slug then only gains "-fan", it never takes a hub's name.
+  slug = await avoidHubSlug(slug, async (candidate) => {
+    if (candidate === groupSlug) return true;
+    const { data, error } = await supabase.from('groups').select('id').eq('slug', candidate).maybeSingle();
+    return Boolean(data) || Boolean(error);
+  });
 
   const { data: slugCheck } = await supabase
     .from('quizzes')

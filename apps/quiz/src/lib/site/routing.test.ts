@@ -16,7 +16,7 @@ import { KNOWN_ROUTES, UX_V1_ROUTES, UX_V12_ROUTES, isKnownRouteWith } from '@/l
 
 import { REGISTRY } from './registry';
 import {
-  INDEXNOW_KEY_FILE_RE, KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_BRAND_FILES, PER_SITE_ROOT_FILES,
+  INDEXNOW_KEY_FILE_RE, KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_BRAND_FILES, PER_SITE_ROOT_FILES, KPOP_ONLY_DOTTED_ROUTES,
   SESSION_PATTERNS, TWIN_SAMPLES, afterFilesFor, brandPath, compileRoutePattern, fallbackFor, indexNowKeyFile, internalPath,
   isKnownRouteFor, isServedSite, isSessionPathFor, isSitesPath, keyFileBlocksFor, middlewareStep, redirectsFor, rewritesFor,
   siteStaticParams,
@@ -306,7 +306,15 @@ describe('after the filesystem: no unmatched path reaches a kpop page (Next matc
     // answer on anime and hub. Today the only one is kpop's /llms.txt, which rule 3 rewrites first.
     const dotted = repoRoutes().filter((r) => /\.[A-Za-z0-9]{1,12}$/.test(r));
     for (const r of dotted) {
-      expect(PER_SITE_ROOT_FILES.includes(r) || r.startsWith('/sites/') || r.startsWith('/api/') || r.startsWith('/auth/'), r).toBe(true);
+      expect(PER_SITE_ROOT_FILES.includes(r) || KPOP_ONLY_DOTTED_ROUTES.includes(r) || r.startsWith('/sites/') || r.startsWith('/api/') || r.startsWith('/auth/'), r).toBe(true);
+    }
+  });
+
+  it('a kpop-only dotted route (fusion A5) answers 404 off the kpop build, from its own handler', async () => {
+    for (const r of KPOP_ONLY_DOTTED_ROUTES) {
+      expect(repoRoutes(), r).toContain(r);
+      const file = readFileSync(join(APP_DIR, '(site)', r, 'route.ts'), 'utf8');
+      expect(file, r).toMatch(/if \(SITE_ID !== 'kpop'\) return new Response\(null, \{ status: 404 \}\);/);
     }
   });
 

@@ -6,7 +6,15 @@
 import { SOCIAL_LINKS } from '@kpopquiz/shared/social-links';
 
 export const SITE_URL = 'https://kpopquiz.org';
+// hello@ is the only routed mailbox of kpopquiz.org (owner, 2026-10-25).
 export const CONTACT_EMAIL = 'hello@kpopquiz.org';
+// SEO Mission 3, part F: the press address shown on /press and in every licence block. The owner
+// chose hello@, the only routed mailbox, over a separate press@ (2026-10-25).
+export const PRESS_EMAIL = CONTACT_EMAIL;
+
+/** Our numbers, charts and reports (never the fan-written quizzes, which stay their creators'). */
+export const DATA_LICENCE = { name: 'CC BY 4.0', url: 'https://creativecommons.org/licenses/by/4.0/' } as const;
+export const LINK_NOTE = 'A link is appreciated; nofollow is fine.';
 
 export const FOUNDER = {
   name: 'Louis',

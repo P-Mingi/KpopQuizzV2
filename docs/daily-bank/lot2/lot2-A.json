@@ -1,0 +1,672 @@
+[
+  {
+    "scheduled_date": "2026-11-13",
+    "title": "ZEROBASEONE: From Boys Planet to In Bloom",
+    "description": "How ZEROBASEONE began: the 2023 show Boys Planet, their label and name, the debut EP led by In Bloom and their first wins.",
+    "group_slug": "zerobaseone",
+    "category": "group_specific",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "On which TV channel did Boys Planet, the 2023 show that formed ZEROBASEONE, air?",
+        "options": [
+          "Mnet",
+          "JTBC",
+          "SBS",
+          "KBS2"
+        ],
+        "correct": 0,
+        "fun_fact": "Boys Planet ran from February 2 to April 20, 2023, and 98 contestants competed for the nine spots in the debut lineup.",
+        "source": "https://en.wikipedia.org/wiki/Boys_Planet"
+      },
+      {
+        "question": "Boys Planet was presented as the sequel to which earlier Mnet survival show?",
+        "options": [
+          "Girls Planet 999",
+          "Produce 101",
+          "I-LAND",
+          "Queendom"
+        ],
+        "correct": 0,
+        "fun_fact": "The show used a space theme: its hosts were called Star Masters and the viewers who voted were called Star Creators.",
+        "source": "https://en.wikipedia.org/wiki/Boys_Planet"
+      },
+      {
+        "question": "Who finished first in the final Boys Planet ranking in April 2023?",
+        "options": [
+          "Sung Han-bin",
+          "Zhang Hao",
+          "Kim Ji-woong",
+          "Seok Matthew"
+        ],
+        "correct": 1,
+        "fun_fact": "His prize for first place was a solo song, Always, which closes the debut EP Youth in the Shade.",
+        "source": "https://en.wikipedia.org/wiki/Youth_in_the_Shade"
+      },
+      {
+        "question": "ZEROBASEONE debuted in 2023 under which CJ ENM label?",
+        "options": [
+          "Cube Entertainment",
+          "Starship Entertainment",
+          "Pledis Entertainment",
+          "WakeOne"
+        ],
+        "correct": 3,
+        "fun_fact": "WakeOne began in 2014 as MMO Entertainment, a name taken from Music Makes One, the slogan of the music channel Mnet.",
+        "source": "https://en.wikipedia.org/wiki/WakeOne"
+      },
+      {
+        "question": "The name ZEROBASEONE describes the members' journey from what to what?",
+        "options": [
+          "From one to nine",
+          "From zero to one",
+          "From the base to the summit",
+          "From dawn to dusk"
+        ],
+        "correct": 1,
+        "fun_fact": "When the group formed in 2023, the name was explained as nine trainees starting from zero and becoming one after their debut; it is shortened to ZB1.",
+        "source": "https://en.wikipedia.org/wiki/Zerobaseone"
+      },
+      {
+        "question": "Which song led ZEROBASEONE's July 2023 debut EP, Youth in the Shade?",
+        "options": [
+          "Crush",
+          "Feel the Pop",
+          "In Bloom",
+          "Sweat"
+        ],
+        "correct": 2,
+        "fun_fact": "Youth in the Shade went on to become the first K-pop debut album to sell more than two million copies.",
+        "source": "https://en.wikipedia.org/wiki/Youth_in_the_Shade"
+      },
+      {
+        "question": "In Bloom samples the main riff of which 1984 hit?",
+        "options": [
+          "Careless Whisper",
+          "Smalltown Boy",
+          "Take On Me",
+          "Girls Just Want to Have Fun"
+        ],
+        "correct": 2,
+        "fun_fact": "The sampled riff comes from the Norwegian band a-ha, and Billboard later put In Bloom on its list of the 25 best K-pop songs of 2023.",
+        "source": "https://en.wikipedia.org/wiki/In_Bloom_(Zerobaseone_song)"
+      },
+      {
+        "question": "Eight days after debuting, ZEROBASEONE took their first trophy on which program?",
+        "options": [
+          "Inkigayo",
+          "Music Bank",
+          "M Countdown",
+          "The Show"
+        ],
+        "correct": 3,
+        "fun_fact": "Less than a month later, on August 15, 2023, the group held its first fan concert at Gocheok Sky Dome for an audience of 18,000.",
+        "source": "https://en.wikipedia.org/wiki/Zerobaseone"
+      },
+      {
+        "question": "Which single led ZEROBASEONE's second EP, Melting Point, in November 2023?",
+        "options": [
+          "Crush",
+          "Good So Bad",
+          "Feel the Pop",
+          "Blue"
+        ],
+        "correct": 0,
+        "fun_fact": "The EP title draws a parallel between ice melting at 0 degrees Celsius and the group's drive to build a new world with its music.",
+        "source": "https://en.wikipedia.org/wiki/Melting_Point_(EP)"
+      },
+      {
+        "question": "What was ZEROBASEONE's sweep of rookie prizes across 2023 and 2024 called?",
+        "options": [
+          "Perfect All-Kill",
+          "Rookie Grand Slam",
+          "Triple Crown",
+          "Daesang Sweep"
+        ],
+        "correct": 1,
+        "fun_fact": "They took ten Rookie of the Year awards at domestic ceremonies, including the Golden Disc, MAMA, Melon and Seoul Music Awards.",
+        "source": "https://en.wikipedia.org/wiki/Zerobaseone"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Boys_Planet",
+      "https://en.wikipedia.org/wiki/Youth_in_the_Shade",
+      "https://en.wikipedia.org/wiki/WakeOne",
+      "https://en.wikipedia.org/wiki/Zerobaseone",
+      "https://en.wikipedia.org/wiki/In_Bloom_(Zerobaseone_song)",
+      "https://en.wikipedia.org/wiki/Melting_Point_(EP)",
+      "https://www.nme.com/news/music/zerobaseone-in-bloom-boys-planet-3465475",
+      "https://www.koreaherald.com/view.php?ud=20230711000665"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-14",
+    "title": "K-pop Agency Founders",
+    "description": "Who started SM, YG, Big Hit, Cube, Pledis, FNC and more? Ten questions on K-pop agencies, their founders and how they began.",
+    "group_slug": null,
+    "category": "knowledge",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "Lee Soo-man's company took the name SM Entertainment in which year?",
+        "options": [
+          "2001",
+          "1985",
+          "1995",
+          "2008"
+        ],
+        "correct": 2,
+        "fun_fact": "SM had started out as SM Studio in 1989, and under its new name it launched the boy band H.O.T. in 1996.",
+        "source": "https://en.wikipedia.org/wiki/SM_Entertainment"
+      },
+      {
+        "question": "Yang Hyun-suk, a former member of Seo Taiji and Boys, founded which agency?",
+        "options": [
+          "YG Entertainment",
+          "SM Entertainment",
+          "JYP Entertainment",
+          "DSP Media"
+        ],
+        "correct": 0,
+        "fun_fact": "YG began as Hyun Planning and was later renamed Yang Goon Planning, after Yang Hyun-suk's nickname Yang Goon.",
+        "source": "https://en.wikipedia.org/wiki/YG_Entertainment"
+      },
+      {
+        "question": "Who founded Big Hit Entertainment, the company known today as HYBE?",
+        "options": [
+          "Han Sung-soo",
+          "Lee Jung-yeop",
+          "Bang Si-hyuk",
+          "Hong Seung-sung"
+        ],
+        "correct": 2,
+        "fun_fact": "Big Hit was set up in 2005, signed the vocal trio 8Eight in 2007 and debuted BTS on June 13, 2013.",
+        "source": "https://en.wikipedia.org/wiki/Hybe"
+      },
+      {
+        "question": "Hong Seung-sung, a former president of JYP, co-founded which agency in 2006?",
+        "options": [
+          "Cube Entertainment",
+          "Woollim Entertainment",
+          "FNC Entertainment",
+          "Starship Entertainment"
+        ],
+        "correct": 0,
+        "fun_fact": "Cube was founded as Playcube Inc., and its first two groups debuted in 2009: 4Minute in June and Beast in October.",
+        "source": "https://en.wikipedia.org/wiki/Cube_Entertainment"
+      },
+      {
+        "question": "Pledis Entertainment, founded by Han Sung-soo in 2007, is named after what?",
+        "options": [
+          "A river in Seoul",
+          "A Greek goddess",
+          "A Latin word for pleasure",
+          "The Pleiades star cluster"
+        ],
+        "correct": 3,
+        "fun_fact": "Son Dam-bi was the first artist to debut under Pledis, and After School became its first girl group in 2009.",
+        "source": "https://en.wikipedia.org/wiki/Pledis_Entertainment"
+      },
+      {
+        "question": "Singer and producer Han Seong-ho founded which agency in 2006?",
+        "options": [
+          "Pledis Entertainment",
+          "FNC Entertainment",
+          "Jellyfish Entertainment",
+          "KQ Entertainment"
+        ],
+        "correct": 1,
+        "fun_fact": "FNC stands for fish and cake, and the label is home to the band N.Flying and the groups SF9 and P1Harmony.",
+        "source": "https://en.wikipedia.org/wiki/FNC_Entertainment"
+      },
+      {
+        "question": "Lee Jung-yeop founded which agency in 2003, later the home of Infinite?",
+        "options": [
+          "Cube Entertainment",
+          "Woollim Entertainment",
+          "Jellyfish Entertainment",
+          "Starship Entertainment"
+        ],
+        "correct": 1,
+        "fun_fact": "Infinite debuted in June 2010 as Woollim's first boy group, and Lovelyz followed in November 2014 as its first girl group.",
+        "source": "https://en.wikipedia.org/wiki/Woollim_Entertainment"
+      },
+      {
+        "question": "Which rapper was the first artist Psy signed to his agency P Nation, in January 2019?",
+        "options": [
+          "CL",
+          "Jamie",
+          "Lee Young-ji",
+          "Jessi"
+        ],
+        "correct": 3,
+        "fun_fact": "Psy founded P Nation after leaving YG Entertainment in 2018, and in 2021 the label teamed up with JYP for the survival show Loud.",
+        "source": "https://en.wikipedia.org/wiki/P_Nation"
+      },
+      {
+        "question": "YG producer Teddy Park co-founded which label?",
+        "options": [
+          "KQ Entertainment",
+          "P Nation",
+          "High Up Entertainment",
+          "The Black Label"
+        ],
+        "correct": 3,
+        "fun_fact": "The label's first girl group, MEOVV, debuted on September 6, 2024.",
+        "source": "https://en.wikipedia.org/wiki/The_Black_Label"
+      },
+      {
+        "question": "Which production duo founded High Up Entertainment, the agency of STAYC?",
+        "options": [
+          "Duble Sidekick",
+          "LDN Noise",
+          "Black Eyed Pilseung",
+          "Sweetune"
+        ],
+        "correct": 2,
+        "fun_fact": "High Up was set up in 2017 together with CJ E&M, and STAYC debuted on November 12, 2020 with So Bad.",
+        "source": "https://en.wikipedia.org/wiki/High_Up_Entertainment"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/SM_Entertainment",
+      "https://www.wikidata.org/wiki/Q483938",
+      "https://www.koreatimes.co.kr/entertainment/k-pop/20250203/sm-entertainment-founder-lee-soo-man-expands-beyond-k-pop",
+      "https://en.wikipedia.org/wiki/YG_Entertainment",
+      "https://www.wikidata.org/wiki/Q50595",
+      "https://en.wikipedia.org/wiki/Hybe",
+      "https://en.wikipedia.org/wiki/BigHit_Music",
+      "https://www.wikidata.org/wiki/Q16161254",
+      "https://en.wikipedia.org/wiki/Cube_Entertainment",
+      "https://www.koreaherald.com/article/1701761",
+      "https://en.wikipedia.org/wiki/Pledis_Entertainment",
+      "https://www.koreaherald.com/article/2653970",
+      "https://en.wikipedia.org/wiki/FNC_Entertainment",
+      "https://www.koreatimes.co.kr/www/art/2024/10/398_130953.html",
+      "https://en.wikipedia.org/wiki/Woollim_Entertainment",
+      "https://www.koreatimes.co.kr/entertainment/k-pop/20230521/2nd-generation-boy-bands-return-to-shake-up-k-pop-scene",
+      "https://en.wikipedia.org/wiki/P_Nation",
+      "https://www.wikidata.org/wiki/Q61410007",
+      "https://en.wikipedia.org/wiki/The_Black_Label",
+      "https://www.wikidata.org/wiki/Q24866458",
+      "https://en.wikipedia.org/wiki/High_Up_Entertainment",
+      "https://www.koreatimes.co.kr/entertainment/k-pop/20220221/small-k-pop-labels-rising"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-15",
+    "title": "LE SSERAFIM: The EASY to HOT Era",
+    "description": "LE SSERAFIM in 2024 and 2025: the EPs Easy, Crazy and Hot, their Billboard firsts, remixes, awards and first world tour.",
+    "group_slug": "le-sserafim",
+    "category": "era",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "When LE SSERAFIM's EP Easy entered the Billboard 200 at No. 8 in 2024, which group's EP was No. 1?",
+        "options": [
+          "Stray Kids",
+          "aespa",
+          "NewJeans",
+          "TWICE"
+        ],
+        "correct": 3,
+        "fun_fact": "TWICE topped the chart with With You-th, making them and LE SSERAFIM the first all-female K-pop acts in the Billboard 200 top 10 together.",
+        "source": "https://www.billboard.com/music/chart-beat/twice-le-sserafim-first-2-all-female-k-pop-groups-billboard-200-top-10-together-1235621542/"
+      },
+      {
+        "question": "Which 2024 single gave LE SSERAFIM their first entry on the Billboard Hot 100?",
+        "options": [
+          "Smart",
+          "Crazy",
+          "Easy",
+          "Hot"
+        ],
+        "correct": 2,
+        "fun_fact": "Easy also peaked at No. 3 on the Circle Digital Chart and won nine first place trophies on Korean music shows.",
+        "source": "https://en.wikipedia.org/wiki/Easy_(Le_Sserafim_song)"
+      },
+      {
+        "question": "Smart, the second single from the EP Easy, was described as which style of song?",
+        "options": [
+          "Bossa nova ballad",
+          "Drum and bass",
+          "Country rock",
+          "Afropop-inspired amapiano"
+        ],
+        "correct": 3,
+        "fun_fact": "Huh Yunjin is among its co-writers, and an English version arrived on March 22, 2024 along with a set of remixes.",
+        "source": "https://en.wikipedia.org/wiki/Smart_(song)"
+      },
+      {
+        "question": "Which dance style shapes the choreography of LE SSERAFIM's 2024 single Crazy?",
+        "options": [
+          "Krumping",
+          "Voguing",
+          "Tap dance",
+          "Breakdancing"
+        ],
+        "correct": 1,
+        "fun_fact": "In the video the members dance with the House of Juicy Couture vogue team, and a remix with ballroom performer Dashaun Wesley followed.",
+        "source": "https://en.wikipedia.org/wiki/Crazy_(Le_Sserafim_song)"
+      },
+      {
+        "question": "Which French DJ and producer released a remix of Crazy in September 2024?",
+        "options": [
+          "David Guetta",
+          "Martin Garrix",
+          "Calvin Harris",
+          "Kygo"
+        ],
+        "correct": 0,
+        "fun_fact": "His remix came out on September 9, a few days after a version featuring the British singer PinkPantheress.",
+        "source": "https://en.wikipedia.org/wiki/Crazy_(Le_Sserafim_song)"
+      },
+      {
+        "question": "At the 2024 MTV Video Music Awards, which prize did LE SSERAFIM win for Easy?",
+        "options": [
+          "Best K-Pop",
+          "PUSH Performance of the Year",
+          "Video of the Year",
+          "Best New Artist"
+        ],
+        "correct": 1,
+        "fun_fact": "At the same ceremony the group performed 1-800-Hot-N-Fun and Crazy on the pre-show.",
+        "source": "https://en.wikipedia.org/wiki/2024_MTV_Video_Music_Awards"
+      },
+      {
+        "question": "Which British singer joined the April 2025 remix of LE SSERAFIM's Hot?",
+        "options": [
+          "Jade",
+          "Dua Lipa",
+          "PinkPantheress",
+          "Charli XCX"
+        ],
+        "correct": 0,
+        "fun_fact": "Hot led the group's fifth EP, released on March 14, 2025, and won first place on Music Bank, Inkigayo and Show! Music Core.",
+        "source": "https://en.wikipedia.org/wiki/Hot_(Le_Sserafim_song)"
+      },
+      {
+        "question": "In which city did LE SSERAFIM open the Easy Crazy Hot Tour on April 19, 2025?",
+        "options": [
+          "Tokyo",
+          "Los Angeles",
+          "Incheon",
+          "Manila"
+        ],
+        "correct": 2,
+        "fun_fact": "Their first world tour ran to 31 shows in Asia and North America and grossed 34.1 million dollars.",
+        "source": "https://en.wikipedia.org/wiki/Easy_Crazy_Hot_Tour"
+      },
+      {
+        "question": "Which BTS member is featured on LE SSERAFIM's October 2025 single Spaghetti?",
+        "options": [
+          "Jungkook",
+          "RM",
+          "Jimin",
+          "J-Hope"
+        ],
+        "correct": 3,
+        "fun_fact": "Billboard noted it was his first team-up with a K-pop girl group, and the single album came out on October 24, 2025.",
+        "source": "https://www.billboard.com/music/music-news/le-sserafim-bts-j-hope-spaghetti-collaboration-1236092773/"
+      },
+      {
+        "question": "Which Japanese duo released The Noise with LE SSERAFIM in September 2025?",
+        "options": [
+          "YOASOBI",
+          "Yuzu",
+          "Chemistry",
+          "KinKi Kids"
+        ],
+        "correct": 0,
+        "fun_fact": "The song samples the duo's 2019 single Yoru ni Kakeru and was made for the 20th anniversary of the fashion site Zozotown.",
+        "source": "https://en.wikipedia.org/wiki/The_Noise_(song)"
+      }
+    ],
+    "sources": [
+      "https://www.billboard.com/music/chart-beat/twice-le-sserafim-first-2-all-female-k-pop-groups-billboard-200-top-10-together-1235621542/",
+      "https://www.billboard.com/music/chart-beat/le-sserafim-hot-100-debut-easy-new-ep-1235622235/",
+      "https://en.wikipedia.org/wiki/Easy_(Le_Sserafim_song)",
+      "https://en.wikipedia.org/wiki/Le_Sserafim",
+      "https://en.wikipedia.org/wiki/Smart_(song)",
+      "https://en.wikipedia.org/wiki/Crazy_(Le_Sserafim_song)",
+      "https://en.wikipedia.org/wiki/2024_MTV_Video_Music_Awards",
+      "https://en.wikipedia.org/wiki/Hot_(Le_Sserafim_song)",
+      "https://en.wikipedia.org/wiki/Easy_Crazy_Hot_Tour",
+      "https://www.billboard.com/music/music-news/le-sserafim-bts-j-hope-spaghetti-collaboration-1236092773/",
+      "https://en.wikipedia.org/wiki/Spaghetti_(song)",
+      "https://en.wikipedia.org/wiki/The_Noise_(song)"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-16",
+    "title": "K-pop Songs About Magic",
+    "description": "Ten K-pop songs tied to magic, spells, wishes and fairy tales, from BTS's Magic Shop to Red Velvet's Zimzalabim.",
+    "group_slug": null,
+    "category": "fun",
+    "quiz_type": "multiple_choice",
+    "difficulty": "easy",
+    "questions": [
+      {
+        "question": "BTS's 2018 song Magic Shop comes from which album?",
+        "options": [
+          "Love Yourself: Tear",
+          "Map of the Soul: 7",
+          "BE",
+          "Wings"
+        ],
+        "correct": 0,
+        "fun_fact": "The song was inspired by Into the Magic Shop, a memoir by James R. Doty.",
+        "source": "https://en.wikipedia.org/wiki/BTS"
+      },
+      {
+        "question": "TXT's 2019 single 9 and Three Quarters (Run Away) nods to a platform from which wizard story?",
+        "options": [
+          "The Lord of the Rings",
+          "Percy Jackson",
+          "The Chronicles of Narnia",
+          "Harry Potter"
+        ],
+        "correct": 3,
+        "fun_fact": "It led TXT's first studio album, The Dream Chapter: Magic, and its video shows the members finding a world where they can embrace their magic.",
+        "source": "https://en.wikipedia.org/wiki/The_Dream_Chapter:_Magic"
+      },
+      {
+        "question": "Which hip-swinging move from Brown Eyed Girls' 2009 hit Abracadabra became a craze?",
+        "options": [
+          "The Tell Me Dance",
+          "The Horse Dance",
+          "The Arrogant Dance",
+          "The Penguin Dance"
+        ],
+        "correct": 2,
+        "fun_fact": "Its title was picked as a word meaning a conjuration, and the song spent three weeks at No. 1 on the Mnet music portal.",
+        "source": "https://en.wikipedia.org/wiki/Abracadabra_(Brown_Eyed_Girls_song)"
+      },
+      {
+        "question": "Which group released Zimzalabim, a 2019 song about letting a little magic back into life?",
+        "options": [
+          "Red Velvet",
+          "Apink",
+          "TWICE",
+          "GFRIEND"
+        ],
+        "correct": 0,
+        "fun_fact": "It led The ReVe Festival: Day 1, the first part of a trilogy, and earned the group five music show trophies.",
+        "source": "https://en.wikipedia.org/wiki/Zimzalabim"
+      },
+      {
+        "question": "Girls' Generation's 2009 hit Genie has a Korean title meaning what?",
+        "options": [
+          "Tell Me Your Wish",
+          "Make a Wish Tonight",
+          "Rub the Magic Lamp",
+          "Wish Upon a Star"
+        ],
+        "correct": 0,
+        "fun_fact": "A critic noted the lyrics use a lamp, a genie and Aladdin as metaphors, and the video opens with Yoona sitting in a giant lamp.",
+        "source": "https://en.wikipedia.org/wiki/Genie_(Girls%27_Generation_song)"
+      },
+      {
+        "question": "In IVE's 2024 video for Accendio, the members try to protect what object?",
+        "options": [
+          "A crystal ball",
+          "A heart-shaped magic wand",
+          "A golden key",
+          "A book of spells"
+        ],
+        "correct": 1,
+        "fun_fact": "They are told to guard it until midnight to gain special powers, then fight dark versions of themselves for it.",
+        "source": "https://www.nme.com/news/music/ive-switch-accendio-music-video-release-3756753"
+      },
+      {
+        "question": "Which rock band's 2015 single Cinderella was a modern take on the European folktale?",
+        "options": [
+          "FTISLAND",
+          "CNBLUE",
+          "DAY6",
+          "N.Flying"
+        ],
+        "correct": 1,
+        "fun_fact": "Vocalist Jung Yong-hwa wrote and composed it, and the song went on to earn five music show wins.",
+        "source": "https://en.wikipedia.org/wiki/Cinderella_(CNBLUE_song)"
+      },
+      {
+        "question": "IU's 2013 hit The Red Shoes was inspired by a fairy tale written by whom?",
+        "options": [
+          "Charles Perrault",
+          "The Brothers Grimm",
+          "Hans Christian Andersen",
+          "Lewis Carroll"
+        ],
+        "correct": 2,
+        "fun_fact": "It led her album Modern Times, and the plot of its music video was adapted from the 1948 British film The Red Shoes.",
+        "source": "https://en.wikipedia.org/wiki/Modern_Times_(IU_album)"
+      },
+      {
+        "question": "Gugudan debuted in 2016 with Wonderland, from an EP named after which fairy tale?",
+        "options": [
+          "Snow White",
+          "Sleeping Beauty",
+          "Rapunzel",
+          "The Little Mermaid"
+        ],
+        "correct": 3,
+        "fun_fact": "The debut EP, Act. 1 The Little Mermaid, came out on June 28, 2016, and the group followed it with Act. 2 Narcissus in 2017.",
+        "source": "https://en.wikipedia.org/wiki/Act._1_The_Little_Mermaid"
+      },
+      {
+        "question": "ITZY's 2022 single Cheshire borrows the concept of a famous cat from which story?",
+        "options": [
+          "Puss in Boots",
+          "The Jungle Book",
+          "Alice in Wonderland",
+          "The Wizard of Oz"
+        ],
+        "correct": 2,
+        "fun_fact": "The song came out with its EP on November 30, 2022. Ryujin said the cat helped the group express an ambiguous feeling, and the video plays out like a game show.",
+        "source": "https://www.koreajoongangdaily.com/entertainment/itzy-wants-you-to-believe-in-yourself-with-new-ep-cheshire/11814426"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/BTS",
+      "https://en.wikipedia.org/wiki/Love_Yourself:_Tear",
+      "https://en.wikipedia.org/wiki/The_Dream_Chapter:_Magic",
+      "https://en.wikipedia.org/wiki/Abracadabra_(Brown_Eyed_Girls_song)",
+      "https://en.wikipedia.org/wiki/Zimzalabim",
+      "https://en.wikipedia.org/wiki/Genie_(Girls%27_Generation_song)",
+      "https://www.nme.com/news/music/ive-switch-accendio-music-video-release-3756753",
+      "https://en.wikipedia.org/wiki/Ive_Switch",
+      "https://en.wikipedia.org/wiki/Cinderella_(CNBLUE_song)",
+      "https://en.wikipedia.org/wiki/Modern_Times_(IU_album)",
+      "https://en.wikipedia.org/wiki/Act._1_The_Little_Mermaid",
+      "https://en.wikipedia.org/wiki/As_You_Wish",
+      "https://www.koreajoongangdaily.com/entertainment/wjsns-as-you-wish-tops-local-charts-on-new-years-day-for-fourth-straight-year/11803100",
+      "https://www.koreajoongangdaily.com/entertainment/itzy-wants-you-to-believe-in-yourself-with-new-ep-cheshire/11814426"
+    ]
+  },
+  {
+    "scheduled_date": "2026-11-17",
+    "title": "TREASURE True or False",
+    "description": "True or false? Test what you know about TREASURE, from YG Treasure Box and Boy to their Japanese releases and tours.",
+    "group_slug": "treasure",
+    "category": "true_false",
+    "quiz_type": "true_false",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "question": "29 trainees competed on YG Treasure Box, the program that led to TREASURE.",
+        "correct": true,
+        "fun_fact": "The final seven were introduced as TREASURE, a second unit called Magnum followed, and the two were later merged under one name.",
+        "source": "https://en.wikipedia.org/wiki/Treasure_(band)"
+      },
+      {
+        "question": "The First Step series ended with TREASURE's first EP in January 2021.",
+        "correct": false,
+        "fun_fact": "It ended with their first studio album, The First Step: Treasure Effect, and the series sold one million copies in five months.",
+        "source": "https://en.wikipedia.org/wiki/Treasure_(band)"
+      },
+      {
+        "question": "The music video for Boy became TREASURE's first to pass 100 million views on YouTube.",
+        "correct": true,
+        "fun_fact": "The video for the debut single passed 10 million views within 26 hours of its release in August 2020.",
+        "source": "https://en.wikipedia.org/wiki/Treasure_(band)"
+      },
+      {
+        "question": "Orange, TREASURE's first self-produced song, was composed by Jihoon.",
+        "correct": false,
+        "fun_fact": "Asahi composed it with Future Bounce, his first credit as a composer, and it appeared on The First Step: Chapter Three in 2020.",
+        "source": "https://en.wikipedia.org/wiki/The_First_Step:_Chapter_Three"
+      },
+      {
+        "question": "Beautiful, TREASURE's first original Japanese song, was made for the anime Black Clover.",
+        "correct": true,
+        "fun_fact": "It served as the anime's 13th ending theme and led the Japanese version of their debut studio album.",
+        "source": "https://en.wikipedia.org/wiki/Beautiful_(Treasure_song)"
+      },
+      {
+        "question": "TREASURE won their first music show trophy with Boy in 2020.",
+        "correct": false,
+        "fun_fact": "Their first trophy came in 2022 on Show Champion with Jikjin, the lead single of their first EP, The Second Step: Chapter One.",
+        "source": "https://en.wikipedia.org/wiki/Treasure_(band)"
+      },
+      {
+        "question": "TREASURE's first concert tour of Japan, which began in November 2022, drew about 300,000 fans.",
+        "correct": true,
+        "fun_fact": "The tour was later extended into the Hello tour across Asia, with an estimated 420,000 people in total.",
+        "source": "https://en.wikipedia.org/wiki/Treasure_(band)"
+      },
+      {
+        "question": "TREASURE's 2023 fan meeting tour of Japan ended with a show at Tokyo Dome on November 12.",
+        "correct": true,
+        "fun_fact": "The fan meeting tour opened in Fukuoka on September 2, 2023 and visited five Japanese cities before its Tokyo Dome finale.",
+        "source": "https://koreajoongangdaily.joins.com/2023/08/04/entertainment/kpop/treasure-yg/20230804150343796.html"
+      },
+      {
+        "question": "King Kong was the lead single of TREASURE's 2023 album Reboot.",
+        "correct": false,
+        "fun_fact": "Reboot was led by Bona Bona, with the T5 single Move as a pre-release; King Kong came out as a digital single on May 28, 2024.",
+        "source": "https://en.wikipedia.org/wiki/Treasure_(band)"
+      },
+      {
+        "question": "TREASURE had nine members when they debuted in 2020.",
+        "correct": false,
+        "fun_fact": "They debuted with twelve members. Mashiho and Bang Ye-dam left in November 2022, and TREASURE continued as ten.",
+        "source": "https://en.wikipedia.org/wiki/Treasure_(band)"
+      }
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Treasure_(band)",
+      "https://en.wikipedia.org/wiki/The_First_Step:_Chapter_One",
+      "https://en.wikipedia.org/wiki/The_First_Step:_Chapter_Three",
+      "https://en.wikipedia.org/wiki/Beautiful_(Treasure_song)",
+      "https://en.wikipedia.org/wiki/Reboot_(Treasure_album)",
+      "https://www.koreaherald.com/article/2790367",
+      "https://www.koreatimes.co.kr/entertainment/k-pop/20200810/interview-ygs-treasure-begins-journey-to-find-own-color",
+      "https://koreajoongangdaily.joins.com/2023/01/30/entertainment/kpop/Korea-Kpop-Treasure/20230130153052997.html",
+      "https://koreajoongangdaily.joins.com/2023/08/04/entertainment/kpop/treasure-yg/20230804150343796.html"
+    ]
+  }
+]

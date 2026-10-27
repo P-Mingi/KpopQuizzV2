@@ -263,7 +263,8 @@ describe('the kpop quiz page /q/{slug} keeps its tree', () => {
     quiz_of_the_day_date: null, updated_at: '2026-10-01T12:00:00Z', creator_id: 'u-1', group_id: 3,
   } as unknown as QuizWithGroup;
   const args = (related: QuizCardData[]): Parameters<typeof import('@/app/(site)/q/[slug]/ux-page').renderUxQuizPage>[0] => ({
-    quiz, questionCount: 11, intro: 'Eleven questions about BTS, from the debut to the latest era.', introAvg: 64, perQuestionScore: true,
+    // Fusion A5: main's page passes the shown title (qualifiedQuizTitle); this title is not a generic one, so it is the title itself.
+    quiz, heading: quiz.title, questionCount: 11, intro: 'Eleven questions about BTS, from the debut to the latest era.', introAvg: 64, perQuestionScore: true,
     extraStats: { fastestTimeSeconds: 48, perfectScoreCount: 7, passingPlays: 60, totalPlaysWithScore: 90 }, passRate: 66,
     seoQuestions: [
       { question: 'Which member is the oldest?', options: ['Jin', 'Suga', 'RM', 'V'], correct: 0, fun_fact: 'Jin was born in 1992.' },

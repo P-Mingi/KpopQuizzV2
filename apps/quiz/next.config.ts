@@ -1,3 +1,6 @@
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
 import type { NextConfig } from 'next';
 
 import { INDEXING_OPEN } from './src/lib/site/indexing';
@@ -14,6 +17,11 @@ const UX_V12_ON = on(process.env.NEXT_PUBLIC_UX_V1) && on(process.env.NEXT_PUBLI
 // /api/ux-v1/a0/styles serves for this build's flags, so its immutable address changes
 // whenever the CSS does, deployed from git or from the command line alike.
 const UX_CSS_VERSION = uxStylesheetVersion(buildUxStylesheet({ v12: UX_V12_ON }));
+
+// Mission U part B: the Deezer logo is shown only once its file is in the repo
+// (public/brand/deezer-logo.svg, added after the owner's OK). Until then the attribution is
+// text only and no page requests the file: no 404. Read at build time, from apps/quiz.
+const DEEZER_LOGO = existsSync(join(process.cwd(), 'public', 'brand', 'deezer-logo.svg')) ? '1' : '';
 
 // V12 G5: the groups that have a profile set in personality_profiles (read 2026-10-02).
 // "Which member are you" is relaunched for these only, and only with the flag on.
@@ -34,7 +42,7 @@ const nextConfig: NextConfig = {
   // Run O1: a non-kpop build inlines its resolved site id, so a build set with the server alias
   // SITE_ID alone gives client code the same answer (contract flags-env.md).
   env: {
-    NEXT_PUBLIC_BT_TRACKING: process.env.NEXT_PUBLIC_BT_TRACKING ?? '', UX_CSS_VERSION,
+    NEXT_PUBLIC_BT_TRACKING: process.env.NEXT_PUBLIC_BT_TRACKING ?? '', UX_CSS_VERSION, NEXT_PUBLIC_DEEZER_LOGO: DEEZER_LOGO,
     ...(SITE_ID === 'kpop' ? {} : { NEXT_PUBLIC_SITE_ID: SITE_ID }),
   },
   async redirects() {

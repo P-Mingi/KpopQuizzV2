@@ -17,6 +17,7 @@ import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { haptic } from '@/lib/haptics';
 import { getResultLabel } from '@/lib/korean-moments';
 import { getTitleForLevel } from '@/lib/level-titles';
+import { levelFor } from '@/lib/quiz/result-levels';
 import { playPerfect } from '@/lib/sounds';
 import { SITE } from '@/lib/site/registry';
 import { formatCount } from '@/lib/utils';
@@ -133,6 +134,8 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
   }, [quiz.id, result.score, signedIn, extras.outcome, claimed]);
 
   const passed = pct >= 60;
+  // SEO Mission 2: a level-result quiz names the level reached (lib/quiz/result-levels.ts).
+  const level = quiz.resultLevels && quiz.resultLevels.length > 0 ? levelFor(pct, quiz.resultLevels) : null;
   const streak = me?.profile ? streakView(me.profile.daily_streak, me.profile.last_daily_date) : null;
   const streakSaved = streak && streak.state === 'played_today' ? streak.days : null;
   const levelTitle = result.leveledUp && result.newLevel !== null ? getTitleForLevel(result.newLevel) : null;
@@ -174,6 +177,14 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
           <img className={`p4-msc${pct >= 50 ? ' is-bob' : ''}`} src={pct >= 50 ? '/mascot/mascot-celebrate.png' : '/mascot/mascot-sad.png'} alt="" width={68} height={68} />
         ) : null}
       </div>
+
+      {level ? (
+        <p className="p4-level" data-testid="p4-level">
+          <span className="p4-level-k">Your level</span>
+          <b className="p4-level-n">{level.name}</b>
+          <span className="p4-level-b">{level.blurb}</span>
+        </p>
+      ) : null}
 
       <div className="p4-xpline" data-testid="p4-xpline">
         {signedIn === true || claimed ? (

@@ -20,10 +20,10 @@ describe('F4: leaderboards show real accounts only', () => {
     expect(filesWith(/weekly-leaderboard-padding|padWeeklyLeaderboard|FAKE_USERS/)).toEqual([]);
   });
 
-  it('/pt/leaderboard hands the fetched weekly rows straight to the tabs', () => {
-    const page = files.find((f) => f.path === 'app/(site)/pt/leaderboard/page.tsx')!.text;
-    expect(page).toMatch(/const \[weekly, allTime, topPlayers\] = await Promise\.all\(/);
-    expect(page).toMatch(/<LeaderboardTabs weekly=\{weekly\}/);
+  // /pt/leaderboard was deleted with the Portuguese mirror (owner, 2026-10-23): its guard went
+  // with it; the old URL now 301s to /leaderboard, guarded above.
+  it('the Portuguese leaderboard page is gone', () => {
+    expect(existsSync(join(src, 'app/(site)/pt/leaderboard/page.tsx'))).toBe(false);
   });
 });
 

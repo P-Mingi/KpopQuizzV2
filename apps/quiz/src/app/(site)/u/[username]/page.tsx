@@ -11,12 +11,12 @@ import { ProfileOwnerControls } from '@/components/profile/profile-owner-control
 import { ModNotifyButton } from '@/components/profile/mod-notify-button';
 import { FanCardShare } from '@/components/profile/fan-card-share';
 import { FollowButton } from '@/components/profile/follow-button';
-import { safeFetch } from '@/lib/error-handling';
 import { formatJoinDate } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { readPassportSpine, readPassportGroupStats, readCollectionProgress } from '@/lib/passport';
 import { passportAccent } from '@/lib/passport-themes';
+import { READ_FAILED, failClosed, failedReads, read, readAll } from '@/lib/ux-v1/p3/reads';
 import { UX_V1 } from '@/lib/ux-v1';
 
 import type { Metadata } from 'next';
@@ -42,15 +42,28 @@ interface ProfilePageProps {
   params: Promise<{ username: string }>;
 }
 
+/**
+ * The profile row, tried twice (owner, 2026-10-25: the bursts of reads after a deploy). A
+ * profile that cannot be read throws: a database blip is never cached as a 404 on a real profile.
+ */
+async function profileOr404(username: string, label: string): Promise<NonNullable<Awaited<ReturnType<typeof getProfileByUsername>>>> {
+  const { profile } = await readAll({ profile: () => read(getProfileByUsername(username), label) });
+  if (profile === READ_FAILED) throw new Error(`[u/[username]] the profile of ${username} could not be read after a retry`);
+  if (!profile) notFound();
+  return profile;
+}
+
+/** A Supabase query whose error becomes a throw, so read() sees it as a failed read. */
+function orThrow<T extends { error: { message: string } | null }>(label: string, q: PromiseLike<T>): Promise<T> {
+  return Promise.resolve(q).then((r) => {
+    if (r.error) throw new Error(`${label}: ${r.error.message}`);
+    return r;
+  });
+}
+
 export async function generateMetadata({ params }: ProfilePageProps): Promise<Metadata> {
   const { username } = await params;
-  const profile = await safeFetch(
-    getProfileByUsername(username),
-    null,
-    '[u/[username] metadata] getProfileByUsername',
-  );
-
-  if (!profile) notFound();
+  const profile = await profileOr404(username, '[u/[username] metadata] getProfileByUsername');
 
   const displayName = profile.display_name ?? profile.username;
   const description = `${displayName}'s K-pop quizzes on KpopQuiz. ${profile.total_quizzes_created} quizzes created, ${profile.total_plays_received.toLocaleString('en-US')} total plays.`;
@@ -87,24 +100,40 @@ const cardWrap: React.CSSProperties = {
 
 export default async function ProfilePage({ params }: ProfilePageProps): Promise<React.ReactElement> {
   const { username } = await params;
-  const profile = await safeFetch(getProfileByUsername(username), null, '[u/[username]] getProfileByUsername');
-  if (!profile) notFound();
+  const profile = await profileOr404(username, '[u/[username]] getProfileByUsername');
 
   const db = createPublicReadClient();
 
-  const [spine, groupStats, collection, groupsRes, initialQuizzes, badgeDefsResult, userBadgesResult] = await Promise.all([
-    readPassportSpine(db, profile.id),
-    readPassportGroupStats(db, profile.id),
-    readCollectionProgress(db, profile.id),
-    Promise.resolve(db.from('groups').select('id, name, slug, logo_url, display_color')),
-    safeFetch(getQuizzesByCreator(profile.id, 0, 10), [], '[u/[username]] getQuizzesByCreator'),
-    safeFetch(Promise.resolve(db.from('badge_definitions').select('*').order('sort_order')), { data: null } as { data: unknown }, '[u/[username]] badge_definitions'),
-    safeFetch(Promise.resolve(db.from('user_badges').select('badge_id, earned_at').eq('user_id', profile.id)), { data: null } as { data: unknown }, '[u/[username]] user_badges'),
-  ]);
+  // Every read is tried twice (reads.ts). One that still fails leaves its block out (never a
+  // made-up zero) and the page is served with a 60 s revalidate instead of 1 h: never a 500.
+  const got = await readAll({
+    spine: () => read(readPassportSpine(db, profile.id), '[u/[username]] readPassportSpine'),
+    groupStats: () => read(readPassportGroupStats(db, profile.id), '[u/[username]] readPassportGroupStats'),
+    collection: () => read(readCollectionProgress(db, profile.id), '[u/[username]] readCollectionProgress'),
+    groupsRes: () => read(orThrow('groups', db.from('groups').select('id, name, slug, logo_url, display_color')), '[u/[username]] groups'),
+    initialQuizzes: () => read(getQuizzesByCreator(profile.id, 0, 10), '[u/[username]] getQuizzesByCreator'),
+    badgeDefsResult: () => read(orThrow('badge_definitions', db.from('badge_definitions').select('*').order('sort_order')), '[u/[username]] badge_definitions'),
+    userBadgesResult: () => read(orThrow('user_badges', db.from('user_badges').select('badge_id, earned_at').eq('user_id', profile.id)), '[u/[username]] user_badges'),
+  });
+  await failClosed(`/u/${username}`, failedReads(got));
+  const spineFailed = got.spine === READ_FAILED;
+  const collectionFailed = got.collection === READ_FAILED;
+  // Without the group names a mastery row would read "Group 12": the block is left out too.
+  const groupsFailed = got.groupsRes === READ_FAILED;
+  // Earned badges without their definitions, or the reverse, would show every badge as not earned.
+  const badgesFailed = got.badgeDefsResult === READ_FAILED || got.userBadgesResult === READ_FAILED;
+  const ok = <T,>(v: T | typeof READ_FAILED, fallback: T): T => (v === READ_FAILED ? fallback : v);
+  const spine = ok(got.spine, null);
+  const groupStats = groupsFailed ? [] : ok(got.groupStats, []);
+  const collection = ok(got.collection, { groups_mastered: 0, groups_total: 0, eras: [] });
+  const groupRows = (ok(got.groupsRes, null)?.data ?? []) as Array<{ id: number; name: string; slug: string; logo_url: string | null; display_color: string }>;
+  const initialQuizzes = ok(got.initialQuizzes, []);
+  const badgeDefRows = badgesFailed ? [] : ((ok(got.badgeDefsResult, null)?.data ?? []) as BadgeDefinition[]);
+  const userBadgeRows = badgesFailed ? [] : ((ok(got.userBadgesResult, null)?.data ?? []) as UserBadge[]);
 
   const groupMeta = new Map<number, { name: string; logo: string | null; color: string }>();
   const bySlug = new Map<string, { name: string; color: string }>();
-  for (const g of (groupsRes.data ?? []) as Array<{ id: number; name: string; slug: string; logo_url: string | null; display_color: string }>) {
+  for (const g of groupRows) {
     groupMeta.set(g.id, { name: g.name, logo: g.logo_url, color: g.display_color });
     bySlug.set(g.slug, { name: g.name, color: g.display_color });
   }
@@ -130,11 +159,9 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       };
     });
 
-  const allBadges = (badgeDefsResult.data ?? []) as BadgeDefinition[];
-  const earnedBadgeIds = ((userBadgesResult.data ?? []) as UserBadge[]).map((b) => b.badge_id);
-  const badgeEarnedAt = Object.fromEntries(
-    ((userBadgesResult.data ?? []) as UserBadge[]).map((b) => [b.badge_id, b.earned_at]),
-  );
+  const allBadges = badgeDefRows;
+  const earnedBadgeIds = userBadgeRows.map((b) => b.badge_id);
+  const badgeEarnedAt = Object.fromEntries(userBadgeRows.map((b) => [b.badge_id, b.earned_at]));
   const levelInfo = getLevelInfo(profile.xp);
   const levelTitle = getTitleForLevel(levelInfo.level);
   const nextTitle = levelInfo.xpForNextLevel !== null ? getTitleForLevel(levelInfo.level + 1) : null;
@@ -200,7 +227,7 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       spine,
       groupStats,
       collection,
-      groups: (groupsRes.data ?? []) as Array<{ id: number; name: string; slug: string }>,
+      groups: groupRows,
       badgeDefs: allBadges,
       earnedBadgeIds,
       quizzes: initialQuizzes,
@@ -211,7 +238,9 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
       team: await readTeamIdentity(profile.id),
       now: Date.now(),
     });
-    return <UxPassport {...props} footer={<><ModNotifyButton recipientUsername={profile.username} />{jsonLd()}</>} />;
+    // A stat whose read failed is left out rather than shown as 0.
+    const stats = props.stats.filter((c) => !(spineFailed && c.label === 'streak') && !(collectionFailed && c.label === 'groups mastered'));
+    return <UxPassport {...props} stats={stats} footer={<><ModNotifyButton recipientUsername={profile.username} />{jsonLd()}</>} />;
   }
 
   return (

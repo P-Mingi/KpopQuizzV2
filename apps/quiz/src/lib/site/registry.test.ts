@@ -77,8 +77,10 @@ describe('kpop entry = today\'s literals', () => {
     expect(read(`${APP}public/${INDEXNOW_KEY}.txt`).trim()).toBe(INDEXNOW_KEY);
   });
 
-  it('llms.txt heading is the first line of app/llms.txt/route.ts', () => {
-    expect(read(`${SRC}app/llms.txt/route.ts`)).toContain(`const BODY = \`# ${kpop.seo.llmsTxt.title}\n`);
+  // Fusion A5: main builds /llms.txt in lib/seo/llms.ts (SEO Mission 3 F.4); the heading is the first line it returns.
+  it('llms.txt heading is the first line of lib/seo/llms.ts (app/llms.txt/route.ts calls it)', () => {
+    expect(read(`${SRC}app/llms.txt/route.ts`)).toContain("import { buildLlmsTxt } from '@/lib/seo/llms';");
+    expect(read(`${SRC}lib/seo/llms.ts`)).toContain(`return \`# ${kpop.seo.llmsTxt.title}\n`);
   });
 
   it('a kpop hub is noindex below 1 published quiz (group-quiz-page.tsx)', () => {

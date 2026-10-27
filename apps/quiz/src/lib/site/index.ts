@@ -17,7 +17,7 @@ export {
 export type { FlagScope, NetOriginEnv, O1Flag, SiteEnv } from './registry';
 export {
   AFTER_FILES_PATTERN, CATCH_ALL_PATTERN, INDEXNOW_KEY_FILE_RE, KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES,
-  PER_SITE_BRAND_FILES, PER_SITE_ROOT_FILES, SESSION_PATTERNS, SHARED_PREFIXES, SITES_PREFIX, TWIN_SAMPLES,
+  KPOP_ONLY_DOTTED_ROUTES, PER_SITE_BRAND_FILES, PER_SITE_ROOT_FILES, SESSION_PATTERNS, SHARED_PREFIXES, SITES_PREFIX, TWIN_SAMPLES,
   afterFilesFor, brandPath, compileRoutePattern, fallbackFor, indexNowKeyFile, internalPath, isKnownRouteFor, isKnownWithoutSitesEntry,
   isServedSite, isSessionPathFor, isSitesPath, keyFileBlocksFor, middlewareStep, redirectsFor, rewritesFor, siteStaticParams,
 } from './routing';

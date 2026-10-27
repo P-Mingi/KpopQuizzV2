@@ -4,6 +4,7 @@ import { GroupLogo } from '@/components/ui/group-logo';
 import { PersonCard } from '@/components/profile/person-card';
 import { formatCount } from '@/lib/utils';
 import { getInitials } from '@/lib/name-all-utils';
+import { generationShort, groupGeneration } from '@/lib/generations/generations';
 import type { Group } from '@/lib/db/types';
 import type { GroupNameAllGame, GroupFanKnowledge, GroupMvPulse, GroupComeback } from '@/lib/db/queries/group-hub';
 
@@ -35,7 +36,10 @@ export function GroupHubHero({
   const fandom = (group.fandom_name ?? '').trim();
   const showFandom = fandom.length > 0 && !PLACEHOLDER_FANDOMS.has(fandom.toLowerCase());
   const meta: string[] = [];
-  if (group.generation) meta.push(group.generation);
+  // The generation file first (SEO Mission 2, part C), groups.generation for a group it does not cover.
+  const genRec = groupGeneration(group.slug);
+  const gen = genRec ? (genRec.label ? generationShort(genRec.label) : null) : group.generation;
+  if (gen) meta.push(gen);
   if (memberCount && memberCount > 0) meta.push(`${memberCount} members`);
   meta.push(`${formatCount(group.quiz_count)} quizzes`);
   meta.push(`${formatCount(group.total_plays)} plays`);

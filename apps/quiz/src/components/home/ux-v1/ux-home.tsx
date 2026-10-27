@@ -1,7 +1,10 @@
+import Link from 'next/link';
+
 import { ActivityTicker } from '@/components/home/activity-ticker';
 import { UxPage } from '@/components/ux-v1/page';
 import { UxQuizCard, UxQuizGrid } from '@/components/ux-v1/quiz-card';
 import { SectionHeader } from '@/components/ux-v1/section-header';
+import { GENERATIONS_HUB_PATH } from '@/lib/generations/generations';
 import { getHomeBand, getHomeCommunity, getHomeGroups, getHomeLists, getHomeQotd } from '@/lib/ux-v1/p1/home-data';
 import { IS_KPOP, titleCase } from '@/lib/site/genre';
 import { SITE } from '@/lib/site/registry';
@@ -63,6 +66,12 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
             action={groups.visibleGroups > 0 ? { href: TOPICS_HREF, label: `All ${groups.visibleGroups} ${SITE.vocabulary.topicPlural}` } : { href: TOPICS_HREF, label: `All ${SITE.vocabulary.topicPlural}` }}
           />
           <GroupsRail groups={groups.groups} />
+          {/* SEO Mission 2, part C: the generations hub, linked with its cluster anchor (Run O1: a kpop page, so kpop only). */}
+          {IS_KPOP ? (
+            <p className="p1-note" style={{ marginTop: 12 }}>
+              <Link href={GENERATIONS_HUB_PATH}>K-pop generations</Link>: which era each group belongs to, with sources.
+            </p>
+          ) : null}
         </section>
       ) : null}
 

@@ -2,18 +2,22 @@
 // Demon Hunters bridge quiz) from the real tables. Server only.
 
 import { getModeById } from '@/lib/blind-test-modes';
+import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { SITE_ID } from '@/lib/site/registry';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { getPlayableGroups } from '@/lib/ux-v1/p6/hub-data';
 
 import { BRIDGE_OUTCOMES, BRIDGE_PATH, BRIDGE_PLAYLIST_ID, BRIDGE_QUESTIONS, BRIDGE_SLUGS } from './bridge';
 import { getCharacterPage } from './character-page';
-import { getBridgeCounts, getBridgeGroups, getMemberCounts, getWmaData } from './data';
-import { publicRole } from './roles';
+import { getBridgeCounts, getBridgeGroups, getDatedMemberCounts, getWmaData } from './data';
+import { answerBlock, mostCommon } from './page-copy';
+import { getRoster, sourcedRole } from './rosters';
 import { playerDescription, playerTraits } from './traits';
 import { axisOptionIcon, buildDistribution, whichMemberPath } from './view';
 
 import type { PersonalityGroup } from './data';
+import type { MostCommon, SavedResults } from './page-copy';
+import type { Roster } from './rosters';
 import type { QuizView, ResultView } from './view';
 
 export const SITE = 'https://kpopquiz.org';
@@ -33,6 +37,20 @@ export interface WmaPage {
   view: QuizView;
   /** Real playable song count of the group's blindtest, or null when it is not playable. */
   blindtestSongs: number | null;
+  /** The sourced line-up (Wikidata and Wikipedia), or null: the members section then hides. */
+  roster: Roster | null;
+  /** Saved results of the current members with the date they were read, or null when unread. */
+  saved: SavedResults | null;
+  /** The most common results, only above MOST_COMMON_MIN saved results and without minors. */
+  common: MostCommon | null;
+  /** The group has a trivia page (same gate as the hub link). */
+  trivia: boolean;
+}
+
+/** True when the group has a trivia page; a failed read hides the link. */
+async function triviaLink(groupId: number, slug: string): Promise<boolean> {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) return false;
+  try { return await hasTriviaPage(groupId, slug); } catch { return false; }
 }
 
 export async function getWmaPage(slug: string): Promise<WmaPage | null> {
@@ -41,16 +59,26 @@ export async function getWmaPage(slug: string): Promise<WmaPage | null> {
   const data = await getWmaData(slug);
   if (!data) return null;
   const { group, questions, profiles } = data;
-  const [counts, playable] = await Promise.all([getMemberCounts(group.id), playableSongs()]);
+  const [dated, playable, trivia] = await Promise.all([getDatedMemberCounts(group.id), playableSongs(), triviaLink(group.id, group.slug)]);
+  const counts = dated?.counts ?? null;
+  const roster = getRoster(group.slug);
 
+  // The role is the sourced one (rosters.ts), or the plain "Member of <group>": a role
+  // the sources do not give is never printed (SEO Mission 2, part D).
   const results: ResultView[] = profiles.map((p) => ({
     id: p.id,
     name: p.name,
-    role: publicRole(group.slug, p.id, group.name),
+    role: sourcedRole(group.slug, p.id) ?? `Member of ${group.name}`,
     description: playerDescription(p.axes),
     traits: playerTraits(p.axes),
     photo: null,
   }));
+
+  // Saved results of the current members only (a stored name that is no longer a result is not counted).
+  const saved: SavedResults | null = dated
+    ? { total: profiles.reduce((s, p) => s + (counts?.[p.name] ?? 0), 0), asOf: dated.asOf }
+    : null;
+  const common = mostCommon(counts, profiles.map((p) => ({ name: p.name })), dated?.asOf ?? null, roster?.minors ?? true);
 
   const view: QuizView = {
     quiz: 'wma',
@@ -58,7 +86,8 @@ export async function getWmaPage(slug: string): Promise<WmaPage | null> {
     kicker: 'Which member are you',
     kickerIcon: 'users',
     title: { before: 'Which ', em: group.name, after: ' member are you?' },
-    lead: 'Eight questions about you, no right answers, no timer. Your result is a member whose role on stage matches how you move through life.',
+    // The 40 to 60 word answer block, in the server HTML under the H1 (rulebook section 3).
+    lead: answerBlock(group.name, questions.length, saved),
     meta: [`${questions.length} questions`, 'About 2 minutes', 'No pictures needed'],
     cta: 'Start',
     eyebrow: 'You are',
@@ -71,7 +100,7 @@ export async function getWmaPage(slug: string): Promise<WmaPage | null> {
     shareKicker: `Which ${group.name} member are you`,
     biasOffer: true,
   };
-  return { group, view, blindtestSongs: playable.get(group.slug) ?? null };
+  return { group, view, blindtestSongs: playable.get(group.slug) ?? null, roster, saved, common, trivia };
 }
 
 export interface BridgePage {

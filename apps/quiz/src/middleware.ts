@@ -62,12 +62,16 @@ export async function middleware(request: NextRequest) {
 
   // PUBLIC FAST PATH - no Supabase call. Handles the vast majority of traffic.
   if (!needsAuth(pathname)) {
-    // SEO consolidation: /blind-test/* -> /blindtest/* (301 permanent).
+    // SEO (owner, 2026-10-27): /blind-test/* goes 301 to its exact /blindtest page, query
+    // kept, only when that page renders, else 410 (a blind 301 landed on 404s). That needs a
+    // database read, which the middleware never does: the route handler answers
+    // (LEGACY_BLIND_TEST_HANDLER in lib/seo/legacy-urls.ts). The path and the query string
+    // go as request headers: a handler reached by a rewrite does not see the rewrite's query.
     if (pathname === '/blind-test' || pathname.startsWith('/blind-test/')) {
-      const newPath = pathname.replace('/blind-test', '/blindtest');
-      const to = new URL(newPath, request.url);
-      to.search = request.nextUrl.search;
-      return NextResponse.redirect(to, 301);
+      const headers = new Headers(request.headers);
+      headers.set('x-legacy-path', pathname);
+      headers.set('x-legacy-search', request.nextUrl.search);
+      return NextResponse.rewrite(new URL('/api/legacy/blind-test', request.url), { request: { headers } });
     }
     // H10: retired /create-preview funnel -> /create (preserve any query string).
     if (pathname === '/create-preview' || pathname.startsWith('/create-preview/')) {
@@ -75,7 +79,7 @@ export async function middleware(request: NextRequest) {
       to.search = request.nextUrl.search;
       return NextResponse.redirect(to);
     }
-    // SEO (owner, 2026-10-14): /battle?quiz=<slug> goes 301 to /q/<slug> or 404. That needs
+    // SEO (owner, 2026-10-14 and 2026-10-27): /battle?quiz=<slug or id> goes 301 to /q/<slug>, else 410. That needs
     // a database read, which the middleware never does: the request is handed to the route
     // handler. Checked before the retired families below, which answer a bare /battle 410.
     if (pathname === LEGACY_BATTLE_PATH && request.nextUrl.searchParams.has('quiz')) {
@@ -153,6 +157,6 @@ export async function middleware(request: NextRequest) {
 // wrong behaviour. See middleware-matcher.test.ts for the full path matrix.
 export const config = {
   matcher: [
-    '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|q/|g/|s/|u/|quiz/|group/|embed/|(?:quizzes|blindtest|leaderboard|trivia|articles|data|groups|trending|new|most-liked|build|search|profile|me|notifications|news|stats|create|guess-the-kpop-idol|kpop-true-or-false|easy-kpop-quizzes|hard-kpop-quizzes|kpop-quiz-2026|terms|privacy|dmca|about|faq|contact|daily)(?:/|$)|[^/]+-(?:quiz|trivia)(?:/|$)|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt)$|$).*)',
+    '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|q/|g/|s/|u/|quiz/|group/|embed/|(?:quizzes|blindtest|leaderboard|trivia|articles|data|groups|trending|new|most-liked|build|search|profile|me|notifications|news|stats|create|guess-the-kpop-idol|kpop-true-or-false|easy-kpop-quizzes|hard-kpop-quizzes|kpop-quiz-2026|terms|privacy|legal|dmca|about|faq|contact|daily)(?:/|$)|[^/]+-(?:quiz|trivia)(?:/|$)|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt)$|$).*)',
   ],
 };

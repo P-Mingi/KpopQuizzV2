@@ -15,3 +15,36 @@
 .g3-lineup .ux-muted { color: var(--ux-muted); font-size: 14px; }
 .g3-results { list-style: none; padding-left: 0; gap: 16px; }
 .g3-results p { margin: 4px 0 0; max-width: 66ch; }
+/* /kpop-games (SEO Mission 2, part A; components/games/kpop-games-page.tsx) and the
+   "{Group} games" section of the group hub (components/group/ux-v1/hub-growth.tsx).
+   Plain text, two tables and a link grid, on the site's tokens. A wide table scrolls inside
+   its own box, never the page. */
+.kg-crumb { margin-bottom: 16px; }
+.kg-page .ux-h1 { margin-top: 4px; }
+.kg-answer { max-width: 66ch; margin-top: 12px; font-size: 17px; line-height: 1.6; color: var(--ux-ink); }
+.kg-sec p, .kg-hub p { max-width: 66ch; margin-top: 10px; font-size: 15px; line-height: 1.65; color: var(--ux-muted); }
+.kg-page p a, .kg-links a, .kg-table a, .kg-grid a, .kg-hub a { color: var(--ux-pink-ink); font-weight: 500; text-decoration: none; text-underline-offset: 3px; }
+.kg-page p a:hover, .kg-links a:hover, .kg-table a:hover, .kg-grid a:hover, .kg-hub a:hover { text-decoration: underline; }
+.kg-sec { margin-top: 48px; }
+/* A #anchor (the grid's /<slug>-quiz#games, a game's section) lands below the sticky top bar. */
+.kg-sec, .kg-hub { scroll-margin-top: 88px; }
+.kg-tablewrap { margin-top: 14px; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--ux-hair); border-radius: 14px; }
+.kg-table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px; line-height: 1.45; }
+.kg-table th, .kg-table td { padding: 10px 14px; border-bottom: 1px solid var(--ux-hair); text-align: left; vertical-align: top; }
+.kg-table tbody tr:last-child th, .kg-table tbody tr:last-child td { border-bottom: 0; }
+.kg-table thead th { font-size: 13px; font-weight: 600; color: var(--ux-muted); background: var(--ux-surface); }
+.kg-table tbody th { font-weight: 600; white-space: nowrap; }
+.kg-table td { color: var(--ux-muted); }
+.kg-links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 12px 0 0; padding: 0; list-style: none; font-size: 15px; line-height: 1.5; }
+.kg-item { margin-top: 18px; }
+.kg-item h3 { font-size: 16px; line-height: 1.4; font-weight: 600; color: var(--ux-ink); }
+.kg-item p { margin-top: 4px; }
+.kg-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 14px 0 0; padding: 0; list-style: none; }
+@media (min-width: 761px) { .kg-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.kg-grid li { min-width: 0; padding: 12px 14px; border: 1px solid var(--ux-hair); border-radius: 14px; }
+.kg-grid li a { font-size: 15px; font-weight: 600; }
+.kg-grid li span { display: block; margin-top: 4px; font-size: 13px; line-height: 1.4; color: var(--ux-muted); }
+.kg-note { font-size: 14px; }
+.kg-hub-list { display: grid; gap: 10px; margin: 12px 0 0; padding: 0; list-style: none; font-size: 15px; line-height: 1.5; }
+@media (min-width: 761px) { .kg-hub-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; } }
+.kg-hub-list span { display: block; font-size: 14px; color: var(--ux-muted); }

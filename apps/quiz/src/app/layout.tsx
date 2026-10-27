@@ -1,7 +1,6 @@
 import '@/styles/globals.css';
 
 import localFont from 'next/font/local';
-import { Inter } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { ThemeInit } from '@/components/layout/theme-init';
 import { ToastProvider } from '@/components/ui/toast-provider';
@@ -45,20 +44,60 @@ const pretendard = localFont({
 // `html.ux-v1`), so flag-off renders Pretendard exactly as today. preload:false so
 // an Inter preload never leaks onto a flag-off page - it loads on demand (swap)
 // only where the flag applies it.
-const inter = Inter({
-  subsets: ['latin'],
+//
+// Self-hosted (owner, 2026-10-25): the build no longer downloads it from Google Fonts, so a
+// Google outage cannot fail a deploy or the CI. public/fonts/Inter-latin.woff2 is the exact file
+// next/font/google served (Inter v20, latin subset, one variable file for weights 400 to 800),
+// with the same unicode-range; licence: public/fonts/Inter-OFL.txt.
+const inter = localFont({
+  src: [{ path: '../../public/fonts/Inter-latin.woff2', weight: '400 800', style: 'normal' }],
   display: 'swap',
-  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-inter',
   preload: false,
+  declarations: [
+    {
+      prop: 'unicode-range',
+      value: 'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD',
+    },
+  ],
+});
+
+// DM Sans, the site-wide body face (--font-body in globals.css), self-hosted (owner,
+// 2026-10-25): no request to Google Fonts from the visitor's browser any more (privacy of
+// European visitors, speed), and none from the build. The two files are the exact ones Google
+// served for weights 400 to 800 (DM Sans v17, one variable file per subset), each with Google's
+// unicode-range, so the latin-ext file only loads for a page that needs it. Licence:
+// public/fonts/DMSans-OFL.txt.
+const dmSans = localFont({
+  src: [{ path: '../../public/fonts/DMSans-latin.woff2', weight: '400 800', style: 'normal' }],
+  display: 'swap',
+  variable: '--font-dm-sans',
+  declarations: [
+    {
+      prop: 'unicode-range',
+      value: 'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD',
+    },
+  ],
+});
+const dmSansExt = localFont({
+  src: [{ path: '../../public/fonts/DMSans-latin-ext.woff2', weight: '400 800', style: 'normal' }],
+  display: 'swap',
+  variable: '--font-dm-sans-ext',
+  preload: false,
+  declarations: [
+    {
+      prop: 'unicode-range',
+      value: 'U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF',
+    },
+  ],
 });
 
 // Marker class + Inter variable go on <html> only when the redesign flag is on.
 // The theme scripts (THEME_SCRIPT / ThemeInit) only add/remove `light`/`dark`, so
 // `ux-v1` survives their classList churn.
 const HTML_CLASS = UX_V1
-  ? `${pretendard.variable} ${inter.variable} ux-v1`
-  : pretendard.variable;
+  ? `${dmSans.variable} ${dmSansExt.variable} ${pretendard.variable} ${inter.variable} ux-v1`
+  : `${dmSans.variable} ${dmSansExt.variable} ${pretendard.variable}`;
 
 // O1 (tokens.md 2): the per-site sheets of anime and hub scope their rules by this attribute. A kpop
 // page carries none, and the prop is absent (not undefined) so the kpop tree stays today's.

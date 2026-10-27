@@ -1,5 +1,6 @@
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { getOverriddenFacts } from '@/lib/trivia/facts';
+import { sourcedTriviaCount } from '@/lib/trivia/sourced/store';
 
 import type { Group } from '@/lib/db/types';
 
@@ -18,13 +19,18 @@ export const TRIVIA_MIN_FACTS = 9;
  * and makes the page 404. Used to conditionally show the trivia link on quiz pages.
  */
 export async function hasTriviaPage(groupId: number, groupSlug: string): Promise<boolean> {
+  // SEO Mission 2, part E: a group with a sourced fact file has its page whatever the fan facts say.
+  if (sourcedTriviaCount(groupSlug) > 0) return true;
   const facts = await getOverriddenFacts(groupId, groupSlug);
   return facts.length >= TRIVIA_MIN_FACTS;
 }
 
 export interface TriviaEligibleGroup {
   group: Group;
+  /** Items the page shows: verified sourced questions, or fun facts from fan-made quizzes. */
   factCount: number;
+  /** True when the page is built from the sourced fact store (questions with sources). */
+  sourced: boolean;
 }
 
 /**
@@ -39,10 +45,11 @@ export async function getTriviaEligibleGroups(): Promise<TriviaEligibleGroup[]> 
   const candidates = groups.filter((g) => g.quiz_count > 0);
 
   const probed = await Promise.all(
-    candidates.map(async (group) => ({
-      group,
-      factCount: (await getOverriddenFacts(group.id, group.slug)).length,
-    })),
+    candidates.map(async (group) => {
+      const sourced = sourcedTriviaCount(group.slug);
+      if (sourced > 0) return { group, factCount: sourced, sourced: true };
+      return { group, factCount: (await getOverriddenFacts(group.id, group.slug)).length, sourced: false };
+    }),
   );
 
   return probed

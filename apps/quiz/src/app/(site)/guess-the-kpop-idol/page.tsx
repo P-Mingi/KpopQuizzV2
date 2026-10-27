@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getQuizzesByType } from '@/lib/db/queries/quizzes';
 import { QuizCard } from '@/components/quiz/quiz-card';
 import { safeFetch } from '@/lib/error-handling';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
@@ -17,7 +18,6 @@ export const metadata: Metadata = {
     canonical: '/guess-the-kpop-idol',
     languages: {
       en: '/guess-the-kpop-idol',
-      'pt-BR': '/pt/guess-the-kpop-idol',
       'x-default': '/guess-the-kpop-idol',
     },
   },
@@ -39,6 +39,8 @@ export default async function GuessTheKpopIdolPage(): Promise<React.ReactElement
 
   return (
     <div className="py-6">
+      {/* SEO Mission 2 (owner, 2026-10-15): one of the K-pop games (visible trail + BreadcrumbList). */}
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'K-pop games', href: '/kpop-games' }, { label: 'Guess the K-pop idol' }]} />
       <h1 className="text-xl font-medium text-primary">Guess the K-pop idol</h1>
       <p className="text-sm text-secondary mt-1 leading-relaxed">
         You get 3 clues. Guess with fewer clues for more points.

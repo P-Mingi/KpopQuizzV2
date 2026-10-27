@@ -23,14 +23,18 @@ import {
 import { getQuizzesByGroup } from '@/lib/db/queries/quizzes';
 import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
+import { flagshipSlug, hubPlus, hubPlusAnswer } from '@/lib/hubs/hub-plus';
+import { monthYear, pooledScore, rankByMeasuredScore } from '@/lib/hubs/hub-scores';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { RELATED_GROUPS } from '@/lib/related-groups';
 import { buildAnswerChunks, buildAnswerFirst } from '@/lib/seo/answer-first';
+import { musicGroupEntity } from '@/lib/seo/wikidata';
+import { generationShort, groupGeneration } from '@/lib/generations/generations';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { QUIZ_TYPE_ICON } from '@/lib/ux-v1/a0/icons';
 import { getGroupCommentsWithTeam, getGroupsIndex, getHubQuizzes, getPlayableSongs } from '@/lib/ux-v1/p3/data';
 import { mergeHubFaqs } from '@/lib/ux-v1/p3/faq';
-import { READ_FAILED, failClosed, failedReads, read } from '@/lib/ux-v1/p3/reads';
+import { READ_FAILED, failClosed, failedReads, read, readAll } from '@/lib/ux-v1/p3/reads';
 import { verseSpaceOpen } from '@/lib/ux-v1/p3/verse';
 import {
   categoryTexts,
@@ -48,8 +52,10 @@ import {
 import { isUxV12 } from '@/lib/ux-v12';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 
+import { GenerationAnswer } from '../generation-answer';
 import { GroupAvatar } from './group-avatar';
 import { HubGrowth } from './hub-growth';
+import { HubPlusFacts, HubPlusTop } from './hub-plus';
 import { HubNotifyLoader, HubQuizzesLoader } from './loader';
 import { MemberTiles } from './member-tiles';
 
@@ -83,38 +89,44 @@ const PHOTO_SIZES = '(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 
  * the kpop-only reads are skipped only when slots are given, and each slot replaces
  * or adds exactly one node at a place that keeps the kpop tree (and its useId values)
  * as it was.
+ *
+ * Exception, SEO Mission 2 part B (owner, 2026-10-14): a strengthened hub listed in
+ * lib/hubs/hub-plus.ts (BTS) has its own H1 and subtitle, an answer block as its lead, the
+ * extra sections of ./hub-plus.tsx, one quiz count everywhere (the published one, FAQ and
+ * JSON-LD included) and a MusicGroup `about` in its CollectionPage. Every other hub renders
+ * exactly as described above.
  */
 export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubSlots }): Promise<React.ReactElement> {
   const g = group as GroupRow;
   const relatedSlugs = RELATED_GROUPS[g.slug] ?? [];
   const origin = slots?.origin ?? KPOP_ORIGIN;
 
-  // Every read fails closed (reads.ts): a read that failed or timed out never
-  // reaches the ISR cache as an empty block, a hub without its quizzes, an FAQ
-  // without its facts or a side column without today's links.
+  // Every read goes through reads.ts: a read that failed or timed out is tried once
+  // more, and if it still fails the hub is served without that block with a 60 s
+  // revalidate (never a 500, never cached for an hour as the truth).
   const r = {
     // Today's reads (same functions, same args): they feed the locked SEO parts.
-    initialQuizzes: read(getQuizzesByGroup(g.id, 'popular', 0, 10), '[group-hub v11] getQuizzesByGroup'),
-    newestQuizzes: read(getQuizzesByGroup(g.id, 'newest', 0, 5), '[group-hub v11] getNewestByGroup'),
-    relatedQuizzes: read(getRelatedQuizzes(relatedSlugs), '[group-hub v11] getRelatedQuizzes'),
-    triviaAvailable: read(slots ? Promise.resolve(slots.triviaAvailable) : hasTriviaPage(g.id, g.slug), '[group-hub v11] hasTriviaPage'),
-    nameAllGame: read(slots ? Promise.resolve(null) : getGroupNameAllGame(g.id), '[group-hub v11] getGroupNameAllGame'),
-    blindtest: read(slots ? Promise.resolve({ qualifies: false, songs: 0 }) : getGroupBlindtestInfo(g.id), '[group-hub v11] getGroupBlindtestInfo'),
-    warRank: read(slots ? Promise.resolve(null) : getGroupWarRank(g.slug), '[group-hub v11] getGroupWarRank'),
-    fanKnowledge: read(getGroupFanKnowledge(g.id, g.slug), '[group-hub v11] getGroupFanKnowledge'),
-    comeback: read(slots ? Promise.resolve(null) : getGroupActiveComeback(g.id), '[group-hub v11] getGroupActiveComeback'),
-    mvPulse: read(slots ? Promise.resolve(null) : getGroupMvPulse(g.id), '[group-hub v11] getGroupMvPulse'),
-    contentDate: read(getGroupContentDate(g.id), '[group-hub v11] getGroupContentDate'),
+    initialQuizzes: () => read(getQuizzesByGroup(g.id, 'popular', 0, 10), '[group-hub v11] getQuizzesByGroup'),
+    newestQuizzes: () => read(getQuizzesByGroup(g.id, 'newest', 0, 5), '[group-hub v11] getNewestByGroup'),
+    relatedQuizzes: () => read(getRelatedQuizzes(relatedSlugs), '[group-hub v11] getRelatedQuizzes'),
+    triviaAvailable: () => read(slots ? Promise.resolve(slots.triviaAvailable) : hasTriviaPage(g.id, g.slug), '[group-hub v11] hasTriviaPage'),
+    nameAllGame: () => read(slots ? Promise.resolve(null) : getGroupNameAllGame(g.id), '[group-hub v11] getGroupNameAllGame'),
+    blindtest: () => read(slots ? Promise.resolve({ qualifies: false, songs: 0 }) : getGroupBlindtestInfo(g.id), '[group-hub v11] getGroupBlindtestInfo'),
+    warRank: () => read(slots ? Promise.resolve(null) : getGroupWarRank(g.slug), '[group-hub v11] getGroupWarRank'),
+    fanKnowledge: () => read(getGroupFanKnowledge(g.id, g.slug), '[group-hub v11] getGroupFanKnowledge'),
+    comeback: () => read(slots ? Promise.resolve(null) : getGroupActiveComeback(g.id), '[group-hub v11] getGroupActiveComeback'),
+    mvPulse: () => read(slots ? Promise.resolve(null) : getGroupMvPulse(g.id), '[group-hub v11] getGroupMvPulse'),
+    contentDate: () => read(getGroupContentDate(g.id), '[group-hub v11] getGroupContentDate'),
     // v11 reads (lib/ux-v1/p3/data.ts).
-    quizzes: read(getHubQuizzes(g.id), '[group-hub v11] getHubQuizzes'),
-    index: read(slots ? Promise.resolve([]) : getGroupsIndex(), '[group-hub v11] getGroupsIndex'),
-    playable: read(slots ? Promise.resolve({} as Record<string, number>) : getPlayableSongs(), '[group-hub v11] getPlayableSongs'),
-    comments: read(getGroupCommentsWithTeam(g.id), '[group-hub v11] getGroupComments'),
+    quizzes: () => read(getHubQuizzes(g.id), '[group-hub v11] getHubQuizzes'),
+    index: () => read(slots ? Promise.resolve([]) : getGroupsIndex(), '[group-hub v11] getGroupsIndex'),
+    playable: () => read(slots ? Promise.resolve({} as Record<string, number>) : getPlayableSongs(), '[group-hub v11] getPlayableSongs'),
+    comments: () => read(getGroupCommentsWithTeam(g.id), '[group-hub v11] getGroupComments'),
   };
-  const got = Object.fromEntries(await Promise.all(Object.entries(r).map(async ([k, p]) => [k, await p] as const))) as { [K in keyof typeof r]: Awaited<(typeof r)[K]> };
+  const got = await readAll(r);
   await failClosed(`/${g.slug}-quiz`, failedReads(got));
-  // Reached with a failed read only in a degraded `next build` prerender, which
-  // never happens for hubs (no build-time params); the fallbacks keep types sound.
+  // A read that still failed after its retry: the block is left out (the fallbacks
+  // below), and failClosed() has set the 60 s revalidate.
   const ok = <T,>(v: T | typeof READ_FAILED, fallback: T): T => (v === READ_FAILED ? fallback : v);
   const initialQuizzes = ok(got.initialQuizzes, []);
   const newestQuizzes = ok(got.newestQuizzes, []);
@@ -139,25 +151,49 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
   // The full published list (read fail-closed): its length is the real count.
   const published = quizzes.length;
   const cat = category ? categoryTexts(g.name, published) : null;
-  const intro = slots ? slots.intro : cat ? cat.intro : g.seo_intro || generateDefaultIntro(g);
+  const songs = playable[g.slug] ?? 0;
+  // SEO Mission 2 part B: a strengthened hub (lib/hubs/hub-plus.ts; BTS today). Null for every
+  // other hub, which renders exactly as before. On a strengthened hub one count is used
+  // everywhere on the page (rulebook 4.2): the published quizzes read here, not the
+  // groups.quiz_count counter, and the playable songs, not the blindtest info read.
+  const plus = category || slots ? null : hubPlus(g.slug);
+  const gc: GroupRow = plus ? { ...g, quiz_count: published } : g;
+  const asOf = new Date().toISOString();
+  const scored = plus ? rankByMeasuredScore(quizzes) : null;
+  const pooled = plus ? pooledScore(quizzes) : null;
+  const intro = slots
+    ? slots.intro
+    : cat
+    ? cat.intro
+    : plus && pooled
+      ? hubPlusAnswer({ name: g.name, scope: plus.scope, published, pooledAvg: pooled.avg, attempts: pooled.attempts, songs, asOfMonth: monthYear(asOf) })
+      : g.seo_intro || generateDefaultIntro(g);
   const hasQuizzes = published > 0;
   const isEmptyGroup = !hasQuizzes;
-  const topSlug = initialQuizzes[0]?.slug ?? quizzes[0]?.slug ?? null;
-  const songs = playable[g.slug] ?? 0;
+  const mostPlayedSlug = initialQuizzes[0]?.slug ?? quizzes[0]?.slug ?? null;
+  const topSlug = plus ? flagshipSlug(plus, new Set(quizzes.map((q) => q.slug)), mostPlayedSlug) : mostPlayedSlug;
   const photo = groupPhotoUrl(g.slug);
   const fandom = realFandomName(g.fandom_name);
 
+  // The generation from the generation file, the field the generations hub reads (SEO
+  // Mission 2, part C; owner, 2026-10-15). A group the file does not cover keeps
+  // groups.generation; a group it covers without a label (a solo artist) shows none.
+  const genRec = category ? null : groupGeneration(g.slug);
+  const genShort = genRec ? (genRec.label ? generationShort(genRec.label) : null) : (g.generation ?? null);
   // No label until it is sourced (see lib/seo/answer-first.ts; owner, 2026-10-14).
-  const eyebrow = slots ? slots.eyebrow : hubEyebrow({ fandom: g.fandom_name, generation: g.generation ?? null, label: null, quizzes: published });
+  const eyebrow = slots ? slots.eyebrow : hubEyebrow({ fandom: g.fandom_name, generation: genShort, label: null, quizzes: published });
   const facts = hubFacts({ members: memberCount, debutYear: debutYearOf(g.inception_date), quizzes: published, songs });
 
   // Today's locked texts, from today's builders.
   // The category hub has its own lead and FAQ (the same array feeds the FAQPage JSON-LD).
-  const groupFaqs = slots ? slots.faqs : cat ? cat.faqs : buildGroupFaqs(g, memberCount, blindtest.qualifies);
-  const answerFacts = { memberCount, songCount: blindtest.songs };
-  const chunks = cat || slots ? [] : buildAnswerChunks(g, answerFacts);
-  const answerLead = cat ? cat.about : chunks.length > 0 ? buildAnswerFirst(g, answerFacts) : '';
-  const faqItems = mergeHubFaqs(groupFaqs.length >= 2 ? groupFaqs : [], chunks);
+  const groupFaqs = slots ? slots.faqs : cat ? cat.faqs : buildGroupFaqs(gc, memberCount, blindtest.qualifies);
+  const answerFacts = { memberCount, songCount: plus ? songs : blindtest.songs };
+  const chunks = cat || slots ? [] : buildAnswerChunks(gc, answerFacts);
+  const answerLead = cat ? cat.about : chunks.length > 0 ? buildAnswerFirst(gc, answerFacts) : '';
+  // The generation answer shows its sources as links (the chunk text stays the plain version).
+  const genQuestion = `What generation is ${g.name}?`;
+  const faqChunks = chunks.map((c) => (c.question === genQuestion && genRec?.label ? { ...c, a: <GenerationAnswer name={g.name} label={genRec.label} /> } : c));
+  const faqItems = mergeHubFaqs(groupFaqs.length >= 2 ? groupFaqs : [], faqChunks);
   const updated = formatContentMonth(contentDate);
   // Articles are a kpop feature: a site that passes slots has none (the links are kpop articles).
   const articles = slots ? [] : getGroupArticleLinks(g.slug);
@@ -186,11 +222,14 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
   // SEO-3 U7 (today's hub): the 5 newest quizzes with their dates, a crawlable
   // freshness signal, shown only when they differ from the popular top 10.
   const popularSlugs = new Set(initialQuizzes.map((q) => q.slug));
-  const newestDistinct = newestQuizzes.filter((q) => !popularSlugs.has(q.slug)).slice(0, 5);
+  // A strengthened hub shows its newest quizzes in the main column (HubPlusTop), not here.
+  const newestDistinct = plus ? [] : newestQuizzes.filter((q) => !popularSlugs.has(q.slug)).slice(0, 5);
 
   const fk = fanKnowledge;
   const showMastered = fk.masteredCount >= 3;
-  const showAccuracy = fk.avgAccuracy != null;
+  // A strengthened hub states how fans score in its own section (quiz points, pooled); the
+  // blind test accuracy here is another measure, so it is not printed beside it as a second average.
+  const showAccuracy = fk.avgAccuracy != null && !plus;
   const showFans = fk.topFans.length >= 3;
   const masteredNoun = fandom ? `${fandom}s` : 'fans';
   const showBlindtest = slots ? Boolean(slots.blindtest) : songs > 0 || blindtest.qualifies;
@@ -300,11 +339,20 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
           {/* The SEO H1, word for word: "<Group> Quiz - Test How Well You Know <Group>"
               ("... Know K-pop" for the General K-pop category). The first half is the
               display title, the rest its second line. */}
-          <h1 id="p3-h1" className="p3-h1">
-            {slots?.h1 ? <span className="p3-h1-main">{slots.h1.main}</span> : <span className="p3-h1-main">{g.name} Quiz</span>}
-            <span className="ux-sr"> - </span>
-            {slots?.h1 ? <span className="p3-h1-tail">{slots.h1.tail}</span> : <span className="p3-h1-tail">Test How Well You Know {knowSubject(g.slug, g.name)}</span>}
-          </h1>
+          {plus ? (
+            // A strengthened hub: the H1 is the primary phrase of its title and description
+            // ("BTS quiz"), the question fans type is the visible line under it.
+            <>
+              <h1 id="p3-h1" className="p3-h1"><span className="p3-h1-main">{plus.h1}</span></h1>
+              <p className="p3-sub">{plus.subtitle}</p>
+            </>
+          ) : (
+            <h1 id="p3-h1" className="p3-h1">
+              {slots?.h1 ? <span className="p3-h1-main">{slots.h1.main}</span> : <span className="p3-h1-main">{g.name} Quiz</span>}
+              <span className="ux-sr"> - </span>
+              {slots?.h1 ? <span className="p3-h1-tail">{slots.h1.tail}</span> : <span className="p3-h1-tail">Test How Well You Know {knowSubject(g.slug, g.name)}</span>}
+            </h1>
+          )}
           <p className="p3-lead">{intro}</p>
           <div className="p3-actions" id="ghub-play">
             {isEmptyGroup ? (
@@ -314,7 +362,7 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
               </>
             ) : (
               <>
-                {topSlug ? <UxButton href={`/q/${topSlug}`} size="lg" icon="play">{slots?.startLabel ?? 'Play the top quiz'}</UxButton> : null}
+                {topSlug ? <UxButton href={`/q/${topSlug}`} size="lg" icon="play">{plus ? plus.startLabel : slots?.startLabel ?? 'Play the top quiz'}</UxButton> : null}
                 {showBlindtest ? <UxButton href={slots?.blindtest?.href ?? `/blindtest/group-${g.slug}`} variant={topSlug ? 'ghost' : 'primary'} size="lg" icon="music">Blindtest</UxButton> : null}
               </>
             )}
@@ -336,9 +384,17 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
         ) : art ? <div className="p3-photo">{art}</div> : null}
       </section>
 
+      {plus && scored ? (
+        <HubPlusTop name={g.name} slug={g.slug} quizzes={quizzes} ranked={scored.ranked} belowFloor={scored.belowFloor} songs={songs} />
+      ) : null}
+
       {/* Every quiz of the group is a real, server-rendered <a href> (12 cards, the
           rest in a native <details> "Show all N"): no link lives only in <noscript>. */}
       {slots?.beforeQuizzes ? <>{slots.beforeQuizzes}{quizzesBlock}</> : quizzesBlock}
+
+      {plus && scored && pooled ? (
+        <HubPlusFacts name={g.name} plus={plus} generation={g.generation ?? null} pooled={pooled} ranked={scored.ranked} asOf={asOf} />
+      ) : null}
 
       {hasLow ? (
         <div className={hasSide ? 'ux-sec p3-low' : 'ux-sec p3-low is-solo'}>
@@ -500,13 +556,16 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
       {jsonLdScript({
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
-        name: `${g.name} Quizzes`,
+        // A strengthened hub: the name is its H1, the count the published one the page shows,
+        // and `about` its MusicGroup with the fetched Wikidata item (lib/seo/wikidata.ts).
+        name: plus ? plus.h1 : `${g.name} Quizzes`,
         description: intro,
         url: `${origin}/${g.slug}-quiz`,
         ...(contentDate ? { dateModified: contentDate.slice(0, 10) } : {}),
+        ...(plus ? (() => { const about = musicGroupEntity(g.slug, g.name); return about ? { about } : {}; })() : {}),
         mainEntity: {
           '@type': 'ItemList',
-          numberOfItems: g.quiz_count,
+          numberOfItems: gc.quiz_count,
           itemListElement: initialQuizzes.slice(0, 10).map((q, i) => ({
             '@type': 'ListItem',
             position: i + 1,
