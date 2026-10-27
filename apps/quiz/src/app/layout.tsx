@@ -35,7 +35,10 @@ const pretendard = localFont({
   variable: '--font-pretendard',
   fallback: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
   adjustFontFallback: 'Arial',
-  preload: true,
+  // Not preloaded (SEO phase 1, 2026-10-27): every build runs UX v1, where Pretendard is only the
+  // fallback of Inter (--ux-font) for a few glyphs. Its two files no longer compete with the CSS and
+  // the LCP image on first load; they still load on demand (swap, Arial-adjusted fallback).
+  preload: false,
 });
 
 // UX v1 (owner Q4): Inter is the latin body + display face; Pretendard stays the
@@ -68,10 +71,14 @@ const inter = localFont({
 // served for weights 400 to 800 (DM Sans v17, one variable file per subset), each with Google's
 // unicode-range, so the latin-ext file only loads for a page that needs it. Licence:
 // public/fonts/DMSans-OFL.txt.
+// Not preloaded (SEO phase 1, 2026-10-27): every build runs UX v1, whose body face is Inter, and no
+// page renders this DM Sans (document.fonts on ten kpop page types; the hub home loads its own,
+// components/hub/home/home-font.ts). Flag-off pages, never served, still get it on demand (swap).
 const dmSans = localFont({
   src: [{ path: '../../public/fonts/DMSans-latin.woff2', weight: '400 800', style: 'normal' }],
   display: 'swap',
   variable: '--font-dm-sans',
+  preload: false,
   declarations: [
     {
       prop: 'unicode-range',
