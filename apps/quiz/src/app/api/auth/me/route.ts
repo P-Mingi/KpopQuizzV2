@@ -63,6 +63,9 @@ export async function GET(): Promise<NextResponse> {
       // authorization stays server-side in /api/admin/*. The mod notify button
       // uses this to decide whether to render.
       is_admin: isAdmin(user.id),
+      // The signed-in user's own id, so the quiz page can tell its creator (QuizOwnerActions)
+      // without loading supabase-js in the browser.
+      id: user.id,
       profile: {
         username: data.username as string,
         display_name: (data.display_name as string | null) ?? null,
