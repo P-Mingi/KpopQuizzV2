@@ -1,0 +1,57 @@
+{
+  "label": "before-2026-10-27",
+  "base": "https://kpopquiz.org",
+  "at": "2026-10-27T09:47:46.466Z",
+  "rows": [
+    {
+      "slug": "bts-solo-era-quiz-match-the-member-to-the-music",
+      "status": 200,
+      "lcp_ms": 3616,
+      "cls": 0,
+      "tbt_ms": 43,
+      "js_kb": 448,
+      "scripts": 31,
+      "html_kb": 16
+    },
+    {
+      "slug": "which-k-pop-group-debuted-first-timeline-challenge",
+      "status": 200,
+      "lcp_ms": 3556,
+      "cls": 0,
+      "tbt_ms": 34,
+      "js_kb": 448,
+      "scripts": 31,
+      "html_kb": 15
+    },
+    {
+      "slug": "k-pop-albums-that-sold-millions",
+      "status": 200,
+      "lcp_ms": 3288,
+      "cls": 0.016,
+      "tbt_ms": 37,
+      "js_kb": 448,
+      "scripts": 31,
+      "html_kb": 15
+    },
+    {
+      "slug": "le-sserafim-fearless-quiz",
+      "status": 200,
+      "lcp_ms": 3496,
+      "cls": 0,
+      "tbt_ms": 37,
+      "js_kb": 448,
+      "scripts": 31,
+      "html_kb": 16
+    },
+    {
+      "slug": "newjeans-quiz",
+      "status": 200,
+      "lcp_ms": 3928,
+      "cls": 0,
+      "tbt_ms": 39,
+      "js_kb": 448,
+      "scripts": 31,
+      "html_kb": 16
+    }
+  ]
+}
