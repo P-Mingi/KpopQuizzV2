@@ -1,0 +1,65 @@
+[
+ {
+  "id": "LE2-1",
+  "site": "anime",
+  "route": "/admin",
+  "file": "apps/quiz/src/app/sites/[site]/(anime)/admin/page.tsx",
+  "twin": "apps/quiz/src/app/(site)/admin/page.tsx",
+  "mustImport": [
+   "@/app/(site)/admin/page"
+  ],
+  "renders": [
+   "app/(site)/admin/page.tsx",
+   "admin-dashboard.tsx"
+  ],
+  "allowed": [
+   "T",
+   "C"
+  ],
+  "owner": "E1a",
+  "body": "shared",
+  "notes": "Thin re-export of the kpop page (lot e part 2): its quizzes, reports and groups reads go through forSite. Admin only, never indexed."
+ },
+ {
+  "id": "LE2-2",
+  "site": "anime",
+  "route": "/admin/quiz/search",
+  "file": "apps/quiz/src/app/sites/[site]/(anime)/admin/quiz/search/page.tsx",
+  "twin": "apps/quiz/src/app/(site)/admin/quiz/search/page.tsx",
+  "mustImport": [
+   "@/app/(site)/admin/quiz/search/page"
+  ],
+  "renders": [
+   "app/(site)/admin/quiz/search/page.tsx",
+   "quiz-search-list.tsx"
+  ],
+  "allowed": [
+   "T",
+   "C"
+  ],
+  "owner": "E1a",
+  "body": "shared",
+  "notes": "Thin re-export of the kpop page (lot e part 2): the read goes through forSite."
+ },
+ {
+  "id": "LE2-3",
+  "site": "anime",
+  "route": "/admin/quiz/{id}/edit",
+  "file": "apps/quiz/src/app/sites/[site]/(anime)/admin/quiz/[id]/edit/page.tsx",
+  "twin": "apps/quiz/src/app/(site)/admin/quiz/[id]/edit/page.tsx",
+  "mustImport": [
+   "@/app/(site)/admin/quiz/[id]/edit/page"
+  ],
+  "renders": [
+   "app/(site)/admin/quiz/[id]/edit/page.tsx",
+   "components/quiz/quiz-editor.tsx"
+  ],
+  "allowed": [
+   "T",
+   "C"
+  ],
+  "owner": "E1a",
+  "body": "shared",
+  "notes": "Thin re-export of the kpop page (lot e part 2): the read goes through forSite, so a quiz of another site is a 404."
+ }
+]

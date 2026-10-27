@@ -1,0 +1,21 @@
+
+Import trace:
+  Server Component:
+    [next]/internal/font/google/inter_7773d004.module.css
+    [next]/internal/font/google/inter_7773d004.js
+    ./.claude/worktrees/o1-parity-build/apps/quiz/src/app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> ([next]/internal/font/google/inter_7773d004.module.css:43:8)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> ([next]/internal/font/google/inter_7773d004.module.css:106:8)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> ([next]/internal/font/google/inter_7773d004.module.css:169:8)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> ([next]/internal/font/google/inter_7773d004.module.css:232:8)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> ([next]/internal/font/google/inter_7773d004.module.css:295:8)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+parity: base build failed (log /Users/louis/kpq-o1/parity-offline/cache/parity/0db0b58614e0-b096e9624559-db2f8560-cb12ed53.tmp/build-base.log)

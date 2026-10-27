@@ -11,6 +11,7 @@ import { prettyPath } from '@/lib/name-all/round';
 import { NAME_ALL_GROUPS } from '@/lib/name-all/spellings';
 import { whichMemberPath } from '@/lib/personality/view';
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { forSite } from '@/lib/site/scope';
 
 export interface GroupTrack { title: string; album: string | null; year: number | null }
 
@@ -19,13 +20,13 @@ export const GROUP_TRACKS_SHOWN = 30;
 
 async function readGroupTracks(slug: string): Promise<GroupTrack[]> {
   const db = createPublicReadClient();
-  const { data: g, error: ge } = await db.from('groups').select('id').eq('slug', slug).maybeSingle();
+  const { data: g, error: ge } = await forSite(db.from('groups').select('id')).eq('slug', slug).maybeSingle();
   if (ge) throw new Error(`[bt group] ${ge.message}`);
   const id = (g as { id: number } | null)?.id;
   if (!id) return [];
   // The pool generate plays (lib/blind-test-playlists.ts cleanSongs): active, no remix,
   // instrumental or karaoke version.
-  const { data, error } = await db.from('songs').select('title, album_name, year, deezer_rank')
+  const { data, error } = await forSite(db.from('songs').select('title, album_name, year, deezer_rank'))
     .eq('group_id', id).eq('status', 'active')
     .not('title', 'ilike', '%remix%').not('title', 'ilike', '%instrumental%').not('title', 'ilike', '%inst.%').not('title', 'ilike', '%karaoke%')
     .order('deezer_rank', { ascending: false, nullsFirst: false })

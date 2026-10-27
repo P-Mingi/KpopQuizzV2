@@ -1,0 +1,2 @@
+docs/anime/data/daily/b2.json
+docs/anime/editorial/packets/k3-b2.html

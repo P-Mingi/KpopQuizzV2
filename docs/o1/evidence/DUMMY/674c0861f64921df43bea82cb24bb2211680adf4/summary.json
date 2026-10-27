@@ -1,0 +1,76 @@
+{
+  "lane": "DUMMY",
+  "sha": "674c0861f64921df43bea82cb24bb2211680adf4",
+  "tree": "4c4ce9ac62751d9b6d95150c5393ef0b22975ad9",
+  "base": "1cb11de83e39aa1b262a814bc77e5f4e371cd343",
+  "green": true,
+  "touchesKpop": false,
+  "evidenceDir": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/docs/o1/evidence/DUMMY/674c0861f64921df43bea82cb24bb2211680adf4",
+  "failures": "",
+  "sites": [
+    "kpop",
+    "anime",
+    "hub"
+  ],
+  "dbEnv": "offline",
+  "started": "2026-10-16T11:08:21Z",
+  "ended": "2026-10-16T11:12:46Z",
+  "madeBy": "scripts/o1/gate.sh",
+  "steps": [
+    {
+      "name": "guard",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "hot",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "copy",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "secrets",
+      "rc": "0",
+      "seconds": 1
+    },
+    {
+      "name": "tsc",
+      "rc": "0",
+      "seconds": 36
+    },
+    {
+      "name": "unit",
+      "rc": "0",
+      "seconds": 18
+    },
+    {
+      "name": "build-kpop",
+      "rc": "0",
+      "seconds": 93
+    },
+    {
+      "name": "build-anime",
+      "rc": "0",
+      "seconds": 56
+    },
+    {
+      "name": "build-hub",
+      "rc": "0",
+      "seconds": 52
+    },
+    {
+      "name": "parity",
+      "rc": "pending",
+      "seconds": 0
+    },
+    {
+      "name": "site-checks",
+      "rc": "pending",
+      "seconds": 0
+    }
+  ]
+}

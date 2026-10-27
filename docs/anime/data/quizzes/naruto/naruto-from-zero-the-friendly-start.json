@@ -1,0 +1,232 @@
+{
+  "site": "anime",
+  "account": "oq_creator_04",
+  "group_slug": "naruto",
+  "title": "Naruto From Zero: A Friendly Start",
+  "slug": "naruto-from-zero-the-friendly-start",
+  "description": "Ten easy questions on who made Naruto, where it ran and how big it got. No story knowledge needed.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who wrote and drew the Naruto manga?",
+      "options": [
+        "Eiichiro Oda",
+        "Masashi Kishimoto",
+        "Tite Kubo",
+        "Hajime Isayama"
+      ],
+      "correct": 1,
+      "fun_fact": "Masashi Kishimoto both wrote and drew the Naruto manga himself.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-authors-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+    },
+    {
+      "question": "In which magazine did the Naruto manga run?",
+      "options": [
+        "Weekly Shonen Jump",
+        "Weekly Shonen Magazine",
+        "Monthly Shonen Gangan",
+        "Weekly Young Jump"
+      ],
+      "correct": 0,
+      "fun_fact": "It ran in Weekly Shonen Jump, published by Shueisha.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-serialization-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+    },
+    {
+      "question": "For about how many years did the Naruto manga run in Weekly Shonen Jump?",
+      "options": [
+        "Fifteen years",
+        "Five years",
+        "Ten years",
+        "Twenty years"
+      ],
+      "correct": 0,
+      "fun_fact": "Naruto ran from late September 1999 to mid November 2014.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-manga-run-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+    },
+    {
+      "question": "Which studio animated the Naruto TV anime?",
+      "options": [
+        "Madhouse",
+        "Bones",
+        "MAPPA",
+        "Studio Pierrot"
+      ],
+      "correct": 3,
+      "fun_fact": "Studio Pierrot made Naruto and Naruto: Shippuden, directed by Hayato Date.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-tv-naruto-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    },
+    {
+      "question": "How many episodes does the first TV series, simply called Naruto, have?",
+      "options": [
+        "135",
+        "500",
+        "220",
+        "720"
+      ],
+      "correct": 2,
+      "fun_fact": "Studio Pierrot made it, directed by Hayato Date.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-tv-naruto-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    },
+    {
+      "question": "In which year did the Naruto manga start in Weekly Shonen Jump?",
+      "options": [
+        "1997",
+        "1999",
+        "2002",
+        "2004"
+      ],
+      "correct": 1,
+      "fun_fact": "It ran for about fifteen years, until mid November 2014.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-manga-run-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+    },
+    {
+      "question": "In which year did the first Naruto anime begin airing in Japan?",
+      "options": [
+        "1999",
+        "2004",
+        "2007",
+        "2002"
+      ],
+      "correct": 3,
+      "fun_fact": "Naruto, the first series, has 220 episodes and aired from 2002 to 2007.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-tv-naruto-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    },
+    {
+      "question": "What is the title of the second Naruto anime series?",
+      "options": [
+        "Naruto: Blazing Wind",
+        "Naruto: Leaf Legends",
+        "Naruto: Next Chapter",
+        "Naruto: Shippuden"
+      ],
+      "correct": 3,
+      "fun_fact": "The manga itself is written NARUTO -ナルト- in Japanese.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-titles-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+    },
+    {
+      "question": "Which of these titles belongs to the Naruto franchise?",
+      "options": [
+        "Bleach: Thousand-Year Blood War",
+        "Black Clover",
+        "Boruto: Two Blue Vortex",
+        "Fairy Tail"
+      ],
+      "correct": 2,
+      "fun_fact": "The franchise includes Naruto, Naruto: Shippuden and the Boruto titles.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-franchise-009"
+      ],
+      "source_url": "https://naruto-official.com/en"
+    },
+    {
+      "question": "In which year did Naruto: Shippuden finish its run on TV?",
+      "options": [
+        "2012",
+        "2017",
+        "2014",
+        "2020"
+      ],
+      "correct": 1,
+      "fun_fact": "Shippuden ran from 2007 to 2017 and has 500 episodes.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-tv-shippuden-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Naruto",
+      "url": "https://en.wikipedia.org/wiki/Naruto"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Naruto (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Official site: naruto-official.com",
+      "url": "https://naruto-official.com/en"
+    }
+  ],
+  "notes": "Starter: every question cites an arc 0 fact only. K1 rewrite: blocked questions rewritten on verified facts 001, 004, 006, 007."
+}

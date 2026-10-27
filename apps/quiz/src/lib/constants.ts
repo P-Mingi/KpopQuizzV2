@@ -1,4 +1,6 @@
-import { getTitleForLevel } from './level-titles';
+import { getTitleForLevel, levelTitlesFor } from './level-titles';
+
+import type { SiteId } from './site/types';
 
 // Threshold below which a quiz shows only provisional "early results" (counts, not
 // score rankings). Single source of truth; relocated here from the retired
@@ -82,7 +84,20 @@ export const LEVELS: readonly LevelDef[] = Array.from({ length: REFERENCE_LEVELS
   return { level, name: getTitleForLevel(level).en, xpRequired: cumulativeXpForLevel(level) };
 });
 
-export function getLevelInfo(xp: number): {
+// Run O1 (B3): the title of a level on a non-kpop site comes from that site's ladder (levelTitlesFor): the highest
+// threshold at or below the level, the same rule as getTitleForLevel. The curve itself is the same on every site.
+function titleOnSite(level: number, site: SiteId): string {
+  const ladder = levelTitlesFor(site);
+  let name = ladder[1]?.en ?? getTitleForLevel(1).en;
+  for (const t of Object.keys(ladder).map(Number).sort((a, b) => a - b)) {
+    if (level >= t) name = ladder[t]!.en;
+    else break;
+  }
+  return name;
+}
+
+/** `site` is optional: without it (or on 'kpop') the result is today's; another site changes only `name`. */
+export function getLevelInfo(xp: number, site?: SiteId): {
   level: number;
   name: string;
   currentXp: number;
@@ -99,7 +114,7 @@ export function getLevelInfo(xp: number): {
 
   return {
     level,
-    name: getTitleForLevel(level).en,
+    name: site === undefined || site === 'kpop' ? getTitleForLevel(level).en : titleOnSite(level, site),
     currentXp: safeXp,
     xpForCurrentLevel: currentReq,
     xpForNextLevel: nextReq,

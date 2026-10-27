@@ -1,0 +1,283 @@
+{
+ "site": "anime",
+ "account": "oq_creator_19",
+ "group_slug": "oshi-no-ko",
+ "title": "Three Clues to a Song, a Show or a Publisher: Oshi no Ko",
+ "slug": "three-clues-to-a-song-a-show-and-a-publisher-oshi-no-ko",
+ "description": "Ten rounds of three progressive clues: each one leads to a song, a season, a show inside the story, a company or a group. Light spoilers up to season two.",
+ "quiz_type": "guess_from_clues",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Clues format: three clues of growing help, for works, companies and songs rather than for characters.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Oshi no Ko (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Oshi no Ko",
+   "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Oshi no Ko characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Which theme song is this?",
+   "clues": [
+    "A theme song of the anime",
+    "It was first heard in spring 2023",
+    "It opens the first season"
+   ],
+   "options": [
+    "Fatal",
+    "Idol",
+    "Mephisto",
+    "Burning"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "oshi-no-ko-themes-season-one-012",
+    "oshi-no-ko-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "Which season of the anime is this?",
+   "clues": [
+    "A season of the anime",
+    "It aired in 2024",
+    "Its opening song is Fatal."
+   ],
+   "options": [
+    "Season four",
+    "Season one",
+    "Season two",
+    "Season three"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "oshi-no-ko-themes-season-two-013",
+    "oshi-no-ko-anime-season-two-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "Which company is this?",
+   "clues": [
+    "A publisher that licensed the series for an English edition",
+    "It releases the Oshi no Ko manga in North America",
+    "Its name starts with the unit of Japanese money"
+   ],
+   "options": [
+    "Kodansha USA",
+    "Yen Press",
+    "Viz Media",
+    "Seven Seas Entertainment"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "oshi-no-ko-yen-press-licence-051"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "Which company is this?",
+   "clues": [
+    "A business in the entertainment world of the story",
+    "Ichigo Saitō is its president, and his wife Miyako runs it",
+    "It is where Ai Hoshino was signed as a young idol"
+   ],
+   "options": [
+    "Dot TV",
+    "Strawberry Productions",
+    "Sonic Stage Productions",
+    "Lalalai Theatrical Company"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-ichigo-strawberry-president-041",
+    "oshi-no-ko-miyako-runs-agency-042",
+    "oshi-no-ko-ai-scouted-strawberry-043"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "question": "Which show inside the story is this?",
+   "clues": [
+    "A reality show that the characters take part in",
+    "Akane Kurokawa and Mem-cho are among its entrants",
+    "Its short name blends the words love and now"
+   ],
+   "options": [
+    "Tokyo Blade",
+    "Dig Deep! One Chance",
+    "LoveNow",
+    "Sweet Today"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-lovenow-reality-show-039",
+    "oshi-no-ko-memcho-lovenow-040"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "question": "Which screen project is this?",
+   "clues": [
+    "A live-action project",
+    "It is a feature film that follows a live-action TV series",
+    "It reached the public in December 2024"
+   ],
+   "options": [
+    "The Final Act",
+    "Tokyo Blade",
+    "Sweet Today",
+    "Mother and Children"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-live-action-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "Which ending song is this?",
+   "clues": [
+    "A theme song of the anime",
+    "It closes a season rather than opening it",
+    "It was used in the second season, in 2024"
+   ],
+   "options": [
+    "Idol",
+    "Fatal",
+    "Mephisto",
+    "Burning"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "oshi-no-ko-themes-season-two-013",
+    "oshi-no-ko-anime-season-two-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "Which manga is this?",
+   "clues": [
+    "It comes from the same story writer as Oshi no Ko",
+    "It was still running in Weekly Young Jump when Oshi no Ko began there",
+    "Its writer also worked on a live-action film of it"
+   ],
+   "options": [
+    "Kaguya-sama: Love Is War",
+    "Renai Daikō",
+    "Spy x Family",
+    "Dr. Stone"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "oshi-no-ko-kaguya-same-magazine-049",
+    "oshi-no-ko-kaguya-live-action-050",
+    "oshi-no-ko-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
+  },
+  {
+   "question": "Which story inside the story is this?",
+   "clues": [
+    "A manga that is turned into a stage play",
+    "Its artist is Abiko Samejima, who becomes a producer",
+    "Taiki Himekawa is the main star of the play"
+   ],
+   "options": [
+    "Tokyo Blade",
+    "Dig Deep! One Chance",
+    "LoveNow",
+    "Sweet Today"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-abiko-tokyo-blade-046",
+    "oshi-no-ko-taiki-tokyo-blade-star-052",
+    "oshi-no-ko-melt-tokyo-blade-joins-053"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "question": "Which group is this?",
+   "clues": [
+    "An idol group in the story",
+    "Ai Hoshino was its centerpiece",
+    "Ruby forms a new version of it with Kana and Mem-cho"
+   ],
+   "options": [
+    "Lalalai Theatrical Company",
+    "LoveNow",
+    "Youtou High School",
+    "B-Komachi"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-ai-bkomachi-centerpiece-044",
+    "oshi-no-ko-ruby-new-bkomachi-045"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  }
+ ]
+}

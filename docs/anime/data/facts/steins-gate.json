@@ -1,0 +1,2163 @@
+[
+  {
+    "id": "steins-gate-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "title_native",
+    "value": "STEINS;GATE (シュタインズ・ゲート, Shutainzu Gēto)",
+    "text": "The title is stylized as STEINS;GATE in capitals, and its katakana reading is Shutainzu Gēto.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q20590069",
+        "ref": "Q20590069",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://steinsgate0-anime.com/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "シュタインズ・ゲート ゼロ"
+  },
+  {
+    "id": "steins-gate-vn-makers-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "studio",
+    "value": [
+      "5pb.",
+      "Nitroplus"
+    ],
+    "text": "The original Steins;Gate visual novel was developed by the two companies 5pb. and Nitroplus.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q482494",
+        "ref": "Q482494",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "developed by 5pb. and Nitroplus"
+  },
+  {
+    "id": "steins-gate-vn-release-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "start",
+    "value": [
+      "Xbox 360",
+      "October 15, 2009"
+    ],
+    "text": "The visual novel first came out on the Xbox 360 on October 15, 2009.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q482494",
+        "ref": "Q482494",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Original Xbox 360 release: October 15, 2009"
+  },
+  {
+    "id": "steins-gate-vn-staff-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "creator",
+    "value": [
+      "Chiyomaru Shikura",
+      "Naotaka Hayashi",
+      "Huke"
+    ],
+    "text": "Chiyomaru Shikura planned the game, Naotaka Hayashi wrote the scenario and the artist Huke designed the characters.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://steinsgate.jp/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "planning headed by Chiyomaru Shikura; Naotaka Hayashi wrote scenarios; characters designed by Huke"
+  },
+  {
+    "id": "steins-gate-vn-composer-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "composer",
+    "value": "Takeshi Abo",
+    "text": "Takeshi Abo composed the music of the original visual novel.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q482494",
+        "ref": "Q482494",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Composer: Takeshi Abo"
+  },
+  {
+    "id": "steins-gate-science-adventure-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "franchise_titles",
+    "value": "Science Adventure series",
+    "text": "Steins;Gate belongs to the Science Adventure series and is its second game, after Chaos;Head.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "second game in the Science Adventure series, following Chaos;Head"
+  },
+  {
+    "id": "steins-gate-title-meaning-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "title_origin",
+    "value": "Stein, the German word for stone",
+    "text": "The title has no fixed meaning: it is built from the German word Stein, which means stone, and is a nod to the physicist Albert Einstein.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "coined from the German word \"Stein\" meaning stone, and tying in with famous physicist Albert Einstein"
+  },
+  {
+    "id": "steins-gate-setting-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "setting",
+    "value": "Akihabara, summer 2010",
+    "text": "The story takes place in the summer of 2010 in the district of Akihabara.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Steins;Gate is set in the summer of 2010 ... in Akihabara"
+  },
+  {
+    "id": "steins-gate-future-gadget-lab-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "organization",
+    "value": "Future Gadget Laboratory",
+    "text": "The hero founds the Future Gadget Laboratory, a small lab in Akihabara where the friends build their inventions.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the founder of what he calls the \"Future Gadget Laboratory\" ... in Akihabara"
+  },
+  {
+    "id": "steins-gate-phonewave-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "terms",
+    "value": "PhoneWave",
+    "text": "The PhoneWave, a device the friends have been developing, turns out to be a time machine.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the \"PhoneWave\" he and his friends had been developing is, in fact, a time machine"
+  },
+  {
+    "id": "steins-gate-d-mail-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "inspiration",
+    "value": "D-Mails",
+    "text": "D-Mails are messages sent to the past, and they begin to change the timeline in big ways.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Okabe begins experimenting with \"D-Mails\" ... which begin to cause major differences in the timeline"
+  },
+  {
+    "id": "steins-gate-reading-steiner-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "ability",
+    "value": "Reading Steiner",
+    "text": "Okabe has the Reading Steiner ability, which lets him notice changes between different timelines, when nobody else can.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "\"Reading Steiner\" ... the only one who possesses the ability to determine changes between different timelines"
+  },
+  {
+    "id": "steins-gate-world-lines-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "background",
+    "value": [
+      "world line",
+      "divergence meter"
+    ],
+    "text": "Different timelines are called world lines, and a divergence meter is used to track how far they differ.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "worldline and divergence meter track timeline variations"
+  },
+  {
+    "id": "steins-gate-genre-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "style",
+    "value": "Speculative science adventure",
+    "text": "The game is called a speculative science adventure, with branching scenarios that lead to several endings.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "a speculative science ADV ... branching scenarios"
+  },
+  {
+    "id": "steins-gate-anime-studio-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "anime_studio",
+    "value": "White Fox",
+    "text": "The Steins;Gate anime was animated by the studio White Fox.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)",
+        "ref": "1375534085",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q20590069",
+        "ref": "Q20590069",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Studio: White Fox"
+  },
+  {
+    "id": "steins-gate-anime-run-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "anime_run",
+    "value": [
+      "24 episodes",
+      "April to September 2011"
+    ],
+    "text": "The first anime has 24 episodes, which aired from April to September 2011.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)",
+        "ref": "1375534085",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q20590069",
+        "ref": "Q20590069",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Broadcast: April 6 to September 14, 2011; 24 episodes (plus one OVA)"
+  },
+  {
+    "id": "steins-gate-anime-ova-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "ova",
+    "value": [
+      "Egoistic Poriomania",
+      "February 22, 2012"
+    ],
+    "text": "The bonus episode Egoistic Poriomania was released on February 22, 2012, with the last disc volume.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes",
+        "ref": "1327897290",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=11770&page=25",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Bonus Episode 25 (2012-02-22): \"Egoistic Poriomania\""
+  },
+  {
+    "id": "steins-gate-anime-composition-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "staff",
+    "value": "Jukki Hanada",
+    "text": "Jukki Hanada handled the series composition of the first anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)",
+        "ref": "1375534085",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q20590069",
+        "ref": "Q20590069",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Series Composition: Jukki Hanada"
+  },
+  {
+    "id": "steins-gate-film-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "film",
+    "value": [
+      "Load Region of Déjà Vu",
+      "2013"
+    ],
+    "text": "The film Load Region of Déjà Vu reached Japanese theaters in 2013.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)",
+        "ref": "1375534085",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q7606919",
+        "ref": "Q7606919",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The movie was released in Japanese theaters on April 20, 2013"
+  },
+  {
+    "id": "steins-gate-zero-vn-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "production_start",
+    "value": [
+      "Steins;Gate 0",
+      "December 10, 2015"
+    ],
+    "text": "The sequel visual novel Steins;Gate 0 came out in Japan on December 10, 2015.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate_0",
+        "ref": "1377208808",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q21775901",
+        "ref": "Q21775901",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Release Date (Japan): December 10, 2015"
+  },
+  {
+    "id": "steins-gate-zero-anime-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "anime_s2",
+    "value": [
+      "Steins;Gate 0",
+      "23 episodes",
+      "April 2018"
+    ],
+    "text": "The anime of Steins;Gate 0 began in April 2018 and has 23 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate_0",
+        "ref": "1377208808",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q48835532",
+        "ref": "Q48835532",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "premiered on April 11, 2018 ... 23 episodes"
+  },
+  {
+    "id": "steins-gate-zero-anime-staff-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "anime_directors",
+    "value": [
+      "Kenichi Kawamura",
+      "White Fox"
+    ],
+    "text": "The Steins;Gate 0 anime was directed by Kenichi Kawamura and animated at White Fox.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "official",
+        "url": "https://steinsgate0-anime.com/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20446",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Director: Kenichi Kawamura; Animation Studio: WHITE FOX"
+  },
+  {
+    "id": "steins-gate-zero-premise-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "premise",
+    "value": [
+      "Beta timeline",
+      "Amadeus"
+    ],
+    "text": "Steins;Gate 0 takes place on the Beta timeline, where Okabe becomes a tester of the Amadeus artificial intelligence.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate_0",
+        "ref": "1377208808",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Set in the Beta timeline ... Okabe becomes a tester for the artificial intelligence (AI) system Amadeus"
+  },
+  {
+    "id": "steins-gate-zero-kagari-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "story_arcs",
+    "value": "Kagari",
+    "text": "To help a woman called Kagari, who has lost her memory, Okabe builds the PhoneWave again in Steins;Gate 0.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate_0",
+        "ref": "1377208808",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Okabe rebuilds the PhoneWave to help an amnesiac woman identified as Kagari"
+  },
+  {
+    "id": "steins-gate-zero-leskinen-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "origin",
+    "value": "Strategic Focus",
+    "text": "The neuroscientist Alexis Leskinen turns out to work for an intelligence agency called Strategic Focus.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate_0",
+        "ref": "1377208808",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "revealing that he works for the intelligence agency Strategic Focus"
+  },
+  {
+    "id": "steins-gate-zero-link-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "record",
+    "value": "Ties into the True End",
+    "text": "The story of Steins;Gate 0 leads, through its final ending, to the True End route of the first game.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate_0",
+        "ref": "1377208808",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "leads to the True End route in the previous game"
+  },
+  {
+    "id": "steins-gate-famitsu-award-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "award",
+    "value": "Game of Excellence",
+    "text": "At the Famitsu Awards the visual novel received an Excellence prize, called the Game of Excellence.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Famitsu Awards: Game of Excellence"
+  },
+  {
+    "id": "steins-gate-live-action-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "live_action",
+    "value": "Skydance Television",
+    "text": "A live-action Steins;Gate series was announced as a project of Skydance Television.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "live-action ... produced by Skydance Television"
+  },
+  {
+    "id": "steins-gate-english-pc-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "steins-gate"
+    },
+    "field": "english_release",
+    "value": "JAST USA",
+    "text": "The PC version in English was published in North America by JAST USA.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "PC Port: North America via JAST USA"
+  },
+  {
+    "id": "steins-gate-theme-op-030",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "steins-gate",
+      "ref": "op-1"
+    },
+    "field": "themes_op_b",
+    "value": [
+      "Hacking to the Gate",
+      "Kanako Itō"
+    ],
+    "text": "The opening of the first anime is Hacking to the Gate, sung by Kanako Itō.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes",
+        "ref": "1327897290",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=11770",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Opening Theme: \"Hacking to the Gate\" performed by Kanako Itō (all episodes)"
+  },
+  {
+    "id": "steins-gate-theme-ed-031",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "steins-gate",
+      "ref": "ed-1"
+    },
+    "field": "themes_ed_b",
+    "value": [
+      "Toki Tsukasadoru Jūni no Meiyaku",
+      "Yui Sakakibara"
+    ],
+    "text": "The normal ending of the first anime is a song by Yui Sakakibara, Toki Tsukasadoru Jūni no Meiyaku.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes",
+        "ref": "1327897290",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=11770",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Ending Theme: \"Toki Tsukasadoru Jūni no Meiyaku\" by Yui Sakakibara"
+  },
+  {
+    "id": "steins-gate-theme-ed-032",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "steins-gate",
+      "ref": "ed-2"
+    },
+    "field": "themes_ed_b",
+    "value": [
+      "Skyclad no Kansokusha",
+      "Kanako Itō"
+    ],
+    "text": "Episode 23 closes with a different ending, Skyclad no Kansokusha, performed by Kanako Itō.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes",
+        "ref": "1327897290",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=11770",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episode 23: \"Skyclad no Kansokusha\" by Kanako Itō"
+  },
+  {
+    "id": "steins-gate-theme-op-033",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "steins-gate",
+      "ref": "op-2"
+    },
+    "field": "themes_op_b",
+    "value": [
+      "Fatima",
+      "Kanako Itō"
+    ],
+    "text": "Steins;Gate 0 opens with Fatima, performed by Kanako Itō.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "official",
+        "url": "https://steinsgate0-anime.com/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20446",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Opening Theme: \"Fatima\" performed by Kanako Itō (all episodes)"
+  },
+  {
+    "id": "steins-gate-theme-ed-034",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "steins-gate",
+      "ref": "ed-3"
+    },
+    "field": "themes_ed_b",
+    "value": [
+      "Amadeus",
+      "Kanako Itō"
+    ],
+    "text": "In the first episode of Steins;Gate 0 the ending is Amadeus, by Kanako Itō.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20446",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Ending Themes: \"Amadeus\" by Kanako Itō (ep 1)"
+  },
+  {
+    "id": "steins-gate-theme-ed-035",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "steins-gate",
+      "ref": "ed-4"
+    },
+    "field": "themes_ed_b",
+    "value": [
+      "Last Game",
+      "Zwei"
+    ],
+    "text": "Last Game, by Zwei, is the ending used in most episodes of Steins;Gate 0.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "official",
+        "url": "https://steinsgate0-anime.com/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20446",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Ending Themes: \"LAST GAME\" by Zwei (eps 2-7, 9-11, 13)"
+  },
+  {
+    "id": "steins-gate-theme-ed-036",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "steins-gate",
+      "ref": "ed-5"
+    },
+    "field": "themes_ed_b",
+    "value": [
+      "World-Line",
+      "Asami Imai"
+    ],
+    "text": "World-Line, sung by Asami Imai, ends several episodes in the second half of Steins;Gate 0.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20446",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Ending Themes: \"World-Line\" by Asami Imai (eps 14-17, 19-20)"
+  },
+  {
+    "id": "steins-gate-theme-ed-037",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "steins-gate",
+      "ref": "ed-6"
+    },
+    "field": "themes_ed_b",
+    "value": [
+      "Gate of Steiner",
+      "Eri Sasaki"
+    ],
+    "text": "Gate of Steiner, by Eri Sasaki, closes the final episode of Steins;Gate 0.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20446",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Ending Themes: \"GATE OF STEINER\" by Eri Sasaki (ep 23)"
+  },
+  {
+    "id": "steins-gate-character-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "rintaro-okabe"
+    },
+    "field": "name",
+    "value": "Rintaro Okabe (岡部 倫太郎)",
+    "text": "Rintaro Okabe is written 岡部 倫太郎 in Japanese and is the founder of the Future Gadget Laboratory.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "he is a kind-hearted and loyal friend, only playing up the Hououin Kyouma personality"
+  },
+  {
+    "id": "steins-gate-character-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "kurisu-makise"
+    },
+    "field": "name",
+    "value": "Kurisu Makise (牧瀬 紅莉栖)",
+    "text": "Kurisu Makise is written 牧瀬 紅莉栖 in Japanese and is a neuroscience researcher.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Having had her research published in the academic journal Science at this age, Kurisu is extremely talented."
+  },
+  {
+    "id": "steins-gate-character-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "mayuri-shiina"
+    },
+    "field": "name",
+    "value": "Mayuri Shiina (椎名 まゆり)",
+    "text": "Mayuri Shiina is written 椎名 まゆり in Japanese and is a childhood friend of Okabe.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "She has a distinctive sing-song way of speaking, and she typically sings tutturū"
+  },
+  {
+    "id": "steins-gate-character-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "itaru-hashida"
+    },
+    "field": "name",
+    "value": "Itaru Hashida (橋田 至)",
+    "text": "Itaru Hashida, nicknamed Daru, is written 橋田 至 in Japanese and is a hacker.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "He is very skilled in computer programming and with old and new computer hardware."
+  },
+  {
+    "id": "steins-gate-character-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "moeka-kiryu"
+    },
+    "field": "name",
+    "value": "Moeka Kiryu (桐生 萌郁)",
+    "text": "Moeka Kiryu is written 桐生 萌郁 in Japanese and is a tech journalist.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "She is very shy and prefers to talk to someone by sending them a text message instead of speaking."
+  },
+  {
+    "id": "steins-gate-character-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "luka-urushibara"
+    },
+    "field": "name",
+    "value": "Luka Urushibara (漆原 るか)",
+    "text": "Luka Urushibara is written 漆原 るか in Japanese and is a friend of Okabe.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "His appearance and mannerisms are quite feminine as a result of his upbringing."
+  },
+  {
+    "id": "steins-gate-character-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "faris-nyannyan"
+    },
+    "field": "name",
+    "value": "Faris NyanNyan (フェイリス・ニャンニャン)",
+    "text": "Faris NyanNyan, whose real name is Rumiho Akiha, is written フェイリス・ニャンニャン in Japanese and works in a maid cafe.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Her family owns Akihabara, and she was the driving force behind it becoming the city of moe."
+  },
+  {
+    "id": "steins-gate-character-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "suzuha-amane"
+    },
+    "field": "name",
+    "value": "Suzuha Amane (阿万音 鈴羽)",
+    "text": "Suzuha Amane is written 阿万音 鈴羽 in Japanese and is a time traveler.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Later it is discovered that she is actually the time traveler known as John Titor."
+  },
+  {
+    "id": "steins-gate-character-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "yugo-tennouji"
+    },
+    "field": "name",
+    "value": "Yugo Tennouji (天王寺 裕吾)",
+    "text": "Yugo Tennouji is written 天王寺 裕吾 in Japanese and is Okabe's landlord, also known as Mr. Braun.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "He is usually rough and impatient, especially when interacting with Okabe, but acts dotingly over his daughter."
+  },
+  {
+    "id": "steins-gate-character-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "nae-tennouji"
+    },
+    "field": "name",
+    "value": "Nae Tennouji (天王寺 綯)",
+    "text": "Nae Tennouji is written 天王寺 綯 in Japanese and is the daughter of Yugo Tennouji.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "gets along well with Mayuri and Suzuha, but is afraid of Okabe"
+  },
+  {
+    "id": "steins-gate-character-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "doctor-nakabachi"
+    },
+    "field": "name",
+    "value": "Doctor Nakabachi (ドクター中鉢)",
+    "text": "Doctor Nakabachi is written ドクター中鉢 in Japanese; his real name is Shouichi Makise, and he is the father of Kurisu.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "His obsession to outshine his daughter in the field of science ends up leading into World War III."
+  },
+  {
+    "id": "steins-gate-character-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "maho-hiyajo"
+    },
+    "field": "name",
+    "value": "Maho Hiyajo",
+    "text": "Maho Hiyajo is a neuroscientist and colleague of Kurisu who appears in Steins;Gate 0.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate_0",
+        "ref": "1377208808",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Maho, who has Kurisu's hard drive, wants to access her theories, hoping to be able to save Kurisu"
+  },
+  {
+    "id": "steins-gate-character-detail-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "rintaro-okabe"
+    },
+    "field": "role",
+    "value": "Lab Member No. 001",
+    "text": "Okabe holds the number 001 in the Future Gadget Laboratory, as Lab Member No. 001.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "has dubbed himself Lab Member No. 001"
+  },
+  {
+    "id": "steins-gate-character-detail-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "mayuri-shiina"
+    },
+    "field": "role",
+    "value": "Lab Member No. 002",
+    "text": "Mayuri holds the number 002 in the Future Gadget Laboratory, as Lab Member No. 002.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Lab Member No. 002"
+  },
+  {
+    "id": "steins-gate-character-detail-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "itaru-hashida"
+    },
+    "field": "role",
+    "value": "Lab Member No. 003",
+    "text": "Daru holds the number 003 in the Future Gadget Laboratory, as Lab Member No. 003.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Lab Member No. 003"
+  },
+  {
+    "id": "steins-gate-character-detail-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "kurisu-makise"
+    },
+    "field": "role",
+    "value": "Lab Member No. 004",
+    "text": "Kurisu holds the number 004 in the Future Gadget Laboratory, as Lab Member No. 004.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Lab Member No. 004"
+  },
+  {
+    "id": "steins-gate-character-detail-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "moeka-kiryu"
+    },
+    "field": "role",
+    "value": "Lab Member No. 005",
+    "text": "Moeka holds the number 005 in the Future Gadget Laboratory, as Lab Member No. 005.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Lab Member No. 005"
+  },
+  {
+    "id": "steins-gate-character-detail-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "luka-urushibara"
+    },
+    "field": "role",
+    "value": "Lab Member No. 006",
+    "text": "Luka holds the number 006 in the Future Gadget Laboratory, as Lab Member No. 006.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Lab Member No. 006"
+  },
+  {
+    "id": "steins-gate-character-detail-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "faris-nyannyan"
+    },
+    "field": "role",
+    "value": "Lab Member No. 007",
+    "text": "Faris holds the number 007 in the Future Gadget Laboratory, as Lab Member No. 007.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Lab Member No. 007"
+  },
+  {
+    "id": "steins-gate-character-detail-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "suzuha-amane"
+    },
+    "field": "role",
+    "value": "Lab Member No. 008",
+    "text": "Suzuha holds the number 008 in the Future Gadget Laboratory, as Lab Member No. 008.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Lab Member No. 008"
+  },
+  {
+    "id": "steins-gate-character-detail-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "rintaro-okabe"
+    },
+    "field": "public_identity",
+    "value": "Hououin Kyouma",
+    "text": "Okabe plays up a mad scientist persona called Hououin Kyouma, though he is a kind and loyal friend underneath.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "only playing up the Hououin Kyouma personality"
+  },
+  {
+    "id": "steins-gate-character-detail-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "rintaro-okabe"
+    },
+    "field": "nickname",
+    "value": "Okarin",
+    "text": "Mayuri and Daru call Okabe by the nickname Okarin.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Mayuri and Daru call him \"Okarin\""
+  },
+  {
+    "id": "steins-gate-character-detail-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "kurisu-makise"
+    },
+    "field": "specialty",
+    "value": "Published in Science",
+    "text": "Kurisu is so talented that she skipped a grade, and her research was published in the journal Science.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "She had skipped a grade in the American school system"
+  },
+  {
+    "id": "steins-gate-character-detail-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "mayuri-shiina"
+    },
+    "field": "catchphrase",
+    "value": "Tutturu",
+    "text": "Mayuri has a sing-song way of speaking and sings tutturu when she arrives.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "she typically sings tutturū"
+  },
+  {
+    "id": "steins-gate-character-detail-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "mayuri-shiina"
+    },
+    "field": "background",
+    "value": "Lost her grandmother",
+    "text": "Mayuri lost her grandmother several years before the story, in circumstances that are not known.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Several years prior she lost her grandmother under unknown circumstances"
+  },
+  {
+    "id": "steins-gate-character-detail-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "moeka-kiryu"
+    },
+    "field": "habits",
+    "value": "Protective of her phone",
+    "text": "Moeka becomes upset when somebody tries to take her mobile phone from her.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "extremely protective of her mobile phone and becomes agitated if someone tries to take it"
+  },
+  {
+    "id": "steins-gate-character-detail-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "faris-nyannyan"
+    },
+    "field": "background",
+    "value": "Her family owns Akihabara",
+    "text": "Faris comes from a family that owns Akihabara and helped it become the city of moe.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Her family owns Akihabara, and she was the driving force behind it becoming the city of moe"
+  },
+  {
+    "id": "steins-gate-character-detail-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "suzuha-amane"
+    },
+    "field": "public_identity",
+    "value": "John Titor",
+    "text": "It is later found out that Suzuha is the time traveler known as John Titor.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "she is actually the time traveler known as John Titor"
+  },
+  {
+    "id": "steins-gate-character-detail-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "suzuha-amane"
+    },
+    "field": "origin",
+    "value": "Daru is her father",
+    "text": "Suzuha is the daughter of Itaru Hashida, who is Daru.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "and the future daughter of Itaru"
+  },
+  {
+    "id": "steins-gate-character-detail-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "yugo-tennouji"
+    },
+    "field": "public_identity",
+    "value": "Mr. Braun",
+    "text": "Yugo Tennouji, the landlord of Okabe, is also known as Mr. Braun.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Okabe gives him the nickname \"Mr. Braun\" due to his passion for CRT TVs"
+  },
+  {
+    "id": "steins-gate-character-detail-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "doctor-nakabachi"
+    },
+    "field": "background",
+    "value": "Father of Kurisu",
+    "text": "Doctor Nakabachi is the father of Kurisu Makise, and his urge to outdo her in science becomes a driving force of the story.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate",
+        "ref": "1380920189",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Kurisu's father and the overarching antagonist of the series"
+  },
+  {
+    "id": "steins-gate-character-detail-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "maho-hiyajo"
+    },
+    "field": "motivation",
+    "value": "Wants to save Kurisu",
+    "text": "Maho has the hard drive of Kurisu and hopes that her theories can save her.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate_0",
+        "ref": "1377208808",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Maho, who has Kurisu's hard drive, wants to access her theories, hoping to be able to save Kurisu"
+  },
+  {
+    "id": "steins-gate-okabe-voice-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "steins-gate",
+      "ref": "rintaro-okabe"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Mamoru Miyano"
+    ],
+    "text": "In the Japanese cast of the Steins;Gate anime, Rintaro Okabe is voiced by Mamoru Miyano.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)",
+        "ref": "1381908034",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3936121",
+        "ref": "Q3936121",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Rintaro Okabe | Mamoru Miyano"
+  }
+]

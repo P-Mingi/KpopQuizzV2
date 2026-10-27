@@ -1,0 +1,222 @@
+{
+ "site": "anime",
+ "account": "oq_creator_20",
+ "group_slug": "tower-of-god",
+ "title": "The Tower by the Numbers: Years, Episodes and Floors",
+ "slug": "the-tower-by-the-numbers-floors-families-and-years",
+ "description": "Ten numeric questions about the Tower of God webtoon and anime: launch and release years, episode counts, the day the webtoon began and one deep floor number. No real spoilers: only arc names and one Irregular's feat.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Numbers format: every answer is a number taken from the webtoon launch, the anime release or the world of the Tower.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Tower of God",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Tower of God season 2",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Tower of God season 1",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
+  }
+ ],
+ "questions": [
+  {
+   "question": "In which year did the Tower of God webtoon begin on Naver Webtoon?",
+   "options": [
+    "2008",
+    "2012",
+    "2014",
+    "2010"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-webtoon-launch-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "How many episodes does the first season of the Tower of God anime have?",
+   "options": [
+    "12",
+    "13",
+    "24",
+    "26"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
+  },
+  {
+   "question": "In which year did the first season of the anime air in Japan?",
+   "options": [
+    "2018",
+    "2019",
+    "2020",
+    "2021"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1"
+  },
+  {
+   "question": "The second season of the anime ended in December. On which day of the month?",
+   "options": [
+    "15",
+    "22",
+    "29",
+    "31"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-season-two-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "In which year was the anime first revealed, at Seoul Comic-Con?",
+   "options": [
+    "2021",
+    "2019",
+    "2017",
+    "2018"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-announcement-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "Counting from the first season on, which episode begins the Return of the Prince arc?",
+   "options": [
+    "12",
+    "13",
+    "14",
+    "27"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-arc-structure-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "In which year did the second season of the anime air in Japan, from July to December?",
+   "options": [
+    "2023",
+    "2022",
+    "2024",
+    "2021"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "tower-of-god-anime-season-two-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "Counting episodes from the first season on, which episode begins the Workshop Battle arc?",
+   "options": [
+    "27",
+    "33",
+    "21",
+    "14"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-arc-structure-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
+  },
+  {
+   "question": "The webtoon began on Naver Webtoon in June of its launch year. On which day of the month?",
+   "options": [
+    "10",
+    "15",
+    "20",
+    "30"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-webtoon-launch-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "Administrators were thought to be unkillable, until an Irregular slew the guardian of one floor. Which floor number was it?",
+   "options": [
+    "33",
+    "43",
+    "20",
+    "50"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-enryu-floor-43-044"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  }
+ ]
+}

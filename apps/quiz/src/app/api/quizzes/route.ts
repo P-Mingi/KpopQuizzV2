@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { forSite } from '@/lib/site/scope';
 import { createServerClient } from '@/lib/supabase/server';
 import { teaserText } from '@/lib/db/queries/quizzes';
 import { avgScorePct } from '@/lib/quiz/scoring';
@@ -11,7 +12,7 @@ const QUIZ_CARD_SELECT = `
   id, title, slug, quiz_type, difficulty, language, play_count, total_score_sum, total_completions, like_count, question_count, created_at, cover_image_url,
   first_question:questions->0->>question,
   groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
-  profiles!inner (username, avatar_url, avatar_bg, avatar_text)
+  profiles!quizzes_creator_id_fkey!inner (username, avatar_url, avatar_bg, avatar_text)
 `;
 
 interface RawRow {
@@ -51,9 +52,9 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const supabase = await createServerClient();
 
   try {
-    let query = supabase
+    let query = forSite(supabase
       .from('quizzes')
-      .select(QUIZ_CARD_SELECT)
+      .select(QUIZ_CARD_SELECT))
       .eq('status', 'published');
 
     // Server-side group filter

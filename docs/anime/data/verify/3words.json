@@ -1,0 +1,888 @@
+[
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-brawl-guess-the-battle-shonen.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Naruto_characters (revision 1381418203)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-brawl-guess-the-battle-shonen.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bleach_(manga) (revision 1372127035)",
+      "https://en.wikipedia.org/wiki/List_of_Bleach_characters (revision 1377233491)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-brawl-guess-the-battle-shonen.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Black_Clover (revision 1381706424)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-brawl-guess-the-battle-shonen.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/My_Hero_Academia (revision 1381034934)",
+      "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters (revision 1380243025)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-brawl-guess-the-battle-shonen.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen (revision 1381182639)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-brawl-guess-the-battle-shonen.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters (revision 1381843197)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-brawl-guess-the-battle-shonen.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dragon_Ball (revision 1381000548)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-brawl-guess-the-battle-shonen.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/One_Piece (revision 1379784013)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-brawl-guess-the-battle-shonen.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Hunter_×_Hunter (revision 1381097044)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-brawl-guess-the-battle-shonen.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fairy_Tail (revision 1381103857)",
+      "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters (revision 1372941047)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-portal-guess-the-fantasy-and-isekai-anime.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Re:Zero (revision 1381439544)",
+      "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters (revision 1379441287)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-portal-guess-the-fantasy-and-isekai-anime.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series) (revision 1381889048)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-portal-guess-the-fantasy-and-isekai-anime.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sword_Art_Online (revision 1380954173)"
+    ],
+    "reason": "'full-dive VR' is not how the page describes the NerveGear game; the word became 'virtual reality game', which the page uses."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-portal-guess-the-fantasy-and-isekai-anime.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Solo_Leveling (revision 1379866104)",
+      "https://en.wikipedia.org/wiki/Solo_Leveling (revision 1381887886)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-portal-guess-the-fantasy-and-isekai-anime.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tower_of_God (revision 1378030268)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-portal-guess-the-fantasy-and-isekai-anime.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint (revision 1380159721)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-portal-guess-the-fantasy-and-isekai-anime.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Frieren_characters (revision 1372941223)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-portal-guess-the-fantasy-and-isekai-anime.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Inuyasha (revision 1377936410)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-portal-guess-the-fantasy-and-isekai-anime.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters (revision 1374097138)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-portal-guess-the-fantasy-and-isekai-anime.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Dr._Stone (revision 1381501872)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-secret-guess-the-mystery-and-mind-game-anime.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Death_Note_characters (revision 1380832770)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-secret-guess-the-mystery-and-mind-game-anime.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters (revision 1376414959)"
+    ],
+    "reason": "Excerpt of detective-conan-conan-edogawa-name-032 was a paraphrase; replaced by the literal sentence of the page (alias Conan Edogawa)."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-secret-guess-the-mystery-and-mind-game-anime.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Steins;Gate (revision 1380920189)"
+    ],
+    "reason": "Excerpts of steins-gate-setting-008 and steins-gate-d-mail-011 were not literal; replaced by literal fragments of the cited revision."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-secret-guess-the-mystery-and-mind-game-anime.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters (revision 1381818128)",
+      "https://en.wikipedia.org/wiki/Code_Geass (revision 1381032911)"
+    ],
+    "reason": "Excerpts of code-geass-character-detail-054 and code-geass-premise-britannia-017 were not literal; replaced by literal text of the cited revisions (Knightmare Frame Lancelot; Area 11)."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-secret-guess-the-mystery-and-mind-game-anime.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tokyo_Ghoul (revision 1381849149)"
+    ],
+    "reason": "Excerpt of tokyo-ghoul-anteiku-022 ignored the Japanese gloss on the page; rewritten as two literal fragments."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-secret-guess-the-mystery-and-mind-game-anime.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion (revision 1380009223)",
+      "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters (revision 1380470607)",
+      "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion) (revision 1377668650)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-secret-guess-the-mystery-and-mind-game-anime.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Attack_on_Titan (revision 1379110502)",
+      "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters (revision 1381702143)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-secret-guess-the-mystery-and-mind-game-anime.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters (revision 1373964762)",
+      "https://en.wikipedia.org/wiki/Spy_%C3%97_Family (revision 1378380720)",
+      "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters (revision 1373964762)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-secret-guess-the-mystery-and-mind-game-anime.json",
+    "index": 8,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters (revision 1377609994)"
+    ],
+    "reason": "The page does not say 'talent agency' (only Strawberry Productions and its president); that word was replaced by 'orphanage' (fact 043, on the page) and the fact added to the question."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-secret-guess-the-mystery-and-mind-game-anime.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War (revision 1379440392)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-clubroom-guess-the-sports-music-and-drama-anime.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Haikyu!! (revision 1380484279)",
+      "https://www.wikidata.org/wiki/Q326642",
+      "https://shonenjump.com/j/rensai/haikyu.html"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-clubroom-guess-the-sports-music-and-drama-anime.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Slam_Dunk_(manga) (revision 1379466912)",
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters (revision 1379124925)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-clubroom-guess-the-sports-music-and-drama-anime.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters (revision 1381706437)",
+      "https://en.wikipedia.org/wiki/Blue_Lock (revision 1380484703)"
+    ],
+    "reason": "The first pass used 'one place, top striker, 300 hopefuls'; the page says 300 participants, a training regimen and the most egotistical striker; words rewritten and fact 014 added."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-clubroom-guess-the-sports-music-and-drama-anime.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock! (revision 1381243071)"
+    ],
+    "reason": "The page says extremely anxious and socially awkward, not shy; 'shy guitarist' became 'anxious guitarist'."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-clubroom-guess-the-sports-music-and-drama-anime.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Fruits_Basket (revision 1379854325)",
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters (revision 1379347180)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-clubroom-guess-the-sports-music-and-drama-anime.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters (revision 1379441297)",
+      "https://en.wikipedia.org/wiki/Sailor_Moon_(character) (revision 1373279974)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-clubroom-guess-the-sports-music-and-drama-anime.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden (revision 1381043521)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-clubroom-guess-the-sports-music-and-drama-anime.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/The_Apothecary_Diaries (revision 1380103786)",
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters (revision 1381623594)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-clubroom-guess-the-sports-music-and-drama-anime.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tokyo_Revengers (revision 1381518809)",
+      "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters (revision 1348563266)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-clubroom-guess-the-sports-music-and-drama-anime.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(manga) (revision 1378041110)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-oddball-guess-the-strange-and-quirky-anime.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters (revision 1368604634)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-oddball-guess-the-strange-and-quirky-anime.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_characters (revision 1374284707)",
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_characters (revision 1381762207)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-oddball-guess-the-strange-and-quirky-anime.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters (revision 1379244237)",
+      "https://en.wikipedia.org/wiki/JoJo's_Bizarre_Adventure (revision 1381936842)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-oddball-guess-the-strange-and-quirky-anime.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kagurabachi (revision 1381907193)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-oddball-guess-the-strange-and-quirky-anime.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaiju_No._8 (revision 1380846548)",
+      "https://en.wikipedia.org/wiki/Kaiju_No._8 (revision 1381742599)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-oddball-guess-the-strange-and-quirky-anime.json",
+    "index": 5,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters (revision 1370251193)"
+    ],
+    "reason": "Excerpt of mob-psycho-100-consultation-office-023 was a paraphrase; replaced by the literal sentence (300 yen an hour)."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-oddball-guess-the-strange-and-quirky-anime.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters (revision 1380588466)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-oddball-guess-the-strange-and-quirky-anime.json",
+    "index": 7,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days (revision 1379833283)"
+    ],
+    "reason": "Excerpt of sakamoto-days-premise-011 was not literal; replaced by literal fragments of the cited revision."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-oddball-guess-the-strange-and-quirky-anime.json",
+    "index": 8,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama (revision 1380552228)"
+    ],
+    "reason": "Excerpts of gintama-setting-007 and gintama-sword-ban-008 were not literal; replaced by the literal sentences (aliens called Amanto; ban on carrying swords in public)."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-one-oddball-guess-the-strange-and-quirky-anime.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Cowboy_Bebop (revision 1381153866)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-retro-shelf-guess-the-early-tv-classics.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters (revision 1380310152)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-retro-shelf-guess-the-early-tv-classics.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/One_Piece (revision 1381646993)",
+      "https://en.wikipedia.org/wiki/Roronoa_Zoro (revision 1380100680)",
+      "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series) (revision 1381099585)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-retro-shelf-guess-the-early-tv-classics.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters (revision 1378757391)",
+      "https://en.wikipedia.org/wiki/Hunter_×_Hunter (revision 1381097044)",
+      "https://www.wikidata.org/wiki/Q11398237"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-retro-shelf-guess-the-early-tv-classics.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters (revision 1375701088)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-retro-shelf-guess-the-early-tv-classics.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters (revision 1376414959)",
+      "https://en.wikipedia.org/wiki/Case_Closed_(TV_series) (revision 1380734049)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-retro-shelf-guess-the-early-tv-classics.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion (revision 1380009223)",
+      "https://www.wikidata.org/wiki/Q378523"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-retro-shelf-guess-the-early-tv-classics.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters (revision 1379124925)",
+      "https://en.wikipedia.org/wiki/Slam_Dunk_(manga) (revision 1379466912)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-retro-shelf-guess-the-early-tv-classics.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters (revision 1379441297)",
+      "https://en.wikipedia.org/wiki/Sailor_Moon_(character) (revision 1373279974)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-retro-shelf-guess-the-early-tv-classics.json",
+    "index": 8,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters (revision 1379347180)"
+    ],
+    "reason": "The first pass used 'rice ball' (the page says onigiri, which is also the One Piece word of this quiz); words replaced by seahorse, cat outside the zodiac and the missed induction feast, all on the pages."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-retro-shelf-guess-the-early-tv-classics.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters (revision 1374374792)",
+      "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop (revision 1332452396)",
+      "https://www.cowboy-bebop.net/character/"
+    ],
+    "note": "official page cowboy-bebop.net/character is client rendered and shows no text; Wikipedia revision read instead"
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-noughties-guess-the-anime-that-debuted-2002-to-2012.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Naruto (revision 1379758694)",
+      "https://en.wikipedia.org/wiki/List_of_Naruto_characters (revision 1381418203)"
+    ],
+    "reason": "The page says ninja dog, not dog partner; word replaced."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-noughties-guess-the-anime-that-debuted-2002-to-2012.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters (revision 1374097138)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-noughties-guess-the-anime-that-debuted-2002-to-2012.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Bleach_characters (revision 1377233491)"
+    ],
+    "reason": "'lion plush toy' and 'Karakura Town shopkeeper' are not on the page; replaced by 'lion plushie' and 'snack shop owner' (the Urahara Shop deals in snacks)."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-noughties-guess-the-anime-that-debuted-2002-to-2012.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Death_Note_characters (revision 1380832770)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-noughties-guess-the-anime-that-debuted-2002-to-2012.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters (revision 1381818128)",
+      "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters (revision 1381937587)"
+    ],
+    "reason": "Excerpt of code-geass-character-detail-070 (table text) replaced by the literal sentence (president of the Student Council)."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-noughties-guess-the-anime-that-debuted-2002-to-2012.json",
+    "index": 5,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Gintama (revision 1380552228)",
+      "https://en.wikipedia.org/wiki/List_of_Gintama_characters (revision 1378278398)"
+    ],
+    "reason": "Excerpt of gintama-yorozuya-009 was a paraphrase; replaced by the literal sentence (store called Yorozuya)."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-noughties-guess-the-anime-that-debuted-2002-to-2012.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters (revision 1372941047)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-noughties-guess-the-anime-that-debuted-2002-to-2012.json",
+    "index": 7,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Steins;Gate (revision 1380920189)"
+    ],
+    "reason": "Facts steins-gate-character-detail-058 and -067 were verified before their last source was fetched; words replaced by tutturu and maid cafe (pages read), and the excerpt of steins-gate-future-gadget-lab-009 made literal."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-noughties-guess-the-anime-that-debuted-2002-to-2012.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters (revision 1379244237)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-noughties-guess-the-anime-that-debuted-2002-to-2012.json",
+    "index": 9,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sword_Art_Online (revision 1380954173)",
+      "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters (revision 1380067261)"
+    ],
+    "reason": "Excerpt of sword-art-online-character-detail-075 was not literal; replaced by the literal sentence (axe wielder, general shop, blacksmithing)."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-mid-2010s-guess-the-anime-that-debuted-2013-to-2018.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters (revision 1381702143)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-mid-2010s-guess-the-anime-that-debuted-2013-to-2018.json",
+    "index": 1,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Haikyu!! (revision 1380484279)"
+    ],
+    "reason": "Haikyu had no arc 0 fact for these words; two facts added from the cited revision (sole club member; prodigy setter nicknamed King of the Court)."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-mid-2010s-guess-the-anime-that-debuted-2013-to-2018.json",
+    "index": 2,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters (revision 1381202233)"
+    ],
+    "reason": "The page does not call Kaneki bookish (it says university freshman); word replaced; excerpt of tokyo-ghoul-character-detail-077 made literal."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-mid-2010s-guess-the-anime-that-debuted-2013-to-2018.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/One-Punch_Man (revision 1379606340)",
+      "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters (revision 1380588466)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-mid-2010s-guess-the-anime-that-debuted-2013-to-2018.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters (revision 1370251193)"
+    ],
+    "reason": "Excerpts of mob-psycho-100-body-improvement-club-024 and -058 were not literal; replaced; fact -061 dropped because its literal text copied the series file."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-mid-2010s-guess-the-anime-that-debuted-2013-to-2018.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters (revision 1380243025)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-mid-2010s-guess-the-anime-that-debuted-2013-to-2018.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Re:Zero (revision 1381439544)",
+      "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters (revision 1379441287)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-mid-2010s-guess-the-anime-that-debuted-2013-to-2018.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Black_Clover (revision 1381706424)",
+      "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters (revision 1381757229)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-mid-2010s-guess-the-anime-that-debuted-2013-to-2018.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Violet_Evergarden (revision 1381043521)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-mid-2010s-guess-the-anime-that-debuted-2013-to-2018.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters (revision 1376693848)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-new-decade-guess-the-anime-that-debuted-2019-to-2022.json",
+    "index": 0,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War (revision 1379440392)",
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters (revision 1372942368)"
+    ],
+    "reason": "The page says wealth and a business conglomerate, not heiress; word replaced by 'conglomerate family'."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-new-decade-guess-the-anime-that-debuted-2019-to-2022.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters (revision 1380846107)",
+      "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters (revision 1381843197)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-new-decade-guess-the-anime-that-debuted-2019-to-2022.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters (revision 1377940548)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-new-decade-guess-the-anime-that-debuted-2019-to-2022.json",
+    "index": 3,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Vinland_Saga_(manga) (revision 1378041110)"
+    ],
+    "reason": "Vinland Saga had no arc 0 fact for these words; two facts added from the cited revision; 'Sweyn Forkbeard' (a character full name) became 'Danish king' and 'Saga of the Greenlanders' (contains the title word Saga) became 'Flateyjarbók'."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-new-decade-guess-the-anime-that-debuted-2019-to-2022.json",
+    "index": 4,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0 (revision 1379845584)",
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0_(film) (revision 1363402947)",
+      "https://www.wikidata.org/wiki/Q106392064",
+      "https://www.wikidata.org/wiki/Q109914608"
+    ],
+    "reason": "'Juju Sanpo' echoes the title and was dropped; the third word became 'Christmas Eve 2021 film' (fact 019, release date 2021-12-24 also on Wikidata Q109914608)."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-new-decade-guess-the-anime-that-debuted-2019-to-2022.json",
+    "index": 5,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Tower_of_God (revision 1378030268)",
+      "https://www.wikidata.org/wiki/Q487202"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-new-decade-guess-the-anime-that-debuted-2019-to-2022.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters (revision 1348563266)",
+      "https://en.wikipedia.org/wiki/Tokyo_Revengers (revision 1381518809)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-new-decade-guess-the-anime-that-debuted-2019-to-2022.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters (revision 1368604634)",
+      "https://en.wikipedia.org/wiki/Tatsuki_Fujimoto (revision 1380627160)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-new-decade-guess-the-anime-that-debuted-2019-to-2022.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Bocchi_the_Rock! (revision 1381243071)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-new-decade-guess-the-anime-that-debuted-2019-to-2022.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Blue_Lock (revision 1380484703)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-newest-shelf-guess-the-latest-anime-and-webcomic-hits.json",
+    "index": 0,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series) (revision 1379031004)",
+      "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters (revision 1373964762)",
+      "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters (revision 1373964762)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-newest-shelf-guess-the-latest-anime-and-webcomic-hits.json",
+    "index": 1,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters (revision 1377609994)",
+      "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series) (revision 1379821089)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-newest-shelf-guess-the-latest-anime-and-webcomic-hits.json",
+    "index": 2,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Frieren_characters (revision 1372941223)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-newest-shelf-guess-the-latest-anime-and-webcomic-hits.json",
+    "index": 3,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters (revision 1381623594)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-newest-shelf-guess-the-latest-anime-and-webcomic-hits.json",
+    "index": 4,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Dandadan_characters (revision 1381762207)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-newest-shelf-guess-the-latest-anime-and-webcomic-hits.json",
+    "index": 5,
+    "verdict": "fixed",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kaiju_No._8 (revision 1380846548)",
+      "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters (revision 1379106176)"
+    ],
+    "reason": "The page says cleaner for a kaiju disposal company, not cleanup company; word replaced by 'monster disposal company'."
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-newest-shelf-guess-the-latest-anime-and-webcomic-hits.json",
+    "index": 6,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Solo_Leveling (revision 1381887886)",
+      "https://en.wikipedia.org/wiki/Solo_Leveling (revision 1379866104)",
+      "https://www.wikidata.org/wiki/Q112898063",
+      "https://sololeveling-anime.net/"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-newest-shelf-guess-the-latest-anime-and-webcomic-hits.json",
+    "index": 7,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Sakamoto_Days (revision 1379833283)",
+      "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters (revision 1372317737)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-newest-shelf-guess-the-latest-anime-and-webcomic-hits.json",
+    "index": 8,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Kagurabachi (revision 1380968841)",
+      "https://en.wikipedia.org/wiki/Kagurabachi (revision 1381907193)"
+    ]
+  },
+  {
+    "quiz": "quizzes/anime-mix/three-words-from-the-newest-shelf-guess-the-latest-anime-and-webcomic-hits.json",
+    "index": 9,
+    "verdict": "ok",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Omniscient_Reader%27s_Viewpoint (revision 1380159721)",
+      "https://en.wikipedia.org/wiki/Omniscient_Reader's_Viewpoint (revision 1381802715)",
+      "https://en.wikipedia.org/wiki/Omniscient_Reader:_The_Prophecy (revision 1376160456)",
+      "https://www.wikidata.org/wiki/Q124338944",
+      "https://www.wikidata.org/wiki/Q126724933"
+    ]
+  }
+]

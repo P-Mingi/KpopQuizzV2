@@ -11,6 +11,8 @@ interface GroupAvatarProps {
   className?: string;
   /** Eager-load (first row above the fold). */
   priority?: boolean;
+  /** A site's own picture (a typographic title card) in place of the photo or the monogram. Default: none. */
+  art?: React.ReactNode;
 }
 
 /**
@@ -19,13 +21,13 @@ interface GroupAvatarProps {
  * neutral two-letter initials on surface-2 (16.8). Decorative: the group name is
  * always printed next to it. Hooks-free, so server and client islands share it.
  */
-export function GroupAvatar({ name, photo, size, className, priority }: GroupAvatarProps): React.ReactElement {
-  const cls = ['p3-gav', photo ? '' : 'is-ini', className ?? ''].filter(Boolean).join(' ');
+export function GroupAvatar({ name, photo, size, className, priority, art }: GroupAvatarProps): React.ReactElement {
+  const cls = ['p3-gav', photo || art ? '' : 'is-ini', className ?? ''].filter(Boolean).join(' ');
   return (
     <span className={cls} style={{ width: size, height: size }} aria-hidden="true">
-      {photo ? (
+      {art ?? (photo ? (
         <Image src={photo} alt="" width={size} height={size} sizes={`${size}px`} priority={priority === true} />
-      ) : initials(name)}
+      ) : initials(name))}
     </span>
   );
 }

@@ -1,0 +1,167 @@
+{
+ "site": "anime",
+ "account": "oq_creator_01",
+ "group_slug": "death-note",
+ "title": "Name and Face: Death Note True or False",
+ "slug": "name-and-face-death-note-true-or-false",
+ "description": "Ten statements on the title, the creators, the run of the manga and the anime, the names and the notebook rule. Some are one detail off, so read closely.",
+ "quiz_type": "true_false",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia (ja): DEATH NOTE",
+   "url": "https://ja.wikipedia.org/wiki/DEATH_NOTE"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Death Note",
+   "url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Death Note chapters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_chapters"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: List of Death Note characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  }
+ ],
+ "notes": "Statements restate arc 0 fact texts (001, 002, 003, 004, 006, 011, 012, 013, 014, 019); each false one changes a single detail (a swapped role, a count, a year, the rule, the platform). K1 rewrite: blocked statement rewritten on verified fact 012.",
+ "questions": [
+  {
+   "question": "The Japanese title, Desu Nōto, is simply the English name spelled in katakana.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-japanese-title-001"
+   ],
+   "source_url": "https://ja.wikipedia.org/wiki/DEATH_NOTE"
+  },
+  {
+   "question": "Takeshi Obata writes the story and Tsugumi Ohba draws it.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-manga-creators-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "The manga appeared in Weekly Shōnen Jump between December 2003 and May 2006.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "death-note-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "The 108 weekly chapters were gathered into twenty tankōbon volumes.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "death-note-manga-size-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_chapters"
+  },
+  {
+   "question": "Circulation passed thirty million copies by spring 2015.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "death-note-copies-in-print-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "The anime ran for 37 episodes on Nippon Television, from autumn 2006 to the summer of 2008.",
+   "correct": false,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "death-note-anime-run-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "Ohba picked names that sound plausible yet are not found in real life.",
+   "correct": true,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-character-names-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "A victim dies as soon as the writer puts down the name, even without picturing the face.",
+   "correct": false,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-notebook-rule-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "Ryuk, the Shinigami who loses his notebook, has a weakness for apples.",
+   "correct": true,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-ryuk-apples-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "An American film version premiered in cinemas in August 2017.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-netflix-film-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  }
+ ]
+}

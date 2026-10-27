@@ -1,0 +1,321 @@
+{
+ "site": "anime",
+ "account": "oq_creator_08",
+ "group_slug": "dragon-ball",
+ "title": "Which One Does Not Belong? Dragon Ball Odd One Out",
+ "slug": "which-one-does-not-belong-dragon-ball-odd-one-out",
+ "description": "Ten rounds of four names where one is the outsider: Pilaf's crew, Master Roshi's pupils, Namekians, the Ginyu Force, forms of Goku and the gods of Universe 6. Spoilers up to Dragon Ball Super.",
+ "quiz_type": "intruder",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Intruder format: three options share a trait from the franchise, one does not; every option is a character, form or title from Dragon Ball.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Dragon Ball characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three of these belong to the crew of Emperor Pilaf. Which one does not?",
+   "options": [
+    {
+     "label": "Oolong"
+    },
+    {
+     "label": "Shu"
+    },
+    {
+     "label": "Mai"
+    },
+    {
+     "label": "Pilaf"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dragon-ball-pilaf-leads-gang-061",
+    "dragon-ball-shu-mai-gang-062",
+    "dragon-ball-oolong-wish-pig-063"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  },
+  {
+   "question": "Three of these are anime series set in the Dragon Ball story. Which one is an earlier, separate manga by the same author?",
+   "options": [
+    {
+     "label": "Dragon Ball Z"
+    },
+    {
+     "label": "Dragon Ball Super"
+    },
+    {
+     "label": "Dragon Ball GT"
+    },
+    {
+     "label": "Dr. Slump"
+    }
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dragon-ball-dr-slump-universe-064",
+    "dragon-ball-gt-sequel-series-065",
+    "dragon-ball-z-tv-run-017",
+    "dragon-ball-super-tv-run-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  },
+  {
+   "question": "Three of these fighters learned martial arts from Master Roshi. Which one was trained by Roshi's rival instead?",
+   "options": [
+    {
+     "label": "Goku"
+    },
+    {
+     "label": "Yamcha"
+    },
+    {
+     "label": "Tien Shinhan"
+    },
+    {
+     "label": "Krillin"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 7,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dragon-ball-krillin-roshi-pupil-066",
+    "dragon-ball-yamcha-roshi-pupil-067",
+    "dragon-ball-tien-master-shen-068"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  },
+  {
+   "question": "Three of these characters have names built on vegetable jokes. Which one is named after underwear?",
+   "options": [
+    {
+     "label": "Vegeta"
+    },
+    {
+     "label": "Bulma"
+    },
+    {
+     "label": "Nappa"
+    },
+    {
+     "label": "Raditz"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 10,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dragon-ball-saiyan-veg-bulma-underwear-069",
+    "dragon-ball-raditz-saiyan-070",
+    "dragon-ball-nappa-saiyan-071",
+    "dragon-ball-vegeta-saiyan-prince-072"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  },
+  {
+   "question": "Three of these characters are Namekians. Which one is an Earthling?",
+   "options": [
+    {
+     "label": "Kami"
+    },
+    {
+     "label": "Piccolo"
+    },
+    {
+     "label": "Dende"
+    },
+    {
+     "label": "Krillin"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 11,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dragon-ball-piccolo-namekian-073",
+    "dragon-ball-dende-namekian-074",
+    "dragon-ball-kami-namekian-075",
+    "dragon-ball-krillin-earth-fighter-076"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  },
+  {
+   "question": "Three of these fighters are members of the Ginyu Force. Which one is a Frieza henchman outside that squad?",
+   "options": [
+    {
+     "label": "Recoome"
+    },
+    {
+     "label": "Burter"
+    },
+    {
+     "label": "Zarbon"
+    },
+    {
+     "label": "Guldo"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 11,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dragon-ball-ginyu-force-five-077",
+    "dragon-ball-guldo-ginyu-078",
+    "dragon-ball-recoome-ginyu-079",
+    "dragon-ball-burter-ginyu-080",
+    "dragon-ball-zarbon-frieza-henchman-081"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  },
+  {
+   "question": "Three of these belong to the household of Goku. Which one comes from another family?",
+   "options": [
+    {
+     "label": "Trunks"
+    },
+    {
+     "label": "Chi-Chi"
+    },
+    {
+     "label": "Gohan"
+    },
+    {
+     "label": "Goten"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 16,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dragon-ball-chichi-wife-082",
+    "dragon-ball-gohan-eldest-son-083",
+    "dragon-ball-goten-youngest-son-084",
+    "dragon-ball-trunks-vegeta-bulma-child-085"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  },
+  {
+   "question": "Three of these characters serve as attendants of a deity. Which one is a human master who serves no deity?",
+   "options": [
+    {
+     "label": "Vados"
+    },
+    {
+     "label": "Master Roshi"
+    },
+    {
+     "label": "Whis"
+    },
+    {
+     "label": "Mr. Popo"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 19,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dragon-ball-whis-attendant-096",
+    "dragon-ball-vados-attendant-087",
+    "dragon-ball-mr-popo-attendant-088",
+    "dragon-ball-roshi-instructor-089"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  },
+  {
+   "question": "Three of these are forms that Goku takes. Which one is a separate warrior born from a fusion?",
+   "options": [
+    {
+     "label": "Super Saiyan"
+    },
+    {
+     "label": "Gotenks"
+    },
+    {
+     "label": "Giant ape"
+    },
+    {
+     "label": "Super Saiyan God"
+    }
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 19,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dragon-ball-goku-giant-ape-090",
+    "dragon-ball-goku-super-saiyan-frieza-091",
+    "dragon-ball-goku-super-saiyan-god-092",
+    "dragon-ball-gotenks-fusion-093"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  },
+  {
+   "question": "Three of these come from Universe 6. Which one belongs to Universe 7?",
+   "options": [
+    {
+     "label": "Beerus"
+    },
+    {
+     "label": "Hit"
+    },
+    {
+     "label": "Cabba"
+    },
+    {
+     "label": "Champa"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 21,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dragon-ball-hit-universe-6-094",
+    "dragon-ball-cabba-universe-6-095",
+    "dragon-ball-champa-universe-6-097",
+    "dragon-ball-beerus-universe-7-098"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  }
+ ]
+}

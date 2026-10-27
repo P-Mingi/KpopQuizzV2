@@ -1,3 +1,4 @@
+import { SITE_ID } from '@/lib/site/registry';
 import { verseHidden } from '@/lib/verse/visibility';
 
 import { UxShellLoader } from './ux-shell-loader';
@@ -15,7 +16,8 @@ import { UxShellLoader } from './ux-shell-loader';
  */
 export function UxShell({ children }: { children: React.ReactNode }): React.ReactElement {
   return (
-    <UxShellLoader showFandoms={!verseHidden()} year={new Date().getFullYear()}>
+    // Run O1 (H2a): the hub build alone asks for the bare shell on its home (the prop is absent, not undefined, on kpop and anime).
+    <UxShellLoader showFandoms={!verseHidden()} year={new Date().getFullYear()} {...(SITE_ID === 'hub' ? { bare: true } : {})}>
       {children}
     </UxShellLoader>
   );

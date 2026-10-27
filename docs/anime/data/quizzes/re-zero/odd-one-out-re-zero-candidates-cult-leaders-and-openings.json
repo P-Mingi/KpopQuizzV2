@@ -1,0 +1,318 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "re-zero",
+  "title": "Odd One Out: Re:Zero Candidates, Cult Leaders and Openings",
+  "slug": "odd-one-out-re-zero-candidates-cult-leaders-and-openings",
+  "description": "Four choices, one that does not belong. Royal candidates, sins, staff, songs, games and studios. Light spoilers up to the third season.",
+  "quiz_type": "intruder",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Intruder format: three real members of a group and one real outsider; all four options are things from the series.",
+  "questions": [
+    {
+      "question": "Three of these are candidates in the royal election. Which one is a knight instead?",
+      "options": [
+        {
+          "label": "Crusch Karsten"
+        },
+        {
+          "label": "Priscilla Barielle"
+        },
+        {
+          "label": "Anastasia Hoshin"
+        },
+        {
+          "label": "Reinhard van Astrea"
+        }
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-candidates-030",
+        "re-zero-character-name-042"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    },
+    {
+      "question": "Three of these stand for a sin in the Witch Cult or among the Witches. Which one does not?",
+      "options": [
+        {
+          "label": "Petelgeuse Romanée-Conti"
+        },
+        {
+          "label": "Reinhard van Astrea"
+        },
+        {
+          "label": "Regulus Corneas"
+        },
+        {
+          "label": "Satella"
+        }
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-character-name-053",
+        "re-zero-character-name-057",
+        "re-zero-character-name-054",
+        "re-zero-character-name-042"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    },
+    {
+      "question": "Three of these people worked on the anime as director or composer. Which one wrote the original novels?",
+      "options": [
+        {
+          "label": "Masaharu Watanabe"
+        },
+        {
+          "label": "Tappei Nagatsuki"
+        },
+        {
+          "label": "Masahiro Shinohara"
+        },
+        {
+          "label": "Kenichiro Suehiro"
+        }
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-director-first-014",
+        "re-zero-director-now-013",
+        "re-zero-composer-015",
+        "re-zero-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "question": "Three of these acts sang openings. Which one only sang endings?",
+      "options": [
+        {
+          "label": "Konomi Suzuki"
+        },
+        {
+          "label": "Mayu Maeshima"
+        },
+        {
+          "label": "Myth & Roid"
+        },
+        {
+          "label": "Nonoc"
+        }
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "re-zero-openings-035",
+        "re-zero-endings-036"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "question": "Three of these are video games. Which one is a series of anime shorts?",
+      "options": [
+        {
+          "label": "Death or Kiss"
+        },
+        {
+          "label": "Re:Petit"
+        },
+        {
+          "label": "Lost in Memories"
+        },
+        {
+          "label": "The Prophecy of the Throne"
+        }
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-games-020",
+        "re-zero-shorts-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "question": "Three of these live or work at Roswaal's mansion. Which one is a royal election candidate?",
+      "options": [
+        {
+          "label": "Priscilla Barielle"
+        },
+        {
+          "label": "Rem"
+        },
+        {
+          "label": "Ram"
+        },
+        {
+          "label": "Beatrice"
+        }
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-mansion-031",
+        "re-zero-candidates-030"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    },
+    {
+      "question": "Three of these made Re:Zero works as a studio or developer. Which one published the light novels?",
+      "options": [
+        {
+          "label": "White Fox"
+        },
+        {
+          "label": "Media Factory"
+        },
+        {
+          "label": "Studio Puyukai"
+        },
+        {
+          "label": "5pb."
+        }
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-studio-012",
+        "re-zero-shorts-018",
+        "re-zero-game-developer-032",
+        "re-zero-light-novel-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero"
+    },
+    {
+      "question": "Three of these carried Re:Zero manga. Which one is a web novel site?",
+      "options": [
+        {
+          "label": "Monthly Comic Alive"
+        },
+        {
+          "label": "Shōsetsuka ni Narō"
+        },
+        {
+          "label": "Monthly Big Gangan"
+        },
+        {
+          "label": "Comic Alive+"
+        }
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "re-zero-manga-magazines-021",
+        "re-zero-web-novel-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero"
+    },
+    {
+      "question": "Three of these songs are openings. Which one is an ending?",
+      "options": [
+        {
+          "label": "Redo"
+        },
+        {
+          "label": "Realize"
+        },
+        {
+          "label": "Styx Helix"
+        },
+        {
+          "label": "Reweave"
+        }
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "re-zero-openings-035",
+        "re-zero-endings-036"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "question": "Three of these songs are endings. Which one is an opening?",
+      "options": [
+        {
+          "label": "Memento"
+        },
+        {
+          "label": "Long Shot"
+        },
+        {
+          "label": "Nox Lux"
+        },
+        {
+          "label": "Ender Ember"
+        }
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "re-zero-openings-035",
+        "re-zero-endings-036"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Re:Zero characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Re:Zero (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Re:Zero",
+      "url": "https://en.wikipedia.org/wiki/Re:Zero"
+    }
+  ]
+}

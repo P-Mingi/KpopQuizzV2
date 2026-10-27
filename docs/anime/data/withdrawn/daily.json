@@ -1,0 +1,191 @@
+[
+  {
+    "reason": "Every verified arc-0 Attack on Titan fact is already asked in the same ask by b1/b2 daily rows or the quiz files (credits, true-or-false, first-steps); four blocked questions cannot be rebuilt without duplicates or derived counts.",
+    "source": "daily/b2.json row 12",
+    "row": {
+      "site": "anime",
+      "title": "Inside the Walls: Seasons and Records",
+      "description": "Eight questions on seasons, directors and records of the Attack on Titan anime and manga.",
+      "group_slug": "attack-on-titan",
+      "quiz_type": "multiple_choice",
+      "difficulty": "medium",
+      "category": "series_specific",
+      "questions": [
+        {
+          "question": "The first season of 25 episodes in 2013 covered how many of the manga's first chapters?",
+          "options": [
+            "34",
+            "54",
+            "60",
+            "25"
+          ],
+          "correct": 0,
+          "kind": "episode",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "fact_ids": [
+            "attack-on-titan-season-one-span-001"
+          ],
+          "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1"
+        },
+        {
+          "question": "In which year did the manga win the Kodansha Manga Award for best shonen title?",
+          "options": [
+            "2009",
+            "2015",
+            "2011",
+            "2013"
+          ],
+          "correct": 2,
+          "kind": "manga",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "fact_ids": [
+            "attack-on-titan-kodansha-award-023"
+          ],
+          "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+        },
+        {
+          "question": "When did season 3 return from its pause to air its remaining ten episodes?",
+          "options": [
+            "January 2019",
+            "July 2019",
+            "April 2019",
+            "October 2018"
+          ],
+          "correct": 2,
+          "kind": "episode",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "fact_ids": [
+            "attack-on-titan-season-three-split-026"
+          ],
+          "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3"
+        },
+        {
+          "question": "How many episodes does the TV series reach across its four seasons, counting the episodic cut of the last two specials?",
+          "options": [
+            "75",
+            "100",
+            "87",
+            "94"
+          ],
+          "correct": 3,
+          "kind": "episode",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "fact_ids": [
+            "attack-on-titan-episode-count-017"
+          ],
+          "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+        },
+        {
+          "question": "The first print of volume 12 topped how many copies?",
+          "options": [
+            "Two million",
+            "Five million",
+            "Five hundred thousand",
+            "One million"
+          ],
+          "correct": 0,
+          "kind": "manga",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "fact_ids": [
+            "attack-on-titan-volume-twelve-print-run-022"
+          ],
+          "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+        },
+        {
+          "question": "Who directed the first three seasons of the anime?",
+          "options": [
+            "Haruo Sotozaki",
+            "Tetsuro Araki",
+            "Yuichiro Hayashi",
+            "Shinichiro Watanabe"
+          ],
+          "correct": 1,
+          "kind": "production",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "fact_ids": [
+            "attack-on-titan-series-directors-019"
+          ],
+          "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+        },
+        {
+          "question": "Which studio took over the animation for the final season?",
+          "options": [
+            "Wit Studio",
+            "Bones",
+            "MAPPA",
+            "Madhouse"
+          ],
+          "correct": 2,
+          "kind": "production",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "fact_ids": [
+            "attack-on-titan-animation-studios-018"
+          ],
+          "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+        },
+        {
+          "question": "What did the show once hold a Guinness record for?",
+          "options": [
+            "Most episodes in a season",
+            "Demand among anime series",
+            "Most dubbed languages",
+            "Longest opening song"
+          ],
+          "correct": 1,
+          "kind": "episode",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "fact_ids": [
+            "attack-on-titan-guinness-record-024"
+          ],
+          "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+        }
+      ],
+      "sources": [
+        {
+          "id": "S1",
+          "title": "Wikipedia: Attack on Titan season 1",
+          "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1"
+        },
+        {
+          "id": "S2",
+          "title": "Wikipedia: Attack on Titan",
+          "url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+        },
+        {
+          "id": "S3",
+          "title": "Wikipedia: Attack on Titan season 3",
+          "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3"
+        },
+        {
+          "id": "S4",
+          "title": "Wikipedia: Attack on Titan (TV series)",
+          "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+        }
+      ]
+    }
+  }
+]

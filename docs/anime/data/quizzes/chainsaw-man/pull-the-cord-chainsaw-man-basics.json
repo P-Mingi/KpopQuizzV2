@@ -1,0 +1,223 @@
+{
+  "site": "anime",
+  "account": "oq_creator_12",
+  "group_slug": "chainsaw-man",
+  "title": "Pull the Cord: Chainsaw Man Basics",
+  "slug": "pull-the-cord-chainsaw-man-basics",
+  "description": "Ten easy questions on the creator, the awards, the studio and the numbers behind the manga and the 2022 anime. No story knowledge needed.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who both wrote and drew the Chainsaw Man manga?",
+      "options": [
+        "Tatsuki Fujimoto",
+        "Kohei Horikoshi",
+        "Gege Akutami",
+        "Tite Kubo"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-manga-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "question": "Which award did the manga win for the best manga every year from 2021 to 2023?",
+      "options": [
+        "Eisner Awards",
+        "Kodansha Manga Awards",
+        "Harvey Awards",
+        "Seiun Awards"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "chainsaw-man-awards-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "question": "In which month of 2022 did the television anime start airing?",
+      "options": [
+        "September",
+        "November",
+        "December",
+        "October"
+      ],
+      "correct": 3,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-anime-run-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "In which year did the manga begin?",
+      "options": [
+        "2016",
+        "2018",
+        "2020",
+        "2022"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "chainsaw-man-manga-run-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "question": "How many volumes collect the chapters?",
+      "options": [
+        "12",
+        "24",
+        "36",
+        "48"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "chainsaw-man-volume-count-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "question": "Which song is the ending of the final episode, episode 12?",
+      "options": [
+        "Chainsaw Blood",
+        "Zanki",
+        "Kick Back",
+        "Violence"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-ending-themes-016",
+        "chainsaw-man-anime-run-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "Which studio produced the television anime?",
+      "options": [
+        "MAPPA",
+        "Bones",
+        "Wit Studio",
+        "Madhouse"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-anime-studio-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "How many episodes did the television anime run?",
+      "options": [
+        "13",
+        "24",
+        "12",
+        "26"
+      ],
+      "correct": 2,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-anime-run-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "In which year did the television anime air?",
+      "options": [
+        "2020",
+        "2023",
+        "2024",
+        "2022"
+      ],
+      "correct": 3,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-anime-run-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "Denji carries a huge debt that his father left to whom?",
+      "options": [
+        "The yakuza",
+        "A bank",
+        "A school",
+        "Public Safety"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "chainsaw-man-denji-debt-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Chainsaw Man",
+      "url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Chainsaw Man (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Chainsaw Man characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    }
+  ],
+  "notes": "Starter: every question cites an arc 0 fact only. No violence is described; all questions are about publication and production. K1 rewrite: blocked questions rewritten on verified facts 007, 010 and 016."
+}

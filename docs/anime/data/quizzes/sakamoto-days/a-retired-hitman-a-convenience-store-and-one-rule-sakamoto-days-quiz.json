@@ -1,0 +1,217 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "sakamoto-days",
+  "title": "Sakamoto Days Quiz: a Retired Hitman, a Convenience Store and One Rule",
+  "slug": "a-retired-hitman-a-convenience-store-and-one-rule-sakamoto-days-quiz",
+  "description": "Ten easy questions on the creator, the store, the family and the first cast of Sakamoto Days. No spoilers beyond the first episodes.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "New series batch 4. Arc 0 facts only, characters of the opening episodes. One fact per answer.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Sakamoto Days",
+      "url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Sakamoto Days characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    }
+  ],
+  "questions": [
+    {
+      "question": "What was the title of the one-shot that Yuto Suzuki published in Jump Giga before the series began?",
+      "options": [
+        "Sakamoto",
+        "Convenience Killer",
+        "Taro Days",
+        "The Fat Hitman"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "sakamoto-days-oneshot-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "question": "What kind of business does the retired hero run?",
+      "options": [
+        "A flower shop",
+        "A ramen shop",
+        "A bookstore",
+        "A convenience store"
+      ],
+      "correct": 3,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-premise-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "question": "What condition did Aoi set for dating Sakamoto?",
+      "options": [
+        "He must lose weight",
+        "He must never kill again",
+        "He must move abroad",
+        "He must change his name"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-no-kill-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "question": "Which power gives Shin his nickname, the Clairvoyant?",
+      "options": [
+        "Reading minds",
+        "Seeing the future",
+        "Controlling fire",
+        "Moving objects"
+      ],
+      "correct": 0,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-shin-asakura-name-048"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "What is the name of the parrot that works as the spotter of Heisuke?",
+      "options": [
+        "Pippo",
+        "Kuroko",
+        "Piisuke",
+        "Tamago"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-heisuke-mashimo-parrot-058"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Which food does the Order member Shishiba hate with a murderous passion?",
+      "options": [
+        "Mushrooms",
+        "Tomatoes",
+        "Peppers",
+        "Onions"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-shishiba-name-062"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Which weapon does Osaragi carry?",
+      "options": [
+        "A pair of sandblasters",
+        "A long handcuff chain",
+        "A bladed clapperboard",
+        "A large circular saw"
+      ],
+      "correct": 3,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-osaragi-name-063"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Who voices Sakamoto in Japanese?",
+      "options": [
+        "Natsuki Hanae",
+        "Kazuya Nakai",
+        "Tomokazu Sugita",
+        "Nobunaga Shimazaki"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sakamoto-days-taro-sakamoto-voice-047"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Which streaming service licensed the anime for a worldwide release?",
+      "options": [
+        "Disney Plus",
+        "Hulu",
+        "Netflix",
+        "Max"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sakamoto-days-netflix-036"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "question": "Which comedy film inspired the idea of a strong, heavy fighter?",
+      "options": [
+        "Big Trouble in Little China",
+        "Enter the Fat Dragon",
+        "Rush Hour",
+        "Kung Fu Panda"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "sakamoto-days-film-influences-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    }
+  ]
+}

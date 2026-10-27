@@ -1,0 +1,162 @@
+{
+ "site": "anime",
+ "account": "oq_creator_02",
+ "group_slug": "one-piece",
+ "title": "Pirate's Honor: One Piece True or False",
+ "slug": "pirates-honor-one-piece-true-or-false",
+ "description": "Ten statements on the creator, the manga, the anime, the record, the English dub and the second adaptation. Some are one detail off, so read closely.",
+ "quiz_type": "true_false",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: One Piece",
+   "url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: One Piece (1999 TV series)",
+   "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of One Piece episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_episodes"
+  }
+ ],
+ "notes": "Statements restate arc 0 fact texts (002, 003, 004, 017, 018, 020, 023, 024, 029, 030); each false one changes a single detail (a year, what the record was for, a count, a status). K1 rewrite: blocked questions rewritten on verified facts 024 and 029.",
+ "questions": [
+  {
+   "question": "Eiichiro Oda is the one person behind both the writing and the drawing of the One Piece manga.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-piece-manga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Shueisha has run the manga in Weekly Shōnen Jump since the summer of 1999.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-piece-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "By the start of July 2026 Shueisha had put out 115 collected volumes of the manga.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-piece-manga-volumes-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "From April 2026 the anime has aired in four split cours each year.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-semi-seasonal-format-024"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_episodes"
+  },
+  {
+   "question": "Season 5 of the home media release is titled TV Original, because its 13 episodes are new stories made for the anime.",
+   "correct": true,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-tv-original-season-029"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_episodes"
+  },
+  {
+   "question": "Guinness World Records recognized Oda in 2015 and 2022 for the longest running anime.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-piece-guinness-record-017"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Luffy swallowed the Gum-Gum Fruit by mistake, which turned his body into rubber.",
+   "correct": true,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-luffy-rubber-fruit-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "The early English dub by 4Kids trimmed the first 143 episodes to 140.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-4kids-dub-cut-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+  },
+  {
+   "question": "Netflix put out a live-action One Piece television series in 2023.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-live-action-023"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "A second anime adaptation, made by Wit Studio, premiered in 2024.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-wit-studio-remake-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  }
+ ]
+}

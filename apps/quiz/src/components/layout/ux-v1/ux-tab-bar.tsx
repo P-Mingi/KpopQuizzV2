@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { Icon } from '@/components/ux-v1/icon';
-import { activeTab, TAB_ITEMS } from '@/lib/ux-v1/a0/nav';
+import { activeTab, tabItemsFor } from '@/lib/ux-v1/a0/nav';
 
 /**
  * Mobile tab bar (16.5 / 17.1): Home, Quizzes, Blindtest, Community, You; 64px +
@@ -19,7 +19,7 @@ export function UxTabBar(): React.ReactElement {
   return (
     <nav className="ux-tabbar ux-chrome" aria-label="Main mobile">
       <div className="ux-tabbar-in">
-        {TAB_ITEMS.map((t) => (
+        {tabItemsFor().map((t) => (
           <Link
             key={t.key}
             href={t.href}

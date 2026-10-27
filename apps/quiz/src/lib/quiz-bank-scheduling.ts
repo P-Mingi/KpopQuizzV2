@@ -1,4 +1,5 @@
 import { avgScorePct } from '@/lib/quiz/scoring';
+import { SITE } from '@/lib/site/registry';
 
 export interface QuizBankEntry {
   id: string;
@@ -35,7 +36,11 @@ function getWeekKey(dateStr: string): string {
   return monday.toISOString().split('T')[0]!;
 }
 
-export function validateSchedule(quizzes: QuizBankEntry[]): ScheduleViolation[] {
+/**
+ * Checks a bank schedule. `weeklyLimit` is the most quizzes of one group in a calendar week: SITE.editorial.weeklyGroupLimit
+ * (kpop 3, anime 2) unless the caller names another.
+ */
+export function validateSchedule(quizzes: QuizBankEntry[], weeklyLimit: number = SITE.editorial.weeklyGroupLimit): ScheduleViolation[] {
   const violations: ScheduleViolation[] = [];
 
   const scheduled = quizzes
@@ -67,20 +72,20 @@ export function validateSchedule(quizzes: QuizBankEntry[]): ScheduleViolation[] 
     }
   }
 
-  // No more than 3 of the same group in a calendar week
+  // No more than `weeklyLimit` (3 on kpop) of the same group in a calendar week
   const weekGroups: Record<string, Record<number, number>> = {};
   for (const q of scheduled) {
     if (!q.group_id || !q.scheduled_date) continue;
     const week = getWeekKey(q.scheduled_date);
     if (!weekGroups[week]) weekGroups[week] = {};
     weekGroups[week][q.group_id] = (weekGroups[week][q.group_id] ?? 0) + 1;
-    if (weekGroups[week][q.group_id]! > 3) {
+    if (weekGroups[week][q.group_id]! > weeklyLimit) {
       violations.push({
         date: q.scheduled_date,
         quiz_id: q.id,
         quiz_title: q.title,
         rule: 'group_weekly_limit',
-        message: `More than 3 quizzes for this group in the same week`,
+        message: `More than ${weeklyLimit} quizzes for this group in the same week`,
       });
     }
   }
@@ -379,10 +384,15 @@ export function pickCatalogQotd(
  */
 export const BANK_REFILL_THRESHOLD = 30;
 
-/** The refill alert for `open` open rows, or null when the bank holds enough. */
-export function bankRefillAlert(open: number): string | null {
+/**
+ * The refill alert for `open` open rows, or null when the bank holds enough. Run O1: `site` names the bank on a build other
+ * than kpop ("The anime quiz bank is empty"); the kpop text is main's, unchanged.
+ */
+export function bankRefillAlert(open: number, site: string = 'kpop'): string | null {
   if (open >= BANK_REFILL_THRESHOLD) return null;
+  const bank = site === 'kpop' ? 'the bank' : `the ${site} bank`;
+  const Bank = site === 'kpop' ? 'The quiz bank' : `The ${site} quiz bank`;
   return open <= 0
-    ? 'The quiz bank is empty: the quiz of the day now falls back to catalog quizzes. Add a verified lot.'
-    : `Only ${open} quiz${open === 1 ? '' : 'zes'} left in the bank (under ${BANK_REFILL_THRESHOLD}): about ${open} day${open === 1 ? '' : 's'} of quizzes of the day. Add a verified lot.`;
+    ? `${Bank} is empty: the quiz of the day now falls back to catalog quizzes. Add a verified lot.`
+    : `Only ${open} quiz${open === 1 ? '' : 'zes'} left in ${bank} (under ${BANK_REFILL_THRESHOLD}): about ${open} day${open === 1 ? '' : 's'} of quizzes of the day. Add a verified lot.`;
 }

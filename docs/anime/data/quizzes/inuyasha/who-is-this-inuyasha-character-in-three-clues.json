@@ -1,0 +1,273 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "inuyasha",
+  "title": "Who Is This? Inuyasha Characters in Three Clues",
+  "slug": "who-is-this-inuyasha-character-in-three-clues",
+  "description": "Ten characters of the feudal era, three clues each, from the faint hint to the giveaway. No spoilers.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Guess-from-clues format: every clue rests on a cited fact; names are never in the clues. Characters of level 0 only.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Inuyasha characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "Kappei Yamaguchi gives this person a voice.",
+        "The mother was human and the father a dog demon.",
+        "A soft side hides under a lot of pride."
+      ],
+      "options": [
+        "Inuyasha",
+        "Shippo",
+        "Sesshomaru",
+        "Miroku"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-inuyasha-name-053",
+        "inuyasha-inuyasha-voice-054"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This modern girl is the reincarnation of an ancient priestess.",
+        "Archery becomes a strong skill.",
+        "Satsuki Yukino gives this person a voice."
+      ],
+      "options": [
+        "Kagome Higurashi",
+        "Kaede",
+        "Sango",
+        "Kikyo"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-kagome-higurashi-name-055",
+        "inuyasha-kagome-higurashi-archery-056",
+        "inuyasha-kagome-higurashi-voice-057"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "A Buddhist monk who is clever but lecherous.",
+        "A black hole sits in the right palm.",
+        "Kōji Tsujitani gives this person a voice."
+      ],
+      "options": [
+        "Miroku",
+        "Naraku",
+        "Inuyasha",
+        "Sesshomaru"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-miroku-name-058",
+        "inuyasha-miroku-wind-tunnel-059",
+        "inuyasha-miroku-voice-060"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "The most skilled demon slayer of the village that first held the jewel.",
+        "The age is sixteen.",
+        "The weapon is a purified bone boomerang."
+      ],
+      "options": [
+        "Sango",
+        "Kaede",
+        "Kagome Higurashi",
+        "Kikyo"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-sango-name-061",
+        "inuyasha-sango-boomerang-062",
+        "inuyasha-sango-voice-063"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "An orphan who is a young fox demon.",
+        "At first this child tried to steal the jewel.",
+        "The reason was to avenge a father."
+      ],
+      "options": [
+        "Shippo",
+        "Miroku",
+        "Kirara",
+        "Inuyasha"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-shippo-name-064"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "The companion of a demon slayer.",
+        "Small like a kitten, with two tails.",
+        "Able to grow big enough to carry several passengers through the air."
+      ],
+      "options": [
+        "Kirara",
+        "Inuyasha",
+        "Shippo",
+        "Sesshomaru"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-kirara-name-065"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "A powerful demon feared throughout the feudal era.",
+        "This person is the older half-brother of the hero.",
+        "Ken Narita gives this person a voice."
+      ],
+      "options": [
+        "Sesshomaru",
+        "Miroku",
+        "Inuyasha",
+        "Naraku"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-sesshomaru-name-066",
+        "inuyasha-sesshomaru-voice-067"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "The main villain of the story.",
+        "A half-demon who began as a bandit.",
+        "Toshiyuki Morikawa gives this person a voice."
+      ],
+      "options": [
+        "Naraku",
+        "Inuyasha",
+        "Sesshomaru",
+        "Miroku"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-naraku-name-068",
+        "inuyasha-naraku-voice-069"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "A priestess who guarded the jewel five hundred years before the main story.",
+        "She loved a half-demon.",
+        "Noriko Hidaka gives this person a voice."
+      ],
+      "options": [
+        "Kikyo",
+        "Sango",
+        "Kagome Higurashi",
+        "Kaede"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-kikyo-name-071",
+        "inuyasha-kikyo-voice-072"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "The younger sister of an ancient priestess.",
+        "A strong shrine priestess who defends her village from demons.",
+        "A magical bead necklace helps her control the hero."
+      ],
+      "options": [
+        "Kaede",
+        "Sango",
+        "Kikyo",
+        "Kagome Higurashi"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-kaede-name-074",
+        "inuyasha-kaede-beads-075"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    }
+  ]
+}

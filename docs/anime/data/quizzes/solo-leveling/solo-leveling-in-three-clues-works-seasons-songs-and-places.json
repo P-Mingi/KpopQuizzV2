@@ -1,0 +1,279 @@
+{
+ "site": "anime",
+ "account": "oq_creator_10",
+ "group_slug": "solo-leveling",
+ "title": "Solo Leveling in Three Clues: Works, Seasons, Songs and Places",
+ "slug": "solo-leveling-in-three-clues-works-seasons-songs-and-places",
+ "description": "Ten rounds of three growing clues each, to name a Solo Leveling novel, comic, season, song, film, dungeon, guild or army. Light spoilers up to Season 2.",
+ "quiz_type": "guess_from_clues",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Clues format: three progressive clues per question lead to a work, season, song, film, place, guild or force; no character is named as the answer.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Solo Leveling",
+   "url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Solo Leveling season 1",
+   "url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Which version of Solo Leveling do these clues describe?",
+   "clues": [
+    "It is the oldest form of the story.",
+    "Chugong wrote it, and KakaoPage first carried it in July 2016.",
+    "It was later printed by the Papyrus label of D&C Media."
+   ],
+   "options": [
+    "The anime",
+    "The webtoon",
+    "The web novel",
+    "The live-action series"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "solo-leveling-novel-author-003",
+    "solo-leveling-novel-publisher-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+  },
+  {
+   "question": "Which version of Solo Leveling do these clues describe?",
+   "clues": [
+    "It is a comic that adapts the original text.",
+    "KakaoPage began serializing it in March 2018.",
+    "It finished in December 2021."
+   ],
+   "options": [
+    "The webtoon",
+    "The web novel",
+    "The Netmarble game",
+    "The sequel Ragnarok"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "solo-leveling-webtoon-run-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+  },
+  {
+   "question": "Which part of the anime do these clues describe?",
+   "clues": [
+    "A-1 Pictures animated it.",
+    "A compilation film retelling it reached Japanese cinemas in late 2024.",
+    "A recap special covered its first seven episodes."
+   ],
+   "options": [
+    "The sequel film Beyond the System",
+    "Season 1 of the anime",
+    "Season 2 of the anime",
+    "The compilation film"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "solo-leveling-anime-studio-009",
+    "solo-leveling-recap-special-017",
+    "solo-leveling-compilation-film-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+  },
+  {
+   "question": "Which part of the anime do these clues describe?",
+   "clues": [
+    "It was made by the same studio as the first season.",
+    "It starts directly where the first season left off.",
+    "Its first two episodes were shown in Japanese cinemas together with a compilation film of the first season."
+   ],
+   "options": [
+    "Season 2 of the anime",
+    "The compilation film",
+    "Season 1 of the anime",
+    "The webtoon's second season"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "solo-leveling-anime-studio-009",
+    "solo-leveling-season-two-follows-on-061",
+    "solo-leveling-compilation-film-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+  },
+  {
+   "question": "Which theme song do these clues describe?",
+   "clues": [
+    "It is a theme tune of the first season of the anime.",
+    "It plays at the start of the episodes, not at the end.",
+    "A K-pop group, Tomorrow X Together, joins the SawanoHiroyuki[nZk] project on it."
+   ],
+   "options": [
+    "Request",
+    "Level",
+    "Un-Apex",
+    "Reawaker"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "solo-leveling-themes-season-one-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling_season_1"
+  },
+  {
+   "question": "Which title do these clues describe?",
+   "clues": [
+    "It is a feature-length production, not a TV series.",
+    "It was announced as a sequel to the anime.",
+    "The anime's official site shows it as being in production."
+   ],
+   "options": [
+    "Solo Leveling: Beyond the System",
+    "Solo Leveling: Arise",
+    "Solo Leveling: ReAwakening",
+    "Solo Leveling: Ragnarok"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "solo-leveling-beyond-the-system-sequel-062",
+    "solo-leveling-official-site-022"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+  },
+  {
+   "question": "Which adaptation do these clues describe?",
+   "clues": [
+    "Its characters are played by real actors rather than drawn.",
+    "Netflix is behind it.",
+    "It was announced in July 2025."
+   ],
+   "options": [
+    "The compilation film ReAwakening",
+    "The anime series",
+    "The Netflix live-action series",
+    "The sequel Ragnarok"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "solo-leveling-live-action-netflix-063"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+  },
+  {
+   "question": "Which place in the story do these clues describe?",
+   "clues": [
+    "A hunter party goes in and almost nobody comes back.",
+    "It is a rare dungeon of overwhelming strength, and it changes Jin-woo's life.",
+    "Lee Joo-hee and Song Chi-yul both made it out alive."
+   ],
+   "options": [
+    "The Hunters Association headquarters",
+    "The Demon Castle",
+    "The Red Gate",
+    "The double dungeon"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "solo-leveling-double-dungeon-065",
+    "solo-leveling-joo-hee-survivor-066",
+    "solo-leveling-chi-yul-survivor-067"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+  },
+  {
+   "question": "Which guild do these clues describe?",
+   "clues": [
+    "It is a hunter guild led by an S-Rank Hunter.",
+    "Its master specialises in transformation magic.",
+    "That master was the first S-Rank to spot that Jin-woo can grow."
+   ],
+   "options": [
+    "The Fiend Guild",
+    "The White Tiger Guild",
+    "The Fame Guild",
+    "The Hunters Guild"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "solo-leveling-baek-white-tiger-068",
+    "solo-leveling-baek-transformation-069",
+    "solo-leveling-baek-notices-jin-woo-070",
+    "solo-leveling-choi-hunters-guild-071"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+  },
+  {
+   "question": "Which force do these clues describe?",
+   "clues": [
+    "Its members are not living humans.",
+    "Unlike the summons of other Hunters, they can grow and even talk.",
+    "They were raised from death by the power of a monarch."
+   ],
+   "options": [
+    "The Reapers Guild",
+    "The Hunters Association",
+    "The Knights Guild",
+    "The Shadow Army"
+   ],
+   "correct": 3,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "solo-leveling-shadow-army-undead-072",
+    "solo-leveling-shadow-army-grow-073"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+  }
+ ]
+}

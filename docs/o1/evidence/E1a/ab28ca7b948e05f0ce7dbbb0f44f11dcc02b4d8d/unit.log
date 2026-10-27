@@ -1,0 +1,9 @@
+
+ RUN  v5.0.0 /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1-gate-E1a/apps/quiz
+
+
+ Test Files  7 passed (7)
+      Tests  65 passed (65)
+   Start at  13:00:20
+   Duration  1.45s (tests 57%, import 34%, transform 7%, worker 1%)
+

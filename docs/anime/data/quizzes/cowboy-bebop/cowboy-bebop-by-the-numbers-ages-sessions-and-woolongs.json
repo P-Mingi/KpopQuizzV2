@@ -1,0 +1,227 @@
+{
+ "site": "anime",
+ "account": "oq_creator_23",
+ "group_slug": "cowboy-bebop",
+ "title": "Cowboy Bebop by the Numbers: Ages, Sessions and Woolongs",
+ "slug": "cowboy-bebop-by-the-numbers-ages-sessions-and-woolongs",
+ "description": "Ten multiple choice questions where every answer is a number: ages, session numbers, years and a very large bounty. Numbers format, used because the series has little food to quiz on. Light spoilers up to the film.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Numbers format (fallback from the food format: the sources name almost no dishes); every option is a number.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Cowboy Bebop characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Cowboy Bebop",
+   "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Cowboy Bebop episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Cowboy Bebop: The Movie",
+   "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie"
+  }
+ ],
+ "questions": [
+  {
+   "question": "How old is Spike Spiegel?",
+   "options": [
+    "27",
+    "24",
+    "33",
+    "30"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "cowboy-bebop-spike-age-27-028"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "How old is Jet Black, the former cop who owns the Bebop?",
+   "options": [
+    "40",
+    "36",
+    "45",
+    "32"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "cowboy-bebop-jet-age-36-029"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "TV Tokyo aired the show first, in a run that began in April 1998. On which day of April did it begin?",
+   "options": [
+    "3",
+    "10",
+    "17",
+    "24"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-tv-tokyo-run-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes"
+  },
+  {
+   "question": "About how old is the young hacker Ed?",
+   "options": [
+    "11",
+    "16",
+    "9",
+    "13"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "cowboy-bebop-ed-age-13-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "Ein swaps subtitled words with a cow in the session called Mushroom Samba. Which session number is it?",
+   "options": [
+    "23",
+    "9",
+    "17",
+    "5"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "cowboy-bebop-ein-mushroom-samba-17-032"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "The official character page of the series lists Faye Valentine at which age?",
+   "options": [
+    "19",
+    "23",
+    "27",
+    "77"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "cowboy-bebop-faye-official-age-23-037"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  },
+  {
+   "question": "Wowow showed the complete run from October 1998. In which year did that run end?",
+   "options": [
+    "1998",
+    "2000",
+    "1999",
+    "2001"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-wowow-run-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes"
+  },
+  {
+   "question": "Cowboy Bebop was the first anime on the opening night of Adult Swim, in a September. On which day of that month did the block launch?",
+   "options": [
+    "1",
+    "2",
+    "30",
+    "7"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-adult-swim-debut-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "In which year did the film open in Japanese cinemas?",
+   "options": [
+    "2001",
+    "2003",
+    "2000",
+    "1999"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-film-release-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie"
+  },
+  {
+   "question": "In the film, Mars offers a reward for the terrorist. How many woolongs is it?",
+   "options": [
+    "100 million",
+    "300 million",
+    "30 million",
+    "900 million"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "cowboy-bebop-film-bounty-300-million-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie"
+  }
+ ]
+}

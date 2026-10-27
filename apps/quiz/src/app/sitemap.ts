@@ -7,6 +7,7 @@ import { ARTICLES } from '@/lib/articles/registry';
 import { slugify as verseSlugify } from '@/lib/verse/slug';
 import { verseHidden, spaceUnpublished } from '@/lib/verse/visibility';
 import { fetchAllRows } from '@/lib/db/fetch-all';
+import { forSite } from '@/lib/site/scope';
 import { LEGAL, legalIsComplete } from '@/lib/legal-notice';
 import { getAdvertisablePlaylists, getPlayableStaticModes } from '@/lib/blind-test-playlists';
 import { LANDING_LANGS, LANDING_PATH } from '@/lib/growth/bt-landing';
@@ -240,9 +241,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         // silently stopped at 1000 published quizzes. Ordered by a unique key so
         // pages never overlap.
         fetchAllRows<QuizRow>(
-          () => supabase.from('quizzes').select('slug, created_at, group_id, questions, title, question_count, play_count, like_count').eq('status', 'published').order('created_at', { ascending: false }).order('slug', { ascending: true }),
+          () => forSite(supabase.from('quizzes').select('slug, created_at, group_id, questions, title, question_count, play_count, like_count')).eq('status', 'published').order('created_at', { ascending: false }).order('slug', { ascending: true }),
         ).then((rows) => ({ data: rows.slice(0, QUIZZES_LIMIT) })),
-        supabase.from('groups').select('id, slug'),
+        forSite(supabase.from('groups').select('id, slug')),
         // W7c: the advertisable playlist set (clip-ready AND able to fill a round),
         // the same one the /blindtest index links.
         getAdvertisablePlaylists(),
@@ -474,7 +475,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
     // Song pages: paginate past the 1000-row cap (recorded law).
     for (let pg = 0; pg < 20; pg++) {
-      const { data: songRows } = await svc.from('songs').select('id, groups(slug)').order('id').range(pg * 1000, pg * 1000 + 999);
+      const { data: songRows } = await forSite(svc.from('songs').select('id, groups(slug)')).order('id').range(pg * 1000, pg * 1000 + 999);
       const rows = (songRows ?? []) as { id: string; groups: unknown }[];
       for (const r of rows) {
         const s = gslug(r.groups);
@@ -501,7 +502,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // V-ESSAYS-MAX: the magazine index (per space with a public essay) + each
     // featured essay page (indexable, Article LD). Series need no own URL (they
     // are shelves on the index). Drafts stay out (status='featured' filter).
-    const { data: essayRows } = await svc.from('verse_essays').select('id, groups(slug)').eq('status', 'featured').order('id');
+    const { data: essayRows } = await forSite(svc.from('verse_essays').select('id, groups(slug)')).eq('status', 'featured').order('id');
     const magSlugs = new Set<string>();
     for (const r of (essayRows ?? []) as { id: number; groups: unknown }[]) {
       const s = gslug(r.groups);

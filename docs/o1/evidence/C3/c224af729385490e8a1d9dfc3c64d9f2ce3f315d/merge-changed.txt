@@ -1,0 +1,4 @@
+apps/quiz/e2e/o1/C3/network.o1.ts
+apps/quiz/e2e/o1/C3/report.mjs
+apps/quiz/e2e/o1/C3/run-dev.sh
+docs/o1/reports/C3/e2e-dev.md

@@ -6,6 +6,8 @@ import { isUxV12 } from '@/lib/ux-v12';
 import { Icon } from './icon';
 import { TeamTag } from './team';
 
+import type { PickIcon } from '@/lib/site/types';
+
 /** Identity flair as stored on profiles (DESIGN-SPEC 17.8). Pass the raw columns;
  *  unknown keys fall back to default (validated against lib/passport-flair.ts). */
 export interface PersonFlair {
@@ -34,12 +36,12 @@ function fontFamily(font: string | null | undefined): string | undefined {
 
 /** Bias tag chip (17.8): heart + text, outlined in the accent colour (muted when
  *  the accent is default). Renders nothing for an empty bias. */
-export function BiasTag({ bias, accent }: { bias?: string | null | undefined; accent?: string | null | undefined }): React.ReactElement | null {
+export function BiasTag({ bias, accent, tagIcon = 'heart' }: { bias?: string | null | undefined; accent?: string | null | undefined; tagIcon?: PickIcon | undefined }): React.ReactElement | null {
   const text = (bias ?? '').trim().slice(0, 40);
   if (!text) return null;
   return (
     <span className={`ux-bias ${accentClass(accent) ?? 'ux-acc-none'}`}>
-      <Icon name="heart" />{text}
+      <Icon name={tagIcon} />{text}
     </span>
   );
 }
@@ -54,6 +56,8 @@ interface PersonNameProps extends PersonFlair {
    *  of a fan's flair (no accent, no name font, no bias tag). Ignored unless the v12
    *  flag is on. */
   isTeam?: boolean | undefined;
+  /** The icon of the pick tag: 'heart' by default (kpop), 'star' for the oshi of a world site (contract PersonNameTagProps). */
+  tagIcon?: PickIcon | undefined;
 }
 
 /**
@@ -63,7 +67,7 @@ interface PersonNameProps extends PersonFlair {
  * the BiasTag. Server-safe. Private data never reaches here: pass only what
  * /u/[username] already shows.
  */
-export function PersonName({ name, accent, font, bias, href, showBias = true, className, isTeam }: PersonNameProps): React.ReactElement {
+export function PersonName({ name, accent, font, bias, href, showBias = true, className, isTeam, tagIcon }: PersonNameProps): React.ReactElement {
   if (isTeam && isUxV12()) {
     const teamCls = ['ux-who', className ?? ''].filter(Boolean).join(' ');
     return (
@@ -81,7 +85,7 @@ export function PersonName({ name, accent, font, bias, href, showBias = true, cl
       {href
         ? <Link href={href} className={cls} style={style}>{name}</Link>
         : <b className={cls} style={style}>{name}</b>}
-      {showBias ? <BiasTag bias={bias} accent={accent} /> : null}
+      {showBias ? <BiasTag bias={bias} accent={accent} {...(tagIcon ? { tagIcon } : {})} /> : null}
     </>
   );
 }

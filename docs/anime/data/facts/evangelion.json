@@ -1,0 +1,1519 @@
+[
+  {
+    "id": "evangelion-title-native-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "title_native",
+    "value": "新世紀エヴァンゲリオン (Shin Seiki Evangerion)",
+    "text": "Neon Genesis Evangelion is Shin Seiki Evangerion in Japanese, New Century Evangelion in plain terms, while the Greek wording of the title is read as New Beginning Gospel.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q662",
+        "ref": "Q662",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "(新世紀エヴァンゲリオン, Shin Seiki Evangerion, lit. New Century Evangelion in Japanese and New Beginning Gospel in Greek)"
+  },
+  {
+    "id": "evangelion-studio-director-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "staff",
+    "value": "Gainax and Tatsunoko Production (studios), Hideaki Anno (director)",
+    "text": "The 1995 series was animated by Gainax together with Tatsunoko Production, with Hideaki Anno in the director's chair.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q662",
+        "ref": "Q662",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "a Japanese anime television series produced by Gainax and Tatsunoko Production, and directed by Hideaki Anno"
+  },
+  {
+    "id": "evangelion-broadcast-run-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "broadcast",
+    "value": "One season, 26 episodes on TV Tokyo, October 4, 1995 to March 27, 1996",
+    "text": "Evangelion aired as a single season of 26 episodes on TV Tokyo, starting on October 4, 1995 and finishing on March 27, 1996.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+        "ref": "1376272212",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q662",
+        "ref": "Q662",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "It began broadcasting in Japan on TV Tokyo on October 4, 1995, and ended on March 27, 1996."
+  },
+  {
+    "id": "evangelion-setting-tokyo-3-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "setting",
+    "value": "Tokyo-3 in 2015",
+    "text": "The year is 2015 and the stage is Tokyo-3, a heavily defended city of the future, built in the wake of a catastrophe that hit the planet 15 years earlier.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "set in 2015, fifteen years after a worldwide cataclysm in the futuristic fortified city of Tokyo-3"
+  },
+  {
+    "id": "evangelion-opening-cruel-angel-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "opening_theme",
+    "value": "A Cruel Angel's Thesis - Yoko Takahashi",
+    "text": "The opening theme, A Cruel Angel's Thesis, is sung by Yoko Takahashi, and it took an Animage award for best song in 1996.",
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q378523",
+        "ref": "Q378523",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "The series's opening theme is \"A Cruel Angel's Thesis\", performed by Yoko Takahashi."
+  },
+  {
+    "id": "evangelion-ending-fly-me-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "ending_theme",
+    "value": "Fly Me to the Moon",
+    "text": "The credits roll to Fly Me to the Moon, a cover with British singer Claire Littley in the lead and several of the leading voice actors.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The ending theme of the series is \"Fly Me to the Moon\", sung by Claire Littley and various other singers from the main vocal cast."
+  },
+  {
+    "id": "evangelion-arc-structure-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "arc_list",
+    "value": [
+      "1: Episodes 1 to 15 (TV series)",
+      "2: Episodes 16 to 24 (TV series)",
+      "3: Episodes 25 and 26 (TV series)",
+      "4: The End of Evangelion (1997 film)",
+      "5: Rebuild of Evangelion (films, 2007 to 2021)"
+    ],
+    "text": "No source names story arcs, so this quiz splits the franchise at the TV series tone shift in episode 16, then the two TV finale episodes, the 1997 film and the Rebuild films.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+        "ref": "1376272212",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The 16th episode marked a distinct shift to a more introspective, less action-focused tone that would come to characterize the second half of Evangelion."
+  },
+  {
+    "id": "evangelion-end-of-evangelion-film-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "film_1997",
+    "value": "The End of Evangelion, July 19, 1997, directed by Hideaki Anno and Kazuya Tsurumaki",
+    "text": "The End of Evangelion reached Japanese cinemas on July 19, 1997; Gainax and Production I.G made it as a new take on the last two TV episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 4,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_End_of_Evangelion",
+        "ref": "1381107041",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1151814",
+        "ref": "Q1151814",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "a 1997 Japanese animated apocalyptic science fiction film directed by Hideaki Anno and Kazuya Tsurumaki, animated by Gainax and Production I.G"
+  },
+  {
+    "id": "evangelion-rebuild-films-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "rebuild",
+    "value": "Rebuild of Evangelion: four films by Studio Khara, 1 September 2007 to 8 March 2021",
+    "text": "Studio Khara reboots the story in four Rebuild of Evangelion films, the first shown on 1 September 2007 and the last on 8 March 2021.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Rebuild_of_Evangelion",
+        "ref": "1379273276",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q6434144",
+        "ref": "Q6434144",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:25:10.000Z",
+    "excerpt": "| first = 1 September 2007 | last = 8 March 2021 | episodes = 4 (Rebuild of Evangelion infobox)"
+  },
+  {
+    "id": "evangelion-production-start-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "production_start",
+    "value": "Development began in 1993 under Hideaki Anno",
+    "text": "Hideaki Anno began shaping the project in 1993, after a depression that followed his earlier work, with the idea of a hero who stops running away.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Anno began the development of the new series in 1993 around the notion of not running away"
+  },
+  {
+    "id": "evangelion-animage-grand-prix-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "awards",
+    "value": "Anime Grand Prix, Best Loved Series: first place in 1996 and 1997",
+    "text": "Animage readers voted Evangelion their top Best Loved Series at the Anime Grand Prix in 1996, and again in 1997.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "In 1996, the series won first place in the \"Best Loved Series\" category of the Anime Grand Prix, a reader-polled award series published in Animage magazine."
+  },
+  {
+    "id": "evangelion-netflix-premiere-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "streaming",
+    "value": "Netflix worldwide premiere on June 21, 2019",
+    "text": "Netflix brought the series to a global audience from June 21, 2019, but outside Japan the closing song Fly Me to the Moon is left out for licensing reasons.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/interest/2019-06-27/japanese-fans-official-translator-weigh-in-on-netflix-evangelion-english-subtitle-debate/.148305",
+        "fetched_at": "2026-10-25T21:14:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:14:01.000Z",
+    "excerpt": "On March 22, 2019, Netflix announced a June 21, 2019, premiere date for the titles."
+  },
+  {
+    "id": "evangelion-cast-list-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "characters",
+    "value": [
+      "Shinji Ikari (碇 シンジ): the withdrawn teenager who pilots Unit 01",
+      "Rei Ayanami (綾波 レイ): the quiet pilot of Unit 00",
+      "Asuka Langley Soryu (惣流・アスカ・ラングレー): the fiery pilot of Unit 02",
+      "Misato Katsuragi (葛城 ミサト): the Nerv captain who becomes Shinji's guardian",
+      "Gendo Ikari (碇 ゲンドウ): Shinji's father and Nerv's supreme commander",
+      "Ritsuko Akagi (赤木 リツコ): a leading Nerv scientist behind the Evas",
+      "Ryoji Kaji (加持 リョウジ): the Nerv agent who guards Asuka",
+      "Kaworu Nagisa (渚 カヲル): the replacement pilot for Unit 02",
+      "Toji Suzuhara (鈴原 トウジ): Shinji's outspoken classmate",
+      "Kozo Fuyutsuki (冬月 コウゾウ): Nerv's deputy commander",
+      "Yui Ikari (碇 ユイ): Shinji's mother, Gendo's wife",
+      "Mari Illustrious Makinami (真希波・マリ・イラストリアス): the Rebuild pilot"
+    ],
+    "text": "The twelve characters of this quiz run from the three core pilots to Nerv's staff, with Mari known from the Rebuild films only.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "The show's protagonist is Shinji Ikari, a teenage boy whose father Gendo recruits to the shadowy organization Nerv to pilot a giant, bio-machine mecha"
+  },
+  {
+    "id": "evangelion-mari-debut-014",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "mari-illustrious-makinami",
+      "group_slug": "evangelion"
+    },
+    "field": "debut",
+    "value": "Second Rebuild film, 2009",
+    "text": "Mari is absent from the 1995 series and first shows up in the Rebuild film released in 2009, the second of four.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q614200",
+        "ref": "Q614200",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "is introduced in the film Evangelion: 2.0 You Can (Not) Advance (2009), the second installment of the Rebuild of Evangelion tetralogy"
+  },
+  {
+    "id": "evangelion-rei-premium-girl-015",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "rei-ayanami",
+      "group_slug": "evangelion"
+    },
+    "field": "popularity",
+    "value": "Nicknamed the Premium Girl",
+    "text": "Books with Rei on the cover sold so well that the press started calling her the Premium Girl.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+        "ref": "1380009223",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "the media referred to the character as \"Premium Girl\" due to the high sales of books with Rei on the cover"
+  },
+  {
+    "id": "evangelion-shinji-ikari-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "shinji-ikari"
+    },
+    "field": "name",
+    "value": "Shinji Ikari (碇 シンジ)",
+    "text": "Shinji Ikari is a main character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the only son of Gendo Rokubungi and Yui Ikari. Following the early death of his mother, who disappeared in a mysterious"
+  },
+  {
+    "id": "evangelion-rei-ayanami-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "rei-ayanami"
+    },
+    "field": "name",
+    "value": "Rei Ayanami (綾波 レイ)",
+    "text": "Rei Ayanami is a main character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a pilot assigned to command Evangelion Unit 00 as the First Child. Her date of birth is unknown. Rei is a taciturn, shy"
+  },
+  {
+    "id": "evangelion-asuka-langley-soryu-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "asuka-langley-soryu"
+    },
+    "field": "name",
+    "value": "Asuka Langley Soryu (惣流・アスカ・ラングレー)",
+    "text": "Asuka Langley Soryu is a main character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a fiery pilot who is assigned to command Evangelion Unit 02 as the"
+  },
+  {
+    "id": "evangelion-misato-katsuragi-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "misato-katsuragi"
+    },
+    "field": "name",
+    "value": "Misato Katsuragi (葛城 ミサト)",
+    "text": "Misato Katsuragi is a main character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the captain of the Nerv Operations Department and Shinji's guardian. Due to her childhood trauma, she has"
+  },
+  {
+    "id": "evangelion-gendo-ikari-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "gendo-ikari"
+    },
+    "field": "name",
+    "value": "Gendo Ikari (碇 ゲンドウ)",
+    "text": "Gendo Ikari is a supporting character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is Nerv's supreme commander, husband of Yui Ikari, and father of Shinji, with whom he has a difficult relationship. Gendo"
+  },
+  {
+    "id": "evangelion-ritsuko-akagi-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "ritsuko-akagi"
+    },
+    "field": "name",
+    "value": "Ritsuko Akagi (赤木 リツコ)",
+    "text": "Ritsuko Akagi is a supporting character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the head of the first section of the technology department at Nerv's headquarters, and one of the main developers of"
+  },
+  {
+    "id": "evangelion-ryoji-kaji-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "ryoji-kaji"
+    },
+    "field": "name",
+    "value": "Ryoji Kaji (加持 リョウジ)",
+    "text": "Ryoji Kaji is a supporting character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a member of Nerv's Special Investigations Department. During college, he met Misato Katsuragi and Ritsuko Akagi. He later"
+  },
+  {
+    "id": "evangelion-kaworu-nagisa-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "kaworu-nagisa"
+    },
+    "field": "name",
+    "value": "Kaworu Nagisa (渚 カヲル)",
+    "text": "Kaworu Nagisa is a supporting character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the Fifth Child, who is sent to Nerv as a replacement pilot for Unit 02 following Asuka's psychological breakdown."
+  },
+  {
+    "id": "evangelion-toji-suzuhara-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "toji-suzuhara"
+    },
+    "field": "name",
+    "value": "Toji Suzuhara (鈴原 トウジ)",
+    "text": "Toji Suzuhara is a supporting character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a student of class 2-A at the first municipal middle school in Tokyo-3. At first, he shows strong animosity towards"
+  },
+  {
+    "id": "evangelion-kozo-fuyutsuki-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "kozo-fuyutsuki"
+    },
+    "field": "name",
+    "value": "Kozo Fuyutsuki (冬月 コウゾウ)",
+    "text": "Kozo Fuyutsuki is a supporting character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is Nerv's deputy commander. After obtaining a professorship as a teacher of metaphysical biology at Kyoto University"
+  },
+  {
+    "id": "evangelion-yui-ikari-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "yui-ikari"
+    },
+    "field": "name",
+    "value": "Yui Ikari (碇 ユイ)",
+    "text": "Yui Ikari is a character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is Shinji's mother and Gendo's wife. In 1999, when she was a student at Kyoto University, she met Professor Fuyutsuki and discussed"
+  },
+  {
+    "id": "evangelion-mari-illustrious-makinami-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "mari-illustrious-makinami"
+    },
+    "field": "name",
+    "value": "Mari Illustrious Makinami (真希波・マリ・イラストリアス)",
+    "text": "Mari Illustrious Makinami is a supporting character of Neon Genesis Evangelion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-20T20:04:29Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is introduced in the film Evangelion: 2.0 You Can (Not) Advance (2009), the second"
+  },
+  {
+    "id": "evangelion-film-release-order-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "film",
+    "value": [
+      "Death & Rebirth",
+      "The End of Evangelion",
+      "Revival of Evangelion"
+    ],
+    "text": "The alternate ending reached cinemas in steps: the Death & Rebirth preview came before The End of Evangelion, and Revival of Evangelion closed the sequence.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+        "ref": "1381369153",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q967664",
+        "ref": "Q967664",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "first as a preview (Neon Genesis Evangelion: Death & Rebirth), then as the completed alternate ending (The End of Evangelion)"
+  },
+  {
+    "id": "evangelion-sachiel-number-3-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "role",
+    "value": "third Angel",
+    "text": "In the TV series Sachiel carries the number 3 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "the third Angel, has an anthropomorphic appearance"
+  },
+  {
+    "id": "evangelion-shamshel-number-4-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "organization",
+    "value": "fourth Angel",
+    "text": "In the TV series Shamshel carries the number 4 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "the fourth Angel, has an insect-like appearance"
+  },
+  {
+    "id": "evangelion-ramiel-number-5-031",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "occupation",
+    "value": "fifth Angel",
+    "text": "In the TV series Ramiel carries the number 5 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "is the fifth Angel"
+  },
+  {
+    "id": "evangelion-gaghiel-number-6-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "background",
+    "value": "sixth Angel",
+    "text": "In the TV series Gaghiel carries the number 6 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "the sixth Angel, appears in"
+  },
+  {
+    "id": "evangelion-israfel-number-7-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "origin",
+    "value": "seventh Angel",
+    "text": "In the TV series Israfel carries the number 7 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "is the seventh Angel"
+  },
+  {
+    "id": "evangelion-sandalphon-number-8-034",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "terms",
+    "value": "eighth Angel",
+    "text": "In the TV series Sandalphon carries the number 8 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "the eighth Angel, is detected inside the volcanic crater"
+  },
+  {
+    "id": "evangelion-matarael-number-9-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "specialty",
+    "value": "ninth Angel",
+    "text": "In the TV series Matarael carries the number 9 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "The ninth Angel, Matarael"
+  },
+  {
+    "id": "evangelion-sahaquiel-number-10-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "talent",
+    "value": "tenth Angel",
+    "text": "In the TV series Sahaquiel carries the number 10 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "the tenth Angel, appears in Earth's orbit above the Indian Ocean"
+  },
+  {
+    "id": "evangelion-ireul-number-11-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "style",
+    "value": "eleventh Angel",
+    "text": "In the TV series Ireul carries the number 11 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "is the eleventh Angel"
+  },
+  {
+    "id": "evangelion-zeruel-number-14-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "mission",
+    "value": "fourteenth Angel",
+    "text": "In the TV series Zeruel carries the number 14 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "the fourteenth Angel, is almost anthropomorphic"
+  },
+  {
+    "id": "evangelion-arael-number-15-039",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "premise",
+    "value": "fifteenth Angel",
+    "text": "In the TV series Arael carries the number 15 in the line of Angels.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Angels_(Neon_Genesis_Evangelion)",
+        "ref": "1377668650",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "is the fifteenth Angel"
+  },
+  {
+    "id": "evangelion-asuka-second-child-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "asuka-langley-soryu"
+    },
+    "field": "role",
+    "value": "Second Child",
+    "text": "Asuka Langley Soryu holds the pilot designation of Second Child.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "is a fiery pilot who is assigned to command Evangelion Unit 02 as the Second Child"
+  },
+  {
+    "id": "evangelion-shinji-third-child-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "shinji-ikari"
+    },
+    "field": "role",
+    "value": "Third Child",
+    "text": "Shinji Ikari holds the pilot designation of Third Child.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "to assume the role of the Third Child"
+  },
+  {
+    "id": "evangelion-toji-fourth-child-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "toji-suzuhara"
+    },
+    "field": "role",
+    "value": "Fourth Child",
+    "text": "Toji Suzuhara holds the pilot designation of Fourth Child.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "Toji is chosen as the Fourth Child"
+  },
+  {
+    "id": "evangelion-kaworu-fifth-child-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "kaworu-nagisa"
+    },
+    "field": "role",
+    "value": "Fifth Child",
+    "text": "Kaworu Nagisa holds the pilot designation of Fifth Child.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "is the Fifth Child, who is sent to Nerv as a replacement pilot"
+  },
+  {
+    "id": "evangelion-episode-14-rei-focus-044",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "episodes",
+    "value": "episode 14, the episode where Anno digs into Rei",
+    "text": "In episode 14 the director takes a closer look at Rei, the character he knew least well.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "In the show's fourteenth episode, Anno wanted to investigate Rei Ayanami"
+  },
+  {
+    "id": "evangelion-episode-16-inward-turn-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "ability",
+    "value": "episode 16, the episode that turns the show inward",
+    "text": "Episode 16 is where the series swings from action toward inner struggles, and that tone stays for its second half.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+        "ref": "1381369153",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "The 16th episode marked a distinct shift to a more introspective, less action-focused tone"
+  },
+  {
+    "id": "evangelion-episode-18-rampage-046",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "power",
+    "value": "episode 18, the episode with Eva-01's rampage",
+    "text": "By episode 18 the show was a hit, and the rampage of Eva-01 drew complaints as unfit for a children's audience.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+        "ref": "1381369153",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "by the 18th episode, the series had become enough of a sensation"
+  },
+  {
+    "id": "evangelion-episode-24-best-loved-047",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "technique",
+    "value": "episode 24, the episode voted best-loved by fans",
+    "text": "Readers of Animage ranked episode 24 first among single episodes, with episode 26 in second place.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+        "ref": "1381369153",
+        "fetched_at": "2026-10-25T18:56:52Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:52.000Z",
+    "excerpt": "Episodes 24 and 26 took first and second place respectively"
+  },
+  {
+    "id": "evangelion-rei-ayanami-voice-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "rei-ayanami"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Megumi Hayashibara"
+    ],
+    "text": "Rei Ayanami is voiced in Japanese by Megumi Hayashibara.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1140524",
+        "ref": "Q1140524",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Voiced by: Megumi Hayashibara (Japanese)"
+  },
+  {
+    "id": "evangelion-ryoji-kaji-voice-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "evangelion",
+      "ref": "ryoji-kaji"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Kōichi Yamadera"
+    ],
+    "text": "Ryoji Kaji is voiced in Japanese by Kōichi Yamadera.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+        "ref": "1380470607",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1183669",
+        "ref": "Q1183669",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Voiced by: Kōichi Yamadera (Japanese)"
+  },
+  {
+    "id": "evangelion-rebuild-first-film-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "evangelion"
+    },
+    "field": "films",
+    "value": "Evangelion: 1.0 You Are (Not) Alone, September 1, 2007",
+    "text": "The first of the four Rebuild films, 1.0 You Are (Not) Alone, opened in Japanese cinemas on 1 September 2007.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Rebuild_of_Evangelion",
+        "ref": "1379273276",
+        "fetched_at": "2026-10-25T21:28:58Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q579209",
+        "ref": "Q579209",
+        "fetched_at": "2026-10-25T21:28:58Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:28:58.000Z",
+    "excerpt": "Released 1 September 2007"
+  }
+]

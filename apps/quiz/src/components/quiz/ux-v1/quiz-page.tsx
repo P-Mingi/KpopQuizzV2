@@ -84,6 +84,8 @@ export interface P4QuizPageProps {
   groupQuizCount: number | null;
   articleLinks: Array<{ slug: string; label: string }>;
   creator: P4Creator | null;
+  /** A site's own block above the start buttons (the anime spoiler interstitial). Default: none. */
+  gate?: React.ReactNode;
   /** SEO Mission 3, part F.1: the public "Embed this quiz" island, passed in by the route. */
   embedAction?: React.ReactNode;
 }
@@ -153,7 +155,7 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
             <P4Follow username={q.creatorUsername} />
           </div>
 
-          <P4StartActions />
+          {p.gate ? <>{p.gate}<P4StartActions /></> : <P4StartActions />}
 
           <section className="ux-sec" aria-labelledby="p4-hof-h">
             <div className="p4-hof-h">

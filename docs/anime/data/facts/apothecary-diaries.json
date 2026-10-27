@@ -1,0 +1,1514 @@
+[
+  {
+    "id": "apothecary-diaries-title-native-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "title_native",
+    "value": "薬屋のひとりごと (Kusuriya no Hitorigoto)",
+    "text": "The Apothecary Diaries is Kusuriya no Hitorigoto in Japanese, a title that can be read as Apothecary's Soliloquy.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+        "ref": "1380103786",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q48751907",
+        "ref": "Q48751907",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The Apothecary Diaries (薬屋のひとりごと, Kusuriya no Hitorigoto, lit. Apothecary's Soliloquy) is a Japanese light novel series"
+  },
+  {
+    "id": "apothecary-diaries-author-story-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "author",
+    "value": "Hyūganatsu (story); light novel illustrated by Touko Shino",
+    "text": "Hyūganatsu is the author of the story, and Touko Shino draws the illustrations of the published light novels.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+        "ref": "1380103786",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "official",
+        "url": "https://ncode.syosetu.com/n9636x/",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "a Japanese light novel series written by Hyūganatsu and illustrated by Touko Shino"
+  },
+  {
+    "id": "apothecary-diaries-novel-history-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "novel_history",
+    "value": "Web novel on Shōsetsuka ni Narō since 2011; Shufunotomo light novels from August 29, 2014, 16 volumes by May 2025",
+    "text": "The tale began as a web novel on Shōsetsuka ni Narō in 2011, then Shufunotomo issued a single book in 2012 and a Hero Bunko light novel line from August 29, 2014, which had 16 volumes by May 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+        "ref": "1380103786",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q48751907",
+        "ref": "Q48751907",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "official",
+        "url": "https://herobunko.com/books/hero14/",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "In 2014, Shufunotomo began to publish the series again, illustrated by Touko Shino. This time, it was published as a light novel in their Hero Bunko imprint"
+  },
+  {
+    "id": "apothecary-diaries-manga-big-gangan-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "manga",
+    "value": "Monthly Big Gangan (Square Enix), art by Nekokurage, from May 25, 2017, 17 volumes",
+    "text": "Square Enix publishes the first manga adaptation, drawn by Nekokurage, in Monthly Big Gangan; it started on May 25, 2017 and has reached 17 volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+        "ref": "1380103786",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "official",
+        "url": "https://squareenixmangaandbooks.square-enix-games.com/en-us/series/the-apothecary-diaries",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The first is published by Square Enix in Monthly Big Gangan with art by Nekokurage"
+  },
+  {
+    "id": "apothecary-diaries-manga-gene-x-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "manga_2",
+    "value": "Maomao's Notes on the Inner Palace: Minoji Kurata, Shogakukan, Monthly Sunday Gene-X, from August 19, 2017",
+    "text": "A second manga take, drawn by Minoji Kurata for Shogakukan's Monthly Sunday Gene-X, launched on August 19, 2017 under the title Maomao's Notes on the Inner Palace.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+        "ref": "1380103786",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.sunday-webry.com/episode/3269754496551508487",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "the second is published by Shogakukan in Monthly Sunday Gene-X with art by Minoji Kurata"
+  },
+  {
+    "id": "apothecary-diaries-anime-season-one-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "anime_s1",
+    "value": "Toho Animation Studio and OLM, directors Norihiro Naganuma and Akinori Fudesaka, 24 episodes, October 22, 2023 to March 24, 2024",
+    "text": "Toho Animation Studio and OLM made the first season together, and its 24 episodes ran on Nippon TV from October 22, 2023 until March 24, 2024.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+        "ref": "1380822865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q116787865",
+        "ref": "Q116787865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=27141",
+        "fetched_at": "2026-10-25T21:25:10Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:25:10.000Z",
+    "excerpt": "Produced by Toho Animation Studio and OLM, the series was written by Norihiro Naganuma and directed by Naganuma and Akinori Fudesaka."
+  },
+  {
+    "id": "apothecary-diaries-anime-season-two-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "anime_s2",
+    "value": "Episodes 25 to 48, January 10 to July 4, 2025",
+    "text": "Season two returned on January 10, 2025 and ended on July 4, 2025, adding episodes 25 to 48 to the total of 48.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+        "ref": "1380822865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q116787865",
+        "ref": "Q116787865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32557",
+        "fetched_at": "2026-10-25T21:25:10Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:25:10.000Z",
+    "excerpt": "a second season was announced. It aired from January 10 to July 4, 2025, on Nippon TV's Friday Anime Night and its affiliates."
+  },
+  {
+    "id": "apothecary-diaries-anime-season-three-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "anime_s3",
+    "value": "Premiered October 2, 2026, produced by OLM alone, in two parts",
+    "text": "Season three started on October 2, 2026 as an OLM-only production, carries on from episode 49, and plans its second part for April 2027.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+        "ref": "1380822865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "a third season was announced that premiered on October 2, 2026. The season, now produced solely by OLM, will run in two parts"
+  },
+  {
+    "id": "apothecary-diaries-setting-tang-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "setting",
+    "value": "A Tang-inspired fictional empire",
+    "text": "The story takes place in an invented empire modeled on Tang-era China, although the author points out that it is technically not set in China.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+        "ref": "1380103786",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Set in a fictional country inspired by Tang Dynasty-era China, the series follows Maomao, a girl trained in medicine by her apothecary father."
+  },
+  {
+    "id": "apothecary-diaries-copies-circulation-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "copies",
+    "value": "Over 57 million copies, August 2026",
+    "text": "Counting the light novels and both manga series, the franchise had more than 57 million copies in circulation by August 2026.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+        "ref": "1380103786",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "By August 2026, the franchise had over 57 million copies in circulation."
+  },
+  {
+    "id": "apothecary-diaries-themes-season-one-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP 1: Hana ni Natte - Ryokuoushoku Shakai (season 1)",
+      "ED 1: Aikotoba - Aina the End (season 1)",
+      "OP 2: Ambivalent - Uru (season 1)",
+      "ED 2: Ai wa Kusuri - Wacci (season 1)"
+    ],
+    "text": "Season one started with Hana ni Natte and Aikotoba, then switched to Ambivalent by Uru and Ai wa Kusuri by Wacci.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+        "ref": "1380822865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The initial opening theme song was \"Hana ni Natte\", performed by Ryokuoushoku Shakai; the ending theme song was \"Aikotoba\", performed by Aina the End."
+  },
+  {
+    "id": "apothecary-diaries-themes-season-two-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP 3: Hyakka Ryōran - Lilas Ikuta (season 2)",
+      "ED 3: Shiawase no Recipe - Dai Hirai (season 2)",
+      "OP 4: Kusushiki - Mrs. Green Apple (season 2)",
+      "ED 4: Hitorigoto - Omoinotake (season 2)"
+    ],
+    "text": "Season two opened with Hyakka Ryōran by Lilas Ikuta and later Kusushiki by Mrs. Green Apple, with Dai Hirai and Omoinotake singing the endings.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+        "ref": "1380822865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The first opening theme song is \"Hyakka Ryōran\" (performed by Lilas Ikuta) and the first ending theme song is \"Shiawase no Recipe\", performed by Dai Hirai."
+  },
+  {
+    "id": "apothecary-diaries-themes-season-three-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "themes_s3",
+    "value": [
+      "OP 5: Kumo o Nukekazashimo e Watashidake - Yorushika (season 3)",
+      "ED 5: AIYOU - Eve (season 3)"
+    ],
+    "text": "The third season pairs an opening by Yorushika with the ending song AIYOU by Eve.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+        "ref": "1380822865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The first opening theme song is \"Kumo o Nukekazashimo e Watashidake\" (performed by Yorushika) and the first ending theme song is \"AIYOU\", performed by Eve."
+  },
+  {
+    "id": "apothecary-diaries-arc-structure-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "arc_list",
+    "value": [
+      "1: Season 1 (episodes 1 to 24)",
+      "2: Season 2 (episodes 25 to 48)",
+      "3: Season 3 (from episode 49, airing)"
+    ],
+    "text": "No source names story arcs, so this quiz follows the three anime seasons, with the third still on air in October 2026.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes",
+        "ref": "1380822865",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The first season ran from October 22, 2023, to March 24, 2024, on Nippon TV and its affiliates."
+  },
+  {
+    "id": "apothecary-diaries-cast-list-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "characters",
+    "value": [
+      "Maomao (猫猫): the apothecary sold into the palace as a servant",
+      "Jinshi (壬氏): the influential official of the rear palace",
+      "Gaoshun (高順): Jinshi's loyal attendant",
+      "Gyokuyō (玉葉): the Precious Consort, the emperor's favorite",
+      "Lihua (梨花): the Wise Consort",
+      "Lishu (里樹): the Virtuous Consort",
+      "Ah-Duo (阿多): the Pure Consort",
+      "Lakan (羅漢): the monocle-wearing military tactician",
+      "Lihaku (李白): the soldier who gives Maomao a hairpin",
+      "Xiaolan (小蘭): Maomao's friend among the palace servants",
+      "Basen (馬閃): Gaoshun's second son and an attendant of Jinshi",
+      "Luomen (羅門): Maomao's adoptive father"
+    ],
+    "text": "The twelve characters of this quiz run from Maomao and Jinshi to the four high-ranking consorts and the people around them.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "The freckled adopted daughter of an apothecary and doctor named Luomen who lives in the red-light district of the capital city."
+  },
+  {
+    "id": "apothecary-diaries-maomao-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "maomao"
+    },
+    "field": "name",
+    "value": "Maomao (猫猫)",
+    "text": "Maomao is a main character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Jinshi's loyal attendant, often supporting him and Maomao more quietly."
+  },
+  {
+    "id": "apothecary-diaries-jinshi-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "jinshi"
+    },
+    "field": "name",
+    "value": "Jinshi (壬氏)",
+    "text": "Jinshi is a main character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a eunuch who runs most of the administration of the rear palace, where the Emperor's concubines and their respective staff reside."
+  },
+  {
+    "id": "apothecary-diaries-gaoshun-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gaoshun"
+    },
+    "field": "name",
+    "value": "Gaoshun (高順)",
+    "text": "Gaoshun is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "'s straight-laced second son and one of Jinshi's most reliable attendants."
+  },
+  {
+    "id": "apothecary-diaries-gyokuyo-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gyokuyo"
+    },
+    "field": "name",
+    "value": "Gyokuyō (玉葉)",
+    "text": "Gyokuyō is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "'s benevolent elderly father and the Governor of the Western Capital. He has a wife named Seibo and ten concubines, with many of adopted children, since"
+  },
+  {
+    "id": "apothecary-diaries-lihua-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lihua"
+    },
+    "field": "name",
+    "value": "Lihua (梨花)",
+    "text": "Lihua is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Shin is the head lady-in-waiting of the Crystal Pavilion and Lihua's jealous cousin. She discarded Maomao's warning to Lihua about the poisoned face powder"
+  },
+  {
+    "id": "apothecary-diaries-lishu-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lishu"
+    },
+    "field": "name",
+    "value": "Lishu (里樹)",
+    "text": "Lishu is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "'s former food taster, her newly promoted head lady-in-waiting, and her only ally in the Diamond Pavilion."
+  },
+  {
+    "id": "apothecary-diaries-ah-duo-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "ah-duo"
+    },
+    "field": "name",
+    "value": "Ah-Duo (阿多)",
+    "text": "Ah-Duo is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "'s replacement as the Pure Consort. Behavior-wise, she is aloof and seems not to care, and has the most number of ladies-in-waiting, seemingly"
+  },
+  {
+    "id": "apothecary-diaries-lakan-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lakan"
+    },
+    "field": "name",
+    "value": "Lakan (羅漢)",
+    "text": "Lakan is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the face-blind, monocle-wearing tactician of the emperor's army and the head of the La clan, to which Maomao belongs, as he is her biological father."
+  },
+  {
+    "id": "apothecary-diaries-lihaku-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lihaku"
+    },
+    "field": "name",
+    "value": "Lihaku (李白)",
+    "text": "Lihaku is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "A soldier who happened to give Maomao a hairpin during the garden party. She requested him to escort her outside the palace walls in exchange for time at the"
+  },
+  {
+    "id": "apothecary-diaries-xiaolan-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "xiaolan"
+    },
+    "field": "name",
+    "value": "Xiaolan (小蘭)",
+    "text": "Xiaolan is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "A servant at the rear palace who is Maomao's close friend. Whenever she and Maomao come together, she sometimes shares the latest gossip and intel from all"
+  },
+  {
+    "id": "apothecary-diaries-basen-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "basen"
+    },
+    "field": "name",
+    "value": "Basen (馬閃)",
+    "text": "Basen is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is Gaoshun's straight-laced second son and one of Jinshi's most reliable attendants."
+  },
+  {
+    "id": "apothecary-diaries-luomen-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "luomen"
+    },
+    "field": "name",
+    "value": "Luomen (羅門)",
+    "text": "Luomen is a supporting character of The Apothecary Diaries.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1380869129",
+        "fetched_at": "2026-10-20T20:03:57Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The freckled adopted daughter of an apothecary and doctor named Luomen who lives in the red-light district of the capital city. She was born and raised in the"
+  },
+  {
+    "id": "apothecary-diaries-gyokuyo-jade-pavilion-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gyokuyo"
+    },
+    "field": "setting",
+    "value": "Jade Pavilion",
+    "text": "Gyokuyō makes her home in the Jade Pavilion, a residence inside the Rear Palace.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "She resides in the Jade Pavilion in the Rear Palace"
+  },
+  {
+    "id": "apothecary-diaries-gyokuyo-hires-maomao-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gyokuyo"
+    },
+    "field": "role",
+    "value": "Maomao's employer",
+    "text": "Gyokuyō hires Maomao as a lady-in-waiting after Maomao warns her that her makeup is poisoned.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "She took Maomao as a Lady-in-waiting as thanks for warning her about the poisoned makeup"
+  },
+  {
+    "id": "apothecary-diaries-lishu-diamond-pavilion-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lishu"
+    },
+    "field": "setting",
+    "value": "Diamond Pavilion",
+    "text": "Lishu lives in the Diamond Pavilion, which sits in the Rear Palace.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "She resides in the Diamond Pavilion in the Rear Palace"
+  },
+  {
+    "id": "apothecary-diaries-lishu-allergies-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lishu"
+    },
+    "field": "habits",
+    "value": "food allergies",
+    "text": "Lishu suffers from food allergies, yet her attendants take it for fussy eating.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "She has food allergies but her ladies-in-waiting think she is just picky with her food"
+  },
+  {
+    "id": "apothecary-diaries-maomao-verdigris-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "maomao"
+    },
+    "field": "origin",
+    "value": "Verdigris House",
+    "text": "Maomao grew up in the Verdigris House, a well-known brothel in the capital.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "She was born and raised in the Verdigris House, a renowned brothel"
+  },
+  {
+    "id": "apothecary-diaries-three-princesses-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "organization",
+    "value": "Verdigris House courtesans",
+    "text": "The Three Princesses are the best-known courtesans of the Verdigris House, and they helped raise Maomao.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "are the most famous courtesans of the Verdigris House"
+  },
+  {
+    "id": "apothecary-diaries-verdigris-madam-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "occupation",
+    "value": "Madam of the Verdigris House",
+    "text": "An old woman, known as the Madam, owns the Verdigris House and gave Maomao a place to work there.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "An old woman who owns the Verdigris House brothel and offered Maomao a place to work"
+  },
+  {
+    "id": "apothecary-diaries-guen-palace-doctor-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "role",
+    "value": "palace doctor",
+    "text": "Guen serves as the palace doctor, though Maomao regards him as a quack.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "Guen is the palace's doctor, whom Maomao refers to as a quack"
+  },
+  {
+    "id": "apothecary-diaries-guen-paper-family-039",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "background",
+    "value": "family sells paper to the palace",
+    "text": "Guen comes from a family that supplies the palace with fine paper.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:05Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:05.000Z",
+    "excerpt": "His family is a purveyor of high-quality paper to the palace"
+  },
+  {
+    "id": "apothecary-diaries-gyokuyo-favourite-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gyokuyo"
+    },
+    "field": "organization",
+    "value": "emperor's favorite",
+    "text": "Gyokuyō, the Precious Consort, holds the place of the emperor's favourite among his four top-ranking consorts.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:25Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:25.000Z",
+    "excerpt": "and is the emperor's favorite"
+  },
+  {
+    "id": "apothecary-diaries-hongniang-jade-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "apothecary-diaries"
+    },
+    "field": "origin",
+    "value": "Jade Pavilion staff leader",
+    "text": "Hongniang runs the staff of the Jade Pavilion as its head lady-in-waiting and is a decent boss to Maomao.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:25Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:25.000Z",
+    "excerpt": "Hongniang is the dutiful head lady-in-waiting in the Jade Pavilion"
+  },
+  {
+    "id": "apothecary-diaries-lishu-youngest-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lishu"
+    },
+    "field": "role",
+    "value": "youngest of the four consorts",
+    "text": "Lishu, the Virtuous Consort, is the youngest of the emperor's four top-ranking consorts.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-25T18:51:36Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:53:36.000Z",
+    "excerpt": "youngest of the Emperor's four high-ranking"
+  },
+  {
+    "id": "apothecary-diaries-maomao-curiosity-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "maomao"
+    },
+    "field": "style",
+    "value": "Insatiable curiosity",
+    "text": "Maomao keeps helping with the mysteries she is handed because her curiosity will not let her drop them.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "she often helps him solve whatever mystery he brings to her attention because of her insatiable curiosity"
+  },
+  {
+    "id": "apothecary-diaries-maomao-experiments-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "maomao"
+    },
+    "field": "habits",
+    "value": "Experiments with poisons and remedies",
+    "text": "Maomao enjoys trying out poisons and medicines in her spare time, and now and then the test subject is herself.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "she prefers to spend time testing out different poisons and medicines, sometimes on herself."
+  },
+  {
+    "id": "apothecary-diaries-gyokuyo-supporter-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gyokuyo"
+    },
+    "field": "mission",
+    "value": "Supports Jinshi and Maomao",
+    "text": "Gyokuyō is one of the people who stands behind Jinshi and Maomao.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "She is also one who supports Jinshi and Maomao."
+  },
+  {
+    "id": "apothecary-diaries-lakan-face-blind-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lakan"
+    },
+    "field": "ability",
+    "value": "Face-blind, wears a monocle",
+    "text": "Lakan cannot tell faces apart and wears a monocle.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "the face-blind, monocle-wearing tactician of the emperor's army"
+  },
+  {
+    "id": "apothecary-diaries-lakan-tactician-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "lakan"
+    },
+    "field": "role",
+    "value": "Strategist for the army, leader of the La clan",
+    "text": "Lakan is a strategist serving the emperor's army and the leader of his clan, the La.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "tactician of the emperor's army and the head of the La clan"
+  },
+  {
+    "id": "apothecary-diaries-xiaolan-friend-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "xiaolan"
+    },
+    "field": "role",
+    "value": "Rear palace servant, Maomao's close friend",
+    "text": "Xiaolan is a rear palace servant and one of Maomao's close friends.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "A servant at the rear palace who is Maomao's close friend."
+  },
+  {
+    "id": "apothecary-diaries-xiaolan-gossip-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "xiaolan"
+    },
+    "field": "habits",
+    "value": "Shares palace gossip",
+    "text": "Xiaolan often passes on the latest gossip and news from around the palace.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "she sometimes shares the latest gossip and intel from all over the palace."
+  },
+  {
+    "id": "apothecary-diaries-gaoshun-loyal-attendant-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gaoshun"
+    },
+    "field": "role",
+    "value": "Loyal attendant to Jinshi",
+    "text": "Gaoshun is a loyal attendant who backs up others quietly rather than loudly.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "loyal attendant, often supporting him and Maomao more quietly."
+  },
+  {
+    "id": "apothecary-diaries-gaoshun-second-son-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "gaoshun"
+    },
+    "field": "background",
+    "value": "Father of Basen, who also serves Jinshi",
+    "text": "Gaoshun has a second son, Basen, who is also a reliable attendant.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "Gaoshun's straight-laced second son and one of Jinshi's most reliable attendants"
+  },
+  {
+    "id": "apothecary-diaries-luomen-adoptive-father-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "luomen"
+    },
+    "field": "role",
+    "value": "Apothecary and doctor, Maomao's adoptive father",
+    "text": "Luomen is an apothecary and doctor who raised Maomao as his adopted daughter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "an apothecary and doctor named Luomen"
+  },
+  {
+    "id": "apothecary-diaries-luomen-brothels-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "apothecary-diaries",
+      "ref": "luomen"
+    },
+    "field": "occupation",
+    "value": "Provides services to several brothels in the capital",
+    "text": "Luomen and Maomao offer their services to several other brothels in the capital.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters",
+        "ref": "1381623594",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "also provide their services to a number of other brothels in the capital"
+  }
+]

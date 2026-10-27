@@ -15,6 +15,7 @@ import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { isNextInternalError } from '@/lib/error-handling';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient } from '@/lib/supabase/server';
+import { forSite } from '@/lib/site/scope';
 
 import type { BtGroup } from './playlists';
 
@@ -42,8 +43,8 @@ export async function readPopularity(): Promise<GroupPopularity> {
   // fetchAllRows throws on any PostgREST error.
   const [plays, quizzes, groups] = await Promise.all([
     fetchAllRows<{ mode_id: string }>(() => db.from('blind_test_plays').select('mode_id').like('mode_id', 'group-%').gte('created_at', since)),
-    fetchAllRows<{ group_id: number | null; play_count: number | null }>(() => db.from('quizzes').select('group_id, play_count').eq('status', 'published')),
-    fetchAllRows<{ id: number; slug: string }>(() => db.from('groups').select('id, slug')),
+    fetchAllRows<{ group_id: number | null; play_count: number | null }>(() => forSite(db.from('quizzes').select('group_id, play_count')).eq('status', 'published')),
+    fetchAllRows<{ id: number; slug: string }>(() => forSite(db.from('groups').select('id, slug'))),
   ]);
   if (groups.length === 0 || quizzes.length === 0) throw new Error('[p6 popularity] empty read');
   const blindtest: Record<string, number> = {};
@@ -83,7 +84,7 @@ export const getTodayPlayers = unstable_cache(readTodayPlayers, ['ux11:p6:today-
 /** Active songs in the pool ("All K-pop · 4,120 songs"). 0 cannot be real: it throws. */
 export async function readSongCount(): Promise<number> {
   const db = createPublicReadClient();
-  const { count, error } = await db.from('songs').select('id', { count: 'exact', head: true }).eq('status', 'active');
+  const { count, error } = await forSite(db.from('songs').select('id', { count: 'exact', head: true })).eq('status', 'active');
   if (error) throw new Error(`[p6 song count] ${error.message}`);
   if (typeof count !== 'number' || count <= 0) throw new Error('[p6 song count] empty read');
   return count;

@@ -1,0 +1,600 @@
+{
+  "$comment": "Run O1 contract fixture (fixtures.md 3): One Piece on the dev branches only. Contract artifact for tests and D0, never loaded in production; K1's reviewed rows replace it. Counts that change while the series runs are left empty (never invented). Colours are placeholders, not the S 2.9 colour pair. No Wikidata or MusicBrainz id is typed by hand (SEO rule 7).",
+  "group": {
+    "slug": "one-piece",
+    "name": "One Piece",
+    "display_color": "#B3261E",
+    "text_color": "#FFFFFF"
+  },
+  "series": {
+    "type": "anime_manga",
+    "title_en": "One Piece",
+    "title_native": "ワンピース",
+    "title_romaji": "Wan Pisu",
+    "aliases": [
+      "OP"
+    ],
+    "studios": [
+      {
+        "name": "Toei Animation"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Eiichiro Oda",
+        "role": "story_art"
+      }
+    ],
+    "magazine": "Weekly Shonen Jump",
+    "publisher": "Shueisha",
+    "anime_start_year": 1999,
+    "manga_start_year": 1997,
+    "status": "ongoing",
+    "tier": "A",
+    "published": true
+  },
+  "arcs": [
+    {
+      "ord": 1,
+      "name": "Romance Dawn",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+      "status": "published"
+    },
+    {
+      "ord": 2,
+      "name": "Orange Town",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+      "status": "published"
+    },
+    {
+      "ord": 3,
+      "name": "Syrup Village",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+      "status": "published"
+    },
+    {
+      "ord": 4,
+      "name": "Baratie",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+      "status": "published"
+    },
+    {
+      "ord": 5,
+      "name": "Arlong Park",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+      "status": "published"
+    },
+    {
+      "ord": 6,
+      "name": "Loguetown",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+      "status": "published"
+    },
+    {
+      "ord": 7,
+      "name": "Reverse Mountain",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+      "status": "published"
+    },
+    {
+      "ord": 8,
+      "name": "Whisky Peak",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+      "status": "published"
+    },
+    {
+      "ord": 9,
+      "name": "Little Garden",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+      "status": "published"
+    },
+    {
+      "ord": 10,
+      "name": "Drum Island",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+      "status": "published"
+    },
+    {
+      "ord": 11,
+      "name": "Alabasta",
+      "kind": "arc",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+      "status": "published"
+    }
+  ],
+  "characters": [
+    {
+      "slug": "monkey-d-luffy",
+      "name": "Monkey D. Luffy",
+      "role": "main",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A boy with a body that stretches like rubber who sets out to sea to become King of the Pirates.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 1,
+      "status": "published"
+    },
+    {
+      "slug": "roronoa-zoro",
+      "name": "Roronoa Zoro",
+      "role": "main",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A swordsman who fights with three swords and is the first to join Luffy.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 2,
+      "status": "published"
+    },
+    {
+      "slug": "nami",
+      "name": "Nami",
+      "role": "main",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "description": "A navigator and skilled thief who can read the weather at sea.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 3,
+      "status": "published"
+    },
+    {
+      "slug": "usopp",
+      "name": "Usopp",
+      "role": "main",
+      "debut_arc_ord": 3,
+      "debut_medium": "both",
+      "description": "A sharpshooter from a quiet village with a habit of telling tall tales.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 4,
+      "status": "published"
+    },
+    {
+      "slug": "sanji",
+      "name": "Sanji",
+      "role": "main",
+      "debut_arc_ord": 4,
+      "debut_medium": "both",
+      "description": "A cook from a floating restaurant who fights only with his legs.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 5,
+      "status": "published"
+    },
+    {
+      "slug": "tony-tony-chopper",
+      "name": "Tony Tony Chopper",
+      "role": "main",
+      "debut_arc_ord": 10,
+      "debut_medium": "both",
+      "description": "A reindeer doctor who gained human abilities from a Devil Fruit.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+      "spoiler_level": 10,
+      "identity_spoiler": false,
+      "ord": 6,
+      "status": "published"
+    },
+    {
+      "slug": "shanks",
+      "name": "Shanks",
+      "role": "supporting",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A pirate captain who gave young Luffy his straw hat.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 7,
+      "status": "published"
+    },
+    {
+      "slug": "koby",
+      "name": "Koby",
+      "role": "supporting",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A timid boy Luffy meets on his first voyage, who dreams of joining the Marines.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 8,
+      "status": "published"
+    },
+    {
+      "slug": "buggy",
+      "name": "Buggy",
+      "role": "antagonist",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "description": "A pirate captain in clown makeup whose crew holds Orange Town.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 9,
+      "status": "published"
+    },
+    {
+      "slug": "arlong",
+      "name": "Arlong",
+      "role": "antagonist",
+      "debut_arc_ord": 5,
+      "debut_medium": "both",
+      "description": "A fish-man pirate who rules over a village of the East Blue.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+      "spoiler_level": 5,
+      "identity_spoiler": false,
+      "ord": 10,
+      "status": "published"
+    }
+  ],
+  "themes": [
+    {
+      "kind": "op",
+      "number": 1,
+      "title": "We Are!",
+      "artist": "Hiroshi Kitadani",
+      "idol_sung": false,
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 2,
+      "title": "Believe",
+      "artist": "Folder5",
+      "idol_sung": false,
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 1,
+      "title": "Memories",
+      "artist": "Maki Otsuki",
+      "idol_sung": false,
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+      "status": "published"
+    }
+  ],
+  "quizzes": [
+    {
+      "slug": "fx-one-piece-basics-creator-and-crew",
+      "title": "One Piece Basics: Creator and Crew",
+      "account": "oq_creator_03",
+      "quiz_type": "multiple_choice",
+      "difficulty": "easy",
+      "expected_level": {
+        "arc_ord": 0,
+        "scope": null
+      },
+      "questions": [
+        {
+          "question": "Who created the One Piece manga?",
+          "options": [
+            "Eiichiro Oda",
+            "Masashi Kishimoto",
+            "Akira Toriyama",
+            "Tite Kubo"
+          ],
+          "correct": 0,
+          "kind": "production",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+        },
+        {
+          "question": "Which studio animates the One Piece TV anime?",
+          "options": [
+            "Toei Animation",
+            "Madhouse",
+            "Studio Pierrot",
+            "Bones"
+          ],
+          "correct": 0,
+          "kind": "production",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+        },
+        {
+          "question": "What does Luffy want to become?",
+          "options": [
+            "King of the Pirates",
+            "A Marine admiral",
+            "The world's greatest swordsman",
+            "A navigator"
+          ],
+          "correct": 0,
+          "fun_fact": "The greatest swordsman is the dream of Zoro, his first crewmate.",
+          "kind": "character",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+        }
+      ]
+    },
+    {
+      "slug": "fx-one-piece-true-or-false",
+      "title": "One Piece: True or False",
+      "account": "o1_dual",
+      "quiz_type": "true_false",
+      "difficulty": "easy",
+      "expected_level": {
+        "arc_ord": 0,
+        "scope": null
+      },
+      "questions": [
+        {
+          "question": "Luffy's body stretches like rubber.",
+          "correct": true,
+          "kind": "ability",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          }
+        },
+        {
+          "question": "Zoro fights with three swords.",
+          "correct": true,
+          "kind": "ability",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          }
+        },
+        {
+          "question": "Sanji is the crew's navigator.",
+          "correct": false,
+          "fun_fact": "Sanji is the cook. Nami is the navigator.",
+          "kind": "character",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "fx-guess-the-straw-hat",
+      "title": "Guess the Straw Hat",
+      "account": "oq_creator_03",
+      "quiz_type": "guess_from_clues",
+      "difficulty": "medium",
+      "expected_level": {
+        "arc_ord": 0,
+        "scope": null
+      },
+      "questions": [
+        {
+          "question": "Who is this character?",
+          "clues": [
+            "A navigator",
+            "Reads the weather at sea",
+            "A skilled thief"
+          ],
+          "options": [
+            "Nami",
+            "Usopp",
+            "Sanji",
+            "Roronoa Zoro"
+          ],
+          "correct": 0,
+          "kind": "character",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+        },
+        {
+          "question": "Who is this character?",
+          "clues": [
+            "A sharpshooter",
+            "Tells tall tales",
+            "Comes from a quiet village"
+          ],
+          "options": [
+            "Usopp",
+            "Nami",
+            "Koby",
+            "Sanji"
+          ],
+          "correct": 0,
+          "kind": "character",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+        },
+        {
+          "question": "Who is this character?",
+          "clues": [
+            "A cook",
+            "Fights only with his legs",
+            "Worked at a floating restaurant"
+          ],
+          "options": [
+            "Sanji",
+            "Roronoa Zoro",
+            "Usopp",
+            "Monkey D. Luffy"
+          ],
+          "correct": 0,
+          "kind": "character",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+        }
+      ]
+    },
+    {
+      "slug": "fx-one-piece-east-blue-villains",
+      "title": "One Piece: East Blue Villains",
+      "account": "oq_creator_05",
+      "quiz_type": "multiple_choice",
+      "difficulty": "medium",
+      "expected_level": {
+        "arc_ord": 5,
+        "scope": "both"
+      },
+      "questions": [
+        {
+          "question": "Which pirate captain wears clown makeup?",
+          "options": [
+            "Buggy",
+            "Arlong",
+            "Shanks",
+            "Koby"
+          ],
+          "correct": 0,
+          "kind": "character",
+          "spoiler": {
+            "arc": 5,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+        },
+        {
+          "question": "What kind of being is Arlong?",
+          "options": [
+            "A fish-man",
+            "A giant",
+            "A human",
+            "A reindeer"
+          ],
+          "correct": 0,
+          "kind": "character",
+          "spoiler": {
+            "arc": 5,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+        },
+        {
+          "question": "Which Straw Hat comes from the village Arlong rules?",
+          "options": [
+            "Nami",
+            "Usopp",
+            "Sanji",
+            "Roronoa Zoro"
+          ],
+          "correct": 0,
+          "kind": "character",
+          "spoiler": {
+            "arc": 5,
+            "scope": "both"
+          },
+          "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+        }
+      ]
+    },
+    {
+      "slug": "fx-one-piece-odd-one-out",
+      "title": "One Piece: Odd One Out",
+      "account": "o1_anime_new",
+      "quiz_type": "intruder",
+      "difficulty": "easy",
+      "expected_level": {
+        "arc_ord": 10,
+        "scope": "both"
+      },
+      "questions": [
+        {
+          "question": "Which of these is not a Straw Hat Pirate?",
+          "options": [
+            {
+              "label": "Monkey D. Luffy"
+            },
+            {
+              "label": "Roronoa Zoro"
+            },
+            {
+              "label": "Nami"
+            },
+            {
+              "label": "Buggy"
+            }
+          ],
+          "correct": 3,
+          "kind": "odd_one_out",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          }
+        },
+        {
+          "question": "Which of these is not a One Piece opening or ending?",
+          "options": [
+            {
+              "label": "We Are!"
+            },
+            {
+              "label": "Believe"
+            },
+            {
+              "label": "Memories"
+            },
+            {
+              "label": "the WORLD"
+            }
+          ],
+          "correct": 3,
+          "kind": "odd_one_out",
+          "spoiler": {
+            "arc": 0,
+            "scope": "both"
+          }
+        },
+        {
+          "question": "Which of these has not eaten a Devil Fruit?",
+          "options": [
+            {
+              "label": "Monkey D. Luffy"
+            },
+            {
+              "label": "Buggy"
+            },
+            {
+              "label": "Tony Tony Chopper"
+            },
+            {
+              "label": "Roronoa Zoro"
+            }
+          ],
+          "correct": 3,
+          "kind": "odd_one_out",
+          "spoiler": {
+            "arc": 10,
+            "scope": "both"
+          }
+        }
+      ]
+    }
+  ]
+}

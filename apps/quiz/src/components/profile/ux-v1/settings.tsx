@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 
 import { UxPage } from '@/components/ux-v1/page';
 import { Icon } from '@/components/ux-v1/icon';
@@ -21,11 +22,14 @@ import { badgeRarity } from '@/lib/badges';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { isSoundEnabled, setSoundEnabled } from '@/lib/sounds';
-import { AVATAR_PRESETS, AVATAR_PRESET_KEYS, NAME_ACCENTS, NAME_ACCENT_KEYS, NAME_FONTS, NAME_FONT_KEYS } from '@/lib/passport-flair';
-import { BIAS_MAX, PASSPORT_THEMES, PASSPORT_THEME_KEYS, ULT_MAX } from '@/lib/passport-themes';
+import { AVATAR_PRESETS, NAME_ACCENTS, NAME_FONTS, NAME_FONT_KEYS } from '@/lib/passport-flair';
+import { OFFERED_AVATAR_PRESET_KEYS, OFFERED_NAME_ACCENT_KEYS, OFFERED_THEME_KEYS, themeOption } from '@/lib/passport-ui/site-options';
+import { BIAS_MAX, ULT_MAX } from '@/lib/passport-themes';
+import { flagOn } from '@/lib/site/registry';
 import { applyTheme, storedTheme } from '@/lib/ux-v1/a0/theme';
-import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
+import { groupPhotoUrl, SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 import { cssUrl } from '@/lib/ux-v1/p10/passport-model';
+import { fmt } from '@/lib/passport-ui/fmt';
 import { formFromRow, formProblems, prefsPayload, profilePayload, usernameProblem } from '@/lib/ux-v1/p10/settings-model';
 
 import { HeaderPicker } from './header-picker';
@@ -33,8 +37,23 @@ import { clearHeader, announceHeader } from './header-actions';
 
 import type { ThemeChoice } from '@/lib/ux-v1/a0/theme';
 import type { ProfileForm, ProfileRow, UsernameStatus } from '@/lib/ux-v1/p10/settings-model';
+import type { OshiPick } from '@/components/passport-ui/settings-world';
+import type { SettingsWorld } from '@/lib/passport-ui/settings-world';
 
-interface Loaded {
+// A world site (Run O1, lot b, P1; rule 18): its sections and its reads and writes live in world-only modules, loaded when the
+// `world` prop is set and never on kpop (the sections are next/dynamic and rendered only with `world`; the kit is import()ed
+// by the load effect), so no kpop page reaches them.
+type WorldKit = typeof import('@/components/passport-ui/world-settings-kit');
+const WorldSeriesSection = dynamic(() => import('@/components/passport-ui/settings-world').then((m) => m.WorldSeriesSection), { ssr: false });
+// Run O1, lot (e), lane B7 (owner decision of 2026-10-24): with NEXT_PUBLIC_NET_DELETION on, "Delete account" starts the passport
+// deletion (components/passport-ui/account-deletion, next/dynamic: no kpop page reaches it while the flag is off). Off: the row and the
+// sheet below keep today's text (by hand, contact page, 30 days).
+const NET_DELETION = flagOn(process.env.NEXT_PUBLIC_NET_DELETION);
+const AccountDeletion = dynamic(() => import('@/components/passport-ui/account-deletion').then((m) => m.AccountDeletion), { ssr: false });
+const OshiPicker = dynamic(() => import('@/components/passport-ui/settings-world').then((m) => m.OshiPicker), { ssr: false });
+const WorldAccountRows = dynamic(() => import('@/components/passport-ui/settings-world').then((m) => m.WorldAccountRows), { ssr: false });
+
+export interface Loaded {
   row: ProfileRow & { xp: number; avatar_bg: string; avatar_text: string; header_url: string | null };
   groups: Array<{ id: number; slug: string; name: string }>;
   earned: Array<{ id: string; name: string }>;
@@ -105,7 +124,7 @@ function RadioGroup({ label, children, className }: { label: string; children: R
  * through the EXISTING /api/notifications/prefs. Theme and sounds are device
  * settings (localStorage), applied at once, as today.
  */
-export function UxSettings(): React.ReactElement {
+export function UxSettings({ world }: { world?: SettingsWorld | undefined } = {}): React.ReactElement {
   const router = useRouter();
   const toast = useUxToast();
   const [state, setState] = useState<'loading' | 'signed-out' | 'error' | 'ready'>('loading');
@@ -126,6 +145,9 @@ export function UxSettings(): React.ReactElement {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [sound, setSound] = useState(true);
   const [exporting, setExporting] = useState(false);
+  // A world site (Run O1, lot b, P1): the oshi picked in this edit, written with the save; the world kit once loaded.
+  const [oshiPick, setOshiPick] = useState<OshiPick | null>(null);
+  const [kit, setKit] = useState<WorldKit | null>(null);
   const debounce = useRef<ReturnType<typeof setTimeout> | null>(null);
   const theme = useSyncExternalStore<ThemeChoice>(subscribeTheme, storedTheme, () => 'system');
 
@@ -138,6 +160,18 @@ export function UxSettings(): React.ReactElement {
         const supabase = createBrowserClient();
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) { if (!cancelled) setState('signed-out'); return; }
+        if (world) {
+          const k = await import('@/components/passport-ui/world-settings-kit');
+          const out = await k.loadWorldSettings(user, world);
+          if (cancelled) return;
+          if (!out) { setState('error'); return; }
+          setKit(k);
+          setData(out.data);
+          setBase(out.form);
+          setForm(out.form);
+          setState('ready');
+          return;
+        }
         const [{ data: row }, { data: groups }, { data: badges }] = await Promise.all([
           supabase
             .from('profiles')
@@ -173,13 +207,14 @@ export function UxSettings(): React.ReactElement {
       } catch { /* defaults: all on */ } finally { if (!cancelled) setPrefsLoaded(true); }
     })();
     return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- `world` is a build constant
   }, []);
 
   // ---- bias chips: members of the main group (public idols roster) ----
   const mainSlug = form?.ult_groups[0] ?? null;
   const mainGroup = useMemo(() => data?.groups.find((g) => g.slug === mainSlug) ?? null, [data, mainSlug]);
   useEffect(() => {
-    if (!mainGroup) { setMembers([]); return; }
+    if (!mainGroup || world) { setMembers([]); return; }
     let cancelled = false;
     void (async () => {
       try {
@@ -218,18 +253,31 @@ export function UxSettings(): React.ReactElement {
 
   const payload = form && base ? profilePayload(base, form) : {};
   const prefsDiff = prefsPayload(prefsBase, prefs);
-  const dirty = Object.keys(payload).length > 0 || Object.keys(prefsDiff).length > 0;
-  const problems = form ? formProblems(form) : [];
-  const canSave = dirty && !saving && problems.length === 0 && (form?.username === base?.username || uStatus === 'available');
+  const worldW = world && kit && form && base ? kit.worldWrites(base, form) : null;
+  const dirty = (world ? (worldW !== null && kit !== null && kit.hasWrites(worldW)) || oshiPick !== null : Object.keys(payload).length > 0) || Object.keys(prefsDiff).length > 0;
+  const problems = form ? (world ? (kit ? kit.worldProblems(form) : []) : formProblems(form)) : [];
+  const canSave = dirty && !saving && problems.length === 0 && (world !== undefined || form?.username === base?.username || uStatus === 'available');
 
-  const discard = (): void => { setForm(base); setPrefs(prefsBase); setCustomBias(''); setSaveError(null); toast('Changes discarded'); };
+  const discard = (): void => { setForm(base); setPrefs(prefsBase); setCustomBias(''); setOshiPick(null); setSaveError(null); toast('Changes discarded'); };
+
+  // A world site: the membership patch, the shared profile's flair, the followed series, the oshi, in that order.
+  const saveWorldWrites = async (): Promise<boolean> => {
+    if (!world || !kit || !worldW || !form || !data) return true;
+    const failed = await kit.saveWorldSettings({ world, writes: worldW, data, oshiPick });
+    if (failed) { setSaveError(failed); return false; }
+    setBase(form);
+    setOshiPick(null);
+    return true;
+  };
 
   const save = async (): Promise<void> => {
     if (!canSave || !form || !base) return;
     setSaving(true);
     setSaveError(null);
     try {
-      if (Object.keys(payload).length > 0) {
+      if (world) {
+        if (!(await saveWorldWrites())) return;
+      } else if (Object.keys(payload).length > 0) {
         const res = await fetch('/api/auth/update-profile', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), credentials: 'include' });
         const d = (await res.json().catch(() => ({}))) as { error?: string; profile?: ProfileRow };
         if (!res.ok) { setSaveError(d.error ?? 'We could not save your changes.'); return; }
@@ -262,6 +310,12 @@ export function UxSettings(): React.ReactElement {
     router.push('/');
   };
 
+  const worldSignOut = async (scope: 'local' | 'global'): Promise<void> => {
+    try { await createBrowserClient().auth.signOut({ scope }); } catch { /* local session is cleared anyway */ }
+    clearMe();
+    router.push('/');
+  };
+
   const download = async (): Promise<void> => {
     setExporting(true);
     try {
@@ -270,7 +324,7 @@ export function UxSettings(): React.ReactElement {
       const blob = await res.blob();
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = `kpopquiz-${data?.row.username ?? 'data'}.json`;
+      a.download = `${world ? world.words.brand.toLowerCase() : 'kpopquiz'}-${data?.row.username ?? 'data'}.json`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -304,8 +358,8 @@ export function UxSettings(): React.ReactElement {
   }
 
   const row = data.row;
-  const lvl = getLevelInfo(row.xp ?? 0);
-  const levelText = `Lv ${lvl.level} ${getTitleForLevel(lvl.level).en}`;
+  const lvl = getLevelInfo(row.xp ?? 0, world?.site);
+  const levelText = `Lv ${lvl.level} ${world ? lvl.name : getTitleForLevel(lvl.level).en}`;
   const name = form.display_name.trim() || form.username;
   const photo = form.avatar_kind === 'preset' ? null : form.avatar_url || null;
   const preset = form.avatar_kind === 'preset' && form.avatar_ref ? AVATAR_PRESETS[form.avatar_ref] : undefined;
@@ -321,15 +375,18 @@ export function UxSettings(): React.ReactElement {
 
       {/* ---------- Profile ---------- */}
       <section className="ux-sec" aria-labelledby="p10-s-profile">
-        <h2 className="ux-h2" id="p10-s-profile">Profile</h2>
+        <h2 className="ux-h2" id="p10-s-profile">{world ? world.words.profile : 'Profile'}</h2>
         <div className="p10-photo">
           {avatar}
-          <button type="button" className="ux-btn ux-btn-ghost ux-btn-sm" onClick={() => setPhotoOpen(true)} aria-haspopup="dialog">Change photo</button>
+          <button type="button" className="ux-btn ux-btn-ghost ux-btn-sm" onClick={() => setPhotoOpen(true)} aria-haspopup="dialog">{world ? world.words.photo : 'Change photo'}</button>
         </div>
         <div className="ux-field">
-          <label htmlFor="p10-s-name">Display name</label>
+          <label htmlFor="p10-s-name">{world ? world.words.displayName : 'Display name'}</label>
           <input className="ux-inp" id="p10-s-name" value={form.display_name} maxLength={40} autoComplete="nickname" onChange={(e) => set('display_name', e.target.value)} />
         </div>
+        {world ? (
+          <p className="ux-help">{fmt(world.words.username, { username: form.username })}</p>
+        ) : (
         <div className="ux-field">
           <label htmlFor="p10-s-user">Username <small>kpopquiz.org/u/{form.username || base?.username}</small></label>
           <input className="ux-inp" id="p10-s-user" value={form.username} maxLength={20} autoComplete="username" spellCheck={false} aria-invalid={uStatus === 'invalid' || uStatus === 'taken' ? true : undefined} aria-describedby="p10-s-user-h" onChange={(e) => set('username', e.target.value.toLowerCase())} />
@@ -337,13 +394,26 @@ export function UxSettings(): React.ReactElement {
             {uStatus === 'checking' ? 'Checking' : uStatus === 'available' ? 'Available. Changing it breaks old links to your passport.' : uError || 'Changing it breaks old links to your passport.'}
           </p>
         </div>
+        )}
         <div className="ux-field">
-          <label htmlFor="p10-s-bio">Bio <small className="ux-num">{form.bio.length} / 160</small></label>
+          <label htmlFor="p10-s-bio">{world ? world.words.bio : 'Bio'} <small className="ux-num">{form.bio.length} / 160</small></label>
           <textarea className="ux-inp" id="p10-s-bio" value={form.bio} maxLength={160} rows={3} onChange={(e) => set('bio', e.target.value)} />
         </div>
       </section>
 
-      {/* ---------- Fandom ---------- */}
+      {/* ---------- Fandom (a world site: its series and watching since) ---------- */}
+      {world ? (
+        <WorldSeriesSection
+          world={world}
+          picked={form.ult_groups}
+          names={new Map(data.groups.map((g) => [g.slug, g.name]))}
+          onAdd={() => setGroupOpen(true)}
+          onRemove={(slug) => set('ult_groups', form.ult_groups.filter((x) => x !== slug))}
+          since={form.stan_since}
+          onSince={(v) => set('stan_since', v)}
+        />
+      ) : (
+      <>
       <section className="ux-sec" aria-labelledby="p10-s-fandom">
         <h2 className="ux-h2" id="p10-s-fandom">Fandom</h2>
         <p className="p10-lead">Your main group decides which fandom your points go to in the fandom war.</p>
@@ -374,14 +444,17 @@ export function UxSettings(): React.ReactElement {
         </div>
       </section>
 
+      </>
+      )}
+
       {/* ---------- Your look ---------- */}
       <section className="ux-sec" id="look" aria-labelledby="p10-s-look">
-        <h2 className="ux-h2" id="p10-s-look">Your look</h2>
+        <h2 className="ux-h2" id="p10-s-look">{world ? world.words.look : 'Your look'}</h2>
         <p className="p10-lead">How your name shows on your passport and next to everything you post, comment or score.</p>
         <div className="ux-personprev p10-personprev" aria-live="polite">
           <UxAvatar name={name} src={photo} size={40} bg={preset?.bg ?? row.avatar_bg} fg={preset?.fg ?? row.avatar_text} />
           <span>
-            <PersonName name={name} accent={form.name_accent} font={form.name_font} bias={form.bias} />
+            <PersonName name={name} accent={form.name_accent} font={form.name_font} bias={form.bias} {...(world ? { tagIcon: world.pickIcon } : {})} />
             <span className="p10-prev-sub">{levelText} · how you appear in Community</span>
           </span>
         </div>
@@ -389,7 +462,7 @@ export function UxSettings(): React.ReactElement {
         <div className="ux-field">
           <div className="ux-flabel" id="p10-s-acc">Name colour</div>
           <RadioGroup label="Name colour">
-            {NAME_ACCENT_KEYS.map((k) => (
+            {OFFERED_NAME_ACCENT_KEYS.map((k) => (
               <Opt key={k} on={form.name_accent === k} onPick={() => set('name_accent', k)}>
                 <i className={`p10-dot ${k === 'default' ? 'is-ink' : `ux-acc-${k}`}`} aria-hidden="true" />{NAME_ACCENTS[k]!.label}
               </Opt>
@@ -406,6 +479,18 @@ export function UxSettings(): React.ReactElement {
             ))}
           </RadioGroup>
         </div>
+        {world ? (
+          <div className="ux-field">
+            <div className="ux-flabel">{world.words.oshi} <small>Up to {BIAS_MAX} characters</small></div>
+            <OshiPicker
+              world={world}
+              series={mainGroup}
+              value={form.bias}
+              onTag={(text) => set('bias', text)}
+              onPick={setOshiPick}
+            />
+          </div>
+        ) : (
         <div className="ux-field">
           <div className="ux-flabel">Bias tag <small>Up to {BIAS_MAX} characters</small></div>
           <RadioGroup label="Bias tag">
@@ -424,16 +509,17 @@ export function UxSettings(): React.ReactElement {
             <button type="submit" className="ux-btn ux-btn-ghost">Use</button>
           </form>
         </div>
+        )}
         <div className="ux-field">
           <div className="ux-flabel">Passport theme <small>Colours your header and XP bar</small></div>
           <RadioGroup label="Passport theme" className="p10-swatches">
-            {PASSPORT_THEME_KEYS.map((k) => (
-              <Opt key={k} on={form.profile_theme === k} onPick={() => set('profile_theme', k)} className="p10-sw" style={{ background: PASSPORT_THEMES[k]!.swatch }} label={PASSPORT_THEMES[k]!.label}>{null}</Opt>
+            {OFFERED_THEME_KEYS.map((k) => (
+              <Opt key={k} on={form.profile_theme === k} onPick={() => set('profile_theme', k)} className="p10-sw" style={{ background: themeOption(k).swatch }} label={themeOption(k).label}>{null}</Opt>
             ))}
           </RadioGroup>
         </div>
         <div className="ux-field">
-          <div className="ux-flabel">Header picture <small>1500 x 300 works best</small></div>
+          <div className="ux-flabel">{world ? world.words.header : 'Header picture'} <small>1500 x 300 works best</small></div>
           <div className="p10-flair-row">
             <HeaderPicker variant="settings" label="Change header picture" />
             <button
@@ -467,17 +553,17 @@ export function UxSettings(): React.ReactElement {
 
       {/* ---------- Notifications ---------- */}
       <section className="ux-sec" aria-labelledby="p10-s-notifs">
-        <h2 className="ux-h2" id="p10-s-notifs">Notifications</h2>
+        <h2 className="ux-h2" id="p10-s-notifs">{world ? world.words.notifications : 'Notifications'}</h2>
         <div className="ux-rows p10-srows">
           {NOTIF_ROWS.map((r) => (
             <div className="p10-srow" key={r.key}>
-              <span className="p10-srow-g"><b id={`p10-n-${r.key}`}>{r.label}</b><small>{r.sub}</small></span>
-              <UxSwitch checked={prefs[r.key] !== false} disabled={!prefsLoaded} label={r.label} onChange={(v) => { setSaveError(null); setPrefs((p) => ({ ...p, [r.key]: v })); }} />
+              <span className="p10-srow-g"><b id={`p10-n-${r.key}`}>{world && r.key === 'announcements' ? world.words.announcements : r.label}</b><small>{world && r.key === 'achievements' ? world.words.achievementsSub : r.sub}</small></span>
+              <UxSwitch checked={prefs[r.key] !== false} disabled={!prefsLoaded} label={world && r.key === 'announcements' ? world.words.announcements : r.label} onChange={(v) => { setSaveError(null); setPrefs((p) => ({ ...p, [r.key]: v })); }} />
             </div>
           ))}
           {EMAIL_ROWS.map((r) => (
             <div className="p10-srow" key={r.key}>
-              <span className="p10-srow-g"><b>{r.label}</b><small>{r.sub}</small><small className="p10-soon">Not available yet: KpopQuiz does not send emails yet.</small></span>
+              <span className="p10-srow-g"><b>{r.label}</b><small>{r.sub}</small><small className="p10-soon">{world ? world.words.emailSoon : 'Not available yet: KpopQuiz does not send emails yet.'}</small></span>
               <UxSwitch checked={false} disabled label={r.label} onChange={() => undefined} />
             </div>
           ))}
@@ -486,7 +572,7 @@ export function UxSettings(): React.ReactElement {
 
       {/* ---------- Appearance ---------- */}
       <section className="ux-sec" aria-labelledby="p10-s-look2">
-        <h2 className="ux-h2" id="p10-s-look2">Appearance</h2>
+        <h2 className="ux-h2" id="p10-s-look2">{world ? world.words.appearance : 'Appearance'}</h2>
         <Segmented label="Appearance" options={THEME_OPTIONS} value={theme} onChange={(v) => applyTheme(v)} className="p10-apseg" />
         <div className="p10-srow p10-srow-first">
           <span className="p10-srow-g"><b>Sounds in games</b><small>Taps, chimes and the results fanfare</small></span>
@@ -496,7 +582,7 @@ export function UxSettings(): React.ReactElement {
 
       {/* ---------- Account ---------- */}
       <section className="ux-sec" aria-labelledby="p10-s-account">
-        <h2 className="ux-h2" id="p10-s-account">Account</h2>
+        <h2 className="ux-h2" id="p10-s-account">{world ? world.words.account : 'Account'}</h2>
         <div className="ux-rows p10-srows">
           <div className="p10-srow">
             <span className="p10-srow-g"><b>Sign-in method</b><small>{data.provider && data.provider !== 'email' ? `${provider} · email links work too, no password needed` : 'Email link · no password needed'}</small></span>
@@ -505,14 +591,18 @@ export function UxSettings(): React.ReactElement {
             <span className="p10-srow-g"><b>Download your data</b><small>Your profile, plays, quizzes, badges and comments as a file</small></span>
             <button type="button" className="ux-btn ux-btn-ghost ux-btn-sm" onClick={() => { void download(); }} disabled={exporting} aria-busy={exporting || undefined}>{exporting ? 'Preparing' : 'Download'}</button>
           </div>
+          {world ? <WorldAccountRows world={world} onSignOut={(scope) => { void worldSignOut(scope); }} /> : (
           <div className="p10-srow">
             <span className="p10-srow-g"><b>Sign out</b><small>On this device</small></span>
             <button type="button" className="ux-btn ux-btn-ghost ux-btn-sm" onClick={() => { void signOut(); }}>Sign out</button>
           </div>
+          )}
+          {NET_DELETION ? <AccountDeletion username={base?.username ?? form.username} /> : (
           <div className="p10-srow">
             <span className="p10-srow-g"><b className="p10-danger">Delete account</b><small>Removes your passport. Your published quizzes are deleted with it.</small></span>
             <button type="button" className="ux-btn ux-btn-ghost ux-btn-sm p10-danger" onClick={() => setDeleteOpen(true)} aria-haspopup="dialog">Delete</button>
           </div>
+          )}
         </div>
       </section>
 
@@ -539,8 +629,9 @@ export function UxSettings(): React.ReactElement {
         groups={data.groups}
         picked={form.ult_groups}
         onPick={(slug) => { if (!form.ult_groups.includes(slug) && form.ult_groups.length < ULT_MAX) set('ult_groups', [...form.ult_groups, slug]); setGroupOpen(false); }}
+        {...(world ? { labels: { title: world.words.addSeries, search: fmt(world.words.seriesSearch, { count: data.groups.length }), none: world.words.noSeries } } : {})}
       />
-      <ConfirmSheet
+      {NET_DELETION ? null : <ConfirmSheet
         open={deleteOpen}
         title="Delete your account?"
         body={<>Your passport, scores and badges are removed. We delete accounts by hand. Send a request from the contact page and we delete your account within 30 days. Your published quizzes are deleted with it.</>}
@@ -548,7 +639,7 @@ export function UxSettings(): React.ReactElement {
         cancelLabel="Keep my account"
         onConfirm={() => { setDeleteOpen(false); router.push('/contact'); }}
         onCancel={() => setDeleteOpen(false)}
-      />
+      />}
     </UxPage>
   );
 }
@@ -574,10 +665,10 @@ function PhotoSheet({ open, onClose, form, onPhoto, onPreset, onUsePhoto, onRemo
       {err ? <p className="ux-err" role="alert">{err}</p> : <p className="ux-help">A direct link to a JPG or PNG. It shows next to your name.</p>}
       <div className="ux-or">or pick a colour</div>
       <div className="p10-flair-row" role="radiogroup" aria-label="Colour avatar" onKeyDown={radioKeys}>
-        {AVATAR_PRESET_KEYS.map((k) => {
+        {OFFERED_AVATAR_PRESET_KEYS.map((k) => {
           const p = AVATAR_PRESETS[k]!;
           const on = form.avatar_kind === 'preset' && form.avatar_ref === k;
-          return <button key={k} type="button" role="radio" aria-checked={on} tabIndex={on || (form.avatar_kind !== 'preset' && k === AVATAR_PRESET_KEYS[0]) ? 0 : -1} aria-label={p.label} className="p10-fopt p10-sw" style={{ background: p.bg }} onClick={() => { onPreset(k); onClose(); }} />;
+          return <button key={k} type="button" role="radio" aria-checked={on} tabIndex={on || (form.avatar_kind !== 'preset' && k === OFFERED_AVATAR_PRESET_KEYS[0]) ? 0 : -1} aria-label={p.label} className="p10-fopt p10-sw" style={{ background: p.bg }} onClick={() => { onPreset(k); onClose(); }} />;
         })}
       </div>
       <div className="ux-sh-right p10-photo-acts">
@@ -588,30 +679,32 @@ function PhotoSheet({ open, onClose, form, onPhoto, onPreset, onUsePhoto, onRemo
   );
 }
 
-function GroupSheet({ open, onClose, groups, picked, onPick }: {
+function GroupSheet({ open, onClose, groups, picked, onPick, labels }: {
   open: boolean; onClose: () => void; groups: Array<{ slug: string; name: string }>; picked: string[]; onPick: (slug: string) => void;
+  /** A world site's words for the series sheet; kpop passes none and keeps its group wording and photos. */
+  labels?: { title: string; search: string; none: string };
 }): React.ReactElement | null {
   const [q, setQ] = useState('');
   const list = groups.filter((g) => !picked.includes(g.slug) && g.name.toLowerCase().includes(q.trim().toLowerCase())).slice(0, 40);
   return (
-    <Sheet open={open} onClose={() => { setQ(''); onClose(); }} title="Add a group" width={480}>
-      <label className="ux-sr" htmlFor="p10-group-q">Search groups</label>
-      <input className="ux-inp" id="p10-group-q" type="search" placeholder={`Search ${groups.length} groups`} value={q} onChange={(e) => setQ(e.target.value)} autoComplete="off" />
+    <Sheet open={open} onClose={() => { setQ(''); onClose(); }} title={labels ? labels.title : 'Add a group'} width={480}>
+      <label className="ux-sr" htmlFor="p10-group-q">{labels ? labels.search : 'Search groups'}</label>
+      <input className="ux-inp" id="p10-group-q" type="search" placeholder={labels ? labels.search : `Search ${groups.length} groups`} value={q} onChange={(e) => setQ(e.target.value)} autoComplete="off" />
       {list.length > 0 ? (
         <ul className="p10-glist">
           {list.map((g) => {
-            const bg = cssUrl(groupPhotoUrl(g.slug));
+            const bg = labels ? null : cssUrl(groupPhotoUrl(g.slug));
             return (
               <li key={g.slug}>
                 <button type="button" className="p10-gpick" onClick={() => { setQ(''); onPick(g.slug); }}>
-                  <span className="ux-gav" aria-hidden="true" style={bg ? { backgroundImage: bg } : undefined}>{bg ? null : g.name.slice(0, 1)}</span>
+                  <span className="ux-gav" aria-hidden="true" style={bg ? { backgroundImage: bg } : undefined}>{bg ? null : labels && SERIES_ART.avatar ? SERIES_ART.avatar(g.slug, g.name) : g.name.slice(0, 1)}</span>
                   {g.name}
                 </button>
               </li>
             );
           })}
         </ul>
-      ) : <p className="ux-help" role="status">No group matches.</p>}
+      ) : <p className="ux-help" role="status">{labels ? labels.none : 'No group matches.'}</p>}
     </Sheet>
   );
 }

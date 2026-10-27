@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { SITE } from '@/lib/site/registry';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 
 export interface BreadcrumbItem {
@@ -10,6 +11,8 @@ export interface BreadcrumbItem {
 
 interface Props {
   items: BreadcrumbItem[];
+  /** The site origin of the JSON-LD item URLs. Default: the origin of the site of this build (kpopquiz.org on kpop). */
+  origin?: string;
 }
 
 /**
@@ -18,7 +21,7 @@ interface Props {
  * final item is rendered as plain text (no link) since it represents the
  * current page.
  */
-export function Breadcrumbs({ items }: Props): React.ReactElement | null {
+export function Breadcrumbs({ items, origin = SITE.url }: Props): React.ReactElement | null {
   if (items.length === 0) return null;
 
   const jsonLd = {
@@ -28,7 +31,7 @@ export function Breadcrumbs({ items }: Props): React.ReactElement | null {
       '@type': 'ListItem',
       position: i + 1,
       name: item.label,
-      ...(item.href ? { item: `https://kpopquiz.org${item.href}` } : {}),
+      ...(item.href ? { item: `${origin}${item.href}` } : {}),
     })),
   };
 

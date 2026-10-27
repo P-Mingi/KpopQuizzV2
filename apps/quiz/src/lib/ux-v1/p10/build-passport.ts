@@ -11,6 +11,8 @@ import {
 } from './passport-model';
 
 import type { UxPassportProps } from '@/components/profile/ux-v1/passport';
+import type { PassportWords } from '@/lib/passport-ui/words';
+import type { SiteId } from '@/lib/site/types';
 import type { BadgeDef, HistoryRow } from './passport-model';
 import type { PassportGroupStat, PassportSpine, CollectionProgress } from '@/lib/passport';
 import type { Profile, QuizCardData } from '@/lib/db/types';
@@ -33,6 +35,10 @@ export interface PassportInput {
   now: number;
   /** v12: the owner is an editorial (team) account (passport-data readTeamIdentity). */
   team?: { displayName: string; beat: string } | null;
+  /** A world site's words (lot b, P1: rule 18); absent on kpop, whose literals stay. */
+  words?: PassportWords;
+  /** The site whose level ladder names the level (getLevelInfo); absent on kpop. */
+  site?: SiteId;
 }
 
 /** The passport props, plus `isTeam` for an editorial account (SYSTEM.md 5.6: the
@@ -45,15 +51,15 @@ export function buildPassport(i: PassportInput): PassportProps {
   if (!i.team) return base;
   // No level, no accent, no name font, no bias, no pinned badge: a team account
   // never poses as a fan. Everything else is the account's real (empty) record.
-  return { ...base, ...teamIdentity(i.team), pinned: [], isTeam: true };
+  return { ...base, ...teamIdentity(i.team, i.words), pinned: [], isTeam: true };
 }
 
 function buildFanPassport(i: PassportInput): Omit<UxPassportProps, 'footer'> {
   const p = i.profile;
   const s = i.spine;
   const displayName = p.display_name?.trim() || p.username;
-  const lvl = getLevelInfo(p.xp);
-  const title = getTitleForLevel(lvl.level).en;
+  const lvl = getLevelInfo(p.xp, i.site);
+  const title = i.site === undefined ? getTitleForLevel(lvl.level).en : lvl.name;
   const theme = themeColours(s?.profile_theme);
   const main = s?.ult_groups?.[0] ?? null;
   const groupPhoto = groupPhotoUrl(main);
@@ -79,13 +85,13 @@ function buildFanPassport(i: PassportInput): Omit<UxPassportProps, 'footer'> {
     avatar: { url: p.avatar_url, bg: p.avatar_bg, text: p.avatar_text, kind: p.avatar_kind, ref: p.avatar_ref },
     pinnedBadge,
     level: levelChip(lvl.level, title),
-    meta: metaSegments({ groups: ultGroups, stanSince: p.stan_since, createdAt: p.created_at, followers: p.follower_count ?? 0 }),
-    xp: xpLine(p.xp, lvl.xpForNextLevel, lvl.level, lvl.progress),
+    meta: metaSegments({ groups: ultGroups, stanSince: p.stan_since, createdAt: p.created_at, followers: p.follower_count ?? 0, ...(i.words ? { words: i.words } : {}) }),
+    xp: xpLine(p.xp, lvl.xpForNextLevel, lvl.level, lvl.progress, i.words),
     theme,
     band: { mode: bandMode(p.header_url, groupPhoto), image: p.header_url && /^https:\/\//i.test(p.header_url) ? p.header_url : null, groupPhoto },
     stats: personal
-      ? personalStats({ quizzesPlayed: s?.quizzes_played ?? 0, averagePct: i.averagePct ?? null, streak: s?.streak_current ?? 0, quizzesMade, blindtestsPlayed: s?.blindtests_played ?? 0 })
-      : publicStats({ streak: s?.streak_current ?? 0, groupsMastered: i.collection.groups_mastered, quizzesMade, playsReceived: p.total_plays_received ?? 0 }),
+      ? personalStats({ quizzesPlayed: s?.quizzes_played ?? 0, averagePct: i.averagePct ?? null, streak: s?.streak_current ?? 0, quizzesMade, blindtestsPlayed: s?.blindtests_played ?? 0 }, i.words)
+      : publicStats({ streak: s?.streak_current ?? 0, groupsMastered: i.collection.groups_mastered, quizzesMade, playsReceived: p.total_plays_received ?? 0 }, i.words),
     war: i.war,
     pinned: pinnedTiles(tiles, p.pinned_badge_id),
     badges: tiles,
@@ -95,5 +101,6 @@ function buildFanPassport(i: PassportInput): Omit<UxPassportProps, 'footer'> {
     quizzesTotal: Math.max(quizzesMade, i.quizzes.length),
     creatorId: p.id,
     now: i.now,
+    ...(i.words ? { words: i.words } : {}),
   };
 }

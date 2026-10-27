@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
+import { forSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -19,9 +20,10 @@ export async function POST(
 
   const adminDb = createServiceRoleClient();
 
-  const { error } = await adminDb
+  // Run O1: only a quiz of the build's site (a no-op on kpop with SITE_SCOPE off).
+  const { error } = await forSite(adminDb
     .from('quizzes')
-    .update({ status: 'published', report_count: 0, updated_at: new Date().toISOString() })
+    .update({ status: 'published', report_count: 0, updated_at: new Date().toISOString() }))
     .eq('id', id);
 
   if (error) {

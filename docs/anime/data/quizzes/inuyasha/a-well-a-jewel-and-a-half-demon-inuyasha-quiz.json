@@ -1,0 +1,217 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "inuyasha",
+  "title": "Inuyasha Quiz: a Well, a Shattered Jewel and a Half-Demon",
+  "slug": "a-well-a-jewel-and-a-half-demon-inuyasha-quiz",
+  "description": "Ten easy questions on the creator, the heroes and the first anime of Inuyasha. No spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "New series batch 4. Arc 0 facts only, the main cast. One fact per answer.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Inuyasha",
+      "url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Inuyasha characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Through which old object does Kagome travel back to the Sengoku period?",
+      "options": [
+        "A mirror pool",
+        "A shrine bell",
+        "The Bone Eater's Well",
+        "A mountain cave"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-premise-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "Inuyasha is the son of which two parents?",
+      "options": [
+        "A fox demon and a monk",
+        "A dog demon and a human",
+        "Two human warriors",
+        "A wolf demon and a priestess"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-inuyasha-name-053"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "What breaks into fragments that the heroes set out to gather?",
+      "options": [
+        "The Tessaiga",
+        "The Wind Tunnel",
+        "The Bone Eater",
+        "The Shikon Jewel"
+      ],
+      "correct": 3,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-shards-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "What is the greatest weapon of Miroku?",
+      "options": [
+        "A sacred arrow",
+        "The Wind Tunnel",
+        "A bead necklace",
+        "A bone boomerang"
+      ],
+      "correct": 1,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-miroku-wind-tunnel-059"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "What weapon does Sango throw?",
+      "options": [
+        "A huge bone boomerang",
+        "A giant hammer",
+        "A pair of claws",
+        "A spiked fan"
+      ],
+      "correct": 0,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-sango-boomerang-062"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "What does Kirara look like when she is small?",
+      "options": [
+        "A two-tailed kitten",
+        "A baby dragon",
+        "A winged horse",
+        "A white wolf pup"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-kirara-name-065"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    },
+    {
+      "question": "What does Kaede use to keep Inuyasha under control?",
+      "options": [
+        "A magical bead necklace",
+        "A silver chain",
+        "A wooden staff",
+        "A sealing arrow"
+      ],
+      "correct": 0,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "inuyasha-kaede-beads-075"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "Which manga did Takahashi finish just before starting Inuyasha?",
+      "options": [
+        "Maison Ikkoku",
+        "Ranma ½",
+        "Urusei Yatsura",
+        "Mermaid Saga"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "inuyasha-after-ranma-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "How many episodes does the first anime series have?",
+      "options": [
+        "100",
+        "126",
+        "193",
+        "167"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "inuyasha-episodes-028"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Inuyasha"
+    },
+    {
+      "question": "Who voices Kagome in Japanese?",
+      "options": [
+        "Satsuki Yukino",
+        "Kumiko Watanabe",
+        "Houko Kuwashima",
+        "Noriko Hidaka"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "inuyasha-kagome-higurashi-voice-057"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+    }
+  ]
+}

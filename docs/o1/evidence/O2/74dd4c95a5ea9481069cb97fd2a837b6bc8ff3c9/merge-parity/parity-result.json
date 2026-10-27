@@ -1,0 +1,785 @@
+{
+ "rules": "q0a-g0-v3",
+ "identical": false,
+ "rows": [
+  {
+   "page": "/",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/quizzes",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/groups",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/trending",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/bts-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "1a:...-sec p3-low\",\"children\":[[\"$\",\"div\",null,{\"className\":\"p3-low-main\",\"children\":[[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-about-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-about-h\",\"className\":\"ux-h2\",\"children\":[\"About \",\"BTS\"]}],[\"$\",\"div\",null,{\"className\":\"p3-prose\",\"children\":[[\"$\",\"p\",null,{\"chil",
+     "b": "1a:...-sec p3-low\",\"children\":[[\"$\",\"div\",null,{\"className\":\"p3-low-main\",\"children\":[\"$undefined\",[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-about-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-about-h\",\"className\":\"ux-h2\",\"children\":[\"About \",\"BTS\"]}],[\"$\",\"div\",null,{\"className\":\"p3-prose\",\"children\":[[\"$\",\"p"
+    },
+    {
+     "at": "flight row",
+     "a": "24:[\"$\",\"span\",null,{\"children\":\"J-Hope\"}]",
+     "b": "24:[\"$\",\"span\",null,{\"children\":[\"J-Hope\",\"$undefined\"]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "25:[\"$\",\"li\",\"Jimin\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Jimin BTS.jpg\",\"alt\":\"Jimin of BTS\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Jimin\"}]]}]",
+     "b": "25:[\"$\",\"li\",\"Jimin\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Jimin BTS.jpg\",\"alt\":\"Jimin of BTS\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"Jimin\",\"$undefined\"]}]]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "26:[\"$\",\"li\",\"V\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/V BTS.jpg\",\"alt\":\"V of BTS\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"V\"}]]}]",
+     "b": "26:[\"$\",\"li\",\"V\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/V BTS.jpg\",\"alt\":\"V of BTS\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"V\",\"$undefined\"]}]]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "27:[\"$\",\"li\",\"Jungkook\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Jungkook BTS.jpg\",\"alt\":\"Jungkook of BTS\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Jungkook\"}]]}]",
+     "b": "27:[\"$\",\"li\",\"Jungkook\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Jungkook BTS.jpg\",\"alt\":\"Jungkook of BTS\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"Jungkook\",\"$undefined\"]}]]}]"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/blackpink-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "1a:...-sec p3-low\",\"children\":[[\"$\",\"div\",null,{\"className\":\"p3-low-main\",\"children\":[[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-about-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-about-h\",\"className\":\"ux-h2\",\"children\":[\"About \",\"BLACKPINK\"]}],[\"$\",\"div\",null,{\"className\":\"p3-prose\",\"children\":[[\"$\",\"p\",null,",
+     "b": "1a:...-sec p3-low\",\"children\":[[\"$\",\"div\",null,{\"className\":\"p3-low-main\",\"children\":[\"$undefined\",[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-about-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-about-h\",\"className\":\"ux-h2\",\"children\":[\"About \",\"BLACKPINK\"]}],[\"$\",\"div\",null,{\"className\":\"p3-prose\",\"children\":[["
+    },
+    {
+     "at": "flight row",
+     "a": "24:[\"$\",\"span\",null,{\"children\":\"Rose\"}]",
+     "b": "24:[\"$\",\"span\",null,{\"children\":[\"Rose\",\"$undefined\"]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "25:[\"$\",\"li\",\"Lisa\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Lisa BLACKPINK.jpg\",\"alt\":\"Lisa of BLACKPINK\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Lisa\"}]]}]",
+     "b": "25:[\"$\",\"li\",\"Lisa\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Lisa BLACKPINK.jpg\",\"alt\":\"Lisa of BLACKPINK\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"Lisa\",\"$undefined\"]}]]}]"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/stray-kids-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "1a:...-sec p3-low\",\"children\":[[\"$\",\"div\",null,{\"className\":\"p3-low-main\",\"children\":[[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-about-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-about-h\",\"className\":\"ux-h2\",\"children\":[\"About \",\"Stray Kids\"]}],[\"$\",\"div\",null,{\"className\":\"p3-prose\",\"children\":[[\"$\",\"p\",null",
+     "b": "1a:...-sec p3-low\",\"children\":[[\"$\",\"div\",null,{\"className\":\"p3-low-main\",\"children\":[\"$undefined\",[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-about-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-about-h\",\"className\":\"ux-h2\",\"children\":[\"About \",\"Stray Kids\"]}],[\"$\",\"div\",null,{\"className\":\"p3-prose\",\"children\":["
+    },
+    {
+     "at": "flight row",
+     "a": "23:...}],[\"$\",\"div\",null,{\"id\":\"hub-quizzes\",\"className\":\"g8-qs\",\"children\":[[\"$\",\"$L3d\",null,{\"groupName\":\"Stray Kids\",\"quizzes\":[{\"slug\":\"skz-true-or-false-only-real-stays-pass\",\"title\":\"SKZ true or false - only real STAYs pass\",\"quiz_type\":\"true_false\",\"difficulty\":\"easy\",\"play_count\":1881,\"like_count\"",
+     "b": "23:...}],[\"$\",\"div\",null,{\"id\":\"hub-quizzes\",\"className\":\"g8-qs\",\"children\":[[\"$\",\"$L3e\",null,{\"groupName\":\"Stray Kids\",\"quizzes\":[{\"slug\":\"skz-true-or-false-only-real-stays-pass\",\"title\":\"SKZ true or false - only real STAYs pass\",\"quiz_type\":\"true_false\",\"difficulty\":\"easy\",\"play_count\":1881,\"like_count\""
+    },
+    {
+     "at": "flight row",
+     "a": "24:[\"$\",\"span\",null,{\"children\":\"Changbin\"}]",
+     "b": "24:[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Changbin STRAYKIDS.jpg\",\"alt\":\"Changbin of Stray Kids\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}]"
+    },
+    {
+     "at": "flight row",
+     "a": "25:[\"$\",\"li\",\"Hyunjin\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Hyunjin STRAYKIDS.jpg\",\"alt\":\"Hyunjin of Stray Kids\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Hyunjin\"}]]}]",
+     "b": "25:[\"$\",\"span\",null,{\"children\":[\"Changbin\",\"$undefined\"]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "26:[\"$\",\"li\",\"Han\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Han STRAYKIDS.jpg\",\"alt\":\"Han of Stray Kids\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Han\"}]]}]",
+     "b": "26:[\"$\",\"li\",\"Hyunjin\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Hyunjin STRAYKIDS.jpg\",\"alt\":\"Hyunjin of Stray Kids\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"Hyunjin\",\"$undefined\"]}]]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "27:[\"$\",\"li\",\"Felix\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Felix STRAYKIDS.jpg\",\"alt\":\"Felix of Stray Kids\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Felix\"}]]}]",
+     "b": "27:[\"$\",\"li\",\"Han\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Han STRAYKIDS.jpg\",\"alt\":\"Han of Stray Kids\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"Han\",\"$undefined\"]}]]}]"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/seventeen-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "1a:...-sec p3-low\",\"children\":[[\"$\",\"div\",null,{\"className\":\"p3-low-main\",\"children\":[[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-about-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-about-h\",\"className\":\"ux-h2\",\"children\":[\"About \",\"SEVENTEEN\"]}],[\"$\",\"div\",null,{\"className\":\"p3-prose\",\"children\":[[\"$\",\"p\",null,",
+     "b": "1a:...-sec p3-low\",\"children\":[[\"$\",\"div\",null,{\"className\":\"p3-low-main\",\"children\":[\"$undefined\",[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-about-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-about-h\",\"className\":\"ux-h2\",\"children\":[\"About \",\"SEVENTEEN\"]}],[\"$\",\"div\",null,{\"className\":\"p3-prose\",\"children\":[["
+    },
+    {
+     "at": "flight row",
+     "a": "24:[\"$\",\"span\",null,{\"children\":\"Joshua\"}]",
+     "b": "24:[\"$\",\"span\",null,{\"children\":[\"Joshua\",\"$undefined\"]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "25:[\"$\",\"li\",\"Jun\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Jun SEVENTEEN.jpg\",\"alt\":\"Jun of SEVENTEEN\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Jun\"}]]}]",
+     "b": "25:[\"$\",\"li\",\"Jun\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Jun SEVENTEEN.jpg\",\"alt\":\"Jun of SEVENTEEN\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"Jun\",\"$undefined\"]}]]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "26:[\"$\",\"li\",\"Hoshi\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Hoshi SEVENTEEN.jpg\",\"alt\":\"Hoshi of SEVENTEEN\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Hoshi\"}]]}]",
+     "b": "26:[\"$\",\"li\",\"Hoshi\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Hoshi SEVENTEEN.jpg\",\"alt\":\"Hoshi of SEVENTEEN\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"Hoshi\",\"$undefined\"]}]]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "27:[\"$\",\"li\",\"Wonwoo\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Wonwoo SEVENTEEN.jpg\",\"alt\":\"Wonwoo of SEVENTEEN\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Wonwoo\"}]]}]",
+     "b": "27:[\"$\",\"li\",\"Wonwoo\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Wonwoo SEVENTEEN.jpg\",\"alt\":\"Wonwoo of SEVENTEEN\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"Wonwoo\",\"$undefined\"]}]]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "28:[\"$\",\"li\",\"Woozi\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Woozi SEVENTEEN.jpg\",\"alt\":\"Woozi of SEVENTEEN\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Woozi\"}]]}]",
+     "b": "28:[\"$\",\"li\",\"Woozi\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Woozi SEVENTEEN.jpg\",\"alt\":\"Woozi of SEVENTEEN\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"Woozi\",\"$undefined\"]}]]}]"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/cortis-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "1a:...-sec p3-low\",\"children\":[[\"$\",\"div\",null,{\"className\":\"p3-low-main\",\"children\":[[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-about-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-about-h\",\"className\":\"ux-h2\",\"children\":[\"About \",\"Cortis\"]}],[\"$\",\"div\",null,{\"className\":\"p3-prose\",\"children\":[[\"$\",\"p\",null,{\"c",
+     "b": "1a:...-sec p3-low\",\"children\":[[\"$\",\"div\",null,{\"className\":\"p3-low-main\",\"children\":[\"$undefined\",[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-about-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-about-h\",\"className\":\"ux-h2\",\"children\":[\"About \",\"Cortis\"]}],[\"$\",\"div\",null,{\"className\":\"p3-prose\",\"children\":[[\"$\""
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/twice-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "1a:...-sec p3-low\",\"children\":[[\"$\",\"div\",null,{\"className\":\"p3-low-main\",\"children\":[[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-about-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-about-h\",\"className\":\"ux-h2\",\"children\":[\"About \",\"TWICE\"]}],[\"$\",\"div\",null,{\"className\":\"p3-prose\",\"children\":[[\"$\",\"p\",null,{\"ch",
+     "b": "1a:...-sec p3-low\",\"children\":[[\"$\",\"div\",null,{\"className\":\"p3-low-main\",\"children\":[\"$undefined\",[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-about-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-about-h\",\"className\":\"ux-h2\",\"children\":[\"About \",\"TWICE\"]}],[\"$\",\"div\",null,{\"className\":\"p3-prose\",\"children\":[[\"$\","
+    },
+    {
+     "at": "flight row",
+     "a": "23:...}],[\"$\",\"div\",null,{\"id\":\"hub-quizzes\",\"className\":\"g8-qs\",\"children\":[[\"$\",\"$L36\",null,{\"groupName\":\"TWICE\",\"quizzes\":[{\"slug\":\"twice-true-or-false\",\"title\":\"TWICE true or false\",\"quiz_type\":\"true_false\",\"difficulty\":\"medium\",\"play_count\":558,\"like_count\":23,\"total_score_sum\":2942,\"total_completion",
+     "b": "23:...}],[\"$\",\"div\",null,{\"id\":\"hub-quizzes\",\"className\":\"g8-qs\",\"children\":[[\"$\",\"$L37\",null,{\"groupName\":\"TWICE\",\"quizzes\":[{\"slug\":\"twice-true-or-false\",\"title\":\"TWICE true or false\",\"quiz_type\":\"true_false\",\"difficulty\":\"medium\",\"play_count\":558,\"like_count\":23,\"total_score_sum\":2942,\"total_completion"
+    },
+    {
+     "at": "flight row",
+     "a": "24:[\"$\",\"li\",\"Jihyo\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Jihyo Twice.jpg\",\"alt\":\"Jihyo of TWICE\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Jihyo\"}]]}]",
+     "b": "24:[\"$\",\"span\",null,{\"children\":[\"Sana\",\"$undefined\"]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "25:[\"$\",\"li\",\"Mina\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Mina Twice.jpg\",\"alt\":\"Mina of TWICE\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Mina\"}]]}]",
+     "b": "25:[\"$\",\"li\",\"Jihyo\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Jihyo Twice.jpg\",\"alt\":\"Jihyo of TWICE\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"Jihyo\",\"$undefined\"]}]]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "26:[\"$\",\"li\",\"Dahyun\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Dahyun TWICE.jpg\",\"alt\":\"Dahyun of TWICE\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Dahyun\"}]]}]",
+     "b": "26:[\"$\",\"li\",\"Mina\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Mina Twice.jpg\",\"alt\":\"Mina of TWICE\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"Mina\",\"$undefined\"]}]]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "27:[\"$\",\"li\",\"Chaeyoung\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Chaeyoung Twice.jpg\",\"alt\":\"Chaeyoung of TWICE\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Chaeyoung\"}]]}]",
+     "b": "27:[\"$\",\"li\",\"Dahyun\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Dahyun TWICE.jpg\",\"alt\":\"Dahyun of TWICE\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"Dahyun\",\"$undefined\"]}]]}]"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/newjeans-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "1a:...-sec p3-low\",\"children\":[[\"$\",\"div\",null,{\"className\":\"p3-low-main\",\"children\":[[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-about-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-about-h\",\"className\":\"ux-h2\",\"children\":[\"About \",\"NewJeans\"]}],[\"$\",\"div\",null,{\"className\":\"p3-prose\",\"children\":[[\"$\",\"p\",null,{",
+     "b": "1a:...-sec p3-low\",\"children\":[[\"$\",\"div\",null,{\"className\":\"p3-low-main\",\"children\":[\"$undefined\",[\"$\",\"section\",null,{\"aria-labelledby\":\"p3-about-h\",\"children\":[[\"$\",\"h2\",null,{\"id\":\"p3-about-h\",\"className\":\"ux-h2\",\"children\":[\"About \",\"NewJeans\"]}],[\"$\",\"div\",null,{\"className\":\"p3-prose\",\"children\":[[\""
+    },
+    {
+     "at": "flight row",
+     "a": "24:[\"$\",\"span\",null,{\"children\":\"Danielle\"}]",
+     "b": "24:[\"$\",\"span\",null,{\"children\":[\"Danielle\",\"$undefined\"]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "25:[\"$\",\"li\",\"Haerin\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Haerin NEWJEANS.jpg\",\"alt\":\"Haerin of NewJeans\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Haerin\"}]]}]",
+     "b": "25:[\"$\",\"li\",\"Haerin\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Haerin NEWJEANS.jpg\",\"alt\":\"Haerin of NewJeans\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"Haerin\",\"$undefined\"]}]]}]"
+    },
+    {
+     "at": "flight row",
+     "a": "26:[\"$\",\"li\",\"Hyein\",{\"children\":[[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Hyein NEWJEANS.jpg\",\"alt\":\"Hyein of NewJeans\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":\"Hyein\"}]]}]",
+     "b": "26:[\"$\",\"li\",\"Hyein\",{\"className\":\"$undefined\",\"children\":[\"$undefined\",[\"$\",\"$L18\",null,{\"className\":\"p3-member-face\",\"src\":\"/idols/Hyein NEWJEANS.jpg\",\"alt\":\"Hyein of NewJeans\",\"width\":80,\"height\":80,\"sizes\":\"80px\"}],[\"$\",\"span\",null,{\"children\":[\"Hyein\",\"$undefined\"]}]]}]"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/trivia",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/bts-trivia",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "1a:...\"children\":\"quizzes\"}]]}],\"$L24\",\"$L25\"]}],[\"$L26\",\"$L27\",\"$L28\",\"$L29\",\"$L2a\"],\"$L2b\",null,\"$L2c\"]}]",
+     "b": "1a:...\"children\":\"quizzes\"}]]}],\"$L24\",\"$L25\"]}],[\"$L26\",\"$L27\",\"$L28\",\"$L29\",\"$L2a\"],null,\"$L2b\",null,\"$L2c\"]}]"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/blackpink-trivia",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "1a:...popquiz.org blind test.\"}]]}]]}]]}],\"$L24\",[\"$L25\",\"$L26\",\"$L27\",\"$L28\",\"$L29\"],\"$L2a\",null,\"$L2b\"]}]",
+     "b": "1a:...popquiz.org blind test.\"}]]}]]}]]}],\"$L24\",[\"$L25\",\"$L26\",\"$L27\",\"$L28\",\"$L29\"],null,\"$L2a\",null,\"$L2b\"]}]"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/ultimate-bts-era-quiz-only-real-armys-survive",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "2c:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",65,\"%\"]}]]}]]}],[\"$\",\"$L14\",\"4cc9147c-c86a-4660-b623-00e42b3a2779\",{\"href\":\"/q/guess-the-bts-song-army-quiz\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"className\":\"ux",
+     "b": "2c:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",65,\"%\"]}]]}],\"$undefined\"]}],[\"$\",\"$L14\",\"4cc9147c-c86a-4660-b623-00e42b3a2779\",{\"href\":\"/q/guess-the-bts-song-army-quiz\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"c"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/skz-true-or-false-only-real-stays-pass",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "2b:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",85,\"%\"]}]]}]]}],[\"$\",\"$L13\",\"e14a15f9-bc82-4bd9-8228-a7a152dc937a\",{\"href\":\"/q/only-the-real-stays-can-get-all-right\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"class",
+     "b": "2b:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",85,\"%\"]}]]}],\"$undefined\"]}],[\"$\",\"$L13\",\"e14a15f9-bc82-4bd9-8228-a7a152dc937a\",{\"href\":\"/q/only-the-real-stays-can-get-all-right\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\""
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/blackpink-ultimate-fan-challenge",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "2a:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",70,\"%\"]}]]}]]}],[\"$\",\"$L13\",\"78acf62c-9e7f-4831-b73f-23410a2cb8d4\",{\"href\":\"/q/hardest-blackpink-quiz\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"className\":\"ux-ico s",
+     "b": "2a:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",70,\"%\"]}]]}],\"$undefined\"]}],[\"$\",\"$L13\",\"78acf62c-9e7f-4831-b73f-23410a2cb8d4\",{\"href\":\"/q/hardest-blackpink-quiz\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"classNa"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/are-you-a-real-coer",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "29:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",81,\"%\"]}]]}]]}],[\"$\",\"$L13\",\"18ff61c5-7eac-4a33-a562-365e70e93547\",{\"href\":\"/q/only-real-coers-can-beat-it\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"className\":\"ux-",
+     "b": "29:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",81,\"%\"]}]]}],\"$undefined\"]}],[\"$\",\"$L13\",\"18ff61c5-7eac-4a33-a562-365e70e93547\",{\"href\":\"/q/only-real-coers-can-beat-it\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"cl"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/illit-fans-here",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "32:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",81,\"%\"]}]]}]]}],[\"$\",\"$L1a\",\"86a5d76d-42c5-4063-b705-7a02406c4110\",{\"href\":\"/q/only-a-real-gllit-can-pass-this\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"className\":",
+     "b": "32:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",81,\"%\"]}]]}],\"$undefined\"]}],[\"$\",\"$L1a\",\"86a5d76d-42c5-4063-b705-7a02406c4110\",{\"href\":\"/q/only-a-real-gllit-can-pass-this\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,"
+    },
+    {
+     "at": "flight row",
+     "a": "38:...ldren\":[[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"29\",\" plays\"]}],null]}]]}]",
+     "b": "38:...ldren\":[[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"29\",\" plays\"]}],null]}],\"$undefined\"]}]"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/babymonster-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "30:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",63,\"%\"]}]]}]]}],[\"$\",\"$L1a\",\"3da9d837-f836-4a97-a5c9-8a81aa903875\",{\"href\":\"/q/who-is-known-as-the-face-of-kpop\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"className\"",
+     "b": "30:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",63,\"%\"]}]]}],\"$undefined\"]}],[\"$\",\"$L1a\",\"3da9d837-f836-4a97-a5c9-8a81aa903875\",{\"href\":\"/q/who-is-known-as-the-face-of-kpop\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/le-sserafim-members-and-music-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "2d:...dren\":[[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"345\",\" plays\"]}],null]}]]}],[\"$\",\"$L13\",\"61e23743-d29d-4547-b81e-e227ce03efd1\",{\"href\":\"/q/le-sserafim-the-unforgiven-era\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"className\":\"",
+     "b": "2d:...dren\":[[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"345\",\" plays\"]}],null]}],\"$undefined\"]}],[\"$\",\"$L13\",\"61e23743-d29d-4547-b81e-e227ce03efd1\",{\"href\":\"/q/le-sserafim-the-unforgiven-era\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/one-for-sones",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "33:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",63,\"%\"]}]]}]]}],[\"$\",\"$L1a\",\"4ba8f255-2401-4220-8559-9a33c9ec1759\",{\"href\":\"/q/ultimate-bts-era-quiz-only-real-armys-survive\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null",
+     "b": "33:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",63,\"%\"]}]]}],\"$undefined\"]}],[\"$\",\"$L1a\",\"4ba8f255-2401-4220-8559-9a33c9ec1759\",{\"href\":\"/q/ultimate-bts-era-quiz-only-real-armys-survive\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\""
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/twice-true-or-false",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "2a:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",70,\"%\"]}]]}]]}],[\"$\",\"$L13\",\"939d3ad2-bcb2-40c4-a910-610b464be500\",{\"href\":\"/q/twice-feel-special-quiz\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"className\":\"ux-ico ",
+     "b": "2a:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",70,\"%\"]}]]}],\"$undefined\"]}],[\"$\",\"$L13\",\"939d3ad2-bcb2-40c4-a910-610b464be500\",{\"href\":\"/q/twice-feel-special-quiz\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"classN"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/how-well-do-you-know-txt",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "28:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",64,\"%\"]}]]}]]}],[\"$\",\"$L13\",\"aca73683-5c80-4a07-9de9-2c08d67693c0\",{\"href\":\"/q/txt-cant-you-see-me-quiz\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"className\":\"ux-ico",
+     "b": "28:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",64,\"%\"]}]]}],\"$undefined\"]}],[\"$\",\"$L13\",\"aca73683-5c80-4a07-9de9-2c08d67693c0\",{\"href\":\"/q/txt-cant-you-see-me-quiz\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"class"
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/enhypen-debut-and-beyond-quiz",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "2b:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",57,\"%\"]}]]}]]}],[\"$\",\"$L13\",\"bc0887b6-a48a-4380-b490-d738bd068d10\",{\"href\":\"/q/name-10-enhypen-mvs-are-you-a-real-engene\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"c",
+     "b": "2b:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",57,\"%\"]}]]}],\"$undefined\"]}],[\"$\",\"$L13\",\"bc0887b6-a48a-4380-b490-d738bd068d10\",{\"href\":\"/q/name-10-enhypen-mvs-are-you-a-real-engene\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\""
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/q/k-pop-company-quiz-match-the-group-to-the-label",
+   "status": "200/200",
+   "identical": false,
+   "normalised": [
+    "analytics-ref"
+   ],
+   "found": [
+    {
+     "at": "flight row",
+     "a": "28:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",61,\"%\"]}]]}]]}],[\"$\",\"$L14\",\"ffa3b526-62a7-4e89-a9a0-a4d62b356327\",{\"href\":\"/q/finnish-the-lyric\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"className\":\"ux-ico sm\",\"v",
+     "b": "28:...lays\"]}],[\"$\",\"i\",null,{\"className\":\"ux-num\",\"children\":[\"average \",61,\"%\"]}]]}],\"$undefined\"]}],[\"$\",\"$L14\",\"ffa3b526-62a7-4e89-a9a0-a4d62b356327\",{\"href\":\"/q/finnish-the-lyric\",\"className\":\"ux-tcard\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ux-tcard-ty\",\"children\":[[\"$\",\"svg\",null,{\"className\":\""
+    }
+   ],
+   "sheets": 0
+  },
+  {
+   "page": "/blindtest",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/blindtest/classic",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/blindtest/intro-challenge",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/blindtest/group-bts",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [
+    "analytics-ref",
+    "flight-rows"
+   ],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/guess-the-kpop-song",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/blindtest",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/quizzes",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/faq",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/pt/leaderboard",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/fr/blind-test-kpop",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/es/adivina-la-cancion-kpop",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/id/tebak-lagu-kpop",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/guess-the-kpop-idol",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/kpop-true-or-false",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/easy-kpop-quizzes",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/hard-kpop-quizzes",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/kpop-quiz-2026",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/kpop-demon-hunters-quiz",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/which-bts-member-are-you",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/bts-name-all-members",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/about",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/editorial-policy",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/privacy",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/terms",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/faq",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/contact",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/leaderboard",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/articles",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 3
+  },
+  {
+   "page": "/daily",
+   "status": "307/307",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/an-unknown-o1-parity-path",
+   "status": "500/500",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/sitemap.xml",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/robots.txt",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  },
+  {
+   "page": "/llms.txt",
+   "status": "200/200",
+   "identical": true,
+   "normalised": [],
+   "found": [],
+   "sheets": 0
+  }
+ ]
+}

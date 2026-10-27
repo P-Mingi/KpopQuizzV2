@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_16",
+ "group_slug": "haikyu",
+ "title": "Whistles and Soundtracks: Haikyu!! on Screen",
+ "slug": "whistles-and-soundtracks-haikyu-on-screen",
+ "description": "Ten questions on the opening and ending songs of the anime, from the first two seasons to the totals.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Which song is the third opening, used in season two?",
+   "options": [
+    "I'm a Believer",
+    "Imagination",
+    "Ah Yeah",
+    "FLY HIGH"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-themes-seasons-one-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which song is the fourth ending, used in season two?",
+   "options": [
+    "Hatsunetsu",
+    "Tenchi Gaeshi",
+    "LEO",
+    "Climber"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-themes-seasons-one-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "In which month of 2014 did the first season wrap up?",
+   "options": [
+    "June",
+    "September",
+    "December",
+    "March"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which band performed Imagination, the first opening?",
+   "options": [
+    "Sukima Switch",
+    "Tacica",
+    "Galileo Galilei",
+    "Spyair"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-themes-seasons-one-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which act performed Ah Yeah, the second opening?",
+   "options": [
+    "Spyair",
+    "Burnout Syndromes",
+    "Sukima Switch",
+    "Tacica"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-themes-seasons-one-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which band performed Tenchi Gaeshi, the first ending?",
+   "options": [
+    "Tacica",
+    "Galileo Galilei",
+    "Nico Touches the Walls",
+    "Spyair"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-themes-seasons-one-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which band performed LEO, the second ending?",
+   "options": [
+    "Nico Touches the Walls",
+    "Galileo Galilei",
+    "Tacica",
+    "Sukima Switch"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-themes-seasons-one-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which act performed FLY HIGH, the fourth opening?",
+   "options": [
+    "Spyair",
+    "Sukima Switch",
+    "Galileo Galilei",
+    "Burnout Syndromes"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-themes-seasons-one-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which band performed Climber, the third ending?",
+   "options": [
+    "Tacica",
+    "Galileo Galilei",
+    "Nico Touches the Walls",
+    "Burnout Syndromes"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-themes-seasons-one-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "How many opening songs does the whole TV anime have?",
+   "options": [
+    "Four",
+    "Nine",
+    "Seven",
+    "Twelve"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-anime-totals-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Haikyu!! episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Haikyu!!",
+   "url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  }
+ ],
+ "notes": "All facts arc 0 (007, 008, 013). Bands and song titles only, no lyrics. K1 rewrite: blocked questions rewritten on verified facts."
+}

@@ -1,0 +1,637 @@
+DIFFERENT (bytes)  /  status 200/200  raw bytes 121289/121289  normalised 119767/119767  js chunks 13/13
+  node 26
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 1256
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 1266
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /quizzes  status 200/200  raw bytes 199665/199665  normalised 198477/198477  js chunks 13/13
+  node 18
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 1830
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 1840
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /groups  status 200/200  raw bytes 225242/225242  normalised 224084/224084  js chunks 13/13
+  node 24
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 1777
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 1787
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /trending  status 200/200  raw bytes 59050/59050  normalised 57918/57918  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 685
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 695
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /bts-quiz  status 200/200  raw bytes 183288/183288  normalised 182052/182052  js chunks 13/13
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 2986
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 2996
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /blackpink-quiz  status 200/200  raw bytes 132733/132733  normalised 131497/131497  js chunks 13/13
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 1972
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 1982
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /stray-kids-quiz  status 200/200  raw bytes 142540/142540  normalised 141304/141304  js chunks 13/13
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 2139
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 2149
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /seventeen-quiz  status 200/200  raw bytes 123579/123579  normalised 122343/122343  js chunks 13/13
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 1583
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 1593
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /cortis-quiz  status 200/200  raw bytes 97496/97496  normalised 96260/96260  js chunks 13/13
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 1390
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 1400
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /twice-quiz  status 200/200  raw bytes 120156/120156  normalised 118920/118920  js chunks 13/13
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 1616
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 1626
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /newjeans-quiz  status 200/200  raw bytes 116993/116993  normalised 115757/115757  js chunks 13/13
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 1575
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 1585
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /trivia  status 200/200  raw bytes 142277/142277  normalised 141132/141132  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 936
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 946
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /bts-trivia  status 200/200  raw bytes 195677/195677  normalised 194467/194467  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 2027
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 2037
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /blackpink-trivia  status 200/200  raw bytes 166874/166874  normalised 165664/165664  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 1809
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 1819
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /q/ultimate-bts-era-quiz-only-real-armys-survive  status 200/200  raw bytes 82383/82997  normalised 80484/80942  js chunks 15/16
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 63
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 64
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 65
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 66
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 67
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+DIFFERENT (bytes)  /q/skz-true-or-false-only-real-stays-pass  status 200/200  raw bytes 79375/79989  normalised 77476/77934  js chunks 15/16
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 63
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 64
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 65
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 66
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 67
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+DIFFERENT (bytes)  /q/blackpink-ultimate-fan-challenge  status 200/200  raw bytes 82189/82803  normalised 80290/80748  js chunks 15/16
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 63
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 64
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 65
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 66
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 67
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+DIFFERENT (bytes)  /q/are-you-a-real-coer  status 200/200  raw bytes 76621/77235  normalised 74722/75180  js chunks 15/16
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 63
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 64
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 65
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 66
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 67
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+DIFFERENT (bytes)  /q/illit-fans-here  status 200/200  raw bytes 75280/75894  normalised 73381/73839  js chunks 15/16
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 63
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 64
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 65
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 66
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 67
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+DIFFERENT (bytes)  /q/babymonster-quiz  status 200/200  raw bytes 85375/85989  normalised 83476/83934  js chunks 15/16
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 63
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 64
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 65
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 66
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 67
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+DIFFERENT (bytes)  /q/le-sserafim-members-and-music-quiz  status 200/200  raw bytes 78935/79549  normalised 77036/77494  js chunks 15/16
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 63
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 64
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 65
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 66
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 67
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+DIFFERENT (bytes)  /q/one-for-sones  status 200/200  raw bytes 77178/77792  normalised 75279/75737  js chunks 15/16
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 63
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 64
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 65
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 66
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 67
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+DIFFERENT (bytes)  /q/twice-true-or-false  status 200/200  raw bytes 73411/74068  normalised 71512/72013  js chunks 15/16
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 63
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 64
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 65
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 66
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 67
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+DIFFERENT (bytes)  /q/how-well-do-you-know-txt  status 200/200  raw bytes 76353/76967  normalised 74454/74912  js chunks 15/16
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 63
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 64
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 65
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 66
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 67
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+DIFFERENT (bytes)  /q/enhypen-debut-and-beyond-quiz  status 200/200  raw bytes 78338/78952  normalised 76439/76897  js chunks 15/16
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 63
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 64
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 65
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 66
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 67
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+DIFFERENT (bytes)  /q/k-pop-company-quiz-match-the-group-to-the-label  status 200/200  raw bytes 82673/83287  normalised 80774/81232  js chunks 15/16
+  node 21
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 63
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 64
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 65
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 66
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 67
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+DIFFERENT (bytes)  /blindtest  status 200/200  raw bytes 115699/115699  normalised 113995/113995  js chunks 14/14
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 2106
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 2116
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /blindtest/classic  status 200/200  raw bytes 54740/54740  normalised 53517/53517  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 859
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 869
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /blindtest/intro-challenge  status 200/200  raw bytes 55028/55028  normalised 53805/53805  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 864
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 874
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /blindtest/group-bts  status 200/200  raw bytes 52982/52939  normalised 51707/51664  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 759
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 769
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+  node 800
+    A: .js\"],\"IconMark\"]\n17:null\n"])</script>
+    B: .js\"],\"IconMark\"]\n1e:I[364645,[\"static/chunks/<asset>
+  node 801
+    A: <script>
+    B: .js\",\"static/chunks/<asset>
+  node 802
+    A: self.__next_f.push([1,"1c:[[\"$\",\"title\",\"0\",{\"children\":\"BTS Blind Test: Guess the Song | KpopQuiz\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Guess the BTS song from a ten-second clip: 20 songs in the pool, ten rounds a game. Free, no sign-up, and you can play it live
+    B: .js\",\"static/chunks/<asset>
+DIFFERENT (bytes)  /guess-the-kpop-song  status 200/200  raw bytes 56847/56847  normalised 55572/55572  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 706
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 716
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+IDENTICAL (bytes)  /pt  status 301/301  raw bytes 1/1  normalised 1/1  js chunks 0/0
+IDENTICAL (bytes)  /pt/blindtest  status 301/301  raw bytes 10/10  normalised 10/10  js chunks 0/0
+IDENTICAL (bytes)  /pt/quizzes  status 301/301  raw bytes 8/8  normalised 8/8  js chunks 0/0
+IDENTICAL (bytes)  /pt/faq  status 301/301  raw bytes 4/4  normalised 4/4  js chunks 0/0
+IDENTICAL (bytes)  /pt/leaderboard  status 301/301  raw bytes 12/12  normalised 12/12  js chunks 0/0
+DIFFERENT (bytes)  /fr/blind-test-kpop  status 200/200  raw bytes 57786/57786  normalised 56511/56511  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 708
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 718
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /es/adivina-la-cancion-kpop  status 200/200  raw bytes 57598/57598  normalised 56323/56323  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 708
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 718
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /id/tebak-lagu-kpop  status 200/200  raw bytes 57215/57215  normalised 55940/55940  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 708
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 718
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /guess-the-kpop-idol  status 200/200  raw bytes 80014/80014  normalised 78908/78908  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 841
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 851
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /kpop-true-or-false  status 200/200  raw bytes 102638/102638  normalised 101532/101532  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 1268
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 1278
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /easy-kpop-quizzes  status 200/200  raw bytes 57666/57666  normalised 56521/56521  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 678
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 688
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /hard-kpop-quizzes  status 200/200  raw bytes 57242/57242  normalised 56097/56097  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 696
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 706
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /kpop-quiz-2026  status 200/200  raw bytes 171850/171850  normalised 170744/170744  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 1749
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 1759
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /kpop-demon-hunters-quiz  status 200/200  raw bytes 43281/43281  normalised 42123/42123  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 455
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 465
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /which-bts-member-are-you  status 200/200  raw bytes 72329/72329  normalised 71184/71184  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 873
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 883
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /bts-name-all-members  status 200/200  raw bytes 50869/50869  normalised 49837/49837  js chunks 13/13
+  node 14
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 741
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 751
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /about  status 200/200  raw bytes 52507/52507  normalised 51362/51362  js chunks 13/13
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 616
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 626
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /editorial-policy  status 200/200  raw bytes 57541/57541  normalised 56487/56487  js chunks 12/12
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 565
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 575
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /privacy  status 200/200  raw bytes 48658/48658  normalised 47604/47604  js chunks 12/12
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 574
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 584
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /terms  status 200/200  raw bytes 43824/43824  normalised 42770/42770  js chunks 12/12
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 493
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 503
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /faq  status 200/200  raw bytes 58813/58813  normalised 57759/57759  js chunks 12/12
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 544
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 554
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /contact  status 200/200  raw bytes 33820/33820  normalised 32766/32766  js chunks 12/12
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 425
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 435
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+DIFFERENT (bytes)  /leaderboard  status 200/200  raw bytes 224115/224645  normalised 222645/223045  js chunks 13/14
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 56
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: <script src="static/chunks/<asset>
+  node 57
+    A: .js" as="script" fetchPriority="low"/>
+    B: .js" async="">
+  node 58
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: </script>
+  node 59
+    A: .js" as="script" fetchPriority="low"/>
+    B: <link rel="preload" href="static/chunks/<asset>
+  node 60
+    A: <link rel="preload" href="static/chunks/<asset>
+    B: .js" as="script" fetchPriority="low"/>
+DIFFERENT (bytes)  /articles  status 200/200  raw bytes 97529/97529  normalised 96475/96475  js chunks 12/12
+  node 20
+    A: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=8f464b6818ae" data-precedence="ux-v1"/>
+    B: <link rel="stylesheet" href="/api/ux-v1/a0/styles?v=cffe64a395ec" data-precedence="ux-v1"/>
+  node 1015
+    A: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"style\"]\n"])</script>
+    B: .woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"style\"]\n"])</script>
+  node 1025
+    A: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=8f464b6818ae\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+    B: __variable ux-v1\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-primary text-primary font-sans antialiased\",\"children\":[[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"/api/ux-v1/a0/styles?v=cffe64a395ec\",\"precedence\":\"ux-v1\"}],[\"$\",\"scri
+IDENTICAL (bytes)  /daily  status 307/307  raw bytes 0/0  normalised 0/0  js chunks 0/0
+IDENTICAL (bytes)  /an-unknown-o1-parity-path  status 500/500  raw bytes 21/21  normalised 21/21  js chunks 0/0
+IDENTICAL (bytes)  /sitemap.xml  status 200/200  raw bytes 131873/131873  normalised 131873/131873  js chunks 0/0
+IDENTICAL (bytes)  /robots.txt  status 200/200  raw bytes 1623/1623  normalised 1623/1623  js chunks 0/0
+IDENTICAL (bytes)  /llms.txt  status 200/200  raw bytes 2789/2789  normalised 2789/2789  js chunks 0/0
+50 page(s) differ

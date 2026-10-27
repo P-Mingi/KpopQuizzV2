@@ -1,0 +1,223 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "fairy-tail",
+  "title": "Fairy Tail Quiz: Mashima's Guild, TV Tokyo and 328 Episodes",
+  "slug": "mashimas-guild-tv-tokyo-and-328-episodes-fairy-tail-quiz",
+  "description": "Ten easy questions on the creator, the magazine, the volumes, the anime studios, the composer, the first opening and the films. No story knowledge needed, and no spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "New series batch 2. Arc 0 facts only: production, release dates and music. One fact per answer.",
+  "questions": [
+    {
+      "question": "Which magazine ran the Fairy Tail manga every week?",
+      "options": [
+        "Weekly Shōnen Jump",
+        "Weekly Shōnen Magazine",
+        "Weekly Shōnen Sunday",
+        "Monthly Shōnen Sirius"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-magazine-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail"
+    },
+    {
+      "question": "How many tankōbon volumes did the manga fill by the end of its run?",
+      "options": [
+        "42",
+        "54",
+        "88",
+        "63"
+      ],
+      "correct": 3,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-volumes-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail"
+    },
+    {
+      "question": "In which year did the first Fairy Tail TV episode air on TV Tokyo?",
+      "options": [
+        "2009",
+        "2006",
+        "2011",
+        "2014"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fairy-tail-anime-s1-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes"
+    },
+    {
+      "question": "Across all seasons, how many episodes does the TV anime have?",
+      "options": [
+        "175",
+        "263",
+        "328",
+        "412"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fairy-tail-anime-total-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)"
+    },
+    {
+      "question": "Which pair of studios animated the first TV season?",
+      "options": [
+        "Bones and Madhouse",
+        "MAPPA and Wit Studio",
+        "A-1 Pictures and Satelight",
+        "Pierrot and Sunrise"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fairy-tail-anime-studios-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes"
+    },
+    {
+      "question": "What was the title of the one-shot that Mashima used as a pilot before the series?",
+      "options": [
+        "Rave Master",
+        "Fairy Tale",
+        "Monster Hunter Orage",
+        "Fairy Tail Zero"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "fairy-tail-pilot-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail"
+    },
+    {
+      "question": "Natsu's name is the Japanese word for which season?",
+      "options": [
+        "Spring",
+        "Autumn",
+        "Summer",
+        "Winter"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fairy-tail-natsu-name-032"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail"
+    },
+    {
+      "question": "Who composed and arranged the music for the Fairy Tail anime?",
+      "options": [
+        "Yuki Kajiura",
+        "Hiroyuki Sawano",
+        "Yasuharu Takanashi",
+        "Kenji Kawai"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fairy-tail-composer-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)"
+    },
+    {
+      "question": "Snow Fairy is the first opening of the TV anime. Which group sang it?",
+      "options": [
+        "SuG",
+        "Idoling!!!",
+        "Funkist",
+        "Back-On"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fairy-tail-openings-first-036"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)"
+    },
+    {
+      "question": "Which Fairy Tail film premiered in Japan in 2012?",
+      "options": [
+        "Phoenix Priestess",
+        "Dragon Cry",
+        "Fairy Tail Zero",
+        "100 Years Quest"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fairy-tail-film-1-019",
+        "fairy-tail-film-2-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Fairy Tail",
+      "url": "https://en.wikipedia.org/wiki/Fairy_Tail"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Fairy Tail episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_episodes"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Fairy Tail (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)"
+    }
+  ]
+}

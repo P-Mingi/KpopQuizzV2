@@ -1,0 +1,1 @@
+o1-dev not configured yet (G1): SQL files wait:  docs/pending-migrations/multisite/001-sites.sql docs/pending-migrations/multisite/002a-site-columns.sql docs/pending-migrations/multisite/002b-site-validate.sql docs/pending-migrations/multisite/002c-site-indexes.sql docs/pending-migrations/multisite/002d-quiz-site-guard.sql

@@ -1,0 +1,341 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "steins-gate",
+  "title": "Odd One Out: Steins;Gate Lab Members, Songs and Studios",
+  "slug": "odd-one-out-steins-gate-lab-members-songs-and-studios",
+  "description": "Four choices, one that does not belong. Lab numbers, singers, staff, companies and characters. Light spoilers up to Steins;Gate 0.",
+  "quiz_type": "intruder",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Steins;Gate characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    },
+    {
+      "id": "S2",
+      "title": "https://steinsgate0-anime.com/",
+      "url": "https://steinsgate0-anime.com/"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Steins;Gate episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: Steins;Gate 0",
+      "url": "https://en.wikipedia.org/wiki/Steins;Gate_0"
+    },
+    {
+      "id": "S5",
+      "title": "Wikipedia: Steins;Gate",
+      "url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    }
+  ],
+  "notes": "Intruder format: three real members of a group and one real outsider; all four options are things from the series.",
+  "questions": [
+    {
+      "question": "Three of these characters hold a Lab Member number. Which one does not?",
+      "options": [
+        {
+          "label": "Rintaro Okabe"
+        },
+        {
+          "label": "Kurisu Makise"
+        },
+        {
+          "label": "Mayuri Shiina"
+        },
+        {
+          "label": "Yugo Tennouji"
+        }
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-character-name-046",
+        "steins-gate-character-detail-050",
+        "steins-gate-character-detail-053",
+        "steins-gate-character-detail-051"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    },
+    {
+      "question": "Three of these songs are sung by Kanako Itō. Which one is not?",
+      "options": [
+        {
+          "label": "Last Game"
+        },
+        {
+          "label": "Hacking to the Gate"
+        },
+        {
+          "label": "Fatima"
+        },
+        {
+          "label": "Skyclad no Kansokusha"
+        }
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "steins-gate-theme-ed-035",
+        "steins-gate-theme-op-030",
+        "steins-gate-theme-op-033",
+        "steins-gate-theme-ed-032"
+      ],
+      "source_url": "https://steinsgate0-anime.com/"
+    },
+    {
+      "question": "Three of these songs are endings of Steins;Gate 0. Which one is the opening of the first anime?",
+      "options": [
+        {
+          "label": "Last Game"
+        },
+        {
+          "label": "World-Line"
+        },
+        {
+          "label": "Hacking to the Gate"
+        },
+        {
+          "label": "Gate of Steiner"
+        }
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "steins-gate-theme-op-030",
+        "steins-gate-theme-ed-035",
+        "steins-gate-theme-ed-036",
+        "steins-gate-theme-ed-037"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes"
+    },
+    {
+      "question": "Three of these characters are in the first anime. Which one first appears in Steins;Gate 0?",
+      "options": [
+        {
+          "label": "Rintaro Okabe"
+        },
+        {
+          "label": "Maho Hiyajo"
+        },
+        {
+          "label": "Moeka Kiryu"
+        },
+        {
+          "label": "Luka Urushibara"
+        }
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-character-name-049",
+        "steins-gate-character-name-038",
+        "steins-gate-character-name-042",
+        "steins-gate-character-name-043"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate_0"
+    },
+    {
+      "question": "Three of these people worked on the games or anime. Which one is a character?",
+      "options": [
+        {
+          "label": "Doctor Nakabachi"
+        },
+        {
+          "label": "Jukki Hanada"
+        },
+        {
+          "label": "Kenichi Kawamura"
+        },
+        {
+          "label": "Takeshi Abo"
+        }
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-character-name-048",
+        "steins-gate-anime-composition-018",
+        "steins-gate-zero-anime-staff-022",
+        "steins-gate-vn-composer-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    },
+    {
+      "question": "Three of these companies made Steins;Gate. Which one only published the English PC version?",
+      "options": [
+        {
+          "label": "5pb."
+        },
+        {
+          "label": "Nitroplus"
+        },
+        {
+          "label": "White Fox"
+        },
+        {
+          "label": "JAST USA"
+        }
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-english-pc-029",
+        "steins-gate-vn-makers-002",
+        "steins-gate-anime-studio-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "Three of these Lab Members hold a number above 004. Which one holds a lower number?",
+      "options": [
+        {
+          "label": "Mayuri Shiina"
+        },
+        {
+          "label": "Moeka Kiryu"
+        },
+        {
+          "label": "Luka Urushibara"
+        },
+        {
+          "label": "Faris NyanNyan"
+        }
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-character-detail-051",
+        "steins-gate-character-detail-054",
+        "steins-gate-character-detail-055",
+        "steins-gate-character-detail-056"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    },
+    {
+      "question": "Three of these are things inside the story. Which one is an earlier game of the series?",
+      "options": [
+        {
+          "label": "PhoneWave"
+        },
+        {
+          "label": "Chaos;Head"
+        },
+        {
+          "label": "D-Mails"
+        },
+        {
+          "label": "Reading Steiner"
+        }
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-science-adventure-006",
+        "steins-gate-phonewave-010",
+        "steins-gate-d-mail-011",
+        "steins-gate-reading-steiner-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "Three of these characters are scientists. Which one is a hacker?",
+      "options": [
+        {
+          "label": "Kurisu Makise"
+        },
+        {
+          "label": "Maho Hiyajo"
+        },
+        {
+          "label": "Itaru Hashida"
+        },
+        {
+          "label": "Doctor Nakabachi"
+        }
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-character-name-041",
+        "steins-gate-character-name-039",
+        "steins-gate-character-name-049",
+        "steins-gate-character-name-048"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    },
+    {
+      "question": "Three of these are people in the story. Which one is an artificial intelligence?",
+      "options": [
+        {
+          "label": "Rintaro Okabe"
+        },
+        {
+          "label": "Mayuri Shiina"
+        },
+        {
+          "label": "Itaru Hashida"
+        },
+        {
+          "label": "Amadeus"
+        }
+      ],
+      "correct": 3,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-zero-premise-023",
+        "steins-gate-character-name-038",
+        "steins-gate-character-name-040",
+        "steins-gate-character-name-041"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate_0"
+    }
+  ]
+}

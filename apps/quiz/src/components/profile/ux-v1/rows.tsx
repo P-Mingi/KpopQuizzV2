@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { Icon } from '@/components/ux-v1/icon';
-import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
+import { groupPhotoUrl, SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 import { cssUrl, historyLine, quizLine } from '@/lib/ux-v1/p10/passport-model';
 import { avgScorePct } from '@/lib/quiz/scoring';
 
@@ -25,6 +25,8 @@ export function Thumb({ src, glyph = 'layers', className }: { src: string | null
 /** Round group avatar (40px) from public/idols, else the initial. */
 export function GroupAvatar({ slug, name }: { slug: string; name: string }): React.ReactElement {
   const bg = cssUrl(groupPhotoUrl(slug));
+  // Run O1, lane O2: on a build that has the series art (lib/ux-v1/a0/group-photos.ts: never kpop) a series with no photo shows its art.
+  if (SERIES_ART.avatar && !bg) return <span className="ux-gav" aria-hidden="true">{SERIES_ART.avatar(slug, name)}</span>;
   return <span className="ux-gav" aria-hidden="true" style={bg ? { backgroundImage: bg } : undefined}>{bg ? null : name.slice(0, 1)}</span>;
 }
 

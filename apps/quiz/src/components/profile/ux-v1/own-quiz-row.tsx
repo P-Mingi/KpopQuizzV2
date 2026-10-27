@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { SITE } from '@/lib/site/registry';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { quizLine } from '@/lib/ux-v1/p10/passport-model';
 
@@ -59,7 +60,8 @@ export function OwnQuizRow({ q }: { q: QuizCardData }): React.ReactElement | nul
         </span>
       </Link>
       <span className="p10-own-act">
-        <Link href={`/quiz/${q.id}/edit`} className="ux-btn ux-btn-ghost ux-btn-sm" prefetch={false} aria-label={`Edit ${q.title}`}>Edit</Link>
+        {/* Run C1: the owner editor (/quiz/{id}/edit) is a kpop page; the route maps of anime and hub have no such page. */}
+        {SITE.id === 'kpop' ? <Link href={`/quiz/${q.id}/edit`} className="ux-btn ux-btn-ghost ux-btn-sm" prefetch={false} aria-label={`Edit ${q.title}`}>Edit</Link> : null}
         <button
           type="button"
           className="ux-btn ux-btn-ghost ux-btn-sm p10-own-del"

@@ -1,0 +1,222 @@
+{
+ "site": "anime",
+ "account": "oq_creator_01",
+ "group_slug": "death-note",
+ "title": "The Notebook Hits the Ground: Death Note Basics",
+ "slug": "the-notebook-hits-the-ground-death-note-basics",
+ "description": "Ten easy questions on the artist, the publisher, the episode and chapter counts, the circulation, the apples, L's sweets and the American film.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Death Note",
+   "url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Death Note chapters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_chapters"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Death Note characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (002, 003, 004, 006, 012, 013, 014, 015, 019). Artist, publisher, episode and chapter counts, the start year, circulation, apples, L's sweets, the face rule and the Netflix year. K1 rewrite: blocked questions rewritten on verified facts 012 and 015.",
+ "questions": [
+  {
+   "question": "Who draws the Death Note manga?",
+   "options": [
+    "Tsugumi Ohba",
+    "Tetsurō Araki",
+    "Takeshi Obata",
+    "Nisio Isin"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-manga-creators-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "Which company published the Death Note manga in Weekly Shōnen Jump?",
+   "options": [
+    "Shueisha",
+    "Viz Media",
+    "Madhouse",
+    "Nippon Television"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "death-note-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "What does the detective L eat without end?",
+   "options": [
+    "Plain rice",
+    "Sweets",
+    "Fried chicken",
+    "Pickled plums"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-l-habits-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "By spring 2015, how many copies of the Death Note manga had passed in circulation?",
+   "options": [
+    "More than 10 million",
+    "More than 60 million",
+    "More than 30 million",
+    "More than 120 million"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "death-note-copies-in-print-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "How many episodes does the Death Note TV anime have?",
+   "options": [
+    "26",
+    "37",
+    "25",
+    "52"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "death-note-anime-run-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "In which year did the Death Note manga start in Weekly Shōnen Jump?",
+   "options": [
+    "2001",
+    "2006",
+    "2009",
+    "2003"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "death-note-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "How many weekly chapters does the Death Note manga have?",
+   "options": [
+    "108",
+    "54",
+    "120",
+    "160"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "death-note-manga-size-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_chapters"
+  },
+  {
+   "question": "What does the Shinigami Ryuk have a weakness for?",
+   "options": [
+    "Bread",
+    "Grapes",
+    "Apples",
+    "Rice"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-ryuk-apples-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Besides the name, what must the writer picture for the Death Note to kill?",
+   "options": [
+    "The victim's age",
+    "The time of death",
+    "The place of death",
+    "The victim's face"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-notebook-rule-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "In which year did the American Death Note film premiere on Netflix?",
+   "options": [
+    "2017",
+    "2013",
+    "2015",
+    "2019"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-netflix-film-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  }
+ ]
+}

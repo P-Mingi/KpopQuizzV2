@@ -1,0 +1,217 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "sakamoto-days",
+  "title": "Sakamoto Days Hard Quiz: the JAA, a Reindeer Mask and a Final Battle",
+  "slug": "the-jaa-a-reindeer-mask-and-a-final-battle-sakamoto-days-hard-quiz",
+  "description": "Ten hard questions on the villains, the assassin world and the newest news of Sakamoto Days. Spoilers for the second cour of the anime and the manga up to its final battle, as of October 2026.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Hard quiz: late facts (arcs 2 and 3), spoilers named in the description. The manga is still running, dates are given.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Sakamoto Days",
+      "url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Sakamoto Days characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    }
+  ],
+  "questions": [
+    {
+      "question": "On which date did the Sakamoto Days manga begin its serialization?",
+      "options": [
+        "November 21, 2020",
+        "December 26, 2019",
+        "January 11, 2025",
+        "April 2, 2021"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "sakamoto-days-manga-start-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "question": "How many episodes did the first season of the anime run for across its two cours?",
+      "options": [
+        "22",
+        "24",
+        "13",
+        "26"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sakamoto-days-episodes-035"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "question": "Which two names does the serial killer hunting assassins go by?",
+      "options": [
+        "Ten and Sloth",
+        "Zero and Slate",
+        "X and Slur",
+        "Y and Slash"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-kei-uzuki-name-075"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "For whom does the Order member Kanaguri secretly work?",
+      "options": [
+        "Takamura",
+        "Dondenkai",
+        "X",
+        "The JCC"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-kanaguri-name-070"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "What kind of mask does the cyborg Kashima wear?",
+      "options": [
+        "A rabbit mask",
+        "A fox mask",
+        "A tiger mask",
+        "A reindeer mask"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-kashima-name-079"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "What weapon does Gaku, the right-hand man of X, use?",
+      "options": [
+        "A pair of metal claws",
+        "A mace with a blaster in its head",
+        "A rope with blades",
+        "A compound bow"
+      ],
+      "correct": 1,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-gaku-name-078"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Takamura is the most formidable assassin of which organization?",
+      "options": [
+        "The Triad",
+        "Dondenkai",
+        "The Japan Assassin Association",
+        "The Order"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-takamura-name-068"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Which special ability do Rion Akao and her niece Akira share?",
+      "options": [
+        "Seeing lethal paths",
+        "Hearing faint sounds",
+        "Reading minds",
+        "Becoming invisible"
+      ],
+      "correct": 0,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "sakamoto-days-rion-akao-name-077"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    },
+    {
+      "question": "Who is set to direct the second season of the anime?",
+      "options": [
+        "Taku Kishimoto",
+        "Yuki Hayashi",
+        "Daisuke Nakajima",
+        "Masaki Watanabe"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sakamoto-days-anime-director-031"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    },
+    {
+      "question": "In which month is the second season set to premiere, as of October 2026?",
+      "options": [
+        "April 2027",
+        "October 2026",
+        "July 2026",
+        "January 2027"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "sakamoto-days-season-2-038"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+    }
+  ]
+}

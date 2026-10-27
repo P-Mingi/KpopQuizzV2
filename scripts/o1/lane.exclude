@@ -1,0 +1,6 @@
+/node_modules
+/apps/quiz/node_modules
+/packages/shared/node_modules
+/apps/quiz/.next-*
+/apps/quiz/test-results
+/apps/quiz/playwright-report

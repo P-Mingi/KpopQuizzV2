@@ -1,0 +1,262 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "steins-gate",
+  "title": "Steins;Gate Timeline: Which Came First?",
+  "slug": "steins-gate-timeline-which-came-first",
+  "description": "Ten questions on the order of the games, the anime, the OVA and the film, from 2009 to 2018. Spoilers only in the sense that Steins;Gate 0 exists.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Steins;Gate (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Steins;Gate",
+      "url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Steins;Gate episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: Steins;Gate 0",
+      "url": "https://en.wikipedia.org/wiki/Steins;Gate_0"
+    }
+  ],
+  "notes": "Release order only: visual novel 2009, anime 2011, OVA 2012, film 2013, Steins;Gate 0 visual novel 2015, Steins;Gate 0 anime 2018.",
+  "questions": [
+    {
+      "question": "Which of these arrived first?",
+      "options": [
+        "The first anime",
+        "The film Load Region of Déjà Vu",
+        "The Steins;Gate 0 visual novel",
+        "The Steins;Gate 0 anime"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-anime-run-016",
+        "steins-gate-film-019",
+        "steins-gate-zero-vn-020",
+        "steins-gate-zero-anime-021"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)"
+    },
+    {
+      "question": "Which of these arrived last?",
+      "options": [
+        "The first visual novel",
+        "The OVA Egoistic Poriomania",
+        "The film Load Region of Déjà Vu",
+        "The Steins;Gate 0 visual novel"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-vn-release-003",
+        "steins-gate-anime-ova-017",
+        "steins-gate-film-019",
+        "steins-gate-zero-vn-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "Which of these came first?",
+      "options": [
+        "The film Load Region of Déjà Vu",
+        "The OVA Egoistic Poriomania",
+        "The Steins;Gate 0 visual novel",
+        "The Steins;Gate 0 anime"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-anime-ova-017",
+        "steins-gate-film-019",
+        "steins-gate-zero-vn-020",
+        "steins-gate-zero-anime-021"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_episodes"
+    },
+    {
+      "question": "Which of these came last?",
+      "options": [
+        "The first visual novel",
+        "The first anime",
+        "The Steins;Gate 0 anime",
+        "The film Load Region of Déjà Vu"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "steins-gate-vn-release-003",
+        "steins-gate-anime-run-016",
+        "steins-gate-film-019",
+        "steins-gate-zero-anime-021"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "Which of these came right after the first anime?",
+      "options": [
+        "The OVA Egoistic Poriomania",
+        "The film Load Region of Déjà Vu",
+        "The Steins;Gate 0 visual novel",
+        "The Steins;Gate 0 anime"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-anime-run-016",
+        "steins-gate-anime-ova-017",
+        "steins-gate-film-019",
+        "steins-gate-zero-vn-020",
+        "steins-gate-zero-anime-021"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)"
+    },
+    {
+      "question": "Which of these came between the film and the Steins;Gate 0 anime?",
+      "options": [
+        "The first visual novel",
+        "The first anime",
+        "The OVA Egoistic Poriomania",
+        "The Steins;Gate 0 visual novel"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-film-019",
+        "steins-gate-zero-vn-020",
+        "steins-gate-zero-anime-021",
+        "steins-gate-vn-release-003",
+        "steins-gate-anime-run-016",
+        "steins-gate-anime-ova-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)"
+    },
+    {
+      "question": "Which of these came before the first anime?",
+      "options": [
+        "The OVA Egoistic Poriomania",
+        "The film Load Region of Déjà Vu",
+        "The first visual novel",
+        "The Steins;Gate 0 visual novel"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-vn-release-003",
+        "steins-gate-anime-run-016",
+        "steins-gate-anime-ova-017",
+        "steins-gate-film-019",
+        "steins-gate-zero-vn-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "Which of these came more than five years after the first visual novel?",
+      "options": [
+        "The first anime",
+        "The Steins;Gate 0 visual novel",
+        "The OVA Egoistic Poriomania",
+        "The film Load Region of Déjà Vu"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-vn-release-003",
+        "steins-gate-zero-vn-020",
+        "steins-gate-anime-run-016",
+        "steins-gate-anime-ova-017",
+        "steins-gate-film-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "Which of these debuted in 2018?",
+      "options": [
+        "The film Load Region of Déjà Vu",
+        "The first anime",
+        "The Steins;Gate 0 visual novel",
+        "The Steins;Gate 0 anime"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-zero-anime-021",
+        "steins-gate-film-019",
+        "steins-gate-anime-run-016",
+        "steins-gate-zero-vn-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate_0"
+    },
+    {
+      "question": "Which of these reached Japanese theaters rather than television or consoles?",
+      "options": [
+        "The film Load Region of Déjà Vu",
+        "The first visual novel",
+        "The first anime",
+        "The Steins;Gate 0 anime"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "steins-gate-film-019",
+        "steins-gate-vn-release-003",
+        "steins-gate-anime-run-016",
+        "steins-gate-zero-anime-021"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate_(TV_series)"
+    }
+  ]
+}

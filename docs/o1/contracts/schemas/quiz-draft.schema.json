@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "quiz-draft.schema.json",
+  "title": "Run O1: a quiz draft of a Team account, the stored form of S 4.7 (editorial_drafts.payload of kind quiz, formats.md 4)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["site", "account", "group_slug", "title", "slug", "quiz_type", "difficulty", "language", "title_gives_nothing_away", "questions", "sources"],
+  "properties": {
+    "site": { "$ref": "common.schema.json#/$defs/contentSite" },
+    "account": { "$comment": "The author: a Team account of that site (editorial_accounts).", "$ref": "common.schema.json#/$defs/username" },
+    "group_slug": { "$comment": "The topic: the series slug on anime (or anime-mix), the group slug on kpop.", "$ref": "common.schema.json#/$defs/slug" },
+    "title": { "$ref": "common.schema.json#/$defs/plainText", "minLength": 5, "maxLength": 100 },
+    "slug": { "$ref": "common.schema.json#/$defs/quizSlug" },
+    "description": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 300 },
+    "quiz_type": { "$ref": "anime-question.schema.json#/$defs/quizType" },
+    "difficulty": { "$ref": "common.schema.json#/$defs/difficulty" },
+    "language": { "const": "en" },
+    "title_gives_nothing_away": { "$comment": "The box of S 3.4 rule 4, ticked by the author.", "const": true },
+    "questions": { "type": "array", "minItems": 3, "maxItems": 20, "items": { "$ref": "anime-question.schema.json#/$defs/teamQuestion" } },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 20,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "url"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^S[1-9][0-9]?$" },
+          "title": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 160 },
+          "url": { "$ref": "common.schema.json#/$defs/sourceUrl" }
+        }
+      }
+    },
+    "notes": { "$comment": "For the reviewer; never published.", "$ref": "common.schema.json#/$defs/plainText", "maxLength": 500 }
+  },
+  "allOf": [{ "$ref": "anime-question.schema.json#/$defs/quizTypeAgreement" }]
+}

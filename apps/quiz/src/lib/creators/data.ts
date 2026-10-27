@@ -17,6 +17,7 @@ import { createPublicReadClient } from '@/lib/supabase/server';
 import { avatarOf, quizzesLabel, realFandomName } from '@/lib/ux-v1/p9/format';
 
 import { RISING_CARDS, countPlays, monthStart, quizCounts, rankCreators, risingByFandom } from './board';
+import { forSite } from '@/lib/site/scope';
 
 import type { AvatarView } from '@/lib/ux-v1/p9/format';
 import type { PlayRow, QuizRow, Ranked } from './board';
@@ -68,7 +69,7 @@ interface Aggregate {
 async function readAggregate(teamKey: string): Promise<Aggregate> {
   const db = createPublicReadClient();
   const [quizRows, banned, plays] = await Promise.all([
-    fetchAllRows<QuizRow>(() => db.from('quizzes').select('id, creator_id, group_id, title, slug, created_at').eq('status', 'published').order('id', { ascending: true })),
+    fetchAllRows<QuizRow>(() => forSite(db.from('quizzes').select('id, creator_id, group_id, title, slug, created_at')).eq('status', 'published').order('id', { ascending: true })),
     fetchAllRows<{ id: string }>(() => db.from('profiles').select('id').not('banned_at', 'is', null).order('id', { ascending: true })),
     readAllPlays(),
   ]);
@@ -170,7 +171,7 @@ async function readPage(): Promise<CreatorsPageData> {
     ids.length
       ? db.from('profiles').select('id, username, avatar_url, avatar_kind, avatar_ref, ult_groups, name_accent, name_font, bias').in('id', ids)
       : Promise.resolve({ data: [] as ProfileRow[], error: null }),
-    db.from('groups').select('id, slug, name, fandom_name'),
+    forSite(db.from('groups').select('id, slug, name, fandom_name')),
   ]);
   if (profs.error) throw new Error(`creators profiles: ${profs.error.message}`);
   if (groups.error) throw new Error(`creators groups: ${groups.error.message}`);

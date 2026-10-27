@@ -1,0 +1,213 @@
+{
+  "site": "anime",
+  "account": "oq_creator_12",
+  "group_slug": "chainsaw-man",
+  "title": "One Opening, Many Endings: Chainsaw Man Theme Songs",
+  "slug": "kick-back-chainsaw-man-staff-songs-and-studio",
+  "description": "Ten questions on the opening and the endings of the 2022 anime. Titles and artists only.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Which artist is credited on the ending Dogland?",
+      "options": [
+        "Tooboe",
+        "People 1",
+        "Syudou",
+        "Queen Bee"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-ending-themes-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "Which ending is credited to Maximum the Hormone?",
+      "options": [
+        "Deep Down",
+        "Violence",
+        "Jōzai",
+        "Hawatari Ni-Oku Centi"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-ending-themes-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "How many different ending songs did the 2022 anime use?",
+      "options": [
+        "8",
+        "10",
+        "12",
+        "24"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-ending-themes-016",
+        "chainsaw-man-anime-run-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "Which artist sings the opening theme?",
+      "options": [
+        "Vaundy",
+        "Eve",
+        "Kenshi Yonezu",
+        "Aimer"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-opening-theme-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "What is the title of the opening theme?",
+      "options": [
+        "Chainsaw Blood",
+        "Kick Back",
+        "Zanki",
+        "Violence"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-opening-theme-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "Who sings Chainsaw Blood, the ending of episode 1?",
+      "options": [
+        "Vaundy",
+        "Eve",
+        "Aimer",
+        "Ano"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-ending-themes-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "Which act is credited on the ending Fight Song?",
+      "options": [
+        "Eve",
+        "Aimer",
+        "Ano",
+        "Kanaria"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-ending-themes-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "What is unusual about the ending songs of the first season?",
+      "options": [
+        "They are all sung by one band",
+        "They are all instrumental",
+        "They change only once per arc",
+        "Every episode has its own ending by a different artist"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-ending-themes-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "Who is credited on the ending Violence?",
+      "options": [
+        "Syudou",
+        "Tooboe",
+        "Zutomayo",
+        "Queen Bee"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-ending-themes-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    },
+    {
+      "question": "Which artist is credited on the ending Deep Down?",
+      "options": [
+        "Ano",
+        "Aimer",
+        "Kanaria",
+        "Eve"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "chainsaw-man-ending-themes-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Chainsaw Man (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
+    }
+  ],
+  "notes": "All facts are arc 0 (010, 015, 016). Titles and artists only, no lyrics. K1 rewrite: blocked questions rewritten on verified facts 010 and 016."
+}

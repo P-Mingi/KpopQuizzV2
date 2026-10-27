@@ -1,0 +1,12 @@
+gate-checks Q0c: head 86acf3908eb4, base d28e3165f5fc, sites [kpop], db dev, harness /Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1
+  ok       harness-unit
+  skipped  site-scope: B2's apps/quiz/scripts/o1/check-site-scope.mts is not in this head yet 
+  server   kpop: http://kpop.localhost:4021 (gate, .next-kpop, db dev)
+  skipped  kpop-indexability: the diff cannot reach the kpop build (gate.sh ran no parity), and these gates grade production data (a floor of 600 sitemap URLs, the priority hubs, the live ca
+  skipped  kpop-metadata-dupes: the diff cannot reach the kpop build (gate.sh ran no parity), and these gates grade production data (a floor of 600 sitemap URLs, the priority hubs, the live ca
+  skipped  kpop-orphans: the diff cannot reach the kpop build (gate.sh ran no parity), and these gates grade production data (a floor of 600 sitemap URLs, the priority hubs, the live ca
+  skipped  kpop-sitemap-hygiene: the diff cannot reach the kpop build (gate.sh ran no parity), and these gates grade production data (a floor of 600 sitemap URLs, the priority hubs, the live ca
+  ok       network-links
+  ok       leak
+  skipped  lane-specs: lanes.json lists no specs for Q0c 
+gate-checks Q0c: 3 ok, 6 skipped, 0 pending, 0 failed

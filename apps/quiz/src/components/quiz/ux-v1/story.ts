@@ -6,6 +6,8 @@
 // The photo is the same-origin group photo (public/idols) so the canvas stays
 // exportable; without one the card is the plain gradient.
 
+import { SITE } from '@/lib/site/registry';
+
 export interface StoryInput {
   photo: string | null;
   groupName: string;
@@ -75,7 +77,7 @@ export async function renderStory(input: StoryInput): Promise<Blob | null> {
   ctx.fillStyle = 'rgba(255,255,255,.88)';
   ctx.font = `600 40px ${font}`;
   ctx.textBaseline = 'top';
-  ctx.fillText('KPOPQUIZ', 72, 72);
+  ctx.fillText(SITE.brand.name.toUpperCase(), 72, 72);
   ctx.textAlign = 'right';
   ctx.fillText(input.stamp.toUpperCase(), W - 72, 72);
   ctx.textAlign = 'left';
@@ -104,7 +106,7 @@ export async function renderStory(input: StoryInput): Promise<Blob | null> {
   }
   ctx.font = `600 36px ${font}`;
   ctx.fillStyle = 'rgba(255,255,255,.82)';
-  ctx.fillText('kpopquiz.org', 72, H - 110);
+  ctx.fillText(SITE.domain, 72, H - 110);
 
   try {
     return await new Promise<Blob | null>((resolve) => canvas.toBlob((b) => resolve(b), 'image/png'));
@@ -115,7 +117,7 @@ export async function renderStory(input: StoryInput): Promise<Blob | null> {
 
 export async function storyFile(input: StoryInput): Promise<File | null> {
   const blob = await renderStory(input);
-  return blob ? new File([blob], 'kpopquiz-story.png', { type: 'image/png' }) : null;
+  return blob ? new File([blob], `${SITE.domain.split('.')[0]}-story.png`, { type: 'image/png' }) : null;
 }
 
 export async function downloadStory(input: StoryInput): Promise<boolean> {
@@ -124,7 +126,7 @@ export async function downloadStory(input: StoryInput): Promise<boolean> {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'kpopquiz-story.png';
+  a.download = `${SITE.domain.split('.')[0]}-story.png`;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
   return true;

@@ -2,6 +2,7 @@ import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
+import { forSite } from '@/lib/site/scope';
 
 import type { Group } from '@/lib/db/types';
 
@@ -16,9 +17,9 @@ const TTL_SECONDS = 600;
 const fetchAllGroups = async (): Promise<Group[]> => {
   const supabase = createPublicReadClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('groups')
-    .select('*')
+    .select('*'))
     .order('quiz_count', { ascending: false })
     .order('name', { ascending: true });
 
@@ -43,9 +44,9 @@ export const getGroupBySlug = unstable_cache(
   async (slug: string): Promise<Group | null> => {
     const supabase = createPublicReadClient();
 
-    const { data, error } = await supabase
+    const { data, error } = await forSite(supabase
       .from('groups')
-      .select('*')
+      .select('*'))
       .eq('slug', slug)
       .single();
 
@@ -59,9 +60,9 @@ export const getGroupBySlug = unstable_cache(
     // description and JSON-LD print it ("29+ free BLACKPINK quizzes"). The group read
     // carries the published count instead; a failed count keeps the stored one.
     const group = data as Group;
-    const { count, error: countError } = await supabase
+    const { count, error: countError } = await forSite(supabase
       .from('quizzes')
-      .select('id', { count: 'exact', head: true })
+      .select('id', { count: 'exact', head: true }))
       .eq('group_id', group.id)
       .eq('status', 'published');
     if (!countError && typeof count === 'number') group.quiz_count = count;
@@ -75,9 +76,9 @@ export const getGroupByName = unstable_cache(
   async (name: string): Promise<Group | null> => {
     const supabase = createPublicReadClient();
 
-    const { data, error } = await supabase
+    const { data, error } = await forSite(supabase
       .from('groups')
-      .select('*')
+      .select('*'))
       .ilike('name', name)
       .maybeSingle();
 

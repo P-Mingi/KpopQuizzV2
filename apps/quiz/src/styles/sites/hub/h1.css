@@ -1,0 +1,39 @@
+/* Run O1, lot (d), lane H1: the blocks of the network page (the site cards H1, "What your passport shares" H2, the account
+   block). Every selector starts with the site scope and names only hub-h1-* classes (tokens.md 3.3); colours come from the
+   frozen --ux-* tokens, locals are --hub-*. The card accent is the `pink` token of the site's own registry theme, set inline
+   as --hub-accent-light and --hub-accent-dark on the card. */
+
+html.ux-v1[data-site="hub"] {
+  --hub-gap: 16px;
+}
+
+html.ux-v1[data-site="hub"] .hub-h1-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--hub-gap); }
+html.ux-v1[data-site="hub"] .hub-h1-card { display: flex; flex-direction: column; min-width: 0; --hub-accent: var(--hub-accent-light, var(--ux-pink)); }
+html.ux-v1.dark[data-site="hub"] .hub-h1-card { --hub-accent: var(--hub-accent-dark, var(--ux-pink)); }
+@media (prefers-color-scheme: dark) {
+  html.ux-v1[data-site="hub"]:not(.light) .hub-h1-card { --hub-accent: var(--hub-accent-dark, var(--ux-pink)); }
+}
+html.ux-v1[data-site="hub"] .hub-h1-panel { flex: 1 1 auto; }
+html.ux-v1[data-site="hub"] .hub-h1-accent { display: block; width: 40px; height: 6px; margin: 2px 0 14px; border-radius: 999px; background: var(--hub-accent); }
+html.ux-v1[data-site="hub"] .hub-h1-pitch { margin: 0 0 14px; font-size: 15px; line-height: 1.5; color: var(--ux-muted); }
+
+html.ux-v1[data-site="hub"] .hub-h1-shares-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px var(--hub-gap); }
+html.ux-v1[data-site="hub"] .hub-h1-shares-h { margin: 0 0 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ux-muted); }
+html.ux-v1[data-site="hub"] .hub-h1-shares-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 15px; line-height: 1.45; color: var(--ux-ink); }
+html.ux-v1[data-site="hub"] .hub-h1-shares-list li { position: relative; padding-left: 22px; }
+html.ux-v1[data-site="hub"] .hub-h1-shares-list li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 10px; height: 10px; border-radius: 999px; }
+html.ux-v1[data-site="hub"] .hub-h1-shares-sees li::before { background: var(--ux-ok); }
+html.ux-v1[data-site="hub"] .hub-h1-shares-hides li::before { background: var(--ux-no); }
+
+html.ux-v1[data-site="hub"] .hub-h1-account-line { margin: 0 0 14px; font-size: 15px; line-height: 1.5; color: var(--ux-muted); }
+html.ux-v1[data-site="hub"] .hub-h1-facts { margin: 0 0 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px var(--hub-gap); }
+html.ux-v1[data-site="hub"] .hub-h1-facts dt { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ux-muted); }
+html.ux-v1[data-site="hub"] .hub-h1-facts dd { margin: 2px 0 0; font-size: 15px; line-height: 1.45; color: var(--ux-ink); overflow-wrap: anywhere; }
+
+/* Lot (d), lane H1: the draft of the privacy page (components/hub/hub-privacy.tsx). */
+html.ux-v1[data-site="hub"] .hub-h1-draft { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; margin: 0 0 20px; padding: 12px 16px; border: 1px solid var(--ux-warn); border-radius: 12px; background: var(--ux-surface); color: var(--ux-ink); font-size: 15px; line-height: 1.45; }
+html.ux-v1[data-site="hub"] .hub-h1-draft strong { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ux-warn); }
+html.ux-v1[data-site="hub"] .hub-h1-policy-h { margin: 0 0 8px; font-size: 20px; font-weight: 600; color: var(--ux-ink); }
+html.ux-v1[data-site="hub"] .hub-h1-prose { margin: 0 0 10px; font-size: 15px; line-height: 1.6; color: var(--ux-ink); }
+html.ux-v1[data-site="hub"] .hub-h1-prose-list { margin: 0 0 10px; padding-left: 20px; display: grid; gap: 6px; font-size: 15px; line-height: 1.55; color: var(--ux-ink); overflow-wrap: anywhere; }
+html.ux-v1[data-site="hub"] .hub-h1-policy .hub-h1-shares { margin: 0 0 12px; }

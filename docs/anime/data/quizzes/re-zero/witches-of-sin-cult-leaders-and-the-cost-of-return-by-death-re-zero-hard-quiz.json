@@ -1,0 +1,212 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "re-zero",
+  "title": "Re:Zero Hard Quiz: Witches of Sin, Cult Leaders and the Cost of Return by Death",
+  "slug": "witches-of-sin-cult-leaders-and-the-cost-of-return-by-death-re-zero-hard-quiz",
+  "description": "Ten hard questions on the secrets of the aired seasons: the true nature of a spirit, a master, the Witches of Sin and the Witch Cult. Spoilers for everything up to season 3.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Hard quiz: late facts (arcs 1 to 4) only here. Spoilers named in the description.",
+  "questions": [
+    {
+      "question": "How has Roswaal L. Mathers lived far longer than he looks?",
+      "options": [
+        "By drinking spirit blood",
+        "By possessing his descendants",
+        "By sleeping inside crystals",
+        "By trading years with witches"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-roswaal-ages-075"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    },
+    {
+      "question": "Whom does Roswaal hope to revive, as his master and the love of his life?",
+      "options": [
+        "Satella",
+        "Beatrice",
+        "Rem",
+        "Echidna"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-roswaal-echidna-076"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    },
+    {
+      "question": "What is Puck's true identity?",
+      "options": [
+        "The Sage of the Grand Cascade",
+        "The Beast of the End of the Eternally Frozen Lands",
+        "The Dragon of the royal capital",
+        "The Spirit of the Sanctuary"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-puck-true-062"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    },
+    {
+      "question": "What is it about Subaru that makes Rem hate him at first?",
+      "options": [
+        "A bad joke about Ram",
+        "A stolen insignia",
+        "A scent of the Witch",
+        "A rumor about the mansion"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-rem-hate-068"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    },
+    {
+      "question": "Satella, the figure worshipped by the Witch Cult, is the Witch of which sin?",
+      "options": [
+        "Greed",
+        "Sloth",
+        "Pride",
+        "Envy"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-character-name-054"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    },
+    {
+      "question": "What happened to Satella 400 years ago?",
+      "options": [
+        "She killed the six other Witches of Sin and was sealed away",
+        "She was exiled across the sea by the Dragon",
+        "She gave her powers to the Sage and vanished",
+        "She was reborn as a half-elf in the forest"
+      ],
+      "correct": 0,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-satella-sealed-083"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    },
+    {
+      "question": "What does the Witch of Greed long to become for Subaru?",
+      "options": [
+        "His knight",
+        "His teacher",
+        "His advisor",
+        "His rival"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-echidna-advisor-085"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    },
+    {
+      "question": "Garfiel Tinzel is the half-brother of which maid?",
+      "options": [
+        "Rem",
+        "Frederica Baumann",
+        "Ram",
+        "Beatrice"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-character-name-055"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    },
+    {
+      "question": "Which sin do the Witch Factors held by Regulus Corneas stand for?",
+      "options": [
+        "Sloth",
+        "Envy",
+        "Wrath",
+        "Greed"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-regulus-greed-086"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    },
+    {
+      "question": "What is revealed about the name Felt?",
+      "options": [
+        "A name from the slums",
+        "A gift from Reinhard",
+        "Not her real name",
+        "A title from the Dragon"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-felt-name-064"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Re:Zero characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    }
+  ]
+}

@@ -5,6 +5,9 @@
 // and save header_url; "use the theme colour" clears header_url through the
 // EXISTING /api/auth/update-profile (same payload shape as the legacy settings).
 
+// Run O1 (lot b, P1): the site of the build is read from the build constant, not from the registry (a kpop page loads no module the base did not).
+const SITE_ID: string = process.env.NEXT_PUBLIC_SITE_ID || 'kpop';
+
 export type HeaderResult = { ok: true; url: string | null } | { ok: false; error: string };
 
 async function read(res: Response): Promise<HeaderResult> {
@@ -34,6 +37,18 @@ export async function linkHeader(url: string): Promise<HeaderResult> {
 }
 
 export async function clearHeader(): Promise<HeaderResult> {
+  // Run O1 (lot b, P1): on a world site the header is the membership's.
+  if (SITE_ID !== 'kpop') {
+    try {
+      const { createBrowserClient } = await import('@/lib/supabase/client');
+      const db = createBrowserClient();
+      await db.rpc('ensure_membership', { p_site: SITE_ID, p_via: 'signup', p_via_code: null });
+      const { error } = await db.rpc('update_my_membership', { p_site: SITE_ID, p_patch: { header_url: null } });
+      return error ? { ok: false, error: 'We could not save that. Try again.' } : { ok: true, url: null };
+    } catch {
+      return { ok: false, error: 'We could not reach the server. Try again.' };
+    }
+  }
   try {
     const res = await fetch('/api/auth/update-profile', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ header_url: null }), credentials: 'include' });
     if (res.ok) return { ok: true, url: null };

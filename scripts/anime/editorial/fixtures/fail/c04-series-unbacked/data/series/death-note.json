@@ -1,0 +1,58 @@
+{
+  "$comment": "E1a test fixture: Death Note series data in the shape of K1's files (the contract fixture without quizzes, plus official_url). Values copied from the contract fixture, never loaded anywhere.",
+  "group": {
+    "slug": "death-note",
+    "name": "Death Note",
+    "display_color": "#1A1A1A",
+    "text_color": "#FFFFFF"
+  },
+  "series": {
+    "type": "anime_manga",
+    "title_en": "Death Note",
+    "title_native": "\u30c7\u30b9\u30ce\u30fc\u30c8",
+    "title_romaji": "Desu Noto",
+    "aliases": ["DN"],
+    "studios": [
+      {"name":"Madhouse"}
+    ],
+    "director": "Tetsuro Araki",
+    "authors": [
+      {"name":"Tsugumi Ohba","role":"story"},
+      {"name":"Takeshi Obata","role":"art"}
+    ],
+    "magazine": "Weekly Shonen Jump",
+    "publisher": "Shueisha",
+    "anime_start_year": 2006,
+    "anime_end_year": 2007,
+    "manga_start_year": 2003,
+    "manga_end_year": 2006,
+    "status": "finished",
+    "episodes": 41,
+    "seasons": 1,
+    "volumes": 12,
+    "chapters": 108,
+    "tier": "A",
+    "published": true,
+    "official_url": "https://www.viz.com/death-note"
+  },
+  "arcs": [
+    {"ord":1,"name":"Part 1","kind":"part","source_url":"https://en.wikipedia.org/wiki/Death_Note","status":"published"},
+    {"ord":2,"name":"Part 2","kind":"part","source_url":"https://en.wikipedia.org/wiki/Death_Note","status":"published"}
+  ],
+  "characters": [
+    {"slug":"light-yagami","name":"Light Yagami","aliases":["Kira"],"role":"main","debut_arc_ord":1,"debut_medium":"both","description":"A top high school student who finds a notebook that kills anyone whose name is written in it.","source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_characters","spoiler_level":0,"identity_spoiler":false,"ord":1,"status":"published"},
+    {"slug":"l","name":"L","role":"main","debut_arc_ord":1,"debut_medium":"both","description":"A reclusive detective known by a single letter, who takes on the case of the mysterious deaths.","source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_characters","spoiler_level":0,"identity_spoiler":false,"ord":2,"status":"published"},
+    {"slug":"ryuk","name":"Ryuk","role":"supporting","debut_arc_ord":1,"debut_medium":"both","description":"The Shinigami who drops his notebook into the human world because he is bored.","source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_characters","spoiler_level":0,"identity_spoiler":false,"ord":3,"status":"published"},
+    {"slug":"misa-amane","name":"Misa Amane","role":"supporting","debut_arc_ord":1,"debut_medium":"both","description":"A popular model who enters the story with a notebook of her own.","source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_characters","spoiler_level":1,"identity_spoiler":false,"ord":4,"status":"published"},
+    {"slug":"soichiro-yagami","name":"Soichiro Yagami","role":"supporting","debut_arc_ord":1,"debut_medium":"both","description":"Light's father, the police chief who leads the investigation into the killings.","source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_characters","spoiler_level":0,"identity_spoiler":false,"ord":5,"status":"published"},
+    {"slug":"touta-matsuda","name":"Touta Matsuda","role":"supporting","debut_arc_ord":1,"debut_medium":"both","description":"A young officer of the task force, eager and often out of his depth.","source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_characters","spoiler_level":0,"identity_spoiler":false,"ord":6,"status":"published"},
+    {"slug":"near","name":"Near","role":"main","debut_arc_ord":2,"debut_medium":"both","description":"A young detective who takes on the case in the second part of the story.","source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_characters","spoiler_level":2,"identity_spoiler":false,"ord":7,"status":"published"},
+    {"slug":"mello","name":"Mello","role":"supporting","debut_arc_ord":2,"debut_medium":"both","description":"A rival of Near who chases the case by his own methods.","source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_characters","spoiler_level":2,"identity_spoiler":false,"ord":8,"status":"published"}
+  ],
+  "themes": [
+    {"kind":"op","number":1,"title":"the WORLD","artist":"Nightmare","idol_sung":false,"source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_episodes","status":"published"},
+    {"kind":"op","number":2,"title":"What's up, people?!","artist":"Maximum the Hormone","idol_sung":false,"source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_episodes","status":"published"},
+    {"kind":"ed","number":1,"title":"Alumina","artist":"Nightmare","idol_sung":false,"source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_episodes","status":"published"},
+    {"kind":"ed","number":2,"title":"Zetsubou Billy","artist":"Maximum the Hormone","idol_sung":false,"source_url":"https://en.wikipedia.org/wiki/List_of_Death_Note_episodes","status":"published"}
+  ]
+}

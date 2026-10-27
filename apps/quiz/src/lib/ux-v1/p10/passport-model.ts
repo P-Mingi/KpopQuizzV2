@@ -5,8 +5,15 @@
 import { badgeRarity, RARITY_ORDER } from '@/lib/badges';
 import { isValidTheme, PASSPORT_THEMES } from '@/lib/passport-themes';
 import { MASTERY } from '@/lib/passport';
+import { SITE } from '@/lib/site/registry';
 
 import type { Rarity } from '@/lib/badges';
+import type { PassportWords } from '@/lib/passport-ui/words';
+
+/** The placeholder filler of a world site's words (same rule as lib/passport-ui/fmt, kept here so a kpop page loads no module the base did not). */
+function fmt(template: string, vars: Readonly<Record<string, string | number>>): string {
+  return template.replace(/\{([a-zA-Z0-9]+)\}/g, (whole, key: string) => (vars[key] === undefined ? whole : String(vars[key])));
+}
 
 // ---- theme ----------------------------------------------------------------
 
@@ -29,6 +36,8 @@ export function themeKey(theme: string | null | undefined): string {
 /** Band tint + XP bar colour for a stored profiles.profile_theme. */
 export function themeColours(theme: string | null | undefined): { band: string; bar: string } {
   const k = themeKey(theme);
+  // The default theme is the accent of the site (owner, 2026-10-26: OtakuQuiz is orange, no pink there); kpop keeps the values above.
+  if (k === 'default' && SITE.id !== 'kpop') return { band: SITE.theme.light['pink-soft'] ?? THEME_BAND.default!, bar: SITE.theme.light.pink ?? PASSPORT_THEMES.default!.swatch };
   return { band: THEME_BAND[k] ?? '#FCE8EF', bar: PASSPORT_THEMES[k]?.swatch ?? '#E8457A' };
 }
 
@@ -66,8 +75,8 @@ export const TEAM_LEVEL_CHIP = 'KpopQuiz team';
 
 /** The identity fields of a team passport: the name the owner gave the account, the
  *  team chip, and none of a fan's flair (accent, name font, bias, pinned badge). */
-export function teamIdentity(team: { displayName: string }): { displayName: string; accent: null; font: null; bias: null; level: string; pinnedBadge: null } {
-  return { displayName: team.displayName, accent: null, font: null, bias: null, level: TEAM_LEVEL_CHIP, pinnedBadge: null };
+export function teamIdentity(team: { displayName: string }, words?: Pick<PassportWords, 'teamChip'>): { displayName: string; accent: null; font: null; bias: null; level: string; pinnedBadge: null } {
+  return { displayName: team.displayName, accent: null, font: null, bias: null, level: words ? words.teamChip : TEAM_LEVEL_CHIP, pinnedBadge: null };
 }
 
 const MONTH_FMT = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
@@ -88,24 +97,28 @@ export function metaSegments(args: {
   stanSince?: number | null;
   createdAt: string;
   followers: number;
+  /** A world site's words (lot b, P1); absent on kpop, which keeps its literals below. */
+  words?: Pick<PassportWords, 'since' | 'watchingSince' | 'also' | 'joined' | 'followerOne' | 'followerOther'>;
 }): MetaSegment[] {
   const out: MetaSegment[] = [];
+  const w = args.words;
   const [main, ...others] = args.groups ?? [];
   if (main) {
     const seg: MetaSegment = [{ text: main.fandom?.trim() || main.name, href: `/${main.slug}-quiz` }];
-    if (args.stanSince) seg.push({ text: ` since ${args.stanSince}` });
+    if (args.stanSince) seg.push({ text: w ? ` ${fmt(w.since, { year: args.stanSince })}` : ` since ${args.stanSince}` });
     out.push(seg);
   } else if (args.stanSince) {
-    out.push([{ text: `Stan since ${args.stanSince}` }]);
+    out.push([{ text: w ? fmt(w.watchingSince, { year: args.stanSince }) : `Stan since ${args.stanSince}` }]);
   }
   if (others.length) {
-    const seg: MetaSegment = [{ text: 'also ' }];
+    const seg: MetaSegment = [{ text: w ? `${w.also} ` : 'also ' }];
     others.forEach((g, i) => { if (i) seg.push({ text: ', ' }); seg.push({ text: g.name, href: `/${g.slug}-quiz` }); });
     out.push(seg);
   }
   const d = new Date(args.createdAt);
-  if (!Number.isNaN(d.getTime())) out.push([{ text: `joined ${MONTH_FMT.format(d)}` }]);
-  out.push([{ text: `${args.followers.toLocaleString('en-US')} ${args.followers === 1 ? 'follower' : 'followers'}` }]);
+  if (!Number.isNaN(d.getTime())) out.push([{ text: w ? fmt(w.joined, { date: MONTH_FMT.format(d) }) : `joined ${MONTH_FMT.format(d)}` }]);
+  const count = args.followers.toLocaleString('en-US');
+  out.push([{ text: w ? fmt(args.followers === 1 ? w.followerOne : w.followerOther, { count }) : `${count} ${args.followers === 1 ? 'follower' : 'followers'}` }]);
   return out;
 }
 
@@ -117,10 +130,10 @@ export function metaText(segments: MetaSegment[]): string {
 /** "1,280 / 2,000 XP to Lv 8" (total XP / total XP needed for the next level, as
  *  the live passport shows it); the bar is lib/constants getLevelInfo().progress,
  *  the share of the current level already done. */
-export function xpLine(xp: number, nextReq: number | null, level: number, progress: number): { have: string; rest: string; pct: number } {
+export function xpLine(xp: number, nextReq: number | null, level: number, progress: number, words?: Pick<PassportWords, 'xpTo'>): { have: string; rest: string; pct: number } {
   return {
     have: Math.max(0, xp).toLocaleString('en-US'),
-    rest: nextReq !== null ? ` / ${nextReq.toLocaleString('en-US')} XP to Lv ${level + 1}` : ' XP',
+    rest: nextReq !== null ? ` / ${nextReq.toLocaleString('en-US')} ${words ? fmt(words.xpTo, { level: level + 1 }) : `XP to Lv ${level + 1}`}` : ' XP',
     pct: Math.min(100, Math.max(0, progress)),
   };
 }
@@ -140,25 +153,25 @@ export function streakLabel(days: number): string {
 /** Owner stats (prototype: quizzes played, average score, streak, quizzes made,
  *  blindtest rank). "blindtest rank" has no live source (bt_players is never
  *  written, WIRING-MAP), so the real blindtests-played counter takes its place. */
-export function personalStats(s: { quizzesPlayed: number; averagePct: number | null; streak: number; quizzesMade: number; blindtestsPlayed: number }): StatCell[] {
+export function personalStats(s: { quizzesPlayed: number; averagePct: number | null; streak: number; quizzesMade: number; blindtestsPlayed: number }, words?: Pick<PassportWords, 'streak' | 'made'>): StatCell[] {
   const out: StatCell[] = [{ value: countLabel(s.quizzesPlayed), label: 'quizzes played' }];
   if (s.averagePct !== null) out.push({ value: `${s.averagePct}%`, label: 'average score' });
-  out.push({ value: streakLabel(s.streak), label: 'streak' });
-  out.push({ value: countLabel(s.quizzesMade), label: 'quizzes made' });
-  out.push({ value: countLabel(s.blindtestsPlayed), label: 'blindtests played' });
+  out.push({ value: streakLabel(s.streak), label: words ? words.streak : 'streak' });
+  out.push({ value: countLabel(s.quizzesMade), label: words ? words.made : 'quizzes made' });
+  if (SITE.features.blindTest) out.push({ value: countLabel(s.blindtestsPlayed), label: 'blindtests played' });
   return out;
 }
 
 /** Public stats: exactly what the public passport exposed before (streak,
  *  mastered, quizzes made, plays received). Privacy fail-closed: no play counts,
  *  no average. */
-export function publicStats(s: { streak: number; groupsMastered: number; quizzesMade: number; playsReceived: number }): StatCell[] {
+export function publicStats(s: { streak: number; groupsMastered: number; quizzesMade: number; playsReceived: number }, words?: Pick<PassportWords, 'streak' | 'seriesMasteredStat' | 'made' | 'plays'>): StatCell[] {
   return [
-    { value: streakLabel(s.streak), label: 'streak' },
+    { value: streakLabel(s.streak), label: words ? words.streak : 'streak' },
     // the count alone: groups.total counts a hidden quarantine row (91 rows, 90 visible groups)
-    { value: countLabel(s.groupsMastered), label: 'groups mastered' },
-    { value: countLabel(s.quizzesMade), label: 'quizzes made' },
-    { value: countLabel(s.playsReceived), label: 'plays received' },
+    { value: countLabel(s.groupsMastered), label: words ? words.seriesMasteredStat : 'groups mastered' },
+    { value: countLabel(s.quizzesMade), label: words ? words.made : 'quizzes made' },
+    { value: countLabel(s.playsReceived), label: words ? words.plays : 'plays received' },
   ];
 }
 

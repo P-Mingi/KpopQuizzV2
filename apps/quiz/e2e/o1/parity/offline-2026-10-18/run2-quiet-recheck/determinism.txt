@@ -1,0 +1,5 @@
+NOT deterministic: result.txt differs from the previous run
+31c31
+< IDENTICAL /blindtest/group-bts status 200/200 normalised analytics-ref,flight-rows css 3
+---
+> IDENTICAL /blindtest/group-bts status 200/200 css 3

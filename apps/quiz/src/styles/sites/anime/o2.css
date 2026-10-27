@@ -1,0 +1,145 @@
+/* Run O1, lot (b), lane LB (O2): the anime blocks of the series hub (A1 facts, A2 story map and arc sections, A3 characters,
+   A4 openings, A7 title card, the facts list). Every selector starts with the site scope and names only anime-o2-* classes
+   (tokens.md 3.3); colours come from the frozen --ux-* tokens, locals are --anime-*. */
+
+html.ux-v1[data-site="anime"] {
+  --anime-o2-gap: 12px;
+  --anime-o2-radius: 14px;
+}
+
+/* A7: the typographic title card fills the box it is put in (the hero photo column, a 40px row avatar). */
+html.ux-v1[data-site="anime"] .anime-o2-card { display: block; width: 100%; height: 100%; }
+html.ux-v1[data-site="anime"] .anime-o2-card-title { font-family: var(--ux-font-display, inherit); font-weight: 700; letter-spacing: 0; }
+html.ux-v1[data-site="anime"] .anime-o2-card-mono { font-family: var(--ux-font-display, inherit); font-weight: 700; font-size: 34px; }
+
+/* A1: the facts under the hero actions. */
+html.ux-v1[data-site="anime"] .anime-o2-facts { margin-top: 20px; display: grid; gap: var(--anime-o2-gap); }
+html.ux-v1[data-site="anime"] .anime-o2-airing { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0; padding: 8px 14px; border-radius: 999px; background: var(--ux-ok-soft); color: var(--ux-ink); font-size: 14px; width: fit-content; }
+html.ux-v1[data-site="anime"] .anime-o2-airing b { color: var(--ux-ok); font-weight: 600; }
+html.ux-v1[data-site="anime"] .anime-o2-airing a { color: var(--ux-pink-ink); }
+html.ux-v1[data-site="anime"] .anime-o2-dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px 20px; margin: 0; }
+html.ux-v1[data-site="anime"] .anime-o2-fact { min-width: 0; }
+html.ux-v1[data-site="anime"] .anime-o2-fact dt { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ux-muted); }
+html.ux-v1[data-site="anime"] .anime-o2-fact dd { margin: 2px 0 0; font-size: 15px; line-height: 1.45; color: var(--ux-ink); overflow-wrap: anywhere; }
+html.ux-v1[data-site="anime"] .anime-o2-native { font-family: var(--ux-font-display, inherit); }
+html.ux-v1[data-site="anime"] .anime-o2-sources > summary { cursor: pointer; width: fit-content; font-size: 14px; font-weight: 600; color: var(--ux-pink-ink); list-style: none; }
+html.ux-v1[data-site="anime"] .anime-o2-sources > summary::-webkit-details-marker { display: none; }
+html.ux-v1[data-site="anime"] .anime-o2-sources[open] > summary { margin-bottom: 10px; }
+html.ux-v1[data-site="anime"] .anime-o2-source-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 14px; }
+html.ux-v1[data-site="anime"] .anime-o2-source-list a { color: var(--ux-pink-ink); }
+html.ux-v1[data-site="anime"] .anime-o2-source-list small { margin-left: 8px; color: var(--ux-muted); }
+
+/* A2: the story map. */
+html.ux-v1[data-site="anime"] .anime-o2-arc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+html.ux-v1[data-site="anime"] .anime-o2-arc-node { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; padding: 10px 14px; border: 1px solid var(--ux-line); border-radius: var(--anime-o2-radius); background: var(--ux-raised); }
+html.ux-v1[data-site="anime"] .anime-o2-arc-node > .anime-o2-arc-list { flex-basis: 100%; margin-top: 8px; padding-left: 14px; border-left: 2px solid var(--ux-line); }
+html.ux-v1[data-site="anime"] .anime-o2-arc-name { font-weight: 600; color: var(--ux-ink); }
+html.ux-v1[data-site="anime"] .anime-o2-arc-kind,
+html.ux-v1[data-site="anime"] .anime-o2-arc-range,
+html.ux-v1[data-site="anime"] .anime-o2-arc-quizzes { font-size: 13px; color: var(--ux-muted); }
+html.ux-v1[data-site="anime"] .anime-o2-arc-flag { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--ux-lav-soft); color: var(--ux-lav-ink); }
+html.ux-v1[data-site="anime"] .anime-o2-arc-quizzes { margin-left: auto; }
+
+/* A2: the quizzes of one arc. */
+html.ux-v1[data-site="anime"] .anime-o2-arc { margin-top: 20px; }
+html.ux-v1[data-site="anime"] .anime-o2-arc-h { margin: 0 0 12px; font-size: 16px; font-weight: 600; color: var(--ux-ink); }
+
+/* A3: the character tiles. The tile is the members tile of the hub; these add the role shape, the star and the lock. */
+html.ux-v1[data-site="anime"] .anime-o2-tile { position: relative; }
+html.ux-v1[data-site="anime"] .anime-o2-tile small { display: block; font-size: 12px; font-weight: 400; line-height: 1.4; color: var(--ux-muted); white-space: normal; }
+html.ux-v1[data-site="anime"] .anime-o2-picks { color: var(--ux-pink-ink); }
+html.ux-v1[data-site="anime"] .anime-o2-role-main { border-radius: 50%; background: var(--ux-pink-soft); color: var(--ux-pink-soft-ink); font-weight: 700; }
+html.ux-v1[data-site="anime"] .anime-o2-role-supporting { border-radius: 22px; background: var(--ux-lav-soft); color: var(--ux-lav-ink); font-weight: 700; }
+html.ux-v1[data-site="anime"] .anime-o2-role-antagonist { border-radius: 4px; background: var(--ux-no-soft); color: var(--ux-no); font-weight: 700; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+html.ux-v1[data-site="anime"] .anime-o2-role-other { border-radius: 50% 50% 8px 50%; background: var(--ux-surface-2); color: var(--ux-muted); font-weight: 700; }
+html.ux-v1[data-site="anime"] .anime-o2-role-locked { border-radius: 50%; background: var(--ux-surface); border: 2px dashed var(--ux-line-2); color: var(--ux-muted); }
+html.ux-v1[data-site="anime"] .anime-o2-tile-locked { opacity: 0.8; }
+html.ux-v1[data-site="anime"] .anime-o2-star { position: absolute; top: -2px; right: 2px; z-index: 1; display: grid; place-items: center; width: 28px; height: 28px; padding: 0; border: 1px solid var(--ux-line); border-radius: 50%; background: var(--ux-raised); color: var(--ux-muted); cursor: pointer; }
+html.ux-v1[data-site="anime"] .anime-o2-star:hover { color: var(--ux-pink-ink); border-color: var(--ux-pink-line); }
+html.ux-v1[data-site="anime"] .anime-o2-star-on { color: var(--ux-on-accent); background: var(--ux-pink-fill); border-color: var(--ux-pink-fill); }
+
+/* A4: openings and endings. */
+html.ux-v1[data-site="anime"] .anime-o2-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+html.ux-v1[data-site="anime"] .anime-o2-table th { text-align: left; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ux-muted); padding: 8px 10px; border-bottom: 1px solid var(--ux-line); }
+html.ux-v1[data-site="anime"] .anime-o2-table td { padding: 10px; border-bottom: 1px solid var(--ux-hair); vertical-align: top; color: var(--ux-ink); }
+html.ux-v1[data-site="anime"] .anime-o2-credit { width: 0; padding: 0; }
+html.ux-v1[data-site="anime"] .anime-o2-openings-play { margin: 16px 0 0; }
+
+/* The facts list. */
+html.ux-v1[data-site="anime"] .anime-o2-fact-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+html.ux-v1[data-site="anime"] .anime-o2-fact-list li { display: grid; gap: 2px; padding: 12px 14px; border: 1px solid var(--ux-line); border-radius: var(--anime-o2-radius); background: var(--ux-raised); }
+html.ux-v1[data-site="anime"] .anime-o2-fact-list small { font-size: 12px; color: var(--ux-muted); }
+html.ux-v1[data-site="anime"] .anime-o2-fact-list a { color: var(--ux-pink-ink); }
+
+@media (max-width: 640px) {
+  html.ux-v1[data-site="anime"] .anime-o2-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  html.ux-v1[data-site="anime"] .anime-o2-table tr { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 12px; padding: 8px 0; border-bottom: 1px solid var(--ux-hair); }
+  html.ux-v1[data-site="anime"] .anime-o2-table td { border: 0; padding: 2px 10px; }
+  html.ux-v1[data-site="anime"] .anime-o2-table td::before { content: attr(data-label); display: block; font-size: 11px; color: var(--ux-muted); text-transform: uppercase; }
+  html.ux-v1[data-site="anime"] .anime-o2-table td:first-child { grid-column: 1 / -1; font-weight: 600; }
+  html.ux-v1[data-site="anime"] .anime-o2-credit { display: none; }
+  html.ux-v1[data-site="anime"] .anime-o2-arc-quizzes { margin-left: 0; }
+}
+
+/* Series art (lane O2): one colour, one pattern and the title of a series, in place of the grey initials and the empty cover
+   blocks. The art is an SVG that fills the box it is put in; the boxes below give it its shape. A name is never cut with an
+   ellipsis: it wraps (a title clamps only beyond four lines). */
+html.ux-v1[data-site="anime"] .anime-o2-art { display: block; width: 100%; height: 100%; }
+html.ux-v1[data-site="anime"] .anime-o2-art-text { font-family: var(--ux-font-display, inherit); font-weight: 800; letter-spacing: 0; }
+
+/* The quiz card: the art strip over the type and the title. */
+html.ux-v1[data-site="anime"] .anime-o2-art-cov { aspect-ratio: 320 / 104; }
+html.ux-v1[data-site="anime"] .anime-o2-art-strip { display: block; width: 100%; height: 100%; }
+html.ux-v1[data-site="anime"] .anime-o2-art-sq { display: none; width: 100%; height: 100%; }
+html.ux-v1[data-site="anime"] .anime-o2-art-type { display: flex; align-items: center; gap: 6px; }
+html.ux-v1[data-site="anime"] .anime-o2-art-type svg { flex: 0 0 auto; width: 16px; height: 16px; }
+html.ux-v1[data-site="anime"] .anime-o2-art-name { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; -webkit-line-clamp: 4; line-clamp: 4; }
+
+/* Rails and rows. */
+html.ux-v1[data-site="anime"] .anime-o2-art-item { width: 140px; }
+html.ux-v1[data-site="anime"] .anime-o2-art-item .anime-o2-art-name { text-wrap: balance; }
+html.ux-v1[data-site="anime"] .anime-o2-art-thumb { display: block; flex: 0 0 auto; width: 56px; height: 56px; border-radius: 12px; overflow: hidden; }
+html.ux-v1[data-site="anime"] .anime-o2-art-row { display: block; flex: 0 0 auto; width: 44px; height: 44px; border-radius: 12px; overflow: hidden; }
+html.ux-v1[data-site="anime"] .anime-o2-art-meta { white-space: normal; overflow: visible; text-overflow: clip; }
+html.ux-v1[data-site="anime"] .anime-o2-art-pill { display: inline-flex; align-items: center; gap: 8px; padding: 4px 14px 4px 4px; border: 1px solid var(--ux-line); border-radius: 999px; background: var(--ux-raised); color: var(--ux-ink); font-size: 14px; font-weight: 600; }
+html.ux-v1[data-site="anime"] .anime-o2-art-pill:hover { border-color: var(--ux-pink-line); }
+html.ux-v1[data-site="anime"] .anime-o2-art-pill-av { display: block; flex: 0 0 auto; width: 28px; height: 28px; border-radius: 50%; overflow: hidden; }
+html.ux-v1[data-site="anime"] .anime-o2-art-pill-name { min-width: 0; overflow-wrap: anywhere; }
+
+/* The free photo of a series (run O1, IMG), where the art shows a photo: the picture alone, cropped to its box, nothing written over it.
+   A square (avatar) and the header photo (16:10) take their height from their width, because a grid circle or a shrink-to-fit
+   column gives a percentage height no base; the quiz card cover is a box of its own, so the photo is pinned to it. */
+html.ux-v1[data-site="anime"] .anime-o2-photo { position: relative; display: block; overflow: hidden; }
+html.ux-v1[data-site="anime"] .anime-o2-photo-img { object-fit: cover; object-position: center 35%; }
+html.ux-v1[data-site="anime"] .anime-o2-photo.anime-o2-art-avatar { height: auto; aspect-ratio: 1; }
+html.ux-v1[data-site="anime"] .anime-o2-photo.anime-o2-art-hub { width: 100%; min-width: 260px; height: auto; aspect-ratio: 16 / 10; }
+html.ux-v1[data-site="anime"] .anime-o2-art-cov .anime-o2-photo { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; }
+html.ux-v1[data-site="anime"] .anime-o2-photo-credit { margin: 8px 0 0; font-size: 12px; line-height: 1.4; color: var(--ux-muted); }
+html.ux-v1[data-site="anime"] .anime-o2-photo-credit a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+html.ux-v1[data-site="anime"] .anime-o2-photo-stack { display: flex; flex-direction: column; align-items: center; }
+
+/* /credits (run O1, IMG): one row per photo, the picture small beside its source, author, licence and date. */
+html.ux-v1[data-site="anime"] .anime-o2-credits-lede { margin: 12px 0 24px; font-size: 15px; line-height: 1.55; color: var(--ux-muted); }
+html.ux-v1[data-site="anime"] .anime-o2-credits-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+html.ux-v1[data-site="anime"] .anime-o2-credits-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px; border: 1px solid var(--ux-line); border-radius: var(--anime-o2-radius); background: var(--ux-raised); }
+html.ux-v1[data-site="anime"] .anime-o2-credits-thumb { position: relative; display: block; flex: 0 0 auto; width: 72px; height: 96px; border-radius: 10px; overflow: hidden; }
+html.ux-v1[data-site="anime"] .anime-o2-credits-text { min-width: 0; display: grid; gap: 4px; font-size: 15px; line-height: 1.45; color: var(--ux-ink); overflow-wrap: anywhere; }
+html.ux-v1[data-site="anime"] .anime-o2-credits-text p { margin: 0; }
+html.ux-v1[data-site="anime"] .anime-o2-credits-name { margin: 0; font-size: 16px; font-weight: 600; }
+html.ux-v1[data-site="anime"] .anime-o2-credits-text a { color: var(--ux-pink-ink); }
+html.ux-v1[data-site="anime"] .anime-o2-credits-meta { font-size: 13px; color: var(--ux-muted); }
+
+/* The character tiles: the name wraps under its monogram. */
+html.ux-v1[data-site="anime"] .anime-o2-tile { width: 104px; }
+html.ux-v1[data-site="anime"] .anime-o2-tile > span:last-child { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; }
+
+@media (max-width: 760px) {
+  /* The stacked phone list keeps the cover a 96 px square: the avatar form of the art replaces the strip. */
+  html.ux-v1[data-site="anime"] .anime-o2-art-stack .anime-o2-art-cov { aspect-ratio: 1; }
+  html.ux-v1[data-site="anime"] .anime-o2-art-stack .anime-o2-art-strip { display: none; }
+  html.ux-v1[data-site="anime"] .anime-o2-art-stack .anime-o2-art-sq { display: block; }
+}
+
+/* Manhwa: the label of a Korean webtoon on a series card or list row, and the line that says the anime adapts it. */
+html.ux-v1[data-site="anime"] .anime-o2-kind { display: inline-block; margin-right: 6px; padding: 1px 8px; border: 1px solid var(--ux-line); border-radius: 999px; background: var(--ux-raised); color: var(--ux-pink-ink); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; line-height: 1.5; vertical-align: baseline; }
+html.ux-v1[data-site="anime"] .anime-o2-adapts { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ux-ink); }

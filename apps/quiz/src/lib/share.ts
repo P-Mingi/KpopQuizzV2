@@ -1,5 +1,7 @@
 import { REDDIT_SUBREDDIT } from '@kpopquiz/shared/social-links';
 
+import { SITE } from '@/lib/site/registry';
+
 /** Generate a tracked share link via the API. Returns the share code. */
 async function getShareCode(quizId: string, platform: string): Promise<string | null> {
   try {
@@ -36,9 +38,9 @@ async function getShareUrl(quizId: string, slug: string, platform: string): Prom
 export type SharePlatform = 'native' | 'copy' | 'twitter' | 'reddit' | 'discord';
 
 export async function sharePassport(username: string, platform: SharePlatform): Promise<'shared' | 'copied' | 'opened' | 'failed'> {
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://kpopquiz.org';
+  const origin = typeof window !== 'undefined' ? window.location.origin : SITE.url;
   const link = (src: string) => `${origin}/u/${username}?utm_source=${src}&utm_medium=passport-card`;
-  const text = 'My K-pop passport on kpopquiz.org';
+  const text = `My K-pop passport on ${SITE.domain}`;
 
   if (platform === 'twitter') {
     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(link('twitter'))}`, '_blank', 'noopener');
@@ -83,9 +85,9 @@ export async function downloadPassportCard(username: string): Promise<boolean> {
 }
 
 export async function shareLevelUp(title: string, level: number): Promise<'shared' | 'copied' | 'failed'> {
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://kpopquiz.org';
+  const origin = typeof window !== 'undefined' ? window.location.origin : SITE.url;
   const url = `${origin}/?utm_source=levelup&utm_medium=social&utm_campaign=level_up`;
-  const text = `I reached ${title} (Level ${level}) on kpopquiz.org`;
+  const text = `I reached ${title} (Level ${level}) on ${SITE.domain}`;
   if (typeof navigator !== 'undefined' && navigator.share) {
     try {
       await navigator.share({ title: 'Level up!', text, url });
@@ -112,7 +114,7 @@ export async function shareToReddit(_quizId: string, slug: string, quizTitle: st
   // clean canonical /q/<slug> URL so Reddit fetches the OG image directly
   // and renders the link post with the big card. We lose Reddit-attributed
   // share tracking - acceptable trade-off for the rich preview.
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://kpopquiz.org';
+  const origin = typeof window !== 'undefined' ? window.location.origin : SITE.url;
   const shareUrl = `${origin}/q/${slug}`;
   const shareText = quizTitle;
 
@@ -126,7 +128,7 @@ export async function shareToReddit(_quizId: string, slug: string, quizTitle: st
 export async function shareToTwitter(quizId: string, slug: string, quizTitle: string, score?: string) {
   const shareUrl = await getShareUrl(quizId, slug, 'twitter');
   const scoreText = score ? `I got ${score} on "${quizTitle}"` : `Check out "${quizTitle}"`;
-  const shareText = `${scoreText} on KpopQuiz - can you beat me?`;
+  const shareText = `${scoreText} on ${SITE.brand.name} - can you beat me?`;
 
   window.open(
     `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,

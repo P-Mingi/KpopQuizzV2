@@ -7,6 +7,10 @@ import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
 import { onQuizChanged } from '@/lib/seo/quiz-freshness';
 import { validateQuestions } from '@/lib/quiz-validation';
 import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
+import { awardXpForSite } from '@/lib/passport/xp';
+import { insertQuizForSite } from '@/lib/quiz/site-insert';
+import { SITE_ID } from '@/lib/site/registry';
+import { forSite, withSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -95,13 +99,18 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   if (typeof input.group_id === 'number') {
     groupId = input.group_id;
+    // Run O1: a build that is not kpop only files a quiz under a group of its own site (kpop: unchanged).
+    if (SITE_ID !== 'kpop') {
+      const { data: ownGroup } = await forSite(supabase.from('groups').select('id').eq('id', groupId)).maybeSingle();
+      if (!ownGroup) return NextResponse.json({ error: 'Unknown group' }, { status: 400 });
+    }
   } else {
     const groupName = (input.group_name as string).trim();
 
     // Check if group already exists (case-insensitive)
-    const { data: existingGroup } = await supabase
+    const { data: existingGroup } = await forSite(supabase
       .from('groups')
-      .select('id')
+      .select('id'))
       .ilike('name', groupName)
       .maybeSingle();
 
@@ -144,7 +153,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
       const { data: newGroup, error: groupError } = await supabase
         .from('groups')
-        .insert({
+        .insert(withSite({
           name: groupName,
           slug: groupSlug,
           fandom_name: 'fan',
@@ -153,7 +162,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           is_custom: true,
           needs_review: true,
           created_by_user: true,
-        })
+        }))
         .select('id')
         .single();
 
@@ -232,22 +241,24 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   if (cleanNote) settings.creator_note = cleanNote; else delete settings.creator_note;
 
   const admin = createServiceRoleClient();
-  const { data: quizResult, error: quizError } = await admin
-    .rpc('create_quiz_bypass', {
-      p_data: {
-        creator_id: user.id,
-        group_id: groupId,
-        title,
-        slug,
-        quiz_type: input.quiz_type as string,
-        difficulty: (input.difficulty as string) || 'medium',
-        language: (input.language as string) || 'en',
-        questions: input.questions,
-        settings,
-        question_count: (input.questions as unknown[]).length,
-        cover_image_url: manualCoverUrl,
-      },
-    });
+  const quizData = {
+    creator_id: user.id,
+    group_id: groupId,
+    title,
+    slug,
+    quiz_type: input.quiz_type as string,
+    difficulty: (input.difficulty as string) || 'medium',
+    language: (input.language as string) || 'en',
+    questions: input.questions,
+    settings,
+    question_count: (input.questions as unknown[]).length,
+    cover_image_url: manualCoverUrl,
+  };
+  // Run O1: kpop keeps the rpc as it is; another site inserts the row itself, with its site_id and its spoiler level
+  // (the rpc cannot name a site, and trg_quizzes_site_guard compares the quiz's site with the group's).
+  const { data: quizResult, error: quizError } = SITE_ID === 'kpop'
+    ? await admin.rpc('create_quiz_bypass', { p_data: quizData })
+    : await insertQuizForSite(admin, SITE_ID, quizData);
 
   if (quizError) {
     console.error('Failed to create quiz:', quizError);
@@ -289,12 +300,12 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     (input.quiz_type === 'image' || input.quiz_type === 'intruder') &&
     JSON.stringify(input.questions ?? []).includes('/quiz-images/');
   if (coverIsUserUpload || questionsHaveUserImage) {
-    const { error: modError } = await supabase.from('reports').insert({
+    const { error: modError } = await supabase.from('reports').insert(withSite({
       quiz_id: quiz.id,
       reporter_id: null,
       reason: 'other',
       details: '[Auto] User-uploaded image(s) queued for moderation review.',
-    });
+    }));
     if (modError) console.error('Image moderation queue insert failed:', modError.message);
   }
 
@@ -321,12 +332,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const xpAmount = isFirst ? 75 : 25; // 25 base + 50 first-time bonus
     // award_xp is server-only post-revoke - service role bypasses the grant
     // check. xpAmount is computed here from validated DB state, never trusted
-    // from the client.
-    await admin.rpc('award_xp', {
-      p_user_id: user.id,
-      p_amount: xpAmount,
-      p_reason: 'create',
-    });
+    // from the client. Run O1: kpop calls award_xp with these very arguments,
+    // another site adds to its own world_memberships.xp (award_world_xp).
+    await awardXpForSite(SITE_ID, user.id, xpAmount, 'create', admin);
   } catch (err) {
     // XP award is non-critical, don't fail the request
     console.error('Failed to award XP:', err);

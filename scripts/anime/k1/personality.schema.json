@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "personality.schema.json",
+  "title": "Run O1, lane PERS: the personality quiz of one series, Which character are you (docs/anime/data/personality/<series-slug>.json)",
+  "description": "One file per series. It holds the eight questions the engine asks (lib/personality, personality_questions) and one profile per character (personality_profiles). The loader writes the rows (scripts/anime/k1/data-load.mjs); the engine is the one of kpopquiz.org (six axes, nearest profile). Not part of docs/o1/contracts: the contract formats.md 8 describes one question set per site, this lane owner decided one quiz per series.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["site", "group_slug", "status", "spoiler", "questions", "profiles"],
+  "properties": {
+    "$comment": { "type": "string" },
+    "site": { "const": "anime" },
+    "group_slug": { "$ref": "common.schema.json#/$defs/slug" },
+    "status": {
+      "$comment": "published: the page exists (personality_profiles.active true) and the launch file L10 carries the set. draft: the rows are loaded inactive on a branch, the launch file leaves the set out unless it is made with --drafts.",
+      "enum": ["draft", "published"]
+    },
+    "spoiler": {
+      "$comment": "The quiz's arc: the page has no spoiler shield (TWINS row 14), so the arc is 0 and every character of the quiz is spoiler free. Check C5 reads it.",
+      "$ref": "common.schema.json#/$defs/spoiler"
+    },
+    "questions": {
+      "$comment": "Exactly the eight the page asks (lib/personality/parse.ts WMA_QUESTION_COUNT), four answers each, in the order of ord.",
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ord", "question", "options"],
+        "properties": {
+          "ord": { "type": "integer", "minimum": 1, "maximum": 8 },
+          "question": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 200 },
+          "options": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["text", "weights"],
+              "properties": {
+                "text": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 120 },
+                "weights": {
+                  "$comment": "The trait weights of an answer: a position 0 to 5 on one to three axes (lib/personality/engine.ts WEIGHT_SCALE; check C1 holds it to three). 0 is the low end of the axis, a real answer, never 'no weight'.",
+                  "type": "object",
+                  "minProperties": 1,
+                  "additionalProperties": false,
+                  "properties": {
+                    "energy": { "$ref": "#/$defs/weight" }, "chaos": { "$ref": "#/$defs/weight" }, "care": { "$ref": "#/$defs/weight" },
+                    "craft": { "$ref": "#/$defs/weight" }, "heart": { "$ref": "#/$defs/weight" }, "spotlight": { "$ref": "#/$defs/weight" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "profiles": {
+      "$comment": "One per character of D/series/<slug>.json. The route opens at 6 profiles.",
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["character_slug", "traits", "profile", "ord"],
+        "properties": {
+          "character_slug": { "$ref": "common.schema.json#/$defs/slug" },
+          "traits": {
+            "$comment": "Where the character sits on the six axes, 0 to 100 (personality_profiles.axes). All six.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["energy", "chaos", "care", "craft", "heart", "spotlight"],
+            "properties": {
+              "energy": { "$ref": "#/$defs/position" }, "chaos": { "$ref": "#/$defs/position" }, "care": { "$ref": "#/$defs/position" },
+              "craft": { "$ref": "#/$defs/position" }, "heart": { "$ref": "#/$defs/position" }, "spotlight": { "$ref": "#/$defs/position" }
+            }
+          },
+          "profile": {
+            "$comment": "The profile text, written by us: two to four lines, each about the reader (You ...), never a copy of a source (personality_profiles.trait_lines; the page joins them with a space).",
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 4,
+            "items": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 140 }
+          },
+          "ord": { "type": "integer", "minimum": 1, "maximum": 100 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "weight": { "type": "number", "minimum": 0, "maximum": 5 },
+    "position": { "type": "number", "minimum": 0, "maximum": 100 }
+  }
+}

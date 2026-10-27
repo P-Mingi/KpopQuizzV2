@@ -1,0 +1,219 @@
+{
+  "site": "anime",
+  "account": "oq_creator_07",
+  "group_slug": "attack-on-titan",
+  "title": "Attack on Titan Credits: Directors, Studios and Songs",
+  "slug": "attack-on-titan-credits-directors-studios-songs",
+  "description": "The directors, the bands and the numbers behind the broadcast. For the viewers who read the credits.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who directed the first three seasons of Attack on Titan?",
+      "options": [
+        "Yuichiro Hayashi",
+        "Sunghoo Park",
+        "Tetsuro Araki",
+        "Haruo Sotozaki"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "attack-on-titan-series-directors-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "question": "Who directed the fourth season?",
+      "options": [
+        "Tetsuro Araki",
+        "Yuichiro Hayashi",
+        "Shota Goshozono",
+        "Hayato Date"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "attack-on-titan-series-directors-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "question": "Which group performed the first two openings, Guren no Yumiya and Jiyu no Tsubasa?",
+      "options": [
+        "SiM",
+        "Cinema Staff",
+        "Linked Horizon",
+        "Shinsei Kamattechan"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "attack-on-titan-opening-themes-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "question": "Who performed the third season opening Red Swan?",
+      "options": [
+        "Linked Horizon",
+        "SiM",
+        "Yoko Hikasa",
+        "Yoshiki feat. Hyde"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "attack-on-titan-opening-themes-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "question": "Which band performed The Rumbling, an opening of season 4?",
+      "options": [
+        "Cinema Staff",
+        "Linked Horizon",
+        "Shinsei Kamattechan",
+        "SiM"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "attack-on-titan-opening-themes-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "question": "Which band performed both the opening My War and the ending Yuugure no Tori?",
+      "options": [
+        "Cinema Staff",
+        "SiM",
+        "Linked Horizon",
+        "Shinsei Kamattechan"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "attack-on-titan-opening-themes-008",
+        "attack-on-titan-ending-themes-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "question": "Who performed the very first ending, Utsukushiki Zankoku na Sekai?",
+      "options": [
+        "Yuko Ando",
+        "Ai Higuchi",
+        "Yoko Hikasa",
+        "Cinema Staff"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "attack-on-titan-ending-themes-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "question": "Which band performed the season 3 ending Name of Love?",
+      "options": [
+        "SiM",
+        "Cinema Staff",
+        "Shinsei Kamattechan",
+        "Linked Horizon"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "attack-on-titan-ending-themes-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "question": "The show once held a Guinness record for what?",
+      "options": [
+        "Demand among anime series",
+        "Longest opening song",
+        "Most episodes in a season",
+        "Largest studio crew"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "attack-on-titan-guinness-record-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "question": "The first print of volume 12 topped how many million copies?",
+      "options": [
+        "2.2",
+        "0.8",
+        "1.5",
+        "5"
+      ],
+      "correct": 0,
+      "fun_fact": "Only two other manga have matched that first print.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "attack-on-titan-volume-twelve-print-run-022"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Attack on Titan (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Attack on Titan",
+      "url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    }
+  ],
+  "notes": "All facts at arc 0, no character named. K1 rewrite: blocked question rewritten on verified fact 009."
+}

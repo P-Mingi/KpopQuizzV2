@@ -1,0 +1,1 @@
+check:sitemap-hygiene hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a hub loc would be fetched from the internet; its floor, hubs and articles are kpop's): not meaningful on hub

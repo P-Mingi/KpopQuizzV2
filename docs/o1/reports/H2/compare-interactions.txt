@@ -1,0 +1,13 @@
+hot-filter-kpop	hot	design 1120x429	page 1120x429	differing pixels 0.01%
+hot-filter-anime	hot	design 1120x433	page 1120x433	differing pixels 0.00%
+hot-filter-kpop-phone	hot	design 390x785	page 390x785	differing pixels 0.10%
+hot-filter-anime-phone	hot	design 390x804	page 390x804	differing pixels 0.12%
+question-right	quick	design 1120x575	page 1120x575	differing pixels 0.00%
+question-wrong	quick	design 1120x575	page 1120x575	differing pixels 0.00%
+question-again	quick	design 1120x419	page 1120x419	differing pixels 0.00%
+question-wrong-phone	quick	design 390x732	page 390x732	differing pixels 0.00%
+question-right-phone	quick	design 390x732	page 390x732	differing pixels 0.00%
+surprise	hero	design 1120x865	page 1120x865	differing pixels 0.50%
+surprise-another	hero	design 1120x865	page 1120x865	differing pixels 0.46%
+player-paused	today	design 1120x362	page 1120x362	differing pixels 0.00%
+player-done	today	design 1120x364	page 1120x364	differing pixels 0.00%

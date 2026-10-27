@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "creator-profile.schema.json",
+  "title": "Run O1: a Team account of OtakuQuiz (K2's 30 creators and the OtakuQuiz Team system account, formats.md 6)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["site", "kind", "username", "display_name", "bio", "beat", "groups", "style", "avatar", "header"],
+  "properties": {
+    "site": { "const": "anime" },
+    "kind": { "$comment": "series: a series-dedicated creator; theme: a theme creator; system: the OtakuQuiz Team account.", "enum": ["series", "theme", "system"] },
+    "username": { "$ref": "common.schema.json#/$defs/username" },
+    "display_name": { "$comment": "editorial_accounts and profiles: at most 40.", "$ref": "common.schema.json#/$defs/plainText", "maxLength": 40 },
+    "bio": { "$comment": "world_memberships.bio and profiles.bio: at most 160.", "$ref": "common.schema.json#/$defs/plainText", "maxLength": 160 },
+    "beat": { "$comment": "editorial_accounts.beat: at most 80.", "$ref": "common.schema.json#/$defs/plainText", "maxLength": 80 },
+    "groups": { "$comment": "The series the account writes about (group slugs).", "type": "array", "maxItems": 30, "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/slug" } },
+    "style": {
+      "$comment": "The writing style card the drafts follow.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["voice", "do", "dont"],
+      "properties": {
+        "voice": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 280 },
+        "do": { "type": "array", "minItems": 1, "maxItems": 6, "items": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 120 } },
+        "dont": { "type": "array", "minItems": 1, "maxItems": 6, "items": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 120 } }
+      }
+    },
+    "avatar": { "$ref": "common.schema.json#/$defs/creatorAsset", "pattern": "-avatar\\.svg$" },
+    "header": { "$ref": "common.schema.json#/$defs/creatorAsset", "pattern": "-header\\.svg$" }
+  },
+  "allOf": [
+    { "if": { "properties": { "kind": { "const": "series" } } }, "then": { "properties": { "groups": { "minItems": 1, "maxItems": 3 } } } },
+    { "if": { "properties": { "kind": { "const": "system" } } }, "then": { "properties": { "username": { "const": "otakuquiz_team" }, "groups": { "maxItems": 0 } } } },
+    { "if": { "properties": { "kind": { "enum": ["series", "theme"] } } }, "then": { "properties": { "username": { "not": { "const": "otakuquiz_team" } } } } }
+  ]
+}

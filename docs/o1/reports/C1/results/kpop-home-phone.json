@@ -1,0 +1,14 @@
+{
+ "findings": [
+  {
+   "page": "home",
+   "viewport": "phone",
+   "kind": "dead-link",
+   "detail": "/bts-quiz 404 ; /blackpink-quiz 404 ; /stray-kids-quiz 404 ; /ateez-quiz 404 ; /twice-quiz 404 ; /aespa-quiz 404 ; /newjeans-quiz 404 ; /seventeen-quiz 404",
+   "blocking": false
+  }
+ ],
+ "note": [
+  "tab stops: a:Skip to content > a:KpopQuiz home > a:Search > button:Sign in > a:Browse K-pop quizzes > a:Create a quiz > a:see where you rank > a:Play the daily > a:All blindtest modes > a:Open community > a:Kpop Quiz on Discord > a:Today's quiz is in the D > a:KpopQuiz home > a:Daily quiz"
+ ]
+}

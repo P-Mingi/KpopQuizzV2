@@ -18,12 +18,15 @@ import { getNameAllSet, getNameAllStats } from '@/lib/name-all/server';
 import { prettyPath } from '@/lib/name-all/round';
 import { isNameAllGroup } from '@/lib/name-all/spellings';
 import { getMemberCounts, getWmaGroupSlugs } from '@/lib/personality/data';
-import { MIN_RESULTS_FOR_SHARES, whichMemberPath } from '@/lib/personality/view';
+import { whichPath } from '@/lib/personality/series';
+import { MIN_RESULTS_FOR_SHARES } from '@/lib/personality/view';
 import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { isMissingTable } from '@/lib/ux-v1/p8/features';
 
 import { NUDGE_DAYS, hubState, resultsTotal } from './growth';
 import { isCategoryGroup } from './model';
+import { SITE_ID } from '@/lib/site/registry';
+import { forSite } from '@/lib/site/scope';
 
 import type { FansPickedResponse } from '@/lib/duel/types';
 import type { WaysInput } from './growth';
@@ -59,9 +62,9 @@ const readRecentPlays = unstable_cache(
 const readBtPlays = unstable_cache(
   async (slug: string): Promise<number | null> => {
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) return null;
-    const { count, error, status } = await createServiceRoleClient()
+    const { count, error, status } = await forSite(createServiceRoleClient()
       .from('bt_runs')
-      .select('id', { count: 'exact', head: true })
+      .select('id', { count: 'exact', head: true }))
       .eq('playlist', `group:${slug}`)
       .eq('is_test', false)
       .not('finished_at', 'is', null);
@@ -88,9 +91,9 @@ interface FirstRow {
 /** The creator of the group's oldest published quiz (id kept server side only),
  *  leaving out the creators in `notIds` (editorial accounts) when given. */
 async function readFirst(groupId: number, notIds: readonly string[] | null): Promise<{ id: string; username: string } | null> {
-  let q = createPublicReadClient()
+  let q = forSite(createPublicReadClient()
     .from('quizzes')
-    .select('creator_id, profiles!inner(username, banned_at)')
+    .select('creator_id, profiles!quizzes_creator_id_fkey!inner(username, banned_at)'))
     .eq('status', 'published')
     .eq('group_id', groupId);
   if (notIds && notIds.length) q = q.not('creator_id', 'in', pgList(notIds));
@@ -164,7 +167,8 @@ export async function getHubGrowth(g: { id: number; slug: string; name: string }
       quizzes: published,
       songs,
       nameAll: set ? { href: prettyPath(g.slug), members: set.members.length, perfectPct: stats?.perfectPct ?? null } : null,
-      whichMember: hasWma ? { href: whichMemberPath(g.slug), results: resultsTotal(counts, MIN_RESULTS_FOR_SHARES) } : null,
+      // Anime build: the pretty URL of Which character are you (lane PERS). Kpop keeps /which-<group>-member-are-you.
+      whichMember: hasWma ? { href: whichPath(SITE_ID, g.slug), results: resultsTotal(counts, MIN_RESULTS_FOR_SHARES) } : null,
       thisOrThat: ranked ? { votes: fansPicked?.votes ?? null } : null,
       live,
     },

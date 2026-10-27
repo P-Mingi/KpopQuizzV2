@@ -1,0 +1,5 @@
+{
+  "target": "data/series/death-note.json",
+  "fails": ["C4"],
+  "note": "a series header value no fact backs"
+}

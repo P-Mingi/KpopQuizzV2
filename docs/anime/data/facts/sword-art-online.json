@@ -1,0 +1,2846 @@
+[
+  {
+    "id": "sword-art-online-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "title_native",
+    "value": "ソードアート・オンライン (Sōdo Āto Onrain)",
+    "text": "The Japanese title is written ソードアート・オンライン in katakana, read Sōdo Āto Onrain.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "ソードアート・オンライン (Sōdo Āto Onrain)"
+  },
+  {
+    "id": "sword-art-online-novel-creators-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "author",
+    "value": [
+      "Reki Kawahara",
+      "abec"
+    ],
+    "text": "Reki Kawahara writes the Sword Art Online novels and abec draws their illustrations.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q27863",
+        "ref": "Q27863",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "\"Reki Kawahara\" wrote the series; \"abec\" provides illustrations for light novels"
+  },
+  {
+    "id": "sword-art-online-novel-start-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "novel_run",
+    "value": [
+      "Dengeki Bunko",
+      "April 10, 2009"
+    ],
+    "text": "The light novels began in print on April 10, 2009, under the Dengeki Bunko imprint of ASCII Media Works.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q27863",
+        "ref": "Q27863",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "April 10, 2009 via ASCII Media Works' Dengeki Bunko imprint"
+  },
+  {
+    "id": "sword-art-online-novel-volumes-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "volumes",
+    "value": [
+      "29 volumes",
+      "as of April 10, 2026"
+    ],
+    "text": "As of April 10, 2026, the main light novel series stands at 29 volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q27863",
+        "ref": "Q27863",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "29 volumes have been published as of April 10, 2026"
+  },
+  {
+    "id": "sword-art-online-web-novel-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "novel_history",
+    "value": "Fumio Kunori",
+    "text": "Before it was a printed series, Kawahara shared the story online as a web novel under the pen name Fumio Kunori.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "published it as a web novel under the pseudonym Fumio Kunori"
+  },
+  {
+    "id": "sword-art-online-accel-world-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "inspiration",
+    "value": "Accel World",
+    "text": "Kawahara's later work Accel World won the Grand Prize of the Dengeki competition, which led the publisher to ask him to publish Sword Art Online as well.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "participated in the competition again by writing Accel World, this time winning the Grand Prize"
+  },
+  {
+    "id": "sword-art-online-premise-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "premise",
+    "value": "A full-dive game with no logout",
+    "text": "Players of a full-dive virtual reality game discover they cannot log out, and the only way home is to clear the game.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "unable to log out"
+  },
+  {
+    "id": "sword-art-online-nervegear-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "terms",
+    "value": "NerveGear",
+    "text": "The NerveGear is a helmet that feeds the five senses to the brain, so players can control their game characters with their minds.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "a helmet that stimulates the user's five senses via their brain"
+  },
+  {
+    "id": "sword-art-online-first-day-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "background",
+    "value": [
+      "10,000 players",
+      "November 6"
+    ],
+    "text": "On the first day, 10,000 players enter the game and find they cannot log out.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "On November 6, 10,000 players log into SAO's mainframe cyberspace for the first time"
+  },
+  {
+    "id": "sword-art-online-floors-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "mission",
+    "value": "100 floors",
+    "text": "To go free, the players have to beat all 100 floors of the floating castle Aincrad.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "beat all 100 floors of Aincrad"
+  },
+  {
+    "id": "sword-art-online-death-rule-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "notebook_rule",
+    "value": "Death in the game means death in life",
+    "text": "The rule of the game is that a player who dies in it, or who has the NerveGear forcibly removed, dies in real life too.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "those who suffer in-game deaths or forcibly remove the NerveGear out-of-game will suffer real-life deaths"
+  },
+  {
+    "id": "sword-art-online-still-trapped-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "record",
+    "value": "300 players",
+    "text": "After the game is cleared, 300 players, Asuna among them, are still stuck inside their NerveGear.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Kazuto discovers that 300 SAO players, including Asuna, remain trapped in their NerveGear"
+  },
+  {
+    "id": "sword-art-online-alfheim-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "arc_2",
+    "value": "Alfheim Online",
+    "text": "Agil tells Kirito that a figure like Asuna was spotted on the World Tree of the game Alfheim Online.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "a figure similar to Asuna was spotted on \"The World Tree\" in another VRMMORPG cyberspace called Alfheim Online"
+  },
+  {
+    "id": "sword-art-online-gun-gale-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "arc_3",
+    "value": "Gun Gale Online",
+    "text": "In Gun Gale Online, Kirito looks into a string of murders and takes part in a gunfight tournament named Bullet of Bullets.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "investigate a series of murders involving another VRMMORPG called Gun Gale Online ... Bullet of Bullets (BoB)"
+  },
+  {
+    "id": "sword-art-online-soul-translator-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "arc_late",
+    "value": [
+      "Soul Translator",
+      "a thousand times faster"
+    ],
+    "text": "The Soul Translator lets Kirito enter the Underworld, where the clock runs a thousand times faster than outside.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "In the UW, the flow of time proceeds a thousand times faster than in the real world"
+  },
+  {
+    "id": "sword-art-online-anime-studio-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "anime_studio",
+    "value": "A-1 Pictures",
+    "text": "A-1 Pictures is the studio behind the Sword Art Online anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://swordart-online.net/aincrad/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Studio: A-1 Pictures"
+  },
+  {
+    "id": "sword-art-online-anime-directors-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "anime_directors",
+    "value": [
+      "Tomohiko Itō",
+      "Manabu Ono"
+    ],
+    "text": "Tomohiko Itō directed the first two seasons of the anime, and Manabu Ono directed the Alicization seasons.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q63348493",
+        "ref": "Q63348493",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Director: Tomohiko Itō (seasons 1 and 2); Manabu Ono (Alicization, War of Underworld)"
+  },
+  {
+    "id": "sword-art-online-anime-composer-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "composer",
+    "value": "Yuki Kajiura",
+    "text": "Yuki Kajiura composed the music of the Sword Art Online anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q63348493",
+        "ref": "Q63348493",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Composer: Yuki Kajiura"
+  },
+  {
+    "id": "sword-art-online-anime-premiere-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "anime_start",
+    "value": "July 2012",
+    "text": "The Sword Art Online anime premiered in July 2012.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q63348493",
+        "ref": "Q63348493",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Broadcast: July 2012"
+  },
+  {
+    "id": "sword-art-online-anime-total-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "anime_total",
+    "value": "96 episodes",
+    "text": "Counting every arc, the television anime reaches 96 episodes, plus specials.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q63348493",
+        "ref": "Q63348493",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "\"96 + SP\" episodes across three seasons"
+  },
+  {
+    "id": "sword-art-online-ordinal-scale-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "film",
+    "value": [
+      "February 18, 2017",
+      "Tomohiko Itō",
+      "A-1 Pictures"
+    ],
+    "text": "The film Sword Art Online: Ordinal Scale, directed by Tomohiko Itō at A-1 Pictures, opened in Japan on February 18, 2017.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q24238538",
+        "ref": "Q24238538",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Ordinal Scale premiered in Japan and Southeast Asia on February 18, 2017"
+  },
+  {
+    "id": "sword-art-online-progressive-aria-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "films",
+    "value": [
+      "Aria of a Starless Night",
+      "October 30, 2021"
+    ],
+    "text": "Sword Art Online Progressive: Aria of a Starless Night, the first Progressive film, opened in Japan on October 30, 2021.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q105424646",
+        "ref": "Q105424646",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Progressive: Aria of a Starless Night ... October 30, 2021"
+  },
+  {
+    "id": "sword-art-online-first-console-game-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "spin_offs",
+    "value": "Infinity Moment",
+    "text": "Sword Art Online: Infinity Moment was the first console game of the series, made for the PlayStation Portable.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The first Sword Art Online video game for consoles was Sword Art Online: Infinity Moment"
+  },
+  {
+    "id": "sword-art-online-first-western-game-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "spinoff",
+    "value": [
+      "Hollow Fragment",
+      "PlayStation Vita"
+    ],
+    "text": "Sword Art Online: Hollow Fragment, for the PlayStation Vita, was the first game of the series released outside Japan.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The first game released outside of Japan was Sword Art Online: Hollow Fragment"
+  },
+  {
+    "id": "sword-art-online-live-action-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "sword-art-online"
+    },
+    "field": "live_action",
+    "value": "Skydance Television",
+    "text": "Skydance Television bought the worldwide rights to make a live-action television version of the series.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+        "ref": "1380954173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Skydance Television announced that they had acquired the global rights to produce a live-action television adaptation"
+  },
+  {
+    "id": "sword-art-online-arc-run-026",
+    "site": "anime",
+    "entity": {
+      "kind": "arc",
+      "group_slug": "sword-art-online",
+      "ref": "1"
+    },
+    "field": "broadcast",
+    "value": [
+      "14 episodes",
+      "July to October 2012"
+    ],
+    "text": "Aincrad, the first arc, is 14 episodes long and aired from July to October 2012.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://swordart-online.net/aincrad/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Broadcast: July-October 2012; Episode Count: 14 episodes"
+  },
+  {
+    "id": "sword-art-online-arc-run-027",
+    "site": "anime",
+    "entity": {
+      "kind": "arc",
+      "group_slug": "sword-art-online",
+      "ref": "2"
+    },
+    "field": "broadcast",
+    "value": [
+      "11 episodes",
+      "October to December 2012"
+    ],
+    "text": "Fairy Dance has 11 episodes and aired from October to December 2012.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://swordart-online.net/fairy/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episode Count: 11 episodes (#15-#25); Broadcast Period: October-December 2012"
+  },
+  {
+    "id": "sword-art-online-arc-run-028",
+    "site": "anime",
+    "entity": {
+      "kind": "arc",
+      "group_slug": "sword-art-online",
+      "ref": "3"
+    },
+    "field": "broadcast",
+    "value": [
+      "14 episodes",
+      "July to October 2014"
+    ],
+    "text": "Phantom Bullet is 14 episodes long and aired from July to October 2014.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://swordart-online.net/phantom/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episode Count: 14 episodes; Broadcast Period: July-October 2014"
+  },
+  {
+    "id": "sword-art-online-arc-run-029",
+    "site": "anime",
+    "entity": {
+      "kind": "arc",
+      "group_slug": "sword-art-online",
+      "ref": "4"
+    },
+    "field": "broadcast",
+    "value": [
+      "3 episodes",
+      "October to November 2014"
+    ],
+    "text": "Calibur is the shortest arc, only 3 episodes, shown in October and November 2014.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 4,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://swordart-online.net/calibur/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episode Count: 3 episodes (#15-17); Broadcast Period: October-November 2014"
+  },
+  {
+    "id": "sword-art-online-arc-run-030",
+    "site": "anime",
+    "entity": {
+      "kind": "arc",
+      "group_slug": "sword-art-online",
+      "ref": "5"
+    },
+    "field": "broadcast",
+    "value": [
+      "7 episodes",
+      "November to December 2014"
+    ],
+    "text": "Mother's Rosario has 7 episodes and closes the second season in November and December 2014.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 5,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://swordart-online.net/mothers/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episode Count: 7 episodes (#18-24); Broadcast Period: November-December 2014"
+  },
+  {
+    "id": "sword-art-online-arc-run-031",
+    "site": "anime",
+    "entity": {
+      "kind": "arc",
+      "group_slug": "sword-art-online",
+      "ref": "6"
+    },
+    "field": "broadcast",
+    "value": [
+      "October 2018 to March 2019"
+    ],
+    "text": "Alicization aired from October 2018 to March 2019.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 6,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://swordart-online.net/alicization/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Broadcast Period: October 2018-March 2019"
+  },
+  {
+    "id": "sword-art-online-arc-run-032",
+    "site": "anime",
+    "entity": {
+      "kind": "arc",
+      "group_slug": "sword-art-online",
+      "ref": "7"
+    },
+    "field": "broadcast",
+    "value": [
+      "October to December 2019",
+      "July to October 2020"
+    ],
+    "text": "War of Underworld aired in two parts, in late 2019 and again in the summer of 2020.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 7,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://swordart-online.net/alicization-wou/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Broadcast Period: October 2019-December 2019, July 2020-October 2020"
+  },
+  {
+    "id": "sword-art-online-theme-op-033",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "op-1"
+    },
+    "field": "themes_s3",
+    "value": [
+      "Crossing Field",
+      "LiSA"
+    ],
+    "text": "The first opening of the anime is Crossing Field, sung by LiSA.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 1-14: \"Crossing Field\" (Lisa)"
+  },
+  {
+    "id": "sword-art-online-theme-op-034",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "op-2"
+    },
+    "field": "themes_s3",
+    "value": [
+      "Innocence",
+      "Eir Aoi"
+    ],
+    "text": "Fairy Dance opens with Innocence, performed by Eir Aoi.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 15-25: \"Innocence\" (Eir Aoi)"
+  },
+  {
+    "id": "sword-art-online-theme-op-035",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "op-3"
+    },
+    "field": "themes_s3",
+    "value": [
+      "Ignite",
+      "Eir Aoi"
+    ],
+    "text": "The second season begins with the opening Ignite, performed by Eir Aoi.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 1-13: \"Ignite\" (Eir Aoi)"
+  },
+  {
+    "id": "sword-art-online-theme-op-036",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "op-4"
+    },
+    "field": "themes_s3",
+    "value": [
+      "Courage",
+      "Haruka Tomatsu"
+    ],
+    "text": "The later part of the second season opens with Courage, by Haruka Tomatsu.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 14-24: \"Courage\" (Haruka Tomatsu)"
+  },
+  {
+    "id": "sword-art-online-theme-op-037",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "op-5"
+    },
+    "field": "themes_s3",
+    "value": [
+      "Adamas",
+      "LiSA"
+    ],
+    "text": "Adamas, by LiSA, opens the first half of Alicization.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 1-12: \"Adamas\" (Lisa)"
+  },
+  {
+    "id": "sword-art-online-theme-op-038",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "op-6"
+    },
+    "field": "themes_s3",
+    "value": [
+      "Resister",
+      "ASCA"
+    ],
+    "text": "Resister, by ASCA, opens the second half of Alicization.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 13-24: \"Resister\" (Asca)"
+  },
+  {
+    "id": "sword-art-online-theme-op-039",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "op-7"
+    },
+    "field": "themes_s3",
+    "value": [
+      "Resolution",
+      "Haruka Tomatsu"
+    ],
+    "text": "War of Underworld starts with the opening Resolution, performed by Haruka Tomatsu.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 1-11: \"Resolution\" (Haruka Tomatsu)"
+  },
+  {
+    "id": "sword-art-online-theme-op-040",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "op-8"
+    },
+    "field": "themes_s3",
+    "value": [
+      "Anima",
+      "Reona"
+    ],
+    "text": "Anima, by Reona, opens the later episodes of War of Underworld.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 12-23: \"Anima\" (Reona)"
+  },
+  {
+    "id": "sword-art-online-theme-ed-041",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "ed-1"
+    },
+    "field": "themes_s4",
+    "value": [
+      "Yume Sekai",
+      "Haruka Tomatsu"
+    ],
+    "text": "The first ending of the anime is Yume Sekai, sung by Haruka Tomatsu.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 1-14: \"Yume Sekai\" (Haruka Tomatsu)"
+  },
+  {
+    "id": "sword-art-online-theme-ed-042",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "ed-2"
+    },
+    "field": "themes_s4",
+    "value": [
+      "Overfly",
+      "Luna Haruna"
+    ],
+    "text": "Fairy Dance closes with Overfly, performed by Luna Haruna.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 15-25: \"Overfly\" (Luna Haruna)"
+  },
+  {
+    "id": "sword-art-online-theme-ed-043",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "ed-3"
+    },
+    "field": "themes_s4",
+    "value": [
+      "Startear",
+      "Luna Haruna"
+    ],
+    "text": "The second season first ends with Startear, performed by Luna Haruna.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 1-13: \"Startear\" (Luna Haruna)"
+  },
+  {
+    "id": "sword-art-online-theme-ed-044",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "ed-4"
+    },
+    "field": "themes_s4",
+    "value": [
+      "No More Time Machine",
+      "LiSA"
+    ],
+    "text": "No More Time Machine, by LiSA, closes the Calibur episodes.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 14-17: \"No More Time Machine\" (Lisa)"
+  },
+  {
+    "id": "sword-art-online-theme-ed-045",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "ed-5"
+    },
+    "field": "themes_s4",
+    "value": [
+      "Shirushi",
+      "LiSA"
+    ],
+    "text": "Shirushi, by LiSA, ends the episodes of Mother's Rosario.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 18-24: \"Shirushi\" (Lisa)"
+  },
+  {
+    "id": "sword-art-online-theme-ed-046",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "ed-6"
+    },
+    "field": "themes_s4",
+    "value": [
+      "Iris",
+      "Eir Aoi"
+    ],
+    "text": "Iris, performed by Eir Aoi, ends the first episodes of Alicization.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 1-12: \"Iris\" (Eir Aoi)"
+  },
+  {
+    "id": "sword-art-online-theme-ed-047",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "ed-7"
+    },
+    "field": "themes_s4",
+    "value": [
+      "Forget-me-not",
+      "Reona"
+    ],
+    "text": "Forget-me-not, by Reona, ends a long stretch of Alicization.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 13-18: \"Forget-me-not\" (Reona)"
+  },
+  {
+    "id": "sword-art-online-theme-ed-048",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "ed-8"
+    },
+    "field": "themes_s4",
+    "value": [
+      "Unlasting",
+      "LiSA"
+    ],
+    "text": "Unlasting, by LiSA, ends the last Alicization episodes and also the first War of Underworld ones.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 20-24: \"Unlasting\" (Lisa)"
+  },
+  {
+    "id": "sword-art-online-theme-ed-049",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "sword-art-online",
+      "ref": "ed-9"
+    },
+    "field": "themes_s4",
+    "value": [
+      "I will...",
+      "Eir Aoi"
+    ],
+    "text": "I will..., performed by Eir Aoi, closes the later episodes of War of Underworld.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sword_Art_Online_(TV_series)",
+        "ref": "1376900824",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 12-23: \"I will...\" (Eir Aoi)"
+  },
+  {
+    "id": "sword-art-online-character-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "kirito"
+    },
+    "field": "name",
+    "value": "Kirito (桐ヶ谷 和人)",
+    "text": "Kirito, real name Kazuto Kirigaya, is written 桐ヶ谷 和人 in Japanese and is the main character.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "he became known as the Black Swordsman due to his tendency to wear black clothing"
+  },
+  {
+    "id": "sword-art-online-character-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "asuna"
+    },
+    "field": "name",
+    "value": "Asuna (結城 明日奈)",
+    "text": "Asuna, real name Asuna Yuuki, is written 結城 明日奈 in Japanese and is the main heroine.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "a friend and later to be girlfriend and the in-game wife of Kirito"
+  },
+  {
+    "id": "sword-art-online-character-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "klein"
+    },
+    "field": "name",
+    "value": "Klein (壷井 遼太郎)",
+    "text": "Klein, real name Ryōtarō Tsuboi, is written 壷井 遼太郎 in Japanese and is a katana user.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "quickly befriends and learns the basics from Kirito"
+  },
+  {
+    "id": "sword-art-online-character-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "agil"
+    },
+    "field": "name",
+    "value": "Agil (アンドリュー・ギルバート・ミルズ)",
+    "text": "Agil, real name Andrew Gilbert Mills, is written アンドリュー・ギルバート・ミルズ in Japanese and fights with an axe.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "kind-hearted and spent most of his earnings to help players"
+  },
+  {
+    "id": "sword-art-online-character-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "akihiko-kayaba"
+    },
+    "field": "name",
+    "value": "Akihiko Kayaba",
+    "text": "Akihiko Kayaba is the designer of the game and of the NerveGear.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "\"Akihiko Kayaba\" designed the game and NerveGear"
+  },
+  {
+    "id": "sword-art-online-character-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "yui"
+    },
+    "field": "name",
+    "value": "Yui (ユイ)",
+    "text": "Yui is written ユイ in Japanese and is an AI companion.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "an artificial intelligence designed to monitor the emotions of players and appear at their sides"
+  },
+  {
+    "id": "sword-art-online-character-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "lisbeth"
+    },
+    "field": "name",
+    "value": "Lisbeth (篠崎 里香)",
+    "text": "Lisbeth, real name Rika Shinozaki, is written 篠崎 里香 in Japanese and works as a blacksmith.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "\"takes great pride in her abilities\" as a blacksmith"
+  },
+  {
+    "id": "sword-art-online-character-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "silica"
+    },
+    "field": "name",
+    "value": "Silica (綾野 珪子)",
+    "text": "Silica, real name Keiko Ayano, is written 綾野 珪子 in Japanese and is a beast tamer.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "One of the rare beast tamers in the game"
+  },
+  {
+    "id": "sword-art-online-character-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "sachi"
+    },
+    "field": "name",
+    "value": "Sachi (サチ)",
+    "text": "Sachi is written サチ in Japanese and belongs to the guild Moonlit Black Cats.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "killed along with the majority of her guild members in a trapped room"
+  },
+  {
+    "id": "sword-art-online-character-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "diavel"
+    },
+    "field": "name",
+    "value": "Diavel (ディアベル)",
+    "text": "Diavel is written ディアベル in Japanese and leads the raid on the first floor boss.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "encouraged many trapped players with his speeches and tactical command"
+  },
+  {
+    "id": "sword-art-online-character-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "kibaou"
+    },
+    "field": "name",
+    "value": "Kibaou (キバオウ)",
+    "text": "Kibaou is written キバオウ in Japanese and leads the Aincrad Liberation Squad.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "power-hungry individual who uses his authority to extort wealth"
+  },
+  {
+    "id": "sword-art-online-character-name-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "argo"
+    },
+    "field": "name",
+    "value": "Argo (アルゴ)",
+    "text": "Argo is written アルゴ in Japanese and is an information broker.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "an information broker in SAO who worked alongside Kirito"
+  },
+  {
+    "id": "sword-art-online-character-name-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "sasha"
+    },
+    "field": "name",
+    "value": "Sasha",
+    "text": "Sasha is a caretaker of younger players in the Town of Beginnings.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "a caretaker of the younger SAO players in Town of Beginnings on the 1st Floor"
+  },
+  {
+    "id": "sword-art-online-character-name-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "leafa"
+    },
+    "field": "name",
+    "value": "Leafa (桐ヶ谷 直葉)",
+    "text": "Leafa, real name Suguha Kirigaya, is written 桐ヶ谷 直葉 in Japanese and is Kirito's cousin.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "practicing kendo for eight years, partially to escape the loneliness"
+  },
+  {
+    "id": "sword-art-online-character-name-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "sinon"
+    },
+    "field": "name",
+    "value": "Sinon (朝田 詩乃)",
+    "text": "Sinon, real name Shino Asada, is written 朝田 詩乃 in Japanese and is a sniper in Gun Gale Online.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "developed a fear of guns, entering panic attacks whenever one is visible"
+  },
+  {
+    "id": "sword-art-online-character-name-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "death-gun"
+    },
+    "field": "name",
+    "value": "Death Gun",
+    "text": "Death Gun is the dangerous player in Gun Gale Online who is hunted by Kirito and Sinon.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "causes Sinon's PTSD to relapse when his weapon was revealed"
+  },
+  {
+    "id": "sword-art-online-character-name-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "yuuki-konno"
+    },
+    "field": "name",
+    "value": "Yuuki Konno (紺野 木綿季)",
+    "text": "Yuuki Konno is written 紺野 木綿季 in Japanese and leads a guild of players.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "undefeated status she's given the title 'Absolute Sword'"
+  },
+  {
+    "id": "sword-art-online-character-name-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "eugeo"
+    },
+    "field": "name",
+    "value": "Eugeo (ユージオ)",
+    "text": "Eugeo is written ユージオ in Japanese and is the companion of Kirito in the Underworld.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Kirito teaches him his 'Aincrad-style' sword skills"
+  },
+  {
+    "id": "sword-art-online-character-name-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "alice-zuberg"
+    },
+    "field": "name",
+    "value": "Alice Zuberg (アリス・ツーベルク)",
+    "text": "Alice Zuberg is written アリス・ツーベルク in Japanese and is an Integrity Knight.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The mysterious girl who was Kirito's 'childhood friend'"
+  },
+  {
+    "id": "sword-art-online-character-name-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "bercouli"
+    },
+    "field": "name",
+    "value": "Bercouli",
+    "text": "Bercouli is the very first Integrity Knight and founded Rulid Village.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the founder of Rulid Village and the very first Integrity Knight"
+  },
+  {
+    "id": "sword-art-online-character-detail-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "kirito"
+    },
+    "field": "nickname",
+    "value": "Black Swordsman",
+    "text": "Kirito is called the Black Swordsman, because he likes to dress in black.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "known as the Black Swordsman due to his tendency to wear black clothing"
+  },
+  {
+    "id": "sword-art-online-character-detail-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "kirito"
+    },
+    "field": "style",
+    "value": "Dual Blades",
+    "text": "Kirito gets ready for his famous Dual Blades style by taking over the katana of Leafa.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Kirito takes Leafa's katana to prepare for his notable «Dual Blades»"
+  },
+  {
+    "id": "sword-art-online-character-detail-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "asuna"
+    },
+    "field": "technique",
+    "value": "Rapier",
+    "text": "Asuna fights with a rapier and goes by the nickname The Flash in the game.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Rapier wielder, nicknamed \"The Flash\" in SAO"
+  },
+  {
+    "id": "sword-art-online-character-detail-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "yui"
+    },
+    "field": "title",
+    "value": "Mental Health Counselling Program",
+    "text": "Yui is officially named MHCP version 1, short for Mental Health Counselling Program.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Her full designation is «Mental Health, Counselling Program», MHCP version 1"
+  },
+  {
+    "id": "sword-art-online-character-detail-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "klein"
+    },
+    "field": "organization",
+    "value": "Fuurinkazan",
+    "text": "Klein becomes the head of his own guild, Fuurinkazan.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Klein ... becomes a leader of his own guild, Fuurinkazan"
+  },
+  {
+    "id": "sword-art-online-character-detail-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "agil"
+    },
+    "field": "occupation",
+    "value": "Blacksmith with an axe",
+    "text": "Agil is an axe fighter who also works as a blacksmith and shopkeeper.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "axe wielder who owns a general shop in SAO, along with having a hand in Blacksmithing"
+  },
+  {
+    "id": "sword-art-online-character-detail-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "lisbeth"
+    },
+    "field": "occupation",
+    "value": "Blacksmith",
+    "text": "Lisbeth is proud of her work as a blacksmith who forges custom swords.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Custom sword forger; takes great pride in her abilities"
+  },
+  {
+    "id": "sword-art-online-character-detail-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "silica"
+    },
+    "field": "specialty",
+    "value": "Pina the dragon",
+    "text": "Silica travels with a small dragon named Pina, her tamed companion.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Dragon tamer (Pina)"
+  },
+  {
+    "id": "sword-art-online-character-detail-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "sachi"
+    },
+    "field": "organization",
+    "value": "Moonlit Black Cats",
+    "text": "Sachi is a member of Moonlit Black Cats, the first guild Kirito joined, and her guild is trapped in a room on the 27th floor.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the first guild Kirito joined ... on the 27th Floor with high-level mobs"
+  },
+  {
+    "id": "sword-art-online-character-detail-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "diavel"
+    },
+    "field": "role",
+    "value": "Raid leader",
+    "text": "Diavel leads the raid party that goes after the boss of the first floor.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Beta tester/Raid leader; 1st Floor boss raid leader"
+  },
+  {
+    "id": "sword-art-online-character-detail-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "kibaou"
+    },
+    "field": "organization",
+    "value": "Aincrad Liberation Squad",
+    "text": "Kibaou heads a group called the Aincrad Liberation Squad.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Aincrad Liberation Squad leader"
+  },
+  {
+    "id": "sword-art-online-character-detail-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "argo"
+    },
+    "field": "occupation",
+    "value": "Information broker",
+    "text": "Argo makes her living as an information broker.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "an information broker in SAO who worked alongside Kirito"
+  },
+  {
+    "id": "sword-art-online-character-detail-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "sinon"
+    },
+    "field": "treasure",
+    "value": "PGM Ultima Ratio Hecate II",
+    "text": "Sinon shoots with a sniper rifle called the PGM Ultima Ratio Hecate II.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "PGM Ultima Ratio Hecate II sniper rifle"
+  },
+  {
+    "id": "sword-art-online-character-detail-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "sinon"
+    },
+    "field": "background",
+    "value": "Fear of guns",
+    "text": "In the real world Sinon has panic attacks at the sight of a gun.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "developed a fear of guns, entering panic attacks whenever one is visible"
+  },
+  {
+    "id": "sword-art-online-character-detail-084",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "leafa"
+    },
+    "field": "specialty",
+    "value": "Eight years of kendo",
+    "text": "Leafa has practiced kendo for eight years.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "practicing kendo for eight years, partially to escape the loneliness"
+  },
+  {
+    "id": "sword-art-online-character-detail-085",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "yuuki-konno"
+    },
+    "field": "title",
+    "value": "Absolute Sword",
+    "text": "Because nobody has ever beaten her in a duel, Yuuki holds the title Absolute Sword.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "undefeated status she's given the title 'Absolute Sword'"
+  },
+  {
+    "id": "sword-art-online-character-detail-086",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "eugeo"
+    },
+    "field": "treasure",
+    "value": "Blue Rose Sword",
+    "text": "Eugeo carries the Blue Rose Sword.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Blue Rose Sword wielder"
+  },
+  {
+    "id": "sword-art-online-character-detail-087",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "alice-zuberg"
+    },
+    "field": "role",
+    "value": "Integrity Knight",
+    "text": "Alice is an Integrity Knight with the designation Alice Synthesis Thirty.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Integrity Knight; Alice Synthesis Thirty"
+  },
+  {
+    "id": "sword-art-online-character-detail-088",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "bercouli"
+    },
+    "field": "epithet",
+    "value": "First Integrity Knight",
+    "text": "Bercouli is remembered as the very first of the Integrity Knights.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the very first Integrity Knight"
+  },
+  {
+    "id": "sword-art-online-character-detail-089",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "death-gun"
+    },
+    "field": "ability",
+    "value": "Triggers Sinon's panic",
+    "text": "Death Gun's weapon makes the old trauma of Sinon come back.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "causes Sinon's PTSD to relapse when his weapon was revealed"
+  },
+  {
+    "id": "sword-art-online-character-detail-090",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "akihiko-kayaba"
+    },
+    "field": "origin",
+    "value": "SAO and NerveGear",
+    "text": "Akihiko Kayaba created both the game Sword Art Online and the NerveGear that runs it.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "\"Akihiko Kayaba\" designed the game and NerveGear"
+  },
+  {
+    "id": "sword-art-online-character-detail-091",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "sasha"
+    },
+    "field": "role",
+    "value": "Caretaker",
+    "text": "Sasha takes care of the youngest players in the Town of Beginnings on the first floor.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "a caretaker of the younger SAO players in Town of Beginnings on the 1st Floor"
+  },
+  {
+    "id": "sword-art-online-kirito-voice-092",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "sword-art-online",
+      "ref": "kirito"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Yoshitsugu Matsuoka"
+    ],
+    "text": "Kirito is voiced in Japanese by Yoshitsugu Matsuoka.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+        "ref": "1380067261",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q18468944",
+        "ref": "Q18468944",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Voiced by: Yoshitsugu Matsuoka (Japanese)"
+  }
+]

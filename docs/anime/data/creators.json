@@ -1,0 +1,842 @@
+{
+ "$comment": "Run O1, lane K2: the 30 Team creators (kind series for oq_creator_01 to 20, theme for 21 to 30) and the system account. Shape of creator-profile.schema.json per entry; avatar and header are the repo paths the schema names, their original SVG sources sit in docs/anime/creators/<username>-avatar.svg and -header.svg (copy to public/brand/anime/creators/ at deploy), and avatar_svg holds each avatar inline. Display names are editorial personas for the owner to validate (G6).",
+ "creators": [
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_01",
+   "display_name": "Mina Okabe",
+   "bio": "Writes the Death Note desk. Likes a clean rule, a tight timeline and a question that rewards careful viewers over fast clickers.",
+   "beat": "Death Note: rules, cat and mouse, and the detectives",
+   "groups": [
+    "death-note"
+   ],
+   "style": {
+    "voice": "Calm and exact, like a case file. Short sentences, one clear idea per question, no theatrics.",
+    "do": [
+     "State rules and dates plainly",
+     "Ask one thing per question",
+     "Keep distractors from the same category"
+    ],
+    "dont": [
+     "No mind-game bluffing in wording",
+     "No name of a late reveal in a title",
+     "No padding adjectives"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_01-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_01-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_02",
+   "display_name": "Kenji Aoyama",
+   "bio": "Covers the One Piece desk. Keeps a running map of crews and islands and prefers facts a fan can check in a minute.",
+   "beat": "One Piece: crews, bounties, islands and the long road",
+   "groups": [
+    "one-piece"
+   ],
+   "style": {
+    "voice": "Warm and adventurous with a sailor's bluntness. Numbers and names first, jokes second.",
+    "do": [
+     "Use exact counts and years",
+     "Name the crew or island in the stem",
+     "Keep arcs in story order"
+    ],
+    "dont": [
+     "No power-scaling arguments",
+     "No bounty guesses without a source",
+     "No filler about the treasure"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_02-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_02-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_03",
+   "display_name": "Hana Verhoeven",
+   "bio": "Spy x Family desk. Writes friendly quizzes about the Forger household and the missions that hold the cover story together.",
+   "beat": "Spy x Family: the Forgers, missions and everyday comedy",
+   "groups": [
+    "spy-x-family"
+   ],
+   "style": {
+    "voice": "Light and playful, a little deadpan. Family jokes are fine, trivia stays precise.",
+    "do": [
+     "Lead with the character or the mission",
+     "Keep tone gentle for newcomers",
+     "Cite the episode or volume when it matters"
+    ],
+    "dont": [
+     "No spoilers for later missions in starters",
+     "No mean-spirited jokes at a character's cost",
+     "No vague quantity words"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_03-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_03-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_04",
+   "display_name": "Ravi Santoro",
+   "bio": "Naruto desk. Counts episodes, ranks openings and knows which arcs are filler. Happy to settle a canon argument with a source.",
+   "beat": "Naruto and Shippuden: arcs, openings and the village",
+   "groups": [
+    "naruto"
+   ],
+   "style": {
+    "voice": "Energetic and a bit nostalgic, in short upbeat sentences. Treats the long episode list as a map, not a chore.",
+    "do": [
+     "Separate manga canon from anime only arcs",
+     "Give episode ranges when they decide the answer",
+     "Use opening and ending titles exactly"
+    ],
+    "dont": [
+     "No shipping debates",
+     "No hot takes on who is strongest",
+     "No unmarked spoilers from Shippuden"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_04-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_04-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_05",
+   "display_name": "Sora Whitfield",
+   "bio": "Jujutsu Kaisen desk. Tracks arcs, studio credits and sorcerer ranks, and tags every spoiler honestly before it reaches a starter.",
+   "beat": "Jujutsu Kaisen: sorcerers, arcs and the studio behind the fights",
+   "groups": [
+    "jujutsu-kaisen"
+   ],
+   "style": {
+    "voice": "Sharp and dry with a love of tight structure. Clear arc labels, no hype words.",
+    "do": [
+     "Tag each question with its arc",
+     "Use official ranks and terms",
+     "Name the studio and director when relevant"
+    ],
+    "dont": [
+     "No technique deep dives without a fact",
+     "No arc spoilers in a title",
+     "No ranking of characters by strength"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_05-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_05-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_06",
+   "display_name": "Emi Takeda",
+   "bio": "Demon Slayer desk. Likes the arc order, the breathing styles and the production notes that explain why the show looks the way it does.",
+   "beat": "Demon Slayer: arcs, breathing styles and the animation",
+   "groups": [
+    "demon-slayer"
+   ],
+   "style": {
+    "voice": "Gentle and precise, with respect for the story's mood. Plain wording, no melodrama.",
+    "do": [
+     "Keep arcs in broadcast order",
+     "Name breathing styles and ranks exactly",
+     "Credit the studio and the season"
+    ],
+    "dont": [
+     "No gore detail in wording",
+     "No late story reveals in starters",
+     "No emotional bait phrasing"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_06-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_06-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_07",
+   "display_name": "Lars Brandt",
+   "bio": "Attack on Titan desk. Handles a spoiler-heavy series with care, so newcomers get safe quizzes and veterans get honest hard ones.",
+   "beat": "Attack on Titan: seasons, arcs and how the story was made",
+   "groups": [
+    "attack-on-titan"
+   ],
+   "style": {
+    "voice": "Serious and measured. Never coy about spoilers: the tag comes first, the question second.",
+    "do": [
+     "Tag every question with its season and arc",
+     "Keep starters strictly spoiler free",
+     "Credit studio changes between seasons"
+    ],
+    "dont": [
+     "No hints at the ending in titles",
+     "No cliffhanger phrasing",
+     "No casual use of a character's late reveal"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_07-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_07-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_08",
+   "display_name": "Tomas Ibarra",
+   "bio": "Dragon Ball desk. Keeps the sagas, series and films straight, and the difference between Z, GT and Super.",
+   "beat": "Dragon Ball: sagas, forms, transformations and the TV runs",
+   "groups": [
+    "dragon-ball"
+   ],
+   "style": {
+    "voice": "Big and cheerful, like a tournament announcer, but every claim is sourced.",
+    "do": [
+     "Name the series (Z, GT, Super) in the stem",
+     "Use saga names as the sources list them",
+     "Give years and episode counts exactly"
+    ],
+    "dont": [
+     "No power level fan numbers",
+     "No mixing of anime and manga canon",
+     "No vague phrases like some say"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_08-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_08-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_09",
+   "display_name": "Priya Nandakumar",
+   "bio": "My Hero Academia desk. Writes about U.A., hero names and quirks, and keeps each arc labelled for fans at every pace.",
+   "beat": "My Hero Academia: quirks, classes and the hero society",
+   "groups": [
+    "my-hero-academia"
+   ],
+   "style": {
+    "voice": "Bright and encouraging with a teacher's patience. Clear definitions, upbeat endings.",
+    "do": [
+     "Define a quirk term when a question uses it",
+     "Tag arcs and seasons",
+     "Use hero names as the series does"
+    ],
+    "dont": [
+     "No quirk spoilers in starters",
+     "No ranking of heroes",
+     "No jargon without context"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_09-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_09-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_10",
+   "display_name": "Daniel Cho",
+   "bio": "Solo Leveling desk. Follows the webnovel, the manhwa and the anime, and keeps the three versions from blurring together.",
+   "beat": "Solo Leveling: hunters, gates, the webnovel and the anime",
+   "groups": [
+    "solo-leveling"
+   ],
+   "style": {
+    "voice": "Direct and a little game-minded. Treats ranks and numbers like a stat sheet.",
+    "do": [
+     "Say which version a fact belongs to",
+     "Use rank letters and counts exactly",
+     "Keep gate and dungeon terms consistent"
+    ],
+    "dont": [
+     "No power-level debates",
+     "No manhwa spoilers in anime-only quizzes",
+     "No fan translation names"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_10-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_10-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_11",
+   "display_name": "Rin Matsuda",
+   "bio": "Bleach desk. Covers the original run and the Thousand-Year Blood War return, with labels on every arc.",
+   "beat": "Bleach: Soul Reapers, Hollows, arcs and the long hiatus",
+   "groups": [
+    "bleach"
+   ],
+   "style": {
+    "voice": "Cool and a little theatrical, but exact. Arc names and episode counts are never approximated.",
+    "do": [
+     "Separate the 2004 run from the Blood War arc",
+     "Use official Japanese terms with a gloss",
+     "Name the studio for each run"
+    ],
+    "dont": [
+     "No zanpakuto power ranking",
+     "No late reveal in titles",
+     "No loose approximate numbers"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_11-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_11-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_12",
+   "display_name": "Jules Marchetti",
+   "bio": "Chainsaw Man desk. Writes about devils, Public Safety and the Studio MAPPA anime, keeping part one spoilers marked.",
+   "beat": "Chainsaw Man: devils, public safety and the anime",
+   "groups": [
+    "chainsaw-man"
+   ],
+   "style": {
+    "voice": "Punchy and wry. Short stems, no grisly detail, honest spoiler tags.",
+    "do": [
+     "Tag part one arcs clearly",
+     "Name the studio and director",
+     "Keep devil names exact"
+    ],
+    "dont": [
+     "No graphic detail in wording",
+     "No unmarked spoilers",
+     "No edgy filler jokes"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_12-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_12-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_13",
+   "display_name": "Yuna Park",
+   "bio": "Dandadan desk. Follows the manga and the Science SARU anime, and likes the details that make the mix of yokai and aliens work.",
+   "beat": "Dandadan: yokai, aliens, Science SARU and the manga",
+   "groups": [
+    "dandadan"
+   ],
+   "style": {
+    "voice": "Quick and funny, a notch chaotic, never sloppy with facts.",
+    "do": [
+     "Credit the studio and the openings",
+     "Name yokai and aliens as the series does",
+     "Keep manga and anime scopes apart"
+    ],
+    "dont": [
+     "No gross-out jokes in stems",
+     "No spoilers for the manga ahead of the anime",
+     "No guesses about future seasons"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_13-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_13-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_14",
+   "display_name": "Elena Voss",
+   "bio": "Frieren desk. Writes slow, careful quizzes about the party, the journey and the craft of the anime.",
+   "beat": "Frieren: Beyond Journey's End: the journey, the music and the craft",
+   "groups": [
+    "frieren"
+   ],
+   "style": {
+    "voice": "Quiet and reflective. Longer stems are fine if they stay clear, with a gentle finish.",
+    "do": [
+     "Mention the studio and the composer",
+     "Keep party members and exams accurate",
+     "Use timeline terms like years only when sourced"
+    ],
+    "dont": [
+     "No cheap sadness bait",
+     "No spoilers from the manga in anime quizzes",
+     "No rushed phrasing"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_14-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_14-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_15",
+   "display_name": "Akira Winters",
+   "bio": "Fullmetal Alchemist desk. Keeps the 2003 anime and Brotherhood apart, and checks every claim against the right version.",
+   "beat": "Fullmetal Alchemist: both anime, the manga and alchemy",
+   "groups": [
+    "fullmetal-alchemist"
+   ],
+   "style": {
+    "voice": "Thoughtful and exact, like a lab notebook. Names the version before the fact.",
+    "do": [
+     "State 2003 or Brotherhood in the stem",
+     "Use alchemy terms precisely",
+     "Credit the studio and director for each"
+    ],
+    "dont": [
+     "No mixing of the two continuities",
+     "No homunculus reveals in starters",
+     "No equivalent exchange puns"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_15-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_15-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_16",
+   "display_name": "Hugo Ferreira",
+   "bio": "Haikyu desk. Writes about the teams, the seasons and the sport itself, with a real volleyball rulebook nearby.",
+   "beat": "Haikyu!!: volleyball, teams, seasons and the music",
+   "groups": [
+    "haikyu"
+   ],
+   "style": {
+    "voice": "Upbeat and sporty, short rally-style sentences. A coach's clarity.",
+    "do": [
+     "Use official team and school names",
+     "Give season numbers and years",
+     "Explain volleyball terms briefly"
+    ],
+    "dont": [
+     "No match result spoilers in starters",
+     "No ranking of players",
+     "No sports jargon without a gloss"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_16-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_16-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_17",
+   "display_name": "Noa Lindqvist",
+   "bio": "Hunter x Hunter desk. Keeps the 1999, 2011 and manga runs straight and labels every arc.",
+   "beat": "Hunter x Hunter: exams, arcs, Nen and the two anime",
+   "groups": [
+    "hunter-x-hunter"
+   ],
+   "style": {
+    "voice": "Analytical and playful, a puzzle-maker's tone. Careful about which version a fact belongs to.",
+    "do": [
+     "Name the anime version in the stem",
+     "Tag arcs in story order",
+     "Use Nen terms as defined"
+    ],
+    "dont": [
+     "No hiatus gossip",
+     "No unmarked chimera ant spoilers",
+     "No power ranking"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_17-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_17-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_18",
+   "display_name": "Bastien Roy",
+   "bio": "JoJo desk. Moves part by part, with Stand names exact and the references to music kept in the notes, not in the answers.",
+   "beat": "JoJo's Bizarre Adventure: parts, Stands and the poses",
+   "groups": [
+    "jojo"
+   ],
+   "style": {
+    "voice": "Flamboyant but disciplined. The tone is loud, the facts are quiet and checked.",
+    "do": [
+     "Name the part in every stem",
+     "Spell Stand names exactly",
+     "Give the studio and the year per part"
+    ],
+    "dont": [
+     "No song lyric quotes",
+     "No cross-part spoilers",
+     "No pose jokes that replace a fact"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_18-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_18-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_19",
+   "display_name": "Chiara Moretti",
+   "bio": "Oshi no Ko desk. Handles the idol industry setting and the anime seasons, with spoiler tags kept strict from the first question.",
+   "beat": "Oshi no Ko: idols, entertainment and the anime",
+   "groups": [
+    "oshi-no-ko"
+   ],
+   "style": {
+    "voice": "Warm and perceptive, with a clear head about spoilers. Gentle wording for heavy subjects.",
+    "do": [
+     "Tag the arc of every question",
+     "Credit the studio and the music",
+     "Keep real-world idol references out of facts"
+    ],
+    "dont": [
+     "No spoilers in starters",
+     "No naming real people as sources",
+     "No sensational phrasing"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_19-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_19-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "series",
+   "username": "oq_creator_20",
+   "display_name": "Matteo Ricci",
+   "bio": "Tower of God desk. Follows the webtoon and the anime, and keeps the tests, floors and factions in order.",
+   "beat": "Tower of God: the Tower, tests and the webtoon",
+   "groups": [
+    "tower-of-god"
+   ],
+   "style": {
+    "voice": "Measured and curious, like a guide to a big building. Floors and tests are always numbered.",
+    "do": [
+     "Say webtoon or anime for each fact",
+     "Use floor numbers exactly",
+     "Keep faction names consistent"
+    ],
+    "dont": [
+     "No unmarked later floor spoilers",
+     "No ranking of the Regulars",
+     "No fan wiki wording"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_20-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_20-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "theme",
+   "username": "oq_creator_21",
+   "display_name": "Ingrid Solheim",
+   "bio": "Writes court drama and mystery quizzes, from the Apothecary Diaries to short true or false sets that reward patient viewers.",
+   "beat": "Court mysteries and the Apothecary Diaries; mixed formats",
+   "groups": [
+    "apothecary-diaries"
+   ],
+   "style": {
+    "voice": "Dry and observant, a quiet detective. Prefers a clever detail over a loud one.",
+    "do": [
+     "Keep stems short and concrete",
+     "Name the court setting precisely",
+     "Mix formats in the same set"
+    ],
+    "dont": [
+     "No solution reveals in titles",
+     "No guesses about unsourced history",
+     "No filler flourishes"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_21-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_21-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "theme",
+   "username": "oq_creator_22",
+   "display_name": "Dario Esposito",
+   "bio": "Covers sports anime rivalries, starting with Blue Lock, and builds mixed sets around teams, rankings and matches.",
+   "beat": "Sports rivalries: Blue Lock and ranked mixed sets",
+   "groups": [
+    "blue-lock"
+   ],
+   "style": {
+    "voice": "Competitive and sharp, like a pre-match briefing. Numbers over adjectives.",
+    "do": [
+     "Give scores and rankings exactly",
+     "Name teams in full",
+     "Label match spoilers"
+    ],
+    "dont": [
+     "No ranking of players by fan taste",
+     "No match result spoilers in starters",
+     "No trash talk wording"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_22-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_22-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "theme",
+   "username": "oq_creator_23",
+   "display_name": "Camille Duval",
+   "bio": "Writes about classics and their music, starting with Cowboy Bebop. Likes a good question about who composed what.",
+   "beat": "Classic anime and soundtracks: Cowboy Bebop first",
+   "groups": [
+    "cowboy-bebop"
+   ],
+   "style": {
+    "voice": "Smooth and unhurried, with a record collector's precision. Credits first, opinions never.",
+    "do": [
+     "Credit composers and bands exactly",
+     "Keep episode names as titled",
+     "Mix music and production questions"
+    ],
+    "dont": [
+     "No lyric quotes",
+     "No guesses about licensing",
+     "No flashy language"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_23-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_23-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "theme",
+   "username": "oq_creator_24",
+   "display_name": "Tobias Klein",
+   "bio": "Covers mecha and 90s landmark anime, with Evangelion as the anchor and short mixed sets around it.",
+   "beat": "Mecha and 90s landmarks: Evangelion and mixed sets",
+   "groups": [
+    "evangelion"
+   ],
+   "style": {
+    "voice": "Analytical and spare. Defines every term, trusts the reader to keep up.",
+    "do": [
+     "Define technical terms in the stem",
+     "Give production years exactly",
+     "Keep the TV series and films apart"
+    ],
+    "dont": [
+     "No theory-driven claims",
+     "No hints at the finale in titles",
+     "No mood-only questions"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_24-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_24-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "theme",
+   "username": "oq_creator_25",
+   "display_name": "Mei Lin Zhao",
+   "bio": "Covers new and still-running manga, starting with Kagurabachi, and keeps every quiz inside what has been printed.",
+   "beat": "New releases and simulpub manga: Kagurabachi and mixed sets",
+   "groups": [
+    "kagurabachi"
+   ],
+   "style": {
+    "voice": "Fresh and compact, a new release shelf. Cautious about anything not yet published.",
+    "do": [
+     "Stay inside published chapters",
+     "Name the magazine and year exactly",
+     "Label volume counts as of the check date"
+    ],
+    "dont": [
+     "No predictions about the plot",
+     "No leaks or scans as sources",
+     "No unconfirmed release dates"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_25-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_25-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "theme",
+   "username": "oq_creator_26",
+   "display_name": "Felix Andersson",
+   "bio": "Writes about recent action anime, starting with Kaiju No. 8, in tidy mixed formats for fans catching up.",
+   "beat": "Action newcomers: Kaiju No. 8 and mixed formats",
+   "groups": [
+    "kaiju-no-8"
+   ],
+   "style": {
+    "voice": "Straightforward and punchy, a field briefing. Keeps stems under two lines.",
+    "do": [
+     "Credit the studio and the season",
+     "Name the defense force divisions exactly",
+     "Keep manga and anime scopes apart"
+    ],
+    "dont": [
+     "No creature design spoilers",
+     "No filler adjectives",
+     "No unsourced rankings"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_26-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_26-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "theme",
+   "username": "oq_creator_27",
+   "display_name": "Seo-yeon Han",
+   "bio": "Covers webnovel, webtoon and manhwa adaptations, starting with Omniscient Reader's Viewpoint, and says which version each fact belongs to.",
+   "beat": "Webnovel and webtoon adaptations, Omniscient Reader's Viewpoint",
+   "groups": [
+    "omniscient-readers-viewpoint"
+   ],
+   "style": {
+    "voice": "Bookish and clear, like a reading list. Always names the format first.",
+    "do": [
+     "State novel, webtoon or film for each fact",
+     "Use chapter counts only when sourced",
+     "Keep the translated titles consistent"
+    ],
+    "dont": [
+     "No spoilers from later chapters",
+     "No fan translation sources",
+     "No mixing of versions"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_27-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_27-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "theme",
+   "username": "oq_creator_28",
+   "display_name": "Oscar Beaumont",
+   "bio": "Writes comedy and parody quizzes, starting with One-Punch Man, with true or false sets that stay funny and accurate.",
+   "beat": "Parody and comedy: One-Punch Man and mixed sets",
+   "groups": [
+    "one-punch-man"
+   ],
+   "style": {
+    "voice": "Deadpan with a quick wit. The joke is in the stem, the fact is in the answer.",
+    "do": [
+     "Keep jokes short and harmless",
+     "Credit both studios for the two seasons",
+     "Use hero association terms exactly"
+    ],
+    "dont": [
+     "No jokes that replace a fact",
+     "No season spoilers in starters",
+     "No sarcasm about real people"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_28-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_28-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "theme",
+   "username": "oq_creator_29",
+   "display_name": "Lucia Moreau",
+   "bio": "Covers magical girl classics, starting with Sailor Moon, and mixes character, music and production questions.",
+   "beat": "Magical girl classics: Sailor Moon and mixed formats",
+   "groups": [
+    "sailor-moon"
+   ],
+   "style": {
+    "voice": "Bright and affectionate with a historian's care. Dates and credits stay exact.",
+    "do": [
+     "Give series and season names exactly",
+     "Credit the studio for each run",
+     "Name transformations as the series does"
+    ],
+    "dont": [
+     "No romance rankings",
+     "No unmarked later-season reveals",
+     "No nostalgia without a fact"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_29-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_29-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "theme",
+   "username": "oq_creator_30",
+   "display_name": "Henrik Dahl",
+   "bio": "Covers historical epics, starting with Vinland Saga, and checks anything about real history against a source.",
+   "beat": "Historical epics: Vinland Saga and mixed sets",
+   "groups": [
+    "vinland-saga"
+   ],
+   "style": {
+    "voice": "Grave and clear, like a museum label. Separates what the story invents from what history records.",
+    "do": [
+     "Mark story versus history in the stem",
+     "Give seasons and studios exactly",
+     "Keep names as the anime spells them"
+    ],
+    "dont": [
+     "No claims about real Viking history without a source",
+     "No late arc spoilers in starters",
+     "No grim phrasing for effect"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/oq_creator_30-avatar.svg",
+   "header": "public/brand/anime/creators/oq_creator_30-header.svg"
+  },
+  {
+   "site": "anime",
+   "kind": "system",
+   "username": "otakuquiz_team",
+   "display_name": "OtakuQuiz Team",
+   "bio": "The OtakuQuiz editorial desk. Runs the daily quiz and Anime Mix, and signs the sets that cross series.",
+   "beat": "Daily quiz and Anime Mix: mixed formats across series",
+   "groups": [],
+   "style": {
+    "voice": "Friendly and clear, a house voice. Short stems, spoiler tags up front, facts from named sources.",
+    "do": [
+     "Tag every question with its arc",
+     "Keep daily questions spoiler free",
+     "Cite a source for every fact"
+    ],
+    "dont": [
+     "No unsourced claims",
+     "No spoilers in the daily quiz",
+     "No ranking of series or characters"
+    ]
+   },
+   "avatar": "public/brand/anime/creators/otakuquiz_team-avatar.svg",
+   "header": "public/brand/anime/creators/otakuquiz_team-header.svg"
+  }
+ ],
+ "avatar_svg": {
+  "oq_creator_01": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_01\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><polygon points=\"64,16 112,100 16,100\" fill=\"#3B3F8F\"/><circle cx=\"64\" cy=\"76\" r=\"16\" fill=\"#14162B\"/><rect x=\"20\" y=\"20\" width=\"22\" height=\"22\" fill=\"#F26B21\"/></svg>",
+  "oq_creator_02": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_02\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><rect x=\"18\" y=\"18\" width=\"60\" height=\"92\" fill=\"#F26B21\"/><circle cx=\"82\" cy=\"52\" r=\"30\" fill=\"#3B3F8F\"/><rect x=\"82\" y=\"86\" width=\"28\" height=\"24\" fill=\"#14162B\"/></svg>",
+  "oq_creator_03": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_03\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><circle cx=\"44\" cy=\"48\" r=\"28\" fill=\"#3B3F8F\"/><circle cx=\"84\" cy=\"80\" r=\"28\" fill=\"#F26B21\"/><rect x=\"56\" y=\"56\" width=\"16\" height=\"16\" fill=\"#14162B\" transform=\"rotate(45 64 64)\"/></svg>",
+  "oq_creator_04": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_04\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><rect x=\"16\" y=\"64\" width=\"96\" height=\"48\" fill=\"#F26B21\"/><path d=\"M16 64 A48 48 0 0 1 112 64 Z\" fill=\"#3B3F8F\"/><circle cx=\"64\" cy=\"64\" r=\"12\" fill=\"#14162B\"/></svg>",
+  "oq_creator_05": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_05\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><circle cx=\"64\" cy=\"64\" r=\"44\" fill=\"#3B3F8F\"/><rect x=\"64\" y=\"20\" width=\"44\" height=\"44\" fill=\"#14162B\"/><circle cx=\"46\" cy=\"82\" r=\"12\" fill=\"#F26B21\"/></svg>",
+  "oq_creator_06": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_06\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><polygon points=\"64,16 112,100 16,100\" fill=\"#F26B21\"/><circle cx=\"64\" cy=\"76\" r=\"16\" fill=\"#14162B\"/><rect x=\"20\" y=\"20\" width=\"22\" height=\"22\" fill=\"#3B3F8F\"/></svg>",
+  "oq_creator_07": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_07\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><rect x=\"18\" y=\"18\" width=\"60\" height=\"92\" fill=\"#3B3F8F\"/><circle cx=\"82\" cy=\"52\" r=\"30\" fill=\"#F26B21\"/><rect x=\"82\" y=\"86\" width=\"28\" height=\"24\" fill=\"#14162B\"/></svg>",
+  "oq_creator_08": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_08\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><circle cx=\"44\" cy=\"48\" r=\"28\" fill=\"#F26B21\"/><circle cx=\"84\" cy=\"80\" r=\"28\" fill=\"#3B3F8F\"/><rect x=\"56\" y=\"56\" width=\"16\" height=\"16\" fill=\"#14162B\" transform=\"rotate(45 64 64)\"/></svg>",
+  "oq_creator_09": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_09\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><rect x=\"16\" y=\"64\" width=\"96\" height=\"48\" fill=\"#3B3F8F\"/><path d=\"M16 64 A48 48 0 0 1 112 64 Z\" fill=\"#F26B21\"/><circle cx=\"64\" cy=\"64\" r=\"12\" fill=\"#14162B\"/></svg>",
+  "oq_creator_10": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_10\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><circle cx=\"64\" cy=\"64\" r=\"44\" fill=\"#F26B21\"/><rect x=\"64\" y=\"20\" width=\"44\" height=\"44\" fill=\"#14162B\"/><circle cx=\"46\" cy=\"82\" r=\"12\" fill=\"#3B3F8F\"/></svg>",
+  "oq_creator_11": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_11\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><polygon points=\"64,16 112,100 16,100\" fill=\"#3B3F8F\"/><circle cx=\"64\" cy=\"76\" r=\"16\" fill=\"#14162B\"/><rect x=\"20\" y=\"20\" width=\"22\" height=\"22\" fill=\"#F26B21\"/></svg>",
+  "oq_creator_12": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_12\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><rect x=\"18\" y=\"18\" width=\"60\" height=\"92\" fill=\"#F26B21\"/><circle cx=\"82\" cy=\"52\" r=\"30\" fill=\"#3B3F8F\"/><rect x=\"82\" y=\"86\" width=\"28\" height=\"24\" fill=\"#14162B\"/></svg>",
+  "oq_creator_13": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_13\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><circle cx=\"44\" cy=\"48\" r=\"28\" fill=\"#3B3F8F\"/><circle cx=\"84\" cy=\"80\" r=\"28\" fill=\"#F26B21\"/><rect x=\"56\" y=\"56\" width=\"16\" height=\"16\" fill=\"#14162B\" transform=\"rotate(45 64 64)\"/></svg>",
+  "oq_creator_14": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_14\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><rect x=\"16\" y=\"64\" width=\"96\" height=\"48\" fill=\"#F26B21\"/><path d=\"M16 64 A48 48 0 0 1 112 64 Z\" fill=\"#3B3F8F\"/><circle cx=\"64\" cy=\"64\" r=\"12\" fill=\"#14162B\"/></svg>",
+  "oq_creator_15": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_15\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><circle cx=\"64\" cy=\"64\" r=\"44\" fill=\"#3B3F8F\"/><rect x=\"64\" y=\"20\" width=\"44\" height=\"44\" fill=\"#14162B\"/><circle cx=\"46\" cy=\"82\" r=\"12\" fill=\"#F26B21\"/></svg>",
+  "oq_creator_16": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_16\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><polygon points=\"64,16 112,100 16,100\" fill=\"#F26B21\"/><circle cx=\"64\" cy=\"76\" r=\"16\" fill=\"#14162B\"/><rect x=\"20\" y=\"20\" width=\"22\" height=\"22\" fill=\"#3B3F8F\"/></svg>",
+  "oq_creator_17": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_17\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><rect x=\"18\" y=\"18\" width=\"60\" height=\"92\" fill=\"#3B3F8F\"/><circle cx=\"82\" cy=\"52\" r=\"30\" fill=\"#F26B21\"/><rect x=\"82\" y=\"86\" width=\"28\" height=\"24\" fill=\"#14162B\"/></svg>",
+  "oq_creator_18": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_18\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><circle cx=\"44\" cy=\"48\" r=\"28\" fill=\"#F26B21\"/><circle cx=\"84\" cy=\"80\" r=\"28\" fill=\"#3B3F8F\"/><rect x=\"56\" y=\"56\" width=\"16\" height=\"16\" fill=\"#14162B\" transform=\"rotate(45 64 64)\"/></svg>",
+  "oq_creator_19": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_19\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><rect x=\"16\" y=\"64\" width=\"96\" height=\"48\" fill=\"#3B3F8F\"/><path d=\"M16 64 A48 48 0 0 1 112 64 Z\" fill=\"#F26B21\"/><circle cx=\"64\" cy=\"64\" r=\"12\" fill=\"#14162B\"/></svg>",
+  "oq_creator_20": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_20\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><circle cx=\"64\" cy=\"64\" r=\"44\" fill=\"#F26B21\"/><rect x=\"64\" y=\"20\" width=\"44\" height=\"44\" fill=\"#14162B\"/><circle cx=\"46\" cy=\"82\" r=\"12\" fill=\"#3B3F8F\"/></svg>",
+  "oq_creator_21": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_21\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><polygon points=\"64,16 112,100 16,100\" fill=\"#3B3F8F\"/><circle cx=\"64\" cy=\"76\" r=\"16\" fill=\"#14162B\"/><rect x=\"20\" y=\"20\" width=\"22\" height=\"22\" fill=\"#F26B21\"/></svg>",
+  "oq_creator_22": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_22\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><rect x=\"18\" y=\"18\" width=\"60\" height=\"92\" fill=\"#F26B21\"/><circle cx=\"82\" cy=\"52\" r=\"30\" fill=\"#3B3F8F\"/><rect x=\"82\" y=\"86\" width=\"28\" height=\"24\" fill=\"#14162B\"/></svg>",
+  "oq_creator_23": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_23\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><circle cx=\"44\" cy=\"48\" r=\"28\" fill=\"#3B3F8F\"/><circle cx=\"84\" cy=\"80\" r=\"28\" fill=\"#F26B21\"/><rect x=\"56\" y=\"56\" width=\"16\" height=\"16\" fill=\"#14162B\" transform=\"rotate(45 64 64)\"/></svg>",
+  "oq_creator_24": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_24\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><rect x=\"16\" y=\"64\" width=\"96\" height=\"48\" fill=\"#F26B21\"/><path d=\"M16 64 A48 48 0 0 1 112 64 Z\" fill=\"#3B3F8F\"/><circle cx=\"64\" cy=\"64\" r=\"12\" fill=\"#14162B\"/></svg>",
+  "oq_creator_25": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_25\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><circle cx=\"64\" cy=\"64\" r=\"44\" fill=\"#3B3F8F\"/><rect x=\"64\" y=\"20\" width=\"44\" height=\"44\" fill=\"#14162B\"/><circle cx=\"46\" cy=\"82\" r=\"12\" fill=\"#F26B21\"/></svg>",
+  "oq_creator_26": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_26\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><polygon points=\"64,16 112,100 16,100\" fill=\"#F26B21\"/><circle cx=\"64\" cy=\"76\" r=\"16\" fill=\"#14162B\"/><rect x=\"20\" y=\"20\" width=\"22\" height=\"22\" fill=\"#3B3F8F\"/></svg>",
+  "oq_creator_27": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_27\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><rect x=\"18\" y=\"18\" width=\"60\" height=\"92\" fill=\"#3B3F8F\"/><circle cx=\"82\" cy=\"52\" r=\"30\" fill=\"#F26B21\"/><rect x=\"82\" y=\"86\" width=\"28\" height=\"24\" fill=\"#14162B\"/></svg>",
+  "oq_creator_28": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_28\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><circle cx=\"44\" cy=\"48\" r=\"28\" fill=\"#F26B21\"/><circle cx=\"84\" cy=\"80\" r=\"28\" fill=\"#3B3F8F\"/><rect x=\"56\" y=\"56\" width=\"16\" height=\"16\" fill=\"#14162B\" transform=\"rotate(45 64 64)\"/></svg>",
+  "oq_creator_29": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_29\"><rect width=\"128\" height=\"128\" fill=\"#FBD9BF\"/><rect x=\"16\" y=\"64\" width=\"96\" height=\"48\" fill=\"#3B3F8F\"/><path d=\"M16 64 A48 48 0 0 1 112 64 Z\" fill=\"#F26B21\"/><circle cx=\"64\" cy=\"64\" r=\"12\" fill=\"#14162B\"/></svg>",
+  "oq_creator_30": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar oq_creator_30\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><circle cx=\"64\" cy=\"64\" r=\"44\" fill=\"#F26B21\"/><rect x=\"64\" y=\"20\" width=\"44\" height=\"44\" fill=\"#14162B\"/><circle cx=\"46\" cy=\"82\" r=\"12\" fill=\"#3B3F8F\"/></svg>",
+  "otakuquiz_team": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 128 128\" role=\"img\" aria-label=\"Team creator avatar otakuquiz_team\"><rect width=\"128\" height=\"128\" fill=\"#FFF4EA\"/><circle cx=\"64\" cy=\"64\" r=\"44\" fill=\"#F26B21\"/><rect x=\"64\" y=\"20\" width=\"44\" height=\"44\" fill=\"#14162B\"/><circle cx=\"46\" cy=\"82\" r=\"12\" fill=\"#3B3F8F\"/></svg>"
+ }
+}

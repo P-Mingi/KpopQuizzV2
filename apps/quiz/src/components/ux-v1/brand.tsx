@@ -1,8 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { SITE } from '@/lib/site/registry';
+import { brandWordmark } from '@/lib/site/brand';
+
 /**
- * The KpopQuiz mark: the rabbit mascot, then the wordmark. DESIGN-SPEC 17.1 first
+ * The brand mark: the rabbit mascot, then the wordmark. DESIGN-SPEC 17.1 first
  * kept the live pink "K" tile; the owner asked on 2026-10-04 (F7b) for the rabbit of
  * the old version instead, the same art as the favicons and the old top bar
  * (public/mascot/mascot-default.png, used as is, not redrawn). Its white sticker
@@ -11,11 +14,13 @@ import Link from 'next/link';
  * needed: it is small and in the first paint either way).
  * The link is Home (16.5: logo = Home).
  */
-export function UxBrand({ href = '/', label = 'KpopQuiz home' }: { href?: string | null; label?: string }): React.ReactElement {
+export function UxBrand({ href = '/', label = `${SITE.brand.name} home` }: { href?: string | null; label?: string }): React.ReactElement {
   const inner = (
     <>
+      {/* Run O1 (H2a, owner 2026-10-25): the rabbit is the mark of the three sites, then the wordmark of the site: it replaces the letter tile
+          (F, O) of the hub and the anime site. */}
       <Image src="/mascot/mascot-default.png" alt="" width={28} height={28} loading="eager" className="ux-brand-rabbit" aria-hidden="true" />
-      <span>Kpop<b>Quiz</b></span>
+      <span>{brandWordmark().head}<b>{brandWordmark().tail}</b></span>
     </>
   );
   if (href === null) return <span className="ux-brand">{inner}</span>;

@@ -3,6 +3,8 @@
 import { useMemo } from 'react';
 
 import { UxButton } from '@/components/ux-v1/button';
+import { GENRE, titleCase } from '@/lib/site/genre';
+import { SITE } from '@/lib/site/registry';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { streakView } from '@/lib/ux-v1/a0/streak';
 import { greetingFor } from '@/lib/ux-v1/p1/format';
@@ -18,8 +20,9 @@ import { greetingFor } from '@/lib/ux-v1/p1/format';
 // C2-002), said with the words of A0's streak popover.
 function streakLine(days: number | undefined, last: string | null | undefined): string {
   const v = streakView(days, last);
-  if (!v) return 'Your quiz of the day is ready. Play the daily quiz or the daily blindtest today to start a streak.';
-  if (v.state === 'at_risk') return `Your quiz of the day is ready. Play the daily quiz or the daily blindtest today to keep your ${v.days}-day streak.`;
+  const daily = SITE.features.dailyBlindTest ? 'the daily quiz or the daily blindtest' : 'the daily quiz';
+  if (!v) return `Your quiz of the day is ready. Play ${daily} today to start a streak.`;
+  if (v.state === 'at_risk') return `Your quiz of the day is ready. Play ${daily} today to keep your ${v.days}-day streak.`;
   return `Streak saved: ${v.days} ${v.days === 1 ? 'day' : 'days'}. Come back tomorrow to make it ${v.days + 1}.`;
 }
 
@@ -36,7 +39,7 @@ export function HomeHeader(): React.ReactElement {
     return (
       <header className="p1-hhead" data-auth="in">
         <h1 tabIndex={-1}>
-          <span className="p1-eyb">K-pop Quiz</span>
+          <span className="p1-eyb">{`${titleCase(GENRE)} Quiz`}</span>
           {signedIn.name ? <>{signedIn.greeting}, <em>{signedIn.name}</em></> : signedIn.greeting}
         </h1>
         <p className="p1-hsub">{signedIn.line}</p>
@@ -47,12 +50,12 @@ export function HomeHeader(): React.ReactElement {
   return (
     <header className="p1-hhead" data-auth="out">
       <h1 tabIndex={-1}>
-        <span className="p1-eyb">K-pop Quiz</span>
+        <span className="p1-eyb">{`${titleCase(GENRE)} Quiz`}</span>
         Are you a <em>real fan?</em>
       </h1>
-      <h2 className="p1-hsub">Prove it. Play K-pop quizzes and see where you rank.</h2>
+      <h2 className="p1-hsub">{`Prove it. Play ${GENRE} quizzes and see where you rank.`}</h2>
       <div className="p1-hcta">
-        <UxButton href="/quizzes" icon="play" aria-label="Browse K-pop quizzes">Browse K-pop quizzes</UxButton>
+        <UxButton href="/quizzes" icon="play" aria-label={`Browse ${GENRE} quizzes`}>{`Browse ${GENRE} quizzes`}</UxButton>
         <UxButton href="/create" variant="ghost" icon="plus" aria-label="Create a quiz">Create a quiz</UxButton>
       </div>
     </header>

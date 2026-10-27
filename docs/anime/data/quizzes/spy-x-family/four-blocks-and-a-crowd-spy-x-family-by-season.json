@@ -1,0 +1,232 @@
+{
+ "site": "anime",
+ "account": "oq_creator_03",
+ "group_slug": "spy-x-family",
+ "title": "Directors, Songs and Cast: Spy x Family Mixed Round",
+ "slug": "four-blocks-and-a-crowd-spy-x-family-by-season",
+ "description": "Ten questions on the season directors, the end of the run, a few theme songs, the family dog's sixth sense and the second half of the cast.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Spy × Family (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Spy × Family",
+   "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  }
+ ],
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. K1 rewrite: the blocked season-block questions are rewritten on verified facts (006, 007, 011, 037).",
+ "questions": [
+  {
+   "question": "Which director is credited on season 2 alongside Kazuhiro Furuhashi?",
+   "options": [
+    "Yukiko Imai",
+    "Takahiro Harada",
+    "Tatsuya Endo",
+    "Atsumi Tanezaki"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-directors-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "The three seasons aired from April 2022 until which month and year?",
+   "options": [
+    "March 2024",
+    "December 2025",
+    "June 2023",
+    "September 2025"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anime-run-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which band performed the second opening, Souvenir?",
+   "options": [
+    "Official Hige Dandism",
+    "Spitz",
+    "Bump of Chicken",
+    "Ado"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-theme-songs-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which character is listed as an antagonist of Spy x Family?",
+   "options": [
+    "Loid Forger",
+    "Donovan Desmond",
+    "Sharon",
+    "Camilla"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-donovan-desmond-name-037",
+    "spy-x-family-loid-forger-name-021",
+    "spy-x-family-sharon-name-034",
+    "spy-x-family-camilla-name-032"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which artist performed the third ending, Todome no Ichigeki?",
+   "options": [
+    "Gen Hoshino",
+    "yama",
+    "Vaundy",
+    "Lilas Ikuta"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-theme-songs-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "What can Bond the family dog see, which only Anya knows about?",
+   "options": [
+    "Through walls",
+    "In total darkness",
+    "Hidden microphones",
+    "Short glimpses of the future"
+   ],
+   "correct": 3,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-bond-premonition-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family"
+  },
+  {
+   "question": "Which character is the WISE agent who is a fellow agent of Twilight?",
+   "options": [
+    "Fiona Frost",
+    "Sylvia Sherwood",
+    "Camilla",
+    "Sharon"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-sylvia-sherwood-name-026",
+    "spy-x-family-fiona-frost-name-031",
+    "spy-x-family-camilla-name-032",
+    "spy-x-family-sharon-name-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which of these is the youngest of Yor's three City Hall co-workers?",
+   "options": [
+    "Camilla",
+    "Sharon",
+    "Millie",
+    "Emile Elman"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-emile-elman-name-035",
+    "spy-x-family-camilla-name-032",
+    "spy-x-family-millie-name-033",
+    "spy-x-family-sharon-name-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which character is Becky's butler?",
+   "options": [
+    "Melinda Desmond",
+    "Camilla",
+    "Sharon",
+    "Martha Marriott"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-melinda-desmond-name-039",
+    "spy-x-family-camilla-name-032",
+    "spy-x-family-sharon-name-034",
+    "spy-x-family-martha-marriott-name-040"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "Which character is Donovan's wife and Damian's mother?",
+   "options": [
+    "Melinda Desmond",
+    "Camilla",
+    "Sharon",
+    "Martha Marriott"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "spy-x-family-melinda-desmond-name-039",
+    "spy-x-family-camilla-name-032",
+    "spy-x-family-sharon-name-034",
+    "spy-x-family-martha-marriott-name-040"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  }
+ ]
+}

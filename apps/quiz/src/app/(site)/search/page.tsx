@@ -7,6 +7,7 @@ import { Mascot } from '@/components/ui/mascot';
 import { FollowButton } from '@/components/profile/follow-button';
 import { TeamTag } from '@/components/ux-v1/team';
 import { getTeamIds } from '@/lib/editorial/accounts';
+import { forSite } from '@/lib/site/scope';
 import { formatCount } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
@@ -30,7 +31,7 @@ export async function generateMetadata({ searchParams }: SearchPageProps): Promi
 const QUIZ_SELECT = `
   id, title, slug, quiz_type, difficulty, language, play_count, total_score_sum, total_completions, like_count, created_at, questions, cover_image_url, group_id,
   groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
-  profiles!inner (username, avatar_url, avatar_bg, avatar_text)
+  profiles!quizzes_creator_id_fkey!inner (username, avatar_url, avatar_bg, avatar_text)
 `;
 
 interface RawQuizRow {
@@ -83,9 +84,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
   const orTerm = safe.replace(/[^a-zA-Z0-9 _-]/g, '').trim();
 
   // Groups first so we can also match quizzes/games by group (e.g. "bts" → BTS content).
-  const groupsRes = await supabase
+  const groupsRes = await forSite(supabase
     .from('groups')
-    .select('id, name, slug, fandom_name, display_color, text_color, quiz_count')
+    .select('id, name, slug, fandom_name, display_color, text_color, quiz_count'))
     .ilike('name', pattern)
     .order('quiz_count', { ascending: false })
     .limit(10);
@@ -94,9 +95,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
   const hasGroups = groupIds.length > 0;
 
   const [qTitle, qGroup, peopleRes] = await Promise.all([
-    supabase.from('quizzes').select(QUIZ_SELECT).eq('status', 'published').ilike('title', pattern).order('play_count', { ascending: false }).limit(12),
+    forSite(supabase.from('quizzes').select(QUIZ_SELECT)).eq('status', 'published').ilike('title', pattern).order('play_count', { ascending: false }).limit(12),
     hasGroups
-      ? supabase.from('quizzes').select(QUIZ_SELECT).eq('status', 'published').in('group_id', groupIds).order('play_count', { ascending: false }).limit(12)
+      ? forSite(supabase.from('quizzes').select(QUIZ_SELECT)).eq('status', 'published').in('group_id', groupIds).order('play_count', { ascending: false }).limit(12)
       : Promise.resolve({ data: [] as unknown[] }),
     // M1.9 people search: username OR display_name, banned excluded, index-backed
     // (mig 094 trigram GIN). Cookie-free public read, NANO-cheap, limit 20.
@@ -126,7 +127,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps): Pro
   // Fuzzy "always-propose" fallback: nothing matched → show popular picks.
   let fbQuizzes: QuizCardData[] = [];
   if (!hasResults) {
-    const pq = await supabase.from('quizzes').select(QUIZ_SELECT).eq('status', 'published').order('play_count', { ascending: false }).limit(6);
+    const pq = await forSite(supabase.from('quizzes').select(QUIZ_SELECT)).eq('status', 'published').order('play_count', { ascending: false }).limit(6);
     fbQuizzes = ((pq.data ?? []) as unknown as RawQuizRow[]).map(toQuizCardData);
   }
 

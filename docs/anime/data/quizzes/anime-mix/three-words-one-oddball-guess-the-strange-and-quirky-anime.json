@@ -1,0 +1,267 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Three Words, One Oddball: Guess the Strange and Quirky Anime",
+ "slug": "three-words-one-oddball-guess-the-strange-and-quirky-anime",
+ "description": "Ten offbeat action and comedy anime to name from three words each, from retired hitmen to alien invaders. No titles, no full names, no spoilers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Genre cut. Words come from the cited arc 0 facts; no title word, no full character name.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Chainsaw Man characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Dandadan characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of JoJo's Bizarre Adventure characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Kagurabachi",
+   "url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: Kaiju No. 8",
+   "url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: List of Mob Psycho 100 characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: List of One-Punch Man characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: Sakamoto Days",
+   "url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: Gintama",
+   "url": "https://en.wikipedia.org/wiki/Gintama"
+  },
+  {
+   "id": "S10",
+   "title": "Wikipedia: Cowboy Bebop",
+   "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three words: Devil Hunters, yakuza debt, Division 4. Which anime do they point to?",
+   "options": [
+    "Chainsaw Man",
+    "Kagurabachi",
+    "Mob Psycho 100",
+    "Gintama"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "chainsaw-man-kobeni-hunter-051",
+    "chainsaw-man-denji-debt-019",
+    "chainsaw-man-aki-division4-052"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+  },
+  {
+   "question": "Which anime fits these three words: spirit medium, aliens from a planet, school idol?",
+   "options": [
+    "Chainsaw Man",
+    "Kaiju No. 8",
+    "Sakamoto Days",
+    "Dandadan"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-seiko-spirit-medium-019",
+    "dandadan-serpo-all-male-race-048",
+    "dandadan-aira-school-idol-052"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Hamon, Stone Mask, late nineteenth-century England: these three words belong to which anime?",
+   "options": [
+    "Kagurabachi",
+    "Kaiju No. 8",
+    "JoJo's Bizarre Adventure",
+    "One-Punch Man"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jojo-will-zeppeli-ally-046",
+    "jojo-part-phantom-blood-077"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters"
+  },
+  {
+   "question": "Three words: swordsmith, six stolen blades, revenge quest. Which anime do they point to?",
+   "options": [
+    "Kaiju No. 8",
+    "Kagurabachi",
+    "Sakamoto Days",
+    "Gintama"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kagurabachi-hishaku-murder-blades-029",
+    "kagurabachi-chihiro-revenge-quest-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which anime fits these three words: powered suits, Defense Force, combat power percentage?",
+   "options": [
+    "Kaiju No. 8",
+    "Dandadan",
+    "Kagurabachi",
+    "One-Punch Man"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-setting-powered-suits-009",
+    "kaiju-no-8-captain-power-threshold-037"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+  },
+  {
+   "question": "Esper, 300 yen an hour, consultation office: these three words belong to which anime?",
+   "options": [
+    "Chainsaw Man",
+    "JoJo's Bizarre Adventure",
+    "Gintama",
+    "Mob Psycho 100"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "mob-psycho-100-premise-022",
+    "mob-psycho-100-consultation-office-023"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+  },
+  {
+   "question": "Three words: 100 push-ups, S-Class, Hero Association. Which anime do they point to?",
+   "options": [
+    "Dandadan",
+    "Mob Psycho 100",
+    "One-Punch Man",
+    "Sakamoto Days"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-saitama-training-029",
+    "one-punch-man-tatsumaki-rank-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "Which anime fits these three words: retired hitman, convenience store, family man?",
+   "options": [
+    "Kagurabachi",
+    "Sakamoto Days",
+    "Mob Psycho 100",
+    "Gintama"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sakamoto-days-premise-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days"
+  },
+  {
+   "question": "Alternate Edo period, Amanto aliens, sword ban: these three words belong to which anime?",
+   "options": [
+    "Gintama",
+    "Mob Psycho 100",
+    "Sakamoto Days",
+    "Cowboy Bebop"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "gintama-setting-007",
+    "gintama-sword-ban-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Gintama"
+  },
+  {
+   "question": "Three words: 2071, bounty hunters, Solar System. Which anime do they point to?",
+   "options": [
+    "JoJo's Bizarre Adventure",
+    "Kaiju No. 8",
+    "Mob Psycho 100",
+    "Cowboy Bebop"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "cowboy-bebop-setting-premise-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  }
+ ]
+}

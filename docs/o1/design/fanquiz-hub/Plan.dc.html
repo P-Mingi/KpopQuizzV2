@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Plan de la page FanQuiz</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700;9..40,800&amp;display=swap">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#1F1B17}a:hover{color:#6B655E}
+</style>
+</helmet>
+<div style="width: 1100px; box-sizing: border-box; padding: 64px 72px 80px; background: #FFFFFF; color: #1F1B17; font-family: 'DM Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; display: flex; flex-direction: column; gap: 40px">
+
+<header style="display: flex; flex-direction: column; gap: 10px; padding-bottom: 28px; border-bottom: 2px solid #1F1B17">
+  <span style="font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #6B655E">FanQuiz · fanquiz.org · accueil</span>
+  <h1 style="margin: 0; font-size: 44px; line-height: 1.08; letter-spacing: -0.02em; font-weight: 800">Plan de la page, algorithmes et harmonie</h1>
+  <p style="margin: 0; font-size: 18px; color: #6B655E; max-width: 760px">Ce qu'on met sur l'accueil du hub, dans quel ordre, comment on choisit les quiz mis en avant, et les règles visuelles qui gardent les trois sites dans la même famille.</p>
+</header>
+
+<section style="display: flex; flex-direction: column; gap: 14px">
+  <h2 style="margin: 0; font-size: 26px; font-weight: 800">1. Le rôle de la page</h2>
+  <p style="margin: 0">Aujourd'hui la page explique le compte partagé, et c'est tout : deux cartes de sites et un bloc de confidentialité. Un visiteur n'y trouve rien à jouer. La nouvelle page a trois missions :</p>
+  <ol style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px">
+    <li><strong>Envoyer chaque visiteur vers le bon site en un clic</strong>, K-pop ou anime.</li>
+    <li><strong>Donner une raison de revenir chaque jour</strong> : quiz du jour, blindtest, séries de jours (streaks).</li>
+    <li><strong>Faire passer les fans d'un site à l'autre</strong> grâce au passeport : ponts entre fandoms, crossover, niveau commun.</li>
+  </ol>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 14px">
+  <h2 style="margin: 0; font-size: 26px; font-weight: 800">2. Ce qu'on met, dans cet ordre</h2>
+  <div style="overflow-x: auto">
+    <table style="width: 100%; border-collapse: collapse; font-size: 15px">
+      <thead>
+        <tr style="text-align: left; border-bottom: 2px solid #1F1B17">
+          <th style="padding: 8px 10px 8px 0; width: 28px">#</th>
+          <th style="padding: 8px 10px; width: 170px">Bloc</th>
+          <th style="padding: 8px 10px">Ce qu'il montre</th>
+          <th style="padding: 8px 0 8px 10px; width: 250px">Pourquoi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #ECE8E3; vertical-align: top"><td style="padding: 10px 10px 10px 0; font-weight: 700">1</td><td style="padding: 10px; font-weight: 700">Barre du haut</td><td style="padding: 10px">Logo FanQuiz, Today, Hot now, Top fans, deux pastilles KpopQuiz et OtakuQuiz, recherche sur les deux sites, Sign in ou avatar avec le niveau.</td><td style="padding: 10px 0 10px 10px; color: #6B655E">Les deux sites sont toujours à un clic.</td></tr>
+        <tr style="border-bottom: 1px solid #ECE8E3; vertical-align: top"><td style="padding: 10px 10px 10px 0; font-weight: 700">2</td><td style="padding: 10px; font-weight: 700">Hero et deux portes</td><td style="padding: 10px">H1 pour le référencement. Une porte rose pour KpopQuiz, une orange pour OtakuQuiz : vrais chiffres, un quiz « Top now » ou « Just added », un bouton d'entrée. En dessous, le bouton Surprise me.</td><td style="padding: 10px 0 10px 10px; color: #6B655E">Le choix principal de la page, dès le premier écran.</td></tr>
+        <tr style="border-bottom: 1px solid #ECE8E3; vertical-align: top"><td style="padding: 10px 10px 10px 0; font-weight: 700">3</td><td style="padding: 10px; font-weight: 700">Today</td><td style="padding: 10px">Quiz du jour K-pop, quiz du jour anime, blindtest du jour (K-pop, audio seul), débat du jour. Compte à rebours jusqu'au changement de 2 h 05 (heure de Paris). Streaks affichés si connecté.</td><td style="padding: 10px 0 10px 10px; color: #6B655E">Le rendez-vous quotidien, c'est ce qui fait revenir.</td></tr>
+        <tr style="border-bottom: 1px solid #ECE8E3; vertical-align: top"><td style="padding: 10px 10px 10px 0; font-weight: 700">4</td><td style="padding: 10px; font-weight: 700">60 seconds</td><td style="padding: 10px">Une question jouable sur place (réponse, anecdote, lien vers le quiz complet) et deux « Did you know » sourcés, un K-pop et un anime, avec lien vers la page trivia de chaque site.</td><td style="padding: 10px 0 10px 10px; color: #6B655E">On joue avant même d'avoir choisi un site.</td></tr>
+        <tr style="border-bottom: 1px solid #ECE8E3; vertical-align: top"><td style="padding: 10px 10px 10px 0; font-weight: 700">5</td><td style="padding: 10px; font-weight: 700">Hot right now</td><td style="padding: 10px">6 quiz classés, filtre All / KpopQuiz / OtakuQuiz, puis deux liens vers tous les quiz de chaque site.</td><td style="padding: 10px 0 10px 10px; color: #6B655E">La vitrine, avec un algorithme juste pour les deux sites (point 3).</td></tr>
+        <tr style="border-bottom: 1px solid #ECE8E3; vertical-align: top"><td style="padding: 10px 10px 10px 0; font-weight: 700">6</td><td style="padding: 10px; font-weight: 700">For you / Start easy</td><td style="padding: 10px">Connecté : continuer, le suivant dans ton fandom, un pont vers l'autre site. Déconnecté : le quiz facile le mieux noté de chaque site, et une carte passeport.</td><td style="padding: 10px 0 10px 10px; color: #6B655E">Personnaliser, et pousser la création du passeport.</td></tr>
+        <tr style="border-bottom: 1px solid #ECE8E3; vertical-align: top"><td style="padding: 10px 10px 10px 0; font-weight: 700">7</td><td style="padding: 10px; font-weight: 700">Crossover</td><td style="padding: 10px">Le seul bloc sombre de la page : 3 quiz qui croisent K-pop et anime (KPop Demon Hunters, génériques d'anime, chansons sur la magie) et un fait qui relie les deux mondes.</td><td style="padding: 10px 0 10px 10px; color: #6B655E">La raison d'être du réseau : un fan de l'un découvre l'autre.</td></tr>
+        <tr style="border-bottom: 1px solid #ECE8E3; vertical-align: top"><td style="padding: 10px 10px 10px 0; font-weight: 700">8</td><td style="padding: 10px; font-weight: 700">Top fans et passeport</td><td style="padding: 10px">Les 5 meilleurs fans de la semaine sur les deux sites (deux points pour les sites joués). À côté, le passeport : ce que les autres sites voient ou ne voient jamais, Sign in. Connecté : niveau, progression, streak par site.</td><td style="padding: 10px 0 10px 10px; color: #6B655E">La compétition, plus la confiance (vie privée claire).</td></tr>
+        <tr style="vertical-align: top"><td style="padding: 10px 10px 10px 0; font-weight: 700">9</td><td style="padding: 10px; font-weight: 700">Footer</td><td style="padding: 10px">Les deux sites, Privacy, Legal notice, hello@kpopquiz.org.</td><td style="padding: 10px 0 10px 10px; color: #6B655E">Obligations légales et contact.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #F1EFEA">Mobile : même ordre. Les deux portes côte à côte, Today en carrousel à faire glisser, Hot now en liste compacte, le reste empilé. Chaque zone tactile fait au moins 44 px.</p>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 14px">
+  <h2 style="margin: 0; font-size: 26px; font-weight: 800">3. Les algorithmes</h2>
+
+  <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border: 1px solid #ECE8E3; border-radius: 14px">
+    <h3 style="margin: 0; font-size: 19px">A. Hot right now</h3>
+    <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px">
+      <li><strong>Score</strong> = parties des 7 derniers jours, chaque jour pesant 0,85 puissance son âge en jours, multiplié par la qualité. Un quiz publié il y a moins de 72 h compte 1,5 fois.</li>
+      <li><strong>Qualité</strong> = taux de fin (parties terminées sur parties commencées) multiplié par (1 + likes / parties), bornée entre 0,5 et 1,5. Un quiz signalé, ou terminé par moins de 40 % des joueurs, est exclu.</li>
+      <li><strong>Diversité</strong> : 2 quiz au plus par groupe ou par série parmi les 6, jamais le quiz du jour (il est déjà plus haut). En mode All, on alterne K-pop, anime, K-pop, anime : le site le plus jeune garde ses places même avec moins de parties.</li>
+      <li><strong>Démarrage d'OtakuQuiz</strong> : tant qu'il a moins de 7 jours de données, ses places vont aux quiz anime « New », dans l'ordre de qualité éditoriale (vérifiés d'abord).</li>
+      <li><strong>Calcul</strong> : une fois par heure, mis en cache, jamais à chaque visite. À vérifier : s'il n'existe pas de compte de parties par jour, ajouter une petite table quotidienne (quiz, jour, parties) remplie la nuit.</li>
+    </ul>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border: 1px solid #ECE8E3; border-radius: 14px">
+    <h3 style="margin: 0; font-size: 19px">B. For you (connecté)</h3>
+    <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px">
+      <li><strong>Continuer</strong> : le dernier quiz commencé et pas fini, dans les 14 derniers jours.</li>
+      <li><strong>Le suivant dans ton fandom</strong> : le groupe ou la série que tu joues le plus, puis ses quiz que tu n'as pas joués, par qualité. La difficulté s'adapte : à 80 % de réussite ou plus, un cran plus dur ; sous 50 %, un cran plus facile.</li>
+      <li><strong>Le pont vers l'autre site</strong> : « les fans de X jouent aussi Y ». On compte les joueurs du passeport qui jouent les deux (au moins 30 en commun) ; en dessous, on prend des paires choisies à la main (par exemple Stray Kids et Jujutsu Kaisen). Sur 3 cartes, toujours 1 de l'autre site.</li>
+      <li><strong>Déconnecté</strong> : le quiz facile le mieux noté de chaque site, plus la carte passeport.</li>
+    </ul>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border: 1px solid #ECE8E3; border-radius: 14px">
+    <h3 style="margin: 0; font-size: 19px">C. Les rendez-vous du jour</h3>
+    <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px">
+      <li><strong>Quiz du jour</strong> : celui de la banque de chaque site pour la date du jour ; il change à 2 h 05, heure de Paris.</li>
+      <li><strong>Blindtest du jour</strong> : K-pop seulement, 5 chansons, audio seul. Les pochettes des BO restent cachées (colonne hide_cover).</li>
+      <li><strong>Débat du jour</strong> : celui de la table des débats ; un vote, puis le résultat.</li>
+      <li><strong>Question de 60 secondes</strong> : une question facile ou moyenne tirée d'un quiz du Top, un jour K-pop, le lendemain anime. Jamais une question du quiz du jour, jamais une question marquée spoiler.</li>
+      <li><strong>Did you know</strong> : un fait K-pop et un fait anime par jour, pris dans les faits sourcés (bonne note de qualité, catégorie fun ou histoire), jamais un fait déjà montré dans les 60 derniers jours. Lien vers la page trivia du site.</li>
+    </ul>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border: 1px solid #ECE8E3; border-radius: 14px">
+    <h3 style="margin: 0; font-size: 19px">D. Le reste</h3>
+    <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px">
+      <li><strong>Surprise me</strong> : un tirage parmi les 200 meilleurs quiz des deux sites (par qualité), sans ceux déjà joués si connecté, et jamais deux fois de suite le même site.</li>
+      <li><strong>Crossover</strong> : une liste choisie à la main (quiz marqués crossover) ; 3 affichés, changés chaque semaine.</li>
+      <li><strong>Top fans</strong> : l'XP gagnée cette semaine sur les deux sites ; seulement les profils publics ; les comptes Team sont exclus.</li>
+      <li><strong>Chiffres des portes</strong> : le vrai nombre de quiz publiés par site, mis en cache une heure. Aucun chiffre inventé sur la page.</li>
+    </ul>
+  </div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 14px">
+  <h2 style="margin: 0; font-size: 26px; font-weight: 800">4. L'harmonie</h2>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px">
+    <div style="padding: 18px; border-radius: 14px; background: #F1EFEA; display: flex; flex-direction: column; gap: 8px">
+      <span style="width: 44px; height: 44px; border-radius: 12px; background: #1F1B17"></span>
+      <strong>Le hub est neutre</strong>
+      <span style="font-size: 15px">Fond crème #FAF8F5, encre #1F1B17 pour ses boutons et sa navigation. Il n'a pas de couleur à lui. Aujourd'hui il est rose partout, donc il ressemble à KpopQuiz : à retirer.</span>
+    </div>
+    <div style="padding: 18px; border-radius: 14px; background: #FCE8EF; display: flex; flex-direction: column; gap: 8px">
+      <span style="width: 44px; height: 44px; border-radius: 12px; background: #D13A6E"></span>
+      <strong>Le rose = KpopQuiz</strong>
+      <span style="font-size: 15px">#D13A6E pour les boutons, #8A2A4C pour le texte sur fond pâle. Seulement sur ce qui appartient à KpopQuiz.</span>
+    </div>
+    <div style="padding: 18px; border-radius: 14px; background: #FFF1E6; display: flex; flex-direction: column; gap: 8px">
+      <span style="width: 44px; height: 44px; border-radius: 12px; background: #C2410C"></span>
+      <strong>L'orange = OtakuQuiz</strong>
+      <span style="font-size: 15px">#C2410C pour les boutons, #9A3412 pour le texte sur fond pâle. Seulement sur ce qui appartient à OtakuQuiz.</span>
+    </div>
+  </div>
+  <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px">
+    <li>Chaque carte porte un point de couleur et le nom de son site : on sait toujours où on va atterrir.</li>
+    <li>Logo FanQuiz : un carré d'encre, un F crème, et deux points, rose et orange. Les deux sites dans une seule marque.</li>
+    <li>Les mêmes composants que les sites : cartes blanches, coins de 16 à 24 px, ombre douce, DM Sans, boutons en pilule. On sent une seule famille.</li>
+    <li>Un seul bloc sombre (Crossover) pour casser le rythme ; aucun dégradé décoratif ailleurs.</li>
+    <li>Pas d'images d'œuvres : des tuiles d'initiales colorées, le style déjà utilisé sur OtakuQuiz.</li>
+    <li>Contraste AA partout. Mode sombre avec les mêmes tokens que les sites.</li>
+  </ul>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 14px">
+  <h2 style="margin: 0; font-size: 26px; font-weight: 800">5. Référencement et solidité</h2>
+  <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px">
+    <li>C'est la seule page indexable du hub. H1 « Quizzes for K-pop and anime fans » ; title « FanQuiz: K-pop and anime quizzes, one account ».</li>
+    <li>Chaque carte mène à la page canonique sur son site : aucun quiz n'est recopié sur fanquiz.org.</li>
+    <li>JSON-LD : WebSite, plus une ItemList pour Hot now, avec les URL des sites.</li>
+    <li>Rendu côté serveur, chaque bloc en cache une heure. Si la base ne répond pas, on sert la dernière version : jamais de page 500.</li>
+  </ul>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 14px">
+  <h2 style="margin: 0; font-size: 26px; font-weight: 800">6. Ce qu'on mesure</h2>
+  <p style="margin: 0">Les clics par bloc ; la part des visiteurs qui entrent sur un site ; les passages de K-pop vers anime et d'anime vers K-pop ; les passeports créés depuis le hub ; les réponses à la question de 60 secondes et les clics vers le quiz complet.</p>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 14px; padding: 18px 20px; border-radius: 14px; background: #F1EFEA">
+  <h2 style="margin: 0; font-size: 22px; font-weight: 800">Hors de la page, volontairement</h2>
+  <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px">
+    <li>Pas de blindtest anime (retiré d'OtakuQuiz).</li>
+    <li>Pas d'images officielles d'anime, ni de logos de groupes.</li>
+    <li>Pas de chiffres inventés : dans la maquette, les titres viennent de la vraie base et du contenu anime. Les pseudos du Top fans (sauf mingi), les streaks et le niveau sont des exemples.</li>
+  </ul>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1100,"height":3900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "mob-psycho-100",
+  "title": "From 12 Episodes to 300 Yen: Mob Psycho 100 by the Numbers",
+  "slug": "from-12-episodes-to-300-yen-mob-psycho-100-by-the-numbers",
+  "description": "Ten questions where the answer is a number: episodes, years, volumes, wages and awards. Light spoilers up to the third season.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Mob Psycho 100 episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_episodes"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Mob Psycho 100",
+      "url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Mob Psycho 100 characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    }
+  ],
+  "notes": "Numbers only. Highest arc cited is season 3.",
+  "questions": [
+    {
+      "question": "How long is the first season of Mob Psycho 100, in episodes?",
+      "options": [
+        "10",
+        "13",
+        "12",
+        "24"
+      ],
+      "correct": 2,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "mob-psycho-100-anime-season-one-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_episodes"
+    },
+    {
+      "question": "The second season of Mob Psycho 100 runs for how many episodes?",
+      "options": [
+        "13",
+        "12",
+        "14",
+        "26"
+      ],
+      "correct": 0,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "mob-psycho-100-anime-season-two-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_episodes"
+    },
+    {
+      "question": "In which year did the third season air?",
+      "options": [
+        "2020",
+        "2021",
+        "2023",
+        "2022"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "mob-psycho-100-anime-season-three-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_episodes"
+    },
+    {
+      "question": "Into how many volumes was Mob Psycho 100 collected?",
+      "options": [
+        "12",
+        "16",
+        "14",
+        "20"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "mob-psycho-100-manga-size-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
+      "question": "How many yen per hour does Mob earn at the consultation office?",
+      "options": [
+        "100 yen",
+        "500 yen",
+        "300 yen",
+        "1,000 yen"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-consultation-office-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    },
+    {
+      "question": "In which year was the live-action drama made?",
+      "options": [
+        "2018",
+        "2016",
+        "2019",
+        "2022"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "mob-psycho-100-live-action-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
+      "question": "Which edition of the Shogakukan Manga Award went to the manga?",
+      "options": [
+        "32nd",
+        "62nd",
+        "52nd",
+        "72nd"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "mob-psycho-100-manga-award-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    },
+    {
+      "question": "In which year did the first season air?",
+      "options": [
+        "2012",
+        "2014",
+        "2018",
+        "2016"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "mob-psycho-100-anime-season-one-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_episodes"
+    },
+    {
+      "question": "In which year did the second season begin?",
+      "options": [
+        "2019",
+        "2017",
+        "2018",
+        "2020"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 2,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "mob-psycho-100-anime-season-two-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_episodes"
+    },
+    {
+      "question": "How many prizes did the anime win at the first Crunchyroll Anime Awards?",
+      "options": [
+        "One",
+        "Three",
+        "Two",
+        "Five"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "mob-psycho-100-crunchyroll-awards-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100"
+    }
+  ]
+}

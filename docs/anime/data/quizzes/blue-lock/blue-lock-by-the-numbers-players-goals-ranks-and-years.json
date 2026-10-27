@@ -1,0 +1,222 @@
+{
+ "site": "anime",
+ "account": "oq_creator_22",
+ "group_slug": "blue-lock",
+ "title": "Blue Lock by the Numbers: Years, Episodes, Volumes and Awards",
+ "slug": "blue-lock-by-the-numbers-players-goals-ranks-and-years",
+ "description": "Ten multiple choice questions where every answer is a number: years, days, episodes, volumes and award numbers, plus one number from the story. Numbers format. Light spoilers up to the Neo Egoist League.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Numbers format: every option is a number, taken from the verified series facts; one question uses a story label (the World's 11).",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Blue Lock characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Blue Lock",
+   "url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Blue Lock episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  }
+ ],
+ "questions": [
+  {
+   "question": "How many episodes does the first season of the Blue Lock anime run for?",
+   "options": [
+    "12",
+    "13",
+    "24",
+    "26"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "In which year did the Blue Lock anime premiere?",
+   "options": [
+    "2020",
+    "2021",
+    "2022",
+    "2023"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "At which numbered Kodansha Manga Award did Blue Lock win the shonen prize?",
+   "options": [
+    "The 55th",
+    "The 40th",
+    "The 35th",
+    "The 45th"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "blue-lock-kodansha-award-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "question": "In which year did the Blue Lock manga begin in Weekly Shonen Magazine?",
+   "options": [
+    "2016",
+    "2017",
+    "2018",
+    "2019"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "blue-lock-magazine-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "question": "In which year did the first season of the Blue Lock anime end?",
+   "options": [
+    "2021",
+    "2022",
+    "2023",
+    "2024"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "The third season of the anime was announced at Blue Lock Egoist Fest in September. On which day?",
+   "options": [
+    "5",
+    "14",
+    "21",
+    "28"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-three-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Sae Itoshi counts among the World's best young players. The group is named for which number?",
+   "options": [
+    "20",
+    "5",
+    "11",
+    "8"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-sae-worlds-11-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "question": "On which day of October 2022 did the Blue Lock anime premiere?",
+   "options": [
+    "2",
+    "9",
+    "16",
+    "30"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "The first season ended in March. On which day of the month?",
+   "options": [
+    "12",
+    "19",
+    "26",
+    "31"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "In which year was a third season of the Blue Lock anime announced at Blue Lock Egoist Fest?",
+   "options": [
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-three-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  }
+ ]
+}

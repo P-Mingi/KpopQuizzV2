@@ -1,0 +1,212 @@
+{
+  "site": "anime",
+  "account": "oq_creator_09",
+  "group_slug": "my-hero-academia",
+  "title": "Heroes on the Mic: My Hero Academia Openings and Endings",
+  "slug": "heroes-on-the-mic-my-hero-academia-openings-and-endings",
+  "description": "Who directed it and who sang the openings and endings across eight seasons.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who directed the early seasons and then served as chief director for the rest?",
+      "options": [
+        "Haruo Sotozaki",
+        "Tetsuro Araki",
+        "Hayato Date",
+        "Kenji Nagasaki"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-chief-director-021"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Who performed Long Hope Philia, an ending of season 3?",
+      "options": [
+        "Soshi Sakiyama",
+        "Kiro Akiyama",
+        "Masaki Suda",
+        "Sayuri"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-ending-themes-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Which band performed both the first opening, The Day, and the fourteenth, The Revo?",
+      "options": [
+        "Porno Graffitti",
+        "Uverworld",
+        "Eve",
+        "Dish"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-opening-themes-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Who performed Peace Sign, the first opening of season 2?",
+      "options": [
+        "Eve",
+        "Kenshi Yonezu",
+        "amazarashi",
+        "Kana-Boon"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-opening-themes-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Which band performed Odd Future, an opening of season 3?",
+      "options": [
+        "Uverworld",
+        "Blue Encount",
+        "Lenny code fiction",
+        "Kana-Boon"
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-opening-themes-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Who performed the opening Merry-Go-Round in season 5?",
+      "options": [
+        "Dish",
+        "Super Beaver",
+        "Yuuri",
+        "Man with a Mission"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-opening-themes-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Which artist performed the season 6 opening Bokurano?",
+      "options": [
+        "Yuuri",
+        "Eve",
+        "Super Beaver",
+        "Dish"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-opening-themes-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Which singer performed the season 2 ending Datte Atashi no Hero?",
+      "options": [
+        "miwa",
+        "Sayuri",
+        "Brian the Sun",
+        "LiSA"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-ending-themes-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Who performed the very first ending, Heroes?",
+      "options": [
+        "Little Glee Monster",
+        "LiSA",
+        "Brian the Sun",
+        "miwa"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-ending-themes-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Which band performed the ending of season 8, titled I?",
+      "options": [
+        "Zarame",
+        "Omoinotake",
+        "Six Lounge",
+        "Bump of Chicken"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-ending-themes-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: My Hero Academia (TV series)",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    }
+  ],
+  "notes": "All facts at arc 0, no character named. K1 rewrite: blocked questions rewritten on verified facts (012)."
+}

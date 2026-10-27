@@ -1,0 +1,238 @@
+{
+ "site": "anime",
+ "account": "oq_creator_25",
+ "group_slug": "kagurabachi",
+ "title": "Which Came First? Kagurabachi Releases and Backstory in Order",
+ "slug": "which-came-first-kagurabachi-releases-and-backstory-in-order",
+ "description": "Ten rounds of four events where you pick the earliest or the latest: the Jump start, volumes, English print and the war-and-murder backstory. Light spoilers up to the first arc.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "First format: dates come from verified facts; the story-order rounds use only events whose order the sources state.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Kagurabachi",
+   "url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Which of these came first in the story's timeline?",
+   "options": [
+    "Chihiro's quest for revenge",
+    "Kunishige going into hiding",
+    "The Seitei War",
+    "Kunishige's murder"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-setting-war-010",
+    "kagurabachi-hishaku-murder-blades-029",
+    "kagurabachi-chihiro-revenge-quest-034",
+    "kagurabachi-kunishige-hidden-home-031"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Four real-world moments are listed here. Which one came first?",
+   "options": [
+    "Kagurabachi started in Weekly Shōnen Jump",
+    "Viz Media announced a print edition",
+    "Volume 1 released in Japan",
+    "Viz Media published volume 1"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-serialization-start-003",
+    "kagurabachi-volume-count-004",
+    "kagurabachi-english-release-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which of these existed first in the story?",
+   "options": [
+    "The Hishaku crime",
+    "The Kamunabi",
+    "Ibuki quitting swordsmanship",
+    "The Sorcery Bureau"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 1,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-sorcery-bureau-prewar-028",
+    "kagurabachi-kamunabi-agency-012",
+    "kagurabachi-hishaku-murder-blades-029",
+    "kagurabachi-ibuki-quit-swordsmanship-033"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which of these real-world steps came last?",
+   "options": [
+    "Viz Media published volume 1",
+    "Viz Media announced a print edition",
+    "Volume 1 released in Japan",
+    "Volume 12 released"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-volume-count-004",
+    "kagurabachi-english-release-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Reading the story in order, which of these came earliest?",
+   "options": [
+    "Kunishige's murder",
+    "Chihiro's quest for revenge",
+    "Ibuki Misaka being killed",
+    "The Sorcery Bureau already existed"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 1,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-sorcery-bureau-prewar-028",
+    "kagurabachi-hishaku-murder-blades-029",
+    "kagurabachi-chihiro-revenge-quest-034",
+    "kagurabachi-ibuki-killed-after-murder-032"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which of these happened first in the story's timeline?",
+   "options": [
+    "Kunishige's murder",
+    "The Kamunabi being set up",
+    "Ibuki Misaka being killed",
+    "Chihiro's quest for revenge"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 1,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-kamunabi-agency-012",
+    "kagurabachi-hishaku-murder-blades-029",
+    "kagurabachi-chihiro-revenge-quest-034",
+    "kagurabachi-ibuki-killed-after-murder-032"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which of these came last in real life?",
+   "options": [
+    "Volume 1 released in Japan",
+    "Viz Media published volume 1",
+    "Viz Media announced a print edition",
+    "Kagurabachi started in Weekly Shōnen Jump"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-serialization-start-003",
+    "kagurabachi-volume-count-004",
+    "kagurabachi-english-release-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which of these events happened last in the story's timeline?",
+   "options": [
+    "Kunishige going into hiding",
+    "The Kamunabi being formed",
+    "Kunishige's murder",
+    "Chihiro's quest for revenge"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-kamunabi-agency-012",
+    "kagurabachi-kunishige-hidden-home-031",
+    "kagurabachi-hishaku-murder-blades-029",
+    "kagurabachi-chihiro-revenge-quest-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which of these events took place last in the story, going by the sources?",
+   "options": [
+    "Kunishige going into hiding",
+    "Ibuki Misaka being killed",
+    "Kunishige's murder",
+    "Ibuki quitting swordsmanship"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 1,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-ibuki-killed-after-murder-032",
+    "kagurabachi-hishaku-murder-blades-029",
+    "kagurabachi-kunishige-hidden-home-031",
+    "kagurabachi-ibuki-quit-swordsmanship-033"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  },
+  {
+   "question": "Which of these came last in the story's timeline?",
+   "options": [
+    "Azami helped Kunishige settle out of sight",
+    "The Kamunabi being formed",
+    "The Sorcery Bureau existing",
+    "The Seitei War"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kagurabachi-setting-war-010",
+    "kagurabachi-sorcery-bureau-prewar-028",
+    "kagurabachi-kamunabi-agency-012",
+    "kagurabachi-kunishige-hidden-home-031"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Kagurabachi"
+  }
+ ]
+}

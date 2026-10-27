@@ -1,0 +1,278 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+  "title": "Who Is This Monster? Reincarnated as a Slime in Three Clues",
+  "slug": "who-is-this-monster-reincarnated-as-a-slime-in-three-clues",
+  "description": "Ten citizens and friends of Tempest, three clues each, from a vague hint to the giveaway. Light spoilers up to the first season.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Guess-from-clues format: clues go from vague to easy; every clue rests on a cited fact.",
+  "questions": [
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This being was locked away in a cave for centuries.",
+        "The same being is one of the four original True Dragons and is called the Storm Dragon.",
+        "This dragon swaps names with a slime."
+      ],
+      "options": [
+        "Milim Nava",
+        "Ranga",
+        "Veldora Tempest",
+        "Geld"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-veldora-seal-025",
+        "that-time-i-got-reincarnated-as-a-slime-character-name-042",
+        "that-time-i-got-reincarnated-as-a-slime-names-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This hobgoblin looks smaller and sillier than the others.",
+        "This hobgoblin leads the goblin riders.",
+        "A hidden talent for swordplay makes this goblin a competent fighter."
+      ],
+      "options": [
+        "Gobta",
+        "Gabil",
+        "Geld",
+        "Kurobe"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-character-name-043",
+        "that-time-i-got-reincarnated-as-a-slime-gobta-riders-064"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This beast first meets Rimuru while raiding a goblin village.",
+        "This beast chooses to serve Rimuru instead of avenging a dead father.",
+        "After being named, this wolf evolves into a Tempest Star Wolf."
+      ],
+      "options": [
+        "Gobta",
+        "Geld",
+        "Ranga",
+        "Gabil"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-character-name-044",
+        "that-time-i-got-reincarnated-as-a-slime-ranga-star-065"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This warrior is a prince.",
+        "The village of this prince was wiped out by orcs.",
+        "After being named, this ogre evolves into a kijin."
+      ],
+      "options": [
+        "Souei",
+        "Kurobe",
+        "Geld",
+        "Benimaru"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-benimaru-prince-066",
+        "that-time-i-got-reincarnated-as-a-slime-character-name-045"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This ogre is one of the six survivors of a ruined village.",
+        "This ogre cooks terribly.",
+        "This ogre is the self-appointed secretary and bodyguard of Rimuru."
+      ],
+      "options": [
+        "Shuna",
+        "Shion",
+        "Souei",
+        "Kurobe"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-character-name-046",
+        "that-time-i-got-reincarnated-as-a-slime-shion-cook-067"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This ogre is the sister of Benimaru.",
+        "This ogre teaches the goblins how to sew.",
+        "Rimuru gave this princess the title Holy Princess."
+      ],
+      "options": [
+        "Shion",
+        "Shuna",
+        "Souei",
+        "Gabil"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-character-name-047",
+        "that-time-i-got-reincarnated-as-a-slime-shuna-title-069"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This ogre is a buddy of the ogre prince.",
+        "This ogre has abilities like those of a ninja.",
+        "Rimuru named this scout with the title Spy."
+      ],
+      "options": [
+        "Souei",
+        "Kurobe",
+        "Gobta",
+        "Geld"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-character-name-048",
+        "that-time-i-got-reincarnated-as-a-slime-souei-title-070"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This large ogre is the least featured of his companions.",
+        "Rimuru gave this ogre the title Blacksmith.",
+        "This ogre swings a giant mallet and forges Tempest's tools."
+      ],
+      "options": [
+        "Kurobe",
+        "Souei",
+        "Benimaru",
+        "Gabil"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-character-name-049",
+        "that-time-i-got-reincarnated-as-a-slime-kurobe-title-071"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This being is the daughter of the True Dragon Veldanava.",
+        "The same being is the niece of Veldora.",
+        "This carefree Demon Lord is known as the Destroyer."
+      ],
+      "options": [
+        "Ramiris",
+        "Shizue Izawa",
+        "Milim Nava",
+        "Gabil"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-character-name-052",
+        "that-time-i-got-reincarnated-as-a-slime-milim-destroyer-074"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "This fairy is a former Spirit Queen.",
+        "This fairy is known as the Labyrinth Master.",
+        "This fairy loves manga with Veldora."
+      ],
+      "options": [
+        "Milim Nava",
+        "Shizue Izawa",
+        "Ramiris",
+        "Shuna"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-character-name-053",
+        "that-time-i-got-reincarnated-as-a-slime-ramiris-labyrinth-076"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: That Time I Got Reincarnated as a Slime (TV series)",
+      "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of That Time I Got Reincarnated as a Slime characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    }
+  ]
+}

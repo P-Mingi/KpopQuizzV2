@@ -1,5 +1,7 @@
 # dependencies
 node_modules/
+# O1 (D-115): lane worktrees link node_modules to O1's; a symlink is not a directory, so the line above misses it.
+node_modules
 .pnp
 .pnp.js
 
@@ -18,6 +20,10 @@ build/
 # that lives under src/app/ (covers both and any future builder route).
 !apps/quiz/src/app/**/build/
 !apps/quiz/src/app/**/build/**
+# Same for route folders named out/ under the app dir: the passport click endpoint
+# (app/(site)/auth/passport/out/route.ts) is SOURCE, the `out/` rule above is for the static-export output.
+!apps/quiz/src/app/**/out/
+!apps/quiz/src/app/**/out/**
 
 # misc
 .DS_Store
@@ -75,7 +81,11 @@ docs/*
 !docs/PLAY-SEO-HANDOFF.md
 !docs/PLAY-SEO-LOG.md
 !docs/pending-migrations/
+# Run O1 bus and run folder (RUN-O1-PROMPT section 2): tracked on o1/* branches.
+!docs/o1/
 !docs/design/
+!docs/anime/
+!docs/launch/
 !docs/verse-project.md
 !docs/VERSE-LEDGER.md
 !docs/COWORK-HANDOFF.md

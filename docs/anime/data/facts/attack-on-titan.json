@@ -1,0 +1,2719 @@
+[
+  {
+    "id": "attack-on-titan-season-one-span-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "arc_s1",
+    "value": [
+      "1: Season 1, episodes 1-25, chapters 1-34"
+    ],
+    "text": "The first season ran for 25 episodes in 2013 and adapted the first 34 chapters of the manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+        "ref": "1373116640",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It covers the first story arcs (chapters 1-34) from the original manga"
+  },
+  {
+    "id": "attack-on-titan-season-two-span-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "arc_s2",
+    "value": [
+      "2: Season 2: Clash of the Titans, episodes 26-37, chapters 35-51"
+    ],
+    "text": "Season 2 followed the Clash of the Titans arc of the manga across 12 episodes, numbered 26 to 37 overall.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+        "ref": "1372511996",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It covers the \"Clash of the Titans\" arc (chapters 35-51)"
+  },
+  {
+    "id": "attack-on-titan-season-three-span-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "arc_s3",
+    "value": [
+      "3: Season 3 Part 1: Royal Government, episodes 38-49, chapters 51-72",
+      "4: Season 3 Part 2: Return to Shiganshina, episodes 50-59, chapters 73-90"
+    ],
+    "text": "Season 3 ran as two blocks, with the Royal Government arc first and the Return to Shiganshina arc second.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+        "ref": "1373469838",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "It covers the \"Royal Government\" (chapters 51-72) and \"Return to Shiganshina\" (chapters 73-90) arcs"
+  },
+  {
+    "id": "attack-on-titan-final-season-span-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "arc_s4",
+    "value": [
+      "The Final Season: episodes 60-94 in four parts, chapters 91-139",
+      "The Final Season Part 1: episodes 60-75",
+      "The Final Season Part 2: episodes 76-87",
+      "The Final Chapters (Parts 3 and 4): episodes 88-94"
+    ],
+    "text": "The last season ended the story by adapting the remaining chapters 91 to 139 of the manga, from the Marley arc to the War for Paradis arc.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4",
+        "ref": "1378728549",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The season covers the \"Marley\" (chapters 91-106) and \"War for Paradis\" (chapters 107-139) arcs"
+  },
+  {
+    "id": "attack-on-titan-final-season-chapter-split-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "arc_split",
+    "value": [
+      "The Final Season Part 1: chapters 91-116",
+      "The Final Season Part 2: chapters 117-130",
+      "The Final Chapters: chapters 131-139"
+    ],
+    "text": "Episode titles of the last season echo manga chapter titles, which shows where each part stops: Part 1 ends at chapter 116 and Part 2 at chapter 130.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_chapters",
+        "ref": "1379121958",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "\"Above and Below\" (天地, Tenchi) \"Judgment\" (断罪, Danzai)"
+  },
+  {
+    "id": "attack-on-titan-cast-first-half-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "characters_a",
+    "value": [
+      "Eren Yeager (エレン・イェーガー)",
+      "Mikasa Ackerman (ミカサ・アッカーマン)",
+      "Armin Arlert (アルミン・アルレルト)",
+      "Levi Ackerman (リヴァイ・アッカーマン)",
+      "Erwin Smith (エルヴィン・スミス)",
+      "Hange Zoë (ハンジ・ゾエ)",
+      "Jean Kirstein (ジャン・キルシュタイン)",
+      "Connie Springer (コニー・スプリンガー)",
+      "Sasha Blouse (サシャ・ブラウス)",
+      "Krista Lenz (クリスタ・レンズ)",
+      "Ymir (ユミル)",
+      "Reiner Braun (ライナー・ブラウン)",
+      "Bertolt Hoover (ベルトルト・フーバー)",
+      "Annie Leonhart (アニ・レオンハート)",
+      "Marco Bott (マルコ・ボット)"
+    ],
+    "text": "The first half of the cast list: the main trio, the 104th Training Corps and a few early mentors.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Mikasa Ackerman (ミカサ・アッカーマン"
+  },
+  {
+    "id": "attack-on-titan-cast-second-half-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "characters_b",
+    "value": [
+      "Keith Shadis (キース・シャーディス)",
+      "Hannes (ハンネス)",
+      "Dot Pixis (ドット・ピクシス)",
+      "Mike Zacharius (ミケ・ザカリアス)",
+      "Petra Ral (ペトラ・ラル)",
+      "Zeke Yeager (ジーク・イェーガー)",
+      "Kenny Ackerman (ケニー・アッカーマン)",
+      "Rod Reiss (ロッド・レイス)",
+      "Grisha Yeager (グリシャ・イェーガー)",
+      "Carla Yeager (カルラ・イェーガー)",
+      "Gabi Braun (ガビ・ブラウン)",
+      "Falco Grice (ファルコ・グライス)",
+      "Pieck Finger (ピーク・フィンガー)",
+      "Porco Galliard (ポルコ・ガリアード)",
+      "Willy Tybur (ヴィリー・タイバー)"
+    ],
+    "text": "The second half of the cast list: veteran soldiers, the royal government and the Marleyan Warriors.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Willy Tybur (ヴィリー・タイバー"
+  },
+  {
+    "id": "attack-on-titan-opening-themes-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP 1: Guren no Yumiya - Linked Horizon (season 1)",
+      "OP 2: Jiyū no Tsubasa - Linked Horizon (season 1)",
+      "OP 3: Shinzō wo Sasageyo! - Linked Horizon (season 2)",
+      "OP 4: Red Swan - Yoshiki feat. Hyde (season 3)",
+      "OP 5: Shoukei to Shikabane no Michi - Linked Horizon (season 3)",
+      "OP 6: My War - Shinsei Kamattechan (season 4)",
+      "OP 7: The Rumbling - SiM (season 4)",
+      "OP 8: Saigo no Kyojin - Linked Horizon (season 4)"
+    ],
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q137465114",
+        "ref": "Q137465114",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "\"Guren no Yumiya\" by Linked Horizon"
+  },
+  {
+    "id": "attack-on-titan-ending-themes-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED 1: Utsukushiki Zankoku na Sekai - Yōko Hikasa (season 1)",
+      "ED 2: Great Escape - Cinema Staff (season 1)",
+      "ED 3: Yuugure no Tori - Shinsei Kamattechan (season 2)",
+      "ED 4: Akatsuki no Requiem - Linked Horizon (season 3)",
+      "ED 5: Name of Love - Cinema Staff (season 3)",
+      "ED 6: Shock - Yūko Andō (season 4)",
+      "ED 7: Akuma no Ko - Ai Higuchi (season 4)",
+      "ED 8: Under the Tree - SiM (season 4)",
+      "ED 9: To You 2,000... or... 20,000 Years From Now... - Linked Horizon (season 4)",
+      "ED 10: Itterasshai - Ai Higuchi (season 4)"
+    ],
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "\"Utsukushiki Zankoku na Sekai\" by Yōko Hikasa"
+  },
+  {
+    "id": "attack-on-titan-japanese-title-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "title_native",
+    "value": "進撃の巨人",
+    "text": "Attack on Titan carries the Japanese title 進撃の巨人, read Shingeki no Kyojin, which translates roughly as The Advancing Giant.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q586025",
+        "ref": "Q586025",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "lit. 'The Advancing Giant'"
+  },
+  {
+    "id": "attack-on-titan-manga-creator-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "author",
+    "value": "Hajime Isayama",
+    "text": "Hajime Isayama wrote and drew the whole manga himself.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q586025",
+        "ref": "Q586025",
+        "fetched_at": "2026-10-23T17:22:24Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.kodansha.co.jp/comic/products/0000352102",
+        "fetched_at": "2026-10-23T17:24:10Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a Japanese manga series written and illustrated by Hajime Isayama"
+  },
+  {
+    "id": "attack-on-titan-manga-run-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "manga_run",
+    "value": "September 2009 to April 2021",
+    "text": "The manga appeared in monthly installments from September 2009 until its finale in April 2021.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q586025",
+        "ref": "Q586025",
+        "fetched_at": "2026-10-23T17:22:24Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "from September 2009 to April 2021"
+  },
+  {
+    "id": "attack-on-titan-magazine-publisher-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "magazine",
+    "value": "Bessatsu Shōnen Magazine (Kodansha)",
+    "text": "It ran in Kodansha's monthly Bessatsu Shōnen Magazine, which launched with the first chapter.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q586025",
+        "ref": "Q586025",
+        "fetched_at": "2026-10-23T17:22:24Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.kodansha.co.jp/comic/products/0000352102",
+        "fetched_at": "2026-10-23T17:24:10Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "serialized in Kodansha's monthly magazine Bessatsu Shōnen Magazine"
+  },
+  {
+    "id": "attack-on-titan-volume-count-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "volumes",
+    "value": 34,
+    "text": "The chapters were collected in 34 volumes, and the story closed after 139 chapters.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q586025",
+        "ref": "Q586025",
+        "fetched_at": "2026-10-23T17:22:24Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.kodansha.co.jp/comic/products/0000352102",
+        "fetched_at": "2026-10-23T17:24:10Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "with its chapters collected in 34 tankōbon volumes"
+  },
+  {
+    "id": "attack-on-titan-chapter-count-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "chapters",
+    "value": 139,
+    "text": "The finale was chapter number 139.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://ja.wikipedia.org/wiki/%E9%80%B2%E6%92%83%E3%81%AE%E5%B7%A8%E4%BA%BA",
+        "ref": "111292624",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q586025",
+        "ref": "Q586025",
+        "fetched_at": "2026-10-23T17:22:24Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "全139話"
+  },
+  {
+    "id": "attack-on-titan-anime-premiere-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "anime_start",
+    "value": "April 7, 2013",
+    "text": "The anime opened on 7 April 2013 with a 25-episode first season.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22126305",
+        "ref": "Q22126305",
+        "fetched_at": "2026-10-24T16:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-24T16:38:49.941Z",
+    "excerpt": "The series premiered on April 7, 2013"
+  },
+  {
+    "id": "attack-on-titan-episode-count-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "episodes",
+    "value": 94,
+    "text": "Across four seasons the television series reached 94 episodes, counting the episodic cut of the last two specials.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "94 + 3 OADs"
+  },
+  {
+    "id": "attack-on-titan-animation-studios-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "studio",
+    "value": "Wit Studio (seasons 1-3), MAPPA (season 4)",
+    "text": "Wit Studio animated the first three seasons, and MAPPA took over for the final season.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Animated by Wit Studio (first three seasons) and MAPPA (final season)"
+  },
+  {
+    "id": "attack-on-titan-series-directors-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "director",
+    "value": "Tetsurō Araki (seasons 1-3), Yuichiro Hayashi (season 4)",
+    "text": "Tetsurō Araki directed the first three seasons, and Yuichiro Hayashi directed the fourth.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://shingeki.tv/news/archives/5436",
+        "fetched_at": "2026-10-23T17:26:11Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Tetsurō Araki (S1-3)"
+  },
+  {
+    "id": "attack-on-titan-anime-finale-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "anime_end",
+    "value": "November 5, 2023",
+    "text": "The anime reached its last broadcast on 5 November 2023, with the second Final Chapters special.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 7,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22126305",
+        "ref": "Q22126305",
+        "fetched_at": "2026-10-23T17:22:24Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "concluded on November 5, 2023"
+  },
+  {
+    "id": "attack-on-titan-copies-in-circulation-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "copies",
+    "value": "over 140 million copies by November 2023",
+    "text": "By November 2023 the manga had passed 140 million copies in circulation.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "By November 2023, it had over 140 million copies in circulation."
+  },
+  {
+    "id": "attack-on-titan-volume-twelve-print-run-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "print_run",
+    "value": "2.2 million copies for volume 12",
+    "text": "Only two other manga have matched the first print of volume 12, which topped two million copies.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "given a first printing of 2.2 million copies"
+  },
+  {
+    "id": "attack-on-titan-kodansha-award-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "manga_award",
+    "value": "Best shonen prize at the 2011 Kodansha Manga Award",
+    "text": "The manga won the Kodansha Manga Award for best shonen title in 2011.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "35th Kodansha Manga Award"
+  },
+  {
+    "id": "attack-on-titan-guinness-record-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "guinness",
+    "value": "Guinness record for anime demand",
+    "text": "The show once held a Guinness record for demand among anime series, and later lost the broader animated-TV title to another series in 2024.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "broke the Guinness World Record for the \"most in-demand anime TV show\""
+  },
+  {
+    "id": "attack-on-titan-last-attack-film-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "compilation_film",
+    "value": "The Last Attack, November 8, 2024",
+    "text": "A compilation film of the finale, titled The Last Attack, arrived in Japan on 8 November 2024.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+        "ref": "1379816935",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "was released on November 8, 2024"
+  },
+  {
+    "id": "attack-on-titan-season-three-split-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "season_three_break",
+    "value": "12 episodes in 2018, then 10 episodes in 2019",
+    "text": "Season 3 aired its first 12 episodes in the summer of 2018 and then paused until April 2019 for the remaining 10.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+        "ref": "1373469838",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The season's first 12 episodes were broadcast on NHK General TV from July 23 to October 15, 2018"
+  },
+  {
+    "id": "attack-on-titan-eren-titan-model-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "eren-yeager"
+    },
+    "field": "titan_model",
+    "value": "Yushin Okami",
+    "text": "Eren's Titan form was drawn after a real middleweight mixed martial artist, Yushin Okami.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "was modeled after middleweight mixed martial artist Yushin Okami"
+  },
+  {
+    "id": "attack-on-titan-creator-favourite-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "jean-kirstein"
+    },
+    "field": "creator_favourite",
+    "value": "Hajime Isayama's favourite character",
+    "text": "When asked to name his favourite character, the author picked Jean for saying what he really thinks.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "That would be Jean."
+  },
+  {
+    "id": "attack-on-titan-levi-inspiration-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "levi-ackerman"
+    },
+    "field": "inspiration",
+    "value": "Rorschach from Watchmen",
+    "text": "Levi's look and manner were modeled on Rorschach, a character from the comic Watchmen.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Levi was modeled after the Watchmen character Rorschach"
+  },
+  {
+    "id": "attack-on-titan-attack-titan-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "eren-yeager"
+    },
+    "field": "titan_name",
+    "value": "Attack Titan",
+    "text": "Eren's Titan form is called the Attack Titan, whose Japanese name is the same as the title of the series.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Attack Titan (進撃の巨人, Shingeki no Kyojin)"
+  },
+  {
+    "id": "attack-on-titan-eren-yeager-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "eren-yeager"
+    },
+    "field": "name",
+    "value": "Eren Yeager (エレン・イェーガー)",
+    "text": "Eren Yeager is a main character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Eren Yēgā; alt. Eren Jaeger)"
+  },
+  {
+    "id": "attack-on-titan-mikasa-ackerman-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "mikasa-ackerman"
+    },
+    "field": "name",
+    "value": "Mikasa Ackerman (ミカサ・アッカーマン)",
+    "text": "Mikasa Ackerman is a main character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Mikasa Akkāman; alt. Mikasa Ackermann, Mikasa Azumabito)"
+  },
+  {
+    "id": "attack-on-titan-armin-arlert-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "armin-arlert"
+    },
+    "field": "name",
+    "value": "Armin Arlert (アルミン・アルレルト)",
+    "text": "Armin Arlert is a main character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Arumin Arureruto; alt. Armin Arlelt)"
+  },
+  {
+    "id": "attack-on-titan-levi-ackerman-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "levi-ackerman"
+    },
+    "field": "name",
+    "value": "Levi Ackerman (リヴァイ・アッカーマン)",
+    "text": "Levi Ackerman is a main character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Rivai Akkāman; alt. Levi Ackermann)"
+  },
+  {
+    "id": "attack-on-titan-erwin-smith-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "erwin-smith"
+    },
+    "field": "name",
+    "value": "Erwin Smith (エルヴィン・スミス)",
+    "text": "Erwin Smith is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "57th Expedition Beyond the Walls, Part 4\". Attack on Titan. September 27, 2014. Adult Swim."
+  },
+  {
+    "id": "attack-on-titan-hange-zoe-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "hange-zoe"
+    },
+    "field": "name",
+    "value": "Hange Zoë (ハンジ・ゾエ)",
+    "text": "Hange Zoë is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Hanji Zoe; alt. Zoë Hange, Zoe Hans)"
+  },
+  {
+    "id": "attack-on-titan-jean-kirstein-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "jean-kirstein"
+    },
+    "field": "name",
+    "value": "Jean Kirstein (ジャン・キルシュタイン)",
+    "text": "Jean Kirstein is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Jan Kirushutain; alt. Jean Kirschtein)"
+  },
+  {
+    "id": "attack-on-titan-connie-springer-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "connie-springer"
+    },
+    "field": "name",
+    "value": "Connie Springer (コニー・スプリンガー)",
+    "text": "Connie Springer is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Konī Supuringā; alt. Conny Springer)"
+  },
+  {
+    "id": "attack-on-titan-sasha-blouse-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "sasha-blouse"
+    },
+    "field": "name",
+    "value": "Sasha Blouse (サシャ・ブラウス)",
+    "text": "Sasha Blouse is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Sasha Burausu; alt. Sasha Braus)"
+  },
+  {
+    "id": "attack-on-titan-krista-lenz-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "krista-lenz"
+    },
+    "field": "name",
+    "value": "Krista Lenz (クリスタ・レンズ)",
+    "text": "Krista Lenz is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Kurisuta Renzu; alt. Christa Lenz)"
+  },
+  {
+    "id": "attack-on-titan-ymir-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "ymir"
+    },
+    "field": "name",
+    "value": "Ymir (ユミル)",
+    "text": "Ymir is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is voiced by Saki Fujita in the Japanese version and by Elizabeth Maxwell in the English version."
+  },
+  {
+    "id": "attack-on-titan-reiner-braun-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "reiner-braun"
+    },
+    "field": "name",
+    "value": "Reiner Braun (ライナー・ブラウン)",
+    "text": "Reiner Braun is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Reiner is a member of the Marleyan military's Warrior Unit and is the holder of the Armoured Titan (鎧の巨人, Yoroi no Kyojin). As the leader of the infiltration"
+  },
+  {
+    "id": "attack-on-titan-bertolt-hoover-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "bertolt-hoover"
+    },
+    "field": "name",
+    "value": "Bertolt Hoover (ベルトルト・フーバー)",
+    "text": "Bertolt Hoover is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Berutoruto Fūbā; alt. Bertholdt Hoover)"
+  },
+  {
+    "id": "attack-on-titan-annie-leonhart-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "annie-leonhart"
+    },
+    "field": "name",
+    "value": "Annie Leonhart (アニ・レオンハート)",
+    "text": "Annie Leonhart is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "An Eldian cadet of the Marleyan Warriors, Annie is introduced as a cadet in the 104th Training Corps, where she graduated ranking 4th in her class. She has"
+  },
+  {
+    "id": "attack-on-titan-marco-bott-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "marco-bott"
+    },
+    "field": "name",
+    "value": "Marco Bott (マルコ・ボット)",
+    "text": "Marco Bott is a character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Maruko Botto; alt. Marco Bodt)"
+  },
+  {
+    "id": "attack-on-titan-keith-shadis-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "keith-shadis"
+    },
+    "field": "name",
+    "value": "Keith Shadis (キース・シャーディス)",
+    "text": "Keith Shadis is a character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Kīsu Shādisu; alt. Keith Sadies)"
+  },
+  {
+    "id": "attack-on-titan-hannes-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "hannes"
+    },
+    "field": "name",
+    "value": "Hannes (ハンネス)",
+    "text": "Hannes is a character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "A Garrison soldier who saves Eren and Mikasa during the attack on Shiganshina. While Eren finishes cadet training, Hannes becomes a Garrison squad leader. He"
+  },
+  {
+    "id": "attack-on-titan-dot-pixis-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "dot-pixis"
+    },
+    "field": "name",
+    "value": "Dot Pixis (ドット・ピクシス)",
+    "text": "Dot Pixis is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Dotto Pikushisu; alt. Dot Pyxis)"
+  },
+  {
+    "id": "attack-on-titan-mike-zacharius-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "mike-zacharius"
+    },
+    "field": "name",
+    "value": "Mike Zacharius (ミケ・ザカリアス)",
+    "text": "Mike Zacharius is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Mike Zakariasu; alt. Miche Zacharius)"
+  },
+  {
+    "id": "attack-on-titan-petra-ral-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "petra-ral"
+    },
+    "field": "name",
+    "value": "Petra Ral (ペトラ・ラル)",
+    "text": "Petra Ral is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Petora Raru; alt. Petra Rall)"
+  },
+  {
+    "id": "attack-on-titan-zeke-yeager-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "zeke-yeager"
+    },
+    "field": "name",
+    "value": "Zeke Yeager (ジーク・イェーガー)",
+    "text": "Zeke Yeager is an antagonist of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Jīku Yēgā; alt. Zeke Jaeger, Zeke Fritz)"
+  },
+  {
+    "id": "attack-on-titan-kenny-ackerman-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "kenny-ackerman"
+    },
+    "field": "name",
+    "value": "Kenny Ackerman (ケニー・アッカーマン)",
+    "text": "Kenny Ackerman is an antagonist of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "隊長, Kenī Akkāman-taichō; alt. Kenny Ackermann)"
+  },
+  {
+    "id": "attack-on-titan-rod-reiss-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "rod-reiss"
+    },
+    "field": "name",
+    "value": "Rod Reiss (ロッド・レイス)",
+    "text": "Rod Reiss is an antagonist of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Aurille is a noble who is loyal to King Fritz and Rod Reiss. When it came to Erwin Smith's trial where he is accused of not giving Eren Yeager to the Royal"
+  },
+  {
+    "id": "attack-on-titan-grisha-yeager-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "grisha-yeager"
+    },
+    "field": "name",
+    "value": "Grisha Yeager (グリシャ・イェーガー)",
+    "text": "Grisha Yeager is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Gurisha Yēgā; alt. Grisha Jaeger)"
+  },
+  {
+    "id": "attack-on-titan-carla-yeager-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "carla-yeager"
+    },
+    "field": "name",
+    "value": "Carla Yeager (カルラ・イェーガー)",
+    "text": "Carla Yeager is a character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Karura Yēgā; alt. Carla Jaeger)"
+  },
+  {
+    "id": "attack-on-titan-gabi-braun-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "gabi-braun"
+    },
+    "field": "name",
+    "value": "Gabi Braun (ガビ・ブラウン)",
+    "text": "Gabi Braun is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Gabi Braun ( ガビ・ブラウン, Gabi Buraun) An overachieving, overconfident, bold and zealous Warrior candidate"
+  },
+  {
+    "id": "attack-on-titan-falco-grice-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "falco-grice"
+    },
+    "field": "name",
+    "value": "Falco Grice (ファルコ・グライス)",
+    "text": "Falco Grice is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "A timid, kind-hearted Warrior candidate and nephew of the condemned Eldian Restorationist member Grice, competing with Gabi (whom he also has a crush on) to"
+  },
+  {
+    "id": "attack-on-titan-pieck-finger-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "pieck-finger"
+    },
+    "field": "name",
+    "value": "Pieck Finger (ピーク・フィンガー)",
+    "text": "Pieck Finger is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "An Eldian cadet of the Marleyan Warrior Unit, Pieck is known for her intelligence and perceptiveness, and is able to transform into the Cart Titan to transport"
+  },
+  {
+    "id": "attack-on-titan-porco-galliard-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "porco-galliard"
+    },
+    "field": "name",
+    "value": "Porco Galliard (ポルコ・ガリアード)",
+    "text": "Porco Galliard is a supporting character of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "An Eldian cadet of the Marleyan Warrior Unit, Porco is a holder of the Jaw Titan and the younger brother of Marcel Galliard, who previously held the Jaw Titan"
+  },
+  {
+    "id": "attack-on-titan-willy-tybur-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "willy-tybur"
+    },
+    "field": "name",
+    "value": "Willy Tybur (ヴィリー・タイバー)",
+    "text": "Willy Tybur is an antagonist of Attack on Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1380339992",
+        "fetched_at": "2026-10-20T17:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The patriarch of the Tybur family and the true commander-in-chief of Marley prior to his death, Willy's ancestors orchestrated the downfall of the Eldian"
+  },
+  {
+    "id": "attack-on-titan-military-divisions-061",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "organization",
+    "value": [
+      "Garrison Regiment",
+      "Survey Corps",
+      "Military Police Brigade"
+    ],
+    "text": "Inside the Walls the army is split into exactly three branches: the Garrison, the Survey Corps and the Military Police.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "The military within the Walls is divided into three divisions: the Garrison Regiment, the Survey Corps, and the Military Police Brigade"
+  },
+  {
+    "id": "attack-on-titan-training-corps-school-062",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "role",
+    "value": "Training Corps",
+    "text": "The Training Corps is the school for new recruits, who only later choose one of the three branches.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "is the branch of the military dedicated to training and educating new recruits"
+  },
+  {
+    "id": "attack-on-titan-smiling-titan-064",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "titan_name",
+    "value": "Smiling Titan",
+    "text": "The Smiling Titan that kills Eren's mother is an ordinary man-eating Titan, not one of the Nine.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "Eren's mother is eaten by a Smiling Titan while Eren escapes"
+  },
+  {
+    "id": "attack-on-titan-hannes-garrison-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "hannes"
+    },
+    "field": "organization",
+    "value": "Garrison Regiment",
+    "text": "Hannes is a soldier of the Garrison who rescues Eren and Mikasa when Shiganshina falls.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "A Garrison soldier who saves Eren and Mikasa during the attack on Shiganshina"
+  },
+  {
+    "id": "attack-on-titan-rico-garrison-066",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "occupation",
+    "value": "Garrison Regiment",
+    "text": "Rico Brzenska leads her own squad inside the Garrison's elite forces.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "is the team leader of Squad Rico and a member of the Garrison's 1st Division Elite Forces"
+  },
+  {
+    "id": "attack-on-titan-pixis-garrison-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "dot-pixis"
+    },
+    "field": "organization",
+    "value": "Garrison Regiment",
+    "text": "Dot Pixis is a bald, moustached and eccentric commander who sits among the Garrison officers and rules the Southern Territory.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "is a man with a moustache and no hair who is the highest-ranking commander of the Southern Territory"
+  },
+  {
+    "id": "attack-on-titan-nanaba-survey-068",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "background",
+    "value": "Survey Corps",
+    "text": "Nanaba is a blond Survey Corps soldier who commands a team on the 57th expedition.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "Nanaba has short blond hair"
+  },
+  {
+    "id": "attack-on-titan-mike-squad-leader-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "mike-zacharius"
+    },
+    "field": "role",
+    "value": "Survey Corps squad leader",
+    "text": "Mike Zacharius sniffs newcomers on first meeting and leads a squad of the Survey Corps.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "A Survey Corps squad leader who has a peculiar habit"
+  },
+  {
+    "id": "attack-on-titan-hange-fourth-squad-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "hange-zoe"
+    },
+    "field": "role",
+    "value": "leader of the 4th Squad",
+    "text": "Hange is a scientist of the Survey Corps who heads the 4th Squad and studies Titans.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "is a bespectacled Survey Corps veteran and the leader of 4th Squad"
+  },
+  {
+    "id": "attack-on-titan-levi-elite-squad-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "levi-ackerman"
+    },
+    "field": "role",
+    "value": "head of an elite squad",
+    "text": "Levi, called the strongest soldier of humanity, commands an elite squad of the Survey Corps.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "head of an elite squad in the Survey Corps"
+  },
+  {
+    "id": "attack-on-titan-nile-dok-mp-072",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "origin",
+    "value": "Nile Dok",
+    "text": "Nile Dok commands the Military Police Brigade, not the Survey Corps.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "Commander of the Military Police Brigade"
+  },
+  {
+    "id": "attack-on-titan-wall-maria-first-073",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "setting",
+    "value": "Wall Maria",
+    "text": "Wall Maria is the outermost of the three walls, and Shiganshina lies on it.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "the first wall, Wall Maria, is breached"
+  },
+  {
+    "id": "attack-on-titan-wall-rose-second-074",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "terms",
+    "value": "Wall Rose",
+    "text": "Wall Rose is the second innermost of the walls.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "located in the second innermost wall, Wall Rose"
+  },
+  {
+    "id": "attack-on-titan-wall-sina-inner-075",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "specialty",
+    "value": "Wall Sina",
+    "text": "Wall Sina is the innermost wall, where cadets dream of a safe life in the Military Police.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "safely within Wall Sina"
+  },
+  {
+    "id": "attack-on-titan-trost-city-076",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "talent",
+    "value": "Trost",
+    "text": "Trost is a city, not a wall: it is the place that the Colossal Titan attacks inside Wall Rose.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "the Colossal Titan attacks the city of Trost"
+  },
+  {
+    "id": "attack-on-titan-squad-levi-members-077",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "style",
+    "value": [
+      "Eld Jinn",
+      "Oluo Bozado",
+      "Petra Ral",
+      "Gunther Schultz"
+    ],
+    "text": "Eld Jinn, Oluo Bozado, Petra Ral and Gunther Schultz are the four soldiers hand-picked for Captain Levi's Special Operations Squad.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "also known as Squad Levi"
+  },
+  {
+    "id": "attack-on-titan-moblit-hange-aide-078",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "mission",
+    "value": "Moblit Berner",
+    "text": "Moblit Berner is the vice captain of the 4th Squad and works as Hange's assistant and messenger.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "served as assistant and messenger for Hange"
+  },
+  {
+    "id": "attack-on-titan-reiner-armored-holder-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "reiner-braun"
+    },
+    "field": "titan_name",
+    "value": "Armored Titan",
+    "text": "Reiner Braun, a cadet of the 104th, is the one who holds the Armored Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "is the holder of the Armoured Titan"
+  },
+  {
+    "id": "attack-on-titan-bertolt-colossal-holder-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "bertolt-hoover"
+    },
+    "field": "titan_name",
+    "value": "Colossal Titan",
+    "text": "Bertolt Hoover, a quiet 104th cadet who ranked third, holds the Colossal Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "He is also the holder of the Colossus Titan"
+  },
+  {
+    "id": "attack-on-titan-annie-titan-form-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "annie-leonhart"
+    },
+    "field": "titan_name",
+    "value": "Female Titan",
+    "text": "Annie Leonhart, a 104th cadet who finished fourth, turns into a Titan to ambush the 57th expedition.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "Annie later assumes her Titan form to ambush the 57th expedition to Wall Maria"
+  },
+  {
+    "id": "attack-on-titan-jean-sixth-cadet-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "jean-kirstein"
+    },
+    "field": "role",
+    "value": "sixth-ranked cadet",
+    "text": "Jean Kirstein graduates sixth in the 104th Training Corps and is an ordinary human soldier.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "ranking sixth"
+  },
+  {
+    "id": "attack-on-titan-kenny-interior-police-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "kenny-ackerman"
+    },
+    "field": "organization",
+    "value": "Interior Police",
+    "text": "Kenny Ackerman heads the Interior Police unit that hunts the Survey Corps.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "Kenny personally leads the Interior Police against the Survey Corps"
+  },
+  {
+    "id": "attack-on-titan-traute-interior-squad-084",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "premise",
+    "value": "Traute Carven",
+    "text": "Traute Carven is the right hand of Kenny Ackerman in his counter-insurgency squad of the Interior Police.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "The second-in-command of the Anti-Personnel Control Squad"
+  },
+  {
+    "id": "attack-on-titan-djel-interior-squad-085",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "ability",
+    "value": "Djel Sanes",
+    "text": "Djel Sanes is a secret policeman of the First Interior Squad, also called the Interior Police.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "A member of the First Interior Squad"
+  },
+  {
+    "id": "attack-on-titan-marlowe-military-police-086",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "power",
+    "value": "Marlowe Freudenberg",
+    "text": "Marlowe Freudenberg is a rank-and-file soldier of the Military Police who wants to reform the corrupt force.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "Military Police member who is given a bit of leadership responsibility"
+  },
+  {
+    "id": "attack-on-titan-reiner-warrior-unit-087",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "reiner-braun"
+    },
+    "field": "organization",
+    "value": "Warrior Unit",
+    "text": "Reiner Braun trained in Marley as a member of the Warrior Unit.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "is a member of the Marleyan military's Warrior Unit"
+  },
+  {
+    "id": "attack-on-titan-pieck-warrior-unit-088",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "pieck-finger"
+    },
+    "field": "organization",
+    "value": "Warrior Unit",
+    "text": "Pieck Finger is another young Eldian raised in the Marleyan Warrior Unit, and she can become the Cart Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "An Eldian cadet of the Marleyan Warrior Unit, Pieck"
+  },
+  {
+    "id": "attack-on-titan-porco-warrior-unit-089",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "porco-galliard"
+    },
+    "field": "organization",
+    "value": "Warrior Unit",
+    "text": "Porco Galliard, brother of Marcel, was a Marleyan Warrior cadet and holds the Jaw Titan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+        "ref": "1381702143",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "An Eldian cadet of the Marleyan Warrior Unit, Porco"
+  },
+  {
+    "id": "attack-on-titan-eren-walls-boy-090",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "attack-on-titan",
+      "ref": "eren-yeager"
+    },
+    "field": "origin",
+    "value": "Shiganshina, inside the Walls",
+    "text": "Eren Yeager grows up in the border town of Shiganshina, within the Walls and far from Marley.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-25T18:44:16Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:16.000Z",
+    "excerpt": "Eren Yeager is a boy who lives in the town of Shiganshina"
+  },
+  {
+    "id": "attack-on-titan-nine-titans-list-091",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "attack-on-titan"
+    },
+    "field": "technique",
+    "value": [
+      "Attack Titan",
+      "Colossal Titan",
+      "Armored Titan",
+      "Female Titan",
+      "Beast Titan",
+      "Jaw Titan",
+      "Cart Titan",
+      "War Hammer Titan",
+      "Founding Titan"
+    ],
+    "text": "The Nine Titans are a fixed set of named powers; the Colossal, Armored and Female forms belong to it, along with six others.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+        "ref": "1379110502",
+        "fetched_at": "2026-10-25T18:44:43Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:46:43.000Z",
+    "excerpt": "are the Attack, Colossal, Armored, Female, Beast, Jaw, Cart, War Hammer, and Founding Titans"
+  }
+]

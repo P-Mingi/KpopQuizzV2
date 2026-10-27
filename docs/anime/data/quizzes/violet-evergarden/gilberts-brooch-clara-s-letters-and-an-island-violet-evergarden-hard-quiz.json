@@ -1,0 +1,223 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "violet-evergarden",
+  "title": "Violet Evergarden Hard Quiz: Gilbert's Brooch, Clara's Letters and an Island",
+  "slug": "gilberts-brooch-clara-s-letters-and-an-island-violet-evergarden-hard-quiz",
+  "description": "Ten hard questions on the secrets of the TV series, the side story film and the 2020 film. Spoilers for the whole story, up to the ending of the movie.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Hard quiz: end-of-story facts (arc 4) and late plot facts only. Spoilers named in the description.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Violet Evergarden: The Movie",
+      "url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Violet Evergarden: Eternity and the Auto Memory Doll",
+      "url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Violet Evergarden",
+      "url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    }
+  ],
+  "questions": [
+    {
+      "question": "On which date did Violet Evergarden: The Movie premiere in Japan?",
+      "options": [
+        "September 6, 2019",
+        "September 18, 2020",
+        "July 4, 2018",
+        "January 10, 2020"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-movie-release-022"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie"
+    },
+    {
+      "question": "Whom does Violet tutor at a girls' boarding school in the side story film?",
+      "options": [
+        "Isabella York",
+        "Charlotte Abelfreyja Drossel",
+        "Anne Magnolia",
+        "Taylor Bartlett"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-eternity-plot-021"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    },
+    {
+      "question": "What does the terminally ill Clara Magnolia ask Violet to prepare for her daughter?",
+      "options": [
+        "A portrait of the family",
+        "A new doll",
+        "A farewell speech",
+        "A set of letters to be read later"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-clara-magnolia-name-063",
+        "violet-evergarden-clara-magnolia-illness-064"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "What was the name of Isabella York before she joined the York family?",
+      "options": [
+        "Taylor Bartlett",
+        "Erica Brown",
+        "Anne Magnolia",
+        "Amy Bartlett"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-isabella-york-past-066"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    },
+    {
+      "question": "Which family later adopts Taylor Bartlett?",
+      "options": [
+        "The Evergarden family",
+        "The Magnolia family",
+        "The York family",
+        "The Drossel family"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-taylor-bartlett-adopted-068"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    },
+    {
+      "question": "Where does Claudia find Gilbert in the 2020 film?",
+      "options": [
+        "On an island",
+        "In a hospital",
+        "In the capital of Leiden",
+        "On a train"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-gilbert-bougainvillea-island-050"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie"
+    },
+    {
+      "question": "What does Gilbert lack when he is found alive?",
+      "options": [
+        "His memory of Violet",
+        "His left eye and an arm",
+        "His right eye and an arm",
+        "Both of his legs"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-gilbert-bougainvillea-island-050"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie"
+    },
+    {
+      "question": "Why did director Ishidate hesitate to make the 2020 film?",
+      "options": [
+        "He wanted to direct a different show",
+        "He disliked the original novels",
+        "He feared the film would be too short",
+        "He felt the TV ending already told his whole story"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-movie-director-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie"
+    },
+    {
+      "question": "Which job does Oscar Webster do?",
+      "options": [
+        "Painter",
+        "Surgeon",
+        "Pilot",
+        "Playwright"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-oscar-webster-name-059"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    },
+    {
+      "question": "What is Princess Charlotte's marriage meant to achieve?",
+      "options": [
+        "Peace",
+        "An heir",
+        "A coronation",
+        "A trade deal"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "violet-evergarden-charlotte-drossel-name-055"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    }
+  ]
+}

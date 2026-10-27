@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_13",
+ "group_slug": "dandadan",
+ "title": "Studios, Songs and Premieres: Dandadan on Screen",
+ "slug": "studios-songs-and-premieres-dandadan-on-screen",
+ "description": "Ten questions on the season one director, the first-season songs, the manga launch and the awards and festivals.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who directed the first season?",
+   "options": [
+    "Fūga Yamashiro",
+    "Takashi Sano",
+    "Daisuke Hiramaki",
+    "Seiji Mizushima"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-anime-studio-director-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "Which act performs Otonoke, the season one opening?",
+   "options": [
+    "Zutomayo",
+    "Aina the End",
+    "Creepy Nuts",
+    "WurtS"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-themes-season-one-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "question": "Which act performs Taidada, the season one ending?",
+   "options": [
+    "Zutomayo",
+    "Creepy Nuts",
+    "Aina the End",
+    "WurtS"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-themes-season-one-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "question": "Which song opens season one, performed by Creepy Nuts?",
+   "options": [
+    "Taidada",
+    "Otonoke",
+    "Kakumei Dōchū",
+    "Doukashiteru"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-themes-season-one-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "question": "On what date did the first Dandadan season start airing on TV?",
+   "options": [
+    "March 28, 2024",
+    "October 3, 2024",
+    "June 14, 2024",
+    "September 19, 2025"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-anime-season-one-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "question": "On which date did the manga begin?",
+   "options": [
+    "January 7, 2020",
+    "July 4, 2025",
+    "October 4, 2024",
+    "April 6, 2021"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-serialization-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "At which festival did the series win the shōnen category in 2025?",
+   "options": [
+    "Lucca Comics",
+    "Japan Expo",
+    "Anime Expo",
+    "Manga Barcelona"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-manga-barcelona-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "At which edition of the Manga Barcelona festival did the series win in 2025?",
+   "options": [
+    "11th",
+    "21st",
+    "31st",
+    "41st"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "dandadan-manga-barcelona-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "How is the title written in Japanese?",
+   "options": [
+    "ダンダン",
+    "ダダダダン",
+    "ダンダダン",
+    "ダンダンダン"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-native-title-001"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "Whose Shōnen Jump+ platform carried the manga from the start?",
+   "options": [
+    "Kodansha",
+    "Shueisha",
+    "Shogakukan",
+    "Square Enix"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-serialization-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Dandadan",
+   "url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Dandadan episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  }
+ ],
+ "notes": "All facts arc 0 (003, 006, 007, 008, 009, 013, 001). Names, dates and song titles only, no lyrics. K1 rewrite: blocked question rewritten on verified fact 007."
+}

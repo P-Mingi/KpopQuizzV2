@@ -3,8 +3,11 @@ import { unstable_cache } from 'next/cache';
 import { createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { avgScorePct } from '@/lib/quiz/scoring';
+import { SITE } from '@/lib/site/registry';
+import { forSite } from '@/lib/site/scope';
 
 import type { QuizCardData, QuizWithGroup } from '@/lib/db/types';
+import type { SiteId } from '@/lib/site/types';
 
 // M1.14: first_question is a JSON projection of the first question's PROMPT
 // text (questions->0->>question) for the desktop hover preview. Same query, no
@@ -14,7 +17,7 @@ const QUIZ_CARD_SELECT = `
   id, title, slug, quiz_type, difficulty, language, play_count, total_score_sum, total_completions, like_count, question_count, created_at, cover_image_url,
   first_question:questions->0->>question,
   groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
-  profiles!inner (username, avatar_url, avatar_bg, avatar_text, xp)
+  profiles!quizzes_creator_id_fkey!inner (username, avatar_url, avatar_bg, avatar_text, xp)
 `;
 
 /** M1.14: trim + truncate a first-question prompt for the hover teaser. */
@@ -27,7 +30,7 @@ export function teaserText(raw: string | null | undefined): string | undefined {
 const QUIZ_FULL_SELECT = `
   *,
   groups!inner (name, slug, display_color, text_color, fandom_name, logo_url),
-  profiles!inner (username, avatar_url, avatar_bg, avatar_text, xp)
+  profiles!quizzes_creator_id_fkey!inner (username, avatar_url, avatar_bg, avatar_text, xp)
 `;
 
 interface RawQuizRow {
@@ -89,9 +92,9 @@ function toQuizCardData(row: RawQuizRow): QuizCardData {
 export async function getQuizCardsByIds(ids: string[]): Promise<QuizCardData[]> {
   if (ids.length === 0) return [];
   const supabase = createPublicReadClient();
-  const { data } = await supabase
+  const { data } = await forSite(supabase
     .from('quizzes')
-    .select(QUIZ_CARD_SELECT)
+    .select(QUIZ_CARD_SELECT))
     .in('id', ids)
     .eq('status', 'published');
   return ((data ?? []) as unknown as RawQuizRow[]).map(toQuizCardData);
@@ -107,9 +110,9 @@ export const getQuizBySlug = unstable_cache(
   async (slug: string): Promise<QuizWithGroup | null> => {
     const supabase = createPublicReadClient();
 
-    const { data, error } = await supabase
+    const { data, error } = await forSite(supabase
       .from('quizzes')
-      .select(QUIZ_FULL_SELECT)
+      .select(QUIZ_FULL_SELECT))
       .eq('slug', slug)
       .eq('status', 'published')
       .single();
@@ -142,9 +145,9 @@ export const getQuizBySlug = unstable_cache(
 export async function getQuizById(id: string): Promise<QuizWithGroup | null> {
   const supabase = createPublicReadClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('quizzes')
-    .select(QUIZ_FULL_SELECT)
+    .select(QUIZ_FULL_SELECT))
     .eq('id', id)
     .eq('status', 'published')
     .single();
@@ -174,9 +177,9 @@ export async function getQuizById(id: string): Promise<QuizWithGroup | null> {
 export async function getAllQuizzes(offset: number, limit: number): Promise<QuizCardData[]> {
   const supabase = createPublicReadClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('quizzes')
-    .select(QUIZ_CARD_SELECT)
+    .select(QUIZ_CARD_SELECT))
     .eq('status', 'published')
     .order('play_count', { ascending: false })
     .range(offset, offset + limit - 1);
@@ -223,9 +226,9 @@ async function fetchBrowseQuizzes({
   // Public catalog browse - cookie-free so home/quizzes pages stay ISR-cacheable.
   const supabase = createPublicReadClient();
 
-  let query = supabase
+  let query = forSite(supabase
     .from('quizzes')
-    .select(QUIZ_CARD_SELECT)
+    .select(QUIZ_CARD_SELECT))
     .eq('status', 'published');
 
   if (groupId != null) query = query.eq('group_id', groupId);
@@ -275,9 +278,9 @@ export async function getLanguageCounts(): Promise<{ language: string; count: nu
   const supabase = createPublicReadClient();
   // Pull just the language column for published quizzes and tally in JS. The set
   // is small (hundreds of rows) and this avoids an RPC for a group-by count.
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('quizzes')
-    .select('language')
+    .select('language'))
     .eq('status', 'published');
   if (error) throw new Error(`Failed to fetch language counts: ${error.message}`);
 
@@ -296,9 +299,9 @@ export async function getTrendingQuizzes(offset: number, limit: number): Promise
 
   // Try last 7 days first
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('quizzes')
-    .select(QUIZ_CARD_SELECT)
+    .select(QUIZ_CARD_SELECT))
     .eq('status', 'published')
     .gte('created_at', sevenDaysAgo)
     .order('play_count', { ascending: false })
@@ -309,9 +312,9 @@ export async function getTrendingQuizzes(offset: number, limit: number): Promise
   // If fewer than limit from 7 days, try 30 days
   if ((data as unknown[]).length < limit && offset === 0) {
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-    const { data: extendedData, error: extendedError } = await supabase
+    const { data: extendedData, error: extendedError } = await forSite(supabase
       .from('quizzes')
-      .select(QUIZ_CARD_SELECT)
+      .select(QUIZ_CARD_SELECT))
       .eq('status', 'published')
       .gte('created_at', thirtyDaysAgo)
       .order('play_count', { ascending: false })
@@ -327,9 +330,9 @@ export async function getTrendingQuizzes(offset: number, limit: number): Promise
 export async function getNewQuizzes(offset: number, limit: number): Promise<QuizCardData[]> {
   const supabase = createPublicReadClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('quizzes')
-    .select(QUIZ_CARD_SELECT)
+    .select(QUIZ_CARD_SELECT))
     .eq('status', 'published')
     .order('created_at', { ascending: false })
     .range(offset, offset + limit - 1);
@@ -341,9 +344,9 @@ export async function getNewQuizzes(offset: number, limit: number): Promise<Quiz
 export async function getHardestQuizzes(offset: number, limit: number): Promise<QuizCardData[]> {
   const supabase = createPublicReadClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('quizzes')
-    .select(QUIZ_CARD_SELECT)
+    .select(QUIZ_CARD_SELECT))
     .eq('status', 'published')
     .gte('total_completions', 10)
     .order('difficulty', { ascending: false })
@@ -362,9 +365,9 @@ export async function getHardestQuizzes(offset: number, limit: number): Promise<
 export async function getMostLikedQuizzes(offset: number, limit: number): Promise<QuizCardData[]> {
   const supabase = createPublicReadClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('quizzes')
-    .select(QUIZ_CARD_SELECT)
+    .select(QUIZ_CARD_SELECT))
     .eq('status', 'published')
     .gt('like_count', 0)
     .order('like_count', { ascending: false })
@@ -392,9 +395,9 @@ async function fetchQuizzesByGroup(
 ): Promise<QuizCardData[]> {
   const supabase = createPublicReadClient();
 
-  let query = supabase
+  let query = forSite(supabase
     .from('quizzes')
-    .select(QUIZ_CARD_SELECT)
+    .select(QUIZ_CARD_SELECT))
     .eq('status', 'published')
     .eq('group_id', groupId);
 
@@ -440,9 +443,9 @@ async function fetchGroupQuizLinks(
 ): Promise<Array<{ slug: string; title: string }>> {
   const supabase = createPublicReadClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('quizzes')
-    .select('slug, title')
+    .select('slug, title'))
     .eq('status', 'published')
     .eq('group_id', groupId)
     .order('play_count', { ascending: false });
@@ -458,9 +461,9 @@ export async function getQuizzesByCreator(
 ): Promise<QuizCardData[]> {
   const supabase = createPublicReadClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('quizzes')
-    .select(QUIZ_CARD_SELECT)
+    .select(QUIZ_CARD_SELECT))
     .eq('status', 'published')
     .eq('creator_id', creatorId)
     .order('created_at', { ascending: false })
@@ -477,9 +480,9 @@ export async function getQuizzesByDifficulty(
 ): Promise<QuizCardData[]> {
   const supabase = createPublicReadClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('quizzes')
-    .select(QUIZ_CARD_SELECT)
+    .select(QUIZ_CARD_SELECT))
     .eq('status', 'published')
     .eq('difficulty', difficulty)
     .order('play_count', { ascending: false })
@@ -496,9 +499,9 @@ export async function getQuizzesByYear(
 ): Promise<QuizCardData[]> {
   const supabase = createPublicReadClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('quizzes')
-    .select(QUIZ_CARD_SELECT)
+    .select(QUIZ_CARD_SELECT))
     .eq('status', 'published')
     .gte('created_at', `${year}-01-01`)
     .lt('created_at', `${year + 1}-01-01`)
@@ -516,9 +519,9 @@ export async function getQuizzesByType(
 ): Promise<QuizCardData[]> {
   const supabase = createPublicReadClient();
 
-  const { data, error } = await supabase
+  const { data, error } = await forSite(supabase
     .from('quizzes')
-    .select(QUIZ_CARD_SELECT)
+    .select(QUIZ_CARD_SELECT))
     .eq('status', 'published')
     .eq('quiz_type', quizType)
     .order('play_count', { ascending: false })
@@ -537,18 +540,21 @@ export async function getQuizzesByType(
 // and is cached for the stats TTL within the day. If the cron has not published
 // today's bank quiz yet (brief post-midnight window), the deterministic rotation
 // fallback covers it - a valid QOTD, no write, no blank slot.
-export async function getQuizOfTheDay(): Promise<QuizCardData | null> {
+//
+// Run O1 (K1): one quiz of the day per site. `site` defaults to this build's site; the reads go through forSite (a no-op on
+// the kpop build while SITE_SCOPE is off, so kpop sends today's queries; the anime build always filters on site_id).
+export async function getQuizOfTheDay(site: SiteId = SITE.id): Promise<QuizCardData | null> {
   const today = new Date().toISOString().split('T')[0]!;
-  return getQuizOfTheDayForDate(today);
+  return getQuizOfTheDayForDate(today, site);
 }
 
 const getQuizOfTheDayForDate = unstable_cache(
-  async (today: string): Promise<QuizCardData | null> => {
+  async (today: string, site: SiteId): Promise<QuizCardData | null> => {
     const admin = createServiceRoleClient();
 
-    const { data, error } = await admin
+    const { data, error } = await forSite(admin
       .from('quizzes')
-      .select(QUIZ_CARD_SELECT)
+      .select(QUIZ_CARD_SELECT), site)
       .eq('status', 'published')
       .eq('is_quiz_of_the_day', true)
       .eq('quiz_of_the_day_date', today)
@@ -570,9 +576,9 @@ const getQuizOfTheDayForDate = unstable_cache(
     // FIRST bank quiz ever, tomorrow's is the second, etc. Anchored to a fixed
     // restart date so the rotation stays stable across redeploys.
     try {
-      const { data: pool, error: poolErr } = await admin
+      const { data: pool, error: poolErr } = await forSite(admin
         .from('quizzes')
-        .select(QUIZ_CARD_SELECT)
+        .select(QUIZ_CARD_SELECT), site)
         .eq('status', 'published')
         .not('quiz_of_the_day_date', 'is', null)
         .order('quiz_of_the_day_date', { ascending: true });
@@ -594,10 +600,14 @@ const getQuizOfTheDayForDate = unstable_cache(
   { revalidate: CACHE_TTL.stats, tags: ['quizzes'] },
 );
 
+// Not scoped on purpose: quizzes.slug is unique across the whole network (one unique index, no site_id in it), so
+// a slug taken by another site is taken here too. A forSite filter would answer "free" and the insert would then
+// fail on the index.
 export async function checkSlugExists(slug: string): Promise<boolean> {
   const supabase = createPublicReadClient();
 
   const { data, error } = await supabase
+    // site-scope: slug uniqueness is network-wide (one unique index on quizzes.slug)
     .from('quizzes')
     .select('id')
     .eq('slug', slug)

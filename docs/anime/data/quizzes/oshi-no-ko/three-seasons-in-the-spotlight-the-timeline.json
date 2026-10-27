@@ -1,0 +1,222 @@
+{
+ "site": "anime",
+ "account": "oq_creator_19",
+ "group_slug": "oshi-no-ko",
+ "title": "Three Seasons in the Spotlight: The Timeline",
+ "slug": "three-seasons-in-the-spotlight-the-timeline",
+ "description": "Ten questions on how the story splits by season, from the first reveal to the third season and its songs.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Aqua and Ruby are reborn twins. Which doctor was Aqua in his past life?",
+   "options": [
+    "Gorou Amamiya",
+    "Taishi Gotanda",
+    "Ichigo Saitō",
+    "Melt Narushima"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-twins-past-lives-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "question": "Which patient was Ruby in her past life?",
+   "options": [
+    "Kana Arima",
+    "Akane Kurokawa",
+    "MEM-cho",
+    "Sarina Tendōji"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "oshi-no-ko-twins-past-lives-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "question": "How many episodes did the second season run?",
+   "options": [
+    "11",
+    "12",
+    "24",
+    "13"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-season-two-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+  },
+  {
+   "question": "On which date did the second season begin?",
+   "options": [
+    "July 3, 2024",
+    "April 12, 2023",
+    "January 14, 2026",
+    "October 6, 2024"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-season-two-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+  },
+  {
+   "question": "Which act performs Fatal, the opening of season two?",
+   "options": [
+    "Gemn",
+    "YOASOBI",
+    "Chanmina",
+    "Natori"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "oshi-no-ko-themes-season-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "On which date did the first season end?",
+   "options": [
+    "September 6, 2023",
+    "June 28, 2023",
+    "March 25, 2023",
+    "July 12, 2023"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-season-one-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+  },
+  {
+   "question": "Which act performs Burning, the ending of season two?",
+   "options": [
+    "Queen Bee",
+    "Hitsujibungaku",
+    "Natori",
+    "YOASOBI"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "oshi-no-ko-themes-season-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "Which act performs Test Me, the opening of season three?",
+   "options": [
+    "Gemn",
+    "YOASOBI",
+    "Chanmina",
+    "Hitsujibungaku"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "oshi-no-ko-themes-season-three-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "Which act performs Serenade, the ending of season three?",
+   "options": [
+    "Queen Bee",
+    "Hitsujibungaku",
+    "Natori",
+    "Chanmina"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "oshi-no-ko-themes-season-three-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  },
+  {
+   "question": "On which date did the second season end?",
+   "options": [
+    "September 4, 2024",
+    "October 6, 2024",
+    "November 28, 2024",
+    "June 28, 2024"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "oshi-no-ko-anime-season-two-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Oshi no Ko characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Oshi no Ko episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_episodes"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Oshi no Ko (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
+  }
+ ],
+ "notes": "Arc quiz: arcs 1 to 3 are the three seasons. Tags follow the cited facts: 018 arc 1 (the premise, which names the twist, so it stays above arc 0), 008 arc 0, 010 and 013 arc 2, 014 arc 3. K1 rewrite: blocked questions rewritten on verified facts 008, 010 and 013."
+}

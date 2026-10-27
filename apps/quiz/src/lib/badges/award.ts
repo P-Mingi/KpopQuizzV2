@@ -5,16 +5,20 @@
 // free). Called real-time from activity write paths, as a backstop on profile
 // render, and once per user by the backfill script.
 
+import { SITE_ID } from '@/lib/site/registry';
+import { forSite } from '@/lib/site/scope';
+
 import { BADGE_FAMILIES, isOneTime, type BadgeMetric } from './catalog';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
+import type { SiteId } from '@/lib/site/types';
 
 const YEAR_MS = 365.25 * 24 * 60 * 60 * 1000;
 
 /** Compute every badge metric for one user. Returns 0 for anything absent. Each
  * metric maps to a stored column or a bounded query; the heavier scans (perfect
  * scores, sets, nesting, era stories, first-fan) fetch only the columns they need. */
-export async function computeMetrics(db: SupabaseClient, userId: string): Promise<Record<BadgeMetric, number>> {
+export async function computeMetrics(db: SupabaseClient, userId: string, site: SiteId = SITE_ID): Promise<Record<BadgeMetric, number>> {
   const m: Record<BadgeMetric, number> = {
     quizzes_played: 0, perfect_scores: 0, blindtests_played: 0, personality_plays: 0,
     daily_streak_longest: 0, debate_votes: 0, quizzes_created: 0, plays_received: 0,
@@ -22,6 +26,11 @@ export async function computeMetrics(db: SupabaseClient, userId: string): Promis
     photocard_sets: 0, nest_depth: 0, era_stories: 0, contrib_streak: 0, first_fan: 0,
     founding_curator: 0, dual_citizen: 0, spaces_joined: 0, account_age_years: 0, completionist: 0,
   };
+
+  // Run O1 (B3): a non-kpop site counts its own activity only (its membership counters, the plays of its own
+  // quizzes). The kpop-only metrics (Verse, photocards, spaces, debates, group mastery) stay 0 there, so kpop
+  // activity never earns a badge on another site.
+  if (site !== 'kpop') return computeWorldMetrics(db, userId, site, m);
 
   // --- stored profile counters (one row) ---
   const { data: prof } = await db.from('profiles')
@@ -51,7 +60,7 @@ export async function computeMetrics(db: SupabaseClient, userId: string): Promis
   m.wiki_pages = cWiki.count ?? 0;
   const cSrc = await db.from('entity_overrides').select('id', { count: 'exact', head: true }).eq('author', userId).not('source_url', 'is', null);
   m.sourced_overrides = cSrc.count ?? 0;
-  const cEssay = await db.from('verse_essays').select('id', { count: 'exact', head: true }).eq('author', userId).eq('status', 'featured');
+  const cEssay = await forSite(db.from('verse_essays').select('id', { count: 'exact', head: true }), site).eq('author', userId).eq('status', 'featured');
   m.essays_published = cEssay.count ?? 0;
   const cSpaces = await db.from('space_members').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('status', 'active');
   m.spaces_joined = cSpaces.count ?? 0;
@@ -129,6 +138,34 @@ export async function computeMetrics(db: SupabaseClient, userId: string): Promis
   return m; // completionist + founding_curator resolved in the grant step.
 }
 
+/** The metrics of a non-kpop site: the member's world counters and the plays of that site's quizzes. */
+async function computeWorldMetrics(
+  db: SupabaseClient,
+  userId: string,
+  site: SiteId,
+  m: Record<BadgeMetric, number>,
+): Promise<Record<BadgeMetric, number>> {
+  const { data } = await db.from('world_memberships')
+    .select('blindtests_played, daily_streak_longest, quizzes_created, plays_received, joined_at')
+    .eq('user_id', userId).eq('site_id', site).maybeSingle();
+  const w = data as { blindtests_played: number | null; daily_streak_longest: number | null; quizzes_created: number | null; plays_received: number | null; joined_at: string } | null;
+  if (w) {
+    m.blindtests_played = w.blindtests_played ?? 0;
+    m.daily_streak_longest = w.daily_streak_longest ?? 0;
+    m.quizzes_created = w.quizzes_created ?? 0;
+    m.plays_received = w.plays_received ?? 0;
+    m.account_age_years = Math.floor((Date.now() - new Date(w.joined_at).getTime()) / YEAR_MS);
+  }
+  // plays has no site column: the quiz the play belongs to says which site it was played on.
+  const { data: plays } = await db.from('plays')
+    .select('score, total_questions, quizzes!inner(site_id)')
+    .eq('player_id', userId).eq('quizzes.site_id', site);
+  const rows = (plays ?? []) as { score: number; total_questions: number }[];
+  m.quizzes_played = rows.length;
+  m.perfect_scores = rows.filter((r) => r.total_questions > 0 && r.score === r.total_questions).length;
+  return m;
+}
+
 /** The badge ids for a family (one-time badge = the family key, else key_threshold). */
 function familyBadgeIds(fam: (typeof BADGE_FAMILIES)[number]): string[] {
   return isOneTime(fam) ? [fam.key] : fam.tiers.map((t) => `${fam.key}_${t}`);
@@ -137,7 +174,8 @@ function familyBadgeIds(fam: (typeof BADGE_FAMILIES)[number]): string[] {
 /** Grant every earned tier from PRECOMPUTED metrics. Idempotent. Returns the badge
  * ids newly granted. `founding_curator` is never auto-granted (manual). Split out
  * so a caller with metrics in hand (the profile shelf) grants without recomputing. */
-export async function grantEarnedTiers(db: SupabaseClient, userId: string, metrics: Record<BadgeMetric, number>): Promise<string[]> {
+export async function grantEarnedTiers(db: SupabaseClient, userId: string, metrics: Record<BadgeMetric, number>, site: SiteId = SITE_ID): Promise<string[]> {
+  if (site !== 'kpop') return grantWorldTiers(db, userId, metrics, site);
   const earned: string[] = [];
   for (const fam of BADGE_FAMILIES) {
     if (fam.metric === 'founding_curator' || fam.metric === 'completionist') continue;
@@ -167,9 +205,36 @@ export async function grantEarnedTiers(db: SupabaseClient, userId: string, metri
   return fresh;
 }
 
+/**
+ * A non-kpop site grants only the badges that site defines: badge_definitions rows with site_id = site and
+ * id = <site>_<family id> (the convention of award_world_xp, 007). Until a world defines them nothing is granted.
+ */
+async function grantWorldTiers(db: SupabaseClient, userId: string, metrics: Record<BadgeMetric, number>, site: SiteId): Promise<string[]> {
+  const earned: string[] = [];
+  for (const fam of BADGE_FAMILIES) {
+    if (fam.metric === 'founding_curator' || fam.metric === 'completionist') continue;
+    const value = metrics[fam.metric];
+    const ids = familyBadgeIds(fam);
+    fam.tiers.forEach((threshold, i) => { if (value >= threshold) earned.push(`${site}_${ids[i]!}`); });
+  }
+  if (earned.length === 0) return [];
+  const { data: defined } = await forSite(db.from('badge_definitions').select('id'), site).in('id', earned);
+  const allowed = new Set(((defined ?? []) as { id: string }[]).map((r) => r.id));
+  const { data: existingRows } = await db.from('user_badges').select('badge_id').eq('user_id', userId);
+  const existing = new Set(((existingRows ?? []) as { badge_id: string }[]).map((r) => r.badge_id));
+  const fresh = [...new Set(earned)].filter((id) => allowed.has(id) && !existing.has(id));
+  if (fresh.length) {
+    await db.from('user_badges').upsert(
+      fresh.map((badge_id) => ({ user_id: userId, badge_id })),
+      { onConflict: 'user_id,badge_id', ignoreDuplicates: true },
+    );
+  }
+  return fresh;
+}
+
 /** Compute metrics for a user then grant every earned tier. The real-time entry
  * point (play route); callers that also need the metrics for display should call
  * computeMetrics + grantEarnedTiers to avoid the double compute. */
-export async function checkTierBadges(db: SupabaseClient, userId: string): Promise<string[]> {
-  return grantEarnedTiers(db, userId, await computeMetrics(db, userId));
+export async function checkTierBadges(db: SupabaseClient, userId: string, site: SiteId = SITE_ID): Promise<string[]> {
+  return grantEarnedTiers(db, userId, await computeMetrics(db, userId, site), site);
 }

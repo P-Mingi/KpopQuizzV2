@@ -1,0 +1,195 @@
+{
+ "sites": [
+  "kpop"
+ ],
+ "dbenv": "dev",
+ "siteScope": false,
+ "servers": {
+  "A": {
+   "kpop": {
+    "source": "gate",
+    "site": "kpop",
+    "url": "http://kpop.localhost:4021",
+    "port": 4021,
+    "given": false,
+    "build": ".next-kpop",
+    "scope": false
+   }
+  },
+  "B": null
+ },
+ "checks": [
+  {
+   "site": null,
+   "phase": "pre",
+   "reason": "",
+   "name": "harness-unit",
+   "kind": "harness-unit",
+   "action": "run",
+   "files": [
+    "scripts/o1/parity/compare.test.mjs",
+    "scripts/o1/parity/freeze-hook.test.mjs",
+    "scripts/o1/parity/parity-sh-proxy.test.mjs",
+    "scripts/o1/parity/parity-sh.test.mjs",
+    "scripts/o1/parity/prod-proxy.test.mjs",
+    "scripts/o1/parity/refusals.test.mjs",
+    "scripts/o1/parity/replay.test.mjs",
+    "scripts/o1/parity/rpc-verdict-alias.test.mjs",
+    "apps/quiz/scripts/o1/leak-lib.test.mjs",
+    "apps/quiz/scripts/o1/twins.test.mjs",
+    "apps/quiz/scripts/o1/q0a/gate-argv.test.mjs",
+    "apps/quiz/scripts/o1/q0a/gate-plan.test.mjs",
+    "apps/quiz/scripts/o1/q0a/get-write-audit.test.mjs"
+   ]
+  },
+  {
+   "site": null,
+   "phase": "pre",
+   "reason": "B2's apps/quiz/scripts/o1/check-site-scope.mts is not in this head yet",
+   "name": "site-scope",
+   "kind": "site-scope",
+   "action": "skip"
+  },
+  {
+   "site": "kpop",
+   "phase": "A",
+   "reason": "the diff cannot reach the kpop build (gate.sh ran no parity), and these gates grade production data (a floor of 600 sitemap URLs, the priority hubs, the live catalogue): only the kept parity head build has it, an offline or dev kpop build fails them by construction",
+   "name": "kpop-indexability",
+   "kind": "seo",
+   "check": "indexability",
+   "envVar": "INDEXCHECK_BASE_URL",
+   "action": "skip"
+  },
+  {
+   "site": "kpop",
+   "phase": "A",
+   "reason": "the diff cannot reach the kpop build (gate.sh ran no parity), and these gates grade production data (a floor of 600 sitemap URLs, the priority hubs, the live catalogue): only the kept parity head build has it, an offline or dev kpop build fails them by construction",
+   "name": "kpop-metadata-dupes",
+   "kind": "seo",
+   "check": "metadata-dupes",
+   "envVar": "METADUPE_BASE_URL",
+   "action": "skip"
+  },
+  {
+   "site": "kpop",
+   "phase": "A",
+   "reason": "the diff cannot reach the kpop build (gate.sh ran no parity), and these gates grade production data (a floor of 600 sitemap URLs, the priority hubs, the live catalogue): only the kept parity head build has it, an offline or dev kpop build fails them by construction",
+   "name": "kpop-orphans",
+   "kind": "seo",
+   "check": "orphans",
+   "envVar": "ORPHANCHECK_BASE_URL",
+   "action": "skip"
+  },
+  {
+   "site": "kpop",
+   "phase": "A",
+   "reason": "the diff cannot reach the kpop build (gate.sh ran no parity), and these gates grade production data (a floor of 600 sitemap URLs, the priority hubs, the live catalogue): only the kept parity head build has it, an offline or dev kpop build fails them by construction",
+   "name": "kpop-sitemap-hygiene",
+   "kind": "seo",
+   "check": "sitemap-hygiene",
+   "envVar": "SITEMAP_BASE_URL",
+   "action": "skip"
+  },
+  {
+   "site": null,
+   "phase": "A",
+   "reason": "",
+   "name": "network-links",
+   "kind": "network-links",
+   "action": "run",
+   "sites": [
+    "kpop"
+   ]
+  },
+  {
+   "site": null,
+   "phase": "A",
+   "reason": "",
+   "name": "leak",
+   "kind": "leak",
+   "action": "run",
+   "sites": [
+    "kpop"
+   ],
+   "excludeContent": false,
+   "require": [],
+   "pw": [
+    "-c",
+    "playwright.o1.config.ts",
+    "--project=leak"
+   ]
+  },
+  {
+   "site": null,
+   "phase": "A",
+   "reason": "lanes.json lists no specs for Q0c",
+   "name": "lane-specs",
+   "kind": "lane-specs",
+   "action": "skip"
+  }
+ ],
+ "facts": {
+  "lane": "Q0c",
+  "sites": [
+   "kpop"
+  ],
+  "dbenv": "dev",
+  "ports": {
+   "kpop": 4021,
+   "anime": 4022,
+   "hub": 4023
+  },
+  "given": {
+   "kpop": null,
+   "anime": null,
+   "hub": null
+  },
+  "kpopGivenSource": "gate",
+  "build": {
+   "kpop": true,
+   "anime": false,
+   "hub": false
+  },
+  "parity": "none",
+  "kept": false,
+  "keptReason": "",
+  "keptInfo": null,
+  "wired": {
+   "anime": null,
+   "hub": null
+  },
+  "requireWired": {
+   "anime": false,
+   "hub": false
+  },
+  "sitemapRoute": {
+   "anime": {
+    "head": false,
+    "base": false
+   },
+   "hub": {
+    "head": false,
+    "base": false
+   }
+  },
+  "siteScopeScript": false,
+  "scopeModule": false,
+  "laneSpecs": [],
+  "laneSpecsMissing": [],
+  "harnessTests": [
+   "scripts/o1/parity/compare.test.mjs",
+   "scripts/o1/parity/freeze-hook.test.mjs",
+   "scripts/o1/parity/parity-sh-proxy.test.mjs",
+   "scripts/o1/parity/parity-sh.test.mjs",
+   "scripts/o1/parity/prod-proxy.test.mjs",
+   "scripts/o1/parity/refusals.test.mjs",
+   "scripts/o1/parity/replay.test.mjs",
+   "scripts/o1/parity/rpc-verdict-alias.test.mjs",
+   "apps/quiz/scripts/o1/leak-lib.test.mjs",
+   "apps/quiz/scripts/o1/twins.test.mjs",
+   "apps/quiz/scripts/o1/q0a/gate-argv.test.mjs",
+   "apps/quiz/scripts/o1/q0a/gate-plan.test.mjs",
+   "apps/quiz/scripts/o1/q0a/get-write-audit.test.mjs"
+  ]
+ }
+}

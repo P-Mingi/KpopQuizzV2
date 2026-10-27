@@ -1,0 +1,272 @@
+{
+  "$comment": "Run O1 lane K1 batch b7: series data for Cowboy Bebop (tier C, the 1998 anime and its 2001 film), built from pinned Wikipedia revisions (main article, episode list, character list, film article, music article), Wikidata Q101244908 (series) and Q1334287 (film) and the Sunrise pages for the series and the film (read directly); facts are drafts for review. The series is an anime original, so there is no manga, magazine or publisher. No allowed source names story arcs; the three arcs are an editorial split around the film, which Wikipedia and the film article place between episodes 22 and 23 of the TV series: arc 1 sessions 1 to 22, arc 2 the film (anime_only, no episode range), arc 3 sessions 23 to 26. Character debut arcs follow the first named mention in the Wikipedia episode summaries (Spike, Jet and Ein by episode 2, Faye 3, Vicious 5, Ed 9, Julia and Gren 12, Andy 22) and the character list (Laughing Bull in session 1); the film characters are in arc 2. spoiler_level equals the debut arc for the film characters; Vicious is tagged 1 and Julia 3 because their roles are story reveals. Native names come from the English Wikipedia character list; Andy and Gren have no native name stored because the list gives none for Andy and a spaced form for Gren. Themes are Tank! and The Real Folk Blues, the two named in the music article; other end-credit songs are used in single episodes and are not stored. Wowow dates: the episode list and Sunrise say October 23, 1998, the main article infobox says October 24. Status is finished.",
+  "group": {
+    "slug": "cowboy-bebop",
+    "name": "Cowboy Bebop",
+    "site": "anime",
+    "display_color": "#9A3412",
+    "text_color": "#FFFFFF"
+  },
+  "series": {
+    "type": "anime_original",
+    "title_en": "Cowboy Bebop",
+    "title_native": "カウボーイビバップ",
+    "title_romaji": "Kaubōi Bibappu",
+    "studios": [
+      {
+        "name": "Sunrise",
+        "seasons": [
+          1
+        ]
+      }
+    ],
+    "director": "Shinichirō Watanabe",
+    "authors": [
+      {
+        "name": "Hajime Yatate",
+        "role": "story"
+      }
+    ],
+    "anime_start_year": 1998,
+    "anime_end_year": 1999,
+    "status": "finished",
+    "episodes": 26,
+    "seasons": 1,
+    "official_url": "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=41",
+    "wikidata_qid": "Q101244908",
+    "tier": "C",
+    "published": true
+  },
+  "arcs": [
+    {
+      "ord": 1,
+      "name": "Sessions 1 to 22",
+      "kind": "part",
+      "episode_from": 1,
+      "episode_to": 22,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes",
+      "status": "published"
+    },
+    {
+      "ord": 2,
+      "name": "Cowboy Bebop: The Movie",
+      "kind": "part",
+      "anime_only": true,
+      "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie",
+      "status": "published"
+    },
+    {
+      "ord": 3,
+      "name": "Sessions 23 to 26",
+      "kind": "part",
+      "episode_from": 23,
+      "episode_to": 26,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes",
+      "status": "published"
+    }
+  ],
+  "characters": [
+    {
+      "slug": "spike-spiegel",
+      "name": "Spike Spiegel",
+      "name_native": "スパイク・スピーゲル",
+      "role": "main",
+      "affiliation": "Bebop crew",
+      "debut_arc_ord": 1,
+      "debut_medium": "anime",
+      "description": "A laid-back bounty hunter and ace pilot with a mysterious past.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 1,
+      "status": "published"
+    },
+    {
+      "slug": "jet-black",
+      "name": "Jet Black",
+      "name_native": "ジェット・ブラック",
+      "role": "main",
+      "affiliation": "Bebop crew",
+      "debut_arc_ord": 1,
+      "debut_medium": "anime",
+      "description": "A retired police officer from Ganymede who owns the ship Bebop.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 2,
+      "status": "published"
+    },
+    {
+      "slug": "faye-valentine",
+      "name": "Faye Valentine",
+      "name_native": "フェイ・ヴァレンタイン",
+      "role": "main",
+      "affiliation": "Bebop crew",
+      "debut_arc_ord": 1,
+      "debut_medium": "anime",
+      "description": "A gambling-prone bounty hunter with amnesia who is always in debt.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 3,
+      "status": "published"
+    },
+    {
+      "slug": "ed",
+      "name": "Edward Wong Hau Pepelu Tivrusky IV",
+      "name_native": "エドワード・ウォン・ハウ・ペペル・チブルスキー4世",
+      "role": "supporting",
+      "affiliation": "Bebop crew",
+      "debut_arc_ord": 1,
+      "debut_medium": "anime",
+      "description": "A cheerful teenage hacking prodigy from Earth who goes by Ed.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 4,
+      "status": "published"
+    },
+    {
+      "slug": "ein",
+      "name": "Ein",
+      "name_native": "アイン",
+      "role": "supporting",
+      "affiliation": "Bebop crew",
+      "debut_arc_ord": 1,
+      "debut_medium": "anime",
+      "description": "A Pembroke Welsh Corgi with human-like smarts who is the crew's pet data dog.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 5,
+      "status": "published"
+    },
+    {
+      "slug": "vicious",
+      "name": "Vicious",
+      "name_native": "ビシャス",
+      "role": "antagonist",
+      "affiliation": "Red Dragon Syndicate",
+      "debut_arc_ord": 1,
+      "debut_medium": "anime",
+      "description": "A ruthless Red Dragon Syndicate member and Spike's archenemy.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+      "spoiler_level": 1,
+      "identity_spoiler": false,
+      "ord": 6,
+      "status": "published"
+    },
+    {
+      "slug": "julia",
+      "name": "Julia",
+      "name_native": "ジュリア",
+      "role": "supporting",
+      "affiliation": "Red Dragon Syndicate",
+      "debut_arc_ord": 1,
+      "debut_medium": "anime",
+      "description": "A woman with an enigmatic tie to Spike's earlier life.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+      "spoiler_level": 3,
+      "identity_spoiler": false,
+      "ord": 7,
+      "status": "published"
+    },
+    {
+      "slug": "andy-von-de-oniyate",
+      "name": "Andy von de Oniyate",
+      "role": "supporting",
+      "affiliation": "Bounty hunters",
+      "debut_arc_ord": 1,
+      "debut_medium": "anime",
+      "description": "A rich, showy bounty hunter who dresses as a cowboy and rides a horse named Onyx.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 8,
+      "status": "published"
+    },
+    {
+      "slug": "laughing-bull",
+      "name": "Laughing Bull",
+      "name_native": "ラフィング・ブル",
+      "role": "supporting",
+      "affiliation": "Mars",
+      "debut_arc_ord": 1,
+      "debut_medium": "anime",
+      "description": "A kind old shaman living on Mars whom Spike visits for advice.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 9,
+      "status": "published"
+    },
+    {
+      "slug": "gren",
+      "name": "Gren Eckener",
+      "role": "supporting",
+      "affiliation": "Titan War veterans",
+      "debut_arc_ord": 1,
+      "debut_medium": "anime",
+      "description": "A former Titan War soldier who dreamed of being a jazz musician, seen in the two-part Jupiter Jazz.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 10,
+      "status": "published"
+    },
+    {
+      "slug": "vincent-volaju",
+      "name": "Vincent Volaju",
+      "name_native": "ヴィンセント・ボラージュ",
+      "role": "antagonist",
+      "affiliation": "Titan War veterans",
+      "debut_arc_ord": 2,
+      "debut_medium": "anime",
+      "description": "A Titan War survivor who plans to release nanomachines across Mars in the film.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+      "spoiler_level": 2,
+      "identity_spoiler": false,
+      "ord": 11,
+      "status": "published"
+    },
+    {
+      "slug": "electra-ovilo",
+      "name": "Electra Ovilo",
+      "name_native": "エレクトラ・オヴィロゥ",
+      "role": "supporting",
+      "affiliation": "Titan War veterans",
+      "debut_arc_ord": 2,
+      "debut_medium": "anime",
+      "description": "A Titan War veteran who works at a pharmaceutical company's lab and meets Spike in the film.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+      "spoiler_level": 2,
+      "identity_spoiler": false,
+      "ord": 12,
+      "status": "published"
+    }
+  ],
+  "themes": [
+    {
+      "kind": "op",
+      "number": 1,
+      "title": "Tank!",
+      "artist": "Seatbelts",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 1,
+      "title": "The Real Folk Blues",
+      "artist": "Seatbelts featuring Mai Yamane",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop",
+      "status": "published"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { forSite } from '@/lib/site/scope';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { UX_V1 } from '@/lib/ux-v1';
 
@@ -14,9 +15,9 @@ export async function GET(): Promise<NextResponse> {
   if (!UX_V1) return NextResponse.json({ error: 'not_found' }, { status: 404 });
   try {
     const supabase = createPublicReadClient();
-    const { count, error } = await supabase
+    const { count, error } = await forSite(supabase
       .from('quizzes')
-      .select('*', { count: 'exact', head: true })
+      .select('*', { count: 'exact', head: true }))
       .eq('status', 'published');
     if (error) throw error;
     return NextResponse.json(

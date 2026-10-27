@@ -11,8 +11,40 @@
   },
   "crons": [
     {
+      "path": "/api/cron/editorial-publish",
+      "schedule": "*/15 * * * *"
+    },
+    {
+      "path": "/api/cron/ensure-daily-debate",
+      "schedule": "10 0 * * *"
+    },
+    {
       "path": "/api/cron/ensure-daily-quiz",
       "schedule": "5 0 * * *"
+    },
+    {
+      "path": "/api/cron/fans-picked",
+      "schedule": "40 3 * * *"
+    },
+    {
+      "path": "/api/cron/live-expire",
+      "schedule": "*/30 * * * *"
+    },
+    {
+      "path": "/api/cron/mv-snapshot",
+      "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/cron/notification-prune",
+      "schedule": "0 4 * * *"
+    },
+    {
+      "path": "/api/cron/passport-cleanup",
+      "schedule": "55 3 * * *"
+    },
+    {
+      "path": "/api/cron/passport-deletions",
+      "schedule": "50 3 * * *"
     },
     {
       "path": "/api/cron/plays-counter-reconcile",
@@ -27,16 +59,12 @@
       "schedule": "0 6 1 * *"
     },
     {
-      "path": "/api/cron/mv-snapshot",
-      "schedule": "0 5 * * *"
+      "path": "/api/cron/seo-indexability",
+      "schedule": "0 9 * * 0"
     },
     {
       "path": "/api/cron/spotify-snapshot",
       "schedule": "0 6 * * 1"
-    },
-    {
-      "path": "/api/cron/notification-prune",
-      "schedule": "0 4 * * *"
     },
     {
       "path": "/api/cron/verse-refresh",
@@ -47,28 +75,8 @@
       "schedule": "0 8 * * 1"
     },
     {
-      "path": "/api/cron/seo-indexability",
-      "schedule": "0 9 * * 0"
-    },
-    {
-      "path": "/api/cron/ensure-daily-debate",
-      "schedule": "10 0 * * *"
-    },
-    {
       "path": "/api/ranked/cron/nightly",
       "schedule": "20 0 * * *"
-    },
-    {
-      "path": "/api/cron/fans-picked",
-      "schedule": "40 3 * * *"
-    },
-    {
-      "path": "/api/cron/editorial-publish",
-      "schedule": "*/15 * * * *"
-    },
-    {
-      "path": "/api/cron/live-expire",
-      "schedule": "*/30 * * * *"
     }
   ]
 }

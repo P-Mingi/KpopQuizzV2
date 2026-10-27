@@ -1,0 +1,2534 @@
+[
+  {
+    "id": "gintama-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "title_native",
+    "value": [
+      "銀魂",
+      "Silver Soul"
+    ],
+    "text": "The Japanese title 銀魂 is read Gintama and means silver soul, a nod to the hero's silver hair and his stubborn spirit.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "銀魂, literally \"Silver Soul\""
+  },
+  {
+    "id": "gintama-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "author",
+    "value": "Hideaki Sorachi",
+    "text": "Hideaki Sorachi created, wrote and drew the manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q764135",
+        "ref": "Q764135",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.tv-tokyo.co.jp/anime/gintama/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "created by Hideaki Sorachi"
+  },
+  {
+    "id": "gintama-magazine-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Jump",
+    "text": "The manga was serialized in Shueisha's Weekly Shōnen Jump, and it later ended its run in Jump Giga and an app.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q764135",
+        "ref": "Q764135",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.shonenjump.com/j/rensai/gintama.html",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Weekly Shōnen Jump: December 8, 2003 to September 15, 2018"
+  },
+  {
+    "id": "gintama-publisher-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "publisher",
+    "value": "Shueisha",
+    "text": "Shueisha published the manga in Japan under its Jump Comics label.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q764135",
+        "ref": "Q764135",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.tv-tokyo.co.jp/anime/gintama/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "published by Shueisha under the Jump Comics imprint"
+  },
+  {
+    "id": "gintama-manga-run-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "manga_run",
+    "value": [
+      "December 2003",
+      "June 2019"
+    ],
+    "text": "The manga ran from December 2003 to June 2019, moving from Weekly Shōnen Jump to Jump Giga and finally an app.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "serialized across multiple publications from December 2003 through June 2019"
+  },
+  {
+    "id": "gintama-volumes-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "volumes",
+    "value": 77,
+    "text": "The finished manga was collected in 77 tankobon volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q764135",
+        "ref": "Q764135",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "accumulating 77 tankōbon volumes"
+  },
+  {
+    "id": "gintama-setting-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "setting",
+    "value": [
+      "Edo",
+      "Amanto"
+    ],
+    "text": "The story is set in an alternate late Edo period that aliens called Amanto, meaning sky people, have invaded and taken over.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "alternate-history late-Edo period, where humanity is attacked by aliens called \"Amanto\""
+  },
+  {
+    "id": "gintama-sword-ban-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "premise",
+    "value": "Sword ban",
+    "text": "After the shogun surrendered to the aliens, a sword ban took away the weapons of the samurai.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "places a ban on carrying swords in public ... The samurai's swords are confiscated"
+  },
+  {
+    "id": "gintama-yorozuya-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "organization",
+    "value": "Yorozuya",
+    "text": "Gintoki runs an odd-jobs shop called Yorozuya, which means store of ten thousand businesses, with Shinpachi and Kagura.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a samurai who works as a freelancer in his self-established store, \"Yorozuya\""
+  },
+  {
+    "id": "gintama-first-title-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "title_change",
+    "value": "Yorozuya Gin-san",
+    "text": "Before it was shortened to Gintama, the series was originally titled Yorozuya Gin-san.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "originally titled \"Yorozuya Gin-san\""
+  },
+  {
+    "id": "gintama-genre-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "style",
+    "value": [
+      "Science fiction",
+      "Human drama",
+      "Pseudo-historical comedy"
+    ],
+    "text": "Sorachi describes his own work with a long label: science fiction human drama pseudo-historical comedy.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "science fiction human drama pseudo-historical comedy"
+  },
+  {
+    "id": "gintama-jump-gag-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "buzzword",
+    "value": "Gintoki chases the latest Jump",
+    "text": "A recurring joke has Gintoki frantically hunting for the new issue of Weekly Shōnen Jump, and the series often breaks the fourth wall.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Gintoki's obsessive pursuit of the Weekly Shōnen Jump magazine"
+  },
+  {
+    "id": "gintama-series-1-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "anime_tv",
+    "value": [
+      "201 episodes",
+      "April 4, 2006",
+      "March 25, 2010"
+    ],
+    "text": "TV Tokyo broadcast 201 episodes of the original anime between April 4, 2006 and March 25, 2010.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "201 episodes aired on TV Tokyo from April 4, 2006, to March 25, 2010"
+  },
+  {
+    "id": "gintama-series-2-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "anime_s2",
+    "value": [
+      "Gintama'",
+      "51 episodes",
+      "April 4, 2011",
+      "March 26, 2012"
+    ],
+    "text": "The second series, titled Gintama', has 51 episodes and aired from April 4, 2011, to March 26, 2012.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=12835",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "51 episodes (episodes 202 to 252) aired April 4, 2011"
+  },
+  {
+    "id": "gintama-series-3-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "anime_s3",
+    "value": [
+      "Gintama': Enchōsen",
+      "13 episodes",
+      "October 4, 2012",
+      "March 28, 2013"
+    ],
+    "text": "The short follow-up Gintama': Enchōsen added 13 episodes between October 4, 2012 and March 28, 2013.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=15223",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "13 episodes (episodes 253 to 265) aired October 4, 2012"
+  },
+  {
+    "id": "gintama-series-4-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "anime_s4",
+    "value": [
+      "Gintama°",
+      "51 episodes",
+      "April 8, 2015",
+      "March 30, 2016"
+    ],
+    "text": "Gintama° brought the show back with 51 episodes, airing from April 8, 2015, to March 30, 2016.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=16644",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "51 episodes (episodes 266 to 316) aired April 8, 2015"
+  },
+  {
+    "id": "gintama-series-5-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "season_1",
+    "value": [
+      "Gintama.",
+      "12 episodes",
+      "January 9, 2017"
+    ],
+    "text": "The fourth series, Gintama., opened with 12 episodes between January 9 and March 27, 2017.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "12 episodes (episodes 317 to 328), January 9 to March 27, 2017"
+  },
+  {
+    "id": "gintama-series-6-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "season_2",
+    "value": [
+      "Porori-hen",
+      "13 episodes",
+      "October 2, 2017"
+    ],
+    "text": "The Porori-hen part of Gintama. has 13 episodes and aired from October 2 to December 25, 2017.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Porori-hen (Slip Arc): 13 episodes (episodes 329"
+  },
+  {
+    "id": "gintama-series-7-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "season_3",
+    "value": [
+      "Silver Soul Arc",
+      "14 episodes",
+      "July 2018"
+    ],
+    "text": "The second half of the Silver Soul Arc had 14 episodes, airing from July to October 2018.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20917",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The second part presented 14 episodes (episodes 354 to 367) aired from July 9 to October 8, 2018"
+  },
+  {
+    "id": "gintama-series-7a-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "season_one_end",
+    "value": [
+      "Silver Soul Arc part 1",
+      "12 episodes",
+      "January 8, 2018"
+    ],
+    "text": "The first half of the Silver Soul Arc had 12 episodes, aired between January 8 and March 26, 2018.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "12 episodes (episodes 342 to 353) aired from January 8 to March 26, 2018"
+  },
+  {
+    "id": "gintama-total-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "episodes",
+    "value": 367,
+    "text": "Adding up all the TV series, Gintama reaches 367 episodes in total.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The complete television adaptation totals 367 episodes"
+  },
+  {
+    "id": "gintama-studios-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "anime_studio",
+    "value": [
+      "Sunrise",
+      "Bandai Namco Pictures"
+    ],
+    "text": "Sunrise animated the first two series, and Bandai Namco Pictures took over starting with Gintama°.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.tv-tokyo.co.jp/anime/gintama/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q709716",
+        "ref": "Q709716",
+        "fetched_at": "2026-10-25T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:30:00.000Z",
+    "excerpt": "transferred to \"Bandai Namco Pictures (BN Pictures)\""
+  },
+  {
+    "id": "gintama-directors-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "anime_directors",
+    "value": [
+      "Shinji Takamatsu",
+      "Yōichi Fujita",
+      "Chizuru Miyawaki"
+    ],
+    "text": "Shinji Takamatsu directed the first 99 episodes, Yōichi Fujita took over after that, and Chizuru Miyawaki directed from Gintama° on.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=12835",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "\"Shinji Takamatsu\" directed the first 99 episodes"
+  },
+  {
+    "id": "gintama-writer-composer-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "crew_roles",
+    "value": [
+      "Akatsuki Yamatoya",
+      "Audio Highs"
+    ],
+    "text": "Akatsuki Yamatoya wrote for every TV season and the band Audio Highs composed the music of every series.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=12835",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "\"Akatsuki Yamatoya\" served as the primary writer"
+  },
+  {
+    "id": "gintama-openings-1-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP1: Pray (Tommy Heavenly6)",
+      "OP2: Tooi Nioi (YO-KING)",
+      "OP3: Gin-iro no Sora (redballoon)",
+      "OP4: Kasanaru Kage (Hearts Glow)",
+      "OP5: Donten (DOES)",
+      "OP6: Anata Magic (Monobright)",
+      "OP7: Stairway Generation (Base Ball Bear)",
+      "OP8: Light Infection (Prague)",
+      "OP9: Bakuchi Dancer (DOES)",
+      "OP10: Kaze no Gotoku (Joe Inoue)",
+      "OP11: Kanousei Girl (Chiaki Kuriyama)",
+      "OP12: Katoniago (FLiP)"
+    ],
+    "text": "The original 201 episode series used twelve openings, beginning with Pray by Tommy Heavenly6 and ending with Katoniago by FLiP.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "\"Pray\" by Tommy Heavenly6 (eps 1-24)"
+  },
+  {
+    "id": "gintama-endings-1-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED1: Fuusen Gamu (Captain Stridum)",
+      "ED2: MR.RAINDROP (amplified)",
+      "ED3: Yuki no Tsubasa (redballoon)",
+      "ED4: Candy Line (Hitomi Takahashi)",
+      "ED5: Shura (DOES)",
+      "ED6: Kiseki (Snowkel)",
+      "ED7: SIGNAL (KELUN)",
+      "ED8: Speed of Flow (The Rodeo Carburettor)",
+      "ED9: Sanagi (POSSIBILITY)",
+      "ED10: This world is yours (Plingmin)",
+      "ED11: Ai, Ai, Ai (GHOSTNOTE)",
+      "ED12: Kagayaita (SHIGI)",
+      "ED13: Asa Answer (PENGIN)",
+      "ED14: Wo Ai Ni (Hitomi Takahashi and BEAT CRUSADERS)",
+      "ED15: Wonderful Days (ONE DRAFT)",
+      "ED16: Sayonara no Sora (Qwai)",
+      "ED17: Bokutachi no Kisetsu (DOES)",
+      "ED18: Wave (Vijandeux)",
+      "ED19: In My Life (AZU)",
+      "ED20: Sakurane (Piko)"
+    ],
+    "text": "The first series closed its episodes with twenty different ending songs, starting with Fuusen Gamu by Captain Stridum.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6236",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "\"Fuusen Gamu\" by Captain Stridum (eps 1-13)"
+  },
+  {
+    "id": "gintama-themes-2-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP1: Tougenkyo Alien (serial TV drama)",
+      "OP2: Dilemma (ecosystem)",
+      "OP3: Wonderland (FLiP)",
+      "ED1: Samurai Heart (SPYAIR)",
+      "ED2: Balance Doll (Prague)",
+      "ED3: Anagura (Kuroneko Chelsea)",
+      "ED4: Nakama (Good Coming)"
+    ],
+    "text": "Gintama' had three openings and four endings, among them Samurai Heart by SPYAIR.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=12835",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "\"Samurai Heart (Some Like It Hot!!)\" by SPYAIR (episodes 1-13)"
+  },
+  {
+    "id": "gintama-arc-list-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "arcs",
+    "value": [
+      "Gintama (2006 to 2010): episodes 1 to 201",
+      "Gintama' (2011 to 2012): episodes 202 to 252",
+      "Gintama': Enchōsen: episodes 253 to 265",
+      "Gintama° (2015 to 2016): episodes 266 to 316",
+      "Gintama. (2017): episodes 317 to 328",
+      "Porori-hen: episodes 329 to 341",
+      "Silver Soul Arc: episodes 342 to 367",
+      "The Very Final: film"
+    ],
+    "text": "The TV story runs through eight blocks, from the 201 episode first series to the Silver Soul Arc, and a final film closes it.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Initial run: 12 episodes (episodes 317"
+  },
+  {
+    "id": "gintama-film-1-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "film",
+    "value": [
+      "Gintama: The Movie",
+      "April 4, 2010"
+    ],
+    "text": "The first film, Gintama: The Movie, retells the Benizakura arc and opened on April 4, 2010.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "premiered in Japan on April 4, 2010"
+  },
+  {
+    "id": "gintama-film-2-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "films",
+    "value": "Gintama: The Movie: The Final Chapter: Be Forever Yorozuya",
+    "text": "The second film, Be Forever Yorozuya, has a script written by Sorachi himself and opened on July 6, 2013.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)",
+        "ref": "1375554499",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a script written by Sorachi, premiered in Japan on July 6, 2013"
+  },
+  {
+    "id": "gintama-film-3-031",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "final_films",
+    "value": [
+      "Gintama: The Very Final",
+      "January 8, 2021"
+    ],
+    "text": "Gintama: The Very Final opened on January 8, 2021, and adapts the finale of the manga with new story elements.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama:_The_Very_Final",
+        "ref": "1370953977",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.tv-tokyo.co.jp/anime/gintama/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "adapts the finale of the original manga"
+  },
+  {
+    "id": "gintama-live-action-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "live_action",
+    "value": "Shun Oguri",
+    "text": "A live-action film premiered in 2017 with Shun Oguri playing Gintoki, Kanna Hashimoto as Kagura and Masaki Suda as Shinpachi.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "starring Shun Oguri as Gintoki"
+  },
+  {
+    "id": "gintama-novels-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "gintama"
+    },
+    "field": "novel",
+    "value": "Class 3-Z's Teacher Ginpachi",
+    "text": "A school comedy light novel series, Class 3-Z's Teacher Ginpachi, was written by Tomohito Ōsaki and illustrated by Sorachi.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Gintama",
+        "ref": "1380552228",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Class 3-Z's Teacher Ginpachi"
+  },
+  {
+    "id": "gintama-gintoki-sakata-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "gintoki-sakata"
+    },
+    "field": "name",
+    "value": [
+      "Gintoki Sakata",
+      "坂田 銀時"
+    ],
+    "text": "Gintoki Sakata is an eccentric samurai with a sweet tooth, and the owner of the Yorozuya.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "A samurai living when samurais are obsolete"
+  },
+  {
+    "id": "gintama-gintoki-sakata-hair-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "gintoki-sakata"
+    },
+    "field": "epithet",
+    "value": "Natural wavy silver hair",
+    "text": "Gintoki has naturally wavy hair, and in the war against the aliens his silver hair and fighting skill earned him a fearsome nickname.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "recognized by natural wavy hair and sweet tooth"
+  },
+  {
+    "id": "gintama-gintoki-sakata-voice-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "gintoki-sakata"
+    },
+    "field": "voice_cast",
+    "value": "Tomokazu Sugita",
+    "text": "Tomokazu Sugita voices Gintoki in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voice: Tomokazu Sugita"
+  },
+  {
+    "id": "gintama-shinpachi-shimura-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "shinpachi-shimura"
+    },
+    "field": "name",
+    "value": [
+      "Shinpachi Shimura",
+      "志村 新八"
+    ],
+    "text": "Shinpachi Shimura is the teenager of the Yorozuya who stays at his family dojo and often plays the straight man.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "A teenager joining the freelancer business to learn samurai ways"
+  },
+  {
+    "id": "gintama-shinpachi-shimura-voice-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "shinpachi-shimura"
+    },
+    "field": "voice_cast",
+    "value": "Daisuke Sakaguchi",
+    "text": "Daisuke Sakaguchi voices Shinpachi in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voice: Daisuke Sakaguchi"
+  },
+  {
+    "id": "gintama-kagura-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "kagura"
+    },
+    "field": "name",
+    "value": [
+      "Kagura",
+      "神楽"
+    ],
+    "text": "Kagura is an alien girl of the Yato clan who has enormous strength and joins the Yorozuya.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "A young Amanto girl from the Yato Clan"
+  },
+  {
+    "id": "gintama-kagura-skin-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "kagura"
+    },
+    "field": "ability",
+    "value": "Strength and sun-sensitive skin",
+    "text": "Kagura's strength is extraordinary, but her pale skin is sensitive to sunlight.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "translucent skin sensitive to sunlight and possesses extraordinary strength"
+  },
+  {
+    "id": "gintama-kagura-voice-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "kagura"
+    },
+    "field": "voice_cast",
+    "value": "Rie Kugimiya",
+    "text": "Rie Kugimiya voices Kagura in Japanese.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q4921911",
+        "ref": "Q4921911",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Voice: Rie Kugimiya"
+  },
+  {
+    "id": "gintama-sadaharu-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "sadaharu"
+    },
+    "field": "name",
+    "value": [
+      "Sadaharu",
+      "定春"
+    ],
+    "text": "Sadaharu is an inugami pet that Kagura picks up after his owners abandon him.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "An abandoned inugami collected by Kagura"
+  },
+  {
+    "id": "gintama-sadaharu-voice-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "sadaharu"
+    },
+    "field": "voice_cast",
+    "value": "Mikako Takahashi",
+    "text": "Mikako Takahashi voices Sadaharu in Japanese.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voice: Mikako Takahashi"
+  },
+  {
+    "id": "gintama-elizabeth-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "elizabeth"
+    },
+    "field": "name",
+    "value": [
+      "Elizabeth",
+      "エリザベス"
+    ],
+    "text": "Elizabeth is Katsura's pet, a giant white creature like a duck or a penguin.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Katsura's pet resembling a giant white duck or penguin"
+  },
+  {
+    "id": "gintama-elizabeth-signs-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "elizabeth"
+    },
+    "field": "specialty",
+    "value": "Talks with signboards",
+    "text": "Elizabeth never speaks and communicates by holding up signboards.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "communicating via signboards"
+  },
+  {
+    "id": "gintama-kotaro-katsura-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "kotaro-katsura"
+    },
+    "field": "name",
+    "value": [
+      "Kotaro Katsura",
+      "桂 小太郎"
+    ],
+    "text": "Kotaro Katsura is Gintoki's old comrade from the war who keeps leading an anti-Amanto resistance.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Gintoki's former Joi war comrade"
+  },
+  {
+    "id": "gintama-kotaro-katsura-zura-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "kotaro-katsura"
+    },
+    "field": "nickname",
+    "value": "Zura",
+    "text": "He is often called Zura, a word for wig, and he insists that his name is Katsura.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Often called Zura, which is the Japanese word for wig"
+  },
+  {
+    "id": "gintama-kotaro-katsura-voice-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "kotaro-katsura"
+    },
+    "field": "voice_cast",
+    "value": "Akira Ishida",
+    "text": "Akira Ishida voices Katsura in Japanese, together with Yuki Kaida in some episodes.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voice: Akira Ishida, Yuki Kaida"
+  },
+  {
+    "id": "gintama-tatsuma-sakamoto-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "tatsuma-sakamoto"
+    },
+    "field": "name",
+    "value": [
+      "Tatsuma Sakamoto",
+      "坂本 辰馬"
+    ],
+    "text": "Tatsuma Sakamoto is an ex-member of the Joi forces who became a merchant leading the Kaientai fleet.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "successful businessman in the galaxy leading the merchant fleet Kaientai"
+  },
+  {
+    "id": "gintama-tatsuma-sakamoto-namesake-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "tatsuma-sakamoto"
+    },
+    "field": "namesake",
+    "value": "Sakamoto Ryoma",
+    "text": "His name comes from the historical figure Sakamoto Ryoma.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "His name derives from historical figure"
+  },
+  {
+    "id": "gintama-isao-kondo-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "isao-kondo"
+    },
+    "field": "name",
+    "value": [
+      "Isao Kondo",
+      "近藤 勲"
+    ],
+    "text": "Isao Kondo is the good-natured and honorable commander of the Shinsengumi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Commander of the Shinsengumi"
+  },
+  {
+    "id": "gintama-toshiro-hijikata-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "toshiro-hijikata"
+    },
+    "field": "name",
+    "value": [
+      "Toshiro Hijikata",
+      "土方 十四郎"
+    ],
+    "text": "Toshiro Hijikata is the chain-smoking vice commander of the Shinsengumi, known as the Demon Vice-Chief.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Chain-smoking vice commander"
+  },
+  {
+    "id": "gintama-toshiro-hijikata-voice-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "toshiro-hijikata"
+    },
+    "field": "voice_cast",
+    "value": "Kazuya Nakai",
+    "text": "Kazuya Nakai voices Hijikata in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voice: Kazuya Nakai"
+  },
+  {
+    "id": "gintama-sogo-okita-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "sogo-okita"
+    },
+    "field": "name",
+    "value": [
+      "Sougo Okita",
+      "沖田 総悟"
+    ],
+    "text": "Sougo Okita is the best swordsman of the Shinsengumi, who still likes to fire a bazooka.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The Shinsengumi's best swordsman, frequently using a bazooka"
+  },
+  {
+    "id": "gintama-sogo-okita-voice-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "sogo-okita"
+    },
+    "field": "voice_cast",
+    "value": "Kenichi Suzumura",
+    "text": "Kenichi Suzumura voices Sougo in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voice: Kenichi Suzumura"
+  },
+  {
+    "id": "gintama-sagaru-yamazaki-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "sagaru-yamazaki"
+    },
+    "field": "name",
+    "value": [
+      "Sagaru Yamazaki",
+      "山崎 退"
+    ],
+    "text": "Sagaru Yamazaki is a Shinsengumi spy who is often caught playing badminton and grows fond of anpan.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "caught frequently playing badminton when working"
+  },
+  {
+    "id": "gintama-katakuriko-matsudaira-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "katakuriko-matsudaira"
+    },
+    "field": "name",
+    "value": [
+      "Katakuriko Matsudaira",
+      "松平 片栗虎"
+    ],
+    "text": "Katakuriko Matsudaira is the violent head of the police, and he wears sunglasses while distrusting everyone who wears them.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "believing sunglasses-wearers are typically assassins"
+  },
+  {
+    "id": "gintama-otose-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "otose"
+    },
+    "field": "name",
+    "value": [
+      "Otose",
+      "お登勢"
+    ],
+    "text": "Otose is Gintoki's landlady, who owns a snack shop and gets little rent from him.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Gintoki's landlady"
+  },
+  {
+    "id": "gintama-otose-real-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "otose"
+    },
+    "field": "role",
+    "value": "Real name Ayano Terada",
+    "text": "Otose's real name is Ayano Terada, and she is called the Empress, one of the four emperors of the Kabuki District.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "real name is Ayano Terada"
+  },
+  {
+    "id": "gintama-catherine-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "catherine"
+    },
+    "field": "name",
+    "value": [
+      "Catherine",
+      "キャサリン"
+    ],
+    "text": "Catherine is a cat-like Amanto who works at Otose's snack shop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "An Amanto resembling a cat working at Otose's snack shop"
+  },
+  {
+    "id": "gintama-tae-shimura-name-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "tae-shimura"
+    },
+    "field": "name",
+    "value": [
+      "Tae Shimura",
+      "志村 妙"
+    ],
+    "text": "Tae Shimura is Shinpachi's older sister, who runs the family dojo and cannot cook.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Shinpachi's older sister"
+  },
+  {
+    "id": "gintama-taizo-hasegawa-name-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "taizo-hasegawa"
+    },
+    "field": "name",
+    "value": [
+      "Taizo Hasegawa",
+      "長谷川 泰三"
+    ],
+    "text": "Taizo Hasegawa, nicknamed Madao, is a former official who lives as a loser but never takes off his sunglasses.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Often referred to as \"Madao,\""
+  },
+  {
+    "id": "gintama-tama-name-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "tama"
+    },
+    "field": "name",
+    "value": [
+      "Tama",
+      "たま"
+    ],
+    "text": "Tama is an android, codenamed Fuyo Unit Zero, and Kagura is the one who named her.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "An android codenamed Fuyo Unit Zero"
+  },
+  {
+    "id": "gintama-ayame-sarutobi-name-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "ayame-sarutobi"
+    },
+    "field": "name",
+    "value": [
+      "Ayame Sarutobi",
+      "猿飛 あやめ"
+    ],
+    "text": "Ayame Sarutobi, nicknamed Sa-chan, is a kunoichi who loves being treated badly.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "A kunoichi nicknamed Sa-chan"
+  },
+  {
+    "id": "gintama-tsukuyo-name-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "tsukuyo"
+    },
+    "field": "name",
+    "value": [
+      "Tsukuyo",
+      "月詠"
+    ],
+    "text": "Tsukuyo is the scarred leader of the Hyakka, the female assassin group of the Yoshiwara district.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "leading the all-female Hyakka assassin group"
+  },
+  {
+    "id": "gintama-kamui-name-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "kamui"
+    },
+    "field": "name",
+    "value": [
+      "Kamui",
+      "神威"
+    ],
+    "text": "Kamui is Kagura's older brother, a cheerful but bloodthirsty fighter who leads the 7th Division of the Harusame pirates.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "leading Harusame's 7th Division as admiral"
+  },
+  {
+    "id": "gintama-umibozu-name-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "umibozu"
+    },
+    "field": "name",
+    "value": [
+      "Umibozu",
+      "星海坊主"
+    ],
+    "text": "Umibozu is Kagura's father and the strongest alien hunter in the universe.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "the strongest alien hunter in the universe"
+  },
+  {
+    "id": "gintama-umibozu-arm-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "umibozu"
+    },
+    "field": "background",
+    "value": "Cybernetic arm",
+    "text": "Umibozu's mechanical arm replaces the one his own son Kamui took from him in a fight.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "wears a cybernetic arm after his son Kamui claimed his original in battle"
+  },
+  {
+    "id": "gintama-kyubei-yagyu-name-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "kyubei-yagyu"
+    },
+    "field": "name",
+    "value": [
+      "Kyubei Yagyu",
+      "柳生 九兵衛"
+    ],
+    "text": "Kyubei Yagyu is an aristocratic young woman raised as a man who lost her left eye protecting Tae.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "raised as male to succeed her family's clan ... lost her left eye protecting her when they were young"
+  },
+  {
+    "id": "gintama-shinsuke-takasugi-name-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "shinsuke-takasugi"
+    },
+    "field": "name",
+    "value": [
+      "Shinsuke Takasugi",
+      "高杉 晋助"
+    ],
+    "text": "Shinsuke Takasugi is Gintoki's old comrade turned major enemy, who leads the Kiheitai.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "leading the radical Kiheitai faction"
+  },
+  {
+    "id": "gintama-shinsuke-takasugi-look-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "shinsuke-takasugi"
+    },
+    "field": "style",
+    "value": "Bandaged left eye and colorful kimono",
+    "text": "He is easy to spot by his bandaged left eye, his colorful kimono and his eerie smile.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "bandaged left eye, his colorful kimono, his eerie smile"
+  },
+  {
+    "id": "gintama-shinsuke-takasugi-voice-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "shinsuke-takasugi"
+    },
+    "field": "voice_cast",
+    "value": "Takehito Koyasu",
+    "text": "Takehito Koyasu voices Takasugi in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Voice: Takehito Koyasu"
+  },
+  {
+    "id": "gintama-utsuro-name-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "utsuro"
+    },
+    "field": "name",
+    "value": [
+      "Utsuro",
+      "虚"
+    ],
+    "text": "Utsuro is the true main antagonist and the founder of Tenshouin Naraku.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "True main antagonist and Tenshouin Naraku founder"
+  },
+  {
+    "id": "gintama-utsuro-past-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "utsuro"
+    },
+    "field": "background",
+    "value": "Formerly Shoyo Yoshida",
+    "text": "Utsuro was once known as Shoyo Yoshida, and the name is based on the real historical figure Yoshida Shoin.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "originally known as Shōyō Yoshida"
+  },
+  {
+    "id": "gintama-shoyo-yoshida-name-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "shoyo-yoshida"
+    },
+    "field": "name",
+    "value": [
+      "Shoyo Yoshida",
+      "吉田 松陽"
+    ],
+    "text": "Shoyo Yoshida is the teacher who taught Gintoki, Katsura and Takasugi the ways of the samurai.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "instructed Gintoki, Katsura, and Takasugi in samurai ways"
+  },
+  {
+    "id": "gintama-oboro-name-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "oboro"
+    },
+    "field": "name",
+    "value": [
+      "Oboro",
+      "朧"
+    ],
+    "text": "Oboro leads Tenshouin Naraku in the absence of Utsuro and is the strongest of its Three Wings.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "strongest within the organization's Three Wings"
+  },
+  {
+    "id": "gintama-gintoki-parfait-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "gintoki-sakata"
+    },
+    "field": "fond_of",
+    "value": "parfait",
+    "text": "Gintoki loves sweets so much that the first brawl of the story starts when Amanto officials spill his parfait.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T18:54:38Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:38.000Z",
+    "excerpt": "to get revenge for his spilled parfait"
+  },
+  {
+    "id": "gintama-kagura-appetite-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "gintama",
+      "ref": "kagura"
+    },
+    "field": "habits",
+    "value": "huge appetite",
+    "text": "Kagura has an enormous appetite and can put away a huge amount of food in a few seconds, though her tastes are plain.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+        "ref": "1378278398",
+        "fetched_at": "2026-10-25T18:54:38Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:38.000Z",
+    "excerpt": "Kagura also has an unusually strong appetite"
+  }
+]

@@ -19,6 +19,35 @@ import type { Group } from '@/lib/db/types';
 import type { TriviaCategory, TriviaFact } from '@/lib/trivia/types';
 import { verseSpaceOpen } from '@/lib/ux-v1/p3/verse';
 
+/** A fact with the source it is printed with (a site whose facts are stored, sourced rows). */
+export interface TriviaVariantFact extends TriviaFact {
+  readonly sourceLabel: string;
+  readonly sourceUrl: string | null;
+}
+
+/**
+ * The differences of another site's trivia page (rule 18: one trivia page, a prop for each difference). Without it the
+ * page is today's kpop page: its facts come from the group's quizzes, its texts and JSON-LD are kpop's. With it the
+ * facts are the given ones, each printed with its source, and every text, link and JSON-LD URL is the site's.
+ */
+export interface TriviaVariant {
+  readonly facts: readonly TriviaVariantFact[];
+  readonly origin: string;
+  readonly brand: string;
+  readonly h1: string;
+  readonly subline: string;
+  readonly crumbQuiz: string;
+  readonly crumbTrivia: string;
+  readonly categoryTitles: Readonly<Record<TriviaCategory, string>>;
+  readonly ctaText: string;
+  readonly ctaLink: string;
+  readonly sourcesTitle: string;
+  /** A picture for the hero in place of the group logo. */
+  readonly logo?: React.ReactNode;
+  /** The schema.org type of what the page is about. */
+  readonly aboutType: string;
+}
+
 // Fact types, categorization, dedup, fetching + the override layer now live in
 // src/lib/trivia/* (shared with hasTriviaPage and the corpus extraction script).
 
@@ -82,18 +111,35 @@ const CATEGORY_ICONS: Record<TriviaCategory, React.ReactElement> = {
 // Fact card
 // ------------------------------------------------------------------
 
-function TriviaFactCard({ item }: { item: TriviaFact }) {
+function TriviaFactCard({ item, variant }: { item: TriviaFact; variant?: TriviaVariant | undefined }) {
+  const src = variant ? (item as TriviaVariantFact) : null;
   return (
     <div className="trivia-fact-card">
       <p className="trivia-fact-text">{item.fact}</p>
-      <Link href={`/q/${item.sourceQuizSlug}`} className="trivia-fact-link">
-        <span>Test yourself on this</span>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-          <path d="M4 3l3 3-3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </Link>
+      {src ? (
+        <p className="trivia-fact-source">
+          {src.sourceUrl ? <a href={src.sourceUrl} rel="nofollow noopener" target="_blank">{src.sourceLabel}</a> : src.sourceLabel}
+        </p>
+      ) : (
+        <Link href={`/q/${item.sourceQuizSlug}`} className="trivia-fact-link">
+          <span>Test yourself on this</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M4 3l3 3-3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </Link>
+      )}
     </div>
   );
+}
+
+/** The distinct sources of a site's facts (by label and URL), in order of first use. */
+function sourceList(facts: readonly TriviaVariantFact[]): Array<{ key: string; label: string; url: string | null }> {
+  const seen = new Map<string, { key: string; label: string; url: string | null }>();
+  for (const f of facts) {
+    const key = `${f.sourceLabel}|${f.sourceUrl ?? ''}`;
+    if (!seen.has(key)) seen.set(key, { key, label: f.sourceLabel, url: f.sourceUrl });
+  }
+  return [...seen.values()];
 }
 
 // ------------------------------------------------------------------
@@ -144,12 +190,12 @@ export function generateGroupTriviaMetadata(group: Group, factCount: number): Me
 // Page
 // ------------------------------------------------------------------
 
-export async function GroupTriviaPage({ group }: { group: Group }): Promise<React.ReactElement> {
+export async function GroupTriviaPage({ group, variant }: { group: Group; variant?: TriviaVariant }): Promise<React.ReactElement> {
   const [uniqueFacts, nameAllGame, blindtest, contentDate] = await Promise.all([
-    safeFetch(getOverriddenFacts(group.id, group.slug), [] as TriviaFact[], '[group-trivia] getOverriddenFacts'),
+    variant ? Promise.resolve([...variant.facts] as TriviaFact[]) : safeFetch(getOverriddenFacts(group.id, group.slug), [] as TriviaFact[], '[group-trivia] getOverriddenFacts'),
     // W8: the same two live counts the quiz page uses, so both pages answer identically.
-    safeFetch(getGroupNameAllGame(group.id), null, '[group-trivia] getGroupNameAllGame'),
-    safeFetch(getGroupBlindtestInfo(group.id), { qualifies: false, songs: 0 }, '[group-trivia] getGroupBlindtestInfo'),
+    variant ? Promise.resolve(null) : safeFetch(getGroupNameAllGame(group.id), null, '[group-trivia] getGroupNameAllGame'),
+    variant ? Promise.resolve({ qualifies: false, songs: 0 }) : safeFetch(getGroupBlindtestInfo(group.id), { qualifies: false, songs: 0 }, '[group-trivia] getGroupBlindtestInfo'),
     safeFetch(getGroupContentDate(group.id), null, '[group-trivia] getGroupContentDate'),
   ]);
 
@@ -167,22 +213,24 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
     .filter(section => section.facts.length >= 2);
 
   const singleCategory = categorySections.length === 1;
-  const canonicalUrl = `https://kpopquiz.org/${group.slug}-trivia`;
-  const heroTitle = `${group.name} trivia and fun facts`;
+  const origin = variant?.origin ?? 'https://kpopquiz.org';
+  const canonicalUrl = `${origin}/${group.slug}-trivia`;
+  const heroTitle = variant?.h1 ?? `${group.name} trivia and fun facts`;
 
   return (
     <div className="trivia-page">
       <Breadcrumbs
+        {...(variant ? { origin: variant.origin } : {})}
         items={[
           { label: 'Home', href: '/' },
-          { label: `${group.name} Quiz`, href: `/${group.slug}-quiz` },
-          { label: `${group.name} Trivia` },
+          { label: variant?.crumbQuiz ?? `${group.name} Quiz`, href: `/${group.slug}-quiz` },
+          { label: variant?.crumbTrivia ?? `${group.name} Trivia` },
         ]}
       />
 
       {/* Hero */}
       <header className="trivia-hero">
-        {group.logo_url && (
+        {variant?.logo ? <div className="trivia-hero-logo">{variant.logo}</div> : group.logo_url && (
           <div className="trivia-hero-logo">
             <GroupLogo
               groupName={group.name}
@@ -194,10 +242,14 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
           </div>
         )}
         <h1 className="trivia-title">{heroTitle}</h1>
-        <p className="trivia-subline">
-          {uniqueFacts.length} facts about {group.name} that even hardcore {group.fandom_name}s
-          might not know - pulled from fan-made quizzes.
-        </p>
+        {variant ? (
+          <p className="trivia-subline">{variant.subline}</p>
+        ) : (
+          <p className="trivia-subline">
+            {uniqueFacts.length} facts about {group.name} that even hardcore {group.fandom_name}s
+            might not know - pulled from fan-made quizzes.
+          </p>
+        )}
         {formatContentMonth(contentDate) && (
           <p className="group-updated">
             Updated <time dateTime={(contentDate as string).slice(0, 10)}>{formatContentMonth(contentDate)}</time>
@@ -210,11 +262,13 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
 
       {/* W8 - answer-first + query fan-out, same module as the quiz page so the two
           pages cannot drift into different answers for the same group. */}
-      <AnswerFirst
-        group={group}
-        facts={{ memberCount: nameAllGame?.count ?? null, songCount: blindtest.songs }}
-        seoIntro={group.seo_intro}
-      />
+      {variant ? null : (
+        <AnswerFirst
+          group={group}
+          facts={{ memberCount: nameAllGame?.count ?? null, songCount: blindtest.songs }}
+          seoIntro={group.seo_intro}
+        />
+      )}
 
       {/* Quick stats */}
       <div className="trivia-stats">
@@ -232,13 +286,13 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
         </div>
       </div>
 
-      {/* Fact sections */}
-      {categorySections.map(section => (
+      {/* Fact sections. A site with sources (variant) ends the same list with its sources section, so the page keeps its children. */}
+      {[...categorySections.map(section => (
         <section key={section.key} className="trivia-section">
           {!singleCategory && (
             <div className="trivia-section-head">
               <span className="trivia-section-icon">{section.icon}</span>
-              <h2 className="trivia-section-title">{section.title}</h2>
+              <h2 className="trivia-section-title">{variant ? variant.categoryTitles[section.key] : section.title}</h2>
               <span className={`trivia-chip ${CATEGORY_CHIP[section.key]}`}>
                 {section.facts.length} {section.facts.length === 1 ? 'fact' : 'facts'}
               </span>
@@ -247,28 +301,45 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
           <ul className="trivia-grid">
             {section.facts.map((item, i) => (
               <li key={i} className="trivia-item" style={{ animationDelay: `${i * 40}ms` }}>
-                <TriviaFactCard item={item} />
+                <TriviaFactCard item={item} variant={variant} />
               </li>
             ))}
           </ul>
         </section>
-      ))}
+      )), ...(variant ? [(
+        <section key="sources" className="trivia-section" aria-labelledby="trivia-sources-h">
+          <h2 id="trivia-sources-h" className="trivia-section-title">{variant.sourcesTitle}</h2>
+          <ul className="trivia-sources">
+            {sourceList(uniqueFacts as TriviaVariantFact[]).map((s) => (
+              <li key={s.key}>{s.url ? <a href={s.url} rel="nofollow noopener" target="_blank">{s.label}</a> : s.label}</li>
+            ))}
+          </ul>
+        </section>
+      )] : [])]}
 
       {/* CTA */}
       <div className="trivia-cta">
         <p className="trivia-cta-title">Think you knew all of these?</p>
-        <p className="trivia-cta-sub">
-          Put your {group.name} knowledge to the test with fan-made quizzes.
-        </p>
-        <Link href={`/${group.slug}-quiz`} className="btn-primary w-full sm:w-auto">
-          Play {group.name} quizzes
-        </Link>
+        {variant ? (
+          <p className="trivia-cta-sub">{variant.ctaText}</p>
+        ) : (
+          <p className="trivia-cta-sub">
+            Put your {group.name} knowledge to the test with fan-made quizzes.
+          </p>
+        )}
+        {variant ? (
+          <Link href={`/${group.slug}-quiz`} className="btn-primary w-full sm:w-auto">{variant.ctaLink}</Link>
+        ) : (
+          <Link href={`/${group.slug}-quiz`} className="btn-primary w-full sm:w-auto">
+            Play {group.name} quizzes
+          </Link>
+        )}
       </div>
 
       {/* W-NAV step 5: crawlable cross-link into the group's Verse space (mirrors
           the quiz hub). Additive <a>, SEO-positive; closes the trivia -> Verse gap. */}
       {/* SEO (2026-10-13): only when the space is open; /verse/<slug> 302s while the Verse is closed. */}
-      {verseSpaceOpen(group.slug) ? (
+      {!variant && verseSpaceOpen(group.slug) ? (
         <Link href={`/verse/${group.slug}`} className="trivia-entry mt-4">
           <span className="trivia-entry-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -292,16 +363,16 @@ export async function GroupTriviaPage({ group }: { group: Group }): Promise<Reac
           __html: jsonLdString({
             '@context': 'https://schema.org',
             '@type': 'Article',
-            headline: `${group.name} Trivia - ${uniqueFacts.length} Fun Facts`,
-            description: `Surprising facts about ${group.name} that even hardcore ${group.fandom_name}s might not know.`,
-            url: `https://kpopquiz.org/${group.slug}-trivia`,
+            headline: variant ? variant.h1 : `${group.name} Trivia - ${uniqueFacts.length} Fun Facts`,
+            description: variant ? variant.subline : `Surprising facts about ${group.name} that even hardcore ${group.fandom_name}s might not know.`,
+            url: canonicalUrl,
             publisher: {
               '@type': 'Organization',
-              name: 'KpopQuiz',
-              url: 'https://kpopquiz.org',
+              name: variant?.brand ?? 'KpopQuiz',
+              url: origin,
             },
             about: {
-              '@type': 'MusicGroup',
+              '@type': variant?.aboutType ?? 'MusicGroup',
               name: group.name,
             },
             datePublished: group.created_at,

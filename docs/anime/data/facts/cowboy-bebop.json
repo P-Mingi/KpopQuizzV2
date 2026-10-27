@@ -1,0 +1,1187 @@
+[
+  {
+    "id": "cowboy-bebop-native-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "title_native",
+    "value": "カウボーイビバップ (Kaubōi Bibappu)",
+    "text": "In Japanese the title is カウボーイビバップ, read Kaubōi Bibappu, a katakana version of Cowboy Bebop.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q101244908",
+        "ref": "Q101244908",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Cowboy Bebop (カウボーイビバップ, Kaubōi Bibappu)"
+  },
+  {
+    "id": "cowboy-bebop-studio-director-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "staff",
+    "value": "Sunrise (studio), Shinichirō Watanabe (director)",
+    "text": "Sunrise made the series, with Shinichirō Watanabe leading the team as director.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=41",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Created and animated by Sunrise, it was led by a production team of director Shinichirō Watanabe"
+  },
+  {
+    "id": "cowboy-bebop-creator-credit-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "creator",
+    "value": "Hajime Yatate (collective pen name)",
+    "text": "The credited creator Hajime Yatate is not one person but a shared pen name for the Sunrise staff.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=41",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Hajime Yatate, the well-known pseudonym for the collective contributions of Sunrise's animation staff"
+  },
+  {
+    "id": "cowboy-bebop-episode-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "episodes",
+    "value": "26 episodes (called sessions), 1 season",
+    "text": "The series is a single season of 26 episodes, which the show calls sessions.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q101244908",
+        "ref": "Q101244908",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=41",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The series, which ran for twenty-six episodes (dubbed \"sessions\")"
+  },
+  {
+    "id": "cowboy-bebop-tv-tokyo-run-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "anime_start",
+    "value": "April 3 to June 26, 1998 (TV Tokyo)",
+    "text": "TV Tokyo aired the show first, from 3 April to 26 June 1998, before the full run reached Wowow.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes",
+        "ref": "1368905328",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q101244908",
+        "ref": "Q101244908",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The show's first run, from April 3 until June 26, 1998, on TV Tokyo"
+  },
+  {
+    "id": "cowboy-bebop-wowow-run-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "anime_end",
+    "value": "Wowow, 23 October 1998 to 24 April 1999 (complete run)",
+    "text": "Satellite channel Wowow showed all of it from 23 October 1998 to 24 April 1999.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes",
+        "ref": "1368905328",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=41",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "the series was shown in its entirety from October 23, 1998, to April 24, 1999, on the satellite network Wowow"
+  },
+  {
+    "id": "cowboy-bebop-setting-premise-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "premise",
+    "value": "Year 2071; bounty hunters aboard the spaceship Bebop",
+    "text": "In 2071 a crew of bounty hunters, nicknamed cowboys, chase criminals around the Solar System from a ship called the Bebop.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is set in the year 2071 and follows the lives of a traveling bounty-hunting crew aboard a spaceship, the Bebop"
+  },
+  {
+    "id": "cowboy-bebop-composer-seatbelts-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "composer",
+    "value": "Yoko Kanno, with the band Seatbelts",
+    "text": "Yoko Kanno scored the show in a jazz-heavy style and formed the band Seatbelts to play it.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Kanno formed the blues and jazz band Seatbelts to perform the music"
+  },
+  {
+    "id": "cowboy-bebop-opening-tank-009",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "ref": "op-1",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "theme_op",
+    "value": "Tank! - Seatbelts",
+    "text": "The opening, Tank!, is a mostly instrumental big band number with a long alto saxophone solo by Masato Honda.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop",
+        "ref": "1332452396",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "\"Tank!\" is the series' opening song. The song, written by Yoko Kanno and performed by Seatbelts"
+  },
+  {
+    "id": "cowboy-bebop-ending-real-folk-blues-010",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "ref": "ed-1",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "theme_ed",
+    "value": "The Real Folk Blues - Seatbelts featuring Mai Yamane",
+    "text": "The first ending theme has vocals by Mai Yamane, and it is one of the few songs in the series sung in Japanese.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Music_of_Cowboy_Bebop",
+        "ref": "1332452396",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "\"The Real Folk Blues\" is the first ending theme for Cowboy Bebop"
+  },
+  {
+    "id": "cowboy-bebop-film-release-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "film",
+    "value": "Cowboy Bebop: The Movie, Japan September 1, 2001, set between episodes 22 and 23, studio Bones with Sunrise",
+    "text": "The film, called Knockin' on Heaven's Door in Japan, opened on 1 September 2001, takes place between episodes 22 and 23, and was animated by Bones for Sunrise.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie",
+        "ref": "1377778119",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.sunrise-inc.co.jp/international/work/detail.php?cid=42",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1334287",
+        "ref": "Q1334287",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Set between episodes 22 and 23 of the original series"
+  },
+  {
+    "id": "cowboy-bebop-grand-prix-1999-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "awards",
+    "value": "1999 Anime Grand Prix: best male character (Spike Spiegel), best voice actor (Megumi Hayashibara)",
+    "text": "At the 1999 Anime Grand Prix, which looked back on 1998, Spike Spiegel was voted best male character and Megumi Hayashibara, Faye's voice, best voice actor.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Spike Spiegel was awarded the best male character; and Megumi Hayashibara was awarded the best voice actor"
+  },
+  {
+    "id": "cowboy-bebop-adult-swim-debut-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "us_debut",
+    "value": "First anime shown on Adult Swim's launch night, September 2, 2001",
+    "text": "When Adult Swim launched on 2 September 2001, Cowboy Bebop was the first anime on its schedule, at midnight Eastern.",
+    "category": "fun",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q379052",
+        "ref": "Q379052",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "being the first anime shown on the block that night at midnight ET"
+  },
+  {
+    "id": "cowboy-bebop-arc-structure-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "arcs",
+    "value": [
+      "Sessions 1 to 22",
+      "Cowboy Bebop: The Movie",
+      "Sessions 23 to 26"
+    ],
+    "text": "Because the film sits between episodes 22 and 23, the story here runs sessions 1 to 22, then the film, then sessions 23 to 26.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes",
+        "ref": "1368905328",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The film takes place between episodes 22 and 23."
+  },
+  {
+    "id": "cowboy-bebop-cast-list-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "characters",
+    "value": [
+      "Spike Spiegel (スパイク・スピーゲル): a bounty hunter and ace pilot",
+      "Jet Black (ジェット・ブラック): the retired cop who owns the Bebop",
+      "Faye Valentine (フェイ・ヴァレンタイン): the amnesiac gambler in debt",
+      "Edward Wong Hau Pepelu Tivrusky IV (エドワード・ウォン・ハウ・ペペル・チブルスキー4世): the hacker prodigy known as Ed",
+      "Ein (アイン): the corgi data dog",
+      "Vicious (ビシャス): a Red Dragon Syndicate rival of Spike",
+      "Julia (ジュリア): a woman from Spike's past",
+      "Andy von de Oniyate: the cowboy-styled bounty hunter",
+      "Laughing Bull (ラフィング・ブル): the shaman on Mars",
+      "Gren Eckener: the former soldier in Jupiter Jazz",
+      "Vincent Volaju (ヴィンセント・ボラージュ): the film's terrorist",
+      "Electra Ovilo (エレクトラ・オヴィロゥ): the film's Titan War veteran"
+    ],
+    "text": "Twelve people and one dog from the series and the film, with their Japanese names where the sources give them.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Spike Spiegel is a tall, lean, and slightly muscular 27-year-old bounty hunter born on Mars"
+  },
+  {
+    "id": "cowboy-bebop-spike-spiegel-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "spike-spiegel"
+    },
+    "field": "name",
+    "value": "Spike Spiegel (スパイク・スピーゲル)",
+    "text": "Spike Spiegel is a main character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a tall, lean, and slightly muscular 27-year-old bounty hunter born on Mars. Spike has a history of violent"
+  },
+  {
+    "id": "cowboy-bebop-jet-black-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "jet-black"
+    },
+    "field": "name",
+    "value": "Jet Black (ジェット・ブラック)",
+    "text": "Jet Black is a main character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Known on his home satellite as the \"Black Dog\" for his tenacity, Jet Black (ジェット・ブラック, Jetto Burakku) is a 36-year-old former cop from Ganymede (a Jovian"
+  },
+  {
+    "id": "cowboy-bebop-faye-valentine-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "faye-valentine"
+    },
+    "field": "name",
+    "value": "Faye Valentine (フェイ・ヴァレンタイン)",
+    "text": "Faye Valentine is a main character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is one of the members of the bounty hunting crew. She is often seen with a cigarette and in a revealing outfit"
+  },
+  {
+    "id": "cowboy-bebop-ed-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "ed"
+    },
+    "field": "name",
+    "value": "Edward Wong Hau Pepelu Tivrusky IV (エドワード・ウォン・ハウ・ペペル・チブルスキー4世)",
+    "text": "Edward Wong Hau Pepelu Tivrusky IV is a supporting character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is an elite hacker prodigy from Earth. \"Radical"
+  },
+  {
+    "id": "cowboy-bebop-ein-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "ein"
+    },
+    "field": "name",
+    "value": "Ein (アイン)",
+    "text": "Ein is a supporting character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a Pembroke Welsh Corgi brought aboard the Bebop by Spike after a failed attempt to capture a bounty. He often shows heightened awareness of"
+  },
+  {
+    "id": "cowboy-bebop-vicious-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "vicious"
+    },
+    "field": "name",
+    "value": "Vicious (ビシャス)",
+    "text": "Vicious is an antagonist of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "\" (ビシャス, Bishasu) is the main antagonist of the series, and Spike Spiegel's archenemy. He is a ruthless, cunning, power-hungry, and cold-hearted member"
+  },
+  {
+    "id": "cowboy-bebop-julia-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "julia"
+    },
+    "field": "name",
+    "value": "Julia (ジュリア)",
+    "text": "Julia is a supporting character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a beautiful and mysterious woman from Spike's past. Initially Vicious' girlfriend and a Syndicate member herself, she and Spike started"
+  },
+  {
+    "id": "cowboy-bebop-andy-von-de-oniyate-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "andy-von-de-oniyate"
+    },
+    "field": "name",
+    "value": "Andy von de Oniyate",
+    "text": "Andy von de Oniyate is a supporting character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a rich, egotistical bounty hunter who completely embraces the cowboy aspect of his job; he dresses like a cowboy, rides a horse named"
+  },
+  {
+    "id": "cowboy-bebop-laughing-bull-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "laughing-bull"
+    },
+    "field": "name",
+    "value": "Laughing Bull (ラフィング・ブル)",
+    "text": "Laughing Bull is a supporting character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "A kind old shaman, apparently of Native American descent, Laughing Bull (ラフィング・ブル, Rafingu Buru) lives on Mars. Spike goes to Laughing Bull for advice in"
+  },
+  {
+    "id": "cowboy-bebop-gren-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "gren"
+    },
+    "field": "name",
+    "value": "Gren Eckener",
+    "text": "Gren Eckener is a supporting character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Grencia Mars Elijah Guo Eckener (グレンシア・マルス・エリヤ・郭・エッケナー, Gurenshia Marusu Eriya Guo Ekkenā), also simply referred to as Gren (グ レ ン, Guren), was a soldier for"
+  },
+  {
+    "id": "cowboy-bebop-vincent-volaju-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "vincent-volaju"
+    },
+    "field": "name",
+    "value": "Vincent Volaju (ヴィンセント・ボラージュ)",
+    "text": "Vincent Volaju is an antagonist of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the main antagonist of Cowboy Bebop: The Movie, Vincent Volaju (ヴィンセント・ボラージュ, Vinsento Borāju) is the only survivor of a series of"
+  },
+  {
+    "id": "cowboy-bebop-electra-ovilo-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "electra-ovilo"
+    },
+    "field": "name",
+    "value": "Electra Ovilo (エレクトラ・オヴィロゥ)",
+    "text": "Electra Ovilo is a supporting character of Cowboy Bebop.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-20T22:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Erekutora Ovirō; \"Electra Ovilo\" on Sony's official website and in Japanese materials) is a veteran of the Titan War who first"
+  },
+  {
+    "id": "cowboy-bebop-spike-age-27-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "spike-spiegel"
+    },
+    "field": "age",
+    "value": "27 years old",
+    "text": "Spike Spiegel is 27 years old, a lanky bounty hunter who was born on Mars.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T18:49:54Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.cowboy-bebop.net/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "is a tall, lean, and slightly muscular 27-year-old bounty hunter born on Mars"
+  },
+  {
+    "id": "cowboy-bebop-jet-age-36-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "jet-black"
+    },
+    "field": "age",
+    "value": "36 years old",
+    "text": "Jet Black, the ex-cop from Ganymede who owns the Bebop, is 36 years old.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T18:49:54Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.cowboy-bebop.net/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "is a 36-year-old former cop from Ganymede"
+  },
+  {
+    "id": "cowboy-bebop-ed-age-13-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "ed"
+    },
+    "field": "age",
+    "value": "about 13 years old",
+    "text": "Radical Edward, the whiz-kid hacker, is a girl of roughly 13 years.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T18:49:54Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.cowboy-bebop.net/character/",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "teenage girl of around thirteen years of age"
+  },
+  {
+    "id": "cowboy-bebop-faye-real-age-77-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "faye-valentine"
+    },
+    "field": "age",
+    "value": "about 77 years old",
+    "text": "Faye looks barely older than twenty, yet after her long freeze she is really about 77 years old.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T18:49:54Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:54.000Z",
+    "excerpt": "Faye is actually around 77 years old"
+  },
+  {
+    "id": "cowboy-bebop-ein-mushroom-samba-17-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "ein"
+    },
+    "field": "ability",
+    "value": "session 17, Mushroom Samba",
+    "text": "Ein shows he can talk with other animals in session 17, Mushroom Samba, where he swaps words with a cow.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T18:49:54Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q75037237",
+        "ref": "Q75037237",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Session 17: \"Mushroom Samba\" (he speaks to a cow"
+  },
+  {
+    "id": "cowboy-bebop-watanabe-80-20-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "style",
+    "value": "80 percent serious story, 20 percent humorous touch",
+    "text": "The director split his own series into 80 percent serious drama and 20 percent humour.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+        "ref": "1381153866",
+        "fetched_at": "2026-10-25T18:49:54Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:54.000Z",
+    "excerpt": "Watanabe described Cowboy Bebop as \"80% serious story and 20% humorous touch\""
+  },
+  {
+    "id": "cowboy-bebop-film-bounty-300-million-034",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "cowboy-bebop"
+    },
+    "field": "role",
+    "value": "300 million woolongs",
+    "text": "In the film, Mars puts up a reward of 300 million woolongs to catch the culprit behind the pathogen attack.",
+    "category": "fun",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop:_The_Movie",
+        "ref": "1381555070",
+        "fetched_at": "2026-10-25T18:50:15Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.cowboy-bebop.net/story/movie.html",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "offers an astounding 300 million Woolong bounty for the culprit's capture"
+  },
+  {
+    "id": "cowboy-bebop-faye-valentine-voice-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "faye-valentine"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Megumi Hayashibara"
+    ],
+    "text": "Faye Valentine is voiced in Japanese by Megumi Hayashibara.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1411547",
+        "ref": "Q1411547",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.cowboy-bebop.net/world/",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Voiced by: Megumi Hayashibara (Japanese)"
+  },
+  {
+    "id": "cowboy-bebop-spike-spiegel-voice-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "spike-spiegel"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Kōichi Yamadera"
+    ],
+    "text": "Spike Spiegel is voiced in Japanese by Kōichi Yamadera.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2570349",
+        "ref": "Q2570349",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.cowboy-bebop.net/world/",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Voiced by: Kōichi Yamadera (Japanese)"
+  },
+  {
+    "id": "cowboy-bebop-faye-official-age-23-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "cowboy-bebop",
+      "ref": "faye-valentine"
+    },
+    "field": "background",
+    "value": "23 on the official character page",
+    "text": "The official character page lists Faye Valentine at 23 years old, the age she seems to be.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters",
+        "ref": "1374374792",
+        "fetched_at": "2026-10-25T21:14:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.cowboy-bebop.net/character/",
+        "fetched_at": "2026-10-25T21:14:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:14:01.000Z",
+    "excerpt": "Although appearing to be no more than 22"
+  }
+]

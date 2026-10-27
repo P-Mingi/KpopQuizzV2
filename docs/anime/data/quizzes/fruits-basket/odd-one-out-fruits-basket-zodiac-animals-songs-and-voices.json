@@ -1,0 +1,325 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "fruits-basket",
+  "title": "Odd One Out: Fruits Basket Zodiac Animals, Songs and Voices",
+  "slug": "odd-one-out-fruits-basket-zodiac-animals-songs-and-voices",
+  "description": "Four choices, one that does not belong. Animals, openings, endings, voices and staff. No spoilers beyond the first season.",
+  "quiz_type": "intruder",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Intruder format: three real members of a group and one real outsider, every label from the series data.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Fruits Basket characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Fruits Basket (2019 TV series)",
+      "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Fruits Basket (2001 TV series)",
+      "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2001_TV_series)"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Three of these animals are signs of the Chinese zodiac in the story. Which one is the outsider?",
+      "options": [
+        {
+          "label": "The Cat"
+        },
+        {
+          "label": "The Snake"
+        },
+        {
+          "label": "The Dog"
+        },
+        {
+          "label": "The Rat"
+        }
+      ],
+      "correct": 0,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-kyo-sohma-name-035",
+        "fruits-basket-yuki-sohma-name-033",
+        "fruits-basket-shigure-sohma-name-040",
+        "fruits-basket-ayame-sohma-name-048"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "question": "Three of these characters carry a zodiac curse. Which one does not?",
+      "options": [
+        {
+          "label": "Arisa Uotani"
+        },
+        {
+          "label": "Kisa Sohma"
+        },
+        {
+          "label": "Momiji Sohma"
+        },
+        {
+          "label": "Hiro Sohma"
+        }
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-arisa-uotani-name-069",
+        "fruits-basket-kisa-sohma-name-060",
+        "fruits-basket-hiro-sohma-name-062",
+        "fruits-basket-momiji-sohma-name-055"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "question": "Three of these songs opened an episode block of the 2019 anime. Which one closed episodes?",
+      "options": [
+        {
+          "label": "Chime"
+        },
+        {
+          "label": "Eden"
+        },
+        {
+          "label": "Prism"
+        },
+        {
+          "label": "Again"
+        }
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-openings-s1-024",
+        "fruits-basket-openings-s2-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)"
+    },
+    {
+      "question": "Three of these songs closed an episode block of the 2019 anime. Which one opened episodes?",
+      "options": [
+        {
+          "label": "One Step Closer"
+        },
+        {
+          "label": "Lucky Ending"
+        },
+        {
+          "label": "Home"
+        },
+        {
+          "label": "ad meliora"
+        }
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-openings-s1-024",
+        "fruits-basket-openings-s2-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)"
+    },
+    {
+      "question": "Three of these artists sang an opening of the 2019 anime. Which one sang an ending?",
+      "options": [
+        {
+          "label": "Monkey Majik"
+        },
+        {
+          "label": "Ai Otsuka"
+        },
+        {
+          "label": "Beverly"
+        },
+        {
+          "label": "AmPm ft Miyuna"
+        }
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-openings-s1-024",
+        "fruits-basket-openings-s2-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)"
+    },
+    {
+      "question": "Three of these voice actors play cursed members of the family. Which one plays a character who is not cursed?",
+      "options": [
+        {
+          "label": "Makoto Furukawa"
+        },
+        {
+          "label": "Megumi Han"
+        },
+        {
+          "label": "Atsumi Tanezaki"
+        },
+        {
+          "label": "Nobunaga Shimazaki"
+        }
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fruits-basket-arisa-uotani-voice-070",
+        "fruits-basket-yuki-sohma-voice-034",
+        "fruits-basket-hatsuharu-sohma-voice-054",
+        "fruits-basket-momiji-sohma-voice-057"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "question": "Three of these people belong to the Honda family. Which one does not?",
+      "options": [
+        {
+          "label": "Kyoko Honda"
+        },
+        {
+          "label": "Yuki Sohma"
+        },
+        {
+          "label": "Katsuya Honda"
+        },
+        {
+          "label": "Tohru Honda"
+        }
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-yuki-sohma-name-033",
+        "fruits-basket-tohru-honda-name-030",
+        "fruits-basket-kyoko-honda-name-073",
+        "fruits-basket-katsuya-honda-name-074"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "question": "Three of these characters live in Shigure's house. Which one does not?",
+      "options": [
+        {
+          "label": "Hatori Sohma"
+        },
+        {
+          "label": "Tohru Honda"
+        },
+        {
+          "label": "Yuki Sohma"
+        },
+        {
+          "label": "Kyo Sohma"
+        }
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-shigure-sohma-name-040",
+        "fruits-basket-tohru-honda-name-030",
+        "fruits-basket-hatori-sohma-name-050"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    },
+    {
+      "question": "Three of these people worked on the 2019 anime. Which one directed the 2001 anime?",
+      "options": [
+        {
+          "label": "Yoshihide Ibata"
+        },
+        {
+          "label": "Masaru Yokoyama"
+        },
+        {
+          "label": "Taku Kishimoto"
+        },
+        {
+          "label": "Akitaro Daichi"
+        }
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "fruits-basket-studio-2001-011",
+        "fruits-basket-director-016",
+        "fruits-basket-composer-018",
+        "fruits-basket-staff-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2001_TV_series)"
+    },
+    {
+      "question": "Three of these zodiac members are cursed by animals that sit inside the zodiac. Which character is cursed by one that sits outside it?",
+      "options": [
+        {
+          "label": "Kyo Sohma"
+        },
+        {
+          "label": "Hatsuharu Sohma"
+        },
+        {
+          "label": "Kisa Sohma"
+        },
+        {
+          "label": "Kagura Sohma"
+        }
+      ],
+      "correct": 0,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "fruits-basket-kyo-sohma-name-035",
+        "fruits-basket-kagura-sohma-name-058",
+        "fruits-basket-kisa-sohma-name-060",
+        "fruits-basket-hatsuharu-sohma-name-053"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    }
+  ]
+}

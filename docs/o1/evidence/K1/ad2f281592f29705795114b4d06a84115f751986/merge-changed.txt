@@ -1,0 +1,7 @@
+docs/anime/data/facts/bleach.json
+docs/anime/data/facts/frieren.json
+docs/anime/data/facts/jojo.json
+docs/anime/data/series/bleach.json
+docs/anime/data/series/frieren.json
+docs/anime/data/series/jojo.json
+docs/anime/editorial/packets/k1-b4.html

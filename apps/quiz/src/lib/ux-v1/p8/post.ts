@@ -12,6 +12,7 @@ import { DATE_RE, paragraphs, readingMinutes, timeAgo, utcDate } from './format'
 import { countVisible, dailyKey, MAX_REPLY_DEPTH, nest } from './nesting';
 import { readPeople } from './people';
 import { communityPostsOn, isVerseKind, retiredVerseRow, verseRowShown } from './verse-gate';
+import { forSite } from '@/lib/site/scope';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { FeedPost, P8Features, P8Group, P8Person, PostKind } from './types';
@@ -122,7 +123,7 @@ async function discussionTree(db: Db, rows: DiscRow[], postAuthor: string | null
 
 async function threadPost(id: number, f: P8Features, now: number): Promise<P8Post | null> {
   const db = createPublicReadClient();
-  const { data } = must(await db.from('verse_threads').select('id, group_id, slug, title, created_by, created_at, origin, cover')
+  const { data } = must(await forSite(db.from('verse_threads').select('id, group_id, slug, title, created_by, created_at, origin, cover'))
     .eq('id', id).eq('status', 'visible').maybeSingle(), 'thread');
   const t = data as { id: number; group_id: number; slug: string; title: string; created_by: string | null; created_at: string; origin: string | null; cover: unknown } | null;
   if (!t) return null;
@@ -166,7 +167,7 @@ async function threadPost(id: number, f: P8Features, now: number): Promise<P8Pos
 
 async function blogPost(id: number, f: P8Features, now: number): Promise<P8Post | null> {
   const db = createPublicReadClient();
-  const { data } = must(await db.from('verse_essays').select('id, group_id, title, author, content, cover, featured_at, created_at, origin')
+  const { data } = must(await forSite(db.from('verse_essays').select('id, group_id, title, author, content, cover, featured_at, created_at, origin'))
     .eq('id', id).eq('status', 'featured').maybeSingle(), 'essay');
   const e = data as { id: number; group_id: number; title: string; author: string; content: unknown; cover: unknown; featured_at: string | null; created_at: string; origin: string | null } | null;
   if (!e) return null;
@@ -221,7 +222,7 @@ async function dailyDebatePost(date: string, f: P8Features, now: number): Promis
     fetchAllRows<VoteRow>(() => db.from('debate_votes')
       .select(own ? 'id, user_id, side, comment, created_at, comment_hidden_at' : 'id, user_id, side, comment, created_at').eq('date', date).order('created_at', { ascending: true })),
     own && key !== null
-      ? fetchAllRows<ReplyRow>(() => svc.from('community_replies').select('id, author, body, parent_id, parent_vote, created_at, status')
+      ? fetchAllRows<ReplyRow>(() => forSite(svc.from('community_replies').select('id, author, body, parent_id, parent_vote, created_at, status'))
         .eq('target_type', 'daily_debate').eq('target_id', key).order('created_at', { ascending: true }).order('id', { ascending: true }))
       : Promise.resolve([] as ReplyRow[]),
   ]);
@@ -277,7 +278,7 @@ async function dailyDebatePost(date: string, f: P8Features, now: number): Promis
  *  service role) as a tree at every level; a hidden or deleted reply stays only as a
  *  "[removed]" place over visible replies. */
 async function communityReplies(db: Db, type: 'debate' | 'challenge' | 'editorial', id: number, postAuthor: string | null, f: P8Features, now: number, scoreOf?: (uid: string) => string | null): Promise<P8Comment[]> {
-  const rows = await fetchAllRows<ReplyRow>(() => createServiceRoleClient().from('community_replies').select('id, author, body, parent_id, created_at, status')
+  const rows = await fetchAllRows<ReplyRow>(() => forSite(createServiceRoleClient().from('community_replies').select('id, author, body, parent_id, created_at, status'))
     .eq('target_type', type).eq('target_id', id).order('created_at', { ascending: true }).order('id', { ascending: true }));
   if (!rows.length) return [];
   const shown = rows.filter((r) => r.status === 'visible');
@@ -303,7 +304,7 @@ async function fanDebatePost(id: number, f: P8Features, now: number): Promise<P8
   if (!f.fanDebates) return null;
   const db = createPublicReadClient();
   const svc = createServiceRoleClient();
-  const { data } = must(await db.from('community_debates').select('id, group_id, author, question, body, options, closes_at, created_at')
+  const { data } = must(await forSite(db.from('community_debates').select('id, group_id, author, question, body, options, closes_at, created_at'))
     .eq('id', id).eq('status', 'visible').maybeSingle(), 'community_debate');
   const r = data as { id: number; group_id: number | null; author: string | null; question: string; body: string | null; options: unknown; closes_at: string; created_at: string } | null;
   if (!r) return null;
@@ -337,16 +338,16 @@ async function fanDebatePost(id: number, f: P8Features, now: number): Promise<P8
 async function challengePost(id: number, f: P8Features, now: number): Promise<P8Post | null> {
   if (!f.challenges) return null;
   const db = createPublicReadClient();
-  const { data } = must(await db.from('community_challenges').select('id, author, quiz_id, group_id, score, total, time_seconds, message, created_at')
+  const { data } = must(await forSite(db.from('community_challenges').select('id, author, quiz_id, group_id, score, total, time_seconds, message, created_at'))
     .eq('id', id).eq('status', 'visible').maybeSingle(), 'community_challenge');
   const r = data as { id: number; author: string | null; quiz_id: string; group_id: number | null; score: number; total: number; time_seconds: number | null; message: string | null; created_at: string } | null;
   if (!r) return null;
-  const { data: q } = must(await db.from('quizzes').select('id, slug, title, quiz_type, difficulty, play_count, cover_image_url')
+  const { data: q } = must(await forSite(db.from('quizzes').select('id, slug, title, quiz_type, difficulty, play_count, cover_image_url'))
     .eq('id', r.quiz_id).eq('status', 'published').maybeSingle(), 'challenge quiz');
   const quiz = q as { id: string; slug: string; title: string; quiz_type: string | null; difficulty: string | null; play_count: number | null; cover_image_url: string | null } | null;
   if (!quiz) return null;
   // Each replier's best score on the challenged quiz (plays), shown next to their name.
-  const repliers = await fetchAllRows<{ author: string | null }>(() => db.from('community_replies').select('author')
+  const repliers = await fetchAllRows<{ author: string | null }>(() => forSite(db.from('community_replies').select('author'))
     .eq('target_type', 'challenge').eq('target_id', r.id).eq('status', 'visible'));
   const ids = [...new Set(repliers.map((x) => x.author).filter((a): a is string => !!a))];
   const plays = ids.length ? await fetchAllRows<{ player_id: string; score: number; total_questions: number }>(() => db.from('plays')
@@ -402,7 +403,7 @@ function cleanSources(raw: unknown): { label: string; url: string | null }[] {
 async function editorialPost(kind: 'thread' | 'blog', id: number, f: P8Features, now: number): Promise<P8Post | null> {
   if (!(await getEditorialLive())) return null;
   const db = createPublicReadClient();
-  const { data } = must(await db.from('editorial_posts').select('id, kind, group_id, author, title, body, sources, created_at')
+  const { data } = must(await forSite(db.from('editorial_posts').select('id, kind, group_id, author, title, body, sources, created_at'))
     .eq('id', id).eq('kind', kind).eq('status', 'visible').maybeSingle(), 'editorial_post');
   const r = data as { id: number; kind: 'thread' | 'blog'; group_id: number | null; author: string | null; title: string; body: string; sources: unknown; created_at: string } | null;
   if (!r) return null;

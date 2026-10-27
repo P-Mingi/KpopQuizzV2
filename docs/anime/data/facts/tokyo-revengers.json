@@ -1,0 +1,2663 @@
+[
+  {
+    "id": "tokyo-revengers-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "title_native",
+    "value": [
+      "東京卍リベンジャーズ",
+      "Tōkyō Ribenjāzu"
+    ],
+    "text": "The title is written 東京卍リベンジャーズ, with the manji symbol 卍 inside, and read Tōkyō Ribenjāzu.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tokyo-revengers-anime.com/staff/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Japanese: 東京卍リベンジャーズ, Hepburn: Tōkyō Ribenjāzu"
+  },
+  {
+    "id": "tokyo-revengers-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "author",
+    "value": [
+      "Ken Wakui",
+      "和久井健"
+    ],
+    "text": "Ken Wakui wrote and drew the manga, and the official anime site credits him as the original creator.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q63981675",
+        "ref": "Q63981675",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tokyo-revengers-anime.com/staff/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "written and illustrated by Ken Wakui"
+  },
+  {
+    "id": "tokyo-revengers-manga-run-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "manga_run",
+    "value": [
+      "March 1, 2017",
+      "November 16, 2022"
+    ],
+    "text": "The weekly manga started on March 1, 2017, and its last chapter appeared on November 16, 2022.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q63981675",
+        "ref": "Q63981675",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=22854",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "from March 1, 2017, to November 16, 2022"
+  },
+  {
+    "id": "tokyo-revengers-volumes-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "volumes",
+    "value": 31,
+    "text": "The chapters were collected in 31 tankōbon volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q63981675",
+        "ref": "Q63981675",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=22854",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "chapters collected in 31 tankōbon volumes"
+  },
+  {
+    "id": "tokyo-revengers-magazine-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "magazine",
+    "value": [
+      "Weekly Shōnen Magazine",
+      "Kodansha"
+    ],
+    "text": "The manga ran in Weekly Shōnen Magazine, a weekly of the publisher Kodansha.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q63981675",
+        "ref": "Q63981675",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "serialized in Kodansha's shōnen manga magazine Weekly Shōnen Magazine"
+  },
+  {
+    "id": "tokyo-revengers-anime-s1-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "anime_s1",
+    "value": [
+      "April 2021",
+      "September 2021",
+      "24 episodes"
+    ],
+    "text": "The first anime season ran 24 episodes between April and September 2021 and covers the 8.3 Conflict and Bloody Halloween stories.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes",
+        "ref": "1381408214",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q100255568",
+        "ref": "Q100255568",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23847",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The 24-episode first season aired from April 11 to September 19, 2021"
+  },
+  {
+    "id": "tokyo-revengers-anime-s2-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "anime_s2",
+    "value": [
+      "January 2023",
+      "April 2023",
+      "13 episodes"
+    ],
+    "text": "The second season, the Christmas Showdown Arc, ran 13 episodes from January to April 2023.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes",
+        "ref": "1381408214",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=25067",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "A second season, subtitled Christmas Showdown Arc, aired from January 8 to April 2, 2023"
+  },
+  {
+    "id": "tokyo-revengers-anime-s3-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "anime_s3",
+    "value": [
+      "October 2023",
+      "December 2023"
+    ],
+    "text": "The third season, the Tenjiku Arc, aired between October and December 2023.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes",
+        "ref": "1381408214",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=27739",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "A third season, subtitled Tenjiku Arc, aired from October 4 to December 27, 2023"
+  },
+  {
+    "id": "tokyo-revengers-anime-s4-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "anime_s4",
+    "value": [
+      "October 2026",
+      "War of the Three Titans Arc"
+    ],
+    "text": "The fourth season, the War of the Three Titans Arc, premiered in October 2026 and is still airing as of October 25, 2026.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes",
+        "ref": "1381408214",
+        "fetched_at": "2026-10-25T20:45:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=32821",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "It premiered on October 3, 2026."
+  },
+  {
+    "id": "tokyo-revengers-studio-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "anime_studio",
+    "value": [
+      "Liden Films",
+      "ライデンフィルム"
+    ],
+    "text": "Liden Films produces the anime, from the first season to the fourth.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q100255568",
+        "ref": "Q100255568",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tokyo-revengers-anime.com/staff/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Produced by Liden Films"
+  },
+  {
+    "id": "tokyo-revengers-director-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "director",
+    "value": [
+      "Koichi Hatsumi",
+      "初見浩一"
+    ],
+    "text": "Koichi Hatsumi directed the first three seasons of the anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes",
+        "ref": "1381408214",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tokyo-revengers-anime.com/staff/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "directed by Koichi Hatsumi for the first three seasons"
+  },
+  {
+    "id": "tokyo-revengers-director-s4-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "studio_director",
+    "value": "Maki Kodaira",
+    "text": "For the fourth season Maki Kodaira took over as director, while Hatsumi moved to series composition with Mutō.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "directed by Maki Kodaira, replacing Hatsumi"
+  },
+  {
+    "id": "tokyo-revengers-composer-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "composer",
+    "value": [
+      "Hiroaki Tsutsumi",
+      "堤 博明"
+    ],
+    "text": "Hiroaki Tsutsumi composes the music of the anime.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes",
+        "ref": "1381408214",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tokyo-revengers-anime.com/staff/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "music composition"
+  },
+  {
+    "id": "tokyo-revengers-film-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "live_action",
+    "value": [
+      "Tokyo Revengers",
+      "July 9, 2021",
+      "Tsutomu Hanabusa"
+    ],
+    "text": "The first live-action film, directed by Tsutomu Hanabusa, opened in Japanese cinemas on July 9, 2021, after a delay from the planned date in October 2020.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers_(film)",
+        "ref": "1369619933",
+        "fetched_at": "2026-10-25T20:45:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q100255572",
+        "ref": "Q100255572",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "is a 2021 Japanese science fiction action film directed by Tsutomu Hanabusa"
+  },
+  {
+    "id": "tokyo-revengers-film-sequel-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "films",
+    "value": [
+      "Bloody Halloween",
+      "Destiny",
+      "Decisive Battle"
+    ],
+    "text": "The live-action sequel Bloody Halloween was released as two separate films, Destiny and Decisive Battle, in the same year.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers_(film)",
+        "ref": "1369619933",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "released in two parts titled Destiny and Decisive Battle"
+  },
+  {
+    "id": "tokyo-revengers-chibireve-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "shorts",
+    "value": [
+      "ChibiReve",
+      "Studio Puyukai"
+    ],
+    "text": "The chibi shorts ChibiReve, made by Studio Puyukai, were released free on YouTube during the first season.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "ChibiReve (ちびりべ) lit. 'Chibi Revengers'"
+  },
+  {
+    "id": "tokyo-revengers-todai-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "spinoff",
+    "value": [
+      "Tōdai Revengers",
+      "Shinpei Funatsu"
+    ],
+    "text": "Shinpei Funatsu drew Tōdai Revengers, a parody spin-off manga published on Magazine Pocket.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "A parody spin-off manga by Shinpei Funatsu"
+  },
+  {
+    "id": "tokyo-revengers-baji-letter-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "spin_offs",
+    "value": [
+      "A Letter from Keisuke Baji",
+      "Yukinori Kawaguchi"
+    ],
+    "text": "A Letter from Keisuke Baji, drawn by Yukinori Kawaguchi, is a spin-off manga centered on Keisuke Baji and Chifuyu Matsuno.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "centered around Keisuke Baji and Chifuyu Matsuno"
+  },
+  {
+    "id": "tokyo-revengers-dowa-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "bonus_special",
+    "value": [
+      "Dōwa Revengers",
+      "Momotarō"
+    ],
+    "text": "A mini series called Dōwa Revengers retells fairy tales with the Tokyo Revengers cast, starting with Momotarō.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes",
+        "ref": "1381408214",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "with the first episode being based on Momotarō"
+  },
+  {
+    "id": "tokyo-revengers-manji-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "trademark",
+    "value": [
+      "卍",
+      "manji"
+    ],
+    "text": "Official releases outside Japan remove the Buddhist manji symbol of the gang or hide it behind rays of light.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "censor the Buddhist manji swastika (卍) symbol"
+  },
+  {
+    "id": "tokyo-revengers-premise-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "premise",
+    "value": [
+      "Takemichi Hanagaki",
+      "Hinata Tachibana"
+    ],
+    "text": "A 26-year-old part-timer named Takemichi learns that his ex-girlfriend Hinata has died, then jumps back twelve years to save her.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "he jumps twelve years back in time, to the year he was dating Hinata"
+  },
+  {
+    "id": "tokyo-revengers-timeline-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "setting",
+    "value": [
+      "2017",
+      "2005"
+    ],
+    "text": "The story starts in 2017, when Takemichi is 26, and sends him back to 2005.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "In 2017, Takemichi Hanagaki, a 26-year-old freeter"
+  },
+  {
+    "id": "tokyo-revengers-toman-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "organization",
+    "value": [
+      "Tokyo Manji Gang",
+      "Toman"
+    ],
+    "text": "The Tokyo Manji Gang, shortened to Toman, wants a new golden era for the delinquents of the Kanto region.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "also known as Toman"
+  },
+  {
+    "id": "tokyo-revengers-arcs-list-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "arcs",
+    "value": [
+      "8.3 Conflict Arc (8・3抗争編): episodes 1 to 12",
+      "Bloody Halloween Arc (血のハロウィン編): episodes 13 to 24",
+      "Christmas Showdown Arc: episodes 25 to 37",
+      "Tenjiku Arc: episodes 38 to 50",
+      "War of the Three Titans Arc: from episode 51"
+    ],
+    "text": "The anime splits into five story arcs, from the 8.3 Conflict Arc in episodes 1 to 12 to the War of the Three Titans Arc that began at episode 51.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes",
+        "ref": "1381408214",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tokyo-revengers-anime.com/staff/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "8・3抗争編 | 血のハロウィン編"
+  },
+  {
+    "id": "tokyo-revengers-bloody-halloween-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "record",
+    "value": [
+      "Bloody Halloween",
+      "October 31, 2005"
+    ],
+    "text": "The Bloody Halloween battle between the Tokyo Manji Gang and Valhalla takes place on October 31, 2005.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a decisive battle on October 31, 2005, Bloody Halloween"
+  },
+  {
+    "id": "tokyo-revengers-draken-date-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "debut",
+    "value": "August 3, 2005",
+    "text": "In the first timeline Draken dies after a stabbing on August 3, 2005, and the 8.3 Conflict arc is about stopping it.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes",
+        "ref": "1381408214",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "on August 3, 2005, Draken dies after being stabbed"
+  },
+  {
+    "id": "tokyo-revengers-shinichiro-leap-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "regressions",
+    "value": "homeless man",
+    "text": "Mikey reveals that Shinichiro had really died, and that a homeless man with a stolen time-leap ability had changed events.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a homeless man's stolen time-leap ability allowed him to alter events"
+  },
+  {
+    "id": "tokyo-revengers-final-rewrite-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "mission",
+    "value": "1998",
+    "text": "Takemichi and Mikey leap together to 1998, rewrite history, and end up with a peaceful future.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "they time-leap together to 1998"
+  },
+  {
+    "id": "tokyo-revengers-wedding-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "role",
+    "value": "Takemichi and Hinata",
+    "text": "In the happy ending Takemichi and Hinata marry eleven years after the rewrite, surrounded by their friends and family.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Takemichi and Hinata marry, surrounded by their friends and family"
+  },
+  {
+    "id": "tokyo-revengers-openings-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP1: Cry Baby (Official Hige Dandism)",
+      "OP2: White Noise (Official Hige Dandism)",
+      "OP3: Ignite (JO1)"
+    ],
+    "text": "Cry Baby by Official Hige Dandism opens the first season, White Noise opens seasons two and three, and Ignite by JO1 opens season four.",
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23847",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q110321532",
+        "ref": "Q110321532",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Opening Theme | Official HIGE DANdism"
+  },
+  {
+    "id": "tokyo-revengers-endings-031",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED1: Koko de Iki o Shite (Eill)",
+      "ED2: Tokyo Wonder (Nakimushi)",
+      "ED3: Kizutsukedo, Aishiteru (Tuyu)",
+      "ED4: Say My Name (Hey-Smith)",
+      "ED5: Trick Star (go!go!vanillas)"
+    ],
+    "text": "The endings are Koko de Iki o Shite by Eill, Tokyo Wonder by Nakimushi, Kizutsukedo, Aishiteru by Tuyu, Say My Name by Hey-Smith and Trick Star by go!go!vanillas.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=23847",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tokyo-revengers-anime.com/staff/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Ending Theme | eill | Nakimushi"
+  },
+  {
+    "id": "tokyo-revengers-cry-baby-split-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "op1_episodes",
+    "value": [
+      "Cry Baby",
+      "24 episodes"
+    ],
+    "text": "Cry Baby plays in all 24 episodes of the first season, while Koko de Iki o Shite is used for the first 12 and Tokyo Wonder for the rest.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes",
+        "ref": "1381408214",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "plays on all 24 episodes of the season"
+  },
+  {
+    "id": "tokyo-revengers-mtv-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tokyo-revengers"
+    },
+    "field": "award",
+    "value": [
+      "Cry Baby",
+      "MTV Video Music Awards Japan"
+    ],
+    "text": "Cry Baby by Official Hige Dandism won Video of the Year at the MTV Video Music Awards Japan.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "MTV Video Music Awards Japan | Video of the Year"
+  },
+  {
+    "id": "tokyo-revengers-character-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "takemichi-hanagaki"
+    },
+    "field": "name",
+    "value": [
+      "Takemichi Hanagaki",
+      "花垣 武道"
+    ],
+    "text": "Takemichi Hanagaki, a part-timer when the story starts, is the main protagonist of the series.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Takemichi is the main protagonist of the series"
+  },
+  {
+    "id": "tokyo-revengers-character-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "manjiro-sano"
+    },
+    "field": "name",
+    "value": [
+      "Manjiro Sano",
+      "佐野 万次郎"
+    ],
+    "text": "Manjiro Sano leads the Tokyo Manji Gang, known as Toman, and goes by the nickname Mikey.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The leader of Tokyo Manji Gang, also known as Toman, nicknamed Mikey"
+  },
+  {
+    "id": "tokyo-revengers-character-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "ken-ryuguji"
+    },
+    "field": "name",
+    "value": [
+      "Ken Ryuguji",
+      "龍宮寺 堅"
+    ],
+    "text": "Ken Ryuguji is Mikey's second-in-command and best friend, and goes by Draken.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "He is Mikey's best friend"
+  },
+  {
+    "id": "tokyo-revengers-character-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "hinata-tachibana"
+    },
+    "field": "name",
+    "value": [
+      "Hinata Tachibana",
+      "橘 日向"
+    ],
+    "text": "Hinata Tachibana is the middle school girlfriend that Takemichi wants to save.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Takemichi's girlfriend back in middle school"
+  },
+  {
+    "id": "tokyo-revengers-character-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "naoto-tachibana"
+    },
+    "field": "name",
+    "value": [
+      "Naoto Tachibana",
+      "橘 直人"
+    ],
+    "text": "Naoto Tachibana is Hinata's younger brother, and he becomes a police officer in the new present.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Hinata's younger brother"
+  },
+  {
+    "id": "tokyo-revengers-character-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "tetta-kisaki"
+    },
+    "field": "name",
+    "value": [
+      "Tetta Kisaki",
+      "稀咲 鉄太"
+    ],
+    "text": "Tetta Kisaki starts as an outsider but schemes his way up to become a captain in the gang.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Tetta Kisaki"
+  },
+  {
+    "id": "tokyo-revengers-character-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "keisuke-baji"
+    },
+    "field": "name",
+    "value": [
+      "Keisuke Baji",
+      "場地 圭介"
+    ],
+    "text": "Keisuke Baji is a founding member and loyal captain, who is also the focus of a spin-off letter series.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "one of the founding members of the Tokyo Manji Gang"
+  },
+  {
+    "id": "tokyo-revengers-character-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "takashi-mitsuya"
+    },
+    "field": "name",
+    "value": [
+      "Takashi Mitsuya",
+      "三ツ谷 隆"
+    ],
+    "text": "Takashi Mitsuya commands the second division, and Takemichi joins the gang under him.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The Captain of the Second Division"
+  },
+  {
+    "id": "tokyo-revengers-character-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "haruki-hayashida"
+    },
+    "field": "name",
+    "value": [
+      "Haruki Hayashida",
+      "林田 春樹"
+    ],
+    "text": "Haruki Hayashida, nicknamed Pah-chin, leads the third division until he turns himself in to the police.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Pah-chin stab the leader of Moebius before staying behind to turn himself in"
+  },
+  {
+    "id": "tokyo-revengers-character-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "masataka-kiyomizu"
+    },
+    "field": "name",
+    "value": [
+      "Masataka Kiyomizu",
+      "清水 将貴"
+    ],
+    "text": "Masataka Kiyomizu is nicknamed Kiyomasa and is the bully who first treats Takemichi like a servant.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "His nickname is \"Kiyomasa\""
+  },
+  {
+    "id": "tokyo-revengers-character-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "chifuyu-matsuno"
+    },
+    "field": "name",
+    "value": [
+      "Chifuyu Matsuno",
+      "松野 千冬"
+    ],
+    "text": "Chifuyu Matsuno serves as vice-captain of the first division, under Baji.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The Vice Captain of the First Division"
+  },
+  {
+    "id": "tokyo-revengers-character-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "kazutora-hanemiya"
+    },
+    "field": "name",
+    "value": [
+      "Kazutora Hanemiya",
+      "羽宮 一虎"
+    ],
+    "text": "Kazutora Hanemiya is one of the Tokyo Manji Gang's founding members.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "one of the Founding members of the Tokyo Manji Gang"
+  },
+  {
+    "id": "tokyo-revengers-character-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "hakkai-shiba"
+    },
+    "field": "name",
+    "value": [
+      "Hakkai Shiba",
+      "柴 八戒"
+    ],
+    "text": "Hakkai Shiba is the vice-captain of the second division, and Taiju and Yuzuha are his siblings.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The Vice Captain of the Second Division"
+  },
+  {
+    "id": "tokyo-revengers-character-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "taiju-shiba"
+    },
+    "field": "name",
+    "value": [
+      "Taiju Shiba",
+      "柴 大寿"
+    ],
+    "text": "Taiju Shiba leads the Black Dragons in their tenth generation.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Leader of 10th Generation of the Black Dragons"
+  },
+  {
+    "id": "tokyo-revengers-character-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "yuzuha-shiba"
+    },
+    "field": "name",
+    "value": [
+      "Yuzuha Shiba",
+      "柴 柚葉"
+    ],
+    "text": "Yuzuha Shiba is the sister of Taiju and Hakkai.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Taiju and Hakkai's sister"
+  },
+  {
+    "id": "tokyo-revengers-character-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "izana-kurokawa"
+    },
+    "field": "name",
+    "value": [
+      "Izana Kurokawa",
+      "黒川 イザナ"
+    ],
+    "text": "Izana Kurokawa heads the Yokohama team Tenjiku and was adopted into the Sano family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The president of the team \"Tenjiku\" based in Yokohama"
+  },
+  {
+    "id": "tokyo-revengers-character-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "kakucho"
+    },
+    "field": "name",
+    "value": [
+      "Kakucho",
+      "鶴蝶"
+    ],
+    "text": "Kakucho is one of the Four Heavenly Kings of Tenjiku and once was a childhood friend of Takemichi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Takemichi's former childhood friend"
+  },
+  {
+    "id": "tokyo-revengers-character-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "shuji-hanma"
+    },
+    "field": "name",
+    "value": [
+      "Shuji Hanma",
+      "半間 修二"
+    ],
+    "text": "Shuji Hanma is a tattooed fighter who collaborates with Kisaki.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "He was working with Kisaki"
+  },
+  {
+    "id": "tokyo-revengers-character-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "emma-sano"
+    },
+    "field": "name",
+    "value": [
+      "Emma Sano",
+      "佐野 エマ"
+    ],
+    "text": "Emma Sano is the younger half sister of Mikey.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Mikey's younger half sister"
+  },
+  {
+    "id": "tokyo-revengers-character-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "haruchiyo-sanzu"
+    },
+    "field": "name",
+    "value": [
+      "Haruchiyo Sanzu",
+      "三途 春千夜"
+    ],
+    "text": "Haruchiyo Sanzu is a masked vice-captain of the fifth division.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The Vice Captain of the Fifth Division"
+  },
+  {
+    "id": "tokyo-revengers-takemichi-job-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "takemichi-hanagaki"
+    },
+    "field": "occupation",
+    "value": "part-timer",
+    "text": "Takemichi starts out as a 26-year-old part-timer whose life is gloomy.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a 26-year-old part-timer with a gloomy life"
+  },
+  {
+    "id": "tokyo-revengers-takemichi-leap-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "takemichi-hanagaki"
+    },
+    "field": "ability",
+    "value": "time leap",
+    "text": "Takemichi can leap exactly twelve years back, to the same day, and a handshake with Naoto triggers the jump.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes",
+        "ref": "1381408214",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "allows him to leap exactly twelve years to the day into the past"
+  },
+  {
+    "id": "tokyo-revengers-takemichi-voice-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "takemichi-hanagaki"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Yuuki Shin",
+      "A.J. Beckles"
+    ],
+    "text": "Takemichi is voiced by Yuuki Shin in Japanese and by A.J. Beckles in the English dub.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Voiced by: Yuuki Shin (Japanese); A.J. Beckles (English)"
+  },
+  {
+    "id": "tokyo-revengers-mikey-voice-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "manjiro-sano"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Yū Hayashi",
+      "Aleks Le"
+    ],
+    "text": "Mikey is voiced by Yū Hayashi in Japanese and by Aleks Le in the English dub.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Voiced by: Yū Hayashi (Japanese); Aleks Le"
+  },
+  {
+    "id": "tokyo-revengers-mikey-nick-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "manjiro-sano"
+    },
+    "field": "nickname",
+    "value": "Mikey",
+    "text": "Mikey is the nickname of the gang leader Manjiro Sano, and he is also called the commander of Toman.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "nicknamed Mikey"
+  },
+  {
+    "id": "tokyo-revengers-mikey-bonten-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "manjiro-sano"
+    },
+    "field": "organization",
+    "value": "Bonten",
+    "text": "In a possible future Mikey vanishes and leads the ruthless gang Bonten.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "forming the ruthless Bonten gang"
+  },
+  {
+    "id": "tokyo-revengers-draken-nick-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "ken-ryuguji"
+    },
+    "field": "nickname",
+    "value": "Draken",
+    "text": "Ken Ryuguji is nicknamed Draken and is known for a mature, big-brother attitude.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "known for his mature and big brother attitude"
+  },
+  {
+    "id": "tokyo-revengers-draken-voice-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "ken-ryuguji"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Tatsuhisa Suzuki",
+      "Sean Chiplock"
+    ],
+    "text": "Draken is voiced by Tatsuhisa Suzuki in the first season and by Sean Chiplock in the English dub.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Voiced by: Tatsuhisa Suzuki (first season)"
+  },
+  {
+    "id": "tokyo-revengers-draken-stab-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "ken-ryuguji"
+    },
+    "field": "record",
+    "value": "Kiyomasa",
+    "text": "Draken is stabbed by Kiyomasa, and he would have died in the first timeline if Takemichi had not saved him.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "he was stabbed by Kiyomasa and died in first timeline but Takemichi saved him"
+  },
+  {
+    "id": "tokyo-revengers-draken-2008-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "ken-ryuguji"
+    },
+    "field": "mission",
+    "value": "shielding Senju",
+    "text": "In 2008 Draken is killed while shielding Senju.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Draken is killed shielding them"
+  },
+  {
+    "id": "tokyo-revengers-hinata-role-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "hinata-tachibana"
+    },
+    "field": "role",
+    "value": "Takemichi's girlfriend",
+    "text": "Hinata is Takemichi's girlfriend from middle school, and her death drives his time travel.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "killed in a conflict that involved the present Tokyo Manji Gang"
+  },
+  {
+    "id": "tokyo-revengers-hinata-voice-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "hinata-tachibana"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Azumi Waki",
+      "Lizzie Freeman"
+    ],
+    "text": "Hinata is voiced by Azumi Waki in Japanese and by Lizzie Freeman in the English dub.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Voiced by: Azumi Waki (Japanese); Lizzie Freeman (English)"
+  },
+  {
+    "id": "tokyo-revengers-naoto-police-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "naoto-tachibana"
+    },
+    "field": "occupation",
+    "value": "police officer",
+    "text": "Naoto is alive and works as a police officer in the new present, where he explains Takemichi's ability.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "now a Police Officer"
+  },
+  {
+    "id": "tokyo-revengers-kisaki-captain-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "tetta-kisaki"
+    },
+    "field": "role",
+    "value": "third division captain",
+    "text": "Kisaki uses Pah-chin's arrest to become captain of the third division.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "becoming the Captain of the Third Division"
+  },
+  {
+    "id": "tokyo-revengers-kisaki-motive-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "tetta-kisaki"
+    },
+    "field": "motivation",
+    "value": "ambition and obsession with Hinata",
+    "text": "In his confession, Kisaki admits that ambition and a fixation on Hinata, not any grand cause, drove him.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "his motives were personal ambition and an obsession with Hinata"
+  },
+  {
+    "id": "tokyo-revengers-baji-defect-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "keisuke-baji"
+    },
+    "field": "record",
+    "value": "Valhalla",
+    "text": "Baji seemed to defect to Valhalla, but he only joined to learn more about Kisaki.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T20:45:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Baji joined in order to learn more about Kisaki"
+  },
+  {
+    "id": "tokyo-revengers-mitsuya-captain-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "takashi-mitsuya"
+    },
+    "field": "role",
+    "value": "second division captain",
+    "text": "Takashi Mitsuya holds the post of second division captain.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The Captain of the Second Division of the Tokyo Manji Gang"
+  },
+  {
+    "id": "tokyo-revengers-pahchin-captain-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "haruki-hayashida"
+    },
+    "field": "role",
+    "value": "third division captain",
+    "text": "Pah-chin captains the third division until he is arrested.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The Captain of the Third Division"
+  },
+  {
+    "id": "tokyo-revengers-kiyomasa-fights-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "masataka-kiyomizu"
+    },
+    "field": "organization",
+    "value": "underground fights",
+    "text": "Kiyomasa organizes underground fights that force Takemichi's friends to fight.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T20:45:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "finds his friends coerced into underground fights orchestrated by Kiyomasa"
+  },
+  {
+    "id": "tokyo-revengers-hanma-tattoo-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "shuji-hanma"
+    },
+    "field": "trademark",
+    "value": "sin and punishment tattoos",
+    "text": "Hanma has tattoos on both hands that read sin and punishment.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "tattoos of sin and punishment on both hands"
+  },
+  {
+    "id": "tokyo-revengers-chifuyu-vice-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "chifuyu-matsuno"
+    },
+    "field": "role",
+    "value": "Baji's vice-captain",
+    "text": "Chifuyu is the vice-captain of the first division, with Baji as his captain.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The Vice Captain of the First Division"
+  },
+  {
+    "id": "tokyo-revengers-kazutora-past-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "kazutora-hanemiya"
+    },
+    "field": "background",
+    "value": "Shinichiro",
+    "text": "Kazutora killed Mikey's brother Shinichiro while trying to steal a motorbike with Baji.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "killing Mikey's older brother Shinichiro"
+  },
+  {
+    "id": "tokyo-revengers-hakkai-role-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "hakkai-shiba"
+    },
+    "field": "role",
+    "value": "second division vice-captain",
+    "text": "Hakkai is the second division's vice-captain and the younger brother of Taiju and Yuzuha.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "The Vice Captain of the Second Division of the Tokyo Manji Gang"
+  },
+  {
+    "id": "tokyo-revengers-taiju-abuse-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "taiju-shiba"
+    },
+    "field": "organization",
+    "value": "Black Dragons",
+    "text": "Taiju leads the Black Dragons, and he abuses Hakkai and Yuzuha after their mother's death.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "physically and emotionally abuse them"
+  },
+  {
+    "id": "tokyo-revengers-yuzuha-fighter-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "yuzuha-shiba"
+    },
+    "field": "ability",
+    "value": "good fighter",
+    "text": "Yuzuha is a good fighter who defends Hakkai from Taiju.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a good fighter and protects Hakkai from Taiju's abuse"
+  },
+  {
+    "id": "tokyo-revengers-izana-tenjiku-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "izana-kurokawa"
+    },
+    "field": "organization",
+    "value": "Tenjiku",
+    "text": "Izana is the president of Tenjiku, a gang based in Yokohama.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "president of the team \"Tenjiku\" based in Yokohama"
+  },
+  {
+    "id": "tokyo-revengers-izana-jealous-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "izana-kurokawa"
+    },
+    "field": "motivation",
+    "value": "jealousy over Shinichiro",
+    "text": "Izana resents Mikey out of jealousy over the legacy of Shinichiro.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+        "ref": "1381518809",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "resents Mikey due to jealousy over Shinichiro's legacy"
+  },
+  {
+    "id": "tokyo-revengers-kakucho-brawler-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "kakucho"
+    },
+    "field": "nickname",
+    "value": "The Brawler",
+    "text": "Kakucho is nicknamed The Brawler and has a large scar across his face.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "nickname \"The Brawler\""
+  },
+  {
+    "id": "tokyo-revengers-emma-fate-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "emma-sano"
+    },
+    "field": "record",
+    "value": "Kisaki",
+    "text": "Kisaki murders Emma to break Mikey before the Tenjiku conflict.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "she was murdered by Kisaki in order break Mikey"
+  },
+  {
+    "id": "tokyo-revengers-sanzu-mask-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tokyo-revengers",
+      "ref": "haruchiyo-sanzu"
+    },
+    "field": "trademark",
+    "value": "mask",
+    "text": "Sanzu is recognized by his long hair and a mask that never comes off.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+        "ref": "1348563266",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "He has long hair and always wears a mask"
+  }
+]

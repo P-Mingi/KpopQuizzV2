@@ -1,0 +1,128 @@
+// Run O1 twin (rule 18) of apps/quiz/src/app/(site)/trivia/page.tsx, rows 33: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
+import { jsonLdString } from '@/lib/seo/json-ld';
+import Link from 'next/link';
+
+import { getSeriesDirectory } from '@/lib/anime/directory';
+import { getSeriesHub } from '@/lib/anime/series';
+import { uniqueFacts } from '@/lib/anime/series-model';
+import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
+import { ManhwaTag } from '@/components/anime/manhwa-tag';
+import { SeriesArt } from '@/components/anime/series-art';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { safeFetch } from '@/lib/error-handling';
+import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
+import { SITE } from '@/lib/site/registry';
+
+import type { Metadata } from 'next';
+import type { SeriesType } from '@/lib/anime/types';
+import type { TriviaEligibleGroup } from '@/lib/db/queries/trivia';
+
+/** A series with a trivia page, and its `series.type` (a webtoon is a manhwa). */
+type EligibleSeries = TriviaEligibleGroup & { readonly seriesType?: SeriesType | undefined };
+
+// ISR: matches the group trivia pages (cookie-reading children force SSR today;
+// this window stays dormant until those reads are made cookie-free).
+export const revalidate = 3600;
+
+export const metadata: Metadata = {
+  title: 'Anime Trivia and Fun Facts',
+  description:
+    'Browse anime trivia and fun facts by series. Surprising facts about the characters, their music, and the records they broke, then test yourself with quizzes.',
+  alternates: { canonical: '/trivia' },
+  openGraph: {
+    title: 'Anime Trivia and Fun Facts | OtakuQuiz',
+    description: 'Surprising anime facts by series that even hardcore fans might not know.',
+    url: `${SITE.url}/trivia`,
+    siteName: 'OtakuQuiz',
+    type: 'website',
+    images: [DEFAULT_OG_IMAGE],
+  },
+};
+
+// The series that have a trivia page: the same gate as /{series}-trivia (the series' stored, sourced facts, at least
+// TRIVIA_MIN_FACTS unique ones), so this list never links to a page that answers 404. The kpop hub counts the facts
+// of the quizzes' questions instead, which is not what an anime series page is built from.
+async function getEligibleSeries(): Promise<EligibleSeries[]> {
+  const directory = await getSeriesDirectory();
+  const hubs = await Promise.all(directory.map((row) => getSeriesHub(row.group.slug)));
+  return hubs
+    .flatMap((hub) => (hub ? [{ group: hub.group, factCount: uniqueFacts(hub.trivia).length, sourced: true, seriesType: hub.series.type }] : []))
+    .filter((row) => row.factCount >= TRIVIA_MIN_FACTS)
+    .sort((a, b) => b.factCount - a.factCount || a.group.name.localeCompare(b.group.name, 'en'));
+}
+
+export default async function TriviaHubPage(): Promise<React.ReactElement> {
+  const eligible = await safeFetch(
+    getEligibleSeries(),
+    [] as EligibleSeries[],
+    '[trivia-hub] getEligibleSeries',
+  );
+
+  return (
+    <div className="trivia-hub">
+      <div className="anime-c1-crumbs"><Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Trivia' }]} /></div>
+
+      <header className="trivia-hub-head">
+        <h1 className="trivia-hub-title">Anime trivia and fun facts</h1>
+        <p className="trivia-hub-intro">
+          
+          Surprising facts about your favorite anime series: their origins, characters, music, and
+          records, all pulled from fan-made quizzes. Pick a series to dive in.
+        </p>
+      </header>
+
+      {eligible.length > 0 ? (
+        <ul className="trivia-hub-grid">
+          {eligible.map(({ group, factCount, seriesType }) => (
+            <li key={group.id}>
+              <Link href={`/${group.slug}-trivia`} className="trivia-hub-card">
+                <span className="anime-o2-art-row" aria-hidden="true"><SeriesArt slug={group.slug} title={group.name} size="avatar" /></span>
+                <div className="trivia-hub-card-body">
+                  <p className="trivia-hub-card-name">{group.name}</p>
+                  <p className="trivia-hub-card-meta anime-c1-quiet"><ManhwaTag type={seriesType} />{factCount} fun facts</p>
+                </div>
+                <svg
+                  className="trivia-hub-card-arrow"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="trivia-hub-intro" style={{ marginTop: 24 }}>
+          Series trivia pages are on their way. In the meantime, browse the series and play a quiz.
+        </p>
+      )}
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLdString({
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: 'Anime Trivia and Fun Facts',
+            description: 'Anime trivia and fun facts by series on OtakuQuiz.',
+            url: `${SITE.url}/trivia`,
+            mainEntity: {
+              '@type': 'ItemList',
+              numberOfItems: eligible.length,
+              itemListElement: eligible.map(({ group }, i) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                url: `${SITE.url}/${group.slug}-trivia`,
+                name: `${group.name} Trivia`,
+              })),
+            },
+          }),
+        }}
+      />
+    </div>
+  );
+}

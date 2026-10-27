@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_16",
+ "group_slug": "haikyu",
+ "title": "Serve It in Numbers: Haikyu!! Episodes, Years and Songs",
+ "slug": "serve-it-in-numbers-haikyu-episodes-years-and-songs",
+ "description": "Ten questions that all have a number for an answer: episodes, years, song slots and one December day. Light spoilers: the finale films are mentioned, nothing about the matches.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Numbers format: every answer is a number taken from verified facts about the manga and the TV anime.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Haikyu!!",
+   "url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Haikyu!! episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  }
+ ],
+ "questions": [
+  {
+   "question": "How many episodes does season three, the Shiratorizawa season, run for?",
+   "options": [
+    "13",
+    "25",
+    "10",
+    "12"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-arc-structure-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  },
+  {
+   "question": "How many episodes does season four, To The Top, run?",
+   "options": [
+    "12",
+    "10",
+    "13",
+    "25"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 4,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-four-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "In which year did the Haikyu!! manga begin in Weekly Shōnen Jump?",
+   "options": [
+    "2010",
+    "2014",
+    "2012",
+    "2016"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "In which year did the TV anime premiere on Japanese television?",
+   "options": [
+    "2015",
+    "2017",
+    "2014",
+    "2013"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "How many ending songs does the whole TV anime use?",
+   "options": [
+    "Nine",
+    "Seven",
+    "Six",
+    "Five"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-anime-totals-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  },
+  {
+   "question": "Phoenix, the season four opening by Burnout Syndromes, is which numbered opening of the series?",
+   "options": [
+    "6",
+    "4",
+    "3",
+    "7"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-themes-seasons-three-four-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "On which day of December 2020 did season four end its run?",
+   "options": [
+    "19",
+    "26",
+    "12",
+    "5"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 4,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-four-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "In which year did the first Haikyu!! Final film reach cinemas?",
+   "options": [
+    "2023",
+    "2024",
+    "2022",
+    "2025"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 5,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-final-films-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which episode number opens season four, To The Top?",
+   "options": [
+    "66",
+    "61",
+    "51",
+    "56"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-arc-structure-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  },
+  {
+   "question": "Which episode number is the last one of season three, the Shiratorizawa season?",
+   "options": [
+    "65",
+    "55",
+    "50",
+    "60"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-arc-structure-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  }
+ ]
+}

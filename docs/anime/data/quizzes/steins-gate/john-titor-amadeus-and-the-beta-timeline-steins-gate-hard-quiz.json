@@ -1,0 +1,232 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "steins-gate",
+  "title": "Steins;Gate Hard Quiz: John Titor, Amadeus and the Beta Timeline",
+  "slug": "john-titor-amadeus-and-the-beta-timeline-steins-gate-hard-quiz",
+  "description": "Ten hard questions on aliases, family ties, Reading Steiner and the story and staff of Steins;Gate 0. Spoilers for the whole story, including Steins;Gate 0.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Steins;Gate characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Steins;Gate",
+      "url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Steins;Gate 0",
+      "url": "https://en.wikipedia.org/wiki/Steins;Gate_0"
+    },
+    {
+      "id": "S4",
+      "title": "https://steinsgate0-anime.com/",
+      "url": "https://steinsgate0-anime.com/"
+    },
+    {
+      "id": "S5",
+      "title": "Anime News Network: anime.php?id=20446",
+      "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20446"
+    }
+  ],
+  "notes": "Hard quiz: late facts (arcs 1 to 3) only here. Spoilers named in the description.",
+  "questions": [
+    {
+      "question": "Which alias does the time traveler Suzuha use?",
+      "options": [
+        "Mr. Braun",
+        "John Titor",
+        "Hououin Kyouma",
+        "Okarin"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-character-detail-065"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    },
+    {
+      "question": "Whose daughter is Suzuha?",
+      "options": [
+        "Itaru Hashida",
+        "Rintaro Okabe",
+        "Yugo Tennouji",
+        "Doctor Nakabachi"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-character-detail-066"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    },
+    {
+      "question": "Whose father is Doctor Nakabachi?",
+      "options": [
+        "Mayuri Shiina",
+        "Maho Hiyajo",
+        "Kurisu Makise",
+        "Faris NyanNyan"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-character-detail-068"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    },
+    {
+      "question": "Whom did Mayuri lose several years before the story begins?",
+      "options": [
+        "Her mother",
+        "Her brother",
+        "Her best friend",
+        "Her grandmother"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-character-detail-062"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    },
+    {
+      "question": "Which ability lets Okabe notice changes between timelines?",
+      "options": [
+        "Reading Steiner",
+        "Time Leap",
+        "Divergence Sight",
+        "Lab Sense"
+      ],
+      "correct": 0,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-reading-steiner-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+    },
+    {
+      "question": "What does Okabe become a tester of in Steins;Gate 0?",
+      "options": [
+        "IBN 5100",
+        "Amadeus",
+        "SERN",
+        "Metal Upa"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-zero-premise-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate_0"
+    },
+    {
+      "question": "Who is the amnesiac woman that Okabe helps in Steins;Gate 0?",
+      "options": [
+        "Maho Hiyajo",
+        "Suzuha Amane",
+        "Kagari",
+        "Luka Urushibara"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-zero-kagari-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate_0"
+    },
+    {
+      "question": "Which intelligence agency does Alexis Leskinen reveal he works for?",
+      "options": [
+        "SERN",
+        "The Rounders",
+        "The CIA",
+        "Strategic Focus"
+      ],
+      "correct": 3,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "steins-gate-zero-leskinen-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Steins;Gate_0"
+    },
+    {
+      "question": "Who directed the Steins;Gate 0 anime?",
+      "options": [
+        "Kenichi Kawamura",
+        "Hiroshi Hamasaki",
+        "Takuya Satō",
+        "Tatsuya Matsubara"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "steins-gate-zero-anime-staff-022"
+      ],
+      "source_url": "https://steinsgate0-anime.com/"
+    },
+    {
+      "question": "Which song closes the final episode of Steins;Gate 0?",
+      "options": [
+        "Last Game",
+        "Gate of Steiner",
+        "World-Line",
+        "Amadeus"
+      ],
+      "correct": 1,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "steins-gate-theme-ed-037"
+      ],
+      "source_url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=20446"
+    }
+  ]
+}

@@ -4,6 +4,10 @@
 account as public /q/ pages. SQL: `docs/pending-migrations/daily-bank-2026-10-lot1.sql` and its
 rollback. Owner-gated: applied by the owner after his review.
 
+Kpop only: the lot is for kpopquiz.org. Its statements name no `site_id`, so once 002a is applied the column
+default `'kpop'` fills it and no anime row is touched or added. The cron status (`bank_open`, the refill alert) and the
+admin bank page count the build's site only.
+
 ## Mix (target of the mission: 25/20/20/20/15 per 100, 40/45/15 % difficulty)
 
 | | |

@@ -1,0 +1,223 @@
+{
+ "site": "anime",
+ "account": "oq_creator_26",
+ "group_slug": "kaiju-no-8",
+ "title": "Kaiju No. 8 in Numbers: Years, Episodes, Divisions and Weapon Numbers",
+ "slug": "kaiju-no-8-in-numbers-ages-divisions-and-weapon-numbers",
+ "description": "Ten rounds where every answer is a number: years, chapters, volumes, episode numbers, division numbers and the Numbers weapons of the Defense Force. Light spoilers up to season two.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Numbers format: every option is a plain number (a year, a count, a division or a weapon number).",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Kaiju No. 8 episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Kaiju No. 8 characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Kaiju No. 8 chapters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
+  }
+ ],
+ "questions": [
+  {
+   "question": "In which year did the second season of the anime air?",
+   "options": [
+    "2025",
+    "2026",
+    "2024",
+    "2023"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "kaiju-no-8-anime-season-two-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  },
+  {
+   "question": "How many chapters does the Kaiju No. 8 manga run for?",
+   "options": [
+    "99",
+    "129",
+    "150",
+    "200"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-manga-completion-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
+  },
+  {
+   "question": "Season two keeps counting episodes from season one. Which overall episode number does it open with?",
+   "options": [
+    "12",
+    "14",
+    "13",
+    "10"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "kaiju-no-8-anime-season-two-005",
+    "kaiju-no-8-anime-season-one-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  },
+  {
+   "question": "How many collected volumes does the Kaiju No. 8 manga fill?",
+   "options": [
+    "12",
+    "16",
+    "20",
+    "24"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-manga-completion-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
+  },
+  {
+   "question": "In which year did the Kaiju No. 8 manga begin on Shonen Jump+?",
+   "options": [
+    "2018",
+    "2019",
+    "2020",
+    "2021"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "kaiju-no-8-author-run-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
+  },
+  {
+   "question": "Kikoru's late mother Hikari once led which numbered division of the Defense Force?",
+   "options": [
+    "3",
+    "5",
+    "2",
+    "1"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-hikari-division2-035"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "question": "The Third Division base is destroyed, and Reno moves to which numbered division?",
+   "options": [
+    "1",
+    "2",
+    "6",
+    "4"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-reno-fourth-division-036"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "question": "The suit that Kikoru inherits from her mother is made from the remains of Kaiju No. what?",
+   "options": [
+    "7",
+    "10",
+    "2",
+    "4"
+   ],
+   "correct": 3,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-kikoru-numbers4-033"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "question": "Gen Narumi, captain of the First Division, uses a Numbers weapon made from which numbered kaiju?",
+   "options": [
+    "9",
+    "1",
+    "5",
+    "3"
+   ],
+   "correct": 1,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "kaiju-no-8-gen-numbers1-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+  },
+  {
+   "question": "How many episodes does the first season of the anime have?",
+   "options": [
+    "10",
+    "12",
+    "13",
+    "24"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 1,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "kaiju-no-8-anime-season-one-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+  }
+ ]
+}

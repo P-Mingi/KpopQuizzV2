@@ -1,0 +1,5 @@
+{
+  "target": "data/facts/death-note.json",
+  "fails": ["C2"],
+  "note": "verified load bearing fact with one source"
+}

@@ -12,7 +12,8 @@ import { STORY_KIT_GRADIENT, downloadFile, storyCardFile } from '@/components/ux
 import { useAnnounce, useUxToast } from '@/components/ux-v1/toast';
 import { refreshUxMe, useUxMe } from '@/components/ux-v1/use-ux-me';
 import { resolveResult } from '@/lib/personality/engine';
-import { shareOf } from '@/lib/personality/view';
+import { pickOfferWords, playCta, shareOf } from '@/lib/personality/view';
+import { SITE } from '@/lib/site/registry';
 import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
 
 import type { StoryFormat } from '@/components/ux-v1/story-image';
@@ -32,6 +33,9 @@ import type { QuizView, ResultView } from '@/lib/personality/view';
 
 const BIAS_ACTION = 'g5-bias';
 const PICK_DELAY_MS = 160;
+// Run O1 (PERS-2): the words of the site (the bias offer and the call to action of the story image): kpop says what it said before, anime says oshi.
+const OFFER = pickOfferWords(SITE.vocabulary.favourites.pickLabel);
+const CTA = playCta(SITE.domain);
 /** Sheets already sent when storage is blocked: per page load only. */
 const sentThisLoad = new Set<string>();
 
@@ -104,6 +108,18 @@ export function PersonalityQuiz({ view, also }: { view: QuizView; also?: React.R
   const sendBias = useCallback(async (name: string): Promise<void> => {
     setBiasBusy(true);
     try {
+      // Run O1 (OSHI): on a world site the oshi of the series, stored for this site only (never the shared profile's bias).
+      if (SITE.id !== 'kpop') {
+        const result = view.results.find((r) => r.name === name);
+        if (!result || !view.groupSlug) throw new Error('unknown result');
+        const [{ saveOshiFromResult }, { createBrowserClient }] = await Promise.all([import('@/lib/personality/oshi-offer'), import('@/lib/supabase/client')]);
+        const done = await saveOshiFromResult(createBrowserClient() as unknown as Parameters<typeof saveOshiFromResult>[0], { site: SITE.id, groupSlug: view.groupSlug, characterSlug: result.id });
+        if (!done.ok) { toast(done.message); return; }
+        setBiasSet(name);
+        toast(OFFER.doneToast(name));
+        refreshUxMe();
+        return;
+      }
       const r = await fetch('/api/auth/update-profile', {
         method: 'POST',
         credentials: 'include',
@@ -112,14 +128,14 @@ export function PersonalityQuiz({ view, also }: { view: QuizView; also?: React.R
       });
       if (!r.ok) throw new Error('refused');
       setBiasSet(name);
-      toast(`Bias tag set to ${name}`);
+      toast(OFFER.doneToast(name));
       refreshUxMe();
     } catch {
-      toast('Could not set your bias tag. Try again.');
+      toast(`Could not set your ${OFFER.tag}. Try again.`);
     } finally {
       setBiasBusy(false);
     }
-  }, [toast]);
+  }, [toast, view.results, view.groupSlug]);
 
   // Back from the sign-in sheet: finish the bias the fan asked for (16.6).
   useEffect(() => {
@@ -151,7 +167,7 @@ export function PersonalityQuiz({ view, also }: { view: QuizView; also?: React.R
   const askBias = (name: string): void => {
     if (biasBusy) return;
     if (!signedIn) {
-      signIn({ title: `Sign in to set ${name} as your bias tag`, sub: 'It shows next to your name in Community. No password needed.', action: { id: BIAS_ACTION, payload: { bias: name } } });
+      signIn({ title: `Sign in to set ${name} as your ${OFFER.tag}`, sub: `It shows ${OFFER.where}. No password needed.`, action: { id: BIAS_ACTION, payload: { bias: name } } });
       return;
     }
     void sendBias(name);
@@ -165,7 +181,7 @@ export function PersonalityQuiz({ view, also }: { view: QuizView; also?: React.R
       line2: result.role,
       kicker: view.shareKicker,
       tag: 'My result',
-      cta: 'Play at kpopquiz.org',
+      cta: CTA,
       gradient: STORY_KIT_GRADIENT,
       format,
     }).catch(() => null);
@@ -252,7 +268,7 @@ export function PersonalityQuiz({ view, also }: { view: QuizView; also?: React.R
           role={result.role}
           description={result.description}
           traits={result.traits}
-          photo={result.photo ? { src: result.photo, alt: result.name } : undefined}
+          photo={result.photo ? { src: result.photo, alt: result.name, ...(result.photoPosition ? { position: result.photoPosition } : {}) } : undefined}
           same={share !== null ? <><b>{share}%</b> of {view.who} got {result.name}</> : undefined}
           actions={(
             <>
@@ -270,12 +286,12 @@ export function PersonalityQuiz({ view, also }: { view: QuizView; also?: React.R
 
         {view.biasOffer ? (
           <div className="ux-pers-bias" data-testid="pers-bias">
-            <Icon name="heart" />
+            <Icon name={SITE.vocabulary.favourites.pickIcon} />
             {biasSet === result.name
-              ? <span className="ux-pers-grow"><b>{result.name}</b> is your bias tag. It shows next to your name in Community.</span>
-              : <span className="ux-pers-grow">Make <b>{result.name}</b> your bias tag? It shows next to your name in Community.</span>}
+              ? <span className="ux-pers-grow"><b>{result.name}</b> is your {OFFER.tag}{`. It shows ${OFFER.where}.`}</span>
+              : <span className="ux-pers-grow">Make <b>{result.name}</b> your {OFFER.tag}{`? It shows ${OFFER.where}.`}</span>}
             {biasSet === result.name ? null : (
-              <UxButton variant="ghost" size="sm" disabled={biasBusy} onClick={() => askBias(result.name)}>Set bias</UxButton>
+              <UxButton variant="ghost" size="sm" disabled={biasBusy} onClick={() => askBias(result.name)}>{OFFER.button}</UxButton>
             )}
           </div>
         ) : null}

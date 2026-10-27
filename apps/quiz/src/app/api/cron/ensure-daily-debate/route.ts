@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { isCronAuthorized } from '@/lib/cron-auth';
+import { cronForSite, isCronAuthorized } from '@/lib/cron-auth';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
@@ -18,8 +18,10 @@ import type { NextRequest } from 'next/server';
 // Scheduled at 00:10 UTC in vercel.json. Auth: Bearer CRON_SECRET.
 export const dynamic = 'force-dynamic';
 
-export async function GET(req: NextRequest): Promise<NextResponse> {
+export async function GET(req: NextRequest): Promise<NextResponse | Response> {
   if (!isCronAuthorized(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const skipped = cronForSite(['kpop']);
+  if (skipped) return skipped;
 
   const { data, error } = await createServiceRoleClient().rpc('ensure_daily_debate');
   if (error) {

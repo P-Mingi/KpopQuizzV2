@@ -10,6 +10,8 @@
 // Description: the creator's note when it says something (a note of a few words, like
 // "easy quiz", is not a description); else a sentence built from the quiz's real data.
 
+import { GENRE } from '@/lib/site/genre';
+import { SITE } from '@/lib/site/registry';
 import { contentTopics, TOPIC_QUALIFIER } from '@/lib/hubs/topics';
 
 export const TITLE_MAX = 49;
@@ -81,11 +83,11 @@ export function quizDescription(q: QuizDescriptionInput): string {
   const note = q.creatorNote ? clean(q.creatorNote) : '';
   if (note.length >= NOTE_MIN) return clipWords(note, DESCRIPTION_MAX);
   const n = q.questionCount;
-  let s = `${clean(q.title)}: ${article(q.difficulty)} ${q.difficulty} ${n}-question K-pop quiz on ${q.groupName}, made by ${q.creator}.`;
+  let s = `${clean(q.title)}: ${article(q.difficulty)} ${q.difficulty} ${n}-question ${GENRE} quiz on ${q.groupName}, made by ${q.creator}.`;
   const plays = q.plays.toLocaleString('en-US');
   // The facts first; the call to action only when it fits whole (never "Can you beat...").
   const parts = q.plays <= 0
-    ? [' New on KpopQuiz: be one of the first to play it.']
+    ? [` New on ${SITE.brand.name}: be one of the first to play it.`]
     : [q.avgScore !== null
       ? ` ${plays} ${q.plays === 1 ? 'fan has' : 'fans have'} played it, scoring ${q.avgScore}% on average.`
       : ` Played by ${plays} ${q.plays === 1 ? 'fan' : 'fans'}.`, ' Can you beat them?'];

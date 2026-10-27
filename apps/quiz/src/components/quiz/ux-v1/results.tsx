@@ -19,6 +19,7 @@ import { getResultLabel } from '@/lib/korean-moments';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { levelFor } from '@/lib/quiz/result-levels';
 import { playPerfect } from '@/lib/sounds';
+import { SITE } from '@/lib/site/registry';
 import { formatCount } from '@/lib/utils';
 import { streakView } from '@/lib/ux-v1/a0/streak';
 import { QUIZ_TYPE_ICON, QUIZ_TYPE_LABEL } from '@/lib/ux-v1/a0/icons';
@@ -161,8 +162,8 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
         <div className="p4-pcard" data-testid="p4-photocard">
           {/* eslint-disable-next-line @next/next/no-img-element -- the quiz's own cover or group photo, full bleed */}
           {quiz.photo ? <img className="p4-pcard-img" src={quiz.photo} alt="" /> : null}
-          <div className="p4-pc-top"><span>KpopQuiz</span><span className="ux-num">Play no. {(quiz.playCount + 1).toLocaleString('en-US')}</span></div>
-          <span className="p4-stamp"><span lang="ko">{stamp.kr}</span> {stamp.en}</span>
+          <div className="p4-pc-top"><span>{SITE.brand.name}</span><span className="ux-num">Play no. {(quiz.playCount + 1).toLocaleString('en-US')}</span></div>
+          <span className="p4-stamp">{SITE.id === 'kpop' ? <><span lang="ko">{stamp.kr}</span> {stamp.en}</> : stamp.en}</span>
           <div className="p4-pc-b">
             <div className="p4-k">{quiz.groupName} quiz</div>
             <div className="p4-t">{quiz.title}</div>
@@ -170,8 +171,11 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
             {result.percentile !== null ? <div className="p4-beat">You beat <b>{result.percentile}%</b> of players</div> : null}
           </div>
         </div>
-        {/* eslint-disable-next-line @next/next/no-img-element -- the site mascot sticker */}
-        <img className={`p4-msc${pct >= 50 ? ' is-bob' : ''}`} src={pct >= 50 ? '/mascot/mascot-celebrate.png' : '/mascot/mascot-sad.png'} alt="" width={68} height={68} />
+        {/* Run C1: the sticker is the KpopQuiz bunny, so only kpop shows it. */}
+        {SITE.id === 'kpop' ? (
+          // eslint-disable-next-line @next/next/no-img-element -- the site mascot sticker
+          <img className={`p4-msc${pct >= 50 ? ' is-bob' : ''}`} src={pct >= 50 ? '/mascot/mascot-celebrate.png' : '/mascot/mascot-sad.png'} alt="" width={68} height={68} />
+        ) : null}
       </div>
 
       {level ? (
@@ -217,10 +221,13 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
       </div>
       {/* EXISTS (quiz-player.tsx K2 + K7, WIRING-MAP R117): the Discord line, and Brag on a good
           result (70% and up); BragButton hides itself while the flex webhook is unset. */}
+      {/* Run C1: the Discord server of that line is the K-pop one, so only kpop shows it. */}
+      {SITE.id === 'kpop' ? (
       <div className="p4-discord" data-testid="p4-discord">
         <DiscordResultsLine surface="quiz-result" text="Compare with the community on Discord" />
         {pct >= 70 ? <BragButton payload={{ kind: 'quiz', title: quiz.title, score: result.score, total: max, quizSlug: quiz.slug }} /> : null}
       </div>
+      ) : null}
 
       {/* V12 G7: the This or that bonus (songs of the quiz's group). Flag off: not rendered. */}
       {/* Not after a General K-pop quiz: a category has no songs of its own to pick (owner, 2026-10-06). */}
@@ -252,13 +259,15 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
               </span>
             </Link>
           ))}
-          <Link className="ux-row" href={quiz.playlist ? `/blindtest/group-${quiz.groupSlug}` : '/blindtest'}>
-            <span className="ux-thumb is-bt"><Icon name="music" /></span>
-            <span className="ux-row-grow">
-              <span className="ux-rt">{quiz.playlist ? `${quiz.groupName} blindtest` : 'K-pop blindtest'}</span>
-              <span className="ux-rs">{quiz.playlist ? `${quiz.playlist.songs} songs · guess from a ten-second clip` : 'Guess the song from a ten-second clip'}</span>
-            </span>
-          </Link>
+          {SITE.features.blindTest ? (
+            <Link className="ux-row" href={quiz.playlist ? `/blindtest/group-${quiz.groupSlug}` : '/blindtest'}>
+              <span className="ux-thumb is-bt"><Icon name="music" /></span>
+              <span className="ux-row-grow">
+                <span className="ux-rt">{quiz.playlist ? `${quiz.groupName} blindtest` : SITE.id === 'kpop' ? 'K-pop blindtest' : 'Blindtest'}</span>
+                <span className="ux-rs">{quiz.playlist ? `${quiz.playlist.songs} songs · guess from a ten-second clip` : 'Guess the song from a ten-second clip'}</span>
+              </span>
+            </Link>
+          ) : null}
         </div>
       </section>
 

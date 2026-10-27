@@ -1,0 +1,126 @@
+== scratch 1. apply
+
+ok: docs/pending-migrations/multisite/001-sites.sql on o1-scratch
+
+ok: docs/pending-migrations/multisite/launch/L01-B2-sites.sql on o1-scratch
+
+ok: docs/pending-migrations/multisite/002a-site-columns.sql on o1-scratch
+
+ok: docs/pending-migrations/multisite/002b-site-validate.sql on o1-scratch
+
+ok: docs/pending-migrations/multisite/002c-site-indexes.sql on o1-scratch
+
+ok: docs/pending-migrations/multisite/002d-quiz-site-guard.sql on o1-scratch
+rc=0
+== scratch verify
+sites | kpop/kpopquiz.org/KpopQuiz/world/live/1, anime/otakuquiz.org/OtakuQuiz/world/building/2, hub/fanquiz.org/FanQuiz/hub/building/3
+sites rls | t
+sites policy | sites_read | r | true
+site_id cols | 24
+fks not valid | 0
+fks valid | 24
+valid site idx | 9
+guard trigger | 1
+guard fn | t | {search_path=public}
+guard exec anon/auth/service | f | f | t
+quizzes not kpop | 0
+badge_definitions not kpop | 0
+ok: verify.sql on o1-scratch
+== scratch guard test (explicit begin ... rollback)
+NOTICE:  case 1 kpop quiz in kpop group: inserted, site kpop
+NOTICE:  case 2 kpop quiz in anime group: refused, SQLSTATE 23514, quiz site kpop differs from the site anime of its group 6
+NOTICE:  case 3 anime quiz in anime group: inserted
+NOTICE:  case 4 update kpop quiz to anime group: refused, quiz site kpop differs from the site anime of its group 6
+NOTICE:  case 5 update kpop quiz site to anime: refused, quiz site anime differs from the site kpop of its group 5
+NOTICE:  case 6 play_count update: passed
+            ?column?             | count 
+---------------------------------+-------
+ after rollback, guard rows left |     0
+(1 row)
+ok: guard-test.sql on o1-scratch
+== scratch 2. rollback (reverse order)
+ok: docs/pending-migrations/multisite/002d-quiz-site-guard.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002c-site-indexes.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002b-site-validate.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002a-site-columns.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/launch/L01-B2-sites.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/001-sites.rollback.sql on o1-scratch
+rc=0
+== scratch probe after rollback
+sites|f
+site_id cols|0
+quizzes rows|0
+groups rows|0
+version|17.11
+ok: probe.sql on o1-scratch
+== scratch fingerprint after the first rollback
+public catalog md5|cb1aa6d0b8986b28d96a01f6b62c6980
+ok: fingerprint.sql on o1-scratch
+== scratch 3. apply again
+ok: docs/pending-migrations/multisite/001-sites.sql on o1-scratch
+ok: docs/pending-migrations/multisite/launch/L01-B2-sites.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002a-site-columns.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002b-site-validate.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002c-site-indexes.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002d-quiz-site-guard.sql on o1-scratch
+rc=0
+== scratch 4. apply a third time (idempotent)
+ok: docs/pending-migrations/multisite/001-sites.sql on o1-scratch
+ok: docs/pending-migrations/multisite/launch/L01-B2-sites.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002a-site-columns.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002b-site-validate.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002c-site-indexes.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002d-quiz-site-guard.sql on o1-scratch
+rc=0
+== scratch 5. rollback again, then the catalog fingerprint
+ok: docs/pending-migrations/multisite/002d-quiz-site-guard.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002c-site-indexes.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002b-site-validate.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002a-site-columns.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/launch/L01-B2-sites.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/001-sites.rollback.sql on o1-scratch
+rc=0
+public catalog md5|cb1aa6d0b8986b28d96a01f6b62c6980
+ok: fingerprint.sql on o1-scratch
+== scratch 6. rollback twice (idempotent)
+ok: docs/pending-migrations/multisite/002d-quiz-site-guard.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002c-site-indexes.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002b-site-validate.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002a-site-columns.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/launch/L01-B2-sites.rollback.sql on o1-scratch
+ok: docs/pending-migrations/multisite/001-sites.rollback.sql on o1-scratch
+rc=0
+== scratch 7. apply again (final state)
+ok: docs/pending-migrations/multisite/001-sites.sql on o1-scratch
+ok: docs/pending-migrations/multisite/launch/L01-B2-sites.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002a-site-columns.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002b-site-validate.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002c-site-indexes.sql on o1-scratch
+ok: docs/pending-migrations/multisite/002d-quiz-site-guard.sql on o1-scratch
+rc=0
+== scratch verify
+sites | kpop/kpopquiz.org/KpopQuiz/world/live/1, anime/otakuquiz.org/OtakuQuiz/world/building/2, hub/fanquiz.org/FanQuiz/hub/building/3
+sites rls | t
+sites policy | sites_read | r | true
+site_id cols | 24
+fks not valid | 0
+fks valid | 24
+valid site idx | 9
+guard trigger | 1
+guard fn | t | {search_path=public}
+guard exec anon/auth/service | f | f | t
+quizzes not kpop | 0
+badge_definitions not kpop | 0
+ok: verify.sql on o1-scratch
+== scratch guard test
+NOTICE:  case 1 kpop quiz in kpop group: inserted, site kpop
+NOTICE:  case 2 kpop quiz in anime group: refused, SQLSTATE 23514, quiz site kpop differs from the site anime of its group 8
+NOTICE:  case 3 anime quiz in anime group: inserted
+NOTICE:  case 4 update kpop quiz to anime group: refused, quiz site kpop differs from the site anime of its group 8
+NOTICE:  case 5 update kpop quiz site to anime: refused, quiz site anime differs from the site kpop of its group 7
+NOTICE:  case 6 play_count update: passed
+            ?column?             | count 
+---------------------------------+-------
+ after rollback, guard rows left |     0
+(1 row)
+ok: guard-test.sql on o1-scratch

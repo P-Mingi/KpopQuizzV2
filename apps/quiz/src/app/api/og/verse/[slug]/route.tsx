@@ -4,6 +4,7 @@ import { VERSE_LOGO_DATA_URI } from '../logo-data';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
+import { SITE } from '@/lib/site/registry';
 
 import type { NextRequest } from 'next/server';
 
@@ -86,7 +87,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ slu
         {/* footer line */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', fontSize: 22, color: SUB }}>Fans build their fandom&rsquo;s home here</div>
-          <div style={{ display: 'flex', fontSize: 20, color: 'rgba(255,255,255,0.34)' }}>kpopquiz.org/verse</div>
+          <div style={{ display: 'flex', fontSize: 20, color: 'rgba(255,255,255,0.34)' }}>{`${SITE.domain}/verse`}</div>
         </div>
       </div>
     ),

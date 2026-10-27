@@ -1,0 +1,163 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "bocchi-the-rock",
+  "title": "Real or Made Up: Bocchi the Rock! Bands, Gear and Episode Titles",
+  "slug": "real-or-made-up-bocchi-the-rock-bands-gear-and-episode-titles",
+  "description": "Ten statements about the series, some true and some invented. Decide which is which. No spoilers beyond the first episodes.",
+  "quiz_type": "true_false",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "True or false format: names and facts, five true and five invented. Every statement rests on a cited fact.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Bocchi the Rock! episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Bocchi the Rock!",
+      "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Episode 5 of the anime is titled Flightless Fish.",
+      "correct": true,
+      "fun_fact": "The episode titles all borrow from songs by Asian Kung-Fu Generation.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-episode-list-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes"
+    },
+    {
+      "question": "Episode 10 of the anime is titled Midnight Fretboard.",
+      "correct": false,
+      "fun_fact": "The real episode 10 is called After Dark.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-episode-list-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes"
+    },
+    {
+      "question": "The live house Starry is based on a real venue called Shelter in Shimokitazawa.",
+      "correct": true,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-starry-shelter-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "The anime was animated by the studio Madhouse.",
+      "correct": false,
+      "fun_fact": "The studio is CloverWorks.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-studio-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "Hitori Gotō uses the online username Guitarhero.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-hitori-goto-alias-036"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "The manga is published in Japan by Shueisha.",
+      "correct": false,
+      "fun_fact": "The publisher is Houbunsha.",
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-publisher-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "Ryō Yamada plays a Fender Precision bass.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-ryo-yamada-bass-048"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "The first season of the anime has 24 episodes.",
+      "correct": false,
+      "fun_fact": "The first season has 12 episodes.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-episodes-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes"
+    },
+    {
+      "question": "The Gotō family dog is named after the guitarist Jimi Hendrix.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-jimihen-namesake-075"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    },
+    {
+      "question": "The opening theme of the series is called Distortion!!.",
+      "correct": false,
+      "fun_fact": "Distortion!! is the first ending theme; the opening is Seishun Complex.",
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "bocchi-the-rock-opening-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Bocchi_the_Rock!_episodes"
+    }
+  ]
+}

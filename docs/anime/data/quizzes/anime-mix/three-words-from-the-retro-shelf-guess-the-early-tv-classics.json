@@ -1,0 +1,276 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Three Words from the Retro Shelf: Guess the Early TV Classics",
+ "slug": "three-words-from-the-retro-shelf-guess-the-early-tv-classics",
+ "description": "Ten classics whose first TV anime aired in 2001 or earlier, each to name from three words. Settings, roles and objects only. No titles, no full names, no spoilers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Era cut: first TV anime of the franchise aired in 2001 or earlier (Dragon Ball 1986, Sailor Moon 1992, Slam Dunk 1993, Evangelion 1995, Detective Conan 1996, Cowboy Bebop 1998, One Piece 1999, Hunter x Hunter 1999, Inuyasha 2000, Fruits Basket 2001). Words come from the cited arc 0 facts.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Dragon Ball characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: One Piece",
+   "url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Hunter × Hunter characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: List of Inuyasha characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: List of Case Closed characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: Neon Genesis Evangelion",
+   "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: List of Slam Dunk characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: List of Sailor Moon characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: List of Fruits Basket characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+  },
+  {
+   "id": "S10",
+   "title": "Wikipedia: List of Cowboy Bebop characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three words: Master Roshi, shape-shifting pig, giant ape. Which anime do they point to?",
+   "options": [
+    "One Piece",
+    "Dragon Ball",
+    "Detective Conan",
+    "Neon Genesis Evangelion"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dragon-ball-roshi-instructor-089",
+    "dragon-ball-oolong-wish-pig-063",
+    "dragon-ball-goku-giant-ape-090"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+  },
+  {
+   "question": "Which anime fits these three words: Onigiri technique, sake-loving swordsman, 4Kids dub?",
+   "options": [
+    "One Piece",
+    "Hunter × Hunter",
+    "Neon Genesis Evangelion",
+    "Cowboy Bebop"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-zoro-onigiri-pun-063",
+    "one-piece-zoro-sake-062",
+    "one-piece-4kids-dub-cut-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Kurta Clan, scarlet eyes, Phantom Rouge: these three words belong to which anime?",
+   "options": [
+    "Dragon Ball",
+    "One Piece",
+    "Cowboy Bebop",
+    "Hunter × Hunter"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "hunter-x-hunter-kurapika-eyes-019",
+    "hunter-x-hunter-film-order-042"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+  },
+  {
+   "question": "Three words: Wind Tunnel, bone boomerang, fox demon. Which anime do they point to?",
+   "options": [
+    "Hunter × Hunter",
+    "Slam Dunk",
+    "Inuyasha",
+    "Sailor Moon"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "inuyasha-miroku-wind-tunnel-059",
+    "inuyasha-sango-boomerang-062",
+    "inuyasha-shippo-name-064"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters"
+  },
+  {
+   "question": "Which anime fits these three words: Kansai dialect, karate, Lupin crossover?",
+   "options": [
+    "One Piece",
+    "Detective Conan",
+    "Neon Genesis Evangelion",
+    "Sailor Moon"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "detective-conan-heiji-hattori-dialect-041",
+    "detective-conan-ran-mori-name-035",
+    "detective-conan-lupin-special-028"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+  },
+  {
+   "question": "Fly Me to the Moon, Premium Girl, Cruel Angel's Thesis: these three words belong to which anime?",
+   "options": [
+    "Neon Genesis Evangelion",
+    "Detective Conan",
+    "Fruits Basket",
+    "Cowboy Bebop"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "evangelion-ending-fly-me-006",
+    "evangelion-rei-premium-girl-015",
+    "evangelion-opening-cruel-angel-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
+  },
+  {
+   "question": "Three words: White-Haired Devil, gang of four friends, railroad crossing. Which anime do they point to?",
+   "options": [
+    "Dragon Ball",
+    "One Piece",
+    "Neon Genesis Evangelion",
+    "Slam Dunk"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "slam-dunk-mitsuyoshi-anzai-name-060",
+    "slam-dunk-hanamichi-sakuragi-gang-048",
+    "slam-dunk-crossing-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+  },
+  {
+   "question": "Which anime fits these three words: Crown arcade, hates carrots, IQ of 300?",
+   "options": [
+    "Dragon Ball",
+    "Hunter × Hunter",
+    "Sailor Moon",
+    "Fruits Basket"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-motoki-arcade-061",
+    "sailor-moon-usagi-dislikes-carrots-064",
+    "sailor-moon-ami-bookworm-035"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+  },
+  {
+   "question": "Seahorse, cat outside the zodiac, missed the induction feast: these three words belong to which anime?",
+   "options": [
+    "Hunter × Hunter",
+    "Fruits Basket",
+    "Inuyasha",
+    "Slam Dunk"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fruits-basket-hatori-sohma-name-050",
+    "fruits-basket-kyo-sohma-name-035",
+    "fruits-basket-kyo-sohma-legend-036"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+  },
+  {
+   "question": "Three words: Ganymede ex-cop, Mars-born, alto saxophone. Which anime do they point to?",
+   "options": [
+    "Cowboy Bebop",
+    "Inuyasha",
+    "Slam Dunk",
+    "Fruits Basket"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "cowboy-bebop-jet-age-36-029",
+    "cowboy-bebop-spike-age-27-028",
+    "cowboy-bebop-opening-tank-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_characters"
+  }
+ ]
+}

@@ -1,0 +1,189 @@
+{
+ "site": "anime",
+ "account": "oq_creator_15",
+ "group_slug": "fullmetal-alchemist",
+ "title": "Two Anime, One Story: Which Adaptation?",
+ "slug": "two-anime-one-story-fma-adaptations",
+ "description": "Eight questions on how the 2003 anime and Brotherhood split the story, from the original ending to an anime-only villain.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "After roughly how many episodes did the first anime leave the manga plot?",
+   "options": [
+    "12",
+    "6",
+    "25",
+    "40"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 1,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-anime-2003-original-story-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "question": "What did Hiromu Arakawa ask for, sending the first anime off on its own?",
+   "options": [
+    "An original ending",
+    "A longer run",
+    "A new director",
+    "A darker score"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 1,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-anime-2003-original-story-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "question": "Which villain exists only in the 2003 anime, where she is the main antagonist?",
+   "options": [
+    "Envy",
+    "Greed",
+    "Dante",
+    "Shou Tucker"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-dante-anime-only-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "How many episodes do the two TV anime have between them?",
+   "options": [
+    "90",
+    "100",
+    "130",
+    "115"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-arc-structure-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "question": "How many opening songs did the 2003 anime use?",
+   "options": [
+    "Two",
+    "Five",
+    "Nine",
+    "Four"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-themes-2003-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+  },
+  {
+   "question": "Which spelling of the Xing prince's name do the 2009 anime and Viz's earliest volumes use, against Lin Yao in the Japanese manga?",
+   "options": [
+    "Lyn Yao",
+    "Ling Yao",
+    "Lin Yau",
+    "Linn Yaoh"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-lin-yao-name-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Which song, sung in Russian, was never reused in Brotherhood?",
+   "options": [
+    "Melissa",
+    "Brothers",
+    "Again",
+    "Rain"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-brothers-song-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "question": "How many ending songs did Brotherhood go through?",
+   "options": [
+    "Two",
+    "Four",
+    "Five",
+    "Nine"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-themes-brotherhood-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist:_Brotherhood_episodes"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Fullmetal Alchemist (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Fullmetal Alchemist characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Fullmetal Alchemist episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: List of Fullmetal Alchemist: Brotherhood episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist:_Brotherhood_episodes"
+  }
+ ],
+ "notes": "Arc quiz: arc 1 is the 2003 anime, arc 2 is Brotherhood. Tags run 0 to 2 from the cited facts (009 arc 1, 018 arc 1, 020 arc 2, 015 arc 2)."
+}

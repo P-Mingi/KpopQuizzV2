@@ -1,0 +1,2145 @@
+[
+  {
+    "id": "violet-evergarden-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "title_native",
+    "value": [
+      "ヴァイオレット・エヴァーガーデン",
+      "Vaioretto Evāgāden"
+    ],
+    "text": "The Japanese title is written ヴァイオレット・エヴァーガーデン and read Vaioretto Evāgāden, which is just the heroine's name spelled out in katakana.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "ヴァイオレット・エヴァーガーデン|Vaioretto Evāgāden"
+  },
+  {
+    "id": "violet-evergarden-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "author",
+    "value": "Kana Akatsuki",
+    "text": "Kana Akatsuki wrote the light novels that the whole franchise grew out of.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22101190",
+        "ref": "Q22101190",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a Japanese light novel series written by Kana Akatsuki"
+  },
+  {
+    "id": "violet-evergarden-illustrator-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "artist",
+    "value": "Akiko Takase",
+    "text": "Akiko Takase illustrated the novels, and her designs carried over into the anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22101190",
+        "ref": "Q22101190",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "illustrated by Akiko Takase"
+  },
+  {
+    "id": "violet-evergarden-publisher-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "publisher",
+    "value": [
+      "Kyoto Animation",
+      "KA Esuma Bunko"
+    ],
+    "text": "The novels were put out by the animation studio itself, Kyoto Animation, under its own KA Esuma Bunko label.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22101190",
+        "ref": "Q22101190",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Publisher: Kyoto Animation | Imprint: KA Esuma Bunko"
+  },
+  {
+    "id": "violet-evergarden-novel-start-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "novel_run",
+    "value": "December 25, 2015",
+    "text": "The first light novel volume came out on December 25, 2015, years before the anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22101190",
+        "ref": "Q22101190",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Volume 1: December 25, 2015"
+  },
+  {
+    "id": "violet-evergarden-setting-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "setting",
+    "value": [
+      "Telesis",
+      "The Great War"
+    ],
+    "text": "The story of Violet Evergarden takes place in the land of Telesis, right after a four year war has ended.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The Great War in the land of Telesis finally came to an end"
+  },
+  {
+    "id": "violet-evergarden-premise-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "premise",
+    "value": [
+      "CH Postal Company",
+      "Auto Memory Doll"
+    ],
+    "text": "A former soldier takes a job at the CH Postal Company as an Auto Memory Doll, a ghostwriter who writes letters for clients who cannot find the words.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a ghostwriter for people who cannot write"
+  },
+  {
+    "id": "violet-evergarden-tv-run-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "anime_run",
+    "value": [
+      "January 11, 2018",
+      "April 5, 2018"
+    ],
+    "text": "The TV series aired between January 11 and April 5, 2018, one episode a week for a single winter season.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q57390937",
+        "ref": "Q57390937",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The 13-episode anime aired from January 11 to April 5, 2018"
+  },
+  {
+    "id": "violet-evergarden-episodes-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "episodes",
+    "value": 13,
+    "text": "The TV anime has 13 episodes, plus a separate extra episode released later.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q57390937",
+        "ref": "Q57390937",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "13 episodes"
+  },
+  {
+    "id": "violet-evergarden-studio-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "anime_studio",
+    "value": "Kyoto Animation",
+    "text": "Kyoto Animation produced the series and the films, as well as publishing the novels.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q57390937",
+        "ref": "Q57390937",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tv.violet-evergarden.jp/staffcast/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a 13-episode series produced by Kyoto Animation"
+  },
+  {
+    "id": "violet-evergarden-director-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "director",
+    "value": "Taichi Ishidate",
+    "text": "Taichi Ishidate directed the TV series and later the 2020 film.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q57390937",
+        "ref": "Q57390937",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tv.violet-evergarden.jp/staffcast/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Director: Taichi Ishidate"
+  },
+  {
+    "id": "violet-evergarden-composer-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "composer",
+    "value": "Evan Call",
+    "text": "Evan Call wrote the music, and he composed the soundtrack album Automemories.",
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q57390937",
+        "ref": "Q57390937",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tv.violet-evergarden.jp/music/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Music: Evan Call"
+  },
+  {
+    "id": "violet-evergarden-screenplay-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "anime_staff",
+    "value": "Reiko Yoshida",
+    "text": "Reiko Yoshida handled the series composition and the screenplay of the TV anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q57390937",
+        "ref": "Q57390937",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tv.violet-evergarden.jp/staffcast/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Screenplay/Series Composition: Reiko Yoshida"
+  },
+  {
+    "id": "violet-evergarden-character-design-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "character_designer",
+    "value": "Akiko Takase",
+    "text": "The characters in the anime were designed by Akiko Takase, the same artist who illustrated the books.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tv.violet-evergarden.jp/staffcast/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Character Design: Akiko Takase"
+  },
+  {
+    "id": "violet-evergarden-opening-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP: Sincerely (True)"
+    ],
+    "text": "The opening theme of the TV series is Sincerely, sung by True.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tv.violet-evergarden.jp/music/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Opening Theme: \"Sincerely\" by True"
+  },
+  {
+    "id": "violet-evergarden-ending-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED: Michishirube (Minori Chihara)"
+    ],
+    "text": "The ending theme is Michishirube, which means guidepost, sung by Minori Chihara.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tv.violet-evergarden.jp/music/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Ending Theme: \"Michishirube\" (\"Guidepost\") by Minori Chihara"
+  },
+  {
+    "id": "violet-evergarden-soundtrack-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "record",
+    "value": "Violet Evergarden: Automemories",
+    "text": "The two disc soundtrack album Automemories holds orchestral score and a handful of vocal tracks.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tv.violet-evergarden.jp/music/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Soundtrack: \"Violet Evergarden: Automemories\""
+  },
+  {
+    "id": "violet-evergarden-ova-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "ova",
+    "value": "July 4, 2018",
+    "text": "The OVA, counted as episode 14 and titled Surely, Someday, You Will Understand Love, came out on July 4, 2018, with the last home video volume.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21959",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "An original video animation episode was released on July 4, 2018"
+  },
+  {
+    "id": "violet-evergarden-streaming-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "streaming",
+    "value": "Netflix",
+    "text": "Netflix streamed the series worldwide as it aired, with the United States and Australia following later.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Netflix began streaming the series worldwide"
+  },
+  {
+    "id": "violet-evergarden-eternity-film-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "film_release",
+    "value": [
+      "September 6, 2019",
+      "90 minutes"
+    ],
+    "text": "The side story film Eternity and the Auto Memory Doll reached Japanese cinemas on September 6, 2019, and runs 90 minutes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll",
+        "ref": "1378512597",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q73896191",
+        "ref": "Q73896191",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "released in Japan on September 6, 2019"
+  },
+  {
+    "id": "violet-evergarden-eternity-plot-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "arc_3",
+    "value": "Violet tutors Isabella York at a girls' boarding school",
+    "text": "In the side story film Violet is sent to a prestigious girls boarding school to tutor Isabella York.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll",
+        "ref": "1378512597",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "sent to a prestigious girls' boarding school"
+  },
+  {
+    "id": "violet-evergarden-movie-release-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "film",
+    "value": "September 18, 2020",
+    "text": "The sequel, Violet Evergarden: The Movie, premiered in Japan on September 18, 2020, after being delayed twice.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie",
+        "ref": "1374805718",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2020-09-23/violet-evergarden-the-movie-debuts-at-no.2/.164378",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q106434135",
+        "ref": "Q106434135",
+        "fetched_at": "2026-10-25T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:30:00.000Z",
+    "excerpt": "it premiered in Japan on September 18, 2020"
+  },
+  {
+    "id": "violet-evergarden-movie-length-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "anime_size",
+    "value": "140 minutes",
+    "text": "The 2020 film runs 140 minutes, far longer than a TV episode.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie",
+        "ref": "1374805718",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q106434135",
+        "ref": "Q106434135",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Runtime: 140 minutes"
+  },
+  {
+    "id": "violet-evergarden-movie-ratio-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "broadcast_format",
+    "value": "2.31:1",
+    "text": "The 2020 film uses a wide 2.31:1 picture instead of the 16:9 format of the TV series.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie",
+        "ref": "1374805718",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a 2.31:1 screen ratio instead of the 16:9 format"
+  },
+  {
+    "id": "violet-evergarden-movie-director-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "motivation",
+    "value": "Taichi Ishidate felt the TV ending was complete",
+    "text": "The director hesitated to make the film because he felt the TV ending told his whole story, until the script showed him Gilbert could live.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie",
+        "ref": "1374805718",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "it was fine for Gilbert to live"
+  },
+  {
+    "id": "violet-evergarden-award-novel-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "award",
+    "value": "Kyoto Animation Award, novel category",
+    "text": "The light novel won the grand prize of the fifth Kyoto Animation Award in its novel category in 2014.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "won the grand prize in the fifth Kyoto Animation Award"
+  },
+  {
+    "id": "violet-evergarden-award-anime-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "violet-evergarden"
+    },
+    "field": "anime_award",
+    "value": "IGN Awards 2018, Best Animation",
+    "text": "At the 2018 IGN Awards the TV anime won Best Animation, and it also won that category at the 2019 Crunchyroll Anime Awards.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "2018 IGN Awards: Best Animation: Won"
+  },
+  {
+    "id": "violet-evergarden-violet-evergarden-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "violet-evergarden"
+    },
+    "field": "name",
+    "value": [
+      "Violet Evergarden",
+      "ヴァイオレット・エヴァーガーデン"
+    ],
+    "text": "Violet Evergarden is the title character, an Auto Memory Doll who is learning what the words I love you mean.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Violet is a newcomer to the CH Postal Company"
+  },
+  {
+    "id": "violet-evergarden-violet-evergarden-job-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "violet-evergarden"
+    },
+    "field": "occupation",
+    "value": "Auto Memory Doll",
+    "text": "Violet works as an Auto Memory Doll, a ghostwriter for clients who cannot put their feelings into letters.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "works as an Auto Memory Doll"
+  },
+  {
+    "id": "violet-evergarden-violet-evergarden-soldier-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "violet-evergarden"
+    },
+    "field": "background",
+    "value": "Raised as a soldier",
+    "text": "Violet was raised as a soldier and lost both arms in the war, so she works with prosthetic hands.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a young girl raised as a ruthless killer"
+  },
+  {
+    "id": "violet-evergarden-violet-evergarden-voice-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "violet-evergarden"
+    },
+    "field": "voice_cast",
+    "value": "Yui Ishikawa",
+    "text": "Yui Ishikawa voices Violet in Japanese, and Erika Harlacher does so in English.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Japanese VA: Yui Ishikawa"
+  },
+  {
+    "id": "violet-evergarden-claudia-hodgins-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "claudia-hodgins"
+    },
+    "field": "name",
+    "value": [
+      "Claudia Hodgins",
+      "クラウディア・ホッジンズ"
+    ],
+    "text": "Claudia Hodgins is the man in charge of the CH Postal Company, the firm that employs Violet and the other Dolls.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Claudia is the president of the CH Postal Company"
+  },
+  {
+    "id": "violet-evergarden-claudia-hodgins-past-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "claudia-hodgins"
+    },
+    "field": "background",
+    "value": "Former army lieutenant colonel",
+    "text": "Claudia is a former lieutenant colonel who was a close friend of Gilbert in the army.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "A former army lieutenant colonel"
+  },
+  {
+    "id": "violet-evergarden-claudia-hodgins-voice-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "claudia-hodgins"
+    },
+    "field": "voice_cast",
+    "value": "Takehito Koyasu",
+    "text": "Takehito Koyasu voices Claudia Hodgins in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Japanese VA: Takehito Koyasu"
+  },
+  {
+    "id": "violet-evergarden-cattleya-baudelaire-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "cattleya-baudelaire"
+    },
+    "field": "name",
+    "value": [
+      "Cattleya Baudelaire",
+      "カトレア・ボードレール"
+    ],
+    "text": "Cattleya Baudelaire is an Auto Memory Doll at the CH Postal Company and its most popular one.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "its most popular Doll"
+  },
+  {
+    "id": "violet-evergarden-cattleya-baudelaire-bond-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "cattleya-baudelaire"
+    },
+    "field": "background",
+    "value": "Close to Claudia since before the company",
+    "text": "Cattleya has known Claudia since before the CH Postal Company existed.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "She has been close to Hodgins since before the company was established"
+  },
+  {
+    "id": "violet-evergarden-cattleya-baudelaire-voice-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "cattleya-baudelaire"
+    },
+    "field": "voice_cast",
+    "value": "Aya Endō",
+    "text": "Aya Endō voices Cattleya in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Japanese VA: Aya Endō"
+  },
+  {
+    "id": "violet-evergarden-benedict-blue-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "benedict-blue"
+    },
+    "field": "name",
+    "value": [
+      "Benedict Blue",
+      "ベネディクト・ブルー"
+    ],
+    "text": "Benedict Blue is the eccentric postman of the CH Postal Company who delivers the letters.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Benedict is a eccentric postman"
+  },
+  {
+    "id": "violet-evergarden-benedict-blue-bond-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "benedict-blue"
+    },
+    "field": "background",
+    "value": "Close to Claudia since before the company",
+    "text": "Benedict also knew Claudia long before the company was set up, together with Cattleya.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "maintained a close relationship with Hodgins before the company's establishment"
+  },
+  {
+    "id": "violet-evergarden-benedict-blue-voice-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "benedict-blue"
+    },
+    "field": "voice_cast",
+    "value": "Koki Uchiyama",
+    "text": "Koki Uchiyama voices Benedict Blue in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Japanese VA: Koki Uchiyama"
+  },
+  {
+    "id": "violet-evergarden-erica-brown-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "erica-brown"
+    },
+    "field": "name",
+    "value": [
+      "Erica Brown",
+      "エリカ・ブラウン"
+    ],
+    "text": "Erica Brown is an Auto Memory Doll who is weak with clients but never loses faith in the job.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Her skills when it comes to client interaction are poor"
+  },
+  {
+    "id": "violet-evergarden-erica-brown-voice-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "erica-brown"
+    },
+    "field": "voice_cast",
+    "value": "Minori Chihara",
+    "text": "Minori Chihara voices Erica, and she is also the singer of the ending theme Michishirube.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Japanese VA: Minori Chihara"
+  },
+  {
+    "id": "violet-evergarden-iris-cannary-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "iris-cannary"
+    },
+    "field": "name",
+    "value": [
+      "Iris Cannary",
+      "アイリス・カナリー"
+    ],
+    "text": "Iris Cannary is a Doll who joined the CH Postal Company soon after Erica, and she admires working women.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Iris is an Auto Memory Doll who started working at the CH Postal Company"
+  },
+  {
+    "id": "violet-evergarden-iris-cannary-village-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "iris-cannary"
+    },
+    "field": "origin",
+    "value": "Kazaly",
+    "text": "Iris comes from a small farming village called Kazaly.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Hailing from the small farming village of Kazaly"
+  },
+  {
+    "id": "violet-evergarden-iris-cannary-voice-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "iris-cannary"
+    },
+    "field": "voice_cast",
+    "value": "Haruka Tomatsu",
+    "text": "Haruka Tomatsu voices Iris in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Japanese VA: Haruka Tomatsu"
+  },
+  {
+    "id": "violet-evergarden-gilbert-bougainvillea-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "gilbert-bougainvillea"
+    },
+    "field": "name",
+    "value": [
+      "Gilbert Bougainvillea",
+      "ギルベルト・ブーゲンビリア"
+    ],
+    "text": "Gilbert Bougainvillea is a major from an aristocratic family, and the man who named Violet.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "A major in the Leidenschaftlich Army"
+  },
+  {
+    "id": "violet-evergarden-gilbert-bougainvillea-brooch-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "gilbert-bougainvillea"
+    },
+    "field": "treasure",
+    "value": "Emerald brooch",
+    "text": "The only keepsake of Gilbert that Violet owns is an emerald brooch that reminds her of his eyes.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "an emerald brooch that reminds her of Gilbert's eyes"
+  },
+  {
+    "id": "violet-evergarden-gilbert-bougainvillea-silence-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "gilbert-bougainvillea"
+    },
+    "field": "motivation",
+    "value": "Never spoke his feelings",
+    "text": "Gilbert treasured Violet above all else but never told her, because they were both soldiers.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "he never expressed his feelings to her because of their identity as soldiers"
+  },
+  {
+    "id": "violet-evergarden-gilbert-bougainvillea-voice-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "gilbert-bougainvillea"
+    },
+    "field": "voice_cast",
+    "value": "Daisuke Namikawa",
+    "text": "Daisuke Namikawa voices Gilbert in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Japanese VA: Daisuke Namikawa"
+  },
+  {
+    "id": "violet-evergarden-gilbert-bougainvillea-island-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "gilbert-bougainvillea"
+    },
+    "field": "background",
+    "value": "Found alive on an island",
+    "text": "At the end of the film Claudia finds Gilbert alive on an island, missing his right eye and arm.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_The_Movie",
+        "ref": "1374805718",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "finds Gilbert alive yet missing his right eye and arm"
+  },
+  {
+    "id": "violet-evergarden-dietfried-bougainvillea-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "dietfried-bougainvillea"
+    },
+    "field": "name",
+    "value": [
+      "Dietfried Bougainvillea",
+      "ディートフリート・ブーゲンビリア"
+    ],
+    "text": "Dietfried Bougainvillea is a navy captain and Gilbert's older brother, who sees Violet only as a tool.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Dietfried is Gilbert's older brother"
+  },
+  {
+    "id": "violet-evergarden-dietfried-bougainvillea-voice-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "dietfried-bougainvillea"
+    },
+    "field": "voice_cast",
+    "value": "Hidenobu Kiuchi",
+    "text": "Hidenobu Kiuchi voices Dietfried in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Japanese VA: Hidenobu Kiuchi"
+  },
+  {
+    "id": "violet-evergarden-luculia-marlborough-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "luculia-marlborough"
+    },
+    "field": "name",
+    "value": [
+      "Luculia Marlborough",
+      "ルクリア・モールバラ"
+    ],
+    "text": "Luculia Marlborough is a Doll who befriended Violet in training school.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "first became friends with Violet during training school"
+  },
+  {
+    "id": "violet-evergarden-luculia-marlborough-voice-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "luculia-marlborough"
+    },
+    "field": "voice_cast",
+    "value": "Azusa Tadokoro",
+    "text": "Azusa Tadokoro voices Luculia in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Japanese VA: Azusa Tadokoro"
+  },
+  {
+    "id": "violet-evergarden-charlotte-drossel-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "charlotte-drossel"
+    },
+    "field": "name",
+    "value": [
+      "Charlotte Abelfreyja Drossel",
+      "シャルロッテ・エーベルフレイヤ・ドロッセル"
+    ],
+    "text": "Charlotte Abelfreyja Drossel is a young princess promised in marriage to a prince as a step toward peace.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "The 14-year-old princess of the Kingdom of Drossel"
+  },
+  {
+    "id": "violet-evergarden-charlotte-drossel-voice-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "charlotte-drossel"
+    },
+    "field": "voice_cast",
+    "value": "Megumi Nakajima",
+    "text": "Megumi Nakajima voices Princess Charlotte in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Japanese VA: Megumi Nakajima"
+  },
+  {
+    "id": "violet-evergarden-leon-stephanotis-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "leon-stephanotis"
+    },
+    "field": "name",
+    "value": [
+      "Leon Stephanotis",
+      "リオン・ステファノティス"
+    ],
+    "text": "Leon Stephanotis works under the Shahar Observatory and is paired with Violet on a joint operation.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "paired with Violet during a joint operation"
+  },
+  {
+    "id": "violet-evergarden-leon-stephanotis-voice-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "leon-stephanotis"
+    },
+    "field": "voice_cast",
+    "value": "Yūto Uemura",
+    "text": "Yūto Uemura voices Leon Stephanotis in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Japanese VA: Yūto Uemura"
+  },
+  {
+    "id": "violet-evergarden-oscar-webster-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "oscar-webster"
+    },
+    "field": "name",
+    "value": [
+      "Oscar Webster",
+      "オスカー・ウェブスター"
+    ],
+    "text": "Oscar Webster is a famous playwright who has withdrawn from the world since losing his family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "A famous playwright who has become a drunk recluse"
+  },
+  {
+    "id": "violet-evergarden-oscar-webster-voice-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "oscar-webster"
+    },
+    "field": "voice_cast",
+    "value": "Satoshi Taki",
+    "text": "Satoshi Taki voices Oscar Webster in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Japanese VA: Satoshi Taki"
+  },
+  {
+    "id": "violet-evergarden-anne-magnolia-name-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "anne-magnolia"
+    },
+    "field": "name",
+    "value": [
+      "Anne Magnolia",
+      "アン・マグノリア"
+    ],
+    "text": "Anne Magnolia is a girl who loves dolls and first mistakes Violet for a life-size one.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "initially thought that Violet is a life-size doll"
+  },
+  {
+    "id": "violet-evergarden-anne-magnolia-voice-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "anne-magnolia"
+    },
+    "field": "voice_cast",
+    "value": "Sumire Morohoshi",
+    "text": "Sumire Morohoshi voices Anne in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Japanese VA: Sumire Morohoshi"
+  },
+  {
+    "id": "violet-evergarden-clara-magnolia-name-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "clara-magnolia"
+    },
+    "field": "name",
+    "value": [
+      "Clara Magnolia",
+      "クラーラ・マグノリア"
+    ],
+    "text": "Clara Magnolia is Anne's mother, who asks Violet for a set of letters for her daughter to read later.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "she requested Violet to write 50 letters"
+  },
+  {
+    "id": "violet-evergarden-clara-magnolia-illness-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "clara-magnolia"
+    },
+    "field": "background",
+    "value": "Terminally ill",
+    "text": "Clara is terminally ill and fears that her daughter will be left alone.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Clara has a terminal illness"
+  },
+  {
+    "id": "violet-evergarden-isabella-york-name-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "isabella-york"
+    },
+    "field": "name",
+    "value": [
+      "Isabella York",
+      "イザベラ・ヨーク"
+    ],
+    "text": "Isabella York is a student whom Violet helps to enter high society.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "A young woman who is assisted by Violet to debut into high society"
+  },
+  {
+    "id": "violet-evergarden-isabella-york-past-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "isabella-york"
+    },
+    "field": "background",
+    "value": "Formerly Amy Bartlett",
+    "text": "Isabella grew up in poverty under the name Amy Bartlett, as the illegitimate child of the York family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll",
+        "ref": "1378512597",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Amy Bartlett, an illegitimate child of the York family"
+  },
+  {
+    "id": "violet-evergarden-taylor-bartlett-name-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "taylor-bartlett"
+    },
+    "field": "name",
+    "value": [
+      "Taylor Bartlett",
+      "テイラー・バートレット"
+    ],
+    "text": "Taylor Bartlett is the girl whom Amy took in as a younger sister.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+        "ref": "1381043521",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "A young girl who was taken in by Amy Bartlett"
+  },
+  {
+    "id": "violet-evergarden-taylor-bartlett-adopted-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "violet-evergarden",
+      "ref": "taylor-bartlett"
+    },
+    "field": "background",
+    "value": "Adopted by the Evergarden family",
+    "text": "Years later the Evergarden family takes Taylor in as their own child.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll",
+        "ref": "1378512597",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Taylor is later adopted by the Evergarden family"
+  }
+]

@@ -2,6 +2,7 @@ import { unstable_cache } from 'next/cache';
 
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
+import { forSite } from '@/lib/site/scope';
 
 export interface RelatedQuiz {
   id: string;
@@ -32,9 +33,9 @@ async function fetchRelatedQuizzes(groupSlugs: string[]): Promise<RelatedQuiz[]>
 
   const results = await Promise.all(
     groupSlugs.map(async (slug) => {
-      const { data } = await supabase
+      const { data } = await forSite(supabase
         .from('quizzes')
-        .select('id, title, slug, play_count, difficulty, groups!inner(name, slug, logo_url, text_color)')
+        .select('id, title, slug, play_count, difficulty, groups!inner(name, slug, logo_url, text_color)'))
         .eq('groups.slug', slug)
         .eq('status', 'published')
         .order('play_count', { ascending: false })

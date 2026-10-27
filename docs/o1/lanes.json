@@ -1,0 +1,171 @@
+{
+  "_note": "Run O1 gate configuration per lane (read by scripts/o1/gate.sh and merge-lane.sh). sites: the builds the gate makes (kpop is built through parity.sh whenever the diff can reach kpop). spike: a never-merged branch the gate also builds, serves and checks. specs: e2e specs gate-checks.sh runs (Q0a). hotExempt: only for never-merged spike branches. ORCH adds a lane here when it starts.",
+  "DUMMY": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code"
+  },
+  "F0": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "spike": "o1/F0s"
+  },
+  "Q0a": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code"
+  },
+  "D0": {
+    "sites": [],
+    "kind": "static"
+  },
+  "Q0c": {
+    "sites": [
+      "kpop"
+    ],
+    "kind": "code"
+  },
+  "B1": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code"
+  },
+  "B2": {
+    "sites": [
+      "kpop"
+    ],
+    "kind": "code"
+  },
+  "E1a": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  },
+  "O2": {
+    "sites": [
+      "kpop",
+      "anime"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  },
+  "B3": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code+sql",
+    "hotExempt": true
+  },
+  "H1": {
+    "sites": [
+      "kpop",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  },
+  "K1": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code+sql",
+    "hotExempt": true
+  },
+  "C3": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "e2e",
+    "hotExempt": true
+  },
+  "O1": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  },
+  "Q0b": {
+    "sites": [],
+    "kind": "script"
+  },
+  "P1": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  },
+  "B6": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  },
+  "B7": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  },
+  "C1": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  },
+  "C2": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  },
+  "L1": {
+    "sites": [
+      "kpop",
+      "anime",
+      "hub"
+    ],
+    "kind": "code",
+    "hotExempt": true
+  }
+}

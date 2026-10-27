@@ -1,0 +1,162 @@
+{
+ "site": "anime",
+ "account": "oq_creator_29",
+ "group_slug": "sailor-moon",
+ "title": "Moon Tiara Check: Sailor Moon True or False",
+ "slug": "moon-tiara-check-sailor-moon-true-or-false",
+ "description": "Ten statements on the manga, its magazine, volumes and prize, the 1992 anime and Sailor Moon Crystal. Some are one detail off, so read closely.",
+ "quiz_type": "true_false",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Naoko Takeuchi both wrote and drew the Sailor Moon manga.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-manga-author-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "Shueisha's girls' magazine Ribon ran the manga from the end of December 1991 until early February 1997.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-manga-serialization-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "Kodansha's girls' magazine Nakayoshi ran the manga from the end of December 1991 until early February 1997.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-manga-serialization-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "Naoko Takeuchi wrote the Sailor Moon manga, while another artist drew it.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-manga-author-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "The original manga edition filled 18 volumes, released between July 1992 and April 1997.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-manga-volumes-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "The manga won the 1993 Shogakukan Manga Award in the shōjo category.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-kodansha-award-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "Sailor Moon Crystal's third season adapts the manga's Infinity arc.",
+   "correct": true,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-crystal-run-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal"
+  },
+  {
+   "question": "The original manga edition filled 28 volumes, released between July 1992 and April 1997.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "sailor-moon-manga-volumes-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "question": "Toei Animation's 1992 anime aired on TV Asahi from 7 March 1992 to 8 February 1997 and totals 200 episodes across 5 seasons.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-anime-run-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "question": "Sailor Moon Crystal, Toei's reboot, has 52 episodes in three seasons.",
+   "correct": false,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-crystal-run-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Sailor Moon",
+   "url": "https://en.wikipedia.org/wiki/Sailor_Moon"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Sailor Moon (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Sailor Moon Crystal",
+   "url": "https://en.wikipedia.org/wiki/Sailor_Moon_Crystal"
+  }
+ ],
+ "notes": "Statements restate arc 0 fact texts (002, 003, 004, 007, 008, 011); each false one changes a single detail (a role, a magazine, a number, an award or an episode count). K1 rewrite: blocked sales statement replaced on verified fact 011."
+}

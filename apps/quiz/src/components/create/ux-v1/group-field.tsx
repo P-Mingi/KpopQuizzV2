@@ -3,9 +3,9 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import { Icon } from '@/components/ux-v1/icon';
-import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
+import { groupPhotoUrl, SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 
-import { visibleGroups } from '@/lib/ux-v1/p5/view';
+import { topicCopy, visibleGroups } from '@/lib/ux-v1/p5/view';
 
 import type { FunnelGroup } from '@/lib/ux-v1/p5/funnel';
 
@@ -36,6 +36,8 @@ function Initials({ name }: { name: string }): React.ReactElement {
 
 export function GroupAvatar({ slug, name }: { slug: string | null; name: string }): React.ReactElement {
   const photo = groupPhotoUrl(slug);
+  // Run O1, lane O2: on a build that has the series art (lib/ux-v1/a0/group-photos.ts: never kpop) a series with no photo shows its art.
+  if (SERIES_ART.avatar && !photo && slug) return <span className="ux-gav p5-gav" aria-hidden="true">{SERIES_ART.avatar(slug, name)}</span>;
   return (
     <span className="ux-gav p5-gav" style={photo ? { backgroundImage: `url("${photo}")` } : undefined} aria-hidden="true">
       {photo ? null : <Initials name={name} />}
@@ -45,6 +47,7 @@ export function GroupAvatar({ slug, name }: { slug: string | null; name: string 
 
 export function GroupField({ groups: allGroups, selectedSlug, customGroup, onSelect, onCreate, onClear, invalid, describedBy }: Props): React.ReactElement {
   const groups = useMemo(() => visibleGroups(allGroups), [allGroups]);
+  const T = topicCopy();
   const uid = useId().replace(/:/g, '');
   const listId = `p5-glist-${uid}`;
   const [query, setQuery] = useState('');
@@ -129,7 +132,7 @@ export function GroupField({ groups: allGroups, selectedSlug, customGroup, onSel
   if (creating) {
     return (
       <div className="p5-gcreate">
-        <label className="p5-gcreate-l" htmlFor={`p5-gnew-${uid}`}>New group or artist</label>
+        <label className="p5-gcreate-l" htmlFor={`p5-gnew-${uid}`}>{T.newLabel}</label>
         <input
           id={`p5-gnew-${uid}`}
           ref={newRef}
@@ -141,14 +144,14 @@ export function GroupField({ groups: allGroups, selectedSlug, customGroup, onSel
             if (e.key === 'Enter') { e.preventDefault(); submitCreate(); }
             else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); setCreating(false); window.requestAnimationFrame(() => inputRef.current?.focus()); }
           }}
-          placeholder="e.g. Cortis"
+          placeholder={T.newPlaceholder}
           maxLength={60}
           autoComplete="off"
           spellCheck={false}
         />
         <div className="p5-gcreate-a">
           <button type="button" className="ux-btn ux-btn-quiet" onClick={() => { setCreating(false); window.requestAnimationFrame(() => inputRef.current?.focus()); }}>Cancel</button>
-          <button type="button" className="ux-btn ux-btn-ghost" disabled={newName.trim().length < 2} onClick={submitCreate}>Create group</button>
+          <button type="button" className="ux-btn ux-btn-ghost" disabled={newName.trim().length < 2} onClick={submitCreate}>{T.createButton}</button>
         </div>
       </div>
     );
@@ -164,7 +167,7 @@ export function GroupField({ groups: allGroups, selectedSlug, customGroup, onSel
           <span className="p5-gchip">
             <GroupAvatar slug={selected?.slug ?? null} name={chipName} />
             <span className="p5-gchip-t">{chipName}</span>
-            {customGroup && !selected ? <span className="p5-gchip-new">new group</span> : null}
+            {customGroup && !selected ? <span className="p5-gchip-new">{T.newChip}</span> : null}
             <button type="button" className="p5-gchip-x" aria-label={`Remove ${chipName}`} onClick={(e) => { e.stopPropagation(); onClear(); inputRef.current?.focus(); }}>
               <Icon name="x" />
             </button>
@@ -182,7 +185,7 @@ export function GroupField({ groups: allGroups, selectedSlug, customGroup, onSel
           aria-activedescendant={activeId ? `${listId}-${activeId}` : undefined}
           aria-invalid={invalid || undefined}
           aria-describedby={describedBy}
-          placeholder={chipName ? 'Search another group' : `Search ${groups.length} groups`}
+          placeholder={chipName ? T.searchAnother : T.search(groups.length)}
           value={query}
           onChange={(e) => {
             const nq = e.target.value.trim().toLowerCase();
@@ -197,12 +200,12 @@ export function GroupField({ groups: allGroups, selectedSlug, customGroup, onSel
           spellCheck={false}
         />
       </div>
-      <ul className="ux-pop p5-glist" id={listId} role="listbox" aria-label="Groups" hidden={!open}>
+      <ul className="ux-pop p5-glist" id={listId} role="listbox" aria-label={T.listLabel} hidden={!open}>
         <li id={`${listId}-${NEW_ID}`} role="option" aria-selected={activeId === NEW_ID} className="ux-mi p5-gopt p5-gopt-new" onPointerDown={(e) => e.preventDefault()} onClick={startCreate}>
           <Icon name="plus" />
-          <span>New group or artist{q ? <>: <b>{query.trim()}</b></> : null}</span>
+          <span>{T.newLabel}{q ? <>: <b>{query.trim()}</b></> : null}</span>
         </li>
-        <li className="p5-gcount" role="presentation">{q ? `${matches.length} match${matches.length === 1 ? '' : 'es'}` : `All ${groups.length} groups`}</li>
+        <li className="p5-gcount" role="presentation">{q ? `${matches.length} match${matches.length === 1 ? '' : 'es'}` : T.all(groups.length)}</li>
         {matches.map((g, i) => (
           <li
             key={g.slug}
@@ -219,7 +222,7 @@ export function GroupField({ groups: allGroups, selectedSlug, customGroup, onSel
             {g.slug === selectedSlug ? <Icon name="check" className="p5-gopt-on" /> : null}
           </li>
         ))}
-        {q && matches.length === 0 ? <li className="p5-gcount" role="presentation">No group matches. Use New group or artist above.</li> : null}
+        {q && matches.length === 0 ? <li className="p5-gcount" role="presentation">{T.noMatch}</li> : null}
       </ul>
     </div>
   );

@@ -1,0 +1,2351 @@
+[
+  {
+    "id": "code-geass-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "title_native",
+    "value": "コードギアス 反逆のルルーシュ (Kōdo Giasu: Hangyaku no Rurūshu)",
+    "text": "The Japanese title is コードギアス 反逆のルルーシュ, read Kōdo Giasu: Hangyaku no Rurūshu, and it means Code Geass: Lelouch of the Rebellion.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q4384067",
+        "ref": "Q4384067",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Japanese title: コードギアス 反逆のルルーシュ"
+  },
+  {
+    "id": "code-geass-anime-studio-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "anime_studio",
+    "value": "Sunrise",
+    "text": "The anime was made at the studio Sunrise.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q4384067",
+        "ref": "Q4384067",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.geass.jp/first/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Studio: Sunrise"
+  },
+  {
+    "id": "code-geass-anime-director-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "anime_directors",
+    "value": "Gorō Taniguchi",
+    "text": "Gorō Taniguchi directed the Code Geass anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q4384067",
+        "ref": "Q4384067",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Director: Gorō Taniguchi"
+  },
+  {
+    "id": "code-geass-anime-composition-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "staff",
+    "value": "Ichirō Ōkouchi",
+    "text": "Ichirō Ōkouchi handled the series composition of the anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q4384067",
+        "ref": "Q4384067",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Series Composition: Ichirō Ōkouchi"
+  },
+  {
+    "id": "code-geass-clamp-design-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "character_designer",
+    "value": "Clamp",
+    "text": "The original character designs come from the manga group Clamp.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.geass.jp/first/",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Character original design: CLAMP"
+  },
+  {
+    "id": "code-geass-clamp-first-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "background",
+    "value": "First anime designs by Clamp",
+    "text": "Code Geass was the first anime series for which Clamp had ever been asked to design the characters.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the first time Clamp had ever been requested to design the characters of an anime series"
+  },
+  {
+    "id": "code-geass-anime-composers-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "composers",
+    "value": [
+      "Kōtarō Nakagawa",
+      "Hitomi Kuroishi"
+    ],
+    "text": "Kōtarō Nakagawa and Hitomi Kuroishi composed the music of the anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q4384067",
+        "ref": "Q4384067",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Music: Kōtarō Nakagawa and Hitomi Kuroishi"
+  },
+  {
+    "id": "code-geass-concept-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "planning",
+    "value": "Ōkouchi and Taniguchi at Sunrise",
+    "text": "The idea took shape at Sunrise, where Ichirō Ōkouchi and Gorō Taniguchi pitched it to the producer Yoshitaka Kawaguchi.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "began as a concept developed at Sunrise by Ichirō Ōkouchi and Gorō Taniguchi, who proposed it to producer Yoshitaka Kawaguchi"
+  },
+  {
+    "id": "code-geass-geass-name-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "name_origin",
+    "value": "Celtic legends",
+    "text": "Its name may be taken from old Irish and Welsh stories about a geas, also spelled geis.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The concept for the Geass may have been inspired by the Irish and Welsh legends of 'Geas' or 'Geis'"
+  },
+  {
+    "id": "code-geass-anime-r1-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "anime_s1",
+    "value": [
+      "Lelouch of the Rebellion",
+      "25 episodes",
+      "October 2006 to July 2007"
+    ],
+    "text": "The first season, Lelouch of the Rebellion, has 25 episodes and aired from October 2006 to July 2007.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6704",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Original run October 6, 2006"
+  },
+  {
+    "id": "code-geass-anime-r2-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "anime_s2",
+    "value": [
+      "R2",
+      "25 episodes",
+      "April to September 2008"
+    ],
+    "text": "The second season, called R2, has 25 episodes and aired from April to September 2008.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_2_episodes",
+        "ref": "1373484202",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=9173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "No. of episodes 25 Release Original network JNN ( MBS , TBS ) Original release April 6"
+  },
+  {
+    "id": "code-geass-anime-total-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "tv_episodes",
+    "value": "50 episodes",
+    "text": "Both seasons together add up to 50 television episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q4384067",
+        "ref": "Q4384067",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Season 1 ... 25 episodes; Season 2 ... 25 episodes"
+  },
+  {
+    "id": "code-geass-film-resurrection-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "film",
+    "value": [
+      "Lelouch of the Re;surrection",
+      "February 9, 2019"
+    ],
+    "text": "The film Lelouch of the Re;surrection opened in Japanese cinemas on February 9, 2019.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass_Lelouch_of_the_Re;surrection",
+        "ref": "1380024988",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q63528764",
+        "ref": "Q63528764",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The film was released in theaters in Japan on February 9, 2019."
+  },
+  {
+    "id": "code-geass-film-zero-requiem-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "story_arcs",
+    "value": "Set a year after the Zero Requiem",
+    "text": "Lelouch of the Re;surrection opens a year after the Zero Requiem, the scheme that ended the story of the television series.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass_Lelouch_of_the_Re;surrection",
+        "ref": "1380024988",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "A year has passed since the events of the \"Zero Requiem\", a scheme Emperor Lelouch vi Britannia formulated to end conflict with his death"
+  },
+  {
+    "id": "code-geass-ova-akito-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "ova",
+    "value": [
+      "Akito the Exiled",
+      "August 2012"
+    ],
+    "text": "The Akito the Exiled OVA series started in August 2012.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass:_Akito_the_Exiled",
+        "ref": "1381377887",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3514707",
+        "ref": "Q3514707",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "August 4, 2012 to February 6, 2016"
+  },
+  {
+    "id": "code-geass-film-roze-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "films",
+    "value": [
+      "Rozé of the Recapture",
+      "4 parts"
+    ],
+    "text": "Rozé of the Recapture is a film series in four parts.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass:_Roz%C3%A9_of_the_Recapture",
+        "ref": "1381374283",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q123908713",
+        "ref": "Q123908713",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Four-part film series"
+  },
+  {
+    "id": "code-geass-premise-britannia-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "setting",
+    "value": "Area 11",
+    "text": "The Holy Britannian Empire has conquered Japan and renamed it Area 11.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Britannia effectively strips Japan and its citizens of all rights and freedoms and renames the country Area 11"
+  },
+  {
+    "id": "code-geass-geass-power-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "power",
+    "value": "Power of Kings",
+    "text": "Geass is called the Power of Kings, and it gives its holder the power to demand absolute obedience.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Geass is the \"Power of Kings\" granting \"absolute obedience\""
+  },
+  {
+    "id": "code-geass-english-dub-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "english_dub",
+    "value": "Adult Swim",
+    "text": "The English dub was shown in the United States on Adult Swim.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=9173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Adult Swim aired dub starting April 27, 2008"
+  },
+  {
+    "id": "code-geass-anime-award-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "award",
+    "value": "Tokyo Anime Awards",
+    "text": "Code Geass won the best television anime prize at the sixth annual Tokyo Anime Awards.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "won the best anime television series award at the sixth annual Tokyo Anime Awards"
+  },
+  {
+    "id": "code-geass-video-game-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "code-geass"
+    },
+    "field": "spin_offs",
+    "value": [
+      "Lost Colors",
+      "PlayStation Portable",
+      "PlayStation 2"
+    ],
+    "text": "Lost Colors, a Code Geass game, was developed for the PlayStation Portable and the PlayStation 2.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Code_Geass",
+        "ref": "1381032911",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Code Geass: Lelouch of the Rebellion Lost Colors, developed for the PlayStation Portable and PlayStation 2"
+  },
+  {
+    "id": "code-geass-theme-op-022",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "code-geass",
+      "ref": "op-1"
+    },
+    "field": "themes_op_a",
+    "value": [
+      "Colors",
+      "FLOW"
+    ],
+    "text": "The first opening of the anime is Colors, by the band FLOW.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_1_episodes",
+        "ref": "1341952163",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6704",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "For the first 12 episodes, the opening theme is \"Colors\" performed by Flow"
+  },
+  {
+    "id": "code-geass-theme-op-023",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "code-geass",
+      "ref": "op-2"
+    },
+    "field": "themes_op_a",
+    "value": [
+      "Kaidoku Funō",
+      "Jinn"
+    ],
+    "text": "Kaidoku Funō, by Jinn, is the second opening of the first season.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_1_episodes",
+        "ref": "1341952163",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6704",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "For the rest of the season, the opening theme is \"Kaidokufunō\""
+  },
+  {
+    "id": "code-geass-theme-op-024",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "code-geass",
+      "ref": "op-3"
+    },
+    "field": "themes_op_a",
+    "value": [
+      "Hitomi no Tsubasa",
+      "Access"
+    ],
+    "text": "The first season finishes with the opening Hitomi no Tsubasa, performed by Access.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_1_episodes",
+        "ref": "1341952163",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6704",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Episodes 24 and 25 had the opening theme \"Hitomi no Tsubasa\""
+  },
+  {
+    "id": "code-geass-theme-ed-025",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "code-geass",
+      "ref": "ed-1"
+    },
+    "field": "themes_ed_a",
+    "value": [
+      "Yūkyō Seishunka",
+      "Ali Project"
+    ],
+    "text": "The first ending of the anime is Yūkyō Seishunka, by Ali Project.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_1_episodes",
+        "ref": "1341952163",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6704",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the ending theme is \"Yūkyō Seishunka\""
+  },
+  {
+    "id": "code-geass-theme-ed-026",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "code-geass",
+      "ref": "ed-2"
+    },
+    "field": "themes_ed_a",
+    "value": [
+      "Mosaic Kakera",
+      "SunSet Swish"
+    ],
+    "text": "Mosaic Kakera, by SunSet Swish, is the second ending of the first season.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_1_episodes",
+        "ref": "1341952163",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=6704",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the ending theme is \"Mosaic Kakera\""
+  },
+  {
+    "id": "code-geass-theme-op-027",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "code-geass",
+      "ref": "op-4"
+    },
+    "field": "themes_op_a",
+    "value": [
+      "O2",
+      "Orange Range"
+    ],
+    "text": "R2 begins with the opening O2, performed by Orange Range.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_2_episodes",
+        "ref": "1373484202",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=9173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "The opening and ending themes for the first 12 episodes are \"O2\""
+  },
+  {
+    "id": "code-geass-theme-op-028",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "code-geass",
+      "ref": "op-5"
+    },
+    "field": "themes_op_a",
+    "value": [
+      "World End",
+      "FLOW"
+    ],
+    "text": "World End, by FLOW, is the second opening of R2.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_2_episodes",
+        "ref": "1373484202",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=9173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "For the rest of the season, the opening theme is \"World End\" performed by Flow"
+  },
+  {
+    "id": "code-geass-theme-ed-029",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "code-geass",
+      "ref": "ed-3"
+    },
+    "field": "themes_ed_a",
+    "value": [
+      "Shiawase Neiro",
+      "Orange Range"
+    ],
+    "text": "The first ending of R2 is Shiawase Neiro, also performed by Orange Range.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_2_episodes",
+        "ref": "1373484202",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=9173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "respectively and were both performed by Orange Range"
+  },
+  {
+    "id": "code-geass-theme-ed-030",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "group_slug": "code-geass",
+      "ref": "ed-4"
+    },
+    "field": "themes_ed_a",
+    "value": [
+      "Waga Rōtashi Aku no Hana",
+      "Ali Project"
+    ],
+    "text": "R2 closes with the ending Waga Rōtashi Aku no Hana, by Ali Project.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_season_2_episodes",
+        "ref": "1373484202",
+        "fetched_at": "2026-10-25T20:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=9173",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "the ending theme is \"Waga Rōtashi Aku no Hana\""
+  },
+  {
+    "id": "code-geass-character-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "lelouch-lamperouge"
+    },
+    "field": "name",
+    "value": "Lelouch Lamperouge (ルルーシュ・ランペルージ)",
+    "text": "Lelouch Lamperouge, also Lelouch vi Britannia, is written ルルーシュ・ランペルージ in Japanese and leads the rebellion as Zero.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Seeking to build a peaceful world for his sister"
+  },
+  {
+    "id": "code-geass-character-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "suzaku-kururugi"
+    },
+    "field": "name",
+    "value": "Suzaku Kururugi (枢木スザク)",
+    "text": "Suzaku Kururugi is written 枢木スザク in Japanese and is the childhood friend of Lelouch.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Claims to support reformism and that achieving results by wrong methods is meaningless"
+  },
+  {
+    "id": "code-geass-character-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "cc"
+    },
+    "field": "name",
+    "value": "C.C. (シー・ツー)",
+    "text": "C.C. is written シー・ツー in Japanese and is the immortal witch who grants Geass.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "bestows the power of Geass upon Lelouch"
+  },
+  {
+    "id": "code-geass-character-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "kallen-stadtfeld"
+    },
+    "field": "name",
+    "value": "Kallen Stadtfeld (カレン・シュタットフェルト)",
+    "text": "Kallen Stadtfeld, who is also Kallen Kouzuki, is written カレン・シュタットフェルト in Japanese and belongs to the Black Knights.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Her devotion to Zero is unmatched among any of the other members"
+  },
+  {
+    "id": "code-geass-character-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "nunnally-lamperouge"
+    },
+    "field": "name",
+    "value": "Nunnally Lamperouge (ナナリー・ランペルージ)",
+    "text": "Nunnally Lamperouge, also Nunnally vi Britannia, is written ナナリー・ランペルージ in Japanese and is the younger sister of Lelouch.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "All she wants is to be with him"
+  },
+  {
+    "id": "code-geass-character-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "shirley-fenette"
+    },
+    "field": "name",
+    "value": "Shirley Fenette (シャーリー・フェネット)",
+    "text": "Shirley Fenette is written シャーリー・フェネット in Japanese and is a student at Ashford Academy.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "She jealously believes that he and Kallen are romantically linked"
+  },
+  {
+    "id": "code-geass-character-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "milly-ashford"
+    },
+    "field": "name",
+    "value": "Milly Ashford (ミレイ・アッシュフォード)",
+    "text": "Milly Ashford is written ミレイ・アッシュフォード in Japanese and is the Student Council president at Ashford Academy.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "President of the Student Council. Milly enjoys teasing Shirley"
+  },
+  {
+    "id": "code-geass-character-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "rivalz-cardemonde"
+    },
+    "field": "name",
+    "value": "Rivalz Cardemonde (リヴァル・カルデモンド)",
+    "text": "Rivalz Cardemonde is written リヴァル・カルデモンド in Japanese and is a student at Ashford Academy.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Usually driving Lelouch around on his motorbike as an ante"
+  },
+  {
+    "id": "code-geass-character-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "nina-einstein"
+    },
+    "field": "name",
+    "value": "Nina Einstein (ニーナ・アインシュタイン)",
+    "text": "Nina Einstein is written ニーナ・アインシュタイン in Japanese and is a science student at Ashford Academy.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "She develops a deep lesbian obsession with Third Princess Euphemia"
+  },
+  {
+    "id": "code-geass-character-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "euphemia-li-britannia"
+    },
+    "field": "name",
+    "value": "Euphemia li Britannia (ユーフェミア・リ・ブリタニア)",
+    "text": "Euphemia li Britannia is written ユーフェミア・リ・ブリタニア in Japanese and is a princess of the imperial family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Pacifist and in many ways Suzaku's female counterpart"
+  },
+  {
+    "id": "code-geass-character-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "cornelia-li-britannia"
+    },
+    "field": "name",
+    "value": "Cornelia li Britannia (コーネリア・リ・ブリタニア)",
+    "text": "Cornelia li Britannia is written コーネリア・リ・ブリタニア in Japanese and is a princess of the imperial family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Extremely skilled in Knightmare Frame combat"
+  },
+  {
+    "id": "code-geass-character-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "schneizel-el-britannia"
+    },
+    "field": "name",
+    "value": "Schneizel el Britannia (シュナイゼル・エル・ブリタニア)",
+    "text": "Schneizel el Britannia is written シュナイゼル・エル・ブリタニア in Japanese and is a prince of the imperial family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Strategist on par with Lelouch"
+  },
+  {
+    "id": "code-geass-character-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "charles-zi-britannia"
+    },
+    "field": "name",
+    "value": "Charles zi Britannia (シャルル・ジ・ブリタニア)",
+    "text": "Charles zi Britannia is written シャルル・ジ・ブリタニア in Japanese and is the Emperor of Britannia.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Social Darwinism proponent; has 108 different consorts"
+  },
+  {
+    "id": "code-geass-character-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "jeremiah-gottwald"
+    },
+    "field": "name",
+    "value": "Jeremiah Gottwald (ジェレミア・ゴットワルド)",
+    "text": "Jeremiah Gottwald is written ジェレミア・ゴットワルド in Japanese and is an officer of the Britannian Army.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Regular foot soldier (after Lelouch's Geass compulsion)"
+  },
+  {
+    "id": "code-geass-character-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "rolo-lamperouge"
+    },
+    "field": "name",
+    "value": "Rolo Lamperouge (ロロ・ランペルージ)",
+    "text": "Rolo Lamperouge is written ロロ・ランペルージ in Japanese and lives with Lelouch and Nunnally.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Assassin posing as Lelouch's brother"
+  },
+  {
+    "id": "code-geass-character-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "lloyd-asplund"
+    },
+    "field": "name",
+    "value": "Lloyd Asplund (ロイド・アスプルンド)",
+    "text": "Lloyd Asplund is written ロイド・アスプルンド in Japanese and is a scientist of the Britannian Army.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Scientist, Knightmare developer; interested in Nina's personal research"
+  },
+  {
+    "id": "code-geass-character-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "kaguya-sumeragi"
+    },
+    "field": "name",
+    "value": "Kaguya Sumeragi (皇神楽耶)",
+    "text": "Kaguya Sumeragi is written 皇神楽耶 in Japanese and is the head of the Kyōto House.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Claims to be his future wife in the second season"
+  },
+  {
+    "id": "code-geass-character-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "kyoshiro-tohdoh"
+    },
+    "field": "name",
+    "value": "Kyoshiro Tohdoh (藤堂鏡志朗)",
+    "text": "Kyoshiro Tohdoh is written 藤堂鏡志朗 in Japanese and is the head of military operations of the Black Knights.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Earned the nickname for his singular defeat of Holy Britannia"
+  },
+  {
+    "id": "code-geass-character-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "diethard-ried"
+    },
+    "field": "name",
+    "value": "Diethard Ried (ディートハルト・リート)",
+    "text": "Diethard Ried is written ディートハルト・リート in Japanese and is the head of information and public relations of the Black Knights.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Rather have watched Zero topple Britannia"
+  },
+  {
+    "id": "code-geass-character-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "bismarck-waldstein"
+    },
+    "field": "name",
+    "value": "Bismarck Waldstein (ビスマルク・ヴァルトシュタイン)",
+    "text": "Bismarck Waldstein is written ビスマルク・ヴァルトシュタイン in Japanese and is the Knight of One of the Knights of the Round.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Strongest amongst the Knights of the Round"
+  },
+  {
+    "id": "code-geass-character-detail-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "lelouch-lamperouge"
+    },
+    "field": "power",
+    "value": "Command",
+    "text": "Lelouch's Geass allows him to order any person to obey the next thing he says.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "allows him to command any person to follow his subsequent order"
+  },
+  {
+    "id": "code-geass-character-detail-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "lelouch-lamperouge"
+    },
+    "field": "treasure",
+    "value": "Shinkirō",
+    "text": "In the later story, Lelouch pilots a Knightmare Frame named Shinkirō.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Knightmare: Shinkirō"
+  },
+  {
+    "id": "code-geass-character-detail-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "suzaku-kururugi"
+    },
+    "field": "role",
+    "value": "Knight of Seven",
+    "text": "Suzaku becomes the Knight of Seven among the Knights of the Round.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Britannian Army, Knights of the Round (Knight of Seven)"
+  },
+  {
+    "id": "code-geass-character-detail-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "suzaku-kururugi"
+    },
+    "field": "treasure",
+    "value": "Lancelot",
+    "text": "Suzaku pilots the Knightmare Frame called Lancelot.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "pilot of the experimental Knightmare Frame Lancelot"
+  },
+  {
+    "id": "code-geass-character-detail-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "cc"
+    },
+    "field": "role",
+    "value": "Grants Geass",
+    "text": "C.C. is the one who gives the power of Geass to others, Lelouch among them.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Grants Geass to others; bestows the power of Geass upon Lelouch"
+  },
+  {
+    "id": "code-geass-character-detail-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "kallen-stadtfeld"
+    },
+    "field": "treasure",
+    "value": "Guren",
+    "text": "Kallen pilots the Knightmare Frame named Guren.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Knightmare: Guren, Guren Mk-II"
+  },
+  {
+    "id": "code-geass-character-detail-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "nunnally-lamperouge"
+    },
+    "field": "background",
+    "value": "Blind and uses a wheelchair",
+    "text": "Nunnally is blind and uses a wheelchair.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Condition: Blind and wheelchair-bound"
+  },
+  {
+    "id": "code-geass-character-detail-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "nina-einstein"
+    },
+    "field": "specialty",
+    "value": "FLEIJA bomb",
+    "text": "Nina invents a powerful weapon known as the F.L.E.I.J.A. bomb.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Creation: F.L.E.I.J.A. bomb"
+  },
+  {
+    "id": "code-geass-character-detail-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "euphemia-li-britannia"
+    },
+    "field": "title",
+    "value": "Sub-Viceroy of Area 11",
+    "text": "Euphemia holds the post of Sub-Viceroy of Area 11.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Title: Sub-Viceroy of Area 11"
+  },
+  {
+    "id": "code-geass-character-detail-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "cornelia-li-britannia"
+    },
+    "field": "title",
+    "value": "Viceroy of Area 11",
+    "text": "Cornelia is the Viceroy of Area 11 and also the Commander-in-Chief.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Title: Viceroy of Area 11"
+  },
+  {
+    "id": "code-geass-character-detail-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "schneizel-el-britannia"
+    },
+    "field": "talent",
+    "value": "Beat Lelouch at chess",
+    "text": "Schneizel is the only person whom Lelouch could not defeat in a game of chess.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Only person whom Lelouch was unable to beat in chess"
+  },
+  {
+    "id": "code-geass-character-detail-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "charles-zi-britannia"
+    },
+    "field": "role",
+    "value": "98th emperor, 108 consorts",
+    "text": "Charles is the 98th emperor of Britannia and has 108 consorts.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Role: 98th Emperor; Has 108 different consorts"
+  },
+  {
+    "id": "code-geass-character-detail-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "jeremiah-gottwald"
+    },
+    "field": "power",
+    "value": "Geass Canceler (nullifies the effects of a Geass)",
+    "text": "Jeremiah's Geass Canceler nullifies the effects that another Geass has had on a person.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Geass Canceler, a blue, inverted form of the Geass with about the same capabilities as Rolo's Geass that nullifies any effects done onto a person by the Geass"
+  },
+  {
+    "id": "code-geass-character-detail-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "rolo-lamperouge"
+    },
+    "field": "power",
+    "value": "Freezes time",
+    "text": "Rolo's Geass lets him freeze time for a short while.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Geass: Time freezing - allows him to temporarily freeze subjective time"
+  },
+  {
+    "id": "code-geass-character-detail-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "lloyd-asplund"
+    },
+    "field": "specialty",
+    "value": "Lancelot",
+    "text": "Lloyd is the scientist who created the Lancelot frame.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Creation: Lancelot Frame"
+  },
+  {
+    "id": "code-geass-character-detail-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "kaguya-sumeragi"
+    },
+    "field": "title",
+    "value": "UFN Supreme Council Chairwoman",
+    "text": "Kaguya becomes chair of the supreme council of the UFN.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Position: UFN Supreme Council Chairwoman"
+  },
+  {
+    "id": "code-geass-character-detail-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "kyoshiro-tohdoh"
+    },
+    "field": "epithet",
+    "value": "Tohdoh of Miracles",
+    "text": "Tohdoh has the nickname Tohdoh of Miracles.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Title: \"Tohdoh of Miracles\""
+  },
+  {
+    "id": "code-geass-character-detail-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "diethard-ried"
+    },
+    "field": "background",
+    "value": "Former Hi-TV producer",
+    "text": "Before he joins the Black Knights, Diethard worked as a television producer.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Background: Former Hi-TV producer"
+  },
+  {
+    "id": "code-geass-character-detail-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "bismarck-waldstein"
+    },
+    "field": "power",
+    "value": "Precognition",
+    "text": "Bismarck has a Geass that lets him see a few seconds into the future.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Geass: Precognition - allows him to see a few seconds into the future"
+  },
+  {
+    "id": "code-geass-character-detail-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "milly-ashford"
+    },
+    "field": "role",
+    "value": "Student Council president",
+    "text": "Milly is the president of the Student Council.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "president of the Student Council"
+  },
+  {
+    "id": "code-geass-character-detail-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "shirley-fenette"
+    },
+    "field": "occupation",
+    "value": "Swimmer",
+    "text": "Shirley is a member of the swimming team and of the Student Council.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Role: Ashford student, swimmer"
+  },
+  {
+    "id": "code-geass-character-detail-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "rivalz-cardemonde"
+    },
+    "field": "habits",
+    "value": "Drives Lelouch on his motorbike",
+    "text": "Rivalz often gives Lelouch a lift on his motorbike.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381818128",
+        "fetched_at": "2026-10-25T14:30:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:45:00.000Z",
+    "excerpt": "Usually driving Lelouch around on his motorbike"
+  },
+  {
+    "id": "code-geass-pizza-hut-cc-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "cc"
+    },
+    "field": "fond_of",
+    "value": "Pizza Hut",
+    "text": "C.C. keeps ordering pizza on Lelouch's credit card, and the chain Pizza Hut sponsored Code Geass in Japan.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381937587",
+        "fetched_at": "2026-10-25T18:54:45Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:45.000Z",
+    "excerpt": "ordering Pizza Hut (which sponsors Code Geass in Japan) with his credit card"
+  },
+  {
+    "id": "code-geass-suzaku-kururugi-voice-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "suzaku-kururugi"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Takahiro Sakurai"
+    ],
+    "text": "Suzaku Kururugi is voiced in Japanese by Takahiro Sakurai.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381937587",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.geass.jp/first/cast.html",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Voiced by: Takahiro Sakurai (Japanese)"
+  },
+  {
+    "id": "code-geass-lelouch-lamperouge-voice-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "code-geass",
+      "ref": "lelouch-lamperouge"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Jun Fukuyama"
+    ],
+    "text": "Lelouch Lamperouge is voiced in Japanese by Jun Fukuyama.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters",
+        "ref": "1381937587",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q952328",
+        "ref": "Q952328",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.geass.jp/first/cast.html",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Voiced by: Jun Fukuyama (Japanese)"
+  }
+]

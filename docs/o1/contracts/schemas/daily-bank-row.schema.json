@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "daily-bank-row.schema.json",
+  "title": "Run O1: an anime daily bank row before review (quiz_bank, S 4.4, formats.md 5)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["site", "title", "group_slug", "quiz_type", "difficulty", "category", "questions", "sources"],
+  "properties": {
+    "site": { "const": "anime" },
+    "title": { "$ref": "common.schema.json#/$defs/plainText", "minLength": 5, "maxLength": 100 },
+    "description": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 300 },
+    "group_slug": {
+      "$comment": "The series of the row; null for a mixed row, which ensure_daily_quiz_v2 files under the site's fallback group (anime-mix).",
+      "anyOf": [{ "$ref": "common.schema.json#/$defs/slug" }, { "type": "null" }]
+    },
+    "quiz_type": { "$ref": "anime-question.schema.json#/$defs/quizType" },
+    "difficulty": { "$ref": "common.schema.json#/$defs/difficulty" },
+    "category": {
+      "$comment": "S 4.4: the seven new values of quiz_bank_category_check (ANIME_BANK_CATEGORIES) plus the shared true_false.",
+      "enum": ["series_specific", "true_false", "who_am_i", "name_the_series", "music", "creators_studios", "odd_one_out", "crossover"]
+    },
+    "questions": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "$comment": "The daily bank accepts spoiler level 0 only (S 3.5, S 4.4 rule 5).",
+        "allOf": [
+          { "$ref": "anime-question.schema.json#/$defs/teamQuestion" },
+          { "properties": { "spoiler": { "properties": { "arc": { "const": 0 } } } } }
+        ]
+      }
+    },
+    "sources": { "$ref": "quiz-draft.schema.json#/properties/sources" }
+  },
+  "allOf": [{ "$ref": "anime-question.schema.json#/$defs/quizTypeAgreement" }]
+}

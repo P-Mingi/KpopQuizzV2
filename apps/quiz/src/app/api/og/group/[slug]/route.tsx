@@ -4,6 +4,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
 import { UX_V1 } from '@/lib/ux-v1';
 import { knowSubject } from '@/lib/ux-v1/p3/model';
+import { SITE } from '@/lib/site/registry';
 
 import type { NextRequest } from 'next/server';
 
@@ -171,7 +172,7 @@ export async function GET(
 
         {/* Watermark */}
         <div style={{ display: 'flex', position: 'absolute', bottom: 32, fontSize: 18, color: '#B4B2A9' }}>
-          kpopquiz.org
+          {SITE.domain}
         </div>
       </div>
     ),

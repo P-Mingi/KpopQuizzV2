@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { discordInviteWithUtm } from '@kpopquiz/shared/social-links';
 import { UxBrand } from '@/components/ux-v1/brand';
 import { Icon } from '@/components/ux-v1/icon';
+import { NetFooterLine } from '@/components/network/net-footer-line';
+import { SITE, SITE_ID, flagOn } from '@/lib/site/registry';
+import { isKnownRouteFor } from '@/lib/site/routing';
 
 import { UxFooterTheme } from './ux-footer-controls';
 
@@ -15,46 +18,74 @@ import type { FooterCol } from '@/lib/ux-v1/a0/nav';
 // live footer has today (WIRING-MAP "Footer links", SEO: internal links are part
 // of the served HTML) and add the prototype's; all are existing routes. Client
 // component inside the lazily loaded shell; server-only facts arrive as props.
+//
+// Run O1: the footer follows the registry of the site of this build. On kpop every link below is
+// shown, as today (the features are all on there and the route map is the kpop allowlist). On anime
+// and hub a link is shown only when its feature is on AND the site's route map knows its path, and
+// the K-pop-only parts (top groups, Discord, Reddit, the language switch, the brand and genre words)
+// are left out.
+type FooterLink = FooterCol['links'][number];
+const F = SITE.features;
+const KPOP = SITE_ID === 'kpop';
+const FLAGS = { v1: true, v12: true } as const;
+// Run O1 (B6): the one anonymous cross-site link (link-allowlist.json "footer"), off unless the flag is on.
+const NET_FOOTER = flagOn(process.env.NEXT_PUBLIC_NET_FOOTER);
+
+/** One internal link: shown when its feature is on and the site's route map has its path. */
+function link(label: string, href: string, feature: boolean = true): FooterLink[] {
+  return feature && (KPOP || isKnownRouteFor(SITE_ID, href, FLAGS)) ? [{ label, href }] : [];
+}
+
+/** One external link of the kpop community (the Discord server, r/Kpop_Verse): kpop only. */
+function community(label: string, href: string): FooterLink[] {
+  return KPOP ? [{ label, href, external: true }] : [];
+}
+
+const capitalize = (w: string): string => w.charAt(0).toUpperCase() + w.slice(1);
+
 function columns(showFandoms: boolean): FooterCol[] {
   return [
     { title: 'Play', links: [
-      { label: 'K-pop games', href: '/kpop-games' },
-      { label: 'Daily quiz', href: '/daily' },
-      { label: 'Blindtest', href: '/blindtest' },
-      { label: 'Ranked', href: '/blindtest/ranked' },
-      { label: 'All quizzes', href: '/quizzes' },
-      { label: 'Popular quizzes', href: '/quizzes/popular-this-week' },
-      { label: 'Trivia', href: '/trivia' },
+      // main (SEO Mission 2 A): /kpop-games, the page of every game of kpopquiz.org.
+      ...link('K-pop games', '/kpop-games', KPOP),
+      ...link('Daily quiz', '/daily', F.dailyQuiz),
+      ...link('Blindtest', '/blindtest', F.blindTest),
+      ...link('Ranked', '/blindtest/ranked', F.ranked),
+      ...link('All quizzes', '/quizzes', F.quizzes),
+      ...link('Popular quizzes', '/quizzes/popular-this-week', F.quizzes),
+      ...link('Trivia', '/trivia', F.trivia),
     ] },
     { title: 'Explore', links: [
-      { label: 'Groups', href: '/groups' },
-      { label: 'Trending', href: '/trending' },
-      { label: 'New quizzes', href: '/new' },
-      { label: 'Knowledge Report', href: '/data/knowledge-report-2026' },
-      { label: 'Pulse', href: '/data/pulse' },
-      { label: 'Stats', href: '/stats' },
-      { label: 'Articles', href: '/articles' },
-      { label: 'News', href: '/news' },
+      ...link(capitalize(SITE.vocabulary.topicPlural), KPOP ? '/groups' : '/series', F.topicHubs),
+      ...link('Trending', '/trending', F.quizzes),
+      ...link('New quizzes', '/new', F.quizzes),
+      ...link('Knowledge Report', '/data/knowledge-report-2026', F.dataPages),
+      ...link('Pulse', '/data/pulse', F.mvPulse),
+      ...link('Stats', '/stats', F.dataPages),
+      ...link('Articles', '/articles', F.articles),
+      ...link('News', '/news', F.news),
     ] },
     { title: 'Community', links: [
-      { label: 'Feed', href: '/community' },
-      { label: 'Leaderboard', href: '/leaderboard' },
-      ...(showFandoms ? [{ label: 'Fandoms', href: '/verse' }] : []),
-      { label: 'Create a quiz', href: '/create' },
-      { label: 'Discord', href: discordInviteWithUtm('footer'), external: true },
-      { label: 'Reddit', href: 'https://reddit.com/r/Kpop_Verse', external: true },
+      ...link('Feed', '/community', F.community),
+      ...link('Leaderboard', '/leaderboard', F.leaderboards),
+      ...(showFandoms ? link('Fandoms', '/verse', F.verse) : []),
+      ...link('Create a quiz', '/create', F.create),
+      ...community('Discord', discordInviteWithUtm('footer')),
+      ...community('Reddit', 'https://reddit.com/r/Kpop_Verse'),
     ] },
     { title: 'Support', links: [
-      { label: 'Help', href: '/faq' },
-      { label: 'About', href: '/about' },
-      { label: 'Editorial policy', href: '/editorial-policy' },
-      { label: 'Contact', href: '/contact' },
-      { label: 'Privacy', href: '/privacy' },
-      { label: 'Legal notice', href: '/legal' },
-      { label: 'Terms', href: '/terms' },
-      { label: 'DMCA', href: '/dmca' },
+      ...link('Help', '/faq'),
+      ...link('About', '/about'),
+      ...link('Editorial policy', '/editorial-policy'),
+      ...link('Contact', '/contact'),
+      // Main's two links, written as main writes them (lib/legal-notice.test.ts reads this pair); every site shows both.
+      ...(KPOP ? [{ label: 'Privacy', href: '/privacy' }, { label: 'Legal notice', href: '/legal' }] : [...link('Privacy', '/privacy'), ...link('Legal notice', '/legal')]),
+      ...link('Terms', '/terms'),
+      ...link('DMCA', '/dmca'),
+      // Run O1 (IMG): the photo credits of OtakuQuiz. Off on kpop (feature flag false), so the kpop footer stays today's.
+      ...link('Credits', '/credits', !KPOP),
     ] },
-  ];
+  ].filter((c) => c.links.length > 0);
 }
 
 // Top groups row: the group hubs (real /{slug}-quiz pages), prototype order.
@@ -69,6 +100,13 @@ const TOP_GROUPS: { name: string; slug: string }[] = [
   { name: 'SEVENTEEN', slug: 'seventeen' },
 ];
 
+// The two lines that carry the brand. Each is ONE string (one text node in the served HTML, as the literal it
+// replaces on kpop): the registry brand name on anime and hub, today's lines on kpop.
+const TAGLINE = KPOP
+  ? 'Free K-pop quizzes and blindtests, made by fans for fans.'
+  : `Free ${F.blindTest ? 'quizzes and blindtests' : 'quizzes'}, made by fans for fans.`;
+const COPYRIGHT_TAIL = KPOP ? ' KpopQuiz. Group photos belong to their owners.' : ` ${SITE.brand.name}.`;
+
 /** Site footer of the v11 shell. `showFandoms` = the Verse is public
  *  (lib/verse/visibility, server env); `year` from the server render. */
 export function UxFooter({ showFandoms, year }: { showFandoms: boolean; year: number }): React.ReactElement {
@@ -78,7 +116,7 @@ export function UxFooter({ showFandoms, year }: { showFandoms: boolean; year: nu
         <div className="ux-fgrid">
           <div className="ux-fbrand">
             <UxBrand />
-            <p>Free K-pop quizzes and blindtests, made by fans for fans.</p>
+            <p>{TAGLINE}</p>
             <p>Made by fans <Icon name="heart" label="with love" /></p>
           </div>
           {columns(showFandoms).map((c) => (
@@ -90,13 +128,16 @@ export function UxFooter({ showFandoms, year }: { showFandoms: boolean; year: nu
             </div>
           ))}
         </div>
-        <div className="ux-ftop">
-          <b>Top groups</b>
-          {TOP_GROUPS.map((g) => <Link key={g.slug} href={`/${g.slug}-quiz`}>{g.name}</Link>)}
-          <Link href="/groups">All groups</Link>
-        </div>
+        {KPOP ? (
+          <div className="ux-ftop">
+            <b>Top groups</b>
+            {TOP_GROUPS.map((g) => <Link key={g.slug} href={`/${g.slug}-quiz`}>{g.name}</Link>)}
+            <Link href="/groups">All groups</Link>
+          </div>
+        ) : null}
+        {NET_FOOTER ? <NetFooterLine /> : null}
         <div className="ux-fbot">
-          <span>© {year} KpopQuiz. Group photos belong to their owners.</span>
+          <span>{'\u00A9 '}{year}{COPYRIGHT_TAIL}</span>
           <span className="ux-fbot-r"><UxFooterTheme /></span>
         </div>
       </div>

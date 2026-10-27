@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_02",
+ "group_slug": "one-piece",
+ "title": "Toei, Tanaka and Twenty-Nine Openings: One Piece Behind the Screen",
+ "slug": "toei-tanaka-and-twenty-nine-openings-one-piece-behind-the-screen",
+ "description": "Ten questions on the studio, the composers, the singers of the openings and endings, the comeback of the first opening and the English releases.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: One Piece",
+   "url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: One Piece (1999 TV series)",
+   "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+  }
+ ],
+ "notes": "Production and music quiz on arc 0 facts (030, 010, 011, 012, 019, 020, 021, 022). Artists and numbers only, no lyrics, no song titles as distractors; every artist option comes from the theme lists of the facts. Yoshihisa Hirano and Eiichiro Oda come from the facts of other series and this one.",
+ "questions": [
+  {
+   "question": "Which studio is making the second anime adaptation planned for 2027?",
+   "options": [
+    "Toei Animation",
+    "Madhouse",
+    "Wit Studio",
+    "MAPPA"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-wit-studio-remake-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Which composer wrote the music for the anime together with Shiro Hamaguchi?",
+   "options": [
+    "Kohei Tanaka",
+    "Yoshihisa Hirano",
+    "Hiroshi Kitadani",
+    "Eiichiro Oda"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-anime-composers-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+  },
+  {
+   "question": "Which group performed the second opening, Believe?",
+   "options": [
+    "Boystyle",
+    "D-51",
+    "The Babystars",
+    "Folder 5"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-themes-op-a-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+  },
+  {
+   "question": "Which pop star performed the 14th opening, Fight Together?",
+   "options": [
+    "Hiroshi Kitadani",
+    "Namie Amuro",
+    "Kota Shinzato",
+    "Aina the End"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-themes-op-a-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+  },
+  {
+   "question": "Which band performed the 25th opening, The Peak?",
+   "options": [
+    "AAA",
+    "Sekai no Owari",
+    "V6",
+    "Aina the End"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-themes-op-b-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+  },
+  {
+   "question": "Which singer performed the first two endings of the anime?",
+   "options": [
+    "Tomato Cube",
+    "Shela",
+    "Takako Uehara",
+    "Maki Otsuki"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-themes-ed-a-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+  },
+  {
+   "question": "For how many episodes was We Are! the first opening of the anime?",
+   "options": [
+    "47",
+    "26",
+    "52",
+    "100"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-we-are-episode-1000-021"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+  },
+  {
+   "question": "Which episode saw We Are! return as the opening?",
+   "options": [
+    "500",
+    "900",
+    "1000",
+    "1100"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-we-are-episode-1000-021"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+  },
+  {
+   "question": "The early English dub by 4Kids trimmed the first 143 episodes down to how many?",
+   "options": [
+    "52",
+    "78",
+    "130",
+    "104"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-4kids-dub-cut-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+  },
+  {
+   "question": "Which company holds the English licence for the manga in Australia?",
+   "options": [
+    "Madman Entertainment",
+    "Viz Media",
+    "Toei Animation",
+    "Fuji Television"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-piece-viz-license-022"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  }
+ ]
+}

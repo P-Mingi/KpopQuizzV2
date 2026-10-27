@@ -1,0 +1,276 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Three Words from the Noughties: Guess the Anime That Debuted 2002 to 2012",
+ "slug": "three-words-from-the-noughties-guess-the-anime-that-debuted-2002-to-2012",
+ "description": "Ten anime whose first TV series started between 2002 and 2012, each to name from three words. No titles, no full names, no spoilers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Era cut: first TV anime of the franchise started 2002 to 2012 (Naruto 2002, Fullmetal Alchemist 2003, Bleach 2004, Death Note 2006, Code Geass 2006, Gintama 2006, Fairy Tail 2009, Steins;Gate 2011, JoJo 2012, Sword Art Online 2012). Words come from the cited arc 0 facts.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Naruto",
+   "url": "https://en.wikipedia.org/wiki/Naruto"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Fullmetal Alchemist characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Bleach characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: List of Death Note characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: List of Code Geass characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: Gintama",
+   "url": "https://en.wikipedia.org/wiki/Gintama"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: List of Fairy Tail characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: Steins;Gate",
+   "url": "https://en.wikipedia.org/wiki/Steins;Gate"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: List of JoJo's Bizarre Adventure characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters"
+  },
+  {
+   "id": "S10",
+   "title": "Wikipedia: Sword Art Online",
+   "url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three words: Shippuden, Hokage's grandson, ninja dog. Which anime do they point to?",
+   "options": [
+    "Bleach",
+    "Death Note",
+    "Naruto",
+    "Fairy Tail"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "naruto-titles-001",
+    "naruto-konohamaru-looks-up-064",
+    "naruto-akamaru-ninja-dog-091"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Naruto"
+  },
+  {
+   "question": "Which anime fits these three words: suit of armor, Philosopher's Stone, Ishbalan people?",
+   "options": [
+    "Naruto",
+    "Fullmetal Alchemist",
+    "Code Geass",
+    "Steins;Gate"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fullmetal-alchemist-alphonse-armor-066",
+    "fullmetal-alchemist-marcoh-researcher-069",
+    "fullmetal-alchemist-scar-ishbalan-057"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+  },
+  {
+   "question": "Mod-Soul, lion plushie, snack shop owner: these three words belong to which anime?",
+   "options": [
+    "Bleach",
+    "Naruto",
+    "Fairy Tail",
+    "Sword Art Online"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bleach-kon-first-modsoul-051",
+    "bleach-kisuke-shop-owner-047"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+  },
+  {
+   "question": "Three words: National Police Agency, Kira task force, youngest investigator. Which anime do they point to?",
+   "options": [
+    "Naruto",
+    "Bleach",
+    "Sword Art Online",
+    "Death Note"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-soichiro-npa-050",
+    "death-note-matsuda-youngest-064",
+    "death-note-aizawa-team-065"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Which anime fits these three words: Student Council, pizza sponsor, Black Knights?",
+   "options": [
+    "Naruto",
+    "Fullmetal Alchemist",
+    "Code Geass",
+    "Steins;Gate"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "code-geass-character-detail-070",
+    "code-geass-pizza-hut-cc-073",
+    "code-geass-character-name-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+  },
+  {
+   "question": "Odd-jobs shop, Shinsengumi, parfait brawl: these three words belong to which anime?",
+   "options": [
+    "Fullmetal Alchemist",
+    "Gintama",
+    "Death Note",
+    "JoJo's Bizarre Adventure"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "gintama-yorozuya-009",
+    "gintama-isao-kondo-name-051",
+    "gintama-gintoki-parfait-077"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Gintama"
+  },
+  {
+   "question": "Three words: Salamander, celestial keys, requip armor. Which anime do they point to?",
+   "options": [
+    "Fairy Tail",
+    "Death Note",
+    "Steins;Gate",
+    "Sword Art Online"
+   ],
+   "correct": 0,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fairy-tail-nickname-064",
+    "fairy-tail-lucy-keys-067",
+    "fairy-tail-erza-requip-074"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters"
+  },
+  {
+   "question": "Which anime fits these three words: Future Gadget Laboratory, tutturu, maid cafe?",
+   "options": [
+    "Naruto",
+    "Code Geass",
+    "Sword Art Online",
+    "Steins;Gate"
+   ],
+   "correct": 3,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "steins-gate-future-gadget-lab-009",
+    "steins-gate-character-detail-061",
+    "steins-gate-character-name-044"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Steins;Gate"
+  },
+  {
+   "question": "Zombie knight, street thug ally, pet dog Danny: these three words belong to which anime?",
+   "options": [
+    "Bleach",
+    "Gintama",
+    "JoJo's Bizarre Adventure",
+    "Sword Art Online"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jojo-tarkus-zombie-knight-048",
+    "jojo-speedwagon-ally-045",
+    "jojo-danny-dog-059"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters"
+  },
+  {
+   "question": "Three words: NerveGear, Aincrad, axe-wielding blacksmith. Which anime do they point to?",
+   "options": [
+    "Naruto",
+    "Sword Art Online",
+    "Death Note",
+    "Fairy Tail"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sword-art-online-nervegear-008",
+    "sword-art-online-floors-010",
+    "sword-art-online-character-detail-075"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+  }
+ ]
+}

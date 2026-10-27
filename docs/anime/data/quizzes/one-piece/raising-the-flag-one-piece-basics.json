@@ -1,0 +1,217 @@
+{
+ "site": "anime",
+ "account": "oq_creator_02",
+ "group_slug": "one-piece",
+ "title": "Raising the Flag: One Piece Basics",
+ "slug": "raising-the-flag-one-piece-basics",
+ "description": "Ten easy questions on the creator, the start year, the volumes, an ending song, the treasure, the sales, the record, Luffy's body, the live-action series and the first opening.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: One Piece",
+   "url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: One Piece (1999 TV series)",
+   "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (002, 003, 004, 013, 016, 017, 018, 023, 026, 010). Creator, manga year, volumes, an ending, the Roger treasure, circulation, the Guinness years, the rubber body, the Netflix year and the first opening. K1 rewrite: blocked questions rewritten on verified facts 013 and 026.",
+ "questions": [
+  {
+   "question": "Who is the one person behind both the writing and the drawing of the One Piece manga?",
+   "options": [
+    "Kohei Tanaka",
+    "Shiro Hamaguchi",
+    "Eiichiro Oda",
+    "Tatsuya Endo"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-piece-manga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "In which year did the One Piece manga start in Weekly Shōnen Jump?",
+   "options": [
+    "1997",
+    "1995",
+    "1999",
+    "2001"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-piece-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "How many collected volumes of the manga had been released by July 2026?",
+   "options": [
+    "99",
+    "108",
+    "125",
+    "115"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-piece-manga-volumes-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Which group performed ending 17 of the anime, Asu wa Kuru Kara?",
+   "options": [
+    "Triplane",
+    "TVXQ",
+    "Muque",
+    "Asia Engineer"
+   ],
+   "correct": 1,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-themes-ed-b-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+  },
+  {
+   "question": "Luffy sails after a treasure left behind by the late King of the Pirates. What is this treasure named?",
+   "options": [
+    "The Straw Hat",
+    "The One Piece",
+    "The Grand Line",
+    "The Pirate Crown"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-roger-treasure-026"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "About how many copies of the manga were in worldwide circulation by spring 2026?",
+   "options": [
+    "60 million",
+    "150 million",
+    "1.5 billion",
+    "600 million"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-piece-copies-in-print-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Guinness World Records recognized Oda in 2015 and again in which year?",
+   "options": [
+    "2022",
+    "2017",
+    "2019",
+    "2024"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-piece-guinness-record-017"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "After Luffy swallowed the Gum-Gum Fruit by mistake, what did his body become?",
+   "options": [
+    "Stone",
+    "Glass",
+    "Rubber",
+    "Steel"
+   ],
+   "correct": 2,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-luffy-rubber-fruit-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "In which year did Netflix release a live-action One Piece series?",
+   "options": [
+    "2019",
+    "2021",
+    "2025",
+    "2023"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-live-action-023"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Which singer performed the first opening of the anime, We Are!?",
+   "options": [
+    "Hiroshi Kitadani",
+    "Folder 5",
+    "The Babystars",
+    "Namie Amuro"
+   ],
+   "correct": 0,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-piece-themes-op-a-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
+  }
+ ]
+}

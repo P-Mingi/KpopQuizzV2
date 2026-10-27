@@ -1,0 +1,436 @@
+{
+  "$comment": "Facts cited: kaguya-shinomiya: kaguya-sama-love-is-war-kaguya-shinomiya-name-049, kaguya-sama-love-is-war-kaguya-shinomiya-typewriter-050, kaguya-sama-love-is-war-kaguya-shinomiya-manner-089, kaguya-sama-love-is-war-kaguya-shinomiya-kind-100; miyuki-shirogane: kaguya-sama-love-is-war-miyuki-shirogane-name-052, kaguya-sama-love-is-war-miyuki-shirogane-bugs-053, kaguya-sama-love-is-war-miyuki-shirogane-stars-054, kaguya-sama-love-is-war-miyuki-shirogane-composed-090; chika-fujiwara: kaguya-sama-love-is-war-chika-fujiwara-name-056, kaguya-sama-love-is-war-chika-fujiwara-schoolwork-091, kaguya-sama-love-is-war-chika-fujiwara-emotions-092; yu-ishigami: kaguya-sama-love-is-war-yu-ishigami-name-059, kaguya-sama-love-is-war-yu-ishigami-observer-093, kaguya-sama-love-is-war-yu-ishigami-keeps-to-himself-094; ai-hayasaka: kaguya-sama-love-is-war-ai-hayasaka-name-061, kaguya-sama-love-is-war-ai-hayasaka-maid-062, kaguya-sama-love-is-war-ai-hayasaka-aware-095; nagisa-kashiwagi: kaguya-sama-love-is-war-nagisa-kashiwagi-name-068, kaguya-sama-love-is-war-nagisa-kashiwagi-top-ten-096, kaguya-sama-love-is-war-nagisa-kashiwagi-girlfriend-097; tsubasa-tanuma: kaguya-sama-love-is-war-tsubasa-tanuma-name-070, kaguya-sama-love-is-war-tsubasa-tanuma-clueless-098, kaguya-sama-love-is-war-tsubasa-tanuma-family-099. Written by us, one quiz per series, arc 0.",
+  "site": "anime",
+  "group_slug": "kaguya-sama-love-is-war",
+  "status": "published",
+  "spoiler": {
+    "arc": 0,
+    "scope": "both"
+  },
+  "questions": [
+    {
+      "ord": 1,
+      "question": "A rival beats your score by one point. What do you do?",
+      "options": [
+        {
+          "text": "Study three more hours and act like it did not bother me",
+          "weights": {
+            "energy": 2,
+            "chaos": 1,
+            "craft": 4
+          }
+        },
+        {
+          "text": "Cheer for them out loud, then challenge them to a game",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "care": 4
+          }
+        },
+        {
+          "text": "Quietly find out which topics they know that I do not",
+          "weights": {
+            "energy": 0,
+            "heart": 4,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Plan a clever comeback and keep a perfectly straight face",
+          "weights": {
+            "chaos": 0,
+            "craft": 4,
+            "heart": 1
+          }
+        }
+      ]
+    },
+    {
+      "ord": 2,
+      "question": "The free period starts and the room is yours. You reach for:",
+      "options": [
+        {
+          "text": "A board game, and everyone is playing whether they like it or not",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "care": 4
+          }
+        },
+        {
+          "text": "A handheld console and a pair of headphones",
+          "weights": {
+            "energy": 0,
+            "craft": 4,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "The to-do list, then tea for the whole room",
+          "weights": {
+            "energy": 3,
+            "care": 0,
+            "heart": 4
+          }
+        },
+        {
+          "text": "A good seat, where I can look busy while I wait for someone else to speak first",
+          "weights": {
+            "energy": 1,
+            "chaos": 0,
+            "spotlight": 1
+          }
+        }
+      ]
+    },
+    {
+      "ord": 3,
+      "question": "A friend asks you for love advice. You:",
+      "options": [
+        {
+          "text": "Tell them plainly to go and say it already",
+          "weights": {
+            "energy": 3,
+            "heart": 5,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Listen first, then ask what they actually want",
+          "weights": {
+            "care": 0,
+            "heart": 2,
+            "spotlight": 2
+          }
+        },
+        {
+          "text": "Start with my own good news and forget to ask about theirs",
+          "weights": {
+            "energy": 3,
+            "chaos": 4,
+            "heart": 0
+          }
+        },
+        {
+          "text": "Give a confident theory that is half guesswork",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "craft": 1
+          }
+        }
+      ]
+    },
+    {
+      "ord": 4,
+      "question": "Your phone dies at the worst moment. Your first thought:",
+      "options": [
+        {
+          "text": "Fine, I have a pen, paper and an old-fashioned way to do this",
+          "weights": {
+            "energy": 1,
+            "chaos": 0,
+            "craft": 4
+          }
+        },
+        {
+          "text": "Borrow someone else's before I miss anything",
+          "weights": {
+            "energy": 4,
+            "chaos": 3,
+            "care": 4
+          }
+        },
+        {
+          "text": "A quiet hour at last, I will notice more without it",
+          "weights": {
+            "energy": 0,
+            "heart": 4,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Text everyone from a different device and make a joke of it",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "care": 3
+          }
+        }
+      ]
+    },
+    {
+      "ord": 5,
+      "question": "Photo day. Which look is yours?",
+      "options": [
+        {
+          "text": "Neat and correct, not a thread out of place",
+          "weights": {
+            "energy": 2,
+            "chaos": 0,
+            "craft": 4
+          }
+        },
+        {
+          "text": "Trendy, with sharp details, nails and accessories",
+          "weights": {
+            "energy": 3,
+            "chaos": 3,
+            "spotlight": 2
+          }
+        },
+        {
+          "text": "Whatever I woke up in, hair flying, grin on",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "craft": 1
+          }
+        },
+        {
+          "text": "Hoodie, headphones round my neck, look away",
+          "weights": {
+            "energy": 0,
+            "chaos": 3,
+            "spotlight": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 6,
+      "question": "Someone you secretly like walks in. You:",
+      "options": [
+        {
+          "text": "Act as if I do not care, and wait for them to make the first move",
+          "weights": {
+            "energy": 1,
+            "chaos": 0,
+            "heart": 0
+          }
+        },
+        {
+          "text": "Walk over calmly while my heart pounds under a steady face",
+          "weights": {
+            "energy": 2,
+            "chaos": 1,
+            "heart": 3
+          }
+        },
+        {
+          "text": "Wave, shout their name and ask what is for lunch",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "care": 4
+          }
+        },
+        {
+          "text": "Watch from across the room and see everything",
+          "weights": {
+            "energy": 0,
+            "spotlight": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 7,
+      "question": "Which club would you run?",
+      "options": [
+        {
+          "text": "A volunteering club, with a rota and a clean-up every month",
+          "weights": {
+            "energy": 4,
+            "care": 0,
+            "craft": 1
+          }
+        },
+        {
+          "text": "Astronomy: a cold night, a telescope, and all the time I want",
+          "weights": {
+            "energy": 1,
+            "craft": 4,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "A band, a sports team or any stage with a crowd",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "craft": 0
+          }
+        },
+        {
+          "text": "A support club that helps others, from behind the curtain",
+          "weights": {
+            "energy": 3,
+            "care": 0,
+            "spotlight": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 8,
+      "question": "A friend is hiding a secret you guessed long ago. You:",
+      "options": [
+        {
+          "text": "Say nothing and let them tell it in their own time",
+          "weights": {
+            "energy": 0,
+            "heart": 3,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Tease them until they crack",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "care": 4
+          }
+        },
+        {
+          "text": "Quietly arrange things so it works out for them",
+          "weights": {
+            "energy": 3,
+            "care": 0,
+            "craft": 2
+          }
+        },
+        {
+          "text": "Ask straight out, then forget to follow up",
+          "weights": {
+            "energy": 3,
+            "chaos": 4,
+            "heart": 0
+          }
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "character_slug": "kaguya-shinomiya",
+      "traits": {
+        "energy": 35,
+        "chaos": 35,
+        "care": 55,
+        "craft": 80,
+        "heart": 25,
+        "spotlight": 40
+      },
+      "profile": [
+        "You come across as proud and a little cold, because you plan every move before you make it.",
+        "You are better with a pen and paper than any screen, and you like it that way.",
+        "Under the polished surface you are kinder than you let anyone see."
+      ],
+      "ord": 1
+    },
+    {
+      "character_slug": "miyuki-shirogane",
+      "traits": {
+        "energy": 30,
+        "chaos": 25,
+        "care": 20,
+        "craft": 80,
+        "heart": 50,
+        "spotlight": 55
+      },
+      "profile": [
+        "You like to look calm and composed while your mind races underneath.",
+        "You are a top student, the kind who places near the very top of a national mock exam.",
+        "You love a clear night sky, and you would rather face a hard exam than a cockroach."
+      ],
+      "ord": 2
+    },
+    {
+      "character_slug": "chika-fujiwara",
+      "traits": {
+        "energy": 80,
+        "chaos": 75,
+        "care": 70,
+        "craft": 45,
+        "heart": 55,
+        "spotlight": 25
+      },
+      "profile": [
+        "You bring a big grin and a lot of energy to every room you walk into.",
+        "Homework is not your thing, but languages, sports and singing come easily.",
+        "You say you can read everyone's feelings, and your guesses are hit and miss."
+      ],
+      "ord": 3
+    },
+    {
+      "character_slug": "yu-ishigami",
+      "traits": {
+        "energy": 15,
+        "chaos": 35,
+        "care": 30,
+        "craft": 60,
+        "heart": 70,
+        "spotlight": 100
+      },
+      "profile": [
+        "You keep to yourself, with headphones on and a game in your hands.",
+        "You are a keen observer, and you notice what other people would rather keep hidden.",
+        "You are happy at the back of the room, watching everyone and saying little."
+      ],
+      "ord": 4
+    },
+    {
+      "character_slug": "ai-hayasaka",
+      "traits": {
+        "energy": 80,
+        "chaos": 50,
+        "care": 5,
+        "craft": 30,
+        "heart": 40,
+        "spotlight": 75
+      },
+      "profile": [
+        "You read a room well, and you dress the part of a trendy student.",
+        "You keep a stylish public image, and you can play a different part when the moment calls for it.",
+        "You have been a friend since childhood, and you keep that bond quiet at school."
+      ],
+      "ord": 5
+    },
+    {
+      "character_slug": "nagisa-kashiwagi",
+      "traits": {
+        "energy": 50,
+        "chaos": 45,
+        "care": 25,
+        "craft": 40,
+        "heart": 55,
+        "spotlight": 30
+      },
+      "profile": [
+        "You are a top-ten student who also finds time to lead a volunteering club.",
+        "You grew up in a wealthy family and still keep your grades high.",
+        "You talk a lot with the people you love, and your feelings are never far from the surface."
+      ],
+      "ord": 6
+    },
+    {
+      "character_slug": "tsubasa-tanuma",
+      "traits": {
+        "energy": 40,
+        "chaos": 75,
+        "care": 50,
+        "craft": 10,
+        "heart": 15,
+        "spotlight": 60
+      },
+      "profile": [
+        "You are not afraid to ask a friend for love advice, and then you act on it.",
+        "You are so happy with your own good news that you forget to share the details.",
+        "You have a hospital director in the family, and love advice on your mind."
+      ],
+      "ord": 7
+    }
+  ]
+}

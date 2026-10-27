@@ -1,0 +1,241 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "re-zero",
+  "title": "Re:Zero Timeline: Which Came First?",
+  "slug": "re-zero-timeline-which-came-first",
+  "description": "Ten questions on the order of the web novel, the light novels, the seasons and the OVAs, from 2012 to 2026. No story spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Release order only: web novel 2012, light novel 2014, season 1 in 2016, OVAs in 2018 and 2019, season 2 in 2020 and 2021, season 3 in 2024 and 2025, season 4 in 2026.",
+  "questions": [
+    {
+      "question": "Which of these four Re:Zero works came out first?",
+      "options": [
+        "The first light novel volume",
+        "The second season",
+        "The OVA Memory Snow",
+        "The first season"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-light-novel-004",
+        "re-zero-anime-s2-008",
+        "re-zero-ova-017",
+        "re-zero-anime-s1-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "question": "Among these, which release was the most recent as of early 2025?",
+      "options": [
+        "The first season",
+        "The second season",
+        "The third season",
+        "The OVA The Frozen Bond"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "re-zero-anime-s1-007",
+        "re-zero-anime-s2-008",
+        "re-zero-anime-s3-009",
+        "re-zero-ova-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "question": "Which of these debuted in 2019?",
+      "options": [
+        "The OVA Memory Snow",
+        "The second season",
+        "The third season",
+        "The OVA The Frozen Bond"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "re-zero-ova-017",
+        "re-zero-anime-s2-008",
+        "re-zero-anime-s3-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "question": "The story was online before it was ever printed. Which of these came first?",
+      "options": [
+        "The first light novel volume",
+        "The first season",
+        "The web novel",
+        "The OVA Memory Snow"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-web-novel-003",
+        "re-zero-light-novel-004",
+        "re-zero-anime-s1-007",
+        "re-zero-ova-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero"
+    },
+    {
+      "question": "Which of these four arrived last, after all the others?",
+      "options": [
+        "The first light novel volume",
+        "The first season",
+        "The OVA Memory Snow",
+        "The second season"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-light-novel-004",
+        "re-zero-anime-s1-007",
+        "re-zero-ova-017",
+        "re-zero-anime-s2-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "question": "After the 2020 episodes of the second season, which of these aired next?",
+      "options": [
+        "The first part of the third season",
+        "The second part of the third season",
+        "The second part of the second season",
+        "The first part of the fourth season"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "re-zero-anime-s2-008",
+        "re-zero-anime-s3-009",
+        "re-zero-anime-s4-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "question": "Which of these four chapters of the anime aired most recently?",
+      "options": [
+        "The first part of the third season",
+        "The first part of the fourth season",
+        "The second part of the third season",
+        "The second part of the second season"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "re-zero-anime-s2-008",
+        "re-zero-anime-s3-009",
+        "re-zero-anime-s4-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "question": "Which of these debuted before any TV season after the first?",
+      "options": [
+        "The second season",
+        "The third season",
+        "The fourth season",
+        "The OVA Memory Snow"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "re-zero-ova-017",
+        "re-zero-anime-s2-008",
+        "re-zero-anime-s3-009",
+        "re-zero-anime-s4-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "question": "Which of these four parts was the last to air?",
+      "options": [
+        "The first part of the second season",
+        "The second part of the second season",
+        "The first part of the third season",
+        "The second part of the third season"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "re-zero-anime-s2-008",
+        "re-zero-anime-s3-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "question": "Counting the novels too, which of these is the very latest?",
+      "options": [
+        "The web novel",
+        "The second part of the fourth season",
+        "The first light novel volume",
+        "The first part of the fourth season"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "re-zero-web-novel-003",
+        "re-zero-light-novel-004",
+        "re-zero-anime-s4-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Re:Zero (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Re:Zero_(TV_series)"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Re:Zero",
+      "url": "https://en.wikipedia.org/wiki/Re:Zero"
+    }
+  ]
+}

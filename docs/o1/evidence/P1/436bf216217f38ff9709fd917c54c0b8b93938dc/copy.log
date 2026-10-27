@@ -1,0 +1,3 @@
+apps/quiz/src/components/passport-ui/passport-ui.site.test.ts: +const DASHES = /[–—]/;
+apps/quiz/src/lib/passport-ui/copy.test.ts: +      expect(v).not.toMatch(/[–—]/);
+apps/quiz/src/lib/passport-ui/settings-world.test.ts: +    expect(text).not.toMatch(/[–—]/);

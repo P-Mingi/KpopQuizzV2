@@ -6,6 +6,8 @@ import { UxQuizCard, UxQuizGrid } from '@/components/ux-v1/quiz-card';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { GENERATIONS_HUB_PATH } from '@/lib/generations/generations';
 import { getHomeBand, getHomeCommunity, getHomeGroups, getHomeLists, getHomeQotd } from '@/lib/ux-v1/p1/home-data';
+import { IS_KPOP, titleCase } from '@/lib/site/genre';
+import { SITE } from '@/lib/site/registry';
 import { RenderHealth, settleRender } from '@/lib/ux-v1/p1/render-health';
 
 import { CommunityRows } from './community-rows';
@@ -13,6 +15,9 @@ import { GroupsRail } from './groups-rail';
 import { BlindtestBand, ContinuePlaying, HomeHeader } from './islands';
 import { QotdRow } from './qotd-row';
 import { BestRows, NewRows } from './quiz-rows';
+
+// The index of the site's topics: the groups of kpop, the series of anime (the registry vocabulary names them).
+const TOPICS_HREF = IS_KPOP ? '/groups' : '/series';
 
 /**
  * UX v11.2 home (P1), rendered by app/(site)/page.tsx when NEXT_PUBLIC_UX_V1 is on.
@@ -57,14 +62,16 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
           <SectionHeader
             id="p1-groups-h"
             icon="users"
-            title="Groups"
-            action={groups.visibleGroups > 0 ? { href: '/groups', label: `All ${groups.visibleGroups} groups` } : { href: '/groups', label: 'All groups' }}
+            title={titleCase(SITE.vocabulary.topicPlural)}
+            action={groups.visibleGroups > 0 ? { href: TOPICS_HREF, label: `All ${groups.visibleGroups} ${SITE.vocabulary.topicPlural}` } : { href: TOPICS_HREF, label: `All ${SITE.vocabulary.topicPlural}` }}
           />
           <GroupsRail groups={groups.groups} />
-          {/* SEO Mission 2, part C: the generations hub, linked with its cluster anchor. */}
-          <p className="p1-note" style={{ marginTop: 12 }}>
-            <Link href={GENERATIONS_HUB_PATH}>K-pop generations</Link>: which era each group belongs to, with sources.
-          </p>
+          {/* SEO Mission 2, part C: the generations hub, linked with its cluster anchor (Run O1: a kpop page, so kpop only). */}
+          {IS_KPOP ? (
+            <p className="p1-note" style={{ marginTop: 12 }}>
+              <Link href={GENERATIONS_HUB_PATH}>K-pop generations</Link>: which era each group belongs to, with sources.
+            </p>
+          ) : null}
         </section>
       ) : null}
 
@@ -99,7 +106,8 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
         </section>
       ) : null}
 
-      <BlindtestBand fans={band.fans} date={band.date} />
+      {/* Run C1: the daily blindtest band (songs, /blindtest/leaderboard) is a kpop feature; anime has no daily blindtest. */}
+      {SITE.features.dailyBlindTest ? <BlindtestBand fans={band.fans} date={band.date} /> : null}
 
       {/* Always rendered: besides the rows it carries the live home's Discord links. */}
       <section className="ux-sec ux-sec-lg" aria-labelledby="p1-comm-h">

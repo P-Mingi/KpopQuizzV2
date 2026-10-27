@@ -1,0 +1,333 @@
+{
+ "site": "anime",
+ "account": "oq_creator_18",
+ "group_slug": "jojo",
+ "title": "Odd JoJo Out: Heroes, Stands, Hamon and Part Titles",
+ "slug": "odd-jojo-out-heroes-stands-hamon-and-part-titles",
+ "description": "Ten rounds of four names where one does not belong: part leads, relatives, Pillar Men, Hamon and Stand users, animals, Stand names and part titles. Light spoilers up to Part 5, Golden Wind.",
+ "quiz_type": "intruder",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Intruder format: three real members of a group and one real outsider; every option is a character, Stand or part title from the series.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of JoJo's Bizarre Adventure characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Stardust Crusaders",
+   "url": "https://en.wikipedia.org/wiki/Stardust_Crusaders"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: JoJo's Bizarre Adventure",
+   "url": "https://en.wikipedia.org/wiki/JoJo's_Bizarre_Adventure"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three of these are the lead JoJo of their part. Which one is a travelling companion instead?",
+   "options": [
+    {
+     "label": "Jotaro Kujo"
+    },
+    {
+     "label": "Jonathan Joestar"
+    },
+    {
+     "label": "Giorno Giovanna"
+    },
+    {
+     "label": "Jean Pierre Polnareff"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jojo-jonathan-protagonist-041",
+    "jojo-jotaro-protagonist-042",
+    "jojo-giorno-protagonist-043",
+    "jojo-polnareff-traveler-044"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters"
+  },
+  {
+   "question": "Three of these stand by Jonathan against Dio. Which one serves Dio?",
+   "options": [
+    {
+     "label": "Will A. Zeppeli"
+    },
+    {
+     "label": "Speedwagon"
+    },
+    {
+     "label": "Dire"
+    },
+    {
+     "label": "Tarkus"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jojo-speedwagon-ally-045",
+    "jojo-will-zeppeli-ally-046",
+    "jojo-dire-ally-047",
+    "jojo-tarkus-zombie-knight-048"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters"
+  },
+  {
+   "question": "Three of these are Pillar Men. Which one is a human officer?",
+   "options": [
+    {
+     "label": "Rudol von Stroheim"
+    },
+    {
+     "label": "Esidisi"
+    },
+    {
+     "label": "Wamuu"
+    },
+    {
+     "label": "Kars"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jojo-kars-pillar-leader-049",
+    "jojo-esidisi-heat-mode-050",
+    "jojo-wamuu-wind-mode-051",
+    "jojo-stroheim-nazi-052"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters"
+  },
+  {
+   "question": "Three of these characters fight with a Stand. Which one fights with Hamon?",
+   "options": [
+    {
+     "label": "Mohammed Avdol"
+    },
+    {
+     "label": "Caesar Anthonio Zeppeli"
+    },
+    {
+     "label": "Noriaki Kakyoin"
+    },
+    {
+     "label": "Jean Pierre Polnareff"
+    }
+   ],
+   "correct": 1,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jojo-caesar-hamon-053",
+    "jojo-avdol-stand-054",
+    "jojo-kakyoin-stand-055",
+    "jojo-polnareff-stand-056"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters"
+  },
+  {
+   "question": "Three of these are animals. Which one is a human gunslinger?",
+   "options": [
+    {
+     "label": "Coco Jumbo"
+    },
+    {
+     "label": "Iggy"
+    },
+    {
+     "label": "Hol Horse"
+    },
+    {
+     "label": "Danny"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jojo-iggy-dog-057",
+    "jojo-coco-jumbo-turtle-058",
+    "jojo-danny-dog-059",
+    "jojo-hol-horse-cowboy-060"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters"
+  },
+  {
+   "question": "Three of these belong to the Joestar bloodline. Which one is only a friend?",
+   "options": [
+    {
+     "label": "Noriaki Kakyoin"
+    },
+    {
+     "label": "Joseph Joestar"
+    },
+    {
+     "label": "Josuke Higashikata"
+    },
+    {
+     "label": "Jotaro Kujo"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jojo-joseph-grandson-061",
+    "jojo-jotaro-grandson-062",
+    "jojo-josuke-son-063",
+    "jojo-kakyoin-student-064"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters"
+  },
+  {
+   "question": "Three of these Stands are named after Egyptian gods. Which one is named after a tarot card?",
+   "options": [
+    {
+     "label": "Hanged Man"
+    },
+    {
+     "label": "Osiris"
+    },
+    {
+     "label": "Geb"
+    },
+    {
+     "label": "Atum"
+    }
+   ],
+   "correct": 0,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jojo-egypt-stands-065",
+    "jojo-ndoul-geb-066",
+    "jojo-daniel-osiris-067",
+    "jojo-terence-atum-068",
+    "jojo-jgeil-hanged-man-069"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Stardust_Crusaders"
+  },
+  {
+   "question": "Three of these Stands belong to people met in Part 4. Which one comes from Part 3?",
+   "options": [
+    {
+     "label": "The Hand"
+    },
+    {
+     "label": "Magician's Red"
+    },
+    {
+     "label": "Heaven's Door"
+    },
+    {
+     "label": "Echoes"
+    }
+   ],
+   "correct": 1,
+   "kind": "ability",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jojo-koichi-echoes-070",
+    "jojo-okuyasu-the-hand-071",
+    "jojo-rohan-heavens-door-072",
+    "jojo-avdol-stand-054"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters"
+  },
+  {
+   "question": "Three of these belong to Bucciarati's gang. Which one is a hitman of the execution squad?",
+   "options": [
+    {
+     "label": "Guido Mista"
+    },
+    {
+     "label": "Leone Abbacchio"
+    },
+    {
+     "label": "Prosciutto"
+    },
+    {
+     "label": "Narancia Ghirga"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jojo-abbacchio-gang-073",
+    "jojo-mista-gang-074",
+    "jojo-narancia-gang-075",
+    "jojo-prosciutto-squad-076"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters"
+  },
+  {
+   "question": "Three of these are titles of parts of the manga. Which one is a Stand?",
+   "options": [
+    {
+     "label": "Battle Tendency"
+    },
+    {
+     "label": "Crazy Diamond"
+    },
+    {
+     "label": "Golden Wind"
+    },
+    {
+     "label": "Phantom Blood"
+    }
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jojo-part-phantom-blood-077",
+    "jojo-part-battle-tendency-078",
+    "jojo-part-golden-wind-079",
+    "jojo-josuke-crazy-diamond-080"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/JoJo's_Bizarre_Adventure"
+  }
+ ]
+}

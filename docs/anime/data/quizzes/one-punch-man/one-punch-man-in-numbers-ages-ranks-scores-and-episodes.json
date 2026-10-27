@@ -1,0 +1,228 @@
+{
+ "site": "anime",
+ "account": "oq_creator_28",
+ "group_slug": "one-punch-man",
+ "title": "One-Punch Man in Numbers: Ranks, Years, Days and Episodes",
+ "slug": "one-punch-man-in-numbers-ages-ranks-scores-and-episodes",
+ "description": "Numbers format: every answer is a number, from years and days to Hero Association ranks and episode numbers. No story spoilers, only season 2 shows up as an episode number.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Numbers format: every question has a number for an answer; ranks come from the character list, years, days and episode numbers from verified facts.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of One-Punch Man characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: One-Punch Man season 1",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: One-Punch Man",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: One-Punch Man season 2",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2"
+  }
+ ],
+ "questions": [
+  {
+   "question": "In which year did One first put the story online as a webcomic?",
+   "options": [
+    "2008",
+    "2009",
+    "2011",
+    "2012"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-punch-man-webcomic-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "question": "How many episodes does season 1 of the One-Punch Man anime have?",
+   "options": [
+    "10",
+    "12",
+    "13",
+    "24"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "question": "In which year did the One-Punch Man anime premiere?",
+   "options": [
+    "2016",
+    "2014",
+    "2015",
+    "2013"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "question": "Season 2 keeps counting from season 1. Which overall episode number does it open with?",
+   "options": [
+    "11",
+    "12",
+    "13",
+    "14"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-two-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2"
+  },
+  {
+   "question": "On which day of June 2012 did Murata's redrawn version begin on Tonari no Young Jump?",
+   "options": [
+    "4",
+    "14",
+    "24",
+    "28"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-punch-man-remake-magazine-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "question": "Which rank in the C-Class is Mumen Rider listed at when he first appears?",
+   "options": [
+    "8",
+    "1",
+    "100",
+    "35"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-mumen-rider-rank-033"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "Which place does Tatsumaki hold among the S-Class heroes?",
+   "options": [
+    "2",
+    "3",
+    "5",
+    "1"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-tatsumaki-rank-034"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "How many episodes do seasons 1 and 2 of the anime have together?",
+   "options": [
+    "36",
+    "12",
+    "24",
+    "48"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-one-007",
+    "one-punch-man-anime-season-two-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "question": "On which day of October 2015 did season 1 of the anime premiere?",
+   "options": [
+    "1",
+    "5",
+    "12",
+    "19"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
+  },
+  {
+   "question": "In which year did season 2 of the anime begin airing?",
+   "options": [
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-two-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2"
+  }
+ ]
+}

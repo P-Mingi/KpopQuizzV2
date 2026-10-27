@@ -1,0 +1,70 @@
+run-dev: building kpop against o1-dev (log .next/c3-logs/build-kpop.log)
+run-dev: building anime against o1-dev (log .next/c3-logs/build-anime.log)
+run-dev: building hub against o1-dev (log .next/c3-logs/build-hub.log)
+run-dev: kpop on http://kpop.localhost:3100 (db dev, build .next-kpop, log .next/c3-logs/kpop.log)
+run-dev: anime on http://anime.localhost:3101 (db dev, build .next-anime, log .next/c3-logs/anime.log)
+run-dev: hub on http://hub.localhost:3102 (db dev, build .next-hub, log .next/c3-logs/hub.log)
+run-dev: warm-up kpop / 200
+run-dev: warm-up anime / 200
+run-dev: warm-up hub / 200
+run-dev: playwright leak, dev-multi, C3
+Running 50 tests using 1 worker
+[1/50] [leak] › e2e/o1/leak/canonical-og.o1.ts:11:3 › canonical and OG: every kpop page names kpop only
+[2/50] [leak] › e2e/o1/leak/canonical-og.o1.ts:11:3 › canonical and OG: every anime page names anime only
+[3/50] [leak] › e2e/o1/leak/canonical-og.o1.ts:11:3 › canonical and OG: every hub page names hub only
+[4/50] [leak] › e2e/o1/leak/content-leak.o1.ts:58:1 › content leak: no anime fixture row on kpop lists, sitemap, search and llms.txt
+[5/50] [leak] › e2e/o1/leak/content-leak.o1.ts:79:1 › content leak mirror: no kpop row on anime lists, sitemap, search and llms.txt
+[6/50] [leak] › e2e/o1/leak/content-leak.o1.ts:100:3 › content leak, signed in: no anime fixture row in the kpop bell (/notifications)
+[7/50] [leak] › e2e/o1/leak/content-leak.o1.ts:105:3 › P2 signed in: the kpop-heavy fixture's bias, groups, header and bio stay off the anime bell (/notifications)
+[8/50] [leak] › e2e/o1/leak/content-leak.o1.ts:100:3 › content leak, signed in: no anime fixture row in the kpop badge shelf (/me)
+[9/50] [leak] › e2e/o1/leak/content-leak.o1.ts:105:3 › P2 signed in: the kpop-heavy fixture's bias, groups, header and bio stay off the anime badge shelf (/me)
+[10/50] [leak] › e2e/o1/leak/content-leak.o1.ts:100:3 › content leak, signed in: no anime fixture row in the kpop passport stats (/me)
+[11/50] [leak] › e2e/o1/leak/content-leak.o1.ts:105:3 › P2 signed in: the kpop-heavy fixture's bias, groups, header and bio stay off the anime passport stats (/me)
+[12/50] [leak] › e2e/o1/leak/content-leak.o1.ts:100:3 › content leak, signed in: no anime fixture row in the kpop activity (/u/<fixture>)
+[13/50] [leak] › e2e/o1/leak/content-leak.o1.ts:105:3 › P2 signed in: the kpop-heavy fixture's bias, groups, header and bio stay off the anime activity (/u/<fixture>)
+[14/50] [leak] › e2e/o1/leak/link-leak.o1.ts:15:3 › link leak: cross-site links on kpop are on the allowlist (server HTML)
+[15/50] [leak] › e2e/o1/leak/link-leak.o1.ts:32:3 › link leak: cross-site links on kpop are on the allowlist (hydrated DOM)
+[16/50] [leak] › e2e/o1/leak/link-leak.o1.ts:15:3 › link leak: cross-site links on anime are on the allowlist (server HTML)
+[17/50] [leak] › e2e/o1/leak/link-leak.o1.ts:32:3 › link leak: cross-site links on anime are on the allowlist (hydrated DOM)
+[18/50] [leak] › e2e/o1/leak/link-leak.o1.ts:15:3 › link leak: cross-site links on hub are on the allowlist (server HTML)
+[19/50] [leak] › e2e/o1/leak/link-leak.o1.ts:32:3 › link leak: cross-site links on hub are on the allowlist (hydrated DOM)
+[20/50] [leak] › e2e/o1/leak/no-netme.o1.ts:12:3 › no /api/n/me in the server HTML of 20 kpop pages
+[21/50] [leak] › e2e/o1/leak/no-netme.o1.ts:12:3 › no /api/n/me in the server HTML of 20 anime pages
+[22/50] [leak] › e2e/o1/leak/no-netme.o1.ts:12:3 › no /api/n/me in the server HTML of 20 hub pages
+[23/50] [leak] › e2e/o1/leak/route-leak.o1.ts:12:3 › route leak: every kpop route answers 404 on anime
+[24/50] [leak] › e2e/o1/leak/route-leak.o1.ts:12:3 › route leak: every kpop route answers 404 on hub
+[25/50] [leak] › e2e/o1/leak/route-leak.o1.ts:30:3 › site identity: the anime server serves anime
+[26/50] [leak] › e2e/o1/leak/route-leak.o1.ts:30:3 › site identity: the hub server serves hub
+[27/50] [leak] › e2e/o1/leak/spoiler-jsonld.o1.ts:14:1 › spoiler JSON-LD hook: cases are registered
+[28/50] [leak] › e2e/o1/leak/string-leak.o1.ts:18:3 › string leak: no K-pop string on anime pages (P2)
+[29/50] [leak] › e2e/o1/leak/string-leak.o1.ts:18:3 › string leak: no anime string on kpop pages (P2 mirror)
+[30/50] [dev-multi] › e2e/o1/dev-multi/cookies.o1.ts:71:3 › dev-multi: three hosts, three sessions › each host keeps its own session cookies; a real request carries only its host's
+[31/50] [dev-multi] › e2e/o1/dev-multi/cookies.o1.ts:134:1 › the dev fallback name of the __Host- transaction cookie (B4 helper, cookies.md section 2)
+[32/50] [lanes] › e2e/o1/C3/network.o1.ts:145:3 › otakuquiz (anime) › / answers 200 in the anime theme
+[33/50] [lanes] › e2e/o1/C3/network.o1.ts:155:3 › otakuquiz (anime) › a kpop-only path answers 404
+[34/50] [lanes] › e2e/o1/C3/network.o1.ts:164:3 › otakuquiz (anime) › /series lists the anime series
+[35/50] [lanes] › e2e/o1/C3/network.o1.ts:172:3 › otakuquiz (anime) › /death-note-quiz shows the facts, arcs, characters and openings blocks
+[36/50] [lanes] › e2e/o1/C3/network.o1.ts:204:3 › otakuquiz (anime) › the fixture files hold quizzes above arc 0
+[37/50] [lanes] › e2e/o1/C3/network.o1.ts:209:5 › otakuquiz (anime) › /q/fx-death-note-basics-rules-and-creators: the interstitial shows, no tagged question in the HTML or JSON-LD
+[38/50] [lanes] › e2e/o1/C3/network.o1.ts:209:5 › otakuquiz (anime) › /q/fx-death-note-part-2-new-detectives: the interstitial shows, no tagged question in the HTML or JSON-LD
+[39/50] [lanes] › e2e/o1/C3/network.o1.ts:209:5 › otakuquiz (anime) › /q/fx-death-note-odd-one-out: the interstitial shows, no tagged question in the HTML or JSON-LD
+[40/50] [lanes] › e2e/o1/C3/network.o1.ts:209:5 › otakuquiz (anime) › /q/fx-one-piece-east-blue-villains: the interstitial shows, no tagged question in the HTML or JSON-LD
+[41/50] [lanes] › e2e/o1/C3/network.o1.ts:209:5 › otakuquiz (anime) › /q/fx-one-piece-odd-one-out: the interstitial shows, no tagged question in the HTML or JSON-LD
+[42/50] [lanes] › e2e/o1/C3/network.o1.ts:209:5 › otakuquiz (anime) › /q/fx-spy-x-family-season-2: the interstitial shows, no tagged question in the HTML or JSON-LD
+[43/50] [lanes] › e2e/o1/C3/network.o1.ts:233:3 › fanquiz (hub) › / answers 200 signed out with one card per network site, linking to the registry origins
+[44/50] [lanes] › e2e/o1/C3/network.o1.ts:248:3 › fanquiz (hub) › signed in (a fixture account) it shows the passport with the sites joined
+[45/50] [lanes] › e2e/o1/C3/network.o1.ts:285:3 › passport › /auth/passport/out on kpop redirects to the anime origin
+[46/50] [lanes] › e2e/o1/C3/network.o1.ts:289:3 › passport › a fixture account signed in on kpop follows /auth/passport/out and lands signed in on anime
+[47/50] [lanes] › e2e/o1/C3/network.o1.ts:322:3 › passport › signed out on kpop: the same link lands signed out on anime
+[48/50] [lanes] › e2e/o1/C3/network.o1.ts:349:3 › kpopquiz (kpop) › / answers 200 with no anime word in the HTML
+[49/50] [lanes] › e2e/o1/C3/network.o1.ts:355:3 › kpopquiz (kpop) › one quiz page answers 200 with no anime word in the HTML
+[50/50] [lanes] › e2e/o1/C3/network.o1.ts:370:3 › kpopquiz (kpop) › no quiz of the anime site on kpop: not listed on / or the lists, /q/<anime slug> answers 404
+  10 skipped
+  40 passed (32.9s)
+run-dev: playwright B3/jump (with the service role: creates its own user on o1-dev)
+Running 2 tests using 1 worker
+[1/2] [lanes] › e2e/o1/B3/jump.o1.ts:44:3 › the passport jump kpop -> anime (o1-scratch) › a signed-in kpop fan lands signed in on anime and gets its anime stamp
+[2/2] [lanes] › e2e/o1/B3/jump.o1.ts:172:3 › the passport jump kpop -> anime (o1-scratch) › signed out on kpop: the same link lands signed out on anime, nothing written
+  2 passed (3.3s)
+report: 42 pass, 0 fail, 10 skip
+run-dev: report docs/o1/reports/C3/e2e-dev.md (exit 0)

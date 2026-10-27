@@ -1,0 +1,91 @@
+# Run O1, lane Q0a: the 60 kpopquiz.org URLs of the parity check (BACKLOG N1-A1, invariant 1).
+# One path per line, fetched anonymously with GET (never a cookie, never a signed-in page). Lines starting with #
+# and blank lines are ignored. Real slugs only: every /q/ slug and group hub below answered 200 on kpopquiz.org in
+# docs/release/snapshots/*.json (2026-10-01 to 2026-10-05) or is a fixed route of the app.
+# Write proof: apps/quiz/scripts/o1/q0a/get-write-audit.mjs lists every database write reachable from the server
+# render of each URL; the audit and the reason for each excluded route are in docs/o1/reports/Q0a.md
+# (section "GET write proof"). Excluded because their GET reaches a write: /community (ensure_daily_debate),
+# /s/<code> (click tracker). Excluded by rule 5: /me, /profile, /settings, every signed-in page.
+# Changing this list changes the parity cache key (the list's sha256 is part of it).
+
+# Home, browse and lists (4)
+/
+/quizzes
+/groups
+/trending
+
+# Group hubs (7)
+/bts-quiz
+/blackpink-quiz
+/stray-kids-quiz
+/seventeen-quiz
+/cortis-quiz
+/twice-quiz
+/newjeans-quiz
+
+# Trivia (3)
+/trivia
+/bts-trivia
+/blackpink-trivia
+
+# Quizzes /q/ (12)
+/q/ultimate-bts-era-quiz-only-real-armys-survive
+/q/skz-true-or-false-only-real-stays-pass
+/q/blackpink-ultimate-fan-challenge
+/q/are-you-a-real-coer
+/q/illit-fans-here
+/q/babymonster-quiz
+/q/le-sserafim-members-and-music-quiz
+/q/one-for-sones
+/q/twice-true-or-false
+/q/how-well-do-you-know-txt
+/q/enhypen-debut-and-beyond-quiz
+/q/k-pop-company-quiz-match-the-group-to-the-label
+
+# Blind test (5)
+/blindtest
+/blindtest/classic
+/blindtest/intro-challenge
+/blindtest/group-bts
+/guess-the-kpop-song
+
+# Portuguese pages (5)
+/pt
+/pt/blindtest
+/pt/quizzes
+/pt/faq
+/pt/leaderboard
+
+# fr, es and id landings (3)
+/fr/blind-test-kpop
+/es/adivina-la-cancion-kpop
+/id/tebak-lagu-kpop
+
+# Search landings and per-group games (8)
+/guess-the-kpop-idol
+/kpop-true-or-false
+/easy-kpop-quizzes
+/hard-kpop-quizzes
+/kpop-quiz-2026
+/kpop-demon-hunters-quiz
+/which-bts-member-are-you
+/bts-name-all-members
+
+# Trust pages (6)
+/about
+/editorial-policy
+/privacy
+/terms
+/faq
+/contact
+
+# Other public pages and redirects (4)
+/leaderboard
+/articles
+/daily
+/an-unknown-o1-parity-path
+
+# Machine files (3)
+/sitemap.xml
+/robots.txt
+/llms.txt

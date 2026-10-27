@@ -1,0 +1,218 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "black-clover",
+  "title": "Black Clover Quiz: Jump Magazines, Studio Pierrot and Tabata's Habits",
+  "slug": "jump-magazines-studio-pierrot-and-tabatas-habits-black-clover-quiz",
+  "description": "Ten easy questions on the creator, the magazines, the studio, the episodes, the film and how Tabata works. No story knowledge needed, and no spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "New series batch 2. Arc 0 facts only: production, release dates and the creator's habits. One fact per answer.",
+  "questions": [
+    {
+      "question": "Who wrote and drew the Black Clover manga?",
+      "options": [
+        "Yūki Tabata",
+        "Eiichiro Oda",
+        "Tite Kubo",
+        "Hiro Mashima"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "black-clover-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Black_Clover"
+    },
+    {
+      "question": "In which magazine did Black Clover start in February 2015?",
+      "options": [
+        "Weekly Shōnen Jump",
+        "Weekly Shōnen Magazine",
+        "Weekly Shōnen Sunday",
+        "Monthly Shōnen Sirius"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "black-clover-manga-run-003",
+        "black-clover-magazine-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Black_Clover"
+    },
+    {
+      "question": "Which magazine carried the manga for its final years?",
+      "options": [
+        "Jump Square",
+        "Saikyō Jump",
+        "Shōnen Jump+",
+        "Jump Giga"
+      ],
+      "correct": 3,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "black-clover-magazine-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Black_Clover"
+    },
+    {
+      "question": "Which studio animates the TV anime?",
+      "options": [
+        "MAPPA",
+        "Wit Studio",
+        "Bones",
+        "Studio Pierrot"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "black-clover-studio-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)"
+    },
+    {
+      "question": "How many episodes did the first TV season run?",
+      "options": [
+        "170",
+        "94",
+        "125",
+        "220"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "black-clover-anime-s1-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)"
+    },
+    {
+      "question": "In which year did the second TV season premiere?",
+      "options": [
+        "2021",
+        "2023",
+        "2026",
+        "2025"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "black-clover-anime-s2-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)"
+    },
+    {
+      "question": "What is the title of the film that opened in Japanese theaters and on Netflix in June 2023?",
+      "options": [
+        "Guardian of the Four-Leaf Grimoire",
+        "Rise of the Dark Triad",
+        "Sword of the Wizard King",
+        "Dawn of the Golden Era"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "black-clover-film-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)"
+    },
+    {
+      "question": "Which dark fantasy manga was a heavy influence on Tabata?",
+      "options": [
+        "Vagabond",
+        "Claymore",
+        "Berserk",
+        "Hellsing"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "black-clover-berserk-028"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Black_Clover"
+    },
+    {
+      "question": "How did Tabata choose the names of his characters?",
+      "options": [
+        "By asking readers to vote on names in the magazine",
+        "By borrowing the names of his assistants",
+        "By looking up interesting words in dictionaries of various languages",
+        "By reading old fantasy novels aloud"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "black-clover-naming-030"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Black_Clover"
+    },
+    {
+      "question": "What was the title of Tabata's short-lived series in Weekly Shōnen Jump before Black Clover?",
+      "options": [
+        "Hungry Joker",
+        "Sand Land",
+        "Pumpkin Scissors",
+        "Monster Hunter Orage"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "black-clover-hungry-joker-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Black_Clover"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Black Clover",
+      "url": "https://en.wikipedia.org/wiki/Black_Clover"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Black Clover (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)"
+    }
+  ]
+}

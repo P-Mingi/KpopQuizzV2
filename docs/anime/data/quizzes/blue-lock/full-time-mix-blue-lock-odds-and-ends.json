@@ -1,0 +1,229 @@
+{
+ "site": "anime",
+ "account": "oq_creator_22",
+ "group_slug": "blue-lock",
+ "title": "Full Time Mix: Blue Lock Odds and Ends",
+ "slug": "full-time-mix-blue-lock-odds-and-ends",
+ "description": "Ten mixed questions on the manga and its award, the film, the songs of two seasons, the announced third season and a few names from the cast.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Which edition of the Kodansha Manga Award gave the manga its shōnen prize in 2021?",
+   "options": [
+    "41st",
+    "43rd",
+    "45th",
+    "47th"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "blue-lock-kodansha-award-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  },
+  {
+   "question": "In which month of 2024 did the film Blue Lock: Episode Nagi reach Japanese cinemas?",
+   "options": [
+    "April",
+    "January",
+    "July",
+    "October"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-film-episode-nagi-011"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Which of these songs is an ending of season one rather than an opening?",
+   "options": [
+    "Chaos ga Kiwamaru",
+    "Judgement",
+    "Winner",
+    "Bōjaku no Charisma"
+   ],
+   "correct": 2,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-themes-season-one-012",
+    "blue-lock-themes-season-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Which of these characters is listed as a main character rather than a supporting one?",
+   "options": [
+    "Meguru Bachira",
+    "Rin Itoshi",
+    "Seishirō Nagi",
+    "Reo Mikage"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-rin-itoshi-name-022",
+    "blue-lock-meguru-bachira-name-017",
+    "blue-lock-seishiro-nagi-name-018",
+    "blue-lock-reo-mikage-name-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "question": "Which band performs Bōjaku no Charisma, the opening of season two?",
+   "options": [
+    "Ash Da Hero",
+    "Shugo Nakamura",
+    "Snow Man",
+    "Unison Square Garden"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-themes-season-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Who performs One, the ending of season two?",
+   "options": [
+    "Unison Square Garden",
+    "Ash Da Hero",
+    "Shugo Nakamura",
+    "Snow Man"
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-themes-season-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Which arc will the announced third season adapt?",
+   "options": [
+    "Neo Egoist League",
+    "Rival League",
+    "World Cup Qualifiers",
+    "Egoist Finals"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-three-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "At which event was the third season announced on September 28, 2025?",
+   "options": [
+    "Jump Festa 2025",
+    "Blue Lock Egoist Fest 2025",
+    "Anime Expo 2025",
+    "AnimeJapan 2025"
+   ],
+   "correct": 1,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-three-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Who is the director of the program, according to the cast list?",
+   "options": [
+    "Anri Teieri",
+    "Jinpachi Ego",
+    "Michael Kaiser",
+    "Ryūsei Shidou"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-jinpachi-ego-name-023",
+    "blue-lock-anri-teieri-name-024",
+    "blue-lock-ryusei-shidou-name-025",
+    "blue-lock-michael-kaiser-name-027"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "question": "In which month of 2018 did Weekly Shōnen Magazine start carrying the manga?",
+   "options": [
+    "March",
+    "May",
+    "August",
+    "November"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "blue-lock-magazine-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Blue Lock episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Blue Lock characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Blue Lock",
+   "url": "https://en.wikipedia.org/wiki/Blue_Lock"
+  }
+ ],
+ "notes": "K1 rewrite: blocked questions rewritten on verified facts 003, 006, 011, 012, 013 and the character facts 017, 018, 019, 022. Cast-list fact retired earlier; each character question cites the per-character facts."
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "which-character-set.schema.json",
+  "title": "Run O1: the character profiles of one series for Which character are you (personality_profiles of site anime, formats.md 8)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["site", "group_slug", "profiles"],
+  "properties": {
+    "site": { "const": "anime" },
+    "group_slug": { "$ref": "common.schema.json#/$defs/slug" },
+    "profiles": {
+      "$comment": "The route opens at 6 profiles (O5); K3 targets 8 or more.",
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["character_slug", "name", "axes", "trait_lines", "ord"],
+        "properties": {
+          "character_slug": { "$ref": "common.schema.json#/$defs/slug" },
+          "name": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 60 },
+          "axes": {
+            "$comment": "All six axes, 0 to 100 (lib/personality/parse.ts parseProfiles).",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["energy", "chaos", "care", "craft", "heart", "spotlight"],
+            "properties": {
+              "energy": { "$ref": "#/$defs/axisValue" }, "chaos": { "$ref": "#/$defs/axisValue" }, "care": { "$ref": "#/$defs/axisValue" },
+              "craft": { "$ref": "#/$defs/axisValue" }, "heart": { "$ref": "#/$defs/axisValue" }, "spotlight": { "$ref": "#/$defs/axisValue" }
+            }
+          },
+          "trait_lines": { "type": "array", "maxItems": 4, "items": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 140 } },
+          "ord": { "type": "integer", "minimum": 0, "maximum": 100 }
+        }
+      }
+    }
+  },
+  "$defs": { "axisValue": { "type": "number", "minimum": 0, "maximum": 100 } }
+}

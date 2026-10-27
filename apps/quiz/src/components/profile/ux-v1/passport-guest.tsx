@@ -6,6 +6,8 @@ import { Mascot } from '@/components/ui/mascot';
 
 import { PassportGuestSignIn } from './guest-islands';
 
+import type { PassportWords } from '@/lib/passport-ui/words';
+
 /** Where "Play a quiz first" goes: today's daily quiz (/daily redirects to it, or to
  *  /quizzes when there is none). The same target as every "play the daily" link. */
 export const GUEST_PLAY_HREF = '/daily';
@@ -17,13 +19,14 @@ export const GUEST_PLAY_HREF = '/daily';
  * Server component, no data read: /me renders it (flag on) instead of redirecting
  * a guest to the legacy /login page.
  */
-export function UxPassportGuest(): React.ReactElement {
+export function UxPassportGuest({ words }: { words?: Pick<PassportWords, 'guestTitle' | 'guestLead'> | undefined }): React.ReactElement {
   return (
     <UxPage width="wide" className="p10-guest">
       <section className="p10-gst" aria-labelledby="p10-gst-h">
-        <Mascot variant="celebrate" size={96} alt="" className="p10-gst-msc" priority />
-        <h1 id="p10-gst-h" className="ux-h1 p10-gst-h">Your K-pop passport</h1>
-        <p className="p10-gst-lead">Keep your scores, streak, badges and rank title in one place. Free, and no password: sign in with Google, Discord or an email link.</p>
+        {/* A world site (Run O1, lot b, P1) has no kpop mascot image: it shows none until its own brand art exists. */}
+        {words ? null : <Mascot variant="celebrate" size={96} alt="" className="p10-gst-msc" priority />}
+        <h1 id="p10-gst-h" className="ux-h1 p10-gst-h">{words ? words.guestTitle : 'Your K-pop passport'}</h1>
+        <p className="p10-gst-lead">{words ? words.guestLead : 'Keep your scores, streak, badges and rank title in one place. Free, and no password: sign in with Google, Discord or an email link.'}</p>
         <div className="p10-gst-acts">
           <PassportGuestSignIn />
           {/* A0's text link (.ux-lnk + trailing icon); no prefetch: /daily is a redirect route that reads the database */}

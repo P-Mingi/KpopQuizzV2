@@ -1,0 +1,140 @@
+[
+  {
+    "fact_id": "attack-on-titan-anime-premiere-016",
+    "note": "ANN (https://www.animenewsnetwork.com/encyclopedia/anime.php?id=14950) lists season 1 vintage as 2013-04-06 to 2013-09-28, one day earlier (late-night broadcast). Not recorded as source.",
+    "not_added_sources": [
+      "https://www.wikidata.org/wiki/Q22126305"
+    ],
+    "decided": true,
+    "decision": "kept"
+  },
+  {
+    "fact_id": "attack-on-titan-episode-count-017",
+    "note": "https://www.wikidata.org/wiki/Q22126305 gives number of episodes (P1113) = 88 versus fact value 94 (seasons 1-3 sum to 59 there).",
+    "decided": true,
+    "decision": "rejected"
+  },
+  {
+    "fact_id": "blue-lock-anime-season-one-008",
+    "note": "ANN encyclopedia https://www.animenewsnetwork.com/encyclopedia/anime.php?id=24623 lists season 1 vintage start as 2022-10-08, one day earlier (late-night broadcast); 24 episodes agree.",
+    "not_added_sources": [
+      "https://www.wikidata.org/wiki/Q117353182"
+    ],
+    "decided": true,
+    "decision": "kept"
+  },
+  {
+    "fact_id": "blue-lock-copies-circulation-005",
+    "note": "https://www.animenewsnetwork.com/press-release/2026-06-08/blue-lock-season-3-officially-titled-blue-lock-neo-egoist-league/.238286 says the manga surpassed 60 million copies worldwide as of June 2026 (July 2026 release repeats 60 million), below 65 million.",
+    "decided": true,
+    "decision": "dated"
+  },
+  {
+    "fact_id": "dandadan-anime-season-one-009",
+    "note": "Official news 182 (anime-dandadan.com/news/182/) and ANN id=30869 give start as 3 October 2024 (Thursday late night 0:26, so early 4 Oct); fact says 4 October. End date 20 Dec not found.",
+    "decided": true,
+    "decision": "changed"
+  },
+  {
+    "fact_id": "dandadan-anime-season-two-010",
+    "note": "Wikidata Q131472106 says start 2025-07-03, end 2025-09-19, 12 episodes; official news 1527 and ANN id=34211 also say 3 July 2025. Fact says 4 July.",
+    "decided": true,
+    "decision": "changed"
+  },
+  {
+    "fact_id": "demon-slayer-season-2-013",
+    "note": "Wikidata Q105847067 (Demon Slayer season 2) says 11 episodes (Entertainment District only); the fact counts 18 (Mugen Train TV arc 7 + 11).",
+    "decided": true,
+    "decision": "rejected"
+  },
+  {
+    "fact_id": "dragon-ball-dragon-ball-tv-run-016",
+    "note": "Wikidata https://www.wikidata.org/wiki/Q239506 gives end date 1989-04-12 (start 1986-02-26, 153 episodes); ANN and the fact say 1989-04-19.",
+    "not_added_sources": [
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=243"
+    ],
+    "decided": true,
+    "decision": "changed"
+  },
+  {
+    "fact_id": "dragon-ball-manga-run-013",
+    "note": "https://www.wikidata.org/wiki/Q15051307 start 1984-11-20, end 1995-05-23; ANN https://www.animenewsnetwork.com/encyclopedia/manga.php?id=297 says 1984-11-20 to 1995-05-23 (issues 1984 #51 to 1995 #25). Likely issue cover date vs release date, but values differ.",
+    "decided": true,
+    "decision": "changed"
+  },
+  {
+    "fact_id": "dragon-ball-manga-volumes-chapters-015",
+    "note": "https://www.wikidata.org/wiki/Q15051307 P2635 = 42 and 520; ANN https://www.animenewsnetwork.com/encyclopedia/manga.php?id=297 'Number of tankoubon 42', 'Chapter titles: We have 520'. Fact says 519 chapters.",
+    "decided": true,
+    "decision": "rejected"
+  },
+  {
+    "fact_id": "dragon-ball-z-tv-run-017",
+    "note": "ANN https://www.animenewsnetwork.com/encyclopedia/anime.php?id=244 lists start 1989-04-19 (Wikidata and the fact say 1989-04-26).",
+    "not_added_sources": [
+      "https://www.wikidata.org/wiki/Q477916"
+    ],
+    "decided": true,
+    "decision": "kept"
+  },
+  {
+    "fact_id": "frieren-copies-circulation-005",
+    "note": "ANN news 2026-01-19 (https://www.animenewsnetwork.com/news/2026-01-19/frieren-beyond-journey-end-anime-original-mini-anime-continues/.233250) says the manga exceeded 30 million copies, not 35 million.",
+    "decided": true,
+    "decision": "dated"
+  },
+  {
+    "fact_id": "fullmetal-alchemist-manga-award-006",
+    "note": "The official site confirms the 49th Shogakukan Manga Award in January 2004 but not the shonen category of the fact value: partial support, held.",
+    "not_added_sources": [
+      "https://www.hagaren.jp/box/history/index.html"
+    ],
+    "decided": true,
+    "decision": "changed"
+  },
+  {
+    "fact_id": "hunter-x-hunter-second-anime-2011-008",
+    "note": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=13262 Vintage: 2011-10-02 to 2014-10-24 (fact says September 2014; Wikidata Q70209136 says 2014-09-24).",
+    "decided": true,
+    "decision": "kept"
+  },
+  {
+    "fact_id": "jujutsu-kaisen-chapter-count-011",
+    "note": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=21741 says 'Chapter titles: We have 275' (30 tankoubon, 2018-03-05 to 2024-09-30); fact says 271, ANN count may include extra chapters.",
+    "decided": true,
+    "decision": "kept"
+  },
+  {
+    "fact_id": "my-hero-academia-episode-count-019",
+    "note": "https://www.wikidata.org/wiki/Q63686324 says 138 episodes (P1113), apparently outdated, against 170 in the fact.",
+    "decided": true,
+    "decision": "kept"
+  },
+  {
+    "fact_id": "one-piece-anime-size-006",
+    "note": "https://www.wikidata.org/wiki/Q710324 says 1169 episodes (P1113), apparently outdated against 1180.",
+    "decided": true,
+    "decision": "kept"
+  },
+  {
+    "fact_id": "one-piece-anime-studio-005",
+    "note": "https://www.wikidata.org/wiki/Q710324 gives start time 1999-12-12 (episode 1) where the fact says premiered October 1999; studio and network match.",
+    "not_added_sources": [
+      "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=836"
+    ],
+    "decided": true,
+    "decision": "kept"
+  },
+  {
+    "fact_id": "one-punch-man-award-2017-011",
+    "note": "https://www.animenewsnetwork.com/press-release/2016-04-17/sugoi-japan-awards-2016/.101170 dates the Sugoi Japan manga win to the 2016 awards (ceremony March 22, 2016), not 2017.",
+    "decided": true,
+    "decision": "changed"
+  },
+  {
+    "fact_id": "sailor-moon-manga-volumes-004",
+    "note": "Kodansha vol 1 page https://www.kodansha.co.jp/comic/products/0000027190 lists release date 1992-07-01 and vol 18 page https://www.kodansha.co.jp/comic/products/0000027326 lists 1997-04-02; fact says 6 July 1992 and 4 April 1997.",
+    "decided": true,
+    "decision": "changed"
+  }
+]

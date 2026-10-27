@@ -1,0 +1,416 @@
+{
+  "$comment": "Run O1 lane K1, set which: Which One Piece character are you, written by us (owner, 2026-10-26). Arc 0, scope both. Eight questions about the reader with a sea voyage flavour and no story detail. Six profiles, all spoiler level 0 characters of docs/anime/data/series/one-piece.json (Makino and Koby were added to the series file, first arc). Facts cited: monkey-d-luffy: one-piece-luffy-carefree-071, one-piece-luffy-loyal-captain-072, one-piece-luffy-stomach-061; roronoa-zoro: one-piece-zoro-train-or-nap-073, one-piece-zoro-loyalty-075, one-piece-zoro-strong-drinker-076, one-piece-zoro-direction-074; shanks: one-piece-shanks-mentor-077, one-piece-shanks-straw-hat-078, one-piece-shanks-lost-arm-079, one-piece-shanks-own-crew-080; gol-d-roger: one-piece-roger-treasure-026, one-piece-roger-treasure-open-081; makino: one-piece-makino-bartender-083, one-piece-makino-raised-luffy-084; koby: one-piece-koby-first-friend-086, one-piece-koby-chore-boy-087, one-piece-koby-escape-088.",
+  "site": "anime",
+  "group_slug": "one-piece",
+  "status": "published",
+  "spoiler": {
+    "arc": 0,
+    "scope": "both"
+  },
+  "questions": [
+    {
+      "ord": 1,
+      "question": "You are handed a small boat and a free week at sea. What do you load first?",
+      "options": [
+        {
+          "text": "A mountain of food and no map",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Training gear and a sunny spot for a nap",
+          "weights": {
+            "energy": 1,
+            "chaos": 1,
+            "heart": 4
+          }
+        },
+        {
+          "text": "A clever clue to a prize nobody has found yet",
+          "weights": {
+            "craft": 5,
+            "heart": 4,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "Cups, a kettle and room for company",
+          "weights": {
+            "energy": 2,
+            "care": 0,
+            "spotlight": 4
+          }
+        }
+      ]
+    },
+    {
+      "ord": 2,
+      "question": "A kid tells you they dream of setting off across the sea. You:",
+      "options": [
+        {
+          "text": "Give them something precious to keep them going",
+          "weights": {
+            "care": 0,
+            "heart": 2,
+            "spotlight": 1
+          }
+        },
+        {
+          "text": "Say go for it, and offer to come along as a friend",
+          "weights": {
+            "energy": 5,
+            "care": 4,
+            "chaos": 4
+          }
+        },
+        {
+          "text": "Feed them well and wave them off with a smile",
+          "weights": {
+            "energy": 2,
+            "care": 0,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "Admit you wish you had that kind of nerve",
+          "weights": {
+            "energy": 1,
+            "heart": 0,
+            "spotlight": 5
+          }
+        }
+      ]
+    },
+    {
+      "ord": 3,
+      "question": "How do you spend a long, free afternoon?",
+      "options": [
+        {
+          "text": "Training until the light fades",
+          "weights": {
+            "energy": 1,
+            "craft": 1,
+            "heart": 4
+          }
+        },
+        {
+          "text": "Stirring up some fun with no plan at all",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "craft": 3
+          }
+        },
+        {
+          "text": "Quietly tidying up for everyone else",
+          "weights": {
+            "chaos": 0,
+            "care": 0,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "Telling a story about the biggest adventure you can imagine",
+          "weights": {
+            "energy": 4,
+            "craft": 5,
+            "spotlight": 0
+          }
+        }
+      ]
+    },
+    {
+      "ord": 4,
+      "question": "You get lost on the way to a friend's house. What now?",
+      "options": [
+        {
+          "text": "Keep walking, fully sure this is the right road",
+          "weights": {
+            "chaos": 2,
+            "craft": 0,
+            "heart": 5
+          }
+        },
+        {
+          "text": "Ask a stranger, then end up chatting for an hour",
+          "weights": {
+            "energy": 4,
+            "care": 3,
+            "chaos": 4
+          }
+        },
+        {
+          "text": "Turn back and double check, then apologise for being late",
+          "weights": {
+            "energy": 1,
+            "chaos": 0,
+            "heart": 0
+          }
+        },
+        {
+          "text": "Take the long way gladly, it is an excuse for an adventure",
+          "weights": {
+            "chaos": 5,
+            "craft": 4,
+            "spotlight": 1
+          }
+        }
+      ]
+    },
+    {
+      "ord": 5,
+      "question": "Your friends are stuck in a tight spot. Which role do you take?",
+      "options": [
+        {
+          "text": "The calm one who keeps everyone steady",
+          "weights": {
+            "chaos": 0,
+            "care": 0,
+            "spotlight": 2
+          }
+        },
+        {
+          "text": "The one who charges in first",
+          "weights": {
+            "energy": 5,
+            "chaos": 4,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "The one who trained for exactly this day",
+          "weights": {
+            "energy": 2,
+            "craft": 1,
+            "heart": 5
+          }
+        },
+        {
+          "text": "The one who makes sure everybody is fed and in good spirits",
+          "weights": {
+            "energy": 3,
+            "care": 0,
+            "heart": 1
+          }
+        }
+      ]
+    },
+    {
+      "ord": 6,
+      "question": "Which compliment would mean the most to you?",
+      "options": [
+        {
+          "text": "You always knew the right moment to step back",
+          "weights": {
+            "care": 0,
+            "heart": 3,
+            "spotlight": 4
+          }
+        },
+        {
+          "text": "Everyone feels safe around you",
+          "weights": {
+            "chaos": 0,
+            "care": 0,
+            "heart": 1
+          }
+        },
+        {
+          "text": "You never gave up on a friend",
+          "weights": {
+            "energy": 4,
+            "care": 2,
+            "heart": 3
+          }
+        },
+        {
+          "text": "You inspired me to try something big",
+          "weights": {
+            "energy": 4,
+            "craft": 4,
+            "spotlight": 0
+          }
+        }
+      ]
+    },
+    {
+      "ord": 7,
+      "question": "Pick your drink for the evening.",
+      "options": [
+        {
+          "text": "Something strong, and I will not even feel it",
+          "weights": {
+            "energy": 1,
+            "chaos": 2,
+            "heart": 5
+          }
+        },
+        {
+          "text": "Whatever is going, next to a huge plate of meat",
+          "weights": {
+            "energy": 5,
+            "chaos": 5,
+            "craft": 2
+          }
+        },
+        {
+          "text": "Just tea and a good chat",
+          "weights": {
+            "energy": 1,
+            "chaos": 0,
+            "care": 1
+          }
+        },
+        {
+          "text": "A toast to the future with the whole room",
+          "weights": {
+            "energy": 4,
+            "chaos": 3,
+            "spotlight": 0
+          }
+        }
+      ]
+    },
+    {
+      "ord": 8,
+      "question": "What would you most like to leave behind one day?",
+      "options": [
+        {
+          "text": "A hidden prize that someone has to find to earn",
+          "weights": {
+            "chaos": 4,
+            "craft": 5,
+            "spotlight": 0
+          }
+        },
+        {
+          "text": "A friend with a brighter future than mine",
+          "weights": {
+            "care": 0,
+            "heart": 3,
+            "spotlight": 2
+          }
+        },
+        {
+          "text": "A warm seat and a good memory",
+          "weights": {
+            "chaos": 0,
+            "care": 1,
+            "spotlight": 5
+          }
+        },
+        {
+          "text": "A story about the day I took a chance",
+          "weights": {
+            "energy": 2,
+            "heart": 0,
+            "spotlight": 4
+          }
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "character_slug": "monkey-d-luffy",
+      "traits": {
+        "energy": 85,
+        "chaos": 80,
+        "care": 55,
+        "craft": 60,
+        "heart": 65,
+        "spotlight": 20
+      },
+      "profile": [
+        "You are cheerful and carefree, and you rarely stop to worry about what comes next.",
+        "You are loyal to your friends, and you make new ones wherever you go.",
+        "Mealtimes matter to you, and your stomach has a vote in most decisions."
+      ],
+      "ord": 1
+    },
+    {
+      "character_slug": "roronoa-zoro",
+      "traits": {
+        "energy": 25,
+        "chaos": 50,
+        "care": 25,
+        "craft": 25,
+        "heart": 75,
+        "spotlight": 40
+      },
+      "profile": [
+        "You are happiest training for a big goal or napping in the sun.",
+        "You are loyal to the people you respect, and you can hold your drink better than most.",
+        "Your sense of direction is a running joke among your friends."
+      ],
+      "ord": 2
+    },
+    {
+      "character_slug": "shanks",
+      "traits": {
+        "energy": 45,
+        "chaos": 10,
+        "care": 0,
+        "craft": 40,
+        "heart": 70,
+        "spotlight": 25
+      },
+      "profile": [
+        "You are the mentor people remember, the one who gave them something to carry for life.",
+        "You would give up a lot to keep a kid safe, and you captain a crew of your own."
+      ],
+      "ord": 3
+    },
+    {
+      "character_slug": "gol-d-roger",
+      "traits": {
+        "energy": 85,
+        "chaos": 70,
+        "care": 35,
+        "craft": 90,
+        "heart": 75,
+        "spotlight": 0
+      },
+      "profile": [
+        "You leave something so big behind that people set sail to find it.",
+        "You would leave your greatest treasure where anyone could take it, as long as they find it first."
+      ],
+      "ord": 4
+    },
+    {
+      "character_slug": "makino",
+      "traits": {
+        "energy": 55,
+        "chaos": 20,
+        "care": 20,
+        "craft": 40,
+        "heart": 25,
+        "spotlight": 80
+      },
+      "profile": [
+        "You keep the cups full and the lights on for everyone who walks through the door.",
+        "You have a way of looking after kids long before they set off to see the world."
+      ],
+      "ord": 5
+    },
+    {
+      "character_slug": "koby",
+      "traits": {
+        "energy": 40,
+        "chaos": 30,
+        "care": 45,
+        "craft": 45,
+        "heart": 30,
+        "spotlight": 50
+      },
+      "profile": [
+        "You are the kind of friend who turns up first and means a lot to the one you stand beside.",
+        "You may start out stuck doing everyone else's chores, but the right friend can change your course."
+      ],
+      "ord": 6
+    }
+  ]
+}

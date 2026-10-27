@@ -1,0 +1,287 @@
+{
+ "site": "anime",
+ "account": "oq_creator_13",
+ "group_slug": "dandadan",
+ "title": "Voice, Habit, Hint: Dandadan in Three Clues",
+ "slug": "voice-habit-hint-dandadan-in-three-clues",
+ "description": "Ten guess-from-clues questions. Most start with the Japanese voice actor, then a habit or trait, then a strong hint; the last one is a season. Light spoilers up to Season 2.",
+ "quiz_type": "guess_from_clues",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Clues format: clue 1 is the Japanese voice actor (or the closing song), clue 2 a habit or trait, clue 3 a strong hint; not a plain who-is-who.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Dandadan characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Dandadan episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Who is this character?",
+   "clues": [
+    "In the Japanese version, she is voiced by Nana Mizuki.",
+    "She hosts a television show where she tells fortunes, and it has made her rich.",
+    "She looks about twenty, yet she is Momo's grandmother."
+   ],
+   "options": [
+    "Aira Shiratori",
+    "Momo Ayase",
+    "Turbo Granny",
+    "Seiko Ayase"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-seiko-voice-jp-041",
+    "dandadan-seiko-tv-fortune-042",
+    "dandadan-seiko-looks-twenty-068",
+    "dandadan-seiko-spirit-medium-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Which yokai is this?",
+   "clues": [
+    "In Japanese, this yokai is voiced by Mayumi Tanaka.",
+    "Long ago, she was a gentle presence for the ghosts of girls who met a terrible end.",
+    "Seiko locks her spirit inside a lucky cat doll."
+   ],
+   "options": [
+    "Turbo Granny",
+    "Aira Shiratori",
+    "Seiko Ayase",
+    "Alien Serpo"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-turbo-granny-voice-jp-044",
+    "dandadan-turbo-granny-comforter-069",
+    "dandadan-turbo-granny-doll-046"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Which aliens are these?",
+   "clues": [
+    "Kazuya Nakai is their Japanese voice.",
+    "They come from a planet of their own and have no females at all.",
+    "They kidnap people from Earth to get body parts they lack."
+   ],
+   "options": [
+    "Alien Serpo",
+    "Turbo Granny",
+    "Peeny-Weeny",
+    "Jin Enjoji"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-serpo-voice-jp-047",
+    "dandadan-serpo-all-male-race-048",
+    "dandadan-serpo-abductions-049"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Who is this character?",
+   "clues": [
+    "In Japanese, she is voiced by Ayane Sakura.",
+    "She is sure that heaven picked her to drive out yokai.",
+    "At Kami High, she is the idol of the school."
+   ],
+   "options": [
+    "Aira Shiratori",
+    "Seiko Ayase",
+    "Momo Ayase",
+    "Turbo Granny"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-aira-voice-jp-050",
+    "dandadan-aira-chosen-exorcist-070",
+    "dandadan-aira-school-idol-052"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Who is this character?",
+   "clues": [
+    "Kaito Ishikawa is his Japanese voice.",
+    "He looks like a handsome athlete, but he is a goofy soul who praises everyone.",
+    "He is Momo's childhood friend and ends up living with her and Seiko."
+   ],
+   "options": [
+    "Alien Serpo",
+    "Peeny-Weeny",
+    "Jin Enjoji",
+    "Ken Takakura"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-jiji-voice-jp-053",
+    "dandadan-jiji-eccentric-jock-054",
+    "dandadan-jiji-moves-in-055"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Which yokai is this?",
+   "clues": [
+    "His Japanese voice is Mutsumi Tamura.",
+    "Hot water calms him down, and cold brings his power back.",
+    "He was born from a human sacrifice and later bonds with a boy."
+   ],
+   "options": [
+    "Turbo Granny",
+    "Alien Serpo",
+    "Acrobatic Silky",
+    "Evil Eye"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-evil-eye-voice-jp-056",
+    "dandadan-evil-eye-hot-cold-057",
+    "dandadan-evil-eye-human-sacrifice-058",
+    "dandadan-jiji-moves-in-055"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Who is this character?",
+   "clues": [
+    "Daichi Fujiwara is his Japanese voice.",
+    "He keeps hitting on girls, who reject him almost every time.",
+    "His love of aliens makes him the best user of nanoskin."
+   ],
+   "options": [
+    "Jin Enjoji",
+    "Kinta Sakata",
+    "Ken Takakura",
+    "Peeny-Weeny"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-kinta-voice-jp-059",
+    "dandadan-kinta-unwelcome-advances-060",
+    "dandadan-kinta-nanoskin-061"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Who is this character?",
+   "clues": [
+    "In Japanese, Tomokazu Sugita voices him.",
+    "He is a living anatomical model.",
+    "He lives at the high school of Momo and Okarun and is madly in love with Hana."
+   ],
+   "options": [
+    "Chiquitita",
+    "Taro",
+    "Peeny-Weeny",
+    "Hana"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-taro-voice-jp-062",
+    "dandadan-taro-anatomical-model-063",
+    "dandadan-taro-loves-hana-064"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Who is this character?",
+   "clues": [
+    "She is a strict class representative.",
+    "In private she is a secret fan of vampires.",
+    "Her gravity powers are tied to her singing."
+   ],
+   "options": [
+    "Seiko Ayase",
+    "Aira Shiratori",
+    "Rin Sawaki",
+    "Momo Ayase"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-rin-class-rep-vampires-066",
+    "dandadan-rin-gravity-singing-067"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+  },
+  {
+   "question": "Which season is this?",
+   "clues": [
+    "Its ending song is Doukashiteru by WurtS.",
+    "Its opening song is Kakumei Dochu by Aina the End.",
+    "It began in July 2025."
+   ],
+   "options": [
+    "Season 4",
+    "Season 2",
+    "Season 3",
+    "Season 1"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "dandadan-themes-season-two-014",
+    "dandadan-anime-season-two-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  }
+ ]
+}

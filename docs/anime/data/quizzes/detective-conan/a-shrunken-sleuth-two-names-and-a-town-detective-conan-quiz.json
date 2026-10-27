@@ -1,0 +1,219 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "detective-conan",
+  "title": "Detective Conan Quiz: A Shrunken Sleuth, Two Titles and a Town Named After Him",
+  "slug": "a-shrunken-sleuth-two-names-and-a-town-detective-conan-quiz",
+  "description": "Ten easy questions on the creator, the magazine, the English title, the films, the music and the hometown. No story knowledge needed, and no spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "New series batch 3. Arc 0 facts only: production, naming and real-world links. One fact per answer.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Case Closed",
+      "url": "https://en.wikipedia.org/wiki/Case_Closed"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Case Closed (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Who created the Detective Conan manga?",
+      "options": [
+        "Masashi Kishimoto",
+        "Gosho Aoyama",
+        "Tite Kubo",
+        "Eiichiro Oda"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "detective-conan-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Case_Closed"
+    },
+    {
+      "question": "The manga started in 1994 in which Shogakukan magazine?",
+      "options": [
+        "Weekly Shōnen Sunday",
+        "Monthly Shōnen Gangan",
+        "Weekly Shōnen Magazine",
+        "Weekly Shōnen Jump"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "detective-conan-magazine-003",
+        "detective-conan-manga-start-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Case_Closed"
+    },
+    {
+      "question": "Which pop singer has sung more theme songs for a single anime series than anyone else, according to Guinness?",
+      "options": [
+        "Hikaru Utada",
+        "Namie Amuro",
+        "Mai Kuraki",
+        "Ayumi Hamasaki"
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "detective-conan-guinness-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Case_Closed"
+    },
+    {
+      "question": "In which year did the first Detective Conan film reach cinemas?",
+      "options": [
+        "1997",
+        "1996",
+        "1999",
+        "2001"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "detective-conan-first-film-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)"
+    },
+    {
+      "question": "Why were several American releases renamed Case Closed?",
+      "options": [
+        "Because the show was merged with another",
+        "Because of legal problems with the original name",
+        "Because the hero changed his name",
+        "Because the studio changed owners"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-naming-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Case_Closed"
+    },
+    {
+      "question": "Which town in Tottori, Aoyama's hometown, markets itself as Conan Town?",
+      "options": [
+        "Sakaiminato",
+        "Hokuei",
+        "Kurayoshi",
+        "Yonago"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-hokuei-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Case_Closed"
+    },
+    {
+      "question": "Aoyama drew on Arsène Lupin, samurai films and which famous detective?",
+      "options": [
+        "Hercule Poirot",
+        "Philip Marlowe",
+        "Sherlock Holmes",
+        "Auguste Dupin"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-inspiration-020"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Case_Closed"
+    },
+    {
+      "question": "As of October 2026, how many tankobon volumes has the manga reached?",
+      "options": [
+        "88",
+        "59",
+        "109",
+        "120"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "detective-conan-volumes-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Case_Closed"
+    },
+    {
+      "question": "Which company co-produces the anime together with TMS Entertainment?",
+      "options": [
+        "Yomiuri Telecasting Corporation",
+        "Fuji Television",
+        "Aniplex",
+        "Toho"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "detective-conan-anime-studio-008",
+        "detective-conan-broadcaster-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)"
+    },
+    {
+      "question": "Which band sang the very first opening theme, Mune ga Dokidoki?",
+      "options": [
+        "B'z",
+        "ZARD",
+        "Ziggy",
+        "The High-Lows"
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "detective-conan-first-opening-017"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)"
+    }
+  ]
+}

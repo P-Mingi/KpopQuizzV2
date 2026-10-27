@@ -1,0 +1,258 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Count Them Up: Ten Anime and Manga in Numbers",
+ "slug": "count-them-up-ten-anime-and-manga-in-numbers",
+ "description": "Ten questions where the answer is a number: episode totals, volumes and chapters of finished runs across the catalogue. Every figure comes from a sourced fact. No spoilers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Cross-series set of counts. Only finished runs or fixed totals; arc 0.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Cowboy Bebop",
+   "url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Death Note",
+   "url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Sailor Moon (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Fairy Tail (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: Jujutsu Kaisen",
+   "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: List of Haikyu!! episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: Bleach (manga)",
+   "url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: 進撃の巨人",
+   "url": "https://ja.wikipedia.org/wiki/%E9%80%B2%E6%92%83%E3%81%AE%E5%B7%A8%E4%BA%BA"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: List of Vinland Saga chapters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  },
+  {
+   "id": "S10",
+   "title": "Wikipedia: Gintama (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)"
+  }
+ ],
+ "questions": [
+  {
+   "question": "The Cowboy Bebop series is a single season. How many episodes, which the show calls sessions, does it have?",
+   "options": [
+    "39",
+    "26",
+    "13",
+    "24"
+   ],
+   "correct": 1,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "cowboy-bebop-episode-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Cowboy_Bebop"
+  },
+  {
+   "question": "How many episodes did the Death Note anime run for on Nippon Television?",
+   "options": [
+    "37",
+    "52",
+    "26",
+    "25"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "death-note-anime-run-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "Toei Animation's 1992 Sailor Moon anime ran over five seasons. How many episodes is that in total?",
+   "options": [
+    "150",
+    "100",
+    "250",
+    "200"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "sailor-moon-anime-run-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+  },
+  {
+   "question": "The first season of Fairy Tail has 175 episodes. How many does the whole TV anime reach across all its seasons?",
+   "options": [
+    "175",
+    "250",
+    "328",
+    "400"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fairy-tail-anime-total-012",
+    "fairy-tail-anime-s1-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail_(TV_series)"
+  },
+  {
+   "question": "How many episodes did the original Gintama TV series run for on TV Tokyo, from 2006 to 2010?",
+   "options": [
+    "300",
+    "367",
+    "201",
+    "150"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "gintama-series-1-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Gintama_(TV_series)"
+  },
+  {
+   "question": "The Jujutsu Kaisen manga ended in 2024. How many collected volumes does it fill?",
+   "options": [
+    "30",
+    "25",
+    "38",
+    "20"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-volume-count-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+  },
+  {
+   "question": "Over four seasons, how many episodes does the Haikyu!! TV anime have in all?",
+   "options": [
+    "100",
+    "25",
+    "85",
+    "64"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-anime-totals-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  },
+  {
+   "question": "How many collected volumes did the Bleach manga fill?",
+   "options": [
+    "108",
+    "27",
+    "54",
+    "74"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bleach-volume-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
+  },
+  {
+   "question": "The Attack on Titan manga closed with how many chapters?",
+   "options": [
+    "139",
+    "220",
+    "112",
+    "100"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "attack-on-titan-chapter-count-015"
+   ],
+   "source_url": "https://ja.wikipedia.org/wiki/%E9%80%B2%E6%92%83%E3%81%AE%E5%B7%A8%E4%BA%BA"
+  },
+  {
+   "question": "Vinland Saga's manga finished with 29 volumes. How many chapters do those volumes hold?",
+   "options": [
+    "139",
+    "220",
+    "300",
+    "180"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "vinland-saga-volumes-chapters-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  }
+ ]
+}

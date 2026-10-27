@@ -1,0 +1,218 @@
+{
+ "site": "anime",
+ "account": "oq_creator_21",
+ "group_slug": "apothecary-diaries",
+ "title": "Inside the Rear Palace: Apothecary Diaries Basics",
+ "slug": "inside-the-rear-palace-apothecary-diaries-basics",
+ "description": "Ten easy questions on the author, the web novel, the light novels, the manga, the setting and the first anime season. No story knowledge needed.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Who is the author of the story?",
+   "options": [
+    "Reki Kawahara",
+    "Kugane Maruyama",
+    "Hyūganatsu",
+    "Rifujin na Magonote"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-author-story-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Who illustrates the published light novels?",
+   "options": [
+    "Touko Shino",
+    "Nekokurage",
+    "Minoji Kurata",
+    "Hyūganatsu"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-author-story-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Which site first carried the story as a web novel?",
+   "options": [
+    "Kakuyomu",
+    "Alphapolis",
+    "Pixiv",
+    "Shōsetsuka ni Narō"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-novel-history-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "In which year did the story begin as a web novel?",
+   "options": [
+    "2009",
+    "2011",
+    "2014",
+    "2017"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-novel-history-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "In which year did the Hero Bunko light novel line begin?",
+   "options": [
+    "2011",
+    "2014",
+    "2017",
+    "2023"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-novel-history-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "How many light novel volumes were out by May 2025?",
+   "options": [
+    "12",
+    "17",
+    "20",
+    "16"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-novel-history-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Which magazine carries the first manga adaptation drawn by Nekokurage?",
+   "options": [
+    "Monthly Big Gangan",
+    "Weekly Shōnen Jump",
+    "Monthly Sunday Gene-X",
+    "Young Jump"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "apothecary-diaries-manga-big-gangan-004",
+    "apothecary-diaries-manga-gene-x-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Which Chinese dynasty era inspires the invented empire of the story?",
+   "options": [
+    "Ming",
+    "Qing",
+    "Tang",
+    "Song"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-setting-tang-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "How many copies were in circulation across the light novels and both manga by August 2026?",
+   "options": [
+    "Over 5.7 million",
+    "Over 17 million",
+    "Over 570 million",
+    "Over 57 million"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "apothecary-diaries-copies-circulation-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "question": "Which channel aired the first anime season in Japan?",
+   "options": [
+    "Nippon TV",
+    "TV Tokyo",
+    "Fuji TV",
+    "TBS"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "apothecary-diaries-anime-season-one-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: The Apothecary Diaries",
+   "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of The Apothecary Diaries episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_episodes"
+  }
+ ],
+ "notes": "Starter: arc 0 facts only (002, 003, 004, 006, 009, 010). Author, illustrator, web novel site and year, light novel start and volumes, the Big Gangan manga, the Tang setting, sales and the first channel."
+}

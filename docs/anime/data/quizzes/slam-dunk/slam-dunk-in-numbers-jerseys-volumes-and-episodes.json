@@ -1,0 +1,222 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "slam-dunk",
+  "title": "Slam Dunk in Numbers: Jerseys, Volumes and Episodes",
+  "slug": "slam-dunk-in-numbers-jerseys-volumes-and-episodes",
+  "description": "Ten questions where the answer is a number: jersey numbers, volumes, chapters, episodes, chalkboards and prizes of Slam Dunk. Some jerseys belong to players who only join later.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Numbers format: every answer is a figure from a cited fact; the circulation figure is dated 2025.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Slam Dunk characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Slam Dunk (manga)",
+      "url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "title": "Wikipedia: The First Slam Dunk",
+      "url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk",
+      "id": "S3"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Which jersey number does Sakuragi wear?",
+      "options": [
+        "10",
+        "15",
+        "7",
+        "4"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-hanamichi-sakuragi-name-046"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Which jersey number does the Shohoku captain wear?",
+      "options": [
+        "11",
+        "5",
+        "4",
+        "9"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-takenori-akagi-name-050"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Which jersey number does Rukawa wear?",
+      "options": [
+        "8",
+        "11",
+        "14",
+        "6"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-kaede-rukawa-name-053"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Which jersey number does the vice-captain Kogure wear?",
+      "options": [
+        "12",
+        "5",
+        "14",
+        "3"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-kiminobu-kogure-name-063"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "Which jersey number does the sharpshooter Mitsui wear?",
+      "options": [
+        "4",
+        "7",
+        "10",
+        "14"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "slam-dunk-hisashi-mitsui-name-065"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    },
+    {
+      "question": "How many collected volumes does the original manga edition have?",
+      "options": [
+        "31",
+        "36",
+        "27",
+        "24"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "slam-dunk-volumes-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "question": "In which year did the manga begin in Weekly Shonen Jump?",
+      "options": [
+        "1988",
+        "1990",
+        "1992",
+        "1994"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "slam-dunk-manga-start-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "question": "In which year did the TV anime start airing?",
+      "options": [
+        "1990",
+        "1991",
+        "1993",
+        "1995"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "slam-dunk-anime-run-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    },
+    {
+      "question": "In which year was The First Slam Dunk released in Japanese cinemas?",
+      "options": [
+        "2023",
+        "2022",
+        "2021",
+        "2020"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "slam-dunk-ichi-release-038"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/The_First_Slam_Dunk"
+    },
+    {
+      "question": "Which numbered Shogakukan Manga Award did the series win in 1994?",
+      "options": [
+        "The 30th",
+        "The 20th",
+        "The 40th",
+        "The 50th"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "slam-dunk-award-shogakukan-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)"
+    }
+  ]
+}

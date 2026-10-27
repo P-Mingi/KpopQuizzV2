@@ -1,0 +1,249 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Who Eats What? Sweet Teeth, Snacks and Appetites",
+ "slug": "who-eats-what-sweet-teeth-snacks-and-appetites",
+ "description": "Ten questions on the foods anime characters are known for: apples, peanuts, cake, weeds, rice balls, parfaits and a pizza sponsor. Sourced character details, no spoilers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "easy",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Cross-series food set. Every detail from a verified character or series fact. Arc 0; no character names in options.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Death Note characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Spy × Family (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Sailor Moon (character)",
+   "url": "https://en.wikipedia.org/wiki/Sailor_Moon_(character)"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Bocchi the Rock!",
+   "url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: Fruits Basket",
+   "url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: List of Gintama characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: List of Code Geass characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: List of Frieren characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Ryuk, the bored death god of Death Note, has a weakness for which fruit?",
+   "options": [
+    "Apples",
+    "Grapes",
+    "Pears",
+    "Oranges"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-ryuk-apples-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Anya Forger's best-known catchphrase says she likes which snack?",
+   "options": [
+    "Chestnuts",
+    "Almonds",
+    "Popcorn",
+    "Peanuts"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "spy-x-family-anya-peanuts-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
+  },
+  {
+   "question": "The detective L is a scrawny crouching genius who eats what without end?",
+   "options": [
+    "Sweets",
+    "Fried chicken",
+    "Spicy noodles",
+    "Rice balls"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-l-habits-015"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+  },
+  {
+   "question": "Usagi Tsukino of Sailor Moon is a glutton for sweets, yet she is said to dislike which food?",
+   "options": [
+    "Pancakes",
+    "Carrots",
+    "Dumplings",
+    "Cake"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sailor-moon-usagi-dislikes-carrots-064",
+    "sailor-moon-usagi-cake-lover-032"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(character)"
+  },
+  {
+   "question": "When her money runs out because of her gear, the bassist Ryo Yamada of Bocchi the Rock! sometimes eats what?",
+   "options": [
+    "Weeds",
+    "Dry noodles",
+    "Leftover bread",
+    "Plain rice"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "bocchi-the-rock-ryo-yamada-weeds-047"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+  },
+  {
+   "question": "In the childhood game that gives Fruits Basket its title, Tohru Honda is given which food to play?",
+   "options": [
+    "A melon",
+    "A rice ball",
+    "A strawberry",
+    "An apple"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "fruits-basket-title-game-010",
+    "fruits-basket-tohru-honda-onigiri-031"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket"
+  },
+  {
+   "question": "Gintoki Sakata starts the story by beating up officials over which spilled treat?",
+   "options": [
+    "His ramen",
+    "His dango",
+    "His curry",
+    "His parfait"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "gintama-gintoki-parfait-077"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+  },
+  {
+   "question": "Which Gintama character is known for an enormous appetite that clears plates in seconds?",
+   "options": [
+    "Tae Shimura",
+    "Kagura",
+    "Shinpachi Shimura",
+    "Gintoki Sakata"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "gintama-kagura-appetite-078"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+  },
+  {
+   "question": "Which restaurant chain sponsored Code Geass in Japan, with C.C. ordering from it on Lelouch's card?",
+   "options": [
+    "KFC",
+    "McDonald's",
+    "Pizza Hut",
+    "Domino's"
+   ],
+   "correct": 2,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "code-geass-pizza-hut-cc-073"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+  },
+  {
+   "question": "Which member of the old Hero Party in Frieren: Beyond Journey's End is the priest with a fondness for drink?",
+   "options": [
+    "Fern",
+    "Himmel",
+    "Heiter",
+    "Eisen"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "frieren-heiter-drinking-priest-042"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+  }
+ ]
+}

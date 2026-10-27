@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
+import { forSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -38,9 +39,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
 
-  let query = supabase
+  let query = forSite(supabase
     .from('creator_notifications')
-    .update({ is_read: true })
+    .update({ is_read: true }))
     .eq('user_id', user.id)
     .eq('is_read', false);
 

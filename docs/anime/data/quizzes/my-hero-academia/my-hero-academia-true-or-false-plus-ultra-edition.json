@@ -1,0 +1,159 @@
+{
+  "site": "anime",
+  "account": "oq_creator_09",
+  "group_slug": "my-hero-academia",
+  "title": "My Hero Academia True or False: Plus Ultra Edition",
+  "slug": "my-hero-academia-true-or-false-plus-ultra-edition",
+  "description": "Ten statements about the manga, the anime and the world of Quirks. Read the numbers twice.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Kohei Horikoshi wrote and drew every chapter of the My Hero Academia manga himself.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-manga-creator-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "The My Hero Academia manga ran for twenty years, from July 2004 until August 2024.",
+      "correct": false,
+      "fun_fact": "It ran for a decade, from July 2014.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "my-hero-academia-manga-run-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "The My Hero Academia manga has won both a Sugoi Japan Award and a Harvey Award.",
+      "correct": true,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "my-hero-academia-awards-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "The spin-off manga Vigilantes ran between 2016 and 2019.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "my-hero-academia-vigilantes-spinoff-028"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "Dish performed the opening No.1 in season 5.",
+      "correct": true,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-opening-themes-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Roughly four in five people in the world of My Hero Academia have a superpower called a Quirk.",
+      "correct": true,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-quirk-world-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "Izuku starts the story as a boy with a powerful Quirk.",
+      "correct": false,
+      "fun_fact": "Izuku starts with no Quirk at all, yet still dreams of becoming a hero.",
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "my-hero-academia-izuku-quirkless-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "Four animated films have been released, starting with Two Heroes and ending with You're Next.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-anime-films-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "question": "Zarame performed Tsubomi, an ending of season 7.",
+      "correct": false,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-ending-themes-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    },
+    {
+      "question": "Blue Encount performed the season 4 opening Starmarker.",
+      "correct": false,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "my-hero-academia-opening-themes-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: My Hero Academia",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: My Hero Academia (TV series)",
+      "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
+    }
+  ],
+  "notes": "Statements mirror the fact texts; false ones change one detail. K1 rewrite: blocked questions rewritten on verified facts (011, 012, 024, 028)."
+}

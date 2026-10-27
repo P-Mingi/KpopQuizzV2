@@ -1,4 +1,6 @@
 import { Icon } from '@/components/ux-v1/icon';
+import { GENRE } from '@/lib/site/genre';
+import { SITE } from '@/lib/site/registry';
 
 import type { CreatorsView } from '@/lib/ux-v1/p9/data';
 
@@ -28,9 +30,7 @@ export function HowPoints({ creatorViews }: { creatorViews: CreatorsView[] }): R
       <Acc title="Fandom war points">
         {/* explicit space: SWC drops the leading space of a multi-line JSX text that holds an entity */}
         Every finished quiz about a group adds <b>1 point</b>{' '}to that group&apos;s fandom, whoever plays it, guests and
-        replays included. The board counts the <b>last 7 days</b> and updates every hour; the change is against the 7 days
-        before. General K-pop quizzes and blindtests do not count. Your main group, set in Settings, is the fandom pinned
-        under the board.
+        replays included. The board counts the <b>last 7 days</b>{` and updates every hour; the change is against the 7 days before. General ${GENRE} quizzes${SITE.features.blindTest ? ' and blindtests' : ''} do not count. Your main group, set in Settings, is the fandom pinned under the board.`}
       </Acc>
       <Acc title="Player points">
         Players are ranked by <b>all-time XP</b>, the XP that sets your level on your passport. Finishing a quiz for the

@@ -6,6 +6,7 @@ import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { ROUND_SIZE } from '@/lib/blind-test-playlists';
 import { MASTERY, isMastered } from '@/lib/passport';
+import { forSite } from '@/lib/site/scope';
 import type { PersonCardData } from '@/components/profile/person-card';
 
 // Workstream G2 - per-group hub data. Every query is a cookie-free public read
@@ -33,9 +34,9 @@ export interface GroupNameAllGame {
 export const getGroupNameAllGame = unstable_cache(
   async (groupId: number): Promise<GroupNameAllGame | null> => {
   const db = createPublicReadClient();
-  const { data } = await db
+  const { data } = await forSite(db
     .from('games')
-    .select('slug, content')
+    .select('slug, content'))
     .eq('group_id', groupId)
     .eq('game_type', 'name_all_members')
     .eq('status', 'published')
@@ -63,9 +64,9 @@ export const getGroupNameAllGame = unstable_cache(
 export const getGroupBlindtestInfo = unstable_cache(
   async (groupId: number): Promise<{ qualifies: boolean; songs: number }> => {
   const db = createPublicReadClient();
-  const { count, error } = await db
+  const { count, error } = await forSite(db
     .from('songs')
-    .select('id', { count: 'exact', head: true })
+    .select('id', { count: 'exact', head: true }))
     .eq('group_id', groupId)
     .eq('status', 'active')
     .not('title', 'ilike', '%remix%').not('title', 'ilike', '%instrumental%').not('title', 'ilike', '%inst.%').not('title', 'ilike', '%karaoke%');

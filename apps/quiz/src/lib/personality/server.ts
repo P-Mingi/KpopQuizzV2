@@ -3,10 +3,12 @@
 
 import { getModeById } from '@/lib/blind-test-modes';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
+import { SITE_ID } from '@/lib/site/registry';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { getPlayableGroups } from '@/lib/ux-v1/p6/hub-data';
 
 import { BRIDGE_OUTCOMES, BRIDGE_PATH, BRIDGE_PLAYLIST_ID, BRIDGE_QUESTIONS, BRIDGE_SLUGS } from './bridge';
+import { getCharacterPage } from './character-page';
 import { getBridgeCounts, getBridgeGroups, getDatedMemberCounts, getWmaData } from './data';
 import { answerBlock, mostCommon } from './page-copy';
 import { getRoster, sourcedRole } from './rosters';
@@ -52,6 +54,8 @@ async function triviaLink(groupId: number, slug: string): Promise<boolean> {
 }
 
 export async function getWmaPage(slug: string): Promise<WmaPage | null> {
+  // Anime build (lane PERS): Which character are you, from the rows of the series. The kpop build never takes this line.
+  if (SITE_ID !== 'kpop') return getCharacterPage(slug);
   const data = await getWmaData(slug);
   if (!data) return null;
   const { group, questions, profiles } = data;

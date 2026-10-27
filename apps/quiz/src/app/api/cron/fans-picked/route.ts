@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { isCronAuthorized } from '@/lib/cron-auth';
+import { cronForSite, isCronAuthorized } from '@/lib/cron-auth';
 import { createRankingSource, duelServiceClient } from '@/lib/duel/server';
 import { rankQuestion } from '@/lib/duel/service';
 import { duelKey, voterHash } from '@/lib/duel/token';
@@ -21,9 +21,11 @@ export const maxDuration = 60;
 
 const GUARD_KEEP_DAYS = 2;
 
-export async function GET(req: NextRequest): Promise<NextResponse> {
+export async function GET(req: NextRequest): Promise<NextResponse | Response> {
   if (!isUxV12()) return NextResponse.json({ error: 'not_found' }, { status: 404 });
   if (!isCronAuthorized(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const skipped = cronForSite(['kpop']);
+  if (skipped) return skipped;
   const db = duelServiceClient();
   const key = duelKey();
   if (!db || !key) return NextResponse.json({ ok: false, reason: 'not_configured' });

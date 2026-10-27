@@ -1,0 +1,129 @@
+sites read: kpop
+contract: fallback (BACKLOG 5.1, lib/route-allowlist.ts)
+allowlist: apps/quiz/e2e/o1/leak/link-allowlist.json
+site kpop: 124 pages (55 listed, 69 more from sitemap.xml, cap 200)
+ok   kpop /
+ok   kpop /quizzes
+ok   kpop /groups
+ok   kpop /trending
+-    kpop /bts-quiz status 404
+-    kpop /blackpink-quiz status 404
+-    kpop /stray-kids-quiz status 404
+-    kpop /seventeen-quiz status 404
+-    kpop /cortis-quiz status 404
+-    kpop /twice-quiz status 404
+-    kpop /newjeans-quiz status 404
+ok   kpop /trivia
+-    kpop /bts-trivia status 404
+-    kpop /blackpink-trivia status 404
+-    kpop /q/ultimate-bts-era-quiz-only-real-armys-survive status 404
+-    kpop /q/skz-true-or-false-only-real-stays-pass status 404
+-    kpop /q/blackpink-ultimate-fan-challenge status 404
+-    kpop /q/are-you-a-real-coer status 404
+-    kpop /q/illit-fans-here status 404
+-    kpop /q/babymonster-quiz status 404
+-    kpop /q/le-sserafim-members-and-music-quiz status 404
+-    kpop /q/one-for-sones status 404
+-    kpop /q/twice-true-or-false status 404
+-    kpop /q/how-well-do-you-know-txt status 404
+-    kpop /q/enhypen-debut-and-beyond-quiz status 404
+-    kpop /q/k-pop-company-quiz-match-the-group-to-the-label status 404
+ok   kpop /blindtest
+ok   kpop /blindtest/classic
+ok   kpop /blindtest/intro-challenge
+ok   kpop /blindtest/group-bts
+ok   kpop /guess-the-kpop-song
+ok   kpop /pt
+ok   kpop /pt/blindtest
+ok   kpop /pt/quizzes
+ok   kpop /pt/faq
+ok   kpop /pt/leaderboard
+ok   kpop /fr/blind-test-kpop
+ok   kpop /es/adivina-la-cancion-kpop
+ok   kpop /id/tebak-lagu-kpop
+ok   kpop /guess-the-kpop-idol
+ok   kpop /kpop-true-or-false
+ok   kpop /easy-kpop-quizzes
+ok   kpop /hard-kpop-quizzes
+ok   kpop /kpop-quiz-2026
+ok   kpop /kpop-demon-hunters-quiz
+-    kpop /which-bts-member-are-you status 404
+-    kpop /bts-name-all-members status 404
+ok   kpop /about
+ok   kpop /editorial-policy
+ok   kpop /privacy
+ok   kpop /terms
+ok   kpop /faq
+ok   kpop /contact
+ok   kpop /leaderboard
+ok   kpop /articles
+ok   kpop /data/knowledge-report-2026
+ok   kpop /quizzes/popular-today
+ok   kpop /quizzes/popular-this-week
+ok   kpop /quizzes/popular-this-month
+ok   kpop /new
+ok   kpop /most-liked
+ok   kpop /stats
+ok   kpop /dmca
+ok   kpop /news
+ok   kpop /data/pulse
+ok   kpop /pt/about
+ok   kpop /pt/stats
+ok   kpop /pt/articles
+ok   kpop /pt/easy-kpop-quizzes
+ok   kpop /pt/hard-kpop-quizzes
+ok   kpop /pt/kpop-quiz-2026
+ok   kpop /pt/guess-the-kpop-idol
+ok   kpop /pt/kpop-true-or-false
+ok   kpop /articles/who-is-cortis
+ok   kpop /articles/kpop-blind-test-2026
+ok   kpop /articles/best-kpop-quiz-sites-2026
+ok   kpop /articles/kpop-generations-explained
+ok   kpop /articles/bts-vs-blackpink-quiz
+ok   kpop /articles/kpop-blind-test-guide
+ok   kpop /articles/hardest-kpop-quizzes
+ok   kpop /articles/kpop-quiz-statistics
+ok   kpop /articles/most-played-kpop-quizzes
+ok   kpop /articles/girl-groups-vs-boy-groups-kpop-quiz
+ok   kpop /articles/hardest-kpop-groups-to-memorize
+ok   kpop /articles/stray-kids-vs-ateez
+ok   kpop /articles/aespa-vs-newjeans-quiz
+ok   kpop /articles/kpop-blind-test-by-group-ranked
+ok   kpop /articles/guess-the-kpop-idol-guide
+ok   kpop /articles/best-kpop-quizzes-for-beginners
+ok   kpop /articles/kpop-eras-timeline
+ok   kpop /articles/newjeans-fan-guide
+ok   kpop /articles/bts-discography-guide
+ok   kpop /articles/rookie-kpop-groups-2026
+ok   kpop /articles/kpop-facts-every-fan-should-know
+ok   kpop /blindtest/2nd-gen
+ok   kpop /blindtest/3rd-gen
+ok   kpop /blindtest/4th-gen
+ok   kpop /blindtest/girl-groups
+ok   kpop /blindtest/boy-groups
+ok   kpop /blindtest/solo-artists
+ok   kpop /blindtest/title-tracks
+ok   kpop /blindtest/b-sides
+ok   kpop /blindtest/recent-hits
+ok   kpop /blindtest/kpop-legends
+ok   kpop /blindtest/4th-gen-gg
+ok   kpop /blindtest/4th-gen-bg
+-    kpop /blackpink-name-all-members status 404
+-    kpop /stray-kids-name-all-members status 404
+-    kpop /twice-name-all-members status 404
+-    kpop /aespa-name-all-members status 404
+-    kpop /newjeans-name-all-members status 404
+-    kpop /seventeen-name-all-members status 404
+-    kpop /exo-name-all-members status 404
+-    kpop /g-i-dle-name-all-members status 404
+-    kpop /ive-name-all-members status 404
+-    kpop /le-sserafim-name-all-members status 404
+-    kpop /red-velvet-name-all-members status 404
+-    kpop /ateez-name-all-members status 404
+-    kpop /enhypen-name-all-members status 404
+-    kpop /txt-name-all-members status 404
+-    kpop /itzy-name-all-members status 404
+-    kpop /shinee-name-all-members status 404
+ok   kpop /verse
+ok   kpop /verse/promises
+VERDICT: no cross-site link outside the allowlist (85 HTML pages on 1 site(s))

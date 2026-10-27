@@ -1,0 +1,71 @@
+{
+  "lane": "O2",
+  "sha": "74dd4c95a5ea9481069cb97fd2a837b6bc8ff3c9",
+  "tree": "2f0db6cfbfcfa60e6029f65f5caa83486c0979e0",
+  "base": "04298d349c10e3bcfbce9082c1aa0962d9348e11",
+  "green": false,
+  "touchesKpop": true,
+  "evidenceDir": "/Users/louis/IT/Dev/projects/KpopQuizzV2/.claude/worktrees/o1/docs/o1/evidence/O2/74dd4c95a5ea9481069cb97fd2a837b6bc8ff3c9",
+  "failures": "hot: apps/quiz/src/app/(site)/q/[slug]/ux-page.tsx apps/quiz/src/components/group/ux-v1/hub.tsx apps/quiz/src/components/quiz/ux-v1/quiz-page.tsx ; parity: IDENTICAL /robots.txt status 200/200 IDENTICAL /llms.txt status 200/200 identical: false (1 of 60 pages differ) ; ",
+  "sites": [
+    "kpop",
+    "anime"
+  ],
+  "dbEnv": "dev",
+  "started": "2026-10-19T19:45:28Z",
+  "ended": "2026-10-19T19:52:40Z",
+  "madeBy": "scripts/o1/gate.sh",
+  "steps": [
+    {
+      "name": "guard",
+      "rc": "0",
+      "seconds": 1
+    },
+    {
+      "name": "hot",
+      "rc": "1",
+      "seconds": 0
+    },
+    {
+      "name": "copy",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "secrets",
+      "rc": "0",
+      "seconds": 0
+    },
+    {
+      "name": "twins",
+      "rc": "0",
+      "seconds": 12
+    },
+    {
+      "name": "tsc",
+      "rc": "0",
+      "seconds": 38
+    },
+    {
+      "name": "unit",
+      "rc": "0",
+      "seconds": 5
+    },
+    {
+      "name": "build-anime",
+      "rc": "0",
+      "seconds": 84
+    },
+    {
+      "name": "parity",
+      "rc": "1",
+      "seconds": 277
+    },
+    {
+      "name": "site-checks",
+      "rc": "pending",
+      "seconds": 0
+    }
+  ],
+  "notes": "rc skipped = not needed for this diff (reason in <step>.log); rc pending = the check does not exist yet (Q0a)"
+}

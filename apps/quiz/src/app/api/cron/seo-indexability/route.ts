@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
-import { isCronAuthorized } from '@/lib/cron-auth';
+import { cronForSite, isCronAuthorized } from '@/lib/cron-auth';
 
 /**
  * SEO indexguard PART 2 - weekly PROD indexability monitor.
@@ -74,11 +74,13 @@ function checkPage(path: string, page: { status: number; html: string; xRobots: 
   return null;
 }
 
-export async function GET(req: NextRequest): Promise<NextResponse> {
+export async function GET(req: NextRequest): Promise<NextResponse | Response> {
 
   if (!isCronAuthorized(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
+  const skipped = cronForSite(['kpop']);
+  if (skipped) return skipped;
 
   // 1. Pull the prod sitemap.
   const sm = await fetchWithTimeout(`${SITE_URL}/sitemap.xml`);

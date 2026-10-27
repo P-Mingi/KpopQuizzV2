@@ -1,0 +1,213 @@
+{
+  "site": "anime",
+  "account": "oq_creator_10",
+  "group_slug": "solo-leveling",
+  "title": "First Gate: Solo Leveling for Newcomers",
+  "slug": "first-gate-solo-leveling-for-newcomers",
+  "description": "Ten easy questions on who made the story, which studio animated it and how many episodes it ran. No story knowledge needed.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who wrote the web novel that started the story?",
+      "options": [
+        "Chugong",
+        "Dubu",
+        "Gege Akutami",
+        "Sui Ishida"
+      ],
+      "correct": 0,
+      "fun_fact": "It first appeared on the KakaoPage platform in July 2016.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-novel-author-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Into how many seasons was the comic version split?",
+      "options": [
+        "One",
+        "Two",
+        "Three",
+        "Four"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "solo-leveling-webtoon-seasons-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Which studio animated the anime?",
+      "options": [
+        "MAPPA",
+        "Wit Studio",
+        "A-1 Pictures",
+        "Bones"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-anime-studio-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "In which year was the web novel first posted?",
+      "options": [
+        "2014",
+        "2016",
+        "2018",
+        "2020"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-novel-author-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "How is the Korean title of Solo Leveling written in Revised Romanization?",
+      "options": [
+        "Na Honjaman Rebereop",
+        "Na Honja Rebeleop",
+        "Honjaman Naui Rebereop",
+        "Nae Honjaman Rebereop"
+      ],
+      "correct": 0,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-title-romanized-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "What is the game-like power that picks Sung Jin-woo called?",
+      "options": [
+        "The Tower",
+        "The Relic",
+        "The System",
+        "The Core"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-jin-woo-intro-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Which platform first hosted the web novel?",
+      "options": [
+        "KakaoPage",
+        "Munpia",
+        "Naver Series",
+        "Ridibooks"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-novel-author-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Which of these is another English title of the story?",
+      "options": [
+        "Only I Can Hunt",
+        "Only I Level Up",
+        "Level Up Alone Forever",
+        "Solo Rank Rising"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "solo-leveling-title-native-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "How many episodes does the anime count over its two seasons?",
+      "options": [
+        "24",
+        "26",
+        "30",
+        "25"
+      ],
+      "correct": 3,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-episode-total-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    },
+    {
+      "question": "Which top prize did the anime win at the 9th Crunchyroll Anime Awards in 2025?",
+      "options": [
+        "Best New Series",
+        "Best Fight Scene",
+        "Best Ending Sequence",
+        "Anime of the Year"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "solo-leveling-crunchyroll-award-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Solo Leveling",
+      "url": "https://en.wikipedia.org/wiki/Solo_Leveling"
+    }
+  ],
+  "notes": "Starter: every question cites an arc 0 fact only. Authors, platform, studio, the Korean title, the comic seasons, the web novel year, the anime episode total and the 2025 award. K1 rewrite: blocked questions rewritten on verified facts 002, 003 and 008."
+}

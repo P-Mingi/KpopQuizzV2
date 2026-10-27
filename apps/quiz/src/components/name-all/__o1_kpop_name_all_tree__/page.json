@@ -1,0 +1,899 @@
+{
+ "exports": [
+  "default",
+  "generateMetadata"
+ ],
+ "metadata": {
+  "title": "Name all 7 BTS members in 60 seconds",
+  "description": "Can you name all 7 BTS members before the clock runs out? 60 seconds, type each name and press Enter. Stage names, real names and Hangul all count.",
+  "alternates": {
+   "canonical": "/bts-name-all-members"
+  },
+  "robots": {
+   "index": true,
+   "follow": true
+  },
+  "openGraph": {
+   "title": "Name all 7 BTS members in 60 seconds",
+   "description": "Can you name all 7 BTS members before the clock runs out? 60 seconds, type each name and press Enter. Stage names, real names and Hangul all count.",
+   "url": "https://kpopquiz.org/bts-name-all-members",
+   "type": "website",
+   "images": [
+    {
+     "url": "/api/og/group/bts",
+     "width": 1200,
+     "height": 630,
+     "alt": "Name all 7 BTS members in 60 seconds"
+    }
+   ]
+  },
+  "twitter": {
+   "card": "summary",
+   "title": "Name all 7 BTS members in 60 seconds",
+   "description": "Can you name all 7 BTS members before the clock runs out? 60 seconds, type each name and press Enter. Stage names, real names and Hangul all count."
+  }
+ },
+ "metadataDirect": {
+  "title": "Name all 7 BTS members in 60 seconds",
+  "description": "Can you name all 7 BTS members before the clock runs out? 60 seconds, type each name and press Enter. Stage names, real names and Hangul all count.",
+  "alternates": {
+   "canonical": "/bts-name-all-members"
+  },
+  "robots": {
+   "index": false,
+   "follow": true
+  },
+  "openGraph": {
+   "title": "Name all 7 BTS members in 60 seconds",
+   "description": "Can you name all 7 BTS members before the clock runs out? 60 seconds, type each name and press Enter. Stage names, real names and Hangul all count.",
+   "url": "https://kpopquiz.org/bts-name-all-members",
+   "type": "website",
+   "images": [
+    {
+     "url": "/api/og/group/bts",
+     "width": 1200,
+     "height": 630,
+     "alt": "Name all 7 BTS members in 60 seconds"
+    }
+   ]
+  },
+  "twitter": {
+   "card": "summary",
+   "title": "Name all 7 BTS members in 60 seconds",
+   "description": "Can you name all 7 BTS members before the clock runs out? 60 seconds, type each name and press Enter. Stage names, real names and Hangul all count."
+  }
+ },
+ "tree": [
+  "$",
+  "div",
+  null,
+  {
+   "id": "$undefined",
+   "className": "ux-page ux-wrap ux-pg ux-nta-page",
+   "data-shell": "$undefined",
+   "children": [
+    [
+     "$",
+     "nav",
+     null,
+     {
+      "className": "ux-crumb",
+      "aria-label": "Breadcrumb",
+      "children": [
+       [
+        "$L",
+        "Link",
+        {
+         "href": "/groups",
+         "children": "Groups"
+        }
+       ],
+       [
+        "$",
+        "span",
+        null,
+        {
+         "className": "ux-nta-sep",
+         "aria-hidden": "true",
+         "children": "/"
+        }
+       ],
+       [
+        "$L",
+        "Link",
+        {
+         "href": "/bts-quiz",
+         "children": "BTS"
+        }
+       ],
+       [
+        "$",
+        "span",
+        null,
+        {
+         "className": "ux-nta-sep",
+         "aria-hidden": "true",
+         "children": "/"
+        }
+       ],
+       [
+        "$",
+        "span",
+        null,
+        {
+         "aria-current": "page",
+         "children": "Name them all"
+        }
+       ]
+      ]
+     }
+    ],
+    [
+     "$L",
+     "NameAllGame",
+     {
+      "group": {
+       "slug": "bts",
+       "name": "BTS"
+      },
+      "members": [
+       {
+        "name": "RM",
+        "spellings": [
+         "RM",
+         "rm",
+         "RM (alt)"
+        ]
+       },
+       {
+        "name": "Jin",
+        "spellings": [
+         "Jin",
+         "jin",
+         "Jin (alt)"
+        ]
+       },
+       {
+        "name": "Suga",
+        "spellings": [
+         "Suga",
+         "suga",
+         "Suga (alt)"
+        ]
+       },
+       {
+        "name": "J-Hope",
+        "spellings": [
+         "J-Hope",
+         "j-hope",
+         "J-Hope (alt)"
+        ]
+       },
+       {
+        "name": "Jimin",
+        "spellings": [
+         "Jimin",
+         "jimin",
+         "Jimin (alt)"
+        ]
+       },
+       {
+        "name": "V",
+        "spellings": [
+         "V",
+         "v",
+         "V (alt)"
+        ]
+       },
+       {
+        "name": "Jungkook",
+        "spellings": [
+         "Jungkook",
+         "jungkook",
+         "Jungkook (alt)"
+        ]
+       }
+      ],
+      "stats": {
+       "rounds": 1234,
+       "perfectPct": 31,
+       "namedFirst": "RM"
+      },
+      "path": "/bts-name-all-members"
+     }
+    ],
+    [
+     [
+      "$",
+      "section",
+      null,
+      {
+       "className": "ux-sec",
+       "aria-labelledby": "nta-how-h",
+       "children": [
+        [
+         "$",
+         "div",
+         null,
+         {
+          "className": "ux-sec-h",
+          "children": [
+           [
+            "$",
+            "h2",
+            null,
+            {
+             "id": "nta-how-h",
+             "children": [
+              [
+               "$",
+               "svg",
+               null,
+               {
+                "className": "ux-ico ux-si",
+                "viewBox": "0 0 24 24",
+                "style": "$undefined",
+                "aria-hidden": true,
+                "role": "$undefined",
+                "aria-label": "$undefined",
+                "focusable": "false",
+                "dangerouslySetInnerHTML": {
+                 "__html": "<circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"M12 7.5V12l3 2\"/>"
+                }
+               }
+              ],
+              "How to play the BTS member quiz"
+             ]
+            }
+           ],
+           null,
+           null,
+           null
+          ]
+         }
+        ],
+        [
+         "$",
+         "div",
+         null,
+         {
+          "className": "g3-prose",
+          "children": [
+           [
+            "$",
+            "p",
+            null,
+            {
+             "children": [
+              "BTS",
+              " has ",
+              7,
+              " members. Start the clock and type each name you remember, then press Enter: you have ",
+              60,
+              " seconds to name all ",
+              7,
+              ". Stage names, birth names and Hangul are all accepted, and one typo is forgiven on a name of five letters or more. Give up at any time to see who you missed."
+             ]
+            }
+           ],
+           [
+            "$",
+            "p",
+            null,
+            {
+             "data-testid": "nta-stats",
+             "children": [
+              "Fans have played ",
+              "1,234",
+              " rounds of this quiz.",
+              " 31% of them named all 7 members.",
+              " RM is the member named first most often."
+             ]
+            }
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "$",
+      "section",
+      null,
+      {
+       "className": "ux-sec",
+       "aria-labelledby": "nta-ans-h",
+       "children": [
+        [
+         "$",
+         "div",
+         null,
+         {
+          "className": "ux-sec-h",
+          "children": [
+           [
+            "$",
+            "h2",
+            null,
+            {
+             "id": "nta-ans-h",
+             "children": [
+              [
+               "$",
+               "svg",
+               null,
+               {
+                "className": "ux-ico ux-si",
+                "viewBox": "0 0 24 24",
+                "style": "$undefined",
+                "aria-hidden": true,
+                "role": "$undefined",
+                "aria-label": "$undefined",
+                "focusable": "false",
+                "dangerouslySetInnerHTML": {
+                 "__html": "<circle cx=\"9\" cy=\"8.5\" r=\"3\"/><path d=\"M3.5 19.5c.4-3 2.7-5 5.5-5s5.1 2 5.5 5\"/><circle cx=\"17\" cy=\"9.5\" r=\"2.4\"/><path d=\"M16 14.6c2.3.2 4 1.9 4.4 4.9\"/>"
+                }
+               }
+              ],
+              "The 7 BTS members"
+             ]
+            }
+           ],
+           null,
+           null,
+           null
+          ]
+         }
+        ],
+        [
+         "$",
+         "details",
+         null,
+         {
+          "className": "g3-acc",
+          "children": [
+           [
+            "$",
+            "summary",
+            null,
+            {
+             "children": [
+              "Show the answers",
+              [
+               "$",
+               "svg",
+               null,
+               {
+                "className": "ux-ico",
+                "viewBox": "0 0 24 24",
+                "style": "$undefined",
+                "aria-hidden": true,
+                "role": "$undefined",
+                "aria-label": "$undefined",
+                "focusable": "false",
+                "dangerouslySetInnerHTML": {
+                 "__html": "<path d=\"m6 9 6 6 6-6\"/>"
+                }
+               }
+              ]
+             ]
+            }
+           ],
+           [
+            "$",
+            "ol",
+            null,
+            {
+             "className": "g3-lineup",
+             "children": [
+              [
+               "$",
+               "li",
+               "RM",
+               {
+                "children": [
+                 [
+                  "$",
+                  "b",
+                  null,
+                  {
+                   "children": "RM"
+                  }
+                 ],
+                 [
+                  "$",
+                  "span",
+                  null,
+                  {
+                   "className": "ux-muted",
+                   "children": [
+                    " · also accepted: ",
+                    "RM (alt)"
+                   ]
+                  }
+                 ]
+                ]
+               }
+              ],
+              [
+               "$",
+               "li",
+               "Jin",
+               {
+                "children": [
+                 [
+                  "$",
+                  "b",
+                  null,
+                  {
+                   "children": "Jin"
+                  }
+                 ],
+                 [
+                  "$",
+                  "span",
+                  null,
+                  {
+                   "className": "ux-muted",
+                   "children": [
+                    " · also accepted: ",
+                    "Jin (alt)"
+                   ]
+                  }
+                 ]
+                ]
+               }
+              ],
+              [
+               "$",
+               "li",
+               "Suga",
+               {
+                "children": [
+                 [
+                  "$",
+                  "b",
+                  null,
+                  {
+                   "children": "Suga"
+                  }
+                 ],
+                 [
+                  "$",
+                  "span",
+                  null,
+                  {
+                   "className": "ux-muted",
+                   "children": [
+                    " · also accepted: ",
+                    "Suga (alt)"
+                   ]
+                  }
+                 ]
+                ]
+               }
+              ],
+              [
+               "$",
+               "li",
+               "J-Hope",
+               {
+                "children": [
+                 [
+                  "$",
+                  "b",
+                  null,
+                  {
+                   "children": "J-Hope"
+                  }
+                 ],
+                 [
+                  "$",
+                  "span",
+                  null,
+                  {
+                   "className": "ux-muted",
+                   "children": [
+                    " · also accepted: ",
+                    "J-Hope (alt)"
+                   ]
+                  }
+                 ]
+                ]
+               }
+              ],
+              [
+               "$",
+               "li",
+               "Jimin",
+               {
+                "children": [
+                 [
+                  "$",
+                  "b",
+                  null,
+                  {
+                   "children": "Jimin"
+                  }
+                 ],
+                 [
+                  "$",
+                  "span",
+                  null,
+                  {
+                   "className": "ux-muted",
+                   "children": [
+                    " · also accepted: ",
+                    "Jimin (alt)"
+                   ]
+                  }
+                 ]
+                ]
+               }
+              ],
+              [
+               "$",
+               "li",
+               "V",
+               {
+                "children": [
+                 [
+                  "$",
+                  "b",
+                  null,
+                  {
+                   "children": "V"
+                  }
+                 ],
+                 [
+                  "$",
+                  "span",
+                  null,
+                  {
+                   "className": "ux-muted",
+                   "children": [
+                    " · also accepted: ",
+                    "V (alt)"
+                   ]
+                  }
+                 ]
+                ]
+               }
+              ],
+              [
+               "$",
+               "li",
+               "Jungkook",
+               {
+                "children": [
+                 [
+                  "$",
+                  "b",
+                  null,
+                  {
+                   "children": "Jungkook"
+                  }
+                 ],
+                 [
+                  "$",
+                  "span",
+                  null,
+                  {
+                   "className": "ux-muted",
+                   "children": [
+                    " · also accepted: ",
+                    "Jungkook (alt)"
+                   ]
+                  }
+                 ]
+                ]
+               }
+              ]
+             ]
+            }
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "$",
+      "section",
+      null,
+      {
+       "className": "ux-sec",
+       "aria-labelledby": "nta-more-h",
+       "children": [
+        [
+         "$",
+         "div",
+         null,
+         {
+          "className": "ux-sec-h",
+          "children": [
+           [
+            "$",
+            "h2",
+            null,
+            {
+             "id": "nta-more-h",
+             "children": [
+              [
+               "$",
+               "svg",
+               null,
+               {
+                "className": "ux-ico ux-si",
+                "viewBox": "0 0 24 24",
+                "style": "$undefined",
+                "aria-hidden": true,
+                "role": "$undefined",
+                "aria-label": "$undefined",
+                "focusable": "false",
+                "dangerouslySetInnerHTML": {
+                 "__html": "<path d=\"m12 4 8.5 4.2L12 12.4 3.5 8.2 12 4Z\"/><path d=\"m3.5 12.2 8.5 4.2 8.5-4.2M3.5 16.2l8.5 4.2 8.5-4.2\"/>"
+                }
+               }
+              ],
+              "More BTS on KpopQuiz"
+             ]
+            }
+           ],
+           null,
+           null,
+           null
+          ]
+         }
+        ],
+        [
+         "$",
+         "ul",
+         null,
+         {
+          "className": "g3-links",
+          "children": [
+           [
+            "$",
+            "li",
+            "/bts-quiz",
+            {
+             "children": [
+              "$L",
+              "Link",
+              {
+               "href": "/bts-quiz",
+               "className": "ux-lnk",
+               "children": "BTS quizzes"
+              }
+             ]
+            }
+           ],
+           [
+            "$",
+            "li",
+            "/blindtest/group-bts",
+            {
+             "children": [
+              "$L",
+              "Link",
+              {
+               "href": "/blindtest/group-bts",
+               "className": "ux-lnk",
+               "children": "BTS blind test"
+              }
+             ]
+            }
+           ],
+           [
+            "$",
+            "li",
+            "/which-bts-member-are-you",
+            {
+             "children": [
+              "$L",
+              "Link",
+              {
+               "href": "/which-bts-member-are-you",
+               "className": "ux-lnk",
+               "children": "Which BTS member are you?"
+              }
+             ]
+            }
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ],
+     [
+      "$",
+      "section",
+      null,
+      {
+       "className": "ux-sec",
+       "aria-labelledby": "nta-other-h",
+       "children": [
+        [
+         "$",
+         "div",
+         null,
+         {
+          "className": "ux-sec-h",
+          "children": [
+           [
+            "$",
+            "h2",
+            null,
+            {
+             "id": "nta-other-h",
+             "children": [
+              [
+               "$",
+               "svg",
+               null,
+               {
+                "className": "ux-ico ux-si",
+                "viewBox": "0 0 24 24",
+                "style": "$undefined",
+                "aria-hidden": true,
+                "role": "$undefined",
+                "aria-label": "$undefined",
+                "focusable": "false",
+                "dangerouslySetInnerHTML": {
+                 "__html": "<circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"M12 7.5V12l3 2\"/>"
+                }
+               }
+              ],
+              "Name the members of another group"
+             ]
+            }
+           ],
+           null,
+           null,
+           null
+          ]
+         }
+        ],
+        [
+         "$",
+         "ul",
+         null,
+         {
+          "className": "g3-links",
+          "children": [
+           [
+            "$",
+            "li",
+            "stray-kids",
+            {
+             "children": [
+              "$L",
+              "Link",
+              {
+               "href": "/stray-kids-name-all-members",
+               "className": "ux-lnk",
+               "children": [
+                "Name all ",
+                "Stray Kids",
+                " members"
+               ]
+              }
+             ]
+            }
+           ],
+           [
+            "$",
+            "li",
+            "twice",
+            {
+             "children": [
+              "$L",
+              "Link",
+              {
+               "href": "/twice-name-all-members",
+               "className": "ux-lnk",
+               "children": [
+                "Name all ",
+                "TWICE",
+                " members"
+               ]
+              }
+             ]
+            }
+           ]
+          ]
+         }
+        ]
+       ]
+      }
+     ]
+    ],
+    [
+     "$",
+     "script",
+     null,
+     {
+      "type": "application/ld+json",
+      "dangerouslySetInnerHTML": {
+       "__html": "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Groups\",\"item\":\"https://kpopquiz.org/groups\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"BTS\",\"item\":\"https://kpopquiz.org/bts-quiz\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"Name them all\",\"item\":\"https://kpopquiz.org/bts-name-all-members\"}]}"
+      }
+     }
+    ]
+   ]
+  }
+ ],
+ "graph": {
+  "page": [
+   "app/(site)/name-all/[group]/page.tsx",
+   "components/name-all/about.tsx",
+   "components/name-all/game.tsx",
+   "components/ux-v1/button.tsx",
+   "components/ux-v1/cover-img.tsx",
+   "components/ux-v1/icon.tsx",
+   "components/ux-v1/page.tsx",
+   "components/ux-v1/section-header.tsx",
+   "components/ux-v1/share-sheet.tsx",
+   "components/ux-v1/sheet.tsx",
+   "components/ux-v1/story-image.ts",
+   "components/ux-v1/toast.tsx",
+   "components/ux-v1/use-is-client.ts",
+   "lib/anon-id.ts",
+   "lib/blind-test-curated.ts",
+   "lib/blind-test-modes.ts",
+   "lib/blind-test-playlists.ts",
+   "lib/db/cache-policy.ts",
+   "lib/db/fetch-all.ts",
+   "lib/db/queries/groups.ts",
+   "lib/error-handling.ts",
+   "lib/name-all/match.ts",
+   "lib/name-all/roster.ts",
+   "lib/name-all/round.ts",
+   "lib/name-all/server.ts",
+   "lib/name-all/spellings.ts",
+   "lib/personality/bridge.ts",
+   "lib/personality/data.ts",
+   "lib/personality/engine.ts",
+   "lib/personality/parse.ts",
+   "lib/personality/rosters.ts",
+   "lib/personality/view.ts",
+   "lib/quiz/scoring.ts",
+   "lib/seo/json-ld.ts",
+   "lib/seo/og.ts",
+   "lib/site/registry.ts",
+   "lib/site/scope.ts",
+   "lib/site/types.ts",
+   "lib/soundtrack-album.ts",
+   "lib/supabase/server.ts",
+   "lib/ux-v1.ts",
+   "lib/ux-v1/a0/icons.ts",
+   "lib/ux-v1/a0/type-glyphs.ts",
+   "lib/ux-v1/p3/model.ts",
+   "lib/ux-v1/p6/hub-data.ts",
+   "lib/ux-v12.ts"
+  ],
+  "game": [
+   "components/name-all/game.tsx",
+   "components/ux-v1/button.tsx",
+   "components/ux-v1/cover-img.tsx",
+   "components/ux-v1/icon.tsx",
+   "components/ux-v1/share-sheet.tsx",
+   "components/ux-v1/sheet.tsx",
+   "components/ux-v1/story-image.ts",
+   "components/ux-v1/toast.tsx",
+   "components/ux-v1/use-is-client.ts",
+   "lib/anon-id.ts",
+   "lib/name-all/match.ts",
+   "lib/name-all/round.ts",
+   "lib/site/registry.ts",
+   "lib/site/types.ts",
+   "lib/ux-v1.ts",
+   "lib/ux-v1/a0/icons.ts",
+   "lib/ux-v1/a0/type-glyphs.ts",
+   "lib/ux-v12.ts"
+  ]
+ }
+}

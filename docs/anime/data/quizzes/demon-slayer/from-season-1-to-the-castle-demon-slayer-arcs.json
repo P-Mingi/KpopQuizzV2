@@ -1,0 +1,229 @@
+{
+  "site": "anime",
+  "account": "oq_creator_06",
+  "group_slug": "demon-slayer",
+  "title": "From Season 1 to the Castle: Demon Slayer Arcs",
+  "slug": "from-season-1-to-the-castle-demon-slayer-arcs",
+  "description": "Arcs, episode ranges, two films and four seasons. Line them up in order.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Which arc covers episodes 1 to 26?",
+      "options": [
+        "Mugen Train Arc",
+        "Entertainment District Arc",
+        "Tanjiro Kamado, Unwavering Resolve Arc",
+        "Swordsmith Village Arc"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-arcs-list-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_episodes"
+    },
+    {
+      "question": "Which arc covers episodes 27 to 33?",
+      "options": [
+        "Entertainment District Arc",
+        "Swordsmith Village Arc",
+        "Hashira Training Arc",
+        "Mugen Train Arc"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-arcs-list-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_episodes"
+    },
+    {
+      "question": "Which arc covers episodes 34 to 44?",
+      "options": [
+        "Mugen Train Arc",
+        "Entertainment District Arc",
+        "Swordsmith Village Arc",
+        "Hashira Training Arc"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-arcs-list-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_episodes"
+    },
+    {
+      "question": "Which arc covers episodes 45 to 55?",
+      "options": [
+        "Entertainment District Arc",
+        "Hashira Training Arc",
+        "Mugen Train Arc",
+        "Swordsmith Village Arc"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-arcs-list-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_episodes"
+    },
+    {
+      "question": "Which arc fills episodes 56 to 63?",
+      "options": [
+        "Swordsmith Village Arc",
+        "Hashira Training Arc",
+        "Entertainment District Arc",
+        "Mugen Train Arc"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-arcs-list-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_episodes"
+    },
+    {
+      "question": "The Infinity Castle arc is being adapted in what form, from 2025?",
+      "options": [
+        "A fifth TV season",
+        "A single OVA",
+        "A film trilogy",
+        "A stage play"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-arcs-list-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_episodes"
+    },
+    {
+      "question": "Which film became the top-grossing film of 2020 worldwide?",
+      "options": [
+        "Mugen Train",
+        "Sibling's Bond",
+        "Infinity Castle",
+        "Entertainment District"
+      ],
+      "correct": 0,
+      "fun_fact": "The Mugen Train film opened in Japan on October 16, 2020.",
+      "kind": "arc",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-mugen-train-film-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_%E2%80%93_The_Movie:_Mugen_Train"
+    },
+    {
+      "question": "How many episodes did season 4, the Hashira Training Arc, run?",
+      "options": [
+        "Five",
+        "Eleven",
+        "Eight",
+        "Thirteen"
+      ],
+      "correct": 2,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 5,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-season-4-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_4"
+    },
+    {
+      "question": "In which year did the first Infinity Castle film reach Japanese cinemas?",
+      "options": [
+        "2025",
+        "2020",
+        "2023",
+        "2024"
+      ],
+      "correct": 0,
+      "fun_fact": "The Infinity Castle story is being adapted as a film trilogy.",
+      "kind": "arc",
+      "spoiler": {
+        "arc": 6,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-infinity-castle-film-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_%E2%80%93_The_Movie:_Infinity_Castle"
+    },
+    {
+      "question": "On which date did the Mugen Train film open in Japan?",
+      "options": [
+        "June 5, 2020",
+        "October 16, 2020",
+        "April 6, 2019",
+        "January 22, 2021"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "demon-slayer-mugen-train-film-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_%E2%80%93_The_Movie:_Mugen_Train"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Demon Slayer: Kimetsu no Yaiba episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_episodes"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba - The Movie: Mugen Train",
+      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_%E2%80%93_The_Movie:_Mugen_Train"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba - The Movie: Infinity Castle",
+      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_%E2%80%93_The_Movie:_Infinity_Castle"
+    },
+    {
+      "id": "S6",
+      "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba season 4",
+      "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_4"
+    }
+  ],
+  "notes": "Arc quiz tagged at arc 6: it cites facts up to the Infinity Castle film. K1 rewrite: blocked questions rewritten on verified facts 015 and 012."
+}

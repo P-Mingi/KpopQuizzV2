@@ -1,0 +1,3573 @@
+[
+  {
+    "id": "black-clover-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "title_native",
+    "value": [
+      "ブラッククローバー",
+      "Burakku Kurōbā"
+    ],
+    "text": "The title is written in katakana as ブラッククローバー and read Burakku Kurōbā in Japanese.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bclover.jp/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Black Clover (Japanese: ブラッククローバー, Hepburn: Burakku Kurōbā)"
+  },
+  {
+    "id": "black-clover-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "author",
+    "value": "Yūki Tabata",
+    "text": "Yūki Tabata wrote and drew the manga, and the official site credits him as the original creator.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q20638503",
+        "ref": "Q20638503",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bclover.jp/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Written and illustrated by Yūki Tabata"
+  },
+  {
+    "id": "black-clover-manga-run-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "manga_run",
+    "value": [
+      "February 16, 2015",
+      "May 1, 2026"
+    ],
+    "text": "The manga started on February 16, 2015, and its last chapters appeared on May 1, 2026.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=17059",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bclover.jp/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Original run: February 16, 2015 to May 1, 2026"
+  },
+  {
+    "id": "black-clover-magazine-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "magazine",
+    "value": [
+      "Weekly Shōnen Jump",
+      "Jump Giga"
+    ],
+    "text": "The story began in Weekly Shōnen Jump and finished in Jump Giga, after a move in late 2023.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/manga.php?id=17059",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q20638503",
+        "ref": "Q20638503",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "finished its run in Weekly Shōnen Jump on August 21, 2023, and resumed in Jump Giga"
+  },
+  {
+    "id": "black-clover-publisher-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "publisher",
+    "value": [
+      "Shueisha",
+      "Jump Comics"
+    ],
+    "text": "Shueisha published the collected chapters under its Jump Comics label.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q20638503",
+        "ref": "Q20638503",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Published by | Shueisha"
+  },
+  {
+    "id": "black-clover-copies-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "copies",
+    "value": "24.5 million",
+    "text": "By June 2026 the manga had passed 24.5 million copies in circulation.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.oricon.co.jp/news/2461047/full/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "over 24.5 million copies in circulation by June 2026"
+  },
+  {
+    "id": "black-clover-anime-s1-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "anime_s1",
+    "value": [
+      "October 3, 2017",
+      "March 30, 2021",
+      "170 episodes"
+    ],
+    "text": "The first TV season, produced by Pierrot, ran 170 episodes from October 3, 2017, to March 30, 2021.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)",
+        "ref": "1381745541",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q70331950",
+        "ref": "Q70331950",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=19743",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "consisted of 170 episodes"
+  },
+  {
+    "id": "black-clover-anime-s2-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "anime_s2",
+    "value": [
+      "October 3, 2026",
+      "from episode 171"
+    ],
+    "text": "A second season premiered on October 3, 2026, numbered from episode 171, and it is still airing as of October 25, 2026.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)",
+        "ref": "1381745541",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bclover.jp/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=36880",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "A second season premiered in October 2026"
+  },
+  {
+    "id": "black-clover-studio-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "anime_studio",
+    "value": "Studio Pierrot",
+    "text": "Studio Pierrot animated both the first and the second season of the TV anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)",
+        "ref": "1381745541",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q70331950",
+        "ref": "Q70331950",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bclover.jp/staffcast/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Animator | Studio Pierrot"
+  },
+  {
+    "id": "black-clover-director-now-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "director",
+    "value": [
+      "Ayataka Tanemura",
+      "種村綾隆"
+    ],
+    "text": "Ayataka Tanemura directs the second season and had taken over directing the first season from episode 153.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)",
+        "ref": "1381745541",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bclover.jp/staffcast/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=19743",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Ayataka Tanemura (#153 )"
+  },
+  {
+    "id": "black-clover-director-first-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "studio_director",
+    "value": "Tatsuya Yoshihara",
+    "text": "Tatsuya Yoshihara directed the early episodes of the TV anime, and later episodes were directed by Ayataka Tanemura.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)",
+        "ref": "1381745541",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=19743",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Directed by | Tatsuya Yoshihara [ja] (S1)"
+  },
+  {
+    "id": "black-clover-composer-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "composer",
+    "value": [
+      "Minako Seki",
+      "関 美奈子"
+    ],
+    "text": "Minako Seki composes the music of the anime, in both the first season and the second.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)",
+        "ref": "1381745541",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bclover.jp/staffcast/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Music by | Minako Seki"
+  },
+  {
+    "id": "black-clover-film-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "film",
+    "value": [
+      "Black Clover: Sword of the Wizard King",
+      "June 16, 2023"
+    ],
+    "text": "The film Sword of the Wizard King opened in Japanese cinemas and on Netflix on June 16, 2023, after a delay from March.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)",
+        "ref": "1381745541",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q116691876",
+        "ref": "Q116691876",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "premiered simultaneously in Japanese theaters and on Netflix"
+  },
+  {
+    "id": "black-clover-film-director-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "films",
+    "value": [
+      "Ayataka Tanemura",
+      "Johnny Onda"
+    ],
+    "text": "Ayataka Tanemura directed the film, Johnny Onda co-wrote its screenplay, and Tabata supervised the character designs.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover:_Sword_of_the_Wizard_King",
+        "ref": "1377625728",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "It was directed by Ayataka Tanemura"
+  },
+  {
+    "id": "black-clover-ova-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "ova",
+    "value": [
+      "Xebec Zwei",
+      "Takashi Noto"
+    ],
+    "text": "An OVA by the studio Xebec Zwei, directed by Takashi Noto, was first shown at the Jump Festa fan event.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Studio | Xebec Zwei"
+  },
+  {
+    "id": "black-clover-squishy-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "shorts",
+    "value": [
+      "Squishy! Black Clover",
+      "DLE"
+    ],
+    "text": "The short comedy Squishy! Black Clover was made by the studio DLE, and its opening song was Possible by the duo Clover×Clover.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)",
+        "ref": "1381745541",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Squishy! Black Clover"
+  },
+  {
+    "id": "black-clover-premise-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "premise",
+    "value": "Wizard King",
+    "text": "In a world where magic is everything, the orphan Asta has no mana yet aims to become the Wizard King, the top authority below the king.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a young orphan who is left to be raised in an orphanage"
+  },
+  {
+    "id": "black-clover-wizard-king-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "terms",
+    "value": "Wizard King",
+    "text": "The Wizard King is the strongest mage of the Clover Kingdom, and the only authority ranked just below the king.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "an authority figure second to the king of Clover Kingdom"
+  },
+  {
+    "id": "black-clover-grimoire-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "treasure",
+    "value": [
+      "four-leaf grimoire",
+      "five-leaf grimoire"
+    ],
+    "text": "A four-leaf grimoire is given to only the most gifted mages, while Asta ends up with a mysterious five-leaf one.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "only given to the most immense mages"
+  },
+  {
+    "id": "black-clover-squads-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "organization",
+    "value": [
+      "Black Bulls",
+      "Golden Dawn"
+    ],
+    "text": "Asta signs up with the Black Bulls, whose captain is Yami Sukehiro, and Yuno heads to the Golden Dawn.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Asta joins the Black Bulls under Yami Sukehiro"
+  },
+  {
+    "id": "black-clover-eye-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "setting",
+    "value": "Eye of the Midnight Sun",
+    "text": "Their first big enemy is a radical group, the Eye of the Midnight Sun, bent on revenge for a wrong done to the elves.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "an extremist group called the Eye of the Midnight Sun"
+  },
+  {
+    "id": "black-clover-dark-triad-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "motivation",
+    "value": [
+      "Dark Triad",
+      "Lucius Zogratis"
+    ],
+    "text": "Later the knights face the Dark Triad of the Spade Kingdom, and then their eldest sibling Lucius Zogratis, who wants to build his own perfect world.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 13,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the Dark Triad's eldest sibling, Lucius Zogratis"
+  },
+  {
+    "id": "black-clover-kingdoms-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "origin",
+    "value": [
+      "Clover Kingdom",
+      "Spade Kingdom",
+      "Diamond Kingdom",
+      "Heart Kingdom"
+    ],
+    "text": "The story names four kingdoms: Clover, where the hero lives, plus Spade, Diamond and Heart.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the Diamond, Heart, and Spade Kingdoms"
+  },
+  {
+    "id": "black-clover-wizard-kings-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "public_identity",
+    "value": [
+      "Lumiere Silvamillion Clover",
+      "Julius Novachrono",
+      "Conrad Leto"
+    ],
+    "text": "The first Wizard King was Lumiere Silvamillion Clover, Conrad Leto was the 27th, and Julius Novachrono is the 28th.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "is the 28th Wizard King"
+  },
+  {
+    "id": "black-clover-devils-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "epithet",
+    "value": [
+      "Liebe",
+      "Zagred",
+      "Lucifero"
+    ],
+    "text": "Devils in the story include Liebe, who lives in Asta's grimoire, and the high-ranking Zagred; Licht, however, is an elf.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Liebe is a devil residing in Licht's five-leaf grimoire"
+  },
+  {
+    "id": "black-clover-hungry-joker-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "background",
+    "value": "Hungry Joker",
+    "text": "Before Black Clover, Tabata had a short-lived science fiction series named Hungry Joker in Weekly Shōnen Jump, which was cancelled.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "his science fiction one-shot Hungry Joker was briefly serialized"
+  },
+  {
+    "id": "black-clover-tabata-career-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "creator_favourite",
+    "value": "assistant",
+    "text": "Tabata spent seven years as an assistant to other manga artists, beginning when he was twenty, before he ran his own series.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "started in the manga industry at the age of 20 and worked as an assistant for seven years"
+  },
+  {
+    "id": "black-clover-berserk-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "style",
+    "value": "Berserk",
+    "text": "Tabata wanted a shōnen version of the dark fantasy manga Berserk, and also drew on The Lord of the Rings and Harry Potter.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "He wanted to craft a shōnen equivalent of Berserk"
+  },
+  {
+    "id": "black-clover-self-portrait-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "fond_of",
+    "value": [
+      "Asta",
+      "Charmy Pappitson"
+    ],
+    "text": "Tabata modeled Asta on himself and Charmy Pappitson on his wife, and Charmy is his favorite character to draw.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "He modeled the characters Asta and Charmy Pappitson after himself and his wife respectively"
+  },
+  {
+    "id": "black-clover-naming-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "naming",
+    "value": "dictionaries",
+    "text": "Tabata picked character names by looking up interesting words in dictionaries of various languages.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "looking up words he found interesting in dictionaries of various languages"
+  },
+  {
+    "id": "black-clover-analog-031",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "planning",
+    "value": "analog inking",
+    "text": "Even after the anime began, Tabata kept inking and toning his drafts by hand instead of using digital tools.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "opting for traditional \"analog\" inking and toning by hand"
+  },
+  {
+    "id": "black-clover-spinoffs-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "spinoff",
+    "value": [
+      "Black Clover: Quartet Knights",
+      "Black Clover: Phantom Knights",
+      "Asta-kun Mahōtei e no Michi"
+    ],
+    "text": "Spin-offs include the console game Quartet Knights, the mobile game Phantom Knights and the gag manga Asta-kun Mahōtei e no Michi.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "A gag manga spin-off by Setta Kobayashi"
+  },
+  {
+    "id": "black-clover-stage-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "live_action",
+    "value": "Keisuke Ueda",
+    "text": "On stage, Keisuke Ueda played Asta, Naoki Takeshi played Yuno and Arisa Komiya played Noelle.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "It starred Keisuke Ueda as Asta, Naoki Takeshi as Yuno"
+  },
+  {
+    "id": "black-clover-s2-themes-034",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "themes_s2",
+    "value": [
+      "消えない理由 (WANIMA)",
+      "Yellow Brick Road (ONE OR EIGHT)"
+    ],
+    "text": "As of October 25, 2026, the second season opens with Kienai Riyū by WANIMA and closes with Yellow Brick Road by ONE OR EIGHT.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "official",
+        "url": "https://bclover.jp/music/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "OPENING WANIMA ENDING ONE OR EIGHT"
+  },
+  {
+    "id": "black-clover-black-bulls-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "role",
+    "value": [
+      "Yami Sukehiro",
+      "Finral Roulacase",
+      "Magna Swing",
+      "Luck Voltia",
+      "Gauche Adlai",
+      "Charmy Pappitson",
+      "Vanessa Enoteca",
+      "Gordon Agrippa",
+      "Zora Ideale"
+    ],
+    "text": "The Black Bulls squad counts Yami, Finral, Magna, Luck, Gauche, Charmy, Vanessa, Gordon and Zora among its members.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Black Bull Squad"
+  },
+  {
+    "id": "black-clover-captains-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "crew_roles",
+    "value": [
+      "Yami Sukehiro",
+      "William Vangeance",
+      "Fuegoleon Vermillion",
+      "Nozel Silva"
+    ],
+    "text": "Yami leads the Black Bulls, William leads the Golden Dawn, Fuegoleon leads the Crimson Lion Kings and Nozel leads the Silver Eagles.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "captain of the Crimson Lion Kings"
+  },
+  {
+    "id": "black-clover-writers-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "staff",
+    "value": [
+      "Kazuyuki Fudeyasu",
+      "Kanichi Katō",
+      "Keiichirō Ōchi"
+    ],
+    "text": "Kazuyuki Fudeyasu handled the scripts for the first 152 episodes, Kanichi Katō the rest of season one, and Keiichirō Ōchi the second season.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover_(TV_series)",
+        "ref": "1381745541",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q70331950",
+        "ref": "Q70331950",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Developed by | Kazuyuki Fudeyasu"
+  },
+  {
+    "id": "black-clover-king-of-clover-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "reputation",
+    "value": "Augustus Kira Clover XIII",
+    "text": "The current King of Clover is Augustus Kira Clover XIII, a ruler with Light Magic who is not a Wizard King.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "is the current King of Clover, wielding Light Magic"
+  },
+  {
+    "id": "black-clover-arcs-early-039",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "arcs_a",
+    "value": [
+      "Magic Knights Entrance Arc: episodes 1 to 10",
+      "Dungeon Exploration Arc: episodes 11 to 19",
+      "Eye of the Midnight Sun: Royal Capital Invasion Arc: episodes 20 to 27",
+      "Eye of the Midnight Sun: Encounter Arc: episodes 28 to 37",
+      "Seabed Temple Arc: episodes 38 to 50",
+      "Witches' Forest Arc: episodes 51 to 65"
+    ],
+    "text": "The TV anime starts with the Magic Knights Entrance Arc, episodes 1 to 10, and its sixth arc, in the Witches' Forest, ends at episode 65.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_episodes",
+        "ref": "1381627683",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Magic Knights Entrance Arc | Dungeon Exploration Arc | Eye of the Midnight Sun"
+  },
+  {
+    "id": "black-clover-arcs-late-040",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "arcs_b",
+    "value": [
+      "Royal Knights Arc: episodes 66 to 84",
+      "Eye of the Midnight Sun: Subjugation Arc: episodes 85 to 94",
+      "Elf Reincarnation Arc: episodes 95 to 112",
+      "Shadow Palace Arc: episodes 113 to 127",
+      "Heart Kingdom Training Arc: episodes 128 to 157",
+      "Heart Kingdom Joint Struggle Arc: episodes 158 to 170"
+    ],
+    "text": "The first season closes with the Heart Kingdom Joint Struggle Arc, which fills episodes 158 to 170.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 12,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_episodes",
+        "ref": "1381627683",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Heart Kingdom Training Arc | Heart Kingdom Joint Struggle Arc"
+  },
+  {
+    "id": "black-clover-openings-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP1: Haruka Mirai (Kankaku Piero)",
+      "OP2: PAiNT it BLACK (BiSH)",
+      "OP3: Black Rover (Vickeblanka)",
+      "OP4: Guess Who Is Back (Kumi Koda)",
+      "OP5: Gamushara (Miyuna)",
+      "OP6: Rakugaki Page (Kankaku Piero)",
+      "OP7: JUSTadICE (Seiko Oomori)",
+      "OP8: sky & blue (GIRLFRIEND)",
+      "OP9: RIGHT NOW (EMPiRE)",
+      "OP10: Black Catcher (Vickeblanka)",
+      "OP11: Stories (Snow Man)",
+      "OP12: Eien ni Hikare (TOMORROW X TOGETHER)",
+      "OP13: Grandeur (Snow Man)"
+    ],
+    "text": "The first season used thirteen openings, from Haruka Mirai by Kankaku Piero to Grandeur by Snow Man.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_episodes",
+        "ref": "1381627683",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=19743",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Opening Theme | thirteen opening themes"
+  },
+  {
+    "id": "black-clover-endings-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "black-clover"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED1: Aoi Honō (Itowokashi)",
+      "ED2: Amazing Dreams (SWANKY DANK)",
+      "ED3: Black to the dreamlight (EMPiRE)",
+      "ED4: four (FAKY)",
+      "ED5: Tenjou Tenge (Miyuna)",
+      "ED6: My Song My Days (SOLIDEMO with Sakura-men)",
+      "ED7: Hana ga Saku Michi (THE CHARM PARK)",
+      "ED8: against all gods (m-flo)",
+      "ED9: Jinsei wa Senjou da (Kalen Anzai)",
+      "ED10: New Page (INTERSECTION)",
+      "ED11: Answer (Kaf)",
+      "ED12: A Walk (Gakuto Kajiwara)",
+      "ED13: BEAUTIFUL (TREASURE)"
+    ],
+    "text": "The thirteen endings of the first season began with Aoi Honō by Itowokashi and finished with BEAUTIFUL by TREASURE.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_episodes",
+        "ref": "1381627683",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=19743",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Ending Theme | thirteen ending themes"
+  },
+  {
+    "id": "black-clover-character-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "asta"
+    },
+    "field": "name",
+    "value": [
+      "Asta",
+      "アスタ"
+    ],
+    "text": "Asta grew up in a church orphanage with no mana at all, so he built up his body instead of his magic.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "an orphan raised in a church who aspires to become the Wizard King"
+  },
+  {
+    "id": "black-clover-character-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yuno-grinberryall"
+    },
+    "field": "name",
+    "value": [
+      "Yuno Grinberryall",
+      "ユノ・グリンベリオール"
+    ],
+    "text": "Yuno Grinberryall was a prodigy with enormous magic and wind powers while growing up in the same orphanage as Asta.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Black_Clover",
+        "ref": "1381706424",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "born as a prodigy with immense magical power"
+  },
+  {
+    "id": "black-clover-character-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "noelle-silva"
+    },
+    "field": "name",
+    "value": [
+      "Noelle Silva",
+      "ノエル・シルヴァ"
+    ],
+    "text": "Noelle Silva belongs to House Silva, a royal family, and joined the Black Bulls with Asta.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a royal mage of House Silva and a member of the Black Bulls"
+  },
+  {
+    "id": "black-clover-character-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yami-sukehiro"
+    },
+    "field": "name",
+    "value": [
+      "Yami Sukehiro",
+      "ヤミ・スケヒロ"
+    ],
+    "text": "Yami Sukehiro leads the Black Bulls, and his given name and surname sit in the opposite order in Japanese.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "originally Sukehiro Yami"
+  },
+  {
+    "id": "black-clover-character-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "finral-roulacase"
+    },
+    "field": "name",
+    "value": [
+      "Finral Roulacase",
+      "フィンラル・ルーラケイス"
+    ],
+    "text": "Finral Roulacase took his mother's family name Roulacase when he left the noble House Vaude.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "adopts his mother's surname"
+  },
+  {
+    "id": "black-clover-character-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "magna-swing"
+    },
+    "field": "name",
+    "value": [
+      "Magna Swing",
+      "マグナ・スウィング"
+    ],
+    "text": "Magna Swing is the right-hand man of Yami, and he grew up in Rayaka Village.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "serves as Yami's right-hand man"
+  },
+  {
+    "id": "black-clover-character-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "luck-voltia"
+    },
+    "field": "name",
+    "value": [
+      "Luck Voltia",
+      "ラック・ボルティア"
+    ],
+    "text": "Luck Voltia grew up as an orphan in Yvon Village and equates victory with affection.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Orphaned in Yvon Village"
+  },
+  {
+    "id": "black-clover-character-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "gauche-adlai"
+    },
+    "field": "name",
+    "value": [
+      "Gauche Adlai",
+      "ゴーシュ・アドレイ"
+    ],
+    "text": "Gauche Adlai was born a noble before turning criminal to support his sister Marie.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Once a noble turned criminal to support his sister Marie"
+  },
+  {
+    "id": "black-clover-character-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "charmy-pappitson"
+    },
+    "field": "name",
+    "value": [
+      "Charmy Pappitson",
+      "チャーミー・パピットソン"
+    ],
+    "text": "Charmy Pappitson looks like a child, but she hides a huge appetite and huge magical power.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "childlike appearance contrasts with her immense power"
+  },
+  {
+    "id": "black-clover-character-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "vanessa-enoteca"
+    },
+    "field": "name",
+    "value": [
+      "Vanessa Enoteca",
+      "バネッサ・エノテーカ"
+    ],
+    "text": "Vanessa Enoteca is a witch who ran away from her mother's rule in the Forest of Witches.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Escaping her mother's oppressive rule in the Forest of Witches"
+  },
+  {
+    "id": "black-clover-character-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "gordon-agrippa"
+    },
+    "field": "name",
+    "value": [
+      "Gordon Agrippa",
+      "ゴードン・アグリッパ"
+    ],
+    "text": "Gordon Agrippa comes from a family of curse users and speaks softly after a lonely childhood.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Coming from a lineage of curse users"
+  },
+  {
+    "id": "black-clover-character-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "zora-ideale"
+    },
+    "field": "name",
+    "value": [
+      "Zora Ideale",
+      "ゾラ・イデアーレ"
+    ],
+    "text": "Zora Ideale first refused to wear the Black Bulls robe, and he distrusts nobles because of how his father was killed.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Initially refusing to wear his squad robe"
+  },
+  {
+    "id": "black-clover-character-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "secre-swallowtail"
+    },
+    "field": "name",
+    "value": [
+      "Secre Swallowtail",
+      "セクレ・スワロティル"
+    ],
+    "text": "Secre Swallowtail uses Sealing Magic, which also gave her horns and a second form.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Her Sealing Magic"
+  },
+  {
+    "id": "black-clover-character-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "nacht-faust"
+    },
+    "field": "name",
+    "value": [
+      "Nacht Faust",
+      "ナハト・ファウスト"
+    ],
+    "text": "Nacht Faust is the vice-captain of the Black Bulls and Yami's old friend.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 12,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the vice-captain of the Black Bulls"
+  },
+  {
+    "id": "black-clover-character-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "julius-novachrono"
+    },
+    "field": "name",
+    "value": [
+      "Julius Novachrono",
+      "ユリウス・ノヴァクロノ"
+    ],
+    "text": "Julius Novachrono is the 28th Wizard King and used to lead the Grey Deer squad.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Former captain of the Grey Deer squad"
+  },
+  {
+    "id": "black-clover-character-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "william-vangeance"
+    },
+    "field": "name",
+    "value": [
+      "William Vangeance",
+      "ウィリアム・ヴァンジャンス"
+    ],
+    "text": "William Vangeance leads the Golden Dawn, the squad ranked strongest by the Wizard King's star system.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "is the captain of the Golden Dawn"
+  },
+  {
+    "id": "black-clover-character-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "mimosa-vermillion"
+    },
+    "field": "name",
+    "value": [
+      "Mimosa Vermillion",
+      "ミモザ・ヴァーミリオン"
+    ],
+    "text": "Mimosa Vermillion belongs to the royal House Vermillion and admires her cousin Noelle.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "admiring her cousin Noelle's determination"
+  },
+  {
+    "id": "black-clover-character-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "fuegoleon-vermillion"
+    },
+    "field": "name",
+    "value": [
+      "Fuegoleon Vermillion",
+      "フエゴレオン・ヴァーミリオン"
+    ],
+    "text": "Fuegoleon Vermillion is a noble who treats others as equals, unlike most royals.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "demonstrates humility and mentors others regardless of status"
+  },
+  {
+    "id": "black-clover-character-name-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "nozel-silva"
+    },
+    "field": "name",
+    "value": [
+      "Nozel Silva",
+      "ノゼル・シルヴァ"
+    ],
+    "text": "Nozel Silva is the heir of the Silva family and the captain of the Silver Eagles.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Silver Eagles captain and Silva family heir"
+  },
+  {
+    "id": "black-clover-character-name-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "zagred"
+    },
+    "field": "name",
+    "value": [
+      "Zagred",
+      "ザグレド"
+    ],
+    "text": "Zagred is a high-ranking devil who plays with reality using spoken words.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a high-ranking devil"
+  },
+  {
+    "id": "black-clover-asta-grimoire-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "asta"
+    },
+    "field": "power",
+    "value": [
+      "five-leaf grimoire",
+      "anti-magic"
+    ],
+    "text": "Asta wields a rare five-leaf grimoire whose anti-magic cancels spells, and he swings the Demon-Slayer Sword.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "wields a five-leaf clover grimoire containing the Anti-Magic devil Liebe"
+  },
+  {
+    "id": "black-clover-asta-voice-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "asta"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Gakuto Kajiwara",
+      "Dallas Reid"
+    ],
+    "text": "Asta is voiced by Gakuto Kajiwara in Japanese and by Dallas Reid in the English dub.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bclover.jp/staffcast/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Shun Horie (OVA), Gakuto Kajiwara (anime) (Japanese); Dallas Reid (English)"
+  },
+  {
+    "id": "black-clover-yuno-wind-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yuno-grinberryall"
+    },
+    "field": "power",
+    "value": [
+      "Wind Magic",
+      "four-leaf grimoire"
+    ],
+    "text": "Yuno commands Wind Magic and holds a four-leaf grimoire, and the wind spirit Sylph chose him as partner.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "chosen partner of the wind spirit Sylph"
+  },
+  {
+    "id": "black-clover-yuno-vessel-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yuno-grinberryall"
+    },
+    "field": "origin",
+    "value": "Licht's son",
+    "text": "The reason behind Yuno's four-leaf grimoire is that he houses the reborn soul of the elf Licht's unborn child.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 9,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the human vessel for the reincarnated unborn son of the elf Licht"
+  },
+  {
+    "id": "black-clover-yuno-prince-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yuno-grinberryall"
+    },
+    "field": "public_identity",
+    "value": "House Grinberryall",
+    "text": "Yuno is later revealed to be a prince of the former royal family of the Spade Kingdom, House Grinberryall.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 13,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "He is later revealed to be the prince of the Spade Kingdom's former royal family"
+  },
+  {
+    "id": "black-clover-yuno-voice-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yuno-grinberryall"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Nobunaga Shimazaki",
+      "Micah Solusod"
+    ],
+    "text": "Yuno is voiced by Nobunaga Shimazaki in Japanese and by Micah Solusod in the English dub.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bclover.jp/staffcast/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Sōma Saitō (OVA), Nobunaga Shimazaki (anime) (Japanese); Micah Solusod (English)"
+  },
+  {
+    "id": "black-clover-noelle-water-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "noelle-silva"
+    },
+    "field": "power",
+    "value": "Water Magic",
+    "text": "Noelle has huge mana and Water Magic, but at first she cannot control it because of a childhood trauma.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "immense mana and Water Magic potential"
+  },
+  {
+    "id": "black-clover-noelle-voice-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "noelle-silva"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Kana Yūki",
+      "Jill Harris"
+    ],
+    "text": "Noelle is voiced by Kana Yūki in Japanese and by Jill Harris in the English dub.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bclover.jp/staffcast/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Kana Yūki (Japanese); Jill Harris (English)"
+  },
+  {
+    "id": "black-clover-noelle-mother-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "noelle-silva"
+    },
+    "field": "background",
+    "value": "Megicula",
+    "text": "Noelle's mother Acier died at the hands of the devil Megicula.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 13,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Later revelations about her mother's death at Megicula's hands"
+  },
+  {
+    "id": "black-clover-yami-nick-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yami-sukehiro"
+    },
+    "field": "nickname",
+    "value": "Lord of Destruction",
+    "text": "Yami is nicknamed the Lord of Destruction and wields Dark Magic that can cancel other spells.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "nicknamed the Lord of Destruction"
+  },
+  {
+    "id": "black-clover-yami-voice-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yami-sukehiro"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Junichi Suwabe",
+      "Christopher Sabat"
+    ],
+    "text": "Yami is voiced by Junichi Suwabe in Japanese and by Christopher Sabat in the English dub.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bclover.jp/staffcast/",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q110895968",
+        "ref": "Q110895968",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Voiced by: Junichi Suwabe (Japanese); Christopher Sabat (English)"
+  },
+  {
+    "id": "black-clover-yami-sun-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yami-sukehiro"
+    },
+    "field": "origin",
+    "value": "Land of the Sun",
+    "text": "Yami comes from a country called the Land of the Sun.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 13,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Hailing from the Land of the Sun"
+  },
+  {
+    "id": "black-clover-finral-spatial-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "finral-roulacase"
+    },
+    "field": "power",
+    "value": "Spatial Magic",
+    "text": "Finral's Spatial Magic is used to carry people around, though he starts out cowardly and a womanizer.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "specializing in Spatial Magic for transportation"
+  },
+  {
+    "id": "black-clover-magna-broom-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "magna-swing"
+    },
+    "field": "treasure",
+    "value": "Crazy Cyclone",
+    "text": "Magna rides a broom called Crazy Cyclone while hurling Fire Magic fireballs.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "riding his signature broom, \"Crazy Cyclone\""
+  },
+  {
+    "id": "black-clover-magna-past-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "magna-swing"
+    },
+    "field": "background",
+    "value": "delinquent",
+    "text": "Magna was a delinquent in Rayaka Village before he joined the Magic Knights.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Originally a delinquent from Rayaka Village"
+  },
+  {
+    "id": "black-clover-luck-nick-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "luck-voltia"
+    },
+    "field": "nickname",
+    "value": "Luck the Cheery Berserker",
+    "text": "Luck is nicknamed the Cheery Berserker for smiling constantly while he fights.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "nicknamed \"Luck the Cheery Berserker\" for his constant smile in combat"
+  },
+  {
+    "id": "black-clover-luck-lightning-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "luck-voltia"
+    },
+    "field": "power",
+    "value": "Lightning Magic",
+    "text": "Luck's Lightning Magic forms gloves and boots that make him extremely fast.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Lightning Magic grants him exceptional speed"
+  },
+  {
+    "id": "black-clover-gauche-eye-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "gauche-adlai"
+    },
+    "field": "power",
+    "value": "Mirror Magic",
+    "text": "Gauche casts Mirror Magic through an artificial left eye.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "wields Mirror Magic through his artificial left eye"
+  },
+  {
+    "id": "black-clover-charmy-cotton-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "charmy-pappitson"
+    },
+    "field": "power",
+    "value": "Cotton Magic",
+    "text": "Charmy makes sheep out of cotton for cooking and fighting, and the food she makes restores magical power.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Cotton Magic to create sheep for both culinary and combat purposes"
+  },
+  {
+    "id": "black-clover-charmy-dwarf-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "charmy-pappitson"
+    },
+    "field": "origin",
+    "value": "half-dwarf",
+    "text": "Charmy is half dwarf and can change into an adult form that boosts her power.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Of half-dwarf descent, she possesses an adult transformation"
+  },
+  {
+    "id": "black-clover-vanessa-thread-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "vanessa-enoteca"
+    },
+    "field": "power",
+    "value": "Thread Magic",
+    "text": "Vanessa moves unseen threads with Thread Magic, and her cat Rouge, the Red Thread of Fate, changes bad outcomes.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "the Red Thread of Fate a magical cat named Rouge"
+  },
+  {
+    "id": "black-clover-gordon-poison-084",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "gordon-agrippa"
+    },
+    "field": "power",
+    "value": "Poison Magic",
+    "text": "Gordon's magic is built on poison and curses.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "specializing in Poison Magic and curses"
+  },
+  {
+    "id": "black-clover-zora-ash-085",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "zora-ideale"
+    },
+    "field": "power",
+    "value": "Ash Magic",
+    "text": "Zora's Ash Magic sets trap spells that bounce attacks back with twice the power.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Ash Magic to create trap spells"
+  },
+  {
+    "id": "black-clover-secre-nero-086",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "secre-swallowtail"
+    },
+    "field": "name_variant",
+    "value": "Nero",
+    "text": "Secre goes by the name Nero, and she accompanies Asta after they first meet.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "known as Nero"
+  },
+  {
+    "id": "black-clover-secre-seal-087",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "secre-swallowtail"
+    },
+    "field": "record",
+    "value": [
+      "Zagred",
+      "Sealing Magic"
+    ],
+    "text": "Secre used Sealing Magic to imprison the devil Zagred, and the spell cursed her with horns.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "used to imprison the devil Zagred, cursed her with horns"
+  },
+  {
+    "id": "black-clover-secre-lumiere-088",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "secre-swallowtail"
+    },
+    "field": "role",
+    "value": "servant of Lumiere",
+    "text": "Secre was a servant of the first Wizard King, Lumiere, five hundred years in the past.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "a former servant of Wizard King Lumiere from 500 years past"
+  },
+  {
+    "id": "black-clover-nacht-shadow-089",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "nacht-faust"
+    },
+    "field": "power",
+    "value": "Shadow Magic",
+    "text": "Nacht wields Shadow Magic and borrows the power of four devils through contracts.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 12,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "wielding Shadow Magic and Devil Union abilities via contracts with four devils"
+  },
+  {
+    "id": "black-clover-nacht-twin-090",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "nacht-faust"
+    },
+    "field": "background",
+    "value": "Morgen",
+    "text": "Nacht carries guilt over the death of his twin brother Morgen in a failed ritual.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 13,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "His twin brother Morgen's death during a failed ritual"
+  },
+  {
+    "id": "black-clover-julius-time-091",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "julius-novachrono"
+    },
+    "field": "power",
+    "value": "Time Magic",
+    "text": "Julius is the 28th Wizard King and wields rare Time Magic.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "serves as the 28th Wizard King, wielding rare Time Magic"
+  },
+  {
+    "id": "black-clover-julius-lucius-092",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "julius-novachrono"
+    },
+    "field": "public_identity",
+    "value": "Lucius",
+    "text": "Julius is later revealed to be a second soul that shares a body with Lucius.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 13,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "identity is later revealed as a secondary soul sharing a body with Lucius"
+  },
+  {
+    "id": "black-clover-julius-end-093",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "julius-novachrono"
+    },
+    "field": "record",
+    "value": "sacrifice",
+    "text": "Julius spends the last of his magic and gives his life to undo the damage of the final battle.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 13,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "uses the last of his magic and sacrifices his life to undo the damage"
+  },
+  {
+    "id": "black-clover-william-tree-094",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "william-vangeance"
+    },
+    "field": "power",
+    "value": "World Tree Magic",
+    "text": "William wields World Tree Magic, which he uses to heal his squad.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "wielding World Tree Magic"
+  },
+  {
+    "id": "black-clover-william-patry-095",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "william-vangeance"
+    },
+    "field": "record",
+    "value": "Patry",
+    "text": "William shares his body with the elf Patry.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 9,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "symbiotic relationship with the elf Patry, who shares his body"
+  },
+  {
+    "id": "black-clover-mimosa-squad-096",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "mimosa-vermillion"
+    },
+    "field": "organization",
+    "value": "Golden Dawn",
+    "text": "Mimosa is a member of the Golden Dawn, the squad Yuno joins.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "is a member of the Golden Dawn"
+  },
+  {
+    "id": "black-clover-mimosa-plant-097",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "mimosa-vermillion"
+    },
+    "field": "power",
+    "value": "Plant Magic",
+    "text": "Mimosa heals with Plant Magic and judges people by merit rather than birth.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "healing-focused Plant Magic"
+  },
+  {
+    "id": "black-clover-fuegoleon-lion-098",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "fuegoleon-vermillion"
+    },
+    "field": "organization",
+    "value": "Crimson Lion Kings",
+    "text": "Fuegoleon captains the Crimson Lion Kings and uses powerful Fire Magic.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "captain of the Crimson Lion Kings, wielding formidable Fire Magic"
+  },
+  {
+    "id": "black-clover-nozel-mercury-099",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "nozel-silva"
+    },
+    "field": "power",
+    "value": "Mercury Magic",
+    "text": "Nozel controls liquid metal with Mercury Magic as the captain of the Silver Eagles.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "wielding Mercury Magic to control liquid metal"
+  },
+  {
+    "id": "black-clover-zagred-word-100",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "zagred"
+    },
+    "field": "power",
+    "value": "Word Soul Magic",
+    "text": "Zagred's Word Soul Magic bends reality through speech, and his Reincarnation Magic moves souls between bodies.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "His Word Soul Magic manipulates reality through speech"
+  },
+  {
+    "id": "black-clover-zagred-elves-101",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "zagred"
+    },
+    "field": "record",
+    "value": "elves",
+    "text": "Zagred planned the massacre of the elves five hundred years before the main story.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "orchestrated the elves' genocide 500 years prior"
+  },
+  {
+    "id": "black-clover-zagred-end-102",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "zagred"
+    },
+    "field": "role",
+    "value": "destroyed by Asta",
+    "text": "Asta finally destroys Zagred by cutting his heart in two.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T14:15:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T14:30:00.000Z",
+    "excerpt": "Asta ultimately destroys him by bisecting his heart"
+  },
+  {
+    "id": "black-clover-finral-roulacase-voice-103",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "finral-roulacase"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Jun Fukuyama"
+    ],
+    "text": "Finral Roulacase is voiced in Japanese by Jun Fukuyama.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "official",
+        "url": "https://bclover.jp/staffcast/",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Voiced by: Jun Fukuyama (Japanese)"
+  },
+  {
+    "id": "black-clover-asta-limits-104",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "asta"
+    },
+    "field": "habits",
+    "value": "Follows Yami's philosophy of surpassing limits",
+    "text": "In the Black Bulls, Asta takes on his captain's belief that you grow by pushing past your own limits.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "embracing their captain Yami's philosophy to surpass his limits"
+  },
+  {
+    "id": "black-clover-asta-strength-105",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "asta"
+    },
+    "field": "talent",
+    "value": "Immense physical strength",
+    "text": "Without any magic to rely on, Asta makes up for it with enormous physical strength.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "possesses immense physical strength"
+  },
+  {
+    "id": "black-clover-yuno-grinberryall-rival-106",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yuno-grinberryall"
+    },
+    "field": "role",
+    "value": "Asta's rival and best friend",
+    "text": "Yuno is Asta's friendly rival and best friend, a fellow orphan from the village of Hage.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "Asta's rival, best friend, and a fellow orphan raised in Hage"
+  },
+  {
+    "id": "black-clover-yuno-grinberryall-goal-107",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yuno-grinberryall"
+    },
+    "field": "motivation",
+    "value": "Wants to become Wizard King",
+    "text": "Yuno shares Asta's goal of one day becoming the Wizard King.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "sharing the goal of becoming the Wizard King"
+  },
+  {
+    "id": "black-clover-yami-sukehiro-captain-108",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yami-sukehiro"
+    },
+    "field": "role",
+    "value": "Captain of the Black Bulls",
+    "text": "Yami is the captain of the Black Bulls, one of the squads of the Magic Knights.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "is the captain of the Black Bulls"
+  },
+  {
+    "id": "black-clover-yami-sukehiro-dark-magic-109",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "yami-sukehiro"
+    },
+    "field": "power",
+    "value": "Dark Magic that negates spells",
+    "text": "Yami's Dark Magic is able to cancel out other spells.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "wields Dark Magic capable of negating other spells"
+  },
+  {
+    "id": "black-clover-finral-roulacase-courage-110",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "finral-roulacase"
+    },
+    "field": "habits",
+    "value": "Starts cowardly and careless, grows brave",
+    "text": "Finral begins as a timid, careless mage shaped by pressure at home, and later grows into a brave one.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "Initially cowardly and irresponsible due to family pressures"
+  },
+  {
+    "id": "black-clover-magna-swing-fiery-111",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "magna-swing"
+    },
+    "field": "habits",
+    "value": "Fiery temper",
+    "text": "Magna has a hot temper and serves as Yami's right-hand man in the Black Bulls.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "a fiery-tempered Black Bulls member"
+  },
+  {
+    "id": "black-clover-magna-swing-fireballs-112",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "black-clover",
+      "ref": "magna-swing"
+    },
+    "field": "power",
+    "value": "Inventive fireballs",
+    "text": "Magna uses Fire Magic in inventive ways, throwing many different kinds of fireball.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+        "ref": "1381757229",
+        "fetched_at": "2026-10-26T10:05:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T10:20:00.000Z",
+    "excerpt": "creatively wields Fire Magic through varied fireball attacks"
+  }
+]

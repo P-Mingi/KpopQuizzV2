@@ -1,0 +1,274 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "detective-conan",
+  "title": "Detective Conan Characters in Three Clues: Who Is This?",
+  "slug": "detective-conan-characters-in-three-clues-who-is-this",
+  "description": "Ten people from the world of Conan, three clues each, from the hint that is hard to read to the one that gives it away. No spoilers.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Guess-from-clues format: every clue rests on a cited fact; names are never in the clues.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Case Closed characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    }
+  ],
+  "questions": [
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is a private detective.",
+        "His fame comes from a boy who secretly solves his cases.",
+        "Akira Kamiya was his first voice actor."
+      ],
+      "options": [
+        "Juzo Megure",
+        "Kogoro Mori",
+        "Ninzaburo Shiratori",
+        "Hiroshi Agasa"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-kogoro-mori-name-038",
+        "detective-conan-conan-edogawa-cover-033",
+        "detective-conan-kogoro-mori-voice-039"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is a teenage detective whose home city is Osaka.",
+        "He speaks in the Kansai dialect and has a dark skin tone.",
+        "He is a rival of the hero."
+      ],
+      "options": [
+        "Ninzaburo Shiratori",
+        "Heiji Hattori",
+        "Genta Kojima",
+        "Wataru Takagi"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-heiji-hattori-name-040",
+        "detective-conan-heiji-hattori-dialect-041"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She is a childhood friend of a detective.",
+        "Her father is a high-ranking police official in Osaka.",
+        "Yūko Miyamura voices her."
+      ],
+      "options": [
+        "Miwako Sato",
+        "Kazuha Toyama",
+        "Sonoko Suzuki",
+        "Ran Mori"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-kazuha-toyama-name-043",
+        "detective-conan-kazuha-toyama-voice-044"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is an absent-minded professor.",
+        "He lives next door to the Kudo house.",
+        "He invents gadgets, and he knows the hero's secret."
+      ],
+      "options": [
+        "Wataru Takagi",
+        "Hiroshi Agasa",
+        "Kogoro Mori",
+        "Juzo Megure"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-hiroshi-agasa-name-048",
+        "detective-conan-hiroshi-agasa-voice-049"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is the self-proclaimed head of a group of young detectives.",
+        "He is a boy who loves food.",
+        "He shares his voice actor's name with a police officer."
+      ],
+      "options": [
+        "Ayumi Yoshida",
+        "Genta Kojima",
+        "Hiroshi Agasa",
+        "Mitsuhiko Tsuburaya"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-genta-kojima-name-050",
+        "detective-conan-genta-kojima-voice-051",
+        "detective-conan-wataru-takagi-voice-059"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "This boy is a member of the Junior Detective League.",
+        "He likes reading science books.",
+        "Ikue Ōtani voices him in Japanese."
+      ],
+      "options": [
+        "Ayumi Yoshida",
+        "Mitsuhiko Tsuburaya",
+        "Hiroshi Agasa",
+        "Genta Kojima"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-mitsuhiko-tsuburaya-name-052",
+        "detective-conan-mitsuhiko-tsuburaya-voice-053"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is a veteran of the police.",
+        "He leads most of the murder investigations.",
+        "Chafurin voices him in Japanese."
+      ],
+      "options": [
+        "Ninzaburo Shiratori",
+        "Juzo Megure",
+        "Hiroshi Agasa",
+        "Wataru Takagi"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-juzo-megure-name-056",
+        "detective-conan-juzo-megure-voice-057"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is an officer who works under an inspector.",
+        "He has feelings for a fellow officer.",
+        "The actor who voices him has exactly the same name."
+      ],
+      "options": [
+        "Juzo Megure",
+        "Wataru Takagi",
+        "Genta Kojima",
+        "Ninzaburo Shiratori"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-wataru-takagi-name-058",
+        "detective-conan-wataru-takagi-voice-059"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "She is a smart and athletic officer of the police.",
+        "Her male colleagues are fond of her.",
+        "Atsuko Yuya voices her in Japanese."
+      ],
+      "options": [
+        "Ran Mori",
+        "Miwako Sato",
+        "Sonoko Suzuki",
+        "Kazuha Toyama"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-miwako-sato-name-060",
+        "detective-conan-miwako-sato-voice-061"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    },
+    {
+      "question": "Who is this character?",
+      "clues": [
+        "He is a high-ranking member of a dangerous organization.",
+        "He is a merciless man.",
+        "He likes to drive a black Porsche."
+      ],
+      "options": [
+        "Wataru Takagi",
+        "Gin",
+        "Hiroshi Agasa",
+        "Juzo Megure"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "detective-conan-gin-name-065",
+        "detective-conan-gin-car-066"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    }
+  ]
+}

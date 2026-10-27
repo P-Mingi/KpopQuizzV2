@@ -1,0 +1,327 @@
+{
+  "$comment": "Run O1 lane K1 batch b7: series data for Sailor Moon (tier C), built from pinned Wikipedia revisions (franchise article, TV series article, Sailor Moon Crystal article, character list), Wikidata Q1643098 (manga), Q704353 (1992 anime) and Q16138249 (Crystal), and the official anime site sailormoon-official.com (read directly; it credits Naoko Takeuchi and Toei Animation). Facts are drafts for review. This one series file covers three works and questions must say which: the manga (1991 to 1997), the 1992 Toei anime (200 episodes) and Sailor Moon Crystal (2014 to 2016, 39 episodes). The five arcs are the manga's story arcs named in the Wikipedia chapter list and the Crystal article (Dark Kingdom, Black Moon, Infinity, Dream, Stars); Wikipedia says the five arcs match the five seasons of the 1992 anime, so the episode ranges are the 1992 anime's (46, 43, 38, 39, 34 episodes; ranges from the Wikipedia table). Crystal covers arcs 1 to 3 only (Death Busters is its name for Infinity), and its films Eternal and Cosmos cover Dream and Stars. No chapter ranges are stored: the chapter list numbers 60 serialized chapters and 52 reorganized acts and the arc ranges differ between them. Character debut arcs follow the arc in which the character first appears per the Wikipedia plot summaries (Chibiusa in Black Moon, Haruka and Michiru in Infinity). spoiler_level equals the debut arc for those who debut after arc 1; Mamoru is tagged 1 with identity_spoiler because the Tuxedo Mask reveal is a story beat. Native names come from the Wikipedia character lists; Queen Beryl has none stored because the page spells it クイン・ベリル. Themes: the main opening Moonlight Densetsu is one song in two versions (DALI, then Moon Lips, stored as OP 1 and OP 2), then Sailor Star Song, and the finale ending; the other endings are not named with artists in the sources read and are not stored. Status is finished. Official URL is the 30th anniversary site listed on Wikidata.",
+  "group": {
+    "slug": "sailor-moon",
+    "name": "Sailor Moon",
+    "site": "anime",
+    "display_color": "#DB2777",
+    "text_color": "#FFFFFF"
+  },
+  "series": {
+    "type": "anime_manga",
+    "title_en": "Sailor Moon",
+    "title_native": "美少女戦士セーラームーン",
+    "title_romaji": "Bishōjo Senshi Sērā Mūn",
+    "aliases": [
+      "Pretty Guardian Sailor Moon",
+      "Pretty Soldier Sailor Moon"
+    ],
+    "studios": [
+      {
+        "name": "Toei Animation",
+        "seasons": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    ],
+    "director": "Junichi Sato",
+    "authors": [
+      {
+        "name": "Naoko Takeuchi",
+        "role": "story_art"
+      }
+    ],
+    "magazine": "Nakayoshi",
+    "publisher": "Kodansha",
+    "anime_start_year": 1992,
+    "anime_end_year": 1997,
+    "manga_start_year": 1991,
+    "manga_end_year": 1997,
+    "status": "finished",
+    "episodes": 200,
+    "seasons": 5,
+    "volumes": 18,
+    "official_url": "https://sailormoon-official.com/",
+    "wikidata_qid": "Q1643098",
+    "tier": "C",
+    "published": true
+  },
+  "arcs": [
+    {
+      "ord": 1,
+      "name": "Dark Kingdom",
+      "kind": "saga",
+      "episode_from": 1,
+      "episode_to": 46,
+      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)",
+      "status": "published"
+    },
+    {
+      "ord": 2,
+      "name": "Black Moon",
+      "kind": "saga",
+      "episode_from": 47,
+      "episode_to": 89,
+      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)",
+      "status": "published"
+    },
+    {
+      "ord": 3,
+      "name": "Infinity",
+      "kind": "saga",
+      "episode_from": 90,
+      "episode_to": 127,
+      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)",
+      "status": "published"
+    },
+    {
+      "ord": 4,
+      "name": "Dream",
+      "kind": "saga",
+      "episode_from": 128,
+      "episode_to": 166,
+      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)",
+      "status": "published"
+    },
+    {
+      "ord": 5,
+      "name": "Stars",
+      "kind": "saga",
+      "episode_from": 167,
+      "episode_to": 200,
+      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)",
+      "status": "published"
+    }
+  ],
+  "characters": [
+    {
+      "slug": "usagi-tsukino",
+      "name": "Usagi Tsukino",
+      "name_native": "月野 うさぎ",
+      "role": "main",
+      "affiliation": "Sailor Guardians",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A careless but big-hearted middle school girl who transforms into the heroine Sailor Moon.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 1,
+      "status": "published"
+    },
+    {
+      "slug": "ami-mizuno",
+      "name": "Ami Mizuno",
+      "name_native": "水野 亜美",
+      "role": "supporting",
+      "affiliation": "Sailor Guardians",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A quiet, very bright classmate who becomes Sailor Mercury and hopes to be a doctor.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 2,
+      "status": "published"
+    },
+    {
+      "slug": "rei-hino",
+      "name": "Rei Hino",
+      "name_native": "火野 レイ",
+      "role": "supporting",
+      "affiliation": "Sailor Guardians",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A shrine maiden who becomes Sailor Mars and can ward off evil with ofuda scrolls.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 3,
+      "status": "published"
+    },
+    {
+      "slug": "makoto-kino",
+      "name": "Makoto Kino",
+      "name_native": "木野 まこと",
+      "role": "supporting",
+      "affiliation": "Sailor Guardians",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A tall, strong transfer student who becomes Sailor Jupiter and loves cooking.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 4,
+      "status": "published"
+    },
+    {
+      "slug": "minako-aino",
+      "name": "Minako Aino",
+      "name_native": "愛野 美奈子",
+      "role": "supporting",
+      "affiliation": "Sailor Guardians",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "An aspiring idol who is Sailor Venus and first appeared in the spin-off Codename: Sailor V.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 5,
+      "status": "published"
+    },
+    {
+      "slug": "mamoru-chiba",
+      "name": "Mamoru Chiba",
+      "name_native": "地場 衛",
+      "role": "supporting",
+      "affiliation": "Tuxedo Mask",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "An older student who also helps the Guardians as the masked Tuxedo Mask.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+      "spoiler_level": 1,
+      "identity_spoiler": true,
+      "ord": 6,
+      "status": "published"
+    },
+    {
+      "slug": "luna",
+      "name": "Luna",
+      "name_native": "ルナ",
+      "role": "supporting",
+      "affiliation": "Sailor Guardians' advisors",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A talking black cat who tells Usagi she is Sailor Moon and guides her.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 7,
+      "status": "published"
+    },
+    {
+      "slug": "artemis",
+      "name": "Artemis",
+      "name_native": "アルテミス",
+      "role": "supporting",
+      "affiliation": "Sailor Guardians' advisors",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A white cat who advises Minako Aino and works alongside Luna.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 8,
+      "status": "published"
+    },
+    {
+      "slug": "queen-beryl",
+      "name": "Queen Beryl",
+      "role": "antagonist",
+      "affiliation": "Dark Kingdom",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "The founder of the Dark Kingdom, the first enemy force the Guardians face.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 9,
+      "status": "published"
+    },
+    {
+      "slug": "chibiusa",
+      "name": "Chibiusa",
+      "name_native": "ちびうさ",
+      "role": "supporting",
+      "affiliation": "Sailor Guardians",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "description": "A girl from the 30th century who trains to become Sailor Chibi Moon.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+      "spoiler_level": 2,
+      "identity_spoiler": false,
+      "ord": 10,
+      "status": "published"
+    },
+    {
+      "slug": "haruka-tenoh",
+      "name": "Haruka Tenoh",
+      "name_native": "天王 はるか",
+      "role": "supporting",
+      "affiliation": "Outer Guardians",
+      "debut_arc_ord": 3,
+      "debut_medium": "both",
+      "description": "A tomboyish race-car driver who transforms into Sailor Uranus.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+      "spoiler_level": 3,
+      "identity_spoiler": false,
+      "ord": 11,
+      "status": "published"
+    },
+    {
+      "slug": "michiru-kaioh",
+      "name": "Michiru Kaioh",
+      "name_native": "海王 みちる",
+      "role": "supporting",
+      "affiliation": "Outer Guardians",
+      "debut_arc_ord": 3,
+      "debut_medium": "both",
+      "description": "An elegant violinist and painter who transforms into Sailor Neptune.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+      "spoiler_level": 3,
+      "identity_spoiler": false,
+      "ord": 12,
+      "status": "published"
+    }
+  ],
+  "themes": [
+    {
+      "kind": "op",
+      "number": 1,
+      "title": "Moonlight Densetsu",
+      "artist": "DALI",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 2,
+      "title": "Moonlight Densetsu",
+      "artist": "Moon Lips",
+      "season": 3,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "op",
+      "number": 3,
+      "title": "Sailor Star Song",
+      "artist": "Kae Hanazawa",
+      "season": 5,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 1,
+      "title": "Moonlight Densetsu",
+      "artist": "Moon Lips",
+      "season": 5,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)",
+      "status": "published"
+    }
+  ]
+}

@@ -1,0 +1,3013 @@
+[
+ {
+  "id": "naruto-titles-001",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "titles",
+  "value": [
+   "Naruto",
+   "NARUTO -ナルト-",
+   "Naruto: Shippuden"
+  ],
+  "text": "The manga is written NARUTO -ナルト- in Japanese, and its second anime series is titled Naruto: Shippuden.",
+  "category": "history",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Naruto",
+    "ref": "1379758694",
+    "fetched_at": "2026-10-20T16:40:09Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "NARUTO -ナルト- Genre Adventure"
+ },
+ {
+  "id": "naruto-authors-002",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "authors",
+  "value": [
+   "Masashi Kishimoto"
+  ],
+  "text": "Masashi Kishimoto both wrote and drew the Naruto manga himself.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Naruto",
+    "ref": "1379758694",
+    "fetched_at": "2026-10-20T16:40:09Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q26971382",
+    "ref": "Q26971382",
+    "fetched_at": "2026-10-20T16:40:10Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "written and illustrated by Masashi Kishimoto"
+ },
+ {
+  "id": "naruto-serialization-003",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "serialization",
+  "value": [
+   "Weekly Shonen Jump",
+   "Shueisha"
+  ],
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Naruto",
+    "ref": "1379758694",
+    "fetched_at": "2026-10-20T16:40:09Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q26971382",
+    "ref": "Q26971382",
+    "fetched_at": "2026-10-20T16:40:10Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "Weekly Shōnen Jump from September 1999 to November 2014"
+ },
+ {
+  "id": "naruto-manga-run-004",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "manga_run",
+  "value": "September 21, 1999 to November 10, 2014",
+  "text": "Naruto ran in Weekly Shonen Jump for about fifteen years, from late September 1999 to mid November 2014.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Naruto",
+    "ref": "1379758694",
+    "fetched_at": "2026-10-20T16:40:09Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q26971382",
+    "ref": "Q26971382",
+    "fetched_at": "2026-10-20T16:40:10Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "from September 21, 1999"
+ },
+ {
+  "id": "naruto-manga-size-005",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "manga_size",
+  "value": "700 chapters in 72 volumes",
+  "text": "The Naruto manga closed with 700 chapters gathered into 72 collected volumes.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Naruto",
+    "ref": "1379758694",
+    "fetched_at": "2026-10-20T16:40:09Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "with its 700 chapters collected in 72 tankōbon volumes"
+ },
+ {
+  "id": "naruto-tv-naruto-006",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "tv_naruto",
+  "value": "Naruto: 220 episodes, 2002-10-03 to 2007-02-08, Studio Pierrot, director Hayato Date",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)",
+    "ref": "1381022376",
+    "fetched_at": "2026-10-20T16:47:57Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q25929253",
+    "ref": "Q25929253",
+    "fetched_at": "2026-10-20T16:42:04Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "aired in Japan from October 3, 2002, to February 8, 2007"
+ },
+ {
+  "id": "naruto-tv-shippuden-007",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "tv_shippuden",
+  "value": "Naruto: Shippuden: 500 episodes, 2007-02-15 to 2017-03-23, Studio Pierrot, director Hayato Date",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)",
+    "ref": "1381022376",
+    "fetched_at": "2026-10-20T16:47:57Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q12500134",
+    "ref": "Q12500134",
+    "fetched_at": "2026-10-20T16:42:13Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "It aired on TV Tokyo from February 15, 2007, to March 23, 2017"
+ },
+ {
+  "id": "naruto-episode-total-008",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "episodes",
+  "value": 720,
+  "text": "Counting both series, the Naruto anime adds up to 720 episodes: 220 of Naruto and 500 of Shippuden.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)",
+    "ref": "1381022376",
+    "fetched_at": "2026-10-20T16:47:57Z"
+   },
+   {
+    "source": "press",
+    "url": "https://www.animenewsnetwork.com/news/2017-03-23/naruto-shippuden-anime-ending-on-500th-episode-confirmed/.113787",
+    "fetched_at": "2026-10-23T17:26:53Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "ran for 500 episodes from February 2007 to March 2017"
+ },
+ {
+  "id": "naruto-franchise-009",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "franchise_titles",
+  "value": [
+   "Naruto",
+   "Naruto: Shippuden",
+   "Boruto: Naruto Next Generations",
+   "Boruto: Two Blue Vortex"
+  ],
+  "category": "history",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "official",
+    "url": "https://naruto-official.com/en",
+    "fetched_at": "2026-10-20T16:42:12Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "NARUTO BORUTO -NARUTO NEXT GENERATIONS- BORUTO -TWO BLUE VORTEX- RELATED TITLES ANIME NARUTO NARUTO SHIPPUDEN BORUTO"
+ },
+ {
+  "id": "naruto-arcs-part-one-010",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "arcs_part_one",
+  "value": [
+   "1: Introduction, episodes 1-5",
+   "2: Land of Waves, episodes 6-19",
+   "3: Chunin Exams, episodes 20-67",
+   "4: Konoha Crush, episodes 68-80",
+   "5: Search for Tsunade, episodes 81-100",
+   "6: Sasuke Retrieval, episodes 107-135",
+   "7: Original Episodes of Part I, episodes 136-220, anime only"
+  ],
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 7,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)",
+    "ref": "110997487",
+    "fetched_at": "2026-10-20T16:42:45Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "新章突入! 中忍試験だってばよ"
+ },
+ {
+  "id": "naruto-arcs-part-two-a-011",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "arcs_part_two_a",
+  "value": [
+   "8: Kazekage Rescue, Shippuden episodes 1-32",
+   "9: Distant Reunion, Shippuden episodes 33-53",
+   "10: Twelve Guardian Ninja, Shippuden episodes 54-71, anime only",
+   "11: Hidan and Kakuzu, the Immortal Destroyers, Shippuden episodes 72-88",
+   "12: Appearance of the Three-Tails, Shippuden episodes 89-112, anime only",
+   "13: Master's Prophecy and Vengeance, Shippuden episodes 113-143",
+   "14: Activation of the Six-Tails, Shippuden episodes 144-151, anime only",
+   "15: Two Saviors, Shippuden episodes 152-175",
+   "16: Past Chapter: Konoha's Trail, Shippuden episodes 176-196, anime only",
+   "17: Five Kage Gather, Shippuden episodes 197-221"
+  ],
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 17,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D",
+    "ref": "111364515",
+    "fetched_at": "2026-10-20T16:42:20Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "風影奪還の章"
+ },
+ {
+  "id": "naruto-arcs-part-two-b-012",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "arcs_part_two_b",
+  "value": [
+   "18: Paradise Life on Board, Shippuden episodes 222-242, anime only",
+   "19: Mastering the Nine-Tails and a Fateful Meeting, Shippuden episodes 243-275",
+   "20: Seven Ninja Swordsmen, Shippuden episodes 276-289",
+   "21: Chikara, Shippuden episodes 290-295, anime only",
+   "22: Shinobi World War: Attackers From Afar, Shippuden episodes 296-320",
+   "23: Shinobi World War: Sasuke and Itachi, Shippuden episodes 321-348",
+   "24: Kakashi ANBU Chapter: Shinobi in Darkness, Shippuden episodes 349-361, anime only",
+   "25: Shinobi World War: Team 7 Again, Shippuden episodes 362-372",
+   "26: Shinobi World War: Obito Uchiha, Shippuden episodes 373-393",
+   "27: Naruto's Back: Trail of Comrades, Shippuden episodes 394-413, anime only"
+  ],
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 27,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D",
+    "ref": "111364515",
+    "fetched_at": "2026-10-20T16:42:20Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "忍界大戦・うちはオビト"
+ },
+ {
+  "id": "naruto-arcs-part-two-c-013",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "arcs_part_two_c",
+  "value": [
+   "28: Infinite Tsukuyomi Activated, Shippuden episodes 414-431",
+   "29: Jiraiya Ninja Scrolls: Tale of the Hero Naruto, Shippuden episodes 432-450, anime only",
+   "30: Itachi's True Story: Light and Darkness, Shippuden episodes 451-458, anime only",
+   "31: Origin of Ninshu: Indra and Asura, Shippuden episodes 459-469, anime only",
+   "32: Naruto and Sasuke, Shippuden episodes 470-479",
+   "33: Childhood Chapter, Shippuden episodes 480-483, anime only",
+   "34: Sasuke's True Story: Dawn Chapter, Shippuden episodes 484-488",
+   "35: Shikamaru's Secret: Cloud in the Silent Dark, Shippuden episodes 489-493",
+   "36: Konoha Secret: Wedding Day, Shippuden episodes 494-500"
+  ],
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 36,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D",
+    "ref": "111364515",
+    "fetched_at": "2026-10-20T16:42:20Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "木ノ葉秘伝 祝言日和"
+ },
+ {
+  "id": "naruto-arcs-boruto-014",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "arcs_boruto",
+  "value": [
+   "37: Boruto: Naruto Next Generations",
+   "38: Boruto: Two Blue Vortex"
+  ],
+  "category": "history",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 37,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Boruto",
+    "ref": "1380939452",
+    "fetched_at": "2026-10-20T16:43:37Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "Naruto Next Generations (2016-23)"
+ },
+ {
+  "id": "naruto-characters-early-015",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "characters_early",
+  "value": [
+   "Naruto Uzumaki (うずまき ナルト)",
+   "Sasuke Uchiha (うちは サスケ)",
+   "Sakura Haruno (春野 サクラ)",
+   "Kakashi Hatake (はたけ カカシ)",
+   "Iruka Umino (うみの イルカ)",
+   "Hiruzen Sarutobi (猿飛 ヒルゼン)",
+   "Konohamaru Sarutobi (猿飛 木ノ葉丸)",
+   "Jiraiya (自来也)",
+   "Orochimaru (大蛇丸)",
+   "Gaara (我愛羅)",
+   "Rock Lee (ロック・リー)",
+   "Neji Hyuga (日向 ネジ)",
+   "Hinata Hyuga (日向 ヒナタ)",
+   "Shikamaru Nara (奈良 シカマル)",
+   "Might Guy (マイト・ガイ)",
+   "Zabuza Momochi (桃地 再不斬)",
+   "Haku (白)",
+   "Kabuto Yakushi (薬師 カブト)",
+   "Kurama (九喇嘛)"
+  ],
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "rejected",
+  "excerpt": "Sasuke Uchiha ( うちは サスケ , Uchiha Sasuke )"
+ },
+ {
+  "id": "naruto-characters-middle-016",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "characters_middle",
+  "value": [
+   "Tsunade Senju (千手 綱手)",
+   "Itachi Uchiha (うちは イタチ)",
+   "Kisame Hoshigaki (干柿 鬼鮫)",
+   "Killer Bee (キラービー)",
+   "Nagato (Pain)",
+   "Minato Namikaze (波風 ミナト)"
+  ],
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 15,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "rejected",
+  "excerpt": "Killer Bee ( キラービー , Kirābī )"
+ },
+ {
+  "id": "naruto-characters-late-017",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "characters_late",
+  "value": [
+   "Madara Uchiha (うちは マダラ)",
+   "Obito Uchiha (うちは オビト)",
+   "Kaguya Otsutsuki (大筒木 カグヤ)",
+   "Boruto Uzumaki (うずまき ボルト)",
+   "Sarada Uchiha (うちは サラダ)"
+  ],
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 37,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "rejected",
+  "excerpt": "Boruto Uzumaki ( うずまき ボルト , Uzumaki Boruto )"
+ },
+ {
+  "id": "naruto-themes-op-part-one-018",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "themes_op_part_one",
+  "value": [
+   "OP 1 (Naruto eps 1-25): ROCKS (R★O★C★K★S) - HOUND DOG",
+   "OP 2 (Naruto eps 26-53): Haruka Kanata (遥か彼方) - Asian Kung-Fu Generation",
+   "OP 3 (Naruto eps 54-77): Kanashimi wo Yasashisa ni (悲しみをやさしさに) - little by little",
+   "OP 4 (Naruto eps 78-103): GO!!! - FLOW",
+   "OP 5 (Naruto eps 104-128): Seishun Kyosokyoku (青春狂騒曲) - Sambomaster",
+   "OP 6 (Naruto eps 129-153): No Boy, No Cry (ノーボーイ・ノークライ) - Stance Punks",
+   "OP 7 (Naruto eps 154-178): Namikaze Satellite (波風サテライト) - Snowkel",
+   "OP 8 (Naruto eps 179-202): Re:member - FLOW",
+   "OP 9 (Naruto eps 203-220): Yura Yura (ユラユラ) - Hearts Grow"
+  ],
+  "category": "music",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)",
+    "ref": "110997487",
+    "fetched_at": "2026-10-20T16:42:45Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "ユラユラ"
+ },
+ {
+  "id": "naruto-themes-op-part-two-019",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "themes_op_part_two",
+  "value": [
+   "OP 10 (Shippuden eps 1-30): Hero's Come Back!! - nobodyknows+",
+   "OP 11 (Shippuden eps 31-53): distance - Long Shot Party",
+   "OP 12 (Shippuden eps 54-77): Blue Bird (ブルーバード) - Ikimonogakari",
+   "OP 13 (Shippuden eps 78-102): Closer - Joe Inoue",
+   "OP 14 (Shippuden eps 103-128): Hotaru no Hikari (ホタルノヒカリ) - Ikimonogakari",
+   "OP 15 (Shippuden eps 129-153): Sign - FLOW",
+   "OP 16 (Shippuden eps 154-179): Toumei Datta Sekai (透明だった世界) - Motohiro Hata",
+   "OP 17 (Shippuden eps 180-205): Diver - Nico Touches the Walls",
+   "OP 18 (Shippuden eps 206-230): Lovers (ラヴァーズ) - 7!!",
+   "OP 19 (Shippuden eps 231-256): newsong - tacica",
+   "OP 20 (Shippuden eps 257-281): Totsugeki Rock (突撃ロック) - The Cro-Magnons",
+   "OP 21 (Shippuden eps 282-306): Moshimo - Daisuke",
+   "OP 22 (Shippuden eps 307-332): Niwaka Ame ni mo Makezu (ニワカ雨ニモ負ケズ) - Nico Touches the Walls",
+   "OP 23 (Shippuden eps 333-356): Tsuki no Ookisa (月の大きさ) - Nogizaka46",
+   "OP 24 (Shippuden eps 357-379): Guren (紅蓮) - DOES",
+   "OP 25 (Shippuden eps 380-405): Silhouette (シルエット) - Kana-Boon",
+   "OP 26 (Shippuden eps 406-431): Kaze (風) - Yamazaru",
+   "OP 27 (Shippuden eps 432-458): LINE - Sukima Switch",
+   "OP 28 (Shippuden eps 459-479): Blood Circulator (ブラッドサーキュレーター) - Asian Kung-Fu Generation",
+   "OP 29 (Shippuden eps 480-500): Kara no Kokoro (カラノココロ) - Anly"
+  ],
+  "category": "music",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D",
+    "ref": "111364515",
+    "fetched_at": "2026-10-20T16:42:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "ブラッドサーキュレーター"
+ },
+ {
+  "id": "naruto-themes-ed-part-one-020",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "themes_ed_part_one",
+  "value": [
+   "ED 1 (Naruto eps 1-25): Wind - Akeboshi",
+   "ED 2 (Naruto eps 26-51): Harmonia (ハルモニア) - Rythem",
+   "ED 3 (Naruto eps 52-64): Viva Rock ~japanese side~ (ビバ★ロック 〜japanese side〜) - Orange Range",
+   "ED 4 (Naruto eps 65-77): ALIVE - Raigo",
+   "ED 5 (Naruto eps 78-89): Imamade Nando mo (今まで何度も) - The Mass Missile",
+   "ED 6 (Naruto eps 90-103): Ryusei (流星) - TiA",
+   "ED 7 (Naruto eps 104-115): Mountain a Go Go Two (マウンテン・ア・ゴーゴー・ツー) - Captain Stridum",
+   "ED 8 (Naruto eps 116-128): Hajimete Kimi to Shabetta (はじめて君としゃべった) - GaGaGa SP",
+   "ED 9 (Naruto eps 129-141): Nakushita Kotoba (失くした言葉) - No Regret Life",
+   "ED 10 (Naruto eps 142-153): Speed (スピード) - Analogfish",
+   "ED 11 (Naruto eps 154-165): Soba ni Iru Kara (そばにいるから) - AMADORI",
+   "ED 12 (Naruto eps 166-178): Parade (パレード) - CHABA",
+   "ED 13 (Naruto eps 179-191): Yellow moon - Akeboshi",
+   "ED 14 (Naruto eps 192-202): Pinocchio (ピノキオ) - Oreskaband",
+   "ED 15 (Naruto eps 203-220): Scenario (シナリオ) - SABOTEN"
+  ],
+  "category": "music",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)",
+    "ref": "110997487",
+    "fetched_at": "2026-10-20T16:42:45Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "Yellow moon"
+ },
+ {
+  "id": "naruto-themes-ed-part-two-a-021",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "themes_ed_part_two_a",
+  "value": [
+   "ED 16 (Shippuden eps 1-18): Nagareboshi ~Shooting Star~ (流れ星〜Shooting Star〜) - Home Made Kazoku",
+   "ED 17 (Shippuden eps 19-30): Michi ~to you all~ (道 〜to you all) - aluto",
+   "ED 18 (Shippuden eps 31-41): Kimi Monogatari (キミモノガタリ) - little by little",
+   "ED 19 (Shippuden eps 42-53): Mezamero! Yasei (目覚めろ!野性) - MATCHY with QUESTION?",
+   "ED 20 (Shippuden eps 54-63): Sunao na Niji (素直な虹) - surface",
+   "ED 21 (Shippuden eps 64-77): Broken Youth - Nico Touches the Walls",
+   "ED 22 (Shippuden eps 78-90): Long Kiss Good Bye - Halcali",
+   "ED 23 (Shippuden eps 91-102): Bacchikoi!!! (バッチコイ!!!) - Debuparade",
+   "ED 24 (Shippuden eps 103-115): Shinkokyu (深呼吸) - Super Beaver",
+   "ED 25 (Shippuden eps 116-128): My ANSWER - Seamo",
+   "ED 26 (Shippuden eps 129-141): Omae Dattanda (おまえだったんだ) - Kishidan",
+   "ED 27 (Shippuden eps 142-153): For You - Azu",
+   "ED 28 (Shippuden eps 154-166): Jitensha (自転車) - Oreskaband",
+   "ED 29 (Shippuden eps 167-179): Utakata Hanabi (うたかた花火) - supercell",
+   "ED 30 (Shippuden eps 180-192): U can do it! - DOMINO",
+   "ED 31 (Shippuden eps 193-205): Mayonaka no Orchestra (真夜中のオーケストラ) - Aqua Timez",
+   "ED 32 (Shippuden eps 206-218): FREEDOM - Home Made Kazoku",
+   "ED 33 (Shippuden eps 219-230): Yokubo wo Sakebe!!!! (欲望を叫べ!!!!) - Okamoto's",
+   "ED 34 (Shippuden eps 231-242): Place to Try - Totalfat",
+   "ED 35 (Shippuden eps 243-256): By My Side (バイマイサイド) - Hemenway"
+  ],
+  "category": "music",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D",
+    "ref": "111364515",
+    "fetched_at": "2026-10-20T16:42:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "言葉のいらない約束"
+ },
+ {
+  "id": "naruto-themes-ed-part-two-b-022",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "themes_ed_part_two_b",
+  "value": [
+   "ED 36 (Shippuden eps 257-268): Cascade (カスケード) - UNLIMITS",
+   "ED 37 (Shippuden eps 269-281): Kono Koe Karashite feat. CHEHON (この声枯らして feat. CHEHON) - AISHA",
+   "ED 38 (Shippuden eps 282-295): MOTHER - Mucc",
+   "ED 39 (Shippuden eps 296-306): Sayonara Memory (さよならメモリー) - 7!!",
+   "ED 40 (Shippuden eps 307-319): I Can Hear - DISH//",
+   "ED 41 (Shippuden eps 320-332): Yume wo Daite ~Hajimari no Chris Road~ (夢を抱いて 〜はじまりのクリスロード〜) - Rake",
+   "ED 42 (Shippuden eps 333-343): Black Night Town (ブラックナイトタウン) - Akihisa Kondo",
+   "ED 43 (Shippuden eps 344-356): Niji (虹) - Shinku Hollow",
+   "ED 44 (Shippuden eps 357-366): FLAME - DISH//",
+   "ED 45 (Shippuden eps 367-379): Never Change feat. Lyu:Lyu - SHUN",
+   "ED 46 (Shippuden eps 380-393): Dame Dame da (だめだめだ) - Shiori Tomita",
+   "ED 47 (Shippuden eps 394-405): Spinning World - Diana Garnet",
+   "ED 48 (Shippuden eps 406-417): Kotoba no Iranai Yakusoku (言葉のいらない約束) - sana",
+   "ED 49 (Shippuden eps 418-431): Niji no Sora (虹の空) - FLOW",
+   "ED 50 (Shippuden eps 432-443): Trouble Maker (トラブルメイカー) - KANIKAPILA",
+   "ED 51 (Shippuden eps 444-454): Sonna Kimi, Konna Boku (そんな君、こんな僕) - Thinking Dogs",
+   "ED 52 (Shippuden eps 455-466): Ao no Lullaby (青のララバイ) - Kuroneko Chelsea",
+   "ED 53 (Shippuden eps 467-479): Pino to Amelie (ピノとアメリ) - Huwie Ishizaki",
+   "ED 54 (Shippuden eps 480-488): Tabidachi no Uta (旅立ちの唄) - Ayumikurikamaki",
+   "ED 55 (Shippuden eps 489-500): Zetsuzetsu (絶絶) - Swimy"
+  ],
+  "category": "music",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D",
+    "ref": "111364515",
+    "fetched_at": "2026-10-20T16:42:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "ピノとアメリ"
+ },
+ {
+  "id": "naruto-original-episodes-023",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "original_episode_split",
+  "value": "First 135 episodes follow the manga, remaining 85 are original",
+  "text": "Of the first anime's 220 episodes, 135 follow the manga and the other 85 are stories made only for television.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "anime"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)",
+    "ref": "1381022376",
+    "fetched_at": "2026-10-20T16:47:57Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "The first 135 episodes were adapted from Part I of the manga"
+ },
+ {
+  "id": "naruto-character-designer-024",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "character_designer",
+  "value": "Tetsuya Nishio",
+  "text": "Tetsuya Nishio designed the characters for the anime because Kishimoto himself asked for him.",
+  "category": "history",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Naruto",
+    "ref": "1379758694",
+    "fetched_at": "2026-10-20T16:40:09Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "Kishimoto had requested that Nishio be given this role"
+ },
+ {
+  "id": "naruto-part-one-volumes-025",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "part_one_volumes",
+  "value": "Part I volumes 1 to 27, Part II volumes 28 to 72",
+  "text": "The manga is split in two parts: volumes 1 to 27 follow Naruto as a child and volumes 28 to 72 follow him as a teenager.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Naruto",
+    "ref": "1379758694",
+    "fetched_at": "2026-10-20T16:40:09Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "the first is set in Naruto's pre-teen years (volumes 1-27)"
+ },
+ {
+  "id": "naruto-nagato-native-name-026",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "nagato"
+  },
+  "field": "name_native",
+  "value": "長門",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 15,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-%E3%81%AE%E7%99%BB%E5%A0%B4%E4%BA%BA%E7%89%A9",
+    "ref": "111208338",
+    "fetched_at": "2026-10-20T16:44:31Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "改心した長門による"
+ },
+ {
+  "id": "naruto-first-shippuden-opening-027",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "first_shippuden_opening",
+  "value": "Hero's Come Back!! by nobodyknows+, episodes 1 to 30",
+  "text": "Shippuden opened with Hero's Come Back!! by nobodyknows+, which accompanied the first thirty episodes.",
+  "category": "music",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D",
+    "ref": "111364515",
+    "fetched_at": "2026-10-20T16:42:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "1-30 Hero's Come Back!! nobodyknows+"
+ },
+ {
+  "id": "naruto-akeboshi-endings-028",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "akeboshi_endings",
+  "value": "Wind (Naruto ED 1) and Yellow moon (Naruto ED 13) by Akeboshi",
+  "text": "Singer Akeboshi performed two endings of the first series: Wind at the start and Yellow moon much later.",
+  "category": "music",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)",
+    "ref": "110997487",
+    "fetched_at": "2026-10-20T16:42:45Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "Yellow moon Akeboshi"
+ },
+ {
+  "id": "naruto-boruto-manga-029",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "boruto_manga",
+  "value": "Began May 2016 in Weekly Shonen Jump, moved to V Jump in July 2019",
+  "text": "The Boruto manga began in Weekly Shonen Jump in May 2016 and switched to the monthly V Jump in July 2019.",
+  "category": "history",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 37,
+   "scope": "manga"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Boruto",
+    "ref": "1380939452",
+    "fetched_at": "2026-10-20T16:43:37Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "In July 2019, the series was transferred to Shueisha's monthly magazine"
+ },
+ {
+  "id": "naruto-boruto-anime-030",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "boruto_anime",
+  "value": "293 episodes on TV Tokyo, April 2017 to March 2023, produced by Pierrot",
+  "text": "TV Tokyo broadcast 293 Boruto episodes between April 2017 and March 2023.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 37,
+   "scope": "anime"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Boruto:_Naruto_Next_Generations_(TV_series)",
+    "ref": "1379782803",
+    "fetched_at": "2026-10-20T16:47:56Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "aired for 293 episodes on TV Tokyo from April 2017 to March 2023"
+ },
+ {
+  "id": "naruto-naruto-uzumaki-name-031",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "naruto-uzumaki"
+  },
+  "field": "name",
+  "value": "Naruto Uzumaki (うずまき ナルト)",
+  "text": "Naruto Uzumaki is a main character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is the titular character and main protagonist of the Naruto franchise. He was the first character created by"
+ },
+ {
+  "id": "naruto-sasuke-uchiha-name-032",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "sasuke-uchiha"
+  },
+  "field": "name",
+  "value": "Sasuke Uchiha (うちは サスケ)",
+  "text": "Sasuke Uchiha is a main character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is Naruto Uzumaki's main rival and best friend. He was designed by Kishimoto as a \"cool genius\" since he felt this was"
+ },
+ {
+  "id": "naruto-sakura-haruno-name-033",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "sakura-haruno"
+  },
+  "field": "name",
+  "value": "Sakura Haruno (春野 サクラ)",
+  "text": "Sakura Haruno is a main character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a member of Team 7, Naruto's classmate and Sasuke's love interest. While creating the character, Kishimoto has"
+ },
+ {
+  "id": "naruto-kakashi-hatake-name-034",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "kakashi-hatake"
+  },
+  "field": "name",
+  "value": "Kakashi Hatake (はたけ カカシ)",
+  "text": "Kakashi Hatake is a main character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is the easygoing, tardy, smart leader of Team 7, consisting of Naruto Uzumaki, Sasuke Uchiha and Sakura Haruno."
+ },
+ {
+  "id": "naruto-iruka-umino-name-035",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "iruka-umino"
+  },
+  "field": "name",
+  "value": "Iruka Umino (うみの イルカ)",
+  "text": "Iruka Umino is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a Konohagakure chunin and instructor at the Ninja Academy, a school for prospective ninja. Masashi Kishimoto's initial"
+ },
+ {
+  "id": "naruto-hiruzen-sarutobi-name-036",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "hiruzen-sarutobi"
+  },
+  "field": "name",
+  "value": "Hiruzen Sarutobi (猿飛 ヒルゼン)",
+  "text": "Hiruzen Sarutobi is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "the Third Hokage (三代目火影, Sandaime Hokage), has been the longest-ruling Hokage, being forced to return to duty"
+ },
+ {
+  "id": "naruto-konohamaru-sarutobi-name-037",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "konohamaru-sarutobi"
+  },
+  "field": "name",
+  "value": "Konohamaru Sarutobi (猿飛 木ノ葉丸)",
+  "text": "Konohamaru Sarutobi is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "named after Konohagakure, is the grandson of the Third Hokage Hiruzen Sarutobi. He strives to replace his"
+ },
+ {
+  "id": "naruto-jiraiya-name-038",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "jiraiya"
+  },
+  "field": "name",
+  "value": "Jiraiya (自来也)",
+  "text": "Jiraiya is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "was a Konohagakure ninja, being not only Naruto Uzumaki's teacher but also Minato Namikaze's teacher. Kishimoto has commented that out of all"
+ },
+ {
+  "id": "naruto-orochimaru-name-039",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "orochimaru"
+  },
+  "field": "name",
+  "value": "Orochimaru (大蛇丸)",
+  "text": "Orochimaru is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is an S-ranked criminal who served as the primary antagonist of Part I of the Naruto series, having previously affiliated with the Akatsuki."
+ },
+ {
+  "id": "naruto-gaara-name-040",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "gaara"
+  },
+  "field": "name",
+  "value": "Gaara (我愛羅)",
+  "text": "Gaara is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is the youngest of the three siblings, created as a foil to Naruto Uzumaki, with a similar background yet a highly divergent personality. Before"
+ },
+ {
+  "id": "naruto-rock-lee-name-041",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "rock-lee"
+  },
+  "field": "name",
+  "value": "Rock Lee (ロック・リー)",
+  "text": "Rock Lee is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a member of Team Guy and the favorite student of team leader Might Guy. In the ninja academy, Rock Lee was unable to use"
+ },
+ {
+  "id": "naruto-neji-hyuga-name-042",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "neji-hyuga"
+  },
+  "field": "name",
+  "value": "Neji Hyuga (日向 ネジ)",
+  "text": "Neji Hyuga is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "was a member of Team Guy and a child prodigy of the Hyuga clan, as well as Hinata's cousin. As he was the only ninja of his"
+ },
+ {
+  "id": "naruto-hinata-hyuga-name-043",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "hinata-hyuga"
+  },
+  "field": "name",
+  "value": "Hinata Hyuga (日向 ヒナタ)",
+  "text": "Hinata Hyuga is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a member of Team 8, Sakura and Ino's best friend and Naruto's love interest. She suffers from a serious lack of"
+ },
+ {
+  "id": "naruto-shikamaru-nara-name-044",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "shikamaru-nara"
+  },
+  "field": "name",
+  "value": "Shikamaru Nara (奈良 シカマル)",
+  "text": "Shikamaru Nara is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a member of Team 10, Naruto's friend and Temari's love interest. Creator Kishimoto has noted that he \"likes\""
+ },
+ {
+  "id": "naruto-might-guy-name-045",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "might-guy"
+  },
+  "field": "name",
+  "value": "Might Guy (マイト・ガイ)",
+  "text": "Might Guy is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "\" redirects here. For the Japanese actor nicknamed \"Maito gai\", see Akira Kobayashi."
+ },
+ {
+  "id": "naruto-zabuza-momochi-name-046",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "zabuza-momochi"
+  },
+  "field": "name",
+  "value": "Zabuza Momochi (桃地 再不斬)",
+  "text": "Zabuza Momochi is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a former member of Kirigakure's Seven Swordsmen of the Mist, a group of ninja that use particularly large swords in"
+ },
+ {
+  "id": "naruto-haku-name-047",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "haku"
+  },
+  "field": "name",
+  "value": "Haku (白)",
+  "text": "Haku is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is Zabuza Momochi's most faithful follower. Before he started working for Zabuza, Haku lived as an orphan. His father killed his mother when it was"
+ },
+ {
+  "id": "naruto-kabuto-yakushi-name-048",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "kabuto-yakushi"
+  },
+  "field": "name",
+  "value": "Kabuto Yakushi (薬師 カブト)",
+  "text": "Kabuto Yakushi is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a spy who works as Orochimaru's right hand, though he acts on his own whims. As a child with no memory of his past"
+ },
+ {
+  "id": "naruto-kurama-name-049",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "kurama"
+  },
+  "field": "name",
+  "value": "Kurama (九喇嘛)",
+  "text": "Kurama is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is the most powerful of the Tailed Beasts. Used by Madara in his"
+ },
+ {
+  "id": "naruto-tsunade-name-050",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "tsunade"
+  },
+  "field": "name",
+  "value": "Tsunade Senju (千手 綱手)",
+  "text": "Tsunade Senju is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "as well as her former teammates Jiraiya and Orochimaru, is a former student of Hiruzen Sarutobi. Despite looking like a"
+ },
+ {
+  "id": "naruto-itachi-uchiha-name-051",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "itachi-uchiha"
+  },
+  "field": "name",
+  "value": "Itachi Uchiha (うちは イタチ)",
+  "text": "Itachi Uchiha is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a former ninja of Konohagakure, the older brother of Sasuke Uchiha, and the partner of Kisame Hoshigaki. Though"
+ },
+ {
+  "id": "naruto-kisame-hoshigaki-name-052",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "kisame-hoshigaki"
+  },
+  "field": "name",
+  "value": "Kisame Hoshigaki (干柿 鬼鮫)",
+  "text": "Kisame Hoshigaki is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a former ninja of Kirigakure and partnered to Itachi Uchiha, having a unique appearance with pale blue skin, a"
+ },
+ {
+  "id": "naruto-killer-bee-name-053",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "killer-bee"
+  },
+  "field": "name",
+  "value": "Killer Bee (キラービー)",
+  "text": "Killer Bee is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 13,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a ninja from the village of Kumogakure and the Jinchuriki of Gyūki-the Eight-Tails. He is also the adopted brother of Ay, the"
+ },
+ {
+  "id": "naruto-nagato-name-054",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "nagato"
+  },
+  "field": "name",
+  "value": "Nagato (長門)",
+  "text": "Nagato is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 15,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q718509",
+    "ref": "Q718509",
+    "fetched_at": "2026-10-23T14:15:07Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "primarily known under the alias of Pain (ペイン, Pein), is the founder and recognized leader of the Akatsuki, he is the partner of Konan, with"
+ },
+ {
+  "id": "naruto-minato-namikaze-name-055",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "minato-namikaze"
+  },
+  "field": "name",
+  "value": "Minato Namikaze (波風 ミナト)",
+  "text": "Minato Namikaze is a supporting character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 15,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "the Fourth Hokage (四代目火影, Yondaime Hokage), is Naruto Uzumaki's father and Kushina's husband. Although Naruto and"
+ },
+ {
+  "id": "naruto-madara-uchiha-name-056",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "madara-uchiha"
+  },
+  "field": "name",
+  "value": "Madara Uchiha (うちは マダラ)",
+  "text": "Madara Uchiha is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 23,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is one of the co-founders of the Hidden Leaf Village along with Hashirama Senju, the two later revealed to be"
+ },
+ {
+  "id": "naruto-obito-uchiha-name-057",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "obito-uchiha"
+  },
+  "field": "name",
+  "value": "Obito Uchiha (うちは オビト)",
+  "text": "Obito Uchiha is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 26,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "also known under his alias Tobi (トビ) is the true leader of the Akatsuki and the primary antagonist for most of Part II of"
+ },
+ {
+  "id": "naruto-kaguya-otsutsuki-name-058",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "kaguya-otsutsuki"
+  },
+  "field": "name",
+  "value": "Kaguya Otsutsuki (大筒木 カグヤ)",
+  "text": "Kaguya Otsutsuki is an antagonist of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 31,
+   "scope": "anime"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "Ōtsutsuki Kaguya) is the central underlying antagonist of the Naruto series and a member of the main family of the Ōtsutsuki clan."
+ },
+ {
+  "id": "naruto-boruto-uzumaki-name-059",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "boruto-uzumaki"
+  },
+  "field": "name",
+  "value": "Boruto Uzumaki (うずまき ボルト)",
+  "text": "Boruto Uzumaki is a main character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 37,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is the titular character and main protagonist of the Boruto franchise, he is son of Naruto Uzumaki and Hinata Hyuga"
+ },
+ {
+  "id": "naruto-sarada-uchiha-name-060",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "sarada-uchiha"
+  },
+  "field": "name",
+  "value": "Sarada Uchiha (うちは サラダ)",
+  "text": "Sarada Uchiha is a main character of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 37,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1379776183",
+    "fetched_at": "2026-10-20T16:44:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is the daughter of Sasuke Uchiha and Sakura Haruno. She seems to have inherited traits from both her parents, like her"
+ },
+ {
+  "id": "naruto-iruka-academy-061",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "iruka-umino"
+  },
+  "field": "occupation",
+  "value": "Ninja Academy instructor",
+  "text": "Iruka works as a chunin who teaches the children at the Ninja Academy.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "chunin and instructor at the Ninja Academy"
+ },
+ {
+  "id": "naruto-kakashi-trains-naruto-062",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "kakashi-hatake"
+  },
+  "field": "role",
+  "value": "trainer of Naruto",
+  "text": "Kakashi, the easygoing captain of Team 7, trains Naruto and helps him grow into a great ninja.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "training him to be a great ninja"
+ },
+ {
+  "id": "naruto-jiraiya-naruto-teacher-063",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "jiraiya"
+  },
+  "field": "role",
+  "value": "Naruto's teacher",
+  "text": "Jiraiya, known as the Toad Sage, acts as a teacher to Naruto, and the author calls their bond his favourite.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "not only Naruto Uzumaki's teacher"
+ },
+ {
+  "id": "naruto-konohamaru-looks-up-064",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "konohamaru-sarutobi"
+  },
+  "field": "role",
+  "value": "admirer of Naruto",
+  "text": "Konohamaru, grandson of the Third Hokage, treats Naruto as a mentor and copies his techniques.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "He looks to Naruto as a mentor in this quest"
+ },
+ {
+  "id": "naruto-lee-team-guy-065",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "rock-lee"
+  },
+  "field": "organization",
+  "value": "Team Guy",
+  "text": "Rock Lee is on Team Guy and is the best-loved pupil of its captain.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is a member of Team Guy and the favorite student of team leader Might Guy"
+ },
+ {
+  "id": "naruto-neji-team-guy-066",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "neji-hyuga"
+  },
+  "field": "organization",
+  "value": "Team Guy",
+  "text": "Neji, a gifted Hyuga, fought alongside Lee as part of the team led by Might Guy.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "was a member of Team Guy and a child prodigy of the Hyuga clan"
+ },
+ {
+  "id": "naruto-tenten-team-guy-067",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "organization",
+  "value": "Team Guy",
+  "text": "Tenten, the weapons specialist, is the third genin on Might Guy's squad.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is a member of Team Guy. Of all the Naruto protagonists"
+ },
+ {
+  "id": "naruto-hinata-team-8-068",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "hinata-hyuga"
+  },
+  "field": "organization",
+  "value": "Team 8",
+  "text": "Hinata is a Hyuga heiress who trains with Team 8 under Kurenai.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is a member of Team 8, Sakura and Ino's best friend"
+ },
+ {
+  "id": "naruto-sand-siblings-069",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "origin",
+  "value": "Sunagakure",
+  "text": "The three Sand Siblings are Suna ninja who are children of that village's Fourth Kazekage.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "are ninjas from the village of Sunagakure and the children of the Fourth Kazekage"
+ },
+ {
+  "id": "naruto-gaara-youngest-070",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "gaara"
+  },
+  "field": "role",
+  "value": "youngest Sand sibling",
+  "text": "Gaara is the youngest of the three Sand children, and a mirror image of Naruto.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is the youngest of the three siblings, created as a foil to Naruto Uzumaki"
+ },
+ {
+  "id": "naruto-kankuro-middle-071",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "role",
+  "value": "middle Sand sibling",
+  "text": "Kankuro is the middle child of the trio and a puppeteer.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is the middle of the three siblings"
+ },
+ {
+  "id": "naruto-temari-oldest-072",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "occupation",
+  "value": "oldest Sand sibling",
+  "text": "Temari is the big sister of the trio and fights with a huge fan.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is the oldest of the three siblings"
+ },
+ {
+  "id": "naruto-shikamaru-team-10-073",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "shikamaru-nara"
+  },
+  "field": "organization",
+  "value": "Team 10",
+  "text": "Shikamaru is a lazy genius who belongs to Team 10 and counts Naruto as a friend.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is a member of Team 10, Naruto's friend"
+ },
+ {
+  "id": "naruto-sannin-trio-074",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "orochimaru"
+  },
+  "field": "organization",
+  "value": "Legendary Sannin",
+  "text": "Orochimaru, Jiraiya and Tsunade were pupils of the same Konoha master and are honoured as the Legendary Sannin.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "Hiruzen's student alongside his teammates Jiraiya and Tsunade, who are revered as the Legendary Sannin"
+ },
+ {
+  "id": "naruto-hiruzen-sannin-teacher-075",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "hiruzen-sarutobi"
+  },
+  "field": "role",
+  "value": "teacher of the Sannin",
+  "text": "Hiruzen Sarutobi trained all three of the Legendary Sannin when they were young.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "He is also the teacher of the Three Legendary Sannin Jiraiya, Orochimaru, and Tsunade"
+ },
+ {
+  "id": "naruto-hashirama-first-hokage-076",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "background",
+  "value": "First Hokage",
+  "text": "Hashirama Senju was the first Hokage and a co-founder of Konoha.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "the First Hokage (初代火影, Shodai Hokage) was the co-founder of the first ninja village"
+ },
+ {
+  "id": "naruto-tobirama-second-hokage-077",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "setting",
+  "value": "Second Hokage",
+  "text": "Tobirama Senju, Hashirama's younger brother, held the Hokage seat as number two.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "the Second Hokage (二代目火影, Nidaime Hokage), is the younger brother of Hashirama"
+ },
+ {
+  "id": "naruto-hiruzen-third-hokage-078",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "hiruzen-sarutobi"
+  },
+  "field": "organization",
+  "value": "Third Hokage",
+  "text": "Hiruzen Sarutobi sat as the third Hokage, ruling longer than any other.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "the Third Hokage (三代目火影, Sandaime Hokage), has been the longest-ruling Hokage"
+ },
+ {
+  "id": "naruto-gaara-kazekage-079",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "gaara"
+  },
+  "field": "organization",
+  "value": "Fifth Kazekage",
+  "text": "Gaara later leads Sunagakure as its Kazekage, so his title is not Hokage.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 8,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "nabbed Gaara, the Fifth Kazekage, to attain the One-Tailed Shukaku"
+ },
+ {
+  "id": "naruto-team-7-members-080",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "kakashi-hatake"
+  },
+  "field": "organization",
+  "value": "Team 7",
+  "text": "Team 7, led by Kakashi, is made up of Naruto, Sasuke and Sakura.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is the easygoing, tardy, smart leader of Team 7, consisting of Naruto Uzumaki, Sasuke Uchiha and Sakura Haruno"
+ },
+ {
+  "id": "naruto-guy-team-leader-083",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "might-guy"
+  },
+  "field": "role",
+  "value": "leader of Team Guy",
+  "text": "Might Guy teaches taijutsu and leads his own squad, Team Guy, instead of Kakashi's.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is the leader of Team Guy who dedicates most of his time to his pupil Rock Lee"
+ },
+ {
+  "id": "naruto-killer-bee-hunted-087",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "killer-bee"
+  },
+  "field": "role",
+  "value": "target of Akatsuki",
+  "text": "Killer Bee, host of the Eight-Tails, is hunted by Akatsuki and tricks them by faking his capture.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 13,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "When the Akatsuki attacks him, he pretends to be captured to escape"
+ },
+ {
+  "id": "naruto-kurama-most-powerful-088",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "kurama"
+  },
+  "field": "role",
+  "value": "Nine-Tails",
+  "text": "Kurama, the Nine-Tailed Fox, is the strongest of all the Tailed Beasts.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is the most powerful of the Tailed Beasts"
+ },
+ {
+  "id": "naruto-shukaku-one-tail-089",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "terms",
+  "value": "One-Tail",
+  "text": "Shukaku is the One-Tail, a tanuki beast once sealed in Gaara.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is known as the One-Tails (一尾, Ichibi) of the Tailed Beasts"
+ },
+ {
+  "id": "naruto-gyuki-eight-tails-090",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "specialty",
+  "value": "Eight-Tails",
+  "text": "Gyuki is the Eight-Tails, a beast with an ox head and octopus body.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 13,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is known as the Eight-Tails (八尾, Hachibi) of the Tailed Beasts"
+ },
+ {
+  "id": "naruto-akamaru-ninja-dog-091",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "talent",
+  "value": "ninja dog",
+  "text": "Akamaru is Kiba's dog partner, a pet and fighter, not a Tailed Beast.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is Kiba Inuzuka's ninja dog, best friend, and constant companion"
+ },
+ {
+  "id": "naruto-zabuza-mist-sword-092",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "zabuza-momochi"
+  },
+  "field": "origin",
+  "value": "Kirigakure",
+  "text": "Zabuza once belonged to the swordsmen of the Hidden Mist before he went rogue.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is a former member of Kirigakure's Seven Swordsmen of the Mist"
+ },
+ {
+  "id": "naruto-kisame-mist-093",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "naruto",
+   "ref": "kisame-hoshigaki"
+  },
+  "field": "origin",
+  "value": "Kirigakure",
+  "text": "Kisame is a former Mist ninja with a shark-like face.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is a former ninja of Kirigakure and partnered"
+ },
+ {
+  "id": "naruto-suigetsu-mist-094",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "style",
+  "value": "Kirigakure",
+  "text": "Suigetsu hails from the Hidden Mist and dreams of collecting its famous swords.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 15,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "Originally from Kirigakure"
+ },
+ {
+  "id": "naruto-deidara-iwa-095",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "mission",
+  "value": "Iwagakure",
+  "text": "Deidara left the Hidden Rock village after bombing it, then drifted to Akatsuki.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 8,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is a former ninja of Iwagakure, having left the village after bombing it"
+ },
+ {
+  "id": "naruto-mei-mizukage-096",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "premise",
+  "value": "Fifth Mizukage",
+  "text": "Mei Terumi leads Kirigakure as its Mizukage.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 17,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "is the Fifth Mizukage"
+ },
+ {
+  "id": "naruto-onoki-tsuchikage-097",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "ability",
+  "value": "Third Tsuchikage",
+  "text": "Onoki is the proud Tsuchikage of Iwagakure.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 17,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "was the Third Tsuchikage"
+ },
+ {
+  "id": "naruto-ay-raikage-098",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "power",
+  "value": "Fourth Raikage",
+  "text": "Ay leads Kumogakure as its Raikage and is Killer Bee's adoptive brother.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 13,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "adopted brother of Ay, the Fourth Raikage"
+ },
+ {
+  "id": "naruto-chiyo-advisor-099",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "technique",
+  "value": "Suna elder advisor",
+  "text": "Chiyo is an old puppeteer who advises Sunagakure, but she holds no Kage title.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 8,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:20Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:20.000Z",
+  "excerpt": "was an elder advisor to Sunagakure"
+ },
+ {
+  "id": "naruto-sai-team-kakashi-100",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "habits",
+  "value": "Sai in Team Kakashi",
+  "text": "Sai steps into Team Kakashi in the second part of the story, taking the slot left by Sasuke.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 8,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:37Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:37.000Z",
+  "excerpt": "is a ninja who joins Team Kakashi in Part II"
+ },
+ {
+  "id": "naruto-yamato-team-kakashi-101",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "trademark",
+  "value": "Yamato as substitute captain",
+  "text": "Yamato is an Anbu ninja who fills in as captain of Team Kakashi during Part II.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 8,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:37Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:37.000Z",
+  "excerpt": "becomes a substitute captain in Team Kakashi"
+ },
+ {
+  "id": "naruto-hidan-akatsuki-102",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "nickname",
+  "value": "Hidan, partner of Kakuzu",
+  "text": "Hidan, an immortal worshipper of Jashin, is one half of an Akatsuki pair with Kakuzu.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 11,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:37Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:37.000Z",
+  "excerpt": "killed by Hidan of the criminal organization Akatsuki"
+ },
+ {
+  "id": "naruto-kakuzu-akatsuki-103",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "epithet",
+  "value": "Kakuzu, bounty hunter",
+  "text": "Kakuzu signs on with Akatsuki because he wants the bounty money.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 11,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:37Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:37.000Z",
+  "excerpt": "joins the Akatsuki to seek out valuable bounties"
+ },
+ {
+  "id": "naruto-deidara-sasori-akatsuki-104",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "naruto"
+  },
+  "field": "public_identity",
+  "value": "Deidara and Sasori, the Gaara kidnappers",
+  "text": "Deidara and Sasori are the bomber and the puppeteer who captured Gaara for Akatsuki.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 8,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+    "ref": "1381418203",
+    "fetched_at": "2026-10-25T18:50:37Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T18:52:37.000Z",
+  "excerpt": "Deidara and Sasori, both Ataksuki members"
+ }
+]

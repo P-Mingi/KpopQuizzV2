@@ -1,0 +1,271 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "tokyo-ghoul",
+  "title": "Three Clues, One Face: Tokyo Ghoul Characters",
+  "slug": "three-clues-one-face-tokyo-ghoul-characters",
+  "description": "Three clues, four names. The first clue is the vaguest, and one clue is always written in Japanese. Mild spoilers from the first season only.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Tokyo Ghoul characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+    }
+  ],
+  "notes": "Characters of arc 0 and 1 only (level 1 quiz). Options are other characters of levels 0 and 1.",
+  "questions": [
+    {
+      "question": "Who is this?",
+      "clues": [
+        "Kaneki's best friend",
+        "Written 永近 英良 in Japanese",
+        "Has a sharp instinct for Kaneki's secret"
+      ],
+      "options": [
+        "Hide Nagachika",
+        "Nishiki Nishio",
+        "Kotaro Amon",
+        "Renji Yomo"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-character-name-038",
+        "tokyo-ghoul-character-detail-060"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "Works as a waitress at the Anteiku cafe",
+        "Written 霧嶋 董香 in Japanese",
+        "Her younger brother Ayato joined Aogiri Tree"
+      ],
+      "options": [
+        "Hinami Fueguchi",
+        "Akira Mado",
+        "Touka Kirishima",
+        "Rize Kamishiro"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-character-name-036",
+        "tokyo-ghoul-character-name-047"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "Runs the Anteiku cafe",
+        "Written 芳村 in Japanese",
+        "Quietly feeds ghouls who cannot hunt"
+      ],
+      "options": [
+        "Renji Yomo",
+        "Yoshimura",
+        "Kisho Arima",
+        "Seido Takizawa"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-character-name-039",
+        "tokyo-ghoul-character-detail-062"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "Written 神代 利世 in Japanese",
+        "She attacks Kaneki after luring him on a date",
+        "Her organs are moved into Kaneki"
+      ],
+      "options": [
+        "Touka Kirishima",
+        "Hinami Fueguchi",
+        "Akira Mado",
+        "Rize Kamishiro"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-character-name-037",
+        "tokyo-ghoul-character-detail-057"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A young ghoul in the 20th ward",
+        "Written 笛口 雛実 in Japanese",
+        "Has an unusually sharp sense of smell"
+      ],
+      "options": [
+        "Hinami Fueguchi",
+        "Touka Kirishima",
+        "Rize Kamishiro",
+        "Juzo Suzuya"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-character-name-041",
+        "tokyo-ghoul-character-detail-063"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "Works for the CCG",
+        "A Special Class Investigator",
+        "Written 亜門 鋼太朗 in Japanese"
+      ],
+      "options": [
+        "Nishiki Nishio",
+        "Shu Tsukiyama",
+        "Kotaro Amon",
+        "Hide Nagachika"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-character-name-042"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A fashionable ghoul",
+        "Written 月山 習 in Japanese",
+        "Known as the Gourmet"
+      ],
+      "options": [
+        "Nishiki Nishio",
+        "Shu Tsukiyama",
+        "Yamori",
+        "Renji Yomo"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-character-name-044",
+        "tokyo-ghoul-character-detail-077"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "An executive of Aogiri Tree",
+        "Wears a hockey mask",
+        "Nicknamed Jason"
+      ],
+      "options": [
+        "Ayato Kirishima",
+        "Nishiki Nishio",
+        "Seido Takizawa",
+        "Yamori"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-character-name-049",
+        "tokyo-ghoul-character-detail-071"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A young investigator of the CCG",
+        "Written 鈴屋 什造 in Japanese",
+        "Brought up by a ghoul named Big Madam"
+      ],
+      "options": [
+        "Juzo Suzuya",
+        "Kotaro Amon",
+        "Akira Mado",
+        "Seido Takizawa"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-character-name-045",
+        "tokyo-ghoul-character-detail-065"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "Written 有馬 貴将 in Japanese",
+        "A legend of the CCG",
+        "Known as the CCG Reaper"
+      ],
+      "options": [
+        "Kotaro Amon",
+        "Juzo Suzuya",
+        "Kisho Arima",
+        "Akira Mado"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-ghoul-character-name-046",
+        "tokyo-ghoul-character-detail-066"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters"
+    }
+  ]
+}

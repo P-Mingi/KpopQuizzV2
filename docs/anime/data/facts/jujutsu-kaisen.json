@@ -1,0 +1,2374 @@
+[
+ {
+  "id": "jujutsu-kaisen-arc-list-001",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "arcs",
+  "value": [
+   "1: Fearsome Womb, chapters 1-18",
+   "2: Young Fish and Reverse Punishment, chapters 19-31",
+   "3: Kyoto Sister-School Goodwill Event, chapters 32-54",
+   "4: The Origin of Obedience, chapters 55-64",
+   "5: Jujutsu Kaisen 0 (prequel manga and film, placed between seasons 1 and 2)",
+   "6: Hidden Inventory / Premature Death, chapters 65-79, episodes 25-29",
+   "7: Shibuya Incident, chapters 80-136, episodes 30-47",
+   "8: Shibuya Incident Aftermath, chapters 137-159",
+   "9: Culling Game, chapters 160-222",
+   "10: Inhuman Makyo Shinjuku Showdown, chapters 223-268",
+   "11: From Now On, chapters 269-271"
+  ],
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 11,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6",
+    "ref": "111178414",
+    "fetched_at": "2026-10-20T16:42:38Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "人外魔境新宿決戦(じんがいまきょうしんじゅくけっせん)編(25巻223話 - 30巻268話)"
+ },
+ {
+  "id": "jujutsu-kaisen-cast-first-half-002",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "characters_a",
+  "value": [
+   "Yuji Itadori (虎杖 悠仁)",
+   "Satoru Gojo (五条 悟)",
+   "Megumi Fushiguro (伏黒 恵)",
+   "Nobara Kugisaki (釘崎 野薔薇)",
+   "Ryomen Sukuna (両面 宿儺)",
+   "Kento Nanami (七海 建人)",
+   "Maki Zen'in (禪院 真希)",
+   "Toge Inumaki (狗巻 棘)",
+   "Panda (パンダ)",
+   "Aoi Todo (東堂 葵)",
+   "Mahito (真人)",
+   "Suguru Geto (夏油 傑)",
+   "Yuta Okkotsu (乙骨 憂太)",
+   "Toji Fushiguro (伏黒 甚爾)",
+   "Choso (脹相)"
+  ],
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 7,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "rejected",
+  "excerpt": "虎杖 悠仁"
+ },
+ {
+  "id": "jujutsu-kaisen-cast-second-half-003",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "characters_b",
+  "value": [
+   "Kenjaku (羂索)",
+   "Jogo (漏瑚)",
+   "Hanami (花御)",
+   "Kinji Hakari (秤 金次)",
+   "Hajime Kashimo (鹿紫雲一)",
+   "Hiromi Higuruma (日車 寛見)",
+   "Yuki Tsukumo (九十九 由基)",
+   "Rika Orimoto (祈本 里香)",
+   "Junpei Yoshino (吉野 順平)",
+   "Riko Amanai (天内 理子)",
+   "Mai Zen'in (禪院 真依)",
+   "Kasumi Miwa (三輪 霞)",
+   "Utahime Iori (庵 歌姫)",
+   "Shoko Ieiri (家入 硝子)",
+   "Kiyotaka Ijichi (伊地知 潔高)"
+  ],
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 9,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "rejected",
+  "excerpt": "鹿紫 雲一"
+ },
+ {
+  "id": "jujutsu-kaisen-opening-themes-004",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "themes_op",
+  "value": [
+   "OP 1: Kaikai Kitan - Eve (season 1)",
+   "OP 2: Vivid Vice - Who-ya Extended (season 1)",
+   "OP 3: Where Our Blue Is - Tatsuya Kitani (season 2)",
+   "OP 4: Specialz - King Gnu (season 2)",
+   "OP 5: AIZO - King Gnu (season 3)"
+  ],
+  "category": "music",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "anime"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+    "ref": "1378637114",
+    "fetched_at": "2026-10-20T16:41:58Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q105352451",
+    "ref": "Q105352451",
+    "fetched_at": "2026-10-25T21:12:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T21:12:01.000Z",
+  "excerpt": "performed by Eve"
+ },
+ {
+  "id": "jujutsu-kaisen-ending-themes-005",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "themes_ed",
+  "value": [
+   "ED 1: Lost in Paradise - ALI featuring Aklo (season 1)",
+   "ED 2: Give It Back - Cö shu Nie (season 1)",
+   "ED 3: Akari - Soushi Sakiyama (season 2)",
+   "ED 4: More than Words - Hitsujibungaku (season 2)",
+   "ED 5: Yoake no Uta - Jo0ji (season 3)"
+  ],
+  "category": "music",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "anime"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+    "ref": "1378637114",
+    "fetched_at": "2026-10-20T16:41:58Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "Yoake no Uta"
+ },
+ {
+  "id": "jujutsu-kaisen-japanese-title-006",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "title_native",
+  "value": "呪術廻戦",
+  "text": "The Japanese title 呪術廻戦 (Jujutsu Kaisen) can be read roughly as Sorcery Battle.",
+  "category": "fun",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "ref": "1381182639",
+    "fetched_at": "2026-10-20T16:41:57Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q55522899",
+    "ref": "Q55522899",
+    "fetched_at": "2026-10-20T16:42:17Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "rgh. 'Sorcery Battle'"
+ },
+ {
+  "id": "jujutsu-kaisen-manga-creator-007",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "author",
+  "value": "Gege Akutami",
+  "text": "Gege Akutami is the sole creator of the manga, handling both the writing and the drawing.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "ref": "1381182639",
+    "fetched_at": "2026-10-20T16:41:57Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q55522899",
+    "ref": "Q55522899",
+    "fetched_at": "2026-10-20T16:42:17Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "written and illustrated by Gege Akutami"
+ },
+ {
+  "id": "jujutsu-kaisen-manga-run-008",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "manga_run",
+  "value": "2018-03-05 to 2024-09-30",
+  "text": "Weekly Shonen Jump carried the manga from 5 March 2018 until 30 September 2024, a run of about six and a half years.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "ref": "1381182639",
+    "fetched_at": "2026-10-20T16:41:57Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q55522899",
+    "ref": "Q55522899",
+    "fetched_at": "2026-10-20T16:42:17Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "from March 5, 2018, to September 30, 2024"
+ },
+ {
+  "id": "jujutsu-kaisen-magazine-publisher-009",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "magazine",
+  "value": [
+   "Weekly Shonen Jump",
+   "Shueisha"
+  ],
+  "text": "Shueisha serialized the manga in its magazine Weekly Shonen Jump and collected it in the Jump Comics line.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "ref": "1381182639",
+    "fetched_at": "2026-10-20T16:41:57Z"
+   },
+   {
+    "source": "official",
+    "url": "https://www.shonenjump.com/j/rensai/jujutsu/",
+    "fetched_at": "2026-10-20T16:48:30Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "Weekly Shōnen Jump from March 2018 to September 2024"
+ },
+ {
+  "id": "jujutsu-kaisen-volume-count-010",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "volumes",
+  "value": 30,
+  "text": "The collected edition runs to 30 volumes, the last of which reached shelves in Japan on 25 December 2024.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "ref": "1381182639",
+    "fetched_at": "2026-10-20T16:41:57Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q55522899",
+    "ref": "Q55522899",
+    "fetched_at": "2026-10-20T16:42:17Z"
+   },
+   {
+    "source": "official",
+    "url": "https://www.shonenjump.com/j/rensai/jujutsu/",
+    "fetched_at": "2026-10-20T16:48:30Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "chapters collected in 30 tankōbon volumes"
+ },
+ {
+  "id": "jujutsu-kaisen-chapter-count-011",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "chapters",
+  "value": 271,
+  "text": "The story closed after 271 chapters, bound in 30 volumes.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6",
+    "ref": "111178414",
+    "fetched_at": "2026-10-20T16:42:38Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "話数 全271話"
+ },
+ {
+  "id": "jujutsu-kaisen-anime-premiere-012",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "anime_start",
+  "value": "2020-10-03",
+  "text": "The TV anime had its broadcast premiere on 3 October 2020, after an early online screening on 19 September 2020.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+    "ref": "1378637114",
+    "fetched_at": "2026-10-20T16:41:58Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q98836216",
+    "ref": "Q98836216",
+    "fetched_at": "2026-10-20T16:47:26Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "from October 3, 2020, to March 27, 2021"
+ },
+ {
+  "id": "jujutsu-kaisen-episode-count-013",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "episodes",
+  "value": 59,
+  "text": "Counting only the TV series (no films or recap specials), there are 59 episodes over three seasons of 24, 23 and 12.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+    "ref": "1378637114",
+    "fetched_at": "2026-10-20T16:41:58Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q98836216",
+    "ref": "Q98836216",
+    "fetched_at": "2026-10-20T16:47:26Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "num_episodes = 59"
+ },
+ {
+  "id": "jujutsu-kaisen-animation-studio-014",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "studio",
+  "value": "MAPPA",
+  "text": "MAPPA is the animation studio behind all three TV seasons broadcast so far.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+    "ref": "1378637114",
+    "fetched_at": "2026-10-20T16:41:58Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q98836216",
+    "ref": "Q98836216",
+    "fetched_at": "2026-10-20T16:47:26Z"
+   },
+   {
+    "source": "official",
+    "url": "https://www.mbs.jp/jujutsukaisen/",
+    "fetched_at": "2026-10-20T16:48:30Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "television series produced by MAPPA"
+ },
+ {
+  "id": "jujutsu-kaisen-series-director-015",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "director",
+  "value": "Sunghoo Park",
+  "text": "Sunghoo Park directed season 1, and Shota Goshozono took over as series director from season 2.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_episodes",
+    "ref": "1374288532",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   },
+   {
+    "source": "official",
+    "url": "https://www.mbs.jp/jujutsukaisen/",
+    "fetched_at": "2026-10-20T16:48:30Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "directed by Sunghoo Park"
+ },
+ {
+  "id": "jujutsu-kaisen-season-two-split-016",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "season_two",
+  "value": [
+   "Hidden Inventory / Premature Death: episodes 25-29",
+   "Shibuya Incident: episodes 30-47"
+  ],
+  "text": "Season 2 ran for 23 episodes in 2023, split into a five-episode Hidden Inventory / Premature Death part and an 18-episode Shibuya Incident part.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 7,
+   "scope": "anime"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+    "ref": "1378637114",
+    "fetched_at": "2026-10-20T16:41:58Z"
+   }
+  ],
+  "status": "draft",
+  "excerpt": "story arcs in 5 and 18 episodes"
+ },
+ {
+  "id": "jujutsu-kaisen-season-three-four-017",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "season_three",
+  "value": "The Culling Game: Part 1 (12 episodes, 2026-01-09 to 2026-03-27)",
+  "text": "In 2026 the third season, subtitled The Culling Game: Part 1, began airing on 9 January and ran for 12 episodes; a fourth season, Part 2, was announced as soon as it ended.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 7,
+   "scope": "anime"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_3",
+    "ref": "1381078979",
+    "fetched_at": "2026-10-20T16:42:01Z"
+   },
+   {
+    "source": "official",
+    "url": "https://www.shonenjump.com/j/rensai/jujutsu/",
+    "fetched_at": "2026-10-20T16:48:30Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "The third season concluded with its twelfth episode on March 27, 2026"
+ },
+ {
+  "id": "jujutsu-kaisen-prequel-manga-018",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "prequel_manga",
+  "value": "Jujutsu Kaisen 0",
+  "text": "The prequel Jujutsu Kaisen 0 began life as a four-chapter manga called Tokyo Metropolitan Curse Technical School, printed in Jump Giga in 2017.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0",
+    "ref": "1379845584",
+    "fetched_at": "2026-10-20T16:42:00Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q106392064",
+    "ref": "Q106392064",
+    "fetched_at": "2026-10-25T21:12:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T21:12:01.000Z",
+  "excerpt": "originally titled Tokyo Metropolitan Curse Technical School"
+ },
+ {
+  "id": "jujutsu-kaisen-prequel-film-019",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "film_release",
+  "value": "2021-12-24",
+  "text": "The film Jujutsu Kaisen 0 opened in Japanese cinemas on 24 December 2021 and was that year's top earner at the Japanese box office.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "anime"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0_(film)",
+    "ref": "1363402947",
+    "fetched_at": "2026-10-20T16:54:00Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q109914608",
+    "ref": "Q109914608",
+    "fetched_at": "2026-10-20T16:54:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "was released in Japan on December 24, 2021, by Toho"
+ },
+ {
+  "id": "jujutsu-kaisen-manga-hiatus-020",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "manga_hiatus",
+  "value": "2021-06-09 to 2021-08-02",
+  "text": "In June 2021 the manga paused for the author's health, and serialization resumed on 2 August 2021.",
+  "category": "history",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "ref": "1381182639",
+    "fetched_at": "2026-10-20T16:41:57Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "it resumed publication on August 2 of the same year"
+ },
+ {
+  "id": "jujutsu-kaisen-last-volume-021",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "last_volume",
+  "value": [
+   "Panda",
+   "Nobara Kugisaki",
+   "Uraume",
+   "Yuko Ozawa"
+  ],
+  "text": "Volume 30, out on 25 December 2024, adds 16 new pages of four epilogues starring Panda, Nobara Kugisaki, Uraume and Yuko Ozawa.",
+  "category": "fun",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 11,
+   "scope": "manga"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "ref": "1381182639",
+    "fetched_at": "2026-10-20T16:41:57Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "the final volume includes 16 pages of four epilogues"
+ },
+ {
+  "id": "jujutsu-kaisen-modulo-spinoff-022",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "spinoff",
+  "value": "Jujutsu Kaisen Modulo",
+  "text": "After the main story ended, Akutami and artist Yuji Iwasaki ran a short spin-off, Jujutsu Kaisen Modulo, in Weekly Shonen Jump from 8 September 2025 to 9 March 2026.",
+  "category": "history",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 11,
+   "scope": "manga"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "ref": "1381182639",
+    "fetched_at": "2026-10-20T16:41:57Z"
+   },
+   {
+    "source": "official",
+    "url": "https://www.mbs.jp/jujutsukaisen/",
+    "fetched_at": "2026-10-20T16:48:30Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "which ran in Weekly Shōnen Jump from September 8, 2025, to March 9, 2026"
+ },
+ {
+  "id": "jujutsu-kaisen-copies-in-circulation-023",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "copies",
+  "value": "150 million copies, December 2025",
+  "text": "The manga's worldwide circulation, digital editions included, has passed 150 million copies.",
+  "category": "achievements",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "ref": "1381182639",
+    "fetched_at": "2026-10-20T16:41:57Z"
+   },
+   {
+    "source": "official",
+    "url": "https://www.mbs.jp/jujutsukaisen/",
+    "fetched_at": "2026-10-20T16:48:30Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "By December 2025, the manga had over 150 million copies in circulation"
+ },
+ {
+  "id": "jujutsu-kaisen-anime-of-the-year-024",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "anime_award",
+  "value": "Anime of the Year at the 5th Crunchyroll Anime Awards",
+  "text": "At the fifth Crunchyroll Anime Awards the series took the Anime of the Year prize, and its second season repeated the feat at the eighth ceremony.",
+  "category": "achievements",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+    "ref": "1378637114",
+    "fetched_at": "2026-10-20T16:41:58Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "at the 5th Crunchyroll Anime Awards"
+ },
+ {
+  "id": "jujutsu-kaisen-post-credits-shorts-025",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "juju_sanpo",
+  "value": "Juju Sanpo",
+  "text": "From episode 3 of season 1, short slice-of-life clips called Juju Sanpo play after the credits, following the cast in their daily lives.",
+  "category": "fun",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "anime"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_1",
+    "ref": "1374276437",
+    "fetched_at": "2026-10-20T16:42:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "post-credits anime shorts titled"
+ },
+ {
+  "id": "jujutsu-kaisen-crunchyroll-dubs-026",
+  "site": "anime",
+  "entity": {
+   "kind": "series",
+   "group_slug": "jujutsu-kaisen"
+  },
+  "field": "dubs",
+  "value": "2020-11-20",
+  "text": "Crunchyroll rolled out dubs in five languages (German, French, Portuguese, Spanish and English) on 20 November 2020.",
+  "category": "history",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "anime"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+    "ref": "1378637114",
+    "fetched_at": "2026-10-20T16:41:58Z"
+   },
+   {
+    "source": "press",
+    "url": "https://www.animenewsnetwork.com/news/2020-11-11/crunchyroll-announces-english-dubs-casts-for-jujutsu-kaisen-im-standing-on-a-million-lives-tonikawa-/.166242",
+    "fetched_at": "2026-10-25T21:12:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T21:12:01.000Z",
+  "excerpt": "that premiered on November 20, 2020"
+ },
+ {
+  "id": "jujutsu-kaisen-twenty-fingers-027",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "yuji-itadori"
+  },
+  "field": "premise",
+  "value": "all twenty of Sukuna's fingers",
+  "text": "Yuji's execution is postponed on one condition: he must first swallow every one of Ryomen Sukuna's twenty fingers.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "ref": "1381182639",
+    "fetched_at": "2026-10-20T16:41:57Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "until he consumes all twenty of Sukuna's fingers"
+ },
+ {
+  "id": "jujutsu-kaisen-strongest-sorcerer-028",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "satoru-gojo"
+  },
+  "field": "reputation",
+  "value": "strongest sorcerer of today",
+  "text": "Satoru Gojo, the teacher who takes Yuji in, holds the title of strongest sorcerer of the present day.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "ref": "1381182639",
+    "fetched_at": "2026-10-20T16:41:57Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "the strongest sorcerer in the modern Jujutsu world"
+ },
+ {
+  "id": "jujutsu-kaisen-idle-death-gamble-029",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "kinji-hakari"
+  },
+  "field": "domain_odds",
+  "value": "1/239",
+  "text": "Kinji Hakari's Domain Expansion, Idle Death Gamble, hits its jackpot at odds of 1 in 239, and the jackpot lasts exactly 4 minutes 11 seconds, during which his cursed energy never runs out.",
+  "category": "fun",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 9,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "hitting a jackpot (1/239 chance)"
+ },
+ {
+  "id": "jujutsu-kaisen-type-question-030",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "aoi-todo"
+  },
+  "field": "catchphrase",
+  "value": "asks people what type of woman they like",
+  "text": "Aoi Todo's habit of asking people which kind of woman they like was picked up from his mentor, the Special Grade sorcerer Yuki Tsukumo.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 7,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "a habit Todo adopted"
+ },
+ {
+  "id": "jujutsu-kaisen-yuji-itadori-name-031",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "yuji-itadori"
+  },
+  "field": "name",
+  "value": "Yuji Itadori (虎杖 悠仁)",
+  "text": "Yuji Itadori is a main character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a high school student who inadvertently becomes the vessel for the powerful Curse Ryomen Sukuna (両面 宿儺) after consuming"
+ },
+ {
+  "id": "jujutsu-kaisen-satoru-gojo-name-032",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "satoru-gojo"
+  },
+  "field": "name",
+  "value": "Satoru Gojo (五条 悟)",
+  "text": "Satoru Gojo is a main character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a renowned Special Grade Jujutsu Sorcerer and teacher at Tokyo Jujutsu High, widely regarded as the world's strongest"
+ },
+ {
+  "id": "jujutsu-kaisen-megumi-fushiguro-name-033",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "megumi-fushiguro"
+  },
+  "field": "name",
+  "value": "Megumi Fushiguro (伏黒 恵)",
+  "text": "Megumi Fushiguro is a main character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a first-year student at Tokyo Jujutsu High, trained by Satoru Gojo. He encounters Yuji Itadori while retrieving a"
+ },
+ {
+  "id": "jujutsu-kaisen-nobara-kugisaki-name-034",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "nobara-kugisaki"
+  },
+  "field": "name",
+  "value": "Nobara Kugisaki (釘崎 野薔薇)",
+  "text": "Nobara Kugisaki is a main character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a first-year student at Tokyo Jujutsu High, trained by Satoru Gojo. She wields the Straw Doll Technique (芻霊呪法"
+ },
+ {
+  "id": "jujutsu-kaisen-ryomen-sukuna-name-035",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "ryomen-sukuna"
+  },
+  "field": "name",
+  "value": "Ryomen Sukuna (両面 宿儺)",
+  "text": "Ryomen Sukuna is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "the \"King of Curses\", is a legendary Heian-era sorcerer who reincarnates through 20 indestructible fingers. His Shrine"
+ },
+ {
+  "id": "jujutsu-kaisen-kento-nanami-name-036",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "kento-nanami"
+  },
+  "field": "name",
+  "value": "Kento Nanami (七海 建人)",
+  "text": "Kento Nanami is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a methodical Grade 1 sorcerer who mentors Yuji Itadori after returning from a corporate career. His Ratio Technique (十劃"
+ },
+ {
+  "id": "jujutsu-kaisen-maki-zenin-name-037",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "maki-zenin"
+  },
+  "field": "name",
+  "value": "Maki Zen'in (禪院 真希)",
+  "text": "Maki Zen'in is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a second-year student at Tokyo Jujutsu High. Born into the Zen'in clan without Cursed Energy, she compensates with"
+ },
+ {
+  "id": "jujutsu-kaisen-toge-inumaki-name-038",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "toge-inumaki"
+  },
+  "field": "name",
+  "value": "Toge Inumaki (狗巻 棘)",
+  "text": "Toge Inumaki is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a second-year student at Tokyo Prefectural Jujutsu High School who takes part in the Sister School Exchange Event"
+ },
+ {
+  "id": "jujutsu-kaisen-panda-name-039",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "panda"
+  },
+  "field": "name",
+  "value": "Panda (パンダ)",
+  "text": "Panda is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a sentient Cursed Corpse and second-year student at Tokyo Jujutsu High, created by principal Masamichi Yaga. Unlike typical Cursed Corpses"
+ },
+ {
+  "id": "jujutsu-kaisen-aoi-todo-name-040",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "aoi-todo"
+  },
+  "field": "name",
+  "value": "Aoi Todo (東堂 葵)",
+  "text": "Aoi Todo is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a formidable third-year sorcerer from Kyoto Jujutsu High, renowned for his exceptional combat skills and unorthodox personality."
+ },
+ {
+  "id": "jujutsu-kaisen-mahito-name-041",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "mahito"
+  },
+  "field": "name",
+  "value": "Mahito (真人)",
+  "text": "Mahito is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a Special Grade Cursed Spirit embodying human hatred, seeking humanity's extinction. His philosophy of life's meaninglessness stems from his"
+ },
+ {
+  "id": "jujutsu-kaisen-suguru-geto-name-042",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "suguru-geto"
+  },
+  "field": "name",
+  "value": "Suguru Geto (夏油 傑)",
+  "text": "Suguru Geto is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "was a Special Grade sorcerer and classmate of Satoru Gojo, known for his Cursed Spirit Manipulation (呪霊操術, Jurei Sōjutsu)"
+ },
+ {
+  "id": "jujutsu-kaisen-yuta-okkotsu-name-043",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "yuta-okkotsu"
+  },
+  "field": "name",
+  "value": "Yuta Okkotsu (乙骨 憂太)",
+  "text": "Yuta Okkotsu is a main character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a Special Grade sorcerer originally introduced in Jujutsu Kaisen 0. Initially haunted by his cursed childhood friend Rika"
+ },
+ {
+  "id": "jujutsu-kaisen-toji-fushiguro-name-044",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "toji-fushiguro"
+  },
+  "field": "name",
+  "value": "Toji Fushiguro (伏黒 甚爾)",
+  "text": "Toji Fushiguro is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 6,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a former member of the Zen'in Clan, he is known as the \"Sorcerer Killer\" and is the father of Megumi. Like Maki, he"
+ },
+ {
+  "id": "jujutsu-kaisen-choso-name-045",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "choso"
+  },
+  "field": "name",
+  "value": "Choso (脹相)",
+  "text": "Choso is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 7,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is the eldest of nine Cursed Spirit-human hybrids who wields Blood Manipulation (赤血操術, Sekketsu Sōjutsu) with enhanced efficiency due to his"
+ },
+ {
+  "id": "jujutsu-kaisen-kenjaku-name-046",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "kenjaku"
+  },
+  "field": "name",
+  "value": "Kenjaku (羂索)",
+  "text": "Kenjaku is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 8,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is an ancient sorcerer. He orchestrated the Shibuya Incident and Culling Game to recreate the Heian era in modern Japan. Initially appearing as"
+ },
+ {
+  "id": "jujutsu-kaisen-jogo-name-047",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "jogo"
+  },
+  "field": "name",
+  "value": "Jogo (漏瑚)",
+  "text": "Jogo is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a Special Grade Cursed Spirit embodying volcanic forces, capable of generating eruptions and manipulating fire. His abilities include the"
+ },
+ {
+  "id": "jujutsu-kaisen-hanami-name-048",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "hanami"
+  },
+  "field": "name",
+  "value": "Hanami (花御)",
+  "text": "Hanami is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a Special Grade Cursed Spirit born of humanity's negative treatment towards the forests-to which Gojo reveals that Hanami may be more closer to"
+ },
+ {
+  "id": "jujutsu-kaisen-kinji-hakari-name-049",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "kinji-hakari"
+  },
+  "field": "name",
+  "value": "Kinji Hakari (秤 金次)",
+  "text": "Kinji Hakari is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 8,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a suspended third-year at Tokyo Jujutsu High. He runs an underground Sorcerer fight club. Recognized by Gojo and Yuta as"
+ },
+ {
+  "id": "jujutsu-kaisen-hajime-kashimo-name-050",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "hajime-kashimo"
+  },
+  "field": "name",
+  "value": "Hajime Kashimo (鹿紫雲一)",
+  "text": "Hajime Kashimo is an antagonist of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 9,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a formidable reincarnated sorcerer who dominated the Culling Games with over 40 kills. His electrified Cursed Energy"
+ },
+ {
+  "id": "jujutsu-kaisen-hiromi-higuruma-name-051",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "hiromi-higuruma"
+  },
+  "field": "name",
+  "value": "Hiromi Higuruma (日車 寛見)",
+  "text": "Hiromi Higuruma is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 9,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a disillusioned defense lawyer turned Culling Games participant who awakens cursed abilities after witnessing"
+ },
+ {
+  "id": "jujutsu-kaisen-yuki-tsukumo-name-052",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "yuki-tsukumo"
+  },
+  "field": "name",
+  "value": "Yuki Tsukumo (九十九 由基)",
+  "text": "Yuki Tsukumo is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 6,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is one of the four special grade sorcerers and a former Star Plasma Vessel. Her Cursed Technique is Star Rage (星の怒り（ボンバイエ）"
+ },
+ {
+  "id": "jujutsu-kaisen-rika-orimoto-name-053",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "rika-orimoto"
+  },
+  "field": "name",
+  "value": "Rika Orimoto (祈本 里香)",
+  "text": "Rika Orimoto is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 5,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "was Yuta Okkotsu's childhood friend who became a Special Grade Vengeful Cursed Spirit after a fatal car accident. Bound by"
+ },
+ {
+  "id": "jujutsu-kaisen-junpei-yoshino-name-054",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "junpei-yoshino"
+  },
+  "field": "name",
+  "value": "Junpei Yoshino (吉野 順平)",
+  "text": "Junpei Yoshino is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 2,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a bullied high school student who develops a cynical worldview after enduring abuse. He falls under Mahito's"
+ },
+ {
+  "id": "jujutsu-kaisen-riko-amanai-name-055",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "riko-amanai"
+  },
+  "field": "name",
+  "value": "Riko Amanai (天内 理子)",
+  "text": "Riko Amanai is a character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 6,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is the Star Plasma Vessel that was targeted for assassination by many Curse Users in 2006. She was a young girl, as well as a"
+ },
+ {
+  "id": "jujutsu-kaisen-mai-zenin-name-056",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "mai-zenin"
+  },
+  "field": "name",
+  "value": "Mai Zen'in (禪院 真依)",
+  "text": "Mai Zen'in is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a second-year Kyoto Jujutsu High sorcerer and Maki's estranged twin sister. Unlike Maki, Mai possesses a Construction (構築術式"
+ },
+ {
+  "id": "jujutsu-kaisen-kasumi-miwa-name-057",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "kasumi-miwa"
+  },
+  "field": "name",
+  "value": "Kasumi Miwa (三輪 霞)",
+  "text": "Kasumi Miwa is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a Kyoto Jujutsu High student and swordswoman trained in New Shadow Style: Simple Domain (シン陰流・簡易領域, Shin Kageryū: Kan'i"
+ },
+ {
+  "id": "jujutsu-kaisen-utahime-iori-name-058",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "utahime-iori"
+  },
+  "field": "name",
+  "value": "Utahime Iori (庵 歌姫)",
+  "text": "Utahime Iori is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a Semi-Grade 1 sorcerer and Kyoto Jujutsu High instructor. Her Solo Forbidden Area (単独禁区, Soro Soro Kinku) technique"
+ },
+ {
+  "id": "jujutsu-kaisen-shoko-ieiri-name-059",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "shoko-ieiri"
+  },
+  "field": "name",
+  "value": "Shoko Ieiri (家入 硝子)",
+  "text": "Shoko Ieiri is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is a Jujutsu Sorcerer doctor at Tokyo Prefectural Jujutsu High School and former classmate of Satoru Gojo and Suguru Geto. She"
+ },
+ {
+  "id": "jujutsu-kaisen-kiyotaka-ijichi-name-060",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "kiyotaka-ijichi"
+  },
+  "field": "name",
+  "value": "Kiyotaka Ijichi (伊地知 潔高)",
+  "text": "Kiyotaka Ijichi is a supporting character of Jujutsu Kaisen.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 1,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1380639137",
+    "fetched_at": "2026-10-20T16:41:59Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-23T17:38:18.790Z",
+  "excerpt": "is an assistant manager of Tokyo Prefectural Jujutsu High School. He can create curtains, a technique used to"
+ },
+ {
+  "id": "jujutsu-kaisen-ryomen-sukuna-voice-061",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "ryomen-sukuna"
+  },
+  "field": "voice_cast",
+  "value": [
+   "Junichi Suwabe"
+  ],
+  "text": "Ryomen Sukuna is voiced in Japanese by Junichi Suwabe.",
+  "category": "members",
+  "load_bearing": true,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-25T19:02:36Z"
+   },
+   {
+    "source": "wikidata",
+    "url": "https://www.wikidata.org/wiki/Q105037685",
+    "ref": "Q105037685",
+    "fetched_at": "2026-10-25T21:12:01Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-25T21:12:01.000Z",
+  "excerpt": "Voiced by: Junichi Suwabe (Japanese)"
+ },
+ {
+  "id": "jujutsu-kaisen-yuji-itadori-outgoing-062",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "yuji-itadori"
+  },
+  "field": "habits",
+  "value": "Outgoing demeanor",
+  "text": "Yuji is the sociable one of the cast, with an outgoing manner.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "Itadori is characterized by an outgoing demeanor"
+ },
+ {
+  "id": "jujutsu-kaisen-yuji-itadori-school-063",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "yuji-itadori"
+  },
+  "field": "role",
+  "value": "Brought to Tokyo Jujutsu High for training",
+  "text": "Yuji ends up at Tokyo Prefectural Jujutsu High School, where he is trained.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "ref": "1381182639",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "brings him to the Tokyo Prefectural Jujutsu High School for training"
+ },
+ {
+  "id": "jujutsu-kaisen-satoru-gojo-teacher-064",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "satoru-gojo"
+  },
+  "field": "role",
+  "value": "Special Grade sorcerer and teacher",
+  "text": "Gojo holds the top Special Grade rank among sorcerers and also teaches at the school.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "is a renowned Special Grade Jujutsu Sorcerer and teacher at Tokyo Jujutsu High"
+ },
+ {
+  "id": "jujutsu-kaisen-megumi-fushiguro-first-year-065",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "megumi-fushiguro"
+  },
+  "field": "role",
+  "value": "First-year student trained by Gojo",
+  "text": "Megumi studies at Tokyo Jujutsu High in the first-year class, under Gojo.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "is a first-year student at Tokyo Jujutsu High, trained by Satoru Gojo"
+ },
+ {
+  "id": "jujutsu-kaisen-megumi-fushiguro-ten-shadows-066",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "megumi-fushiguro"
+  },
+  "field": "ability",
+  "value": "Ten Shadows Technique",
+  "text": "Megumi fights with a technique called the Ten Shadows Technique.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "wields the Ten Shadows Technique"
+ },
+ {
+  "id": "jujutsu-kaisen-megumi-fushiguro-spares-067",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "megumi-fushiguro"
+  },
+  "field": "motivation",
+  "value": "Argues for sparing Yuji",
+  "text": "Megumi is the one who argues for letting Yuji live after they first meet.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "advocates sparing Yuji"
+ },
+ {
+  "id": "jujutsu-kaisen-nobara-kugisaki-first-year-068",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "nobara-kugisaki"
+  },
+  "field": "role",
+  "value": "First-year student trained by Gojo",
+  "text": "Nobara is in the same first-year class at Tokyo Jujutsu High as Megumi, and Gojo trains her too.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "is a first-year student at Tokyo Jujutsu High, trained by Satoru Gojo"
+ },
+ {
+  "id": "jujutsu-kaisen-nobara-kugisaki-straw-doll-069",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "nobara-kugisaki"
+  },
+  "field": "ability",
+  "value": "Straw Doll Technique",
+  "text": "Nobara's cursed technique is called the Straw Doll Technique.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "She wields the Straw Doll Technique"
+ },
+ {
+  "id": "jujutsu-kaisen-nobara-kugisaki-village-070",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "nobara-kugisaki"
+  },
+  "field": "origin",
+  "value": "From a rural village",
+  "text": "Nobara comes from a small country village.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "Originally from a rural village"
+ },
+ {
+  "id": "jujutsu-kaisen-maki-zenin-no-cursed-energy-071",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "maki-zenin"
+  },
+  "field": "background",
+  "value": "Born without Cursed Energy",
+  "text": "Maki was born into the Zen'in family without any Cursed Energy of her own.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "Born into the Zen'in clan without Cursed Energy"
+ },
+ {
+  "id": "jujutsu-kaisen-maki-zenin-physical-072",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "maki-zenin"
+  },
+  "field": "ability",
+  "value": "Superhuman physical abilities",
+  "text": "To make up for having no Cursed Energy, Maki relies on exceptional physical strength.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "she compensates with superhuman physical abilities"
+ },
+ {
+  "id": "jujutsu-kaisen-toge-inumaki-rice-balls-073",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "toge-inumaki"
+  },
+  "field": "habits",
+  "value": "Covered mouth, speaks in rice ball ingredients",
+  "text": "Toge hides his mouth and talks only in the names of rice ball fillings.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "He keeps his mouth covered and speaks only in various ingredients of rice balls"
+ },
+ {
+  "id": "jujutsu-kaisen-toge-inumaki-cursed-speech-074",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "toge-inumaki"
+  },
+  "field": "ability",
+  "value": "Cursed Speech",
+  "text": "Toge's cursed technique is Cursed Speech, which works through his voice.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "Inumaki's Cursed Technique is Cursed Speech"
+ },
+ {
+  "id": "jujutsu-kaisen-panda-cursed-corpse-075",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "panda"
+  },
+  "field": "origin",
+  "value": "Sentient Cursed Corpse, second-year student",
+  "text": "Panda is a Cursed Corpse with a mind of his own, studying in the second-year class.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "is a sentient Cursed Corpse and second-year student at Tokyo Jujutsu High"
+ },
+ {
+  "id": "jujutsu-kaisen-panda-three-cores-076",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "panda"
+  },
+  "field": "ability",
+  "value": "Three interchangeable cores",
+  "text": "Panda carries three cores he can swap, which changes both his form and his abilities.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 3,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "possesses three interchangeable cores"
+ },
+ {
+  "id": "jujutsu-kaisen-ryomen-sukuna-heian-legend-077",
+  "site": "anime",
+  "entity": {
+   "kind": "character",
+   "group_slug": "jujutsu-kaisen",
+   "ref": "ryomen-sukuna"
+  },
+  "field": "origin",
+  "value": "Legendary Heian-era sorcerer",
+  "text": "Sukuna is a famous sorcerer from the Heian period who returns through twenty fingers that cannot be destroyed.",
+  "category": "members",
+  "load_bearing": false,
+  "spoiler": {
+   "arc": 0,
+   "scope": "both"
+  },
+  "sources": [
+   {
+    "source": "wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+    "ref": "1381319484",
+    "fetched_at": "2026-10-26T13:50:00Z"
+   }
+  ],
+  "status": "verified",
+  "verified_at": "2026-10-26T13:55:00.000Z",
+  "excerpt": "is a legendary Heian-era sorcerer who reincarnates through 20 indestructible fingers"
+ }
+]

@@ -15,6 +15,12 @@
  *   30+   Legend
  */
 
+// The registry module, not the lib/site index: this file is in nearly every client bundle (via
+// lib/constants) and the index also carries the routing code.
+import { siteConfig } from '@/lib/site/registry';
+
+import type { LevelTitles, SiteId } from '@/lib/site/types';
+
 export interface LevelTitle {
   en: string;
   kr: string;
@@ -49,4 +55,12 @@ export function getTitleForLevel(level: number): LevelTitle {
     }
   }
   return result;
+}
+
+/**
+ * The level ladder of a site (SiteServerFns.levelTitlesFor, rpcs.md 3): the registry's. kpop's is
+ * LEVEL_TITLES above, key for key; anime and hub carry their own words on the same thresholds.
+ */
+export function levelTitlesFor(site: SiteId): LevelTitles {
+  return siteConfig(site).levelTitles;
 }

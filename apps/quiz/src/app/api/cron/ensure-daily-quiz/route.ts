@@ -1,5 +1,8 @@
 import { isCronAuthorized } from '@/lib/cron-auth';
 import { createServiceRoleClient } from '@/lib/supabase/server';
+import { ensureDailyQuizRpc } from '@/lib/daily-quiz';
+import { SITE } from '@/lib/site/registry';
+import { forSite } from '@/lib/site/scope';
 import { NextResponse } from 'next/server';
 
 import { bankRefillAlert, qotdRotationFixEnabled } from '@/lib/quiz-bank-scheduling';
@@ -21,6 +24,9 @@ import type { NextRequest } from 'next/server';
  * sends on cron invocations). ensure_daily_quiz is idempotent ("publish today's bank quiz if
  * not yet done"), so a retry or a manual hit is safe.
  *
+ * Run O1 (K1): one quiz of the day per site. The kpop build still calls ensure_daily_quiz(p_date), exactly as before (010
+ * makes it the kpop wrapper); any other build calls ensure_daily_quiz_v2(p_date, SITE.id) (lib/daily-quiz.ts).
+ *
  * UX v11 P1, rotation fix: ensure_daily_quiz only publishes a bank row dated
  * exactly today, and no row has matched since 2026-06-30 (root cause in
  * lib/quiz-bank-scheduling.ts), so the rotation silently stopped. With the server
@@ -34,12 +40,13 @@ export const dynamic = 'force-dynamic';
 /**
  * Mission U (owner, 2026-10-15): the open bank rows left after today's run, and the refill
  * alert under BANK_REFILL_THRESHOLD. Logged and returned so a cron run shows it; a failed
- * count never fails the run.
+ * count never fails the run. Run O1: the count is per site (forSite on the build's site: the kpop build with SITE_SCOPE off
+ * sends main's exact query), and the alert names the site off kpop.
  */
 async function bankStatus(supabase: ReturnType<typeof createServiceRoleClient>): Promise<{ bank_open?: number; refill_alert?: string }> {
-  const { count, error } = await supabase.from('quiz_bank').select('id', { count: 'exact', head: true }).in('status', ['verified', 'scheduled']);
+  const { count, error } = await forSite(supabase.from('quiz_bank').select('id', { count: 'exact', head: true }), SITE.id).in('status', ['verified', 'scheduled']);
   if (error || typeof count !== 'number') return {};
-  const alert = bankRefillAlert(count);
+  const alert = bankRefillAlert(count, SITE.id);
   if (alert) console.warn(`[ensure-daily-quiz] ${alert}`);
   return alert ? { bank_open: count, refill_alert: alert } : { bank_open: count };
 }
@@ -55,7 +62,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
   if (qotdRotationFixEnabled()) {
     try {
-      const result = await rotateQotd(supabaseQotdStore(supabase), today);
+      const result = await rotateQotd(supabaseQotdStore(supabase, SITE.id), today);
       console.log(`[ensure-daily-quiz] ${today}: ${result.method}${result.quizId ? ` ${result.quizId}` : ''}`);
       const bank = await bankStatus(supabase);
       if (result.method === 'none') {
@@ -69,7 +76,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     }
   }
 
-  const { error } = await supabase.rpc('ensure_daily_quiz', { p_date: today });
+  const { error } = await ensureDailyQuizRpc(supabase, today, SITE.id);
   if (error) {
     console.error('[ensure-daily-quiz]', error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });

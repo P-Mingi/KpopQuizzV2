@@ -1,0 +1,231 @@
+{
+  "site": "anime",
+  "account": "oq_creator_07",
+  "group_slug": "attack-on-titan",
+  "title": "First Steps Behind the Walls: Attack on Titan Basics",
+  "slug": "first-steps-behind-the-walls-attack-on-titan-basics",
+  "description": "Ten spoiler-free questions on the creator, the magazine, the studios and the numbers behind Attack on Titan. Nothing from the story.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who wrote and drew the whole Attack on Titan manga himself?",
+      "options": [
+        "Koyoharu Gotouge",
+        "Hiromu Arakawa",
+        "Hajime Isayama",
+        "Gege Akutami"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-manga-creator-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    },
+    {
+      "question": "Which publisher's monthly magazine, Bessatsu Shonen Magazine, ran Attack on Titan?",
+      "options": [
+        "Shueisha",
+        "Kodansha",
+        "Shogakukan",
+        "Square Enix"
+      ],
+      "correct": 1,
+      "fun_fact": "The magazine launched with the first chapter.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-magazine-publisher-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    },
+    {
+      "question": "The Attack on Titan chapters were collected in how many volumes?",
+      "options": [
+        "20",
+        "28",
+        "41",
+        "34"
+      ],
+      "correct": 3,
+      "fun_fact": "The story closed after 139 chapters.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-volume-count-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    },
+    {
+      "question": "The Attack on Titan manga finished at which chapter number?",
+      "options": [
+        "139",
+        "100",
+        "120",
+        "156"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-chapter-count-015"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/%E9%80%B2%E6%92%83%E3%81%AE%E5%B7%A8%E4%BA%BA"
+    },
+    {
+      "question": "In which year did the Attack on Titan anime open with a 25-episode first season?",
+      "options": [
+        "2013",
+        "2010",
+        "2011",
+        "2015"
+      ],
+      "correct": 0,
+      "fun_fact": "The anime opened on 7 April 2013.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "attack-on-titan-anime-premiere-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "question": "How many other manga have matched the first print of volume 12 of Attack on Titan?",
+      "options": [
+        "One",
+        "Two",
+        "Three",
+        "Five"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "attack-on-titan-volume-twelve-print-run-022"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    },
+    {
+      "question": "In which year did the Attack on Titan manga reach its finale?",
+      "options": [
+        "2019",
+        "2020",
+        "2021",
+        "2023"
+      ],
+      "correct": 2,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-manga-run-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    },
+    {
+      "question": "The Japanese title 進撃の巨人 translates roughly as what?",
+      "options": [
+        "The Falling Wall",
+        "The Last Soldier",
+        "The Giant Gate",
+        "The Advancing Giant"
+      ],
+      "correct": 3,
+      "fun_fact": "It is read Shingeki no Kyojin.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-japanese-title-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    },
+    {
+      "question": "The manga won the Kodansha Manga Award in 2011 for which category?",
+      "options": [
+        "Best shojo",
+        "Best general",
+        "Best newcomer",
+        "Best shonen"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "attack-on-titan-kodansha-award-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    },
+    {
+      "question": "Levi's look and manner were modeled on Rorschach from which comic?",
+      "options": [
+        "Batman",
+        "Sin City",
+        "V for Vendetta",
+        "Watchmen"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-levi-inspiration-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Attack on Titan",
+      "url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    },
+    {
+      "id": "S2",
+      "title": "Japanese Wikipedia: 進撃の巨人",
+      "url": "https://ja.wikipedia.org/wiki/%E9%80%B2%E6%92%83%E3%81%AE%E5%B7%A8%E4%BA%BA"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Attack on Titan (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: List of Attack on Titan characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    }
+  ],
+  "notes": "Starter: every question cites an arc 0 fact only. K1 rewrite: blocked questions rewritten on verified facts 022 and 012."
+}

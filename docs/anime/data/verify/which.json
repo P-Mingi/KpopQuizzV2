@@ -1,0 +1,1180 @@
+[
+  {
+    "set": "one-piece",
+    "character_slug": "monkey-d-luffy",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Monkey_D._Luffy (revision 1379660000)"
+    ],
+    "claims": [
+      "cheerful and carefree, rarely worried about consequences",
+      "loyal to his crew, makes many friends",
+      "eats eagerly, thinks with his stomach"
+    ],
+    "verdict": "fixed",
+    "reason": "Three claims were backed by one existing fact; two facts added on the page opened.",
+    "fact_ids": [
+      "one-piece-luffy-carefree-071",
+      "one-piece-luffy-loyal-captain-072",
+      "one-piece-luffy-stomach-061"
+    ]
+  },
+  {
+    "set": "one-piece",
+    "character_slug": "roronoa-zoro",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Roronoa_Zoro (revision 1380100680)"
+    ],
+    "claims": [
+      "trains toward a big goal or sleeps",
+      "loyal to respected crewmates",
+      "holds his drink",
+      "poor sense of direction"
+    ],
+    "verdict": "fixed",
+    "reason": "Existing facts covered only sake; four facts added on the page opened.",
+    "fact_ids": [
+      "one-piece-zoro-train-or-nap-073",
+      "one-piece-zoro-loyalty-075",
+      "one-piece-zoro-strong-drinker-076",
+      "one-piece-zoro-direction-074",
+      "one-piece-zoro-sake-062"
+    ]
+  },
+  {
+    "set": "one-piece",
+    "character_slug": "shanks",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Four_Emperors_(One_Piece) (revision 1380934951)"
+    ],
+    "claims": [
+      "mentor and hero to Luffy",
+      "gave Luffy the straw hat",
+      "lost an arm saving a kid",
+      "captains his own crew"
+    ],
+    "verdict": "fixed",
+    "reason": "Series facts only named him; four facts added on the page opened. Emperor status and the hat's origin left out as later reveals.",
+    "fact_ids": [
+      "one-piece-shanks-mentor-077",
+      "one-piece-shanks-straw-hat-078",
+      "one-piece-shanks-lost-arm-079",
+      "one-piece-shanks-own-crew-080"
+    ]
+  },
+  {
+    "set": "one-piece",
+    "character_slug": "gol-d-roger",
+    "urls": [
+      "https://en.wikipedia.org/wiki/One_Piece (revision 1379784013)",
+      "https://en.wikipedia.org/wiki/List_of_One_Piece_pirates (revision 1379094181)"
+    ],
+    "claims": [
+      "left behind a great treasure",
+      "anyone may take it but must find it first"
+    ],
+    "verdict": "rewritten",
+    "reason": "One fact added; execution, bounty and Laugh Tale left out as later reveals; no personality is claimed. Lead audit: a line went beyond the cited facts; rewritten from the fact text.",
+    "fact_ids": [
+      "one-piece-roger-treasure-026",
+      "one-piece-roger-treasure-open-081"
+    ]
+  },
+  {
+    "set": "one-piece",
+    "character_slug": "makino",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_One_Piece_characters (revision 1381843819)"
+    ],
+    "claims": [
+      "bartender and friend",
+      "helped raise Luffy as a child"
+    ],
+    "verdict": "rewritten",
+    "reason": "New character in the series file (chapter 1) with three facts added on the page opened. Lead audit: a line went beyond the cited facts; rewritten from the fact text.",
+    "fact_ids": [
+      "one-piece-makino-bartender-083",
+      "one-piece-makino-raised-luffy-084"
+    ]
+  },
+  {
+    "set": "one-piece",
+    "character_slug": "koby",
+    "urls": [
+      "https://en.wikipedia.org/wiki/World_Government_(One_Piece) (revision 1379486711)"
+    ],
+    "claims": [
+      "first friend Luffy makes",
+      "starts out forced to do chores on a pirate ship",
+      "gets away with Luffy's help"
+    ],
+    "verdict": "fixed",
+    "reason": "New character in the series file (first arc) with four facts added; the later Marine career is not used.",
+    "fact_ids": [
+      "one-piece-koby-first-friend-086",
+      "one-piece-koby-chore-boy-087",
+      "one-piece-koby-escape-088"
+    ]
+  },
+  {
+    "set": "slam-dunk",
+    "character_slug": "hanamichi-sakuragi",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Slam_Dunk_characters&oldid=1379124925 (revision 1379124925)"
+    ],
+    "claims": [
+      "self-belief near arrogance",
+      "rejected many times by girls",
+      "loud leader type"
+    ],
+    "verdict": "fixed",
+    "reason": "existing fact name-046 said hot-tempered, which the page does not say; text corrected, profile rests on the confidence, rejection and gang facts",
+    "fact_ids": [
+      "slam-dunk-hanamichi-sakuragi-confidence-085",
+      "slam-dunk-hanamichi-sakuragi-rejections-047",
+      "slam-dunk-hanamichi-sakuragi-gang-048"
+    ]
+  },
+  {
+    "set": "slam-dunk",
+    "character_slug": "kaede-rukawa",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Slam_Dunk_characters&oldid=1379124925 (revision 1379124925)"
+    ],
+    "claims": [
+      "cool and distant",
+      "sleeping is his hobby",
+      "rival of Sakuragi"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "slam-dunk-kaede-rukawa-aloof-091",
+      "slam-dunk-kaede-rukawa-sleeping-092",
+      "slam-dunk-kaede-rukawa-rival-093"
+    ]
+  },
+  {
+    "set": "slam-dunk",
+    "character_slug": "takenori-akagi",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Slam_Dunk_characters&oldid=1379124925 (revision 1379124925)"
+    ],
+    "claims": [
+      "serious, disciplined, dreams of national title",
+      "rough outside, caring inside",
+      "best center in Kanagawa"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "slam-dunk-takenori-akagi-discipline-086",
+      "slam-dunk-takenori-akagi-caring-side-087",
+      "slam-dunk-takenori-akagi-best-center-088"
+    ]
+  },
+  {
+    "set": "slam-dunk",
+    "character_slug": "haruko-akagi",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Slam_Dunk_characters&oldid=1379124925 (revision 1379124925)"
+    ],
+    "claims": [
+      "sweet, cheers players on",
+      "uncovered Sakuragi's talent",
+      "captivating personality"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "slam-dunk-haruko-akagi-sweet-094",
+      "slam-dunk-haruko-akagi-uncovers-talent-095",
+      "slam-dunk-haruko-akagi-talent-spotter-057"
+    ]
+  },
+  {
+    "set": "slam-dunk",
+    "character_slug": "ayako",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Slam_Dunk_characters&oldid=1379124925 (revision 1379124925)"
+    ],
+    "claims": [
+      "strong-willed, tomboyish, good-natured",
+      "sharpens Sakuragi for real matches",
+      "trains him in the basics"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "slam-dunk-ayako-personality-096",
+      "slam-dunk-ayako-sharpens-sakuragi-097",
+      "slam-dunk-ayako-name-059"
+    ]
+  },
+  {
+    "set": "slam-dunk",
+    "character_slug": "mitsuyoshi-anzai",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Slam_Dunk_characters&oldid=1379124925 (revision 1379124925)"
+    ],
+    "claims": [
+      "brilliant strategist",
+      "charismatic, inspires players",
+      "beloved coach"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "slam-dunk-mitsuyoshi-anzai-strategist-098",
+      "slam-dunk-mitsuyoshi-anzai-charisma-099",
+      "slam-dunk-mitsuyoshi-anzai-name-060"
+    ]
+  },
+  {
+    "set": "slam-dunk",
+    "character_slug": "yohei-mito",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Slam_Dunk_characters&oldid=1379124925 (revision 1379124925)"
+    ],
+    "claims": [
+      "best friend since childhood, skilled fighter",
+      "only gang member able to give real advice",
+      "deputy commander"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "slam-dunk-yohei-mito-advice-100",
+      "slam-dunk-yohei-mito-childhood-friend-101",
+      "slam-dunk-yohei-mito-name-062"
+    ]
+  },
+  {
+    "set": "slam-dunk",
+    "character_slug": "kiminobu-kogure",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Slam_Dunk_characters&oldid=1379124925 (revision 1379124925)"
+    ],
+    "claims": [
+      "gentle, empathetic, friendly, glasses",
+      "works to bring out Sakuragi's talent",
+      "vice-captain"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "slam-dunk-kiminobu-kogure-gentle-089",
+      "slam-dunk-kiminobu-kogure-supports-sakuragi-090",
+      "slam-dunk-kiminobu-kogure-name-063"
+    ]
+  },
+  {
+    "set": "jujutsu-kaisen",
+    "character_slug": "yuji-itadori",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters (revision 1381319484)",
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen (revision 1381182639)"
+    ],
+    "claims": [
+      "outgoing",
+      "swallow twenty fingers or execution waits",
+      "vessel for a powerful curse",
+      "goes to Tokyo Jujutsu High"
+    ],
+    "verdict": "rewritten",
+    "reason": "first draft said he makes friends before class and keeps showing up for everyone, which no fact states; reduced to the four checked claims",
+    "fact_ids": [
+      "jujutsu-kaisen-yuji-itadori-name-031",
+      "jujutsu-kaisen-twenty-fingers-027",
+      "jujutsu-kaisen-yuji-itadori-outgoing-062",
+      "jujutsu-kaisen-yuji-itadori-school-063"
+    ]
+  },
+  {
+    "set": "jujutsu-kaisen",
+    "character_slug": "satoru-gojo",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters (revision 1381319484)",
+      "https://en.wikipedia.org/wiki/Jujutsu_Kaisen (revision 1381182639)"
+    ],
+    "claims": [
+      "strongest sorcerer",
+      "renowned Special Grade sorcerer",
+      "teacher at the school"
+    ],
+    "verdict": "rewritten",
+    "reason": "first draft claimed he teaches by letting the class try, with a hidden plan, not in any fact; removed Lead audit: a line went beyond the cited facts; rewritten from the fact text.",
+    "fact_ids": [
+      "jujutsu-kaisen-strongest-sorcerer-028",
+      "jujutsu-kaisen-satoru-gojo-teacher-064"
+    ]
+  },
+  {
+    "set": "jujutsu-kaisen",
+    "character_slug": "megumi-fushiguro",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters (revision 1381319484)"
+    ],
+    "claims": [
+      "first-year trained by the teacher",
+      "technique built on shadows (Ten Shadows Technique)",
+      "argues for sparing a newcomer"
+    ],
+    "verdict": "rewritten",
+    "reason": "first draft called him tight-lipped and self-reliant, which the page does not say; replaced by the three checked claims",
+    "fact_ids": [
+      "jujutsu-kaisen-megumi-fushiguro-first-year-065",
+      "jujutsu-kaisen-megumi-fushiguro-ten-shadows-066",
+      "jujutsu-kaisen-megumi-fushiguro-spares-067"
+    ]
+  },
+  {
+    "set": "jujutsu-kaisen",
+    "character_slug": "nobara-kugisaki",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters (revision 1381319484)"
+    ],
+    "claims": [
+      "first-year at Tokyo Jujutsu High trained by a renowned teacher",
+      "from a rural village",
+      "straw doll technique"
+    ],
+    "verdict": "rewritten",
+    "reason": "first draft claimed hammer, nails, quick opinions and owning the school, none stated; removed, and the reason she left the village was dropped as not read verbatim",
+    "fact_ids": [
+      "jujutsu-kaisen-nobara-kugisaki-first-year-068",
+      "jujutsu-kaisen-nobara-kugisaki-straw-doll-069",
+      "jujutsu-kaisen-nobara-kugisaki-village-070"
+    ]
+  },
+  {
+    "set": "jujutsu-kaisen",
+    "character_slug": "maki-zenin",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters (revision 1381319484)"
+    ],
+    "claims": [
+      "born without cursed energy",
+      "compensates with superhuman physical strength"
+    ],
+    "verdict": "rewritten",
+    "reason": "first draft added that she trains and trusts tools over talent, not in the cited facts; removed",
+    "fact_ids": [
+      "jujutsu-kaisen-maki-zenin-no-cursed-energy-071",
+      "jujutsu-kaisen-maki-zenin-physical-072"
+    ]
+  },
+  {
+    "set": "jujutsu-kaisen",
+    "character_slug": "toge-inumaki",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters (revision 1381319484)"
+    ],
+    "claims": [
+      "keeps his mouth covered",
+      "answers in rice ball ingredients",
+      "technique is Cursed Speech"
+    ],
+    "verdict": "rewritten",
+    "reason": "first draft claimed he says very little and means every word, and that his voice is careful; neither is in a fact, removed",
+    "fact_ids": [
+      "jujutsu-kaisen-toge-inumaki-rice-balls-073",
+      "jujutsu-kaisen-toge-inumaki-cursed-speech-074"
+    ]
+  },
+  {
+    "set": "jujutsu-kaisen",
+    "character_slug": "panda",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters (revision 1381319484)"
+    ],
+    "claims": [
+      "second-year student",
+      "sentient Cursed Corpse",
+      "three swappable cores change form and strengths"
+    ],
+    "verdict": "rewritten",
+    "reason": "first draft added easygoing, steady teammate and cuddly, none stated; removed Lead audit: a line went beyond the cited facts; rewritten from the fact text.",
+    "fact_ids": [
+      "jujutsu-kaisen-panda-cursed-corpse-075",
+      "jujutsu-kaisen-panda-three-cores-076"
+    ]
+  },
+  {
+    "set": "jujutsu-kaisen",
+    "character_slug": "ryomen-sukuna",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters (revision 1381319484)"
+    ],
+    "claims": [
+      "legendary Heian-era sorcerer",
+      "returns through twenty indestructible fingers"
+    ],
+    "verdict": "rewritten",
+    "reason": "first draft claimed he does not mind whispers and likes being the story told to newcomers, not in a fact; removed Lead audit: a line went beyond the cited facts; rewritten from the fact text.",
+    "fact_ids": [
+      "jujutsu-kaisen-ryomen-sukuna-heian-legend-077",
+      "jujutsu-kaisen-ryomen-sukuna-name-035"
+    ]
+  },
+  {
+    "set": "apothecary-diaries",
+    "character_slug": "maomao",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters (revision 1381623594)"
+    ],
+    "claims": [
+      "curious, cannot leave a mystery alone",
+      "tests poisons and medicines, sometimes on herself",
+      "raised in a famous brothel in the capital"
+    ],
+    "verdict": "rewritten",
+    "reason": "dropped unsupported 'blunt'; softened the upbringing line to the Verdigris House fact Lead audit: a line went beyond the cited facts; rewritten from the fact text.",
+    "fact_ids": [
+      "apothecary-diaries-maomao-verdigris-035",
+      "apothecary-diaries-maomao-curiosity-043",
+      "apothecary-diaries-maomao-experiments-044"
+    ]
+  },
+  {
+    "set": "apothecary-diaries",
+    "character_slug": "gyokuyo",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters (revision 1381623594)"
+    ],
+    "claims": [
+      "the emperor's favourite",
+      "supports Jinshi and Maomao",
+      "hired Maomao as thanks for a warning"
+    ],
+    "verdict": "rewritten",
+    "reason": "dropped 'warm' and 'notices danger', which no fact states",
+    "fact_ids": [
+      "apothecary-diaries-gyokuyo-favourite-040",
+      "apothecary-diaries-gyokuyo-hires-maomao-031",
+      "apothecary-diaries-gyokuyo-supporter-045"
+    ]
+  },
+  {
+    "set": "apothecary-diaries",
+    "character_slug": "lishu",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters (revision 1381623594)"
+    ],
+    "claims": [
+      "youngest of the four consorts",
+      "attendants mistake her allergies for fussy eating"
+    ],
+    "verdict": "rewritten",
+    "reason": "dropped 'puts up quietly' and 'stronger than they think', which no fact states Lead audit: a line went beyond the cited facts; rewritten from the fact text.",
+    "fact_ids": [
+      "apothecary-diaries-lishu-youngest-042",
+      "apothecary-diaries-lishu-allergies-034"
+    ]
+  },
+  {
+    "set": "apothecary-diaries",
+    "character_slug": "lakan",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters (revision 1381623594)"
+    ],
+    "claims": [
+      "tactician",
+      "face-blind",
+      "wears a monocle",
+      "head of the La clan"
+    ],
+    "verdict": "rewritten",
+    "reason": "dropped board-game and odd-ideas lines, which no fact states Lead audit: a line went beyond the cited facts; rewritten from the fact text.",
+    "fact_ids": [
+      "apothecary-diaries-lakan-face-blind-046",
+      "apothecary-diaries-lakan-tactician-047"
+    ]
+  },
+  {
+    "set": "apothecary-diaries",
+    "character_slug": "xiaolan",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters (revision 1381623594)"
+    ],
+    "claims": [
+      "close friend of Maomao",
+      "shares palace gossip"
+    ],
+    "verdict": "rewritten",
+    "reason": "dropped 'whatever their rank' and 'first to know'",
+    "fact_ids": [
+      "apothecary-diaries-xiaolan-friend-048",
+      "apothecary-diaries-xiaolan-gossip-049"
+    ]
+  },
+  {
+    "set": "apothecary-diaries",
+    "character_slug": "gaoshun",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters (revision 1381623594)"
+    ],
+    "claims": [
+      "loyal attendant",
+      "supports quietly",
+      "has a second son who is also an attendant"
+    ],
+    "verdict": "rewritten",
+    "reason": "dropped 'exactly where you promised' and 'family keeps you grounded' Lead audit: a line went beyond the cited facts; rewritten from the fact text.",
+    "fact_ids": [
+      "apothecary-diaries-gaoshun-loyal-attendant-050",
+      "apothecary-diaries-gaoshun-second-son-051"
+    ]
+  },
+  {
+    "set": "apothecary-diaries",
+    "character_slug": "luomen",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters (revision 1381623594)"
+    ],
+    "claims": [
+      "adopted Maomao",
+      "apothecary and doctor",
+      "offers services to several brothels"
+    ],
+    "verdict": "rewritten",
+    "reason": "dropped 'teach', which no fact states",
+    "fact_ids": [
+      "apothecary-diaries-luomen-adoptive-father-052",
+      "apothecary-diaries-luomen-brothels-053"
+    ]
+  },
+  {
+    "set": "inuyasha",
+    "character_slug": "inuyasha",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters (revision 1375701088)"
+    ],
+    "claims": [
+      "proud and stubborn",
+      "lonely childhood on the outside of the crowd",
+      "soft side under the pride"
+    ],
+    "verdict": "rewritten",
+    "reason": "draft lines said he speaks loudly and that stubbornness came from his childhood; neither is on the page, so the lines were rewritten from the proven traits",
+    "fact_ids": [
+      "inuyasha-inuyasha-name-053",
+      "inuyasha-inuyasha-lonely-childhood-088"
+    ]
+  },
+  {
+    "set": "inuyasha",
+    "character_slug": "kagome-higurashi",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters (revision 1375701088)"
+    ],
+    "claims": [
+      "turns back for someone in trouble",
+      "brave and kind",
+      "gets skilled at archery as the series goes on"
+    ],
+    "verdict": "rewritten",
+    "reason": "dropped 'people follow you', not on the page Lead audit: a line went beyond the cited facts; rewritten from the fact text.",
+    "fact_ids": [
+      "inuyasha-kagome-higurashi-name-055",
+      "inuyasha-kagome-higurashi-archery-056"
+    ]
+  },
+  {
+    "set": "inuyasha",
+    "character_slug": "miroku",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters (revision 1375701088)",
+      "https://en.wikipedia.org/wiki/Inuyasha (revision 1377936410)"
+    ],
+    "claims": [
+      "intelligent and lecherous",
+      "gets more than he should out of wealthy clients",
+      "carries a hereditary curse"
+    ],
+    "verdict": "rewritten",
+    "reason": "dropped 'charming', 'free meal' and 'hides behind a grin', not on the page",
+    "fact_ids": [
+      "inuyasha-miroku-name-058",
+      "inuyasha-miroku-wind-tunnel-059"
+    ]
+  },
+  {
+    "set": "inuyasha",
+    "character_slug": "sango",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters (revision 1375701088)"
+    ],
+    "claims": [
+      "most skilled of her village",
+      "demon slayer, a dangerous trade",
+      "massive bone boomerang thrown with enhanced strength"
+    ],
+    "verdict": "rewritten",
+    "reason": "dropped 'says little' and 'people count on you', the page gives no personality",
+    "fact_ids": [
+      "inuyasha-sango-name-061",
+      "inuyasha-sango-boomerang-062"
+    ]
+  },
+  {
+    "set": "inuyasha",
+    "character_slug": "shippo",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters (revision 1375701088)"
+    ],
+    "claims": [
+      "pranks and blunt remarks with comic retaliation",
+      "orphaned, the group is his surrogate family"
+    ],
+    "verdict": "rewritten",
+    "reason": "dropped 'youngest' and 'runs before the payback', not on the page",
+    "fact_ids": [
+      "inuyasha-shippo-name-064",
+      "inuyasha-shippo-pranks-089",
+      "inuyasha-shippo-surrogate-family-090"
+    ]
+  },
+  {
+    "set": "inuyasha",
+    "character_slug": "sesshomaru",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters (revision 1375701088)"
+    ],
+    "claims": [
+      "powerful",
+      "feared throughout the feudal era",
+      "seeks power and strength"
+    ],
+    "verdict": "rewritten",
+    "reason": "dropped 'rarely smiles' and 'likes it that way', not on the page",
+    "fact_ids": [
+      "inuyasha-sesshomaru-name-066",
+      "inuyasha-sesshomaru-disdain-091"
+    ]
+  },
+  {
+    "set": "inuyasha",
+    "character_slug": "kaede",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters (revision 1375701088)",
+      "https://en.wikipedia.org/wiki/Inuyasha (revision 1377936410)"
+    ],
+    "claims": [
+      "defended the village against demons",
+      "keeps Inuyasha under control with a bead necklace",
+      "unusually strong priestess in her own right"
+    ],
+    "verdict": "rewritten",
+    "reason": "dropped 'quietly' and 'steadier than expected', not on the page",
+    "fact_ids": [
+      "inuyasha-kaede-name-074",
+      "inuyasha-kaede-beads-075",
+      "inuyasha-kaede-defended-village-093"
+    ]
+  },
+  {
+    "set": "spy-x-family",
+    "character_slug": "loid-forger",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Spy_%C3%97_Family_characters&oldid=1373964762",
+      "https://en.wikipedia.org/w/index.php?title=Spy_%C3%97_Family&oldid=1378380720"
+    ],
+    "claims": [
+      "changes face and name for each situation",
+      "practical and calm under a plan, softer with family",
+      "respectable day job (psychiatrist) with an undisclosed other life"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "spy-x-family-loid-forger-disguises-052",
+      "spy-x-family-loid-forger-pragmatic-053",
+      "spy-x-family-loid-forger-psychiatrist-054",
+      "spy-x-family-loid-forger-spy-070"
+    ]
+  },
+  {
+    "set": "spy-x-family",
+    "character_slug": "anya-forger",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Spy_%C3%97_Family_characters&oldid=1373964762",
+      "https://en.wikipedia.org/w/index.php?title=Spy_%C3%97_Family&oldid=1378380720"
+    ],
+    "claims": [
+      "innocent about the world",
+      "quick on her feet",
+      "can read minds"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "spy-x-family-anya-telepath-013",
+      "spy-x-family-anya-forger-innocent-055",
+      "spy-x-family-anya-forger-quick-witted-056"
+    ]
+  },
+  {
+    "set": "spy-x-family",
+    "character_slug": "yor-forger",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Spy_%C3%97_Family_characters&oldid=1373964762"
+    ],
+    "claims": [
+      "soft-spoken, formal, considerate",
+      "office job by day with another, hidden side",
+      "absent-minded, poor at cooking"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "spy-x-family-yor-forger-gentle-057",
+      "spy-x-family-yor-thorn-princess-014",
+      "spy-x-family-yor-forger-absent-minded-058"
+    ]
+  },
+  {
+    "set": "spy-x-family",
+    "character_slug": "bond-forger",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Spy_%C3%97_Family_characters&oldid=1373964762"
+    ],
+    "claims": [
+      "unconditionally loyal to the family",
+      "easily distracted, yet smart and strong"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "spy-x-family-bond-forger-loyal-059",
+      "spy-x-family-bond-forger-distracted-060"
+    ]
+  },
+  {
+    "set": "spy-x-family",
+    "character_slug": "damian-desmond",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Spy_%C3%97_Family_characters&oldid=1373964762"
+    ],
+    "claims": [
+      "diligent student, strong in History",
+      "works hard for a parent's approval"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "spy-x-family-damian-desmond-diligent-061",
+      "spy-x-family-damian-desmond-approval-062"
+    ]
+  },
+  {
+    "set": "spy-x-family",
+    "character_slug": "becky-blackbell",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Spy_%C3%97_Family_characters&oldid=1373964762"
+    ],
+    "claims": [
+      "often tries to act more grown up",
+      "best friend at school",
+      "admires strong people"
+    ],
+    "verdict": "rewritten",
+    "fact_ids": [
+      "spy-x-family-becky-blackbell-adult-like-063",
+      "spy-x-family-becky-blackbell-admires-yor-064"
+    ],
+    "reason": "Lead audit: a line went beyond the cited facts; rewritten from the fact text."
+  },
+  {
+    "set": "spy-x-family",
+    "character_slug": "yuri-briar",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Spy_%C3%97_Family_characters&oldid=1373964762"
+    ],
+    "claims": [
+      "exemplary at his job",
+      "a bit too attached to his sibling"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "spy-x-family-yuri-briar-exemplary-065",
+      "spy-x-family-yuri-briar-attached-066"
+    ]
+  },
+  {
+    "set": "spy-x-family",
+    "character_slug": "franky-franklin",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Spy_%C3%97_Family_characters&oldid=1373964762"
+    ],
+    "claims": [
+      "shopkeeper by day, inventor in spare time",
+      "often looks after the kids and pets",
+      "hopeless in romance"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "spy-x-family-franky-franklin-tobacconist-067",
+      "spy-x-family-franky-franklin-caretaker-068",
+      "spy-x-family-franky-franklin-romance-069"
+    ]
+  },
+  {
+    "set": "oshi-no-ko",
+    "character_slug": "ai-hoshino",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Oshi_no_Ko_characters&oldid=1377609994 (revision 1377609994)"
+    ],
+    "claims": [
+      "gives to others, empathetic, keeps some thoughts private",
+      "started small and was noticed early",
+      "learned to show affection to a crowd"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "oshi-no-ko-ai-scouted-strawberry-043",
+      "oshi-no-ko-ai-bkomachi-centerpiece-044",
+      "oshi-no-ko-ai-hoshino-personality-054",
+      "oshi-no-ko-ai-hoshino-performs-affection-055"
+    ]
+  },
+  {
+    "set": "oshi-no-ko",
+    "character_slug": "kana-arima",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Oshi_no_Ko_characters&oldid=1377609994 (revision 1377609994)"
+    ],
+    "claims": [
+      "great at her craft since childhood",
+      "can produce a feeling on cue",
+      "holds back so as not to outshine peers"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "oshi-no-ko-kana-child-prodigy-019",
+      "oshi-no-ko-kana-arima-restrains-talent-056"
+    ]
+  },
+  {
+    "set": "oshi-no-ko",
+    "character_slug": "akane-kurokawa",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Oshi_no_Ko_characters&oldid=1377609994 (revision 1377609994)"
+    ],
+    "claims": [
+      "prepares meticulously, studies roles in depth (method acting)",
+      "stage actress who promotes her troupe"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "oshi-no-ko-akane-kurokawa-stage-actress-057",
+      "oshi-no-ko-akane-kurokawa-method-acting-058"
+    ]
+  },
+  {
+    "set": "oshi-no-ko",
+    "character_slug": "taishi-gotanda",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Oshi_no_Ko_characters&oldid=1377609994 (revision 1377609994)"
+    ],
+    "claims": [
+      "film director",
+      "scouts talent and talks people into acting"
+    ],
+    "verdict": "rewritten",
+    "reason": "first draft lines went beyond the cited facts (signs on the spot, money and schedule, solid performance, before they believe they can); rewritten to the facts",
+    "fact_ids": [
+      "oshi-no-ko-taishi-gotanda-film-director-059",
+      "oshi-no-ko-taishi-gotanda-scouts-talent-060"
+    ]
+  },
+  {
+    "set": "oshi-no-ko",
+    "character_slug": "ichigo-saito",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Oshi_no_Ko_characters&oldid=1377609994 (revision 1377609994)"
+    ],
+    "claims": [
+      "leads a small agency",
+      "recruited Ai, a not yet famous girl"
+    ],
+    "verdict": "rewritten",
+    "reason": "first draft lines went beyond the cited facts (signs on the spot, money and schedule, solid performance, before they believe they can); rewritten to the facts",
+    "fact_ids": [
+      "oshi-no-ko-ichigo-strawberry-president-041",
+      "oshi-no-ko-ichigo-saito-recruits-ai-061"
+    ]
+  },
+  {
+    "set": "oshi-no-ko",
+    "character_slug": "miyako-saito",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Oshi_no_Ko_characters&oldid=1377609994 (revision 1377609994)"
+    ],
+    "claims": [
+      "manages the agency and keeps it afloat",
+      "wife of the agency president"
+    ],
+    "verdict": "rewritten",
+    "reason": "first draft lines went beyond the cited facts (signs on the spot, money and schedule, solid performance, before they believe they can); rewritten to the facts",
+    "fact_ids": [
+      "oshi-no-ko-miyako-runs-agency-042",
+      "oshi-no-ko-miyako-saito-married-to-ichigo-062"
+    ]
+  },
+  {
+    "set": "oshi-no-ko",
+    "character_slug": "melt-narushima",
+    "urls": [
+      "https://en.wikipedia.org/w/index.php?title=List_of_Oshi_no_Ko_characters&oldid=1377609994 (revision 1377609994)"
+    ],
+    "claims": [
+      "starts arrogant and untrained",
+      "is humbled and works on improving"
+    ],
+    "verdict": "rewritten",
+    "reason": "first draft lines went beyond the cited facts (signs on the spot, money and schedule, solid performance, before they believe they can); rewritten to the facts",
+    "fact_ids": [
+      "oshi-no-ko-melt-narushima-arrogant-start-063",
+      "oshi-no-ko-melt-narushima-humbled-064",
+      "oshi-no-ko-melt-narushima-improves-065"
+    ]
+  },
+  {
+    "set": "black-clover",
+    "character_slug": "asta",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters (revision 1381757229)",
+      "https://en.wikipedia.org/wiki/Black_Clover (revision 1381706424)"
+    ],
+    "claims": [
+      "born without magic",
+      "immense physical strength",
+      "aims to become Wizard King",
+      "embraces captain's philosophy of surpassing limits"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "black-clover-character-name-043",
+      "black-clover-asta-grimoire-063",
+      "black-clover-asta-limits-104",
+      "black-clover-asta-strength-105",
+      "black-clover-yuno-grinberryall-goal-107"
+    ]
+  },
+  {
+    "set": "black-clover",
+    "character_slug": "yuno-grinberryall",
+    "urls": [
+      "https://en.wikipedia.org/wiki/Black_Clover (revision 1381706424)",
+      "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters (revision 1381757229)"
+    ],
+    "claims": [
+      "prodigy with immense magic",
+      "wind magic",
+      "rival and best friend of Asta",
+      "shares goal of Wizard King"
+    ],
+    "verdict": "fixed",
+    "reason": "fact 044 excerpt was not on the character list page; moved its source to the Black Clover article revision 1381706424 where the phrase is literal",
+    "fact_ids": [
+      "black-clover-character-name-044",
+      "black-clover-yuno-wind-065",
+      "black-clover-yuno-grinberryall-rival-106",
+      "black-clover-yuno-grinberryall-goal-107"
+    ]
+  },
+  {
+    "set": "black-clover",
+    "character_slug": "noelle-silva",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters (revision 1381757229)",
+      "https://en.wikipedia.org/wiki/Black_Clover (revision 1381706424)"
+    ],
+    "claims": [
+      "royal House Silva",
+      "member of the Black Bulls",
+      "huge mana and Water Magic",
+      "initially struggles with control due to childhood trauma"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "black-clover-character-name-045",
+      "black-clover-noelle-water-069"
+    ]
+  },
+  {
+    "set": "black-clover",
+    "character_slug": "yami-sukehiro",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters (revision 1381757229)"
+    ],
+    "claims": [
+      "captain of the Black Bulls",
+      "nickname Lord of Destruction",
+      "Dark Magic negates spells",
+      "philosophy of surpassing limits"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "black-clover-yami-nick-072",
+      "black-clover-yami-sukehiro-captain-108",
+      "black-clover-yami-sukehiro-dark-magic-109",
+      "black-clover-asta-limits-104"
+    ]
+  },
+  {
+    "set": "black-clover",
+    "character_slug": "finral-roulacase",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters (revision 1381757229)"
+    ],
+    "claims": [
+      "Spatial Magic used for transportation",
+      "initially cowardly and irresponsible due to family pressures",
+      "grows into a courageous mage"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "black-clover-finral-spatial-075",
+      "black-clover-finral-roulacase-courage-110"
+    ]
+  },
+  {
+    "set": "black-clover",
+    "character_slug": "magna-swing",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters (revision 1381757229)"
+    ],
+    "claims": [
+      "fiery-tempered right-hand man of Yami",
+      "signature broom Crazy Cyclone",
+      "creative fireballs with Fire Magic"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "black-clover-character-name-048",
+      "black-clover-magna-broom-076",
+      "black-clover-magna-swing-fiery-111",
+      "black-clover-magna-swing-fireballs-112"
+    ]
+  },
+  {
+    "set": "kaguya-sama-love-is-war",
+    "character_slug": "kaguya-shinomiya",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters (revision 1372942368)"
+    ],
+    "claims": [
+      "proud, cold, calculating",
+      "better with analog tools than digital",
+      "kind underneath"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "kaguya-sama-love-is-war-kaguya-shinomiya-name-049",
+      "kaguya-sama-love-is-war-kaguya-shinomiya-typewriter-050",
+      "kaguya-sama-love-is-war-kaguya-shinomiya-manner-089",
+      "kaguya-sama-love-is-war-kaguya-shinomiya-kind-100"
+    ]
+  },
+  {
+    "set": "kaguya-sama-love-is-war",
+    "character_slug": "miyuki-shirogane",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters (revision 1372942368)"
+    ],
+    "claims": [
+      "looks calm while his mind races",
+      "top student placing near top in national mock exam",
+      "afraid of cockroaches",
+      "loves the night sky"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "kaguya-sama-love-is-war-miyuki-shirogane-name-052",
+      "kaguya-sama-love-is-war-miyuki-shirogane-bugs-053",
+      "kaguya-sama-love-is-war-miyuki-shirogane-stars-054",
+      "kaguya-sama-love-is-war-miyuki-shirogane-composed-090"
+    ]
+  },
+  {
+    "set": "kaguya-sama-love-is-war",
+    "character_slug": "chika-fujiwara",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters (revision 1372942368)"
+    ],
+    "claims": [
+      "cheerful",
+      "not serious about schoolwork but good at languages, singing, sports",
+      "claims to read emotions, hit and miss"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "kaguya-sama-love-is-war-chika-fujiwara-name-056",
+      "kaguya-sama-love-is-war-chika-fujiwara-schoolwork-091",
+      "kaguya-sama-love-is-war-chika-fujiwara-emotions-092"
+    ]
+  },
+  {
+    "set": "kaguya-sama-love-is-war",
+    "character_slug": "yu-ishigami",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters (revision 1372942368)"
+    ],
+    "claims": [
+      "keeps to himself, headphones and game",
+      "keen observer who notices hidden things"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "kaguya-sama-love-is-war-yu-ishigami-name-059",
+      "kaguya-sama-love-is-war-yu-ishigami-observer-093",
+      "kaguya-sama-love-is-war-yu-ishigami-keeps-to-himself-094"
+    ]
+  },
+  {
+    "set": "kaguya-sama-love-is-war",
+    "character_slug": "ai-hayasaka",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters (revision 1372942368)"
+    ],
+    "claims": [
+      "trendy public image",
+      "plays a different part (maid persona)",
+      "socially aware",
+      "assistant and childhood friend of Kaguya (loyal friend)"
+    ],
+    "verdict": "rewritten",
+    "fact_ids": [
+      "kaguya-sama-love-is-war-ai-hayasaka-name-061",
+      "kaguya-sama-love-is-war-ai-hayasaka-maid-062",
+      "kaguya-sama-love-is-war-ai-hayasaka-aware-095"
+    ],
+    "reason": "Lead audit: a line went beyond the cited facts; rewritten from the fact text."
+  },
+  {
+    "set": "kaguya-sama-love-is-war",
+    "character_slug": "nagisa-kashiwagi",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters (revision 1372942368)"
+    ],
+    "claims": [
+      "top ten student",
+      "leads volunteering club",
+      "wealthy family",
+      "talkative, moody, jealous with boyfriend"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "kaguya-sama-love-is-war-nagisa-kashiwagi-name-068",
+      "kaguya-sama-love-is-war-nagisa-kashiwagi-top-ten-096",
+      "kaguya-sama-love-is-war-nagisa-kashiwagi-girlfriend-097"
+    ]
+  },
+  {
+    "set": "kaguya-sama-love-is-war",
+    "character_slug": "tsubasa-tanuma",
+    "urls": [
+      "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters (revision 1372942368)"
+    ],
+    "claims": [
+      "asks a friend for love advice and acts on it (confesses, becomes boyfriend)",
+      "forgets to share details of relationship",
+      "father a hospital director"
+    ],
+    "verdict": "ok",
+    "fact_ids": [
+      "kaguya-sama-love-is-war-tsubasa-tanuma-name-070",
+      "kaguya-sama-love-is-war-tsubasa-tanuma-clueless-098",
+      "kaguya-sama-love-is-war-tsubasa-tanuma-family-099"
+    ]
+  }
+]

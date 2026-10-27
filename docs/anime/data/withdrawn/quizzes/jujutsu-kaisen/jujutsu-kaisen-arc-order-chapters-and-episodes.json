@@ -1,0 +1,220 @@
+{
+  "site": "anime",
+  "account": "oq_creator_05",
+  "group_slug": "jujutsu-kaisen",
+  "title": "Jujutsu Kaisen Arc Order: Chapters and Episodes",
+  "slug": "jujutsu-kaisen-arc-order-chapters-and-episodes",
+  "description": "Match the arcs to their chapter ranges and episode runs, from the first chapters to the last three.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Which arc covers chapters 1 to 18?",
+      "options": [
+        "Young Fish and Reverse Punishment",
+        "The Origin of Obedience",
+        "Shibuya Incident",
+        "Fearsome Womb"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 11,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-arc-list-001"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6"
+    },
+    {
+      "question": "Which arc covers chapters 19 to 31?",
+      "options": [
+        "Fearsome Womb",
+        "Kyoto Sister-School Goodwill Event",
+        "The Origin of Obedience",
+        "Young Fish and Reverse Punishment"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 11,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-arc-list-001"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6"
+    },
+    {
+      "question": "Which arc covers chapters 32 to 54?",
+      "options": [
+        "Fearsome Womb",
+        "The Origin of Obedience",
+        "Kyoto Sister-School Goodwill Event",
+        "Culling Game"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 11,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-arc-list-001"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6"
+    },
+    {
+      "question": "Which arc is placed between seasons 1 and 2 as a prequel manga and film?",
+      "options": [
+        "Hidden Inventory / Premature Death",
+        "Shibuya Incident Aftermath",
+        "Jujutsu Kaisen 0",
+        "From Now On"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 11,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-arc-list-001"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6"
+    },
+    {
+      "question": "Which arc fills episodes 25 to 29?",
+      "options": [
+        "Shibuya Incident",
+        "Shibuya Incident Aftermath",
+        "The Origin of Obedience",
+        "Hidden Inventory / Premature Death"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 11,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-arc-list-001",
+        "jujutsu-kaisen-season-two-split-016"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6"
+    },
+    {
+      "question": "Which arc covers chapters 80 to 136 and episodes 30 to 47?",
+      "options": [
+        "Shibuya Incident Aftermath",
+        "Culling Game",
+        "Shibuya Incident",
+        "Hidden Inventory / Premature Death"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 11,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-arc-list-001",
+        "jujutsu-kaisen-season-two-split-016"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6"
+    },
+    {
+      "question": "Which arc covers chapters 160 to 222?",
+      "options": [
+        "Shibuya Incident Aftermath",
+        "Culling Game",
+        "Inhuman Makyo Shinjuku Showdown",
+        "From Now On"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 11,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-arc-list-001"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6"
+    },
+    {
+      "question": "Which arc covers chapters 223 to 268?",
+      "options": [
+        "Culling Game",
+        "Shibuya Incident Aftermath",
+        "Inhuman Makyo Shinjuku Showdown",
+        "From Now On"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 11,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-arc-list-001"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6"
+    },
+    {
+      "question": "Which arc covers the last three chapters, 269 to 271?",
+      "options": [
+        "Culling Game",
+        "Inhuman Makyo Shinjuku Showdown",
+        "Shibuya Incident Aftermath",
+        "From Now On"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 11,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-arc-list-001"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6"
+    },
+    {
+      "question": "How many episodes did season 2 run in 2023?",
+      "options": [
+        "12",
+        "23",
+        "24",
+        "47"
+      ],
+      "correct": 1,
+      "fun_fact": "It was split into a five-episode Hidden Inventory / Premature Death part and an 18-episode Shibuya Incident part.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 7,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-season-two-split-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Japanese Wikipedia: 呪術廻戦",
+      "url": "https://ja.wikipedia.org/wiki/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Jujutsu Kaisen (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    }
+  ],
+  "notes": "Arc quiz tagged at arc 11: the arc list fact covers the whole story. Ranges come straight from the list."
+}

@@ -1,0 +1,1129 @@
+[
+  {
+    "id": "kagurabachi-title-native-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "title_native",
+    "value": "カグラバチ (Kagurabachi)",
+    "text": "The series is written in katakana as カグラバチ, the same word the Weekly Shonen Jump page uses for its title.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q122713274",
+        "ref": "Q122713274",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.shonenjump.com/j/rensai/kagurabachi.html",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Kagurabachi (カグラバチ) is a Japanese manga series written and illustrated by Takeru Hokazono."
+  },
+  {
+    "id": "kagurabachi-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "author",
+    "value": "Takeru Hokazono (外薗 健)",
+    "text": "Takeru Hokazono both writes and draws the manga, and the official Jump page spells his name 外薗 健.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.shonenjump.com/j/rensai/kagurabachi.html",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "written and illustrated by Takeru Hokazono"
+  },
+  {
+    "id": "kagurabachi-serialization-start-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "serialization",
+    "value": "Weekly Shōnen Jump (Shueisha), September 2023",
+    "text": "Kagurabachi started in Shueisha's Weekly Shōnen Jump in September 2023, which the official page lists as issue 42 of that year.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q122713274",
+        "ref": "Q122713274",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.shonenjump.com/j/rensai/kagurabachi.html",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "serialized in Shueisha's shonen manga magazine Weekly Shonen Jump since September 2023"
+  },
+  {
+    "id": "kagurabachi-volume-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "volumes",
+    "value": "12 volumes; volume 1 on February 2, 2024, volume 12 on September 4, 2026",
+    "text": "The collected editions reached 12 volumes, with the first released on February 2, 2024 and the twelfth on September 4, 2026.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q122713274",
+        "ref": "Q122713274",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.shonenjump.com/j/rensai/kagurabachi.html",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The first tankobon volume was released on February 2, 2024. As of September 4, 2026, 12 volumes have been released."
+  },
+  {
+    "id": "kagurabachi-circulation-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "copies",
+    "value": "4.5 million copies and counting, October 2026",
+    "text": "As of October 2026 the manga was past the 4.5 million mark in circulation, up from about a million two years earlier.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "By October 2026, it had over 4.5 million copies in circulation."
+  },
+  {
+    "id": "kagurabachi-awards-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "awards",
+    "value": "Next Manga Award (print), 2024; Japan Expo Award for best action manga, 2026",
+    "text": "In 2024 it took the tenth Next Manga Award for print manga, and in 2026 the Japan Expo Awards gave it the Daruma for best action manga.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "In 2024, the manga won the 10th Next Manga Award in the print category"
+  },
+  {
+    "id": "kagurabachi-english-release-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "english_release",
+    "value": "Viz Media, first volume on November 5, 2024",
+    "text": "Viz Media announced a print edition in March 2024 and published volume 1 on November 5, 2024; Shueisha's Manga Plus also carries the series in English.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.viz.com/manga-books/manga/kagurabachi-volume-1/product/8072",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2024-03-06/viz-media-to-release-kagurabachi-manga-in-print-in-fall/.208379",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "In March 2024, Viz Media announced the print release of the manga. The first volume was released on November 5, 2024."
+  },
+  {
+    "id": "kagurabachi-arc-structure-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "chapters_collected",
+    "value": [
+      "Volumes 1 to 12 hold chapters 1 to 113",
+      "Chapter 114 is the first not yet collected in a volume"
+    ],
+    "text": "The twelve collected volumes run from chapter 1 to chapter 113, so chapter 114 is the first one still waiting for its volume.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "These chapters have yet to be published in a tankōbon volume."
+  },
+  {
+    "id": "kagurabachi-cast-list-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "characters",
+    "value": [
+      "Chihiro Rokuhira (六平 千鉱)",
+      "Togo Shiba (柴 登吾)",
+      "Char Kyonagi (鏡凪 シャル)",
+      "Soshiro Azami (薊 奏士郎)",
+      "Genichi Sojo (双城 厳一)",
+      "Kunishige Rokuhira (六平 国重)",
+      "Hakuri Sazanami (漣 伯理)",
+      "Hiyuki Kagari (香刈 緋雪)",
+      "Yura (幽)",
+      "Iori Samura (座村 イヲリ)",
+      "Seiichi Samura (座村 清市)",
+      "Akemura Soga (曽我 明無良)"
+    ],
+    "text": "The English Wikipedia character list gives each name with its Japanese writing; these twelve are the characters featured here.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Chihiro Rokuhira (六平 千鉱, Rokuhira Chihiro), Togo Shiba (柴 登吾, Shiba Tōgo), Hakuri Sazanami (漣 伯理, Sazanami Hakuri)"
+  },
+  {
+    "id": "kagurabachi-setting-war-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "setting",
+    "value": "Present-day Japan, 18 years after a great war",
+    "text": "The tale unfolds in today's Japan, 18 years after the Seitei War, a conflict in which hidden sorcery finally came into the open.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The story takes place in modern Japan, 18 years after the end of the great war known as the Seitei War"
+  },
+  {
+    "id": "kagurabachi-page-views-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "page_views",
+    "value": "Over 99 million page views on Manga Plus by April 2024",
+    "text": "Its first chapter was the most viewed worldwide in its first week on Manga Plus, and the platform logged more than 99 million views of the series by April 2024.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "the series received over 99 million page views on the platform by April 2024"
+  },
+  {
+    "id": "kagurabachi-kamunabi-agency-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "organization",
+    "value": "Kamunabi (神奈備), a government-backed sorcerer agency",
+    "text": "Kamunabi is the state-run sorcerer agency set up in the Seitei War years to deal with dangers facing all of Japan.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The Kamunabi (神奈備) is a government-backed agency of sorcerers formed during the Seitei War"
+  },
+  {
+    "id": "kagurabachi-enten-blade-013",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "chihiro-rokuhira",
+      "group_slug": "kagurabachi"
+    },
+    "field": "blade",
+    "value": "Enten (淵天), the seventh Enchanted Blade",
+    "text": "Chihiro carries Enten, a secret seventh Enchanted Blade made by his father, which gives him stronger physical ability and lets him absorb energy.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "wielding his father's last remaining blade, Enten (淵天). Enten grants him enhanced physical abilities, energy absorption"
+  },
+  {
+    "id": "kagurabachi-storehouse-isou-014",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "hakuri-sazanami",
+      "group_slug": "kagurabachi"
+    },
+    "field": "technique",
+    "value": "Isou and the Storehouse technique",
+    "text": "Hakuri can use both his clan's Isou technique and the Storehouse, a subspace for keeping objects and people, which only one other clan member ever managed.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "he gains the rare ability to wield both Isou and the Storehouse technique. Only one other clan member in history achieved this dual mastery."
+  },
+  {
+    "id": "kagurabachi-iai-white-purity-015",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "seiichi-samura",
+      "group_slug": "kagurabachi"
+    },
+    "field": "style",
+    "value": "Iai White Purity Style, taught by Itsuo Shirakai",
+    "text": "Samura is a disciple of Itsuo Shirakai (白廻逸夫), the swordsman who created the Iai White Purity Style around the pursuit of speed.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Itsuo Shirakai (白廻逸夫) A master swordsman and creator of the Iai White Purity Style"
+  },
+  {
+    "id": "kagurabachi-chihiro-rokuhira-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "chihiro-rokuhira"
+    },
+    "field": "name",
+    "value": "Chihiro Rokuhira (六平 千鉱)",
+    "text": "Chihiro Rokuhira is a main character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the son of Kunishige Rokuhira, a master swordsmith who created six Enchanted Blades crucial to ending the Seitei War. When the criminal"
+  },
+  {
+    "id": "kagurabachi-togo-shiba-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "togo-shiba"
+    },
+    "field": "name",
+    "value": "Togo Shiba (柴 登吾)",
+    "text": "Togo Shiba is a main character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "A highly skilled, very powerful sorcerer who specializes in teleportation. Shiba is a family friend of Chihiro and Kunishige, having grown up alongside the"
+  },
+  {
+    "id": "kagurabachi-char-kyonagi-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "char-kyonagi"
+    },
+    "field": "name",
+    "value": "Char Kyonagi (鏡凪 シャル)",
+    "text": "Char Kyonagi is a supporting character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Char is a young orphan who was a captive of the crime boss and weapons dealer Sojo. Char is the last of the Kyonagi clan, known for their regenerative"
+  },
+  {
+    "id": "kagurabachi-soshiro-azami-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "soshiro-azami"
+    },
+    "field": "name",
+    "value": "Soshiro Azami (薊 奏士郎)",
+    "text": "Soshiro Azami is a supporting character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The strongest of the Kamunabi heads and an old friend of Kunishige and Shiba. He helped Kunishige find a hidden place to reside following the Seitei War and"
+  },
+  {
+    "id": "kagurabachi-genichi-sojo-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "genichi-sojo"
+    },
+    "field": "name",
+    "value": "Genichi Sojo (双城 厳一)",
+    "text": "Genichi Sojo is an antagonist of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "'s Bathhouse Quest\" (双城厳一のお風呂探訪♨, Sōjō Gen'ichi no Ofuro Tanbō)"
+  },
+  {
+    "id": "kagurabachi-kunishige-rokuhira-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "kunishige-rokuhira"
+    },
+    "field": "name",
+    "value": "Kunishige Rokuhira (六平 国重)",
+    "text": "Kunishige Rokuhira is a supporting character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Rokuhira Kunishige)"
+  },
+  {
+    "id": "kagurabachi-hakuri-sazanami-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "hakuri-sazanami"
+    },
+    "field": "name",
+    "value": "Hakuri Sazanami (漣 伯理)",
+    "text": "Hakuri Sazanami is a main character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "A disowned former member of the Sazanami clan, cast out for his perceived lack of ability. He allies with Chihiro to dismantle the Rakuzaichi black market"
+  },
+  {
+    "id": "kagurabachi-hiyuki-kagari-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "hiyuki-kagari"
+    },
+    "field": "name",
+    "value": "Hiyuki Kagari (香刈 緋雪)",
+    "text": "Hiyuki Kagari is a supporting character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "An elite fighter of the Kamunabi, stated to be its strongest. She is stated to be one of the few individuals capable of opposing an Enchanted Blade by wielding"
+  },
+  {
+    "id": "kagurabachi-yura-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "yura"
+    },
+    "field": "name",
+    "value": "Yura (幽)",
+    "text": "Yura is an antagonist of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The leader of the Hishaku and the man who orchestrated the group's murder of Kunishige and theft of his Enchanted Blades as part of an attempt to wield the"
+  },
+  {
+    "id": "kagurabachi-iori-samura-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "iori-samura"
+    },
+    "field": "name",
+    "value": "Iori Samura (座村 イヲリ)",
+    "text": "Iori Samura is a supporting character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the daughter of Enchanted Blade Bearer, Seiichi Samura. As a child, following her mother's death, she started living with her father and began"
+  },
+  {
+    "id": "kagurabachi-seiichi-samura-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "seiichi-samura"
+    },
+    "field": "name",
+    "value": "Seiichi Samura (座村 清市)",
+    "text": "Seiichi Samura is a supporting character of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Iori Samura is the daughter of Enchanted Blade Bearer, Seiichi Samura. As a child, following her mother's death, she started living with her father and began"
+  },
+  {
+    "id": "kagurabachi-akemura-soga-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "akemura-soga"
+    },
+    "field": "name",
+    "value": "Akemura Soga (曽我 明無良)",
+    "text": "Akemura Soga is an antagonist of Kagurabachi.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1380968841",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Known as the Sword Master (剣聖, Kensei), Akemura is the strongest Enchanted Blade wielder and is eternally bound to Magatsumi (勾罪)-also called the Shinuchi"
+  },
+  {
+    "id": "kagurabachi-sorcery-bureau-prewar-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "background",
+    "value": "Sorcery Bureau",
+    "text": "The Sorcery Bureau was a state sorcery department that already existed ahead of the war.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-25T18:52:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:54:03.000Z",
+    "excerpt": "a government sorcery-focused division that existed before the Seitei War"
+  },
+  {
+    "id": "kagurabachi-hishaku-murder-blades-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "role",
+    "value": "Hishaku",
+    "text": "The Hishaku, a band of criminal sorcerers, killed the swordsmith Kunishige and carried off his six blades.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-25T18:52:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:54:03.000Z",
+    "excerpt": "who murdered Kunishige Rokuhira and stole his six Enchanted Blades"
+  },
+  {
+    "id": "kagurabachi-kunishige-hidden-home-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "kunishige-rokuhira"
+    },
+    "field": "background",
+    "value": "hidden place after the war",
+    "text": "Once the war was over, Azami helped Kunishige settle somewhere out of sight.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-25T18:52:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:54:03.000Z",
+    "excerpt": "He helped Kunishige find a hidden place to reside following the Seitei War"
+  },
+  {
+    "id": "kagurabachi-ibuki-killed-after-murder-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "occupation",
+    "value": "Ibuki Misaka",
+    "text": "Ibuki Misaka, who had given up the sword, was killed by the Hishaku swordsman Hokuto soon after Kunishige died.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-25T18:52:03Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:54:03.000Z",
+    "excerpt": "He was assassinated by Hokuto of the Hishaku shortly after Kunishige Rokuhira was murdered"
+  },
+  {
+    "id": "kagurabachi-ibuki-quit-swordsmanship-033",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "origin",
+    "value": "Ibuki quit swordsmanship",
+    "text": "When the war was over, the Cloud Gouger bearer Ibuki stopped fighting and lost his drive.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-25T18:52:31Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:54:31.000Z",
+    "excerpt": "Following the Seitei War, Ibuki abandoned swordsmanship and lost the will to fight"
+  },
+  {
+    "id": "kagurabachi-chihiro-revenge-quest-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "kagurabachi",
+      "ref": "chihiro-rokuhira"
+    },
+    "field": "motivation",
+    "value": "avenge his father",
+    "text": "Chihiro starts a quest for revenge once his father is killed, hoping to win back the other stolen blades.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-25T18:52:44Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:54:44.000Z",
+    "excerpt": "he embarks on a quest to avenge his father's murder and reclaim the six other stolen Enchanted Blades"
+  },
+  {
+    "id": "kagurabachi-arc-rakuzaichi-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "arc_2",
+    "value": [
+      "Rakuzaichi: chapters 19 to 46",
+      "Volumes 3 to 5"
+    ],
+    "text": "The Rakuzaichi auction carries volumes 3 to 5 of the manga, which cover chapters 19 to 46.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-26T09:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:05:00.000Z",
+    "excerpt": "is set for auction at the Rakuzaichi, overseen by the Sazanami crime family."
+  },
+  {
+    "id": "kagurabachi-arc-uruha-samura-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "arc_3",
+    "value": [
+      "Uruha and Samura: chapters 47 to 74",
+      "Volumes 6 to 8"
+    ],
+    "text": "Volumes 6 to 8, chapters 47 to 74, follow Uruha and Seiichi Samura, the master of the Tobimune blade.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-26T09:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:05:00.000Z",
+    "excerpt": "Samura betrays and kills Uruha with Tobimune."
+  },
+  {
+    "id": "kagurabachi-arc-kamunabi-attack-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "arc_4",
+    "value": [
+      "Hishaku Attack on the Kamunabi: chapters 75 to 105",
+      "Volumes 9 to 11"
+    ],
+    "text": "Volumes 9 to 11, chapters 75 to 105, show the Hishaku striking the Kamunabi, from its Tokyo headquarters down to its lower levels.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-26T09:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:05:00.000Z",
+    "excerpt": "the Hishaku attack the Kamunabi headquarters in Tokyo"
+  },
+  {
+    "id": "kagurabachi-arc-irishima-038",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "kagurabachi"
+    },
+    "field": "arc_list",
+    "value": [
+      "The Irishima Talks: chapters 117 to 121"
+    ],
+    "text": "The Irishima Talks fill five chapters, 117 to 121, opening with the chapter that carries that title.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Kagurabachi",
+        "ref": "1381907193",
+        "fetched_at": "2026-10-26T09:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:05:00.000Z",
+    "excerpt": "The Irishima Talks"
+  }
+]

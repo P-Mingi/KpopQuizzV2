@@ -1,0 +1,217 @@
+{
+  "site": "anime",
+  "account": "oq_creator_18",
+  "group_slug": "jojo",
+  "title": "Menacing Beginnings: JoJo for Newcomers",
+  "slug": "menacing-beginnings-jojo-for-newcomers",
+  "description": "Ten easy questions on the creator, the magazines, the huge volume count and the studio behind the anime. No story knowledge needed.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who wrote and drew the whole JoJo manga himself?",
+      "options": [
+        "Hirohiko Araki",
+        "Eiichiro Oda",
+        "Tite Kubo",
+        "Yoshihiro Togashi"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-manga-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "In which weekly magazine did the manga begin?",
+      "options": [
+        "Weekly Shōnen Magazine",
+        "Weekly Shōnen Sunday",
+        "Weekly Young Jump",
+        "Weekly Shōnen Jump"
+      ],
+      "correct": 3,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-magazine-move-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "The JoJo manga began in Weekly Shōnen Jump in which year?",
+      "options": [
+        "1987",
+        "1977",
+        "1997",
+        "2005"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-magazine-move-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "To which monthly magazine did the manga move in 2005?",
+      "options": [
+        "Ultra Jump",
+        "Monthly Shōnen Jump",
+        "Gekkan Shōnen Magazine",
+        "Monthly Afternoon"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-magazine-move-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "By March 2026, how many collected volumes did the manga fill?",
+      "options": [
+        "63",
+        "139",
+        "100",
+        "200"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-volume-count-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "By August 2023, more than how many copies of the manga were in circulation?",
+      "options": [
+        "12 million",
+        "120 million",
+        "60 million",
+        "300 million"
+      ],
+      "correct": 1,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-copies-circulation-005"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "Which studio has made the TV anime since 2012?",
+      "options": [
+        "Bones",
+        "MAPPA",
+        "Wit Studio",
+        "David Production"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-anime-production-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(TV_series)"
+    },
+    {
+      "question": "In which month did the TV anime begin in 2012?",
+      "options": [
+        "January",
+        "April",
+        "October",
+        "July"
+      ],
+      "correct": 2,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-anime-production-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(TV_series)"
+    },
+    {
+      "question": "By October 2026, how many episodes did the TV anime count?",
+      "options": [
+        "152",
+        "113",
+        "195",
+        "26"
+      ],
+      "correct": 2,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-anime-production-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(TV_series)"
+    },
+    {
+      "question": "Over how many seasons did those episodes run by October 2026?",
+      "options": [
+        "Six",
+        "Four",
+        "Eight",
+        "Nine"
+      ],
+      "correct": 0,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-anime-production-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: JoJo's Bizarre Adventure",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: JoJo's Bizarre Adventure (TV series)",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_(TV_series)"
+    }
+  ],
+  "notes": "Starter: every question cites an arc 0 fact only. Creator, magazine history, volumes, sales, studio, episodes and seasons."
+}

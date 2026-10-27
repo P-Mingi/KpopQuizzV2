@@ -1,0 +1,282 @@
+{
+ "site": "anime",
+ "account": "otakuquiz_team",
+ "group_slug": "anime-mix",
+ "title": "Release Race: Which Anime, Manga or Novel Came First?",
+ "slug": "release-race-which-anime-manga-or-novel-came-first",
+ "description": "Ten head-to-head release races across the catalogue: which anime aired first, which manga started first, which story reached readers earliest. All dates come from sourced facts. No spoilers.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Cross-series set. Every question compares dates of verified facts of four series. Arc 0 only.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Case Closed (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Death Note",
+   "url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: List of Cowboy Bebop episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Haikyu!!",
+   "url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "id": "S5",
+   "title": "Wikipedia: List of Blue Lock episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "id": "S6",
+   "title": "Wikipedia: Chainsaw Man",
+   "url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+  },
+  {
+   "id": "S7",
+   "title": "Wikipedia: Tower of God",
+   "url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "id": "S8",
+   "title": "Wikipedia: Sword Art Online",
+   "url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+  },
+  {
+   "id": "S9",
+   "title": "Wikipedia: List of Dandadan episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Which of these anime started airing first?",
+   "options": [
+    "Fairy Tail",
+    "Attack on Titan",
+    "Naruto",
+    "Detective Conan"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "detective-conan-anime-start-007",
+    "naruto-tv-naruto-006",
+    "fairy-tail-anime-s1-009",
+    "attack-on-titan-anime-premiere-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Case_Closed_(TV_series)"
+  },
+  {
+   "question": "Which of these anime had the most recent premiere?",
+   "options": [
+    "Tokyo Ghoul",
+    "Mob Psycho 100",
+    "Steins;Gate",
+    "Death Note"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "death-note-anime-run-006",
+    "steins-gate-anime-run-016",
+    "tokyo-ghoul-anime-first-season-007",
+    "mob-psycho-100-anime-season-one-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "Which of these anime was the first to reach television?",
+   "options": [
+    "Code Geass",
+    "Cowboy Bebop",
+    "Violet Evergarden",
+    "Re:Zero"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "cowboy-bebop-tv-tokyo-run-005",
+    "code-geass-anime-r1-010",
+    "re-zero-anime-s1-007",
+    "violet-evergarden-tv-run-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Cowboy_Bebop_episodes"
+  },
+  {
+   "question": "Which of these shows opened its first season earliest?",
+   "options": [
+    "Haikyu!!",
+    "One-Punch Man",
+    "Black Clover",
+    "Reincarnated as a Slime"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-one-007",
+    "one-punch-man-anime-season-one-007",
+    "black-clover-anime-s1-007",
+    "that-time-i-got-reincarnated-as-a-slime-anime-s1-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Which of these shows was the last to premiere?",
+   "options": [
+    "Blue Lock",
+    "Tokyo Revengers",
+    "Jujutsu Kaisen",
+    "Demon Slayer"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "blue-lock-anime-season-one-008",
+    "demon-slayer-tv-start-008",
+    "jujutsu-kaisen-anime-premiere-012",
+    "tokyo-revengers-anime-s1-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+  },
+  {
+   "question": "Which of these manga began serialization first?",
+   "options": [
+    "Attack on Titan",
+    "Haikyu!!",
+    "Death Note",
+    "Fairy Tail"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "death-note-magazine-run-003",
+    "fairy-tail-manga-run-004",
+    "attack-on-titan-manga-run-012",
+    "haikyu-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Death_Note"
+  },
+  {
+   "question": "Which of these manga began serialization most recently?",
+   "options": [
+    "Jujutsu Kaisen",
+    "Bocchi the Rock!",
+    "Chainsaw Man",
+    "Tokyo Revengers"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "chainsaw-man-manga-run-004",
+    "tokyo-revengers-manga-run-003",
+    "bocchi-the-rock-manga-start-005",
+    "jujutsu-kaisen-manga-run-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+  },
+  {
+   "question": "Which of these stories was put online earliest?",
+   "options": [
+    "Re:Zero",
+    "Tower of God",
+    "Reincarnated as a Slime",
+    "Omniscient Reader's Viewpoint"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-webtoon-launch-003",
+    "re-zero-web-novel-003",
+    "that-time-i-got-reincarnated-as-a-slime-web-novel-003",
+    "omniscient-readers-viewpoint-novel-run-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+  },
+  {
+   "question": "Which of these light novel series was printed first?",
+   "options": [
+    "Sword Art Online",
+    "Violet Evergarden",
+    "Re:Zero",
+    "Reincarnated as a Slime"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "sword-art-online-novel-start-003",
+    "re-zero-light-novel-004",
+    "that-time-i-got-reincarnated-as-a-slime-light-novel-004",
+    "violet-evergarden-novel-start-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Sword_Art_Online"
+  },
+  {
+   "question": "Which of these four anime was the last to premiere its first season?",
+   "options": [
+    "Frieren: Beyond Journey's End",
+    "Oshi no Ko",
+    "The Apothecary Diaries",
+    "Dandadan"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "dandadan-anime-season-one-009",
+    "oshi-no-ko-anime-season-one-008",
+    "frieren-anime-season-one-008",
+    "apothecary-diaries-anime-season-one-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  }
+ ]
+}

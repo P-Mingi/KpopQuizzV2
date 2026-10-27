@@ -1,0 +1,298 @@
+{
+  "site": "anime",
+  "account": "oq_creator_08",
+  "group_slug": "dragon-ball",
+  "title": "Dragon Ball Cast Call: Who Is This Fighter?",
+  "slug": "dragon-ball-cast-call-who-is-this-fighter",
+  "description": "Three clues, four names. Spot the heroes and rivals of the early story, with a Japanese name as the last clue now and then.",
+  "quiz_type": "guess_from_clues",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A pure-hearted martial artist",
+        "Starts as a monkey-tailed boy",
+        "His Japanese name reads like the Monkey King of Journey to the West"
+      ],
+      "options": [
+        "Krillin",
+        "Yamcha",
+        "Vegeta",
+        "Goku"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 10,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-goku-name-031",
+        "dragon-ball-yamcha-name-034",
+        "dragon-ball-krillin-name-038",
+        "dragon-ball-vegeta-name-043",
+        "dragon-ball-goku-sun-wukong-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A brilliant teenage inventor",
+        "Sets out to collect the Dragon Balls",
+        "Becomes Goku's first friend"
+      ],
+      "options": [
+        "Bulma",
+        "Chi-Chi",
+        "Oolong",
+        "Master Roshi"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-goku-name-031",
+        "dragon-ball-bulma-name-032",
+        "dragon-ball-master-roshi-name-033",
+        "dragon-ball-oolong-name-035",
+        "dragon-ball-chi-chi-name-036"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A legendary, mischievous old martial arts master",
+        "Lives on a small island",
+        "Keeps a pet turtle"
+      ],
+      "options": [
+        "Yamcha",
+        "Emperor Pilaf",
+        "Master Roshi",
+        "Oolong"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-master-roshi-name-033",
+        "dragon-ball-yamcha-name-034",
+        "dragon-ball-oolong-name-035",
+        "dragon-ball-emperor-pilaf-name-037"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A desert bandit",
+        "Has a shy streak around women",
+        "Turns into one of Goku's oldest friends and fighters"
+      ],
+      "options": [
+        "Yamcha",
+        "Krillin",
+        "Oolong",
+        "Emperor Pilaf"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-goku-name-031",
+        "dragon-ball-yamcha-name-034",
+        "dragon-ball-oolong-name-035",
+        "dragon-ball-emperor-pilaf-name-037",
+        "dragon-ball-krillin-name-038"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A greedy, shape-shifting pig",
+        "Joins the group on its search for the Dragon Balls",
+        "His name is written ウーロン in Japanese"
+      ],
+      "options": [
+        "Oolong",
+        "Yamcha",
+        "Emperor Pilaf",
+        "Master Roshi"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-master-roshi-name-033",
+        "dragon-ball-yamcha-name-034",
+        "dragon-ball-oolong-name-035",
+        "dragon-ball-emperor-pilaf-name-037"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A fiery young martial artist",
+        "Daughter of the Ox-King",
+        "Holds Goku to a childhood promise of marriage"
+      ],
+      "options": [
+        "Chi-Chi",
+        "Bulma",
+        "Oolong",
+        "Piccolo"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 9,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-goku-name-031",
+        "dragon-ball-bulma-name-032",
+        "dragon-ball-oolong-name-035",
+        "dragon-ball-chi-chi-name-036",
+        "dragon-ball-piccolo-name-041"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A tiny, blue-skinned would-be ruler of the world",
+        "Chases the Dragon Balls",
+        "Has two bumbling henchmen"
+      ],
+      "options": [
+        "Master Roshi",
+        "Emperor Pilaf",
+        "Oolong",
+        "Yamcha"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-master-roshi-name-033",
+        "dragon-ball-yamcha-name-034",
+        "dragon-ball-oolong-name-035",
+        "dragon-ball-emperor-pilaf-name-037"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A bald monk-in-training",
+        "Goku's training partner, rival and closest friend",
+        "His name is written クリリン in Japanese"
+      ],
+      "options": [
+        "Yamcha",
+        "Goku",
+        "Vegeta",
+        "Krillin"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 10,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-goku-name-031",
+        "dragon-ball-yamcha-name-034",
+        "dragon-ball-krillin-name-038",
+        "dragon-ball-vegeta-name-043"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A green-skinned warrior with a sharp tongue",
+        "First appears as one of Goku's fiercest rivals",
+        "His name is written ピッコロ in Japanese"
+      ],
+      "options": [
+        "Krillin",
+        "Yamcha",
+        "Piccolo",
+        "Gohan"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 10,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-goku-name-031",
+        "dragon-ball-yamcha-name-034",
+        "dragon-ball-krillin-name-038",
+        "dragon-ball-piccolo-name-041",
+        "dragon-ball-gohan-name-044"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+    },
+    {
+      "question": "Who is this?",
+      "clues": [
+        "A tyrant who rules a galactic empire",
+        "Bends whole planets and armies to his will",
+        "His name is a pun on a kitchen appliance"
+      ],
+      "options": [
+        "Piccolo",
+        "Frieza",
+        "Vegeta",
+        "Raditz"
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 11,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "dragon-ball-piccolo-name-041",
+        "dragon-ball-raditz-name-042",
+        "dragon-ball-vegeta-name-043",
+        "dragon-ball-frieza-name-045",
+        "dragon-ball-frieza-name-pun-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Dragon Ball characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters"
+    }
+  ],
+  "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 11 both, now arc 11 both."
+}

@@ -1,0 +1,1964 @@
+[
+  {
+    "id": "frieren-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "title_native",
+    "value": "葬送のフリーレン (Sōsō no Furīren)",
+    "text": "Frieren: Beyond Journey's End is called 葬送のフリーレン, read Sōsō no Furīren, in Japan, which literally means Frieren at the Funeral.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren",
+        "ref": "1381100921",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q98642652",
+        "ref": "Q98642652",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "葬送のフリーレン, Hepburn: Sōsō no Furīren"
+  },
+  {
+    "id": "frieren-manga-creators-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "author",
+    "value": "Kanehito Yamada (story), Tsukasa Abe (art)",
+    "text": "The manga has two creators: Kanehito Yamada writes it and Tsukasa Abe draws it.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren",
+        "ref": "1381100921",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q98642652",
+        "ref": "Q98642652",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "written by Kanehito Yamada and illustrated by Tsukasa Abe"
+  },
+  {
+    "id": "frieren-magazine-start-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Sunday (Shogakukan), since April 28, 2020",
+    "text": "Frieren began in Shogakukan's Weekly Shōnen Sunday on 28 April 2020.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren",
+        "ref": "1381100921",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q98642652",
+        "ref": "Q98642652",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "debuted in Shogakukan's shōnen manga magazine Weekly Shōnen Sunday on April 28, 2020"
+  },
+  {
+    "id": "frieren-volume-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "volumes",
+    "value": "15 collected volumes by late 2025",
+    "text": "Fifteen collected volumes were out by the end of 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren",
+        "ref": "1381100921",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q98642652",
+        "ref": "Q98642652",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "As of December 18, 2025, 15 volumes have been released"
+  },
+  {
+    "id": "frieren-copies-circulation-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "copies",
+    "value": "over 30 million copies as of January 2026",
+    "text": "As of January 2026 the manga had passed thirty million copies in circulation worldwide.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren",
+        "ref": "1381100921",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2026-01-19/frieren-beyond-journey-end-anime-original-mini-anime-continues/.233250",
+        "fetched_at": "2026-10-24T16:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The manga has exceeded 30 million copies in circulation worldwide."
+  },
+  {
+    "id": "frieren-manga-awards-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "awards",
+    "value": [
+      "14th Manga Taishō, 2021",
+      "New Creator Prize, 25th Tezuka Osamu Cultural Prize, 2021",
+      "69th Shogakukan Manga Award, 2024",
+      "48th Kodansha Manga Award, shōnen category, 2024"
+    ],
+    "text": "The manga won two prizes in 2021 and then two more in 2024, among them the Shogakukan and Kodansha awards.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren",
+        "ref": "1381100921",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "The manga won the 14th Manga Taishō"
+  },
+  {
+    "id": "frieren-manga-hiatus-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "hiatus",
+    "value": "Indefinite hiatus announced in October 2025",
+    "text": "The manga went on an indefinite break in October 2025 so that its two creators could look after their health.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren",
+        "ref": "1381100921",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "it was announced that the manga would enter indefinite hiatus"
+  },
+  {
+    "id": "frieren-anime-season-one-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "anime_s1",
+    "value": "Madhouse, directed by Keiichirō Saitō, Nippon TV, September 29, 2023 to March 22, 2024, 28 episodes",
+    "text": "Madhouse made the first anime season, with Keiichirō Saitō directing, and it ran for 28 episodes from September 2023 to March 2024.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+        "ref": "1381164237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q115792176",
+        "ref": "Q115792176",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The first season is directed by Keiichirō Saitō"
+  },
+  {
+    "id": "frieren-anime-season-two-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "anime_s2",
+    "value": "Directed by Tomoya Kitagawa, January 16 to March 27, 2026, 10 episodes, 38 episodes in total",
+    "text": "Season two aired in early 2026 under a new director, Tomoya Kitagawa, bringing the total to 38 episodes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+        "ref": "1381164237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q115792176",
+        "ref": "Q115792176",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Tomoya Kitagawa replacing Keiichirō Saitō as the season's director"
+  },
+  {
+    "id": "frieren-season-three-golden-land-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "anime_s3",
+    "value": "Season 3 covers the Golden Land arc, set for October 2027",
+    "text": "A third season was announced right after season two, to cover the Golden Land arc and premiere in October 2027.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+        "ref": "1381164237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q115792176",
+        "ref": "Q115792176",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "A third season, covering the \"Golden Land\" arc"
+  },
+  {
+    "id": "frieren-anime-composer-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "composer",
+    "value": "Evan Call",
+    "text": "Evan Call wrote the music for the anime.",
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+        "ref": "1381164237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q115792176",
+        "ref": "Q115792176",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "The music is composed by Evan Call"
+  },
+  {
+    "id": "frieren-opening-themes-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "themes_op",
+    "value": [
+      "OP 1: Yūsha - Yoasobi (season 1)",
+      "OP 2: Sunny (Haru) - Yorushika (season 1)",
+      "OP 3: Lulu. - Mrs. Green Apple (season 2)"
+    ],
+    "text": "The anime has used three opening songs: Yoasobi and Yorushika in season one, Mrs. Green Apple in season two.",
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+        "ref": "1381164237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q122850179",
+        "ref": "Q122850179",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "The first opening theme song is \"Yūsha\""
+  },
+  {
+    "id": "frieren-ending-themes-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "themes_ed",
+    "value": [
+      "ED 1: Anytime Anywhere - Milet (season 1)",
+      "ED 2: Anytime Anywhere, a different section - Milet (season 1)",
+      "ED 3: The Story of Us - Milet (season 2)",
+      "Special ED of the premiere: Bliss - Milet"
+    ],
+    "text": "Milet sang every ending, including the one used only for the four-episode premiere broadcast.",
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+        "ref": "1381164237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q137803374",
+        "ref": "Q137803374",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.sonymusic.co.jp/artist/milet_music/info/556339",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "For the four-episode premiere broadcast only, the special ending theme song is \"Bliss\""
+  },
+  {
+    "id": "frieren-arc-structure-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "arc_list",
+    "value": [
+      "1: Season 1, episodes 1-28",
+      "2: Season 2, episodes 29-38",
+      "3: Golden Land, the arc planned for season 3"
+    ],
+    "text": "The anime so far splits into two seasons of 28 and 10 episodes, and the Golden Land arc is next.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_episodes",
+        "ref": "1376565693",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Season 1 (2023"
+  },
+  {
+    "id": "frieren-cast-main-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "characters_a",
+    "value": [
+      "Frieren (フリーレン): the elven mage",
+      "Fern (フェルン): her apprentice",
+      "Stark (シュタルク): a young warrior",
+      "Sein (ザイン): a priest",
+      "Himmel (ヒンメル): the hero",
+      "Heiter (ハイター): a priest",
+      "Eisen (アイゼン): a dwarf warrior",
+      "Qual (クヴァール): a sealed demon",
+      "Aura (アウラ): a Sage of Destruction",
+      "Serie (ゼーリエ): an elf mage"
+    ],
+    "text": "The main party and its companions, the old Hero Party, and two of the powers they meet.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Frieren (フリーレン, Furīren)"
+  },
+  {
+    "id": "frieren-cast-mages-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "characters_b",
+    "value": [
+      "Denken (デンケン): veteran mage",
+      "Übel (ユーベル): cleaving magic",
+      "Land (ラント): clone user",
+      "Methode (メトーデ): binding magic",
+      "Kanne (カンネ): water mage",
+      "Lawine (ラヴィーネ): ice mage",
+      "Wirbel (ヴィアベル): Northern Magic Corps",
+      "Revolte (レヴォルテ): demon general",
+      "Hero of the South (南の勇者): a legendary warrior",
+      "Macht (マハト): Sage of Destruction"
+    ],
+    "text": "Mages from the first-class exam, and later figures from the demon war and the Golden Land arc.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Serie is an ancient elf mage who has existed since time immemorial"
+  },
+  {
+    "id": "frieren-spell-shorts-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "shorts",
+    "value": "Spell That Does OOO, eleven shorts from October 11, 2023 to March 24, 2024",
+    "text": "Alongside the series came short episodes called Spell That Does OOO, eleven in the first batch.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+        "ref": "1381164237",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Eleven short episodes, titled Frieren: Beyond Journey's End - Spell That Does OOO"
+  },
+  {
+    "id": "frieren-frieren-age-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "frieren"
+    },
+    "field": "age",
+    "value": "Over a thousand years old",
+    "text": "Frieren is an elf who is already more than a thousand years old.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "An elven mage over a thousand years old"
+  },
+  {
+    "id": "frieren-fern-apprentice-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "fern"
+    },
+    "field": "role",
+    "value": "Frieren's apprentice, raised by Heiter",
+    "text": "Fern is a young mage who studies under Frieren after being raised by the priest Heiter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "A powerful young mage and Frieren's apprentice"
+  },
+  {
+    "id": "frieren-qual-zoltraak-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "qual"
+    },
+    "field": "spell",
+    "value": "Creator of the Zoltraak spell",
+    "text": "Qual invented Zoltraak, a spell that mages later studied until it became their standard attack.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Qual is the creator of \"Zoltraak\""
+  },
+  {
+    "id": "frieren-frieren-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "frieren"
+    },
+    "field": "name",
+    "value": "Frieren (フリーレン)",
+    "text": "Frieren is a main character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Beyond Journey's End by Kanehito Yamada and Tsukasa Abe"
+  },
+  {
+    "id": "frieren-fern-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "fern"
+    },
+    "field": "name",
+    "value": "Fern (フェルン)",
+    "text": "Fern is a main character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "'s teammate, a cautious and calculating mage who maintains emotional distance from others. His self-preservation instincts shape his magic"
+  },
+  {
+    "id": "frieren-stark-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "stark"
+    },
+    "field": "name",
+    "value": "Stark (シュタルク)",
+    "text": "Stark is a main character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "'s older brother. Unlike the other villagers, who view Stark as a failure, Stoltz treats him kindly and helps him train. He is killed when a demon legion"
+  },
+  {
+    "id": "frieren-sein-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "sein"
+    },
+    "field": "name",
+    "value": "Sein (ザイン)",
+    "text": "Sein is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "'s youth) is a Warrior and Sein's childhood best friend, who dreamed of going on an adventure and becoming a legendary"
+  },
+  {
+    "id": "frieren-himmel-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "himmel"
+    },
+    "field": "name",
+    "value": "Himmel (ヒンメル)",
+    "text": "Himmel is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Lecker is a highly talented cook based in Äußerst, who hired Himmel's party in the past to retrieve a family heirloom knife from a demon, and in return"
+  },
+  {
+    "id": "frieren-heiter-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "heiter"
+    },
+    "field": "name",
+    "value": "Heiter (ハイター)",
+    "text": "Heiter is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "A human member of the Hero Party, who was an alcohol-loving priest. He found, adopted, and raised Fern after the party dissolved, entrusting her to Frieren"
+  },
+  {
+    "id": "frieren-eisen-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "eisen"
+    },
+    "field": "name",
+    "value": "Eisen (アイゼン)",
+    "text": "Eisen is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "raised, who serves as a replacement for him on Frieren's adventure. Since Eisen declines the invitation due to his old age, Stark"
+  },
+  {
+    "id": "frieren-qual-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "qual"
+    },
+    "field": "name",
+    "value": "Qual (クヴァール)",
+    "text": "Qual is an antagonist of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Also Known as the \"Elder Sage of Corruption\", the Hero Party sealed him away as he was too strong to defeat. Several decades later, Frieren unseals and"
+  },
+  {
+    "id": "frieren-aura-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "aura"
+    },
+    "field": "name",
+    "value": "Aura (アウラ)",
+    "text": "Aura is an antagonist of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "who is tasked with having a town's anti-demon barrier put down under the guise of being a \"peace envoy\". Fern later kills him when"
+  },
+  {
+    "id": "frieren-serie-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "serie"
+    },
+    "field": "name",
+    "value": "Serie (ゼーリエ)",
+    "text": "Serie is a character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is an ancient elf mage who has existed since time immemorial, revered as a living repository of magical knowledge. As Flamme's mentor and Frieren's"
+  },
+  {
+    "id": "frieren-denken-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "denken"
+    },
+    "field": "name",
+    "value": "Denken (デンケン)",
+    "text": "Denken is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is an elderly second-class mage and a seasoned military veteran who becomes a shrewd court magician. After losing his wife, Lektüre, in his"
+  },
+  {
+    "id": "frieren-ubel-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "ubel"
+    },
+    "field": "name",
+    "value": "Übel (ユーベル)",
+    "text": "Übel is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "wields cleaving magic, an invisible spell capable of slicing through nearly anything she visualizes as cuttable. Her arsenal includes another formidable"
+  },
+  {
+    "id": "frieren-land-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "land"
+    },
+    "field": "name",
+    "value": "Land (ラント)",
+    "text": "Land is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is Fern's teammate, a cautious and calculating mage who maintains emotional distance from others. His self-preservation instincts shape his magic"
+  },
+  {
+    "id": "frieren-methode-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "methode"
+    },
+    "field": "name",
+    "value": "Methode (メトーデ)",
+    "text": "Methode is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "herself is battle-hardened, talented, and smart, but has a particular fondness for \"cute kids\", which explains her easy admiration for both Frieren and"
+  },
+  {
+    "id": "frieren-kanne-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "kanne"
+    },
+    "field": "name",
+    "value": "Kanne (カンネ)",
+    "text": "Kanne is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "A timid third-class mage who can control water and is one of Frieren's teammates during the First-Class Mage Examination. She has a confrontational"
+  },
+  {
+    "id": "frieren-lawine-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "lawine"
+    },
+    "field": "name",
+    "value": "Lawine (ラヴィーネ)",
+    "text": "Lawine is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Frieren's other teammate during the First-Class Mage Examination. She is a third-class mage who can turn water into ice and works well alongside Kanne, as they"
+  },
+  {
+    "id": "frieren-wirbel-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "wirbel"
+    },
+    "field": "name",
+    "value": "Wirbel (ヴィアベル)",
+    "text": "Wirbel is a supporting character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "'s teammates, whose specialized magic allows him to transform flower petals into steel blades."
+  },
+  {
+    "id": "frieren-revolte-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "revolte"
+    },
+    "field": "name",
+    "value": "Revolte (レヴォルテ)",
+    "text": "Revolte is an antagonist of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "he is a four-handed demon general and tactician with the lower body of a snake who wields four swords made of magic. He faces off"
+  },
+  {
+    "id": "frieren-hero-of-the-south-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "hero-of-the-south"
+    },
+    "field": "name",
+    "value": "Hero of the South (南の勇者)",
+    "text": "Hero of the South is a character of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "was humanity's mightiest warrior during the war against demons, predating Himmel's legendary party. With unmatched combat prowess, he"
+  },
+  {
+    "id": "frieren-macht-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "macht"
+    },
+    "field": "name",
+    "value": "Macht (マハト)",
+    "text": "Macht is an antagonist of Frieren: Beyond Journey's End.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-20T20:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "also known as Macht of Golden Land, is the last surviving member of the Seven Sages of Destruction. For ages, he was trapped in his self-created Golden"
+  },
+  {
+    "id": "frieren-himmel-party-hero-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "himmel"
+    },
+    "field": "role",
+    "value": "hero of the group",
+    "text": "Himmel was the leader and hero of the old party that beat the Demon King.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "He was the hero of the group and a self-proclaimed handsome man"
+  },
+  {
+    "id": "frieren-heiter-drinking-priest-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "heiter"
+    },
+    "field": "role",
+    "value": "alcohol-loving priest",
+    "text": "Heiter, a priest with a fondness for drink, took part in the old Hero Party.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A human member of the Hero Party, who was an alcohol-loving priest"
+  },
+  {
+    "id": "frieren-eisen-party-dwarf-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "eisen"
+    },
+    "field": "role",
+    "value": "dwarf",
+    "text": "Eisen, a dwarf, was the third veteran of the Hero Party alongside Himmel and Heiter.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A member of the Hero Party. He is a dwarf"
+  },
+  {
+    "id": "frieren-stark-warrior-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "stark"
+    },
+    "field": "role",
+    "value": "young warrior",
+    "text": "Stark fights with weapons at the front line instead of using spells; the dwarf Eisen brought him up.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A young warrior who Eisen raised"
+  },
+  {
+    "id": "frieren-fern-mage-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "fern"
+    },
+    "field": "organization",
+    "value": "powerful young mage",
+    "text": "Fern is a gifted young spellcaster, taught by Frieren.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A powerful young mage and Frieren's apprentice"
+  },
+  {
+    "id": "frieren-frieren-mage-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "frieren"
+    },
+    "field": "role",
+    "value": "elven mage",
+    "text": "Frieren is a mage of the elf race, and a former companion of the old Hero Party.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "An elven mage over a thousand years old"
+  },
+  {
+    "id": "frieren-serie-elf-mage-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "serie"
+    },
+    "field": "role",
+    "value": "ancient elf mage",
+    "text": "Serie is a very old elf who works with magic and founded the Continental Magic Association.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "Serie is an ancient elf mage who has existed since time immemorial"
+  },
+  {
+    "id": "frieren-aura-sage-demon-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "aura"
+    },
+    "field": "role",
+    "value": "Seven Sages of Destruction",
+    "text": "Aura is a demon and one of the Seven Sages of Destruction, an old enemy of the Hero Party.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A member of the Seven Sages of Destruction and an old nemesis of Frieren"
+  },
+  {
+    "id": "frieren-lugner-aura-demon-050",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "role",
+    "value": "demon serving under Aura",
+    "text": "Lügner is a demon who acts as a peace envoy while taking his orders from Aura.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A demon serving under Aura"
+  },
+  {
+    "id": "frieren-linie-assistant-051",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "ability",
+    "value": "reads mana of her opponent",
+    "text": "Linie is a demon, an assistant of Lügner, who reads her foe's mana and turns it against them.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "She is a demon capable of reading her opponent's mana"
+  },
+  {
+    "id": "frieren-draht-assistant-052",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "organization",
+    "value": "one of Lügner's assistants",
+    "text": "Draht is another helper of Lügner and goes after Frieren while she is locked up.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "One of Lügner's assistants, who enters Frieren's prison cell"
+  },
+  {
+    "id": "frieren-revolte-demon-general-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "revolte"
+    },
+    "field": "role",
+    "value": "four-handed demon general",
+    "text": "Revolte is a demon general with four arms, the lower body of a snake and four magic swords.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "he is a four-handed demon general and tactician"
+  },
+  {
+    "id": "frieren-land-exam-mage-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "land"
+    },
+    "field": "role",
+    "value": "Fern's teammate",
+    "text": "Land is a careful mage who is on a team with Fern in the exam and uses clones.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "Land is Fern's teammate, a cautious and calculating mage"
+  },
+  {
+    "id": "frieren-genau-proctor-057",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "occupation",
+    "value": "proctor of the First Exam",
+    "text": "Genau is a first-class mage who runs the opening stage of the exam instead of taking it.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A first-class mage and the proctor of the First Exam in First-Class Mage Examination"
+  },
+  {
+    "id": "frieren-edel-second-class-058",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "background",
+    "value": "second-class mage",
+    "text": "Edel is a hypnosis mage of the second class who joins the exam as a candidate.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A level-headed second-class mage participating in the exam"
+  },
+  {
+    "id": "frieren-kanne-third-class-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "kanne"
+    },
+    "field": "role",
+    "value": "third-class mage",
+    "text": "Kanne is a shy water mage ranked only third-class, and a teammate of Frieren in the exam.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A timid third-class mage who can control water"
+  },
+  {
+    "id": "frieren-richter-denken-team-062",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "origin",
+    "value": "Denken's teammate",
+    "text": "Richter, who repairs staves in his own shop, is a second-class mage in the same exam team as Denken.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A second-class mage participating in the exam and Denken's teammate"
+  },
+  {
+    "id": "frieren-laufen-denken-team-063",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "setting",
+    "value": "movement magic",
+    "text": "Laufen is fast on her feet thanks to movement magic, and she is in Denken's group.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "A second-class mage in Denken's team who specializes in movement magic"
+  },
+  {
+    "id": "frieren-methode-denken-team-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "methode"
+    },
+    "field": "role",
+    "value": "teamed up with Denken",
+    "text": "Methode, who also uses binding spells and healing, joined forces with Denken in the second stage.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:06Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:06.000Z",
+    "excerpt": "Methode later teamed up with Denken and others during the second stage"
+  },
+  {
+    "id": "frieren-sages-powerful-demons-065",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "terms",
+    "value": "powerful demons",
+    "text": "The Demon King led demons, and his strongest commanders were a group of seven, each ruling a region.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:26Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:26.000Z",
+    "excerpt": "powerful demons who controlled key regions of the continent"
+  },
+  {
+    "id": "frieren-ubel-exam-mage-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "ubel"
+    },
+    "field": "role",
+    "value": "grants her promotion",
+    "text": "Übel takes the exam as a candidate and uses a cleaving spell; Serie later promotes her.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:26Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:26.000Z",
+    "excerpt": "During the first-class mage examination, Serie recognizes her prowess and grants her promotion"
+  },
+  {
+    "id": "frieren-wirbel-exam-mage-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "frieren",
+      "ref": "wirbel"
+    },
+    "field": "role",
+    "value": "to become first-class",
+    "text": "Wirbel, who captains the Northern Magic Corps, sits the exam as a candidate to reach the top class.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:26Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:26.000Z",
+    "excerpt": "takes part in the exam to become first-class"
+  },
+  {
+    "id": "frieren-scharf-second-class-068",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "specialty",
+    "value": "Wirbel's teammates",
+    "text": "Scharf is a second-class mage on Wirbel's team who can turn flower petals into blades.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:26Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:26.000Z",
+    "excerpt": "A second-class mage and one of Wirbel's teammates"
+  },
+  {
+    "id": "frieren-ehre-second-class-069",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "talent",
+    "value": "in Wirbel's team",
+    "text": "Ehre, granddaughter of Lernen, is a second-class mage on Wirbel's team who commands stone.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T18:49:26Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:51:26.000Z",
+    "excerpt": "A powerful second-class mage who is in Wirbel's team with Scharf"
+  },
+  {
+    "id": "frieren-qual-sealed-070",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "frieren"
+    },
+    "field": "style",
+    "value": "sealed away by the Hero Party",
+    "text": "The demon Qual was so strong that the old Hero Party could not defeat him and sealed him away instead.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+        "ref": "1372941223",
+        "fetched_at": "2026-10-25T19:01:39Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:03:39.000Z",
+    "excerpt": "the Hero Party sealed him away as he was too strong to defeat"
+  }
+]

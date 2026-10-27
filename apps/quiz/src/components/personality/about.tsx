@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { Icon } from '@/components/ux-v1/icon';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { prettyPath } from '@/lib/name-all/round';
 import { NAME_ALL_GROUPS } from '@/lib/name-all/spellings';
@@ -32,6 +33,13 @@ export interface WmaAboutProps {
   wmaSlugs: readonly string[];
   /** Display names by slug, for the other pages; a slug without one is left out. */
   names: ReadonlyMap<string, string>;
+  /**
+   * Run O1 (PERS-2): the words of the site for the prose and for the list of other pages. Absent: today's kpop words (member, bias,
+   * group). The anime page passes character, oshi and series.
+   */
+  words?: WmaAboutWords;
+  /** The public path of another group's page. Absent: /which-<slug>-member-are-you (whichMemberPath). */
+  pathFor?: (slug: string) => string;
   /** The sourced line-up, or null (the members section then hides). */
   roster?: Roster | null;
   /** The most common results, or null (the section then hides). */
@@ -41,6 +49,14 @@ export interface WmaAboutProps {
   /** The group has a trivia page. */
   trivia?: boolean;
 }
+
+export interface WmaAboutWords {
+  member: string;
+  bias: string;
+  topic?: string;
+}
+
+const KPOP_WORDS: Required<WmaAboutWords> = { member: 'member', bias: 'bias', topic: 'group' };
 
 /** The most common results, biggest first, at most `max`, each rounded to a whole percent above zero. */
 export function topResults(d: DistributionView | null, max = 3): Array<{ label: string; pct: number }> {
@@ -58,7 +74,11 @@ function hostOf(url: string): string {
   try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return url; }
 }
 
-export function WmaAbout({ group, view, wmaSlugs, names, roster = null, common = null, blindtestSongs = null, trivia = false }: WmaAboutProps): React.ReactElement {
+export function WmaAbout(props: WmaAboutProps): React.ReactElement {
+  // Run O1 (PERS-2): the anime page passes its words and keeps its own layout (SeriesAbout); the kpop page is main's.
+  if (props.words) return <SeriesAbout {...props} />;
+  const { group, view, wmaSlugs, names, roster = null, common = null, blindtestSongs = null, trivia = false, pathFor = whichMemberPath } = props;
+  const w = KPOP_WORDS;
   const results = view.results;
   const scales = axisEnds();
   const members = roster?.members ?? [];
@@ -181,9 +201,68 @@ export function WmaAbout({ group, view, wmaSlugs, names, roster = null, common =
 
       {others.length > 0 ? (
         <section className="ux-sec" aria-labelledby="pers-other-h">
-          <SectionHeader id="pers-other-h" title="Which member are you, for another group" icon="users" />
+          <SectionHeader id="pers-other-h" title={`Which ${w.member} are you, for another ${w.topic}`} icon="users" />
           <ul className="g3-links">
-            {others.map((s) => <li key={s}><Link href={whichMemberPath(s)} className="ux-lnk">Which {names.get(s)} member are you?</Link></li>)}
+            {others.map((s) => <li key={s}><Link href={pathFor(s)} className="ux-lnk">Which {names.get(s)}{` ${w.member} are you?`}</Link></li>)}
+          </ul>
+        </section>
+      ) : null}
+    </>
+  );
+}
+
+/** Run O1 (PERS-2): the Which character are you block of the anime page, the layout it had before the kpop page grew its sourced sections. */
+function SeriesAbout({ group, view, wmaSlugs, names, words, pathFor = whichMemberPath }: WmaAboutProps): React.ReactElement {
+  const w = { ...KPOP_WORDS, ...words };
+  const results = view.results;
+  const top = topResults(view.distribution);
+  const links: Array<{ href: string; label: string }> = [];
+  if ((NAME_ALL_GROUPS as readonly string[]).includes(group.slug)) links.push({ href: prettyPath(group.slug), label: `Name all ${group.name} members` });
+  const others = wmaSlugs.filter((s) => s !== group.slug && names.has(s)).sort((a, b) => names.get(a)!.localeCompare(names.get(b)!, 'en'));
+
+  return (
+    <>
+      <section className="ux-sec" aria-labelledby="pers-res-h">
+        <SectionHeader id="pers-res-h" title={`The ${results.length} possible results`} icon="users" />
+        <div className="g3-prose">
+          <p>
+            Each answer moves you along a few personality axes, and your result is the {group.name}{` ${w.member} whose profile is closest. There are no right answers and no timer: answer for yourself, not for your ${w.bias}.`}
+          </p>
+          {top.length > 0 && view.distribution ? (
+            <p data-testid="pers-top">
+              Across {view.distribution.total.toLocaleString('en-US')} results so far, the most common {top.length === 1 ? 'one is' : 'are'}{' '}
+              {top.map((r) => `${r.label} (${r.pct}%)`).join(', ')}.
+            </p>
+          ) : null}
+        </div>
+        <details className="g3-acc">
+          <summary>See every result<Icon name="chev" /></summary>
+          <ul className="g3-lineup g3-results">
+            {results.map((r) => (
+              <li key={r.id}>
+                <b>{r.name}</b> <span className="ux-muted">· {r.role}</span>
+                <p>{r.description}</p>
+                {r.traits.length > 0 ? <p className="ux-muted">{r.traits.join(', ')}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </details>
+      </section>
+
+      {links.length > 0 ? (
+        <section className="ux-sec" aria-labelledby="pers-more-h">
+          <SectionHeader id="pers-more-h" title={`More ${group.name} games`} icon="layers" />
+          <ul className="g3-links">
+            {links.map((l) => <li key={l.href}><Link href={l.href} className="ux-lnk">{l.label}</Link></li>)}
+          </ul>
+        </section>
+      ) : null}
+
+      {others.length > 0 ? (
+        <section className="ux-sec" aria-labelledby="pers-other-h">
+          <SectionHeader id="pers-other-h" title={`Which ${w.member} are you, for another ${w.topic}`} icon="users" />
+          <ul className="g3-links">
+            {others.map((s) => <li key={s}><Link href={pathFor(s)} className="ux-lnk">Which {names.get(s)}{` ${w.member} are you?`}</Link></li>)}
           </ul>
         </section>
       ) : null}

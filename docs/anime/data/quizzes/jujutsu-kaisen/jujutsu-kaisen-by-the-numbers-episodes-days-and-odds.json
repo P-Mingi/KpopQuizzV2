@@ -1,0 +1,227 @@
+{
+ "site": "anime",
+ "account": "oq_creator_05",
+ "group_slug": "jujutsu-kaisen",
+ "title": "Jujutsu Kaisen by the Numbers: Episodes, Days and Years",
+ "slug": "jujutsu-kaisen-by-the-numbers-episodes-days-and-odds",
+ "description": "Ten numeric questions: episodes per season, release years and days, volumes and an award ceremony. Light spoilers up to the Culling Game.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Numbers format: every answer is a number taken from verified facts about the anime and the manga.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Jujutsu Kaisen (TV series)",
+   "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: Jujutsu Kaisen",
+   "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: Jujutsu Kaisen 0",
+   "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: Jujutsu Kaisen season 3",
+   "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_3"
+  }
+ ],
+ "questions": [
+  {
+   "question": "How many episodes did the second season of the Jujutsu Kaisen TV anime run for?",
+   "options": [
+    "23",
+    "12",
+    "26",
+    "24"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-episode-count-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+  },
+  {
+   "question": "The last collected volume of the manga reached shelves in Japan on which day of December 2024?",
+   "options": [
+    "5",
+    "31",
+    "15",
+    "25"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-volume-count-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+  },
+  {
+   "question": "In which year was the short prequel manga that later became Jujutsu Kaisen 0 printed in Jump Giga?",
+   "options": [
+    "2018",
+    "2015",
+    "2017",
+    "2016"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-prequel-manga-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0"
+  },
+  {
+   "question": "On which day of October 2020 did the Jujutsu Kaisen TV anime have its broadcast premiere?",
+   "options": [
+    "24",
+    "3",
+    "10",
+    "1"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-anime-premiere-012"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+  },
+  {
+   "question": "On which day of November 2020 did Crunchyroll roll out the dubs in five languages?",
+   "options": [
+    "12",
+    "5",
+    "20",
+    "27"
+   ],
+   "correct": 2,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-crunchyroll-dubs-026"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+  },
+  {
+   "question": "The first season won Anime of the Year at the fifth Crunchyroll Anime Awards. At which ceremony did season two repeat that feat?",
+   "options": [
+    "Ninth",
+    "Seventh",
+    "Sixth",
+    "Eighth"
+   ],
+   "correct": 3,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-anime-of-the-year-024"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+  },
+  {
+   "question": "How many episodes did the third TV season, The Culling Game: Part 1, run for?",
+   "options": [
+    "12",
+    "13",
+    "24",
+    "10"
+   ],
+   "correct": 0,
+   "kind": "production",
+   "spoiler": {
+    "arc": 7,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-season-three-four-017"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_3"
+  },
+  {
+   "question": "In which year did the third TV season begin airing in Japan?",
+   "options": [
+    "2023",
+    "2026",
+    "2024",
+    "2025"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 7,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-season-three-four-017"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_3"
+  },
+  {
+   "question": "How many TV episodes do the first three seasons of the Jujutsu Kaisen anime add up to?",
+   "options": [
+    "48",
+    "52",
+    "59",
+    "72"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 7,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-episode-count-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+  },
+  {
+   "question": "The weekly run of the manga ended in September 2024. On which day of the month?",
+   "options": [
+    "16",
+    "23",
+    "27",
+    "30"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "jujutsu-kaisen-manga-run-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+  }
+ ]
+}

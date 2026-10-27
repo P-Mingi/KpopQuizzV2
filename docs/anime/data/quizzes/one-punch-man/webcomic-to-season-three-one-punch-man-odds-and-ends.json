@@ -1,0 +1,233 @@
+{
+ "site": "anime",
+ "account": "oq_creator_28",
+ "group_slug": "one-punch-man",
+ "title": "Webcomic to Season Three: One-Punch Man Odds and Ends",
+ "slug": "webcomic-to-season-three-one-punch-man-odds-and-ends",
+ "description": "Ten mixed questions on the remake date, the dates of seasons two and three, the name jokes, a few cast roles and what comes next.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "On which date did Murata's redrawn version start?",
+   "options": [
+    "14 June 2009",
+    "5 October 2015",
+    "10 April 2019",
+    "14 June 2012"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "one-punch-man-remake-magazine-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "question": "Which of these characters is listed as an antagonist of One-Punch Man?",
+   "options": [
+    "Genos",
+    "Boros",
+    "King",
+    "Saitama"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-boros-name-025",
+    "one-punch-man-genos-name-017",
+    "one-punch-man-king-name-020",
+    "one-punch-man-saitama-name-016"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "How many episodes had the anime reached in total after the first cours of season 3?",
+   "options": [
+    "24",
+    "48",
+    "36",
+    "12"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-three-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_3"
+  },
+  {
+   "question": "On which date did season 2 finish airing?",
+   "options": [
+    "21 December 2015",
+    "10 April 2019",
+    "12 October 2025",
+    "3 July 2019"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-two-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2"
+  },
+  {
+   "question": "Which overall episode numbers did season 2 carry?",
+   "options": [
+    "13 to 24",
+    "1 to 12",
+    "25 to 36",
+    "37 to 48"
+   ],
+   "correct": 0,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 2,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-two-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2"
+  },
+  {
+   "question": "In which month of 2025 did season 3 begin?",
+   "options": [
+    "January",
+    "April",
+    "October",
+    "July"
+   ],
+   "correct": 2,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-three-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_3"
+  },
+  {
+   "question": "When is the second cours of season 3 due?",
+   "options": [
+    "April 2026",
+    "October 2026",
+    "July 2027",
+    "January 2027"
+   ],
+   "correct": 3,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 3,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "one-punch-man-anime-season-three-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_3"
+  },
+  {
+   "question": "What does Mumen mean in the hero name Mumen Rider?",
+   "options": [
+    "No driver's license",
+    "No hero rank",
+    "No mask",
+    "No bicycle"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-mumen-rider-name-014"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  },
+  {
+   "question": "In the Japanese title, what does the shorthand wanpan stand for?",
+   "options": [
+    "A single panel",
+    "A single punch",
+    "A single page",
+    "A single hero"
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-title-wordplay-010"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "question": "Which character's Japanese name is written アトミック侍?",
+   "options": [
+    "Bang",
+    "Atomic Samurai",
+    "Speed-o'-Sound Sonic",
+    "King"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-punch-man-atomic-samurai-name-022",
+    "one-punch-man-bang-name-021",
+    "one-punch-man-speed-o-sound-sonic-name-019",
+    "one-punch-man-king-name-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: One-Punch Man",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: One-Punch Man season 2",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_2"
+  },
+  {
+   "id": "S3",
+   "title": "Wikipedia: One-Punch Man season 3",
+   "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_3"
+  },
+  {
+   "id": "S4",
+   "title": "Wikipedia: List of One-Punch Man characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+  }
+ ],
+ "notes": "Mixed quiz: arc 0 manga fact (004), arc 0 name and cast facts (010, 014, 019, 020, 021, 022, 025) plus season 2 and 3 dates (008 arc 2, 009 arc 3). Level 3 from fact 009. K1 rewrite: blocked questions rewritten on verified facts."
+}

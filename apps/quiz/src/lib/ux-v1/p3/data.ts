@@ -15,6 +15,7 @@ import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 
 import { directoryStats, isCategoryGroup, isHiddenGroup } from './model';
+import { forSite } from '@/lib/site/scope';
 
 import type { GroupsIndex, HubQuiz, IndexGroup } from './model';
 
@@ -32,9 +33,9 @@ async function fetchGroupsIndex(): Promise<GroupsIndex> {
   const db = createPublicReadClient();
   const [published, groupsRes] = await Promise.all([
     fetchAllRows<{ group_id: number | null; play_count: number | null }>(
-      () => db.from('quizzes').select('group_id, play_count').eq('status', 'published'),
+      () => forSite(db.from('quizzes').select('group_id, play_count')).eq('status', 'published'),
     ),
-    db.from('groups').select('id, slug, name, generation'),
+    forSite(db.from('groups').select('id, slug, name, generation')),
   ]);
   if (groupsRes.error) throw new Error(`groups index: ${groupsRes.error.message}`);
   // Never cache an empty read for an hour (a failed request can come back as no
@@ -88,9 +89,9 @@ export const getHubQuizzes = unstable_cache(
   async (groupId: number): Promise<HubQuiz[]> => {
     const db = createPublicReadClient();
     const rows = await fetchAllRows<HubQuiz>(
-      () => db
+      () => forSite(db
         .from('quizzes')
-        .select(HUB_QUIZ_COLS)
+        .select(HUB_QUIZ_COLS))
         .eq('status', 'published')
         .eq('group_id', groupId)
         .order('play_count', { ascending: false })

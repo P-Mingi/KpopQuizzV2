@@ -1,0 +1,13 @@
+{
+  "$comment": "Run O1 contract o1-contract-v1, the machine form of link-allowlist.md (same entries, same order; contract.test.ts compares them). Read by Q0a's apps/quiz/scripts/o1/check-network-links.mts and the leak suite before their own copy. An anonymous page may link to another site of the network only through an entry below. A new entry is a CR (link-allowlist.md 3).",
+  "version": 1,
+  "links": [
+    { "id": "footer", "source": "Q B01, D1; flag NEXT_PUBLIC_NET_FOOTER", "from": ["kpop", "anime"], "page": "*", "to": ["hub"], "href": "/", "rel": "followed", "query": false, "maxPerPage": 1 },
+    { "id": "about-kpop", "source": "Q B17, D6; kpopquiz.org/about, launch file", "from": ["kpop"], "page": "/about", "to": ["anime"], "href": "/", "rel": "followed", "query": false, "maxPerPage": 1 },
+    { "id": "about-anime", "source": "Q B17, D6; otakuquiz.org/about (O1)", "from": ["anime"], "page": "/about", "to": ["kpop", "hub"], "href": "/", "rel": "followed", "query": false, "maxPerPage": 1 },
+    { "id": "team-article", "source": "Q B17, D6; one Team article on kpopquiz.org, its path set by a CR at launch", "from": ["kpop"], "page": null, "to": ["anime"], "href": "/", "rel": "followed", "query": false, "maxPerPage": 1 },
+    { "id": "network-page", "source": "Q B02, D2; fanquiz.org home (H1)", "from": ["hub"], "page": "/", "to": ["kpop", "anime"], "href": "/", "rel": "followed", "query": false, "maxPerPage": 1 },
+    { "id": "directory", "source": "Q B03, D2; fanquiz.org/directory (H1, optional), noindex, follow", "from": ["hub"], "page": "/directory", "to": ["kpop", "anime"], "href": "/**", "rel": "nofollow", "query": false }
+  ],
+  "domainText": { "anime": ["kpop"], "kpop": ["anime"] }
+}

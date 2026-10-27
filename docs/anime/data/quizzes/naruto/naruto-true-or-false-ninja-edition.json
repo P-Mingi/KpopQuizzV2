@@ -1,0 +1,174 @@
+{
+  "site": "anime",
+  "account": "oq_creator_04",
+  "group_slug": "naruto",
+  "title": "Naruto True or False: Ninja Edition",
+  "slug": "naruto-true-or-false-ninja-edition",
+  "description": "Ten statements about the manga, the anime and the songs. Some are one number off, so read closely.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Masashi Kishimoto both wrote and drew the Naruto manga.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-authors-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+    },
+    {
+      "question": "The manga is written NARUTO -ナルト- in Japanese.",
+      "correct": true,
+      "fun_fact": "Its second anime series is titled Naruto: Shippuden.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-titles-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+    },
+    {
+      "question": "Diver, an opening of Naruto: Shippuden, was performed by Joe Inoue.",
+      "correct": false,
+      "fun_fact": "Diver was by Nico Touches the Walls. Joe Inoue sang Closer.",
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-themes-op-part-two-019"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D"
+    },
+    {
+      "question": "Naruto: Shippuden has 220 episodes.",
+      "correct": false,
+      "fun_fact": "Shippuden has 500 episodes. The first series has 220.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-tv-shippuden-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    },
+    {
+      "question": "The second opening of Naruto was Haruka Kanata by Asian Kung-Fu Generation.",
+      "correct": true,
+      "fun_fact": "Haruka Kanata accompanied episodes 26 to 53.",
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-themes-op-part-one-018"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "Madhouse is the studio that made the Naruto anime.",
+      "correct": false,
+      "fun_fact": "Studio Pierrot made Naruto and Naruto: Shippuden.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-tv-naruto-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    },
+    {
+      "question": "Tetsuya Nishio designed the characters for the Naruto anime.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-character-designer-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto"
+    },
+    {
+      "question": "Naruto: Shippuden opened with Hero's Come Back!! by nobodyknows+.",
+      "correct": true,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-first-shippuden-opening-027"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D"
+    },
+    {
+      "question": "Singer Akeboshi performed two openings of the first series.",
+      "correct": false,
+      "fun_fact": "Akeboshi sang two endings, Wind and Yellow moon.",
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-akeboshi-endings-028"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    },
+    {
+      "question": "Naruto: Shippuden began airing in 2002.",
+      "correct": false,
+      "fun_fact": "Naruto: Shippuden has 500 episodes, made by Studio Pierrot.",
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "naruto-tv-shippuden-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Naruto",
+      "url": "https://en.wikipedia.org/wiki/Naruto"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Naruto (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Japanese Wikipedia: NARUTO -ナルト- 疾風伝",
+      "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_%E7%96%BE%E9%A2%A8%E4%BC%9D"
+    },
+    {
+      "id": "S4",
+      "title": "Japanese Wikipedia: NARUTO -ナルト- (アニメ)",
+      "url": "https://ja.wikipedia.org/wiki/NARUTO_-%E3%83%8A%E3%83%AB%E3%83%88-_(%E3%82%A2%E3%83%8B%E3%83%A1)"
+    }
+  ],
+  "notes": "Statements mirror the fact texts; false ones change one detail. K1 rewrite: blocked questions rewritten on verified facts 001, 007, 018, 019."
+}

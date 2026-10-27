@@ -1,0 +1,157 @@
+{
+ "site": "anime",
+ "account": "oq_creator_13",
+ "group_slug": "dandadan",
+ "title": "Occult Check: Dandadan True or False",
+ "slug": "occult-check-dandadan-true-or-false",
+ "description": "Ten statements about the manga, the platform, the awards and the anime. Some are one detail off, so read closely.",
+ "quiz_type": "true_false",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Yukinobu Tatsu alone writes and draws the manga.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-manga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "Yukinobu Tatsu writes the story and Tatsuki Fujimoto draws the art.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-manga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "The manga began on Shueisha's Shōnen Jump+ platform on April 6, 2021 and is still running.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-serialization-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "The manga began on Kodansha's platform on April 6, 2021 and is still running.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-serialization-start-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "The collected edition had reached twenty-five volumes by early September 2026.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-volume-count-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "Season one opens with Otonoke by Zutomayo and closes with Taidada by Creepy Nuts.",
+   "correct": false,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "dandadan-themes-season-one-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  },
+  {
+   "question": "Viz Media releases the manga in English in North America.",
+   "correct": true,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "manga"
+   },
+   "fact_ids": [
+    "dandadan-english-publisher-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "At Manga Barcelona in 2025 the series won the seinen category.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-manga-barcelona-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "Studio Science Saru animated the show, and Fūga Yamashiro directed the first season.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-anime-studio-director-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "question": "Season one ran twenty-four episodes, starting on October 3, 2024.",
+   "correct": false,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "dandadan-anime-season-one-009"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Dandadan",
+   "url": "https://en.wikipedia.org/wiki/Dandadan"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Dandadan episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+  }
+ ],
+ "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a name, a publisher, a number, a category or an episode count). K1 rewrite: blocked questions rewritten on verified facts 013 and 020."
+}

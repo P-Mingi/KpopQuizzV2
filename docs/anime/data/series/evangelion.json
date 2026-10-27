@@ -1,0 +1,291 @@
+{
+  "$comment": "Run O1 lane K1 batch b8: series data for Neon Genesis Evangelion (tier C), built from pinned Wikipedia revisions (main article 1380009223, episode list, character list, The End of Evangelion, Rebuild of Evangelion), Wikidata Q662 (series) and Q1151814 (The End of Evangelion) and the official site evangelion.co.jp; facts are drafts for review. The series is the 1995 TV anime (anime original, no manga fields; Yoshiyuki Sadamoto's manga is not stored). No allowed source names story arcs, so the five arcs are an editorial split: episodes 1 to 15, episodes 16 to 24 (Wikipedia places the shift to a more introspective tone at episode 16), episodes 25 and 26 (the TV finale), The End of Evangelion (1997 film, anime_only) and the Rebuild of Evangelion films (2007 to 2021, anime_only). Questions must say which version they ask about. Character debut arcs follow the first named mention in the Wikipedia episode summaries (Shinji and Gendo ep 1, Misato 2, Toji 3, Rei 5, Ritsuko 7, Asuka and Kaji 8, Fuyutsuki 12, Yui 20, Kaworu 24); Rei is on screen from episode 1 but first named in the summary of episode 5, still arc 1. Mari is in the Rebuild films only. Native names are the spaced forms of the English Wikipedia character list (nihongo templates). Themes: A Cruel Angel's Thesis and Fly Me to the Moon, the two named in the main article; other versions of the ending song used in single episodes are not stored. Status is finished.",
+  "group": {
+    "slug": "evangelion",
+    "name": "Neon Genesis Evangelion",
+    "site": "anime",
+    "display_color": "#5B21B6",
+    "text_color": "#FFFFFF"
+  },
+  "series": {
+    "type": "anime_original",
+    "title_en": "Neon Genesis Evangelion",
+    "title_native": "新世紀エヴァンゲリオン",
+    "title_romaji": "Shin Seiki Evangerion",
+    "studios": [
+      {
+        "name": "Gainax",
+        "seasons": [
+          1
+        ]
+      },
+      {
+        "name": "Tatsunoko Production",
+        "seasons": [
+          1
+        ]
+      }
+    ],
+    "director": "Hideaki Anno",
+    "anime_start_year": 1995,
+    "anime_end_year": 1996,
+    "status": "finished",
+    "episodes": 26,
+    "seasons": 1,
+    "official_url": "https://www.evangelion.co.jp/",
+    "wikidata_qid": "Q662",
+    "tier": "C",
+    "published": true
+  },
+  "arcs": [
+    {
+      "ord": 1,
+      "name": "Episodes 1 to 15",
+      "kind": "part",
+      "episode_from": 1,
+      "episode_to": 15,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+      "status": "published"
+    },
+    {
+      "ord": 2,
+      "name": "Episodes 16 to 24",
+      "kind": "part",
+      "episode_from": 16,
+      "episode_to": 24,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+      "status": "published"
+    },
+    {
+      "ord": 3,
+      "name": "Episodes 25 and 26",
+      "kind": "part",
+      "episode_from": 25,
+      "episode_to": 26,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes",
+      "status": "published"
+    },
+    {
+      "ord": 4,
+      "name": "The End of Evangelion",
+      "kind": "part",
+      "anime_only": true,
+      "source_url": "https://en.wikipedia.org/wiki/The_End_of_Evangelion",
+      "status": "published"
+    },
+    {
+      "ord": 5,
+      "name": "Rebuild of Evangelion",
+      "kind": "part",
+      "anime_only": true,
+      "source_url": "https://en.wikipedia.org/wiki/Rebuild_of_Evangelion",
+      "status": "published"
+    }
+  ],
+  "characters": [
+    {
+      "slug": "shinji-ikari",
+      "name": "Shinji Ikari",
+      "name_native": "碇 シンジ",
+      "role": "main",
+      "affiliation": "Nerv (pilot)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A withdrawn teenager called to Tokyo-3 by his father to pilot Evangelion Unit 01.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 1,
+      "status": "published"
+    },
+    {
+      "slug": "rei-ayanami",
+      "name": "Rei Ayanami",
+      "name_native": "綾波 レイ",
+      "role": "main",
+      "affiliation": "Nerv (pilot)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A taciturn pilot of Evangelion Unit 00, the First Child.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 2,
+      "status": "published"
+    },
+    {
+      "slug": "asuka-langley-soryu",
+      "name": "Asuka Langley Soryu",
+      "name_native": "惣流・アスカ・ラングレー",
+      "role": "main",
+      "affiliation": "Nerv (pilot)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A proud, gifted pilot of Evangelion Unit 02, raised in Germany.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 3,
+      "status": "published"
+    },
+    {
+      "slug": "misato-katsuragi",
+      "name": "Misato Katsuragi",
+      "name_native": "葛城 ミサト",
+      "role": "main",
+      "affiliation": "Nerv (operations)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Nerv's head of operations, and the guardian looking after Shinji.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 4,
+      "status": "published"
+    },
+    {
+      "slug": "gendo-ikari",
+      "name": "Gendo Ikari",
+      "name_native": "碇 ゲンドウ",
+      "role": "supporting",
+      "affiliation": "Nerv (commander)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Nerv's supreme commander and Shinji's estranged father.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 5,
+      "status": "published"
+    },
+    {
+      "slug": "ritsuko-akagi",
+      "name": "Ritsuko Akagi",
+      "name_native": "赤木 リツコ",
+      "role": "supporting",
+      "affiliation": "Nerv (technology)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A Nerv scientist and one of the main developers of the Evangelion units.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 6,
+      "status": "published"
+    },
+    {
+      "slug": "ryoji-kaji",
+      "name": "Ryoji Kaji",
+      "name_native": "加持 リョウジ",
+      "role": "supporting",
+      "affiliation": "Nerv (investigations)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "A Nerv agent who is Asuka's guardian and a former college friend of Misato.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 7,
+      "status": "published"
+    },
+    {
+      "slug": "kaworu-nagisa",
+      "name": "Kaworu Nagisa",
+      "name_native": "渚 カヲル",
+      "role": "supporting",
+      "affiliation": "Nerv (pilot)",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "description": "A gentle pilot sent to Nerv late in the story, who quickly befriends Shinji.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+      "spoiler_level": 2,
+      "identity_spoiler": true,
+      "ord": 8,
+      "status": "published"
+    },
+    {
+      "slug": "toji-suzuhara",
+      "name": "Toji Suzuhara",
+      "name_native": "鈴原 トウジ",
+      "role": "supporting",
+      "affiliation": "Tokyo-3 school",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Shinji's outspoken classmate at the Tokyo-3 middle school.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 9,
+      "status": "published"
+    },
+    {
+      "slug": "kozo-fuyutsuki",
+      "name": "Kozo Fuyutsuki",
+      "name_native": "冬月 コウゾウ",
+      "role": "supporting",
+      "affiliation": "Nerv (deputy commander)",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "description": "Nerv's calm deputy commander and a former university professor.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 10,
+      "status": "published"
+    },
+    {
+      "slug": "yui-ikari",
+      "name": "Yui Ikari",
+      "name_native": "碇 ユイ",
+      "role": "other",
+      "affiliation": "Ikari family",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "description": "Shinji's mother, who disappeared in an accident long before the story begins.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+      "spoiler_level": 2,
+      "identity_spoiler": false,
+      "ord": 11,
+      "status": "published"
+    },
+    {
+      "slug": "mari-illustrious-makinami",
+      "name": "Mari Illustrious Makinami",
+      "name_native": "真希波・マリ・イラストリアス",
+      "role": "supporting",
+      "affiliation": "Rebuild films (pilot)",
+      "debut_arc_ord": 5,
+      "debut_medium": "anime",
+      "description": "A pilot from England who exists only in the Rebuild film series.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters",
+      "spoiler_level": 5,
+      "identity_spoiler": false,
+      "ord": 12,
+      "status": "published"
+    }
+  ],
+  "themes": [
+    {
+      "kind": "op",
+      "number": 1,
+      "title": "A Cruel Angel's Thesis",
+      "artist": "Yoko Takahashi",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+      "status": "published"
+    },
+    {
+      "kind": "ed",
+      "number": 1,
+      "title": "Fly Me to the Moon",
+      "artist": "Claire Littley",
+      "season": 1,
+      "idol_sung": false,
+      "deezer_playable": false,
+      "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+      "status": "published"
+    }
+  ]
+}

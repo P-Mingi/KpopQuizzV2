@@ -1,0 +1,212 @@
+{
+ "site": "anime",
+ "account": "oq_creator_02",
+ "group_slug": "one-piece",
+ "title": "From Romance Dawn to the Desert: One Piece by Arc",
+ "slug": "from-romance-dawn-to-the-desert-one-piece-by-arc",
+ "description": "Ten questions on the first fifteen arcs: which chapters and episodes each one fills, and which ones exist only in the anime.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "hard",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: One Piece",
+   "url": "https://en.wikipedia.org/wiki/One_Piece"
+  }
+ ],
+ "notes": "Arc quiz on the first fifteen arcs (007, arc 15). Every question is tagged arc 15 and the quiz level is 15, both scopes. No character is named.",
+ "questions": [
+  {
+   "question": "Which arc fills chapters 1 to 7 and episodes 1 to 4?",
+   "options": [
+    "Orange Town",
+    "Syrup Village",
+    "Romance Dawn",
+    "Baratie"
+   ],
+   "correct": 2,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 15,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-arcs-1-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Which arc fills chapters 8 to 21?",
+   "options": [
+    "Orange Town",
+    "Romance Dawn",
+    "Syrup Village",
+    "Baratie"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 15,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-arcs-1-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Which arc fills chapters 42 to 68?",
+   "options": [
+    "Syrup Village",
+    "Arlong Park",
+    "Loguetown",
+    "Baratie"
+   ],
+   "correct": 3,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 15,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-arcs-1-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Which arc fills chapters 69 to 95 and episodes 31 to 44?",
+   "options": [
+    "Baratie",
+    "Arlong Park",
+    "Loguetown",
+    "Syrup Village"
+   ],
+   "correct": 1,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 15,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-arcs-1-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Which arc fills chapters 96 to 100?",
+   "options": [
+    "Arlong Park",
+    "Loguetown",
+    "Baratie",
+    "Whiskey Peak"
+   ],
+   "correct": 1,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 15,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-arcs-1-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Which arc fills chapters 155 to 217 and episodes 92 to 130?",
+   "options": [
+    "Drum Island",
+    "Little Garden",
+    "Whiskey Peak",
+    "Alabasta"
+   ],
+   "correct": 3,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 15,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-arcs-1-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Which of these arcs exists only in the anime?",
+   "options": [
+    "Warship Island",
+    "Orange Town",
+    "Loguetown",
+    "Drum Island"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 15,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-arcs-1-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Which arc fills chapters 101 to 105 and episodes 62 to 63?",
+   "options": [
+    "Whiskey Peak",
+    "Little Garden",
+    "Reverse Mountain / Into the Grand Line",
+    "Drum Island"
+   ],
+   "correct": 2,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 15,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-arcs-1-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Which arc fills episodes 78 to 91?",
+   "options": [
+    "Little Garden",
+    "Whiskey Peak",
+    "Alabasta",
+    "Drum Island"
+   ],
+   "correct": 3,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 15,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-arcs-1-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  },
+  {
+   "question": "Which arc fills chapters 115 to 129?",
+   "options": [
+    "Little Garden",
+    "Whiskey Peak",
+    "Drum Island",
+    "Alabasta"
+   ],
+   "correct": 0,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 15,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-arcs-1-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+  }
+ ]
+}

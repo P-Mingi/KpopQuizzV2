@@ -1,0 +1,9 @@
+/* Run O1, final check C1: text contrast on the anime pages whose legacy classes read the shared grey and pink. Every selector
+   starts with the site scope and names only anime-c1-* classes (tokens.md 3.3); the colours are the frozen --ux-* tokens, which
+   have a dark value of their own. */
+
+html.ux-v1[data-site="anime"] .anime-c1-quiet { color: var(--ux-muted); }
+html.ux-v1[data-site="anime"] .anime-c1-link { color: var(--ux-pink-ink); }
+html.ux-v1[data-site="anime"] .anime-c1-crumbs ol { color: var(--ux-muted); }
+html.ux-v1[data-site="anime"] .anime-c1-crumbs a { color: var(--ux-muted); }
+html.ux-v1[data-site="anime"] .anime-c1-pill { color: var(--ux-ink); }

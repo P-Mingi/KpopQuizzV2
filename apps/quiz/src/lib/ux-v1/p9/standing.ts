@@ -9,6 +9,7 @@ import { getTeamIds } from '@/lib/editorial/accounts';
 import { WAR_READ, getWarMap } from './data';
 
 import { avatarOf, fandomLabel, levelLine, realFandomName } from './format';
+import { forSite } from '@/lib/site/scope';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { AvatarView } from './format';
@@ -82,7 +83,7 @@ export async function readStanding(db: SupabaseClient, userId: string, now: Date
       ? (noTeam ? creatorsQ.not('id', 'in', noTeam) : creatorsQ).then((r) => r.count ?? null)
       : Promise.resolve(null),
     mainSlug
-      ? db.from('groups').select('id, slug, name, fandom_name, generation').eq('slug', mainSlug).maybeSingle().then((r) => (r.data as { id: number; slug: string; name: string; fandom_name: string | null; generation: string | null } | null))
+      ? forSite(db.from('groups').select('id, slug, name, fandom_name, generation')).eq('slug', mainSlug).maybeSingle().then((r) => (r.data as { id: number; slug: string; name: string; fandom_name: string | null; generation: string | null } | null))
       : Promise.resolve(null),
   ]);
 

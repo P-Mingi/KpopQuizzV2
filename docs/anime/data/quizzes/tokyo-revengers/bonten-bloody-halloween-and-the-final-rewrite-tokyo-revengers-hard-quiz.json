@@ -1,0 +1,218 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "tokyo-revengers",
+  "title": "Tokyo Revengers Hard Quiz: Bonten, Bloody Halloween and the Final Rewrite",
+  "slug": "bonten-bloody-halloween-and-the-final-rewrite-tokyo-revengers-hard-quiz",
+  "description": "Ten hard questions on the secrets of the gang wars and the ending of the story, including parts that only the manga has shown so far. Spoilers for the whole story.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "Hard quiz: late facts (arcs 2 to 5, manga only for the last arc) only here. Spoilers named in the description.",
+  "questions": [
+    {
+      "question": "Who killed Mikey's older brother Shinichiro while trying to steal a motorbike with Baji?",
+      "options": [
+        "Shuji Hanma",
+        "Haruki Hayashida",
+        "Tetta Kisaki",
+        "Kazutora Hanemiya"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-kazutora-past-075"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "Why does Baji seem to defect to Valhalla?",
+      "options": [
+        "To protect Mikey's sister",
+        "To repay a debt to Hanma",
+        "To learn more about Kisaki",
+        "To escape the rules of the gang"
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-baji-defect-069"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+    },
+    {
+      "question": "What does Kisaki finally confess as his motive?",
+      "options": [
+        "A debt owed to Izana",
+        "Revenge for a lost brother",
+        "A promise made to Draken",
+        "Ambition and a fixation on Hinata"
+      ],
+      "correct": 3,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-kisaki-motive-068"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+    },
+    {
+      "question": "Who resents Mikey out of jealousy over the legacy of Shinichiro?",
+      "options": [
+        "Izana Kurokawa",
+        "Taiju Shiba",
+        "Kazutora Hanemiya",
+        "Shuji Hanma"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-izana-jealous-080"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+    },
+    {
+      "question": "Who murders Emma Sano before the Tenjiku conflict?",
+      "options": [
+        "Tetta Kisaki",
+        "Izana Kurokawa",
+        "Shuji Hanma",
+        "Haruchiyo Sanzu"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 4,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "tokyo-revengers-emma-fate-082",
+        "tokyo-revengers-character-name-039"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "question": "In the future where Mikey vanishes, which ruthless gang does he lead?",
+      "options": [
+        "Tenjiku",
+        "Bonten",
+        "Valhalla",
+        "The Black Dragons"
+      ],
+      "correct": 1,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 5,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "tokyo-revengers-mikey-bonten-059"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+    },
+    {
+      "question": "Who is killed while shielding Senju in 2008?",
+      "options": [
+        "Draken",
+        "Baji",
+        "Mitsuya",
+        "Chifuyu"
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 5,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "tokyo-revengers-draken-2008-063"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+    },
+    {
+      "question": "According to Mikey, how was the death of Shinichiro rewritten?",
+      "options": [
+        "Takemichi leapt back and warned him",
+        "Izana stopped the motorbike theft",
+        "A homeless man with a stolen time-leap ability",
+        "Kisaki hid the whole matter from the police"
+      ],
+      "correct": 2,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 5,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "tokyo-revengers-shinichiro-leap-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+    },
+    {
+      "question": "To which year do Takemichi and Mikey time-leap together in the end?",
+      "options": [
+        "2003",
+        "2005",
+        "2008",
+        "1998"
+      ],
+      "correct": 3,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 5,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "tokyo-revengers-final-rewrite-028"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+    },
+    {
+      "question": "How does the story close, eleven years after the final rewrite?",
+      "options": [
+        "Takemichi and Hinata marry",
+        "Kisaki marries Hinata",
+        "Mikey becomes a police officer",
+        "Draken joins Tenjiku"
+      ],
+      "correct": 0,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 5,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "tokyo-revengers-wedding-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Tokyo Revengers characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Tokyo Revengers",
+      "url": "https://en.wikipedia.org/wiki/Tokyo_Revengers"
+    }
+  ]
+}

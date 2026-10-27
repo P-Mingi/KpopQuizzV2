@@ -4,6 +4,7 @@ import { createPublicReadClient } from '@/lib/supabase/server';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
 import { rpcFandomWar, warCacheKey } from '@/lib/editorial/surfaces/war';
+import { forSite, siteScoped } from '@/lib/site/scope';
 
 import type { PersonCardData } from '@/components/profile/person-card';
 
@@ -63,7 +64,7 @@ export const getActiveFansByGroup = unstable_cache(
 
 async function fetchActiveFansByGroup(groupSlug: string, limit = 8): Promise<Array<{ person: PersonCardData; accuracy: number }>> {
   const db = createPublicReadClient();
-  const { data: g } = await db.from('groups').select('id').eq('slug', groupSlug).maybeSingle();
+  const { data: g } = await forSite(db.from('groups').select('id')).eq('slug', groupSlug).maybeSingle();
   if (!g) return [];
 
   const team = await teamIdsToExclude();
@@ -146,7 +147,7 @@ async function fetchQuizHallOfFame(quizId: string, limit = 10): Promise<HallOfFa
 // Collective stats from the small groups table (one read, ~tens of rows). Cheap.
 export async function getCommunityStats(): Promise<{ totalPlays: number; totalQuizzes: number; groups: number }> {
   const db = createPublicReadClient();
-  const { data } = await db.from('groups').select('total_plays, quiz_count');
+  const { data } = await forSite(db.from('groups').select('total_plays, quiz_count'));
   const rows = (data ?? []) as Array<{ total_plays: number; quiz_count: number }>;
   return {
     totalPlays: rows.reduce((s, r) => s + (r.total_plays ?? 0), 0),
@@ -181,13 +182,19 @@ export const getTodayStats = unstable_cache(
       hot_group_slug: string | null; hot_group_name: string | null; hot_group_logo: string | null;
     }>)[0];
     if (!row) return { playsToday: 0, quizzesToday: 0, mastersToday: 0, hotGroup: null };
+    let hotGroup = row.hot_group_slug && row.hot_group_name
+      ? { slug: row.hot_group_slug, name: row.hot_group_name, logoUrl: row.hot_group_logo }
+      : null;
+    // The RPC folds every site's plays: with the site scope on, a hottest group of another site is not shown (no query with it off).
+    if (hotGroup && siteScoped()) {
+      const own = await forSite(db.from('groups').select('slug')).eq('slug', hotGroup.slug).maybeSingle();
+      if (own.error || !own.data) hotGroup = null;
+    }
     return {
       playsToday: Number(row.plays_today ?? 0),
       quizzesToday: Number(row.quizzes_today ?? 0),
       mastersToday: Number(row.masters_today ?? 0),
-      hotGroup: row.hot_group_slug && row.hot_group_name
-        ? { slug: row.hot_group_slug, name: row.hot_group_name, logoUrl: row.hot_group_logo }
-        : null,
+      hotGroup,
     };
   },
   ['db:community:getTodayStats:v1'],
@@ -241,9 +248,9 @@ async function fetchFandomWarMap(limit = 30): Promise<WarMapEntry[]> {
   // migration 108 to re-declare the function. Cheap: tens of rows.
   const genBySlug = new Map<string, string | null>();
   if (rows.length > 0) {
-    const { data: gens } = await db
+    const { data: gens } = await forSite(db
       .from('groups')
-      .select('slug, generation')
+      .select('slug, generation'))
       .in('slug', rows.map((r) => r.slug));
     for (const g of (gens ?? []) as Array<{ slug: string; generation: string | null }>) {
       genBySlug.set(g.slug, g.generation);
@@ -311,19 +318,19 @@ export async function getHappeningNow(limit = 12): Promise<{ events: FeedEvent[]
   const db = createPublicReadClient();
   const since = new Date(Date.now() - 48 * 3600_000).toISOString();
   const team = await teamIdsToExclude();
-  let recentQ = db.from('activity_events').select('id', { count: 'exact', head: true }).gte('created_at', since);
+  let recentQ = forSite(db.from('activity_events').select('id', { count: 'exact', head: true })).gte('created_at', since);
   // v12: an editorial account's events are not fan activity (anonymous rows stay).
   if (team) recentQ = recentQ.or(`user_id.is.null,user_id.not.in.${pgList(team)}`);
 
   const [{ data: rows }, { data: groups }, { count }] = await Promise.all([
-    db.from('activity_events')
-      .select('id, event_type, user_id, display_name, group_slug, payload, created_at')
+    forSite(db.from('activity_events')
+      .select('id, event_type, user_id, display_name, group_slug, payload, created_at'))
       .order('created_at', { ascending: false })
       // Over-fetch well past `limit`: the newest rows are frequently one player
       // on a duel spree, so reaching further back is what actually produces a
       // feed with more than two faces in it.
       .limit(400),
-    db.from('groups').select('slug, name'),
+    forSite(db.from('groups').select('slug, name')),
     recentQ,
   ]);
 

@@ -1,0 +1,170 @@
+{
+  "site": "anime",
+  "account": "oq_creator_07",
+  "group_slug": "attack-on-titan",
+  "title": "Attack on Titan True or False: Wall Edition",
+  "slug": "attack-on-titan-true-or-false-wall-edition",
+  "description": "Ten statements about the manga, the anime and the people behind them. Read each number with care.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Hajime Isayama wrote and drew the whole Attack on Titan manga himself.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-manga-creator-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    },
+    {
+      "question": "The Attack on Titan manga ran in Kodansha's monthly Bessatsu Shonen Magazine.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-magazine-publisher-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    },
+    {
+      "question": "The Attack on Titan finale was chapter number 150.",
+      "correct": false,
+      "fun_fact": "The finale was chapter number 139.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-chapter-count-015"
+      ],
+      "source_url": "https://ja.wikipedia.org/wiki/%E9%80%B2%E6%92%83%E3%81%AE%E5%B7%A8%E4%BA%BA"
+    },
+    {
+      "question": "The Attack on Titan anime opened on 7 April 2013 with a 25-episode first season.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "attack-on-titan-anime-premiere-016"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "question": "Tetsuro Araki directed the first three seasons of Attack on Titan, and Yuichiro Hayashi directed the fourth.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "attack-on-titan-series-directors-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "question": "Eren's Titan form was drawn after a real middleweight boxer, Yushin Okami.",
+      "correct": false,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-eren-titan-model-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    },
+    {
+      "question": "The Japanese title 進撃の巨人 translates roughly as The Advancing Giant.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-japanese-title-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    },
+    {
+      "question": "Levi's look and manner were modeled on Batman from the comics.",
+      "correct": false,
+      "fun_fact": "He was modeled on Rorschach from the comic Watchmen.",
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-levi-inspiration-029"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    },
+    {
+      "question": "The Attack on Titan manga won the Kodansha Manga Award for best shojo title in 2011.",
+      "correct": false,
+      "fun_fact": "It won for best shonen.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "attack-on-titan-kodansha-award-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    },
+    {
+      "question": "When asked to name his favourite character, the author picked Jean.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "attack-on-titan-creator-favourite-028"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Attack on Titan",
+      "url": "https://en.wikipedia.org/wiki/Attack_on_Titan"
+    },
+    {
+      "id": "S2",
+      "title": "Japanese Wikipedia: 進撃の巨人",
+      "url": "https://ja.wikipedia.org/wiki/%E9%80%B2%E6%92%83%E3%81%AE%E5%B7%A8%E4%BA%BA"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Attack on Titan (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: List of Attack on Titan characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    }
+  ],
+  "notes": "Statements mirror the fact texts; false ones change one detail. K1 rewrite: blocked questions rewritten on verified facts 019 and 027."
+}

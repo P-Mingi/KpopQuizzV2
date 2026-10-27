@@ -1,0 +1,3 @@
+apps/quiz/src/lib/db/contract.types.ts
+docs/pending-migrations/multisite/015-spoilers.rollback.sql
+docs/pending-migrations/multisite/015-spoilers.sql

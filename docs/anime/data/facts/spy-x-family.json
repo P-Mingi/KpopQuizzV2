@@ -1,0 +1,2107 @@
+[
+  {
+    "id": "spy-x-family-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "title_native",
+    "value": "スパイファミリー (Supai Famirī)",
+    "text": "In Japan the title is written スパイファミリー, a katakana spelling of the English words spy and family.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://ja.wikipedia.org/wiki/SPY%C3%97FAMILY",
+        "ref": "110690607",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65231576",
+        "ref": "Q65231576",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "『SPY×FAMILY』（スパイファミリー）は、遠藤達哉による日本の漫画"
+  },
+  {
+    "id": "spy-x-family-manga-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "author",
+    "value": "Tatsuya Endo (story and art)",
+    "text": "Tatsuya Endo both writes and draws the Spy × Family manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65231576",
+        "ref": "Q65231576",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "a Japanese web manga series written and illustrated by Tatsuya Endo"
+  },
+  {
+    "id": "spy-x-family-magazine-run-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "magazine",
+    "value": "Shōnen Jump+ (Shueisha), since March 2019",
+    "text": "Shueisha publishes the manga every other week on its Shōnen Jump+ app and website, a run that began in March 2019.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2019-09-23/viz-adds-tatsuya-endo-spy-x-family-manga/.151425",
+        "fetched_at": "2026-10-23T17:31:29Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "serialized biweekly on Shueisha's Shōnen Jump+ app and website since March 2019"
+  },
+  {
+    "id": "spy-x-family-manga-volumes-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "manga_volumes",
+    "value": [
+      "17 volumes",
+      "counted in April 2026"
+    ],
+    "text": "By the spring of 2026 the chapters filled seventeen collected tankōbon volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65231576",
+        "ref": "Q65231576",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "with its chapters collected in 17 tankōbon volumes as of April 2026"
+  },
+  {
+    "id": "spy-x-family-anime-studios-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "anime_studios",
+    "value": "Wit Studio and CloverWorks",
+    "text": "Two studios share the animation, Wit Studio and CloverWorks.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q109333365",
+        "ref": "Q109333365",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "produced by Wit Studio and CloverWorks"
+  },
+  {
+    "id": "spy-x-family-anime-directors-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "anime_directors",
+    "value": "Kazuhiro Furuhashi (seasons 1 and 2), Takahiro Harada (season 2), Yukiko Imai (season 3)",
+    "text": "Kazuhiro Furuhashi directed the early seasons, with Takahiro Harada credited on season 2 and Yukiko Imai on season 3.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q109333365",
+        "ref": "Q109333365",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Kazuhiro Furuhashi (S1-2) Takahiro Harada (S2) Yukiko Imai (S3)"
+  },
+  {
+    "id": "spy-x-family-anime-run-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "anime_run",
+    "value": [
+      "50 episodes",
+      "3 seasons",
+      "April 2022 to December 2025",
+      "TV Tokyo"
+    ],
+    "text": "Three seasons of the TV anime, 50 episodes in total, aired on TV Tokyo between April 2022 and December 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q109333365",
+        "ref": "Q109333365",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "No. of seasons | 3 | No. of episodes | 50"
+  },
+  {
+    "id": "spy-x-family-anime-seasons-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "arcs",
+    "value": [
+      "Season 1 Part 1: episodes 1-12",
+      "Season 1 Part 2: episodes 13-25",
+      "Season 2: episodes 26-37",
+      "Season 3: episodes 38-50"
+    ],
+    "text": "The anime is cut into four blocks: the first season in two cours of 12 and 13 episodes, then a 12-episode second season and a 13-episode third.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Season | Episodes | Originally released | First released | Last released | 1 | 25 | 12 | 9 April 2022"
+  },
+  {
+    "id": "spy-x-family-cast-main-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "characters_a",
+    "value": [
+      "Loid Forger (ロイド・フォージャー)",
+      "Anya Forger (アーニャ・フォージャー)",
+      "Yor Forger (ヨル・フォージャー)",
+      "Bond Forger (ボンド・フォージャー)",
+      "Franky Franklin (フランキー・フランクリン)",
+      "Sylvia Sherwood (シルヴィア・シャーウッド)",
+      "Henry Henderson (ヘンリー・ヘンダーソン)",
+      "Yuri Briar (ユーリ・ブライア)",
+      "Damian Desmond (ダミアン・デズモンド)",
+      "Becky Blackbell (ベッキー・ブラックベル)"
+    ],
+    "text": "The first half of the cast is the Forger household, their go-between friends and agents, and the classmates and teacher around Anya.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Loid Forger (ロイド・フォージャー, Roido Fōjā)"
+  },
+  {
+    "id": "spy-x-family-cast-supporting-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "characters_b",
+    "value": [
+      "Fiona Frost (フィオナ・フロスト)",
+      "Camilla (カミラ)",
+      "Millie (ミリー)",
+      "Sharon (シャロン)",
+      "Emile Elman (エミール・エルマン)",
+      "Ewen Egeburg (ユーイン・エッジバーグ)",
+      "Donovan Desmond (ドノバン・デズモンド)",
+      "Dominic (ドミニック)",
+      "Melinda Desmond (メリンダ・デズモンド)",
+      "Martha Marriott (マーサ・マリオット)"
+    ],
+    "text": "The second half gathers the fellow agent Fiona, Yor's City Hall co-workers, Damian's friends and the Desmond parents, plus Becky's butler Martha.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Camilla (カミラ, Kamira)"
+  },
+  {
+    "id": "spy-x-family-theme-songs-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "themes",
+    "value": [
+      "OP 1: Mixed Nuts - Official Hige Dandism",
+      "OP 2: Souvenir - Bump of Chicken",
+      "OP 3: Kura Kura - Ado",
+      "OP 4: Hi o Mamoru - Spitz",
+      "ED 1: Comedy - Gen Hoshino",
+      "ED 2: Shikisai - yama",
+      "ED 3: Todome no Ichigeki - Vaundy",
+      "ED 4: Actor - Lilas Ikuta"
+    ],
+    "text": "Each cour of the anime has its own pair of songs, from Official Hige Dandism and Gen Hoshino in the first to Spitz and Lilas Ikuta in the third season.",
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q111602539",
+        "ref": "Q111602539",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "The opening theme for the first part of the first season uses the song \"Mixed Nuts\""
+  },
+  {
+    "id": "spy-x-family-copies-in-print-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "copies",
+    "value": "more than 42 million copies in print, April 2026",
+    "text": "Circulation had climbed past forty-two million copies by April 2026, which puts the manga among the biggest sellers ever.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Spy × Family had over 42 million copies in circulation"
+  },
+  {
+    "id": "spy-x-family-anya-telepath-013",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "anya-forger"
+    },
+    "field": "power",
+    "value": "telepathy",
+    "text": "Anya can read minds, a gift that lets her see through the secret jobs of both of her new parents.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "unbeknownst to him, Anya is a telepath, and Yor is in fact a professional assassin"
+  },
+  {
+    "id": "spy-x-family-yor-thorn-princess-014",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yor-forger"
+    },
+    "field": "nickname",
+    "value": "Thorn Princess",
+    "text": "Yor works at City Hall by day, but in her other line of work she goes by the Thorn Princess.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "A 27-year-old professional assassin nicknamed \"Thorn Princess\""
+  },
+  {
+    "id": "spy-x-family-bond-premonition-015",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "bond-forger"
+    },
+    "field": "ability",
+    "value": "glimpses the future",
+    "text": "Bond the family dog can see short glimpses of the future, which only Anya knows about.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Bond, who possesses precognitive abilities"
+  },
+  {
+    "id": "spy-x-family-code-white-film-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "film",
+    "value": "Spy × Family Code: White, December 2023",
+    "text": "A theatrical film, Code: White, reached Japanese cinemas in December 2023.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "An anime film titled Spy × Family Code: White"
+  },
+  {
+    "id": "spy-x-family-anime-award-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "award",
+    "value": "Animation of the Year, Tokyo Anime Award Festival",
+    "text": "The Tokyo Anime Award Festival named the series its Animation of the Year.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "including Animation of the Year at the Tokyo Anime Award Festival"
+  },
+  {
+    "id": "spy-x-family-anya-peanuts-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "anya-forger"
+    },
+    "field": "buzzword",
+    "value": "\"Anya likes peanuts\" topped the 2022 trending phrases of Japanese Generation Z",
+    "text": "In a FinT survey of Generation Z in Japan, the line about Anya liking peanuts came out as the most trending phrase of 2022.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "\"Anya likes peanuts\" (アーニャピーナッツが好き) was the no. 1 trending phrase of the year"
+  },
+  {
+    "id": "spy-x-family-voice-cast-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Takuya Eguchi (Loid)",
+      "Atsumi Tanezaki (Anya)",
+      "Saori Hayami (Yor)"
+    ],
+    "text": "Takuya Eguchi, Atsumi Tanezaki and Saori Hayami voice the three Forgers in the Japanese cast.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Voices of | Takuya Eguchi Atsumi Tanezaki Saori Hayami"
+  },
+  {
+    "id": "spy-x-family-operation-strix-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "mission",
+    "value": "Operation Strix",
+    "text": "Loid's mission is code-named Operation Strix, and Sylvia Sherwood is the handler who oversees it.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "oversees Operation Strix"
+  },
+  {
+    "id": "spy-x-family-loid-forger-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "loid-forger"
+    },
+    "field": "name",
+    "value": "Loid Forger (ロイド・フォージャー)",
+    "text": "Loid Forger is a main character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Anya Forger, Yor Forger, Yuri Briar and Fiona Frost"
+  },
+  {
+    "id": "spy-x-family-anya-forger-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "anya-forger"
+    },
+    "field": "name",
+    "value": "Anya Forger (アーニャ・フォージャー)",
+    "text": "Anya Forger is a main character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Damian Desmond and Becky Blackbell"
+  },
+  {
+    "id": "spy-x-family-yor-forger-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yor-forger"
+    },
+    "field": "name",
+    "value": "Yor Forger (ヨル・フォージャー)",
+    "text": "Yor Forger is a main character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "née Briar (ブライア, Buraia) /"
+  },
+  {
+    "id": "spy-x-family-bond-forger-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "bond-forger"
+    },
+    "field": "name",
+    "value": "Bond Forger (ボンド・フォージャー)",
+    "text": "Bond Forger is a main character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Yor Forger, Loid Forger, Anya Forger and Bond Forger"
+  },
+  {
+    "id": "spy-x-family-franky-franklin-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "franky-franklin"
+    },
+    "field": "name",
+    "value": "Franky Franklin (フランキー・フランクリン)",
+    "text": "Franky Franklin is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Furankī Furankurin)"
+  },
+  {
+    "id": "spy-x-family-sylvia-sherwood-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "sylvia-sherwood"
+    },
+    "field": "name",
+    "value": "Sylvia Sherwood (シルヴィア・シャーウッド)",
+    "text": "Sylvia Sherwood is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Shiruvia Shāuddo) /"
+  },
+  {
+    "id": "spy-x-family-henry-henderson-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "henry-henderson"
+    },
+    "field": "name",
+    "value": "Henry Henderson (ヘンリー・ヘンダーソン)",
+    "text": "Henry Henderson is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Henrī Hendāson)"
+  },
+  {
+    "id": "spy-x-family-yuri-briar-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yuri-briar"
+    },
+    "field": "name",
+    "value": "Yuri Briar (ユーリ・ブライア)",
+    "text": "Yuri Briar is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "and Fiona Frost"
+  },
+  {
+    "id": "spy-x-family-damian-desmond-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "damian-desmond"
+    },
+    "field": "name",
+    "value": "Damian Desmond (ダミアン・デズモンド)",
+    "text": "Damian Desmond is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Damian Dezumondo)"
+  },
+  {
+    "id": "spy-x-family-becky-blackbell-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "becky-blackbell"
+    },
+    "field": "name",
+    "value": "Becky Blackbell (ベッキー・ブラックベル)",
+    "text": "Becky Blackbell is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Bekkī Burakkuberu)"
+  },
+  {
+    "id": "spy-x-family-fiona-frost-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "fiona-frost"
+    },
+    "field": "name",
+    "value": "Fiona Frost (フィオナ・フロスト)",
+    "text": "Fiona Frost is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Fiona Furosuto) /"
+  },
+  {
+    "id": "spy-x-family-camilla-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "camilla"
+    },
+    "field": "name",
+    "value": "Camilla (カミラ)",
+    "text": "Camilla is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Millie (ミリー, Mirī)"
+  },
+  {
+    "id": "spy-x-family-millie-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "millie"
+    },
+    "field": "name",
+    "value": "Millie (ミリー)",
+    "text": "Millie is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Sharon (シャロン, Sharon)"
+  },
+  {
+    "id": "spy-x-family-sharon-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "sharon"
+    },
+    "field": "name",
+    "value": "Sharon (シャロン)",
+    "text": "Sharon is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Dominic (ドミニック, Dominikku)"
+  },
+  {
+    "id": "spy-x-family-emile-elman-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "emile-elman"
+    },
+    "field": "name",
+    "value": "Emile Elman (エミール・エルマン)",
+    "text": "Emile Elman is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Ewen Egeburg (ユーイン・エッジバーグ, Yūin Ejjibāgu)"
+  },
+  {
+    "id": "spy-x-family-ewen-egeburg-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "ewen-egeburg"
+    },
+    "field": "name",
+    "value": "Ewen Egeburg (ユーイン・エッジバーグ)",
+    "text": "Ewen Egeburg is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Shopkeeper (店長, Tenchō)"
+  },
+  {
+    "id": "spy-x-family-donovan-desmond-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "donovan-desmond"
+    },
+    "field": "name",
+    "value": "Donovan Desmond (ドノバン・デズモンド)",
+    "text": "Donovan Desmond is an antagonist of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Donoban Dezumondo)"
+  },
+  {
+    "id": "spy-x-family-dominic-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "dominic"
+    },
+    "field": "name",
+    "value": "Dominic (ドミニック)",
+    "text": "Dominic is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+        "ref": "1379031004",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Emile Elman (エミール・エルマン, Emīru Eruman)"
+  },
+  {
+    "id": "spy-x-family-melinda-desmond-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "melinda-desmond"
+    },
+    "field": "name",
+    "value": "Melinda Desmond (メリンダ・デズモンド)",
+    "text": "Melinda Desmond is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://ja.wikipedia.org/wiki/SPY%C3%97FAMILY",
+        "ref": "110690607",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "メリンダ・デズモンド（Melinda Desmond） 声 - 井上喜久子 ドノバンの妻で、ダミアンの母親。"
+  },
+  {
+    "id": "spy-x-family-martha-marriott-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "martha-marriott"
+    },
+    "field": "name",
+    "value": "Martha Marriott (マーサ・マリオット)",
+    "text": "Martha Marriott is a supporting character of Spy × Family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The butler of the Blackbell family and the primary caretaker of Becky Blackbell. She cares for and loves Becky genuinely, correcting her haughtiness and bad"
+  },
+  {
+    "id": "spy-x-family-code-white-cooking-contest-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "role",
+    "value": "cooking competition",
+    "text": "In the film Code: White, the class of Anya sets up a cooking contest, where the winner may gain a Stella star.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White",
+        "ref": "1374015513",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "Anya's class is holding a cooking competition, with the winner possibly earning a Stella star"
+  },
+  {
+    "id": "spy-x-family-code-white-meremere-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "fond_of",
+    "value": "Meremere",
+    "text": "The principal, who judges the contest, is a fan of a dessert named Meremere in the film Code: White.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White",
+        "ref": "1374015513",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "the judge, the principal, loves a dessert called Meremere"
+  },
+  {
+    "id": "spy-x-family-code-white-frigis-043",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "origin",
+    "value": "Frigis",
+    "text": "Meremere comes from Frigis, a city in the north, so Loid takes his family there.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White",
+        "ref": "1374015513",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "dessert called Meremere from the northern city of Frigis"
+  },
+  {
+    "id": "spy-x-family-code-white-chocolate-044",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "organization",
+    "value": "chocolate",
+    "text": "Anya opens a suitcase on the train and eats the chocolate inside, which hides a microfilm.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White",
+        "ref": "1374015513",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "She opens a suitcase and eats the chocolate inside, unaware that it contains a microfilm"
+  },
+  {
+    "id": "spy-x-family-code-white-snidel-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "occupation",
+    "value": "Colonel Snidel",
+    "text": "At a restaurant in Frigis, Colonel Snidel grabs the last Meremere right in front of the Forgers.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White",
+        "ref": "1374015513",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "only for Colonel Snidel, an Ostanian military officer, to seize it and humiliate Loid"
+  },
+  {
+    "id": "spy-x-family-code-white-cherry-liquor-046",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "background",
+    "value": "cherry liquor",
+    "text": "Cherry liquor is the last ingredient that Loid needs to bake the Meremere dessert.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_×_Family_Code:_White",
+        "ref": "1374015513",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "Loid tries to find cherry liquor, the final ingredient for Meremere"
+  },
+  {
+    "id": "spy-x-family-emile-sweet-food-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "emile-elman"
+    },
+    "field": "fond_of",
+    "value": "sweet food",
+    "text": "Emile Elman, a follower of Damian, has a sweet tooth.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "He is carefree, laidback and loves sweet food"
+  },
+  {
+    "id": "spy-x-family-bond-fears-yor-cooking-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "bond-forger"
+    },
+    "field": "habits",
+    "value": "fears Yor's cooking",
+    "text": "Bond tries hard to dodge the meals cooked by Yor, since his glimpse of the future told him they could kill him.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "Bond dreads Yor's cooking after his future sight once showed him that it could kill him"
+  },
+  {
+    "id": "spy-x-family-eden-stella-star-049",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "trademark",
+    "value": "Stella Star",
+    "text": "Eden Academy hands out a Stella Star as a reward for strong results in class or behaviour.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "Eden students are awarded with a Stella Star"
+  },
+  {
+    "id": "spy-x-family-eden-tonitrus-bolt-050",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "spy-x-family"
+    },
+    "field": "setting",
+    "value": "Tonitrus Bolt",
+    "text": "A Tonitrus Bolt is a mark of punishment at Eden Academy, the opposite of a Stella Star.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-25T18:56:13Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:13.000Z",
+    "excerpt": "may also be punished with a Tonitrus Bolt"
+  },
+  {
+    "id": "spy-x-family-yor-forger-voice-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yor-forger"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Saori Hayami"
+    ],
+    "text": "Yor Forger is voiced in Japanese by Saori Hayami.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_×_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q110177683",
+        "ref": "Q110177683",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Voiced by: Saori Hayami (Japanese)"
+  },
+  {
+    "id": "spy-x-family-loid-forger-disguises-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "loid-forger"
+    },
+    "field": "ability",
+    "value": "Master of disguise",
+    "text": "Loid is a master of disguise who takes on a different face and name for every mission.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "As a master of disguise, he uses various faces and names for each mission"
+  },
+  {
+    "id": "spy-x-family-loid-forger-pragmatic-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "loid-forger"
+    },
+    "field": "style",
+    "value": "Pragmatic on missions, soft at home",
+    "text": "On a mission Loid seems calculating and practical, and only gradually lets his family see a softer side.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "he appears manipulative and pragmatic when accomplishing his missions"
+  },
+  {
+    "id": "spy-x-family-loid-forger-psychiatrist-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "loid-forger"
+    },
+    "field": "occupation",
+    "value": "Psychiatrist at Berlint General Hospital",
+    "text": "By day Loid works as a psychiatrist at Berlint General Hospital.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "psychiatrist at Berlint General Hospital"
+  },
+  {
+    "id": "spy-x-family-anya-forger-innocent-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "anya-forger"
+    },
+    "field": "style",
+    "value": "Naive child",
+    "text": "Anya is a very innocent child who does not understand much of the world around her.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "very innocent and ignorant of the world around her"
+  },
+  {
+    "id": "spy-x-family-anya-forger-quick-witted-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "anya-forger"
+    },
+    "field": "talent",
+    "value": "Flexible and quick-witted",
+    "text": "For a child of her age Anya adapts well and thinks fast.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "quick-witted for a child her age"
+  },
+  {
+    "id": "spy-x-family-yor-forger-gentle-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yor-forger"
+    },
+    "field": "style",
+    "value": "Soft, caring, formal",
+    "text": "Yor is gentle and thoughtful toward others, and she speaks in a formal way.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "soft, caring, formally spoken and considerate to others"
+  },
+  {
+    "id": "spy-x-family-yor-forger-absent-minded-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yor-forger"
+    },
+    "field": "habits",
+    "value": "Absent-minded, poor at chores and cooking",
+    "text": "Yor can be scatterbrained and absent-minded, and she is weak at housework, cooking above all.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "not good with basic household chores, particularly cooking"
+  },
+  {
+    "id": "spy-x-family-bond-forger-loyal-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "bond-forger"
+    },
+    "field": "style",
+    "value": "Unconditional love and loyalty",
+    "text": "Bond is devoted to the Forgers and stays loyal to them without conditions.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "shows an unconditional love and steadfast loyalty to the Forgers"
+  },
+  {
+    "id": "spy-x-family-bond-forger-distracted-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "bond-forger"
+    },
+    "field": "quirks",
+    "value": "Easily distracted but smart and strong",
+    "text": "Bond loses focus easily, yet he is a clever and strong dog.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "Despite his easily-distracted nature, he is a smart and strong dog"
+  },
+  {
+    "id": "spy-x-family-damian-desmond-diligent-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "damian-desmond"
+    },
+    "field": "talent",
+    "value": "Diligent student, excels in History",
+    "text": "Damian studies diligently and does especially well in History.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "is diligent in his studies, and excels in History"
+  },
+  {
+    "id": "spy-x-family-damian-desmond-approval-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "damian-desmond"
+    },
+    "field": "motivation",
+    "value": "Works for his father's approval",
+    "text": "Damian works hard to win the attention and approval of his father.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "works hard to gain his father's attention and approval"
+  },
+  {
+    "id": "spy-x-family-becky-blackbell-adult-like-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "becky-blackbell"
+    },
+    "field": "style",
+    "value": "Tries to act more adult",
+    "text": "Becky, a first grader, often tries to behave in a more grown-up way than her age suggests.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "often tries to act more adult-like"
+  },
+  {
+    "id": "spy-x-family-becky-blackbell-admires-yor-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "becky-blackbell"
+    },
+    "field": "motivation",
+    "value": "Admires Yor for her strength",
+    "text": "Becky looks up to Yor because of her strength.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "admires Yor for her strength"
+  },
+  {
+    "id": "spy-x-family-yuri-briar-exemplary-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yuri-briar"
+    },
+    "field": "talent",
+    "value": "Exemplary at his job",
+    "text": "Yuri does his work to an exemplary standard.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "is exemplary at his job"
+  },
+  {
+    "id": "spy-x-family-yuri-briar-attached-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "yuri-briar"
+    },
+    "field": "style",
+    "value": "Very close to his sister",
+    "text": "Yuri is somewhat too attached to his sister.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "a bit too attached to his sister"
+  },
+  {
+    "id": "spy-x-family-franky-franklin-tobacconist-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "franky-franklin"
+    },
+    "field": "occupation",
+    "value": "Tobacconist by day, inventor in free time",
+    "text": "Franky runs a tobacco shop in the daytime and invents things in his spare time.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "works as a tobacconist during the day and an inventor in his free time"
+  },
+  {
+    "id": "spy-x-family-franky-franklin-caretaker-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "franky-franklin"
+    },
+    "field": "habits",
+    "value": "Often cares for Anya and Bond",
+    "text": "Franky is often the one who looks after Anya and Bond.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "frequently acts as a caretaker for Anya and Bond"
+  },
+  {
+    "id": "spy-x-family-franky-franklin-romance-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "franky-franklin"
+    },
+    "field": "style",
+    "value": "Hopeless in romance",
+    "text": "Franky has no luck at all in his romantic pursuits.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters",
+        "ref": "1373964762",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "hopeless in his romantic pursuits"
+  },
+  {
+    "id": "spy-x-family-loid-forger-spy-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "spy-x-family",
+      "ref": "loid-forger"
+    },
+    "field": "role",
+    "value": "Spy code-named Twilight",
+    "text": "Loid is the enigmatic spy known by the code name Twilight.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+        "ref": "1378380720",
+        "fetched_at": "2026-10-26T09:10:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T09:20:00.000Z",
+    "excerpt": "Agent Twilight, an enigmatic spy"
+  }
+]

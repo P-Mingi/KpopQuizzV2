@@ -1,0 +1,177 @@
+{
+  "site": "anime",
+  "account": "oq_creator_05",
+  "group_slug": "jujutsu-kaisen",
+  "title": "Jujutsu Kaisen True or False: Cursed Facts",
+  "slug": "jujutsu-kaisen-true-or-false-cursed-facts",
+  "description": "Ten statements about the manga, the anime and the film. One wrong detail is enough to make a statement false.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Gege Akutami is the sole creator of the Jujutsu Kaisen manga, handling both the writing and the drawing.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-manga-creator-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    },
+    {
+      "question": "The manga's worldwide circulation, digital editions included, has stayed below 100 million copies.",
+      "correct": false,
+      "fun_fact": "The manga has passed 150 million copies worldwide, digital editions included.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-copies-in-circulation-023"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    },
+    {
+      "question": "MAPPA is the animation studio behind all three TV seasons of Jujutsu Kaisen.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-animation-studio-014"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    },
+    {
+      "question": "Season 1 of the Jujutsu Kaisen anime was directed by Shota Goshozono.",
+      "correct": false,
+      "fun_fact": "Sunghoo Park directed season 1. Shota Goshozono took over from season 2.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-series-director-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_episodes"
+    },
+    {
+      "question": "The Japanese title 呪術廻戦 can be read roughly as Sorcery Battle.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-japanese-title-006"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    },
+    {
+      "question": "The film Jujutsu Kaisen 0 was the top earner at the Japanese box office in 2021.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-prequel-film-019"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0_(film)"
+    },
+    {
+      "question": "The Jujutsu Kaisen TV anime had its broadcast premiere in October 2018.",
+      "correct": false,
+      "fun_fact": "The broadcast premiere was on 3 October 2020.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-anime-premiere-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    },
+    {
+      "question": "Short clips called Juju Sanpo play after the credits from episode 3 of season 1.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-post-credits-shorts-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_1"
+    },
+    {
+      "question": "Yuji must swallow only five of Ryomen Sukuna's fingers to postpone his execution.",
+      "correct": false,
+      "fun_fact": "He must swallow all twenty.",
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-twenty-fingers-027"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    },
+    {
+      "question": "The Jujutsu Kaisen series took the Anime of the Year prize at the fifth Crunchyroll Anime Awards.",
+      "correct": true,
+      "fun_fact": "Its second season repeated the feat at the eighth ceremony.",
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jujutsu-kaisen-anime-of-the-year-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Jujutsu Kaisen",
+      "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: Jujutsu Kaisen (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
+    },
+    {
+      "id": "S4",
+      "title": "Wikipedia: List of Jujutsu Kaisen episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_episodes"
+    },
+    {
+      "id": "S5",
+      "title": "Wikipedia: Jujutsu Kaisen 0 (film)",
+      "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0_(film)"
+    },
+    {
+      "id": "S6",
+      "title": "Wikipedia: Jujutsu Kaisen season 1",
+      "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_1"
+    }
+  ],
+  "notes": "Statements mirror the fact texts; false ones change one detail. K1 rewrite: blocked statement rewritten on verified fact 023."
+}

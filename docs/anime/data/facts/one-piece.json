@@ -1,0 +1,2862 @@
+[
+  {
+    "id": "one-piece-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "title_native",
+    "value": "ワンピース (Wan Pīsu)",
+    "text": "In Japan the title is spelled in katakana as ワンピース, read Wan Pīsu, the same two words as the English name.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://ja.wikipedia.org/wiki/ONE_PIECE",
+        "ref": "111390446",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q28667972",
+        "ref": "Q28667972",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "『ONE PIECE』（ワンピース）は、尾田栄一郎による日本の少年漫画"
+  },
+  {
+    "id": "one-piece-manga-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "author",
+    "value": "Eiichiro Oda (story and art)",
+    "text": "Eiichiro Oda is the one person behind both the writing and the drawing of the One Piece manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1379784013",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q28667972",
+        "ref": "Q28667972",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Written and illustrated by Eiichiro Oda"
+  },
+  {
+    "id": "one-piece-magazine-run-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "magazine",
+    "value": "Weekly Shōnen Jump (Shueisha), since July 22, 1997",
+    "text": "Shueisha has run the manga in its weekly magazine Weekly Shōnen Jump since the summer of 1997, starting on 22 July.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1379784013",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q28667972",
+        "ref": "Q28667972",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "in the shōnen manga anthology Weekly Shōnen Jump since July 22, 1997"
+  },
+  {
+    "id": "one-piece-manga-volumes-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "manga_volumes",
+    "value": [
+      "115 volumes",
+      "as of July 3, 2026"
+    ],
+    "text": "By the start of July 2026 Shueisha had put out 115 collected volumes of the manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1379784013",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://one-piece.com/",
+        "fetched_at": "2026-10-23T17:27:34Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "By July 3, 2026, a total of 115 volumes have been released."
+  },
+  {
+    "id": "one-piece-anime-studio-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "anime_studio",
+    "value": [
+      "Toei Animation",
+      "Fuji Television",
+      "premiered October 1999"
+    ],
+    "text": "Toei Animation makes the anime, which began on Fuji Television in the autumn of 1999.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
+        "ref": "1381099585",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.oricon.co.jp/news/2210264/full/",
+        "fetched_at": "2026-10-24T16:30:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "produced by Toei Animation, premiering on Fuji Television"
+  },
+  {
+    "id": "one-piece-anime-size-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "anime_size",
+    "value": [
+      "1180 episodes by late September 2026",
+      "22 seasons, per the Japanese home video release"
+    ],
+    "text": "The long running TV anime had reached 1180 episodes by late September 2026, grouped into 22 seasons on its Japanese home video release.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_episodes",
+        "ref": "1377046168",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "As of September 27, 2026, the anime series has aired 1180 episodes."
+  },
+  {
+    "id": "one-piece-arcs-1-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "arcs_a",
+    "value": [
+      "1: Romance Dawn, chapters 1-7, episodes 1-4",
+      "2: Orange Town, chapters 8-21, episodes 5-8",
+      "3: Syrup Village, chapters 22-41, episodes 9-18",
+      "4: Baratie, chapters 42-68, episodes 19-30",
+      "5: Arlong Park, chapters 69-95, episodes 31-44",
+      "6: Loguetown, chapters 96-100, episodes 45-53",
+      "7: Warship Island (anime only), episodes 54-61",
+      "8: Reverse Mountain / Into the Grand Line, chapters 101-105, episodes 62-63",
+      "9: Whiskey Peak, chapters 106-114, episodes 64-67",
+      "10: Little Garden, chapters 115-129, episodes 70-77",
+      "11: Drum Island, chapters 130-154, episodes 78-91",
+      "12: Alabasta, chapters 155-217, episodes 92-130",
+      "13: Dreams! (anime only), episodes 131-135",
+      "14: Goat Island / The Zenny Pirate Crew Sortie! (anime only), episodes 136-138",
+      "15: Ruluka Island / Beyond the Rainbow (anime only), episodes 139-143"
+    ],
+    "text": "The first fifteen story arcs run from Romance Dawn to the Skypiea area, with the chapter and episode span of each; the anime-only ones are marked.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 15,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1379784013",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Romance Dawn | 1-7 | 1 | S1 | 1-4 | S1 | 1 | Orange Town | 8-21 | 1-4 | S1 | 5-8"
+  },
+  {
+    "id": "one-piece-arcs-2-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "arcs_b",
+    "value": [
+      "16: Jaya, chapters 218-236, episodes 144-152",
+      "17: Skypiea, chapters 237-302, episodes 153-195",
+      "18: G-8 / The Naval Fortress (anime only), episodes 196-206",
+      "19: Long Ring Long Land / The Foxy Pirate Crew, chapters 303-321, episodes 207-219",
+      "20: Ocean's Dream (anime only), episodes 220-224",
+      "21: Foxy's Return (anime only), episodes 225-228",
+      "22: Water 7, chapters 322-374, episodes 229-263",
+      "23: Enies Lobby, chapters 375-441, episodes 264-325",
+      "24: Ice Hunter (anime only), episodes 326-335",
+      "25: Chopper Man (anime only), episode 336",
+      "26: Thriller Bark, chapters 442-489, episodes 337-381",
+      "27: Spa Island (anime only), episodes 382-384",
+      "28: Sabaody Archipelago, chapters 490-513, episodes 385-405",
+      "29: Amazon Lily / Island of Women, chapters 514-524, episodes 408-417",
+      "30: Impel Down, chapters 525-549, episodes 422-458"
+    ],
+    "text": "The middle arcs run from the Sky Island stretch through Water 7, Thriller Bark and the Summit War, with chapter and episode spans and the anime-only fillers marked.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 30,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1379784013",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Goat Island / The Zenny Pirate Crew Sortie! | -N/a | S5 | 136-138"
+  },
+  {
+    "id": "one-piece-arcs-3-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "arcs_c",
+    "value": [
+      "31: Marineford / Paramount War, chapters 550-597, episodes 459-516",
+      "32: Return to Sabaody, chapters 598-602, episodes 517-522",
+      "33: Fish-Man Island, chapters 603-653, episodes 523-574",
+      "34: Z's Ambition (anime only), episodes 575-578",
+      "35: Punk Hazard, chapters 654-699, episodes 579-625",
+      "36: Caesar Retrieval (anime only), episodes 626-628",
+      "37: Dressrosa, chapters 700-801, episodes 629-746",
+      "38: Silver Mine (anime only), episodes 747-750",
+      "39: Zou, chapters 802-822, episodes 751-779",
+      "40: Marine Rookie (anime only), episodes 780-782",
+      "41: Whole Cake Island, chapters 823-908, episodes 783-891",
+      "42: Land of Wano, Act One, chapters 909-924, episodes 892-916",
+      "43: Land of Wano, Act Two, chapters 925-955, episodes 917-956",
+      "44: Land of Wano, Act Three, chapters 956-1057, episodes 957-1088",
+      "45: Egghead, chapters 1058-1125, episodes 1089-1155",
+      "46: Elbaph, chapters from 1126, episodes from 1156"
+    ],
+    "text": "The last arcs run from the Fish-Man Island stretch through Dressrosa, Whole Cake Island and Wano to Egghead and Elbaph, with the anime-only fillers marked.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 46,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1379784013",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Whole Cake Island | 823-908 | 82-90 | S19 | 783-891"
+  },
+  {
+    "id": "one-piece-themes-op-a-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "themes_op_a",
+    "value": [
+      "OP 1: We Are! - Hiroshi Kitadani",
+      "OP 2: Believe - Folder 5",
+      "OP 3: Hikari e - The Babystars",
+      "OP 4: Bon Voyage! - Bon-Bon Blanco",
+      "OP 5: Kokoro no Chizu - Boystyle",
+      "OP 6: Brand New World - D-51",
+      "OP 7: We Are! (7 Straw Hat Pirates Ver.) - 7 Straw Hat Pirates",
+      "OP 8: Crazy Rainbow - Tackey & Tsubasa",
+      "OP 9: Jungle P - 5050",
+      "OP 10: We Are! (One Piece Animation 10th Anniversary Ver.) - TVXQ",
+      "OP 11: Share the World! - TVXQ",
+      "OP 12: Kaze o Sagashite - Mari Yaguchi with the Straw Hats",
+      "OP 13: One Day - The Rootless",
+      "OP 14: Fight Together - Namie Amuro",
+      "OP 15: We Go! - Hiroshi Kitadani"
+    ],
+    "text": "The first fifteen openings begin with We Are! by Hiroshi Kitadani and include pop acts such as Folder 5, TVXQ and Namie Amuro.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
+        "ref": "1381099585",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "\"Believe\" | Folder 5 | Meredith McCoy | 48-115"
+  },
+  {
+    "id": "one-piece-themes-op-b-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "themes_op_b",
+    "value": [
+      "OP 16: Hands Up! - Kota Shinzato",
+      "OP 17: Wake Up! - AAA",
+      "OP 18: Hard Knock Days - Generations from Exile Tribe",
+      "OP 19: We Can! - Kishidan and Hiroshi Kitadani",
+      "OP 20: Hope - Namie Amuro",
+      "OP 21: Super Powers - V6",
+      "OP 22: Over the Top - Hiroshi Kitadani",
+      "OP 23: Dreamin' On - Da-ice",
+      "OP 24: Paint - I Don't Like Mondays.",
+      "OP 25: The Peak - Sekai no Owari",
+      "OP 26: Uuuuus! - Hiroshi Kitadani",
+      "OP 27: Angels and Demons - Gre4n Boyz",
+      "OP 28: Carmine - Ellegarden",
+      "OP 29: Luminous - Aina the End"
+    ],
+    "text": "Openings 16 to 29 run from Hands Up! to Luminous, and include groups like AAA, V6 and Sekai no Owari plus a return of Hiroshi Kitadani.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
+        "ref": "1381099585",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "\"Wake Up!\" | AAA | 629-686"
+  },
+  {
+    "id": "one-piece-themes-ed-a-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "themes_ed_a",
+    "value": [
+      "ED 1: Memories - Maki Otsuki",
+      "ED 2: Run! Run! Run! - Maki Otsuki",
+      "ED 3: Watashi ga Iru Yo - Tomato Cube",
+      "ED 4: Shōchi no Suke - Suitei Shojo",
+      "ED 5: Before Dawn - Ai-Sachi",
+      "ED 6: Fish - The Kaleidoscope",
+      "ED 7: Glory -Kimi ga Iru Kara- - Takako Uehara",
+      "ED 8: Shining Ray - Janne da Arc",
+      "ED 9: Free Will - Ruppina",
+      "ED 10: Faith - Ruppina",
+      "ED 11: A to Z (One Piece Edition) - ZZ",
+      "ED 12: Tsuki to Taiyō - Shela"
+    ],
+    "text": "The first twelve ending songs open with Memories by Maki Otsuki and finish with Tsuki to Taiyō by Shela.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
+        "ref": "1381099585",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "\"Memories\" | Maki Otsuki | Brina Palencia | 1-30"
+  },
+  {
+    "id": "one-piece-themes-ed-b-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "themes_ed_b",
+    "value": [
+      "ED 13: Dreamship - Aiko Ikuta",
+      "ED 14: Mirai Kōkai - Tackey & Tsubasa",
+      "ED 15: Eternal Pose - Asia Engineer",
+      "ED 16: Dear Friends - Triplane",
+      "ED 17: Asu wa Kuru Kara - TVXQ",
+      "ED 18: Adventure World - Delicatessen",
+      "ED 19: Raise - Chilli Beans.",
+      "ED 20: Dear Sunrise - Maki Otsuki",
+      "ED 21: The 1 - Muque",
+      "ED 22: Punks - Chameleon Lime Whoopie Pie",
+      "ED 23: Sono Mirai - 36km/h"
+    ],
+    "text": "Endings 13 to 23 lead from Dreamship to Sono Mirai, the ending that began with the Elbaph arc in 2026.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
+        "ref": "1381099585",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "\"Dear Sunrise\" | Maki Otsuki | 1089-1122"
+  },
+  {
+    "id": "one-piece-cast-first-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "characters_a",
+    "value": [
+      "Monkey D. Luffy (モンキー・D・ルフィ)",
+      "Roronoa Zoro (ロロノア・ゾロ)",
+      "Shanks (シャンクス)",
+      "Gol D. Roger (ゴール・D・ロジャー)",
+      "Nami (ナミ)",
+      "Buggy (道化のバギー)",
+      "Usopp (ウソップ)",
+      "Sanji (サンジ)",
+      "Dracule Mihawk (ジュラキュール・ミホーク)",
+      "Smoker (スモーカー)",
+      "Monkey D. Dragon (モンキー・D・ドラゴン)",
+      "Nefertari Vivi (ネフェルタリ・ビビ)",
+      "Tony Tony Chopper (トニートニー・チョッパー)",
+      "Crocodile (クロコダイル)",
+      "Portgas D. Ace (ポートガス・D・エース)"
+    ],
+    "text": "The first group of the cast runs from Luffy, Zoro and Shanks through the East Blue crowd to Princess Vivi, Crocodile and Ace.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 12,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "the thief and navigator Nami; the cowardly marksman and inventor Usopp"
+  },
+  {
+    "id": "one-piece-cast-second-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "characters_b",
+    "value": [
+      "Nico Robin (ニコ・ロビン)",
+      "Eneru (エネル)",
+      "Franky (フランキー)",
+      "Rob Lucci (ロブ・ルッチ)",
+      "Brook (ブルック)",
+      "Trafalgar Law (トラファルガー・ロー)",
+      "Eustass Kid (ユースタス・キッド)",
+      "Boa Hancock (ボア・ハンコック)",
+      "Edward Newgate (白ひげ)",
+      "Sakazuki (サカズキ)",
+      "Donquixote Doflamingo (ドンキホーテ・ドフラミンゴ)",
+      "Sabo (サボ)",
+      "Charlotte Linlin (シャーロット・リンリン)",
+      "Kaido (カイドウ)",
+      "Yamato (ヤマト)"
+    ],
+    "text": "The second group of the cast covers the later crew members, the Warlords, the Marine admiral, the Emperors and Yamato.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 44,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Sabo (サボ) is the chief of staff of the Revolutionary Army and sworn brother to Monkey D. Luffy and Portgas D. Ace"
+  },
+  {
+    "id": "one-piece-copies-in-print-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "copies",
+    "value": "more than 600 million copies worldwide, March 2026",
+    "text": "Printed circulation worldwide had grown past six hundred million copies by the spring of 2026, the highest total of any manga.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1379784013",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "By March 2026, it had over 600 million copies in circulation worldwide"
+  },
+  {
+    "id": "one-piece-guinness-record-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "record",
+    "value": "Guinness World Record, 2015 and 2022",
+    "text": "Guinness World Records recognized Oda in 2015 and again in 2022 for the most copies published of one comic series by a single author.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1379784013",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "In 2015 and 2022, it set the Guinness World Record for \"most copies published for the same comic book series by a single author\""
+  },
+  {
+    "id": "one-piece-luffy-rubber-fruit-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "monkey-d-luffy"
+    },
+    "field": "devil_fruit",
+    "value": "Gum-Gum Fruit",
+    "text": "Luffy swallowed the Gum-Gum Fruit by mistake, which turned his body into rubber.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1379784013",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "a young man whose body has the properties of rubber after unintentionally eating the Gum-Gum Fruit"
+  },
+  {
+    "id": "one-piece-anime-composers-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "music_composers",
+    "value": [
+      "Kohei Tanaka",
+      "Shiro Hamaguchi"
+    ],
+    "text": "Kohei Tanaka and Shiro Hamaguchi wrote the music for the anime.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
+        "ref": "1381099585",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Kohei Tanaka and Shiro Hamaguchi composed the score for One Piece"
+  },
+  {
+    "id": "one-piece-4kids-dub-cut-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "english_dub",
+    "value": "4Kids cut the first 143 episodes down to 104",
+    "text": "The early English dub by 4Kids trimmed the first 143 episodes to 104 through edits for content and running time.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
+        "ref": "1381099585",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "which reduced the first 143 episodes into 104"
+  },
+  {
+    "id": "one-piece-we-are-episode-1000-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "op1_episodes",
+    "value": [
+      "OP 1: We Are!",
+      "episodes 1-47 and 1000"
+    ],
+    "text": "We Are! served as the opening for the first 47 episodes and made a comeback for episode 1000.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
+        "ref": "1381099585",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "1-47, 1000 | 48 | 2"
+  },
+  {
+    "id": "one-piece-viz-license-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "license",
+    "value": [
+      "Viz Media (North America and United Kingdom)",
+      "Madman Entertainment (Australia)"
+    ],
+    "text": "Viz Media holds the English license for North America and the United Kingdom, while Madman Entertainment covers Australia.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1379784013",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "licensed for an English-language release in North America and the United Kingdom by Viz Media"
+  },
+  {
+    "id": "one-piece-live-action-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "live_action",
+    "value": "Netflix series, 2023",
+    "text": "Netflix put out a live-action One Piece television series in 2023.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1379784013",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Netflix released a live-action TV series in 2023."
+  },
+  {
+    "id": "one-piece-semi-seasonal-format-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "broadcast_format",
+    "value": "two cours per year from April 2026",
+    "text": "From April 2026 the anime moved away from its year-round weekly schedule to two split cours each year.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_episodes",
+        "ref": "1377046168",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "shifted its broadcast schedule to a semi-seasonal format in April 2026"
+  },
+  {
+    "id": "one-piece-elbaph-anime-start-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "elbaph_anime",
+    "value": "April 5, 2026",
+    "text": "The anime began adapting the Elbaph arc on 5 April 2026, after a short break at the start of that year.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 46,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
+        "ref": "1381099585",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "It resumed with the Elbaph arc on April 5, 2026"
+  },
+  {
+    "id": "one-piece-roger-treasure-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "gol-d-roger"
+    },
+    "field": "treasure",
+    "value": "the One Piece",
+    "text": "Luffy's journey aims at the treasure left behind by the late King of the Pirates, which is named the One Piece.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1379784013",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "the deceased King of the Pirates Gold Roger's ultimate treasure known as the \"One Piece\""
+  },
+  {
+    "id": "one-piece-straw-hat-roster-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "crew_roles",
+    "value": [
+      "Roronoa Zoro: swordsman",
+      "Nami: thief and navigator",
+      "Usopp: marksman and inventor",
+      "Sanji: cook",
+      "Tony Tony Chopper: reindeer and doctor",
+      "Nico Robin: archaeologist",
+      "Franky: cyborg shipwright",
+      "Brook: living skeleton musician",
+      "Jimbei: Fish-Man helmsman"
+    ],
+    "text": "Besides Luffy the Straw Hat crew holds a swordsman, a navigator, a marksman, a cook, a doctor, an archaeologist, a shipwright, a musician and a helmsman.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 44,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "the cook and modified human Sanji; the anthropomorphic reindeer and doctor Tony Tony Chopper"
+  },
+  {
+    "id": "one-piece-wano-longest-season-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "longest_season",
+    "value": [
+      "Wano Country",
+      "197 episodes"
+    ],
+    "text": "The Wano Country season is the longest of the 22 home media seasons, with 197 episodes.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 42,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_episodes",
+        "ref": "1377046168",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "20 | Wano Country | 197 | July 7, 2019"
+  },
+  {
+    "id": "one-piece-tv-original-season-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "filler_season",
+    "value": [
+      "Season 5: TV Original",
+      "13 episodes"
+    ],
+    "text": "Season 5 of the home media release carries the title TV Original, since its 13 episodes are new stories made for the anime.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_episodes",
+        "ref": "1377046168",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "5 | TV Original | 13 | November 3, 2002"
+  },
+  {
+    "id": "one-piece-wit-studio-remake-030",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "new_anime",
+    "value": "Wit Studio series, 2027",
+    "text": "A second anime adaptation, made by Wit Studio, is planned for 2027.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1379784013",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Another anime series produced by Wit Studio is scheduled to premiere in 2027."
+  },
+  {
+    "id": "one-piece-monkey-d-luffy-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "monkey-d-luffy"
+    },
+    "field": "name",
+    "value": "Monkey D. Luffy (モンキー・D・ルフィ)",
+    "text": "Monkey D. Luffy is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q477948",
+        "ref": "Q477948",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the series' main protagonist, a young pirate who wishes to succeed Gold Roger, the deceased King of the Pirates, by finding his treasure"
+  },
+  {
+    "id": "one-piece-roronoa-zoro-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "roronoa-zoro"
+    },
+    "field": "name",
+    "value": "Roronoa Zoro (ロロノア・ゾロ)",
+    "text": "Roronoa Zoro is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q858432",
+        "ref": "Q858432",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "the three-sword-wielding combatant Roronoa Zoro (sometimes referred to as Roronoa Zolo in the English manga)"
+  },
+  {
+    "id": "one-piece-shanks-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "shanks"
+    },
+    "field": "name",
+    "value": "Shanks (シャンクス)",
+    "text": "Shanks is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2321523",
+        "ref": "Q2321523",
+        "fetched_at": "2026-10-23T14:21:09Z"
+      },
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Wikidata Q2321523: fictional character from One Piece, Japanese label シャンクス"
+  },
+  {
+    "id": "one-piece-gol-d-roger-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "gol-d-roger"
+    },
+    "field": "name",
+    "value": "Gol D. Roger (ゴール・D・ロジャー)",
+    "text": "Gol D. Roger is a character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2619344",
+        "ref": "Q2619344",
+        "fetched_at": "2026-10-23T14:21:09Z"
+      },
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Wikidata Q2619344: fictional character from One Piece, Japanese label ゴール・D・ロジャー"
+  },
+  {
+    "id": "one-piece-nami-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "nami"
+    },
+    "field": "name",
+    "value": "Nami (ナミ)",
+    "text": "Nami is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q877964",
+        "ref": "Q877964",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "and Usopp, and the longtime home of Sanji. Pirate King Gol D. Roger was born and executed at Loguetown, an"
+  },
+  {
+    "id": "one-piece-buggy-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "buggy"
+    },
+    "field": "name",
+    "value": "Buggy (道化のバギー)",
+    "text": "Buggy is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2605496",
+        "ref": "Q2605496",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Orange Town is a town that was under the control of Buggy's Band of Pirates, until they were defeated by Luffy, Zoro and Nami."
+  },
+  {
+    "id": "one-piece-usopp-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "usopp"
+    },
+    "field": "name",
+    "value": "Usopp (ウソップ)",
+    "text": "Usopp is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1078696",
+        "ref": "Q1078696",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "East Blue is the birthplace of Luffy, Zoro, Nami, and Usopp, and the longtime home of Sanji. Pirate King Gol D. Roger was born and executed at Loguetown, an"
+  },
+  {
+    "id": "one-piece-sanji-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "sanji"
+    },
+    "field": "name",
+    "value": "Sanji (サンジ)",
+    "text": "Sanji is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The Baratie is an ocean-going restaurant where Sanji worked."
+  },
+  {
+    "id": "one-piece-dracule-mihawk-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "dracule-mihawk"
+    },
+    "field": "name",
+    "value": "Dracule Mihawk (ジュラキュール・ミホーク)",
+    "text": "Dracule Mihawk is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2640110",
+        "ref": "Q2640110",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Shanks Bartholomew Kuma, Smoker, Whitebeard, Koby</"
+  },
+  {
+    "id": "one-piece-smoker-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "smoker"
+    },
+    "field": "name",
+    "value": "Smoker (スモーカー)",
+    "text": "Smoker is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2727057",
+        "ref": "Q2727057",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      },
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Wikidata Q2727057: fictional character from One Piece, English label or alias Smoker, Japanese label スモーカー"
+  },
+  {
+    "id": "one-piece-monkey-d-dragon-name-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "monkey-d-dragon"
+    },
+    "field": "name",
+    "value": "Monkey D. Dragon (モンキー・D・ドラゴン)",
+    "text": "Monkey D. Dragon is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "commonly known simply as \"Dragon the Revolutionary\", is the father of Monkey D. Luffy and the son of the"
+  },
+  {
+    "id": "one-piece-nefertari-vivi-name-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "nefertari-vivi"
+    },
+    "field": "name",
+    "value": "Nefertari Vivi (ネフェルタリ・ビビ)",
+    "text": "Nefertari Vivi is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 12,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2486996",
+        "ref": "Q2486996",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is Cobra and Titi's daughter and the princess of Alabasta."
+  },
+  {
+    "id": "one-piece-tony-tony-chopper-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "tony-tony-chopper"
+    },
+    "field": "name",
+    "value": "Tony Tony Chopper (トニートニー・チョッパー)",
+    "text": "Tony Tony Chopper is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1152213",
+        "ref": "Q1152213",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Kureha (くれは): She is a doctor in her 100s who took in Tony Tony Chopper following Hiriluk's death. She and Tony Tony Chopper were responsible for curing Nami"
+  },
+  {
+    "id": "one-piece-crocodile-name-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "crocodile"
+    },
+    "field": "name",
+    "value": "Crocodile (クロコダイル)",
+    "text": "Crocodile is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 12,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2726975",
+        "ref": "Q2726975",
+        "fetched_at": "2026-10-23T14:21:09Z"
+      },
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Wikidata Q2726975: fictional character from One Piece, Japanese label クロコダイル"
+  },
+  {
+    "id": "one-piece-portgas-d-ace-name-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "portgas-d-ace"
+    },
+    "field": "name",
+    "value": "Portgas D. Ace (ポートガス・D・エース)",
+    "text": "Portgas D. Ace is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 12,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Portgas D. Rouge (ポートガス・D・ルージュ, Pōtogasu Dī Rūju): She was the lover of Gol D. Roger and the mother of Portgas D. Ace. Portgas delayed her pregnancy for twenty"
+  },
+  {
+    "id": "one-piece-nico-robin-name-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "nico-robin"
+    },
+    "field": "name",
+    "value": "Nico Robin (ニコ・ロビン)",
+    "text": "Nico Robin is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 23,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1190653",
+        "ref": "Q1190653",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "West Blue is the birthplace of Nico Robin and Brook."
+  },
+  {
+    "id": "one-piece-eneru-name-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "eneru"
+    },
+    "field": "name",
+    "value": "Eneru (エネル)",
+    "text": "Eneru is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "was the \"God\" of Skypiea. He originates from Birka before destroying it, arriving at Skypiea, and annexing the region from Gan Fall. Though \"God\""
+  },
+  {
+    "id": "one-piece-franky-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "franky"
+    },
+    "field": "name",
+    "value": "Franky (フランキー)",
+    "text": "Franky is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 22,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1190670",
+        "ref": "Q1190670",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Family which was led by Franky before joining the Straw Hat Crew. The group include:"
+  },
+  {
+    "id": "one-piece-rob-lucci-name-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "rob-lucci"
+    },
+    "field": "name",
+    "value": "Rob Lucci (ロブ・ルッチ)",
+    "text": "Rob Lucci is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 22,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3938161",
+        "ref": "Q3938161",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "with Hattori, Foxy Arlong, Eneru, Don Krieg (Bottom) <"
+  },
+  {
+    "id": "one-piece-brook-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "brook"
+    },
+    "field": "name",
+    "value": "Brook (ブルック)",
+    "text": "Brook is a main character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 26,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q4376780",
+        "ref": "Q4376780",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "West Blue is the birthplace of Nico Robin and Brook."
+  },
+  {
+    "id": "one-piece-trafalgar-law-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "trafalgar-law"
+    },
+    "field": "name",
+    "value": "Trafalgar Law (トラファルガー・ロー)",
+    "text": "Trafalgar Law is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 28,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3997231",
+        "ref": "Q3997231",
+        "fetched_at": "2026-10-23T14:18:30Z"
+      },
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Wikidata Q3997231: fictional character from One Piece, Japanese label トラファルガー・ロー"
+  },
+  {
+    "id": "one-piece-eustass-kid-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "eustass-kid"
+    },
+    "field": "name",
+    "value": "Eustass Kid (ユースタス・キッド)",
+    "text": "Eustass Kid is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 28,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q5148704",
+        "ref": "Q5148704",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      },
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Wikidata Q5148704: fictional character from One Piece, English label or alias Eustass Kid, Japanese label ユースタス・キッド"
+  },
+  {
+    "id": "one-piece-boa-hancock-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "boa-hancock"
+    },
+    "field": "name",
+    "value": "Boa Hancock (ボア・ハンコック)",
+    "text": "Boa Hancock is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 29,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2359852",
+        "ref": "Q2359852",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "'s attendants in her castle, where she works as a lady's maid. Genista is voiced by Ikue Ōtani in the original"
+  },
+  {
+    "id": "one-piece-edward-newgate-name-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "edward-newgate"
+    },
+    "field": "name",
+    "value": "Edward Newgate (白ひげ)",
+    "text": "Edward Newgate is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 31,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2720493",
+        "ref": "Q2720493",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      },
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Wikidata Q2720493: fictional character from One Piece, English label or alias Edward Newgate, Japanese label 白ひげ"
+  },
+  {
+    "id": "one-piece-sakazuki-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "sakazuki"
+    },
+    "field": "name",
+    "value": "Sakazuki (サカズキ)",
+    "text": "Sakazuki is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 31,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q858559",
+        "ref": "Q858559",
+        "fetched_at": "2026-10-23T14:18:30Z"
+      },
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Wikidata Q858559: fictional character from One Piece, Japanese label サカズキ"
+  },
+  {
+    "id": "one-piece-donquixote-doflamingo-name-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "donquixote-doflamingo"
+    },
+    "field": "name",
+    "value": "Donquixote Doflamingo (ドンキホーテ・ドフラミンゴ)",
+    "text": "Donquixote Doflamingo is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 31,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1404614",
+        "ref": "Q1404614",
+        "fetched_at": "2026-10-23T14:21:09Z"
+      },
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Wikidata Q1404614: fictional character from One Piece, Japanese label ドンキホーテ・ドフラミンゴ"
+  },
+  {
+    "id": "one-piece-sabo-name-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "sabo"
+    },
+    "field": "name",
+    "value": "Sabo (サボ)",
+    "text": "Sabo is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 37,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the chief of staff of the Revolutionary Army and sworn brother to Monkey D. Luffy and Portgas D. Ace. Introduced as a noble from the Goa Kingdom"
+  },
+  {
+    "id": "one-piece-charlotte-linlin-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "charlotte-linlin"
+    },
+    "field": "name",
+    "value": "Charlotte Linlin (シャーロット・リンリン)",
+    "text": "Charlotte Linlin is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 41,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q25399069",
+        "ref": "Q25399069",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      },
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Wikidata Q25399069: fictional character from One Piece, English label or alias Charlotte Linlin, Japanese label シャーロット・リンリン"
+  },
+  {
+    "id": "one-piece-kaido-name-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "kaido"
+    },
+    "field": "name",
+    "value": "Kaido (カイドウ)",
+    "text": "Kaido is an antagonist of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 42,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22933371",
+        "ref": "Q22933371",
+        "fetched_at": "2026-10-23T14:15:07Z"
+      },
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Wikidata Q22933371: fictional character from One Piece, English label or alias Kaido, Japanese label カイドウ"
+  },
+  {
+    "id": "one-piece-yamato-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "yamato"
+    },
+    "field": "name",
+    "value": "Yamato (ヤマト)",
+    "text": "Yamato is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 44,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1380127867",
+        "fetched_at": "2026-10-20T21:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "also known as \"Ogre Princess\" (鬼姫, Onihime), is Kaido's daughter. Yamato idolizes Kozuki Oden to the point of adopting male pronouns to be more"
+  },
+  {
+    "id": "one-piece-luffy-stomach-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "monkey-d-luffy"
+    },
+    "field": "habits",
+    "value": "huge appetite, thinks with his stomach",
+    "text": "Luffy eats so much and so eagerly that the story shows him letting his stomach do his thinking.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Monkey_D._Luffy",
+        "ref": "1379660000",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "often thinking with his stomach and comically gorging himself"
+  },
+  {
+    "id": "one-piece-zoro-sake-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "roronoa-zoro"
+    },
+    "field": "fond_of",
+    "value": "sake",
+    "text": "Zoro enjoys sake nearly as much as Luffy enjoys meat, yet his strong constitution means he never gets drunk.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Roronoa_Zoro",
+        "ref": "1380100680",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "He also likes sake, almost as much as Luffy likes meat"
+  },
+  {
+    "id": "one-piece-zoro-onigiri-pun-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "roronoa-zoro"
+    },
+    "field": "technique",
+    "value": "Onigiri, a pun on the rice ball",
+    "text": "Zoro's signature technique is Onigiri: its characters mean a demon cut, but spoken aloud it is the Japanese word for a rice ball.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/One_Piece",
+        "ref": "1381646993",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "Zoro's signature move is Onigiri, which is written as demon cut but is pronounced the same as rice ball"
+  },
+  {
+    "id": "one-piece-sanji-all-blue-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "sanji"
+    },
+    "field": "motivation",
+    "value": "All Blue, a sea of every fish",
+    "text": "Sanji dreams of reaching the All Blue, a legendary sea where the four Blues meet and where fish of every kind can be found.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Straw_Hats",
+        "ref": "1379529411",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "containing every kind of fish in the world"
+  },
+  {
+    "id": "one-piece-zeff-teaches-sanji-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "sanji"
+    },
+    "field": "background",
+    "value": "learned cooking from Zeff at the Baratie",
+    "text": "Sanji learned his cooking from Zeff, the former pirate who owns the floating restaurant Baratie and also showed him how to fight with his legs.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sanji_(One_Piece)",
+        "ref": "1381413387",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "who taught him cooking and his fighting style"
+  },
+  {
+    "id": "one-piece-gin-fed-by-sanji-066",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "one-piece"
+    },
+    "field": "role",
+    "value": "Gin, fed by Sanji at the Baratie",
+    "text": "Gin, the combat commander of Krieg's crew, turns up at the Baratie starving, and Sanji's gift of a meal makes him thankful to the cook.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_pirates",
+        "ref": "1379094181",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "He arrived at the Baratie restaurant hungry, being saved by Sanji, who offered him a plate of food"
+  },
+  {
+    "id": "one-piece-sanji-kicks-protect-hands-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "sanji"
+    },
+    "field": "style",
+    "value": "kicks only, to protect his hands",
+    "text": "Sanji will not use his hands in a fight, since a cook depends on them, so every attack of his is a kick.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sanji_(One_Piece)",
+        "ref": "1381413387",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "never punching opponents because of his belief that a cook's hands are important instruments"
+  },
+  {
+    "id": "one-piece-nami-tangerine-tattoo-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "nami"
+    },
+    "field": "trademark",
+    "value": "tangerine and pinwheel tattoo",
+    "text": "After the mark of Arlong's crew is removed from Nami's arm, she wears a new tattoo that shows a tangerine beside a pinwheel.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Nami_(One_Piece)",
+        "ref": "1375323378",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "replaced with a symbol of a tangerine and pinwheel on her left bicep"
+  },
+  {
+    "id": "one-piece-chopper-cotton-candy-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "tony-tony-chopper"
+    },
+    "field": "nickname",
+    "value": "Cotton Candy Lover",
+    "text": "Chopper's sweet tooth gives him a pet name: the reindeer doctor is called the Cotton Candy Lover.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tony_Tony_Chopper",
+        "ref": "1381333806",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "otherwise known as \"Cotton Candy Lover\""
+  },
+  {
+    "id": "one-piece-franky-cola-fuel-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "franky"
+    },
+    "field": "power",
+    "value": "cola",
+    "text": "Franky keeps his cyborg body running by drinking bottles of cola from a fridge built into his abdomen.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 22,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Franky_(One_Piece)",
+        "ref": "1381620266",
+        "fetched_at": "2026-10-25T18:56:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:58:01.000Z",
+    "excerpt": "Franky recharges his energy by drinking cola from glass bottles"
+  },
+  {
+    "id": "one-piece-luffy-carefree-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "monkey-d-luffy"
+    },
+    "field": "style",
+    "value": "cheerful and carefree",
+    "text": "Luffy is cheerful and carefree, and he rarely stops to worry about what his actions will cost.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Monkey_D._Luffy",
+        "ref": "1379660000",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "Usually cheerful and carefree"
+  },
+  {
+    "id": "one-piece-luffy-loyal-captain-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "monkey-d-luffy"
+    },
+    "field": "motivation",
+    "value": "loyal captain, many friends",
+    "text": "As captain Luffy is fiercely loyal to his crew, and he makes friends wherever he goes.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Monkey_D._Luffy",
+        "ref": "1379660000",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "an extremely loyal captain"
+  },
+  {
+    "id": "one-piece-zoro-train-or-nap-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "roronoa-zoro"
+    },
+    "field": "habits",
+    "value": "training or sleeping",
+    "text": "Between fights Zoro is usually found napping or training toward his goal of being the best swordsman in the world.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Roronoa_Zoro",
+        "ref": "1380100680",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "Zoro can usually be found sleeping or training to achieve his goal of becoming the world's greatest swordsman"
+  },
+  {
+    "id": "one-piece-zoro-direction-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "roronoa-zoro"
+    },
+    "field": "quirks",
+    "value": "poor sense of direction",
+    "text": "Zoro is famous for a terrible sense of direction, and he has got lost even on a straight path.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Roronoa_Zoro",
+        "ref": "1380100680",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "notoriously poor sense of direction"
+  },
+  {
+    "id": "one-piece-zoro-loyalty-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "roronoa-zoro"
+    },
+    "field": "style",
+    "value": "loyal to his crewmates",
+    "text": "Zoro feels deep loyalty and respect toward his crewmates.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Roronoa_Zoro",
+        "ref": "1380100680",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "a strong sense of loyalty and mutual respect for his crewmates"
+  },
+  {
+    "id": "one-piece-zoro-strong-drinker-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "roronoa-zoro"
+    },
+    "field": "ability",
+    "value": "never gets drunk",
+    "text": "No amount of drink gets Zoro drunk, thanks to his huge endurance and tolerance.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Roronoa_Zoro",
+        "ref": "1380100680",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "never gets drunk due to his inhumanly high endurance and tolerance for alcohol"
+  },
+  {
+    "id": "one-piece-shanks-mentor-077",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "shanks"
+    },
+    "field": "role",
+    "value": "mentor and hero to Luffy",
+    "text": "Shanks has known Luffy since Luffy was small and is both a mentor and a hero to him.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Four_Emperors_(One_Piece)",
+        "ref": "1380934951",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "He is a mentor and hero to Luffy, having known Luffy since the latter was a young child"
+  },
+  {
+    "id": "one-piece-shanks-straw-hat-078",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "shanks"
+    },
+    "field": "treasure",
+    "value": "gave Luffy the straw hat",
+    "text": "As a gift Shanks handed the young Luffy the straw hat that Luffy still treasures.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Four_Emperors_(One_Piece)",
+        "ref": "1380934951",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "gave the boy his straw hat"
+  },
+  {
+    "id": "one-piece-shanks-lost-arm-079",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "shanks"
+    },
+    "field": "background",
+    "value": "lost his left arm",
+    "text": "Shanks lost his left arm in saving Luffy from a sea monster.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Four_Emperors_(One_Piece)",
+        "ref": "1380934951",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "which cost Shanks his left arm"
+  },
+  {
+    "id": "one-piece-shanks-own-crew-080",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "shanks"
+    },
+    "field": "organization",
+    "value": "leads the Red-Haired Pirates",
+    "text": "Shanks captains a crew of his own, the Red-Haired Pirates.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Four_Emperors_(One_Piece)",
+        "ref": "1380934951",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "formed his own crew of pirates called the Red-Haired Pirates"
+  },
+  {
+    "id": "one-piece-roger-treasure-open-081",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "gol-d-roger"
+    },
+    "field": "setting",
+    "value": "treasure open to anyone who can find it",
+    "text": "Roger's treasure is there for the taking, but whoever wants it has to find it first.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_pirates",
+        "ref": "1379094181",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "is up for the taking, though they will have to find it first"
+  },
+  {
+    "id": "one-piece-makino-name-082",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "makino"
+    },
+    "field": "name",
+    "value": "Makino (マキノ)",
+    "text": "Makino is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1381843819",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "Makino (マキノ): A bartender and friend of Luffy."
+  },
+  {
+    "id": "one-piece-makino-bartender-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "makino"
+    },
+    "field": "occupation",
+    "value": "bartender",
+    "text": "Makino works as a bartender and counts Luffy among her friends.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1381843819",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "A bartender and friend of Luffy."
+  },
+  {
+    "id": "one-piece-makino-raised-luffy-084",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "makino"
+    },
+    "field": "background",
+    "value": "helped raise Luffy",
+    "text": "Makino played a large part in bringing Luffy up during his early childhood.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+        "ref": "1381843819",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "She played a huge part in raising Luffy before the age of 7."
+  },
+  {
+    "id": "one-piece-koby-name-085",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "koby"
+    },
+    "field": "name",
+    "value": "Koby (Coby)",
+    "text": "Koby is a supporting character of One Piece.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/World_Government_(One_Piece)",
+        "ref": "1379486711",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "is the first friend Luffy makes on his journey"
+  },
+  {
+    "id": "one-piece-koby-first-friend-086",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "koby"
+    },
+    "field": "role",
+    "value": "first friend Luffy makes",
+    "text": "Koby turns out to be the first friend Luffy makes on his voyage.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/World_Government_(One_Piece)",
+        "ref": "1379486711",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "is the first friend Luffy makes on his journey"
+  },
+  {
+    "id": "one-piece-koby-chore-boy-087",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "koby"
+    },
+    "field": "background",
+    "value": "chore boy on a pirate ship",
+    "text": "Koby is first met forced to do the chores on a pirate ship.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/World_Government_(One_Piece)",
+        "ref": "1379486711",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "finding him forced to work as a chore boy on"
+  },
+  {
+    "id": "one-piece-koby-escape-088",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "koby"
+    },
+    "field": "motivation",
+    "value": "escapes with Luffy's help",
+    "text": "Inspired by Luffy, Koby gets away from the ship with Luffy's help.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/World_Government_(One_Piece)",
+        "ref": "1379486711",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:30:00.000Z",
+    "excerpt": "Inspired by Luffy, and with his help, Koby escapes"
+  }
+]

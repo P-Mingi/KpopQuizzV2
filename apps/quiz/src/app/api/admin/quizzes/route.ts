@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/admin';
+import { forSite } from '@/lib/site/scope';
 import { avgScorePct } from '@/lib/quiz/scoring';
 
 import type { NextRequest } from 'next/server';
@@ -27,9 +28,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const offset = Math.max(0, Number(searchParams.get('offset') ?? 0));
   const limit = Math.min(100, Math.max(1, Number(searchParams.get('limit') ?? 20)));
 
-  let q = supabase
+  // Run O1: the build's site only (a no-op on kpop with SITE_SCOPE off).
+  let q = forSite(supabase
     .from('quizzes')
-    .select('id, title, slug, status, quiz_type, play_count, report_count, total_score_sum, total_completions, difficulty, created_at, questions, groups(name), profiles!quizzes_creator_id_fkey(username)');
+    .select('id, title, slug, status, quiz_type, play_count, report_count, total_score_sum, total_completions, difficulty, created_at, questions, groups(name), profiles!quizzes_creator_id_fkey(username)'));
 
   // Status filter
   if (status === 'published') q = q.eq('status', 'published');

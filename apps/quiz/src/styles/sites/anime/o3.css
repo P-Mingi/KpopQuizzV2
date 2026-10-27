@@ -1,0 +1,27 @@
+/* Run O1, lot (b), lane LB (O3): the spoiler shield (A5): the shield, the "Safe for you" and "Covers" labels on the quiz
+   cards, and the interstitial of a quiz page. Every selector starts with the site scope and names only anime-o3-* classes
+   (tokens.md 3.3); colours come from the frozen --ux-* tokens, locals are --anime-*. */
+
+html.ux-v1[data-site="anime"] {
+  --anime-o3-radius: 16px;
+}
+
+html.ux-v1[data-site="anime"] .anime-o3-shield { margin-top: 24px; padding: 18px 20px; border: 1px solid var(--ux-line); border-radius: var(--anime-o3-radius); background: var(--ux-raised); display: grid; gap: 12px; }
+html.ux-v1[data-site="anime"] .anime-o3-shield-h { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 16px; font-weight: 600; color: var(--ux-ink); }
+html.ux-v1[data-site="anime"] .anime-o3-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+html.ux-v1[data-site="anime"] .anime-o3-quick { display: flex; flex-wrap: wrap; gap: 8px; }
+html.ux-v1[data-site="anime"] .anime-o3-status { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ux-muted); }
+
+/* The label on a quiz card. */
+html.ux-v1[data-site="anime"] .anime-o3-note { display: inline-block; margin-top: 8px; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; width: fit-content; }
+html.ux-v1[data-site="anime"] .anime-o3-note-safe { background: var(--ux-ok-soft); color: var(--ux-ok); }
+html.ux-v1[data-site="anime"] .anime-o3-note-covers { background: var(--ux-lav-soft); color: var(--ux-lav-ink); }
+
+/* A quiz page: the interstitial, then the shield in a drawer. */
+html.ux-v1[data-site="anime"] .anime-o3-gate { display: grid; gap: 12px; margin: 16px 0; }
+html.ux-v1[data-site="anime"] .anime-o3-interstitial { padding: 16px 18px; border: 1px solid var(--ux-warn); border-radius: var(--anime-o3-radius); background: var(--ux-surface); display: grid; gap: 8px; }
+html.ux-v1[data-site="anime"] .anime-o3-interstitial-h { margin: 0; font-size: 16px; font-weight: 600; color: var(--ux-ink); }
+html.ux-v1[data-site="anime"] .anime-o3-interstitial p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--ux-ink); }
+html.ux-v1[data-site="anime"] .anime-o3-gate-shield > summary { cursor: pointer; width: fit-content; font-size: 14px; font-weight: 600; color: var(--ux-pink-ink); }
+html.ux-v1[data-site="anime"] .anime-o3-gate-shield[open] > summary { margin-bottom: 8px; }
+html.ux-v1[data-site="anime"] .anime-o3-gate-shield .anime-o3-shield { margin-top: 0; }

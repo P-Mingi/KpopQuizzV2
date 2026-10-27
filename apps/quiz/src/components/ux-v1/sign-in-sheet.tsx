@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useId, useMemo, useRef, useState } from 'react';
+import { createContext, lazy, Suspense, useCallback, useContext, useId, useMemo, useRef, useState } from 'react';
 
 import { setPendingAction } from '@/lib/ux-v1/a0/pending-action';
 
@@ -28,6 +28,18 @@ export interface SignInRequest {
 const DEFAULT_TITLE = 'Sign in to KpopQuiz';
 const DEFAULT_SUB = 'Keep your scores, streak and badges. No password needed.';
 
+// Run O1, lot (b), P1 (rule 18): on a world build (anime, hub) the sheet that opens is the world one, with the site's words. It is
+// loaded on the first open and only a world build can reach it, so a kpop page loads no module the base did not (the check is
+// the build-time constant NEXT_PUBLIC_SITE_ID, not the registry, which would join the kpop client bundle).
+const IS_WORLD_BUILD = (process.env.NEXT_PUBLIC_SITE_ID || 'kpop') !== 'kpop';
+const WorldSignInSheet = lazy(() => import('@/components/passport-ui/world-sign-in-sheet').then((m) => ({ default: m.WorldSignInSheet })));
+
+// Run O1 (H1, owner 2026-10-24): behind NEXT_PUBLIC_NET_PRIVACY the kpop sheet shows the same short passport notice as the other sites. The
+// notice is loaded on the first open and only rendered with the flag on (the flag test is inline, like IS_WORLD_BUILD: no registry import
+// in the kpop client bundle), so with the flag off the kpop sheet is the base one.
+const NET_PRIVACY = process.env.NEXT_PUBLIC_NET_PRIVACY === '1' || process.env.NEXT_PUBLIC_NET_PRIVACY === 'true';
+const PassportNotice = lazy(() => import('@/components/passport-ui/passport-notice').then((m) => ({ default: m.PassportNotice })));
+
 const Ctx = createContext<(req?: SignInRequest) => void>(() => {});
 
 /** Opens the shared sign-in sheet. Guests only; the page decides when to ask. */
@@ -42,7 +54,9 @@ export function SignInProvider({ children }: { children: React.ReactNode }): Rea
   return (
     <Ctx value={value}>
       {children}
-      <SignInSheet open={req !== null} request={req ?? {}} onClose={close} />
+      {IS_WORLD_BUILD
+        ? (req === null ? null : <Suspense fallback={null}><WorldSignInSheet open request={req} onClose={close} /></Suspense>)
+        : <SignInSheet open={req !== null} request={req ?? {}} onClose={close} />}
     </Ctx>
   );
 }
@@ -120,6 +134,7 @@ export function SignInSheet({ open, request, onClose, inline }: { open: boolean;
       </form>
       {error ? <p className="ux-err" role="alert">{error}</p> : null}
       <p className="ux-help">New here? The same buttons create your passport. We never post for you.</p>
+      {NET_PRIVACY ? <Suspense fallback={null}><PassportNotice /></Suspense> : null}
     </Sheet>
   );
 }

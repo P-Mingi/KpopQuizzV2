@@ -1,0 +1,242 @@
+{
+ "site": "anime",
+ "account": "oq_creator_02",
+ "group_slug": "one-piece",
+ "title": "Straw Hats and Early Rivals: One Piece Who Is Who",
+ "slug": "straw-hats-and-early-rivals-one-piece-who-is-who",
+ "description": "Ten questions on the first crew, the pirates and Marines of the early seas and the princess of Alabasta, matched to the one-line descriptions on the cast list.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of One Piece characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+  }
+ ],
+ "notes": "Only characters of that group are used, as answers and as distractors; none of the distractors fits the description. Descriptions come from the series characters file. K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 12 both, now arc 12 both.",
+ "questions": [
+  {
+   "question": "Which character is the young pirate with a rubber body who sails to find the One Piece and become King of the Pirates?",
+   "options": [
+    "Roronoa Zoro",
+    "Portgas D. Ace",
+    "Monkey D. Luffy",
+    "Shanks"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 12,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-monkey-d-luffy-name-031",
+    "one-piece-roronoa-zoro-name-032",
+    "one-piece-shanks-name-033",
+    "one-piece-portgas-d-ace-name-045"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+  },
+  {
+   "question": "Which character is the swordsman who fights with three swords?",
+   "options": [
+    "Roronoa Zoro",
+    "Usopp",
+    "Sanji",
+    "Smoker"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 6,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-roronoa-zoro-name-032",
+    "one-piece-usopp-name-037",
+    "one-piece-sanji-name-038",
+    "one-piece-smoker-name-040"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+  },
+  {
+   "question": "Which character is the pirate captain who inspired Luffy as a boy and trusted him with his treasured straw hat?",
+   "options": [
+    "Buggy",
+    "Crocodile",
+    "Smoker",
+    "Shanks"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 12,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-shanks-name-033",
+    "one-piece-buggy-name-036",
+    "one-piece-smoker-name-040",
+    "one-piece-crocodile-name-044"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+  },
+  {
+   "question": "Which character is the late King of the Pirates, whose last words at his execution set off a new age of piracy?",
+   "options": [
+    "Shanks",
+    "Gol D. Roger",
+    "Monkey D. Dragon",
+    "Crocodile"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 12,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-shanks-name-033",
+    "one-piece-gol-d-roger-name-034",
+    "one-piece-monkey-d-dragon-name-041",
+    "one-piece-crocodile-name-044"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+  },
+  {
+   "question": "Which character is the talented navigator and thief who dreams of drawing a map of the entire world?",
+   "options": [
+    "Nefertari Vivi",
+    "Nami",
+    "Tony Tony Chopper",
+    "Usopp"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 12,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-nami-name-035",
+    "one-piece-usopp-name-037",
+    "one-piece-nefertari-vivi-name-042",
+    "one-piece-tony-tony-chopper-name-043"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+  },
+  {
+   "question": "Which character is the clown-faced pirate captain who ate the Chop-Chop Fruit?",
+   "options": [
+    "Crocodile",
+    "Smoker",
+    "Shanks",
+    "Buggy"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 12,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-shanks-name-033",
+    "one-piece-buggy-name-036",
+    "one-piece-smoker-name-040",
+    "one-piece-crocodile-name-044"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+  },
+  {
+   "question": "Which character is the sharpshooter and gifted liar from Syrup Village?",
+   "options": [
+    "Usopp",
+    "Sanji",
+    "Roronoa Zoro",
+    "Tony Tony Chopper"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 11,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-roronoa-zoro-name-032",
+    "one-piece-usopp-name-037",
+    "one-piece-sanji-name-038",
+    "one-piece-tony-tony-chopper-name-043"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+  },
+  {
+   "question": "Which character is the cook from the Baratie restaurant who fights with powerful kicks?",
+   "options": [
+    "Roronoa Zoro",
+    "Usopp",
+    "Sanji",
+    "Portgas D. Ace"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 12,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-roronoa-zoro-name-032",
+    "one-piece-usopp-name-037",
+    "one-piece-sanji-name-038",
+    "one-piece-portgas-d-ace-name-045"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+  },
+  {
+   "question": "Which character is the swordsman called Hawk-Eyes, widely regarded as the strongest in the world?",
+   "options": [
+    "Roronoa Zoro",
+    "Smoker",
+    "Shanks",
+    "Dracule Mihawk"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 6,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-roronoa-zoro-name-032",
+    "one-piece-shanks-name-033",
+    "one-piece-dracule-mihawk-name-039",
+    "one-piece-smoker-name-040"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+  },
+  {
+   "question": "Which character is the princess of Alabasta who travels with the Straw Hats to stop a rebellion?",
+   "options": [
+    "Nefertari Vivi",
+    "Nami",
+    "Tony Tony Chopper",
+    "Crocodile"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 12,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "one-piece-nami-name-035",
+    "one-piece-nefertari-vivi-name-042",
+    "one-piece-tony-tony-chopper-name-043",
+    "one-piece-crocodile-name-044"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters"
+  }
+ ]
+}

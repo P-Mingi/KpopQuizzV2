@@ -1,0 +1,1 @@
+check:routes runs inside every build; check:indexability, metadata-dupes, orphans, sitemap-hygiene, site-scope, the leak suite and the lane specs arrive with Q0a (scripts/o1/gate-checks.sh)

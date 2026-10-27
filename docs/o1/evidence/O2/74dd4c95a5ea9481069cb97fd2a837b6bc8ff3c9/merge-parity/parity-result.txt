@@ -1,0 +1,200 @@
+# parity verdict, rules q0a-g0-v3, list urls.txt sha256 db2f8560e956a11f740d2ad8d3c43ab3e3f904cae4ac5def3a4403ddb887ecff
+IDENTICAL / status 200/200 css 3
+IDENTICAL /quizzes status 200/200 css 3
+IDENTICAL /groups status 200/200 css 3
+IDENTICAL /trending status 200/200 css 3
+DIFFERENT /bts-quiz status 200/200
+  flight row
+    A: 1a:...-sec p3-low","children":[["$","div",null,{"className":"p3-low-main","children":[["$","section",null,{"aria-labelledby":"p3-about-h","children":[["$","h2",null,{"id":"p3-about-h","className":"ux-h2","children":["About ","BTS"]}],["$","div",null,{"className":"p3-prose","children":[["$","p",null,{"chil
+    B: 1a:...-sec p3-low","children":[["$","div",null,{"className":"p3-low-main","children":["$undefined",["$","section",null,{"aria-labelledby":"p3-about-h","children":[["$","h2",null,{"id":"p3-about-h","className":"ux-h2","children":["About ","BTS"]}],["$","div",null,{"className":"p3-prose","children":[["$","p
+  flight row
+    A: 24:["$","span",null,{"children":"J-Hope"}]
+    B: 24:["$","span",null,{"children":["J-Hope","$undefined"]}]
+  flight row
+    A: 25:["$","li","Jimin",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Jimin BTS.jpg","alt":"Jimin of BTS","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Jimin"}]]}]
+    B: 25:["$","li","Jimin",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/Jimin BTS.jpg","alt":"Jimin of BTS","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["Jimin","$undefined"]}]]}]
+  flight row
+    A: 26:["$","li","V",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/V BTS.jpg","alt":"V of BTS","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"V"}]]}]
+    B: 26:["$","li","V",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/V BTS.jpg","alt":"V of BTS","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["V","$undefined"]}]]}]
+  flight row
+    A: 27:["$","li","Jungkook",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Jungkook BTS.jpg","alt":"Jungkook of BTS","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Jungkook"}]]}]
+    B: 27:["$","li","Jungkook",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/Jungkook BTS.jpg","alt":"Jungkook of BTS","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["Jungkook","$undefined"]}]]}]
+DIFFERENT /blackpink-quiz status 200/200
+  flight row
+    A: 1a:...-sec p3-low","children":[["$","div",null,{"className":"p3-low-main","children":[["$","section",null,{"aria-labelledby":"p3-about-h","children":[["$","h2",null,{"id":"p3-about-h","className":"ux-h2","children":["About ","BLACKPINK"]}],["$","div",null,{"className":"p3-prose","children":[["$","p",null,
+    B: 1a:...-sec p3-low","children":[["$","div",null,{"className":"p3-low-main","children":["$undefined",["$","section",null,{"aria-labelledby":"p3-about-h","children":[["$","h2",null,{"id":"p3-about-h","className":"ux-h2","children":["About ","BLACKPINK"]}],["$","div",null,{"className":"p3-prose","children":[[
+  flight row
+    A: 24:["$","span",null,{"children":"Rose"}]
+    B: 24:["$","span",null,{"children":["Rose","$undefined"]}]
+  flight row
+    A: 25:["$","li","Lisa",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Lisa BLACKPINK.jpg","alt":"Lisa of BLACKPINK","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Lisa"}]]}]
+    B: 25:["$","li","Lisa",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/Lisa BLACKPINK.jpg","alt":"Lisa of BLACKPINK","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["Lisa","$undefined"]}]]}]
+DIFFERENT /stray-kids-quiz status 200/200
+  flight row
+    A: 1a:...-sec p3-low","children":[["$","div",null,{"className":"p3-low-main","children":[["$","section",null,{"aria-labelledby":"p3-about-h","children":[["$","h2",null,{"id":"p3-about-h","className":"ux-h2","children":["About ","Stray Kids"]}],["$","div",null,{"className":"p3-prose","children":[["$","p",null
+    B: 1a:...-sec p3-low","children":[["$","div",null,{"className":"p3-low-main","children":["$undefined",["$","section",null,{"aria-labelledby":"p3-about-h","children":[["$","h2",null,{"id":"p3-about-h","className":"ux-h2","children":["About ","Stray Kids"]}],["$","div",null,{"className":"p3-prose","children":[
+  flight row
+    A: 23:...}],["$","div",null,{"id":"hub-quizzes","className":"g8-qs","children":[["$","$L3d",null,{"groupName":"Stray Kids","quizzes":[{"slug":"skz-true-or-false-only-real-stays-pass","title":"SKZ true or false - only real STAYs pass","quiz_type":"true_false","difficulty":"easy","play_count":1881,"like_count"
+    B: 23:...}],["$","div",null,{"id":"hub-quizzes","className":"g8-qs","children":[["$","$L3e",null,{"groupName":"Stray Kids","quizzes":[{"slug":"skz-true-or-false-only-real-stays-pass","title":"SKZ true or false - only real STAYs pass","quiz_type":"true_false","difficulty":"easy","play_count":1881,"like_count"
+  flight row
+    A: 24:["$","span",null,{"children":"Changbin"}]
+    B: 24:["$","$L18",null,{"className":"p3-member-face","src":"/idols/Changbin STRAYKIDS.jpg","alt":"Changbin of Stray Kids","width":80,"height":80,"sizes":"80px"}]
+  flight row
+    A: 25:["$","li","Hyunjin",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Hyunjin STRAYKIDS.jpg","alt":"Hyunjin of Stray Kids","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Hyunjin"}]]}]
+    B: 25:["$","span",null,{"children":["Changbin","$undefined"]}]
+  flight row
+    A: 26:["$","li","Han",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Han STRAYKIDS.jpg","alt":"Han of Stray Kids","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Han"}]]}]
+    B: 26:["$","li","Hyunjin",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/Hyunjin STRAYKIDS.jpg","alt":"Hyunjin of Stray Kids","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["Hyunjin","$undefined"]}]]}]
+  flight row
+    A: 27:["$","li","Felix",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Felix STRAYKIDS.jpg","alt":"Felix of Stray Kids","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Felix"}]]}]
+    B: 27:["$","li","Han",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/Han STRAYKIDS.jpg","alt":"Han of Stray Kids","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["Han","$undefined"]}]]}]
+DIFFERENT /seventeen-quiz status 200/200
+  flight row
+    A: 1a:...-sec p3-low","children":[["$","div",null,{"className":"p3-low-main","children":[["$","section",null,{"aria-labelledby":"p3-about-h","children":[["$","h2",null,{"id":"p3-about-h","className":"ux-h2","children":["About ","SEVENTEEN"]}],["$","div",null,{"className":"p3-prose","children":[["$","p",null,
+    B: 1a:...-sec p3-low","children":[["$","div",null,{"className":"p3-low-main","children":["$undefined",["$","section",null,{"aria-labelledby":"p3-about-h","children":[["$","h2",null,{"id":"p3-about-h","className":"ux-h2","children":["About ","SEVENTEEN"]}],["$","div",null,{"className":"p3-prose","children":[[
+  flight row
+    A: 24:["$","span",null,{"children":"Joshua"}]
+    B: 24:["$","span",null,{"children":["Joshua","$undefined"]}]
+  flight row
+    A: 25:["$","li","Jun",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Jun SEVENTEEN.jpg","alt":"Jun of SEVENTEEN","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Jun"}]]}]
+    B: 25:["$","li","Jun",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/Jun SEVENTEEN.jpg","alt":"Jun of SEVENTEEN","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["Jun","$undefined"]}]]}]
+  flight row
+    A: 26:["$","li","Hoshi",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Hoshi SEVENTEEN.jpg","alt":"Hoshi of SEVENTEEN","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Hoshi"}]]}]
+    B: 26:["$","li","Hoshi",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/Hoshi SEVENTEEN.jpg","alt":"Hoshi of SEVENTEEN","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["Hoshi","$undefined"]}]]}]
+  flight row
+    A: 27:["$","li","Wonwoo",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Wonwoo SEVENTEEN.jpg","alt":"Wonwoo of SEVENTEEN","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Wonwoo"}]]}]
+    B: 27:["$","li","Wonwoo",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/Wonwoo SEVENTEEN.jpg","alt":"Wonwoo of SEVENTEEN","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["Wonwoo","$undefined"]}]]}]
+  flight row
+    A: 28:["$","li","Woozi",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Woozi SEVENTEEN.jpg","alt":"Woozi of SEVENTEEN","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Woozi"}]]}]
+    B: 28:["$","li","Woozi",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/Woozi SEVENTEEN.jpg","alt":"Woozi of SEVENTEEN","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["Woozi","$undefined"]}]]}]
+DIFFERENT /cortis-quiz status 200/200
+  flight row
+    A: 1a:...-sec p3-low","children":[["$","div",null,{"className":"p3-low-main","children":[["$","section",null,{"aria-labelledby":"p3-about-h","children":[["$","h2",null,{"id":"p3-about-h","className":"ux-h2","children":["About ","Cortis"]}],["$","div",null,{"className":"p3-prose","children":[["$","p",null,{"c
+    B: 1a:...-sec p3-low","children":[["$","div",null,{"className":"p3-low-main","children":["$undefined",["$","section",null,{"aria-labelledby":"p3-about-h","children":[["$","h2",null,{"id":"p3-about-h","className":"ux-h2","children":["About ","Cortis"]}],["$","div",null,{"className":"p3-prose","children":[["$"
+DIFFERENT /twice-quiz status 200/200
+  flight row
+    A: 1a:...-sec p3-low","children":[["$","div",null,{"className":"p3-low-main","children":[["$","section",null,{"aria-labelledby":"p3-about-h","children":[["$","h2",null,{"id":"p3-about-h","className":"ux-h2","children":["About ","TWICE"]}],["$","div",null,{"className":"p3-prose","children":[["$","p",null,{"ch
+    B: 1a:...-sec p3-low","children":[["$","div",null,{"className":"p3-low-main","children":["$undefined",["$","section",null,{"aria-labelledby":"p3-about-h","children":[["$","h2",null,{"id":"p3-about-h","className":"ux-h2","children":["About ","TWICE"]}],["$","div",null,{"className":"p3-prose","children":[["$",
+  flight row
+    A: 23:...}],["$","div",null,{"id":"hub-quizzes","className":"g8-qs","children":[["$","$L36",null,{"groupName":"TWICE","quizzes":[{"slug":"twice-true-or-false","title":"TWICE true or false","quiz_type":"true_false","difficulty":"medium","play_count":558,"like_count":23,"total_score_sum":2942,"total_completion
+    B: 23:...}],["$","div",null,{"id":"hub-quizzes","className":"g8-qs","children":[["$","$L37",null,{"groupName":"TWICE","quizzes":[{"slug":"twice-true-or-false","title":"TWICE true or false","quiz_type":"true_false","difficulty":"medium","play_count":558,"like_count":23,"total_score_sum":2942,"total_completion
+  flight row
+    A: 24:["$","li","Jihyo",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Jihyo Twice.jpg","alt":"Jihyo of TWICE","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Jihyo"}]]}]
+    B: 24:["$","span",null,{"children":["Sana","$undefined"]}]
+  flight row
+    A: 25:["$","li","Mina",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Mina Twice.jpg","alt":"Mina of TWICE","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Mina"}]]}]
+    B: 25:["$","li","Jihyo",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/Jihyo Twice.jpg","alt":"Jihyo of TWICE","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["Jihyo","$undefined"]}]]}]
+  flight row
+    A: 26:["$","li","Dahyun",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Dahyun TWICE.jpg","alt":"Dahyun of TWICE","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Dahyun"}]]}]
+    B: 26:["$","li","Mina",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/Mina Twice.jpg","alt":"Mina of TWICE","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["Mina","$undefined"]}]]}]
+  flight row
+    A: 27:["$","li","Chaeyoung",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Chaeyoung Twice.jpg","alt":"Chaeyoung of TWICE","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Chaeyoung"}]]}]
+    B: 27:["$","li","Dahyun",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/Dahyun TWICE.jpg","alt":"Dahyun of TWICE","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["Dahyun","$undefined"]}]]}]
+DIFFERENT /newjeans-quiz status 200/200
+  flight row
+    A: 1a:...-sec p3-low","children":[["$","div",null,{"className":"p3-low-main","children":[["$","section",null,{"aria-labelledby":"p3-about-h","children":[["$","h2",null,{"id":"p3-about-h","className":"ux-h2","children":["About ","NewJeans"]}],["$","div",null,{"className":"p3-prose","children":[["$","p",null,{
+    B: 1a:...-sec p3-low","children":[["$","div",null,{"className":"p3-low-main","children":["$undefined",["$","section",null,{"aria-labelledby":"p3-about-h","children":[["$","h2",null,{"id":"p3-about-h","className":"ux-h2","children":["About ","NewJeans"]}],["$","div",null,{"className":"p3-prose","children":[["
+  flight row
+    A: 24:["$","span",null,{"children":"Danielle"}]
+    B: 24:["$","span",null,{"children":["Danielle","$undefined"]}]
+  flight row
+    A: 25:["$","li","Haerin",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Haerin NEWJEANS.jpg","alt":"Haerin of NewJeans","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Haerin"}]]}]
+    B: 25:["$","li","Haerin",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/Haerin NEWJEANS.jpg","alt":"Haerin of NewJeans","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["Haerin","$undefined"]}]]}]
+  flight row
+    A: 26:["$","li","Hyein",{"children":[["$","$L18",null,{"className":"p3-member-face","src":"/idols/Hyein NEWJEANS.jpg","alt":"Hyein of NewJeans","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":"Hyein"}]]}]
+    B: 26:["$","li","Hyein",{"className":"$undefined","children":["$undefined",["$","$L18",null,{"className":"p3-member-face","src":"/idols/Hyein NEWJEANS.jpg","alt":"Hyein of NewJeans","width":80,"height":80,"sizes":"80px"}],["$","span",null,{"children":["Hyein","$undefined"]}]]}]
+IDENTICAL /trivia status 200/200 css 3
+DIFFERENT /bts-trivia status 200/200
+  flight row
+    A: 1a:..."children":"quizzes"}]]}],"$L24","$L25"]}],["$L26","$L27","$L28","$L29","$L2a"],"$L2b",null,"$L2c"]}]
+    B: 1a:..."children":"quizzes"}]]}],"$L24","$L25"]}],["$L26","$L27","$L28","$L29","$L2a"],null,"$L2b",null,"$L2c"]}]
+DIFFERENT /blackpink-trivia status 200/200
+  flight row
+    A: 1a:...popquiz.org blind test."}]]}]]}]]}],"$L24",["$L25","$L26","$L27","$L28","$L29"],"$L2a",null,"$L2b"]}]
+    B: 1a:...popquiz.org blind test."}]]}]]}]]}],"$L24",["$L25","$L26","$L27","$L28","$L29"],null,"$L2a",null,"$L2b"]}]
+DIFFERENT /q/ultimate-bts-era-quiz-only-real-armys-survive status 200/200
+  flight row
+    A: 2c:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",65,"%"]}]]}]]}],["$","$L14","4cc9147c-c86a-4660-b623-00e42b3a2779",{"href":"/q/guess-the-bts-song-army-quiz","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"className":"ux
+    B: 2c:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",65,"%"]}]]}],"$undefined"]}],["$","$L14","4cc9147c-c86a-4660-b623-00e42b3a2779",{"href":"/q/guess-the-bts-song-army-quiz","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"c
+DIFFERENT /q/skz-true-or-false-only-real-stays-pass status 200/200
+  flight row
+    A: 2b:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",85,"%"]}]]}]]}],["$","$L13","e14a15f9-bc82-4bd9-8228-a7a152dc937a",{"href":"/q/only-the-real-stays-can-get-all-right","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"class
+    B: 2b:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",85,"%"]}]]}],"$undefined"]}],["$","$L13","e14a15f9-bc82-4bd9-8228-a7a152dc937a",{"href":"/q/only-the-real-stays-can-get-all-right","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg"
+DIFFERENT /q/blackpink-ultimate-fan-challenge status 200/200
+  flight row
+    A: 2a:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",70,"%"]}]]}]]}],["$","$L13","78acf62c-9e7f-4831-b73f-23410a2cb8d4",{"href":"/q/hardest-blackpink-quiz","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"className":"ux-ico s
+    B: 2a:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",70,"%"]}]]}],"$undefined"]}],["$","$L13","78acf62c-9e7f-4831-b73f-23410a2cb8d4",{"href":"/q/hardest-blackpink-quiz","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"classNa
+DIFFERENT /q/are-you-a-real-coer status 200/200
+  flight row
+    A: 29:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",81,"%"]}]]}]]}],["$","$L13","18ff61c5-7eac-4a33-a562-365e70e93547",{"href":"/q/only-real-coers-can-beat-it","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"className":"ux-
+    B: 29:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",81,"%"]}]]}],"$undefined"]}],["$","$L13","18ff61c5-7eac-4a33-a562-365e70e93547",{"href":"/q/only-real-coers-can-beat-it","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"cl
+DIFFERENT /q/illit-fans-here status 200/200
+  flight row
+    A: 32:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",81,"%"]}]]}]]}],["$","$L1a","86a5d76d-42c5-4063-b705-7a02406c4110",{"href":"/q/only-a-real-gllit-can-pass-this","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"className":
+    B: 32:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",81,"%"]}]]}],"$undefined"]}],["$","$L1a","86a5d76d-42c5-4063-b705-7a02406c4110",{"href":"/q/only-a-real-gllit-can-pass-this","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,
+  flight row
+    A: 38:...ldren":[["$","i",null,{"className":"ux-num","children":["29"," plays"]}],null]}]]}]
+    B: 38:...ldren":[["$","i",null,{"className":"ux-num","children":["29"," plays"]}],null]}],"$undefined"]}]
+DIFFERENT /q/babymonster-quiz status 200/200
+  flight row
+    A: 30:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",63,"%"]}]]}]]}],["$","$L1a","3da9d837-f836-4a97-a5c9-8a81aa903875",{"href":"/q/who-is-known-as-the-face-of-kpop","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"className"
+    B: 30:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",63,"%"]}]]}],"$undefined"]}],["$","$L1a","3da9d837-f836-4a97-a5c9-8a81aa903875",{"href":"/q/who-is-known-as-the-face-of-kpop","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null
+DIFFERENT /q/le-sserafim-members-and-music-quiz status 200/200
+  flight row
+    A: 2d:...dren":[["$","i",null,{"className":"ux-num","children":["345"," plays"]}],null]}]]}],["$","$L13","61e23743-d29d-4547-b81e-e227ce03efd1",{"href":"/q/le-sserafim-the-unforgiven-era","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"className":"
+    B: 2d:...dren":[["$","i",null,{"className":"ux-num","children":["345"," plays"]}],null]}],"$undefined"]}],["$","$L13","61e23743-d29d-4547-b81e-e227ce03efd1",{"href":"/q/le-sserafim-the-unforgiven-era","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{
+DIFFERENT /q/one-for-sones status 200/200
+  flight row
+    A: 33:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",63,"%"]}]]}]]}],["$","$L1a","4ba8f255-2401-4220-8559-9a33c9ec1759",{"href":"/q/ultimate-bts-era-quiz-only-real-armys-survive","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null
+    B: 33:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",63,"%"]}]]}],"$undefined"]}],["$","$L1a","4ba8f255-2401-4220-8559-9a33c9ec1759",{"href":"/q/ultimate-bts-era-quiz-only-real-armys-survive","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["
+DIFFERENT /q/twice-true-or-false status 200/200
+  flight row
+    A: 2a:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",70,"%"]}]]}]]}],["$","$L13","939d3ad2-bcb2-40c4-a910-610b464be500",{"href":"/q/twice-feel-special-quiz","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"className":"ux-ico 
+    B: 2a:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",70,"%"]}]]}],"$undefined"]}],["$","$L13","939d3ad2-bcb2-40c4-a910-610b464be500",{"href":"/q/twice-feel-special-quiz","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"classN
+DIFFERENT /q/how-well-do-you-know-txt status 200/200
+  flight row
+    A: 28:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",64,"%"]}]]}]]}],["$","$L13","aca73683-5c80-4a07-9de9-2c08d67693c0",{"href":"/q/txt-cant-you-see-me-quiz","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"className":"ux-ico
+    B: 28:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",64,"%"]}]]}],"$undefined"]}],["$","$L13","aca73683-5c80-4a07-9de9-2c08d67693c0",{"href":"/q/txt-cant-you-see-me-quiz","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"class
+DIFFERENT /q/enhypen-debut-and-beyond-quiz status 200/200
+  flight row
+    A: 2b:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",57,"%"]}]]}]]}],["$","$L13","bc0887b6-a48a-4380-b490-d738bd068d10",{"href":"/q/name-10-enhypen-mvs-are-you-a-real-engene","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"c
+    B: 2b:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",57,"%"]}]]}],"$undefined"]}],["$","$L13","bc0887b6-a48a-4380-b490-d738bd068d10",{"href":"/q/name-10-enhypen-mvs-are-you-a-real-engene","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","
+DIFFERENT /q/k-pop-company-quiz-match-the-group-to-the-label status 200/200
+  flight row
+    A: 28:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",61,"%"]}]]}]]}],["$","$L14","ffa3b526-62a7-4e89-a9a0-a4d62b356327",{"href":"/q/finnish-the-lyric","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"className":"ux-ico sm","v
+    B: 28:...lays"]}],["$","i",null,{"className":"ux-num","children":["average ",61,"%"]}]]}],"$undefined"]}],["$","$L14","ffa3b526-62a7-4e89-a9a0-a4d62b356327",{"href":"/q/finnish-the-lyric","className":"ux-tcard","children":[["$","span",null,{"className":"ux-tcard-ty","children":[["$","svg",null,{"className":"
+IDENTICAL /blindtest status 200/200 css 3
+IDENTICAL /blindtest/classic status 200/200 css 3
+IDENTICAL /blindtest/intro-challenge status 200/200 css 3
+IDENTICAL /blindtest/group-bts status 200/200 css 3
+IDENTICAL /guess-the-kpop-song status 200/200 css 3
+IDENTICAL /pt status 200/200 css 3
+IDENTICAL /pt/blindtest status 200/200 css 3
+IDENTICAL /pt/quizzes status 200/200 css 3
+IDENTICAL /pt/faq status 200/200 css 3
+IDENTICAL /pt/leaderboard status 200/200 css 3
+IDENTICAL /fr/blind-test-kpop status 200/200 css 3
+IDENTICAL /es/adivina-la-cancion-kpop status 200/200 css 3
+IDENTICAL /id/tebak-lagu-kpop status 200/200 css 3
+IDENTICAL /guess-the-kpop-idol status 200/200 css 3
+IDENTICAL /kpop-true-or-false status 200/200 css 3
+IDENTICAL /easy-kpop-quizzes status 200/200 css 3
+IDENTICAL /hard-kpop-quizzes status 200/200 css 3
+IDENTICAL /kpop-quiz-2026 status 200/200 css 3
+IDENTICAL /kpop-demon-hunters-quiz status 200/200 css 3
+IDENTICAL /which-bts-member-are-you status 200/200 css 3
+IDENTICAL /bts-name-all-members status 200/200 css 3
+IDENTICAL /about status 200/200 css 3
+IDENTICAL /editorial-policy status 200/200 css 3
+IDENTICAL /privacy status 200/200 css 3
+IDENTICAL /terms status 200/200 css 3
+IDENTICAL /faq status 200/200 css 3
+IDENTICAL /contact status 200/200 css 3
+IDENTICAL /leaderboard status 200/200 css 3
+IDENTICAL /articles status 200/200 css 3
+IDENTICAL /daily status 307/307
+IDENTICAL /an-unknown-o1-parity-path status 500/500
+IDENTICAL /sitemap.xml status 200/200
+IDENTICAL /robots.txt status 200/200
+IDENTICAL /llms.txt status 200/200
+identical: false (21 of 60 pages differ)

@@ -1,0 +1,332 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "code-geass",
+  "title": "Odd One Out: Code Geass Songs, Knights and Princesses",
+  "slug": "odd-one-out-code-geass-songs-knights-and-princesses",
+  "description": "Four choices, one that does not belong. Openings against endings, schools, royals, Geass users and films. Light spoilers up to R2.",
+  "quiz_type": "intruder",
+  "difficulty": "medium",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: List of Code Geass: Lelouch of the Rebellion episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_episodes"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: List of Code Geass: Lelouch of the Rebellion R2 episodes",
+      "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_R2_episodes"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Code Geass characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    }
+  ],
+  "notes": "Intruder format: three real members of a group and one real outsider; all four options are things from the series.",
+  "questions": [
+    {
+      "question": "Which of these four songs is an ending rather than an opening?",
+      "options": [
+        {
+          "label": "Yūkyō Seishunka"
+        },
+        {
+          "label": "Colors"
+        },
+        {
+          "label": "Kaidoku Funō"
+        },
+        {
+          "label": "World End"
+        }
+      ],
+      "correct": 0,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-theme-ed-025",
+        "code-geass-theme-op-022",
+        "code-geass-theme-op-023",
+        "code-geass-theme-op-028"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_episodes"
+    },
+    {
+      "question": "Which of these four songs is an opening rather than an ending?",
+      "options": [
+        {
+          "label": "Mosaic Kakera"
+        },
+        {
+          "label": "Shiawase Neiro"
+        },
+        {
+          "label": "O2"
+        },
+        {
+          "label": "Yūkyō Seishunka"
+        }
+      ],
+      "correct": 2,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-theme-op-027",
+        "code-geass-theme-ed-026",
+        "code-geass-theme-ed-029",
+        "code-geass-theme-ed-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_R2_episodes"
+    },
+    {
+      "question": "Three of these songs belong to the first season. Which one belongs to R2?",
+      "options": [
+        {
+          "label": "Colors"
+        },
+        {
+          "label": "Kaidoku Funō"
+        },
+        {
+          "label": "Mosaic Kakera"
+        },
+        {
+          "label": "World End"
+        }
+      ],
+      "correct": 3,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-theme-op-028",
+        "code-geass-theme-op-022",
+        "code-geass-theme-op-023",
+        "code-geass-theme-ed-026"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_R2_episodes"
+    },
+    {
+      "question": "Three of these characters attend Ashford Academy. Which one does not?",
+      "options": [
+        {
+          "label": "Milly Ashford"
+        },
+        {
+          "label": "Kyoshiro Tohdoh"
+        },
+        {
+          "label": "Shirley Fenette"
+        },
+        {
+          "label": "Rivalz Cardemonde"
+        }
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-name-048",
+        "code-geass-character-name-037",
+        "code-geass-character-name-036",
+        "code-geass-character-name-038"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Three of these are members of the imperial family. Which one is not?",
+      "options": [
+        {
+          "label": "Lloyd Asplund"
+        },
+        {
+          "label": "Euphemia li Britannia"
+        },
+        {
+          "label": "Cornelia li Britannia"
+        },
+        {
+          "label": "Schneizel el Britannia"
+        }
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-name-046",
+        "code-geass-character-name-040",
+        "code-geass-character-name-041",
+        "code-geass-character-name-042"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Three of these characters have a Geass. Which one does not?",
+      "options": [
+        {
+          "label": "Lelouch Lamperouge"
+        },
+        {
+          "label": "Rolo Lamperouge"
+        },
+        {
+          "label": "Suzaku Kururugi"
+        },
+        {
+          "label": "Bismarck Waldstein"
+        }
+      ],
+      "correct": 2,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-name-032",
+        "code-geass-character-detail-051",
+        "code-geass-character-detail-064",
+        "code-geass-character-detail-069"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Three of these are Knightmare Frames. Which one is a person?",
+      "options": [
+        {
+          "label": "Lancelot"
+        },
+        {
+          "label": "Nina Einstein"
+        },
+        {
+          "label": "Guren"
+        },
+        {
+          "label": "Shinkirō"
+        }
+      ],
+      "correct": 1,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-name-039",
+        "code-geass-character-detail-054",
+        "code-geass-character-detail-056",
+        "code-geass-character-detail-052"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Three of these people worked on the anime. Which one is a character?",
+      "options": [
+        {
+          "label": "Gorō Taniguchi"
+        },
+        {
+          "label": "Ichirō Ōkouchi"
+        },
+        {
+          "label": "Hitomi Kuroishi"
+        },
+        {
+          "label": "Charles zi Britannia"
+        }
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 1,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-name-043",
+        "code-geass-anime-director-003",
+        "code-geass-anime-composition-004",
+        "code-geass-anime-composers-007"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Three of these belong to the Black Knights. Which one is a Knight of the Round?",
+      "options": [
+        {
+          "label": "Bismarck Waldstein"
+        },
+        {
+          "label": "Kyoshiro Tohdoh"
+        },
+        {
+          "label": "Diethard Ried"
+        },
+        {
+          "label": "Kallen Stadtfeld"
+        }
+      ],
+      "correct": 0,
+      "kind": "character",
+      "spoiler": {
+        "arc": 2,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "code-geass-character-name-050",
+        "code-geass-character-name-048",
+        "code-geass-character-name-049",
+        "code-geass-character-name-034"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    },
+    {
+      "question": "Three of these are films or OVAs. Which one is a television season?",
+      "options": [
+        {
+          "label": "Rozé of the Recapture"
+        },
+        {
+          "label": "Lelouch of the Re;surrection"
+        },
+        {
+          "label": "Lelouch of the Rebellion"
+        },
+        {
+          "label": "Akito the Exiled"
+        }
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 3,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "code-geass-anime-r1-010",
+        "code-geass-film-roze-016",
+        "code-geass-film-resurrection-013",
+        "code-geass-ova-akito-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Code_Geass:_Lelouch_of_the_Rebellion_episodes"
+    }
+  ]
+}

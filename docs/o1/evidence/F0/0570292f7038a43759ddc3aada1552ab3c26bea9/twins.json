@@ -1,0 +1,658 @@
+{
+  "shingle": 8,
+  "violations": [],
+  "known": [
+    {
+      "candidate": "apps/quiz/src/app/(site)/[slug]/group-quiz-page.tsx",
+      "protected": "apps/quiz/src/app/(site)/[slug]/group-trivia-page.tsx",
+      "lines": 9,
+      "blocks": [
+        [
+          276,
+          287,
+          272,
+          283
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/app/(site)/[slug]/group-quiz-page.tsx",
+      "protected": "apps/quiz/src/components/group/ux-v1/hub.tsx",
+      "lines": 29,
+      "blocks": [
+        [
+          443,
+          474,
+          469,
+          492
+        ],
+        [
+          484,
+          491,
+          497,
+          504
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/app/(site)/admin/admin-dashboard.tsx",
+      "protected": "apps/quiz/src/app/api/og/group/[slug]/route.tsx",
+      "lines": 8,
+      "blocks": [
+        [
+          104,
+          111,
+          68,
+          75
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/app/(site)/pt/about/page.tsx",
+      "protected": "apps/quiz/src/app/(site)/about/page.tsx",
+      "lines": 17,
+      "blocks": [
+        [
+          82,
+          96,
+          79,
+          94
+        ],
+        [
+          123,
+          138,
+          171,
+          188
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/app/(site)/pt/blindtest/page.tsx",
+      "protected": "apps/quiz/src/app/(site)/blindtest/page.tsx",
+      "lines": 10,
+      "blocks": [
+        [
+          47,
+          67,
+          48,
+          70
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/app/(site)/pt/faq/page.tsx",
+      "protected": "apps/quiz/src/app/(site)/faq/page.tsx",
+      "lines": 22,
+      "blocks": [
+        [
+          71,
+          85,
+          72,
+          87
+        ],
+        [
+          96,
+          115,
+          99,
+          119
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/app/(site)/quizzes/page.tsx",
+      "protected": "apps/quiz/src/app/(site)/[slug]/group-quiz-page.tsx",
+      "lines": 15,
+      "blocks": [
+        [
+          303,
+          321,
+          430,
+          448
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/app/(site)/u/[username]/page.tsx",
+      "protected": "apps/quiz/src/app/(site)/me/page.tsx",
+      "lines": 31,
+      "blocks": [
+        [
+          118,
+          129,
+          98,
+          109
+        ],
+        [
+          232,
+          251,
+          234,
+          253
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/app/api/blind-test/generate/route.ts",
+      "protected": "apps/quiz/src/components/blind-test/blindtest-game.tsx",
+      "lines": 9,
+      "blocks": [
+        [
+          59,
+          67,
+          28,
+          36
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/app/api/blind-test/generate/route.ts",
+      "protected": "apps/quiz/src/components/blindtest/ux-v1/types.ts",
+      "lines": 9,
+      "blocks": [
+        [
+          59,
+          67,
+          5,
+          13
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/app/api/daily/blindtest/route.ts",
+      "protected": "apps/quiz/src/components/blind-test/blindtest-game.tsx",
+      "lines": 9,
+      "blocks": [
+        [
+          34,
+          42,
+          28,
+          36
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/app/api/daily/blindtest/route.ts",
+      "protected": "apps/quiz/src/components/blindtest/ux-v1/types.ts",
+      "lines": 9,
+      "blocks": [
+        [
+          34,
+          42,
+          5,
+          13
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/app/api/og/verse/[slug]/route.tsx",
+      "protected": "apps/quiz/src/app/api/og/group/[slug]/route.tsx",
+      "lines": 8,
+      "blocks": [
+        [
+          21,
+          29,
+          15,
+          23
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/blindtest/ux-v1/types.ts",
+      "protected": "apps/quiz/src/components/blind-test/blindtest-game.tsx",
+      "lines": 12,
+      "blocks": [
+        [
+          5,
+          21,
+          28,
+          44
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/blindtest/ux-v1/use-run.ts",
+      "protected": "apps/quiz/src/components/blind-test/blindtest-game.tsx",
+      "lines": 9,
+      "blocks": [
+        [
+          419,
+          432,
+          240,
+          251
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/community/daily-ritual.tsx",
+      "protected": "apps/quiz/src/components/community/daily-debate.tsx",
+      "lines": 11,
+      "blocks": [
+        [
+          22,
+          35,
+          28,
+          41
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/game/blind-test-player.tsx",
+      "protected": "apps/quiz/src/components/blind-test/blind-test-player.tsx",
+      "lines": 17,
+      "blocks": [
+        [
+          152,
+          162,
+          71,
+          81
+        ],
+        [
+          376,
+          391,
+          322,
+          337
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/home/home-btotd.tsx",
+      "protected": "apps/quiz/src/components/blind-test/blindtest-game.tsx",
+      "lines": 10,
+      "blocks": [
+        [
+          24,
+          36,
+          376,
+          389
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/home/home-qotd.tsx",
+      "protected": "apps/quiz/src/components/blind-test/blindtest-game.tsx",
+      "lines": 10,
+      "blocks": [
+        [
+          31,
+          43,
+          376,
+          389
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/home/home-qotd.tsx",
+      "protected": "apps/quiz/src/components/home/home-btotd.tsx",
+      "lines": 13,
+      "blocks": [
+        [
+          28,
+          48,
+          21,
+          41
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/layout/ux-v1/ux-appearance-setting.tsx",
+      "protected": "apps/quiz/src/components/profile/ux-v1/settings.tsx",
+      "lines": 8,
+      "blocks": [
+        [
+          10,
+          21,
+          58,
+          68
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/layout/ux-v1/ux-nav-actions.tsx",
+      "protected": "apps/quiz/src/components/layout/notification-bell.tsx",
+      "lines": 9,
+      "blocks": [
+        [
+          80,
+          89,
+          25,
+          35
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/profile/profile-owner-controls.tsx",
+      "protected": "apps/quiz/src/app/(site)/me/page.tsx",
+      "lines": 12,
+      "blocks": [
+        [
+          26,
+          40,
+          200,
+          214
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/quiz/quiz-card.tsx",
+      "protected": "apps/quiz/src/components/home/quiz-of-the-day.tsx",
+      "lines": 10,
+      "blocks": [
+        [
+          52,
+          63,
+          41,
+          52
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/quiz/quiz-of-the-day.tsx",
+      "protected": "apps/quiz/src/components/blind-test/blindtest-game.tsx",
+      "lines": 10,
+      "blocks": [
+        [
+          18,
+          30,
+          376,
+          389
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/quiz/quiz-of-the-day.tsx",
+      "protected": "apps/quiz/src/components/home/home-btotd.tsx",
+      "lines": 10,
+      "blocks": [
+        [
+          18,
+          30,
+          24,
+          36
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/quiz/quiz-of-the-day.tsx",
+      "protected": "apps/quiz/src/components/home/home-qotd.tsx",
+      "lines": 10,
+      "blocks": [
+        [
+          18,
+          30,
+          31,
+          43
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/quiz/ux-v1/story.ts",
+      "protected": "apps/quiz/src/components/ux-v1/story-image.ts",
+      "lines": 8,
+      "blocks": [
+        [
+          19,
+          29,
+          63,
+          74
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/ranked/ux-v1/use-ranked-run.ts",
+      "protected": "apps/quiz/src/components/blindtest/ux-v1/use-run.ts",
+      "lines": 32,
+      "blocks": [
+        [
+          277,
+          302,
+          226,
+          252
+        ],
+        [
+          449,
+          477,
+          456,
+          484
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/ui/like-quiz-button.tsx",
+      "protected": "apps/quiz/src/components/ui/like-button.tsx",
+      "lines": 33,
+      "blocks": [
+        [
+          5,
+          39,
+          5,
+          39
+        ],
+        [
+          71,
+          101,
+          56,
+          86
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/verse/builder/library-drawer.tsx",
+      "protected": "apps/quiz/src/components/verse/builder/hero-editor.tsx",
+      "lines": 9,
+      "blocks": [
+        [
+          62,
+          71,
+          31,
+          40
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/verse/builder/style-panel.tsx",
+      "protected": "apps/quiz/src/components/verse/builder/hero-editor.tsx",
+      "lines": 14,
+      "blocks": [
+        [
+          42,
+          56,
+          27,
+          41
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/verse/builder/style-panel.tsx",
+      "protected": "apps/quiz/src/components/verse/builder/library-drawer.tsx",
+      "lines": 9,
+      "blocks": [
+        [
+          46,
+          55,
+          62,
+          71
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/components/verse/photocard-catalog-manager.tsx",
+      "protected": "apps/quiz/src/components/verse/collectible-catalog-manager.tsx",
+      "lines": 9,
+      "blocks": [
+        [
+          24,
+          34,
+          16,
+          26
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/lib/db/types.ts",
+      "protected": "apps/quiz/src/app/api/og/group/[slug]/route.tsx",
+      "lines": 8,
+      "blocks": [
+        [
+          35,
+          42,
+          68,
+          75
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/lib/ux-v1/p4/engine.ts",
+      "protected": "apps/quiz/src/components/quiz/quiz-player.tsx",
+      "lines": 132,
+      "blocks": [
+        [
+          42,
+          64,
+          113,
+          135
+        ],
+        [
+          98,
+          111,
+          174,
+          191
+        ],
+        [
+          129,
+          145,
+          196,
+          212
+        ],
+        [
+          186,
+          199,
+          231,
+          244
+        ],
+        [
+          201,
+          243,
+          246,
+          288
+        ],
+        [
+          246,
+          270,
+          293,
+          317
+        ],
+        [
+          272,
+          307,
+          319,
+          354
+        ]
+      ]
+    },
+    {
+      "candidate": "apps/quiz/src/lib/ux-v1/p5/funnel.ts",
+      "protected": "apps/quiz/src/components/create/create-funnel.tsx",
+      "lines": 38,
+      "blocks": [
+        [
+          55,
+          68,
+          124,
+          137
+        ],
+        [
+          84,
+          93,
+          143,
+          152
+        ],
+        [
+          148,
+          163,
+          73,
+          88
+        ],
+        [
+          213,
+          220,
+          253,
+          260
+        ]
+      ]
+    },
+    {
+      "candidate": "packages/shared/src/types.ts",
+      "protected": "apps/quiz/src/app/api/og/group/[slug]/route.tsx",
+      "lines": 8,
+      "blocks": [
+        [
+          23,
+          30,
+          68,
+          75
+        ]
+      ]
+    }
+  ],
+  "pending": [
+    "1 apps/quiz/src/app/sites/[site]/page.tsx",
+    "10 apps/quiz/src/app/sites/[site]/daily/route.ts",
+    "11 apps/quiz/src/app/sites/[site]/blindtest/page.tsx",
+    "12 apps/quiz/src/app/sites/[site]/blindtest/[mode]/page.tsx",
+    "13 apps/quiz/src/app/sites/[site]/opening-of-the-day/page.tsx",
+    "14 apps/quiz/src/app/sites/[site]/which-character/[series]/page.tsx",
+    "15 apps/quiz/src/app/sites/[site]/name-all/[series]/[set]/page.tsx",
+    "16 apps/quiz/src/app/sites/[site]/me/page.tsx",
+    "17 apps/quiz/src/app/sites/[site]/u/[username]/page.tsx",
+    "18 apps/quiz/src/app/sites/[site]/settings/page.tsx",
+    "19 apps/quiz/src/app/sites/[site]/login/page.tsx",
+    "2 apps/quiz/src/app/sites/[site]/series/page.tsx",
+    "20 apps/quiz/src/app/sites/[site]/onboarding/page.tsx",
+    "21 apps/quiz/src/app/sites/[site]/notifications/page.tsx",
+    "22 apps/quiz/src/app/sites/[site]/search/page.tsx",
+    "23 apps/quiz/src/app/sites/[site]/community/page.tsx",
+    "23b apps/quiz/src/app/sites/[site]/community/[kind]/[id]/page.tsx",
+    "24 apps/quiz/src/app/sites/[site]/about/page.tsx",
+    "25 apps/quiz/src/app/sites/[site]/editorial-policy/page.tsx",
+    "26 apps/quiz/src/app/sites/[site]/privacy/page.tsx",
+    "26b apps/quiz/src/app/sites/[site]/terms/page.tsx",
+    "26c apps/quiz/src/app/sites/[site]/contact/page.tsx",
+    "27 apps/quiz/src/app/sites/[site]/not-found.tsx",
+    "27b apps/quiz/src/app/sites/[site]/[...rest]/page.tsx",
+    "28 apps/quiz/src/app/sites/[site]/layout.tsx",
+    "29 apps/quiz/src/app/sites/[site]/admin/review/page.tsx",
+    "3 apps/quiz/src/app/sites/[site]/[slug]/page.tsx",
+    "31 apps/quiz/src/app/sites/[site]/quizzes/page.tsx",
+    "31b apps/quiz/src/app/sites/[site]/quizzes/popular-today/page.tsx",
+    "31c apps/quiz/src/app/sites/[site]/quizzes/popular-this-week/page.tsx",
+    "31d apps/quiz/src/app/sites/[site]/quizzes/popular-this-month/page.tsx",
+    "32 apps/quiz/src/app/sites/[site]/new/page.tsx",
+    "32b apps/quiz/src/app/sites/[site]/most-liked/page.tsx",
+    "32c apps/quiz/src/app/sites/[site]/trending/page.tsx",
+    "33 apps/quiz/src/app/sites/[site]/trivia/page.tsx",
+    "34 apps/quiz/src/app/sites/[site]/faq/page.tsx",
+    "35 apps/quiz/src/app/sites/[site]/leaderboard/page.tsx",
+    "36 apps/quiz/src/app/sites/[site]/dmca/page.tsx",
+    "4 apps/quiz/src/app/sites/[site]/[slug]/page.tsx",
+    "5 apps/quiz/src/app/sites/[site]/[slug]/page.tsx",
+    "6 apps/quiz/src/app/sites/[site]/q/[slug]/page.tsx",
+    "7 apps/quiz/src/app/sites/[site]/q/[slug]/page.tsx",
+    "8 apps/quiz/src/app/sites/[site]/q/[slug]/page.tsx",
+    "9 apps/quiz/src/app/sites/[site]/create/page.tsx",
+    "H-0 apps/quiz/src/app/sites/[site]/layout.tsx",
+    "H-1 apps/quiz/src/app/sites/[site]/page.tsx",
+    "H-2 apps/quiz/src/app/sites/[site]/privacy/page.tsx",
+    "H-3 apps/quiz/src/app/sites/[site]/passport/page.tsx",
+    "H-4 apps/quiz/src/app/sites/[site]/u/[username]/page.tsx",
+    "H-5 apps/quiz/src/app/sites/[site]/settings/page.tsx",
+    "H-6 apps/quiz/src/app/sites/[site]/login/page.tsx",
+    "H-7 apps/quiz/src/app/sites/[site]/directory/page.tsx",
+    "H-8 apps/quiz/src/app/sites/[site]/not-found.tsx"
+  ],
+  "checked": [],
+  "counts": {
+    "rows": 56,
+    "screens": 0,
+    "protected": 524,
+    "scanned": 1466
+  }
+}

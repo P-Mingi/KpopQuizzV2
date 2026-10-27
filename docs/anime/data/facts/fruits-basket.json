@@ -1,0 +1,2518 @@
+[
+  {
+    "id": "fruits-basket-japanese-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "title_native",
+    "value": [
+      "フルーツバスケット"
+    ],
+    "text": "The Japanese title is written in katakana as フルーツバスケット, which simply spells out the English words fruits basket.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "official",
+        "url": "https://fruba.jp/onair/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "TVアニメ「フルーツバスケット」The Final"
+  },
+  {
+    "id": "fruits-basket-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "author",
+    "value": "Natsuki Takaya",
+    "text": "Natsuki Takaya both wrote and drew the manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket",
+        "ref": "1379854325",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q216204",
+        "ref": "Q216204",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Written and illustrated by Natsuki Takaya"
+  },
+  {
+    "id": "fruits-basket-magazine-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "magazine",
+    "value": "Hana to Yume",
+    "text": "The manga ran in Hakusensha's twice-monthly shojo magazine Hana to Yume.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket",
+        "ref": "1379854325",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q216204",
+        "ref": "Q216204",
+        "fetched_at": "2026-10-25T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:30:00.000Z",
+    "excerpt": "semi-monthly shōjo manga magazine Hana to Yume"
+  },
+  {
+    "id": "fruits-basket-publisher-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "publisher",
+    "value": "Hakusensha",
+    "text": "Hakusensha is the Japanese publisher of the manga.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket",
+        "ref": "1379854325",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q216204",
+        "ref": "Q216204",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "published by Hakusensha"
+  },
+  {
+    "id": "fruits-basket-manga-run-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "manga_run",
+    "value": [
+      "July 1998",
+      "November 2006"
+    ],
+    "text": "The manga was serialized from July 1998 until November 2006, a run of more than eight years.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket",
+        "ref": "1379854325",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q216204",
+        "ref": "Q216204",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "from July 1998 to November 2006"
+  },
+  {
+    "id": "fruits-basket-volumes-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "volumes",
+    "value": 23,
+    "text": "The finished manga was collected in 23 tankobon volumes.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket",
+        "ref": "1379854325",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q216204",
+        "ref": "Q216204",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "collected into 23 tankōbon volumes"
+  },
+  {
+    "id": "fruits-basket-chapters-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "chapters",
+    "value": 136,
+    "text": "Over its whole run the manga produced 136 chapters.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket",
+        "ref": "1379854325",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q216204",
+        "ref": "Q216204",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "136 chapters of Fruits Basket were serialized"
+  },
+  {
+    "id": "fruits-basket-manga-award-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "manga_award",
+    "value": "Kodansha Manga Award, shojo category",
+    "text": "In 2001 the manga won the Kodansha Manga Award in the shojo category.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket",
+        "ref": "1379854325",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "won the 2001 Kodansha Manga Awards in the shōjo category"
+  },
+  {
+    "id": "fruits-basket-premise-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "premise",
+    "value": "The Sohma family and the Chinese zodiac curse",
+    "text": "Thirteen members of the Sohma family are possessed by animals of the Chinese zodiac, and they turn into those animals when weak or stressed, or when hugged by someone of the opposite sex.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket",
+        "ref": "1379854325",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "cursed to turn into their animal forms when they are weak, stressed, or embraced"
+  },
+  {
+    "id": "fruits-basket-title-game-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "title_origin",
+    "value": "Fruit Basket Turnover",
+    "text": "The title comes from a children's game, Fruit Basket Turnover, in which young Tohru is given the part of an onigiri rice ball instead of a fruit.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket",
+        "ref": "1379854325",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Tohru is not given a fruit, and is instead assigned 'onigiri'"
+  },
+  {
+    "id": "fruits-basket-studio-2001-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "studio",
+    "value": [
+      "Studio Deen",
+      "Akitaro Daichi"
+    ],
+    "text": "The first anime, in 2001, was made by Studio Deen and directed by Akitaro Daichi.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2001_TV_series)",
+        "ref": "1368461630",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q76767242",
+        "ref": "Q76767242",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "animated by Studio Deen"
+  },
+  {
+    "id": "fruits-basket-run-2001-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "anime_tv",
+    "value": [
+      "July 5, 2001",
+      "December 27, 2001",
+      "26 episodes"
+    ],
+    "text": "The 2001 anime ran for 26 episodes on TV Tokyo, from July 5 to December 27, 2001.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2001_TV_series)",
+        "ref": "1368461630",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q76767242",
+        "ref": "Q76767242",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "premiered on TV Tokyo on 5 July 2001"
+  },
+  {
+    "id": "fruits-basket-cranes-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "reputation",
+    "value": "1,000 origami cranes",
+    "text": "In 2005 fans folded origami cranes at conventions in a campaign that urged the studio and publisher to make more of the anime.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket",
+        "ref": "1379854325",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Funimation sent the cranes and pictures of the events"
+  },
+  {
+    "id": "fruits-basket-new-anime-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "new_anime",
+    "value": "November 2018",
+    "text": "A brand new anime, with an all-new cast and staff, was announced in November 2018.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)",
+        "ref": "1379439701",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2018-11-19/funimation-reveals-cast-staff-streaming-for-new-2019-fruits-basket-tv-anime/.139680",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "announced in November 2018, featuring a new cast and staff"
+  },
+  {
+    "id": "fruits-basket-anime-studio-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "anime_studio",
+    "value": "TMS Entertainment",
+    "text": "TMS Entertainment animated the 2019 remake, in a co-production with Funimation.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)",
+        "ref": "1379439701",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q90394739",
+        "ref": "Q90394739",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "TMS Entertainment handling the 63 episodes-long productions"
+  },
+  {
+    "id": "fruits-basket-director-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "director",
+    "value": "Yoshihide Ibata",
+    "text": "Yoshihide Ibata directed the 2019 anime.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)",
+        "ref": "1379439701",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Director: Yoshihide Ibata"
+  },
+  {
+    "id": "fruits-basket-staff-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "anime_staff",
+    "value": [
+      "Taku Kishimoto",
+      "Masaru Shindo"
+    ],
+    "text": "Taku Kishimoto handled the series composition of the 2019 anime and Masaru Shindo designed its characters.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)",
+        "ref": "1379439701",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Screenwriter: Taku Kishimoto; Character Designer: Masaru Shindou"
+  },
+  {
+    "id": "fruits-basket-composer-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "composer",
+    "value": "Masaru Yokoyama",
+    "text": "Masaru Yokoyama wrote the music of the 2019 anime.",
+    "category": "music",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket",
+        "ref": "1379854325",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Composer: Masaru Yokoyama"
+  },
+  {
+    "id": "fruits-basket-season-one-019",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "anime_s1",
+    "value": [
+      "25 episodes",
+      "April 2019",
+      "September 2019"
+    ],
+    "text": "The first season of the remake has 25 episodes, aired from April to September 2019.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)",
+        "ref": "1379439701",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21588",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "It ran for 25 episodes from April 6 to September 21, 2019"
+  },
+  {
+    "id": "fruits-basket-season-two-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "anime_s2",
+    "value": [
+      "25 episodes",
+      "April 2020",
+      "September 2020"
+    ],
+    "text": "The second season of the remake has 25 episodes, aired from April to September 2020.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)",
+        "ref": "1379439701",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2020-03-04/new-fruits-basket-anime-season-2-unveils-april-6-debut-creator-message-new-visual/.157131",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "It aired from April 7 to September 22, 2020"
+  },
+  {
+    "id": "fruits-basket-season-three-021",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "anime_s3",
+    "value": [
+      "Fruits Basket: The Final",
+      "13 episodes",
+      "April 2021",
+      "June 2021"
+    ],
+    "text": "The third and last season is titled The Final, has 13 episodes and aired from April to June 2021.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)",
+        "ref": "1379439701",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/news/2020-09-21/fruits-basket-anime-gets-final-season-in-2021/.164299",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q90394739",
+        "ref": "Q90394739",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "It aired from April 6 to June 29, 2021, titled Fruits Basket: The Final"
+  },
+  {
+    "id": "fruits-basket-total-episodes-022",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "episodes",
+    "value": 63,
+    "text": "Altogether the 2019 remake runs to 63 episodes across 3 seasons.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)",
+        "ref": "1379439701",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q90394739",
+        "ref": "Q90394739",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "63 episodes-long productions"
+  },
+  {
+    "id": "fruits-basket-arc-list-023",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "arcs",
+    "value": [
+      "Season 1: episodes 1 to 25",
+      "Season 2: episodes 26 to 50",
+      "The Final: episodes 51 to 63"
+    ],
+    "text": "Season 1 covers episodes 1 to 25, Season 2 covers episodes 26 to 50 and The Final covers episodes 51 to 63.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)",
+        "ref": "1379439701",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "25 episodes ... 25 episodes ... 13 episodes"
+  },
+  {
+    "id": "fruits-basket-openings-s1-024",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP1: Again (Beverly), episodes 1 to 13",
+      "OP2: Chime (Ai Otsuka), episodes 14 to 25",
+      "ED1: Lucky Ending (Vickeblanka), episodes 1 to 13",
+      "ED2: One Step Closer (Intersection), episodes 14 to 25"
+    ],
+    "text": "Season 1 opens first with Again by Beverly and then with Chime by Ai Otsuka, and ends with Lucky Ending and then One Step Closer.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)",
+        "ref": "1379439701",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "\"Again\" by Beverly ... \"Chime\" by Ai Otsuka"
+  },
+  {
+    "id": "fruits-basket-openings-s2-025",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP3: Prism (AmPm ft Miyuna), episodes 26 to 38",
+      "OP4: Home (Toki Asako), episodes 39 to 50",
+      "ED3: ad meliora (The Charm Park), episodes 26 to 38",
+      "ED4: Eden (Monkey Majik), episodes 39 to 50"
+    ],
+    "text": "Season 2 opens with Prism and then Home, and its endings are ad meliora and then Eden.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)",
+        "ref": "1379439701",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "\"Prism\" by AmPm ft Miyuna ... \"Home\" by Toki Asako"
+  },
+  {
+    "id": "fruits-basket-openings-s3-026",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "themes_s3",
+    "value": [
+      "OP5: Pleasure (WARPs UP), episodes 51 to 63",
+      "ED5: Haru Urara (GENIC), episodes 51 to 63"
+    ],
+    "text": "The final season uses Pleasure by WARPs UP as its opening and Haru Urara by GENIC as its ending.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)",
+        "ref": "1379439701",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "\"Pleasure\", by WARPs UP"
+  },
+  {
+    "id": "fruits-basket-prelude-027",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "film",
+    "value": [
+      "Fruits Basket: Prelude",
+      "February 18, 2022"
+    ],
+    "text": "A compilation film, Fruits Basket: Prelude, reached Japanese cinemas on February 18, 2022, recapping the remake and adding a prequel story about Tohru's parents Kyoko and Katsuya.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket:_Prelude",
+        "ref": "1374270444",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q112235726",
+        "ref": "Q112235726",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "premiered theatrically in Japan on 18 February 2022"
+  },
+  {
+    "id": "fruits-basket-another-028",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "spinoff",
+    "value": "Fruits Basket Another",
+    "text": "Fruits Basket Another is a sequel manga that follows a younger generation of the Sohma family.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_Another",
+        "ref": "1372184943",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Fruits Basket Another"
+  },
+  {
+    "id": "fruits-basket-english-licence-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "english_licence",
+    "value": "Tokyopop",
+    "text": "Tokyopop first published the manga in English, and Yen Press later issued collector's editions.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket",
+        "ref": "1379854325",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "licensed in English in North America and the United Kingdom by Tokyopop"
+  },
+  {
+    "id": "fruits-basket-tohru-honda-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "tohru-honda"
+    },
+    "field": "name",
+    "value": [
+      "Tohru Honda",
+      "本田 透"
+    ],
+    "text": "Tohru Honda is an orphaned high school student who ends up living with the Sohma cousins in return for doing housework.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "begins living with Shigure, Yuki, and Kyo"
+  },
+  {
+    "id": "fruits-basket-tohru-honda-onigiri-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "tohru-honda"
+    },
+    "field": "nickname",
+    "value": "Onigiri",
+    "text": "In the childhood game that gives the series its name, Tohru is assigned the part of the rice ball.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket",
+        "ref": "1379854325",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Tohru is not given a fruit, and is instead assigned"
+  },
+  {
+    "id": "fruits-basket-tohru-honda-voice-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "tohru-honda"
+    },
+    "field": "voice_cast",
+    "value": "Manaka Iwami",
+    "text": "Manaka Iwami",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Manaka Iwami voices Tohru in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-yuki-sohma-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "yuki-sohma"
+    },
+    "field": "name",
+    "value": [
+      "Yuki Sohma",
+      "草摩 由希"
+    ],
+    "text": "Yuki Sohma is the Rat of the zodiac and the younger brother of Ayame.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "is the Rat of the Chinese zodiac and younger brother of Ayame"
+  },
+  {
+    "id": "fruits-basket-yuki-sohma-voice-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "yuki-sohma"
+    },
+    "field": "voice_cast",
+    "value": "Nobunaga Shimazaki",
+    "text": "Nobunaga Shimazaki",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Nobunaga Shimazaki voices Yuki in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-kyo-sohma-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "kyo-sohma"
+    },
+    "field": "name",
+    "value": [
+      "Kyo Sohma",
+      "草摩 夾"
+    ],
+    "text": "Kyo Sohma is cursed by the cat, which is an animal outside the Chinese zodiac.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "cursed by the cat, an animal not in the Chinese zodiac"
+  },
+  {
+    "id": "fruits-basket-kyo-sohma-legend-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "kyo-sohma"
+    },
+    "field": "origin",
+    "value": "Tricked by the Rat",
+    "text": "Legend says the cat would have joined the zodiac if the Rat had not tricked it into missing the induction feast.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "tricked by the Rat into missing the induction feast"
+  },
+  {
+    "id": "fruits-basket-kyo-sohma-childhood-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "kyo-sohma"
+    },
+    "field": "background",
+    "value": "Taken in by Kazuma",
+    "text": "After his mother died and his father rejected him, Kyo was raised by the martial arts teacher Kazuma Sohma.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Kyo was taken in by Kazuma"
+  },
+  {
+    "id": "fruits-basket-kyo-sohma-voice-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "kyo-sohma"
+    },
+    "field": "voice_cast",
+    "value": "Yuma Uchida",
+    "text": "Yuma Uchida",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Yuma Uchida voices Kyo in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-kyo-sohma-author-note-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "kyo-sohma"
+    },
+    "field": "epithet",
+    "value": "A powerful force",
+    "text": "Natsuki Takaya said in an author's note that Kyo was the driving force that pulled the story along.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a powerful force that pulled the story"
+  },
+  {
+    "id": "fruits-basket-shigure-sohma-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "shigure-sohma"
+    },
+    "field": "name",
+    "value": [
+      "Shigure Sohma",
+      "草摩 紫呉"
+    ],
+    "text": "Shigure Sohma is the Dog of the zodiac and owns the house where Tohru, Yuki and Kyo live.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "is the Dog of the Chinese zodiac and the owner of the house"
+  },
+  {
+    "id": "fruits-basket-shigure-sohma-name-meaning-041",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "shigure-sohma"
+    },
+    "field": "name_meaning",
+    "value": "Autumn showers month",
+    "text": "His name comes from shigurezuki, the autumn showers month, which is the tenth month and the month of the Dog.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "shigurezuki or 'autumn showers month,' which is the month of the Dog"
+  },
+  {
+    "id": "fruits-basket-shigure-sohma-voice-042",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "shigure-sohma"
+    },
+    "field": "voice_cast",
+    "value": "Yuichi Nakamura",
+    "text": "Yuichi Nakamura",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Yuichi Nakamura voices Shigure in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-akito-sohma-name-043",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "akito-sohma"
+    },
+    "field": "name",
+    "value": [
+      "Akito Sohma",
+      "草摩 慊人"
+    ],
+    "text": "Akito Sohma is the frail head of the Sohma family.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "is the head of the Soma family and very frail"
+  },
+  {
+    "id": "fruits-basket-akito-sohma-god-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "akito-sohma"
+    },
+    "field": "power",
+    "value": "God of the zodiac",
+    "text": "Akito calls herself the god of the zodiac, the one who controls it and the master of the cursed members' souls.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "the 'one who controls the zodiac'"
+  },
+  {
+    "id": "fruits-basket-akito-sohma-sex-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "akito-sohma"
+    },
+    "field": "background",
+    "value": "Female living as a man",
+    "text": "In the manga and the 2019 anime, Akito turns out to be female although she lives as a man for most of the story.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "despite spending a majority of the time masquerading as a man"
+  },
+  {
+    "id": "fruits-basket-akito-sohma-voice-046",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "akito-sohma"
+    },
+    "field": "voice_cast",
+    "value": "Maaya Sakamoto",
+    "text": "Maaya Sakamoto voices Akito in the 2019 anime.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Maaya Sakamoto"
+  },
+  {
+    "id": "fruits-basket-akito-sohma-secret-047",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "akito-sohma"
+    },
+    "field": "role",
+    "value": "Kureno, Shigure, Hatori, Ayame",
+    "text": "Only the four oldest zodiac members, Kureno, Shigure, Hatori and Ayame, knew Akito's biological sex besides Akito.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "the oldest four zodiac members: Kureno, Shigure, Hatori, and Ayame"
+  },
+  {
+    "id": "fruits-basket-ayame-sohma-name-048",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "ayame-sohma"
+    },
+    "field": "name",
+    "value": [
+      "Ayame Sohma",
+      "草摩 綾女"
+    ],
+    "text": "Ayame Sohma is the Snake of the zodiac and Yuki's older brother, a flamboyant man with long silver hair.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "is the Snake of the Chinese zodiac, and Yuki's older brother"
+  },
+  {
+    "id": "fruits-basket-ayame-sohma-voice-049",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "ayame-sohma"
+    },
+    "field": "voice_cast",
+    "value": "Takahiro Sakurai",
+    "text": "Takahiro Sakurai",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Takahiro Sakurai voices Ayame in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-hatori-sohma-name-050",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "hatori-sohma"
+    },
+    "field": "name",
+    "value": [
+      "Hatori Sohma",
+      "草摩 はとり"
+    ],
+    "text": "Hatori Sohma is the Dragon of the zodiac, and in animal form he is a seahorse.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "is the dragon of the Chinese zodiac (taking the form of a seahorse)"
+  },
+  {
+    "id": "fruits-basket-hatori-sohma-doctor-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "hatori-sohma"
+    },
+    "field": "occupation",
+    "value": "Family doctor",
+    "text": "He is the family doctor and uses a form of hypnosis passed down in his line to erase the memories of outsiders who learn the secret.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "responsible for suppressing memories"
+  },
+  {
+    "id": "fruits-basket-hatori-sohma-voice-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "hatori-sohma"
+    },
+    "field": "voice_cast",
+    "value": "Kazuyuki Okitsu",
+    "text": "Kazuyuki Okitsu",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Kazuyuki Okitsu voices Hatori in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-hatsuharu-sohma-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "hatsuharu-sohma"
+    },
+    "field": "name",
+    "value": [
+      "Hatsuharu Sohma",
+      "草摩 溌春"
+    ],
+    "text": "Hatsuharu Sohma, nicknamed Haru, carries the curse of the Ox.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "often called Haru, is the Ox of the Chinese zodiac"
+  },
+  {
+    "id": "fruits-basket-hatsuharu-sohma-voice-054",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "hatsuharu-sohma"
+    },
+    "field": "voice_cast",
+    "value": "Makoto Furukawa",
+    "text": "Makoto Furukawa",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Makoto Furukawa voices Hatsuharu in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-momiji-sohma-name-055",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "momiji-sohma"
+    },
+    "field": "name",
+    "value": [
+      "Momiji Sohma",
+      "草摩 紅葉"
+    ],
+    "text": "Momiji Sohma is the Rabbit of the zodiac.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "is the Rabbit of the Chinese zodiac"
+  },
+  {
+    "id": "fruits-basket-momiji-sohma-heritage-056",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "momiji-sohma"
+    },
+    "field": "origin",
+    "value": "Japanese father, German mother",
+    "text": "Momiji's father is a wealthy Japanese member of the Sohma family and his mother is German.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "while his mother is German"
+  },
+  {
+    "id": "fruits-basket-momiji-sohma-voice-057",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "momiji-sohma"
+    },
+    "field": "voice_cast",
+    "value": "Megumi Han",
+    "text": "Megumi Han",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Megumi Han voices Momiji in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-kagura-sohma-name-058",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "kagura-sohma"
+    },
+    "field": "name",
+    "value": [
+      "Kagura Sohma",
+      "草摩 楽羅"
+    ],
+    "text": "Kagura Sohma is the Boar of the zodiac.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "is the Boar of the Chinese zodiac"
+  },
+  {
+    "id": "fruits-basket-kagura-sohma-voice-059",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "kagura-sohma"
+    },
+    "field": "voice_cast",
+    "value": "Rie Kugimiya",
+    "text": "Rie Kugimiya",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Rie Kugimiya voices Kagura in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-kisa-sohma-name-060",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "kisa-sohma"
+    },
+    "field": "name",
+    "value": [
+      "Kisa Sohma",
+      "草摩 杞紗"
+    ],
+    "text": "Kisa Sohma is the Tiger of the zodiac.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "is the Tiger of the Chinese zodiac"
+  },
+  {
+    "id": "fruits-basket-kisa-sohma-voice-061",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "kisa-sohma"
+    },
+    "field": "voice_cast",
+    "value": "Reina Ueda",
+    "text": "Reina Ueda",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Reina Ueda voices Kisa in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-hiro-sohma-name-062",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "hiro-sohma"
+    },
+    "field": "name",
+    "value": [
+      "Hiro Sohma",
+      "草摩 燈路"
+    ],
+    "text": "Hiro Sohma is the Ram, or Sheep, of the zodiac, and he cares deeply about Kisa.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "is the Ram or Sheep of the Chinese zodiac and loves Kisa"
+  },
+  {
+    "id": "fruits-basket-hiro-sohma-voice-063",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "hiro-sohma"
+    },
+    "field": "voice_cast",
+    "value": "Yō Taichi",
+    "text": "Yō Taichi",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Yō Taichi voices Hiro in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-ritsu-sohma-name-064",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "ritsu-sohma"
+    },
+    "field": "name",
+    "value": [
+      "Ritsu Sohma",
+      "草摩 利津"
+    ],
+    "text": "Ritsu Sohma is the Monkey of the zodiac.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "is the Monkey of the Chinese zodiac"
+  },
+  {
+    "id": "fruits-basket-ritsu-sohma-shigure-065",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "ritsu-sohma"
+    },
+    "field": "habits",
+    "value": "Teased by Shigure",
+    "text": "Shigure enjoys playing on Ritsu's insecurity and gullibility, just as he does with his editor Mitsuru.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "likes to play with Ritsu's insecurities and gullibility"
+  },
+  {
+    "id": "fruits-basket-ritsu-sohma-voice-066",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "ritsu-sohma"
+    },
+    "field": "voice_cast",
+    "value": "Kengo Kawanishi",
+    "text": "Kengo Kawanishi",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Kengo Kawanishi voices Ritsu in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-isuzu-sohma-name-067",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "isuzu-sohma"
+    },
+    "field": "name",
+    "value": [
+      "Isuzu Sohma",
+      "草摩 依鈴"
+    ],
+    "text": "Isuzu Sohma, called Rin, is the Horse of the zodiac.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "is the Horse of the Chinese zodiac"
+  },
+  {
+    "id": "fruits-basket-isuzu-sohma-voice-068",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "isuzu-sohma"
+    },
+    "field": "voice_cast",
+    "value": "Aki Toyosaki",
+    "text": "Aki Toyosaki",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Aki Toyosaki voices Isuzu in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-arisa-uotani-name-069",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "arisa-uotani"
+    },
+    "field": "name",
+    "value": [
+      "Arisa Uotani",
+      "魚谷 ありさ"
+    ],
+    "text": "Arisa Uotani used to run with a gang and is now among Tohru's dearest friends.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a former gang member and one of Tohru's closest friends"
+  },
+  {
+    "id": "fruits-basket-arisa-uotani-voice-070",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "arisa-uotani"
+    },
+    "field": "voice_cast",
+    "value": "Atsumi Tanezaki",
+    "text": "Atsumi Tanezaki",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Atsumi Tanezaki voices Arisa in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-saki-hanajima-name-071",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "saki-hanajima"
+    },
+    "field": "name",
+    "value": [
+      "Saki Hanajima",
+      "花島 咲"
+    ],
+    "text": "Saki Hanajima is a psychic girl who can sense people's waves, and one of Tohru's best friends.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "has the ability to sense people's 'waves'"
+  },
+  {
+    "id": "fruits-basket-saki-hanajima-voice-072",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "saki-hanajima"
+    },
+    "field": "voice_cast",
+    "value": "Satomi Satō",
+    "text": "Satomi Satō",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://fruba.jp/caststaff/",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Satomi Satō voices Saki in the 2019 anime."
+  },
+  {
+    "id": "fruits-basket-kyoko-honda-name-073",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "kyoko-honda"
+    },
+    "field": "name",
+    "value": [
+      "Kyoko Honda",
+      "本田 今日子"
+    ],
+    "text": "Kyoko Honda is the late mother of Tohru Honda, who was born with the family name Katsunuma.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "née Katsunuma, is the deceased mother of Tohru Honda"
+  },
+  {
+    "id": "fruits-basket-katsuya-honda-name-074",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "katsuya-honda"
+    },
+    "field": "name",
+    "value": [
+      "Katsuya Honda",
+      "本田 勝也"
+    ],
+    "text": "Katsuya Honda is Tohru's late father and the husband of Kyoko.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "is the deceased father of Tohru Honda and husband of Kyoko Honda"
+  },
+  {
+    "id": "fruits-basket-kazuma-sohma-name-075",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "kazuma-sohma"
+    },
+    "field": "name",
+    "value": [
+      "Kazuma Sohma"
+    ],
+    "text": "Kazuma Sohma is the man who took Kyo in as a boy after his father turned him away.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "Kyo was taken in by Kazuma"
+  },
+  {
+    "id": "fruits-basket-machi-kuragi-name-076",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "fruits-basket",
+      "ref": "machi-kuragi"
+    },
+    "field": "name",
+    "value": [
+      "Machi Kuragi"
+    ],
+    "text": "Machi Kuragi is a student council treasurer with a painful childhood, and Yuki becomes drawn to her.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+        "ref": "1379347180",
+        "fetched_at": "2026-10-25T15:40:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:00:00.000Z",
+    "excerpt": "a student council treasurer who also had a traumatic childhood"
+  },
+  {
+    "id": "fruits-basket-seasons-count-077",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "fruits-basket"
+    },
+    "field": "anime_seasons",
+    "value": 3,
+    "text": "The 2019 remake was split into three seasons, the last of which is titled The Final.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Fruits_Basket_(2019_TV_series)",
+        "ref": "1379439701",
+        "fetched_at": "2026-10-25T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q90394739",
+        "ref": "Q90394739",
+        "fetched_at": "2026-10-25T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:00:00.000Z",
+    "excerpt": "The show was divided into three seasons"
+  }
+]

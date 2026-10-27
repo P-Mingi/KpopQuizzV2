@@ -1,0 +1,1 @@
+check:indexability hardcodes kpopquiz.org and the kpop catalogue (its toLocal rewrites only that origin, so a anime loc would be fetched from the internet; its floor, hubs and articles are kpop's): not meaningful on anime

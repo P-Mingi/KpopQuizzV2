@@ -1,0 +1,157 @@
+{
+ "site": "anime",
+ "account": "oq_creator_16",
+ "group_slug": "haikyu",
+ "title": "Net Check: Haikyu!! True or False",
+ "slug": "net-check-haikyu-true-or-false",
+ "description": "Ten statements about the manga, the creator, the anime and Hinata. Some are one detail off, so read closely.",
+ "quiz_type": "true_false",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "Haruichi Furudate is the single creator behind Haikyu!!, handling both the story and the drawings.",
+   "correct": true,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-manga-creator-002"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Weekly Shōnen Jump magazine carried the manga from February 2012 until July 2020, published by Kodansha.",
+   "correct": false,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-magazine-run-003"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "The first two seasons each switched songs halfway through, so every season has two openings and two endings.",
+   "correct": true,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-themes-seasons-one-two-013"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "The first season of the anime has 13 episodes.",
+   "correct": false,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "The TV anime has 85 episodes over four seasons.",
+   "correct": true,
+   "kind": "episode",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-anime-totals-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  },
+  {
+   "question": "The manga reached television in autumn 2014 through Production I.G.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-anime-season-one-007"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "The TV anime has seven opening songs and seven ending songs.",
+   "correct": true,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "anime"
+   },
+   "fact_ids": [
+    "haikyu-anime-totals-008"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  },
+  {
+   "question": "Hinata won Best Boy at the first Crunchyroll Anime Awards.",
+   "correct": false,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-hinata-best-boy-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "Hinata joins Karasuno after he sees a small ace called the Little Giant on TV.",
+   "correct": true,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-hinata-little-giant-018"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "question": "The first OVA, about the arrival of Lev Haiba, was shown at Comiket on November 9, 2014.",
+   "correct": false,
+   "kind": "production",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "haikyu-first-ova-020"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Haikyu!!",
+   "url": "https://en.wikipedia.org/wiki/Haikyu!!"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Haikyu!! episodes",
+   "url": "https://en.wikipedia.org/wiki/List_of_Haikyu!!_episodes"
+  }
+ ],
+ "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a publisher, an episode count, a name, an edition, a season or an event). K1 rewrite: blocked questions rewritten on verified facts (007, 008, 013)."
+}

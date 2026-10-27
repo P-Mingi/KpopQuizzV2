@@ -1,0 +1,1190 @@
+[
+  {
+    "id": "vinland-saga-title-native-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "title_native",
+    "value": "ヴィンランド・サガ (Vinrando Saga)",
+    "text": "Vinland Saga is written ヴィンランド・サガ in Japanese and read Vinrando Saga.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q930990",
+        "ref": "Q930990",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Vinland Saga (ヴィンランド・サガ, Vinrando Saga) is a Japanese manga series written and illustrated by Makoto Yukimura."
+  },
+  {
+    "id": "vinland-saga-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "author",
+    "value": "Makoto Yukimura (幸村誠)",
+    "text": "Makoto Yukimura writes and draws the manga, which Kodansha publishes; his name is 幸村誠 in Japanese.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1269354",
+        "ref": "Q1269354",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "written and illustrated by Makoto Yukimura. The series is published by Kodansha"
+  },
+  {
+    "id": "vinland-saga-serialization-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "serialization",
+    "value": "Weekly Shōnen Magazine from April 13, 2005; Monthly Afternoon from December 24, 2005 to July 25, 2025",
+    "text": "The manga began in Weekly Shōnen Magazine in April 2005, moved to Monthly Afternoon on December 24, 2005, and finished there on July 25, 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q930990",
+        "ref": "Q930990",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "starting on December 24, 2005. The series finished after 20 years of publication on July 25, 2025."
+  },
+  {
+    "id": "vinland-saga-volumes-chapters-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "volumes",
+    "value": "29 volumes and 220 chapters; final volume on September 22, 2025",
+    "text": "The story is collected in 29 volumes holding 220 chapters, and the last volume came out on September 22, 2025.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters",
+        "ref": "1378686023",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q930990",
+        "ref": "Q930990",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "As of September 2025, the chapters have been collected in twenty-nine tankobon volumes."
+  },
+  {
+    "id": "vinland-saga-season-one-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "anime_s1",
+    "value": "Wit Studio, director Shūhei Yabuta, 24 episodes, July 8 to December 30, 2019",
+    "text": "Wit Studio animated the first season under director Shūhei Yabuta; its 24 episodes were shown on NHK General TV from July 8 to December 30, 2019.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 1,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)",
+        "ref": "1379073139",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q111677557",
+        "ref": "Q111677557",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The series ran for 24 episodes on NHK General TV, premiering July 8, 2019, with the first three episodes, and concluding on December 30 of that same year."
+  },
+  {
+    "id": "vinland-saga-season-two-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "anime_s2",
+    "value": "MAPPA, 24 episodes (overall 25 to 48, 48 in total), January 10 to June 20, 2023",
+    "text": "MAPPA took over for the second season, which aired 24 more episodes, numbered 25 to 48 overall, from January 10 to June 20, 2023.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_episodes",
+        "ref": "1376081382",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q115730093",
+        "ref": "Q115730093",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "On May 5, 2022, it was announced that MAPPA would be taking over for the second season of the series. It aired from January 10 to June 20, 2023"
+  },
+  {
+    "id": "vinland-saga-themes-season-one-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP 1: Mukanjyo - Survive Said the Prophet (season 1)",
+      "ED 1: Torches - Aimer (season 1)",
+      "OP 2: Dark Crow - Man with a Mission (season 1)",
+      "ED 2: Drown - milet (season 1)"
+    ],
+    "text": "Season one opened with Mukanjyo by Survive Said the Prophet and later Dark Crow by Man with a Mission, and closed with Torches by Aimer and later Drown by milet.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)",
+        "ref": "1379073139",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The first opening theme of the TV series \"Mukanjyo\" by Survive Said the Prophet, while the first ending theme is \"Torches\" by Aimer."
+  },
+  {
+    "id": "vinland-saga-themes-season-two-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP 3: River - Anonymouz (season 2)",
+      "ED 3: Without Love - LMYK (season 2)",
+      "OP 4: Paradox - Survive Said the Prophet (season 2)",
+      "ED 4: Ember - haju:harmonics (season 2)"
+    ],
+    "text": "Season two used River by Anonymouz and then Paradox by Survive Said the Prophet as openings, with Without Love by LMYK and Ember by haju:harmonics as endings.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)",
+        "ref": "1379073139",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "For the second season, the first opening theme is \"River\" by Anonymouz, while the first ending theme is \"Without Love\" by LMYK."
+  },
+  {
+    "id": "vinland-saga-story-arcs-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "story_arcs",
+    "value": [
+      "War Arc",
+      "Slave Arc",
+      "Eastern Expedition Arc",
+      "Vinland Arc"
+    ],
+    "text": "The manga article divides the plot into four arcs: the War Arc, the Slave Arc, the Eastern Expedition Arc and the Vinland Arc.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "While Thorfinn's appearance evolved across the series' four arcs, Yukimura focused intently on his psychological development."
+  },
+  {
+    "id": "vinland-saga-arc-ranges-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "arc_ranges",
+    "value": [
+      "War Arc: chapters 1 to 54, anime episodes 1 to 24",
+      "Slave Arc: chapters 55 to 100, anime episodes 25 to 48",
+      "Eastern Expedition Arc: chapters 101 to 160, manga only",
+      "Vinland Arc: chapters 161 to 220, manga only"
+    ],
+    "text": "Using the numbered chapter list, the War Arc fills chapters 1 to 54 (season one) and the Slave Arc chapters 55 to 100 (season two); the last two arcs are not animated yet.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters",
+        "ref": "1378686023",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "054. End of the Prologue. 055. Slave. 099. Departure. 100. Homecoming. 101. The Fettered Tern (1). 161. Sigurd's Decision"
+  },
+  {
+    "id": "vinland-saga-cast-list-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "characters",
+    "value": [
+      "Thorfinn (トルフィン)",
+      "Askeladd (アシェラッド)",
+      "Thors (トールズ)",
+      "Canute (クヌート)",
+      "Thorkell (トルケル)",
+      "Leif (レイフ)",
+      "Floki (フローキ)",
+      "Bjorn (ビョルン)",
+      "Einar (エイナル)",
+      "Ketil (ケティル)",
+      "Gudrid (グズリーズ)",
+      "Hild (ヒルド)"
+    ],
+    "text": "The character list gives each name with its katakana spelling; these twelve appear here, sorted by the story arc in which they are introduced.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Thorfinn (トルフィン, Torufin), Askeladd (アシェラッド, Asheraddo), Bjorn (ビョルン, Byorun), Canute (クヌート, Kunūto)"
+  },
+  {
+    "id": "vinland-saga-awards-sales-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "awards_sales",
+    "value": "Over 7 million copies by August 2022; Japan Media Arts Festival Grand Prize, 2009; Kodansha Manga Award, 2012",
+    "text": "In 2009 the Japan Media Arts Festival gave the manga its top honor, and Kodansha's general-manga prize followed in 2012; circulation topped 7 million copies by August 2022.",
+    "category": "achievements",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The series won the 13th Japan Media Arts Festival's Grand Prize in 2009 and the 36th Kodansha Manga Award for Best General Manga in 2012."
+  },
+  {
+    "id": "vinland-saga-english-release-013",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "english_release",
+    "value": "Kodansha USA, two-in-one hardcovers from October 14, 2013",
+    "text": "Kodansha USA publishes the manga in English in two-in-one hardcovers, starting on October 14, 2013.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The first volume was published on October 14, 2013."
+  },
+  {
+    "id": "vinland-saga-historical-basis-014",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "thorfinn",
+      "group_slug": "vinland-saga"
+    },
+    "field": "historical_basis",
+    "value": "Inspired by a real Icelandic explorer, Thorfinn Karlsefni",
+    "text": "The series dramatizes the expedition of the real Icelandic explorer Thorfinn Karlsefni, and the lead is a fictional counterpart of him.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The series is a dramatization of the story of the Icelandic explorer Thorfinn Karlsefni and his expedition to find Vinland."
+  },
+  {
+    "id": "vinland-saga-troll-of-jom-015",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "thors",
+      "group_slug": "vinland-saga"
+    },
+    "field": "epithet",
+    "value": "The Troll of Jom",
+    "text": "Thors earned the epithet the Troll of Jom as a Jomsviking general, then quietly left war behind to live as a pacifist farmer.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Thors is a Jomsviking general whose phenomenal combat prowess earns him the epithet \"The Troll of Jom\"."
+  },
+  {
+    "id": "vinland-saga-thorfinn-name-016",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "thorfinn"
+    },
+    "field": "name",
+    "value": "Thorfinn (トルフィン)",
+    "text": "Thorfinn is a main character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a teenage warrior in Askeladd's company, though he hates his commander for slaying his father Thors and has sworn to kill him in a duel. To earn"
+  },
+  {
+    "id": "vinland-saga-askeladd-name-017",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "askeladd"
+    },
+    "field": "name",
+    "value": "Askeladd (アシェラッド)",
+    "text": "Askeladd is a main character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the commander of a small but powerful Viking band, which owed its success to Askeladd's exceptional intelligence. Ten years before the main Vinland"
+  },
+  {
+    "id": "vinland-saga-thors-name-018",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "thors"
+    },
+    "field": "name",
+    "value": "Thors (トールズ)",
+    "text": "Thors is a supporting character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a Jomsviking general whose phenomenal combat prowess earns him the epithet \"The Troll of Jom\". Thors grows weary of battle"
+  },
+  {
+    "id": "vinland-saga-canute-name-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "canute"
+    },
+    "field": "name",
+    "value": "Canute (クヌート)",
+    "text": "Canute is a main character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the 17-year-old prince of the Danes. He is initially portrayed as timid and womanly, and unable to function without his retainer Ragnar. These"
+  },
+  {
+    "id": "vinland-saga-thorkell-name-020",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "thorkell"
+    },
+    "field": "name",
+    "value": "Thorkell (トルケル)",
+    "text": "Thorkell is a supporting character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a Jomsviking general, brother of the Jomsviking Chief, uncle-in-law of Thors and grand uncle of Thorfinn. A giant man who loves combat, he defects"
+  },
+  {
+    "id": "vinland-saga-leif-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "leif"
+    },
+    "field": "name",
+    "value": "Leif (レイフ)",
+    "text": "Leif is a supporting character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a cheerful old man from Greenland. A sailor, he claims to have traveled to a distant western land called Vinland. When Thorfinn joins Askeladd's band"
+  },
+  {
+    "id": "vinland-saga-floki-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "floki"
+    },
+    "field": "name",
+    "value": "Floki (フローキ)",
+    "text": "Floki is an antagonist of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a Jomsviking commander one of the principal Viking commanders under Sweyn during the invasion of England and subsequently under Canute. He is the one"
+  },
+  {
+    "id": "vinland-saga-bjorn-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "bjorn"
+    },
+    "field": "name",
+    "value": "Bjorn (ビョルン)",
+    "text": "Bjorn is a supporting character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is Askeladd's second in command, a burly man who fights for the love of combat. He is a berserker, able to enter powerful rages through the consumption"
+  },
+  {
+    "id": "vinland-saga-einar-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "einar"
+    },
+    "field": "name",
+    "value": "Einar (エイナル)",
+    "text": "Einar is a main character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is an Anglo-Norse farmer from Northern England who, following attacks on his village, was sold into slavery and eventually ends up on Ketil's farm. As a"
+  },
+  {
+    "id": "vinland-saga-ketil-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "ketil"
+    },
+    "field": "name",
+    "value": "Ketil (ケティル)",
+    "text": "Ketil is a supporting character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a Danish landowner who buys Thorfinn and then Einar as slaves."
+  },
+  {
+    "id": "vinland-saga-gudrid-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "gudrid"
+    },
+    "field": "name",
+    "value": "Gudrid (グズリーズ)",
+    "text": "Gudrid is a supporting character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a young woman originally from Greenland. As a child, she heard stories of the outside world from Leif and dreamed of becoming a sailor, but, as a"
+  },
+  {
+    "id": "vinland-saga-hild-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "vinland-saga",
+      "ref": "hild"
+    },
+    "field": "name",
+    "value": "Hild (ヒルド)",
+    "text": "Hild is a supporting character of Vinland Saga.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+        "ref": "1379043007",
+        "fetched_at": "2026-10-20T20:20:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a female hunter from Norway. Originally an inventor and carpenter, her life changed when Askeladd's band attacked her village and killed her family."
+  },
+  {
+    "id": "vinland-saga-plot-thorkell-takes-canute-029",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "background",
+    "value": "Thorkell takes Prince Canute captive",
+    "text": "Thorkell, Thorfinn's great-uncle, seizes Prince Canute during the fighting.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:53:32Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:32.000Z",
+    "excerpt": "When Thorkell takes Sweyn's son Prince Canute captive"
+  },
+  {
+    "id": "vinland-saga-plot-ketil-farm-032",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "role",
+    "value": "Ketil's farm in Denmark",
+    "text": "Thorfinn later labours as a slave on a Danish farm that belongs to Ketil.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:53:32Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:32.000Z",
+    "excerpt": "Thorfinn works on a farm in Denmark owned by Ketil"
+  },
+  {
+    "id": "vinland-saga-plot-leaves-with-leif-035",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "organization",
+    "value": "Leif Erikson",
+    "text": "Thorfinn and Einar are freed and sail away with Leif Erikson, an old friend of Thors.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:53:32Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:55:32.000Z",
+    "excerpt": "they depart with Leif Erikson"
+  },
+  {
+    "id": "vinland-saga-plot-invasion-of-london-036",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "mission",
+    "value": "Askeladd's company joins the Danish invasion of London",
+    "text": "In the War Arc, Askeladd and his men sign on as hired soldiers of King Sweyn for the attack on London by the Danes.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:54:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:04.000Z",
+    "excerpt": "Askeladd's company finds employment as mercenaries under King Sweyn in the Danish invasion of London"
+  },
+  {
+    "id": "vinland-saga-plot-askeladd-captures-canute-037",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "occupation",
+    "value": "captures the prince",
+    "text": "Askeladd's company then grabs Prince Canute, planning to sell him to whichever side pays.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:54:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:04.000Z",
+    "excerpt": "Askeladd's company captures the prince with the intent of selling him"
+  },
+  {
+    "id": "vinland-saga-plot-befriends-einar-039",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "origin",
+    "value": "Thorfinn befriends Einar",
+    "text": "Thorfinn becomes friends with Einar, a fellow slave, while working the farm.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:54:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:04.000Z",
+    "excerpt": "He later befriends another slave named Einar"
+  },
+  {
+    "id": "vinland-saga-plot-canute-king-040",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "setting",
+    "value": "Canute rules both England and Denmark",
+    "text": "Canute rules both England and Denmark after getting rid of his brother Harald.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:54:04Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:04.000Z",
+    "excerpt": "Canute has become both King of England and Denmark after poisoning his brother Harald"
+  },
+  {
+    "id": "vinland-saga-plot-thorfinn-enslaved-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "terms",
+    "value": "enslavement",
+    "text": "Thorfinn tries to kill King Canute and ends up condemned to slavery after Thorkell stops him.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1381714814",
+        "fetched_at": "2026-10-25T18:54:18Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:56:18.000Z",
+    "excerpt": "tries to assassinate King Canute, but is sentenced to a life of enslavement"
+  },
+  {
+    "id": "vinland-saga-jmaf-grand-prize-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "award",
+    "value": "Japan Media Arts Festival, 13th edition (2009), Manga Division Grand Prize",
+    "text": "In 2009 the manga won the Grand Prize of the 13th Japan Media Arts Festival.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.bunka.go.jp/j-mediaarts-festival/award/previous/13th/manga/index.html",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "The series won the 13th Japan Media Arts Festival's Grand Prize in 2009"
+  },
+  {
+    "id": "vinland-saga-jmaf-year-043",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "awards",
+    "value": "13th Japan Media Arts Festival = fiscal year 2009",
+    "text": "The 13th Japan Media Arts Festival is the one of the 2009 fiscal year.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-25T21:28:58Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.bunka.go.jp/j-mediaarts-festival/award/previous/",
+        "fetched_at": "2026-10-25T21:28:58Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:28:58.000Z",
+    "excerpt": "13th Japan Media Arts Festival's Grand Prize in 2009"
+  },
+  {
+    "id": "vinland-saga-setting-england-1013-044",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "premise",
+    "value": "England in 1013 AD under the Danish King Sweyn Forkbeard",
+    "text": "Most of the opening story plays out in England in 1013 AD, a country that the Danish king Sweyn Forkbeard has largely taken over.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:00:00.000Z",
+    "excerpt": "Vinland Saga is initially set mostly in England in 1013 AD, which has been mostly conquered by the Danish King Sweyn Forkbeard."
+  },
+  {
+    "id": "vinland-saga-historical-sources-045",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "vinland-saga"
+    },
+    "field": "inspiration",
+    "value": [
+      "Flateyjarbók",
+      "Saga of the Greenlanders",
+      "Saga of Erik the Red"
+    ],
+    "text": "Yukimura took material for the voyage and the period from medieval accounts such as the Flateyjarbók and the Saga of the Greenlanders.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+        "ref": "1378041110",
+        "fetched_at": "2026-10-26T12:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-26T12:00:00.000Z",
+    "excerpt": "The story draws elements from historical accounts of the period, such as The Flateyjarbók, The Saga of the Greenlanders, and The Saga of Erik the Red."
+  }
+]

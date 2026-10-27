@@ -1,0 +1,179 @@
+{
+  "site": "anime",
+  "account": "oq_creator_17",
+  "group_slug": "hunter-x-hunter",
+  "title": "From Hunter Exam to Election: The Arcs in Order",
+  "slug": "from-hunter-exam-to-election-the-arcs-in-order",
+  "description": "Eight questions on the arcs of the 2011 anime and their episode counts, down to the storyline only the manga has reached.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "hard",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Which arc opens the 2011 anime?",
+      "options": [
+        "Heavens Arena",
+        "Greed Island",
+        "Hunter Exam",
+        "Election"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-arcs-first-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "How many episodes does the Heavens Arena arc run?",
+      "options": [
+        "26",
+        "12",
+        "20",
+        "17"
+      ],
+      "correct": 1,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-arcs-first-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "The Yorknew City arc runs for how many episodes?",
+      "options": [
+        "20",
+        "12",
+        "26",
+        "61"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-arcs-first-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "Which arc does the episode table list as Phantom Troupe?",
+      "options": [
+        "Heavens Arena",
+        "Hunter Exam",
+        "Yorknew City",
+        "Greed Island"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 3,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-arcs-first-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "How many episodes does the Greed Island arc run?",
+      "options": [
+        "12",
+        "20",
+        "17",
+        "26"
+      ],
+      "correct": 2,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 6,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-arcs-second-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "Which arc is the longest of the anime, at 61 episodes?",
+      "options": [
+        "Chimera Ant",
+        "Yorknew City",
+        "Election",
+        "Hunter Exam"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 6,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-arcs-second-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "Which arc ends the 2011 anime at episode 148?",
+      "options": [
+        "Election",
+        "Chimera Ant",
+        "Greed Island",
+        "Yorknew City"
+      ],
+      "correct": 0,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 6,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-arcs-second-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "question": "Which storyline exists only in the manga so far?",
+      "options": [
+        "Chimera Ant",
+        "Greed Island",
+        "Election",
+        "Dark Continent"
+      ],
+      "correct": 3,
+      "kind": "arc",
+      "spoiler": {
+        "arc": 7,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "hunter-x-hunter-dark-continent-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Hunter × Hunter (2011 TV series)",
+      "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter_(2011_TV_series)"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Hunter × Hunter",
+      "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
+    }
+  ],
+  "notes": "Arc quiz: tags run from arc 3 (first arcs list) to arc 7 (Dark Continent, manga). Episode counts come from the two arc list facts (011, 012)."
+}

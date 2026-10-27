@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fact.schema.json",
+  "title": "Run O1: one fact of E1's fact store (S 4.3 steps 1 and 2, formats.md 3)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "site", "entity", "value", "category", "load_bearing", "spoiler", "sources", "status"],
+  "properties": {
+    "id": { "$ref": "common.schema.json#/$defs/factId" },
+    "site": { "$ref": "common.schema.json#/$defs/contentSite" },
+    "entity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "group_slug"],
+      "properties": {
+        "kind": { "enum": ["series", "character", "arc", "theme", "episode"] },
+        "group_slug": { "$ref": "common.schema.json#/$defs/slug" },
+        "ref": { "type": "string" }
+      },
+      "allOf": [
+        { "if": { "properties": { "kind": { "const": "series" } } }, "then": { "not": { "required": ["ref"] } } },
+        { "if": { "properties": { "kind": { "const": "character" } } }, "then": { "required": ["ref"], "properties": { "ref": { "$ref": "common.schema.json#/$defs/slug" } } } },
+        { "if": { "properties": { "kind": { "enum": ["arc", "episode"] } } }, "then": { "required": ["ref"], "properties": { "ref": { "pattern": "^[1-9][0-9]{0,4}$" } } } },
+        { "if": { "properties": { "kind": { "const": "theme" } } }, "then": { "required": ["ref"], "properties": { "ref": { "pattern": "^(?:op|ed|insert)-[1-9][0-9]{0,2}$" } } } }
+      ]
+    },
+    "field": { "$comment": "entity_sources.field: the column or list the value fills (a series header value, an episode count).", "type": "string", "pattern": "^[a-z][a-z0-9_]{0,39}$" },
+    "value": {
+      "anyOf": [
+        { "type": "string", "minLength": 1, "maxLength": 300 },
+        { "type": "number" },
+        { "type": "boolean" },
+        { "type": "array", "minItems": 1, "maxItems": 20, "items": { "type": "string", "minLength": 1, "maxLength": 120 } }
+      ]
+    },
+    "text": { "$comment": "The trivia sentence, in our own words (C7), when the fact is shown as trivia.", "$ref": "common.schema.json#/$defs/plainText", "minLength": 3, "maxLength": 280 },
+    "category": { "$comment": "trivia_category_check (today's five values; formats.md 3 maps them).", "enum": ["members", "music", "achievements", "history", "fun"] },
+    "load_bearing": { "$comment": "Dates, counts, creators (S 2.8): two agreeing sources once verified.", "type": "boolean" },
+    "spoiler": { "$ref": "common.schema.json#/$defs/spoiler" },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source", "url", "fetched_at"],
+        "properties": {
+          "source": { "$comment": "entity_sources_source_check after 011.", "enum": ["wikidata", "musicbrainz", "wikipedia", "official"] },
+          "url": { "$ref": "common.schema.json#/$defs/sourceUrl" },
+          "ref": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "fetched_at": { "$ref": "common.schema.json#/$defs/isoDateTime" }
+        },
+        "allOf": [
+          { "if": { "properties": { "source": { "const": "wikipedia" } } }, "then": { "required": ["ref"], "properties": { "ref": { "$comment": "The revision id read.", "pattern": "^[0-9]{1,12}$" } } } },
+          { "if": { "properties": { "source": { "const": "wikidata" } }, "required": ["ref"] }, "then": { "properties": { "ref": { "pattern": "^Q[0-9]+$" } } } },
+          { "if": { "properties": { "source": { "const": "musicbrainz" } }, "required": ["ref"] }, "then": { "properties": { "ref": { "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" } } } }
+        ]
+      }
+    },
+    "status": { "enum": ["draft", "verified", "rejected"] },
+    "verified_at": { "$ref": "common.schema.json#/$defs/isoDateTime" }
+  },
+  "allOf": [
+    { "if": { "properties": { "status": { "const": "verified" } } }, "then": { "required": ["verified_at"] } },
+    {
+      "$comment": "S 2.8 and C2: a verified load-bearing fact has two sources, one of them Wikidata or official.",
+      "if": { "properties": { "status": { "const": "verified" }, "load_bearing": { "const": true } } },
+      "then": { "properties": { "sources": { "minItems": 2, "contains": { "properties": { "source": { "enum": ["wikidata", "official"] } } } } } }
+    }
+  ]
+}

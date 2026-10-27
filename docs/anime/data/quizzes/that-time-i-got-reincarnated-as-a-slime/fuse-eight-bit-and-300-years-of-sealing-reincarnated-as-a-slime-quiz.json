@@ -1,0 +1,221 @@
+{
+  "site": "anime",
+  "account": "otakuquiz_team",
+  "group_slug": "that-time-i-got-reincarnated-as-a-slime",
+  "title": "Reincarnated as a Slime Quiz: Fuse, Eight Bit and a Dragon Sealed for 300 Years",
+  "slug": "fuse-eight-bit-and-300-years-of-sealing-reincarnated-as-a-slime-quiz",
+  "description": "Ten easy questions on the author, the web novel, the light novels, the manga artist, the studio, the first season, the first film and the set-up. No story knowledge needed, and no spoilers.",
+  "quiz_type": "multiple_choice",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "notes": "New series batch 2. Arc 0 facts only: production, release dates and the set-up. One fact per answer.",
+  "questions": [
+    {
+      "question": "Who wrote That Time I Got Reincarnated as a Slime?",
+      "options": [
+        "Fuse",
+        "Tappei Nagatsuki",
+        "Reki Kawahara",
+        "Natsume Akatsuki"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime"
+    },
+    {
+      "question": "On which website did the story first appear as a web novel?",
+      "options": [
+        "Kakuyomu",
+        "Shōsetsuka ni Narō",
+        "Pixiv",
+        "Alphapolis"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-web-novel-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime"
+    },
+    {
+      "question": "Which company published the first light novel under its GC Novels label?",
+      "options": [
+        "Micro Magazine",
+        "Kadokawa",
+        "Shueisha",
+        "Kodansha"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-light-novel-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime"
+    },
+    {
+      "question": "Who draws the main manga adaptation in Monthly Shōnen Sirius?",
+      "options": [
+        "Taiki Kawakami",
+        "Shō Okagiri",
+        "Shiba",
+        "Tae Tono"
+      ],
+      "correct": 0,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-manga-007",
+        "that-time-i-got-reincarnated-as-a-slime-spinoffs-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime"
+    },
+    {
+      "question": "Rimuru's anime is made by which animation studio?",
+      "options": [
+        "Studio Pierrot",
+        "A-1 Pictures",
+        "Eight Bit",
+        "Bones"
+      ],
+      "correct": 2,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-studio-015"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)"
+    },
+    {
+      "question": "In which year did the first TV season begin?",
+      "options": [
+        "2015",
+        "2018",
+        "2020",
+        "2022"
+      ],
+      "correct": 1,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-anime-s1-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)"
+    },
+    {
+      "question": "How many episodes did the first season run?",
+      "options": [
+        "12",
+        "13",
+        "26",
+        "24"
+      ],
+      "correct": 3,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-anime-s1-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)"
+    },
+    {
+      "question": "Which was the first theatrical film of the franchise?",
+      "options": [
+        "Scarlet Bond",
+        "Tears of the Azure Sea",
+        "Visions of Coleus",
+        "The Slime Diaries"
+      ],
+      "correct": 0,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-film-1-019",
+        "that-time-i-got-reincarnated-as-a-slime-film-2-020",
+        "that-time-i-got-reincarnated-as-a-slime-coleus-021",
+        "that-time-i-got-reincarnated-as-a-slime-spinoffs-009"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)"
+    },
+    {
+      "question": "Which skill lets Rimuru devour anything and copy its looks and abilities?",
+      "options": [
+        "Great Sage",
+        "Gluttony Mirror",
+        "Copy Cloak",
+        "Predator"
+      ],
+      "correct": 3,
+      "kind": "ability",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-predator-024"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)"
+    },
+    {
+      "question": "For how many years had the Storm Dragon been sealed when Rimuru found him?",
+      "options": [
+        "300",
+        "100",
+        "500",
+        "1,000"
+      ],
+      "correct": 0,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "that-time-i-got-reincarnated-as-a-slime-veldora-seal-025"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: That Time I Got Reincarnated as a Slime",
+      "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: That Time I Got Reincarnated as a Slime (TV series)",
+      "url": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime_(TV_series)"
+    }
+  ]
+}

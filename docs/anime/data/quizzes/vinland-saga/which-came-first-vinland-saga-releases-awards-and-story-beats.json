@@ -1,0 +1,249 @@
+{
+ "site": "anime",
+ "account": "oq_creator_30",
+ "group_slug": "vinland-saga",
+ "title": "Which Came First? Vinland Saga Releases, Awards and Story Beats",
+ "slug": "which-came-first-vinland-saga-releases-awards-and-story-beats",
+ "description": "Ten rounds of four events where you pick the earliest or the latest: manga and anime releases, a festival award, and story beats of the War Arc and Slave Arc. Light spoilers up to the Slave Arc.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "First format: four events, one is the earliest (or the latest); dates come from verified release facts and the story order from the manga plot.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Vinland Saga (manga)",
+   "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Vinland Saga chapters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Which of these four milestones came earliest?",
+   "options": [
+    "The manga began in Weekly Shōnen Magazine",
+    "The first season was shown on NHK General TV",
+    "The last volume came out",
+    "The second season aired"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-serialization-003",
+    "vinland-saga-season-one-005",
+    "vinland-saga-season-two-006",
+    "vinland-saga-volumes-chapters-004"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "Following the plot from the War Arc into the Slave Arc, which event happens first?",
+   "options": [
+    "Thorfinn and Einar leave with Leif Erikson",
+    "Askeladd's company joins the Danish invasion of London",
+    "Thorfinn befriends Einar",
+    "Canute rules both England and Denmark"
+   ],
+   "correct": 1,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-plot-invasion-of-london-036",
+    "vinland-saga-plot-befriends-einar-039",
+    "vinland-saga-plot-canute-king-040",
+    "vinland-saga-plot-leaves-with-leif-035"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "Among these honors and anime airings, which came earliest?",
+   "options": [
+    "The first season was shown on NHK General TV",
+    "The second season aired",
+    "The manga won the Grand Prize of the Japan Media Arts Festival",
+    "The last volume came out"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-season-one-005",
+    "vinland-saga-season-two-006",
+    "vinland-saga-volumes-chapters-004",
+    "vinland-saga-jmaf-grand-prize-042",
+    "vinland-saga-jmaf-year-043"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "Rewind the calendar: which of these four happened earliest?",
+   "options": [
+    "The manga won the Grand Prize of the Japan Media Arts Festival",
+    "The manga began in Weekly Shōnen Magazine",
+    "The manga finished in Monthly Afternoon",
+    "The second season aired"
+   ],
+   "correct": 1,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-serialization-003",
+    "vinland-saga-jmaf-grand-prize-042",
+    "vinland-saga-season-two-006",
+    "vinland-saga-jmaf-year-043"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "Reading the plot in order, which scene comes earliest?",
+   "options": [
+    "Thorfinn works on Ketil's farm",
+    "Thorfinn befriends Einar",
+    "Askeladd's company captures Prince Canute",
+    "Thorfinn and Einar leave with Leif Erikson"
+   ],
+   "correct": 2,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-plot-askeladd-captures-canute-037",
+    "vinland-saga-plot-ketil-farm-032",
+    "vinland-saga-plot-befriends-einar-039",
+    "vinland-saga-plot-leaves-with-leif-035"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "Which of these four is the most recent?",
+   "options": [
+    "The manga won the Grand Prize of the Japan Media Arts Festival",
+    "The second season aired",
+    "The first season was shown on NHK General TV",
+    "The manga began in Weekly Shōnen Magazine"
+   ],
+   "correct": 1,
+   "kind": "production",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-season-two-006",
+    "vinland-saga-jmaf-grand-prize-042",
+    "vinland-saga-season-one-005",
+    "vinland-saga-serialization-003",
+    "vinland-saga-jmaf-year-043"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "Which of these four came earliest?",
+   "options": [
+    "The manga finished in Monthly Afternoon",
+    "The first season was shown on NHK General TV",
+    "The manga won the Grand Prize of the Japan Media Arts Festival",
+    "The second season aired"
+   ],
+   "correct": 2,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-season-two-006",
+    "vinland-saga-serialization-003",
+    "vinland-saga-season-one-005",
+    "vinland-saga-jmaf-grand-prize-042",
+    "vinland-saga-jmaf-year-043"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "Reading the plot in order, which scene comes latest?",
+   "options": [
+    "Thorfinn is enslaved after attacking Canute",
+    "Thorfinn befriends Einar",
+    "Thorfinn works on Ketil's farm",
+    "Thorkell takes Prince Canute captive"
+   ],
+   "correct": 1,
+   "kind": "arc",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-plot-befriends-einar-039",
+    "vinland-saga-plot-thorkell-takes-canute-029",
+    "vinland-saga-plot-thorfinn-enslaved-041",
+    "vinland-saga-plot-ketil-farm-032"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "Which of these four came last in time?",
+   "options": [
+    "The manga finished in Monthly Afternoon",
+    "The second season aired",
+    "The manga began in Weekly Shōnen Magazine",
+    "The first season was shown on NHK General TV"
+   ],
+   "correct": 0,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-serialization-003",
+    "vinland-saga-season-one-005",
+    "vinland-saga-season-two-006"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+  },
+  {
+   "question": "Which of these four closes the timeline as the very latest?",
+   "options": [
+    "The second season aired",
+    "The manga finished in Monthly Afternoon",
+    "The first season was shown on NHK General TV",
+    "The last volume came out"
+   ],
+   "correct": 3,
+   "kind": "manga",
+   "spoiler": {
+    "arc": 2,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "vinland-saga-volumes-chapters-004",
+    "vinland-saga-serialization-003",
+    "vinland-saga-season-two-006",
+    "vinland-saga-season-one-005"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_chapters"
+  }
+ ]
+}

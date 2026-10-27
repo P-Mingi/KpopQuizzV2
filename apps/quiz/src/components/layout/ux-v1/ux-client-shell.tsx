@@ -1,9 +1,11 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 
 import { VerseFooter } from '@/components/verse/verse-footer';
 import { UxBrand } from '@/components/ux-v1/brand';
+import { flagOn } from '@/lib/site/registry';
 import { isBuilderCanvas, worldForPath } from '@/lib/world';
 
 import { UxChromeGate, UxNavScroll, UxRouteFocus } from './ux-chrome-gate';
@@ -13,11 +15,20 @@ import { UxNavLinks } from './ux-nav-links';
 import { UxProviders } from './ux-providers';
 import { UxTabBar } from './ux-tab-bar';
 
+// Run O1 (B6): "Your sites" in the account menu. A separate chunk, fetched only when the flag is on and a signed-in member opens the menu.
+const NetSitesMenu = dynamic(() => import('@/components/network/net-sites-menu').then((m) => m.NetSitesMenu), { ssr: false });
+const NET_MENU = flagOn(process.env.NEXT_PUBLIC_NET_MENU);
+
 export interface UxClientShellProps {
   children: React.ReactNode;
   /** The Verse is public (lib/verse/visibility, server env): footer "Fandoms" link. */
   showFandoms: boolean;
   year: number;
+  /**
+   * Run O1 (H2a): the home of the hub brings its own top bar, <main> and footer (docs/o1/design/fanquiz-hub/), so on `/` the shell keeps only
+   * its providers (sign-in sheet, toasts), the skip link and the focus rule. Only the hub layout sets it; absent, the shell is the one it always was.
+   */
+  bare?: boolean;
 }
 
 /** Footer per world, like the legacy SiteFooter: none on the builder canvas, the
@@ -36,7 +47,19 @@ function Footer({ showFandoms, year }: { showFandoms: boolean; year: number }): 
  * loaded through UxShellLoader (next/dynamic) so its code ships only to pages
  * that render it (flag on). The page itself arrives as server-rendered children.
  */
-export function UxClientShell({ children, showFandoms, year }: UxClientShellProps): React.ReactElement {
+export function UxClientShell({ children, showFandoms, year, bare }: UxClientShellProps): React.ReactElement {
+  const pathname = usePathname() || '/';
+  if (bare && pathname === '/') {
+    return (
+      <UxProviders>
+        <div className="ux-app">
+          <a className="ux-skip" href="#main">Skip to content</a>
+          {children}
+          <UxRouteFocus />
+        </div>
+      </UxProviders>
+    );
+  }
   return (
     <UxProviders>
       <div className="ux-app">
@@ -46,7 +69,7 @@ export function UxClientShell({ children, showFandoms, year }: UxClientShellProp
             <div className="ux-wrap ux-nav-in">
               <UxBrand />
               <UxNavLinks />
-              <UxNavActions />
+              <UxNavActions {...(NET_MENU ? { accountExtra: () => <NetSitesMenu /> } : {})} />
             </div>
           </header>
           <UxNavScroll />

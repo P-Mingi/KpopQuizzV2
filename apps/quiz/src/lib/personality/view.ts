@@ -18,6 +18,8 @@ export interface ResultView {
   traits: string[];
   /** A group photo from public/idols. A member result never has one. */
   photo: string | null;
+  /** CSS object-position of the photo (the focal point of an owner's portrait on otakuquiz.org). Absent everywhere else, kpop included. */
+  photoPosition?: string | undefined;
   songs?: Array<{ title: string; year: number }>;
   /** The group page, when the group exists. */
   groupHref?: string | null;
@@ -116,4 +118,20 @@ export function axisOptionIcon(weights: Weights): UxIconName {
 
 export function whichMemberPath(groupSlug: string): string {
   return `/which-${groupSlug}-member-are-you`;
+}
+
+/**
+ * Run O1 (PERS-2): the words of the pick offer under a result ("Make X your bias tag?") and the call to action of the story image, from
+ * the site (`vocabulary.favourites.pickLabel`, `domain`). Pure, so the kpop strings are pinned by a test: Bias gives today's words.
+ */
+export function pickOfferWords(pickLabel: string): { word: string; button: string; tag: string; where: string; doneToast: (name: string) => string } {
+  const word = pickLabel.toLowerCase();
+  const tag = `${word} tag`;
+  // Where the pick shows: kpop next to the name in Community (the shared profile's bias); the oshi of OtakuQuiz on the fan's own profile there.
+  const where = word === 'bias' ? 'next to your name in Community' : 'on your profile';
+  return { word, tag, where, button: word === 'bias' ? 'Set bias' : `Set as ${word}`, doneToast: (name) => `${tag.charAt(0).toUpperCase()}${tag.slice(1)} set to ${name}` };
+}
+
+export function playCta(domain: string): string {
+  return `Play at ${domain}`;
 }

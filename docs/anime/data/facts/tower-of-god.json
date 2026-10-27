@@ -1,0 +1,1433 @@
+[
+  {
+    "id": "tower-of-god-korean-title-001",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "title_native",
+    "value": "신의 탑 (Sin-ui Tap)",
+    "text": "In Korea the series is called 신의 탑, written Sin-ui Tap in Latin letters, and English readers know it as Tower of God.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q487202",
+        "ref": "Q487202",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "a South Korean webtoon Tower of God (Korean: 신의 탑; RR: Sin-ui Tap)"
+  },
+  {
+    "id": "tower-of-god-creator-002",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "author",
+    "value": "S.I.U. (Lee Jong-hui)",
+    "text": "One creator, working under the pen name S.I.U., writes and draws the series; his real name is Lee Jong-hui.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q487202",
+        "ref": "Q487202",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://www.webtoons.com/en/fantasy/tower-of-god/list?title_no=95",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "a South Korean manhwa released as a webtoon written and illustrated by S.I.U."
+  },
+  {
+    "id": "tower-of-god-webtoon-launch-003",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "start",
+    "value": "Naver Webtoon, June 30, 2010",
+    "text": "The webtoon began on the Naver Webtoon platform on June 30, 2010, and new chapters keep coming there.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q487202",
+        "ref": "Q487202",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "launched Tower of God in Naver's webtoon platform Naver Webtoon on June 30, 2010"
+  },
+  {
+    "id": "tower-of-god-volume-count-004",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "volumes",
+    "value": 20,
+    "text": "Young Com has gathered the chapters into 20 printed volumes as of January 2026.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "with the individual chapters collected and published by Young Com in 20 volumes as of January 2026"
+  },
+  {
+    "id": "tower-of-god-total-views-005",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "views",
+    "value": "4.5 billion views by February 2020",
+    "text": "By February 2020 readers around the world had racked up 4.5 billion views of the webtoon.",
+    "category": "achievements",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "As of February 2020, Tower of God has collected 4.5 billion views worldwide."
+  },
+  {
+    "id": "tower-of-god-english-release-006",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "english_release",
+    "value": "Line Webtoon, July 2014",
+    "text": "It was among the first webtoons to get an official English translation, released through Line Webtoon from July 2014.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Tower of God was one of the first webtoons to receive official English translations by Line Webtoon in July 2014."
+  },
+  {
+    "id": "tower-of-god-anime-announcement-007",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "anime_announced",
+    "value": "Seoul Comic-Con, August 2019",
+    "text": "The anime adaptation was first revealed at Seoul Comic-Con in August 2019, and the show reached screens in April 2020.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/daily-briefs/2020-02-10/aniplex-subsidiary-rialto-entertainment-works-on-tower-of-god-animated-work/.156314",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "initially announced at Seoul Comic-Con in August 2019"
+  },
+  {
+    "id": "tower-of-god-anime-season-one-008",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "anime_s1",
+    "value": "13 episodes, April to June 2020",
+    "text": "Season one, made by Telecom Animation Film and directed by Takashi Sano, ran for 13 episodes in Japan between April 2 and June 24, 2020.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1",
+        "ref": "1373945327",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tog-anime.com/1st/caststaff/",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "press",
+        "url": "https://www.animenewsnetwork.com/daily-briefs/2020-04-02/tower-of-god-anime-has-13-episodes/.158235",
+        "fetched_at": "2026-10-25T21:25:10Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q131160789",
+        "ref": "Q131160789",
+        "fetched_at": "2026-10-25T21:25:10Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:25:10.000Z",
+    "excerpt": "in Japan from April 2 to June 24, 2020, on Tokyo MX and other networks"
+  },
+  {
+    "id": "tower-of-god-anime-season-two-009",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "anime_s2",
+    "value": "26 episodes, July 7 to December 29, 2024",
+    "text": "Season two came from The Answer Studio and aired in two back-to-back cours, adding 26 episodes between July 7 and December 29, 2024.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2",
+        "ref": "1373945362",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q131160789",
+        "ref": "Q131160789",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tog-anime.com/staffcast/index.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "It premiered on July 7, 2024, and aired in two consecutive story arc cours on Tokyo MX and other networks."
+  },
+  {
+    "id": "tower-of-god-anime-staff-010",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "staff",
+    "value": "Takashi Sano and Akira Suzuki (directors), Kevin Penkin (music)",
+    "text": "Takashi Sano directed season one; Akira Suzuki directed season two under chief director Kazuyoshi Takeuchi; Kevin Penkin wrote the music for both.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tog-anime.com/staffcast/index.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "It is directed by Takashi Sano, with Hirokazu Hanai as assistant director"
+  },
+  {
+    "id": "tower-of-god-themes-season-one-011",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "themes_s1",
+    "value": [
+      "OP 1: Top - Stray Kids (season 1)",
+      "ED 1: Slump - Stray Kids (season 1)"
+    ],
+    "text": "Stray Kids performed both songs that frame season one.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1",
+        "ref": "1373945327",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tog-anime.com/1st/caststaff/",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The opening theme song is \"Top\", while the ending theme song is \"Slump\""
+  },
+  {
+    "id": "tower-of-god-themes-season-two-012",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "themes_s2",
+    "value": [
+      "OP 2: Rise Up - NiziU (season 2, Return of the Prince)",
+      "ED 2: Believe - NiziU (season 2, Return of the Prince)",
+      "OP 3: Night - Stray Kids (season 2, Workshop Battle)",
+      "ED 3: Falling Up - Stray Kids (season 2, Workshop Battle)"
+    ],
+    "text": "Season two changed singers between its two cours: NiziU first, then Stray Kids again.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2",
+        "ref": "1373945362",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tog-anime.com/music/index.html",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "the opening theme song is \"Rise Up\", while the ending theme song is \"Believe\""
+  },
+  {
+    "id": "tower-of-god-stray-kids-languages-013",
+    "site": "anime",
+    "entity": {
+      "kind": "theme",
+      "ref": "op-1",
+      "group_slug": "tower-of-god"
+    },
+    "field": "artist",
+    "value": "Stray Kids",
+    "text": "Stray Kids sang the season one songs in Japanese, English and Korean, one version for each language dub.",
+    "category": "music",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_1",
+        "ref": "1373945327",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tog-anime.com/1st/music/",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "both are performed by the K-pop band Stray Kids in Japanese, English, and Korean for the respective language dubs"
+  },
+  {
+    "id": "tower-of-god-arc-structure-014",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "arc_list",
+    "value": [
+      "1: Season 1, episodes 1-13",
+      "2: Return of the Prince, episodes 14-26",
+      "3: Workshop Battle, episodes 27-39",
+      "4: Beyond season 2, webtoon only"
+    ],
+    "text": "The anime so far covers season one plus the two cours of season two, 39 episodes in all, and the webtoon runs further.",
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2",
+        "ref": "1373945362",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q131160789",
+        "ref": "Q131160789",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "aired in two consecutive story arc cours on Tokyo MX and other networks"
+  },
+  {
+    "id": "tower-of-god-cast-early-015",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "characters_a",
+    "value": [
+      "Twenty-Fifth Bam (스물다섯번째 밤): the boy who climbs",
+      "Rachel (라헬): his best friend",
+      "Khun Aguero Agnes (쿤 아게로 아그니스): a Regular from a great family",
+      "Rak Wraithraiser (라크 레크레이셔): a spear-bearer",
+      "Headon (헤돈): guardian of the First Floor",
+      "Shibisu (십 이수): leader of team Isu",
+      "Hatz (하츠): a swordsman",
+      "Phonsekal Lauroe (폰세칼 라우뢰): a wave controller",
+      "Anaak Jahad: a Regular with a princess's name",
+      "Jahad: the king of the Tower"
+    ],
+    "text": "Bam and his first companions, the Tower's caretaker, and its king.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 1,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Twenty-Fifth Bam (Korean: 스물다섯번째 밤; RR: Seumul-daseot-beonjjae Bam; literal translation: Twenty-fifth Night) is the protagonist of Tower of God."
+  },
+  {
+    "id": "tower-of-god-cast-later-016",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "characters_b",
+    "value": [
+      "Endorsi Jahad: a princess of Jahad",
+      "Ha-Yuri Jahad: a high ranker and princess",
+      "Evan Edrok (에반 에드록): the Chief Guide of the Jahad family",
+      "Ja Wangnan (자 왕난): a Regular on the 20th floor",
+      "Hwa Ryun (화련): a Guide of the Red Witch species",
+      "Urek Mazino: the Ranker called Ray Barracuda",
+      "Ha Jinsung: a high-ranking mentor",
+      "Enryu: a red-haired Irregular",
+      "White: a sword-wielding slayer",
+      "Phantaminum: the top-ranked being"
+    ],
+    "text": "The princesses and guides around the king, the cast of the second part, and the Tower's strongest names.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "rejected",
+    "excerpt": "Evan (Korean: 에반 에드록; RR: Ehbahn Edeurok) is a high ranker and the Chief Guide for the Jahad family"
+  },
+  {
+    "id": "tower-of-god-shinsu-017",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "shinsu",
+    "value": "Shinsu, roughly Divine Water",
+    "text": "Shinsu, which means roughly Divine Water, is the substance that fills the Tower and gets stronger and denser on the higher floors.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Shinsu (신수; Sinsu), roughly translated as \"Divine Water\""
+  },
+  {
+    "id": "tower-of-god-regulars-irregulars-018",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "terms",
+    "value": "Regulars, Irregulars, Rankers",
+    "text": "Climbers chosen from outside are Regulars, those who reach the top are Rankers, and the rare people who open the Tower's doors themselves are Irregulars.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "On rare occasions, extraordinary people are able to open the doors and enter the Tower."
+  },
+  {
+    "id": "tower-of-god-bam-name-meaning-019",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "ref": "twenty-fifth-bam",
+      "group_slug": "tower-of-god"
+    },
+    "field": "name_meaning",
+    "value": "Twenty-fifth Night",
+    "text": "Bam's full Korean name translates literally as Twenty-fifth Night.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Twenty-Fifth Bam (Korean: 스물다섯번째 밤; RR: Seumul-daseot-beonjjae Bam; literal translation: Twenty-fifth Night)"
+  },
+  {
+    "id": "tower-of-god-long-term-planning-020",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "planning",
+    "value": "events planned 8 or more years ahead",
+    "text": "The creator lines up major events and characters long before they appear, in some cases more than eight years ahead.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "S.I.U. already has major events and characters planned out, sometimes more than 8 years in advance"
+  },
+  {
+    "id": "tower-of-god-twenty-fifth-bam-name-021",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "twenty-fifth-bam"
+    },
+    "field": "name",
+    "value": "Twenty-Fifth Bam (스물다섯번째 밤)",
+    "text": "Twenty-Fifth Bam is a main character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the protagonist of Tower of God. Bam is the"
+  },
+  {
+    "id": "tower-of-god-rachel-name-022",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "rachel"
+    },
+    "field": "name",
+    "value": "Rachel (라헬)",
+    "text": "Rachel is a main character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "was Bam's best friend until she entered the Tower and became a regular (but that was only what Bam thought which is proved in"
+  },
+  {
+    "id": "tower-of-god-khun-aguero-agnes-name-023",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "khun-aguero-agnes"
+    },
+    "field": "name",
+    "value": "Khun Aguero Agnes (쿤 아게로 아그니스)",
+    "text": "Khun Aguero Agnes is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "RR: Khun Ahgehro Ageunis) is from one of the 10 Great families that first climbed the tower, and the direct son of High Ranker"
+  },
+  {
+    "id": "tower-of-god-rak-wraithraiser-name-024",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "rak-wraithraiser"
+    },
+    "field": "name",
+    "value": "Rak Wraithraiser (라크 레크레이셔)",
+    "text": "Rak Wraithraiser is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a large, powerful, and very confident spear bearer. He unwillingly teamed up with Twenty-Fifth"
+  },
+  {
+    "id": "tower-of-god-headon-name-025",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "headon"
+    },
+    "field": "name",
+    "value": "Headon (헤돈)",
+    "text": "Headon is a character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the guardian of Headon's Floor (The First Floor), and the caretaker of the tower. Headon is the only Guardian known to visit"
+  },
+  {
+    "id": "tower-of-god-shibisu-name-026",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "shibisu"
+    },
+    "field": "name",
+    "value": "Shibisu (십 이수)",
+    "text": "Shibisu is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a scout and the leader of team Isu."
+  },
+  {
+    "id": "tower-of-god-hatz-name-027",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "hatz"
+    },
+    "field": "name",
+    "value": "Hatz (하츠)",
+    "text": "Hatz is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "a devout swordsman introduced on the 2nd test flooe and teamed up with Anaak and Isu became a scout in team Isu."
+  },
+  {
+    "id": "tower-of-god-phonsekal-lauroe-name-028",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "phonsekal-lauroe"
+    },
+    "field": "name",
+    "value": "Phonsekal Lauroe (폰세칼 라우뢰)",
+    "text": "Phonsekal Lauroe is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "RR: Ponsehkahl Raurweh) is a wave controller in team Isu who comes from the Eurasia family, one of the Ten Great Families."
+  },
+  {
+    "id": "tower-of-god-anaak-jahad-name-029",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "anaak-jahad"
+    },
+    "field": "name",
+    "value": "Anaak Jahad",
+    "text": "Anaak Jahad is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Was a princess of Jahad who \"walked out of the display case\" and had a daughter. She is later killed by a royal assassination, but her daughter escaped. Her"
+  },
+  {
+    "id": "tower-of-god-jahad-name-030",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "jahad"
+    },
+    "field": "name",
+    "value": "Jahad",
+    "text": "Jahad is an antagonist of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "had seemingly fallen asleep for millennia, causing the Three Lords and his Princesses to handle the matters of the Empire, until the resurrected Bam"
+  },
+  {
+    "id": "tower-of-god-endorsi-jahad-name-031",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "endorsi-jahad"
+    },
+    "field": "name",
+    "value": "Endorsi Jahad",
+    "text": "Endorsi Jahad is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "When Endorsi was little, she had no family and wandered around. One day, an elderly couple took her in and took care of her, until a snake came up to Endorsi"
+  },
+  {
+    "id": "tower-of-god-ha-yuri-jahad-name-032",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "ha-yuri-jahad"
+    },
+    "field": "name",
+    "value": "Ha-Yuri Jahad",
+    "text": "Ha-Yuri Jahad is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Yuri is a High Ranker and Princess from the Ha Family. She is also the owner of Black March and Green April, two of the 13 Month Series Ignition Weapons. She"
+  },
+  {
+    "id": "tower-of-god-evan-edrok-name-033",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "evan-edrok"
+    },
+    "field": "name",
+    "value": "Evan Edrok (에반 에드록)",
+    "text": "Evan Edrok is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "Evan Edrok briefly encountered her during the Submerged Fish Test and was shocked by seeing her"
+  },
+  {
+    "id": "tower-of-god-ja-wangnan-name-034",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "ja-wangnan"
+    },
+    "field": "name",
+    "value": "Ja Wangnan (자 왕난)",
+    "text": "Ja Wangnan is a main character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is another primary protagonist introduced at the beginning of part II, which initially focuses on him before"
+  },
+  {
+    "id": "tower-of-god-hwa-ryun-name-035",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "hwa-ryun"
+    },
+    "field": "name",
+    "value": "Hwa Ryun (화련)",
+    "text": "Hwa Ryun is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is Viole's Guide and also the Guide for FUG's Rankers notably Ha Jinsung. She is a member of the Red Witch species known"
+  },
+  {
+    "id": "tower-of-god-urek-mazino-name-036",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "urek-mazino"
+    },
+    "field": "name",
+    "value": "Urek Mazino",
+    "text": "Urek Mazino is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "A ruthless irregular currently the fourth in rank. As the strongest currently active Ranker, as an irregular, and as one of the founders of the Wolhaiksong"
+  },
+  {
+    "id": "tower-of-god-ha-jinsung-name-037",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "ha-jinsung"
+    },
+    "field": "name",
+    "value": "Ha Jinsung",
+    "text": "Ha Jinsung is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is the mentor of Bam. He trains Bam when he is trained by the FUG to become Jue Viole Grace (which is Bam itself but a slayer candidate) he is one"
+  },
+  {
+    "id": "tower-of-god-enryu-name-038",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "enryu"
+    },
+    "field": "name",
+    "value": "Enryu",
+    "text": "Enryu is a supporting character of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "is a mysterious Irregular and currently the second in rank. He is the first Irregular to enter the Tower during the reign of Jahad. His nickname is Red"
+  },
+  {
+    "id": "tower-of-god-white-name-039",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "white"
+    },
+    "field": "name",
+    "value": "White",
+    "text": "White is an antagonist of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "was the 10th of eleven slayers in FUG. He belongs in the Arie family, one of the '10 great families'. His body has been lost, and only his name and souls"
+  },
+  {
+    "id": "tower-of-god-phantaminum-name-040",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "phantaminum"
+    },
+    "field": "name",
+    "value": "Phantaminum",
+    "text": "Phantaminum is an antagonist of Tower of God.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "manga"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-20T21:00:00Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-23T17:38:18.790Z",
+    "excerpt": "The strongest and most dangerous being of the entire Tower. He is a highly enigmatic person, ranked first in the Tower. One day, Phantaminum breached Jahad's"
+  },
+  {
+    "id": "tower-of-god-team-positions-five-041",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "role",
+    "value": "5 basic positions",
+    "text": "In the Tower, teams fight with 5 standard roles: fisherman, spear-bearer, light-bearer, scout and wave-controller.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-25T18:46:44Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:44.000Z",
+    "excerpt": "There are five basic positions"
+  },
+  {
+    "id": "tower-of-god-floor-layers-three-042",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "setting",
+    "value": "3 layers per floor",
+    "text": "Every floor of the Tower splits into 3 parts: an outer living area, an inner testing area and a middle linking area.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-25T18:46:44Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:44.000Z",
+    "excerpt": "Each floor is composed of three layers"
+  },
+  {
+    "id": "tower-of-god-great-families-ten-043",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "organization",
+    "value": "10 Great Families",
+    "text": "The top of the Tower is ruled by a council called the 10 Great Families, led by King Jahad.",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-25T18:46:44Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:44.000Z",
+    "excerpt": "At the top of the Tower sit the \"Ten Great Families\""
+  },
+  {
+    "id": "tower-of-god-enryu-floor-43-044",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "enryu"
+    },
+    "field": "ability",
+    "value": "killed the guardian of floor 43",
+    "text": "The Irregular Enryu once slew the administrator of floor 43, a deed nobody thought possible.",
+    "category": "fun",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-25T18:46:44Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T18:48:44.000Z",
+    "excerpt": "managed to kill the then administrator and guardian of the 43rd floor"
+  },
+  {
+    "id": "tower-of-god-rachel-voice-045",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "tower-of-god",
+      "ref": "rachel"
+    },
+    "field": "voice_cast",
+    "value": [
+      "Saori Hayami"
+    ],
+    "text": "Rachel is voiced in Japanese by Saori Hayami.",
+    "category": "members",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters",
+        "ref": "1374413860",
+        "fetched_at": "2026-10-25T19:02:36Z"
+      },
+      {
+        "source": "official",
+        "url": "https://tog-anime.com/1st/caststaff/",
+        "fetched_at": "2026-10-25T21:12:01Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T21:12:01.000Z",
+    "excerpt": "Voiced by: Saori Hayami (Japanese)"
+  },
+  {
+    "id": "tower-of-god-korean-origin-046",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "tower-of-god"
+    },
+    "field": "origin",
+    "value": "South Korea",
+    "text": "Tower of God comes from South Korea: it is a manhwa published as a webtoon, with S.I.U. as writer and artist.",
+    "category": "history",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Tower_of_God",
+        "ref": "1378030268",
+        "fetched_at": "2026-10-25T19:02:59Z"
+      }
+    ],
+    "status": "verified",
+    "verified_at": "2026-10-25T19:04:59.000Z",
+    "excerpt": "is a South Korean manhwa released as a webtoon"
+  }
+]

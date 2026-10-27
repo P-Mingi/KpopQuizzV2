@@ -8,6 +8,7 @@ import { ThemeToggle } from '@/components/layout/theme-toggle';
 import { OrbitMark } from '@/components/verse/brand/verse-wordmarks';
 import { worldForPath, isBuilderCanvas } from '@/lib/world';
 import { useMe } from '@/lib/auth/use-me';
+import { SITE } from '@/lib/site/registry';
 
 export function MobileTopBar(): React.ReactElement | null {
   const pathname = usePathname();
@@ -41,7 +42,7 @@ export function MobileTopBar(): React.ReactElement | null {
           <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, textDecoration: 'none' }}>
             <Mascot variant="default" size={22} />
             <span className="mobile-top-bar-wordmark" style={{ fontWeight: 800, fontSize: 15, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
-              KpopQuiz
+              {SITE.brand.name}
             </span>
           </Link>
         )}

@@ -1,0 +1,162 @@
+{
+  "site": "anime",
+  "account": "oq_creator_14",
+  "group_slug": "frieren",
+  "title": "Elf Time Check: True or False",
+  "slug": "elf-time-check-frieren-true-or-false",
+  "description": "Ten statements about the manga, the creators and the anime. Some are one detail off, so read closely.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Kanehito Yamada writes the manga and Tsukasa Abe draws it.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-manga-creators-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "question": "The manga began in Kodansha's Weekly Shōnen Magazine.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-magazine-start-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "question": "Fifteen collected volumes were out by the end of 2022.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-volume-count-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "question": "The manga began on 28 April 2020.",
+      "correct": true,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-magazine-start-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "question": "The first anime season ran for 38 episodes.",
+      "correct": false,
+      "kind": "episode",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-anime-season-one-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "The anime has used three opening songs, two in season one and one in season two.",
+      "correct": true,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-opening-themes-012"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "Madhouse made the first anime season, with Keiichirō Saitō directing.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-anime-season-one-008"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "Hiroyuki Sawano wrote the music for the anime.",
+      "correct": false,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-anime-composer-011"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "question": "Frieren is an elf who is less than a hundred years old.",
+      "correct": false,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "frieren-frieren-age-018"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    },
+    {
+      "question": "Milet sang every ending of the anime.",
+      "correct": true,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "frieren-ending-themes-013"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: Frieren",
+      "url": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: Frieren (TV series)",
+      "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of Frieren characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    }
+  ],
+  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a magazine, a year, a number or a name). K1 rewrite: blocked questions rewritten on verified facts (012)."
+}

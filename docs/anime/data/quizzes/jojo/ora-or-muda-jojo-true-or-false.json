@@ -1,0 +1,162 @@
+{
+  "site": "anime",
+  "account": "oq_creator_18",
+  "group_slug": "jojo",
+  "title": "Ora or Muda: True or False",
+  "slug": "ora-or-muda-jojo-true-or-false",
+  "description": "Ten statements about the manga, its magazines, the first anime season and two characters. Some are one detail off, so read closely.",
+  "quiz_type": "true_false",
+  "difficulty": "easy",
+  "language": "en",
+  "title_gives_nothing_away": true,
+  "questions": [
+    {
+      "question": "Hirohiko Araki wrote and drew the whole manga himself.",
+      "correct": true,
+      "kind": "production",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-manga-creator-002"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "The manga began in Weekly Shōnen Jump on 1 January 1997.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-magazine-move-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "The manga moved to the monthly Ultra Jump in 2005.",
+      "correct": true,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-magazine-move-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "The manga began in Kodansha's Weekly Shōnen Jump.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-magazine-move-003"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "By March 2026 the manga filled 39 collected volumes.",
+      "correct": false,
+      "kind": "manga",
+      "spoiler": {
+        "arc": 0,
+        "scope": "manga"
+      },
+      "fact_ids": [
+        "jojo-volume-count-004"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "JoJo's Bizarre Adventure is called ジョジョの奇妙な冒険 in Japan, read JoJo no Kimyō na Bōken.",
+      "correct": true,
+      "kind": "lore",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-japanese-title-001"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "question": "Dio Brando is an antagonist of JoJo's Bizarre Adventure.",
+      "correct": true,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-dio-brando-name-022"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    },
+    {
+      "question": "Jonathan Joestar is an antagonist of JoJo's Bizarre Adventure.",
+      "correct": false,
+      "kind": "character",
+      "spoiler": {
+        "arc": 0,
+        "scope": "both"
+      },
+      "fact_ids": [
+        "jojo-jonathan-joestar-name-021"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    },
+    {
+      "question": "The first season of the anime used a single opening song.",
+      "correct": false,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-themes-season-1-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_season_1"
+    },
+    {
+      "question": "The first season used one ending song for all of its episodes.",
+      "correct": true,
+      "kind": "music",
+      "spoiler": {
+        "arc": 0,
+        "scope": "anime"
+      },
+      "fact_ids": [
+        "jojo-themes-season-1-010"
+      ],
+      "source_url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_season_1"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Wikipedia: JoJo's Bizarre Adventure",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure"
+    },
+    {
+      "id": "S2",
+      "title": "Wikipedia: JoJo's Bizarre Adventure season 1",
+      "url": "https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure_season_1"
+    },
+    {
+      "id": "S3",
+      "title": "Wikipedia: List of JoJo's Bizarre Adventure characters",
+      "url": "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    }
+  ],
+  "notes": "Statements restate arc 0 fact texts; each false one changes a single detail (a year, a number, a publisher, a count or a role). K1 rewrite: blocked questions rewritten on verified facts 001, 021 and 022."
+}

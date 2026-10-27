@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { withSite } from '@/lib/site/scope';
 import { createServerClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
@@ -28,12 +29,12 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: 'not_authenticated' }, { status: 401 });
 
-  const { error } = await supabase.from('reports').insert({
+  const { error } = await supabase.from('reports').insert(withSite({
     debate_vote_id: vote_id,
     reporter_id: user.id,
     reason,
     details: '',
-  });
+  }));
   if (error) {
     console.error('[debate/report]', error.message);
     return NextResponse.json({ error: 'report_failed' }, { status: 500 });

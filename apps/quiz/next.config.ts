@@ -3,6 +3,9 @@ import { join } from 'node:path';
 
 import type { NextConfig } from 'next';
 
+import { INDEXING_OPEN } from './src/lib/site/indexing';
+import { SITE_ID } from './src/lib/site/registry';
+import { afterFilesFor, fallbackFor, keyFileBlocksFor, redirectsFor, rewritesFor } from './src/lib/site/routing';
 import { buildUxStylesheet, uxStylesheetVersion } from './src/lib/ux-v1/a0/stylesheet';
 
 // V12 (NEXT_PUBLIC_UX_V12, default off, and only together with NEXT_PUBLIC_UX_V1: the
@@ -36,8 +39,16 @@ const nextConfig: NextConfig = {
   // V12 (G1 request R7, issue C3-002): the blindtest tracking switch is always inlined, as ''
   // when it is unset, so the legacy blindtest pages drop the tracking import() at build
   // and load no tracking chunk while tracking is off.
-  env: { NEXT_PUBLIC_BT_TRACKING: process.env.NEXT_PUBLIC_BT_TRACKING ?? '', UX_CSS_VERSION, NEXT_PUBLIC_DEEZER_LOGO: DEEZER_LOGO },
+  // Run O1: a non-kpop build inlines its resolved site id, so a build set with the server alias
+  // SITE_ID alone gives client code the same answer (contract flags-env.md).
+  env: {
+    NEXT_PUBLIC_BT_TRACKING: process.env.NEXT_PUBLIC_BT_TRACKING ?? '', UX_CSS_VERSION, NEXT_PUBLIC_DEEZER_LOGO: DEEZER_LOGO,
+    ...(SITE_ID === 'kpop' ? {} : { NEXT_PUBLIC_SITE_ID: SITE_ID }),
+  },
   async redirects() {
+    // Run O1 (contract routes.md): anime and hub builds drop every kpop redirect.
+    const siteRedirects = redirectsFor(SITE_ID);
+    if (siteRedirects) return [...siteRedirects];
     const groupSlugs = [
       'bts', 'blackpink', 'stray-kids', 'seventeen', 'twice', 'aespa',
       'newjeans', 'exo', 'g-i-dle', 'ive', 'enhypen', 'ateez', 'itzy',
@@ -100,14 +111,23 @@ const nextConfig: NextConfig = {
   // URLs 301 to / in the middleware and the Which member URLs keep their REFONTE 301.
   // A direct hit on /personality/<group> keeps its REFONTE 301 above.
   async rewrites() {
-    if (!UX_V12_ON) return [];
-    return [
+    // Run O1 (contract routes.md): an anime or hub build sends every public path to its pages
+    // under app/sites/<site>/ before the filesystem is read, and what no public file or handler
+    // serves to the same pages after it, so no kpop page can answer.
+    if (SITE_ID !== 'kpop') {
+      return { beforeFiles: [...rewritesFor(SITE_ID)], afterFiles: [...afterFilesFor(SITE_ID)], fallback: [...fallbackFor(SITE_ID)] };
+    }
+    // Run O1 (lane L1): kpopquiz.org answers its own IndexNow key file only; the other two key files of public/ are its 404.
+    // The V12 pretty URLs below stay afterFiles rules, as the plain array they were.
+    const indexNowBlocks = [...keyFileBlocksFor('kpop')];
+    const v12Rewrites = !UX_V12_ON ? [] : [
       {
         source: '/:group(bts|blackpink|stray-kids|twice|aespa|newjeans|seventeen|exo|g-i-dle|ive|le-sserafim|red-velvet|ateez|enhypen|txt|itzy|shinee)-name-all-members',
         destination: '/name-all/:group?via=pretty',
       },
       { source: `/which-:group(${WMA})-member-are-you`, destination: '/personality/:group' },
     ];
+    return { beforeFiles: indexNowBlocks, afterFiles: v12Rewrites };
   },
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -169,6 +189,12 @@ const nextConfig: NextConfig = {
   // Order matters: the more specific /embed rule is listed first.
   async headers() {
     return [
+      // Run O1, lane C3: an anime or hub build is closed to search engines until NET_INDEXING=1 (lib/site/indexing.ts):
+      // every answer but robots.txt and sitemap.xml says noindex, nofollow. The kpop build never gets this entry.
+      ...(INDEXING_OPEN ? [] : [{
+        source: '/((?!robots\\.txt|sitemap\\.xml).*)',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      }]),
       {
         source: '/embed/:path*',
         headers: [

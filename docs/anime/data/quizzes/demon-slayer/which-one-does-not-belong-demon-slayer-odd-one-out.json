@@ -1,0 +1,327 @@
+{
+ "site": "anime",
+ "account": "oq_creator_06",
+ "group_slug": "demon-slayer",
+ "title": "Which One Does Not Belong? Demon Slayer Swords, Senses and Ranks",
+ "slug": "which-one-does-not-belong-demon-slayer-odd-one-out",
+ "description": "Ten odd-one-out rounds: three options share something and one does not, across Breathing styles, Hashira, swords, senses, demon ranks and songs. Light spoilers up to the Hashira Training Arc.",
+ "quiz_type": "intruder",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "notes": "Intruder format: three options belong to a category of the series and one does not; every option is a character, style, weapon, song or demon.",
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: Demon Slayer: Kimetsu no Yaiba season 2",
+   "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_2"
+  },
+  {
+   "id": "S2",
+   "title": "Wikipedia: List of Demon Slayer: Kimetsu no Yaiba characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+  }
+ ],
+ "questions": [
+  {
+   "question": "Three of these songs are ending themes of the anime. Which one is an opening theme?",
+   "options": [
+    {
+     "label": "Shirogane"
+    },
+    {
+     "label": "Homura"
+    },
+    {
+     "label": "Koi Kogare"
+    },
+    {
+     "label": "Zankyosanka"
+    }
+   ],
+   "correct": 3,
+   "kind": "music",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "demon-slayer-themes-season-2-020",
+    "demon-slayer-themes-season-3-021"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_2"
+  },
+  {
+   "question": "Three of these characters fight on Tanjiro's side. Which one is the demon behind the attack on his family?",
+   "options": [
+    {
+     "label": "Inosuke Hashibira"
+    },
+    {
+     "label": "Muzan Kibutsuji"
+    },
+    {
+     "label": "Nezuko Kamado"
+    },
+    {
+     "label": "Zenitsu Agatsuma"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "demon-slayer-muzan-villain-061",
+    "demon-slayer-nezuko-box-062",
+    "demon-slayer-zenitsu-joined-063",
+    "demon-slayer-inosuke-ally-064"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+  },
+  {
+   "question": "Three of these are Breathing styles. Which one is a Blood Demon Art?",
+   "options": [
+    {
+     "label": "Water Breathing"
+    },
+    {
+     "label": "Exploding Blood"
+    },
+    {
+     "label": "Beast Breathing"
+    },
+    {
+     "label": "Thunder Breathing"
+    }
+   ],
+   "correct": 1,
+   "kind": "lore",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "demon-slayer-nezuko-exploding-blood-068",
+    "demon-slayer-tanjiro-water-style-065",
+    "demon-slayer-zenitsu-thunder-029",
+    "demon-slayer-inosuke-beast-style-066"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+  },
+  {
+   "question": "Three of these Demon Slayers are Hashira. Which one is a tsuguko without a Hashira title?",
+   "options": [
+    {
+     "label": "Sanemi Shinazugawa"
+    },
+    {
+     "label": "Kanao Tsuyuri"
+    },
+    {
+     "label": "Shinobu Kocho"
+    },
+    {
+     "label": "Giyu Tomioka"
+    }
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 1,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "demon-slayer-kanao-tsuguko-072",
+    "demon-slayer-giyu-water-hashira-069",
+    "demon-slayer-shinobu-insect-hashira-070",
+    "demon-slayer-sanemi-wind-hashira-071"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+  },
+  {
+   "question": "Three of these demons hold an Upper Rank seat. Which one belongs to the Lower Ranks?",
+   "options": [
+    {
+     "label": "Akaza"
+    },
+    {
+     "label": "Daki"
+    },
+    {
+     "label": "Enmu"
+    },
+    {
+     "label": "Gyutaro"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 3,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "demon-slayer-enmu-lower-one-076",
+    "demon-slayer-akaza-upper-three-073",
+    "demon-slayer-daki-upper-six-074",
+    "demon-slayer-gyutaro-upper-six-075"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+  },
+  {
+   "question": "Three of these demons were finished off by a Hashira. Which one was killed by Tanjiro?",
+   "options": [
+    {
+     "label": "Kyogai"
+    },
+    {
+     "label": "Rui"
+    },
+    {
+     "label": "Spider Demon (Father)"
+    },
+    {
+     "label": "Gyokko"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "demon-slayer-kyogai-killed-by-tanjiro-097",
+    "demon-slayer-rui-killed-by-giyu-089",
+    "demon-slayer-spider-father-killed-096",
+    "demon-slayer-gyokko-killed-by-muichiro-091",
+    "demon-slayer-giyu-water-hashira-069",
+    "demon-slayer-muichiro-mist-hashira-092"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+  },
+  {
+   "question": "Three of these Demon Slayers rely on an unusually sharp sense. Which one relies on flexibility and muscle?",
+   "options": [
+    {
+     "label": "Tanjiro Kamado"
+    },
+    {
+     "label": "Zenitsu Agatsuma"
+    },
+    {
+     "label": "Inosuke Hashibira"
+    },
+    {
+     "label": "Mitsuri Kanroji"
+    }
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "demon-slayer-mitsuri-muscle-079",
+    "demon-slayer-tanjiro-smell-027",
+    "demon-slayer-zenitsu-hearing-077",
+    "demon-slayer-inosuke-touch-078"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+  },
+  {
+   "question": "Three of these Demon Slayers fight with a Breathing style. Which one cannot use any breathing technique?",
+   "options": [
+    {
+     "label": "Zenitsu Agatsuma"
+    },
+    {
+     "label": "Kanao Tsuyuri"
+    },
+    {
+     "label": "Genya Shinazugawa"
+    },
+    {
+     "label": "Inosuke Hashibira"
+    }
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "demon-slayer-genya-no-breathing-080",
+    "demon-slayer-zenitsu-thunder-029",
+    "demon-slayer-inosuke-beast-style-066",
+    "demon-slayer-kanao-flower-style-067"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+  },
+  {
+   "question": "Three of these characters forge swords for the Corps. Which one cares for wounded slayers at the Butterfly Mansion?",
+   "options": [
+    {
+     "label": "Aoi Kanzaki"
+    },
+    {
+     "label": "Kozo Kanamori"
+    },
+    {
+     "label": "Hotaru Haganezuka"
+    },
+    {
+     "label": "Tecchin Tecchikawahara"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 4,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "demon-slayer-aoi-butterfly-mansion-099",
+    "demon-slayer-haganezuka-swordsmith-085",
+    "demon-slayer-kanamori-swordsmith-093",
+    "demon-slayer-tecchin-chief-098"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+  },
+  {
+   "question": "Three of these Demon Slayers use a Nichirin sword, even if it looks like a needle or a whip. Which one swings a kusarigama instead?",
+   "options": [
+    {
+     "label": "Gyomei Himejima"
+    },
+    {
+     "label": "Tanjiro Kamado"
+    },
+    {
+     "label": "Mitsuri Kanroji"
+    },
+    {
+     "label": "Shinobu Kocho"
+    }
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 5,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "demon-slayer-gyomei-kusarigama-084",
+    "demon-slayer-tanjiro-black-sword-081",
+    "demon-slayer-shinobu-needle-sword-082",
+    "demon-slayer-mitsuri-whip-sword-083"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+  }
+ ]
+}

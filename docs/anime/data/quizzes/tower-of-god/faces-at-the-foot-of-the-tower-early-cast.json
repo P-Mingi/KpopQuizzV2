@@ -1,0 +1,242 @@
+{
+ "site": "anime",
+ "account": "oq_creator_20",
+ "group_slug": "tower-of-god",
+ "title": "Faces at the Foot of the Tower",
+ "slug": "faces-at-the-foot-of-the-tower-early-cast",
+ "description": "Ten questions on Bam and the first climbers, the guardian of the First Floor and the king of the Tower.",
+ "quiz_type": "multiple_choice",
+ "difficulty": "medium",
+ "language": "en",
+ "title_gives_nothing_away": true,
+ "questions": [
+  {
+   "question": "What does the Korean name of Twenty-Fifth Bam mean when translated literally?",
+   "options": [
+    "Twenty-fifth Star",
+    "Twenty-fifth Night",
+    "Fifth Dawn",
+    "Silent Night"
+   ],
+   "correct": 1,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-bam-name-meaning-019"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Who is the best friend of Twenty-Fifth Bam?",
+   "options": [
+    "Rachel",
+    "Hatz",
+    "Headon",
+    "Jahad"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-twenty-fifth-bam-name-021",
+    "tower-of-god-rachel-name-022",
+    "tower-of-god-headon-name-025",
+    "tower-of-god-hatz-name-027",
+    "tower-of-god-jahad-name-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Which character guards the First Floor?",
+   "options": [
+    "Headon",
+    "Hatz",
+    "Shibisu",
+    "Phonsekal Lauroe"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-headon-name-025",
+    "tower-of-god-shibisu-name-026",
+    "tower-of-god-hatz-name-027",
+    "tower-of-god-phonsekal-lauroe-name-028"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Who heads up team Isu?",
+   "options": [
+    "Hatz",
+    "Rak Wraithraiser",
+    "Shibisu",
+    "Phonsekal Lauroe"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-rak-wraithraiser-name-024",
+    "tower-of-god-shibisu-name-026",
+    "tower-of-god-hatz-name-027",
+    "tower-of-god-phonsekal-lauroe-name-028"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Which character is a swordsman?",
+   "options": [
+    "Hatz",
+    "Rachel",
+    "Headon",
+    "Anaak Jahad"
+   ],
+   "correct": 0,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-rachel-name-022",
+    "tower-of-god-headon-name-025",
+    "tower-of-god-hatz-name-027",
+    "tower-of-god-anaak-jahad-name-029",
+    "tower-of-god-jahad-name-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Which character is a spear-bearer?",
+   "options": [
+    "Hatz",
+    "Shibisu",
+    "Headon",
+    "Rak Wraithraiser"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-rak-wraithraiser-name-024",
+    "tower-of-god-headon-name-025",
+    "tower-of-god-shibisu-name-026",
+    "tower-of-god-hatz-name-027"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Who is the king of the Tower?",
+   "options": [
+    "Headon",
+    "Shibisu",
+    "Jahad",
+    "Khun Aguero Agnes"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-khun-aguero-agnes-name-023",
+    "tower-of-god-headon-name-025",
+    "tower-of-god-shibisu-name-026",
+    "tower-of-god-jahad-name-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Which character is a wave controller?",
+   "options": [
+    "Khun Aguero Agnes",
+    "Rak Wraithraiser",
+    "Rachel",
+    "Phonsekal Lauroe"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-rachel-name-022",
+    "tower-of-god-khun-aguero-agnes-name-023",
+    "tower-of-god-rak-wraithraiser-name-024",
+    "tower-of-god-phonsekal-lauroe-name-028"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Which Regular comes from a great family?",
+   "options": [
+    "Rak Wraithraiser",
+    "Hatz",
+    "Shibisu",
+    "Khun Aguero Agnes"
+   ],
+   "correct": 3,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-khun-aguero-agnes-name-023",
+    "tower-of-god-rak-wraithraiser-name-024",
+    "tower-of-god-shibisu-name-026",
+    "tower-of-god-hatz-name-027"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  },
+  {
+   "question": "Which Regular carries the name of a princess?",
+   "options": [
+    "Rachel",
+    "Headon",
+    "Anaak Jahad",
+    "Hatz"
+   ],
+   "correct": 2,
+   "kind": "character",
+   "spoiler": {
+    "arc": 0,
+    "scope": "both"
+   },
+   "fact_ids": [
+    "tower-of-god-rachel-name-022",
+    "tower-of-god-headon-name-025",
+    "tower-of-god-hatz-name-027",
+    "tower-of-god-anaak-jahad-name-029",
+    "tower-of-god-jahad-name-030"
+   ],
+   "source_url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  }
+ ],
+ "sources": [
+  {
+   "id": "S1",
+   "title": "Wikipedia: List of Tower of God characters",
+   "url": "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+  }
+ ],
+ "notes": "K1 cast fix: the cast-list fact is retired; each question cites the per-character facts of the characters it names and is tagged from them. Level was arc 1 both, now arc 0."
+}

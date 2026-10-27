@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "which-character-questions.schema.json",
+  "title": "Run O1: the anime question set of Which character are you (personality_questions of site anime, formats.md 8)",
+  "description": "One set per site (S 1 table: one anime question set of 10 questions), shared by every series; the engine asks the first eight by ord (lib/personality/parse.ts).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["site", "questions"],
+  "properties": {
+    "site": { "const": "anime" },
+    "questions": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ord", "question", "options"],
+        "properties": {
+          "ord": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "question": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 200 },
+          "options": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 6,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["text", "weights"],
+              "properties": {
+                "text": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 120 },
+                "weights": {
+                  "$comment": "A position on each named axis, 0 to 5 (lib/personality/engine.ts WEIGHT_SCALE).",
+                  "type": "object",
+                  "minProperties": 1,
+                  "additionalProperties": false,
+                  "properties": {
+                    "energy": { "$ref": "#/$defs/weight" }, "chaos": { "$ref": "#/$defs/weight" }, "care": { "$ref": "#/$defs/weight" },
+                    "craft": { "$ref": "#/$defs/weight" }, "heart": { "$ref": "#/$defs/weight" }, "spotlight": { "$ref": "#/$defs/weight" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": { "weight": { "type": "number", "minimum": 0, "maximum": 5 } }
+}
