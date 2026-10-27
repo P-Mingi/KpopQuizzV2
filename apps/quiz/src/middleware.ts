@@ -70,7 +70,7 @@ export async function middleware(request: NextRequest) {
       to.search = request.nextUrl.search;
       return NextResponse.redirect(to);
     }
-    // SEO (owner, 2026-10-14): /battle?quiz=<slug> goes 301 to /q/<slug> or 404. That needs
+    // SEO (owner, 2026-10-14 and 2026-10-27): /battle?quiz=<slug or id> goes 301 to /q/<slug>, else 410. That needs
     // a database read, which the middleware never does: the request is handed to the route
     // handler. Checked before the retired families below, which answer a bare /battle 410.
     if (pathname === LEGACY_BATTLE_PATH && request.nextUrl.searchParams.has('quiz')) {
