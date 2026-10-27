@@ -59,6 +59,10 @@
       "schedule": "0 6 1 * *"
     },
     {
+      "path": "/api/cron/quiz-corrections",
+      "schedule": "30 9 * * *"
+    },
+    {
       "path": "/api/cron/seo-indexability",
       "schedule": "0 9 * * 0"
     },

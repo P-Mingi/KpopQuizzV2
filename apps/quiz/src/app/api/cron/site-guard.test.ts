@@ -1,4 +1,4 @@
-// Run O1, C2 fix S3: the nine kpop-only cron routes carry cronForSite(['kpop']). vercel.json is shared by the three Vercel
+// Run O1, C2 fix S3: the kpop-only cron routes carry cronForSite(['kpop']) (nine in the run, quiz-corrections since 2026-10-27). vercel.json is shared by the three Vercel
 // projects, so each route runs on every project; on a build that is not kpop it must answer its 200 skip and touch nothing,
 // and on the kpop build it must keep today's behaviour (no skip answer, the work is reached).
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -34,6 +34,7 @@ const ROUTES: Array<[string, () => Promise<{ GET: (r: NextRequest) => Promise<Re
   ['seo-indexability', () => import('./seo-indexability/route')],
   ['verse-role-decay', () => import('./verse-role-decay/route')],
   ['ranked nightly', () => import('../ranked/cron/nightly/route')],
+  ['quiz-corrections', () => import('./quiz-corrections/route')],
 ];
 
 async function call(site: string, load: (typeof ROUTES)[number][1]): Promise<Response | Error> {
