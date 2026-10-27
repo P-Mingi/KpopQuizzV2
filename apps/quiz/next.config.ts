@@ -33,6 +33,14 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   transpilePackages: ['@kpopquiz/shared'],
+  // SEO Mission 3, part C: the Monday e-mail and /admin/seo/import read docs/seo/TARGETS.md and
+  // docs/seo/CALENDAR.md at run time (lib/seo/weekly/repo-docs.ts). They sit at the repository
+  // root, outside this app, so the two routes list them here to carry them. A file that does not
+  // exist yet is simply not carried, and the code skips what needs it.
+  outputFileTracingIncludes: {
+    '/api/cron/seo-weekly-report': ['../../docs/seo/TARGETS.md', '../../docs/seo/CALENDAR.md'],
+    '/admin/seo/import': ['../../docs/seo/TARGETS.md'],
+  },
   // V12 (G1 request R7, issue C3-002): the blindtest tracking switch is always inlined, as ''
   // when it is unset, so the legacy blindtest pages drop the tracking import() at build
   // and load no tracking chunk while tracking is off.

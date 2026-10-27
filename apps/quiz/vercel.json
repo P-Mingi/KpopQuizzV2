@@ -69,6 +69,10 @@
     {
       "path": "/api/cron/live-expire",
       "schedule": "*/30 * * * *"
+    },
+    {
+      "path": "/api/cron/seo-weekly-data",
+      "schedule": "0 10 * * 1"
     }
   ]
 }
