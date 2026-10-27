@@ -32,7 +32,8 @@ jobs:
           version: 10.32.1
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # The Vercel runtime of the three projects; contract.test.ts needs fs.globSync (Node 22+).
+          node-version: 24
           cache: pnpm
       - name: Install
         run: pnpm install --frozen-lockfile
