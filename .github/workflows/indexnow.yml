@@ -1,30 +1,54 @@
 name: IndexNow submit
 
-# After a production deploy, ask Bing/Yandex (via IndexNow) to recrawl the site.
-# Bing is our #1 search referrer. Per-quiz publishes already ping automatically
-# from the app; this covers the full-sitemap resubmit on deploy.
+# After a production deploy, tell IndexNow (Bing, Yandex, Seznam) what changed.
+# Bing is our #1 search referrer. Per-quiz publishes already ping from the app.
 #
-# SETUP (one time):
+# SEO Mission 3 (2026-10-15): this is the post-deploy diff. It waits until the pushed
+# commit is the one serving kpopquiz.org (the route answers 409 before that), then the
+# route fingerprints the pages defined in the code and sends only those that changed
+# (or, before docs/pending-migrations/seo-indexnow.sql is applied, resubmits the sitemap
+# as it always did). A newer push cancels a run still waiting.
+#
+# SETUP (one time, already done if the old version of this workflow ran):
 #   1. Vercel: set env INDEXNOW_TRIGGER_TOKEN to a secret string (redeploy).
 #   2. GitHub: repo Settings > Secrets and variables > Actions > New secret
 #      INDEXNOW_TOKEN with the SAME value.
 # workflow_dispatch lets you run it manually from the Actions tab to test.
 on:
   push:
-    branches: [main, seo-indexation]
+    branches: [main]
   workflow_dispatch: {}
+
+concurrency:
+  group: indexnow-deploy
+  cancel-in-progress: true
 
 jobs:
   submit:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - name: Wait for the Vercel deploy to go live
-        run: sleep 120
-      - name: Resubmit sitemap to IndexNow
+      - name: Post-deploy IndexNow diff, once this commit is live
         env:
           INDEXNOW_TOKEN: ${{ secrets.INDEXNOW_TOKEN }}
+          SHA: ${{ github.sha }}
         run: |
           if [ -z "$INDEXNOW_TOKEN" ]; then
             echo "INDEXNOW_TOKEN secret not set - skipping"; exit 0
           fi
-          curl -fsS -X POST "https://kpopquiz.org/api/indexnow?token=${INDEXNOW_TOKEN}"
+          sleep 60
+          failures=0
+          for i in $(seq 1 40); do
+            code=$(curl -sS -o out.json -w '%{http_code}' -X POST --max-time 310 \
+              -H "Authorization: Bearer ${INDEXNOW_TOKEN}" \
+              "https://kpopquiz.org/api/indexnow?sha=${SHA}" || echo 000)
+            if [ "$code" = "200" ]; then cat out.json; echo; exit 0; fi
+            if [ "$code" = "401" ]; then echo "::error::INDEXNOW_TOKEN does not match INDEXNOW_TRIGGER_TOKEN on Vercel"; exit 1; fi
+            echo "attempt $i: HTTP $code $(head -c 300 out.json 2>/dev/null)"
+            if [ "$code" != "409" ]; then
+              failures=$((failures + 1))
+              if [ "$failures" -ge 3 ]; then echo "::warning::post-deploy diff failed 3 times (HTTP $code); the nightly reconciliation will catch the changes"; exit 0; fi
+            fi
+            sleep 30
+          done
+          echo "::warning::${SHA} was not live in production after 20 minutes; the nightly reconciliation will catch its changes"
