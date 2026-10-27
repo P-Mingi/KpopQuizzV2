@@ -15,11 +15,19 @@
 // V12 (owner, 2026-10-07): 'community_reply' (someone replied to your comment or reply)
 // and 'community_comment' (someone commented on your post), Social, written by
 // lib/ux-v1/p8/notify.ts (docs/pending-migrations/v12-community-notifications.sql).
+//
+// Quiz corrections (owner, 2026-10-27): 'quiz_correction' tells a creator that a question of
+// their quiz has a sourced correction and that the quiz moves to draft after 14 days if the
+// question is unchanged (app/api/cron/quiz-corrections, lib/quiz-corrections/). It needs
+// docs/pending-migrations/quiz-corrections-schema.sql. On purpose it belongs to NO settings
+// category below: the schema SQL makes the gate trigger let it through whatever the creator's
+// toggles and per-quiz mutes, because a notice the creator never sees would still end with their
+// quiz in draft. The notifications page lists it under "Your quizzes" (lib/ux-v1/p11).
 export const NOTIFICATION_TYPES = [
   'milestone', 'rating', 'comment', 'admin_dm', 'new_follower',
   'streak_milestone', 'group_mastered', 'followed_new_quiz',
   'badge_earned', 'cheer', 'verse_watch', 'battle_beaten',
-  'community_reply', 'community_comment',
+  'community_reply', 'community_comment', 'quiz_correction',
 ] as const;
 export type NotificationType = (typeof NOTIFICATION_TYPES)[number];
 
