@@ -58,30 +58,91 @@ export const GONE_HTML =
   '<h1>This page was removed</h1><p>This feature is no longer on KpopQuiz.</p>' +
   '<p><a href="/">Play a K-pop quiz</a></p></body></html>';
 
-/** The body of a 404 for a legacy URL that points at no published quiz. */
-export const NOT_FOUND_HTML =
-  '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
-  '<meta name="viewport" content="width=device-width, initial-scale=1">' +
-  '<meta name="robots" content="noindex"><title>Quiz not found</title></head>' +
-  '<body style="font-family:system-ui,sans-serif;max-width:36rem;margin:4rem auto;padding:0 1rem">' +
-  '<h1>Quiz not found</h1><p>No published quiz has this address.</p>' +
-  '<p><a href="/quizzes">Browse K-pop quizzes</a></p></body></html>';
-
-// /battle?quiz=<slug> was the 1v1 duel on one quiz (REFONTE P1 removed it). Its exact
-// successor is the quiz itself, /q/<slug>, when a published quiz has that slug; otherwise
-// 404. The middleware hands these to /api/legacy/battle, which reads the database (the
-// middleware never does). A bare /battle, and anything under it, is 410 (below).
+// /battle?quiz=<quiz> was the 1v1 duel on one quiz (REFONTE P1 removed it). The value was
+// the quiz slug, or its id (a UUID: Search Console still lists one, 2026-10-27). The exact
+// successor is the quiz itself, /q/<slug>, when a published quiz has that slug or that id.
+// Anything else (no published quiz, an empty or malformed value) is 410: the duel is retired
+// and has no successor (owner, 2026-10-27; it answered 404 before). The middleware hands
+// these to /api/legacy/battle, which reads the database (the middleware never does). A bare
+// /battle, and anything under it, is 410 (below).
 export const LEGACY_BATTLE_PATH = '/battle';
 export const LEGACY_BATTLE_HANDLER = '/api/legacy/battle';
 
 /** Live slugs are lowercase letters, digits and hyphens (some start or end with one). */
 const QUIZ_SLUG_RE = /^[a-z0-9-]{1,120}$/;
 
-/** The quiz slug of a /battle?quiz= value worth a database read, or null (a plain 404). */
+/** A quiz id: a UUID, as Postgres prints it or in capitals. */
+const QUIZ_ID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** The quiz slug of a /battle?quiz= value worth a database read, or null (410). */
 export function battleQuizSlug(raw: string | null): string | null {
   if (raw === null) return null;
   const slug = raw.trim();
   return QUIZ_SLUG_RE.test(slug) && /[a-z0-9]/.test(slug) ? slug : null;
+}
+
+export type BattleQuizRef = { kind: 'slug' | 'id'; value: string };
+
+/**
+ * What a /battle?quiz= value names: a quiz id (a UUID, lowercased), a quiz slug, or null when
+ * it can name no quiz (410 without a database read).
+ */
+export function battleQuizRef(raw: string | null): BattleQuizRef | null {
+  if (raw === null) return null;
+  const value = raw.trim();
+  if (QUIZ_ID_RE.test(value)) return { kind: 'id', value: value.toLowerCase() };
+  const slug = battleQuizSlug(value);
+  return slug ? { kind: 'slug', value: slug } : null;
+}
+
+// /blind-test/* was the first address of the blind test, renamed /blindtest. The middleware
+// sent every such URL 301 to the same path under /blindtest, a 301 onto a 404 when that page
+// does not exist: /blind-test/bts went to /blindtest/bts (the group page is
+// /blindtest/group-bts), and a group page exists only while the group has a playable pool.
+// Owner, 2026-10-27: a 301 only to a page that renders, else 410. Whether it renders needs a
+// database read, so the middleware hands these to /api/legacy/blind-test, which answers with
+// blindTestAnswer below and the page's own check (lib/blind-test/mode-page.ts).
+export const LEGACY_BLIND_TEST_PATH = '/blind-test';
+export const LEGACY_BLIND_TEST_HANDLER = '/api/legacy/blind-test';
+export const BLINDTEST_PATH = '/blindtest';
+/**
+ * The request headers that carry the original path and query string to the handler. A route
+ * handler reached by a middleware rewrite sees the query of the original request, not the one
+ * of the rewrite (checked on Next 16.2, 2026-10-27), so they cannot travel as parameters.
+ */
+export const LEGACY_PATH_HEADER = 'x-legacy-path';
+export const LEGACY_SEARCH_HEADER = 'x-legacy-search';
+
+/** One /blindtest/<segment> segment: mode ids and group slugs are lowercase words joined by hyphens. */
+const BLINDTEST_SEGMENT_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const GROUP_MODE_PREFIX = 'group-';
+
+/** Does /blindtest/<segment> render (true) or answer 404 (false)? null when that cannot be told now. */
+export type BlindtestPageCheck = (segment: string) => Promise<boolean | null>;
+
+/** A legacy answer, or 503 when a check could not tell (a failed read: never a 410 for a page that may exist). */
+export type CheckedLegacyAnswer = LegacyAnswer | { status: 503 };
+
+/**
+ * The answer for a /blind-test URL, or null when the path is not one. /blind-test goes to
+ * /blindtest. /blind-test/<x> goes to /blindtest/<x> when that renders, else, when <x> is a
+ * group slug written without "group-" (bts), to /blindtest/group-<x> when that renders;
+ * otherwise 410. Deeper paths are 410: no page lives under /blindtest/<x>/. The query string
+ * is the caller's to keep.
+ */
+export async function blindTestAnswer(pathname: string, renders: BlindtestPageCheck): Promise<CheckedLegacyAnswer | null> {
+  const path = pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname;
+  if (path === LEGACY_BLIND_TEST_PATH) return { status: 301, location: BLINDTEST_PATH };
+  if (!path.startsWith(`${LEGACY_BLIND_TEST_PATH}/`)) return null;
+  const segment = path.slice(LEGACY_BLIND_TEST_PATH.length + 1);
+  if (!BLINDTEST_SEGMENT_RE.test(segment)) return { status: 410 };
+  const candidates = segment.startsWith(GROUP_MODE_PREFIX) ? [segment] : [segment, `${GROUP_MODE_PREFIX}${segment}`];
+  for (const candidate of candidates) {
+    const ok = await renders(candidate);
+    if (ok === null) return { status: 503 };
+    if (ok) return { status: 301, location: `${BLINDTEST_PATH}/${candidate}` };
+  }
+  return { status: 410 };
 }
 
 // SEO (owner, 2026-10-15): "a 301 to the exact page that replaces it, else 410". REFONTE P1
