@@ -147,11 +147,33 @@ cd /Users/louis/IT/Dev/projects/KpopQuizzV2 && git fetch -q origin && git show o
 Comme pour le n° 9, rien n'est envoyé avant que le cron soit déclaré. Résultat attendu :
 « Success. No rows returned ».
 
+### 12. Le lot E3 d'explications (239 lignes, 40 quiz, à coller après le n° 1)
+
+```bash
+cd /Users/louis/IT/Dev/projects/KpopQuizzV2 && git fetch -q origin && git show origin/main:docs/pending-migrations/seo-explanations-e3.sql | pbcopy
+```
+
+Même circuit et même contrôle que les lots E1 et E2 (`docs/seo/strategy-2026-10-27/explanations/e3/`).
+Résultat attendu : « Success. No rows returned ». S'il répond « row(s) no longer match their
+quiz », un créateur a modifié une question : rien n'a changé, je régénère le lot. Je vérifie :
+239 lignes, 40 quiz.
+
+### 13. Les 8 demandes de correction du lot E3 (à coller après le n° 11)
+
+```bash
+cd /Users/louis/IT/Dev/projects/KpopQuizzV2 && git fetch -q origin && git show origin/main:docs/pending-migrations/quiz-corrections-e3.sql | pbcopy
+```
+
+8 réponses fausses dans 6 quiz de joueurs (liste et textes dans
+`docs/seo/strategy-2026-10-27/explanations/e3/QUIZ-ISSUES-E3.md` et dans le fichier lui-même).
+Comme pour le n° 9, rien n'est envoyé avant que le cron soit déclaré. Résultat attendu :
+« Success. No rows returned ».
+
 ## Pas encore prêt ou pas encore accordé
 
 - La déclaration du compte kpopquizz en compte Team : la liste de ce que ça change est dans
   `docs/seo/strategy-2026-10-27/KPOPQUIZZ-TEAM-IMPACT.md`. Pas avant ton accord.
-- Les lots d'explications E3 et suivants : je les ajouterai ici quand ils seront prêts.
+- Les lots d'explications E4 et suivants : je les ajouterai ici quand ils seront prêts.
 
 ## Retours arrière
 
