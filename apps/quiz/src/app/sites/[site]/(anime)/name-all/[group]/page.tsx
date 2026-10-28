@@ -13,6 +13,7 @@ import { jsonLdString } from '@/lib/seo/json-ld';
 import { settle } from '@/lib/ux-v1/p6/hub-data';
 import { isUxV12 } from '@/lib/ux-v12';
 import { groupOgImage } from '@/lib/seo/og';
+import { siteAddress } from '@/lib/site/brand';
 import { robotsFor } from '@/lib/site/indexing';
 import { SITE } from '@/lib/site/registry';
 
@@ -40,7 +41,7 @@ const WORDS: NameAllWords = {
   members: V.memberPlural,
   topic: V.topic,
   brand: SITE.brand.name,
-  host: SITE.domain,
+  host: siteAddress(SITE),
   origin: SITE.url,
   acceptedAbout: 'Full names, short names and nicknames are all accepted',
   acceptedIntro: 'Full names, short names and nicknames all count',
