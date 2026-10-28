@@ -9,7 +9,7 @@ import { loadSeriesDirectory } from '@/lib/anime/directory';
 import { whichCharacterPath } from '@/lib/personality/series';
 import { listSeriesSets } from '@/lib/personality/sets';
 
-import { basePathOf, joinSiteUrl } from './base-path';
+import { basePathOf, joinSiteUrl, zoneChildrenOf } from './base-path';
 import { indexingOpenFor, parseLaunchDate } from './indexing';
 import { forSite } from './scope';
 
@@ -110,9 +110,19 @@ export function sitemapIndexXml(locs: readonly string[]): string {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${items.join('\n')}\n</sitemapindex>\n`;
 }
 
-/** The sitemaps the index of `site`'s domain lists: its own pages, then the sitemap of each site in a sub-folder. */
-export function zoneSitemaps(site: SiteConfig, children: readonly SiteConfig[]): string[] {
-  return [joinSiteUrl(site.url, HUB_PAGES_SITEMAP), ...children.map((c) => `${c.url}/sitemap.xml`)];
+/**
+ * The sites in the sub-folders of a domain that its sitemap index and its llms.txt list: only those open to search engines. A build
+ * cannot read the NET_INDEXING of another Vercel project, so the hub decides with its own flag (`raw`, the NET_INDEXING of the hub
+ * build): the hub and /anime open together at launch (K10). While it is off, the index lists the hub's own pages only and llms.txt
+ * names no site in a sub-folder.
+ */
+export function openZoneChildren(children: readonly SiteConfig[], raw: string | undefined = process.env.NET_INDEXING): SiteConfig[] {
+  return children.filter((c) => indexingOpenFor(c.id, raw));
+}
+
+/** The sitemaps the index of `site`'s domain lists: its own pages, then the sitemap of each open site in a sub-folder. */
+export function zoneSitemaps(site: SiteConfig, children: readonly SiteConfig[], raw: string | undefined = process.env.NET_INDEXING): string[] {
+  return [joinSiteUrl(site.url, HUB_PAGES_SITEMAP), ...openZoneChildren(children, raw).map((c) => `${c.url}/sitemap.xml`)];
 }
 
 /**
@@ -169,7 +179,7 @@ export async function sitemapEntriesFor(site: SiteConfig, db: SeriesDb = createP
  * would rot, a live one is not worth a read for a file nothing is proven to consume), the site's own name and host, never
  * kpopquiz.org's. kpop keeps app/llms.txt/route.ts.
  */
-export function llmsText(site: SiteConfig): string {
+export function llmsText(site: SiteConfig, children: readonly SiteConfig[] = zoneChildrenOf(site), raw: string | undefined = process.env.NET_INDEXING): string {
   const { name } = site.brand;
   const title = site.seo.llmsTxt.title;
   // FandomVerse (lane 1): a site in a sub-folder is named by its full address (fandomverse.org/anime, the url without its scheme: the
@@ -177,6 +187,8 @@ export function llmsText(site: SiteConfig): string {
   const address = site.url.replace(/^https?:\/\//, '');
   const b = basePathOf(site.url);
   if (site.id === 'hub') {
+    // The sites in its sub-folders (/anime), once open (openZoneChildren): each keeps its own llms.txt under its base path.
+    const zones = openZoneChildren(children, raw).map((c) => `- ${basePathOf(c.url)}: ${c.brand.name}, a quiz site of the network (its own llms.txt: ${basePathOf(c.url)}/llms.txt)\n`).join('');
     return `# ${title}
 
 > ${name} is the home of one account shared by a network of independent fan quiz sites. It holds no quiz of its own.
@@ -187,7 +199,7 @@ own quizzes, scores and community; the account is the only thing they share.
 
 ## Best entry points
 - /: the sites of the network
-- /privacy: what one account shares between the sites
+${zones}- /privacy: what one account shares between the sites
 
 ## What we do not publish
 We do not publish simulated scores, invented play counts, or fabricated opponents.

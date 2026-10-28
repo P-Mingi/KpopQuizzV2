@@ -110,8 +110,9 @@ describe('the route handlers', () => {
     expect(await res.text()).toContain('Sitemap: https://fandomverse.org/sitemap.xml');
   });
 
-  it('hub: sitemap.xml is the index of fandomverse.org (the hub sitemap and the anime sitemap) and reads nothing', async () => {
+  it('hub open: sitemap.xml is the index of fandomverse.org (the hub sitemap and the anime sitemap) and reads nothing', async () => {
     vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'hub');
+    vi.stubEnv('NET_INDEXING', '1');
     state.db = recordingDb();
     const res = await (await sitemapRoute()).GET(req, ctx('hub'));
     const body = await res.text();
@@ -119,6 +120,18 @@ describe('the route handlers', () => {
     expect(res.headers.get('content-type')).toMatch(/xml/);
     expect(body).toContain('<sitemapindex');
     expect([...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])).toEqual(['https://fandomverse.org/sitemap-hub.xml', 'https://fandomverse.org/anime/sitemap.xml']);
+    expect((state.db as ReturnType<typeof recordingDb>).queries).toHaveLength(0);
+  });
+
+  it('hub closed: sitemap.xml is the index of fandomverse.org with the hub sitemap only (no /anime) and reads nothing', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'hub');
+    vi.stubEnv('NET_INDEXING', '');
+    state.db = recordingDb();
+    const res = await (await sitemapRoute()).GET(req, ctx('hub'));
+    const body = await res.text();
+    expect(res.status).toBe(200);
+    expect(body).toContain('<sitemapindex');
+    expect([...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])).toEqual(['https://fandomverse.org/sitemap-hub.xml']);
     expect((state.db as ReturnType<typeof recordingDb>).queries).toHaveLength(0);
   });
 
