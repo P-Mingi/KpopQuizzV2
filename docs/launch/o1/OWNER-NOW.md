@@ -325,7 +325,7 @@ Claude : `V-S4 ok`. Worker : V1, puis 1 h de Runtime Logs.
 ### 34. Le contenu
 Claude 1 h 30. [RUNBOOK J](RUNBOOK.md#j-content)
 
-En parallèle des parties 3 à 6. Claude relit un échantillon des paquets de `docs/anime/editorial/packets/` (J1), lance `node scripts/anime/editorial/check.mjs docs/anime/data` (0 échec), contrôle les sha256 de `MANIFEST.json`, l'absence de fichier DRAFTS et de `team.otakuquiz.org` (J2), et répète les fichiers de lancement sur `o1-scratch` (J3 : le second passage ne change rien). Il te donne le résultat.
+En parallèle des parties 3 à 6. Claude relit un échantillon des paquets de `docs/anime/editorial/packets/` (J1), lance `node scripts/anime/editorial/check.mjs docs/anime/data` (0 échec), contrôle les sha256 de `MANIFEST.json`, l'absence de fichier DRAFTS et de `team.otakuquiz.org` (J2), et répète les fichiers de lancement sur `o1-scratch` (J3 : d'abord la remise à zéro de `SQL-ORDER.md` section 5, car la branche garde les anciennes lignes de L01 et les anciennes adresses Team ; puis chaque fichier deux fois, le second passage ne change rien). Il te donne le résultat.
 
 ### 35. Le rapport K1, la veille du jour J
 Claude 20 min, Worker 15 min. [RUNBOOK K1](RUNBOOK.md#k-launch-day)
