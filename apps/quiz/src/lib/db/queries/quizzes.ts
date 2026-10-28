@@ -424,6 +424,24 @@ async function fetchQuizzesByGroup(
   return cards;
 }
 
+// SEO phase 1, PR 16b: the cards of given quizzes (the next quizzes of a General K-pop theme page), published
+// only, in the order asked. Cached at the stats TTL like the group lists, keyed by the slug list.
+export const getQuizCardsBySlugs = unstable_cache(
+  async (slugs: string[]): Promise<QuizCardData[]> => {
+    if (slugs.length === 0) return [];
+    const { data, error } = await forSite(createPublicReadClient()
+      .from('quizzes')
+      .select(QUIZ_CARD_SELECT))
+      .eq('status', 'published')
+      .in('slug', slugs);
+    if (error) throw new Error(`Failed to fetch quiz cards: ${error.message}`);
+    const bySlug = new Map((data as unknown as RawQuizRow[]).map(toQuizCardData).map((c) => [c.slug, c]));
+    return slugs.map((s) => bySlug.get(s)).filter((c): c is QuizCardData => c !== undefined);
+  },
+  ['db:quizzes:getQuizCardsBySlugs:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['quizzes'] },
+);
+
 /**
  * Lightweight {slug, title} list of EVERY published quiz in a group, ordered by
  * popularity. Used to expose crawlable <a href="/q/{slug}"> links for all of a

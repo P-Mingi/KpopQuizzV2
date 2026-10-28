@@ -87,6 +87,8 @@ export interface P4QuizPageProps {
   fandomName: string;
   hof: P4HofRow[];
   related: QuizCardData[];
+  /** A General K-pop quiz on a theme page (SEO phase 1, PR 16b): the "More" header names and links that page. */
+  moreFrom?: { title: string; href: string; count: number };
   groupQuizCount: number | null;
   articleLinks: Array<{ slug: string; label: string }>;
   creator: P4Creator | null;
@@ -264,8 +266,10 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
             <section className="ux-sec" aria-labelledby="p4-more-h">
               <SectionHeader
                 id="p4-more-h"
-                title={moreSameGroup ? `More ${q.groupName} quizzes` : 'More quizzes to play'}
-                {...(moreSameGroup && p.groupQuizCount !== null && p.groupQuizCount > 0 ? { action: { href: `/${q.groupSlug}-quiz`, label: `All ${p.groupQuizCount.toLocaleString('en-US')}` } } : {})}
+                title={p.moreFrom ? p.moreFrom.title : moreSameGroup ? `More ${q.groupName} quizzes` : 'More quizzes to play'}
+                {...(p.moreFrom
+                  ? { action: { href: p.moreFrom.href, label: `All ${p.moreFrom.count.toLocaleString('en-US')}` } }
+                  : moreSameGroup && p.groupQuizCount !== null && p.groupQuizCount > 0 ? { action: { href: `/${q.groupSlug}-quiz`, label: `All ${p.groupQuizCount.toLocaleString('en-US')}` } } : {})}
               />
               <TextCardGrid className="p4-more-grid">
                 {p.related.map((r) => (

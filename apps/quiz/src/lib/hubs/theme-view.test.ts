@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { GENERAL_THEMES } from './general-themes';
-import { TOPIC_NAMES, buildThemeView, themeCounts, topicList } from './theme-view';
+import { TOPIC_NAMES, buildThemeView, primaryTheme, themeCounts, themeNext, topicList } from './theme-view';
 
 import type { HubQuiz } from '@/lib/ux-v1/p3/model';
 
@@ -64,5 +64,29 @@ describe('topicList', () => {
     expect(topicList(GENERAL_THEMES)).toBe('K-pop history, debuts, companies, fandoms, discography, dance, awards, TV shows, idols and groups');
     expect(topicList(GENERAL_THEMES.slice(0, 2))).toBe('K-pop history and debuts');
     expect(topicList(GENERAL_THEMES.slice(0, 1))).toBe('K-pop history');
+  });
+});
+
+describe('primaryTheme and themeNext (PR 16b)', () => {
+  const order = history.sections.flatMap((s) => s.slugs);
+  const all = new Set(order);
+
+  it('finds the theme whose sections list the quiz, null for any other slug', () => {
+    expect(primaryTheme(order[0]!)?.slug).toBe('kpop-history-quiz');
+    expect(primaryTheme('not-a-theme-quiz')).toBeNull();
+    expect(primaryTheme('kpop-geral')).toBeNull();
+  });
+
+  it('the quizzes after this one in page order, wrapping, never itself', () => {
+    const last = order[order.length - 1]!;
+    expect(themeNext(history, order[0]!, all, 3)).toEqual(order.slice(1, 4));
+    expect(themeNext(history, last, all, 2)).toEqual(order.slice(0, 2));
+    expect(themeNext(history, order[0]!, all, 99)).toEqual(order.slice(1));
+  });
+
+  it('skips the quizzes that are not published, and a quiz not on the page gets nothing', () => {
+    const published = new Set(order.filter((_, i) => i !== 1));
+    expect(themeNext(history, order[0]!, published, 2)).toEqual([order[2], order[3]]);
+    expect(themeNext(history, 'not-a-theme-quiz', all, 6)).toEqual([]);
   });
 });
