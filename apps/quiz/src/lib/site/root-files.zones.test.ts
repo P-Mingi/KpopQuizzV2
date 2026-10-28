@@ -58,16 +58,44 @@ describe('the pure parts', () => {
     expect(zoneRobots(robots, [])).toBe(robots);
   });
 
-  it('the index lists the hub\'s own pages, then each sub-folder site\'s sitemap', async () => {
+  it('the index lists the hub\'s own pages, then each sub-folder site\'s sitemap once open (the hub\'s NET_INDEXING)', async () => {
     const { sitemapIndexXml, zoneSitemaps } = await import('./root-files');
-    const hub = { url: 'https://fandomverse.org' } as SiteConfig;
-    const anime = { url: 'https://fandomverse.org/anime' } as SiteConfig;
-    const urls = zoneSitemaps(hub, [anime]);
-    expect(urls).toEqual(['https://fandomverse.org/sitemap-hub.xml', 'https://fandomverse.org/anime/sitemap.xml']);
-    const xml = sitemapIndexXml(urls);
-    expect(xml).toContain('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
-    expect(locs(xml)).toEqual(urls);
-    expect(xml).not.toContain('<url>');
+    const hub = { id: 'hub', url: 'https://fandomverse.org' } as SiteConfig;
+    const anime = { id: 'anime', url: 'https://fandomverse.org/anime' } as SiteConfig;
+    for (const open of ['1', 'true']) {
+      const urls = zoneSitemaps(hub, [anime], open);
+      expect(urls).toEqual(['https://fandomverse.org/sitemap-hub.xml', 'https://fandomverse.org/anime/sitemap.xml']);
+      const xml = sitemapIndexXml(urls);
+      expect(xml).toContain('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+      expect(locs(xml)).toEqual(urls);
+      expect(xml).not.toContain('<url>');
+    }
+  });
+
+  it('while closed the index lists the hub\'s own pages only: no /anime', async () => {
+    const { sitemapIndexXml, zoneSitemaps } = await import('./root-files');
+    const hub = { id: 'hub', url: 'https://fandomverse.org' } as SiteConfig;
+    const anime = { id: 'anime', url: 'https://fandomverse.org/anime' } as SiteConfig;
+    for (const closed of [undefined, '', '0', 'false', 'open']) {
+      const urls = zoneSitemaps(hub, [anime], closed);
+      expect(urls, String(closed)).toEqual(['https://fandomverse.org/sitemap-hub.xml']);
+      expect(sitemapIndexXml(urls)).not.toContain('/anime');
+    }
+  });
+
+  it('the hub\'s llms.txt names /anime once open, and no site in a sub-folder while closed (same text as before)', async () => {
+    const { llmsText } = await import('./root-files');
+    const { REGISTRY } = await import('./registry');
+    const hub = { ...REGISTRY.hub, url: 'https://fandomverse.org', domain: 'fandomverse.org' };
+    const anime = { ...REGISTRY.anime, url: 'https://fandomverse.org/anime', domain: 'fandomverse.org' };
+    const open = llmsText(hub, [anime], '1');
+    expect(open).toContain('- /: the sites of the network\n- /anime: OtakuQuiz, a quiz site of the network (its own llms.txt: /anime/llms.txt)\n- /privacy:');
+    for (const closed of [undefined, '', '0']) {
+      const text = llmsText(hub, [anime], closed);
+      expect(text, String(closed)).not.toContain('/anime');
+      expect(text, String(closed)).toContain('- /: the sites of the network\n- /privacy: what one account shares between the sites\n');
+      expect(open.replace('- /anime: OtakuQuiz, a quiz site of the network (its own llms.txt: /anime/llms.txt)\n', '')).toBe(text);
+    }
   });
 
   it('a sitemap of a site in a sub-folder lists its home without a trailing slash (Next answers /anime/ with a 308)', async () => {
@@ -91,6 +119,7 @@ describe('the route handlers on fandomverse.org', () => {
   const robotsRoute = () => import('@/app/sites/[site]/robots.txt/route');
   const sitemapRoute = () => import('@/app/sites/[site]/sitemap.xml/route');
   const hubPagesRoute = () => import('@/app/sites/[site]/sitemap-hub.xml/route');
+  const llmsRoute = () => import('@/app/sites/[site]/llms.txt/route');
 
   it('hub: the one robots.txt of the domain, with the rules of /anime and the index as its sitemap', async () => {
     await fandomVerse('hub');
@@ -109,18 +138,36 @@ describe('the route handlers on fandomverse.org', () => {
     expect((await (await robotsRoute()).GET(req, ctx('anime'))).status).toBe(404);
   });
 
-  it('hub: /sitemap.xml is the index of the domain and reads nothing; /sitemap-hub.xml lists its own pages', async () => {
+  it('hub closed: /sitemap.xml is the index of the domain with its own pages only (no /anime) and reads nothing; /sitemap-hub.xml lists its own pages', async () => {
     await fandomVerse('hub');
     state.db = recordingDb();
     const index = await (await sitemapRoute()).GET(req, ctx('hub'));
     const xml = await index.text();
     expect(index.status).toBe(200);
     expect(xml).toContain('<sitemapindex');
-    expect(locs(xml)).toEqual(['https://fandomverse.org/sitemap-hub.xml', 'https://fandomverse.org/anime/sitemap.xml']);
+    expect(locs(xml)).toEqual(['https://fandomverse.org/sitemap-hub.xml']);
     const pages = await (await hubPagesRoute()).GET(req, ctx('hub'));
     expect(pages.status).toBe(200);
     expect(locs(await pages.text())).toEqual(['https://fandomverse.org/']);
     expect((state.db as ReturnType<typeof recordingDb>).queries).toHaveLength(0);
+  });
+
+  it('hub open (NET_INDEXING=1): the index lists its own pages and /anime/sitemap.xml, and llms.txt names /anime', async () => {
+    await fandomVerse('hub');
+    vi.stubEnv('NET_INDEXING', '1');
+    state.db = recordingDb();
+    const index = await (await sitemapRoute()).GET(req, ctx('hub'));
+    expect(index.status).toBe(200);
+    expect(locs(await index.text())).toEqual(['https://fandomverse.org/sitemap-hub.xml', 'https://fandomverse.org/anime/sitemap.xml']);
+    const llms = await (await llmsRoute()).GET(req, ctx('hub'));
+    expect(await llms.text()).toContain('- /anime: OtakuQuiz, a quiz site of the network (its own llms.txt: /anime/llms.txt)\n');
+  });
+
+  it('hub closed: llms.txt names no site in a sub-folder', async () => {
+    await fandomVerse('hub');
+    const llms = await (await llmsRoute()).GET(req, ctx('hub'));
+    expect(llms.status).toBe(200);
+    expect(await llms.text()).not.toContain('/anime');
   });
 
   it('anime: /anime/sitemap.xml is its urlset (home without a trailing slash); /anime/sitemap-hub.xml is a 404', async () => {

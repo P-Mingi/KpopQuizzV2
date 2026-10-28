@@ -19,7 +19,7 @@ export interface HostCondition {
 
 export interface ZoneHeaderRule {
   readonly source: string;
-  readonly missing: readonly HostCondition[];
+  readonly has?: readonly HostCondition[];
   readonly headers: readonly { readonly key: string; readonly value: string }[];
 }
 
@@ -29,17 +29,49 @@ export function canonicalHost(site: SiteConfig): string {
 }
 
 /**
- * Every answer on a host that is not the site's canonical one says noindex, nofollow: the *.vercel.app URLs of the project (preview
- * and production alike), a staging domain, a dev server. Only added once the site is open to search engines (NET_INDEXING): while it
- * is closed every answer already says so. A header rule of next.config.ts is matched per request by the host it was asked on, so a
- * page cached for every host still answers with the right header (the meta of a production page cannot: it is built once).
+ * The hosts Vercel gives a deployment (otakuquiz.vercel.app, fandomverse-git-<branch>-<team>.vercel.app, ...), as the value of a
+ * `has: host` condition. Next matches that value as a whole: it builds `new RegExp('^' + value + '$')` and tests the host without
+ * its port, lower-cased (matchHas, next/dist/shared/lib/router/utils/prepare-destination.js), so the dots are escaped and no anchor
+ * is written (`\.vercel\.app$` alone would become `^\.vercel\.app$$`, which no host matches).
  */
-export function nonCanonicalHostHeaders(site: SiteConfig): ZoneHeaderRule[] {
-  return [{
-    source: '/:path*',
-    missing: [{ type: 'host', value: canonicalHost(site) }],
-    headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
-  }];
+export const VERCEL_APP_HOST = '.+\\.vercel\\.app';
+
+/**
+ * X-Robots-Tag noindex, nofollow on the addresses of a hub or anime deployment that are not fandomverse.org, and only those:
+ *   - a production build (VERCEL_ENV production, or a local build without VERCEL_ENV): on a `*.vercel.app` host only. Any other
+ *     host (fandomverse.org, and any domain the owner adds later) answers what the page says;
+ *   - a preview or development build (VERCEL_ENV preview or development): on every host, a branch domain included, since nothing
+ *     of a preview is ever meant for search engines.
+ * Never "every host but fandomverse.org": that rule would also close any future legitimate host. A header rule is matched per
+ * request by the host it was asked on, so a page cached for every host still answers with the right header (the meta of a
+ * production page cannot: it is built once). Added whether the site is open or not: while it is closed the closed rule of
+ * next.config.ts already says the same on every host.
+ */
+export function deploymentHostNoindexHeaders(vercelEnv: string | undefined): ZoneHeaderRule[] {
+  const headers = [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }];
+  if (vercelEnv && vercelEnv !== 'production') return [{ source: '/:path*', headers }];
+  return [{ source: '/:path*', has: [{ type: 'host', value: VERCEL_APP_HOST }], headers }];
+}
+
+/**
+ * The cron paths of the shared vercel.json, read from its text (`file` names it in the errors). The hub and anime builds call it
+ * (next.config.ts) and fail here, naming the file, when it is not valid JSON, has no "crons" array or a cron without a path: never a
+ * build that silently proxies no cron. The kpop build never reads the file.
+ */
+export function cronPathsOf(text: string, file: string): string[] {
+  let json: unknown;
+  try {
+    json = JSON.parse(text);
+  } catch (err) {
+    throw new Error(`${file} is not valid JSON (${(err as Error).message}). The hub and anime builds read its "crons" to proxy them.`);
+  }
+  const crons = json !== null && typeof json === 'object' ? (json as { crons?: unknown }).crons : undefined;
+  if (!Array.isArray(crons)) throw new Error(`${file} has no "crons" array. The hub and anime builds read it to proxy the crons of vercel.json.`);
+  return crons.map((c: unknown, i) => {
+    const path = c !== null && typeof c === 'object' ? (c as { path?: unknown }).path : undefined;
+    if (typeof path !== 'string' || path === '') throw new Error(`${file}: crons[${i}] has no "path" string.`);
+    return path;
+  });
 }
 
 export interface CronProxyRewrite {
@@ -49,12 +81,30 @@ export interface CronProxyRewrite {
 }
 
 /**
+ * The shape of a cron route: /api/cron/<name> or /api/<area>/cron/<name> (the ranked nightly job), lower-case words and dashes.
+ * Nothing else is proxied: no dot segment, no double slash, no query, no path-to-regexp parameter can reach a destination.
+ */
+export const CRON_ROUTE_RE = /^\/api\/(?:[a-z0-9-]+\/)?cron\/[a-z0-9-]+$/;
+
+/**
  * vercel.json is shared by the three projects, so its cron paths (/api/cron/...) carry no base path, and a build with one answers
  * them 404 (Next serves nothing outside its base path, and refuses an internal rewrite from outside it). On such a build each cron
  * path of vercel.json is proxied to the same route of the site's own public URL (https://fandomverse.org/anime/api/cron/...), which
- * Vercel routes back to this project; the route checks CRON_SECRET as it always does. Nothing else outside the base path answers.
+ * the Microfrontends group routes back to this project (/anime/:path*); the route checks CRON_SECRET as it always does. The proxy
+ * forwards the request with its headers, so the cron's `Authorization: Bearer <CRON_SECRET>` reaches the route (zones.test.ts).
+ * Every destination is the site url followed by a cron route (CRON_ROUTE_RE), so a cron of this project never lands outside its base
+ * path, on the hub or anywhere else; a vercel.json path of another shape fails the build here, naming the file. A build at the root of
+ * its domain (hub, kpop) gets no proxy: its crons reach their routes as they are.
  */
 export function cronProxyRewrites(site: SiteConfig, cronPaths: readonly string[]): CronProxyRewrite[] {
   if (!basePathOf(site.url)) return [];
-  return [...new Set(cronPaths)].filter((p) => p.startsWith('/')).map((p) => ({ source: p, destination: `${site.url}${p}`, basePath: false }));
+  const paths = [...new Set(cronPaths)];
+  const odd = paths.filter((p) => !CRON_ROUTE_RE.test(p));
+  if (odd.length > 0) {
+    throw new Error(
+      `vercel.json: cron path ${odd.map((p) => JSON.stringify(p)).join(', ')} is not a cron route (/api/cron/<name> or /api/<area>/cron/<name>). `
+      + `A build with a base path proxies only those to ${site.url}.`,
+    );
+  }
+  return paths.map((p) => ({ source: p, destination: `${site.url}${p}`, basePath: false }));
 }

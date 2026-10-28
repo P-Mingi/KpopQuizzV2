@@ -9,7 +9,7 @@ import { INDEXING_OPEN } from './src/lib/site/indexing';
 import { basePathOf } from './src/lib/site/base-path';
 import { SITE, SITE_ID } from './src/lib/site/registry';
 import { afterFilesFor, fallbackFor, keyFileBlocksFor, redirectsFor, rewritesFor } from './src/lib/site/routing';
-import { MFE_APPLICATIONS, cronProxyRewrites, nonCanonicalHostHeaders } from './src/lib/site/zones';
+import { MFE_APPLICATIONS, cronPathsOf, cronProxyRewrites, deploymentHostNoindexHeaders } from './src/lib/site/zones';
 import { buildUxStylesheet, uxStylesheetVersion } from './src/lib/ux-v1/a0/stylesheet';
 
 // V12 (NEXT_PUBLIC_UX_V12, default off, and only together with NEXT_PUBLIC_UX_V1: the
@@ -34,6 +34,15 @@ const WMA_GROUPS = [
   'le-sserafim', 'newjeans', 'nmixx', 'seventeen', 'stray-kids', 'twice', 'txt',
 ];
 const WMA = WMA_GROUPS.join('|');
+
+// The headers of the framing policy every page but /embed gets (W4, headers() below) and the noindex of every answer of an anime
+// or hub build while it is closed (NET_INDEXING). Functions, so each rule holds its own objects; zoneConfig gives the home of a
+// build the same ones.
+const frameSelfHeaders = (): { key: string; value: string }[] => [
+  { key: 'Content-Security-Policy', value: "frame-ancestors 'self'" },
+  { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+];
+const closedHeaders = (): { key: string; value: string }[] => [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }];
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -197,7 +206,7 @@ const nextConfig: NextConfig = {
       // every answer but robots.txt and sitemap.xml says noindex, nofollow. The kpop build never gets this entry.
       ...(INDEXING_OPEN ? [] : [{
         source: '/((?!robots\\.txt|sitemap\\.xml).*)',
-        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+        headers: closedHeaders(),
       }]),
       {
         source: '/embed/:path*',
@@ -211,10 +220,7 @@ const nextConfig: NextConfig = {
         // widget was unframeable, which is the one thing it must not be. The
         // negative lookahead keeps the two policies from overlapping at all.
         source: '/((?!embed/).*)',
-        headers: [
-          { key: 'Content-Security-Policy', value: "frame-ancestors 'self'" },
-          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
-        ],
+        headers: frameSelfHeaders(),
       },
     ];
   },
@@ -227,20 +233,27 @@ const nextConfig: NextConfig = {
 //   - basePath: the path of the site's registry url ('/anime' for https://fandomverse.org/anime, nothing for the hub). Next then
 //     serves every page, handler, public file and /_next asset of the build under it; its rewrites, headers and middleware
 //     matcher are prefixed with it;
-//   - once the site is open (NET_INDEXING), X-Robots-Tag noindex on every host but the canonical one (lib/site/zones.ts);
+//   - X-Robots-Tag noindex on the *.vercel.app hosts of a production build, and on every host of a preview or development build
+//     (lib/site/zones.ts deploymentHostNoindexHeaders); never on fandomverse.org or another domain of a production build;
+//   - a header rule for the home of the build ('/', which Next turns into the base path), with the headers of every other page;
 //   - on a build with a base path, the cron paths of the shared vercel.json proxied to the site's own URL (zones.ts);
 //   - withMicrofrontends: it checks microfrontends.json at build time and wires the local proxy. The anime build skips its asset
 //     prefix and its asset rewrites: the base path already gives every asset of the build a path that Vercel routes to it, and
 //     the package does not support a basePath with its own prefix (docs, quickstart).
 const ZONE_BASE_PATH = SITE_ID === 'kpop' ? '' : basePathOf(SITE.url);
 
+// The cron paths of vercel.json (apps/quiz, the Root Directory of the three projects), read by the hub and anime builds only
+// (zoneConfig). A file that cannot be read or is not valid fails the build with its name (cronPathsOf), never a build without
+// its cron proxies. The kpop build never calls this.
 function cronPaths(): string[] {
+  const file = join(process.cwd(), 'vercel.json');
+  let text: string;
   try {
-    const json = JSON.parse(readFileSync(join(process.cwd(), 'vercel.json'), 'utf8')) as { crons?: { path?: unknown }[] };
-    return (json.crons ?? []).map((c) => c.path).filter((p): p is string => typeof p === 'string');
-  } catch {
-    return [];
+    text = readFileSync(file, 'utf8');
+  } catch (err) {
+    throw new Error(`Cannot read ${file} (${(err as Error).message}). The ${SITE_ID} build proxies the crons of vercel.json: build from apps/quiz.`);
   }
+  return cronPathsOf(text, file);
 }
 
 function zoneConfig(base: NextConfig): NextConfig {
@@ -251,7 +264,15 @@ function zoneConfig(base: NextConfig): NextConfig {
     ...base,
     ...(ZONE_BASE_PATH ? { basePath: ZONE_BASE_PATH } : {}),
     async headers() {
-      return [...(INDEXING_OPEN ? nonCanonicalHostHeaders(SITE).map((r) => ({ ...r, missing: [...r.missing], headers: [...r.headers] })) : []), ...await baseHeaders()];
+      const deploymentHosts = deploymentHostNoindexHeaders(process.env.VERCEL_ENV)
+        .map((r) => ({ source: r.source, ...(r.has ? { has: [...r.has] } : {}), headers: [...r.headers] }));
+      // The home of the build. Next prefixes each header source with the base path: '/((?!embed/).*)' becomes
+      // '/anime/((?!embed/).*)', which needs a slash after /anime, so the home (/anime, the URL Next serves) matched neither the
+      // framing rule nor the closed rule. A source '/' becomes the base path itself ('/anime'; '/' on the hub, where both rules
+      // already match it and this one repeats the same values). zones.test.ts compares the home with the other pages through
+      // Next's own route processing.
+      const home = { source: '/', headers: [...(INDEXING_OPEN ? [] : closedHeaders()), ...frameSelfHeaders()] };
+      return [...deploymentHosts, ...await baseHeaders(), home];
     },
     async rewrites() {
       const r = await baseRewrites();
