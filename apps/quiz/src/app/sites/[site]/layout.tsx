@@ -12,9 +12,8 @@ import { isServedSite, siteStaticParams } from '@/lib/site/routing';
 import { TopNav } from '@/components/layout/top-nav';
 import { TopNavSkeleton } from '@/components/layout/top-nav-skeleton';
 import { MobileTabBar } from '@/components/layout/mobile-tab-bar';
-import { MobileTopBar } from '@/components/layout/mobile-top-bar';
 import { Footer } from '@/components/layout/footer';
-import { SiteFooter } from '@/components/layout/site-footer';
+import { MobileTopBar, SiteFooter } from '@/components/layout/legacy-chrome-islands';
 import { organizationJsonLdFor, siteNavigationJsonLd } from '@/lib/site/jsonld';
 import { UX_V1 } from '@/lib/ux-v1';
 // The v11 shell's client code is code-split inside UxShell (UxShellLoader), so
