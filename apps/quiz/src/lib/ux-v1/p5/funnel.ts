@@ -310,13 +310,21 @@ export async function claimUsername(u: string, f: typeof fetch = fetch): Promise
   }
 }
 
-/** GET /api/quiz/title-check (soft, non-blocking dedup nudge; debounced 500 ms by the caller). */
-export async function titleExists(title: string, f: typeof fetch = fetch): Promise<boolean> {
+/**
+ * What the soft title advice is about (SEO phase 1, PR 12): a published quiz with this exact title, a quiz of
+ * the same group with a close title (lib/seo/quiz-series.ts), or a title that is the group page's own
+ * ("{group} quiz", "{group} test", "quiz {group}", rulebook 1.5).
+ */
+export type TitleAdvice = 'exact' | 'near' | 'hub';
+
+/** GET /api/quiz/title-check (soft, non-blocking advice; debounced 500 ms by the caller). null: no advice. */
+export async function titleAdvice(title: string, groupSlug: string | null, f: typeof fetch = fetch): Promise<TitleAdvice | null> {
   try {
-    const r = await f(`/api/quiz/title-check?title=${encodeURIComponent(title)}`);
-    const j = (await r.json()) as { exists?: boolean };
-    return !!j?.exists;
+    const group = groupSlug ? `&group=${encodeURIComponent(groupSlug)}` : '';
+    const r = await f(`/api/quiz/title-check?title=${encodeURIComponent(title)}${group}`);
+    const j = (await r.json()) as { exists?: boolean; kind?: TitleAdvice };
+    return j?.exists ? (j.kind ?? 'exact') : null;
   } catch {
-    return false;
+    return null;
   }
 }

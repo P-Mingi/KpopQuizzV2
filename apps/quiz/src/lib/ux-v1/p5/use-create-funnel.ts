@@ -18,12 +18,12 @@ import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
 
 import {
   MIN_QUESTIONS, MIN_TITLE, USERNAME_RE, claimUsername, checkUsername, draftToState, emptyState, initialState,
-  publishQuiz, questionHasContent, stateToDraft, titleExists, withQuestions, withQuizType,
+  publishQuiz, questionHasContent, stateToDraft, titleAdvice, withQuestions, withQuizType,
 } from './funnel';
 
 import type { DraftDifficulty } from '@/lib/create-draft';
 import type { QuestionData } from '@/lib/quiz-question';
-import type { FunnelGroup, FunnelState, PublishedQuiz, UsernameStatus } from './funnel';
+import type { FunnelGroup, FunnelState, PublishedQuiz, TitleAdvice, UsernameStatus } from './funnel';
 
 /** A0 pending-action id for "Sign in to publish" (16.6: the action continues after auth). */
 export const PUBLISH_ACTION = 'p5:publish';
@@ -37,7 +37,7 @@ export interface CreateFunnel {
   signedIn: boolean;
   needsUsername: boolean;
   savedAt: number | null;
-  titleDup: boolean;
+  titleDup: TitleAdvice | null;
   typeLocked: boolean;
   nComplete: number;
   coverBusy: boolean;
@@ -88,7 +88,7 @@ export function useCreateFunnel(groups: FunnelGroup[], validInitialGroup: string
   const [username, setUsernameRaw] = useState('');
   const [unameStatus, setUnameStatus] = useState<UsernameStatus>('idle');
   const [claiming, setClaiming] = useState(false);
-  const [titleDup, setTitleDup] = useState(false);
+  const [titleDup, setTitleDup] = useState<TitleAdvice | null>(null);
 
   const dataRef = useRef(data);
   dataRef.current = data;
@@ -105,10 +105,10 @@ export function useCreateFunnel(groups: FunnelGroup[], validInitialGroup: string
   // Soft, NON-blocking title-dedup nudge (never gates publishing).
   useEffect(() => {
     const t = data.title.trim();
-    if (t.length < MIN_TITLE) { setTitleDup(false); return; }
-    const h = setTimeout(() => { void titleExists(t).then(setTitleDup); }, 500);
+    if (t.length < MIN_TITLE) { setTitleDup(null); return; }
+    const h = setTimeout(() => { void titleAdvice(t, data.group_slug).then(setTitleDup); }, 500);
     return () => clearTimeout(h);
-  }, [data.title]);
+  }, [data.title, data.group_slug]);
 
   const publish = useCallback(async (): Promise<void> => {
     const outcome = await publishQuiz(dataRef.current, groupsRef.current, () => { setPublishing(true); setPublishError(null); });
