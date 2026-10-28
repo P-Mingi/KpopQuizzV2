@@ -123,10 +123,10 @@ fandomverse.org offers no email sign-in (owner, 2026-10-28): the hook would serv
 | `SEND_EMAIL_HOOK_SECRET` | the secret Supabase shows when you create the Send Email hook (secret) | signature check of the hook; the function refuses unsigned calls |
 | `RESEND_API_KEY` | secret, from your Resend account (a key limited to sending) | sending the branded emails |
 | `SEND_EMAIL_FROM_KPOP` | the sender kpopquiz.org mail uses today (required) | the function refuses kpop mail without it, so a missing sender never sends from a wrong address |
-| `SEND_EMAIL_FROM_ANIME`, `SEND_EMAIL_FROM_HUB` | a fandomverse.org sender, when you enable the hook | on 2026-10-28 the built-in defaults name the old domains (`otakuquiz.org`, `fanquiz.org`); set both so no mail names a domain you do not own |
+| `SEND_EMAIL_FROM_ANIME`, `SEND_EMAIL_FROM_HUB` | optional: set one only to send from another sender | unset, the function sends anime mail from `OtakuQuiz <no-reply@fandomverse.org>` and hub mail from `FandomVerse <no-reply@fandomverse.org>` (the built-in `<brand> <no-reply@<domain>>` of `supabase/functions/send-email/render.ts`, brands in `supabase/functions/send-email/brands.ts`); `fandomverse.org` must be verified in Resend either way (RUNBOOK I1) |
 | `SEND_EMAIL_ORIGINS` | **never in production** | same syntax as `NEXT_PUBLIC_NET_ORIGINS`; staging projects only |
 
-The deploy note is `docs/o1/b7/send-email-hook.md` (RUNBOOK section I). The `fandomverse` Vercel project may also take `RESEND_API_KEY` (and `SEND_EMAIL_FROM_HUB`) for the "your passport will be deleted" notice, later; it is not required: without them the notice is skipped (logged without any address) and the deletion still goes ahead.
+The deploy note is `docs/o1/b7/send-email-hook.md` (RUNBOOK section I). The `fandomverse` Vercel project may also take `RESEND_API_KEY` for the "your passport will be deleted" notice, later; it is not required: without it the notice is skipped (logged without any address) and the deletion still goes ahead. The notice goes from `FandomVerse <no-reply@fandomverse.org>` (`apps/quiz/src/lib/passport/email/notice.ts`); `SEND_EMAIL_FROM_HUB` on that project is optional, only to use another sender.
 
 ### 2.2 Auth settings (dashboard, no variable)
 

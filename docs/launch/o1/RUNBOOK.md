@@ -306,15 +306,15 @@ Check: V9: the hub at `/`, OtakuQuiz at `/anime`, the staging look (noindex, no 
 
 **Postponed (owner, 2026-10-25): Resend not configured, the hook stays off at launch; sign-in emails use Supabase's default sender.** fandomverse.org offers no email sign-in (owner, 2026-10-28), so the hook only concerns kpopquiz.org mail and the hub's deletion notice. Do not run I1 to I3 now; the steps below are kept for later. The deletion email needs no Resend: without a key it is skipped and the deletion still runs.
 
-The deploy note is `docs/o1/b7/send-email-hook.md` (read it whole first); the function is `supabase/functions/send-email`. The run never deploys it. With the hook off, Supabase sends its own mail, as today.
+The deploy note is `docs/o1/b7/send-email-hook.md` (read it whole first; its step 3 still names the old default senders, the defaults are now the fandomverse.org ones of I2); the function is `supabase/functions/send-email`. The run never deploys it. With the hook off, Supabase sends its own mail, as today.
 
 **I1  Before enabling.** (1) Dashboard, Authentication, Email Templates: compare each template with `TODAY` in `apps/quiz/src/lib/passport/email/render.test.ts`; if you ever customised one, paste your text into `renderKpop` of `apps/quiz/src/lib/passport/email/render.ts` (and the copy in the function folder) before enabling, because the hook replaces the mailer for kpopquiz.org too.
 (2) Note the sender address kpopquiz.org mail uses today; its domain must be verified in Resend. A fandomverse.org sender needs `fandomverse.org` verified in Resend too (SPF and DKIM records only; no MX for `team.fandomverse.org`).
 Check: the templates match, or the text is pasted. Back: nothing.
 
 **I2  Deploy the function and set its secrets.**
-Do: `supabase functions deploy send-email --no-verify-jwt` (your Supabase CLI login; the hook is authenticated by its signature, not a JWT). Dashboard, Edge Functions, `send-email`, Secrets: `RESEND_API_KEY`, `SEND_EMAIL_FROM_KPOP` (required: kpop mail is refused without it), and `SEND_EMAIL_FROM_HUB` and `SEND_EMAIL_FROM_ANIME` with a fandomverse.org sender (on 2026-10-28 their built-in defaults name the old domains);
-`SEND_EMAIL_HOOK_SECRET` is the `v1,whsec_...` value of I3. Never set `SEND_EMAIL_ORIGINS` (staging only). On the Vercel project `fandomverse` add `RESEND_API_KEY` (and `SEND_EMAIL_FROM_HUB`) for the deletion notice; without them the notice is skipped and the deletion still goes ahead.
+Do: `supabase functions deploy send-email --no-verify-jwt` (your Supabase CLI login; the hook is authenticated by its signature, not a JWT). Dashboard, Edge Functions, `send-email`, Secrets: `RESEND_API_KEY`, `SEND_EMAIL_FROM_KPOP` (required: kpop mail is refused without it), and, only to use another sender, `SEND_EMAIL_FROM_HUB` and `SEND_EMAIL_FROM_ANIME` (unset, hub mail goes from `FandomVerse <no-reply@fandomverse.org>` and anime mail from `OtakuQuiz <no-reply@fandomverse.org>`, the built-in defaults of `supabase/functions/send-email/render.ts`);
+`SEND_EMAIL_HOOK_SECRET` is the `v1,whsec_...` value of I3. Never set `SEND_EMAIL_ORIGINS` (staging only). On the Vercel project `fandomverse` add `RESEND_API_KEY` for the deletion notice (it goes from `FandomVerse <no-reply@fandomverse.org>`; `SEND_EMAIL_FROM_HUB` there only for another sender); without the key the notice is skipped and the deletion still goes ahead.
 Check: the function shows as deployed in the dashboard, Edge Functions. Back: delete the function (it is unused until I3).
 
 **I3  Switch the hook on.** Dashboard, Authentication, Hooks, Send Email: type HTTPS or Supabase Function, choose `send-email`, generate the secret, paste it as `SEND_EMAIL_HOOK_SECRET` in I2, save.
