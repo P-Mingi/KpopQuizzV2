@@ -20,6 +20,11 @@ RUNBOOK H4 (Supabase redirect URLs) and H5 (Google and Discord) and ENV.md 2.2 f
    the account must be Google or Discord), signs out a banned profile, stamps the membership, clears the cookie and
    sends the visitor back: the username page on anime when there is no profile, the hub home on the hub, else the return
    path of the cookie re-checked with safeReturnTo, always inside the build's basePath.
+   It also refuses a session whose user Supabase cannot name: local sign-out, session cookies deleted, return cookie cleared,
+   back to the login page of the build. A banned profile is signed out everywhere, and its session cookies are deleted even
+   if the sign-out call fails.
+   The client code of the old Google ID-token path is deleted (`signInWithGoogle`, `afterSignin`): `NEXT_PUBLIC_GOOGLE_CLIENT_ID`
+   stays unread and must not be set. The route `/api/passport/after-signin` still exists, but nothing in the UI calls it.
 2. **No email.** No email field on the hub and anime (sheet, `/login`, create funnel). `/auth/confirm` of the hub and anime
    answers 404 except on a development server or on a preview that sets `AUTH_FIXTURE_CONFIRM=1` (the fixture links of
    `signin-link.sh --vercel`, now under `/anime` for anime); never on `VERCEL_ENV=production`.
@@ -80,6 +85,11 @@ Discord sign-in works). Scopes stay Supabase's default (`identify email`), as on
 | `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | unset | **do not set** | **do not set** | unread now (no Google Identity Services) |
 | `AUTH_FIXTURE_CONFIRM` | unset | Preview only, `1`, if the fixture tool is used | Preview only, likewise | test switch, **never in production** (ENV 1.6) |
 | `NEXT_PUBLIC_NET_ORIGINS` | never in production | never in production | never in production | previews only: `kpop=<kpop preview origin>,hub=<fv preview origin>,anime=<fv preview origin>` (bare origins; anime gets `/anime` from code) |
+
+Staging mail (the `send-email` function, never in production): `SEND_EMAIL_ORIGINS` takes bare origins, like
+`NEXT_PUBLIC_NET_ORIGINS`, for example `anime=<fandomverse preview origin>,hub=<fandomverse preview origin>`; the `/anime` folder of
+anime comes from the code, and an entry with a path is ignored. On the shared origin, hub and anime mails keep their own brand
+and colours.
 
 Previews: the callback is built from the site's origin on that deployment (`NEXT_PUBLIC_NET_ORIGINS` outside production), never
 from the request's Host, so a preview with no override sends the provider back to production and the sign-in fails closed there
