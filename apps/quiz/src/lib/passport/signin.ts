@@ -151,7 +151,7 @@ async function stamp(
 export async function handleAfterSignin(request: NextRequest, ctx: SigninCtx = {}): Promise<NextResponse> {
   const site = ctx.site ?? SITE_ID;
   if (site === 'kpop') return notFound();
-  const env = ctx.env ?? (process.env as NetOriginEnv);
+  const env = ctx.env ?? (process.env as SigninEnv);
 
   const origin = request.headers.get('origin');
   if (origin !== null && origin !== siteOrigin(site, env)) return json(403, { error: 'origin' });
@@ -176,7 +176,7 @@ export async function handleAfterSignin(request: NextRequest, ctx: SigninCtx = {
     return json(200, { next, needsUsername: true });
   }
   if ((profile as { banned_at?: string | null }).banned_at) {
-    await supabase.auth.signOut();
+    await endSession(supabase, request, env);
     log('after-signin', 'banned', site);
     return json(403, { error: 'banned' });
   }
@@ -226,7 +226,7 @@ export async function handleConfirm(request: NextRequest, ctx: SigninCtx = {}): 
     return toSelf(withBase(site, noProfilePath(site, next)));
   }
   if ((profile as { banned_at?: string | null }).banned_at) {
-    await supabase.auth.signOut();
+    await endSession(supabase, request, env);
     return fail('banned');
   }
 
@@ -309,8 +309,8 @@ export function sessionCookieKey(supabaseUrl: string | undefined): string | null
 const SESSION_COOKIE_RE = /^sb-[a-z0-9-]+-auth-token(?:\.\d{1,2}|-code-verifier)?$/;
 
 /**
- * Deletes the Supabase session cookies of this response (security review, 2026-10-28): a refused session must not stay in
- * the browser even when Supabase's sign-out fails (5xx, 429, network) and keeps the cookies. Every name the exchange may have
+ * Deletes the Supabase session cookies of this response (security review, 2026-10-28): a refused or banned session must not
+ * stay in the browser even when Supabase's sign-out fails (5xx, 429, network) and keeps the cookies. Every name the exchange may have
  * written (the key, its chunks .0 to .9, the PKCE verifier) and every session cookie the request carries is set to '' with
  * Max-Age=0 on Path=/, through the same cookie store, so the deletion replaces the value the exchange wrote.
  */
@@ -329,6 +329,21 @@ async function clearSessionCookies(env: SigninEnv, secure: boolean): Promise<voi
   } catch {
     // no cookie store outside a request: nothing to clear
   }
+}
+
+/**
+ * Ends the session of a refused or banned sign-in: Supabase's sign-out (global by default, so a banned account loses every
+ * session; 'local' for a refused one, this browser only), then the session cookies deleted by clearSessionCookies whatever the
+ * sign-out answered. An error (5xx, 429, network) or a throw of the sign-out keeps the cookies on Supabase's side, never here.
+ */
+async function endSession(
+  supabase: Awaited<ReturnType<typeof createServerClient>>,
+  request: NextRequest,
+  env: SigninEnv,
+  scope?: 'local',
+): Promise<void> {
+  await (scope ? supabase.auth.signOut({ scope }) : supabase.auth.signOut()).catch(() => undefined);
+  await clearSessionCookies(env, secureRequest(request.nextUrl.protocol, request.headers.get('x-forwarded-proto'), env));
 }
 
 function badRequest(): NextResponse {
@@ -407,14 +422,15 @@ export async function handleWorldCallback(request: NextRequest, ctx: SigninCtx =
   // A refused session: Supabase's sign-out of this browser (it revokes the refresh token), then the cookies deleted here
   // whatever the sign-out answered.
   const refuse = async (outcome: string): Promise<NextResponse> => {
-    await supabase.auth.signOut({ scope: 'local' }).catch(() => undefined);
-    await clearSessionCookies(env, secureRequest(request.nextUrl.protocol, request.headers.get('x-forwarded-proto'), env));
+    await endSession(supabase, request, env, 'local');
     return fail(outcome);
   };
   if (sessionMethod(data?.session?.access_token) !== 'oauth') return refuse('not_oauth');
 
+  // The exchange wrote a session: when Supabase cannot name its user, the provider check below cannot run, so the session is
+  // refused like any other (signed out, cookies deleted), never left in the browser unchecked.
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return fail('no_user');
+  if (!user) return refuse('no_user');
 
   // Google or Discord, not another OAuth provider of the shared project (the provider started by /auth/start, and the
   // account's identity of it).
@@ -427,7 +443,7 @@ export async function handleWorldCallback(request: NextRequest, ctx: SigninCtx =
     return done(toSelf(withBase(site, noProfilePath(site, next))));
   }
   if ((profile as { banned_at?: string | null }).banned_at) {
-    await supabase.auth.signOut();
+    await endSession(supabase, request, env);
     return fail('banned');
   }
 

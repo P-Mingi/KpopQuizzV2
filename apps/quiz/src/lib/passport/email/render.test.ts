@@ -14,8 +14,8 @@ import { NETWORK, REGISTRY } from '@/lib/site/registry';
 
 import { sendDeletionNotice } from './notice';
 import {
-  confirmLink, copyKeysFor, handleHook, kindForAction, nextFromRedirect, parseOrigins, renderEmail, renderKpop, siteFromRedirect,
-  verifyLink, verifyWebhook,
+  confirmLink, copyKeysFor, handleHook, kindForAction, nextFromRedirect, originFor, parseOrigins, renderEmail, renderKpop, siteBaseFor,
+  siteFromRedirect, verifyLink, verifyWebhook,
 } from './render';
 
 import type { HookDeps, MailBrand, MailKind, MailSite, OutgoingMail } from './render';
@@ -229,6 +229,44 @@ describe('redirect and links', () => {
     expect(siteFromRedirect('http://anime.localhost:3001/auth/confirm', BRANDS)).toBe('kpop');
   });
 
+  // Review, 2026-10-28: on a staging project the hub and anime share one origin, as on fandomverse.org. Both are listed with that bare
+  // origin (SEND_EMAIL_ORIGINS, like NEXT_PUBLIC_NET_ORIGINS); anime's url is that origin with the folder of its brand url (/anime).
+  // The longest url wins, so a hub mail keeps the hub's brand and colours instead of falling to anime (listed first) or kpop.
+  it('staging: the hub and anime on one origin each get their own brand, the longest url first, whatever the order of the list', () => {
+    for (const raw of [
+      'anime=https://fv-preview.example,hub=https://fv-preview.example,kpop=https://kpop-preview.example',
+      'kpop=https://kpop-preview.example hub=https://fv-preview.example anime=https://fv-preview.example',
+    ]) {
+      const o = parseOrigins(raw);
+      for (const href of ['https://fv-preview.example/auth/confirm', 'https://fv-preview.example/', 'https://fv-preview.example/passport?x=1', 'https://fv-preview.example/animex/auth/confirm']) {
+        expect(siteFromRedirect(href, BRANDS, o), `${raw} ${href}`).toBe('hub');
+      }
+      for (const href of ['https://fv-preview.example/anime/auth/confirm?next=%2Fme', 'https://fv-preview.example/anime', 'https://fv-preview.example/anime/series/x']) {
+        expect(siteFromRedirect(href, BRANDS, o), `${raw} ${href}`).toBe('anime');
+      }
+      expect(siteFromRedirect('https://kpop-preview.example/auth/callback', BRANDS, o)).toBe('kpop');
+      // production urls keep their production brand when staging origins are given
+      expect(siteFromRedirect('https://fandomverse.org/auth/confirm', BRANDS, o)).toBe('hub');
+      expect(siteFromRedirect('https://fandomverse.org/anime/auth/confirm', BRANDS, o)).toBe('anime');
+      // look-alikes are not the staging origin
+      for (const href of ['https://fv-preview.example.evil.example/anime/auth/confirm', 'https://evil.example/fv-preview.example/anime', 'http://fv-preview.example/anime']) {
+        expect(siteFromRedirect(href, BRANDS, o), href).toBe('kpop');
+      }
+    }
+  });
+
+  it('the url a mail links to: the brand url in production, the staging origin with the brand folder on staging', () => {
+    expect(siteBaseFor('anime', BRANDS)).toBe('https://fandomverse.org/anime');
+    expect(siteBaseFor('hub', BRANDS)).toBe('https://fandomverse.org');
+    expect(siteBaseFor('kpop', BRANDS)).toBe('https://kpopquiz.org');
+    const o = parseOrigins('anime=https://fv-preview.example,hub=https://fv-preview.example');
+    expect(originFor('anime', BRANDS, o)).toBe('https://fv-preview.example/anime');
+    expect(originFor('hub', BRANDS, o)).toBe('https://fv-preview.example');
+    expect(originFor('kpop', BRANDS, o)).toBe('https://kpopquiz.org');
+    expect(originFor('anime', BRANDS)).toBe('https://fandomverse.org/anime');
+    expect(originFor('hub', BRANDS)).toBe('https://fandomverse.org');
+  });
+
   it('the confirm link goes to /auth/confirm with the hashed token, the OTP type and a safe next', () => {
     expect(confirmLink('https://fandomverse.org/anime', 'h h', 'magiclink', 'https://fandomverse.org/anime/auth/confirm?next=%2Fquizzes'))
       .toBe('https://fandomverse.org/anime/auth/confirm?token_hash=h%20h&type=magiclink&next=%2Fquizzes');
@@ -325,6 +363,32 @@ describe('the hook, end to end', () => {
     const b = payload('reauthentication', 'https://fandomverse.org/');
     expect((await handleHook('POST', sign(b), b, deps(sent))).status).toBe(200);
     expect(sent[1]!.html).toContain('123456');
+  });
+
+  // Review, 2026-10-28: the hub's mails carry the hub's brand and colours in production and on a staging origin shared with anime.
+  it('hub and anime colours: production and a staging origin shared by the two', async () => {
+    const STAGING = parseOrigins('anime=https://fv-preview.example,hub=https://fv-preview.example');
+    const cases = [
+      { origins: {}, redirect: 'https://fandomverse.org/auth/confirm?next=%2Fpassport', site: 'hub', base: 'https://fandomverse.org' },
+      { origins: STAGING, redirect: 'https://fv-preview.example/auth/confirm?next=%2Fpassport', site: 'hub', base: 'https://fv-preview.example' },
+      { origins: {}, redirect: 'https://fandomverse.org/anime/auth/confirm?next=%2Fseries', site: 'anime', base: 'https://fandomverse.org/anime' },
+      { origins: STAGING, redirect: 'https://fv-preview.example/anime/auth/confirm?next=%2Fseries', site: 'anime', base: 'https://fv-preview.example/anime' },
+    ] as const;
+    for (const c of cases) {
+      const body = payload('magiclink', c.redirect);
+      const sent: OutgoingMail[] = [];
+      expect((await handleHook('POST', sign(body), body, deps(sent, { origins: c.origins }))).status, c.redirect).toBe(200);
+      const brand = BRANDS[c.site];
+      const other = BRANDS[c.site === 'hub' ? 'anime' : 'hub'];
+      expect(sent[0]!.from).toBe(`${brand.name} <no-reply@fandomverse.org>`);
+      expect(sent[0]!.html, c.redirect).toContain(`color:${brand.accent}"`);
+      expect(sent[0]!.html, c.redirect).toContain(`background:${brand.accent};`);
+      expect(sent[0]!.html, c.redirect).not.toContain(other.accent);
+      expect(sent[0]!.html, c.redirect).not.toContain(BRANDS.kpop.accent);
+      const next = c.site === 'hub' ? '%2Fpassport' : '%2Fseries';
+      expect(sent[0]!.html, c.redirect).toContain(`href="${c.base}/auth/confirm?token_hash=hash-1&amp;type=magiclink&amp;next=${next}"`);
+    }
+    expect(BRANDS.hub.accent).not.toBe(BRANDS.anime.accent);
   });
 
   it('anime email change with two tokens goes to both addresses, each with its own token', async () => {

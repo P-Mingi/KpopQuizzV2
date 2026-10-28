@@ -4,7 +4,8 @@
 // The site comes from the redirect URL of the email (render.ts siteFromRedirect). anime and hub get their own branded mail;
 // kpop gets the text Supabase Auth sends today. Secrets: SEND_EMAIL_HOOK_SECRET (Standard Webhooks, `v1,whsec_...`),
 // RESEND_API_KEY. Optional: SEND_EMAIL_FROM_KPOP (required for kpop), SEND_EMAIL_FROM_ANIME, SEND_EMAIL_FROM_HUB,
-// SEND_EMAIL_ORIGINS (staging only: `anime=https://...,hub=https://...`). Nothing sensitive is logged.
+// SEND_EMAIL_ORIGINS (staging only: `anime=https://...,hub=https://...`, bare origins like NEXT_PUBLIC_NET_ORIGINS; the hub and
+// anime may share one, anime's mails then go to its /anime folder). Nothing sensitive is logged.
 import { BRANDS } from './brands.ts';
 import { COPY as ANIME } from './copy/anime.ts';
 import { COPY as HUB } from './copy/hub.ts';

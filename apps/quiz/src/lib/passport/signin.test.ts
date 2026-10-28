@@ -513,6 +513,25 @@ describe('GET /auth/callback of anime and hub (handleWorldCallback)', () => {
     }
   });
 
+  it('a session whose user Supabase cannot name is refused, not failed: signed out on this browser, logged no_user, nothing read', async () => {
+    const spy = vi.spyOn(console, 'info');
+    state.otpUser = null;
+    for (const site of ['anime', 'hub'] as const) {
+      state.calls = [];
+      state.signOutScopes = [];
+      spy.mockClear();
+      const res = await handleWorldCallback(callback('?code=c1', site === 'hub' ? HUB_BASE : undefined, startCookie(site, '/daily')), fv(site));
+      expect(res.status).toBe(302);
+      expect(loc(res)).toBe(site === 'anime' ? '/anime/login' : '/login');
+      expectPrivate(res);
+      expect(clearsCookie(res)).toBe(true);
+      expect(state.signOutScopes).toEqual(['local']);
+      expect(calls('from.profiles')).toEqual([]);
+      expect(calls('ensure_membership')).toEqual([]);
+      expect(spy.mock.calls).toEqual([[`[passport] callback no_user ${site}`]]);
+    }
+  });
+
   it('the next of the cookie goes through safeAppPath: an outside address is the home, the anime answer never leaves /anime', async () => {
     const hostile = [
       'https://fandomverse.org.evil.com/x', 'https://evil.com/fandomverse.org', '//fandomverse.org.evil.com', '//evil.com', '/\\evil.com',
@@ -598,10 +617,11 @@ describe('a refused session leaves no session cookie, even when the sign-out fai
   const deleted = (): string[] => state.cookieWrites.filter((w) => w.value === '' && w.options?.maxAge === 0 && w.options?.path === '/').map((w) => w.name);
 
   for (const fails of ['', 'error', 'throw'] as const) {
-    for (const why of ['not_oauth', 'provider'] as const) {
+    for (const why of ['not_oauth', 'no_user', 'provider'] as const) {
       it(`${why}, sign-out ${fails || 'ok'}: the key, its chunks and the verifier are deleted on Path=/`, async () => {
         state.signOutFails = fails;
         if (why === 'not_oauth') state.token = jwt([{ method: 'magiclink', timestamp: 1 }]);
+        else if (why === 'no_user') state.otpUser = null;
         else state.identities = [{ provider: 'github' }];
         const res = await handleWorldCallback(callback(startCookie('anime', '/daily')), { site: 'anime', env: ENV_URL });
         expect(loc(res)).toBe('/anime/login');
@@ -626,6 +646,53 @@ describe('a refused session leaves no session cookie, even when the sign-out fai
     await handleWorldCallback(callback(startCookie('anime', '/daily')), { site: 'anime', env: ENV_URL });
     expect(state.cookieWrites).toEqual([]);
   });
+});
+
+describe('a banned profile leaves no session cookie, even when the sign-out fails (review, 2026-10-28)', () => {
+  const KEY = 'sb-abcdefghijklmnopqrst-auth-token';
+  const SUPA = 'https://abcdefghijklmnopqrst.supabase.co';
+  const BANNED = { id: 'user-1', banned_at: '2026-10-01T00:00:00Z' };
+  const deleted = (): string[] => state.cookieWrites.filter((w) => w.value === '' && w.options?.maxAge === 0 && w.options?.path === '/').map((w) => w.name);
+  /** The key, its chunks and the verifier are deleted on Path=/, with Secure exactly when the request is https. */
+  const expectCleared = (secure: boolean): void => {
+    const gone = deleted();
+    for (const name of [KEY, `${KEY}.0`, `${KEY}.1`, `${KEY}.9`, `${KEY}-code-verifier`]) expect(gone, name).toContain(name);
+    expect(state.cookieWrites.length).toBeGreaterThan(0);
+    expect(state.cookieWrites.every((w) => (w.options?.secure === true) === secure)).toBe(true);
+  };
+
+  for (const fails of ['', 'error', 'throw'] as const) {
+    it(`GET /auth/callback, sign-out ${fails || 'ok'}: signed out everywhere, cookies deleted, the login page, no stamp`, async () => {
+      for (const [site, base] of [['anime', 'https://fandomverse.org/anime'], ['hub', 'https://fandomverse.org']] as const) {
+        Object.assign(state, { calls: [], signOutScopes: [], cookieWrites: [], signOutFails: fails, profile: BANNED });
+        const req = new NextRequest(`${base}/auth/callback?code=c1`, { headers: { cookie: startCookie(site, '/daily') } });
+        const res = await handleWorldCallback(req, { site, env: { ...FV, NEXT_PUBLIC_SUPABASE_URL: SUPA } });
+        expect(loc(res), site).toBe(site === 'anime' ? '/anime/login' : '/login');
+        expect(state.signOutScopes).toEqual(['global']);
+        expectCleared(true);
+        expect(calls('ensure_membership')).toEqual([]);
+      }
+    });
+
+    it(`GET /auth/confirm, sign-out ${fails || 'ok'}: signed out everywhere, cookies deleted, the login page, no stamp`, async () => {
+      Object.assign(state, { signOutFails: fails, profile: BANNED });
+      const res = await handleConfirm(confirm('?token_hash=h&type=email&next=%2F'), { site: 'anime', env: { ...ENV, NEXT_PUBLIC_SUPABASE_URL: SUPA } });
+      expect(loc(res)).toBe('/anime/login');
+      expect(state.signOutScopes).toEqual(['global']);
+      expectCleared(false);
+      expect(calls('ensure_membership')).toEqual([]);
+    });
+
+    it(`POST /api/passport/after-signin, sign-out ${fails || 'ok'}: 403 banned, signed out everywhere, cookies deleted`, async () => {
+      Object.assign(state, { signOutFails: fails, profile: BANNED, user: { id: 'user-1' } });
+      const res = await handleAfterSignin(post({ next: '/' }), { site: 'anime', env: { ...ENV, NEXT_PUBLIC_SUPABASE_URL: SUPA } });
+      expect(res.status).toBe(403);
+      expect(await res.json()).toEqual({ error: 'banned' });
+      expect(state.signOutScopes).toEqual(['global']);
+      expectCleared(false);
+      expect(calls('ensure_membership')).toEqual([]);
+    });
+  }
 });
 
 describe('GET /auth/start of anime and hub (handleOAuthStart)', () => {
