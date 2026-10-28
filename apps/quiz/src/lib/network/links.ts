@@ -16,12 +16,6 @@ function sitePath(path: string): string {
 export const bridgeHref: NetLinkFns['bridgeHref'] = (dst: SiteId, path: string, bridge: NetBridgeId) =>
   `/auth/passport/out?to=${dst}&next=${encodeURIComponent(sitePath(path))}&via=${SITE.letter}.${bridge}`;
 
-/**
- * An editorial link (followed, crawlable): the canonical url of `dst` and the path, no query. FandomVerse: the home of a site in a
- * sub-folder is its url with no trailing slash (https://fandomverse.org/anime; with the slash it is a 308).
- */
-export const editorialHref: NetLinkFns['editorialHref'] = (dst: SiteId, path: string) => {
-  const url = REGISTRY[dst].url;
-  const p = sitePath(path.split(/[?#]/)[0] ?? '/');
-  return p === '/' && /^https?:\/\/[^/]+\/./.test(url) ? url : `${url}${p}`;
-};
+/** An editorial link (followed, crawlable): the canonical url of `dst` and the path, no query. */
+export const editorialHref: NetLinkFns['editorialHref'] = (dst: SiteId, path: string) =>
+  `${REGISTRY[dst].url}${sitePath(path.split(/[?#]/)[0] ?? '/')}`;
