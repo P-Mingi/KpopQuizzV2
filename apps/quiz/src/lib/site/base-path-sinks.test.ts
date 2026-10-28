@@ -21,6 +21,9 @@ const SINK = new RegExp([
   String.raw`<a\b[^>]*\bhref=\{?['"\x60]/`,
   String.raw`\baction=\{?['"\x60]/`,
   String.raw`<(?:img|Image)\b[^>]*\bsrc=\{?['"\x60]/`,
+  // A state that holds the address of a picture or a link (review of 2026-10-28: share-card-modal set its preview <img> src to
+  // the bare '/api/og/<slug>' with setPreviewSrc): the setter of a ...Src, ...Url, ...Image or ...Href state.
+  String.raw`\bset[A-Z]\w*(?:Src|Url|URL|Image|Href)\(\s*['"\x60]/[^/]`,
 ].join('|'));
 
 /**
@@ -55,6 +58,7 @@ function constSink(names: ReadonlySet<string>): RegExp | null {
     String.raw`<a\b[^>]*\bhref=\{\s*${arg}`,
     String.raw`\baction=\{\s*${arg}`,
     String.raw`<(?:img|Image)\b[^>]*\bsrc=\{\s*${arg}`,
+    String.raw`\bset[A-Z]\w*(?:Src|Url|URL|Image|Href)\(\s*${arg}`,
   ].join('|'));
 }
 
@@ -131,8 +135,10 @@ describe('the browser sinks of the anime and hub builds carry the base path', ()
     for (const hit of [
       "navigator.sendBeacon(EP, new Blob([body]))", 'void fetch(EP, { method: "POST" })', 'fetch(`${EP}?a=1`)', "window.open(EP, '_blank')",
       'window.location.assign(EP)', 'window.location.href = EP;', "history.replaceState(null, '', EP)", '<a href={EP}>x</a>',
-      '<form action={EP}>', '<img src={EP} alt="" />', '<Image src={`${EP}?w=1`} alt="" />',
+      '<form action={EP}>', '<img src={EP} alt="" />', '<Image src={`${EP}?w=1`} alt="" />', 'setPreviewSrc(`${EP}?a=1`)',
     ]) expect(sink.test(hit), hit).toBe(true);
+    for (const hit of ["setPreviewSrc(`/api/og/${slug}`)", "setImageUrl('/x.png')"]) expect(SINK.test(hit), hit).toBe(true);
+    for (const miss of ['setPreviewSrc(`${BASE_PATH}/api/og/${slug}`)', "setOpen('/x')", "setPreviewSrc('//cdn/x.png')"]) expect(SINK.test(miss), miss).toBe(false);
     for (const miss of [
       'fetch(BASE_PATH ? BASE_PATH + EP : EP)', 'navigator.sendBeacon(ENDPOINT, b)', 'fetch(`${BASE_PATH}${EP}`)', 'fetch(EP_URL)',
       'fetch(EP.replace(a, b))', 'x.fetch(EP)', '<img src={src} />',
