@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 
+import { siteAddress } from '@/lib/site/brand';
 import { SITE } from '@/lib/site/registry';
 
 import type { NextRequest } from 'next/server';
@@ -59,7 +60,7 @@ export async function GET(request: NextRequest): Promise<ImageResponse> {
               letterSpacing: '1px',
             }}
           >
-            {SITE.domain.toUpperCase()}
+            {siteAddress().toUpperCase()}
           </span>
         </div>
 

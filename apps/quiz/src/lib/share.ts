@@ -87,7 +87,7 @@ export async function downloadPassportCard(username: string): Promise<boolean> {
 export async function shareLevelUp(title: string, level: number): Promise<'shared' | 'copied' | 'failed'> {
   const origin = typeof window !== 'undefined' ? window.location.origin : SITE.url;
   const url = `${origin}/?utm_source=levelup&utm_medium=social&utm_campaign=level_up`;
-  const text = `I reached ${title} (Level ${level}) on ${SITE.domain}`;
+  const text = `I reached ${title} (Level ${level}) on ${SITE.url.replace(/^https?:\/\//, '')}`;
   if (typeof navigator !== 'undefined' && navigator.share) {
     try {
       await navigator.share({ title: 'Level up!', text, url });

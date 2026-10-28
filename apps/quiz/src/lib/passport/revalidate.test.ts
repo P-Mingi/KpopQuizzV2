@@ -12,7 +12,7 @@ const env = { PASSPORT_REVALIDATE_SECRET: SECRET, VERCEL_ENV: 'production' };
 function req(raw: string, sig: string | null, headers: Record<string, string> = {}): NextRequest {
   const h: Record<string, string> = { 'content-type': 'application/json', ...headers };
   if (sig !== null) h['x-passport-signature'] = sig;
-  return new NextRequest('https://otakuquiz.org/api/passport/revalidate', { method: 'POST', body: raw, headers: h });
+  return new NextRequest('https://fandomverse.org/anime/api/passport/revalidate', { method: 'POST', body: raw, headers: h });
 }
 
 const body = (o: unknown): string => JSON.stringify(o);
@@ -85,7 +85,7 @@ describe('POST /api/passport/revalidate', () => {
     const raw = body({ username: 'fan_one', sites: ['anime'] });
     const ctx = { site: 'anime' as const, env, purge: () => undefined };
     expect((await handleRevalidate(req(raw, signRevalidate(SECRET, raw), { origin: 'https://evil.example' }), ctx)).status).toBe(403);
-    expect((await handleRevalidate(req(raw, signRevalidate(SECRET, raw), { origin: 'https://otakuquiz.org' }), ctx)).status).toBe(204);
+    expect((await handleRevalidate(req(raw, signRevalidate(SECRET, raw), { origin: 'https://fandomverse.org/anime' }), ctx)).status).toBe(204);
     expect((await handleRevalidate(req(raw, signRevalidate(SECRET, raw), { 'content-type': 'text/plain' }), ctx)).status).toBe(400);
   });
 
@@ -106,7 +106,7 @@ describe('notifyRevalidate (the sender)', () => {
     const fetchImpl = (async (url: string, init: RequestInit) => { calls.push({ url, init }); return new Response(null, { status: 204 }); }) as unknown as typeof fetch;
     const out = await notifyRevalidate('fan_one', ['kpop', 'anime', 'anime'], { env, fetchImpl });
     expect(out).toEqual({ sent: 2, failed: 0 });
-    expect(calls.map((c) => c.url).sort()).toEqual(['https://kpopquiz.org/api/passport/revalidate', 'https://otakuquiz.org/api/passport/revalidate']);
+    expect(calls.map((c) => c.url).sort()).toEqual(['https://fandomverse.org/anime/api/passport/revalidate', 'https://kpopquiz.org/api/passport/revalidate']);
     for (const c of calls) {
       const raw = String(c.init.body);
       expect(JSON.parse(raw)).toEqual({ username: 'fan_one', sites: ['kpop', 'anime'] });

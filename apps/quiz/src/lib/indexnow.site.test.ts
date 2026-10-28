@@ -32,12 +32,12 @@ describe('pingIndexNow per site', () => {
 
   it('an open anime site pings its own domain with its own key', async () => {
     const { bodies } = await ping('anime', '1', ['/q/death-note-quiz']);
-    expect(bodies[0]).toMatchObject({ host: 'otakuquiz.org', key: '760f9a9459d4db0bd8a08f13a0f1ec6e' });
-    expect(bodies[0]?.urlList).toEqual(['https://otakuquiz.org/q/death-note-quiz']);
+    expect(bodies[0]).toMatchObject({ host: 'fandomverse.org', key: '760f9a9459d4db0bd8a08f13a0f1ec6e' });
+    expect(bodies[0]?.urlList).toEqual(['https://fandomverse.org/anime/q/death-note-quiz']);
   });
 
   it('never submits a URL of another domain', async () => {
-    const { result, bodies } = await ping('kpop', '', ['https://otakuquiz.org/q/x', 'https://kpopquiz.org/q/y']);
+    const { result, bodies } = await ping('kpop', '', ['https://fandomverse.org/anime/q/x', 'https://kpopquiz.org/q/y']);
     expect(result.submitted).toBe(1);
     expect(bodies[0]?.urlList).toEqual(['https://kpopquiz.org/q/y']);
   });

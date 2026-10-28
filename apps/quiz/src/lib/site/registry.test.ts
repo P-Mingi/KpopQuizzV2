@@ -166,10 +166,10 @@ describe('frozen values of every entry (BACKLOG 5.1)', () => {
     });
     expect(rows).toEqual([
       ['kpop', 'world', 'k', 'KpopQuiz', 'kpopquiz.org', 'https://kpopquiz.org'],
-      ['anime', 'world', 'a', 'OtakuQuiz', 'otakuquiz.org', 'https://otakuquiz.org'],
-      ['hub', 'hub', 'f', 'FanQuiz', 'fanquiz.org', 'https://fanquiz.org'],
+      ['anime', 'world', 'a', 'OtakuQuiz', 'fandomverse.org', 'https://fandomverse.org/anime'],
+      ['hub', 'hub', 'f', 'FandomVerse', 'fandomverse.org', 'https://fandomverse.org'],
     ]);
-    expect(NETWORK).toEqual({ name: 'FanQuiz', url: 'https://fanquiz.org' });
+    expect(NETWORK).toEqual({ name: 'FandomVerse', url: 'https://fandomverse.org' });
   });
 
   it('every entry has the same keys in the same order (the frozen shape)', () => {
@@ -256,7 +256,7 @@ describe('origins outside production (flags-env.md 4)', () => {
     });
     expect(parseNetOrigins(undefined)).toEqual({});
     expect(netOrigin('anime', { NEXT_PUBLIC_NET_ORIGINS: DEV })).toBe('http://anime.localhost:3001');
-    expect(netOrigin('anime', { NEXT_PUBLIC_NET_ORIGINS: 'hub=https://fq-staging.vercel.app' })).toBe('https://otakuquiz.org');
+    expect(netOrigin('anime', { NEXT_PUBLIC_NET_ORIGINS: 'hub=https://fq-staging.vercel.app' })).toBe('https://fandomverse.org/anime');
     expect(netOrigin('hub', { NEXT_PUBLIC_NET_ORIGINS: 'hub=https://fq-staging.vercel.app', VERCEL_ENV: 'preview' }))
       .toBe('https://fq-staging.vercel.app');
   });
@@ -264,19 +264,19 @@ describe('origins outside production (flags-env.md 4)', () => {
   it('production ignores the map entirely', () => {
     expect(netOrigin('kpop', { NEXT_PUBLIC_NET_ORIGINS: DEV, VERCEL_ENV: 'production' })).toBe('https://kpopquiz.org');
     expect(siteForOrigin('http://anime.localhost:3001', { NEXT_PUBLIC_NET_ORIGINS: DEV, VERCEL_ENV: 'production' })).toBeNull();
-    expect(siteForOrigin('https://otakuquiz.org', { VERCEL_ENV: 'production' })).toBe('anime');
+    expect(siteForOrigin('https://fandomverse.org/anime', { VERCEL_ENV: 'production' })).toBe('anime');
   });
 
   it('maps an origin back to its site, registry urls first', () => {
-    expect(siteForOrigin('https://fanquiz.org', {})).toBe('hub');
+    expect(siteForOrigin('https://fandomverse.org', {})).toBe('hub');
     expect(siteForOrigin('http://hub.localhost:3002', { NEXT_PUBLIC_NET_ORIGINS: DEV })).toBe('hub');
     expect(siteForOrigin('https://evil.example', { NEXT_PUBLIC_NET_ORIGINS: DEV })).toBeNull();
   });
 
   it('refuses malformed entries', () => {
     for (const bad of [
-      'anime', 'anime=', `${LEGACY_HUB_ID}=https://fanquiz.org`, 'world=https://x.org',
-      'anime=https://otakuquiz.org/', 'anime=https://otakuquiz.org/path', 'anime=http://otakuquiz.org',
+      'anime', 'anime=', `${LEGACY_HUB_ID}=https://fandomverse.org`, 'world=https://x.org',
+      'anime=https://fandomverse.org/anime/', 'anime=https://fandomverse.org/anime/path', 'anime=http://fandomverse.org/anime',
       'anime=javascript:alert(1)', 'anime=https://a.org,anime=https://b.org',
     ]) {
       expect(() => parseNetOrigins(bad), bad).toThrow(/NEXT_PUBLIC_NET_ORIGINS/);

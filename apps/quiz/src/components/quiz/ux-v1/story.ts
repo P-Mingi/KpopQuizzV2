@@ -106,7 +106,7 @@ export async function renderStory(input: StoryInput): Promise<Blob | null> {
   }
   ctx.font = `600 36px ${font}`;
   ctx.fillStyle = 'rgba(255,255,255,.82)';
-  ctx.fillText(SITE.domain, 72, H - 110);
+  ctx.fillText(SITE.url.replace(/^https?:\/\//, ''), 72, H - 110);
 
   try {
     return await new Promise<Blob | null>((resolve) => canvas.toBlob((b) => resolve(b), 'image/png'));

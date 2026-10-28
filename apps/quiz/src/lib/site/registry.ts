@@ -14,7 +14,7 @@ import { SITE_IDS } from './types';
 import type { SiteConfig, SiteFeatures, SiteId, ThemeTokens, NetworkConfig } from './types';
 
 /** The network umbrella (BACKLOG 5.1). */
-export const NETWORK: NetworkConfig = { name: 'FanQuiz', url: 'https://fanquiz.org' };
+export const NETWORK: NetworkConfig = { name: 'FandomVerse', url: 'https://fandomverse.org' };
 
 /** The one routed mailbox of the whole network (owner, 2026-10-25): every site prints and publishes this address. */
 export const MAILBOX = 'hello@kpopquiz.org';
@@ -182,8 +182,8 @@ const KPOP: SiteConfig = {
 const ANIME: SiteConfig = {
   id: 'anime',
   kind: 'world',
-  url: 'https://otakuquiz.org',
-  domain: 'otakuquiz.org',
+  url: 'https://fandomverse.org/anime',
+  domain: 'fandomverse.org',
   letter: 'a',
   brand: {
     name: 'OtakuQuiz',
@@ -231,16 +231,16 @@ const ANIME: SiteConfig = {
   },
   seo: {
     titleTemplate: '%s | OtakuQuiz',
-    // The key of public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt (RUNBOOK ENV.md 1.7), served on otakuquiz.org only.
+    // The key of public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt (RUNBOOK ENV.md 1.7), served by the anime build (fandomverse.org/anime) only.
     indexNowKey: '760f9a9459d4db0bd8a08f13a0f1ec6e',
     minPublishedForIndexableHub: 3,
     organization: {
       name: 'OtakuQuiz',
-      alternateName: 'otakuquiz.org',
+      alternateName: 'fandomverse.org/anime',
       logo: '/brand/anime/logo-512.png',
       email: MAILBOX,
     },
-    llmsTxt: { title: 'otakuquiz.org' },
+    llmsTxt: { title: 'OtakuQuiz on fandomverse.org' },
   },
   audio: { source: 'deezer', kit: 'required' },
   theme: { light: ANIME_LIGHT, dark: ANIME_DARK, fontDisplay: 'M PLUS Rounded 1c' },
@@ -272,15 +272,15 @@ const ANIME: SiteConfig = {
 const HUB: SiteConfig = {
   id: 'hub',
   kind: 'hub',
-  url: 'https://fanquiz.org',
-  domain: 'fanquiz.org',
+  url: 'https://fandomverse.org',
+  domain: 'fandomverse.org',
   letter: 'f',
   brand: {
-    name: 'FanQuiz',
-    shortName: 'FanQuiz',
+    name: 'FandomVerse',
+    shortName: 'FandomVerse',
     mascot: null,
     // Owner decision D-099: kpopquiz's logo, favicon, touch and manifest icons for now (copies in public/brand/hub/);
-    // the default share image says FanQuiz (e2e/o1/L1/brand-og.mjs).
+    // the default share image says FandomVerse (e2e/o1/L1/brand-og.mjs).
     logo: '/brand/hub/logo-512.png',
     favicon: '/brand/hub/favicon.svg',
     ogTemplate: '/brand/hub/og-default.png',
@@ -298,17 +298,17 @@ const HUB: SiteConfig = {
     allow: ['/', '/privacy', '/legal', '/passport', '/u/{username}', '/settings/**', '/login', '/directory'],
   },
   seo: {
-    titleTemplate: '%s | FanQuiz',
-    // The key of public/339dab142e51883ae3a2c7e4737254e4.txt (RUNBOOK ENV.md 1.7), served on fanquiz.org only.
+    titleTemplate: '%s | FandomVerse',
+    // The key of public/339dab142e51883ae3a2c7e4737254e4.txt (RUNBOOK ENV.md 1.7), served by the hub build (fandomverse.org) only.
     indexNowKey: '339dab142e51883ae3a2c7e4737254e4',
     minPublishedForIndexableHub: 0,
     organization: {
-      name: 'FanQuiz',
-      alternateName: 'fanquiz.org',
+      name: 'FandomVerse',
+      alternateName: 'fandomverse.org',
       logo: '/brand/hub/logo-512.png',
       email: MAILBOX,
     },
-    llmsTxt: { title: 'fanquiz.org' },
+    llmsTxt: { title: 'fandomverse.org' },
   },
   audio: { source: 'deezer', kit: 'required' },
   theme: { light: HUB_LIGHT, dark: HUB_DARK, fontDisplay: 'Inter' },
