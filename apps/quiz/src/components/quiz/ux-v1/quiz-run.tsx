@@ -163,8 +163,9 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     : (state.phase === 'intro' && restoreTick > 0 ? restoreResult.current : null);
   const phase: 'intro' | 'play' | 'result' = inGame ? 'play' : result ? 'result' : 'intro';
 
-  // Load the run UI when the browser is idle after the intro renders, or at once when a resumed
-  // run, a restored result or a share sheet needs it before start() ran.
+  // Load the run UI when the browser is idle after the page's load event (never inside the first-load
+  // window of the CSS and the cover), or at once when a resumed run, a restored result or a share sheet
+  // needs it before start() ran.
   const needUiNow = phase !== 'intro' || share !== null;
   useEffect(() => {
     if (ui) return;
@@ -173,10 +174,13 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     if (needUiNow) { go(); return () => { cancelled = true; }; }
     // Safari has no requestIdleCallback: a short timeout instead
     const idle = typeof window.requestIdleCallback === 'function';
-    const id = idle ? window.requestIdleCallback(go, { timeout: 4000 }) : window.setTimeout(go, 1500);
+    let id: number | null = null;
+    const schedule = (): void => { id = idle ? window.requestIdleCallback(go, { timeout: 4000 }) : window.setTimeout(go, 1500); };
+    if (document.readyState === 'complete') schedule(); else window.addEventListener('load', schedule, { once: true });
     return () => {
       cancelled = true;
-      if (idle) window.cancelIdleCallback(id); else window.clearTimeout(id);
+      window.removeEventListener('load', schedule);
+      if (id !== null) { if (idle) window.cancelIdleCallback(id); else window.clearTimeout(id); }
     };
   }, [ui, needUiNow]);
 

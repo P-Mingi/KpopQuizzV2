@@ -25,4 +25,10 @@ describe('the quiz run UI loads on demand', () => {
     }
     expect(src).toContain('loadRunUi()');
   });
+
+  it('waits for the load event before the idle load, so the run UI stays out of the first-load window', () => {
+    const src = readFileSync(fileURLToPath(new URL('./quiz-run.tsx', import.meta.url)), 'utf8');
+    expect(src).toContain("document.readyState === 'complete'");
+    expect(src).toContain("window.addEventListener('load', schedule, { once: true })");
+  });
 });
