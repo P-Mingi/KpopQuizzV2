@@ -81,12 +81,30 @@ export interface CronProxyRewrite {
 }
 
 /**
+ * The shape of a cron route: /api/cron/<name> or /api/<area>/cron/<name> (the ranked nightly job), lower-case words and dashes.
+ * Nothing else is proxied: no dot segment, no double slash, no query, no path-to-regexp parameter can reach a destination.
+ */
+export const CRON_ROUTE_RE = /^\/api\/(?:[a-z0-9-]+\/)?cron\/[a-z0-9-]+$/;
+
+/**
  * vercel.json is shared by the three projects, so its cron paths (/api/cron/...) carry no base path, and a build with one answers
  * them 404 (Next serves nothing outside its base path, and refuses an internal rewrite from outside it). On such a build each cron
  * path of vercel.json is proxied to the same route of the site's own public URL (https://fandomverse.org/anime/api/cron/...), which
- * Vercel routes back to this project; the route checks CRON_SECRET as it always does. Nothing else outside the base path answers.
+ * the Microfrontends group routes back to this project (/anime/:path*); the route checks CRON_SECRET as it always does. The proxy
+ * forwards the request with its headers, so the cron's `Authorization: Bearer <CRON_SECRET>` reaches the route (zones.test.ts).
+ * Every destination is the site url followed by a cron route (CRON_ROUTE_RE), so a cron of this project never lands outside its base
+ * path, on the hub or anywhere else; a vercel.json path of another shape fails the build here, naming the file. A build at the root of
+ * its domain (hub, kpop) gets no proxy: its crons reach their routes as they are.
  */
 export function cronProxyRewrites(site: SiteConfig, cronPaths: readonly string[]): CronProxyRewrite[] {
   if (!basePathOf(site.url)) return [];
-  return [...new Set(cronPaths)].filter((p) => p.startsWith('/')).map((p) => ({ source: p, destination: `${site.url}${p}`, basePath: false }));
+  const paths = [...new Set(cronPaths)];
+  const odd = paths.filter((p) => !CRON_ROUTE_RE.test(p));
+  if (odd.length > 0) {
+    throw new Error(
+      `vercel.json: cron path ${odd.map((p) => JSON.stringify(p)).join(', ')} is not a cron route (/api/cron/<name> or /api/<area>/cron/<name>). `
+      + `A build with a base path proxies only those to ${site.url}.`,
+    );
+  }
+  return paths.map((p) => ({ source: p, destination: `${site.url}${p}`, basePath: false }));
 }

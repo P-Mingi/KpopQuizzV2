@@ -2,21 +2,25 @@
 // of each build (docs/launch/o1/ARCHITECTURE-FANDOMVERSE.md). The registry values of FandomVerse are stubbed where they matter
 // (`fandomVerse` below), so the test says the same thing before and after the registry carries https://fandomverse.org/anime.
 import { mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { createServer } from 'node:http';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, parse as parseUrl } from 'node:url';
 
 import { validateRouting } from '@vercel/microfrontends/next/testing';
 import { buildCustomRoute } from 'next/dist/lib/build-custom-route';
 import * as customRoutes from 'next/dist/lib/load-custom-routes';
+import { proxyRequest } from 'next/dist/server/lib/router-utils/proxy-request';
 import { matchHas } from 'next/dist/shared/lib/router/utils/prepare-destination';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { REGISTRY } from './registry';
-import { MFE_APPLICATIONS, VERCEL_APP_HOST, canonicalHost, cronPathsOf, cronProxyRewrites, deploymentHostNoindexHeaders } from './zones';
+import { CRON_ROUTE_RE, MFE_APPLICATIONS, VERCEL_APP_HOST, canonicalHost, cronPathsOf, cronProxyRewrites, deploymentHostNoindexHeaders } from './zones';
 
+import type { AddressInfo } from 'node:net';
 import type { NextConfig } from 'next';
-import type { Header } from 'next/dist/lib/load-custom-routes';
+import type { Header, Rewrite } from 'next/dist/lib/load-custom-routes';
+import type { NextUrlWithParsedQuery } from 'next/dist/server/request-meta';
 import type { SiteConfig, SiteId } from './types';
 
 const APP = fileURLToPath(new URL('../../../', import.meta.url));
@@ -223,7 +227,7 @@ describe('next.config.ts', () => {
 // (validation and base path), buildCustomRoute (the regex of the routes manifest), matchHas, and the order of resolve-routes.js
 // (every matching rule, in order, a later value of a key replacing an earlier one).
 
-type LoadCustomRoutes = (config: NextConfig) => Promise<{ headers: Header[] }>;
+type LoadCustomRoutes = (config: NextConfig) => Promise<{ headers: Header[]; rewrites: { beforeFiles: Rewrite[]; afterFiles: Rewrite[]; fallback: Rewrite[] } }>;
 // The module is CommonJS with a default export: depending on the interop, `default` is the function or the exports object.
 const customRoutesModule = customRoutes as unknown as { default: LoadCustomRoutes | { default: LoadCustomRoutes } };
 const loadCustomRoutes: LoadCustomRoutes = typeof customRoutesModule.default === 'function' ? customRoutesModule.default : customRoutesModule.default.default;
@@ -341,5 +345,94 @@ describe('the cron paths of vercel.json', () => {
       const r = (await c.rewrites!()) as Rewrites;
       expect(r.beforeFiles.some((x) => x.basePath === false)).toBe(false);
     });
+  });
+});
+
+// ---------------------------------------------------------------------------------------------------------------------------
+// The cron proxies of the anime build (finding 4). vercel.json has no /anime, so on the otakuquiz project each cron hits
+// /api/cron/<name> of its own deployment, which serves nothing outside /anime; next.config.ts rewrites it (basePath: false) to
+// https://fandomverse.org/anime/api/cron/<name>.
+//
+// (a) The cron's `Authorization: Bearer <CRON_SECRET>` must reach the route. A rewrite to an absolute URL is a reverse proxy: Next's
+// docs say rewrites "act as a URL proxy" (next/dist/docs, rewrites.md), and Next's own server runs it with http-proxy
+// (next/dist/server/lib/router-utils/proxy-request.js, called by router-server.js for an external destination), which sends the
+// incoming request with its headers to the destination (changeOrigin only replaces Host, and it adds x-forwarded-host). The test
+// below runs that very function. On Vercel the platform's proxy serves the rewrite of the routes manifest; it forwards the request
+// headers the same way (Vercel docs, Rewrites, external rewrites), which a unit test cannot run: the launch-day check of the
+// RUNBOOK (otakuquiz logs, /anime/api/cron answering 200, never 401) is the proof there.
+// (b) A cron of the otakuquiz project can never land on the hub: every proxied destination is the anime url followed by a cron
+// route, the Microfrontends group routes each of them to otakuquiz, and the hub build has no such proxy.
+
+describe('the cron proxies of the anime build', () => {
+  it('every destination is the anime url + a cron route, stays under /anime once normalised, and the group routes it to otakuquiz', async () => {
+    const rules = cronProxyRewrites(ANIME_FV, vercelCrons);
+    expect(rules.length).toBeGreaterThan(0);
+    for (const r of rules) {
+      expect(r.destination.startsWith(`${ANIME_FV.url}/api/`), r.destination).toBe(true);
+      expect(r.destination).toBe(`${ANIME_FV.url}${r.source}`);
+      expect(r.source, r.source).toMatch(CRON_ROUTE_RE);
+      const u = new URL(r.destination);
+      expect(u.origin).toBe('https://fandomverse.org');
+      expect(u.pathname).toBe(`/anime${r.source}`);
+      expect(u.search + u.hash).toBe('');
+    }
+    // Every cron route of vercel.json is under /api/cron/, but for the ranked nightly job (kpop only, it answers its 200 skip on anime).
+    expect(rules.filter((r) => !r.destination.startsWith(`${ANIME_FV.url}/api/cron/`)).map((r) => r.source)).toEqual(['/api/ranked/cron/nightly']);
+    expect(() => validateRouting(MFE, { otakuquiz: rules.map((r) => new URL(r.destination).pathname) })).not.toThrow();
+  });
+
+  it('a vercel.json path that is not a cron route fails the anime build, naming vercel.json; the hub and kpop proxy nothing', () => {
+    for (const bad of [
+      '/api/cron/../../privacy', '/api/cron/x/../../../', '//evil.example/api/cron/x', '/api/cron/x?next=/privacy', '/api/cron/x#y',
+      '/api/cron/:path*', '/api/cron/(.*)', '/privacy', '/', 'api/cron/x', '/API/cron/x', '/api/cron/', '/anime/api/cron/x',
+    ]) {
+      expect(() => cronProxyRewrites(ANIME_FV, ['/api/cron/ensure-daily-quiz', bad]), bad).toThrow(/^vercel\.json: cron path .* is not a cron route/);
+      expect(cronProxyRewrites(HUB_FV, [bad]), bad).toEqual([]);
+      expect(cronProxyRewrites(REGISTRY.kpop, [bad]), bad).toEqual([]);
+    }
+  });
+
+  it('Next keeps each proxy outside the base path and its destination as it is; the hub build has no external rewrite at all', async () => {
+    const anime = await loadConfig('anime', { fandomVerse: true, indexing: '1' });
+    const animeRoutes = await loadCustomRoutes({ ...anime, basePath: anime.basePath ?? '', trailingSlash: false, i18n: null } as NextConfig);
+    const animeExternal = [...animeRoutes.rewrites.beforeFiles, ...animeRoutes.rewrites.afterFiles, ...animeRoutes.rewrites.fallback]
+      .filter((r) => /^https?:/.test(r.destination));
+    expect(animeExternal.map((r) => ({ source: r.source, destination: r.destination })))
+      .toEqual(cronProxyRewrites(ANIME_FV, vercelCrons).map((r) => ({ source: r.source, destination: r.destination })));
+
+    const hub = await loadConfig('hub', { fandomVerse: true, indexing: '1' });
+    const hubRewrites = (await hub.rewrites!()) as { beforeFiles: Rewrite[]; afterFiles: Rewrite[]; fallback: Rewrite[] };
+    const all = [...hubRewrites.beforeFiles, ...hubRewrites.afterFiles, ...hubRewrites.fallback];
+    expect(all.some((r) => r.basePath === false)).toBe(false);
+    expect(all.some((r) => /^https?:/.test(r.destination) || r.destination.includes('/api/cron/'))).toBe(false);
+  });
+
+  it('the proxy forwards the cron request with its Authorization header to the destination path (Next\'s own external rewrite proxy)', async () => {
+    const anime = await loadConfig('anime', { fandomVerse: true, indexing: '1' });
+    const rule = ((await anime.rewrites!()) as Rewrites).beforeFiles.find((r) => r.source === '/api/cron/ensure-daily-quiz')!;
+    expect(rule.destination).toBe('https://fandomverse.org/anime/api/cron/ensure-daily-quiz');
+
+    const seen: { method: string | undefined; url: string | undefined; authorization: string | undefined; userAgent: string | undefined; forwardedHost: string | undefined }[] = [];
+    const target = createServer((req, res) => {
+      seen.push({ method: req.method, url: req.url, authorization: req.headers.authorization, userAgent: req.headers['user-agent'], forwardedHost: req.headers['x-forwarded-host'] as string | undefined });
+      res.end('{"ok":true}');
+    });
+    await new Promise<void>((resolve) => target.listen(0, '127.0.0.1', resolve));
+    // The destination of the rule with its origin swapped for a local server (fandomverse.org is not reachable from a unit test).
+    const local = `http://127.0.0.1:${(target.address() as AddressInfo).port}${new URL(rule.destination).pathname}`;
+    const front = createServer((req, res) => { void proxyRequest(req, res, parseUrl(local, true) as unknown as NextUrlWithParsedQuery, undefined, undefined, 5000); });
+    await new Promise<void>((resolve) => front.listen(0, '127.0.0.1', resolve));
+    try {
+      const frontHost = `127.0.0.1:${(front.address() as AddressInfo).port}`;
+      const res = await fetch(`http://${frontHost}${rule.source}`, { headers: { authorization: 'Bearer o1-test-cron-secret', 'user-agent': 'vercel-cron/1.0' } });
+      expect(res.status).toBe(200);
+      expect(await res.text()).toBe('{"ok":true}');
+      expect(seen).toEqual([{
+        method: 'GET', url: '/anime/api/cron/ensure-daily-quiz', authorization: 'Bearer o1-test-cron-secret', userAgent: 'vercel-cron/1.0', forwardedHost: frontHost,
+      }]);
+    } finally {
+      front.closeAllConnections(); front.close();
+      target.closeAllConnections(); target.close();
+    }
   });
 });
