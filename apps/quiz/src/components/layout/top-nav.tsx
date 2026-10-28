@@ -1,5 +1,8 @@
 import { Logo } from './logo';
-import { NotificationBell, ThemeToggle, TopNavBar, TopNavProfile } from './legacy-chrome-islands';
+import { TopNavBar } from './top-nav-bar';
+import { ThemeToggle } from './theme-toggle';
+import { TopNavProfile } from './top-nav-profile';
+import { NotificationBell } from './notification-bell';
 
 /**
  * Top nav entry point. Server component with no cookie/auth reads, so every page
