@@ -30,6 +30,8 @@ export type AnswerExplanation =
 export interface AnswerRow {
   /** Index in quizzes.questions (the key of quiz_explanations), never a position in a filtered list. */
   qIndex: number;
+  /** Number of the question in the list the page shows (1-based), as its questions block numbers it. */
+  n: number;
   question: string;
   answer: string;
   explanation: AnswerExplanation | null;
@@ -72,7 +74,7 @@ export function displayAnswer(q: RawQuestion): string | null {
 export function buildAnswerRows(questions: Array<{ q: RawQuestion; qIndex: number }>, explanations: StoredExplanation[]): AnswerRow[] {
   const byIndex = new Map(explanations.map((e) => [e.q_index, e]));
   const rows: AnswerRow[] = [];
-  for (const { q, qIndex } of questions) {
+  for (const [i, { q, qIndex }] of questions.entries()) {
     const question = text(q.question);
     const answer = displayAnswer(q);
     if (!question || !answer) continue;
@@ -84,6 +86,7 @@ export function buildAnswerRows(questions: Array<{ q: RawQuestion; qIndex: numbe
     const funFact = text(q.fun_fact);
     rows.push({
       qIndex,
+      n: i + 1,
       question,
       answer,
       explanation: checked && verifiedText ? { kind: 'verified', text: verifiedText, sourceUrl: checked.source_url }

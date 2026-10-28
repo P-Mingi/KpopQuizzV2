@@ -52,13 +52,13 @@ describe('buildAnswerRows: one explanation per question, never generated', () =>
 
   it('a verified explanation comes first, with its source', () => {
     const [row] = buildAnswerRows(qs(mc), [expl()]);
-    expect(row).toEqual({ qIndex: 0, question: mc.question, answer: '2013', explanation: { kind: 'verified', text: expl().explanation, sourceUrl: 'https://en.wikipedia.org/wiki/BTS' } });
+    expect(row).toEqual({ qIndex: 0, n: 1, question: mc.question, answer: '2013', explanation: { kind: 'verified', text: expl().explanation, sourceUrl: 'https://en.wikipedia.org/wiki/BTS' } });
   });
 
   it('else the creator fun fact, else the answer alone', () => {
     const rows = buildAnswerRows(qs(mc, tf), []);
     expect(rows[0]?.explanation).toEqual({ kind: 'fun_fact', text: 'They debuted on June 13.' });
-    expect(rows[1]).toEqual({ qIndex: 1, question: 'BTS debuted in 2013.', answer: 'True', explanation: null });
+    expect(rows[1]).toEqual({ qIndex: 1, n: 2, question: 'BTS debuted in 2013.', answer: 'True', explanation: null });
   });
 
   it('an edited question or an edited answer hides the verified explanation', () => {
@@ -86,7 +86,9 @@ describe('buildAnswerRows: one explanation per question, never generated', () =>
     expect(row?.explanation).toBeNull();
   });
 
-  it('leaves out a question without text or answer', () => {
+  it('leaves out a question without text or answer, and keeps the numbers of the shown list', () => {
     expect(buildAnswerRows(qs({ question: '   ', options: ['a'], correct: 0 }, { question: 'x', options: ['a'], correct: 4 }), [])).toEqual([]);
+    const rows = buildAnswerRows(qs({ question: 'x', options: ['a'], correct: 4 }, tf), []);
+    expect(rows.map((r) => [r.qIndex, r.n])).toEqual([[1, 2]]);
   });
 });
