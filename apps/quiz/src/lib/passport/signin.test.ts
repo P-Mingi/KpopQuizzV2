@@ -94,7 +94,9 @@ vi.mock('@/lib/supabase/server', () => ({
 
 import { OAUTH_RETURN_COOKIE, decodeOAuthReturn, encodeOAuthReturn, oauthReturnAttributes, oauthReturnCookieName } from '@/lib/auth/oauth-return';
 
-import { handleAfterSignin, handleConfirm, handleOAuthStart, handleWorldCallback, oauthProviderAllowed, sessionMethod } from './signin';
+import {
+  confirmLive, handleAfterSignin, handleConfirm, handleOAuthStart, handleWorldCallback, oauthProviderAllowed, sessionMethod,
+} from './signin';
 
 import type { SiteId } from '@/lib/site/types';
 
@@ -314,7 +316,7 @@ const NOT_FV = [
   'https://fandomverse.org:8443', 'https://fandomverse.org/anime', 'https://fandomverse.org/', 'null', 'https://xn--fandomverse-q2b.org',
 ];
 
-describe('GET /auth/confirm on a production deployment (FandomVerse: no email sign-in on hub and anime)', () => {
+describe('GET /auth/confirm off in production (FandomVerse: no email sign-in on hub and anime)', () => {
   it('answers 404 on anime and hub, before it reads anything, for every type of link', async () => {
     for (const site of ['anime', 'hub'] as const) {
       for (const type of ['email', 'magiclink', 'signup', 'email_change']) {
@@ -324,6 +326,32 @@ describe('GET /auth/confirm on a production deployment (FandomVerse: no email si
       }
     }
     expect(state.calls).toEqual([]);
+  });
+
+  it('fail closed: a deployed preview (NODE_ENV production) answers 404 unless it opts in with AUTH_FIXTURE_CONFIRM', async () => {
+    const q = '?token_hash=hash-1&type=magiclink&next=%2F';
+    for (const site of ['anime', 'hub'] as const) {
+      for (const env of [
+        { NODE_ENV: 'production', VERCEL_ENV: 'preview' }, { NODE_ENV: 'production' }, { NODE_ENV: 'production', AUTH_FIXTURE_CONFIRM: '0' },
+        { NODE_ENV: 'production', AUTH_FIXTURE_CONFIRM: 'yes' }, { NODE_ENV: 'development', VERCEL_ENV: 'production' },
+        { NODE_ENV: 'production', VERCEL_ENV: 'production', AUTH_FIXTURE_CONFIRM: '1' },
+      ]) {
+        const res = await handleConfirm(confirm(q), { site, env });
+        expect(res.status, `${site} ${JSON.stringify(env)}`).toBe(404);
+      }
+    }
+    expect(state.calls).toEqual([]);
+    for (const env of [{ NODE_ENV: 'production', VERCEL_ENV: 'preview', AUTH_FIXTURE_CONFIRM: '1' }, { NODE_ENV: 'development' }, { NODE_ENV: 'test' }]) {
+      expect((await handleConfirm(confirm(q), { site: 'anime', env })).status, JSON.stringify(env)).toBe(302);
+    }
+  });
+
+  it('confirmLive: only off production, and on a production build only with the switch', () => {
+    expect(confirmLive({ NODE_ENV: 'development' })).toBe(true);
+    expect(confirmLive({ NODE_ENV: 'production' })).toBe(false);
+    expect(confirmLive({ NODE_ENV: 'production', VERCEL_ENV: 'preview', AUTH_FIXTURE_CONFIRM: 'true' })).toBe(true);
+    expect(confirmLive({ NODE_ENV: 'production', VERCEL_ENV: 'production', AUTH_FIXTURE_CONFIRM: '1' })).toBe(false);
+    expect(confirmLive({ NODE_ENV: 'development', VERCEL_ENV: 'production' })).toBe(false);
   });
 
   it('kpop still answers 404 there too (it keeps /auth/callback)', async () => {

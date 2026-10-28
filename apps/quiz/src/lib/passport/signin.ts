@@ -33,7 +33,7 @@ import {
 } from '@/lib/auth/oauth-return';
 import { safeAppPath, siteBase, siteOrigin, withBase } from '@/lib/auth/site-base';
 import { VIA_RE } from '@/lib/network/types';
-import { REGISTRY, SITE_ID } from '@/lib/site/registry';
+import { REGISTRY, SITE_ID, flagOn } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
@@ -46,7 +46,20 @@ import type { AfterSigninRequest, AfterSigninResponse, PassportApiError } from '
 export type SigninEnv = NetOriginEnv & {
   readonly NEXT_PUBLIC_SUPABASE_URL?: string | undefined;
   readonly NODE_ENV?: string | undefined;
+  /** Test switch of the O1 fixture tool on a preview (docs/launch/o1/ENV.md 1.6: never in a production project). */
+  readonly AUTH_FIXTURE_CONFIRM?: string | undefined;
 };
+
+/**
+ * /auth/confirm of the hub and anime is live only for testing (security review, 2026-10-28: fail closed): never on a
+ * production deployment; elsewhere only on a development server (NODE_ENV not production) or on a deployed preview that
+ * opts in with AUTH_FIXTURE_CONFIRM (the --vercel links of scripts/o1-tools/signin-link.sh). A build that is neither, a
+ * preview without the switch or a production build run outside Vercel, answers 404 like kpop.
+ */
+export function confirmLive(env: SigninEnv): boolean {
+  if (env.VERCEL_ENV === 'production') return false;
+  return env.NODE_ENV !== 'production' || flagOn(env.AUTH_FIXTURE_CONFIRM);
+}
 
 export interface SigninCtx {
   /** The build's site (SITE.id). */
@@ -183,11 +196,11 @@ function isConfirmType(v: string | null): v is ConfirmType {
 export async function handleConfirm(request: NextRequest, ctx: SigninCtx = {}): Promise<NextResponse> {
   const site = ctx.site ?? SITE_ID;
   if (site === 'kpop') return notFound();
-  // FandomVerse (owner, 2026-10-28): no email sign-in on the hub and anime. A production deployment answers 404, like kpop,
-  // before it reads anything. Outside production the landing stays for the O1 fixture tool (scripts/o1-tools/signin-link.sh
-  // mints its links with the admin API of o1-dev, no email is sent).
-  const env = ctx.env ?? (process.env as NetOriginEnv);
-  if (env.VERCEL_ENV === 'production') return notFound();
+  // FandomVerse (owner, 2026-10-28): no email sign-in on the hub and anime. Off (404, like kpop, before it reads anything)
+  // unless confirmLive: a development server, or a preview that opts in for the O1 fixture tool (scripts/o1-tools/
+  // signin-link.sh mints its links with the admin API of o1-dev, no email is sent).
+  const env = ctx.env ?? (process.env as SigninEnv);
+  if (!confirmLive(env)) return notFound();
 
   const params = new URL(request.url).searchParams;
   const tokenHash = params.get('token_hash');

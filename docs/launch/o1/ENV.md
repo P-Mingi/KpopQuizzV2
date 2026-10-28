@@ -84,6 +84,7 @@ anime blind test and `SPOTIFY_*` or `YOUTUBE_API_KEY`, O6 and Mission U part B).
 | `NEXT_PUBLIC_NET_WELCOME` | not a flag of this run (the welcome cards were refused, D-027) |
 | any `O1_*` variable (`O1_ENV`, `O1_KPQ`, `O1_BRANCH_REF`, `O1_DB_URL`, `O1_MIGRATION_LOG`, `O1_WRITE_TREE`) | run scripts and test switches; app code never reads them |
 | `RECORD_BASELINE`, `PLAYLIST_TRACE` | test and trace switches |
+| `AUTH_FIXTURE_CONFIRM` | test switch (lane 3, 2026-10-28): opens `/auth/confirm` of the hub and anime on a preview for the fixture links of `scripts/o1-tools/signin-link.sh --vercel`; set it on the Preview environment only. The route refuses on `VERCEL_ENV=production` anyway, and stays closed on a deployed preview without it |
 | the dev or branch Supabase keys (`o1-dev`, `o1-scratch`) | a production project must only hold production keys; check the URL ends with the production ref |
 
 ### 1.7 IndexNow keys and organization mailboxes (decided 2026-10-23; no environment variable)

@@ -19,8 +19,9 @@ This replaces RUNBOOK H3 and H4 and the D-099 lines of ENV.md 2.2 for the new do
    the account must be Google or Discord), signs out a banned profile, stamps the membership, clears the cookie and
    sends the visitor back: the username page on anime when there is no profile, the hub home on the hub, else the return
    path of the cookie re-checked with safeReturnTo, always inside the build's basePath.
-2. **No email.** No email field on the hub and anime (sheet, `/login`, create funnel). `/auth/confirm` answers 404 on a
-   production deployment of the hub and anime (outside production it stays for the O1 fixture tool `signin-link.sh`).
+2. **No email.** No email field on the hub and anime (sheet, `/login`, create funnel). `/auth/confirm` of the hub and anime
+   answers 404 except on a development server or on a preview that sets `AUTH_FIXTURE_CONFIRM=1` (the fixture links of
+   `signin-link.sh --vercel`, now under `/anime` for anime); never on `VERCEL_ENV=production`.
    An email link asked for by hand with a fandomverse.org callback is refused by the `amr` check above.
 3. **One session for the hub and anime.** Same origin, and the Supabase cookies are written with `Path=/` and no `Domain`
    under a name that comes from the Supabase project: signing in on one signs in on both, signing out on one signs out of
@@ -76,6 +77,7 @@ Discord sign-in works). Scopes stay Supabase's default (`identify email`), as on
 | `PASSPORT_TICKET_SECRET`, `PASSPORT_REVALIDATE_SECRET`, `NET_IP_HASH_SALT` | set | same value | same value | secret, one value each for the three projects (ENV 1.3) |
 | `PASSPORT_JUMP` | `1` | `1` | `1` | server flag, the three together (ENV 1.2) |
 | `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | unset | **do not set** | **do not set** | unread now (no Google Identity Services) |
+| `AUTH_FIXTURE_CONFIRM` | unset | Preview only, `1`, if the fixture tool is used | Preview only, likewise | test switch, **never in production** (ENV 1.6) |
 | `NEXT_PUBLIC_NET_ORIGINS` | never in production | never in production | never in production | previews only: `kpop=<kpop preview origin>,hub=<fv preview origin>,anime=<fv preview origin>` (bare origins; anime gets `/anime` from code) |
 
 Previews: the callback is built from the site's origin on that deployment (`NEXT_PUBLIC_NET_ORIGINS` outside production), never
