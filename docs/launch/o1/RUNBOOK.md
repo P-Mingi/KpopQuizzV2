@@ -430,6 +430,16 @@ Do: Vercel, project `fandomverse`, Settings, Domains: add `fandomverse.org`, the
 Sign in with Google, then with Discord, on `https://fandomverse.org`; open `https://fandomverse.org/anime`: you are signed in there too.
 Check: V10 loop (200, own canonical, own robots, no cross-site string); the hub and `/anime` still carry the staging `noindex`. Back: remove the domain from the project (the hub and `/anime` go offline together) and the DNS records.
 
+**K6b  The anime crons reach `/anime` (MANDATORY).**
+Why: the cron paths of `apps/quiz/vercel.json` have no `/anime` (one file for the three projects), so on `otakuquiz` each cron call is proxied to `https://fandomverse.org/anime/api/cron/...` (ARCHITECTURE-FANDOMVERSE.md section 4), which works only once fandomverse.org is attached (K6). Failures in the `otakuquiz` cron log before K6 are expected.
+Who: a worker (Vercel, read-only). Do: 30 minutes after K6 (two runs of `editorial-publish`, every 15 minutes, and one of `live-expire`, every 30 minutes):
+1. Vercel, project `otakuquiz`, Logs, search `/anime/api/cron/`: `/anime/api/cron/editorial-publish` and `/anime/api/cron/live-expire` answer 200, once per run. A 401 means the Bearer `CRON_SECRET` did not reach the route; a 404 means the call did not reach the `otakuquiz` route; no line at all means the proxied call never reached `/anime`.
+2. Vercel, project `otakuquiz`, Settings, Cron Jobs, `editorial-publish` and `live-expire`, View Logs: the last runs succeeded.
+3. Vercel, project `fandomverse`, Logs, search `/api/cron/`: only the hub's own cron calls (one per job and per run) and no `/anime/api/cron/...` line: a call of the anime proxy must never show in the hub's logs.
+Then, at K9 (2) and on the next morning (L2), the same search on `otakuquiz` shows `/anime/api/cron/ensure-daily-quiz` with 200: from the Run of K9, then from the 00:05 UTC schedule.
+Check: the three points above, then the two `ensure-daily-quiz` lines. If a cron fails (401, 404 or no line): the worker tells the integrator the same hour; today's quiz can still go out with the `curl` of K9 (2), which calls `https://fandomverse.org/anime/api/cron/ensure-daily-quiz` directly. The fallback is to add `/anime/api/cron/...` entries to `apps/quiz/vercel.json`; that file is shared, so it changes kpopquiz.org's cron list too: an owner decision, through a PR.
+Back: n/a (read-only).
+
 **K7  `PASSPORT_JUMP=1` on the three projects.**
 Rule: after 006 and 007 (B), the secrets equal on the 3 (H2), the domain live (K6).
 Do: set `PASSPORT_JUMP` = `1` in `kpopquiz`, `fandomverse` and `otakuquiz`, redeploy all three together.
@@ -442,7 +452,7 @@ Do: `sql1 $M/launch/L12-L1-sites-live.sql`. Check: V8 (`kpop`, `anime`, `hub` al
 Do: (1) Sign in on `https://fandomverse.org/anime` with your admin account and, in the browser console of that tab, date the verified rows from today:
 `fetch('/anime/api/admin/quiz-bank/auto-schedule', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({start_date: '<today, YYYY-MM-DD>'})}).then(r => r.json()).then(console.log)`; it answers `{scheduled: 14, ...}`.
 (2) Publish today's quiz without waiting for 00:05: Vercel, project `otakuquiz`, Settings, Cron Jobs, `ensure-daily-quiz`, Run. (Or with the `otakuquiz` value of `CRON_SECRET`: `read -rs CRON_SECRET`, then
-`curl -sS -H "Authorization: Bearer $CRON_SECRET" https://fandomverse.org/anime/api/cron/ensure-daily-quiz`, which answers `{"ok":true,...}`, then `unset CRON_SECRET`.) Check `https://fandomverse.org/anime/daily` redirects to an `/anime/q/` page.
+`curl -sS -H "Authorization: Bearer $CRON_SECRET" https://fandomverse.org/anime/api/cron/ensure-daily-quiz`, which answers `{"ok":true,...}`, then `unset CRON_SECRET`.) Check `https://fandomverse.org/anime/daily` redirects to an `/anime/q/` page, and (K6b) Vercel, project `otakuquiz`, Logs shows the Run as `/anime/api/cron/ensure-daily-quiz` with 200.
 (3) V10 completely; V1 for kpop (only live numbers differ, nothing else; the NET flags are still off); on `/anime` with a real account: sign in, play a quiz, like it, check the daily page and the series page spoiler cover (the blind test is off on anime, D-120: a 404 is expected); on the hub: the network page signed out and signed in.
 Check: no error in the three projects' Runtime Logs for 30 minutes; V8 leak lines are 0. Then announce (X1's waitlist e-mail script is owner-run and is not on the launch path).
 Back: ROLLBACK.md section 3.
@@ -496,6 +506,7 @@ which is an SEO field of kpopquiz.org: the owner gave that approval on 2026-10-2
 **L1  Hour 0 to +1.** V10, V11 items 1 to 4. Watch sign-ups on `/anime`, Google and Discord sign-in errors, the Team accounts absent from `/leaderboard`.
 
 **L2  +24 hours (after the first 00:05 UTC cron).** V11 in full: today's `qotd_log` has one `kpop` and one `anime` row; `/daily` on kpopquiz.org and `/anime/daily` each redirect to their own quiz.
+MANDATORY (K6b): Vercel, project `otakuquiz`, Logs, search `/anime/api/cron/`: the 00:05 UTC `/anime/api/cron/ensure-daily-quiz` answered 200 (not 401, not 404), and the daily crons that ran since (`/anime/api/cron/...`) answered 200; Vercel, project `fandomverse`, Logs shows no `/anime/api/cron/...` line. A 401, a 404 or no line: K6b's fallback (a 500 of `ensure-daily-quiz` is J4's empty-day alarm, not the proxy).
 
 **L3  Network flags, chained, in this order.**
 1. `NEXT_PUBLIC_NET_FOOTER=1` on the three projects; redeploy; V1 on kpop shows only the footer line and the Organization data (approved by the owner). Back: remove, redeploy.
