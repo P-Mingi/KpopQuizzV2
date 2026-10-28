@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { buildAnswerRows, displayAnswer, storedAnswerKey } from './answers';
+import { buildAnswerRows, displayAnswer, questionsJsonLd, storedAnswerKey } from './answers';
 
 import type { RawQuestion, StoredExplanation } from './answers';
 
@@ -90,5 +90,17 @@ describe('buildAnswerRows: one explanation per question, never generated', () =>
     expect(buildAnswerRows(qs({ question: '   ', options: ['a'], correct: 0 }, { question: 'x', options: ['a'], correct: 4 }), [])).toEqual([]);
     const rows = buildAnswerRows(qs({ question: 'x', options: ['a'], correct: 4 }, tf), []);
     expect(rows.map((r) => [r.qIndex, r.n])).toEqual([[1, 2]]);
+  });
+});
+
+describe('questionsJsonLd: the Quiz JSON-LD Questions carry the visible answers', () => {
+  it('adds acceptedAnswer with the visible answer text, keeps the questions without one, drops empty questions', () => {
+    const shown = [{ q: mc, qIndex: 0 }, { q: { question: 'x', options: ['a'], correct: 4 } as RawQuestion, qIndex: 1 }, { q: { question: '' } as RawQuestion, qIndex: 2 }];
+    const rows = buildAnswerRows(shown, [expl()]);
+    expect(questionsJsonLd(shown, rows)).toEqual([
+      { '@type': 'Question', name: mc.question, acceptedAnswer: { '@type': 'Answer', text: '2013' } },
+      { '@type': 'Question', name: 'x' },
+    ]);
+    expect(JSON.stringify(questionsJsonLd(shown, rows))).not.toContain('eduQuestionType');
   });
 });

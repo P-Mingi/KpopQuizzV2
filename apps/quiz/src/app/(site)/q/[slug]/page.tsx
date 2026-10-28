@@ -13,6 +13,8 @@ import { normalizeFactKey } from '@/lib/trivia/fact-key';
 import { stableIndex } from '@/lib/trivia/pick-fact';
 import { getQuizHallOfFame } from '@/lib/db/queries/community';
 import { getQuizSocialCounts } from '@/lib/db/queries/quiz-social';
+import { getQuizExplanations } from '@/lib/db/queries/quiz-explanations';
+import { buildAnswerRows, questionsJsonLd } from '@/lib/quiz/answers';
 import { AboutQuizDrawer, QuizPlayer, EmbedQuizToggle } from '@/components/quiz/legacy-islands';
 import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
 import { QuizHallOfFame } from '@/components/quiz/quiz-hall-of-fame';
@@ -460,6 +462,11 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   // UX v11 (P4): the redesigned quiz page, game and results, behind the flag. Same
   // H1, intro paragraph, question list, links and JSON-LD; server rendered like today.
   if (UX_V1) {
+    // Answers & explanations (SEO phase 1): every question of the quiz, its right answer and one
+    // explanation (verified with its source, else the creator's fun fact); the JSON-LD Questions
+    // carry the same answers. Only the UX page shows the block, so only its JSON-LD gets them.
+    const shown = seoQuestions.map((q, qIndex) => ({ q, qIndex }));
+    const answers = buildAnswerRows(shown, await safeFetch(getQuizExplanations(quiz.id), [], '[q/[slug]] explanations'));
     return renderUxQuizPage({
       quiz,
       heading,
@@ -477,7 +484,8 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       inThisQuiz,
       creatorNote: creatorNote ?? null,
       breadcrumbItems,
-      quizJsonLd,
+      quizJsonLd: { ...quizJsonLd, hasPart: questionsJsonLd(shown, answers) },
+      answers,
     });
   }
 

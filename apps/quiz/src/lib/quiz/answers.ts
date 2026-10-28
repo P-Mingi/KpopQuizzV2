@@ -96,3 +96,20 @@ export function buildAnswerRows(questions: Array<{ q: RawQuestion; qIndex: numbe
   }
   return rows;
 }
+
+/**
+ * The `hasPart` Questions of the Quiz JSON-LD for a page that shows the answers block: the same
+ * questions as before (non-empty text, in order), each with its acceptedAnswer when the block shows
+ * one, the same text as the visible answer (rulebook 7: semantics only, never Flashcard).
+ */
+export function questionsJsonLd(questions: Array<{ q: RawQuestion; qIndex: number }>, rows: AnswerRow[]): Array<Record<string, unknown>> {
+  const byIndex = new Map(rows.map((r) => [r.qIndex, r]));
+  return questions
+    .filter(({ q }) => typeof q.question === 'string' && q.question.length > 0)
+    .map(({ q, qIndex }) => {
+      const row = byIndex.get(qIndex);
+      return row
+        ? { '@type': 'Question', name: q.question, acceptedAnswer: { '@type': 'Answer', text: row.answer } }
+        : { '@type': 'Question', name: q.question };
+    });
+}
