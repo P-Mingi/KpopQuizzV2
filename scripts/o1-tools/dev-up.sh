@@ -12,7 +12,7 @@
 # stdout is exactly three lines (progress and errors go to stderr):
 #   kpopquiz  http://kpop.localhost:<p1>
 #   otakuquiz http://anime.localhost:<p2>
-#   fanquiz   http://hub.localhost:<p3>
+#   fandomverse http://hub.localhost:<p3>
 # --status prints the same three lines, or "stopped" (exit 1). --stop stops the servers and the sign-in helper of signin-link.sh.
 # Ports: --ports, else $O1_DEVUP_PORTS, else 3190,3191,3192 (outside every lane triple of docs/o1/ports.tsv).
 # Listening address: 127.0.0.1 as C3/run-dev.sh; with it, a path no route knows answers 500 (Next proxies the rewrite to /page-not-found
@@ -46,7 +46,7 @@ for p in "$P1" "$P2" "$P3"; do case "$p" in ''|*[!0-9]*) die "bad port '$p' (--p
 SITES="kpop anime hub"
 HOST="${O1_DEVUP_HOST:-127.0.0.1}" # what the servers listen on; "localhost" (::1) also gives a 404 page, not a 500, on a path no route knows
 port_of() { case "$1" in kpop) echo "$P1" ;; anime) echo "$P2" ;; hub) echo "$P3" ;; esac; }
-name_of() { case "$1" in kpop) echo kpopquiz ;; anime) echo otakuquiz ;; hub) echo fanquiz ;; esac; }
+name_of() { case "$1" in kpop) echo kpopquiz ;; anime) echo otakuquiz ;; hub) echo fandomverse ;; esac; }
 alive() { [ -n "${1:-}" ] && kill -0 "$1" 2>/dev/null; }
 is_server() { alive "${1:-}" && ps -p "$1" -o command= 2>/dev/null | grep -q next; } # a recorded pid that is still one of our servers, not a reused number
 answers() { [ "$(curl -s -o /dev/null --max-time 5 -w '%{http_code}' "http://localhost:$1/robots.txt" 2>/dev/null)" != 000 ]; }

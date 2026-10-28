@@ -1,4 +1,4 @@
-// Run O1, lane OSHI: "Set as oshi" under a Which character are you result on otakuquiz.org, on o1-dev with the dual fixture
+// Run O1, lane OSHI: "Set as oshi" under a Which character are you result on fandomverse.org/anime, on o1-dev with the dual fixture
 // (a member of KpopQuiz and OtakuQuiz), in a real browser (Chromium of the installed Playwright).
 //
 //   O1_KPOP_URL O1_ANIME_URL O1_HUB_URL   the three servers (scripts/o1-tools/dev-up.sh prints them); a missing one skips the suite.
@@ -6,7 +6,7 @@
 //
 // What it covers: signed out the offer opens the sign-in sheet and saves nothing; the dual fan takes the Death Note quiz, sets the
 // result as their oshi, the row of the series and the tag of the anime membership are there, the oshi shows on their OtakuQuiz profile,
-// and it is absent on fanquiz.org and on kpopquiz.org (pages, the network payload, the shared profile's bias).
+// and it is absent on fandomverse.org and on kpopquiz.org (pages, the network payload, the shared profile's bias).
 //
 // Writes: o1-dev is written through the app and through the fan's own session (RLS: own rows), never with the service role, which
 // only asks the admin API for a one-time sign-in link (no email is sent). The oshi of the fan is put back as it was at the end.
@@ -98,7 +98,7 @@ test('signed out: "Set as oshi" opens the sign-in sheet and saves nothing', asyn
   await context.close();
 });
 
-test('the dual fan sets the oshi from the result: saved, shown on the OtakuQuiz profile, absent on fanquiz.org and kpopquiz.org', async ({ browser }) => {
+test('the dual fan sets the oshi from the result: saved, shown on the OtakuQuiz profile, absent on fandomverse.org and kpopquiz.org', async ({ browser }) => {
   test.setTimeout(300_000);
   const { fixture: f, db, cookies } = await session('dual');
   const group = await db.from('groups').select('id').eq('slug', SERIES).eq('site_id', 'anime').maybeSingle();
@@ -138,7 +138,7 @@ test('the dual fan sets the oshi from the result: saved, shown on the OtakuQuiz 
     await page.goto(`${URLS.anime}/u/${f.username}`);
     await expect(page.locator('.ux-bias').first(), 'the oshi tag on /u').toContainText(name);
 
-    // Absent: fanquiz.org (home, passport, network payload) and kpopquiz.org (home, own profile, the public profile, the shared bias).
+    // Absent: fandomverse.org (home, passport, network payload) and kpopquiz.org (home, own profile, the public profile, the shared bias).
     const elsewhere: Array<[string, keyof typeof URLS, string]> = [
       ['hub /', 'hub', '/'], ['hub /privacy', 'hub', '/privacy'], ['kpop /', 'kpop', '/'], ['kpop /me', 'kpop', '/me'], ['kpop /u', 'kpop', `/u/${f.username}`],
     ];

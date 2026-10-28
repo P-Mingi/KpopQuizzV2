@@ -427,7 +427,7 @@ for (const vp of VIEWPORTS) {
       expect(blocking(all), 'blocking findings on the newcomer pages').toEqual([]);
     });
 
-    test('fanquiz: /, /privacy, /login', async ({ page }) => {
+    test('fandomverse: /, /privacy, /login', async ({ page }) => {
       test.skip(!HUB, 'O1_C1_HUB_URL is not set');
       test.setTimeout(300_000);
       const failed: string[] = [];
@@ -440,7 +440,7 @@ for (const vp of VIEWPORTS) {
         if (label === 'home') all.push(...(await tokenContrast(page, vp.name, 'tokens', 'hub')));
       }
       if (failed.length) all.push({ page: 'all', viewport: vp.name, kind: 'asset-4xx', detail: failed.join(' ; '), blocking: true });
-      expect(blocking(all), 'blocking findings on fanquiz').toEqual([]);
+      expect(blocking(all), 'blocking findings on fandomverse').toEqual([]);
     });
 
     test('kpopquiz reference: / and one quiz page (measured, never asserted)', async ({ page }) => {

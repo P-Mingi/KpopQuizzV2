@@ -114,16 +114,16 @@ test.describe('dev-multi: three hosts, three sessions', () => {
 
 // cookies.md section 2: the name follows the request. Rows: [url, VERCEL_ENV, expected name].
 const TX_NAME_CASES: ReadonlyArray<readonly [string, string | undefined, string]> = [
-  ['https://otakuquiz.org/auth/arrive', undefined, '__Host-pp_tx'],
+  ['https://fandomverse.org/anime/auth/arrive', undefined, '__Host-pp_tx'],
   ['https://kpopquiz.org/auth/land', 'production', '__Host-pp_tx'],
-  ['https://fanquiz.org/auth/authorize', 'preview', '__Host-pp_tx'],
+  ['https://fandomverse.org/auth/authorize', 'preview', '__Host-pp_tx'],
   ['http://anime.localhost:3107/auth/arrive', undefined, 'pp_tx'],
   ['http://kpop.localhost:3106/auth/land', 'development', 'pp_tx'],
   ['http://localhost:3000/auth/arrive', undefined, 'pp_tx'],
   ['http://anime.localhost:3107/auth/arrive', 'production', '__Host-pp_tx'],
   ['https://anime.localhost:3107/auth/arrive', undefined, '__Host-pp_tx'],
   ['http://127.0.0.1:3107/auth/arrive', undefined, '__Host-pp_tx'],
-  ['http://otakuquiz.org/auth/arrive', undefined, '__Host-pp_tx'],
+  ['http://fandomverse.org/anime/auth/arrive', undefined, '__Host-pp_tx'],
   ['http://evil-localhost.com/auth/arrive', undefined, '__Host-pp_tx'],
   ['http://localhost.evil.com/auth/arrive', undefined, '__Host-pp_tx'],
 ];

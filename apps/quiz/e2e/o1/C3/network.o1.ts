@@ -7,7 +7,7 @@
 //   NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY   o1-dev, from scripts/o1/env.sh dev.
 //
 // What it covers: otakuquiz (anime theme, series list, a series hub with its blocks, the spoiler interstitial and the
-// leak of tagged questions, kpop paths answering 404), fanquiz (the network cards, the passport of a signed-in fan),
+// leak of tagged questions, kpop paths answering 404), fandomverse (the network cards, the passport of a signed-in fan),
 // the passport jump kpop -> anime with a fixture account, and kpopquiz (200 and no anime word).
 //
 // Writes: o1-dev is read by the servers. The only write a test causes is the sign-in of a fixture account (the fixtures of
@@ -224,9 +224,9 @@ test.describe('otakuquiz (anime)', () => {
 });
 
 // ---------------------------------------------------------------------------------------------------------------
-// fanquiz
+// fandomverse
 
-test.describe('fanquiz (hub)', () => {
+test.describe('fandomverse (hub)', () => {
   test.skip(!URLS.hub, 'no hub server (O1_HUB_URL)');
   const networkIds = (['kpop', 'anime'] as const).filter((id) => REGISTRY[id].kind !== 'hub');
 

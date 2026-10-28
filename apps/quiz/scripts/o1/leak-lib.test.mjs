@@ -21,6 +21,8 @@ import {
   pageMatches,
   parseAttrs,
   sitemapPaths,
+  siteOfHost,
+  siteOfUrl,
   textLayer,
 } from './leak-lib.mjs';
 
@@ -50,12 +52,31 @@ test('flightText keeps copy, drops module rows and asset paths', () => {
 test('linkTarget classifies self, network sites, dev hosts and external links', () => {
   const pageUrl = 'http://127.0.0.1:4022/series';
   assert.equal(linkTarget('/q/x', pageUrl, 'anime').kind, 'self');
-  assert.equal(linkTarget('https://otakuquiz.org/x', pageUrl, 'anime').kind, 'self');
+  assert.equal(linkTarget('https://fandomverse.org/anime/x', pageUrl, 'anime').kind, 'self');
   assert.equal(linkTarget('https://www.kpopquiz.org/', pageUrl, 'anime').site, 'kpop');
   assert.equal(linkTarget('http://hub.localhost:3108/', pageUrl, 'anime').site, 'hub');
   assert.equal(linkTarget('https://www.deezer.com/', pageUrl, 'anime').kind, 'external');
   assert.equal(linkTarget('mailto:a@b.c', pageUrl, 'anime').kind, 'none');
   assert.equal(linkTarget('#top', pageUrl, 'anime').kind, 'none');
+});
+
+test('fandomverse.org holds two sites (2026-10-28): the folder /anime is OtakuQuiz, the rest of the host is the hub', () => {
+  assert.deepEqual(siteOfUrl('https://fandomverse.org/anime/q/x'), { site: 'anime', path: '/q/x' });
+  assert.deepEqual(siteOfUrl('https://fandomverse.org/anime'), { site: 'anime', path: '/' });
+  assert.deepEqual(siteOfUrl('https://www.fandomverse.org/animex'), { site: 'hub', path: '/animex' });
+  assert.equal(siteOfUrl('https://fandomverse.org.evil.example/anime'), null);
+  assert.equal(siteOfUrl('http://anime.localhost:3001/x', undefined, false), null);
+  assert.equal(siteOfHost('fandomverse.org'), 'hub');
+  const hubPage = 'https://fandomverse.org/';
+  assert.equal(linkTarget('https://fandomverse.org/anime/naruto-quiz', hubPage, 'hub').site, 'anime');
+  assert.equal(linkTarget('https://fandomverse.org/anime/naruto-quiz', hubPage, 'hub').path, '/naruto-quiz');
+  assert.equal(linkTarget('https://fandomverse.org/privacy', 'https://fandomverse.org/anime/series', 'anime').site, 'hub');
+  assert.equal(linkTarget('/anime/series', 'https://fandomverse.org/anime/q/x', 'anime').kind, 'self');
+  const cross = analyzeHtml(page({ head: '<link rel="canonical" href="https://fandomverse.org/series"/>' }));
+  assert.deepEqual(checkIdentity({ site: 'anime', an: cross }).map((v) => v.code), ['cross-domain-canonical']);
+  const dev = analyzeHtml(page({ head: '<link rel="canonical" href="http://anime.localhost:3001/series"/>' }));
+  assert.deepEqual(checkIdentity({ site: 'anime', an: dev }).map((v) => v.code), ['cross-domain-canonical']);
+  assert.equal(checkRootFile({ site: 'hub', path: '/robots.txt', body: 'Sitemap: https://fandomverse.org/anime/sitemap.xml' })[0].code, 'root-file-foreign-url');
 });
 
 test('pageMatches: any page, subtree, exact, null', () => {
@@ -70,19 +91,19 @@ test('pageMatches: any page, subtree, exact, null', () => {
 
 const ANIME_URL = 'http://127.0.0.1:4022';
 
-test('links: the footer link to fanquiz.org passes once, twice is over the cap', () => {
-  const one = analyzeHtml(page({ body: '<footer><a href="https://fanquiz.org/">FanQuiz network</a></footer>' }));
+test('links: the footer link to fandomverse.org passes once, twice is over the cap', () => {
+  const one = analyzeHtml(page({ body: '<footer><a href="https://fandomverse.org/">FandomVerse network</a></footer>' }));
   assert.deepEqual(checkLinks({ site: 'anime', path: '/', pageUrl: ANIME_URL, an: one, allowlist: ALLOW }).violations, []);
-  const two = analyzeHtml(page({ body: '<a href="https://fanquiz.org/">FanQuiz</a><a href="https://fanquiz.org/">FanQuiz</a>' }));
+  const two = analyzeHtml(page({ body: '<a href="https://fandomverse.org/">FandomVerse</a><a href="https://fandomverse.org/">FandomVerse</a>' }));
   assert.deepEqual(checkLinks({ site: 'anime', path: '/', pageUrl: ANIME_URL, an: two, allowlist: ALLOW }).violations.map((v) => v.code), ['link-over-cap']);
 });
 
-test('links: the cap counts per target site (the anime /about line links KpopQuiz and FanQuiz, plus the footer)', () => {
-  const html = page({ body: '<p>Made by the team behind <a href="https://kpopquiz.org/">KpopQuiz</a>, part of the <a href="https://fanquiz.org/">FanQuiz network</a>.</p><footer><a href="https://fanquiz.org/">FanQuiz network</a></footer>' });
+test('links: the cap counts per target site (the anime /about line links KpopQuiz and FandomVerse, plus the footer)', () => {
+  const html = page({ body: '<p>Made by the team behind <a href="https://kpopquiz.org/">KpopQuiz</a>, part of the <a href="https://fandomverse.org/">FandomVerse network</a>.</p><footer><a href="https://fandomverse.org/">FandomVerse network</a></footer>' });
   assert.deepEqual(checkLinks({ site: 'anime', path: '/about', pageUrl: ANIME_URL, an: analyzeHtml(html), allowlist: ALLOW }).violations, []);
   const twice = page({ body: '<a href="https://kpopquiz.org/">KpopQuiz</a><a href="https://kpopquiz.org/">KpopQuiz</a>' });
   assert.deepEqual(checkLinks({ site: 'anime', path: '/about', pageUrl: ANIME_URL, an: analyzeHtml(twice), allowlist: ALLOW }).violations.map((v) => v.code), ['link-over-cap']);
-  const hub = page({ body: '<a href="https://kpopquiz.org/">KpopQuiz</a><a href="https://otakuquiz.org/">OtakuQuiz</a>' });
+  const hub = page({ body: '<a href="https://kpopquiz.org/">KpopQuiz</a><a href="https://fandomverse.org/anime/">OtakuQuiz</a>' });
   assert.deepEqual(checkLinks({ site: 'hub', path: '/', pageUrl: 'http://127.0.0.1:4023/', an: analyzeHtml(hub), allowlist: ALLOW }).violations, []);
 });
 
@@ -98,21 +119,21 @@ test('links: a link to the other world outside the allowlist fails, on /about it
 });
 
 test('links: via on an anonymous page, a query on an editorial link, nofollow rules', () => {
-  const via = analyzeHtml(page({ body: '<a href="https://fanquiz.org/?via=a.foot">FanQuiz</a>' }));
+  const via = analyzeHtml(page({ body: '<a href="https://fandomverse.org/?via=a.foot">FandomVerse</a>' }));
   const codes = checkLinks({ site: 'anime', path: '/', pageUrl: ANIME_URL, an: via, allowlist: ALLOW }).violations.map((v) => v.code);
   assert.deepEqual(codes.sort(), ['link-has-query', 'via-anonymous']);
-  const dirOk = analyzeHtml(page({ body: '<a rel="nofollow" href="https://otakuquiz.org/naruto-quiz">Naruto</a>' }));
+  const dirOk = analyzeHtml(page({ body: '<a rel="nofollow" href="https://fandomverse.org/anime/naruto-quiz">Naruto</a>' }));
   assert.deepEqual(checkLinks({ site: 'hub', path: '/directory', pageUrl: 'http://127.0.0.1:4023/directory', an: dirOk, allowlist: ALLOW }).violations, []);
-  const dirBad = analyzeHtml(page({ body: '<a href="https://otakuquiz.org/naruto-quiz">Naruto</a>' }));
+  const dirBad = analyzeHtml(page({ body: '<a href="https://fandomverse.org/anime/naruto-quiz">Naruto</a>' }));
   assert.deepEqual(checkLinks({ site: 'hub', path: '/directory', pageUrl: 'http://127.0.0.1:4023/directory', an: dirBad, allowlist: ALLOW }).violations.map((v) => v.code), ['link-needs-nofollow']);
-  const followedBad = analyzeHtml(page({ body: '<a rel="nofollow" href="https://fanquiz.org/">FanQuiz</a>' }));
+  const followedBad = analyzeHtml(page({ body: '<a rel="nofollow" href="https://fandomverse.org/">FandomVerse</a>' }));
   assert.deepEqual(checkLinks({ site: 'kpop', path: '/', pageUrl: 'http://127.0.0.1:4021/', an: followedBad, allowlist: ALLOW }).violations.map((v) => v.code), ['link-must-be-followed']);
 });
 
 test('links: the other world domain in page data or JSON-LD fails even without an anchor', () => {
   const an = analyzeHtml(page({ head: '<script type="application/ld+json">{"sameAs":["https://kpopquiz.org"]}</script>' }));
   assert.deepEqual(checkLinks({ site: 'anime', path: '/', pageUrl: ANIME_URL, an, allowlist: ALLOW }).violations.map((v) => v.code), ['domain-in-html']);
-  const kp = analyzeHtml(page({ flight: ['2:["$","a",null,{"href":"https://otakuquiz.org/"}]\n'] }));
+  const kp = analyzeHtml(page({ flight: ['2:["$","a",null,{"href":"https://fandomverse.org/anime/"}]\n'] }));
   assert.deepEqual(checkLinks({ site: 'kpop', path: '/', pageUrl: 'http://127.0.0.1:4021/', an: kp, allowlist: ALLOW }).violations.map((v) => v.code), ['domain-in-html']);
 });
 
@@ -126,21 +147,21 @@ test('links: the allowlisted /about link duplicated in the page data does not co
 });
 
 test('identity: own canonical passes, cross-domain canonical and og fail', () => {
-  const good = analyzeHtml(page({ head: '<link rel="canonical" href="https://otakuquiz.org/series"/><meta property="og:url" content="https://otakuquiz.org/series"/><meta property="og:site_name" content="OtakuQuiz"/><meta property="og:image" content="https://otakuquiz.org/api/og/site"/>' }));
+  const good = analyzeHtml(page({ head: '<link rel="canonical" href="https://fandomverse.org/anime/series"/><meta property="og:url" content="https://fandomverse.org/anime/series"/><meta property="og:site_name" content="OtakuQuiz"/><meta property="og:image" content="https://fandomverse.org/anime/api/og/site"/>' }));
   assert.deepEqual(checkIdentity({ site: 'anime', an: good }), []);
   const bad = analyzeHtml(page({ head: '<link rel="canonical" href="https://kpopquiz.org/series"/><meta property="og:url" content="https://kpopquiz.org/"/><meta property="og:site_name" content="KpopQuiz"/><meta property="og:image" content="https://kpopquiz.org/og-default.png"/><link rel="alternate" hreflang="pt-BR" href="https://kpopquiz.org/pt"/>' }));
   assert.deepEqual(checkIdentity({ site: 'anime', an: bad }).map((v) => v.code), ['cross-domain-canonical', 'cross-domain-canonical', 'og-url-foreign', 'og-site-name', 'og-image-cross-site']);
   const storage = analyzeHtml(page({ head: '<meta property="og:image" content="https://abc.supabase.co/storage/v1/x.png"/>' }));
   assert.deepEqual(checkIdentity({ site: 'kpop', an: storage }), []);
-  const ld = analyzeHtml(page({ head: '<script type="application/ld+json">{"@type":"Organization","url":"https://kpopquiz.org","parentOrganization":{"url":"https://fanquiz.org"}}</script>' }));
+  const ld = analyzeHtml(page({ head: '<script type="application/ld+json">{"@type":"Organization","url":"https://kpopquiz.org","parentOrganization":{"url":"https://fandomverse.org"}}</script>' }));
   assert.deepEqual(checkIdentity({ site: 'anime', an: ld }).map((v) => v.code), ['jsonld-cross-world']);
   assert.deepEqual(checkIdentity({ site: 'kpop', an: ld }), []);
 });
 
 test('root files: robots Sitemap line and sitemap locs stay on the own domain', () => {
-  assert.deepEqual(checkRootFile({ site: 'anime', path: '/robots.txt', body: 'User-agent: *\nSitemap: https://otakuquiz.org/sitemap.xml\n' }), []);
+  assert.deepEqual(checkRootFile({ site: 'anime', path: '/robots.txt', body: 'User-agent: *\nSitemap: https://fandomverse.org/anime/sitemap.xml\n' }), []);
   assert.equal(checkRootFile({ site: 'anime', path: '/robots.txt', body: 'Sitemap: https://kpopquiz.org/sitemap.xml' })[0].code, 'root-file-foreign-url');
-  assert.equal(checkRootFile({ site: 'hub', path: '/sitemap.xml', body: '<urlset><url><loc>https://fanquiz.org/</loc></url><url><loc>https://kpopquiz.org/</loc></url></urlset>' })[0].detail.startsWith('/sitemap.xml: 1 of 2'), true);
+  assert.equal(checkRootFile({ site: 'hub', path: '/sitemap.xml', body: '<urlset><url><loc>https://fandomverse.org/</loc></url><url><loc>https://kpopquiz.org/</loc></url></urlset>' })[0].detail.startsWith('/sitemap.xml: 1 of 2'), true);
 });
 
 test('strings: K-pop markers fail on anime, the mirror fails on kpop, dropped anchors do not count', () => {
@@ -187,11 +208,11 @@ test('httpGet sends no cookie, keeps *.localhost in Host, does not follow redire
     }
     if (req.url === '/sitemap.xml') {
       res.writeHead(200, { 'content-type': 'application/xml' });
-      return res.end('<sitemapindex><sitemap><loc>https://otakuquiz.org/s1.xml</loc></sitemap></sitemapindex>');
+      return res.end('<sitemapindex><sitemap><loc>https://fandomverse.org/s1.xml</loc></sitemap></sitemapindex>');
     }
     if (req.url === '/s1.xml') {
       res.writeHead(200, { 'content-type': 'application/xml' });
-      return res.end('<urlset><url><loc>https://otakuquiz.org/</loc></url><url><loc>https://otakuquiz.org/series</loc></url><url><loc>https://otakuquiz.org/about</loc></url></urlset>');
+      return res.end('<urlset><url><loc>https://fandomverse.org/</loc></url><url><loc>https://fandomverse.org/series</loc></url><url><loc>https://fandomverse.org/about</loc></url></urlset>');
     }
     res.writeHead(200, { 'content-type': 'text/html' });
     res.end('<p>ok</p>');
