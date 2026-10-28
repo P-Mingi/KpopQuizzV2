@@ -31,6 +31,7 @@ import { oauthCallbackUrl } from '@/lib/auth/base-path';
 import {
   decodeOAuthReturn, encodeOAuthReturn, isOAuthProvider, oauthReturnAttributes, oauthReturnCookieName,
 } from '@/lib/auth/oauth-return';
+import { secureRequest } from '@/lib/auth/session-cookie';
 import { safeAppPath, siteBase, siteOrigin, withBase } from '@/lib/auth/site-base';
 import { VIA_RE } from '@/lib/network/types';
 import { REGISTRY, SITE_ID, flagOn } from '@/lib/site/registry';
@@ -313,7 +314,7 @@ const SESSION_COOKIE_RE = /^sb-[a-z0-9-]+-auth-token(?:\.\d{1,2}|-code-verifier)
  * written (the key, its chunks .0 to .9, the PKCE verifier) and every session cookie the request carries is set to '' with
  * Max-Age=0 on Path=/, through the same cookie store, so the deletion replaces the value the exchange wrote.
  */
-async function clearSessionCookies(env: SigninEnv): Promise<void> {
+async function clearSessionCookies(env: SigninEnv, secure: boolean): Promise<void> {
   try {
     const store = await cookies();
     const names = new Set<string>();
@@ -324,7 +325,7 @@ async function clearSessionCookies(env: SigninEnv): Promise<void> {
       for (let i = 0; i < 10; i++) names.add(`${key}.${i}`);
     }
     for (const c of store.getAll()) if (SESSION_COOKIE_RE.test(c.name)) names.add(c.name);
-    for (const name of names) store.set(name, '', { path: '/', sameSite: 'lax', maxAge: 0, expires: new Date(0) });
+    for (const name of names) store.set(name, '', { path: '/', sameSite: 'lax', maxAge: 0, expires: new Date(0), ...(secure ? { secure: true } : {}) });
   } catch {
     // no cookie store outside a request: nothing to clear
   }
@@ -407,7 +408,7 @@ export async function handleWorldCallback(request: NextRequest, ctx: SigninCtx =
   // whatever the sign-out answered.
   const refuse = async (outcome: string): Promise<NextResponse> => {
     await supabase.auth.signOut({ scope: 'local' }).catch(() => undefined);
-    await clearSessionCookies(env);
+    await clearSessionCookies(env, secureRequest(request.nextUrl.protocol, request.headers.get('x-forwarded-proto'), env));
     return fail(outcome);
   };
   if (sessionMethod(data?.session?.access_token) !== 'oauth') return refuse('not_oauth');

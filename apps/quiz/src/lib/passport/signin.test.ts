@@ -608,6 +608,8 @@ describe('a refused session leaves no session cookie, even when the sign-out fai
         expect(state.signOutScopes).toEqual(['local']);
         const gone = deleted();
         for (const name of [KEY, `${KEY}.0`, `${KEY}.1`, `${KEY}.9`, `${KEY}-code-verifier`]) expect(gone, name).toContain(name);
+        // https: the deletions carry Secure like the cookies they replace
+        expect(state.cookieWrites.every((w) => w.options?.secure === true)).toBe(true);
       });
     }
   }
