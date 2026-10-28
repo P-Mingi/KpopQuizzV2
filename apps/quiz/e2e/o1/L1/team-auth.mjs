@@ -1,6 +1,6 @@
 // Run O1, lane L1: creates the 31 auth users the Team accounts of launch file L02 need. Owner-run, once, before L02.
 //
-//   SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref <ref> [--apply] [--team-email-domain otakuquiz.org]
+//   SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref <ref> [--apply] [--team-email-domain fandomverse.org]
 //
 // Without --apply nothing is sent: it prints how many users it would create. With --apply it calls the Auth admin API
 // (createUser, email already confirmed, no password, no email sent). A user that exists is left alone, so a second run is a

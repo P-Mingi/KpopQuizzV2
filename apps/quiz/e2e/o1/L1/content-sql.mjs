@@ -1,7 +1,7 @@
 // Run O1, lane L1: the launch SQL of the content, generated from docs/anime/data. Never applied by an agent: the owner
 // applies the files on launch day (docs/launch/o1/RUNBOOK.md).
 //
-//   node apps/quiz/e2e/o1/L1/content-sql.mjs [--data docs/anime/data] [--out <dir>] [--drafts] [--team-email-domain otakuquiz.org]
+//   node apps/quiz/e2e/o1/L1/content-sql.mjs [--data docs/anime/data] [--out <dir>] [--drafts] [--team-email-domain fandomverse.org]
 //
 // Writes, in --out (default docs/pending-migrations/multisite/launch, beside L01, L03 and L06; with --drafts the first line of
 // every file says DRAFTS, and the owner's run without --drafts overwrites them after the review):
@@ -38,7 +38,7 @@ import { MIN_PROFILES, ORD_BAND, personalityUndoSql } from '../../../../../scrip
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 export const REPO = resolve(HERE, '../../../../..');
-export const DEFAULT_TEAM_DOMAIN = 'otakuquiz.org';
+export const DEFAULT_TEAM_DOMAIN = 'fandomverse.org';
 export const DEFAULT_OUT = 'docs/pending-migrations/multisite/launch';
 const AVATAR = { bg: '#1A1A1A', text: '#FFFFFF' };
 

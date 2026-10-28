@@ -41,9 +41,9 @@ insert into auth.users (
   raw_app_meta_data, raw_user_meta_data, banned_until, created_at, updated_at
 ) values
   ('00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-00000000dea2', 'authenticated', 'authenticated',
-   'deleted-user-anime@otakuquiz.invalid', '', now(), '', '', '', '', '{}'::jsonb, '{}'::jsonb, '2999-12-31 00:00:00+00', now(), now()),
+   'deleted-user-anime@fandomverse.invalid', '', now(), '', '', '', '', '{}'::jsonb, '{}'::jsonb, '2999-12-31 00:00:00+00', now(), now()),
   ('00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-00000000dea3', 'authenticated', 'authenticated',
-   'deleted-user-hub@fanquiz.invalid', '', now(), '', '', '', '', '{}'::jsonb, '{}'::jsonb, '2999-12-31 00:00:00+00', now(), now())
+   'deleted-user-hub@fandomverse.invalid', '', now(), '', '', '', '', '{}'::jsonb, '{}'::jsonb, '2999-12-31 00:00:00+00', now(), now())
 on conflict (id) do nothing;
 
 -- The profile of each, created under its own site so the trigger of 003 stamps that site (removed again below).
