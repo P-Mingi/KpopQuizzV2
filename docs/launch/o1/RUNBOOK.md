@@ -27,8 +27,8 @@ Rewritten on 2026-10-28 for the owner's FandomVerse decisions (section "Owner de
     Check:   the proof it worked (a V number of VERIFY.md, with the expected result)
     Back:    the way to undo it (ROLLBACK.md has the long form)
 
-- Times are UTC. The crons are the `crons` list of `apps/quiz/vercel.json`. The ones that touch `quizzes`, `quiz_bank` and `qotd_log` fire
-  between 00:05 (`ensure-daily-quiz`) and 00:20; `editorial-publish` runs every 15 minutes and `live-expire` every 30 minutes.
+- Times are UTC. The crons are the `crons` list of `apps/quiz/vercel.json` (18 entries on 2026-10-28). Daily ones fire at 00:05 (`ensure-daily-quiz`), 00:10, 00:20,
+  03:30, 03:40, 03:50, 03:55, 04:00, 04:15, 05:00 and 09:30; `editorial-publish` every 15 minutes, `live-expire` every 30 minutes; the rest weekly or monthly.
   Never run SQL between 23:50 and 00:30. Do the SQL steps in your quietest hour; `lock_timeout` makes a file fail instead of waiting,
   and every file can simply be run again.
 - No dates. The table below says what each phase waits for. If a step fails and the cause is not obvious, stop at that step
@@ -310,7 +310,7 @@ The deploy note is `docs/o1/b7/send-email-hook.md` (read it whole first); the fu
 Check: the templates match, or the text is pasted. Back: nothing.
 
 **I2  Deploy the function and set its secrets.**
-Do: `supabase functions deploy send-email --no-verify-jwt` (your Supabase CLI login; the hook is authenticated by its signature, not a JWT). Dashboard, Edge Functions, `send-email`, Secrets: `RESEND_API_KEY`, `SEND_EMAIL_FROM_KPOP` (required: kpop mail is refused without it), and `SEND_EMAIL_FROM_HUB` and `SEND_EMAIL_FROM_ANIME` with a fandomverse.org sender (their built-in defaults name the old domains);
+Do: `supabase functions deploy send-email --no-verify-jwt` (your Supabase CLI login; the hook is authenticated by its signature, not a JWT). Dashboard, Edge Functions, `send-email`, Secrets: `RESEND_API_KEY`, `SEND_EMAIL_FROM_KPOP` (required: kpop mail is refused without it), and `SEND_EMAIL_FROM_HUB` and `SEND_EMAIL_FROM_ANIME` with a fandomverse.org sender (on 2026-10-28 their built-in defaults name the old domains);
 `SEND_EMAIL_HOOK_SECRET` is the `v1,whsec_...` value of I3. Never set `SEND_EMAIL_ORIGINS` (staging only). On the Vercel project `fandomverse` add `RESEND_API_KEY` (and `SEND_EMAIL_FROM_HUB`) for the deletion notice; without them the notice is skipped and the deletion still goes ahead.
 Check: the function shows as deployed in the dashboard, Edge Functions. Back: delete the function (it is unused until I3).
 
