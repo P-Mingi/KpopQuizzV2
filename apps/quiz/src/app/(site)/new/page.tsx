@@ -1,4 +1,5 @@
 import { getNewQuizzes } from '@/lib/db/queries/quizzes';
+import { NEW_CAP, newWeekCut } from '@/lib/quiz/new-week';
 import { InfiniteQuizList } from '@/components/home/infinite-quiz-list';
 import { safeFetch } from '@/lib/error-handling';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
@@ -22,11 +23,12 @@ export const metadata: Metadata = {
 };
 
 export default async function NewPage(): Promise<React.ReactElement> {
-  const initialQuizzes = await safeFetch(
-    getNewQuizzes(0, 10),
+  // every quiz of the last 7 days in the server HTML (at least 10, at most 120): lib/quiz/new-week.ts
+  const initialQuizzes = newWeekCut(await safeFetch(
+    getNewQuizzes(0, NEW_CAP),
     [],
     '[new] getNewQuizzes',
-  );
+  ), Date.now());
 
   return (
     <div className="py-6">
