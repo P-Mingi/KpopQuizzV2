@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // COST: /api/auth/me (force-dynamic) used to be fetched INDEPENDENTLY by every nav
 // island that needs the signed-in state - the profile chip, the notification bell,
 // the mobile top bar, and the home streak nudge - so a single page view spawned
@@ -58,7 +61,7 @@ function loadMe(): Promise<MeResponse> {
     cache = SIGNED_OUT;
     return Promise.resolve(cache);
   }
-  inflight = fetch('/api/auth/me', { credentials: 'include' })
+  inflight = fetch(`${BASE_PATH}/api/auth/me`, { credentials: 'include' })
     .then((r) => (r.ok ? (r.json() as Promise<MeResponse>) : SIGNED_OUT))
     .then((d) => { cache = d ?? SIGNED_OUT; inflight = null; return cache; })
     .catch(() => { inflight = null; return SIGNED_OUT; });

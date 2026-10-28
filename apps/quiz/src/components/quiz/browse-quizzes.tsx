@@ -14,6 +14,9 @@ import { BrowseGroupSelect } from './browse-group-select';
 
 import type { QuizCardData } from '@/lib/db/types';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 export interface BrowseGroup {
   id: number;
   name: string;
@@ -162,7 +165,7 @@ export function BrowseQuizzes({
       if (gid != null) params.set('group_id', String(gid));
       if (t) params.set('quiz_type', typeToDb(t));
       if (l) params.set('language', l);
-      return `/api/quizzes?${params.toString()}`;
+      return `${BASE_PATH}/api/quizzes?${params.toString()}`;
     },
     [],
   );
@@ -175,7 +178,7 @@ export function BrowseQuizzes({
     if (l) params.set('lang', l);
     if (s !== DEFAULT_SORT) params.set('sort', s);
     const qs = params.toString();
-    window.history.pushState(null, '', qs ? `/quizzes?${qs}` : '/quizzes');
+    window.history.pushState(null, '', qs ? `${BASE_PATH}/quizzes?${qs}` : `${BASE_PATH}/quizzes`);
   }, []);
 
   /** Fetch a filter combo's first page if we don't already have it cached. */
@@ -250,7 +253,7 @@ export function BrowseQuizzes({
     setSearching(true);
     debounceRef.current = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/quizzes/search?q=${encodeURIComponent(value.trim())}`);
+        const res = await fetch(`${BASE_PATH}/api/quizzes/search?q=${encodeURIComponent(value.trim())}`);
         if (!res.ok) throw new Error('Search failed');
         const data: { quizzes: QuizCardData[] } = await res.json();
         setResults(data.quizzes);

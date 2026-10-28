@@ -10,6 +10,7 @@ import { LANDING_COPY } from '@/lib/growth/bt-landing';
 import { BT_STRINGS_EN } from '@/lib/growth/bt-strings';
 import { isThemePage, themeCard, visibleThemes } from '@/lib/growth/bt-themes';
 import { getGroupPopularity, getPlayableGroups, getSongCount, getTodayPlayers, hasDbEnv, keepLastGoodCopyOnFailure, popularSix, readBudgetMs, settle, utcDay } from '@/lib/ux-v1/p6/hub-data';
+import { joinSiteUrl } from '@/lib/site/base-path';
 import { GENRE, IS_KPOP } from '@/lib/site/genre';
 import { SITE } from '@/lib/site/registry';
 import { isUxV12 } from '@/lib/ux-v12';
@@ -53,12 +54,13 @@ interface HubProps {
 const BREADCRUMB_JSONLD = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
-  // Run O1: /kpop-games is a kpop page; another site keeps the trail it had (Home > Blind Test, its own origin).
+  // Run O1: /kpop-games is a kpop page; another site keeps the trail it had (Home > Blind Test, its own home: joinSiteUrl gives
+  // https://fandomverse.org/anime without the trailing slash Next answers with a 308, and https://fandomverse.org/ on the hub).
   itemListElement: IS_KPOP ? [
     { '@type': 'ListItem', position: 1, name: 'K-pop games', item: 'https://kpopquiz.org/kpop-games' },
     { '@type': 'ListItem', position: 2, name: 'Blind test', item: 'https://kpopquiz.org/blindtest' },
   ] : [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: joinSiteUrl(SITE.url, '/') },
     { '@type': 'ListItem', position: 2, name: 'Blind Test' },
   ],
 };

@@ -54,7 +54,7 @@ describe('statuses', () => {
       expect(res.status).toBe(403);
       expect(await res.json()).toEqual({ error: 'origin' });
     }
-    expect((await handleBeacon(req(GOOD, { origin: 'https://otakuquiz.org' }), ctx())).status).toBe(204);
+    expect((await handleBeacon(req(GOOD, { origin: 'https://fandomverse.org/anime' }), ctx())).status).toBe(204);
     expect(calls).toHaveLength(1);
   });
   it('the Referer stands in for a missing Origin', async () => {

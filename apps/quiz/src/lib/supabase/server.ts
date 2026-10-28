@@ -1,14 +1,21 @@
 import { createServerClient as createClient } from '@supabase/ssr';
 import { createClient as createServiceClient } from '@supabase/supabase-js';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 
 export async function createServerClient() {
   const cookieStore = await cookies();
+  // FandomVerse (security review, 2026-10-28): on the hub and anime builds the session cookies carry Secure over https (the
+  // forwarded proto) and always on a production deployment, the rule of lib/auth/session-cookie.ts, written out here so the
+  // kpop module graph stays the one of before. kpop passes no cookie option, exactly as before, and reads no header here.
+  const world = (process.env.NEXT_PUBLIC_SITE_ID || 'kpop') !== 'kpop';
+  const proto = world ? (await headers()).get('x-forwarded-proto')?.split(',')[0]?.trim().toLowerCase() : undefined;
+  const secure = world && (process.env.VERCEL_ENV === 'production' || proto === 'https');
 
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      ...(secure ? { cookieOptions: { secure: true } } : {}),
       cookies: {
         getAll() {
           return cookieStore.getAll();

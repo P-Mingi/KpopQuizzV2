@@ -8,6 +8,9 @@ import { useIsClient } from './use-is-client';
 
 import type { MeResponse } from '@/lib/auth/use-me';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 const EVT = 'ux:me-refresh';
 let latest: MeResponse | null = null;
 let inflight: Promise<MeResponse> | null = null;
@@ -20,7 +23,7 @@ let inflight: Promise<MeResponse> | null = null;
 export function refreshUxMe(): void {
   clearMe();
   if (!inflight) {
-    inflight = fetch('/api/auth/me', { credentials: 'include' })
+    inflight = fetch(`${BASE_PATH}/api/auth/me`, { credentials: 'include' })
       .then((r) => (r.ok ? (r.json() as Promise<MeResponse>) : { profile: null }))
       .catch(() => ({ profile: null }) as MeResponse)
       .then((d) => { latest = d ?? { profile: null }; inflight = null; window.dispatchEvent(new Event(EVT)); return latest; });

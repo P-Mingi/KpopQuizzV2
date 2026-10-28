@@ -6,6 +6,9 @@ import { getLevelInfo } from '@/lib/constants';
 import { formatCount, getAvatarColors } from '@/lib/utils';
 import { SITE } from '@/lib/site/registry';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Types
 interface KPIs {
   total_plays: number;
@@ -250,7 +253,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
   const fetchData = useCallback(async (p: string) => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/admin/stats?period=${p}`);
+      const res = await fetch(`${BASE_PATH}/api/admin/stats?period=${p}`);
       if (res.ok) {
         const statsData = await res.json();
         setData(prev => ({ ...prev, ...statsData }));
@@ -430,7 +433,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
       return;
     }
     qotdSearchTimeout.current = setTimeout(async () => {
-      const res = await fetch(`/api/admin/search-quizzes?q=${encodeURIComponent(qotdSearch)}`);
+      const res = await fetch(`${BASE_PATH}/api/admin/search-quizzes?q=${encodeURIComponent(qotdSearch)}`);
       if (res.ok) {
         const results = await res.json();
         setQotdResults(results);
@@ -446,7 +449,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
       setModerationItems(prev => prev.filter(m => (reportId ? m.report_id !== reportId : m.quiz_id !== quizId)));
       setFadingItems(prev => { const next = new Set(prev); next.delete(itemKey); return next; });
     }, 300);
-    await fetch(`/api/admin/quiz/${quizId}/remove`, { method: 'POST' });
+    await fetch(`${BASE_PATH}/api/admin/quiz/${quizId}/remove`, { method: 'POST' });
   }
 
   async function handleDismissReport(reportId: string) {
@@ -455,7 +458,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
       setModerationItems(prev => prev.filter(m => m.report_id !== reportId));
       setFadingItems(prev => { const next = new Set(prev); next.delete(reportId); return next; });
     }, 300);
-    await fetch(`/api/admin/report/${reportId}/dismiss`, { method: 'POST' });
+    await fetch(`${BASE_PATH}/api/admin/report/${reportId}/dismiss`, { method: 'POST' });
   }
 
   async function handleSetQotd() {
@@ -464,7 +467,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
     tomorrow.setDate(tomorrow.getDate() + 1);
     const dateStr = tomorrow.toISOString().split('T')[0];
 
-    const res = await fetch('/api/admin/set-qotd', {
+    const res = await fetch(`${BASE_PATH}/api/admin/set-qotd`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ quiz_id: qotdSelected.id, date: dateStr }),
@@ -485,14 +488,14 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
   }
 
   async function handleBanUser(userId: string) {
-    await fetch(`/api/admin/user/${userId}/ban`, { method: 'POST' });
+    await fetch(`${BASE_PATH}/api/admin/user/${userId}/ban`, { method: 'POST' });
     const updater = (prev: UserItem[]) => prev.map(u => u.id === userId ? { ...u, banned_at: new Date().toISOString() } : u);
     setUsers(updater);
     setAllUsers(updater);
   }
 
   async function handleUnbanUser(userId: string) {
-    await fetch(`/api/admin/user/${userId}/unban`, { method: 'POST' });
+    await fetch(`${BASE_PATH}/api/admin/user/${userId}/unban`, { method: 'POST' });
     const updater = (prev: UserItem[]) => prev.map(u => u.id === userId ? { ...u, banned_at: null } : u);
     setUsers(updater);
     setAllUsers(updater);
@@ -565,7 +568,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
 
     setEditSaving(true);
     try {
-      const res = await fetch(`/api/admin/user/${editingUserId}/edit`, {
+      const res = await fetch(`${BASE_PATH}/api/admin/user/${editingUserId}/edit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -612,7 +615,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
     try {
       const params = new URLSearchParams({ offset: String(offset), sort });
       if (search) params.set('search', search);
-      const res = await fetch(`/api/admin/users?${params}`);
+      const res = await fetch(`${BASE_PATH}/api/admin/users?${params}`);
       if (res.ok) {
         const data = await res.json();
         if (append) {
@@ -646,7 +649,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
   }, [allUsersSearch, allUsersSort]);
 
   async function handleQuizAction(quizId: string, action: 'remove' | 'restore') {
-    await fetch(`/api/admin/quiz/${quizId}/${action}`, { method: 'POST' });
+    await fetch(`${BASE_PATH}/api/admin/quiz/${quizId}/${action}`, { method: 'POST' });
     setQuizzes(prev => prev.map(q => {
       if (q.id !== quizId) return q;
       return { ...q, status: action === 'remove' ? 'removed' : 'published', report_count: action === 'restore' ? 0 : q.report_count };
@@ -654,7 +657,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
   }
 
   async function handleQuizDifficulty(quizId: string, difficulty: string) {
-    await fetch(`/api/admin/quiz/${quizId}/difficulty`, {
+    await fetch(`${BASE_PATH}/api/admin/quiz/${quizId}/difficulty`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ difficulty }),
@@ -666,7 +669,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     const dateStr = tomorrow.toISOString().split('T')[0];
-    await fetch('/api/admin/set-qotd', {
+    await fetch(`${BASE_PATH}/api/admin/set-qotd`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ quiz_id: quizId, date: dateStr }),
@@ -676,7 +679,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
   async function loadMoreQuizzes() {
     try {
       const offset = quizzes.length;
-      const res = await fetch(`/api/admin/quizzes?offset=${offset}&limit=20&status=${quizFilter}&sort=${quizSort}`);
+      const res = await fetch(`${BASE_PATH}/api/admin/quizzes?offset=${offset}&limit=20&status=${quizFilter}&sort=${quizSort}`);
       if (!res.ok) return;
       const data = await res.json();
       const newQuizzes = data.quizzes ?? [];
@@ -696,7 +699,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
         sort: sortOverride ?? quizSort,
       });
       if (query) params.set('q', query);
-      const res = await fetch(`/api/admin/quizzes?${params}`);
+      const res = await fetch(`${BASE_PATH}/api/admin/quizzes?${params}`);
       if (!res.ok) return;
       const data = await res.json();
       setQuizzes(data.quizzes ?? []);
@@ -712,7 +715,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
   useEffect(() => {
     async function fetchPendingGroups() {
       try {
-        const res = await fetch('/api/admin/pending-groups');
+        const res = await fetch(`${BASE_PATH}/api/admin/pending-groups`);
         if (res.ok) {
           const json = await res.json();
           setPendingGroups(json.groups ?? []);
@@ -729,7 +732,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
 
   async function handleApproveGroup(groupId: number, updates?: Record<string, string>) {
     try {
-      const res = await fetch(`/api/admin/group/${groupId}/approve`, {
+      const res = await fetch(`${BASE_PATH}/api/admin/group/${groupId}/approve`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updates ?? {}),
@@ -748,7 +751,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
 
   async function handleMergeGroup(sourceId: number, targetId: number) {
     try {
-      const res = await fetch(`/api/admin/group/${sourceId}/merge`, {
+      const res = await fetch(`${BASE_PATH}/api/admin/group/${sourceId}/merge`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ target_group_id: targetId }),
@@ -770,7 +773,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
   async function handleDeleteGroup(groupId: number) {
     if (!confirm('Delete this group? This cannot be undone.')) return;
     try {
-      const res = await fetch(`/api/admin/group/${groupId}`, { method: 'DELETE' });
+      const res = await fetch(`${BASE_PATH}/api/admin/group/${groupId}`, { method: 'DELETE' });
       if (res.ok) {
         setPendingGroups(prev => prev.filter(g => g.id !== groupId));
         showToast('Group deleted', 'success');
@@ -810,7 +813,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
         <div className="flex items-center gap-3">
           {loading && <span className="text-xs text-tertiary">Loading...</span>}
           <a
-            href="/admin/dm"
+            href={`${BASE_PATH}/admin/dm`}
             className="px-3 py-1.5 rounded-md border border-default bg-primary text-sm text-primary hover:bg-elevated transition-colors"
           >
             Send DM
@@ -884,7 +887,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
             {data.top_quizzes.map((q, i) => (
               <div key={i} className="flex items-center justify-between py-2.5">
                 <div className="min-w-0">
-                  <a href={`/q/${q.slug}`} target="_blank" rel="noopener noreferrer" className="text-[13px] font-medium text-primary hover:underline truncate block">
+                  <a href={`${BASE_PATH}/q/${q.slug}`} target="_blank" rel="noopener noreferrer" className="text-[13px] font-medium text-primary hover:underline truncate block">
                     {q.title}
                   </a>
                   <p className="text-[11px] text-secondary">{q.group_name} &middot; {q.creator_username}</p>
@@ -951,7 +954,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
               </div>
               <div className="flex gap-2 flex-shrink-0 ml-3">
                 <a
-                  href={`/q/${m.quiz_slug}`}
+                  href={`${BASE_PATH}/q/${m.quiz_slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3 py-1 rounded-full text-[12px] font-medium border text-type-classic-text"
@@ -1184,7 +1187,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
               <p className="text-[13px] font-medium text-primary">Today: {qotdCurrent.title}</p>
               <p className="text-[11px] text-secondary">by {qotdCurrent.username}</p>
             </div>
-            <a href={`/q/${qotdCurrent.slug}`} target="_blank" rel="noopener noreferrer" className="text-[12px] text-type-classic-text hover:underline">
+            <a href={`${BASE_PATH}/q/${qotdCurrent.slug}`} target="_blank" rel="noopener noreferrer" className="text-[12px] text-type-classic-text hover:underline">
               View
             </a>
           </div>
@@ -1513,7 +1516,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
               {filteredQuizzes.map((q) => (
                 <tr key={q.id} className="border-b text-[13px]" style={{ borderColor: 'var(--border)' }}>
                   <td className="py-2.5 pr-3">
-                    <a href={`/q/${q.slug}`} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
+                    <a href={`${BASE_PATH}/q/${q.slug}`} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
                       {q.title}
                     </a>
                   </td>
@@ -1545,7 +1548,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                   <td className="py-2.5 text-right">
                     <div className="flex gap-1 justify-end">
                       <a
-                        href={`/q/${q.slug}`}
+                        href={`${BASE_PATH}/q/${q.slug}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="px-2 py-0.5 rounded-full text-[11px] font-medium border border-default text-secondary hover:border-default"
@@ -1553,7 +1556,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps): React.Reac
                         View
                       </a>
                       <a
-                        href={`/admin/quiz/${q.id}/edit`}
+                        href={`${BASE_PATH}/admin/quiz/${q.id}/edit`}
                         className="px-2 py-0.5 rounded-full text-[11px] font-medium border border-accent text-accent hover:bg-accent-bg transition-colors"
                       >
                         Edit

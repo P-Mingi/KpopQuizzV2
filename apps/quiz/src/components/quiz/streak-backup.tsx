@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 
 import { guestStreak, shouldOfferBackup, markBackupOffered } from '@/lib/guest-streak';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // W3b PART 2 moment 2 - STREAK BACKUP.
 //
 // One calm, TRUE line, at streak 3, 7 and 14 only, once per milestone, dismissible,
@@ -36,7 +39,7 @@ export function StreakBackup({ signedIn }: { signedIn: boolean }): React.ReactEl
       <div className="streak-backup-actions">
         <a
           className="streak-backup-cta"
-          href={`/login?next=${encodeURIComponent(typeof window === 'undefined' ? '/' : window.location.pathname)}`}
+          href={`${BASE_PATH}/login?next=${encodeURIComponent(typeof window === 'undefined' ? '/' : (BASE_PATH && window.location.pathname.startsWith(BASE_PATH) ? window.location.pathname.slice(BASE_PATH.length) || '/' : window.location.pathname))}`}
         >
           Save it to an account
         </a>

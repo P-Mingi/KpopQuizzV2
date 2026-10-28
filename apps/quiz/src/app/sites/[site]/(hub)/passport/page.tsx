@@ -1,4 +1,4 @@
-// Run O1, lot (d), row H-3 (rule 18): /passport of fanquiz.org renders nothing of its own. The passport of a fan is the page
+// Run O1, lot (d), row H-3 (rule 18): /passport of fandomverse.org renders nothing of its own. The passport of a fan is the page
 // of the site they play on, so a signed in fan is sent to /me on their home site (the one used last, else the first
 // joined, else kpop); a signed out visitor is sent to the root, where the sign-in lives (lib/site/hub/redirects.ts).
 import { redirect } from 'next/navigation';

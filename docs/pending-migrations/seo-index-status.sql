@@ -8,7 +8,7 @@
 --                     our reason when the page is not indexed, and the next action of the loop
 --                     (enrich, relink, resubmit) with its date. A /q/ page keeps its quiz_id.
 --   seo_index_checks  one row per inspection (append only), for the weekly table and trends.
--- Kpop and anime: site_id is 'kpop' (kpopquiz.org) or 'anime' (otakuquiz.org), the same values
+-- Kpop and anime: site_id is 'kpop' (kpopquiz.org) or 'anime' (fandomverse.org/anime), the same values
 -- as the site_id of Run O1. Quota: 2,000 inspections a day per property, so the job reads the
 -- rows never inspected first, then the oldest.
 -- Access: RLS on with no policy, and no grant to anon or authenticated: service role only. These

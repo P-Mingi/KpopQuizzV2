@@ -8,6 +8,10 @@
 
 import { SITE } from '@/lib/site/registry';
 
+// The file of the story image, named for the site of the build by its brand (kpopquiz-story.png, otakuquiz-story.png): the
+// same name as storyFileName('story') of components/ux-v1/story-image.ts, written here so this lazy chunk imports nothing new.
+const STORY_FILE = `${SITE.brand.name.toLowerCase()}-story.png`;
+
 export interface StoryInput {
   photo: string | null;
   groupName: string;
@@ -106,7 +110,7 @@ export async function renderStory(input: StoryInput): Promise<Blob | null> {
   }
   ctx.font = `600 36px ${font}`;
   ctx.fillStyle = 'rgba(255,255,255,.82)';
-  ctx.fillText(SITE.domain, 72, H - 110);
+  ctx.fillText(SITE.url.replace(/^https?:\/\//, ''), 72, H - 110);
 
   try {
     return await new Promise<Blob | null>((resolve) => canvas.toBlob((b) => resolve(b), 'image/png'));
@@ -117,7 +121,7 @@ export async function renderStory(input: StoryInput): Promise<Blob | null> {
 
 export async function storyFile(input: StoryInput): Promise<File | null> {
   const blob = await renderStory(input);
-  return blob ? new File([blob], `${SITE.domain.split('.')[0]}-story.png`, { type: 'image/png' }) : null;
+  return blob ? new File([blob], STORY_FILE, { type: 'image/png' }) : null;
 }
 
 export async function downloadStory(input: StoryInput): Promise<boolean> {
@@ -126,7 +130,7 @@ export async function downloadStory(input: StoryInput): Promise<boolean> {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `${SITE.domain.split('.')[0]}-story.png`;
+  a.download = STORY_FILE;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
   return true;

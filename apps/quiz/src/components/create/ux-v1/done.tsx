@@ -12,6 +12,9 @@ import { isUxV12 } from '@/lib/ux-v12';
 
 import type { CreateFunnel } from '@/lib/ux-v1/p5/use-create-funnel';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Done state (prototype #pub-done): the mascot, "It's live" and its line, the live
 // URL + Copy (the EXISTS tracked share link, POST /api/share/generate through
 // lib/share copyShareLink), Open your quiz, Post a challenge (P8's community
@@ -31,7 +34,7 @@ export function P5Done({ f, onAnother }: { f: CreateFunnel; onAnother: () => voi
   const [kit, setKit] = useState(false);
   const p = f.published;
   if (!p) return null;
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://kpopquiz.org';
+  const origin = typeof window !== 'undefined' ? (BASE_PATH ? window.location.origin + BASE_PATH : window.location.origin) : 'https://kpopquiz.org';
   const url = `${origin}/q/${p.slug}`;
   const nudge = creatorNudge(p.creator_stats);
 
@@ -52,7 +55,7 @@ export function P5Done({ f, onAnother }: { f: CreateFunnel; onAnother: () => voi
         <button type="button" className="ux-btn ux-btn-quiet ux-btn-sm" onClick={() => { void copy(); }}>{copied ? 'Copied' : 'Copy'}</button>
       </div>
       <div className="p5-done-a">
-        <a className="ux-btn ux-btn-primary ux-btn-lg" href={`/q/${p.slug}`} target="_blank" rel="noopener noreferrer">
+        <a className="ux-btn ux-btn-primary ux-btn-lg" href={`${BASE_PATH}/q/${p.slug}`} target="_blank" rel="noopener noreferrer">
           Open your quiz<span className="ux-sr"> (opens in a new tab)</span>
         </a>
         {isUxV12() ? (
@@ -63,7 +66,7 @@ export function P5Done({ f, onAnother }: { f: CreateFunnel; onAnother: () => voi
             {kit ? <ShareKit open onClose={() => setKit(false)} quizId={p.id} slug={p.slug} fallbackTitle={f.data.title.trim()} /> : null}
           </>
         ) : (
-          <a className="ux-btn ux-btn-ghost ux-btn-lg" href={`/community?compose=challenge&quiz=${encodeURIComponent(p.slug)}`}>
+          <a className="ux-btn ux-btn-ghost ux-btn-lg" href={`${BASE_PATH}/community?compose=challenge&quiz=${encodeURIComponent(p.slug)}`}>
             Post a challenge
           </a>
         )}

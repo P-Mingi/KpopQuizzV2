@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // K7 - opt-in "Brag in the Discord" button. Shown only on strong moments
 // (good quiz result, battle WIN, L2 level-up overlay). Hidden entirely when
 // the server-side kill switch (DISCORD_FLEX_WEBHOOK_URL unset) returns 503.
@@ -39,7 +42,7 @@ export function BragButton({ payload, compact = false }: { payload: BragPayload;
 
   useEffect(() => {
     let cancelled = false;
-    const url = '/api/discord/flex/status' + (key ? '?key=' + encodeURIComponent(key) : '');
+    const url = `${BASE_PATH}/api/discord/flex/status` + (key ? '?key=' + encodeURIComponent(key) : '');
     fetch(url)
       .then((r) => r.json())
       .then((d: { enabled: boolean; already_flexed?: boolean }) => {
@@ -55,7 +58,7 @@ export function BragButton({ payload, compact = false }: { payload: BragPayload;
     if (busy || done) return;
     setBusy(true);
     try {
-      const res = await fetch('/api/discord/flex', {
+      const res = await fetch(`${BASE_PATH}/api/discord/flex`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...payload, displayName: name.trim() || undefined }),
       });

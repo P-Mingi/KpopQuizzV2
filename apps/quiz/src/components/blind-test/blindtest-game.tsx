@@ -14,6 +14,9 @@ import { StreakBackup } from '@/components/quiz/streak-backup';
 import { useAudioPlayer } from './use-audio-player';
 import { useBtTracking } from './use-bt-tracking';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // ============================================
 // Solo V1 blindtest: 10 songs, 10s each, Deezer preview audio, 4 choices.
 // One mode only. Playlist = All / a generation / a group. No hint, no XP/DB.
@@ -218,7 +221,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
 
   const loadBoard = useCallback(async () => {
     try {
-      const res = await fetch('/api/daily/blindtest/leaderboard');
+      const res = await fetch(`${BASE_PATH}/api/daily/blindtest/leaderboard`);
       if (!res.ok) return;
       const d = (await res.json()) as { entries?: LbEntry[]; user_entry?: LbEntry | null };
       setBoard({ entries: d.entries ?? [], userEntry: d.user_entry ?? null });
@@ -243,7 +246,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
       const totalTimeMs = answers.reduce((s, a) => s + a.time_ms, 0);
       void (async () => {
         try {
-          const res = await fetch('/api/daily/blindtest/submit', {
+          const res = await fetch(`${BASE_PATH}/api/daily/blindtest/submit`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ score, time_ms: totalTimeMs }),
@@ -296,7 +299,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
       setPlaylistLabel(selectedGroups.map((s) => groups.find((g) => g.slug === s)?.name ?? s).join(' + '));
     }
     try {
-      const res = await fetch('/api/blind-test/generate', {
+      const res = await fetch(`${BASE_PATH}/api/blind-test/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -325,7 +328,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     setDailyError(false);
     setPhase('loading');
     try {
-      const res = await fetch('/api/daily/blindtest');
+      const res = await fetch(`${BASE_PATH}/api/daily/blindtest`);
       if (!res.ok) { setDailyError(true); setPhase('setup'); return; }
       const data = (await res.json()) as { questions?: Question[] };
       if (!data.questions?.length) { setDailyError(true); setPhase('setup'); return; }
@@ -357,7 +360,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     setQuestions([]);
     setError(null);
     setPhase('setup');
-    if (typeof window !== 'undefined') window.history.replaceState(null, '', '/blindtest');
+    if (typeof window !== 'undefined') window.history.replaceState(null, '', `${BASE_PATH}/blindtest`);
   }, []);
 
   // N4 - detect daily mode on mount (client-only so /blindtest stays static and

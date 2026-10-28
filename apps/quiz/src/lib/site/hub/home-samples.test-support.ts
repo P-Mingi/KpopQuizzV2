@@ -8,7 +8,7 @@ import type {
 
 type Site = 'kpop' | 'anime';
 const NAME: Record<Site, string> = { kpop: 'KpopQuiz', anime: 'OtakuQuiz' };
-const ORIGIN: Record<Site, string> = { kpop: 'https://kpopquiz.org', anime: 'https://otakuquiz.org' };
+const ORIGIN: Record<Site, string> = { kpop: 'https://kpopquiz.org', anime: 'https://fandomverse.org/anime' };
 
 export function quizCard(site: Site, tile: string, group: string, title: string, meta: string, plays: string, slug: string): HubQuizCard {
   const [level = ''] = meta.split(' · ');

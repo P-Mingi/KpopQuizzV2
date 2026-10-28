@@ -14,8 +14,8 @@ import { NETWORK, REGISTRY } from '@/lib/site/registry';
 
 import { sendDeletionNotice } from './notice';
 import {
-  confirmLink, copyKeysFor, handleHook, kindForAction, nextFromRedirect, parseOrigins, renderEmail, renderKpop, siteFromRedirect,
-  verifyLink, verifyWebhook,
+  confirmLink, copyKeysFor, handleHook, kindForAction, nextFromRedirect, originFor, parseOrigins, renderEmail, renderKpop, siteBaseFor,
+  siteFromRedirect, verifyLink, verifyWebhook,
 } from './render';
 
 import type { HookDeps, MailBrand, MailKind, MailSite, OutgoingMail } from './render';
@@ -140,10 +140,10 @@ describe('anime and hub renderers', () => {
   }
 
   it('the hub deletion notice is neutral: a date and a cancel link, no name and no list of data', () => {
-    const out = renderEmail({ kind: 'deletionScheduled', brand: BRANDS.hub, copy: HUB_COPY, link: 'https://fanquiz.org/settings', date: '2026-10-28' });
-    expect(out.subject).toBe('Your FanQuiz passport will be deleted');
+    const out = renderEmail({ kind: 'deletionScheduled', brand: BRANDS.hub, copy: HUB_COPY, link: 'https://fandomverse.org/settings', date: '2026-10-28' });
+    expect(out.subject).toBe('Your FandomVerse passport will be deleted');
     expect(out.html).toContain('2026-10-28');
-    expect(out.html).toContain('href="https://fanquiz.org/settings"');
+    expect(out.html).toContain('href="https://fandomverse.org/settings"');
     expect(out.html).toContain('Cancel the deletion');
     expect(() => renderEmail({ kind: 'deletionScheduled', brand: BRANDS.anime, copy: ANIME_COPY, link: 'x', date: 'd' })).toThrow();
   });
@@ -179,7 +179,7 @@ describe('copy keys', () => {
   it('writes no brand or domain: the placeholders are used', () => {
     for (const copy of [ANIME_COPY, HUB_COPY]) {
       const all = JSON.stringify(copy);
-      for (const word of ['OtakuQuiz', 'FanQuiz', 'otakuquiz.org', 'fanquiz.org']) expect(all).not.toContain(word);
+      for (const word of ['OtakuQuiz', 'FandomVerse', 'fandomverse.org/anime', 'fandomverse.org']) expect(all).not.toContain(word);
     }
   });
 });
@@ -210,11 +210,14 @@ describe('the Edge Function files follow the app', () => {
 
 describe('redirect and links', () => {
   it('the site comes from the origin of the redirect URL; anything unknown is kpop', () => {
-    expect(siteFromRedirect('https://otakuquiz.org/auth/confirm?next=%2Fme', BRANDS)).toBe('anime');
-    expect(siteFromRedirect('https://fanquiz.org/auth/confirm', BRANDS)).toBe('hub');
+    expect(siteFromRedirect('https://fandomverse.org/anime/auth/confirm?next=%2Fme', BRANDS)).toBe('anime');
+    expect(siteFromRedirect('https://fandomverse.org/auth/confirm', BRANDS)).toBe('hub');
     expect(siteFromRedirect('https://kpopquiz.org/auth/callback', BRANDS)).toBe('kpop');
-    expect(siteFromRedirect('https://evil.example/otakuquiz.org', BRANDS)).toBe('kpop');
-    expect(siteFromRedirect('https://otakuquiz.org.evil.example/', BRANDS)).toBe('kpop');
+    expect(siteFromRedirect('https://evil.example/fandomverse.org/anime', BRANDS)).toBe('kpop');
+    expect(siteFromRedirect('https://fandomverse.org.evil.example/anime/auth/confirm', BRANDS)).toBe('kpop');
+    // OtakuQuiz is the folder /anime of fandomverse.org (2026-10-28): a path that only starts with the same letters is the hub's.
+    expect(siteFromRedirect('https://fandomverse.org/animex/auth/confirm', BRANDS)).toBe('hub');
+    expect(siteFromRedirect('https://fandomverse.org/anime', BRANDS)).toBe('anime');
     expect(siteFromRedirect(null, BRANDS)).toBe('kpop');
     expect(siteFromRedirect('not a url', BRANDS)).toBe('kpop');
   });
@@ -226,14 +229,55 @@ describe('redirect and links', () => {
     expect(siteFromRedirect('http://anime.localhost:3001/auth/confirm', BRANDS)).toBe('kpop');
   });
 
+  // Review, 2026-10-28: on a staging project the hub and anime share one origin, as on fandomverse.org. Both are listed with that bare
+  // origin (SEND_EMAIL_ORIGINS, like NEXT_PUBLIC_NET_ORIGINS); anime's url is that origin with the folder of its brand url (/anime).
+  // The longest url wins, so a hub mail keeps the hub's brand and colours instead of falling to anime (listed first) or kpop.
+  it('staging: the hub and anime on one origin each get their own brand, the longest url first, whatever the order of the list', () => {
+    for (const raw of [
+      'anime=https://fv-preview.example,hub=https://fv-preview.example,kpop=https://kpop-preview.example',
+      'kpop=https://kpop-preview.example hub=https://fv-preview.example anime=https://fv-preview.example',
+    ]) {
+      const o = parseOrigins(raw);
+      for (const href of ['https://fv-preview.example/auth/confirm', 'https://fv-preview.example/', 'https://fv-preview.example/passport?x=1', 'https://fv-preview.example/animex/auth/confirm']) {
+        expect(siteFromRedirect(href, BRANDS, o), `${raw} ${href}`).toBe('hub');
+      }
+      for (const href of ['https://fv-preview.example/anime/auth/confirm?next=%2Fme', 'https://fv-preview.example/anime', 'https://fv-preview.example/anime/series/x']) {
+        expect(siteFromRedirect(href, BRANDS, o), `${raw} ${href}`).toBe('anime');
+      }
+      expect(siteFromRedirect('https://kpop-preview.example/auth/callback', BRANDS, o)).toBe('kpop');
+      // production urls keep their production brand when staging origins are given
+      expect(siteFromRedirect('https://fandomverse.org/auth/confirm', BRANDS, o)).toBe('hub');
+      expect(siteFromRedirect('https://fandomverse.org/anime/auth/confirm', BRANDS, o)).toBe('anime');
+      // look-alikes are not the staging origin
+      for (const href of ['https://fv-preview.example.evil.example/anime/auth/confirm', 'https://evil.example/fv-preview.example/anime', 'http://fv-preview.example/anime']) {
+        expect(siteFromRedirect(href, BRANDS, o), href).toBe('kpop');
+      }
+    }
+  });
+
+  it('the url a mail links to: the brand url in production, the staging origin with the brand folder on staging', () => {
+    expect(siteBaseFor('anime', BRANDS)).toBe('https://fandomverse.org/anime');
+    expect(siteBaseFor('hub', BRANDS)).toBe('https://fandomverse.org');
+    expect(siteBaseFor('kpop', BRANDS)).toBe('https://kpopquiz.org');
+    const o = parseOrigins('anime=https://fv-preview.example,hub=https://fv-preview.example');
+    expect(originFor('anime', BRANDS, o)).toBe('https://fv-preview.example/anime');
+    expect(originFor('hub', BRANDS, o)).toBe('https://fv-preview.example');
+    expect(originFor('kpop', BRANDS, o)).toBe('https://kpopquiz.org');
+    expect(originFor('anime', BRANDS)).toBe('https://fandomverse.org/anime');
+    expect(originFor('hub', BRANDS)).toBe('https://fandomverse.org');
+  });
+
   it('the confirm link goes to /auth/confirm with the hashed token, the OTP type and a safe next', () => {
-    expect(confirmLink('https://otakuquiz.org', 'h h', 'magiclink', 'https://otakuquiz.org/auth/confirm?next=%2Fquizzes'))
-      .toBe('https://otakuquiz.org/auth/confirm?token_hash=h%20h&type=magiclink&next=%2Fquizzes');
-    expect(confirmLink('https://fanquiz.org', 'h', 'signup', null)).toBe('https://fanquiz.org/auth/confirm?token_hash=h&type=signup&next=%2F');
-    expect(confirmLink('https://fanquiz.org', 'h', 'recovery', null)).toBeNull();
-    expect(nextFromRedirect('https://otakuquiz.org/auth/confirm?next=//evil.example')).toBe('/');
-    expect(nextFromRedirect('https://otakuquiz.org/auth/confirm?next=%2Fa%5Cb')).toBe('/');
-    expect(nextFromRedirect('https://otakuquiz.org/series/x?y=1')).toBe('/series/x?y=1');
+    expect(confirmLink('https://fandomverse.org/anime', 'h h', 'magiclink', 'https://fandomverse.org/anime/auth/confirm?next=%2Fquizzes'))
+      .toBe('https://fandomverse.org/anime/auth/confirm?token_hash=h%20h&type=magiclink&next=%2Fquizzes');
+    expect(confirmLink('https://fandomverse.org', 'h', 'signup', null)).toBe('https://fandomverse.org/auth/confirm?token_hash=h&type=signup&next=%2F');
+    expect(confirmLink('https://fandomverse.org', 'h', 'recovery', null)).toBeNull();
+    expect(nextFromRedirect('https://fandomverse.org/anime/auth/confirm?next=//evil.example')).toBe('/');
+    expect(nextFromRedirect('https://fandomverse.org/anime/auth/confirm?next=%2Fa%5Cb')).toBe('/');
+    expect(nextFromRedirect('https://fandomverse.org/anime/series/x?y=1', 'https://fandomverse.org/anime')).toBe('/series/x?y=1');
+    expect(nextFromRedirect('https://kpopquiz.org/series/x?y=1')).toBe('/series/x?y=1');
+    expect(confirmLink('https://fandomverse.org/anime', 'h', 'magiclink', 'https://fandomverse.org/anime/auth/confirm'))
+      .toBe('https://fandomverse.org/anime/auth/confirm?token_hash=h&type=magiclink&next=%2F');
   });
 
   it('kindForAction maps the hook actions', () => {
@@ -299,30 +343,56 @@ describe('the hook, end to end', () => {
   });
 
   it('anime: a branded magic link to its own /auth/confirm', async () => {
-    const body = payload('magiclink', 'https://otakuquiz.org/auth/confirm?next=%2Fseries');
+    const body = payload('magiclink', 'https://fandomverse.org/anime/auth/confirm?next=%2Fseries');
     const sent: OutgoingMail[] = [];
     const res = await handleHook('POST', sign(body), body, deps(sent));
     expect(res.status).toBe(200);
     expect(sent).toHaveLength(1);
-    expect(sent[0]!.from).toBe('OtakuQuiz <no-reply@otakuquiz.org>');
+    expect(sent[0]!.from).toBe('OtakuQuiz <no-reply@fandomverse.org>');
     expect(sent[0]!.subject).toBe('Your OtakuQuiz link to sign in');
-    expect(sent[0]!.html).toContain('href="https://otakuquiz.org/auth/confirm?token_hash=hash-1&amp;type=magiclink&amp;next=%2Fseries"');
+    expect(sent[0]!.html).toContain('href="https://fandomverse.org/anime/auth/confirm?token_hash=hash-1&amp;type=magiclink&amp;next=%2Fseries"');
     expect(sent[0]!.html + sent[0]!.text).not.toMatch(/k-?pop|supabase/i);
   });
 
   it('hub: signup and reauth; the code is shown, no link', async () => {
     const sent: OutgoingMail[] = [];
-    const a = payload('signup', 'https://fanquiz.org/auth/confirm');
+    const a = payload('signup', 'https://fandomverse.org/auth/confirm');
     expect((await handleHook('POST', sign(a), a, deps(sent))).status).toBe(200);
-    expect(sent[0]!.subject).toBe('Confirm your FanQuiz account');
-    expect(sent[0]!.html).toContain('https://fanquiz.org/auth/confirm?token_hash=hash-1&amp;type=signup');
-    const b = payload('reauthentication', 'https://fanquiz.org/');
+    expect(sent[0]!.subject).toBe('Confirm your FandomVerse account');
+    expect(sent[0]!.html).toContain('https://fandomverse.org/auth/confirm?token_hash=hash-1&amp;type=signup');
+    const b = payload('reauthentication', 'https://fandomverse.org/');
     expect((await handleHook('POST', sign(b), b, deps(sent))).status).toBe(200);
     expect(sent[1]!.html).toContain('123456');
   });
 
+  // Review, 2026-10-28: the hub's mails carry the hub's brand and colours in production and on a staging origin shared with anime.
+  it('hub and anime colours: production and a staging origin shared by the two', async () => {
+    const STAGING = parseOrigins('anime=https://fv-preview.example,hub=https://fv-preview.example');
+    const cases = [
+      { origins: {}, redirect: 'https://fandomverse.org/auth/confirm?next=%2Fpassport', site: 'hub', base: 'https://fandomverse.org' },
+      { origins: STAGING, redirect: 'https://fv-preview.example/auth/confirm?next=%2Fpassport', site: 'hub', base: 'https://fv-preview.example' },
+      { origins: {}, redirect: 'https://fandomverse.org/anime/auth/confirm?next=%2Fseries', site: 'anime', base: 'https://fandomverse.org/anime' },
+      { origins: STAGING, redirect: 'https://fv-preview.example/anime/auth/confirm?next=%2Fseries', site: 'anime', base: 'https://fv-preview.example/anime' },
+    ] as const;
+    for (const c of cases) {
+      const body = payload('magiclink', c.redirect);
+      const sent: OutgoingMail[] = [];
+      expect((await handleHook('POST', sign(body), body, deps(sent, { origins: c.origins }))).status, c.redirect).toBe(200);
+      const brand = BRANDS[c.site];
+      const other = BRANDS[c.site === 'hub' ? 'anime' : 'hub'];
+      expect(sent[0]!.from).toBe(`${brand.name} <no-reply@fandomverse.org>`);
+      expect(sent[0]!.html, c.redirect).toContain(`color:${brand.accent}"`);
+      expect(sent[0]!.html, c.redirect).toContain(`background:${brand.accent};`);
+      expect(sent[0]!.html, c.redirect).not.toContain(other.accent);
+      expect(sent[0]!.html, c.redirect).not.toContain(BRANDS.kpop.accent);
+      const next = c.site === 'hub' ? '%2Fpassport' : '%2Fseries';
+      expect(sent[0]!.html, c.redirect).toContain(`href="${c.base}/auth/confirm?token_hash=hash-1&amp;type=magiclink&amp;next=${next}"`);
+    }
+    expect(BRANDS.hub.accent).not.toBe(BRANDS.anime.accent);
+  });
+
   it('anime email change with two tokens goes to both addresses, each with its own token', async () => {
-    const body = payload('email_change', 'https://otakuquiz.org/auth/confirm', { token_hash_new: 'hash-new' }, { new_email: 'new@example.test' });
+    const body = payload('email_change', 'https://fandomverse.org/anime/auth/confirm', { token_hash_new: 'hash-new' }, { new_email: 'new@example.test' });
     const sent: OutgoingMail[] = [];
     expect((await handleHook('POST', sign(body), body, deps(sent))).status).toBe(200);
     expect(sent.map((m) => m.to)).toEqual(['fan@example.test', 'new@example.test']);
@@ -332,7 +402,7 @@ describe('the hook, end to end', () => {
 
   it('recovery and invite are not sent by anime or hub (400), nothing is sent', async () => {
     for (const action of ['recovery', 'invite']) {
-      const body = payload(action, 'https://otakuquiz.org/auth/confirm');
+      const body = payload(action, 'https://fandomverse.org/anime/auth/confirm');
       const sent: OutgoingMail[] = [];
       expect((await handleHook('POST', sign(body), body, deps(sent))).status).toBe(400);
       expect(sent).toEqual([]);
@@ -340,7 +410,7 @@ describe('the hook, end to end', () => {
   });
 
   it('refuses a wrong method, a missing, wrong or stale signature, and a malformed body', async () => {
-    const body = payload('magiclink', 'https://otakuquiz.org/auth/confirm');
+    const body = payload('magiclink', 'https://fandomverse.org/anime/auth/confirm');
     const sent: OutgoingMail[] = [];
     expect((await handleHook('GET', sign(body), body, deps(sent))).status).toBe(405);
     expect((await handleHook('POST', { id: null, timestamp: null, signature: null }, body, deps(sent))).status).toBe(401);
@@ -356,7 +426,7 @@ describe('the hook, end to end', () => {
   });
 
   it('a failed send is 502 and the answer holds no address or link', async () => {
-    const body = payload('magiclink', 'https://otakuquiz.org/auth/confirm');
+    const body = payload('magiclink', 'https://fandomverse.org/anime/auth/confirm');
     const res = await handleHook('POST', sign(body), body, deps([], {}, false));
     expect(res.status).toBe(502);
     expect(JSON.stringify(res.body)).not.toMatch(/example\.test|hash-1|auth\/confirm/);
@@ -376,10 +446,10 @@ describe('the deletion notice (hub route)', () => {
     expect(calls[0]!.url).toBe('https://api.resend.com/emails');
     const sent = JSON.parse(String(calls[0]!.init.body)) as { to: string[]; subject: string; html: string; from: string };
     expect(sent.to).toEqual(['fan@example.test']);
-    expect(sent.subject).toBe('Your FanQuiz passport will be deleted');
+    expect(sent.subject).toBe('Your FandomVerse passport will be deleted');
     expect(sent.html).toContain('2026-10-28');
-    expect(sent.html).toContain('https://fanquiz.org/settings');
-    expect(sent.from).toBe('FanQuiz <no-reply@fanquiz.org>');
+    expect(sent.html).toContain('https://fandomverse.org/settings');
+    expect(sent.from).toBe('FandomVerse <no-reply@fandomverse.org>');
     expect(await sendDeletionNotice('fan@example.test', '2026-10-28T12:00:00.000Z', {}, fetchImpl)).toBe(false);
     expect(calls).toHaveLength(1);
     const boom = (async () => { throw new Error('network'); }) as unknown as typeof fetch;

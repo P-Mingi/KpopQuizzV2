@@ -15,6 +15,9 @@ import { relativeTime } from '@/lib/ux-v1/p4/format';
 
 import type { LikeTarget, P4CommentExtras, P4CommentResume, P4Reply } from '@/lib/ux-v1/p4/comments';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 interface CommentRow {
   id: string;
   username: string;
@@ -160,7 +163,7 @@ export function P4Comments({ quizId, isClues, count, chip, pending }: {
   useEffect(() => {
     if (!open || server !== null) return;
     let cancelled = false;
-    fetch(`/api/quiz/${quizId}/comment?limit=20`)
+    fetch(`${BASE_PATH}/api/quiz/${quizId}/comment?limit=20`)
       .then((r) => (r.ok ? (r.json() as Promise<{ comments: CommentRow[] }>) : { comments: [] }))
       .then((d) => { if (!cancelled) setServer(d.comments ?? []); })
       .catch(() => { if (!cancelled) setServer([]); });
@@ -175,7 +178,7 @@ export function P4Comments({ quizId, isClues, count, chip, pending }: {
   useEffect(() => {
     if (serverIds === null) return;
     let cancelled = false;
-    fetch(`/api/ux-v1/p4/comments?quiz=${encodeURIComponent(quizId)}&ids=${serverIds}`, { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/ux-v1/p4/comments?quiz=${encodeURIComponent(quizId)}&ids=${serverIds}`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((d: unknown) => { if (!cancelled) setExtras(parseExtras(d)); })
       .catch(() => { if (!cancelled) setExtras(NOT_LIVE); });
@@ -203,7 +206,7 @@ export function P4Comments({ quizId, isClues, count, chip, pending }: {
     if (me && !me.profile) { askSignIn({ kind: 'comment', text: t }); return; }
     setBusy(true);
     try {
-      const res = await fetch(`/api/quiz/${quizId}/comment`, {
+      const res = await fetch(`${BASE_PATH}/api/quiz/${quizId}/comment`, {
         method: 'POST',
         headers: JSON_HEADERS,
         body: JSON.stringify({ content: t }),
@@ -239,7 +242,7 @@ export function P4Comments({ quizId, isClues, count, chip, pending }: {
     heartBusy.current.add(key);
     setHearts((h) => ({ ...h, [key]: next }));
     try {
-      const res = await fetch('/api/ux-v1/p4/comments/like', {
+      const res = await fetch(`${BASE_PATH}/api/ux-v1/p4/comments/like`, {
         method: 'POST',
         headers: JSON_HEADERS,
         body: JSON.stringify({ target, id, action: next.liked ? 'like' : 'unlike' }),
@@ -281,7 +284,7 @@ export function P4Comments({ quizId, isClues, count, chip, pending }: {
     if (me && !me.profile) { askSignIn({ kind: 'reply', text: t, replyTo: parentId }); return; }
     setReplyBusy(true);
     try {
-      const res = await fetch('/api/ux-v1/p4/comments/reply', {
+      const res = await fetch(`${BASE_PATH}/api/ux-v1/p4/comments/reply`, {
         method: 'POST',
         headers: JSON_HEADERS,
         body: JSON.stringify({ commentId: parentId, content: t }),

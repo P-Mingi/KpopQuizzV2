@@ -14,6 +14,9 @@ import { timeAgo } from '@/lib/ux-v1/p8/format';
 import type { DraftInput, DraftKind, DraftStatus, EditorialAccount, EditorialDraft } from '@/lib/editorial/types';
 import type { P8Group } from '@/lib/ux-v1/p8/types';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // The editorial review queue (client). Admin chrome like the other admin pages
 // (the aiv-* classes of globals.css); the preview is the real feed card and the
 // real post view, fed the post this draft becomes (lib/editorial/preview.ts).
@@ -102,7 +105,7 @@ function when(iso: string | null): string {
 
 async function send(url: string, method: 'POST' | 'PATCH', body: unknown): Promise<{ ok: boolean; data: Record<string, unknown> }> {
   try {
-    const r = await fetch(url, { method, credentials: 'include', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+    const r = await fetch(BASE_PATH ? BASE_PATH + url : url, { method, credentials: 'include', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
     return { ok: r.ok, data: (await r.json().catch(() => ({}))) as Record<string, unknown> };
   } catch { return { ok: false, data: {} }; }
 }
@@ -380,7 +383,7 @@ export function EditorialAdmin({ live, failed, drafts, accounts, groups, now }: 
                             {d.status === 'draft' || d.status === 'approved' ? (
                               <button type="button" className="aiv-filter-tab" style={{ color: '#dc2626' }} disabled={busy} onClick={() => { void act(d, 'reject'); }}>Reject</button>
                             ) : null}
-                            {href ? <a className="aiv-filter-tab" href={href}>Open</a> : null}
+                            {href ? <a className="aiv-filter-tab" href={BASE_PATH ? BASE_PATH + href : href}>Open</a> : null}
                           </div>
                           {blocker && d.status !== 'published' ? <p className="aiv-notes-text" style={{ margin: '4px 0 0', fontStyle: 'normal' }}>{errorLine(blocker)}</p> : null}
                         </td>

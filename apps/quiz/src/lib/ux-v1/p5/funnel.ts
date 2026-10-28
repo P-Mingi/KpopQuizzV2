@@ -19,6 +19,9 @@ import type { Draft, DraftDifficulty } from '@/lib/create-draft';
 import type { QuestionData, IntruderOption } from '@/lib/quiz-question';
 import type { CreatorStats } from '@/lib/creator-progress';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 /** The group row the page passes in (same shape as the legacy FunnelGroup). */
 export interface FunnelGroup {
   id: number;
@@ -182,7 +185,7 @@ export async function uploadDataUrl(dataUrl: string, deps: SaveDeps = REAL_DEPS)
   const file = await deps.dataUrlToFile(dataUrl, 'question.jpg');
   const fd = new FormData();
   fd.append('file', file);
-  const res = await deps.fetch('/api/quiz/upload-image', { method: 'POST', body: fd });
+  const res = await deps.fetch(`${BASE_PATH}/api/quiz/upload-image`, { method: 'POST', body: fd });
   const data = (await res.json()) as { url?: string; error?: string };
   if (!res.ok || !data.url) throw new Error(data.error ?? 'Image upload failed');
   return data.url;
@@ -255,7 +258,7 @@ export async function publishQuiz(d: FunnelState, groups: FunnelGroup[], onStart
         const file = await deps.dataUrlToFile(d.cover);
         const fd = new FormData();
         fd.append('file', file);
-        const up = await deps.fetch('/api/quiz/upload-image', { method: 'POST', body: fd });
+        const up = await deps.fetch(`${BASE_PATH}/api/quiz/upload-image`, { method: 'POST', body: fd });
         const upData = (await up.json()) as { url?: string; error?: string };
         if (up.ok && upData.url) coverUrl = upData.url;
       } else {
@@ -266,7 +269,7 @@ export async function publishQuiz(d: FunnelState, groups: FunnelGroup[], onStart
     const withImages = await uploadDeferredImages(complete, d.quiz_type, deps);
     // 3. create the quiz (existing group -> group_id; brand-new group -> group_name)
     const payload = publishPayload(d, g, coverUrl, withImages);
-    const res = await deps.fetch('/api/quiz/create', {
+    const res = await deps.fetch(`${BASE_PATH}/api/quiz/create`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
     });
     if (!res.ok) {
@@ -288,7 +291,7 @@ export type UsernameStatus = 'idle' | 'checking' | 'available' | 'taken' | 'inva
 /** GET /api/auth/check-username (debounced 400 ms by the caller). */
 export async function checkUsername(u: string, f: typeof fetch = fetch): Promise<UsernameStatus> {
   try {
-    const res = await f(`/api/auth/check-username?username=${encodeURIComponent(u)}`);
+    const res = await f(`${BASE_PATH}/api/auth/check-username?username=${encodeURIComponent(u)}`);
     const j = (await res.json()) as { available?: boolean };
     return j.available ? 'available' : 'taken';
   } catch {
@@ -299,7 +302,7 @@ export async function checkUsername(u: string, f: typeof fetch = fetch): Promise
 /** POST /api/auth/create-profile { username } (the inline claim). Returns an error message or null. */
 export async function claimUsername(u: string, f: typeof fetch = fetch): Promise<string | null> {
   try {
-    const res = await f('/api/auth/create-profile', {
+    const res = await f(`${BASE_PATH}/api/auth/create-profile`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: u }),
     });
     const j = (await res.json()) as { error?: string };
@@ -321,7 +324,7 @@ export type TitleAdvice = 'exact' | 'near' | 'hub';
 export async function titleAdvice(title: string, groupSlug: string | null, f: typeof fetch = fetch): Promise<TitleAdvice | null> {
   try {
     const group = groupSlug ? `&group=${encodeURIComponent(groupSlug)}` : '';
-    const r = await f(`/api/quiz/title-check?title=${encodeURIComponent(title)}${group}`);
+    const r = await f(`${BASE_PATH}/api/quiz/title-check?title=${encodeURIComponent(title)}${group}`);
     const j = (await r.json()) as { exists?: boolean; kind?: TitleAdvice };
     return j?.exists ? (j.kind ?? 'exact') : null;
   } catch {

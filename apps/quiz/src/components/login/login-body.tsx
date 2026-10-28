@@ -2,11 +2,14 @@
 
 import { lazy, Suspense, useEffect, useState } from 'react';
 
+import { joinBase } from '@/lib/auth/base-path';
 import { safeReturnTo } from '@/lib/auth/return-to';
-import { fmt } from '@/lib/passport-ui/fmt';
 import { createBrowserClient } from '@/lib/supabase/client';
 
 import type { SignInWords } from '@/lib/passport-ui/words';
+
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 type Pending = 'google' | 'discord' | 'email' | null;
 
@@ -22,8 +25,10 @@ const SPARKLE = 'M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z'
 
 /**
  * The body of /login for every site (Run O1, lot b, P1; rule 18). Kpop renders it with no prop, byte for byte what the page
- * rendered. A world site (anime, hub) passes its words: Google and the email link only, landing through /auth/confirm. The
- * sign-in client and the registry are import()ed by the two handlers of a world site, so no kpop page reaches them.
+ * rendered. A world site (anime, hub) passes its words. FandomVerse (owner, 2026-10-28): Google and Discord only, started on the
+ * server of the build (/auth/start, its basePath included), which sends the provider back to the build's exact /auth/callback;
+ * no email form. The sign-in client
+ * is import()ed by the handler of a world site, so no kpop page reaches it.
  */
 export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): React.ReactElement {
   const [pending, setPending] = useState<Pending>(null);
@@ -41,12 +46,11 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
   const callbackUrl = (to: string) =>
     `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback?returnTo=${encodeURIComponent(to)}`;
 
-  const handleWorldGoogle = async () => {
+  const handleWorldOAuth = async (provider: 'google' | 'discord', basePath: string) => {
     setErrorMsg(null);
-    setPending('google');
-    const [{ signInWithGoogle, readTabVia }, { SITE_ID }] = await Promise.all([import('@/lib/passport-ui/signin-client'), import('@/lib/site/registry')]);
-    const out = await signInWithGoogle(createBrowserClient(), SITE_ID, returnTo, { clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID, origin: window.location.origin, via: readTabVia() });
-    if (out.kind === 'go') { window.location.assign(out.to); return; }
+    setPending(provider);
+    const [{ signInWithProvider, readTabVia }, { SITE_ID }] = await Promise.all([import('@/lib/passport-ui/signin-client'), import('@/lib/site/registry')]);
+    const out = signInWithProvider(SITE_ID, provider, returnTo, { basePath, via: readTabVia() });
     if (out.kind === 'error') { setPending(null); setErrorMsg(out.message); }
   };
 
@@ -69,11 +73,12 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || pending) return;
+    // FandomVerse: a world site has no email sign-in (the form is not rendered there either).
+    if (!email || pending || words) return;
     setErrorMsg(null);
     setPending('email');
     const supabase = createBrowserClient();
-    const emailRedirectTo = words ? (await import('@/lib/passport-ui/signin-client')).emailRedirect(window.location.origin, words.emailLanding, returnTo) : callbackUrl(returnTo);
+    const emailRedirectTo = callbackUrl(returnTo);
 
     const { error } = await supabase.auth.signInWithOtp({
       email,
@@ -142,7 +147,7 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
           <button
             type="button"
             className="auth-btn auth-google"
-            onClick={() => (words ? handleWorldGoogle() : handleLogin('google'))}
+            onClick={() => (words ? handleWorldOAuth('google', words.basePath) : handleLogin('google'))}
             disabled={pending !== null}
           >
             <span className="auth-icon">
@@ -155,10 +160,10 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
             {words ? words.google : 'Continue with Google'}
           </button>
 
-          {words ? null : (<button
+          <button
             type="button"
             className="auth-btn auth-discord"
-            onClick={() => handleLogin('discord')}
+            onClick={() => (words ? handleWorldOAuth('discord', words.basePath) : handleLogin('discord'))}
             disabled={pending !== null}
           >
             <span className="auth-icon">
@@ -168,34 +173,37 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
                 <svg width="18" height="18" viewBox="0 0 16 16" fill="#fff" aria-hidden="true"><path d="M13.554 2.893A12.634 12.634 0 0 0 10.436 1.8a8.268 8.268 0 0 0-.404.817 11.828 11.828 0 0 0-3.502 0A8.923 8.923 0 0 0 6.149 1.8a12.67 12.67 0 0 0-3.12 1.095C.767 5.685.214 8.487.49 11.25A12.697 12.697 0 0 0 4.35 13.2a9.437 9.437 0 0 0 .834-1.35 8.202 8.202 0 0 1-1.313-.629c.11-.08.218-.163.322-.25a9.07 9.07 0 0 0 7.698 0c.105.09.213.173.323.25a8.23 8.23 0 0 1-1.316.63 9.394 9.394 0 0 0 .834 1.348 12.65 12.65 0 0 0 3.863-1.95c.334-3.212-.57-5.986-2.04-8.456ZM5.53 9.665c-.733 0-1.336-.667-1.336-1.487 0-.82.588-1.49 1.336-1.49.749 0 1.348.67 1.336 1.49 0 .82-.588 1.487-1.336 1.487Zm4.94 0c-.733 0-1.336-.667-1.336-1.487 0-.82.588-1.49 1.336-1.49.749 0 1.344.67 1.336 1.49-.003.82-.588 1.487-1.336 1.487Z" /></svg>
               )}
             </span>
-            Continue with Discord
-          </button>)}
+            {words ? words.discord : 'Continue with Discord'}
+          </button>
 
-          <div className="auth-divider"><span className={words ? 'anime-c1-quiet hub-c1-quiet' : undefined}>{words ? words.emailDivider : 'or with email'}</span></div>
+          {/* FandomVerse: no email sign-in on a world site. */}
+          {words ? null : (<>
+          <div className="auth-divider"><span>or with email</span></div>
 
           {emailSent ? (
             <p className="auth-note">
-              {words ? fmt(words.sent, { email }) : <>Magic link sent to <strong>{email}</strong>. Check your inbox to finish signing in.</>}
+              Magic link sent to <strong>{email}</strong>. Check your inbox to finish signing in.
             </p>
           ) : (
             <form onSubmit={handleEmailLogin}>
-              <label className={words ? 'field-l anime-c1-quiet hub-c1-quiet' : 'field-l'} htmlFor="login-email">{words ? words.emailLabel : 'Email'}</label>
+              <label className="field-l" htmlFor="login-email">Email</label>
               <input
                 id="login-email"
                 className="auth-inp"
                 type="email"
                 inputMode="email"
                 autoComplete="email"
-                placeholder={words ? words.emailPlaceholder : 'you@example.com'}
+                placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
               <button type="submit" className="email-btn" disabled={pending !== null || !email}>
-                {pending === 'email' ? 'Sending link...' : words ? words.emailCta : 'Continue with email'}
+                {pending === 'email' ? 'Sending link...' : 'Continue with email'}
               </button>
             </form>
           )}
+          </>)}
 
           {errorMsg && (
             <p className="auth-note" role="alert" style={{ color: 'var(--brand-dark)', marginTop: 12 }}>
@@ -204,7 +212,7 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
           )}
 
           <div className="auth-guest">
-            <a href={returnTo}>{words ? words.guest : 'Just let me play as a guest'} &rarr;</a>
+            <a href={words ? joinBase(words.basePath, returnTo) : returnTo}>{words ? words.guest : 'Just let me play as a guest'} &rarr;</a>
           </div>
 
           {words ? (
@@ -233,12 +241,12 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
 
           {words && !words.hasTerms ? (
             <p className="auth-tos anime-c1-quiet hub-c1-quiet">
-              By continuing you agree to our <a href="/privacy">Privacy Policy</a>.
+              By continuing you agree to our <a href={`${BASE_PATH}/privacy`}>Privacy Policy</a>.
             </p>
           ) : (
           <p className={words ? 'auth-tos anime-c1-quiet hub-c1-quiet' : 'auth-tos'}>
-            By continuing you agree to our <a href="/terms">Terms</a> and{' '}
-            <a href="/privacy">Privacy Policy</a>.
+            By continuing you agree to our <a href={`${BASE_PATH}/terms`}>Terms</a> and{' '}
+            <a href={`${BASE_PATH}/privacy`}>Privacy Policy</a>.
           </p>
           )}
         </div>

@@ -2,6 +2,8 @@
 
 import { useState, useCallback, useEffect } from 'react';
 
+import { BASE_PATH } from '@/lib/site/client-base-path';
+
 const ANON_LIKES_KEY = 'anon_liked_quizzes';
 
 function getAnonLikes(): string[] {
@@ -47,7 +49,7 @@ export function LikeQuizButton({ quizId, initialLiked, initialCount }: LikeQuizB
   // after a refresh instead of the frozen baked value.
   useEffect(() => {
     let cancelled = false;
-    fetch(`/api/quiz/${quizId}/like`, { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/quiz/${quizId}/like`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((d: { liked: boolean; like_count: number } | null) => {
         if (cancelled || !d) return;
@@ -68,7 +70,7 @@ export function LikeQuizButton({ quizId, initialLiked, initialCount }: LikeQuizB
     setPending(true);
 
     try {
-      const res = await fetch(`/api/quiz/${quizId}/like`, {
+      const res = await fetch(`${BASE_PATH}/api/quiz/${quizId}/like`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: newLiked ? 'like' : 'unlike' }),

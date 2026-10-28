@@ -7,6 +7,9 @@ import { QuizRows } from './rows';
 
 import type { QuizCardData } from '@/lib/db/types';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 /** "Show more" under the passport Quizzes list: the EXISTING read-only
  *  GET /api/quizzes/user?creatorId=&offset= (10 per page, published only). */
 export function MoreQuizzes({ creatorId, offset, total, owner = false, tail }: { creatorId: string; offset: number; total: number; owner?: boolean; tail?: React.ReactNode }): React.ReactElement | null {
@@ -20,7 +23,7 @@ export function MoreQuizzes({ creatorId, offset, total, owner = false, tail }: {
     setBusy(true);
     setError(false);
     try {
-      const r = await fetch(`/api/quizzes/user?creatorId=${encodeURIComponent(creatorId)}&offset=${shown}`);
+      const r = await fetch(`${BASE_PATH}/api/quizzes/user?creatorId=${encodeURIComponent(creatorId)}&offset=${shown}`);
       const d = (r.ok ? await r.json() : { quizzes: [] }) as { quizzes?: QuizCardData[] };
       const got = d.quizzes ?? [];
       if (!r.ok) setError(true);

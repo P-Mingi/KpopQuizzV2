@@ -16,6 +16,9 @@ import { GroupAvatar } from './board';
 
 import type { P9Standing } from '@/lib/ux-v1/p9/standing';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // The pinned "you" rows under each board (prototype .pin[data-auth]): per-viewer
 // CLIENT islands, so /leaderboard stays static/ISR. They read the shared
 // /api/auth/me (A0 useUxMe), then, signed in only, GET /api/ux-v1/p9/standing once
@@ -28,7 +31,7 @@ let inflight: Promise<P9Standing | null> | null = null;
 
 function loadStanding(): Promise<P9Standing | null> {
   if (!inflight) {
-    inflight = fetch('/api/ux-v1/p9/standing', { credentials: 'include', cache: 'no-store' })
+    inflight = fetch(`${BASE_PATH}/api/ux-v1/p9/standing`, { credentials: 'include', cache: 'no-store' })
       .then((r) => (r.ok ? (r.json() as Promise<P9Standing>) : null))
       .catch(() => null);
   }

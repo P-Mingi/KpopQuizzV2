@@ -12,6 +12,9 @@ import { useBtTracking } from './use-bt-tracking';
 import type { BlindTestMode } from '@/lib/blind-test-modes';
 import type { Round, RoundSong } from '@/lib/blind-test/legacy-round';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // The flag-off player of /blindtest/<mode>. It plays what
 // POST /api/blind-test/generate serves today: Deezer previews, one question per
 // song (lib/blind-test/legacy-round.ts). It used to ask for `{ mode_id }` and
@@ -183,7 +186,7 @@ export function BlindTestPlayer({ mode }: { mode: BlindTestMode }): React.ReactE
     setError(null);
 
     try {
-      const res = await fetch('/api/blind-test/generate', {
+      const res = await fetch(`${BASE_PATH}/api/blind-test/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),

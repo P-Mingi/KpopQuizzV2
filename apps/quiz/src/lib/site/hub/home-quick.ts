@@ -14,7 +14,7 @@ export function toHomeQuestion(q: HubSixtySeconds): HomeQuestion {
   return {
     site: q.site,
     source: q.quizTitle,
-    path: pathOf(q.quizHref),
+    path: pathOf(q.quizHref, q.site),
     text: q.question,
     options: q.options,
     correct: q.correct,
@@ -24,7 +24,7 @@ export function toHomeQuestion(q: HubSixtySeconds): HomeQuestion {
 }
 
 export function toHomeFact(f: HubFact): HomeFact {
-  return { site: f.site, text: f.fact, source: f.source, path: pathOf(f.moreHref) };
+  return { site: f.site, text: f.fact, source: f.source, path: pathOf(f.moreHref, f.site) };
 }
 
 async function readQuick(): Promise<HomeQuick | null> {

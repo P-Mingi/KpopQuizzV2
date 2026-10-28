@@ -1,7 +1,17 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse } from 'next/server';
 
+import { secureRequest } from '@/lib/auth/session-cookie';
+import { withBase } from '@/lib/auth/site-base';
+import { SITE_ID } from '@/lib/site/registry';
+
 import type { NextRequest } from 'next/server';
+
+// FandomVerse (owner, 2026-10-28; lane 3): the anime build is served under the basePath '/anime' on the origin of the hub.
+// request.nextUrl.pathname is the app path (Next drops the basePath), request.url the browser address: a redirect built from
+// request.url must put the basePath back (withBase), or the anime build would send its visitor to the hub's /login. On kpop
+// and the hub withBase is the identity, so their redirects are the same URLs as before. The session cookies keep the options
+// @supabase/ssr gives them (Path=/, no Domain): one cookie jar for the hub and anime (session-cookies.site.test.ts).
 
 // Called only for paths that actually need a session: /login + PROTECTED_PATHS
 // (/onboarding, /settings, /admin). Public traffic is gated in middleware.ts
@@ -25,10 +35,13 @@ async function updateSessionInner(request: NextRequest): Promise<NextResponse> {
     request: { headers: request.headers },
   });
 
+  // FandomVerse (security review, 2026-10-28): Secure session cookies on the hub and anime over https; kpop passes no option.
+  const secure = SITE_ID !== 'kpop' && secureRequest(request.nextUrl.protocol, request.headers.get('x-forwarded-proto'), { VERCEL_ENV: process.env.VERCEL_ENV });
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      ...(secure ? { cookieOptions: { secure: true } } : {}),
       cookies: {
         getAll() {
           return request.cookies.getAll();
@@ -75,7 +88,7 @@ async function updateSessionInner(request: NextRequest): Promise<NextResponse> {
 
   // Redirect unauthenticated users from protected paths to login
   if (isProtected && !user) {
-    const loginUrl = new URL('/login', request.url);
+    const loginUrl = new URL(withBase(SITE_ID, '/login'), request.url);
     loginUrl.searchParams.set('returnTo', pathname);
     return NextResponse.redirect(loginUrl);
   }
@@ -96,9 +109,9 @@ async function updateSessionInner(request: NextRequest): Promise<NextResponse> {
     }
 
     if (!profile) {
-      return NextResponse.redirect(new URL('/onboarding', request.url));
+      return NextResponse.redirect(new URL(withBase(SITE_ID, '/onboarding'), request.url));
     }
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.redirect(new URL(withBase(SITE_ID, '/'), request.url));
   }
 
   return response;

@@ -47,6 +47,15 @@ describe('DeezerAttribution', () => {
     expect(html).toContain('<img src="/brand/deezer-logo.svg" alt="Deezer" class="dz-attr-logo"');
   });
 
+  it('on the anime build (base path /anime) the logo is the copy of its own zone, /anime/brand/deezer-logo.svg', async () => {
+    vi.stubEnv('NEXT_PUBLIC_DEEZER_LOGO', '1');
+    vi.stubEnv('__NEXT_ROUTER_BASEPATH', '/anime');
+    vi.resetModules();
+    const [{ DeezerAttribution: Anime }, react, server] = await Promise.all([import('./deezer-attribution'), import('react'), import('react-dom/server')]);
+    expect(server.renderToStaticMarkup(react.createElement(Anime, {}))).toContain('<img src="/anime/brand/deezer-logo.svg" alt="Deezer" class="dz-attr-logo"');
+    vi.resetModules();
+  });
+
   it('the build flag follows the file: set only when public/brand/deezer-logo.svg is in the repo', () => {
     const inRepo = existsSync(fileURLToPath(new URL('../../public/brand/deezer-logo.svg', import.meta.url)));
     expect(nextConfig.env?.NEXT_PUBLIC_DEEZER_LOGO).toBe(inRepo ? '1' : '');

@@ -3,6 +3,7 @@
 // Each builder answers undefined for kpop, so a kpop render never meets a word of this file. Plain data only (no
 // function): server components pass it to client components.
 
+import { basePathOf } from '@/lib/auth/site-base';
 import { siteConfig } from '@/lib/site/registry';
 import { isKnownRouteFor } from '@/lib/site/routing';
 
@@ -79,6 +80,8 @@ export interface SignInWords {
   readonly saveScore: string;
   readonly body: string;
   readonly google: string;
+  /** FandomVerse: the Discord button (anime and hub sign in with Google and Discord only). */
+  readonly discord: string;
   readonly emailDivider: string;
   readonly emailPlaceholder: string;
   readonly emailLabel: string;
@@ -99,6 +102,8 @@ export interface SignInWords {
   readonly brand: string;
   /** Run C1: the site has a /terms page (the hub has none, so its agreement line names the privacy policy only). */
   readonly hasTerms: boolean;
+  /** FandomVerse: the basePath of the site's build ('' or '/anime'), for a plain link to one of its own pages. */
+  readonly basePath: string;
 }
 
 export function signInWords(site: SiteId): SignInWords | undefined {
@@ -108,6 +113,7 @@ export function signInWords(site: SiteId): SignInWords | undefined {
     saveScore: p1('signin.saveScore', {}, site),
     body: p1('signin.body', {}, site),
     google: p1('signin.google', {}, site),
+    discord: p1('signin.discord', {}, site),
     emailDivider: p1('signin.emailDivider', {}, site),
     emailPlaceholder: p1('signin.emailPlaceholder', {}, site),
     emailLabel: p1('signin.emailLabel', {}, site),
@@ -129,6 +135,7 @@ export function signInWords(site: SiteId): SignInWords | undefined {
     emailLanding: siteConfig(site).auth.emailLanding,
     brand: siteConfig(site).brand.name,
     hasTerms: isKnownRouteFor(site, '/terms', { v1: true, v12: true }),
+    basePath: basePathOf(site),
   };
 }
 

@@ -1,6 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 import { createServerClient } from '@/lib/supabase/server';
+import { withBasePath } from '@/lib/site/base-path';
 import { SITE } from '@/lib/site/registry';
 
 import type { NextRequest } from 'next/server';
@@ -114,7 +115,7 @@ export async function GET(
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
               {SITE.id === 'kpop' ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={`${origin}/mascot/mascot-default.png`} alt="" width={60} height={60} style={{ borderRadius: 14 }} />
+                <img src={`${origin}${withBasePath('/mascot/mascot-default.png')}`} alt="" width={60} height={60} style={{ borderRadius: 14 }} />
               ) : (
                 // The rabbit is the kpop mascot: another site shows the letter tile of its wordmark (C3).
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 60, height: 60, borderRadius: 14, backgroundColor: 'rgba(255,255,255,0.22)', fontSize: 34, fontWeight: 800 }}>{SITE.brand.name.charAt(0).toUpperCase()}</div>

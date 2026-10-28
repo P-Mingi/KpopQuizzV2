@@ -1,9 +1,9 @@
-// Run O1, lot (d), lane H1: the copy of the network page (fanquiz.org, /) and of the "What your passport shares" block
+// Run O1, lot (d), lane H1: the copy of the network page (fandomverse.org, /) and of the "What your passport shares" block
 // (copy-keys.md 3, namespace hub.h1). Placeholders are filled by lib/site/hub/copy.ts: {network} is the network name
 // (NETWORK.name), {brand} the hub brand, {name} the site of a card, {topicPlural} and {memberPlural} the vocabulary of
 // that site (siteConfig(id).vocabulary). No site name or domain is written in this file.
-// The privacy.* keys are the one text of the network privacy policy (fanquiz.org/privacy, shown on the otakuquiz.org build too,
-// canonical on fanquiz.org); the owner's answers of 2026-10-24 are in docs/o1/briefs/H1-privacy.md. Placeholders are filled by
+// The privacy.* keys are the one text of the network privacy policy (fandomverse.org/privacy, shown on the fandomverse.org/anime build too,
+// canonical on fandomverse.org); the owner's answers of 2026-10-24 are in docs/o1/briefs/H1-privacy.md. Placeholders are filled by
 // lib/site/hub/copy.ts: {sites} the three sites with their domains, {kpopName} and {animeName} the names of two of them, {email} the contact
 // mailbox, {date} the launch date, and the numbers the code decides ({ticketMinutes}, {codeSeconds}, {logDays}, {graceDays},
 // {freshMinutes}, {minAge}). No site name, domain or number of those is written in this file.
@@ -11,7 +11,7 @@
 // (the site that serves the page, from the registry). The publisher is Louis Pecchia, entrepreneur individuel (owner, 2026-10-25) and his phone is given (owner, 2026-10-25), so
 // no [BRACKETED] placeholder is left; lib/site/hub/legal.ts still refuses a launch build if one is ever written back (LEGAL_PLACEHOLDER_KEYS).
 export const COPY = {
-  // The new FanQuiz home (lot H2a, docs/o1/design/fanquiz-hub/): the keys of the page are the hp.* ones. The names of the sites are
+  // The new FandomVerse home (lot H2a, docs/o1/design/fanquiz-hub/): the keys of the page are the hp.* ones. The names of the sites are
   // placeholders ({name}, {kpopName}, {animeName}) filled from the registry, never written here.
   'hp.meta.title': '{network}: K-pop and anime quizzes, one account',
   'hp.meta.description': '{network} is the home of one account shared by {kpopName} and {animeName}. Play K-pop and anime quizzes and keep one level, streaks and badges on both sites.',
@@ -132,6 +132,7 @@ export const COPY = {
   'privacy.draftBanner': 'Draft for the owner to validate. This is not the final privacy policy.',
   'privacy.h1': 'Privacy',
   'privacy.updated': 'In force since {date}.',
+  'privacy.revised': 'Last updated on {revised}.',
   'privacy.lede': 'What {network} and its sites do with your data, in plain English.',
   'privacy.controller': 'Louis Pecchia, entrepreneur individuel, 3560 chemin des Lauves, 13100 Aix-en-Provence, France, SIREN 109 686 634, {email}',
   'privacy.who.legal': 'The publisher and the host of the sites are named in the legal notice.',
@@ -151,7 +152,7 @@ export const COPY = {
   'privacy.shared.title': 'What one account shares between the sites',
   'privacy.shared.p1': 'Other sites see only what the block below lists. Nothing else about you moves from one site to another.',
   'privacy.shared.p2': 'Your quiz history stays on the site where you played.',
-  'privacy.shared.p3': 'When you move from one site to another while signed in, your browser carries a ticket that lasts {ticketMinutes} minutes and names no one. The second site swaps a one time code, valid for {codeSeconds} seconds, for a session. We log each move (the two sites, the result, a hashed IP address and your browser family) and delete the log after {logDays} days.',
+  'privacy.shared.p3': '{network} and {animeName} share one address ({domain}) and one sign-in. When you move between {kpopName} and {domain} while signed in, your browser carries a ticket that lasts {ticketMinutes} minutes and names no one. The second site swaps a one time code, valid for {codeSeconds} seconds, for a session. We log each move (the two sites, the result, a hashed IP address and your browser family) and delete the log after {logDays} days.',
   'privacy.keeps.title': 'What each site keeps for itself',
   'privacy.keeps.intro': 'Each site keeps its own record of you, and it is not copied to the other sites:',
   'privacy.keeps.i1': 'Your points, level, streaks and play counts on that site',
@@ -165,14 +166,15 @@ export const COPY = {
   'privacy.audience.p2': 'It records anonymous events, such as a page being opened. We show no advertising on the sites.',
   'privacy.cookies.title': 'Cookies and local storage',
   'privacy.cookies.intro': 'The sites use only what they need to run. We use no advertising cookies, no tracking cookies and no third party analytics cookies.',
-  'privacy.cookies.c1': 'sb-<project ref>-auth-token (and its numbered parts): keeps you signed in. Each site sets its own, on its own domain.',
-  'privacy.cookies.c2': '__Host-pp_tx: set for at most 5 minutes while you move from one site to another, then cleared. Over plain http on a local test host it is called pp_tx.',
+  'privacy.cookies.c1': 'sb-<project ref>-auth-token (and its numbered parts): keeps you signed in. {network} and {animeName} share one on {domain}, so one sign-in covers both; {kpopName} keeps its own on its own domain.',
+  'privacy.cookies.c2': '__Host-pp_tx: set for at most 5 minutes while you move between {kpopName} and {domain}, then cleared. Over plain http on a local test host it is called pp_tx.',
   'privacy.cookies.c3': 'nq_anon: a random guest id, so that a quiz you played before signing in can be added to your account.',
   'privacy.cookies.c4': 'kq_sl: only on {kpopName}, remembers the share link you came from.',
   'privacy.cookies.c5': 'preferred_locale: only on {kpopName}, your language choice.',
   'privacy.cookies.c6': 'verse_nav: only on {kpopName}, your choice of navigation in the Verse.',
   'privacy.cookies.c7': 'world: only on {kpopName}, your choice between Play and Verse. It has nothing to do with the other sites.',
-  'privacy.cookies.l1': 'theme (local storage): light, dark or system. Each site keeps its own.',
+  'privacy.cookies.c8': '__Host-fv_oauth: only on {domain}, set for at most {oauthMinutes} minutes while you sign in with Google or Discord, so that you come back to the page you were on, then cleared. Over plain http on a local test host it is called fv_oauth.',
+  'privacy.cookies.l1': 'theme (local storage): light, dark or system. {network} and {animeName} share it on {domain}; {kpopName} keeps its own.',
   'privacy.cookies.l2': 'fq.net.caps.v1 (local storage): how often a link to another site was shown, and which ones you dismissed. It stays in your browser.',
   'privacy.cookies.l3': 'fq.net.via (session storage): for this tab only, the site link you came from. It is removed after you sign in.',
   'privacy.cookies.l4': 'anime.spoiler.v1 (local storage): only on {animeName}, your spoiler setting for each series.',
@@ -181,8 +183,8 @@ export const COPY = {
   'privacy.services.s1': 'Supabase: the database and the sign-in, where your account and quiz data are stored',
   'privacy.services.s2': 'Vercel: hosting and audience measurement',
   'privacy.services.s3': 'Google: sign-in, if you choose it',
-  'privacy.services.s4': 'Discord: sign-in on {kpopName} only, if you choose it',
-  'privacy.services.s5': 'Resend: sending the sign-in emails',
+  'privacy.services.s4': 'Discord: sign-in, if you choose it',
+  'privacy.services.s5': 'Resend: sending the sign-in emails of {kpopName}',
   'privacy.services.p2': 'Your data is hosted in the European Union: Supabase in Ireland and Vercel servers in Dublin.',
   'privacy.services.p3': 'Some of these providers are based in the United States. They are covered by the standard contractual clauses of the European Commission.',
   'privacy.services.p4': 'We do not sell your data.',

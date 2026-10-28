@@ -16,6 +16,9 @@ import { quizzesIndexRule, quizzesLastPage, quizzesNeedsLastPage, readQuizzesUrl
 
 import type { Metadata } from 'next';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // ISR: revalidate hourly (SEO Fix 1). This page already server-renders the quiz
 // grid as crawlable HTML; the shared cookie-reading <TopNav> keeps it dynamic
 // (SSR) today, so this window stays dormant until the nav goes cookie-free.
@@ -192,7 +195,7 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
     if (initialSort !== 'all') p.set('sort', initialSort);
     if (n > 1) p.set('page', String(n));
     const qs = p.toString();
-    return qs ? `/quizzes?${qs}` : '/quizzes';
+    return qs ? `${BASE_PATH}/quizzes?${qs}` : `${BASE_PATH}/quizzes`;
   };
 
   const groupsForFilter: BrowseGroup[] = groups
@@ -253,7 +256,7 @@ export default async function BrowseQuizzesPage({ searchParams }: PageProps): Pr
           <ul>
             {pageQuizzes.map((q) => (
               <li key={q.id}>
-                <a href={`/q/${q.slug}`}>{q.title}</a>
+                <a href={`${BASE_PATH}/q/${q.slug}`}>{q.title}</a>
               </li>
             ))}
           </ul>

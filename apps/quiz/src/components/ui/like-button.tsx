@@ -2,6 +2,8 @@
 
 import { useState, useCallback, useEffect } from 'react';
 
+import { BASE_PATH } from '@/lib/site/client-base-path';
+
 const ANON_LIKES_KEY = 'anon_liked_quizzes';
 
 function getAnonLikes(): string[] {
@@ -53,7 +55,7 @@ export function LikeButton({ quizId, initialLiked, initialCount }: LikeButtonPro
     setPending(true);
 
     try {
-      const res = await fetch(`/api/quiz/${quizId}/like`, {
+      const res = await fetch(`${BASE_PATH}/api/quiz/${quizId}/like`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: newLiked ? 'like' : 'unlike' }),

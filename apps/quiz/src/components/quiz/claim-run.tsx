@@ -8,6 +8,9 @@ import { analytics } from '@/lib/analytics';
 
 import type { ClaimSurface } from '@/lib/analytics';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // W3 PART A4 - CLAIM THIS RUN, at the moment it was earned.
 //
 // The doctrine (docs/PLAY-GUEST-CONVERSION.md): never gate play, gate IDENTITY. The
@@ -55,7 +58,7 @@ export function ClaimRun({ signedIn, surface, flush = false }: { signedIn: boole
     setBusy(true);
     analytics.claimFunnel('started', surface);
     try {
-      const res = await fetch('/api/claim-runs', {
+      const res = await fetch(`${BASE_PATH}/api/claim-runs`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ anonId: getAnonId() }),
@@ -113,7 +116,7 @@ export function ClaimRun({ signedIn, surface, flush = false }: { signedIn: boole
           {busy ? 'Attaching...' : 'Put my name on it'}
         </button>
       ) : (
-        <a className="claim-run-cta" href={`/login?next=${encodeURIComponent(typeof window === 'undefined' ? '/' : window.location.pathname)}&claim=1`}>
+        <a className="claim-run-cta" href={`${BASE_PATH}/login?next=${encodeURIComponent(typeof window === 'undefined' ? '/' : (BASE_PATH && window.location.pathname.startsWith(BASE_PATH) ? window.location.pathname.slice(BASE_PATH.length) || '/' : window.location.pathname))}&claim=1`}>
           Claim your spot
         </a>
       )}

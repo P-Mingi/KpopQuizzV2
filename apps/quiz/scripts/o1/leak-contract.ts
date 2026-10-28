@@ -96,8 +96,8 @@ function fallbackContract(): LeakContract {
   };
   return {
     source: 'fallback (BACKLOG 5.1, lib/route-allowlist.ts)',
-    domains: { kpop: 'kpopquiz.org', anime: 'otakuquiz.org', hub: 'fanquiz.org' },
-    brands: { kpop: 'KpopQuiz', anime: 'OtakuQuiz', hub: 'FanQuiz' },
+    domains: { kpop: 'kpopquiz.org', anime: 'fandomverse.org/anime', hub: 'fandomverse.org' },
+    brands: { kpop: 'KpopQuiz', anime: 'OtakuQuiz', hub: 'FandomVerse' },
     devHosts: { kpop: 'kpop.localhost', anime: 'anime.localhost', hub: 'hub.localhost' },
     kpopOnlySamples: {
       anime: kpopSamplesFromAllowlist().filter((p) => !isKnownRoute('anime', p)),
@@ -110,7 +110,7 @@ function fallbackContract(): LeakContract {
 }
 
 interface F0Registry {
-  REGISTRY: Record<LeakSiteId, { domain: string; brand: { name: string }; routes: { allow: string | readonly string[] } }>;
+  REGISTRY: Record<LeakSiteId, { url: string; domain: string; brand: { name: string }; routes: { allow: string | readonly string[] } }>;
 }
 interface F0Routing {
   KPOP_ONLY_SAMPLES: readonly string[];
@@ -119,6 +119,8 @@ interface F0Routing {
 }
 
 let cached: Promise<LeakContract> | null = null;
+
+const address = (url: string): string => url.replace(/^https?:\/\//, '');
 
 /** F0's contract when its modules exist in the harness checkout, else the fallback. */
 export function loadContract(appDir: string = APP_DIR): Promise<LeakContract> {
@@ -135,7 +137,8 @@ export function loadContract(appDir: string = APP_DIR): Promise<LeakContract> {
     };
     return {
       source: 'F0 registry and routing (apps/quiz/src/lib/site)',
-      domains: { kpop: r.REGISTRY.kpop.domain, anime: r.REGISTRY.anime.domain, hub: r.REGISTRY.hub.domain },
+      // The address of each site (its url without the scheme): fandomverse.org/anime and fandomverse.org share a host (2026-10-28).
+      domains: { kpop: address(r.REGISTRY.kpop.url), anime: address(r.REGISTRY.anime.url), hub: address(r.REGISTRY.hub.url) },
       brands: { kpop: r.REGISTRY.kpop.brand.name, anime: r.REGISTRY.anime.brand.name, hub: r.REGISTRY.hub.brand.name },
       devHosts: { kpop: 'kpop.localhost', anime: 'anime.localhost', hub: 'hub.localhost' },
       kpopOnlySamples: { anime: [...m.KPOP_ONLY_SAMPLES], hub: [...m.KPOP_ONLY_SAMPLES] },

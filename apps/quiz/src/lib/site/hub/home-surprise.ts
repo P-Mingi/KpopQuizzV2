@@ -12,7 +12,7 @@ export async function loadHomeSurprise(userId: string | null): Promise<HomeSurpr
     const surprise = await getSurprise({ userId });
     if (!surprise) return { pool: [], playedIds: [] };
     return {
-      pool: surprise.pool.map((c) => ({ id: c.id, site: c.site, tile: c.tile, title: c.title, path: pathOf(c.href) })),
+      pool: surprise.pool.map((c) => ({ id: c.id, site: c.site, tile: c.tile, title: c.title, path: pathOf(c.href, c.site) })),
       playedIds: surprise.playedIds,
     };
   }, { pool: [], playedIds: [] });

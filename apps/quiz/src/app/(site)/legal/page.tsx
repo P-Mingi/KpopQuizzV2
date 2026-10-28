@@ -1,6 +1,6 @@
 // Run O1, lot (d), lane H1: the legal notice (mentions légales, LCEN article 6) of the three sites. This is the kpop route and the source:
-// the OtakuQuiz and FanQuiz page (app/sites/[site]/legal/page.tsx) re-exports it (rule 18). Fusion A5 (main wins for kpop): on
-// kpopquiz.org the page is main's, node for node (KpopLegal, lib/legal-notice.ts), always a known route. OtakuQuiz and FanQuiz print the
+// the OtakuQuiz and FandomVerse page (app/sites/[site]/legal/page.tsx) re-exports it (rule 18). Fusion A5 (main wins for kpop): on
+// kpopquiz.org the page is main's, node for node (KpopLegal, lib/legal-notice.ts), always a known route. OtakuQuiz and FandomVerse print the
 // same notice from the legal.* keys of copy/hub/h1.ts, site name and domain from the registry (NetworkLegal, lib/site/hub/legal.ts).
 import { legalEmail, legalLaunchGate, legalPlaceholders, legalPrivacyUrl, lt } from '@/lib/site/hub/legal';
 import { robotsFor } from '@/lib/site/indexing';
@@ -14,7 +14,7 @@ const P = 'text-sm text-secondary leading-relaxed';
 const H2 = 'text-lg font-medium mt-8 mb-3';
 
 // While a [BRACKETED] fact is still printed the page says noindex and stays out of the sitemap (lib/legal-notice.ts).
-// The kpop metadata, main's. The OtakuQuiz and FanQuiz twin exports its own generateMetadata (networkLegalMetadata below).
+// The kpop metadata, main's. The OtakuQuiz and FandomVerse twin exports its own generateMetadata (networkLegalMetadata below).
 export const metadata: Metadata = {
   title: LEGAL.title,
   description: LEGAL.description,

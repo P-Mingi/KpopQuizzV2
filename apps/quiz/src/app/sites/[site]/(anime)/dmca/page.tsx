@@ -1,7 +1,9 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/dmca/page.tsx, rows 36: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
 import Link from 'next/link';
 
+import { siteAddress } from '@/lib/site/brand';
 import { robotsFor } from '@/lib/site/indexing';
+import { SITE } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
 
@@ -21,10 +23,9 @@ export default function DmcaPage(): React.ReactElement {
       <p className="text-sm text-secondary mb-8">Last updated: August 5, 2026</p>
 
       <p className="text-sm text-secondary leading-relaxed">
-        
-        OtakuQuiz (otakuquiz.org) lets fans add images to the spaces they curate. We copy every uploaded
-        image into our own storage and review uploads after they go live. If you own an image and want it
-        removed, we act on valid requests quickly.
+        {`OtakuQuiz (${siteAddress(SITE)}) lets fans add images to the spaces they curate. We copy every uploaded `
+          + 'image into our own storage and review uploads after they go live. If you own an image and want it '
+          + 'removed, we act on valid requests quickly.'}
       </p>
 
       <h2 className="text-lg font-medium mt-8 mb-3">1. How to request a takedown</h2>

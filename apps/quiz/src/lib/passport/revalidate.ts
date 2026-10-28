@@ -11,7 +11,8 @@ import { createHmac } from 'node:crypto';
 
 import { revalidatePath } from 'next/cache';
 
-import { REGISTRY, SITE_ID, netOrigin } from '@/lib/site/registry';
+import { siteBase } from '@/lib/auth/site-base';
+import { REGISTRY, SITE_ID } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 
 import { isJson, json, log, noContent, originOk, parseObject } from './api-util';
@@ -112,7 +113,8 @@ export async function notifyRevalidate(username: string, sites: readonly SiteId[
   const results = await Promise.all(
     unique.map(async (s) => {
       try {
-        const res = await doFetch(`${netOrigin(s, env)}/api/passport/revalidate`, {
+        // FandomVerse: the site's base (origin and basePath), so anime is reached at https://fandomverse.org/anime/api/...
+        const res = await doFetch(`${siteBase(s, env)}/api/passport/revalidate`, {
           method: 'POST',
           headers: { 'content-type': 'application/json', [REVALIDATE_HEADER]: signature },
           body,

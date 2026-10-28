@@ -26,7 +26,7 @@ export const COPY = {
   'u.shareOwn': 'My {brand} passport',
   'u.shareOther': '{name} on {brand}',
   'u.guestTitle': 'Your {brand} passport',
-  'u.guestLead': 'Keep your scores, streak, badges and rank title in one place. Free, and no password: sign in with Google or an email link.',
+  'u.guestLead': 'Keep your scores, streak, badges and rank title in one place. Free, and no password: sign in with Google or Discord.',
   'team.chip': '{brand} team',
   'team.title': 'Editorial account run by the {brand} team',
   'team.profileLine': 'Editorial account of {brand}',
@@ -69,6 +69,8 @@ export const COPY = {
   'signin.title': 'Sign in to {brand}',
   'signin.body': 'Keep your scores, streak and badges. No password needed.',
   'signin.google': 'Continue with Google',
+  // FandomVerse (owner, 2026-10-28): Discord on the hub and anime (lane 3 string; lane 2's copy wins at merge).
+  'signin.discord': 'Continue with Discord',
   'signin.emailDivider': 'or',
   'signin.emailPlaceholder': 'you@example.com',
   'signin.emailLabel': 'Email',

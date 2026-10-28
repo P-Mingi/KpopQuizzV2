@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { withBasePath } from '@/lib/site/base-path';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
@@ -31,7 +32,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   if (who === 'logout') {
     const supa = await createServerClient();
     await supa.auth.signOut();
-    return NextResponse.redirect(new URL('/', req.url));
+    return NextResponse.redirect(new URL(withBasePath('/'), req.url));
   }
   // V-MODES step 5 - role personas for the matrix: ?as=member|contributor|curator
   // all use the SECOND test account; member/curator additionally set that
@@ -60,5 +61,5 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const { error: verifyError } = await supabase.auth.verifyOtp({ type: 'email', token_hash: tokenHash });
   if (verifyError) return new NextResponse(`Dev sign-in failed: ${verifyError.message}`, { status: 500 });
 
-  return NextResponse.redirect(new URL('/', req.url));
+  return NextResponse.redirect(new URL(withBasePath('/'), req.url));
 }

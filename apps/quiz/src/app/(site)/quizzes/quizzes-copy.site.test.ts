@@ -65,7 +65,7 @@ describe('renderP2Quizzes', () => {
     const { renderP2Quizzes } = await onSite('anime', () => import('./ux-page'));
     const html = renderToString(await renderP2Quizzes({}));
     expect(html).not.toMatch(KPOP_WORDS);
-    expect(html).toContain('https://otakuquiz.org/q/a-quiz');
+    expect(html).toContain('https://fandomverse.org/anime/q/a-quiz');
     expect(html).toContain('Anime quizzes');
   });
 });

@@ -12,6 +12,7 @@ import {
 import { P2QuizzesPage } from '@/components/quizzes/ux-v1/quizzes-page';
 import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 import { GENRE, titleCase } from '@/lib/site/genre';
+import { joinSiteUrl } from '@/lib/site/base-path';
 import { SITE } from '@/lib/site/registry';
 import { quizzesFaqJsonLd, quizzesFaqs } from './faq';
 
@@ -128,7 +129,7 @@ export async function renderP2Quizzes(sp: P2SearchParams): Promise<React.ReactEl
       '@type': 'ListItem',
       position: i + 1,
       name: item.label,
-      ...(item.href ? { item: `${SITE_ORIGIN}${item.href}` } : {}),
+      ...(item.href ? { item: joinSiteUrl(SITE_ORIGIN, item.href) } : {}),
     })),
   };
   const itemListLd = pageN.length > 0 ? {

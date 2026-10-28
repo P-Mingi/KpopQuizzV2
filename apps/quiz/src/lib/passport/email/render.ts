@@ -83,7 +83,7 @@ export function privacyUrl(brand: MailBrand): string {
   return `${brand.url}${brand.privacyPath}`;
 }
 
-/** The rabbit before the name of OtakuQuiz and FanQuiz (owner, 2026-10-25); KpopQuiz's own mails keep the name alone. */
+/** The rabbit before the name of OtakuQuiz and FandomVerse (owner, 2026-10-25); KpopQuiz's own mails keep the name alone. */
 function mark(brand: MailBrand): string {
   if (brand.id !== 'anime' && brand.id !== 'hub') return '';
   return `<img src="${esc(brand.url)}/mascot/mascot-default.png" width="28" height="28" alt="" style="vertical-align:middle;border:0;margin-right:8px">`;
@@ -242,35 +242,79 @@ export function parseOrigins(raw: string | undefined): Partial<Record<MailSite, 
   return out;
 }
 
-function originOf(url: string): string | null {
+/** The origin and the path of an http(s) URL (no query, no hash), or null. */
+function hrefOf(url: string): string | null {
   try {
     const u = new URL(url);
-    return u.protocol === 'https:' || u.protocol === 'http:' ? u.origin : null;
+    return u.protocol === 'https:' || u.protocol === 'http:' ? `${u.origin}${u.pathname}` : null;
   } catch {
     return null;
   }
 }
 
+/** True when `href` is on the site whose url is `base`: its origin, and its folder when it has one (https://fandomverse.org/anime). */
+function onBase(href: string, base: string): boolean {
+  return href === base || href.startsWith(`${base}/`);
+}
+
+/** The folder of a brand url ('/anime' of https://fandomverse.org/anime), '' when it is served at the root of its origin. */
+function folderOf(url: string): string {
+  try {
+    return new URL(url).pathname.replace(/\/+$/, '');
+  } catch {
+    return '';
+  }
+}
+
 /**
- * The site a redirect URL belongs to: an exact match of a brand url, or of an override origin (non-production staging, passed only
- * when the function runs on a dev project). Anything else, and a missing redirect, is kpop: the accounts that exist today.
+ * The url of `site` on this deployment: with an override (a bare staging origin, like NEXT_PUBLIC_NET_ORIGINS), that origin and the
+ * folder of the brand url (anime: `<staging origin>/anime`), else the brand url. Redirect URLs are matched against it and mails link to it.
+ */
+export function siteBaseFor(site: MailSite, brands: Readonly<Record<MailSite, MailBrand>>, overrides: Partial<Record<MailSite, string>> = {}): string {
+  const o = overrides[site];
+  return o === undefined ? brands[site].url : `${o}${folderOf(brands[site].url)}`;
+}
+
+const MAIL_SITES = ['anime', 'hub', 'kpop'] as const;
+
+/** The site whose base holds `href`, the longest base first (anime's folder before the hub on their shared origin); on a tie, the earlier one. */
+function longestBase(href: string, bases: ReadonlyArray<readonly [MailSite, string]>): MailSite | null {
+  let best: MailSite | null = null;
+  let len = -1;
+  for (const [id, base] of bases) {
+    if (base.length > len && onBase(href, base)) {
+      best = id;
+      len = base.length;
+    }
+  }
+  return best;
+}
+
+/**
+ * The site a redirect URL belongs to, the longest matching url first (OtakuQuiz, https://fandomverse.org/anime, is a folder of the hub's
+ * origin since 2026-10-28): a production brand url; else, on a dev project with override origins (staging), the staging url of a site
+ * (its origin and the folder of its brand url, so the hub and anime on one staging origin each get their own brand and colours); else the
+ * bare override origin of a site that has an origin of its own. Anything else, and a missing redirect, is kpop: the accounts that exist today.
  */
 export function siteFromRedirect(
   redirectTo: string | null | undefined,
   brands: Readonly<Record<MailSite, MailBrand>>,
   overrides: Partial<Record<MailSite, string>> = {},
 ): MailSite {
-  const o = redirectTo ? originOf(redirectTo) : null;
-  if (o === null) return 'kpop';
-  for (const id of ['anime', 'hub', 'kpop'] as const) {
-    if (brands[id].url === o || overrides[id] === o) return id;
-  }
-  return 'kpop';
+  const href = redirectTo ? hrefOf(redirectTo) : null;
+  if (href === null) return 'kpop';
+  const staged = MAIL_SITES.filter((id) => overrides[id] !== undefined);
+  return (
+    longestBase(href, MAIL_SITES.map((id) => [id, brands[id].url] as const)) ??
+    longestBase(href, staged.map((id) => [id, siteBaseFor(id, brands, overrides)] as const)) ??
+    longestBase(href, staged.map((id) => [id, overrides[id]!] as const)) ??
+    'kpop'
+  );
 }
 
-/** The origin a mail of `site` links to: the override when given, else the brand url. */
+/** The url a mail of `site` links to (siteBaseFor): the staging origin with the brand's folder when given, else the brand url. */
 export function originFor(site: MailSite, brands: Readonly<Record<MailSite, MailBrand>>, overrides: Partial<Record<MailSite, string>> = {}): string {
-  return overrides[site] ?? brands[site].url;
+  return siteBaseFor(site, brands, overrides);
 }
 
 const CONFIRM_TYPE: Readonly<Partial<Record<HookAction, 'magiclink' | 'signup' | 'email_change' | 'email'>>> = {
@@ -289,13 +333,18 @@ export function kindForAction(action: string): MailKind | null {
   return null;
 }
 
-/** `next` of the redirect URL (its own `next` parameter, else a path other than /auth/confirm), always a path starting with one slash; '/' otherwise. */
-export function nextFromRedirect(redirectTo: string | null | undefined): string {
+/**
+ * `next` of the redirect URL (its own `next` parameter, else a path other than /auth/confirm), always a path starting with one slash; '/'
+ * otherwise. With `base` (the url the mail links to), the folder of that url is taken off the path first (https://fandomverse.org/anime).
+ */
+export function nextFromRedirect(redirectTo: string | null | undefined, base?: string): string {
   if (!redirectTo) return '/';
   try {
     const u = new URL(redirectTo);
+    const folder = base ? new URL(base).pathname.replace(/\/+$/, '') : '';
+    const path = folder && (u.pathname === folder || u.pathname.startsWith(`${folder}/`)) ? u.pathname.slice(folder.length) || '/' : u.pathname;
     const n = u.searchParams.get('next');
-    const pick = n ?? (u.pathname !== '/auth/confirm' && u.pathname !== '/auth/callback' ? u.pathname + u.search : '/');
+    const pick = n ?? (path !== '/auth/confirm' && path !== '/auth/callback' ? path + u.search : '/');
     return pick.startsWith('/') && !pick.startsWith('//') && !pick.includes('\\') ? pick : '/';
   } catch {
     return '/';
@@ -306,7 +355,7 @@ export function nextFromRedirect(redirectTo: string | null | undefined): string 
 export function confirmLink(origin: string, tokenHash: string, action: HookAction, redirectTo: string | null | undefined): string | null {
   const type = CONFIRM_TYPE[action];
   if (!type) return null;
-  const q = `token_hash=${encodeURIComponent(tokenHash)}&type=${type}&next=${encodeURIComponent(nextFromRedirect(redirectTo))}`;
+  const q = `token_hash=${encodeURIComponent(tokenHash)}&type=${type}&next=${encodeURIComponent(nextFromRedirect(redirectTo, origin))}`;
   return `${origin}/auth/confirm?${q}`;
 }
 
@@ -388,7 +437,7 @@ export interface HookEnv {
   readonly secret: string;
   /** The project's API URL: the kpop verify link starts with it. */
   readonly supabaseUrl: string;
-  /** Staging origins of anime and hub (SEND_EMAIL_ORIGINS); empty in production. */
+  /** Staging origins of anime and hub (SEND_EMAIL_ORIGINS, bare origins: anime adds the /anime of its brand url); empty in production. */
   readonly origins: Partial<Record<MailSite, string>>;
   /** Sender per site (`Name <address>`); anime and hub default to `<brand> <no-reply@domain>`, kpop has no default. */
   readonly from: Partial<Record<MailSite, string>>;

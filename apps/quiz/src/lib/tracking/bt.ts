@@ -20,10 +20,15 @@
 // (lib/tracking/bt-server.ts).
 
 import { getAnonId } from '@/lib/anon-id';
+import { BASE_PATH } from '@/lib/site/client-base-path';
 
 import { BT_TRACKING, BT_TRACK_ENDPOINT, UUID_RE, btSourceFor, buildBtPayload } from './bt-shared';
 
 import type { BtRunEvent, BtRunSource } from './bt-shared';
+
+// FandomVerse: the address the browser posts to, beacon and fetch alike. BT_TRACK_ENDPOINT is the site path the route answers;
+// the anime build serves it under its base path ('/anime/api/track/bt-run'), kpop and the hub at the root (the same string).
+const ENDPOINT = BASE_PATH ? BASE_PATH + BT_TRACK_ENDPOINT : BT_TRACK_ENDPOINT;
 
 export { BT_TRACKING, BT_TRACK_ENDPOINT, BT_MODES, BT_SOURCES, bestCombo, btPlaylistId, btSourceFor, buildBtPayload, utcDate } from './bt-shared';
 export type { BtRunContext, BtRunEvent, BtRunMode, BtRunPayload, BtRunResult, BtRunSong, BtRunSource, BtPlaylistInput } from './bt-shared';
@@ -97,9 +102,9 @@ export function trackBtRun(event: BtRunEvent): boolean {
     const body = JSON.stringify(buildBtPayload(event, getAnonId()));
     if (event.event === 'finish' && !event.completed && typeof navigator.sendBeacon === 'function') {
       // text/plain keeps the beacon a "simple" request; the route parses the text as JSON.
-      if (navigator.sendBeacon(BT_TRACK_ENDPOINT, new Blob([body], { type: 'text/plain;charset=UTF-8' }))) return true;
+      if (navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'text/plain;charset=UTF-8' }))) return true;
     }
-    void fetch(BT_TRACK_ENDPOINT, {
+    void fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body,

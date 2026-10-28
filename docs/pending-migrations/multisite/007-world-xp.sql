@@ -186,7 +186,7 @@ $$;
 revoke all on function public.public_passport(text) from public, anon, authenticated;
 grant execute on function public.public_passport(text) to anon, authenticated, service_role;
 
--- my_passport: auth.uid()'s full summary, one row per membership (fanquiz.org/passport, /api/n/me). plays: kpop
+-- my_passport: auth.uid()'s full summary, one row per membership (fandomverse.org/passport, /api/n/me). plays: kpop
 -- profiles.quizzes_played + blindtests_played; other sites quizzes_played + blindtests_played + games_played of the
 -- membership (NetMe.sites[].plays, rpcs.md 2).
 create or replace function public.my_passport()

@@ -11,6 +11,9 @@ import { flatRows, normalizeQuery, resultSummary } from '@/lib/ux-v1/p11/search-
 
 import type { P11SearchResult } from '@/lib/ux-v1/p11/search-model';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // P11 search overlay results (DESIGN-SPEC 16.5 + 17.1, prototype searchFilter(),
 // state `search`). Rendered by A0's overlay host (components/layout/ux-v1/ux-search.tsx)
 // through the SearchResults slot, with exactly the slot props. Before typing: Popular
@@ -44,7 +47,7 @@ function remember(q: string, data: Payload): void {
 
 async function load(q: string, signal: AbortSignal): Promise<Payload | null> {
   try {
-    const res = await fetch(q ? `/api/ux-v1/p11/search?q=${encodeURIComponent(q)}` : '/api/ux-v1/p11/search', { signal });
+    const res = await fetch(q ? `${BASE_PATH}/api/ux-v1/p11/search?q=${encodeURIComponent(q)}` : `${BASE_PATH}/api/ux-v1/p11/search`, { signal });
     if (!res.ok) return null;
     return (await res.json()) as Payload;
   } catch {

@@ -1,5 +1,8 @@
 'use client';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 /**
  * Last-resort error boundary. Fires when a server component throws during
  * RSC rendering - Next replaces the entire document (including the root
@@ -55,7 +58,7 @@ export default function GlobalError({
             Try again
           </button>
           <a
-            href="/"
+            href={BASE_PATH || '/'}
             style={{
               padding: '12px 24px',
               borderRadius: '12px',

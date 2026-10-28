@@ -1,9 +1,10 @@
 // Run O1, lot H2a (owner, 2026-10-25): the KpopQuiz rabbit followed by the wordmark of the site, for the default share image of
-// the hub (FanQuiz) and of the anime site (OtakuQuiz), the wordmark written as the name is (FanQuiz, OtakuQuiz). Same renderer and same face as e2e/o1/L1/brand-og.mjs (@vercel/og, public/fonts/dm-sans-*.ttf).
+// the hub (FandomVerse) and of the anime site (OtakuQuiz), the wordmark written as the name is (FandomVerse, OtakuQuiz). Same renderer and same face as e2e/o1/L1/brand-og.mjs (@vercel/og, public/fonts/dm-sans-*.ttf).
 // The rabbit is public/mascot/mascot-default.png as kpopquiz.org's navigation draws it. The hub is ink and cream (no pink); the anime site is orange.
 //
 //   node apps/quiz/e2e/o1/H1/H2a/brand-marks.mjs            writes public/brand/{hub,anime}/og-default.png
-// The icons, favicons and logo files of the two sites stay kpopquiz's bytes (owner decision D-099, routing.test.ts): they are the rabbit already.
+// The icons, favicons and logo PNGs of the two sites stay kpopquiz's bytes (owner decision D-099, routing.test.ts): they are the rabbit already.
+// The wordmark of each site (2026-10-28) is public/brand/{hub,anime}/logo-primary.svg: the same rabbit and name, the name outlined in DM Sans 800.
 //   node apps/quiz/e2e/o1/H1/H2a/brand-marks.mjs --check    exit 1 when a file differs from a fresh render
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -19,7 +20,7 @@ const PILL = '#F5F3EF';
 const GREY = '#6B6B6B';
 const SITES = {
   hub: {
-    head: 'Fan', tail: 'Quiz', ink: '#1F1B17', accent: '#6B655E', bar: '#1F1B17',
+    head: 'Fandom', tail: 'Verse', ink: '#1F1B17', accent: '#6B655E', bar: '#1F1B17',
     line: 'One account for the fan quiz sites.',
     pills: ['Your passport', 'Your sites', 'Sign in once'],
   },

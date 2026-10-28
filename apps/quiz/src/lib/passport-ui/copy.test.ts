@@ -46,13 +46,17 @@ describe('the words of a world site', () => {
     expect(signInWords('kpop')).toBeUndefined();
     expect(onboardingWords('kpop')).toBeUndefined();
   });
-  it('say OtakuQuiz and FanQuiz from the registry, never K-pop', () => {
+  it('say OtakuQuiz and FandomVerse from the registry, never K-pop', () => {
     expect(p1('signin.title', {}, 'anime')).toBe('Sign in to OtakuQuiz');
-    expect(p1('signin.network', {}, 'anime')).toContain('FanQuiz');
+    expect(p1('signin.network', {}, 'anime')).toContain('FandomVerse');
     expect(p1('account.signOutHere', {}, 'anime')).toBe('Sign out of OtakuQuiz only');
-    expect(p1('signin.title', {}, 'hub')).toBe('Sign in to FanQuiz');
+    expect(p1('signin.title', {}, 'hub')).toBe('Sign in to FandomVerse');
     const all = JSON.stringify([passportWords('anime'), signInWords('anime'), onboardingWords('anime'), passportWords('hub'), signInWords('hub')]);
-    expect(all).not.toMatch(/k-?pop|discord|stan\b/i);
+    // FandomVerse (owner, 2026-10-28, reverses D-099): fandomverse.org signs in with Google and Discord. Discord is named
+    // only as a sign-in method ("Google or Discord") and as the label of its button, nowhere else.
+    expect(signInWords('anime')?.discord).toBe('Continue with Discord');
+    expect(signInWords('hub')?.discord).toBe('Continue with Discord');
+    expect(all.replaceAll('Google or Discord', '').replaceAll('"discord":"Continue with Discord"', '')).not.toMatch(/k-?pop|discord|stan\b/i);
     expect(passportWords('anime')?.tagIcon).toBe('star');
     expect(passportWords('hub')?.tagIcon).toBe('heart');
   });

@@ -15,6 +15,9 @@ import type { KitResponse } from '@/app/api/creators/kit/route';
 import type { StoryFormat } from '@/components/ux-v1/story-image';
 import type { KitQuiz } from './captions';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 export interface ShareKitProps {
   open: boolean;
   onClose: () => void;
@@ -34,7 +37,7 @@ function isKit(v: unknown): v is KitResponse {
 
 async function readKit(quizId: string): Promise<KitResponse | null> {
   try {
-    const res = await fetch(`/api/creators/kit?quiz=${encodeURIComponent(quizId)}`, { credentials: 'include', cache: 'no-store' });
+    const res = await fetch(`${BASE_PATH}/api/creators/kit?quiz=${encodeURIComponent(quizId)}`, { credentials: 'include', cache: 'no-store' });
     if (!res.ok) return null;
     const raw: unknown = await res.json();
     return isKit(raw) ? raw : null;
@@ -57,14 +60,14 @@ function qrOf(url: string): string | null {
  *  "link", the call lib/share copyShareLink makes), or null when it cannot be made. */
 async function trackedLink(quizId: string): Promise<string | null> {
   try {
-    const res = await fetch('/api/share/generate', {
+    const res = await fetch(`${BASE_PATH}/api/share/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ quizId, platform: 'link' }),
     });
     if (!res.ok) return null;
     const data = (await res.json()) as { shareCode?: unknown };
-    return typeof data.shareCode === 'string' && data.shareCode ? `${window.location.origin}/s/${data.shareCode}` : null;
+    return typeof data.shareCode === 'string' && data.shareCode ? `${window.location.origin}${BASE_PATH}/s/${data.shareCode}` : null;
   } catch {
     return null;
   }
@@ -105,7 +108,7 @@ export function ShareKit({ open, onClose, quizId, slug, fallbackTitle }: ShareKi
     return () => { on = false; window.clearInterval(t); };
   }, [open, quizId]);
 
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://kpopquiz.org';
+  const origin = typeof window !== 'undefined' ? (BASE_PATH ? window.location.origin + BASE_PATH : window.location.origin) : 'https://kpopquiz.org';
   const url = link ?? `${origin}/q/${slug}`;
   const quiz: KitQuiz = useMemo(() => ({
     title: kit?.quiz.title ?? fallbackTitle,
@@ -180,7 +183,7 @@ export function ShareKit({ open, onClose, quizId, slug, fallbackTitle }: ShareKi
           <section className="g8-kitsec" aria-labelledby="g8-kit-ch">
             <h3 id="g8-kit-ch">Challenge your mutuals</h3>
             <div className="g8-kit-ch">
-              <a className="ux-btn ux-btn-ghost ux-btn-sm" href={`/community?compose=challenge&quiz=${encodeURIComponent(slug)}`}><Icon name="target" />Post a challenge</a>
+              <a className="ux-btn ux-btn-ghost ux-btn-sm" href={`${BASE_PATH}/community?compose=challenge&quiz=${encodeURIComponent(slug)}`}><Icon name="target" />Post a challenge</a>
               <span className="ux-muted">It goes to the community feed with your quiz.</span>
             </div>
           </section>

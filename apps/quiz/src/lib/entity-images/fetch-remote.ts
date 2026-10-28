@@ -68,7 +68,7 @@ const realDeps: RemoteDeps = {
       const host = url.hostname.replace(/^\[|\]$/g, '');
       const req = httpsRequest({
         protocol: 'https:', host, port: 443, path: `${url.pathname}${url.search}`, method: 'GET',
-        headers: { accept: 'image/*', 'accept-encoding': 'identity', 'user-agent': 'OtakuQuizImageImport/1.0 (+https://otakuquiz.org)' },
+        headers: { accept: 'image/*', 'accept-encoding': 'identity', 'user-agent': 'OtakuQuizImageImport/1.0 (+https://fandomverse.org/anime)' },
         ...(isIP(host) ? {} : { servername: host }),
         // Pin the connection to the address that was checked: the system resolver is never asked again.
         lookup: ((_h: string, opts: { all?: boolean }, cb: (...a: unknown[]) => void) => (opts?.all ? cb(null, [{ address: to.address, family: to.family }]) : cb(null, to.address, to.family))) as never,

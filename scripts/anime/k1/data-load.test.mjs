@@ -91,7 +91,7 @@ test('K2: creators and quizzes are planned, the level is computed from the tags,
   assert.deepEqual(countDataPlan(plan), { groups: 1, series: 1, arcs: 2, characters: 1, themes: 1, trivia: 1, entity_sources: 1, creators: 1, quizzes: 2, questions: 6 });
   assert.deepEqual([plan.quizzes[0].spoiler_arc_ord, plan.quizzes[0].spoiler_scope], [2, 'both']);
   assert.deepEqual([plan.quizzes[1].spoiler_arc_ord, plan.quizzes[1].spoiler_scope], [0, null]);
-  assert.equal(plan.creators[0].avatar_url, 'https://otakuquiz.org/brand/anime/creators/oq_creator_01-avatar.svg');
+  assert.equal(plan.creators[0].avatar_url, 'https://fandomverse.org/anime/brand/anime/creators/oq_creator_01-avatar.svg');
   const sql = renderDataSql(plan);
   assert.match(sql, /a creator has no profile/);
   assert.match(sql, /insert into public\.editorial_accounts .* on conflict \(user_id\) do update/);

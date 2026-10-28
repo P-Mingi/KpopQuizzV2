@@ -14,6 +14,11 @@
 // Run O1 (B3): an optional third parameter names the site that will serve the path; the
 // origin of the check is then that site's registry url. Without it the origin is today's
 // literal, so every call of today answers exactly what it answered before.
+//
+// Security fix (FandomVerse review, 2026-10-28): the answer is the path the URL parser NORMALISED, and dot segments can
+// turn a path that passed the first checks into a protocol-relative one: '/.//evil.com', '/a/..//evil.com' and
+// '/%2e//evil.com' all normalise to '//evil.com', which a browser reads as another host. A normalised answer that starts
+// with two slashes (or a slash and a backslash) is refused like the raw form. kpop changes only for those inputs.
 import { REGISTRY } from '@/lib/site/registry';
 
 import type { SiteId } from '@/lib/site/types';
@@ -35,5 +40,7 @@ export function safeReturnTo(raw: string | null | undefined, fallback = '/', sit
     return fallback;
   }
   if (url.origin !== origin) return fallback;
-  return `${url.pathname}${url.search}${url.hash}`;
+  const out = `${url.pathname}${url.search}${url.hash}`;
+  if (out[1] === '/' || out[1] === '\\') return fallback;
+  return out;
 }

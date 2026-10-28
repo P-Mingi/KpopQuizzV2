@@ -1,4 +1,4 @@
-// Run O1 (ADM back): the constants of the admin images of otakuquiz.org. Pure, no I/O. The table is public.entity_images
+// Run O1 (ADM back): the constants of the admin images of fandomverse.org/anime. Pure, no I/O. The table is public.entity_images
 // (docs/pending-migrations/multisite/018-entity-images.sql) and the Storage bucket is 'entity-images'.
 
 export const IMAGE_SITE = 'anime' as const;

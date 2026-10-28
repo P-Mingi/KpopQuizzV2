@@ -10,13 +10,16 @@ import type { ImageList } from '@/lib/entity-images/list';
 import type { AdminAnswer, EntityImageDto } from '@/lib/entity-images/types';
 import type { AdminImage, AdminSeries, EntityKind, ImageMeta } from './entity-images-rules';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 /** The routes of part 1. DELETE is served at /api/admin/images (and at /api/admin/images/delete, the same handler). */
 export const IMAGES_API = {
-  list: '/api/admin/images/list?site=anime',
-  upload: '/api/admin/images/upload',
-  import: '/api/admin/images/import',
-  focal: '/api/admin/images/focal',
-  remove: '/api/admin/images',
+  list: `${BASE_PATH}/api/admin/images/list?site=anime`,
+  upload: `${BASE_PATH}/api/admin/images/upload`,
+  import: `${BASE_PATH}/api/admin/images/import`,
+  focal: `${BASE_PATH}/api/admin/images/focal`,
+  remove: `${BASE_PATH}/api/admin/images`,
 } as const;
 
 export type ApiResult<T> = { readonly ok: true; readonly value: T } | { readonly ok: false; readonly message: string };

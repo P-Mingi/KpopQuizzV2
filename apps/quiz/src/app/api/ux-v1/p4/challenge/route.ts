@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { SITE } from '@/lib/site/registry';
 import { UX_V1 } from '@/lib/ux-v1';
 import { isUuid } from '@/lib/anon-claim';
 import { createPublicReadClient, createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
@@ -78,6 +79,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const id = row.id as string;
   const sig = signChallenge(id);
   if (!sig) return NextResponse.json({ error: 'not_configured' }, { status: 503 });
-  const origin = process.env.NEXT_PUBLIC_SITE_URL || 'https://kpopquiz.org';
+  // FandomVerse (lane 1): kpop keeps its override and literal; another site links to its own url (with its base path, /anime).
+  const origin = SITE.id === 'kpop' ? process.env.NEXT_PUBLIC_SITE_URL || 'https://kpopquiz.org' : SITE.url;
   return NextResponse.json({ id, url: `${origin}${challengeHref(q.slug, id, sig)}` });
 }

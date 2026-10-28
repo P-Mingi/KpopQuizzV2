@@ -15,6 +15,9 @@ import type { RunSummary } from '@/lib/ux-v1/p6/points';
 import type { BtRunContext } from '@/lib/tracking/bt';
 import type { BtPick } from '@/lib/ux-v1/p6/playlists';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // The run engine of the v11 blindtest (DESIGN-SPEC 14.7, 16.7). It is the live
 // game's logic (components/blind-test/blindtest-game.tsx) moved behind a hook so
 // the day-mode views can render it: the same endpoints and bodies
@@ -299,7 +302,7 @@ export function useBlindtestRun(opts: {
     setCount(n);
     setPhase('loading');
     try {
-      const res = await fetch('/api/blind-test/generate', {
+      const res = await fetch(`${BASE_PATH}/api/blind-test/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(generateBody(p, n)),
@@ -325,7 +328,7 @@ export function useBlindtestRun(opts: {
     setCount(10);
     setPhase('loading');
     try {
-      const res = await fetch('/api/daily/blindtest');
+      const res = await fetch(`${BASE_PATH}/api/daily/blindtest`);
       const data = res.ok ? ((await res.json()) as { questions?: BtQuestion[] }) : null;
       if (runRef.current !== id) return; // the player quit while the songs loaded
       if (!data?.questions?.length) { setError('Could not load today\'s blindtest. Try a free run.'); setPhase('idle'); return; }
@@ -423,7 +426,7 @@ export function useBlindtestRun(opts: {
       let rank: number | null = null;
       let total: number | null = null;
       try {
-        const res = await fetch('/api/daily/blindtest/submit', {
+        const res = await fetch(`${BASE_PATH}/api/daily/blindtest/submit`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ score, time_ms: totalTimeMs }),

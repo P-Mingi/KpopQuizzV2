@@ -7,6 +7,7 @@ import { UxButton } from '@/components/ux-v1/button';
 import { ShareSheet } from '@/components/ux-v1/share-sheet';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { useUxToast } from '@/components/ux-v1/toast';
+import { BASE_PATH } from '@/lib/site/client-base-path';
 import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
 
 import { useIsOwner } from './passport-band';
@@ -40,13 +41,13 @@ export function PassportActions({ username, displayName, owner, level, words }: 
   const [pending, setPending] = useState(false);
   const [origin, setOrigin] = useState('https://kpopquiz.org');
 
-  useEffect(() => { setOrigin(window.location.origin); }, []);
+  useEffect(() => { setOrigin(BASE_PATH ? window.location.origin + BASE_PATH : window.location.origin); }, []);
 
   // Visitor follow state (GET, read only). Not asked on /me.
   useEffect(() => {
     if (owner === 'server') return;
     let cancelled = false;
-    fetch(`/api/follow?username=${encodeURIComponent(username)}`, { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/follow?username=${encodeURIComponent(username)}`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((d: FollowState) => { if (!cancelled) setFollow(d); })
       .catch(() => { if (!cancelled) setFollow(null); });
@@ -57,7 +58,7 @@ export function PassportActions({ username, displayName, owner, level, words }: 
     setFollow((s) => (s ? { ...s, following: next } : s));
     setPending(true);
     try {
-      const res = await fetch('/api/follow', {
+      const res = await fetch(`${BASE_PATH}/api/follow`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include',
         body: JSON.stringify({ username, action: next ? 'follow' : 'unfollow' }),
       });
@@ -105,14 +106,14 @@ export function PassportActions({ username, displayName, owner, level, words }: 
         open={share}
         onClose={() => setShare(false)}
         title={isOwner ? 'Share your passport' : `Share ${displayName}'s passport`}
-        preview={{ image: `/api/og/passport/${encodeURIComponent(username)}`, line1: displayName, line2: level }}
+        preview={{ image: `${BASE_PATH}/api/og/passport/${encodeURIComponent(username)}`, line1: displayName, line2: level }}
         url={url}
         text={words ? (isOwner ? words.shareOwn : words.shareOther.replace('{name}', () => displayName)) : isOwner ? 'My K-pop passport on KpopQuiz' : `${displayName}'s K-pop passport on KpopQuiz`}
         {...(isOwner && !words ? {
-          onStoryImage: () => { window.open(`/api/fancard/${encodeURIComponent(username)}`, '_blank', 'noopener'); },
+          onStoryImage: () => { window.open(`${BASE_PATH}/api/fancard/${encodeURIComponent(username)}`, '_blank', 'noopener'); },
           storyFile: async () => {
             try {
-              const r = await fetch(`/api/fancard/${encodeURIComponent(username)}`);
+              const r = await fetch(`${BASE_PATH}/api/fancard/${encodeURIComponent(username)}`);
               if (!r.ok) return null;
               return new File([await r.blob()], `fancard-${username}.png`, { type: 'image/png' });
             } catch { return null; }

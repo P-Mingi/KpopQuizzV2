@@ -1,5 +1,6 @@
 // Run O1, lane B1. The site-wide JSON-LD that the chrome layout renders, by site.
 
+import { joinSiteUrl } from './base-path';
 import { SITE } from './registry';
 
 import type { FeatureKey, SiteConfig } from './types';
@@ -21,7 +22,7 @@ export function siteNavigationJsonLd(site: SiteConfig = SITE): Record<string, un
     hasPart: NAVIGATION.filter((n) => site.features[n.feature]).map((n) => ({
       '@type': 'WebPage',
       name: n.name,
-      url: `${site.url}${n.path}`,
+      url: joinSiteUrl(site.url, n.path),
     })),
   };
 }

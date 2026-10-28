@@ -22,8 +22,17 @@ import type { Metadata } from 'next';
 
 import type { SiteId } from './types';
 
-/** True on the kpop build (always open) and on another site once the owner sets NET_INDEXING=1. */
-export const INDEXING_OPEN: boolean = SITE_ID === 'kpop' || flagOn(process.env.NET_INDEXING);
+/**
+ * FandomVerse (lane 1): a build of a Vercel preview or development deployment is only ever served on *.vercel.app hosts, never on
+ * fandomverse.org: it stays closed whatever NET_INDEXING says (meta and X-Robots-Tag). A production build is open with the flag;
+ * its own *.vercel.app hosts get the X-Robots-Tag of next.config.ts (lib/site/zones.ts). Local builds (no VERCEL_ENV) follow the flag.
+ */
+// `process.browser` is Next's build constant (true in a client bundle): this module is in client bundles too, where VERCEL_ENV is
+// not inlined, and there the line folds away, so a client chunk keeps today's bytes.
+const VERCEL_PREVIEW_BUILD: boolean = !process.browser && Boolean(process.env.VERCEL_ENV) && process.env.VERCEL_ENV !== 'production';
+
+/** True on the kpop build (always open) and on another site once the owner sets NET_INDEXING=1 (not on a preview build). */
+export const INDEXING_OPEN: boolean = SITE_ID === 'kpop' || (VERCEL_PREVIEW_BUILD ? false : flagOn(process.env.NET_INDEXING));
 
 /** The same switch for a named site, read now: kpop is always open, another site once NET_INDEXING is 1 or true. */
 export function indexingOpenFor(site: SiteId, raw: string | undefined = process.env.NET_INDEXING): boolean {

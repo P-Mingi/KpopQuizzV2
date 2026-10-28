@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { joinSiteUrl } from '@/lib/site/base-path';
 import { SITE } from '@/lib/site/registry';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 
@@ -31,7 +32,7 @@ export function Breadcrumbs({ items, origin = SITE.url }: Props): React.ReactEle
       '@type': 'ListItem',
       position: i + 1,
       name: item.label,
-      ...(item.href ? { item: `${origin}${item.href}` } : {}),
+      ...(item.href ? { item: joinSiteUrl(origin, item.href) } : {}),
     })),
   };
 

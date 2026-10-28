@@ -1,4 +1,4 @@
-// Run O1, lot (d), lane H1: the body of fanquiz.org/privacy, also served by the otakuquiz.org build (canonical fanquiz.org). It renders
+// Run O1, lot (d), lane H1: the body of fandomverse.org/privacy, also served by the fandomverse.org/anime build (canonical fandomverse.org). It renders
 // PRIVACY_SECTIONS (lib/site/hub/network-page.ts), every string a copy key privacy.* (copy/hub/h1.ts), the names from the registry.
 // While the network is closed (INDEXING_OPEN false) it carries a visible "Draft" banner and no date; once it is open it has neither
 // the banner nor a draft look, and prints the launch date (NET_LAUNCH_DATE). The "What your passport shares" block is the one of the
@@ -10,6 +10,9 @@ import { POLICY_CLASS, PRIVACY_PAGE, PRIVACY_SECTIONS, signInItems } from '@/lib
 import { formatLaunchDate, INDEXING_OPEN } from '@/lib/site/indexing';
 
 import type { PrivacyBlock, PrivacyKey, PrivacySection } from '@/lib/site/hub/network-page';
+
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 /** A copy line with the hub mailbox turned into a mailto link. */
 function Text({ k }: { k: PrivacyKey }): React.ReactElement {
@@ -28,7 +31,7 @@ function Text({ k }: { k: PrivacyKey }): React.ReactElement {
 
 function Block({ block }: { block: PrivacyBlock }): React.ReactElement {
   if (block.kind === 'shares') return <HubShares />;
-  if (block.kind === 'legal') return <p className={`${POLICY_CLASS}-prose`}>{ht(block.key)} <a href="/legal">{ht(block.link)}</a></p>;
+  if (block.kind === 'legal') return <p className={`${POLICY_CLASS}-prose`}>{ht(block.key)} <a href={`${BASE_PATH}/legal`}>{ht(block.link)}</a></p>;
   if (block.kind === 'signins') return <ul className={`${POLICY_CLASS}-prose-list`}>{signInItems().map((item) => <li key={item.id}>{item.text}</li>)}</ul>;
   if (block.kind === 'list') return <ul className={`${POLICY_CLASS}-prose-list`}>{block.keys.map((k) => <li key={k}><Text k={k} /></li>)}</ul>;
   return <p className={`${POLICY_CLASS}-prose`}><Text k={block.key} /></p>;
@@ -61,6 +64,7 @@ export function HubPrivacy(): React.ReactElement {
         <h1>{ht(PRIVACY_PAGE.h1)}</h1>
         <p>{ht(PRIVACY_PAGE.lede)}</p>
         {date ? <p>{ht(PRIVACY_PAGE.updated)}</p> : null}
+        <p>{ht(PRIVACY_PAGE.revised)}</p>
       </div>
 
       {PRIVACY_SECTIONS.map((section) => <Section key={section.title} section={section} />)}

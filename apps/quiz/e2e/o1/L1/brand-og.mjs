@@ -6,7 +6,7 @@
 //   node apps/quiz/e2e/o1/L1/brand-og.mjs            writes public/brand/anime/og-default.png and public/brand/hub/og-default.png
 //   node apps/quiz/e2e/o1/L1/brand-og.mjs --check    exit 1 when a committed file differs from a fresh render
 //
-// The words come from the registry (brand name, split at "Quiz" like lib/site/brand.ts) and from the copy of each site;
+// The words come from the registry (brand name, split at "Quiz", else at "Verse", like lib/site/brand.ts) and from the copy of each site;
 // do not edit the PNGs by hand: change this file and run it again.
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -31,7 +31,7 @@ const SITES = {
     pills: ['Series quizzes', 'Trivia', 'Openings', 'Which character are you', 'Daily quiz'],
   },
   hub: {
-    head: 'fan', tail: 'quiz',
+    head: 'fandom', tail: 'verse',
     line: 'One account for the fan quiz sites.',
     pills: ['Your passport', 'Your sites', 'Sign in once'],
   },

@@ -1,5 +1,7 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/terms/page.tsx, rows 26b: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
+import { siteAddress } from '@/lib/site/brand';
 import { robotsFor } from '@/lib/site/indexing';
+import { SITE } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
 
@@ -18,8 +20,7 @@ export default function TermsPage(): React.ReactElement {
       <p className="text-sm text-secondary mb-8">Last updated: March 27, 2026</p>
 
       <p className="text-sm text-secondary leading-relaxed">
-        
-        Welcome to OtakuQuiz (otakuquiz.org). By using our platform, you agree to these terms.
+        {`Welcome to OtakuQuiz (${siteAddress(SITE)}). By using our platform, you agree to these terms.`}
       </p>
 
       <h2 className="text-lg font-medium mt-8 mb-3">1. What OtakuQuiz is</h2>
@@ -32,7 +33,7 @@ export default function TermsPage(): React.ReactElement {
       <h2 className="text-lg font-medium mt-8 mb-3">2. Your account</h2>
       <p className="text-sm text-secondary leading-relaxed">
         
-        You can sign in using Google or an email link. You are responsible for your account activity. You must
+        You can sign in using Google or Discord. You are responsible for your account activity. You must
         be at least 13 years old to use OtakuQuiz. If you are under 18, you confirm you have parental or
         guardian consent.
       </p>

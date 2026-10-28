@@ -4,11 +4,11 @@
   "files": [
     {
       "name": "L02-K2-team-accounts.sql",
-      "sha256": "89680ba4458946ceec50d276ec5b8fb88e7c426876b3aa5125e85c9dab39efc7"
+      "sha256": "af795bd63ea671fee88d250dfe50fb8b62b54320cd699029fd17885f4a4fa878"
     },
     {
       "name": "L02-K2-team-accounts.rollback.sql",
-      "sha256": "faccf3bfbe5f5490bf840c4ef5cc49f2d1912f32d8c383daea4dbabe78cde04e"
+      "sha256": "18922d59584b2bd3707315bc5d178863a2849da0898ed35964530c4e68529ce8"
     },
     {
       "name": "L04-K1-series.sql",

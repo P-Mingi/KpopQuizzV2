@@ -11,6 +11,9 @@ import { hasPlayedDaily } from '@/lib/daily-played';
 import { DiscordContextLine } from '@/components/discord/discord-context-line';
 import type { QuizCardData } from '@/lib/db/types';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 interface Props {
   quiz: QuizCardData;
 }
@@ -25,7 +28,7 @@ export function HomeQotd({ quiz }: Props) {
   const [streak, setStreak] = useState(0);
   useEffect(() => {
     setPlayed(hasPlayedDaily('quiz'));
-    fetch('/api/daily/streak').then((r) => r.json()).then((d: { streak?: number }) => setStreak(d.streak ?? 0)).catch(() => {});
+    fetch(`${BASE_PATH}/api/daily/streak`).then((r) => r.json()).then((d: { streak?: number }) => setStreak(d.streak ?? 0)).catch(() => {});
   }, []);
 
   useEffect(() => {

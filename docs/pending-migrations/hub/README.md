@@ -1,4 +1,4 @@
-# Run O1, lot H2b: SQL of the data behind the FanQuiz home
+# Run O1, lot H2b: SQL of the data behind the FandomVerse home
 
 Written by lot H2b, applied by nobody yet. Tried only on the `o1-scratch` branch. Both files are optional: the blocks of
 `apps/quiz/src/lib/site/hub/data/` work without them (they page the plays rows and estimate the week from plays) and use the tables once

@@ -14,6 +14,9 @@ import { isPlainClick, useP2Nav } from './nav-context';
 
 import type { P2Card, P2Filters, P2PagePayload } from '@/lib/ux-v1/p2/filters';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 interface Props {
   /** The server-rendered cards (real <a href="/q/..."> links) of pages 1..filters.page. */
   children: React.ReactNode;
@@ -63,7 +66,7 @@ export function P2Results({ children, filters, ids, hasNext, pageCount }: Props)
     const page = shown + 1;
     setLoading(true);
     try {
-      const res = await fetch(`/api/ux-v1/p2/quizzes?${p2Query(filters, page)}`);
+      const res = await fetch(`${BASE_PATH}/api/ux-v1/p2/quizzes?${p2Query(filters, page)}`);
       if (!res.ok) throw new Error(String(res.status));
       const data = (await res.json()) as P2PagePayload;
       const seen = new Set([...ids, ...extra.map((q) => q.id)]);
@@ -73,10 +76,10 @@ export function P2Results({ children, filters, ids, hasNext, pageCount }: Props)
       setShown(page);
       setMore(data.hasMore);
       // Keep the address in step with the list (Next syncs a native replaceState).
-      window.history.replaceState(null, '', nextHref);
+      window.history.replaceState(null, '', BASE_PATH ? BASE_PATH + nextHref : nextHref);
       announce(fresh.length ? `${fresh.length} more quizzes loaded` : 'No more quizzes');
     } catch {
-      window.location.assign(nextHref);
+      window.location.assign(BASE_PATH ? BASE_PATH + nextHref : nextHref);
     } finally {
       setLoading(false);
     }

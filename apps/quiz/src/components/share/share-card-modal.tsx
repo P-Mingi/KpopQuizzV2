@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { shareToReddit, shareToTwitter, shareToDiscord } from '@/lib/share';
+import { BASE_PATH } from '@/lib/site/client-base-path';
 
 const POPULAR_KPOP_SUBS = ['kpop', 'Kpop_Verse', 'kpopthoughts', 'kpophelp', 'bangtan', 'BLACKPINK', 'Stray_Kids', 'GOT7', 'TWICE', 'aespa'];
 
@@ -76,14 +77,15 @@ export function ShareCardModal({ quizId, slug, quizTitle, platform, canEdit, onC
   }, [onClose]);
 
   // --- preview: live (debounced) for the creator, the saved card for others ---
+  // The card is the OG route of this build: under /anime on the anime build (the <img> and the Download link read it).
   useEffect(() => {
     setPreviewLoading(true);
-    if (!canEdit) { setPreviewSrc(`/api/og/${slug}`); return; }
+    if (!canEdit) { setPreviewSrc(`${BASE_PATH}/api/og/${slug}`); return; }
     const t = window.setTimeout(() => {
       const p = new URLSearchParams({ overlay, opacity: String(opacity) });
       if (hook.trim()) p.set('hook', hook.trim());
       if (title.trim()) p.set('title', title.trim());
-      setPreviewSrc(`/api/og/${slug}?${p.toString()}`);
+      setPreviewSrc(`${BASE_PATH}/api/og/${slug}?${p.toString()}`);
     }, 400);
     return () => window.clearTimeout(t);
   }, [overlay, opacity, hook, title, slug, canEdit]);
@@ -99,7 +101,7 @@ export function ShareCardModal({ quizId, slug, quizTitle, platform, canEdit, onC
     setImagePosting(true);
     setImagePostResult(null);
     try {
-      const res = await fetch('/api/share/reddit-image', {
+      const res = await fetch(`${BASE_PATH}/api/share/reddit-image`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug, subreddit: subreddit.trim(), title: title.trim() || quizTitle }),
@@ -122,7 +124,7 @@ export function ShareCardModal({ quizId, slug, quizTitle, platform, canEdit, onC
     setSaving(true);
     setDiscordCopied(null);
     try {
-      await fetch(`/api/quiz/${quizId}/share-card`, {
+      await fetch(`${BASE_PATH}/api/quiz/${quizId}/share-card`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ overlay, opacity, hook: hook.trim(), title: title.trim() }),
       });

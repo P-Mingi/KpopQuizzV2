@@ -16,6 +16,9 @@ import type { Loaded } from '@/components/profile/ux-v1/settings';
 import type { SettingsWorld, WorldMembershipRow, WorldProfileRow, WorldWrites } from '@/lib/passport-ui/settings-world';
 import type { ProfileForm } from '@/lib/ux-v1/p10/settings-model';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 export { hasWrites, worldProblems, worldWrites };
 
 /** The reads of a world site's settings: the shared profile's identity and the membership of this site; never the kpop presentation. */
@@ -64,7 +67,7 @@ export async function saveWorldSettings(args: {
     if (error) return 'We could not save your changes.';
   }
   if (Object.keys(writes.profile).length > 0) {
-    const res = await fetch('/api/auth/update-profile', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(writes.profile), credentials: 'include' });
+    const res = await fetch(`${BASE_PATH}/api/auth/update-profile`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(writes.profile), credentials: 'include' });
     if (!res.ok) return 'We could not save your changes.';
   }
   if (writes.series) {

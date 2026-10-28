@@ -1,20 +1,27 @@
-# Verification (run O1, lane L1)
+# Verification (run O1, FandomVerse)
 
 Read-only commands and queries, phase by phase, each with the result to expect. Nothing here writes to a database or changes a
 setting, and every query returns names and numbers only. "Stop" means: do not go on to the next step; the way back is in
 `ROLLBACK.md`.
+
+Sites (2026-10-28): kpopquiz.org (project `kpopquiz`), the FandomVerse hub at `https://fandomverse.org` (project `fandomverse`) and OtakuQuiz at
+`https://fandomverse.org/anime` (project `otakuquiz`, through the Microfrontends group `fandomverse`). Every OtakuQuiz path starts with `/anime`.
+Watches: 24 hours after B, after 008 (D3) and after 010 (F) (RUNBOOK).
 
 Helpers (the same as `SQL-ORDER.md` section 1):
 
     read -rs PROD_DB_URL; export PROD_DB_URL
     q() { psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "$1"; }
     M=docs/pending-migrations/multisite
-    mkdir -p ~/kpq-launch        # a folder of your own for the snapshots below, outside the repository
+    mkdir -p ~/kpq-launch
+
+`~/kpq-launch` is a folder of your own for the snapshots below, outside the repository. In these blocks a `# ...` note follows only a `q` line,
+which reads its first argument only, so it is harmless in zsh too; any other command carries no note.
 
 Where a result is "the same as V0", compare with the numbers you saved in `~/kpq-launch/v0.txt`. Counts that move with traffic
 (plays, profiles) are compared with the rule written next to them, never as equal to the old number.
 
-## A0. S4, right after step A0 (and again after 008)
+## A0. S4 (applied 2026-10-23; run again after 008, after G and on launch day)
 
 **V-S4 (must pass, fails loudly otherwise).** S4 was applied in production on 2026-10-23 at 14:53 UTC. This check raises, and psql exits
 non-zero, if any of the 28 functions S4 closed is executable again by anon or authenticated, if service_role lost EXECUTE on one, or
@@ -58,8 +65,8 @@ Snapshot the 60 parity URLs before the step, and again after. Pages with live nu
 
     snap() { mkdir -p "$1"; grep -v '^#' apps/quiz/e2e/o1/parity/urls.txt | grep . | while read -r p; do
       curl -sS -m 30 "https://kpopquiz.org$p" -o "$1/$(printf '%s' "$p" | tr '/?&=' '____').html"; done; }
-    snap ~/kpq-launch/before        # before the step
-    snap ~/kpq-launch/after         # after it
+    snap ~/kpq-launch/before
+    snap ~/kpq-launch/after
     diff -rq ~/kpq-launch/before ~/kpq-launch/after
 
 Expect: no file differs, or only the pages with a live counter, leaderboard time or the quiz of the day (as the three accepted cases
@@ -132,10 +139,10 @@ Data API wall for 006 (dashboard, Project Settings, API, "Exposed schemas"): `pa
 `curl -sS -o /dev/null -w '%{http_code}\n' -H "apikey: <the anon key>" "<project url>/rest/v1/handoff_codes" -H "Accept-Profile: passport"` expects 404 or 406 (never 200).
 Type the anon key from your own settings; it is a public key.
 
-Seven day watch after P1 (RUNBOOK C): V1 daily, and each day `q "select count(*), coalesce(sum(play_count),0) from public.quizzes"` must keep growing with
-traffic, Vercel "Runtime Logs" for kpop must show no new error type, and the counters audit of V0 must not exceed its baseline.
+24 hour watch after P1 (RUNBOOK C): at the end of the 24 hours, V1, and `q "select count(*), coalesce(sum(play_count),0) from public.quizzes"` must have grown with
+traffic, Vercel "Runtime Logs" for `kpopquiz` must show no new error type over the 24 hours, and the counters audit of V0 must not exceed its baseline.
 
-## V4. 008, write locks (by T-14)
+## V4. 008, write locks (RUNBOOK D)
 
 Run V-S4 (section A0) after this step: it must print `V-S4 ok`.
 
@@ -195,9 +202,9 @@ The evidence that today's function and the wrapper publish the same quiz (110 da
 
 The day after (the cron fires at 00:05 UTC): `q "select featured_date, site_id from public.qotd_log order by featured_date desc limit 3"` has today's date with `kpop`,
 `q "select slug from public.quizzes where is_quiz_of_the_day and quiz_of_the_day_date=current_date and site_id='kpop'"` returns one slug, and the `/daily` redirect points to it.
-Vercel, project kpop, Cron Jobs: `ensure-daily-quiz` shows a success at 00:05.
+Vercel, project `kpopquiz`, Cron Jobs: `ensure-daily-quiz` shows a success at 00:05.
 
-## V6. 011 to 016 (P5, after the 3 day watch)
+## V6. 011 to 017 (P5, after the 24 hour watch F)
 
 Run V-S4 (section A0) after this step: it must print `V-S4 ok`.
 
@@ -217,16 +224,26 @@ Run V-S4 (section A0) after this step: it must print `V-S4 ok`.
     q "select pg_get_constraintdef(oid) from pg_constraint where conname='reason_valid' and conrelid='public.reports'::regclass"  # the five reasons of today
     q "select count(*) from pg_indexes where indexname='reports_spoiler_once'"                                                   # 0
 
+018 (row 14b), the queries of its header:
+
+    q "select relname, relrowsecurity from pg_class where oid = 'public.entity_images'::regclass"                                  # entity_images|t
+    q "select has_table_privilege('anon', 'public.entity_images', 'insert'), has_table_privilege('authenticated', 'public.entity_images', 'update'), has_column_privilege('anon', 'public.entity_images', 'created_by', 'select'), has_column_privilege('anon', 'public.entity_images', 'path', 'select')"   # f|f|f|t
+    q "select id, public, file_size_limit from storage.buckets where id = 'entity-images'"                                       # entity-images|t|4194304
+
 016: the tables `passport.deletion_requests` and `passport.deletion_log` exist with RLS on and no policy (`select relname, relrowsecurity from pg_class where relnamespace = 'passport'::regnamespace and relname like 'deletion%' and relkind = 'r' order by 1` gives `deletion_log|t`, `deletion_requests|t`); the five functions
 `passport_request_deletion`, `passport_cancel_deletion`, `passport_run_deletion`, `passport_leave_world`, `passport_due_deletions` are executable by `service_role` only
 (`has_function_privilege('anon', ..., 'execute')` and the same for `authenticated` are `f`); `select count(*) from passport.deletion_requests` is 0.
 
-After the whole P5, V1 once more (nothing visible may have changed on kpop) and the Vercel runtime errors of kpop for the last hour.
+017 (row 19b), the query of its header:
 
-## V7. Clearing Verrou 0 (P4, before P5)
+    q "select proname, has_function_privilege('anon', oid, 'execute'), has_function_privilege('authenticated', oid, 'execute'), has_function_privilege('service_role', oid, 'execute') from pg_proc where proname in ('passport_run_deletion', 'passport_deletion_status') order by 1"   # f|f|t for both
+
+After the whole P5, V-S4 (section A0), V1 once more (nothing visible may have changed on kpop) and the Vercel runtime errors of `kpopquiz` for the last hour.
+
+## V7. Clearing Verrou 0 (RUNBOOK F, 24 hours after 010, before P5)
 
 All of:
-1. Three days in a row, V5's "day after" checks pass.
+1. The morning after 010 (RUNBOOK E5), V5's "day after" checks pass.
 2. `q "select count(*) from public.quizzes where site_id <> 'kpop'"` is 0 and `q "select count(*) from public.badge_definitions where site_id <> 'kpop'"` is 0.
 3. `q "select (select count(*) from public.world_memberships where site_id='kpop') = (select count(*) from public.profiles)"` is `t`.
 4. `q "select (select sum(xp) from public.profiles) = (select sum(xp) from public.world_progress where site_id='kpop')"` is `t`, and `sum(xp)` is not lower than V0.
@@ -243,15 +260,16 @@ Run `content-verify.sql` after L04 to L08 and compare with `expected-counts.json
 
     psql "$PROD_DB_URL" -X -At -F ' | ' -f $M/launch/content-verify.sql
     cat $M/launch/expected-counts.json
-    grep -l '^-- DRAFTS' $M/launch/*.sql        # prints nothing
+    grep -l '^-- DRAFTS' $M/launch/*.sql
 
+The last command prints nothing.
 The columns are, in order: groups, series, arcs, characters, themes, trivia, entity_sources, then (when the files L02 and L07 are in) Team accounts,
 Team memberships, published quizzes, questions, then (L08) bank rows, bank questions. Each must equal the `counts` object, except `groups`, which is
 one more than `counts.groups` (the series groups plus `anime-mix`). Rehearsed on o1-scratch on 2026-10-23 with the DRAFTS files and the whole repository SQL (`SQL-ORDER.md` section 5):
 every file applied twice with no change the second time, every rollback refused when data had been written and ran clean otherwise.
 
     q "select id, domain, brand, kind, status, sort from public.sites order by sort"
-After L01: `kpop|...|live|1`, `anime|otakuquiz.org|OtakuQuiz|world|building|2`, `hub|fanquiz.org|FanQuiz|hub|building|3`. After L12 (K8): all three `live`.
+After L01: the three rows its header lists ("Verify" lines): `kpop|kpopquiz.org|KpopQuiz|world|live|1`, then `anime` and `hub` with the FandomVerse domains and brands lane 2 wrote, both `building`, sort 2 and 3. After L12 (K8): all three `live`.
 
 After L03 (the sentinels): `q "select username, id from public.profiles where id::text like '00000000-0000-0000-0000-%' and username like 'deleted_user_%' order by 1"` gives `deleted_user_anime|00000000-0000-0000-0000-00000000dea2` and `deleted_user_hub|...dea3`
 (plus `deleted_user` of Mission U part D when it is applied); `q "select count(*) from public.world_memberships where user_id in ('00000000-0000-0000-0000-00000000dea2', '00000000-0000-0000-0000-00000000dea3')"` is 0;
@@ -274,61 +292,77 @@ Leaks (SQL side), after L04 to L08:
     q "select count(*) from public.quiz_bank where site_id='anime' and scheduled_date is not null"                          # 0 until you verify and the cron schedules
     q "select count(*) from public.trivia where site_id='anime' and status='published'"                                      # equals the `published` figure in L05's header
 
-## V9. Vercel projects and environment (before the domains are attached)
+## V9. Vercel projects and environment (before the domain is attached)
 
-For each of the three projects, on its `*.vercel.app` production URL (you are signed in to Vercel, so protection lets you through; or use the dashboard "Visit"):
+Use each project's production `.vercel.app` address (Vercel, the project, Overview; you are signed in to Vercel, so protection lets your browser through; or use the dashboard "Visit").
+OtakuQuiz has no address of its own to check: it is reached on the `fandomverse` address under `/anime`, through the Microfrontends group (RUNBOOK H7).
 
-    curl -sS -o /dev/null -w '%{http_code}\n' https://<project>.vercel.app/               # 200
-    curl -sS https://<project>.vercel.app/robots.txt | head -3
-    curl -sS -o /dev/null -w '%{http_code}\n' https://<project>.vercel.app/auth/authorize     # 404 while PASSPORT_JUMP is off, not 500
-    curl -sS https://<project>.vercel.app/ | grep -o 'application/ld+json' | head -1          # structured data present
+    KP=https://<kpopquiz production .vercel.app address>
+    FV=https://<fandomverse production .vercel.app address>
+    for B in "$KP" "$FV" "$FV/anime"; do
+      echo "== $B"
+      curl -sS -o /dev/null -w 'home %{http_code}\n' "$B"
+      curl -sS -o /dev/null -w 'authorize %{http_code}\n' "$B/auth/authorize"
+      curl -sS "$B" | grep -o 'application/ld+json' | head -1
+      curl -sS "$B" | grep -o '<title>[^<]*' | head -1
+    done
+    curl -sS "$FV/robots.txt" | head -5
+
+Expect for each: home 200; authorize 404 while `PASSPORT_JUMP` is off (never 500); `application/ld+json` printed (structured data present); the titles name KpopQuiz, FandomVerse and OtakuQuiz in that order.
 
 The build log of each project must show `check:env` passing and no line naming a missing variable. The three secrets are equal by length only:
 in Vercel, open each project's variable, use "show" once, and compare the character count (never the value) of `PASSPORT_TICKET_SECRET`, `PASSPORT_REVALIDATE_SECRET` and `NET_IP_HASH_SALT` on the 3 projects.
+If they are marked Sensitive (Vercel shows no value), skip this: the jump test of RUNBOOK K7 proves they are equal (it fails with an invalid ticket otherwise).
 
-## V10. The three live sites (domains attached, flags as the runbook step says)
+## V10. The three live sites (domain attached, flags as the runbook step says)
 
-Replace `D` with each domain in turn.
-
-    for D in kpopquiz.org otakuquiz.org fanquiz.org; do
-      echo "== $D"; curl -sS -o /dev/null -w 'home %{http_code} %{time_total}s\n' "https://$D/"
-      curl -sS "https://$D/" | grep -o '<link rel="canonical"[^>]*>' | head -1
-      curl -sS "https://$D/robots.txt" | grep -i '^sitemap'
-      curl -sS -o /dev/null -w 'sitemap %{http_code}\n' "https://$D/sitemap.xml"
-      curl -sS -o /dev/null -w 'llms %{http_code}\n' "https://$D/llms.txt"
-      curl -sSI "https://$D/" | grep -iE '^(strict-transport|x-robots-tag|set-cookie)' | sed 's/=.*//'
+    for B in https://kpopquiz.org https://fandomverse.org https://fandomverse.org/anime; do
+      echo "== $B"; curl -sS -o /dev/null -w 'home %{http_code} %{time_total}s\n' "$B"
+      curl -sS "$B" | grep -o '<link rel="canonical"[^>]*>' | head -1
+      curl -sS -o /dev/null -w 'sitemap %{http_code}\n' "$B/sitemap.xml"
+      curl -sSI "$B" | grep -iE '^(strict-transport|x-robots-tag|set-cookie)' | sed 's/=.*//'
     done
+    for H in kpopquiz.org fandomverse.org; do
+      echo "== $H"; curl -sS "https://$H/robots.txt" | grep -i '^sitemap'
+      curl -sS -o /dev/null -w 'llms %{http_code}\n' "https://$H/llms.txt"
+    done
+    curl -sS -o /dev/null -w 'www %{http_code} %{redirect_url}\n' https://www.fandomverse.org/
 
-Expect: home 200 on all three; each canonical names its own domain (never another); each robots `Sitemap:` line names its own domain;
-sitemap and llms 200; no `x-robots-tag: noindex` once indexing is open (RUNBOOK K10); on the anime and hub homes no `set-cookie` of a kpop name; `strict-transport-security` present.
-Before indexing is open the anime and hub homes carry a `noindex` robots meta (`curl -sS https://otakuquiz.org/ | grep -io '<meta name="robots"[^>]*>'`); after K10 it must be gone on the home, `/series`, a series page and `/q/<slug>`, and still there on `/settings`, `/me`, `/admin`.
+Expect: home 200 on all three; each canonical names its own base (`https://kpopquiz.org`, `https://fandomverse.org`, `https://fandomverse.org/anime`), never another;
+one `robots.txt` per host, and the `Sitemap:` lines of fandomverse.org name only fandomverse.org addresses (never kpopquiz.org); sitemaps and llms 200;
+`www.fandomverse.org` redirects (301 or 308) to `https://fandomverse.org/`; no `x-robots-tag: noindex` once indexing is open (RUNBOOK K10);
+on the hub and `/anime` homes no `set-cookie` of a kpop name; `strict-transport-security` present.
+Before indexing is open the hub and `/anime` homes carry a `noindex` robots meta (`curl -sS https://fandomverse.org/anime | grep -io '<meta name="robots"[^>]*>'`); after K10 it must be gone on the hub home, `/anime`, `/anime/series`, a series page and `/anime/q/<slug>`, and still there on `/settings`, `/me`, `/anime/admin`.
 
 String leaks (a site must not talk like another):
 
     for p in / /series /quizzes /daily /about /privacy /terms /faq /dmca; do
-      printf 'anime %s ' "$p"; curl -sSL "https://otakuquiz.org$p" | grep -ciE 'k-?pop|idol|bias group|kpopquiz'; done
-    for p in / /privacy; do printf 'hub %s ' "$p"; curl -sSL "https://fanquiz.org$p" | grep -ciE 'k-?pop|bias group'; done
+      printf 'anime %s ' "$p"; curl -sSL "https://fandomverse.org/anime$p" | grep -ciE 'k-?pop|idol|bias group|kpopquiz'; done
+    for p in / /privacy; do printf 'hub %s ' "$p"; curl -sSL "https://fandomverse.org$p" | grep -ciE 'k-?pop|bias group'; done
 
 Expect `0` on each line. Known leftovers from `RAPPORT-FINAL.md` section 5 (K-pop text on `/u/<name>`, name-all, the empty hub, the "Ways to play"
-tiles and `/dmca`; `/privacy` on the hub is the kpop copy until you validate the text) may show here: write each hit down as a launch decision (fix first, or accept and date it).
+tiles and `/dmca`) may show here: write each hit down as a launch decision (fix first, or accept and date it).
 
-Cross-site cookie check: sign in on kpopquiz.org, open otakuquiz.org in the same browser: you are signed out there until the jump is on. After `PASSPORT_JUMP` (K7): from kpop open
-`https://kpopquiz.org/auth/passport/out?to=anime`, you land on otakuquiz.org signed in; the Network tab shows the `via` parameter once and no token left in the URL after the landing.
+Sign-in sheet (owner decision 2026-10-28, AUTH-FANDOMVERSE.md): on fandomverse.org and `/anime` it offers Google and Discord and no email field; both sign in.
+Same session: signed in on `https://fandomverse.org`, `https://fandomverse.org/anime` is signed in too, with no jump (one origin).
 
-Admin and noindex pages answer 404 or a login page for an anonymous visitor: `curl -sS -o /dev/null -w '%{http_code}\n' https://otakuquiz.org/admin/review` is not 200; `https://fanquiz.org/admin` is 404.
+Cross-site cookie check: sign in on kpopquiz.org, open fandomverse.org in the same browser: you are signed out there until the jump is on. After `PASSPORT_JUMP` (K7): from kpop open
+`https://kpopquiz.org/auth/passport/out?to=anime`, you land on `https://fandomverse.org/anime` signed in, and `https://fandomverse.org` shows the same session; the Network tab shows the `via` parameter once and no token left in the URL after the landing.
 
-Email (P6, section I of the runbook): request a magic link on each of the three domains with a mailbox you own. kpop: the mail looks exactly as before. anime and hub: the
-brand, subject, button and footer are the site's own and the link goes to `https://<that domain>/auth/confirm?...` (anime) and signs you in. Resend dashboard shows delivered, not bounced.
+Admin and noindex pages answer 404 or a login page for an anonymous visitor: `curl -sS -o /dev/null -w '%{http_code}\n' https://fandomverse.org/anime/admin/review` is not 200; `https://fandomverse.org/admin` is 404.
 
-## V11. First 72 hours (hour 0, +1h, +24h, +72h)
+Email (section I of the runbook, only once the hook is on): request a magic link on kpopquiz.org with a mailbox you own; the mail looks exactly as before and signs you in; the Resend dashboard shows delivered, not bounced.
+fandomverse.org offers no email sign-in, so there is no mail to test there.
+
+## V11. First 72 hours (hour 0, +1h, +24h, +48h, +72h)
 
 Each time:
 1. V10 loop, quickly. 2. Vercel, each project, Runtime Logs: errors in the last hour (compare with the previous hour; any new error type is a finding).
-3. Cron Jobs: `ensure-daily-quiz` on kpop and anime (00:05 UTC; on anime it answers 500 when the day has no quiz, RUNBOOK J4), `passport-deletions` (03:50) and `passport-cleanup` (03:55, answers `{"codesDeleted":...}` on the hub) once they are in `vercel.json`; the other routes answer `{"skipped":true}` on a site that is not theirs.
+3. Cron Jobs: `ensure-daily-quiz` on `kpopquiz` and `otakuquiz` (00:05 UTC; on `otakuquiz` it answers 500 when the day has no quiz, RUNBOOK J4, and its log line is `/anime/api/cron/ensure-daily-quiz` with 200, never 401 or 404: RUNBOOK K6b), `passport-deletions` (03:50) and `passport-cleanup` (03:55, answers `{"codesDeleted":...}` on `fandomverse`); the other routes answer `{"skipped":true}` on a site that is not theirs.
 4. `q "select featured_date, site_id from public.qotd_log order by featured_date desc, site_id limit 4"`: today's date has one `kpop` and one `anime` row.
 5. `q "select site_id, count(*) from public.world_memberships group by 1 order by 1"`, `q "select src_site, dst_site, step, sum(n) from public.bridge_daily group by 1,2,3 order by 1,2,3"`:
    numbers only, small at first; no row of the 31 Team accounts in a leaderboard.
 6. V1 for kpop (flags that touch kpop are on from this phase; the only expected differences are the footer line, the "Your sites" menu and the organization JSON-LD, each in the step that enabled it).
-7. Supabase dashboard: Auth logs (no burst of failed hooks), Database advisors (no new security finding about the new tables), Resend: bounce rate under 2 percent.
-8. Search Console for the three properties: sitemap submitted, no new "blocked by robots" or "noindex" on kpopquiz.org URLs.
+7. Supabase dashboard: Auth logs (no burst of failed Google or Discord sign-ins), Database advisors (no new security finding about the new tables); Resend bounce rate under 2 percent once the hook is on.
+8. Search Console for kpopquiz.org and fandomverse.org: the sitemaps submitted (on fandomverse.org the hub's and `/anime`'s), no new "blocked by robots" or "noindex" on kpopquiz.org URLs.
 At +72h write down the numbers of step 5 and 3 and decide whether to leave everything on (RUNBOOK L5).

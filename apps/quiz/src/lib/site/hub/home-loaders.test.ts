@@ -54,6 +54,13 @@ describe('the small helpers', () => {
     expect(pathOf('https://kpopquiz.org/blindtest?daily=true')).toBe('/blindtest?daily=true');
     expect(pathOf('/trivia')).toBe('/trivia');
   });
+  it('takes the folder of the site off (OtakuQuiz at fandomverse.org/anime), so homeUrl never doubles it', () => {
+    expect(pathOf('https://fandomverse.org/anime/q/a-quiz?daily=quiz', 'anime')).toBe('/q/a-quiz?daily=quiz');
+    expect(pathOf('https://fandomverse.org/anime', 'anime')).toBe('/');
+    expect(pathOf('https://fandomverse.org/animex/q/a', 'anime')).toBe('/animex/q/a');
+    expect(pathOf('http://anime.localhost:3001/trivia', 'anime')).toBe('/trivia');
+    expect(pathOf('https://kpopquiz.org/q/a-quiz', 'kpop')).toBe('/q/a-quiz');
+  });
   it('splits the meta line, writes the Paris time without a leading zero, cuts a story to its first sentence', () => {
     expect(splitMeta('Easy · True or false')).toEqual({ level: 'Easy', format: 'True or false' });
     expect(splitMeta('Hard')).toEqual({ level: 'Hard' });
