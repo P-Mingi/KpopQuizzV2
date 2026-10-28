@@ -94,8 +94,13 @@ describe('the browser sinks of the anime and hub builds carry the base path', ()
   it('the base path is read from the build constant Next inlines, never from a second list', () => {
     for (const f of files) {
       const text = readFileSync(join(SRC, f), 'utf8');
-      const decl = text.match(/^const BASE_PATH = .*$/m);
-      if (decl) expect(decl[0], f).toBe("const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';");
+      const decl = text.match(/^(?:export )?const BASE_PATH\b.*$/m);
+      if (decl) expect(decl[0].replace(/^export /, ''), f).toBe("const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';");
+      // A module that does not declare it imports it from the one shared client module (lib/site/client-base-path.ts).
+      for (const m of text.matchAll(/^import\s*\{([^}]*)\}\s*from\s*['"]([^'"]+)['"]/gm)) {
+        if (/\bBASE_PATH\b/.test(m[1]!)) expect(m[2], f).toBe('@/lib/site/client-base-path');
+      }
     }
+    expect(files).toContain('lib/site/client-base-path.ts');
   });
 });
