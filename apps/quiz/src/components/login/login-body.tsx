@@ -22,8 +22,9 @@ const SPARKLE = 'M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z'
 
 /**
  * The body of /login for every site (Run O1, lot b, P1; rule 18). Kpop renders it with no prop, byte for byte what the page
- * rendered. A world site (anime, hub) passes its words. FandomVerse (owner, 2026-10-28): Google and Discord only, both through
- * Supabase's OAuth redirect back to the site's own /auth/callback (its basePath included), no email form. The sign-in client
+ * rendered. A world site (anime, hub) passes its words. FandomVerse (owner, 2026-10-28): Google and Discord only, started on the
+ * server of the build (/auth/start, its basePath included), which sends the provider back to the build's exact /auth/callback;
+ * no email form. The sign-in client
  * is import()ed by the handler of a world site, so no kpop page reaches it.
  */
 export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): React.ReactElement {
@@ -46,7 +47,7 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
     setErrorMsg(null);
     setPending(provider);
     const [{ signInWithProvider, readTabVia }, { SITE_ID }] = await Promise.all([import('@/lib/passport-ui/signin-client'), import('@/lib/site/registry')]);
-    const out = await signInWithProvider(createBrowserClient(), SITE_ID, provider, returnTo, { base: `${window.location.origin}${basePath}`, via: readTabVia() });
+    const out = signInWithProvider(SITE_ID, provider, returnTo, { basePath, via: readTabVia() });
     if (out.kind === 'error') { setPending(null); setErrorMsg(out.message); }
   };
 

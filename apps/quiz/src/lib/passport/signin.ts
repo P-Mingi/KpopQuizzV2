@@ -10,9 +10,13 @@
 //    profile (onboarding on anime, the home on the hub), banned (sign out, /login), else the stamp and `next`. Any failure
 //    goes to /login.
 //
-//  - handleWorldCallback (FandomVerse, owner 2026-10-28): GET /auth/callback of anime and hub, where Google and Discord come
-//    back through Supabase's OAuth redirect. The code is exchanged, a session that no OAuth provider opened (an email link
-//    someone requested by hand) is closed again, then the branches of handleConfirm and the membership stamp with the via.
+//  - handleOAuthStart (FandomVerse, owner 2026-10-28): GET /auth/start?provider&returnTo&via of anime and hub. Asks Supabase
+//    (server side, PKCE verifier in the session cookies) for the Google or Discord URL with the EXACT callback of the build as
+//    redirectTo, keeps returnTo, via and the provider in the HttpOnly cookie of lib/auth/oauth-return.ts, and redirects.
+//  - handleWorldCallback (FandomVerse): GET /auth/callback of anime and hub, where Google and Discord come back. The code is
+//    exchanged, a session that no OAuth provider opened (an email link someone requested by hand) is closed again, then the
+//    branches of handleConfirm and the membership stamp with the via of the cookie. The callback reads no query but `code`:
+//    Supabase's Redirect URLs list it exactly, with no wildcard (security review, 2026-10-28).
 //
 // FandomVerse paths: hub is https://fandomverse.org, anime https://fandomverse.org/anime (basePath '/anime', same origin).
 // Every `next` here is an app path (lib/auth/site-base.ts); a Location header carries it with the basePath of the build, so
@@ -22,7 +26,11 @@
 
 import { NextResponse } from 'next/server';
 
-import { safeAppPath, siteOrigin, withBase } from '@/lib/auth/site-base';
+import { oauthCallbackUrl } from '@/lib/auth/base-path';
+import {
+  decodeOAuthReturn, encodeOAuthReturn, isOAuthProvider, oauthReturnAttributes, oauthReturnCookieName,
+} from '@/lib/auth/oauth-return';
+import { safeAppPath, siteBase, siteOrigin, withBase } from '@/lib/auth/site-base';
 import { VIA_RE } from '@/lib/network/types';
 import { REGISTRY, SITE_ID } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
@@ -33,11 +41,19 @@ import type { NetOriginEnv } from '@/lib/site/registry';
 import type { SiteId } from '@/lib/site/types';
 import type { AfterSigninRequest, AfterSigninResponse, PassportApiError } from './types';
 
+/** What the handlers read from the environment (process.env in the routes, a plain object in tests). */
+export type SigninEnv = NetOriginEnv & {
+  readonly NEXT_PUBLIC_SUPABASE_URL?: string | undefined;
+  readonly NODE_ENV?: string | undefined;
+};
+
 export interface SigninCtx {
   /** The build's site (SITE.id). */
   readonly site?: SiteId;
   /** process.env by default. */
-  readonly env?: NetOriginEnv;
+  readonly env?: SigninEnv;
+  /** Unix milliseconds; Date.now by default. */
+  readonly now?: () => number;
 }
 
 const BODY_MAX_BYTES = 2048;
@@ -240,21 +256,71 @@ export function sessionMethod(accessToken: string | null | undefined): string | 
   return newest?.method ?? null;
 }
 
+function badRequest(): NextResponse {
+  return harden(new NextResponse('bad request', { status: 400, headers: { 'content-type': 'text/plain; charset=utf-8' } }));
+}
+
+/** True when `url` is the authorize endpoint of this build's Supabase project (what signInWithOAuth answers). */
+function isSupabaseAuthorize(url: string, supabaseUrl: string | undefined): boolean {
+  if (!supabaseUrl) return false;
+  try {
+    const u = new URL(url);
+    return u.origin === new URL(supabaseUrl).origin && u.pathname === '/auth/v1/authorize';
+  } catch {
+    return false;
+  }
+}
+
+export async function handleOAuthStart(request: NextRequest, ctx: SigninCtx = {}): Promise<NextResponse> {
+  const site = ctx.site ?? SITE_ID;
+  if (site === 'kpop') return notFound();
+  const env = ctx.env ?? (process.env as SigninEnv);
+  const nowSec = Math.floor((ctx.now ? ctx.now() : Date.now()) / 1000);
+
+  const q = request.nextUrl.searchParams;
+  const provider = q.get('provider');
+  if (!isOAuthProvider(provider) || !REGISTRY[site].auth.providers.includes(provider)) return badRequest();
+  const next = safeAppPath(q.get('returnTo'), '/', site);
+  const rawVia = q.get('via');
+  const via = rawVia !== null && VIA_RE.test(rawVia) ? rawVia : null;
+  const name = oauthReturnCookieName(request.url, request.headers.get('x-forwarded-proto'), env);
+
+  const supabase = await createServerClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({ provider, options: { redirectTo: oauthCallbackUrl(siteBase(site, env)) } });
+  const url = data?.url;
+  if (error || typeof url !== 'string' || !isSupabaseAuthorize(url, env.NEXT_PUBLIC_SUPABASE_URL)) {
+    log('start', 'refused', site);
+    return toSelf(withBase(site, '/login'));
+  }
+  const res = harden(NextResponse.redirect(url, 302));
+  if (name) res.cookies.set(name, encodeOAuthReturn({ site, provider, next, via, iat: nowSec }), oauthReturnAttributes(name));
+  log('start', provider, site);
+  return res;
+}
+
 export async function handleWorldCallback(request: NextRequest, ctx: SigninCtx = {}): Promise<NextResponse> {
   const site = ctx.site ?? SITE_ID;
   if (site === 'kpop') return notFound();
+  const env = ctx.env ?? (process.env as SigninEnv);
+  const nowSec = Math.floor((ctx.now ? ctx.now() : Date.now()) / 1000);
 
-  const params = new URL(request.url).searchParams;
-  const code = params.get('code');
-  const next = safeAppPath(params.get('returnTo'), '/', site);
-  const rawVia = params.get('via');
-  const via = rawVia !== null && VIA_RE.test(rawVia) ? rawVia : null;
+  // The return path, the via and the provider come from the cookie /auth/start set, never from the query.
+  const name = oauthReturnCookieName(request.url, request.headers.get('x-forwarded-proto'), env);
+  const back = name ? decodeOAuthReturn(request.cookies.get(name)?.value, site, nowSec) : null;
+  const next = safeAppPath(back?.next ?? null, '/', site);
+  const via = back?.via ?? null;
+  // Every answer clears the cookie (same name and attributes, Max-Age=0).
+  const done = (res: NextResponse): NextResponse => {
+    if (name) res.cookies.set(name, '', oauthReturnAttributes(name, 0));
+    return res;
+  };
   const fail = (outcome: string): NextResponse => {
     log('callback', outcome, site);
-    return toSelf(withBase(site, '/login'));
+    return done(toSelf(withBase(site, '/login')));
   };
 
   // A provider error (the visitor said no) comes back with ?error= and no code.
+  const code = request.nextUrl.searchParams.get('code');
   if (!code) return fail('no_code');
 
   const supabase = await createServerClient();
@@ -274,7 +340,7 @@ export async function handleWorldCallback(request: NextRequest, ctx: SigninCtx =
   const { data: profile } = await supabase.from('profiles').select('id, banned_at').eq('id', user.id).maybeSingle();
   if (!profile) {
     log('callback', 'needs_username', site);
-    return toSelf(withBase(site, noProfilePath(site, next)));
+    return done(toSelf(withBase(site, noProfilePath(site, next))));
   }
   if ((profile as { banned_at?: string | null }).banned_at) {
     await supabase.auth.signOut();
@@ -283,5 +349,5 @@ export async function handleWorldCallback(request: NextRequest, ctx: SigninCtx =
 
   await stamp(supabase, site, via);
   log('callback', 'ok', site);
-  return toSelf(withBase(site, next));
+  return done(toSelf(withBase(site, next)));
 }

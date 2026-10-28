@@ -1,15 +1,15 @@
 // Run O1, lot (b), lane P1: the browser side of signing in on a world site: the tab's via, the email link address, where the
 // browser goes after after-signin, the Google flow with and without a token. Nothing leaves the process.
 // FandomVerse (owner, 2026-10-28): the origins move from otakuquiz.org to fandomverse.org/anime (the anime base: origin and
-// basePath); the Google and Discord redirect flow of the FandomVerse sheets (signInWithProvider) is tested at the end.
+// basePath); the Google and Discord flow of the FandomVerse sheets (signInWithProvider, /auth/start) is tested at the end.
 import { describe, expect, it, vi } from 'vitest';
 
 import {
-  TAB_VIA_KEY, afterSignin, currentAppPath, destinationAfterSignin, emailRedirect, oauthCallbackUrl, readTabVia, signInWithGoogle,
-  signInWithProvider,
+  TAB_VIA_KEY, afterSignin, currentAppPath, destinationAfterSignin, emailRedirect, oauthCallbackUrl, oauthStartPath, readTabVia,
+  signInWithGoogle, signInWithProvider,
 } from './signin-client';
 
-import type { GoogleAuthClient, OAuthClient, OAuthProvider } from './signin-client';
+import type { GoogleAuthClient, OAuthProvider } from './signin-client';
 
 const storage = (v: string | null) => ({ getItem: (k: string) => (k === TAB_VIA_KEY ? v : null) });
 
@@ -103,22 +103,29 @@ describe('signInWithGoogle', () => {
   });
 });
 
-describe('FandomVerse: Google and Discord through the OAuth redirect', () => {
-  function client(error: { message: string } | null = null): OAuthClient & { calls: Array<{ provider: string; redirectTo: string }> } {
-    const calls: Array<{ provider: string; redirectTo: string }> = [];
-    return { calls, auth: { signInWithOAuth: async (a) => { calls.push({ provider: a.provider, redirectTo: a.options.redirectTo }); return { error }; } } };
-  }
-
-  it('comes back to the /auth/callback of the site base (the anime basePath included), with returnTo and a valid via', () => {
-    expect(oauthCallbackUrl('https://fandomverse.org/anime', '/q/a b?x=1', 'k.menu'))
-      .toBe('https://fandomverse.org/anime/auth/callback?returnTo=%2Fq%2Fa+b%3Fx%3D1&via=k.menu');
-    expect(oauthCallbackUrl('https://fandomverse.org', '/passport', null)).toBe('https://fandomverse.org/auth/callback?returnTo=%2Fpassport');
-    for (const via of ['x.menu', 'k.m', '<b>', '']) {
-      expect(new URL(oauthCallbackUrl('https://fandomverse.org', '/', via)).searchParams.has('via')).toBe(false);
+// Security review (2026-10-28): the callback is registered in Supabase exactly, so it never carries a query; the return path
+// and the via travel to the server of the build on /auth/start, which keeps them in an HttpOnly cookie.
+describe('FandomVerse: Google and Discord, started on the server of the build', () => {
+  it('the callback is the exact base + /auth/callback: no query, no fragment, whatever the base', () => {
+    expect(oauthCallbackUrl('https://fandomverse.org/anime')).toBe('https://fandomverse.org/anime/auth/callback');
+    expect(oauthCallbackUrl('https://fandomverse.org')).toBe('https://fandomverse.org/auth/callback');
+    for (const base of ['https://fandomverse.org', 'https://fandomverse.org/anime']) {
+      const url = new URL(oauthCallbackUrl(base));
+      expect(url.search).toBe('');
+      expect(url.hash).toBe('');
+      expect(oauthCallbackUrl(base)).not.toMatch(/[?*#]/);
     }
-    // whatever the return path holds, it stays one encoded parameter of the callback
-    const url = new URL(oauthCallbackUrl('https://fandomverse.org/anime', '/x&via=k.evil#frag', null));
-    expect(url.pathname).toBe('/anime/auth/callback');
+  });
+
+  it('the start path is relative to the build (its basePath), with the provider, returnTo and a valid via', () => {
+    expect(oauthStartPath('/anime', 'discord', '/q/a b?x=1', 'k.menu')).toBe('/anime/auth/start?provider=discord&returnTo=%2Fq%2Fa+b%3Fx%3D1&via=k.menu');
+    expect(oauthStartPath('', 'google', '/passport', null)).toBe('/auth/start?provider=google&returnTo=%2Fpassport');
+    for (const via of ['x.menu', 'k.m', '<b>', '']) {
+      expect(new URL(oauthStartPath('', 'google', '/', via), 'https://fandomverse.org').searchParams.has('via')).toBe(false);
+    }
+    // whatever the return path holds, it stays one encoded parameter
+    const url = new URL(oauthStartPath('/anime', 'google', '/x&via=k.evil#frag', null), 'https://fandomverse.org');
+    expect(url.pathname).toBe('/anime/auth/start');
     expect(url.hash).toBe('');
     expect(url.searchParams.get('returnTo')).toBe('/x&via=k.evil#frag');
     expect(url.searchParams.has('via')).toBe(false);
@@ -132,21 +139,20 @@ describe('FandomVerse: Google and Discord through the OAuth redirect', () => {
     expect(currentAppPath('', '/passport', '?b=2')).toBe('/passport?b=2');
   });
 
-  it('anime and hub: Google and Discord each go to Supabase once, with the callback of the site', async () => {
-    for (const [site, base] of [['anime', 'https://fandomverse.org/anime'], ['hub', 'https://fandomverse.org']] as const) {
+  it('anime and hub: Google and Discord each navigate once, to /auth/start of the build', () => {
+    for (const [site, basePath] of [['anime', '/anime'], ['hub', '']] as const) {
       for (const provider of ['google', 'discord'] as const) {
-        const db = client();
-        expect(await signInWithProvider(db, site, provider, '/daily', { base, via: 'k.menu' })).toEqual({ kind: 'redirecting' });
-        expect(db.calls).toEqual([{ provider, redirectTo: `${base}/auth/callback?returnTo=%2Fdaily&via=k.menu` }]);
+        const went: string[] = [];
+        expect(signInWithProvider(site, provider, '/daily', { basePath, via: 'k.menu' }, (u) => went.push(u))).toEqual({ kind: 'redirecting' });
+        expect(went).toEqual([`${basePath}/auth/start?provider=${provider}&returnTo=%2Fdaily&via=k.menu`]);
       }
     }
   });
 
-  it('a provider the site does not offer is refused before any call; a Supabase error is shown', async () => {
-    const db = client();
-    const out = await signInWithProvider(db, 'anime', 'email' as unknown as OAuthProvider, '/', { base: 'https://fandomverse.org/anime', via: null });
+  it('a provider the site does not offer is refused before any navigation', () => {
+    const went: string[] = [];
+    const out = signInWithProvider('anime', 'email' as unknown as OAuthProvider, '/', { basePath: '/anime', via: null }, (u) => went.push(u));
     expect(out.kind).toBe('error');
-    expect(db.calls).toEqual([]);
-    expect(await signInWithProvider(client({ message: 'nope' }), 'hub', 'discord', '/', { base: 'https://fandomverse.org', via: null })).toEqual({ kind: 'error', message: 'nope' });
+    expect(went).toEqual([]);
   });
 });

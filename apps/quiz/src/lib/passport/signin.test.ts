@@ -20,6 +20,8 @@ const state = vi.hoisted(() => ({
   signOutScopes: [] as string[],
   exchangeError: false,
   token: '' as string | null,
+  oauthUrl: undefined as string | null | undefined,
+  oauthError: false,
 }));
 
 vi.mock('@/lib/supabase/server', () => ({
@@ -39,6 +41,13 @@ vi.mock('@/lib/supabase/server', () => ({
         return { data: { user: state.user, session: state.token === null ? null : { access_token: state.token } }, error: null };
       },
       signOut: async (args?: { scope?: string }) => { state.signOuts += 1; state.signOutScopes.push(args?.scope ?? 'global'); return { error: null }; },
+      signInWithOAuth: async (args: { provider: string; options: { redirectTo: string } }) => {
+        state.calls.push({ fn: 'auth.signInWithOAuth', args });
+        if (state.oauthError) return { data: { provider: args.provider, url: null }, error: { message: 'oauth' } };
+        const url = state.oauthUrl !== undefined ? state.oauthUrl
+          : `https://abcdefghijklmnopqrst.supabase.co/auth/v1/authorize?provider=${args.provider}&redirect_to=${encodeURIComponent(args.options.redirectTo)}&code_challenge=x&code_challenge_method=s256`;
+        return { data: { provider: args.provider, url }, error: null };
+      },
     },
     from: (table: string) => ({
       select: () => ({
@@ -67,7 +76,9 @@ vi.mock('@/lib/supabase/server', () => ({
   }),
 }));
 
-import { handleAfterSignin, handleConfirm, handleWorldCallback, sessionMethod } from './signin';
+import { OAUTH_RETURN_COOKIE, decodeOAuthReturn, encodeOAuthReturn, oauthReturnAttributes, oauthReturnCookieName } from '@/lib/auth/oauth-return';
+
+import { handleAfterSignin, handleConfirm, handleOAuthStart, handleWorldCallback, sessionMethod } from './signin';
 
 import type { SiteId } from '@/lib/site/types';
 
@@ -102,6 +113,7 @@ beforeEach(() => {
   Object.assign(state, {
     user: null, profile: { id: 'user-1', banned_at: null }, calls: [], otpError: false, otpUser: 'user-1', created: true,
     stampThrows: false, signOuts: 0, signOutScopes: [], exchangeError: false, token: jwt([{ method: 'oauth', timestamp: 1_800_000_000 }]),
+    oauthUrl: undefined, oauthError: false,
   });
   vi.spyOn(console, 'info').mockImplementation(() => undefined);
 });
@@ -355,61 +367,84 @@ describe('sessionMethod (how an access token was opened)', () => {
   });
 });
 
+/** The cookie /auth/start leaves for the callback (lib/auth/oauth-return.ts), as the browser sends it back. */
+function startCookie(site: 'anime' | 'hub', next: string, via: string | null = null, provider: 'google' | 'discord' = 'google', iat = Math.floor(Date.now() / 1000)): string {
+  return `${OAUTH_RETURN_COOKIE.https}=${encodeOAuthReturn({ site, provider, next, via, iat })}`;
+}
+
 describe('GET /auth/callback of anime and hub (handleWorldCallback)', () => {
-  const callback = (query: string, base = 'https://fandomverse.org/anime'): NextRequest => new NextRequest(`${base}/auth/callback${query}`);
+  const callback = (query: string, base = 'https://fandomverse.org/anime', cookie: string | null = null): NextRequest =>
+    new NextRequest(`${base}/auth/callback${query}`, { headers: cookie ? { cookie } : {} });
+  const HUB_BASE = 'https://fandomverse.org';
+  const clearsCookie = (res: Response): boolean =>
+    res.headers.getSetCookie().some((c) => c.startsWith(`${OAUTH_RETURN_COOKIE.https}=;`) && /Max-Age=0/i.test(c) && /Path=\//.test(c) && /HttpOnly/i.test(c) && /Secure/i.test(c));
 
   it('answers 404 on kpop, which keeps its own /auth/callback code', async () => {
-    const res = await handleWorldCallback(callback('?code=c1&returnTo=%2F', 'https://kpopquiz.org'), { site: 'kpop', env: FV });
+    const res = await handleWorldCallback(callback('?code=c1', 'https://kpopquiz.org'), { site: 'kpop', env: FV });
     expect(res.status).toBe(404);
     expect(state.calls).toEqual([]);
   });
 
-  it('an OAuth session with a profile: the stamp with the via, then next with the basePath of the build', async () => {
-    const res = await handleWorldCallback(callback('?code=c1&returnTo=%2Fdaily%3Fa%3D1&via=k.menu'), fv('anime'));
+  it('an OAuth session with a profile: the stamp with the via of the cookie, then its next with the basePath of the build', async () => {
+    const res = await handleWorldCallback(callback('?code=c1', undefined, startCookie('anime', '/daily?a=1', 'k.menu')), fv('anime'));
     expect(res.status).toBe(302);
     expect(loc(res)).toBe('/anime/daily?a=1');
     expectPrivate(res);
+    expect(clearsCookie(res)).toBe(true);
     expect(calls('auth.exchangeCodeForSession')[0]!.args).toEqual({ code: 'c1' });
     expect(calls('ensure_membership')[0]!.args).toEqual({ p_site: 'anime', p_via: 'signup', p_via_code: 'k.menu' });
     expect(calls('service.net_bridge_bump')[0]!.args).toEqual({ p_src: 'kpop', p_dst: 'anime', p_bridge: 'menu', p_step: 'join', p_signed_in: true, p_n: 1 });
 
     state.calls = [];
-    const hub = await handleWorldCallback(callback('?code=c2&returnTo=%2Fpassport', 'https://fandomverse.org'), fv('hub'));
+    const hub = await handleWorldCallback(callback('?code=c2', HUB_BASE, startCookie('hub', '/passport')), fv('hub'));
     expect(loc(hub)).toBe('/passport');
     expect(calls('ensure_membership')[0]!.args).toEqual({ p_site: 'hub', p_via: 'signup', p_via_code: null });
   });
 
-  it('drops a via that does not match VIA_RE', async () => {
-    for (const via of ['x.menu', 'k.MENU', 'k.m', '<b>', 'k.menu%0a']) {
+  it('reads nothing from the query but the code: a returnTo or via there is ignored', async () => {
+    const res = await handleWorldCallback(callback(`?code=c1&returnTo=${encodeURIComponent('/elsewhere')}&via=k.menu`), fv('anime'));
+    expect(loc(res)).toBe('/anime');
+    expect(calls('ensure_membership')[0]!.args.p_via_code).toBeNull();
+  });
+
+  it('a missing, stale, foreign or malformed cookie: the home of the build, no via (the sign-in itself still works)', async () => {
+    const old = Math.floor(Date.now() / 1000) - 601;
+    for (const cookie of [
+      null, startCookie('anime', '/daily', 'k.menu', 'google', old), startCookie('hub', '/daily'), `${OAUTH_RETURN_COOKIE.https}=garbage!`,
+      `${OAUTH_RETURN_COOKIE.devHttp}=${encodeOAuthReturn({ site: 'anime', provider: 'google', next: '/daily', via: null, iat: Math.floor(Date.now() / 1000) })}`,
+    ]) {
       state.calls = [];
-      await handleWorldCallback(callback(`?code=c1&returnTo=%2F&via=${via}`), fv('anime'));
+      const res = await handleWorldCallback(callback('?code=c1', undefined, cookie), fv('anime'));
+      expect(loc(res), String(cookie)).toBe('/anime');
       expect(calls('ensure_membership')[0]!.args.p_via_code).toBeNull();
-      expect(calls('service.net_bridge_bump')).toEqual([]);
     }
   });
 
   it('no profile: the username page of anime (with returnTo, an app path), the home of the hub; no stamp', async () => {
     state.profile = null;
-    expect(loc(await handleWorldCallback(callback('?code=c1&returnTo=%2Fdaily'), fv('anime')))).toBe('/anime/onboarding?returnTo=%2Fdaily');
-    expect(loc(await handleWorldCallback(callback('?code=c1&returnTo=%2Fpassport', 'https://fandomverse.org'), fv('hub')))).toBe('/');
+    expect(loc(await handleWorldCallback(callback('?code=c1', undefined, startCookie('anime', '/daily')), fv('anime')))).toBe('/anime/onboarding?returnTo=%2Fdaily');
+    expect(loc(await handleWorldCallback(callback('?code=c1', HUB_BASE, startCookie('hub', '/passport')), fv('hub')))).toBe('/');
     expect(calls('ensure_membership')).toEqual([]);
   });
 
   it('a banned profile is signed out and sent to the login page of its build', async () => {
     state.profile = { id: 'user-1', banned_at: '2026-10-01T00:00:00Z' };
-    const res = await handleWorldCallback(callback('?code=c1&returnTo=%2F'), fv('anime'));
+    const res = await handleWorldCallback(callback('?code=c1', undefined, startCookie('anime', '/')), fv('anime'));
     expect(loc(res)).toBe('/anime/login');
+    expect(clearsCookie(res)).toBe(true);
     expect(state.signOuts).toBe(1);
     expect(calls('ensure_membership')).toEqual([]);
   });
 
   it('no code (the visitor said no at the provider) or a code Supabase refuses: the login page, nothing stamped', async () => {
-    for (const q of ['', '?returnTo=%2F', '?error=access_denied&error_description=denied', '?code=']) {
-      expect(loc(await handleWorldCallback(callback(q), fv('anime')))).toBe('/anime/login');
+    for (const q of ['', '?error=access_denied&error_description=denied', '?code=']) {
+      const res = await handleWorldCallback(callback(q, undefined, startCookie('anime', '/')), fv('anime'));
+      expect(loc(res)).toBe('/anime/login');
+      expect(clearsCookie(res)).toBe(true);
     }
     expect(calls('auth.exchangeCodeForSession')).toEqual([]);
     state.exchangeError = true;
-    expect(loc(await handleWorldCallback(callback('?code=c1'), fv('hub')))).toBe('/login');
+    expect(loc(await handleWorldCallback(callback('?code=c1', HUB_BASE), fv('hub')))).toBe('/login');
     expect(calls('ensure_membership')).toEqual([]);
   });
 
@@ -425,7 +460,7 @@ describe('GET /auth/callback of anime and hub (handleWorldCallback)', () => {
         state.calls = [];
         state.signOutScopes = [];
         state.token = token;
-        const res = await handleWorldCallback(callback('?code=c1&returnTo=%2Fdaily', site === 'hub' ? 'https://fandomverse.org' : undefined), fv(site));
+        const res = await handleWorldCallback(callback('?code=c1', site === 'hub' ? HUB_BASE : undefined, startCookie(site, '/daily')), fv(site));
         expect(loc(res), `${site} ${token}`).toBe(site === 'anime' ? '/anime/login' : '/login');
         expect(state.signOutScopes).toEqual(['local']);
         expect(calls('from.profiles')).toEqual([]);
@@ -434,28 +469,126 @@ describe('GET /auth/callback of anime and hub (handleWorldCallback)', () => {
     }
   });
 
-  it('returnTo goes through safeReturnTo of the site: an outside address is the home, the anime answer never leaves /anime', async () => {
+  it('the next of the cookie goes through safeAppPath: an outside address is the home, the anime answer never leaves /anime', async () => {
     const hostile = [
       'https://fandomverse.org.evil.com/x', 'https://evil.com/fandomverse.org', '//fandomverse.org.evil.com', '//evil.com', '/\\evil.com',
       'javascript:alert(1)', '/anime//evil.com', 'https://fandomverse.org/x', '/anime/../x', '/%2e%2e/x', '/anime/%2e%2e/passport', '/..%2f..%2fx',
+      '/.//evil.com', '/a/..//evil.com', '/%2e//evil.com',
     ];
     for (const raw of hostile) {
       state.calls = [];
-      const res = await handleWorldCallback(callback(`?code=c1&returnTo=${encodeURIComponent(raw)}`), fv('anime'));
+      const res = await handleWorldCallback(callback('?code=c1', undefined, startCookie('anime', raw)), fv('anime'));
       const where = new URL(loc(res), 'https://fandomverse.org');
       expect(where.origin, raw).toBe('https://fandomverse.org');
       expect(where.pathname === '/anime' || where.pathname.startsWith('/anime/'), `${raw} -> ${loc(res)}`).toBe(true);
     }
     // a browser path of the anime build is not doubled
-    expect(loc(await handleWorldCallback(callback(`?code=c1&returnTo=${encodeURIComponent('/anime/q/x?y=1')}`), fv('anime')))).toBe('/anime/q/x?y=1');
-    expect(loc(await handleWorldCallback(callback('?code=c1&returnTo=%2F%2Fevil.com', 'https://fandomverse.org'), fv('hub')))).toBe('/');
+    expect(loc(await handleWorldCallback(callback('?code=c1', undefined, startCookie('anime', '/anime/q/x?y=1')), fv('anime')))).toBe('/anime/q/x?y=1');
+    expect(loc(await handleWorldCallback(callback('?code=c1', HUB_BASE, startCookie('hub', '//evil.com')), fv('hub')))).toBe('/');
   });
 
   it('never writes the code or the via in its log line', async () => {
     const spy = vi.spyOn(console, 'info');
-    await handleWorldCallback(callback('?code=secret-code-xyz&returnTo=%2F&via=k.menu'), fv('anime'));
+    await handleWorldCallback(callback('?code=secret-code-xyz', undefined, startCookie('anime', '/', 'k.menu')), fv('anime'));
     expect(JSON.stringify(spy.mock.calls)).not.toContain('secret-code-xyz');
     expect(JSON.stringify(spy.mock.calls)).not.toContain('k.menu');
     expect(spy.mock.calls.length).toBeGreaterThan(0);
+  });
+});
+
+describe('GET /auth/start of anime and hub (handleOAuthStart)', () => {
+  const FV_START = { ...FV, NEXT_PUBLIC_SUPABASE_URL: 'https://abcdefghijklmnopqrst.supabase.co' };
+  const start = (query: string, base = 'https://fandomverse.org/anime'): NextRequest => new NextRequest(`${base}/auth/start${query}`);
+  const ctxStart = (site: SiteId) => ({ site, env: FV_START, now: () => 1_800_000_000_000 });
+  const startCookieOf = (res: Response): string | undefined => res.headers.getSetCookie().find((c) => c.startsWith(`${OAUTH_RETURN_COOKIE.https}=`));
+
+  it('asks Supabase for the provider with the EXACT callback of the build (no query) and redirects to it', async () => {
+    for (const [site, base, callbackUrl] of [
+      ['anime', 'https://fandomverse.org/anime', 'https://fandomverse.org/anime/auth/callback'],
+      ['hub', 'https://fandomverse.org', 'https://fandomverse.org/auth/callback'],
+    ] as const) {
+      for (const provider of ['google', 'discord'] as const) {
+        state.calls = [];
+        const res = await handleOAuthStart(start(`?provider=${provider}&returnTo=%2Fdaily&via=k.menu`, base), ctxStart(site));
+        expect(res.status).toBe(302);
+        expectPrivate(res);
+        expect(calls('auth.signInWithOAuth')[0]!.args).toEqual({ provider, options: { redirectTo: callbackUrl } });
+        expect(loc(res).startsWith('https://abcdefghijklmnopqrst.supabase.co/auth/v1/authorize?')).toBe(true);
+      }
+    }
+  });
+
+  it('keeps returnTo, via and the provider in an HttpOnly, Secure, SameSite=Lax, Path=/ cookie of 600 s, no Domain', async () => {
+    const res = await handleOAuthStart(start('?provider=discord&returnTo=%2Fanime%2Fdaily%3Fa%3D1&via=k.menu'), ctxStart('anime'));
+    const set = startCookieOf(res)!;
+    expect(set).toMatch(/HttpOnly/i);
+    expect(set).toMatch(/Secure/i);
+    expect(set).toMatch(/SameSite=lax/i);
+    expect(set).toMatch(/Path=\/(;|$)/);
+    expect(set).toMatch(/Max-Age=600/);
+    expect(set).not.toMatch(/Domain=/i);
+    const value = set.split(';')[0]!.slice(`${OAUTH_RETURN_COOKIE.https}=`.length);
+    expect(decodeOAuthReturn(value, 'anime', 1_800_000_000)).toEqual({ site: 'anime', provider: 'discord', next: '/daily?a=1', via: 'k.menu', iat: 1_800_000_000 });
+  });
+
+  it('a hostile returnTo or via never reaches the cookie as it is', async () => {
+    for (const raw of ['//evil.com', 'https://fandomverse.org.evil.com', '/.//evil.com', '/anime//evil.com']) {
+      const res = await handleOAuthStart(start(`?provider=google&returnTo=${encodeURIComponent(raw)}&via=x.evil`), ctxStart('anime'));
+      const value = startCookieOf(res)!.split(';')[0]!.slice(`${OAUTH_RETURN_COOKIE.https}=`.length);
+      expect(decodeOAuthReturn(value, 'anime', 1_800_000_000)).toMatchObject({ next: '/', via: null });
+    }
+  });
+
+  it('refuses a provider the site does not offer (400, no Supabase call), and answers 404 on kpop', async () => {
+    for (const provider of ['email', 'github', 'GOOGLE', '', 'apple']) {
+      const res = await handleOAuthStart(start(`?provider=${provider}`), ctxStart('anime'));
+      expect(res.status, provider).toBe(400);
+    }
+    expect((await handleOAuthStart(start('?returnTo=%2F'), ctxStart('hub'))).status).toBe(400);
+    expect((await handleOAuthStart(start('?provider=google', 'https://kpopquiz.org'), { site: 'kpop', env: FV_START })).status).toBe(404);
+    expect(calls('auth.signInWithOAuth')).toEqual([]);
+  });
+
+  it('never redirects to an address Supabase did not give for its own authorize endpoint (the login page instead, no cookie)', async () => {
+    for (const url of ['https://evil.com/auth/v1/authorize', 'https://abcdefghijklmnopqrst.supabase.co.evil.com/auth/v1/authorize', 'https://abcdefghijklmnopqrst.supabase.co/elsewhere', null]) {
+      state.oauthUrl = url;
+      const res = await handleOAuthStart(start('?provider=google'), ctxStart('anime'));
+      expect(loc(res), String(url)).toBe('/anime/login');
+      expect(startCookieOf(res)).toBeUndefined();
+    }
+    state.oauthUrl = undefined;
+    state.oauthError = true;
+    expect(loc(await handleOAuthStart(start('?provider=google', 'https://fandomverse.org'), ctxStart('hub')))).toBe('/login');
+  });
+});
+
+describe('the return cookie (lib/auth/oauth-return.ts)', () => {
+  const now = 1_800_000_000;
+  const enc = (o: unknown): string => Buffer.from(JSON.stringify(o)).toString('base64url');
+  const good = { site: 'anime', provider: 'google', next: '/daily', via: 'k.menu', iat: now };
+
+  it('reads back what it wrote, for its own site only, for 600 s', () => {
+    expect(decodeOAuthReturn(enc(good), 'anime', now + 599)).toEqual(good);
+    expect(decodeOAuthReturn(enc(good), 'anime', now + 600)).toBeNull();
+    expect(decodeOAuthReturn(enc(good), 'hub', now)).toBeNull();
+    expect(decodeOAuthReturn(enc({ ...good, iat: now + 120 }), 'anime', now)).toBeNull();
+  });
+
+  it('refuses anything malformed (fail closed)', () => {
+    for (const bad of [
+      { ...good, provider: 'email' }, { ...good, provider: 'github' }, { ...good, site: 'mars' }, { ...good, via: 'x.evil' }, { ...good, via: 3 },
+      { ...good, next: 7 }, { ...good, next: `/${'a'.repeat(2048)}` }, { ...good, iat: 'now' },
+    ]) {
+      expect(decodeOAuthReturn(enc(bad), 'anime', now)).toBeNull();
+    }
+    for (const raw of [null, undefined, '', 'a.b', 'not base64!', enc('x'), 'x'.repeat(4000)]) expect(decodeOAuthReturn(raw as string, 'anime', now)).toBeNull();
+  });
+
+  it('the name follows the request like the passport cookie: __Host- on https and in production, plain only on http localhost', () => {
+    expect(oauthReturnCookieName('https://fandomverse.org/anime/auth/start', null, {})).toBe('__Host-fv_oauth');
+    expect(oauthReturnCookieName('http://localhost:3063/auth/start', null, { VERCEL_ENV: 'production' })).toBe('__Host-fv_oauth');
+    expect(oauthReturnCookieName('http://anime.localhost:3063/anime/auth/start', null, {})).toBe('fv_oauth');
+    expect(oauthReturnCookieName('http://fandomverse.org/auth/start', null, {})).toBeNull();
+    expect(oauthReturnAttributes('fv_oauth')).toEqual({ httpOnly: true, secure: false, sameSite: 'lax', path: '/', maxAge: 600 });
   });
 });

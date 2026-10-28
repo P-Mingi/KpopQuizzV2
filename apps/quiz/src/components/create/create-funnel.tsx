@@ -44,8 +44,8 @@ const TITLE_PLACEHOLDER = 'e.g. Only real ITZY stans can pass this';
 const MIN_QUESTIONS = 3; // I1: publish floor lowered 5 -> 3 (matches /api/quiz/create + the DB constraint)
 const MIN_TITLE = 5;
 const RESUME_RETURN = '/create?resume=publish';
-// FandomVerse (owner, 2026-10-28): on a world build (the anime /create) sign-in is Google and Discord only, through the
-// site's own /auth/callback (its basePath included). The test is the build-time constant, so the kpop bundle imports nothing new.
+// FandomVerse (owner, 2026-10-28): on a world build (the anime /create) sign-in is Google and Discord only, started on the
+// server of the build (/auth/start, its basePath included). The test is the build-time constant, so the kpop bundle imports nothing new.
 const IS_WORLD_BUILD = (process.env.NEXT_PUBLIC_SITE_ID || 'kpop') !== 'kpop';
 
 const GoogleIcon = (
@@ -409,7 +409,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
       const [{ signInWithProvider, readTabVia }, { SITE_ID }, { basePathOf }] = await Promise.all([
         import('@/lib/passport-ui/signin-client'), import('@/lib/site/registry'), import('@/lib/auth/site-base'),
       ]);
-      await signInWithProvider(supabase, SITE_ID, provider, RESUME_RETURN, { base: `${origin}${basePathOf(SITE_ID)}`, via: readTabVia() });
+      signInWithProvider(SITE_ID, provider, RESUME_RETURN, { basePath: basePathOf(SITE_ID), via: readTabVia() });
       return;
     }
     await supabase.auth.signInWithOAuth({ provider, options: { redirectTo: `${origin}/auth/callback?returnTo=${encodeURIComponent(RESUME_RETURN)}` } });

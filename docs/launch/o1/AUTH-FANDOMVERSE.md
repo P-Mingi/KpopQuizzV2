@@ -7,13 +7,16 @@ This replaces RUNBOOK H3 and H4 and the D-099 lines of ENV.md 2.2 for the new do
 
 ## Flows
 
-1. **Google and Discord** (hub and anime). The button calls Supabase `signInWithOAuth` (the redirect flow kpopquiz.org already
-   uses, with kpopquiz.org's own Google client and the Discord provider already on in Supabase). The provider returns to
-   Supabase's own callback, Supabase returns to the site: `https://fandomverse.org/auth/callback` (hub) or
-   `https://fandomverse.org/anime/auth/callback` (anime), with `returnTo` and the tab's `via`. The callback
-   (`lib/passport/signin.ts` handleWorldCallback) exchanges the code, closes any session that no OAuth provider opened
-   (`amr` must be `oauth`), signs out a banned profile, stamps the membership, and sends the visitor back: the username page
-   on anime when there is no profile, the hub home on the hub, else `returnTo`, always inside the build's basePath.
+1. **Google and Discord** (hub and anime). The button sends the browser to `/auth/start?provider&returnTo&via` of its build
+   (`/anime/auth/start` on anime). That route (`lib/passport/signin.ts` handleOAuthStart) asks Supabase, on the server, for
+   the provider URL (Supabase's OAuth redirect flow, the one kpopquiz.org already uses, with kpopquiz.org's own Google client
+   and the Discord provider already on), with the EXACT callback of the build as `redirectTo` and no query string:
+   `https://fandomverse.org/auth/callback` (hub) or `https://fandomverse.org/anime/auth/callback` (anime). The return path,
+   the tab's `via` and the provider wait in a first-party cookie (`__Host-fv_oauth`: HttpOnly, Secure, SameSite=Lax, Path=/,
+   600 s). The callback (handleWorldCallback) reads only `code` from the query, exchanges it, closes any session that no
+   OAuth provider opened (`amr` must be `oauth`), signs out a banned profile, stamps the membership, clears the cookie and
+   sends the visitor back: the username page on anime when there is no profile, the hub home on the hub, else the return
+   path of the cookie re-checked with safeReturnTo, always inside the build's basePath.
 2. **No email.** No email field on the hub and anime (sheet, `/login`, create funnel). `/auth/confirm` answers 404 on a
    production deployment of the hub and anime (outside production it stays for the O1 fixture tool `signin-link.sh`).
    An email link asked for by hand with a fandomverse.org callback is refused by the `amr` check above.
@@ -29,11 +32,13 @@ This replaces RUNBOOK H3 and H4 and the D-099 lines of ENV.md 2.2 for the new do
 
 ## Owner lines
 
-**Supabase, Authentication, URL Configuration.** Site URL stays `https://kpopquiz.org`. Add these two Redirect URLs:
+**Supabase, Authentication, URL Configuration.** Site URL stays `https://kpopquiz.org`. Add exactly these two Redirect URLs,
+with no wildcard (GoTrue matches the raw `redirect_to` as a glob: `**` would also match `.../auth/callback/../../<any page>`,
+which the browser normalises to any page of the shared origin; `?` is itself a glob wildcard, so `callback?**` is no fix):
 
 ```
-https://fandomverse.org/auth/callback**
-https://fandomverse.org/anime/auth/callback**
+https://fandomverse.org/auth/callback
+https://fandomverse.org/anime/auth/callback
 ```
 
 Remove `https://otakuquiz.org/**` and `https://fanquiz.org/**` if they were added (RUNBOOK H3): no site sends a visitor there
@@ -62,8 +67,11 @@ Discord sign-in works). Scopes stay Supabase's default (`identify email`), as on
 | `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | unset | **do not set** | **do not set** | unread now (no Google Identity Services) |
 | `NEXT_PUBLIC_NET_ORIGINS` | never in production | never in production | never in production | previews only: `kpop=<kpop preview origin>,hub=<fv preview origin>,anime=<fv preview origin>` (bare origins; anime gets `/anime` from code) |
 
-For a preview of the fandomverse projects, add its callback lines to the Redirect URLs the same way (`<preview origin>/auth/callback**`
-and `<preview origin>/anime/auth/callback**`) on the Supabase project the preview uses.
+Previews: the callback is built from the site's origin on that deployment (`NEXT_PUBLIC_NET_ORIGINS` outside production), never
+from the request's Host, so a preview with no override sends the provider back to production and the sign-in fails closed there
+(no verifier cookie). To sign in on a preview, give it a stable origin (the branch alias of the fandomverse project) in
+`NEXT_PUBLIC_NET_ORIGINS`, and the owner adds its two exact callbacks, no wildcard, on the Supabase project the preview uses:
+`<branch alias origin>/auth/callback` and `<branch alias origin>/anime/auth/callback`. A per-deployment URL needs its own pair.
 
 ## Merge notes
 

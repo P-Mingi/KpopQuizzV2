@@ -18,3 +18,12 @@ export function joinBase(base: string, path: string): string {
   if (path[1] === '?' || path[1] === '#') return `${base}${path.slice(1)}`;
   return `${base}${path}`;
 }
+
+/**
+ * The exact OAuth callback of a build whose base is `base` (origin and basePath): base + /auth/callback, never a query. Supabase's
+ * Redirect URLs list it as it is, with no wildcard (security review, 2026-10-28): a pattern like 'callback**' also matched
+ * 'callback/../../<any page>', which a browser normalises to any page of the shared origin.
+ */
+export function oauthCallbackUrl(base: string): string {
+  return `${base}/auth/callback`;
+}
