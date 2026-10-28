@@ -1,7 +1,9 @@
 // FandomVerse (lane 1): the Vercel Microfrontends group of fandomverse.org (apps/quiz/microfrontends.json) and the next.config.ts
 // of each build (docs/launch/o1/ARCHITECTURE-FANDOMVERSE.md). The registry values of FandomVerse are stubbed where they matter
 // (`fandomVerse` below), so the test says the same thing before and after the registry carries https://fandomverse.org/anime.
-import { readFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { validateRouting } from '@vercel/microfrontends/next/testing';
@@ -11,7 +13,7 @@ import { matchHas } from 'next/dist/shared/lib/router/utils/prepare-destination'
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { REGISTRY } from './registry';
-import { MFE_APPLICATIONS, VERCEL_APP_HOST, canonicalHost, cronProxyRewrites, deploymentHostNoindexHeaders } from './zones';
+import { MFE_APPLICATIONS, VERCEL_APP_HOST, canonicalHost, cronPathsOf, cronProxyRewrites, deploymentHostNoindexHeaders } from './zones';
 
 import type { NextConfig } from 'next';
 import type { Header } from 'next/dist/lib/load-custom-routes';
@@ -285,5 +287,59 @@ describe('the home of a build gets the security headers and the noindex of every
       expect(at['/'], indexing).toEqual(at['/privacy']);
       expect(((await c.headers!()) as Headers).filter((x) => x.source === '/'), indexing).toHaveLength(1);
     }
+  });
+});
+
+// ---------------------------------------------------------------------------------------------------------------------------
+// vercel.json on the hub and anime builds (finding 5): read, or the build fails naming the file. kpop never reads it.
+
+describe('the cron paths of vercel.json', () => {
+  it('cronPathsOf: the path of every cron, in order', () => {
+    expect(cronPathsOf(readFileSync(`${APP}vercel.json`, 'utf8'), 'vercel.json')).toEqual(vercelCrons);
+    expect(cronPathsOf('{"crons":[]}', 'vercel.json')).toEqual([]);
+  });
+
+  it('cronPathsOf: invalid JSON, no crons array or a cron without a path throws, naming the file', () => {
+    expect(() => cronPathsOf('{ "crons": [', '/x/vercel.json')).toThrow(/\/x\/vercel\.json is not valid JSON/);
+    for (const text of ['{}', 'null', '[]', '{"crons":{}}', '{"crons":"x"}']) {
+      expect(() => cronPathsOf(text, '/x/vercel.json'), text).toThrow(/\/x\/vercel\.json has no "crons" array/);
+    }
+    for (const text of ['{"crons":[{"schedule":"* * * * *"}]}', '{"crons":[{"path":""}]}', '{"crons":[null]}', '{"crons":[{"path":3}]}']) {
+      expect(() => cronPathsOf(text, '/x/vercel.json'), text).toThrow(/\/x\/vercel\.json: crons\[0\] has no "path" string/);
+    }
+  });
+
+  describe('next.config.ts run from a folder whose vercel.json is missing or invalid', () => {
+    let dir = '';
+    afterEach(() => { vi.restoreAllMocks(); if (dir) rmSync(dir, { recursive: true, force: true }); dir = ''; });
+
+    /** A folder with apps/quiz's src (next.config.ts builds the UX stylesheet from src/styles) and the given vercel.json, if any. */
+    function cwdWith(vercelJson: string | null): void {
+      dir = mkdtempSync(join(tmpdir(), 'o1-zones-'));
+      symlinkSync(join(APP, 'src'), join(dir, 'src'));
+      if (vercelJson !== null) writeFileSync(join(dir, 'vercel.json'), vercelJson);
+      vi.spyOn(process, 'cwd').mockReturnValue(dir);
+    }
+
+    it('hub and anime: the build fails and the error names vercel.json', async () => {
+      for (const site of ['hub', 'anime'] as const) {
+        cwdWith(null);
+        await expect(loadConfig(site, { fandomVerse: true }), `${site} missing`).rejects.toThrow(/Cannot read .*vercel\.json/);
+        vi.restoreAllMocks(); rmSync(dir, { recursive: true, force: true });
+        cwdWith('{ "crons": [');
+        await expect(loadConfig(site, { fandomVerse: true }), `${site} invalid`).rejects.toThrow(/vercel\.json is not valid JSON/);
+        vi.restoreAllMocks(); rmSync(dir, { recursive: true, force: true });
+        cwdWith('{"regions":["dub1"]}');
+        await expect(loadConfig(site, { fandomVerse: true }), `${site} no crons`).rejects.toThrow(/vercel\.json has no "crons" array/);
+      }
+    });
+
+    it('kpop: never reads vercel.json, so its config loads without it, unchanged', async () => {
+      cwdWith(null);
+      const c = await loadConfig('kpop', { fandomVerse: true });
+      expect(Object.keys(c).sort()).toEqual(['compress', 'env', 'headers', 'images', 'poweredByHeader', 'reactStrictMode', 'redirects', 'rewrites', 'transpilePackages']);
+      const r = (await c.rewrites!()) as Rewrites;
+      expect(r.beforeFiles.some((x) => x.basePath === false)).toBe(false);
+    });
   });
 });

@@ -9,7 +9,7 @@ import { INDEXING_OPEN } from './src/lib/site/indexing';
 import { basePathOf } from './src/lib/site/base-path';
 import { SITE, SITE_ID } from './src/lib/site/registry';
 import { afterFilesFor, fallbackFor, keyFileBlocksFor, redirectsFor, rewritesFor } from './src/lib/site/routing';
-import { MFE_APPLICATIONS, cronProxyRewrites, deploymentHostNoindexHeaders } from './src/lib/site/zones';
+import { MFE_APPLICATIONS, cronPathsOf, cronProxyRewrites, deploymentHostNoindexHeaders } from './src/lib/site/zones';
 import { buildUxStylesheet, uxStylesheetVersion } from './src/lib/ux-v1/a0/stylesheet';
 
 // V12 (NEXT_PUBLIC_UX_V12, default off, and only together with NEXT_PUBLIC_UX_V1: the
@@ -242,13 +242,18 @@ const nextConfig: NextConfig = {
 //     the package does not support a basePath with its own prefix (docs, quickstart).
 const ZONE_BASE_PATH = SITE_ID === 'kpop' ? '' : basePathOf(SITE.url);
 
+// The cron paths of vercel.json (apps/quiz, the Root Directory of the three projects), read by the hub and anime builds only
+// (zoneConfig). A file that cannot be read or is not valid fails the build with its name (cronPathsOf), never a build without
+// its cron proxies. The kpop build never calls this.
 function cronPaths(): string[] {
+  const file = join(process.cwd(), 'vercel.json');
+  let text: string;
   try {
-    const json = JSON.parse(readFileSync(join(process.cwd(), 'vercel.json'), 'utf8')) as { crons?: { path?: unknown }[] };
-    return (json.crons ?? []).map((c) => c.path).filter((p): p is string => typeof p === 'string');
-  } catch {
-    return [];
+    text = readFileSync(file, 'utf8');
+  } catch (err) {
+    throw new Error(`Cannot read ${file} (${(err as Error).message}). The ${SITE_ID} build proxies the crons of vercel.json: build from apps/quiz.`);
   }
+  return cronPathsOf(text, file);
 }
 
 function zoneConfig(base: NextConfig): NextConfig {

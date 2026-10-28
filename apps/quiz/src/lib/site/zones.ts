@@ -53,6 +53,27 @@ export function deploymentHostNoindexHeaders(vercelEnv: string | undefined): Zon
   return [{ source: '/:path*', has: [{ type: 'host', value: VERCEL_APP_HOST }], headers }];
 }
 
+/**
+ * The cron paths of the shared vercel.json, read from its text (`file` names it in the errors). The hub and anime builds call it
+ * (next.config.ts) and fail here, naming the file, when it is not valid JSON, has no "crons" array or a cron without a path: never a
+ * build that silently proxies no cron. The kpop build never reads the file.
+ */
+export function cronPathsOf(text: string, file: string): string[] {
+  let json: unknown;
+  try {
+    json = JSON.parse(text);
+  } catch (err) {
+    throw new Error(`${file} is not valid JSON (${(err as Error).message}). The hub and anime builds read its "crons" to proxy them.`);
+  }
+  const crons = json !== null && typeof json === 'object' ? (json as { crons?: unknown }).crons : undefined;
+  if (!Array.isArray(crons)) throw new Error(`${file} has no "crons" array. The hub and anime builds read it to proxy the crons of vercel.json.`);
+  return crons.map((c: unknown, i) => {
+    const path = c !== null && typeof c === 'object' ? (c as { path?: unknown }).path : undefined;
+    if (typeof path !== 'string' || path === '') throw new Error(`${file}: crons[${i}] has no "path" string.`);
+    return path;
+  });
+}
+
 export interface CronProxyRewrite {
   readonly source: string;
   readonly destination: string;
