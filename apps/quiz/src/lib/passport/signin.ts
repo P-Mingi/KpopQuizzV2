@@ -256,6 +256,30 @@ export function sessionMethod(accessToken: string | null | undefined): string | 
   return newest?.method ?? null;
 }
 
+/** The providers of the identities of a user (the getUser answer), as Supabase names them. */
+export function identityProviders(user: unknown): string[] {
+  const ids = typeof user === 'object' && user !== null ? (user as { identities?: unknown }).identities : undefined;
+  if (!Array.isArray(ids)) return [];
+  return ids.flatMap((i) => (typeof i === 'object' && i !== null && typeof (i as { provider?: unknown }).provider === 'string' ? [(i as { provider: string }).provider] : []));
+}
+
+/** Identities that are not an OAuth provider: they never open an 'oauth' session. */
+const NOT_OAUTH = new Set(['email', 'phone', 'anonymous']);
+
+/**
+ * True when the OAuth sign-in that opened the session was one of `allowed` (Google, Discord). The amr 'oauth' alone would
+ * also accept any other OAuth provider of the shared Supabase project, so the identity is checked too:
+ *  - with the cookie of /auth/start (`started`): that provider must be allowed and the account must hold an identity of it;
+ *  - without it (stale after 600 s): every OAuth identity of the account must be allowed (then whichever opened the session
+ *    was Google or Discord), and there must be one.
+ */
+export function oauthProviderAllowed(user: unknown, started: string | null, allowed: readonly string[]): boolean {
+  const ids = identityProviders(user);
+  if (started !== null) return allowed.includes(started) && ids.includes(started);
+  const oauth = ids.filter((p) => !NOT_OAUTH.has(p));
+  return oauth.length > 0 && oauth.every((p) => allowed.includes(p));
+}
+
 function badRequest(): NextResponse {
   return harden(new NextResponse('bad request', { status: 400, headers: { 'content-type': 'text/plain; charset=utf-8' } }));
 }
@@ -336,6 +360,14 @@ export async function handleWorldCallback(request: NextRequest, ctx: SigninCtx =
 
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return fail('no_user');
+
+  // Google or Discord, not another OAuth provider of the shared project (the provider started by /auth/start, and the
+  // account's identity of it).
+  const allowed = REGISTRY[site].auth.providers.filter(isOAuthProvider);
+  if (!oauthProviderAllowed(user, back?.provider ?? null, allowed)) {
+    await supabase.auth.signOut({ scope: 'local' }).catch(() => undefined);
+    return fail('provider');
+  }
 
   const { data: profile } = await supabase.from('profiles').select('id, banned_at').eq('id', user.id).maybeSingle();
   if (!profile) {

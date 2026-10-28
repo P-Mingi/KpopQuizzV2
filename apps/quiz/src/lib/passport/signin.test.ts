@@ -22,6 +22,7 @@ const state = vi.hoisted(() => ({
   token: '' as string | null,
   oauthUrl: undefined as string | null | undefined,
   oauthError: false,
+  identities: [{ provider: 'google' }] as Array<{ provider: string }> | undefined,
 }));
 
 vi.mock('@/lib/supabase/server', () => ({
@@ -37,7 +38,7 @@ vi.mock('@/lib/supabase/server', () => ({
       exchangeCodeForSession: async (code: string) => {
         state.calls.push({ fn: 'auth.exchangeCodeForSession', args: { code } });
         if (state.exchangeError) return { data: { user: null, session: null }, error: { message: 'exchange' } };
-        state.user = state.otpUser ? { id: state.otpUser } : null;
+        state.user = state.otpUser ? ({ id: state.otpUser, identities: state.identities } as { id: string }) : null;
         return { data: { user: state.user, session: state.token === null ? null : { access_token: state.token } }, error: null };
       },
       signOut: async (args?: { scope?: string }) => { state.signOuts += 1; state.signOutScopes.push(args?.scope ?? 'global'); return { error: null }; },
@@ -78,7 +79,7 @@ vi.mock('@/lib/supabase/server', () => ({
 
 import { OAUTH_RETURN_COOKIE, decodeOAuthReturn, encodeOAuthReturn, oauthReturnAttributes, oauthReturnCookieName } from '@/lib/auth/oauth-return';
 
-import { handleAfterSignin, handleConfirm, handleOAuthStart, handleWorldCallback, sessionMethod } from './signin';
+import { handleAfterSignin, handleConfirm, handleOAuthStart, handleWorldCallback, oauthProviderAllowed, sessionMethod } from './signin';
 
 import type { SiteId } from '@/lib/site/types';
 
@@ -113,7 +114,7 @@ beforeEach(() => {
   Object.assign(state, {
     user: null, profile: { id: 'user-1', banned_at: null }, calls: [], otpError: false, otpUser: 'user-1', created: true,
     stampThrows: false, signOuts: 0, signOutScopes: [], exchangeError: false, token: jwt([{ method: 'oauth', timestamp: 1_800_000_000 }]),
-    oauthUrl: undefined, oauthError: false,
+    oauthUrl: undefined, oauthError: false, identities: [{ provider: 'google' }],
   });
   vi.spyOn(console, 'info').mockImplementation(() => undefined);
 });
@@ -407,7 +408,7 @@ describe('GET /auth/callback of anime and hub (handleWorldCallback)', () => {
     expect(calls('ensure_membership')[0]!.args.p_via_code).toBeNull();
   });
 
-  it('a missing, stale, foreign or malformed cookie: the home of the build, no via (the sign-in itself still works)', async () => {
+  it('a missing, stale, foreign or malformed cookie: the home of the build, no via (Google or Discord identities only: still signed in)', async () => {
     const old = Math.floor(Date.now() / 1000) - 601;
     for (const cookie of [
       null, startCookie('anime', '/daily', 'k.menu', 'google', old), startCookie('hub', '/daily'), `${OAUTH_RETURN_COOKIE.https}=garbage!`,
@@ -493,6 +494,57 @@ describe('GET /auth/callback of anime and hub (handleWorldCallback)', () => {
     expect(JSON.stringify(spy.mock.calls)).not.toContain('secret-code-xyz');
     expect(JSON.stringify(spy.mock.calls)).not.toContain('k.menu');
     expect(spy.mock.calls.length).toBeGreaterThan(0);
+  });
+});
+
+describe('the provider of the sign-in: Google or Discord only (security review, 2026-10-28)', () => {
+  const callback = (cookie: string | null, site: 'anime' | 'hub' = 'anime'): NextRequest =>
+    new NextRequest(`https://fandomverse.org${site === 'anime' ? '/anime' : ''}/auth/callback?code=c1`, { headers: cookie ? { cookie } : {} });
+
+  it('accepts Google and Discord when the account holds that identity (an email identity next to it is fine)', async () => {
+    for (const provider of ['google', 'discord'] as const) {
+      for (const identities of [[{ provider }], [{ provider: 'email' }, { provider }], [{ provider: 'github' }, { provider }]]) {
+        state.calls = [];
+        state.identities = identities;
+        const res = await handleWorldCallback(callback(startCookie('anime', '/daily', null, provider)), fv('anime'));
+        expect(loc(res), `${provider} ${JSON.stringify(identities)}`).toBe('/anime/daily');
+      }
+    }
+  });
+
+  it('refuses another OAuth provider of the shared project: signed out on this browser, the login page, nothing read', async () => {
+    const cases: Array<{ cookie: string | null; identities: Array<{ provider: string }> | undefined }> = [
+      { cookie: startCookie('anime', '/daily', null, 'google'), identities: [{ provider: 'github' }] },
+      { cookie: startCookie('anime', '/daily', null, 'discord'), identities: [{ provider: 'google' }] },
+      { cookie: startCookie('anime', '/daily', null, 'google'), identities: [] },
+      { cookie: startCookie('anime', '/daily', null, 'google'), identities: undefined },
+      { cookie: null, identities: [{ provider: 'github' }] },
+      { cookie: null, identities: [{ provider: 'google' }, { provider: 'twitter' }] },
+      { cookie: null, identities: [{ provider: 'email' }] },
+      { cookie: null, identities: [] },
+    ];
+    for (const c of cases) {
+      state.calls = [];
+      state.signOutScopes = [];
+      state.identities = c.identities;
+      const res = await handleWorldCallback(callback(c.cookie), fv('anime'));
+      expect(loc(res), JSON.stringify(c)).toBe('/anime/login');
+      expect(state.signOutScopes).toEqual(['local']);
+      expect(calls('from.profiles')).toEqual([]);
+      expect(calls('ensure_membership')).toEqual([]);
+    }
+  });
+
+  it('oauthProviderAllowed: the started provider must be allowed and held; without it every OAuth identity must be allowed', () => {
+    const allowed = ['google', 'discord'];
+    expect(oauthProviderAllowed({ identities: [{ provider: 'discord' }] }, 'discord', allowed)).toBe(true);
+    expect(oauthProviderAllowed({ identities: [{ provider: 'discord' }] }, 'github', allowed)).toBe(false);
+    expect(oauthProviderAllowed({ identities: [{ provider: 'google' }, { provider: 'discord' }, { provider: 'email' }] }, null, allowed)).toBe(true);
+    expect(oauthProviderAllowed({ identities: [{ provider: 'google' }, { provider: 'github' }] }, null, allowed)).toBe(false);
+    for (const user of [null, undefined, 'x', {}, { identities: 'google' }, { identities: [null, 7, { provider: 3 }] }]) {
+      expect(oauthProviderAllowed(user, null, allowed)).toBe(false);
+      expect(oauthProviderAllowed(user, 'google', allowed)).toBe(false);
+    }
   });
 });
 

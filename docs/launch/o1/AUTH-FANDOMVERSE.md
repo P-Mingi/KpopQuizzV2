@@ -14,7 +14,9 @@ This replaces RUNBOOK H3 and H4 and the D-099 lines of ENV.md 2.2 for the new do
    `https://fandomverse.org/auth/callback` (hub) or `https://fandomverse.org/anime/auth/callback` (anime). The return path,
    the tab's `via` and the provider wait in a first-party cookie (`__Host-fv_oauth`: HttpOnly, Secure, SameSite=Lax, Path=/,
    600 s). The callback (handleWorldCallback) reads only `code` from the query, exchanges it, closes any session that no
-   OAuth provider opened (`amr` must be `oauth`), signs out a banned profile, stamps the membership, clears the cookie and
+   OAuth provider opened (`amr` must be `oauth`) or that another OAuth provider of the shared project opened (the provider
+   started must be Google or Discord and the account must hold that identity; without the cookie every OAuth identity of
+   the account must be Google or Discord), signs out a banned profile, stamps the membership, clears the cookie and
    sends the visitor back: the username page on anime when there is no profile, the hub home on the hub, else the return
    path of the cookie re-checked with safeReturnTo, always inside the build's basePath.
 2. **No email.** No email field on the hub and anime (sheet, `/login`, create funnel). `/auth/confirm` answers 404 on a
@@ -29,6 +31,15 @@ This replaces RUNBOOK H3 and H4 and the D-099 lines of ENV.md 2.2 for the new do
    `https://fandomverse.org/anime/auth/land`. Between the hub and anime there is no hand-off (shared session).
    Origin checks are exact (`https://fandomverse.org.evil.com`, `https://evil.com/fandomverse.org`, `http:`, ports, `www.`
    are refused); every return path stays a same-origin path, inside `/anime` on anime.
+
+## Residuals (accepted)
+
+- **Passport sessions.** A session that arrives from kpopquiz.org through the passport is accepted on fandomverse.org whatever
+  opened it on kpopquiz.org, an email link included (owner decision: the passport stays). The OAuth-only checks apply to
+  `/auth/callback` of the hub and anime, not to the passport and not to every request (no middleware-wide session audit).
+- **Self-service email session.** Supabase's anon key is public: a person can ask Supabase for their own email sign-in by hand
+  and plant the resulting session in their own browser with the developer tools. It signs in only themselves, on their own
+  account (no victim, no other account reachable); the sites never offer it.
 
 ## Owner lines
 
