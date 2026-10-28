@@ -53,8 +53,8 @@ https://fandomverse.org/auth/callback
 https://fandomverse.org/anime/auth/callback
 ```
 
-Remove `https://otakuquiz.org/**` and `https://fanquiz.org/**` if they were added (RUNBOOK H3): no site sends a visitor there
-any more, and a redirect entry nothing uses is only attack surface.
+Remove the two wildcard entries of the old anime and hub domains if they were added (RUNBOOK H3): no site sends a visitor
+there any more, and a redirect entry nothing uses is only attack surface.
 
 **Google Cloud.** Authorized JavaScript origin to add: **none**. The sites use Supabase's OAuth redirect, not Google Identity
 Services, so Google only ever talks to Supabase's callback. Authorized redirect URI changes: **none** (it stays
@@ -89,6 +89,6 @@ from the request's Host, so a preview with no override sends the provider back t
 ## Merge notes
 
 - `lib/auth/site-base.ts` `SITE_BASE_PATH` mirrors lane 1's basePath (`anime: '/anime'`); read it from lane 1's helper once merged.
-- The registry urls of anime and hub still say otakuquiz.org and fanquiz.org on this branch (lane 1 moves them). The auth code
+- The registry urls of anime and hub still name the old anime and hub domains on this branch (lane 1 moves them). The auth code
   takes origins from the registry and the basePath from `SITE_BASE_PATH`, so it is right whether the anime url is written
   `https://fandomverse.org` or `https://fandomverse.org/anime`.

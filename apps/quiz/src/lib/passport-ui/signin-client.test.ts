@@ -1,6 +1,6 @@
 // Run O1, lot (b), lane P1: the browser side of signing in on a world site: the tab's via, the email link address, where the
 // browser goes after after-signin, the Google flow with and without a token. Nothing leaves the process.
-// FandomVerse (owner, 2026-10-28): the origins move from otakuquiz.org to fandomverse.org/anime (the anime base: origin and
+// FandomVerse (owner, 2026-10-28): the origins move from the old anime domain to fandomverse.org/anime (the anime base: origin and
 // basePath); the Google and Discord flow of the FandomVerse sheets (signInWithProvider, /auth/start) is tested at the end.
 import { describe, expect, it, vi } from 'vitest';
 
