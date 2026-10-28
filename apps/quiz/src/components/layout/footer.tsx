@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Mascot } from '@/components/ui/mascot';
 import { discordInviteWithUtm } from '@kpopquiz/shared/social-links';
 import { verseHidden } from '@/lib/verse/visibility';
-import { ThemeToggle } from './legacy-chrome-islands';
+import { ThemeToggle } from './theme-toggle';
 
 export function Footer(): React.ReactElement {
   // Owner request (2026-09-19): the "Fandoms" (Verse) link is dropped from the
