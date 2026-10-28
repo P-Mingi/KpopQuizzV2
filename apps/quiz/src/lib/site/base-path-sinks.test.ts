@@ -23,6 +23,41 @@ const SINK = new RegExp([
   String.raw`<(?:img|Image)\b[^>]*\bsrc=\{?['"\x60]/`,
 ].join('|'));
 
+/**
+ * A root-relative path CONSTANT (review of 2026-10-28, bt.ts sent its beacon to `BT_TRACK_ENDPOINT`, '/api/track/bt-run'): a
+ * `const NAME = '/...'` (a string or a template literal that starts with one slash), anywhere in a module, local or exported.
+ */
+const PATH_CONST = /\bconst\s+([A-Za-z_$][\w$]*)\s*(?::\s*[^=;]+)?=\s*['"\x60]\/(?!\/)/g;
+/** The names of `import { A, B as C } from` and `export { A as B } from` (the original name, then the local one). */
+const SPECIFIERS = /\b(?:import|export)\s*(?:type\s+)?\{([^}]*)\}\s*from\s*['"]/g;
+
+function specifiers(text: string): (readonly [string, string])[] {
+  const out: (readonly [string, string])[] = [];
+  for (const m of text.matchAll(SPECIFIERS)) {
+    for (const raw of m[1]!.split(',')) {
+      const [orig, alias] = raw.trim().replace(/^type\s+/, '').split(/\s+as\s+/);
+      if (orig) out.push([orig, alias ?? orig]);
+    }
+  }
+  return out;
+}
+
+/** The sinks of SINK with a name bound to a root-relative path constant as the address (`NAME` or `${NAME}...`). */
+function constSink(names: ReadonlySet<string>): RegExp | null {
+  if (!names.size) return null;
+  const id = [...names].map((n) => n.replace(/\$/g, '\\$')).join('|');
+  const arg = String.raw`(?:\x60\$\{\s*(?:${id})\s*\}|(?:${id})(?![\w$.(\[]))`;
+  return new RegExp([
+    String.raw`(?:^|[^.\w])(?:fetch|navigator\.sendBeacon|window\.open)\(\s*${arg}`,
+    String.raw`location\.(?:assign|replace)\(\s*${arg}`,
+    String.raw`location\.href\s*=\s*${arg}`,
+    String.raw`(?:pushState|replaceState)\([^)]*,\s*${arg}`,
+    String.raw`<a\b[^>]*\bhref=\{\s*${arg}`,
+    String.raw`\baction=\{\s*${arg}`,
+    String.raw`<(?:img|Image)\b[^>]*\bsrc=\{\s*${arg}`,
+  ].join('|'));
+}
+
 /** [file under src/, a piece of the line]: the sinks that keep a bare address, and why. */
 const EXCEPTIONS: readonly (readonly [string, string, string])[] = [
   ['components/create/create-funnel.tsx', '', 'the flag-off funnel: a world build runs NEXT_PUBLIC_UX_V1=1 (flags-env.md 2) and renders the P5 funnel'],
@@ -84,6 +119,54 @@ describe('the browser sinks of the anime and hub builds carry the base path', ()
     for (const f of files) {
       readFileSync(join(SRC, f), 'utf8').split('\n').forEach((line, i) => {
         if (/^\s*(\/\/|\*|\/\*)/.test(line) || !SINK.test(line)) return;
+        if (EXCEPTIONS.some(([file, piece]) => (file.endsWith('/') ? f.startsWith(file) : f === file) && line.includes(piece))) return;
+        found.push(`${f}:${i + 1}: ${line.trim().slice(0, 120)}`);
+      });
+    }
+    expect(found).toEqual([]);
+  });
+
+  it('the constant check sees a path constant at every sink and nothing else (a matcher that matched nothing would pass anything)', () => {
+    const sink = constSink(new Set(['EP']))!;
+    for (const hit of [
+      "navigator.sendBeacon(EP, new Blob([body]))", 'void fetch(EP, { method: "POST" })', 'fetch(`${EP}?a=1`)', "window.open(EP, '_blank')",
+      'window.location.assign(EP)', 'window.location.href = EP;', "history.replaceState(null, '', EP)", '<a href={EP}>x</a>',
+      '<form action={EP}>', '<img src={EP} alt="" />', '<Image src={`${EP}?w=1`} alt="" />',
+    ]) expect(sink.test(hit), hit).toBe(true);
+    for (const miss of [
+      'fetch(BASE_PATH ? BASE_PATH + EP : EP)', 'navigator.sendBeacon(ENDPOINT, b)', 'fetch(`${BASE_PATH}${EP}`)', 'fetch(EP_URL)',
+      'fetch(EP.replace(a, b))', 'x.fetch(EP)', '<img src={src} />',
+    ]) expect(sink.test(miss), miss).toBe(false);
+    expect([...'const A = \'/api/x\';\nexport const B: string = `/b/${x}`;\nconst C = \'//cdn\';\nconst D = \'rel\';'.matchAll(PATH_CONST)].map((m) => m[1])).toEqual(['A', 'B']);
+    expect(specifiers("import { A, type B, C as D } from './x';\nexport { E as F } from './y';")).toEqual([['A', 'A'], ['B', 'B'], ['C', 'D'], ['E', 'F']]);
+  });
+
+  it('no root-relative path CONSTANT at a browser sink either (declared in the module or imported), but for the listed exceptions', () => {
+    const code = (text: string): string => text.split('\n').filter((l) => !/^\s*(\/\/|\*|\/\*)/.test(l)).join('\n');
+    const texts = new Map(files.map((f) => [f, readFileSync(join(SRC, f), 'utf8')] as const));
+    const declared = new Map<string, Set<string>>();
+    const names = new Set<string>();
+    for (const [f, text] of texts) {
+      const own = new Set([...code(text).matchAll(PATH_CONST)].map((m) => m[1]!));
+      declared.set(f, own);
+      for (const n of own) names.add(n);
+    }
+    // A constant keeps its meaning through `import { A as B }` and `export { A as B } from`: follow the renames to a fixpoint.
+    for (let grew = true; grew;) {
+      grew = false;
+      for (const text of texts.values()) {
+        for (const [orig, local] of specifiers(text)) if (names.has(orig) && !names.has(local)) { names.add(local); grew = true; }
+      }
+    }
+    expect([...names], 'the walk finds the path constants of the reached modules').toContain('BT_TRACK_ENDPOINT');
+    const found: string[] = [];
+    for (const [f, text] of texts) {
+      const bound = new Set(declared.get(f));
+      for (const [orig, local] of specifiers(text)) if (names.has(orig)) bound.add(local);
+      const sink = constSink(bound);
+      if (!sink) continue;
+      text.split('\n').forEach((line, i) => {
+        if (/^\s*(\/\/|\*|\/\*)/.test(line) || !sink.test(line)) return;
         if (EXCEPTIONS.some(([file, piece]) => (file.endsWith('/') ? f.startsWith(file) : f === file) && line.includes(piece))) return;
         found.push(`${f}:${i + 1}: ${line.trim().slice(0, 120)}`);
       });
