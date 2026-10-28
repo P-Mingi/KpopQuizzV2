@@ -7,7 +7,13 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 const auth = vi.hoisted(() => ({ user: null as { id: string } | null }));
 vi.mock('@supabase/ssr', () => ({ createServerClient: () => ({ auth: { getUser: async () => ({ data: { user: auth.user } }) } }) }));
 
+import { SITE_ID } from '@/lib/site/registry';
+
 import { updateSession } from './middleware';
+
+// FandomVerse (owner, 2026-10-28): the anime build is served under the basePath '/anime', so on that build (a per-site run
+// with NEXT_PUBLIC_SITE_ID=anime) its login page is /anime/login; on every other build it is /login, as before.
+const LOGIN = SITE_ID === 'anime' ? '/anime/login' : '/login';
 
 beforeEach(() => {
   vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://proj.supabase.co');
@@ -23,7 +29,7 @@ describe('/admin on the session check', () => {
     expect(res.status).toBeGreaterThanOrEqual(300);
     expect(res.status).toBeLessThan(400);
     const to = new URL(res.headers.get('location') ?? '');
-    expect(to.pathname).toBe('/login');
+    expect(to.pathname).toBe(LOGIN);
     expect(to.searchParams.get('returnTo')).toBe(new URL(path, 'http://x').pathname);
     expect(await res.text()).toBe('');
   });
