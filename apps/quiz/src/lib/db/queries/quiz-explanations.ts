@@ -32,3 +32,37 @@ export const getQuizExplanations = unstable_cache(
   ['db:quiz-explanations:v1', SITE_ID],
   { revalidate: CACHE_TTL.stats, tags: ['quiz-explanations', 'quizzes'] },
 );
+
+/**
+ * Newest verified explanation per quiz (quiz id -> epoch ms), for the sitemap lastmod: a new verified
+ * explanation is a material change of the quiz page (rulebook 2.6). Paged past the 1000-row cap. Empty
+ * while the table does not exist; any other error throws (the sitemap then keeps created_at).
+ */
+export async function readExplanationDates(db = createPublicReadClient()): Promise<Map<string, number>> {
+  const out = new Map<string, number>();
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await db
+      .from('quiz_explanations')
+      .select('quiz_id, created_at')
+      .eq('status', 'verified')
+      .order('quiz_id', { ascending: true })
+      .order('q_index', { ascending: true })
+      .range(from, from + 999);
+    if (error) {
+      if (MISSING_TABLE.has(error.code ?? '')) return out;
+      throw new Error(`explanation dates: ${error.message}`);
+    }
+    const rows = (data ?? []) as Array<{ quiz_id: string; created_at: string }>;
+    for (const r of rows) {
+      const t = Date.parse(r.created_at);
+      if (Number.isFinite(t) && t > (out.get(r.quiz_id) ?? 0)) out.set(r.quiz_id, t);
+    }
+    if (rows.length < 1000) return out;
+  }
+}
+
+/** The lastmod of a quiz page: its creation, or its newest verified explanation when later. */
+export function quizLastModified(createdAt: string, explainedAt: number | undefined): Date {
+  const created = Date.parse(createdAt);
+  return new Date(explainedAt !== undefined && explainedAt > created ? explainedAt : created);
+}

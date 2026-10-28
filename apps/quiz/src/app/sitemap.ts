@@ -7,6 +7,7 @@ import { ARTICLES } from '@/lib/articles/registry';
 import { slugify as verseSlugify } from '@/lib/verse/slug';
 import { verseHidden, spaceUnpublished } from '@/lib/verse/visibility';
 import { fetchAllRows } from '@/lib/db/fetch-all';
+import { quizLastModified, readExplanationDates } from '@/lib/db/queries/quiz-explanations';
 import { forSite } from '@/lib/site/scope';
 import { LEGAL, legalIsComplete } from '@/lib/legal-notice';
 import { getAdvertisablePlaylists, getPlayableStaticModes } from '@/lib/blind-test-playlists';
@@ -232,7 +233,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // 15s is generous (sitemap usually finishes <5s) and well under Vercel's
     // 60s per-page build cap. On timeout we emit just the static URLs below.
     type Row = { data: Array<Record<string, unknown>> | null };
-    type QuizRow = { slug: string; created_at: string; group_id: number | null; questions: unknown; title: string; question_count: number | null; play_count: number | null; like_count: number | null };
+    type QuizRow = { id: string; slug: string; created_at: string; group_id: number | null; questions: unknown; title: string; question_count: number | null; play_count: number | null; like_count: number | null };
     const SITEMAP_BATCH_TIMEOUT_MS = 15000;
     const timeoutSentinel = Symbol('sitemap-batch-timeout');
     const raced = await Promise.race([
@@ -241,12 +242,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         // silently stopped at 1000 published quizzes. Ordered by a unique key so
         // pages never overlap.
         fetchAllRows<QuizRow>(
-          () => forSite(supabase.from('quizzes').select('slug, created_at, group_id, questions, title, question_count, play_count, like_count')).eq('status', 'published').order('created_at', { ascending: false }).order('slug', { ascending: true }),
+          () => forSite(supabase.from('quizzes').select('id, slug, created_at, group_id, questions, title, question_count, play_count, like_count')).eq('status', 'published').order('created_at', { ascending: false }).order('slug', { ascending: true }),
         ).then((rows) => ({ data: rows.slice(0, QUIZZES_LIMIT) })),
         forSite(supabase.from('groups').select('id, slug')),
         // W7c: the advertisable playlist set (clip-ready AND able to fill a round),
         // the same one the /blindtest index links.
         getAdvertisablePlaylists(),
+        // SEO phase 1: a quiz's lastmod moves when it gets a verified explanation (a material change).
+        // A failed read keeps created_at for every quiz, never fails the sitemap.
+        readExplanationDates(supabase).catch((err: unknown) => {
+          console.warn('[sitemap] explanation dates failed, created_at only:', err instanceof Error ? err.message : err);
+          return new Map<string, number>();
+        }),
       ]),
       new Promise<typeof timeoutSentinel>((resolve) => setTimeout(() => resolve(timeoutSentinel), SITEMAP_BATCH_TIMEOUT_MS)),
     ]);
@@ -254,8 +261,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       console.warn('[sitemap] DB batch timed out - emitting static-only sitemap');
       throw new Error('sitemap batch timeout');
     }
-    const [quizzesResult, groupsResult, advertisablePlaylists] =
-      raced as [{ data: QuizRow[] }, Row, Awaited<ReturnType<typeof getAdvertisablePlaylists>>];
+    const [quizzesResult, groupsResult, advertisablePlaylists, explainedAt] =
+      raced as [{ data: QuizRow[] }, Row, Awaited<ReturnType<typeof getAdvertisablePlaylists>>, Map<string, number>];
 
     // LASTMOD: quizzes are ordered created_at desc, so [0] is the newest content
     // on the site. Also fold the per-group newest date and the per-group count of
@@ -355,7 +362,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
     quizPages = [...bestByTitle.values()].map((q) => ({
       url: `${SITE_URL}/q/${q.slug}`,
-      lastModified: new Date(q.created_at),
+      lastModified: quizLastModified(q.created_at, explainedAt.get(q.id)),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }));
