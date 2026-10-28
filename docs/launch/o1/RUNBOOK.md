@@ -447,12 +447,43 @@ Do: (1) Sign in on `https://fandomverse.org/anime` with your admin account and, 
 Check: no error in the three projects' Runtime Logs for 30 minutes; V8 leak lines are 0. Then announce (X1's waitlist e-mail script is owner-run and is not on the launch path).
 Back: ROLLBACK.md section 3.
 
+**K9b  The noindex check, before `NET_INDEXING` is set (and again after K10).**
+Who: a worker (curl, read-only). Do: after K9, before the owner sets `NET_LAUNCH_DATE` and `NET_INDEXING` in K10, run the six commands below on the hub home, OtakuQuiz's home and one OtakuQuiz quiz page (`/anime/daily` redirects to today's `/anime/q/<slug>`; `-L` follows it, so the redirect and the quiz page are both read). The first three read the `X-Robots-Tag` header, the last three the robots meta of the HTML.
+
+```
+curl -sI https://fandomverse.org | grep -i '^x-robots-tag'
+```
+
+```
+curl -sI https://fandomverse.org/anime | grep -i '^x-robots-tag'
+```
+
+```
+curl -sIL https://fandomverse.org/anime/daily | grep -i '^x-robots-tag'
+```
+
+```
+curl -s https://fandomverse.org | grep -o '<meta name="robots" content="noindex[^"]*"'
+```
+
+```
+curl -s https://fandomverse.org/anime | grep -o '<meta name="robots" content="noindex[^"]*"'
+```
+
+```
+curl -sL https://fandomverse.org/anime/daily | grep -o '<meta name="robots" content="noindex[^"]*"'
+```
+
+Check, before K10 (`NET_INDEXING` unset): each command prints its noindex line (`x-robots-tag: noindex, nofollow`, or `<meta name="robots" content="noindex, nofollow"`). A command that prints nothing here means the check cannot see the switch: stop and tell the integrator before K10.
+Check, after the K10 redeploy of `fandomverse` and `otakuquiz` (`NET_INDEXING=1` deployed): the same six commands print nothing (no `X-Robots-Tag` header, no `<meta name="robots" content="noindex`). The `*.vercel.app` addresses keep their `X-Robots-Tag: noindex, nofollow`; they sit behind Vercel's protection, so a plain curl there only gets Vercel's sign-in page and proves nothing: skip them.
+Back: n/a (read-only).
+
 **K10  Open indexing (the very last step of launch day, after K9 and everything else; decided D-099).**
-The staging `noindex` is one server variable, not a line to merge: `NET_INDEXING` (`apps/quiz/src/lib/site/indexing.ts`, read by the layout, by `robotsFor` and by `apps/quiz/next.config.ts`). With it unset, every answer of an anime or hub build carries `noindex, nofollow` (meta tag and `X-Robots-Tag` header, except `robots.txt` and `sitemap.xml`).
-With `NET_INDEXING=1` the build has no `X-Robots-Tag` rule (`INDEXING_OPEN` in `next.config.ts`) and each page speaks for itself: home, series, series hubs from `minPublishedForIndexableHub`, `/q/<slug>`, privacy and terms say index; `/settings`, `/me`, `/admin`, login, search and a profile keep their own noindex. The kpop build ignores the variable.
+The staging `noindex` is one server variable, not a line to merge: `NET_INDEXING` (`apps/quiz/src/lib/site/indexing.ts`, read by the layout, by `robotsFor` and by `apps/quiz/next.config.ts`). With it unset, every page of the hub and `/anime` carries `noindex, nofollow` (meta tag and `X-Robots-Tag` header, except `robots.txt` and `sitemap.xml`).
+With `NET_INDEXING=1` the only `X-Robots-Tag: noindex, nofollow` rule left is the one for `*.vercel.app` hosts, and a preview deployment stays noindex whatever the variable says (meta and header). On fandomverse.org no header is added and each page speaks for itself: home, series, series hubs from `minPublishedForIndexableHub`, `/q/<slug>`, privacy and terms say index; `/settings`, `/me`, `/admin`, login, search and a profile keep their own noindex meta. The kpop build ignores the variable.
 Do: only when K9 is clean and nothing else is left for the day. First Claude checks that the line `privacy.controller` of `apps/quiz/src/copy/hub/h1.ts` names the data controller (not the placeholder), then set `NET_LAUNCH_DATE` = the launch date `YYYY-MM-DD` (Production) in `fandomverse` and `otakuquiz` (the build fails if `NET_INDEXING` comes without it). Then set `NET_INDEXING` = `1` (Production) in `fandomverse` and `otakuquiz` (not in `kpopquiz`), redeploy both (Deployments, Redeploy of the latest main build).
 In Search Console add the Domain property `fandomverse.org` (Google shows one TXT record: add it at the registrar) and submit `https://fandomverse.org/sitemap.xml` and `https://fandomverse.org/anime/sitemap.xml`.
-Check: V10 "after K10" on the hub home, `/anime`, `/anime/series`, a series page and a quiz: no `x-robots-tag` header and no `noindex` robots meta; `/settings`, `/me`, `/anime/admin` stay noindex. Each host answers its own IndexNow key file only: `curl -sS -o /dev/null -w '%{http_code}\n' https://fandomverse.org/339dab142e51883ae3a2c7e4737254e4.txt` and `https://fandomverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` print 200, and the same paths on `https://kpopquiz.org` print 404 (this needs the key-file rewrites of `docs/o1/requests/L1.md`, request 1, merged).
+Check: the six commands of K9b print nothing once both redeploys are Ready (before K10 they printed the noindex lines); V10 "after K10" on the hub home, `/anime`, `/anime/series`, a series page and a quiz: no `x-robots-tag` header and no `noindex` robots meta; `/settings`, `/me`, `/anime/admin` stay noindex. Each host answers its own IndexNow key file only: `curl -sS -o /dev/null -w '%{http_code}\n' https://fandomverse.org/339dab142e51883ae3a2c7e4737254e4.txt` and `https://fandomverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` print 200, and the same paths on `https://kpopquiz.org` print 404 (this needs the key-file rewrites of `docs/o1/requests/L1.md`, request 1, merged).
 Back: remove the variable, redeploy the two projects (the pages close again at once; pages already crawled drop out slowly).
 
 ---------------------------------------------------------------------------------------------------------------------------------

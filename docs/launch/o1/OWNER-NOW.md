@@ -1,7 +1,7 @@
 # Lancement de FandomVerse : mes actions, dans l'ordre (2026-10-28)
 
-**Moi : environ 4 h 45, en 49 étapes sur 67 (4 h 55 et 51 étapes si les deux étapes « si besoin » servent). Dont 4 h jusqu'à la fin du jour J.**
-**Claude : environ 7 h 30. Worker : environ 13 h 55, dont 7 h 30 à surveiller des journaux. Ils travaillent entre mes étapes et ne changent rien en production.**
+**Moi : environ 4 h 45, en 49 étapes sur 68 (4 h 55 et 51 étapes si les deux étapes « si besoin » servent). Dont 4 h jusqu'à la fin du jour J.**
+**Claude : environ 7 h 30. Worker : environ 14 h 05, dont 7 h 30 à surveiller des journaux. Ils travaillent entre mes étapes et ne changent rien en production.**
 **Durée totale : au moins 5 jours de la session B au jour J inclus (trois veilles de 24 h : après B, après 008, après 010), puis 72 h de veille. Au plus tôt : B le jour 1, jour J le jour 5, décision finale le jour 8.**
 
 Objectif « moins de 5 h » tenu, de justesse. Ce qui coûte le plus : le jour J (1 h 25), les six sauvegardes (une par session SQL, 30 min en tout) et les preuves avec un vrai compte (environ 40 min : aucun agent ne se connecte ni ne crée de compte en production).
@@ -516,6 +516,31 @@ Moi 2 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
 
 Si V10 trouve un reste K-pop déjà connu sur `/anime` (`docs/o1/RAPPORT-FINAL.md`, section 5) : décide « corriger d'abord » ou « accepter » ; Claude note la date. Puis annonce.
 
+### 55 bis. Le noindex, avant l'indexation (et de nouveau après)
+Worker 10 min. [RUNBOOK K9b](RUNBOOK.md#k-launch-day)
+
+Avant que tu poses `NET_LAUNCH_DATE` et `NET_INDEXING` (étape 56), le worker lance ces six commandes : l'accueil du hub, l'accueil d'OtakuQuiz et une page de quiz d'OtakuQuiz (`/anime/daily` redirige vers le quiz du jour ; `-L` suit la redirection). Les trois premières lisent l'en-tête `X-Robots-Tag`, les trois dernières la balise robots du HTML.
+```
+curl -sI https://fandomverse.org | grep -i '^x-robots-tag'
+```
+```
+curl -sI https://fandomverse.org/anime | grep -i '^x-robots-tag'
+```
+```
+curl -sIL https://fandomverse.org/anime/daily | grep -i '^x-robots-tag'
+```
+```
+curl -s https://fandomverse.org | grep -o '<meta name="robots" content="noindex[^"]*"'
+```
+```
+curl -s https://fandomverse.org/anime | grep -o '<meta name="robots" content="noindex[^"]*"'
+```
+```
+curl -sL https://fandomverse.org/anime/daily | grep -o '<meta name="robots" content="noindex[^"]*"'
+```
+Avant l'étape 56 : chaque commande affiche sa ligne noindex (`x-robots-tag: noindex, nofollow` ou `<meta name="robots" content="noindex, nofollow"`). Une commande muette à ce moment-là : on s'arrête, le worker prévient Claude avant l'étape 56.
+Après les deux redéploiements de l'étape 56 (`NET_INDEXING=1` en ligne) : les six mêmes commandes n'affichent plus rien. Les adresses `*.vercel.app` gardent leur noindex ; elles sont protégées par Vercel, le worker ne les teste pas.
+
 ### 56. Ouvrir l'indexation, la toute dernière étape
 Moi 9 min, Claude 2 min, Worker 10 min. [RUNBOOK K10](RUNBOOK.md#k-launch-day)
 
@@ -533,7 +558,7 @@ https://fandomverse.org/sitemap.xml
 ```
 https://fandomverse.org/anime/sitemap.xml
 ```
-Vérif (worker) : V10 « after K10 » (plus de noindex sur l'accueil, `/anime`, `/anime/series`, une série, un quiz ; toujours sur `/settings`, `/me`, `/anime/admin`), les deux fichiers de clé IndexNow répondent 200 sur fandomverse.org et 404 sur kpopquiz.org.
+Vérif (worker) : les six commandes de l'étape 55 bis n'affichent plus rien ; V10 « after K10 » (plus de noindex sur l'accueil, `/anime`, `/anime/series`, une série, un quiz ; toujours sur `/settings`, `/me`, `/anime/admin`), les deux fichiers de clé IndexNow répondent 200 sur fandomverse.org et 404 sur kpopquiz.org.
 
 ## Partie 9. Après le lancement (44 min pour moi)
 
