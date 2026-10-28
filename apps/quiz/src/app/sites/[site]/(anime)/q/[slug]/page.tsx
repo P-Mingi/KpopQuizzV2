@@ -13,6 +13,8 @@ import { normalizeFactKey } from '@/lib/trivia/fact-key';
 import { stableIndex } from '@/lib/trivia/pick-fact';
 import { getQuizHallOfFame } from '@/lib/db/queries/community';
 import { getQuizSocialCounts } from '@/lib/db/queries/quiz-social';
+import { getQuizExplanations } from '@/lib/db/queries/quiz-explanations';
+import { buildAnswerRows, questionsJsonLd } from '@/lib/quiz/answers';
 import { AboutQuizDrawer, QuizPlayer } from '@/components/quiz/legacy-islands';
 import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
 import { QuizHallOfFame } from '@/components/quiz/quiz-hall-of-fame';
@@ -456,6 +458,11 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   // UX v11 (P4): the redesigned quiz page, game and results, behind the flag. Same
   // H1, intro paragraph, question list, links and JSON-LD; server rendered like today.
   if (UX_V1) {
+    // Answers & explanations (SEO phase 1): the same arc 0 questions as the questions block, with
+    // their index in quiz.questions (the key of quiz_explanations); the JSON-LD carries the same answers.
+    const shown = withoutTaggedQuestions(((quiz.questions as Array<{ question?: string; options?: string[]; correct?: number | boolean; fun_fact?: string; spoiler?: QuestionSpoiler }>) ?? [])
+      .map((q, qIndex) => ({ q, qIndex, spoiler: q.spoiler })));
+    const answers = buildAnswerRows(shown, await safeFetch(getQuizExplanations(quiz.id), [], '[q/[slug]] explanations'));
     return renderUxQuizPage({
       quiz,
       // Fusion A5: main's page takes the shown title; the anime H1 stays the stored title until the SEO lot of the quiz pages.
@@ -474,7 +481,8 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       inThisQuiz,
       creatorNote: creatorNote ?? null,
       breadcrumbItems,
-      quizJsonLd,
+      quizJsonLd: { ...quizJsonLd, hasPart: questionsJsonLd(shown, answers) },
+      answers,
       origin: SITE.url,
       ...(gate ? { gate } : {}),
     });
