@@ -2,6 +2,7 @@
 
 import { lazy, Suspense, useEffect, useState } from 'react';
 
+import { joinBase } from '@/lib/auth/base-path';
 import { safeReturnTo } from '@/lib/auth/return-to';
 import { createBrowserClient } from '@/lib/supabase/client';
 
@@ -19,19 +20,14 @@ const STATS: readonly (readonly [string, string])[] = [['Fan-made', 'quizzes'], 
 const NET_PRIVACY = process.env.NEXT_PUBLIC_NET_PRIVACY === '1' || process.env.NEXT_PUBLIC_NET_PRIVACY === 'true';
 const PassportNotice = lazy(() => import('@/components/passport-ui/passport-notice').then((m) => ({ default: m.PassportNotice })));
 
-// FandomVerse: a plain link of a world build carries its basePath ('/anime'); returnTo is an app path ('/' or '/daily').
-function guestHref(basePath: string, path: string): string {
-  if (!basePath) return path;
-  return path === '/' ? basePath : `${basePath}${path}`;
-}
-
 // 4-point sparkle, reused for the brand mark + decorative stars.
 const SPARKLE = 'M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z';
 
 /**
  * The body of /login for every site (Run O1, lot b, P1; rule 18). Kpop renders it with no prop, byte for byte what the page
- * rendered. A world site (anime, hub) passes its words. FandomVerse (owner, 2026-10-28): Google and Discord only, both through
- * Supabase's OAuth redirect back to the site's own /auth/callback (its basePath included), no email form. The sign-in client
+ * rendered. A world site (anime, hub) passes its words. FandomVerse (owner, 2026-10-28): Google and Discord only, started on the
+ * server of the build (/auth/start, its basePath included), which sends the provider back to the build's exact /auth/callback;
+ * no email form. The sign-in client
  * is import()ed by the handler of a world site, so no kpop page reaches it.
  */
 export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): React.ReactElement {
@@ -54,7 +50,7 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
     setErrorMsg(null);
     setPending(provider);
     const [{ signInWithProvider, readTabVia }, { SITE_ID }] = await Promise.all([import('@/lib/passport-ui/signin-client'), import('@/lib/site/registry')]);
-    const out = await signInWithProvider(createBrowserClient(), SITE_ID, provider, returnTo, { base: `${window.location.origin}${basePath}`, via: readTabVia() });
+    const out = signInWithProvider(SITE_ID, provider, returnTo, { basePath, via: readTabVia() });
     if (out.kind === 'error') { setPending(null); setErrorMsg(out.message); }
   };
 
@@ -216,7 +212,7 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
           )}
 
           <div className="auth-guest">
-            <a href={words ? guestHref(words.basePath, returnTo) : returnTo}>{words ? words.guest : 'Just let me play as a guest'} &rarr;</a>
+            <a href={words ? joinBase(words.basePath, returnTo) : returnTo}>{words ? words.guest : 'Just let me play as a guest'} &rarr;</a>
           </div>
 
           {words ? (

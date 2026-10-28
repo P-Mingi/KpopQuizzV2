@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse } from 'next/server';
 
+import { secureRequest } from '@/lib/auth/session-cookie';
 import { withBase } from '@/lib/auth/site-base';
 import { SITE_ID } from '@/lib/site/registry';
 
@@ -34,10 +35,13 @@ async function updateSessionInner(request: NextRequest): Promise<NextResponse> {
     request: { headers: request.headers },
   });
 
+  // FandomVerse (security review, 2026-10-28): Secure session cookies on the hub and anime over https; kpop passes no option.
+  const secure = SITE_ID !== 'kpop' && secureRequest(request.nextUrl.protocol, request.headers.get('x-forwarded-proto'), { VERCEL_ENV: process.env.VERCEL_ENV });
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      ...(secure ? { cookieOptions: { secure: true } } : {}),
       cookies: {
         getAll() {
           return request.cookies.getAll();

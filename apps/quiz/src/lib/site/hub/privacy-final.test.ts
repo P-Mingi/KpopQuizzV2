@@ -188,13 +188,14 @@ describe('point 3: the three sites', () => {
 
 // Point 4: sign-in methods.
 describe('point 4: how you sign in, per site, from the registry', () => {
-  // FandomVerse (owner, 2026-10-28, reverses D-099): OtakuQuiz and FandomVerse sign in with Google or Discord, no email link.
-  it('KpopQuiz: Google, Discord, email link; OtakuQuiz and FandomVerse: Google or Discord', async () => {
+  // FandomVerse (owner, 2026-10-28, reverses D-099): anime and the hub sign in with Google or Discord, no email link. Their
+  // names come from the registry (lane 2 owns them).
+  it('KpopQuiz: Google, Discord, email link; anime and the hub: Google or Discord', async () => {
     const items = signInItems();
     expect(items.map((i) => i.text)).toEqual([
       'KpopQuiz: Google, Discord or an email link',
-      'OtakuQuiz: Google or Discord',
-      'FandomVerse: Google or Discord',
+      `${REGISTRY.anime.brand.name}: Google or Discord`,
+      `${REGISTRY.hub.brand.name}: Google or Discord`,
     ]);
     const { text } = await render();
     for (const i of items) expect(text).toContain(i.text);

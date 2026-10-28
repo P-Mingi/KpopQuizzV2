@@ -11,6 +11,10 @@ export const VERCEL_SITES = {
 // kpop has no /auth/confirm: the link is the anime one and its `next` is the passport jump to kpop, which signs the user in there.
 export const KPOP_JUMP = '/auth/passport/out?to=kpop&next=/';
 
+// FandomVerse (owner, 2026-10-28): the anime build is served under the basePath '/anime', so its routes are below /anime.
+// /auth/confirm of the hub and anime answers only on a preview that sets AUTH_FIXTURE_CONFIRM=1 (docs/launch/o1/ENV.md 1.6).
+export const BASE_PATHS = { kpop: '', anime: '/anime', hub: '' };
+
 /** The link for `site` (kpop|anime|hub) from the hashed token of an admin generateLink (type magiclink). */
 export function vercelLink(site, hashedToken, sites = VERCEL_SITES) {
   if (!Object.hasOwn(sites, site)) throw new Error(`unknown site ${site}`);
@@ -18,5 +22,5 @@ export function vercelLink(site, hashedToken, sites = VERCEL_SITES) {
   const host = site === 'kpop' ? 'anime' : site;
   const next = site === 'kpop' ? KPOP_JUMP : '/';
   const q = new URLSearchParams({ token_hash: hashedToken, type: 'magiclink', next });
-  return `${sites[host]}/auth/confirm?${q.toString()}`;
+  return `${sites[host]}${BASE_PATHS[host]}/auth/confirm?${q.toString()}`;
 }

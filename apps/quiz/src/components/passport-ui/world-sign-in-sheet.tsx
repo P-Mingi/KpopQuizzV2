@@ -16,16 +16,10 @@ import type { SignInWords } from '@/lib/passport-ui/words';
 // Run O1, lot (b), P1 (rule 18): the sign-in sheet of a world site (anime, hub). It says the site's words. The shared sheet
 // (ux-v1/sign-in-sheet) loads this file on the first open when the build is a world site; a kpop build never imports it, so the
 // kpop client graph is the base one.
-// FandomVerse (owner, 2026-10-28): Google and Discord only, both through Supabase's OAuth redirect back to the site's own
-// /auth/callback (its basePath included); no email field.
+// FandomVerse (owner, 2026-10-28): Google and Discord only, started on the server of the build (/auth/start, its basePath
+// included), which sends the provider back to the build's exact /auth/callback; no email field.
 
 const WORLD: SignInWords | undefined = signInWords(SITE_ID);
-
-// The Supabase browser client (~220 KB) is loaded on the click, not with the page.
-async function supabase(): Promise<ReturnType<typeof import('@/lib/supabase/client').createBrowserClient>> {
-  const { createBrowserClient } = await import('@/lib/supabase/client');
-  return createBrowserClient();
-}
 
 type Pending = OAuthProvider | null;
 
@@ -40,11 +34,11 @@ export function WorldSignInSheet({ open, request, onClose, inline, words = WORLD
   const returnTo = (): string => request.returnTo ?? currentAppPath(words.basePath, window.location.pathname, window.location.search);
   const remember = (): void => { if (request.action) setPendingAction(request.action.id, request.action.payload); };
 
-  const oauth = async (provider: OAuthProvider): Promise<void> => {
+  const oauth = (provider: OAuthProvider): void => {
     setError(null);
     setPending(provider);
     remember();
-    const out = await signInWithProvider(await supabase(), SITE_ID, provider, returnTo(), { base: `${window.location.origin}${words.basePath}`, via: readTabVia() });
+    const out = signInWithProvider(SITE_ID, provider, returnTo(), { basePath: words.basePath, via: readTabVia() });
     if (out.kind === 'error') { setPending(null); setError(out.message); }
   };
 
@@ -54,10 +48,10 @@ export function WorldSignInSheet({ open, request, onClose, inline, words = WORLD
     <Sheet open={open} onClose={close} title={request.title ?? words.title} width={440} initialFocus={firstRef} describedBy={`ux-signin-p-${uid}`} inline={inline}>
       <p className="ux-sh-p" id={`ux-signin-p-${uid}`}>{request.sub ?? words.body}</p>
       <div className="ux-authbs">
-        <button ref={firstRef} type="button" className="ux-authb" onClick={() => { void oauth('google'); }} disabled={pending !== null}>
+        <button ref={firstRef} type="button" className="ux-authb" onClick={() => { oauth('google'); }} disabled={pending !== null}>
           <span className="ux-authb-lg" aria-hidden="true" style={{ background: '#4285F4' }}>G</span>{words.google}
         </button>
-        <button type="button" className="ux-authb" onClick={() => { void oauth('discord'); }} disabled={pending !== null}>
+        <button type="button" className="ux-authb" onClick={() => { oauth('discord'); }} disabled={pending !== null}>
           <span className="ux-authb-lg" aria-hidden="true" style={{ background: '#5865F2' }}>D</span>{words.discord}
         </button>
       </div>
