@@ -346,6 +346,15 @@ describe('trackBtRun in the browser', () => {
     expect(JSON.parse(await blob.text())).toMatchObject({ event: 'finish', run_id: RUN, completed: false, answered: 3, anon_id: ANON });
   });
 
+  it('on the anime build (base path /anime) the beacon and the fetch both go to /anime/api/track/bt-run', async () => {
+    vi.stubEnv('__NEXT_ROUTER_BASEPATH', '/anime');
+    const { mod, fetchMock, beacon } = await load('1');
+    expect(mod.trackBtRun({ event: 'start', ...ctx })).toBe(true);
+    expect(mod.trackBtRun({ event: 'finish', ...ctx, ...result, completed: false })).toBe(true);
+    expect((fetchMock.mock.calls[0] as unknown as [string])[0]).toBe('/anime/api/track/bt-run');
+    expect((beacon.mock.calls[0] as unknown as [string])[0]).toBe('/anime/api/track/bt-run');
+  });
+
   it('a start after the finish of the same run is not sent, and a bad run id never is', async () => {
     const { mod, fetchMock } = await load('1');
     mod.trackBtRun({ event: 'finish', ...ctx, ...result, completed: true });

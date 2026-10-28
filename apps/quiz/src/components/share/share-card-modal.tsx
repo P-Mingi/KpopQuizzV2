@@ -3,9 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { shareToReddit, shareToTwitter, shareToDiscord } from '@/lib/share';
-
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
-const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+import { BASE_PATH } from '@/lib/site/client-base-path';
 
 const POPULAR_KPOP_SUBS = ['kpop', 'Kpop_Verse', 'kpopthoughts', 'kpophelp', 'bangtan', 'BLACKPINK', 'Stray_Kids', 'GOT7', 'TWICE', 'aespa'];
 
@@ -79,14 +77,15 @@ export function ShareCardModal({ quizId, slug, quizTitle, platform, canEdit, onC
   }, [onClose]);
 
   // --- preview: live (debounced) for the creator, the saved card for others ---
+  // The card is the OG route of this build: under /anime on the anime build (the <img> and the Download link read it).
   useEffect(() => {
     setPreviewLoading(true);
-    if (!canEdit) { setPreviewSrc(`/api/og/${slug}`); return; }
+    if (!canEdit) { setPreviewSrc(`${BASE_PATH}/api/og/${slug}`); return; }
     const t = window.setTimeout(() => {
       const p = new URLSearchParams({ overlay, opacity: String(opacity) });
       if (hook.trim()) p.set('hook', hook.trim());
       if (title.trim()) p.set('title', title.trim());
-      setPreviewSrc(`/api/og/${slug}?${p.toString()}`);
+      setPreviewSrc(`${BASE_PATH}/api/og/${slug}?${p.toString()}`);
     }, 400);
     return () => window.clearTimeout(t);
   }, [overlay, opacity, hook, title, slug, canEdit]);

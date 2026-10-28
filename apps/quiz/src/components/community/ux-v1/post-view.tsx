@@ -5,6 +5,7 @@ import { Icon } from '@/components/ux-v1/icon';
 import { UxRow } from '@/components/ux-v1/panel';
 import { PersonName } from '@/components/ux-v1/person-name';
 import { TeamNote } from '@/components/ux-v1/team';
+import { SITE } from '@/lib/site/registry';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { SITE_AVATAR_SRC } from '@/lib/ux-v1/a0/site-avatar';
 import { comma, levelLine, plural } from '@/lib/ux-v1/p8/format';
@@ -76,11 +77,11 @@ export function PostView({ post, more, likesLive, titleAs: Title = 'h1' }: { pos
         <div className="p8-pv-box">
 
         <div className="p8-author">
-          {team ? <UxAvatar name={a?.name ?? 'KpopQuiz'} size={36} team /> : <UxAvatar name={a?.name ?? 'KpopQuiz'} src={a ? a.avatarUrl ?? null : SITE_AVATAR_SRC} size={36} />}
+          {team ? <UxAvatar name={a?.name ?? SITE.brand.name} size={36} team /> : <UxAvatar name={a?.name ?? SITE.brand.name} src={a ? a.avatarUrl ?? null : SITE_AVATAR_SRC} size={36} />}
           {/* team: a relative line height, so the Team pill gets the prototype's 17.6px (the
               row's 22.4px is absolute); inline, so the v11 stylesheet keeps its bytes */}
           <span className="p8-author-t" style={team ? { lineHeight: 1.6 } : undefined}>
-            {a ? <PersonName name={a.name} accent={a.accent} font={a.font} bias={a.bias} href={a.href ?? undefined} isTeam={team} /> : <b className="ux-who">KpopQuiz</b>}
+            {a ? <PersonName name={a.name} accent={a.accent} font={a.font} bias={a.bias} href={a.href ?? undefined} isTeam={team} /> : <b className="ux-who">{SITE.brand.name}</b>}
             <span className="p8-lv"> · {meta}</span>
           </span>
           {a?.username ? <span className="p8-follow"><FollowButton username={a.username} /></span> : null}

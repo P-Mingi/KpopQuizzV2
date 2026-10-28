@@ -18,6 +18,7 @@ import { getAdvertisablePlaylists } from '@/lib/blind-test-playlists';
 import { safeFetch } from '@/lib/error-handling';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { UX_V1 } from '@/lib/ux-v1';
+import { siteAddress } from '@/lib/site/brand';
 import { SITE } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
@@ -105,7 +106,7 @@ function faqItems(stats: PublicStats | null): Array<{ q: string; a: string }> {
   },
   {
     q: 'Can I play on mobile?',
-    a: 'Yes. The blind test works on any device with a browser and audio. No app download needed. Just visit fandomverse.org/anime/blindtest and hit Start.',
+    a: `Yes. The blind test works on any device with a browser and audio. No app download needed. Just visit ${siteAddress(SITE)}/blindtest and hit Start.`,
   },
   ];
 }

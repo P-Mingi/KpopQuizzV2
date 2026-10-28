@@ -2,6 +2,8 @@
 // https://fandomverse.org, anime https://fandomverse.org/anime (basePath '/anime', same origin), kpop stays kpopquiz.org.
 // The topology is given here as a preview deployment (NEXT_PUBLIC_NET_ORIGINS), so the tests hold before and after the
 // registry urls move to fandomverse.org; the production answers are pinned against the registry itself.
+import { readFileSync } from 'node:fs';
+
 import { describe, expect, it } from 'vitest';
 
 import { basePathOf as basePathOfUrl, originOf } from '@/lib/site/base-path';
@@ -33,12 +35,21 @@ describe('the base path of each build', () => {
   });
 
   it('one source: the table equals the base path and origin lib/site/base-path.ts reads from the registry urls', () => {
-    // SITE_BASE_PATH stays a literal because this module reaches client bundles (create-funnel), which must not import
-    // lib/site/base-path.ts (ARCHITECTURE-FANDOMVERSE.md); this test keeps the two from drifting apart.
+    // SITE_BASE_PATH is derived inline from the registry urls because this module reaches client bundles (create-funnel),
+    // which must not import lib/site/base-path.ts (ARCHITECTURE-FANDOMVERSE.md); this test keeps the two from drifting apart.
     for (const id of SITE_IDS) {
       expect(SITE_BASE_PATH[id]).toBe(basePathOfUrl(REGISTRY[id].url));
       expect(siteOrigin(id, { VERCEL_ENV: 'production' })).toBe(originOf(REGISTRY[id].url));
     }
+  });
+
+  it('one source, no second list: SITE_BASE_PATH is read from REGISTRY[id].url, never written out, and never imports base-path.ts', () => {
+    const text = readFileSync(new URL('./site-base.ts', import.meta.url), 'utf8');
+    const decl = /export const SITE_BASE_PATH\b[\s\S]*?;\n/.exec(text)?.[0] ?? '';
+    expect(decl).toContain('REGISTRY[id].url');
+    expect(decl).not.toMatch(/['"]\/[a-z]/);
+    expect(decl).not.toMatch(/\b(?:kpop|anime|hub)\s*:/);
+    expect(text).not.toMatch(/from\s+['"]@\/lib\/site\/base-path['"]/);
   });
 
   it('withBase: an app path becomes the browser path of the build', () => {

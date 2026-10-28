@@ -14,7 +14,9 @@
 // Base layout: .dz-attr / .dz-attr-logo (globals.css). Each surface passes its own class
 // for colour and spacing, in its own stylesheet and tokens.
 
-/** Where the official Deezer logo lives once the owner adds it. */
+import { BASE_PATH } from '@/lib/site/client-base-path';
+
+/** Where the official Deezer logo lives once the owner adds it (a site path: the anime build serves it under /anime). */
 export const DEEZER_LOGO_SRC = '/brand/deezer-logo.svg';
 
 /** True only when the logo file was in the repo at build time (next.config.ts). */
@@ -40,7 +42,7 @@ export function DeezerAttribution({ variant = 'private', className }: DeezerAttr
     <p className={className ? `dz-attr ${className}` : 'dz-attr'} lang="en" data-deezer-attribution={variant}>
       {deezerLogoInRepo() ? (
         // eslint-disable-next-line @next/next/no-img-element -- a small local brand mark, sized by CSS; next/image adds nothing here
-        <img src={DEEZER_LOGO_SRC} alt="Deezer" className="dz-attr-logo" decoding="async" />
+        <img src={`${BASE_PATH}${DEEZER_LOGO_SRC}`} alt="Deezer" className="dz-attr-logo" decoding="async" />
       ) : null}
       <span>{DEEZER_LINES[variant]}</span>
     </p>

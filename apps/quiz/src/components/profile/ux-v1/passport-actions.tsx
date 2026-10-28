@@ -7,14 +7,12 @@ import { UxButton } from '@/components/ux-v1/button';
 import { ShareSheet } from '@/components/ux-v1/share-sheet';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { useUxToast } from '@/components/ux-v1/toast';
+import { BASE_PATH } from '@/lib/site/client-base-path';
 import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
 
 import { useIsOwner } from './passport-band';
 
 import type { PassportWords } from '@/lib/passport-ui/words';
-
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
-const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 interface PassportActionsProps {
   username: string;
@@ -108,7 +106,7 @@ export function PassportActions({ username, displayName, owner, level, words }: 
         open={share}
         onClose={() => setShare(false)}
         title={isOwner ? 'Share your passport' : `Share ${displayName}'s passport`}
-        preview={{ image: `/api/og/passport/${encodeURIComponent(username)}`, line1: displayName, line2: level }}
+        preview={{ image: `${BASE_PATH}/api/og/passport/${encodeURIComponent(username)}`, line1: displayName, line2: level }}
         url={url}
         text={words ? (isOwner ? words.shareOwn : words.shareOther.replace('{name}', () => displayName)) : isOwner ? 'My K-pop passport on KpopQuiz' : `${displayName}'s K-pop passport on KpopQuiz`}
         {...(isOwner && !words ? {

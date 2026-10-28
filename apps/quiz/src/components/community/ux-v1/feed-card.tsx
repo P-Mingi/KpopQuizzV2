@@ -2,6 +2,8 @@ import Link from 'next/link';
 
 import { Icon } from '@/components/ux-v1/icon';
 import { PostCard, ReplyScores, ScoreChip } from '@/components/ux-v1/post-card';
+import { withClientBase } from '@/lib/site/client-base-path';
+import { SITE } from '@/lib/site/registry';
 import { SITE_AVATAR_SRC } from '@/lib/ux-v1/a0/site-avatar';
 import { closesIn, comma, leaderIndex, levelLine, percents, plural } from '@/lib/ux-v1/p8/format';
 
@@ -12,11 +14,14 @@ import type { DebateData, FeedPost, P8Person } from '@/lib/ux-v1/p8/types';
 
 // One feed card (DESIGN-SPEC 13.1 + 17.7): A0's PostCard (bordered box, flair name,
 // pink-soft type chip, the title as a real link) with the per-type body. Rendered by
-// the client feed island, so no server-only import here.
+// the client feed island, so no server-only import here. FandomVerse: a picture of a site
+// path (a public/idols photo) is requested under /anime on the anime build (withClientBase;
+// a storage or cover-art URL is absolute and stays as it is); SITE_AVATAR_SRC carries the
+// base path already. The links are next/link, which adds the base path itself.
 
-/** The author PostCard shows: a person, or the site itself for the daily debate. */
+/** The author PostCard shows: a person, or the site itself for the daily debate (its brand: KpopQuiz on kpop). */
 export function cardAuthor(p: P8Person | null): { name: string; accent?: string | null; font?: string | null; bias?: string | null; avatarUrl?: string | null; href?: string } {
-  if (!p) return { name: 'KpopQuiz', avatarUrl: SITE_AVATAR_SRC };
+  if (!p) return { name: SITE.brand.name, avatarUrl: SITE_AVATAR_SRC };
   return { name: p.name, accent: p.accent, font: p.font, bias: p.bias, avatarUrl: p.avatarUrl, ...(p.href ? { href: p.href } : {}) };
 }
 
@@ -86,7 +91,7 @@ export function FeedCard({ post }: { post: FeedPost }): React.ReactElement {
         <Link href={post.href} className="p8-bcov" aria-label={`Open the blog: ${post.title}`} tabIndex={-1}>
           {b.coverUrl
             // eslint-disable-next-line @next/next/no-img-element -- public/idols photos and album covers, lazy, fixed 200 box
-            ? <img src={b.coverUrl} alt="" loading="lazy" style={{ objectPosition: b.coverFocal }} />
+            ? <img src={withClientBase(b.coverUrl)} alt="" loading="lazy" style={{ objectPosition: b.coverFocal }} />
             : <span className="p8-bcov-fb" aria-hidden="true">{group ?? 'Blog'}</span>}
         </Link>
       </PostCard>
@@ -142,7 +147,7 @@ export function FeedCard({ post }: { post: FeedPost }): React.ReactElement {
         // v12: a community thread's photo, in the blog cover's box.
         <Link href={post.href} className="p8-bcov" aria-label={`Open the thread: ${post.title}`} tabIndex={-1}>
           {/* eslint-disable-next-line @next/next/no-img-element -- a checked community photo, lazy, fixed 200 box */}
-          <img src={post.photo} alt="" loading="lazy" />
+          <img src={withClientBase(post.photo)} alt="" loading="lazy" />
         </Link>
       ) : null}
     </PostCard>

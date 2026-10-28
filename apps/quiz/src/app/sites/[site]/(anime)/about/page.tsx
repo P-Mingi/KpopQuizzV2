@@ -3,7 +3,8 @@ import Link from 'next/link';
 
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 import { FOUNDER } from '@/lib/seo/org';
-import { MAILBOX } from '@/lib/site/registry';
+import { siteAddress } from '@/lib/site/brand';
+import { MAILBOX, SITE } from '@/lib/site/registry';
 import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 import type { PublicStats } from '@/lib/stats/site-stats';
 
@@ -127,8 +128,7 @@ export default async function AboutPage(): Promise<React.ReactElement> {
         <div>
           <h2 className="mb-2 text-lg font-bold text-[var(--text-primary)]">Who runs OtakuQuiz?</h2>
           <p>
-            
-            OtakuQuiz (fandomverse.org/anime) is run by {FOUNDER.name}, its founder. It is an independent fan site: it is not affiliated
+            {`OtakuQuiz (${siteAddress(SITE)}) is run by `}{FOUNDER.name}, its founder. It is an independent fan site: it is not affiliated
             with any artist, label or agency.
           </p>
         </div>

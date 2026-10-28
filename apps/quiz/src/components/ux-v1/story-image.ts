@@ -9,6 +9,8 @@
 
 import { SITE } from '@/lib/site/registry';
 
+import type { SiteConfig } from '@/lib/site/types';
+
 export interface StoryCard {
   image: string | null;
   line1: string;
@@ -34,8 +36,16 @@ export type StoryFormat = 'story' | 'square';
 export const STORY_W = 1080;
 export const STORY_H = 1920;
 export const STORY_SQUARE_H = 1080;
-export const STORY_FILE_NAME = `${SITE.domain.split('.')[0]}-story.png`;
-export const STORY_SQUARE_FILE_NAME = `${SITE.domain.split('.')[0]}-square.png`;
+/**
+ * The file name of a story image of `site`: its brand name in lower case, so a saved or shared picture says which site it comes
+ * from (kpopquiz-story.png as before, otakuquiz-story.png, fandomverse-story.png; the first part of the domain named both sites
+ * of fandomverse.org 'fandomverse'). components/quiz/ux-v1/story.ts names its photocard the same way.
+ */
+export function storyFileName(kind: 'story' | 'square', site: Pick<SiteConfig, 'brand'> = SITE): string {
+  return `${site.brand.name.toLowerCase()}-${kind}.png`;
+}
+export const STORY_FILE_NAME = storyFileName('story');
+export const STORY_SQUARE_FILE_NAME = storyFileName('square');
 /** The share kit's default ground (prototype `#kit-story`). */
 export const STORY_KIT_GRADIENT = ['#C93868', '#6B4FD8'] as const;
 

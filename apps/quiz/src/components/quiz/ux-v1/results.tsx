@@ -177,7 +177,7 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
         {/* Run C1: the sticker is the KpopQuiz bunny, so only kpop shows it. */}
         {SITE.id === 'kpop' ? (
           // eslint-disable-next-line @next/next/no-img-element -- the site mascot sticker
-          <img className={`p4-msc${pct >= 50 ? ' is-bob' : ''}`} src={pct >= 50 ? '/mascot/mascot-celebrate.png' : '/mascot/mascot-sad.png'} alt="" width={68} height={68} />
+          <img className={`p4-msc${pct >= 50 ? ' is-bob' : ''}`} src={pct >= 50 ? `${BASE_PATH}/mascot/mascot-celebrate.png` : `${BASE_PATH}/mascot/mascot-sad.png`} alt="" width={68} height={68} />
         ) : null}
       </div>
 

@@ -8,7 +8,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { UX_V12_TOKENS_DARK, UX_V12_TOKENS_LIGHT } from '@/lib/design-tokens';
 import { uxV12From } from '@/lib/ux-v12';
 
-import { storyFormat, storyLayout } from '@/components/ux-v1/story-image';
+import { storyFileName, storyFormat, storyLayout } from '@/components/ux-v1/story-image';
+import { REGISTRY } from '@/lib/site/registry';
+import { SITE_IDS } from '@/lib/site/types';
 
 import { ANSWER_SHAPES } from './answer-shapes';
 import { buildUxStylesheet, minifyCss, stripV12, V12_BEGIN, V12_END } from './stylesheet';
@@ -192,6 +194,14 @@ describe('story image variants', () => {
     expect(storyFormat(undefined)).toEqual({ width: 1080, height: 1920, fileName: 'kpopquiz-story.png' });
     expect(storyFormat('story')).toEqual({ width: 1080, height: 1920, fileName: 'kpopquiz-story.png' });
     expect(storyFormat('square')).toEqual({ width: 1080, height: 1080, fileName: 'kpopquiz-square.png' });
+  });
+  it('the file is named for its site (FandomVerse: hub and anime share a domain, not a name), kpop as before', () => {
+    expect(SITE_IDS.map((id) => storyFileName('story', REGISTRY[id]))).toEqual(['kpopquiz-story.png', 'otakuquiz-story.png', 'fandomverse-story.png']);
+    expect(SITE_IDS.map((id) => storyFileName('square', REGISTRY[id]))).toEqual(['kpopquiz-square.png', 'otakuquiz-square.png', 'fandomverse-square.png']);
+    // The photocard of a quiz run (components/quiz/ux-v1/story.ts, a lazy chunk) names its file the same way.
+    const story = fs.readFileSync(path.resolve(here, '../../../components/quiz/ux-v1/story.ts'), 'utf8');
+    expect(story).toContain("const STORY_FILE = `${SITE.brand.name.toLowerCase()}-story.png`;");
+    expect(story).not.toMatch(/SITE\.domain/);
   });
   it('a card without v12 fields keeps the v11 layout (text ends at H - 200, footer at H - 110, 4 + 3 lines)', () => {
     expect(storyLayout({})).toEqual({ width: 1080, height: 1920, pad: 72, textBottom: 1720, footerY: 1810, maxLines1: 4, maxLines2: 3, qr: null });

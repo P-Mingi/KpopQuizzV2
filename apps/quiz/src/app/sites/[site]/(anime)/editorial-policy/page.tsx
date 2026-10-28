@@ -5,6 +5,7 @@ import { jsonLdString } from '@/lib/seo/json-ld';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 import { FOUNDER } from '@/lib/seo/org';
 import { joinSiteUrl } from '@/lib/site/base-path';
+import { siteAddress } from '@/lib/site/brand';
 import { MAILBOX, SITE } from '@/lib/site/registry';
 
 import { CORRECTIONS } from './corrections';
@@ -22,11 +23,11 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Editorial Policy and Corrections',
-  description: 'How fandomverse.org/anime makes and moderates anime quizzes, where facts come from, how AI is used, and a dated log of corrections.',
+  description: `How ${siteAddress(SITE)} makes and moderates anime quizzes, where facts come from, how AI is used, and a dated log of corrections.`,
   alternates: { canonical: '/editorial-policy' },
   openGraph: {
     title: 'Editorial Policy and Corrections | OtakuQuiz',
-    description: 'How fandomverse.org/anime makes and moderates anime quizzes, where facts come from, and a dated log of corrections.',
+    description: `How ${siteAddress(SITE)} makes and moderates anime quizzes, where facts come from, and a dated log of corrections.`,
     url: '/editorial-policy',
     images: [DEFAULT_OG_IMAGE],
   },
@@ -54,10 +55,9 @@ export default function EditorialPolicyPage(): React.ReactElement {
       </nav>
       <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-[var(--text-primary)]">Editorial policy</h1>
       <p className="mt-3">
-        
-        fandomverse.org/anime publishes anime quizzes written by fans, and a few pages written by the site itself. This page says
-        who creates what, how quizzes are moderated, which sources our facts come from,
-        how we use AI, and how we correct mistakes. It is maintained by {FOUNDER.name}, the{' '}
+        {`${siteAddress(SITE)} publishes anime quizzes written by fans, and a few pages written by the site itself. This page says `
+          + 'who creates what, how quizzes are moderated, which sources our facts come from, '
+          + 'how we use AI, and how we correct mistakes. It is maintained by '}{FOUNDER.name}, the{' '}
         <Link href="/about" className={A}>founder</Link>.
       </p>
 

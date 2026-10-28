@@ -5,6 +5,7 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 
+import { siteAddress } from '@/lib/site/brand';
 import { siteConfig } from '@/lib/site/registry';
 
 import { NameAllAbout } from './about';
@@ -35,7 +36,7 @@ describe('Name them all, kpop words', () => {
 describe('Name them all, anime words', () => {
   const A = siteConfig('anime');
   const WORDS = {
-    member: A.vocabulary.member, members: A.vocabulary.memberPlural, topic: A.vocabulary.topic, brand: A.brand.name, host: A.domain, origin: A.url,
+    member: A.vocabulary.member, members: A.vocabulary.memberPlural, topic: A.vocabulary.topic, brand: A.brand.name, host: siteAddress(A), origin: A.url,
     acceptedAbout: 'Full names, short names and nicknames are all accepted', acceptedIntro: 'Full names, short names and nicknames all count',
   };
   const BANNED = /\bmembers?\b|Hangul|Stage names|kpopquiz|KpopQuiz|K-?pop|\bgroups?\b/i;

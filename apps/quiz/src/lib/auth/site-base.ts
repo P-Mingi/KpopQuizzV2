@@ -8,12 +8,15 @@
 // need one. withBase turns the first into the second, stripBase the second into the first. On kpop and the hub both are
 // the same string, so nothing here changes an answer of those builds.
 //
-// MERGE NOTE (lane 1): SITE_BASE_PATH mirrors the basePath lane 1 gives the anime build in next.config.ts. When lane 1's
-// basePath helper lands, read the value from there so the repo has one source.
+// One source (review of 2026-10-28, finding 9): SITE_BASE_PATH is read from the registry url of each site, the same source as
+// basePathOf of lib/site/base-path.ts and the basePath next.config.ts gives a build. It is derived here, inline, because this
+// module reaches client bundles (create-funnel.tsx), which never import lib/site/base-path.ts; site-base.test.ts holds the two
+// answers equal.
 
 import { joinBase } from '@/lib/auth/base-path';
 import { safeReturnTo } from '@/lib/auth/return-to';
-import { netOrigin } from '@/lib/site/registry';
+import { REGISTRY, netOrigin } from '@/lib/site/registry';
+import { SITE_IDS } from '@/lib/site/types';
 
 import type { NetOriginEnv } from '@/lib/site/registry';
 import type { SiteId } from '@/lib/site/types';
@@ -21,7 +24,14 @@ import type { SiteId } from '@/lib/site/types';
 /** The basePath of each build: '' (served at the root of its origin) or '/anime'. */
 export { isSitePath, joinBase } from '@/lib/auth/base-path';
 
-export const SITE_BASE_PATH: Readonly<Record<SiteId, '' | '/anime'>> = { kpop: '', anime: '/anime', hub: '' };
+/** The path of a registry url without its trailing slash: '' for https://kpopquiz.org, '/anime' for https://fandomverse.org/anime. */
+function pathOfSiteUrl(url: string): string {
+  return new URL(url).pathname.replace(/\/+$/, '');
+}
+
+export const SITE_BASE_PATH: Readonly<Record<SiteId, string>> = Object.freeze(
+  Object.fromEntries(SITE_IDS.map((id) => [id, pathOfSiteUrl(REGISTRY[id].url)])) as Record<SiteId, string>,
+);
 
 /** The basePath of `site`'s build. */
 export function basePathOf(site: SiteId): string {
