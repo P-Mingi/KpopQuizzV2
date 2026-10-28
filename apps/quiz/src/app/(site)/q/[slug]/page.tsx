@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 import Link from 'next/link';
 
-import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes } from '@/lib/db/queries/quizzes';
+import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes, getQuizCardsBySlugs } from '@/lib/db/queries/quizzes';
 import { getQuizExtraStats } from '@/lib/db/queries/plays';
 import { RANKING_UNLOCK_VOTES } from '@/lib/constants';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
@@ -22,6 +22,9 @@ import { QuizStatsBlock } from '@/components/quiz/quiz-stats-block';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { isNextInternalError, safeFetch } from '@/lib/error-handling';
 import { READ_RETRY_DELAY_MS } from '@/lib/ux-v1/p3/reads';
+import { getHubQuizzes } from '@/lib/ux-v1/p3/data';
+import { CATCH_ALL_SLUG } from '@/lib/ux-v1/p3/model';
+import { primaryTheme, themeCounts, themeNext } from '@/lib/hubs/theme-view';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { scoreIsPerQuestion } from '@/lib/quiz/scoring';
 import { averageText, quizAverage } from '@/lib/quiz/quiz-average';
@@ -37,6 +40,7 @@ import { qualifiedQuizTitle, quizDescription, quizTitle } from '@/lib/seo/quiz-m
 import type { Metadata } from 'next';
 import type { BreadcrumbItem } from '@/components/ui/breadcrumbs';
 import type { GroupEntities } from '@/lib/quiz/quiz-about';
+import type { QuizCardData } from '@/lib/db/types';
 
 // The About sentence without entities (no group, or the read failed): today's plain sentence.
 const NO_ENTITIES: GroupEntities = { members: [], songs: [], albums: [] };
@@ -297,13 +301,25 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   // SEO (2026-10-13): half most played, half newest. Every quiz page of a group then links
   // the group's newest quizzes, so a new quiz is reached from pages Google already knows
   // (with the most played only, every page of a group showed the same six cards).
-  const [sameGroup, newestInGroup] = await Promise.all([
+  // SEO phase 1, PR 16b: a General K-pop quiz on a theme page shows the quizzes that follow it on that page
+  // first (wrapping), and its "More" header links the theme page. A failed read falls back to the lists below.
+  const theme = quiz.group_slug === CATCH_ALL_SLUG ? primaryTheme(quiz.slug) : null;
+  let moreFrom: { title: string; href: string; count: number } | null = null;
+  const themeCards: QuizCardData[] = [];
+  if (theme) {
+    const published = new Set((await safeFetch(getHubQuizzes(quiz.group_id), [], '[q/[slug]] theme published')).map((q) => q.slug));
+    const next = themeNext(theme, quiz.slug, published, 6);
+    themeCards.push(...(next.length > 0 ? await safeFetch(getQuizCardsBySlugs(next), [], '[q/[slug]] theme related') : []));
+    const count = themeCounts(published).get(theme.slug) ?? 0;
+    if (themeCards.length > 0 && count > 0) moreFrom = { title: `More ${theme.h1.replace(/quiz$/, 'quizzes')}`, href: `/${theme.slug}`, count };
+  }
+  const [sameGroup, newestInGroup] = themeCards.length >= 6 ? [[], []] : await Promise.all([
     safeFetch(getQuizzesByGroup(quiz.group_id, 'popular', 0, 8), [], '[q/[slug]] related sameGroup'),
     safeFetch(getQuizzesByGroup(quiz.group_id, 'newest', 0, 8), [], '[q/[slug]] related newest'),
   ]);
-  const related: typeof sameGroup = [];
+  const related: QuizCardData[] = [...themeCards];
   {
-    const seen = new Set<string>([quiz.id]);
+    const seen = new Set<string>([quiz.id, ...themeCards.map((q) => q.id)]);
     const popularPick = sameGroup.filter((q) => !seen.has(q.id));
     const newestPick = newestInGroup.filter((q) => !seen.has(q.id));
     for (let i = 0; related.length < 6 && (i < popularPick.length || i < newestPick.length); i++) {
@@ -497,6 +513,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       passRate,
       seoQuestions,
       related,
+      moreFrom,
       triviaAvailable,
       dykFact: dykFact ? { fact: dykFact.fact, category: dykFact.category } : null,
       social,

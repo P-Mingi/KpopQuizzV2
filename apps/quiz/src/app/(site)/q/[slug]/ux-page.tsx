@@ -36,6 +36,8 @@ interface Args {
   passRate: number | null;
   seoQuestions: P4ReviewQuestion[];
   related: QuizCardData[];
+  /** A General K-pop quiz on a theme page (PR 16b): the "More" header names and links that page. */
+  moreFrom?: { title: string; href: string; count: number } | null;
   triviaAvailable: boolean;
   dykFact: { fact: string; category?: string | null } | null;
   social: { comments: number; reactions: number };
@@ -152,6 +154,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
       fandomName={quiz.fandom_name}
       hof={hof}
       related={a.related}
+      {...(a.moreFrom ? { moreFrom: a.moreFrom } : {})}
       groupQuizCount={groupQuizCount}
       articleLinks={getGroupArticleLinks(quiz.group_slug).map((l) => ({ slug: l.slug, label: l.label }))}
       creator={creator}

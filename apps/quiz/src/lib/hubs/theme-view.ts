@@ -96,6 +96,24 @@ export function topicList(themes: readonly GeneralTheme[]): string {
   return names.length < 2 ? names.join('') : `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`;
 }
 
+/** The theme whose sections list this quiz (its primary theme; one at most, pinned by general-themes.test.ts). */
+export function primaryTheme(slug: string): GeneralTheme | null {
+  if (held.has(slug)) return null;
+  return GENERAL_THEMES.find((t) => t.sections.some((s) => s.slugs.includes(slug))) ?? null;
+}
+
+/**
+ * The published quizzes that follow this one on its theme page, in the page's order, wrapping to the start
+ * (PR 16b: the "More ... quizzes" grid of a General K-pop quiz). Never the quiz itself, never a held one.
+ */
+export function themeNext(theme: GeneralTheme, slug: string, publishedSlugs: ReadonlySet<string>, max: number): string[] {
+  const order = theme.sections.flatMap((s) => s.slugs).filter((s) => !held.has(s));
+  const at = order.indexOf(slug);
+  if (at < 0) return [];
+  const after = [...order.slice(at + 1), ...order.slice(0, at)];
+  return after.filter((s) => publishedSlugs.has(s)).slice(0, max);
+}
+
 /** The listed count of every theme, for the sibling rows, the hub section and the sitemap. */
 export function themeCounts(publishedSlugs: ReadonlySet<string>): Map<string, number> {
   return new Map(GENERAL_THEMES.map((t) => [
