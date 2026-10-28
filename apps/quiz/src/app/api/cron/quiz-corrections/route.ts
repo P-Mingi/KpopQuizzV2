@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { isCronAuthorized } from '@/lib/cron-auth';
+import { cronForSite, isCronAuthorized } from '@/lib/cron-auth';
 import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
 import { runQuizCorrections } from '@/lib/quiz-corrections/run';
 import { supabaseCorrectionStore } from '@/lib/quiz-corrections/store';
@@ -18,18 +18,20 @@ import type { NextRequest } from 'next/server';
 //
 // Auth: Bearer CRON_SECRET through isCronAuthorized, like every cron of this app; service role.
 //
-// Schedule: NOT registered yet (apps/quiz/vercel.json is being changed by o1/integration). After
-// that merge, add this line to the "crons" array of apps/quiz/vercel.json (daily, 09:30 UTC):
-//   { "path": "/api/cron/quiz-corrections", "schedule": "30 9 * * *" }
+// Schedule: apps/quiz/vercel.json, daily at 09:30 UTC. That file is shared by the three Vercel
+// projects, so the job acts on the kpop build only (cronForSite, like every kpop cron).
 //
 // Does nothing, in this order:
 //   wrong or missing secret        401
+//   a build that is not kpop       200 { skipped: true }, nothing read or written
 //   notifications turned off       200 { ok: true, skipped: 'notifications_off' }, no write
 //   SQL not applied (no table)     200 { ok: true, live: false }, one log line, no write
 export const dynamic = 'force-dynamic';
 
-export async function GET(req: NextRequest): Promise<NextResponse> {
+export async function GET(req: NextRequest): Promise<NextResponse | Response> {
   if (!isCronAuthorized(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const skipped = cronForSite(['kpop']);
+  if (skipped) return skipped;
   // The creator must be able to read the notice before any 14-day clock starts.
   if (!COMMUNITY_FEATURES_ENABLED) return NextResponse.json({ ok: true, skipped: 'notifications_off' });
   try {
