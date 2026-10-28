@@ -138,6 +138,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
       intro={a.intro}
       creatorNote={a.creatorNote}
       introAvg={a.introAvg}
+      introAvgOf={a.introAvg !== null ? a.quiz.total_completions : null}
       perQuestionScore={a.perQuestionScore}
       extra={{ fastestTimeSeconds: a.extraStats.fastestTimeSeconds, perfectScoreCount: a.extraStats.perfectScoreCount }}
       passRate={a.passRate}

@@ -30,12 +30,15 @@ describe('quiz page title', () => {
 });
 
 describe('quiz page description', () => {
-  const base = { title: 'Ultimate BTS era quiz', difficulty: 'easy', questionCount: 8, groupName: 'BTS', creator: 'mina', plays: 2499, avgScore: 51, creatorNote: null };
-  it('built from real data, with "an" before a vowel', () => {
-    expect(quizDescription(base)).toBe('Ultimate BTS era quiz: an easy 8-question K-pop quiz on BTS, made by mina. 2,499 fans have played it, scoring 51% on average. Can you beat them?');
+  const base = { title: 'Ultimate BTS era quiz', difficulty: 'easy', questionCount: 8, groupName: 'BTS', creator: 'mina', plays: 2499, average: '51% average of 2,400 completed plays', creatorNote: null };
+  it('built from real data, with "an" before a vowel, the average with its denominator', () => {
+    expect(quizDescription(base)).toBe('Ultimate BTS era quiz: an easy 8-question K-pop quiz on BTS, made by mina. 2,499 fans have played it: 51% average of 2,400 completed plays. Can you beat them?');
+  });
+  it('without an average (under 30 completed plays) it says how many fans played', () => {
+    expect(quizDescription({ ...base, average: null })).toBe('Ultimate BTS era quiz: an easy 8-question K-pop quiz on BTS, made by mina. Played by 2,499 fans. Can you beat them? Free to play, no sign-up.');
   });
   it('a new quiz never says "Played by 0 fans"', () => {
-    const d = quizDescription({ ...base, difficulty: 'medium', plays: 0, avgScore: null });
+    const d = quizDescription({ ...base, difficulty: 'medium', plays: 0, average: null });
     expect(d).toContain('a medium 8-question');
     expect(d).toContain('be one of the first to play it');
     expect(d).not.toContain('0 fans');
@@ -56,7 +59,7 @@ describe('quiz page description', () => {
 
 describe('quiz page description floor', () => {
   it('a short description gets a last line, never past the snippet', () => {
-    const d = quizDescription({ title: 'IVE', difficulty: 'easy', questionCount: 5, groupName: 'IVE', creator: 'jo', plays: 0, avgScore: null, creatorNote: null });
+    const d = quizDescription({ title: 'IVE', difficulty: 'easy', questionCount: 5, groupName: 'IVE', creator: 'jo', plays: 0, average: null, creatorNote: null });
     expect(d.length).toBeGreaterThanOrEqual(DESCRIPTION_MIN);
     expect(d.length).toBeLessThanOrEqual(158);
     expect(d.endsWith('Free to play, no sign-up.')).toBe(true);

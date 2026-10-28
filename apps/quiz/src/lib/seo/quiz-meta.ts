@@ -72,8 +72,9 @@ export interface QuizDescriptionInput {
   groupName: string;
   creator: string;
   plays: number;
-  /** Average score in percent, or null when not meaningful yet. */
-  avgScore: number | null;
+  /** averageText() of the quiz average (lib/quiz/quiz-average.ts, from 30 completed plays), else null.
+   *  Passed as text so this module, read by other pages, keeps its imports. */
+  average: string | null;
   creatorNote: string | null;
 }
 
@@ -88,8 +89,8 @@ export function quizDescription(q: QuizDescriptionInput): string {
   // The facts first; the call to action only when it fits whole (never "Can you beat...").
   const parts = q.plays <= 0
     ? [` New on ${SITE.brand.name}: be one of the first to play it.`]
-    : [q.avgScore !== null
-      ? ` ${plays} ${q.plays === 1 ? 'fan has' : 'fans have'} played it, scoring ${q.avgScore}% on average.`
+    : [q.average !== null
+      ? ` ${plays} ${q.plays === 1 ? 'fan has' : 'fans have'} played it: ${q.average}.`
       : ` Played by ${plays} ${q.plays === 1 ? 'fan' : 'fans'}.`, ' Can you beat them?'];
   for (const p of parts) if ((s + p).length <= DESCRIPTION_MAX) s += p;
   const tail = ' Free to play, no sign-up.';
