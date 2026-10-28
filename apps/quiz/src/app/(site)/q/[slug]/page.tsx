@@ -25,6 +25,7 @@ import { READ_RETRY_DELAY_MS } from '@/lib/ux-v1/p3/reads';
 import { getHubQuizzes } from '@/lib/ux-v1/p3/data';
 import { CATCH_ALL_SLUG } from '@/lib/ux-v1/p3/model';
 import { primaryTheme, themeCounts, themeNext } from '@/lib/hubs/theme-view';
+import { seriesSiblings } from '@/lib/seo/quiz-series';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { scoreIsPerQuestion } from '@/lib/quiz/scoring';
 import { averageText, quizAverage } from '@/lib/quiz/quiz-average';
@@ -302,24 +303,30 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   // the group's newest quizzes, so a new quiz is reached from pages Google already knows
   // (with the most played only, every page of a group showed the same six cards).
   // SEO phase 1, PR 16b: a General K-pop quiz on a theme page shows the quizzes that follow it on that page
-  // first (wrapping), and its "More" header links the theme page. A failed read falls back to the lists below.
+  // first (wrapping), and its "More" header links the theme page. PR 12: any other group's quiz shows up to 3
+  // quizzes of its series first (lib/seo/quiz-series.ts, titles of the group's published quizzes), so a new
+  // quiz is linked from its series on its first render. A failed read falls back to the lists below.
   const theme = quiz.group_slug === CATCH_ALL_SLUG ? primaryTheme(quiz.slug) : null;
   let moreFrom: { title: string; href: string; count: number } | null = null;
-  const themeCards: QuizCardData[] = [];
+  const leadCards: QuizCardData[] = [];
+  const groupPublished = theme || quiz.group_slug !== CATCH_ALL_SLUG ? await safeFetch(getHubQuizzes(quiz.group_id), [], '[q/[slug]] group published') : [];
   if (theme) {
-    const published = new Set((await safeFetch(getHubQuizzes(quiz.group_id), [], '[q/[slug]] theme published')).map((q) => q.slug));
+    const published = new Set(groupPublished.map((q) => q.slug));
     const next = themeNext(theme, quiz.slug, published, 6);
-    themeCards.push(...(next.length > 0 ? await safeFetch(getQuizCardsBySlugs(next), [], '[q/[slug]] theme related') : []));
+    leadCards.push(...(next.length > 0 ? await safeFetch(getQuizCardsBySlugs(next), [], '[q/[slug]] theme related') : []));
     const count = themeCounts(published).get(theme.slug) ?? 0;
-    if (themeCards.length > 0 && count > 0) moreFrom = { title: `More ${theme.h1.replace(/quiz$/, 'quizzes')}`, href: `/${theme.slug}`, count };
+    if (leadCards.length > 0 && count > 0) moreFrom = { title: `More ${theme.h1.replace(/quiz$/, 'quizzes')}`, href: `/${theme.slug}`, count };
+  } else if (quiz.group_slug !== CATCH_ALL_SLUG) {
+    const siblings = seriesSiblings(quiz, groupPublished, { name: quiz.group_name, fandom: quiz.fandom_name }, 3);
+    leadCards.push(...(siblings.length > 0 ? await safeFetch(getQuizCardsBySlugs(siblings), [], '[q/[slug]] series related') : []));
   }
-  const [sameGroup, newestInGroup] = themeCards.length >= 6 ? [[], []] : await Promise.all([
+  const [sameGroup, newestInGroup] = leadCards.length >= 6 ? [[], []] : await Promise.all([
     safeFetch(getQuizzesByGroup(quiz.group_id, 'popular', 0, 8), [], '[q/[slug]] related sameGroup'),
     safeFetch(getQuizzesByGroup(quiz.group_id, 'newest', 0, 8), [], '[q/[slug]] related newest'),
   ]);
-  const related: QuizCardData[] = [...themeCards];
+  const related: QuizCardData[] = [...leadCards];
   {
-    const seen = new Set<string>([quiz.id, ...themeCards.map((q) => q.id)]);
+    const seen = new Set<string>([quiz.id, ...leadCards.map((q) => q.id)]);
     const popularPick = sameGroup.filter((q) => !seen.has(q.id));
     const newestPick = newestInGroup.filter((q) => !seen.has(q.id));
     for (let i = 0; related.length < 6 && (i < popularPick.length || i < newestPick.length); i++) {

@@ -14,14 +14,20 @@ import { difficultyHelpFor, groupHelp, topicCopy, typeRowsFor, visibleGroups } f
 import { GroupField } from './group-field';
 
 import type { DraftDifficulty } from '@/lib/create-draft';
-import type { DetailsGate, FunnelGroup } from '@/lib/ux-v1/p5/funnel';
+import type { DetailsGate, FunnelGroup, TitleAdvice } from '@/lib/ux-v1/p5/funnel';
 import type { CreateFunnel } from '@/lib/ux-v1/p5/use-create-funnel';
 
 // Step 1 (prototype #cp-1): title, about, the 5 quiz types (native radios), group,
 // difficulty, language, cover + rights. Values and rules are the EXISTS funnel's
 // (use-create-funnel.ts); `shown` = the gaps found when the fan tried to go on.
 
-const DUP_HINT = 'A quiz with this exact name already exists. Add your angle (era, difficulty, B-sides...) so both can shine. It is not blocked.';
+// The soft title advice (never blocks publishing; SEO phase 1, PR 12 adds the close-title and topic-page
+// cases). `one` is the site's topic word ("group", "series").
+function dupHint(kind: TitleAdvice, one: string): string {
+  if (kind === 'near') return `This ${one} already has a quiz with a close title. Add your angle (era, difficulty, B-sides...) so both can shine. It is not blocked.`;
+  if (kind === 'hub') return `This is the name of the ${one} page. Add your angle (a topic, an era, a level...) so your quiz gets its own place in search. It is not blocked.`;
+  return 'A quiz with this exact name already exists. Add your angle (era, difficulty, B-sides...) so both can shine. It is not blocked.';
+}
 
 export function P5Details({ f, groups, shown }: { f: CreateFunnel; groups: FunnelGroup[]; shown: DetailsGate | null }): React.ReactElement {
   const d = f.data;
@@ -52,7 +58,7 @@ export function P5Details({ f, groups, shown }: { f: CreateFunnel; groups: Funne
           aria-describedby="p5-title-e"
         />
         <p className={`ux-help${titleErr ? ' p5-err' : f.titleDup ? ' p5-warn' : ''}`} id="p5-title-e" role={titleErr ? 'alert' : undefined}>
-          {titleErr ? `Add at least ${MIN_TITLE} characters.` : f.titleDup ? DUP_HINT : null}
+          {titleErr ? `Add at least ${MIN_TITLE} characters.` : f.titleDup ? dupHint(f.titleDup, T.label.toLowerCase()) : null}
         </p>
       </div>
 

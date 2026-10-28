@@ -6,7 +6,9 @@ import { notFound } from 'next/navigation';
 import { jsonLdScript } from '@/lib/verse/jsonld';
 import Link from 'next/link';
 
-import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes } from '@/lib/db/queries/quizzes';
+import { getQuizBySlug, getQuizzesByGroup, getBrowseQuizzes, getQuizCardsBySlugs } from '@/lib/db/queries/quizzes';
+import { getHubQuizzes } from '@/lib/ux-v1/p3/data';
+import { seriesSiblings } from '@/lib/seo/quiz-series';
 import { getQuizExtraStats } from '@/lib/db/queries/plays';
 import { RANKING_UNLOCK_VOTES } from '@/lib/constants';
 import { normalizeFactKey } from '@/lib/trivia/fact-key';
@@ -267,13 +269,17 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   // SEO (2026-10-13): half most played, half newest. Every quiz page of a group then links
   // the group's newest quizzes, so a new quiz is reached from pages Google already knows
   // (with the most played only, every page of a group showed the same six cards).
+  // SEO phase 1, PR 12: up to 3 quizzes of the same series intent first (lib/seo/quiz-series.ts, titles of the
+  // series' published quizzes), so a new quiz is linked from its siblings on its first render.
+  const siblings = seriesSiblings(quiz, await safeFetch(getHubQuizzes(quiz.group_id), [], '[q/[slug]] group published'), { name: quiz.group_name, fandom: quiz.fandom_name }, 3);
+  const leadCards = siblings.length > 0 ? await safeFetch(getQuizCardsBySlugs(siblings), [], '[q/[slug]] series related') : [];
   const [sameGroup, newestInGroup] = await Promise.all([
     safeFetch(getQuizzesByGroup(quiz.group_id, 'popular', 0, 8), [], '[q/[slug]] related sameGroup'),
     safeFetch(getQuizzesByGroup(quiz.group_id, 'newest', 0, 8), [], '[q/[slug]] related newest'),
   ]);
-  const related: typeof sameGroup = [];
+  const related: typeof sameGroup = [...leadCards];
   {
-    const seen = new Set<string>([quiz.id]);
+    const seen = new Set<string>([quiz.id, ...leadCards.map((q) => q.id)]);
     const popularPick = sameGroup.filter((q) => !seen.has(q.id));
     const newestPick = newestInGroup.filter((q) => !seen.has(q.id));
     for (let i = 0; related.length < 6 && (i < popularPick.length || i < newestPick.length); i++) {
