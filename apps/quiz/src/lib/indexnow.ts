@@ -53,10 +53,27 @@ export async function pingIndexNow(pathsOrUrls: string[]): Promise<{ submitted: 
   return { submitted: urls.length, batches };
 }
 
-/** Pull every <loc> from the live sitemap for a full-site resubmit on deploy. */
-export async function sitemapUrls(): Promise<string[]> {
-  const res = await fetch(`${ORIGIN}/sitemap.xml`, { cache: 'no-store' });
+const locs = (xml: string): string[] => [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]!.trim()).filter(Boolean);
+const isSitemapIndex = (xml: string): boolean => /<sitemapindex[\s>]/.test(xml);
+
+async function fetchSitemap(url: string): Promise<string> {
+  const res = await fetch(url, { cache: 'no-store' });
   if (!res.ok) throw new Error(`sitemap fetch ${res.status}`);
-  const xml = await res.text();
-  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]!.trim()).filter(Boolean);
+  return res.text();
+}
+
+/**
+ * The page URLs of the live sitemap, for a full-site resubmit on deploy: every <loc> of a urlset. When /sitemap.xml is a sitemap
+ * index (the hub of fandomverse.org lists /sitemap-hub.xml and, once open, /anime/sitemap.xml), the page URLs of each child sitemap
+ * of this site's origin, never the URL of a sitemap file itself; a child that is an index again is not followed.
+ */
+export async function sitemapUrls(): Promise<string[]> {
+  const xml = await fetchSitemap(`${ORIGIN}/sitemap.xml`);
+  if (!isSitemapIndex(xml)) return locs(xml);
+  const pages: string[] = [];
+  for (const child of locs(xml).filter((u) => u.startsWith(`${ORIGIN}/`))) {
+    const childXml = await fetchSitemap(child);
+    if (!isSitemapIndex(childXml)) pages.push(...locs(childXml));
+  }
+  return pages;
 }
