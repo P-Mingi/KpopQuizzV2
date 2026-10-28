@@ -59,7 +59,8 @@ export async function generateMetadata(): Promise<Metadata> {
   openGraph: {
     title: copy.social,
     description: copy.description,
-    url: '/',
+    // The site url itself: a relative '/' joins the base path with a trailing slash (https://fandomverse.org/anime/, a 308).
+    url: SITE.url,
     images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
@@ -68,7 +69,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description: copy.description,
   },
   // English only: anime has no /pt (C3), so no hreflang.
-  alternates: { canonical: '/' },
+  alternates: { canonical: SITE.url },
   };
 }
 

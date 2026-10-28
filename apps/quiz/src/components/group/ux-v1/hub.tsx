@@ -28,6 +28,7 @@ import { GENERAL_THEMES } from '@/lib/hubs/general-themes';
 import { themeCounts, topicList } from '@/lib/hubs/theme-view';
 import { monthYear, pooledScore, rankByMeasuredScore } from '@/lib/hubs/hub-scores';
 import { getTitleForLevel } from '@/lib/level-titles';
+import { joinSiteUrl } from '@/lib/site/base-path';
 import { RELATED_GROUPS } from '@/lib/related-groups';
 import { buildAnswerChunks, buildAnswerFirst } from '@/lib/seo/answer-first';
 import { musicGroupEntity } from '@/lib/seo/wikidata';
@@ -332,7 +333,7 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: `${origin}/` },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: joinSiteUrl(origin, '/') },
           { '@type': 'ListItem', position: 2, name: 'Quizzes', item: `${origin}/quizzes` },
           { '@type': 'ListItem', position: 3, name: `${g.name} Quiz` },
         ],

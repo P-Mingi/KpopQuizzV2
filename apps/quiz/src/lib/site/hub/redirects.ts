@@ -9,7 +9,7 @@
 //    MEMBER_FILTER_COLUMNS), never a private one. Home site = the first visible membership (activated, not banned, shown
 //    off its own site). No visible membership, an unknown or banned member, or any read error: null, and the page is a 404.
 
-import { isSiteId, netOrigin, REGISTRY } from '@/lib/site/registry';
+import { isSiteId, netBase, REGISTRY } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
@@ -69,9 +69,9 @@ export function pickMemberHomeSite(rows: readonly MembershipChoiceRow[]): SiteId
   return first ? (first.site_id as SiteId) : null;
 }
 
-/** `path` on `site`, through the registry origin of this deployment. */
+/** `path` on `site`, through the registry origin of this deployment (FandomVerse: its base URL, /anime included). */
 export function siteUrl(site: SiteId, path: string, env: NetOriginEnv): string {
-  return `${netOrigin(site, env)}${path}`;
+  return `${netBase(site, env)}${path}`;
 }
 
 /** Where /passport and /settings go: the full URL of `path` on the home site, or '/' (the hub root, where sign-in lives) when signed out. */

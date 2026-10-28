@@ -1,7 +1,7 @@
 // Run O1, lot H2b: helpers shared by the blocks of the home. Pure, except origins() which reads the environment.
 
 import { groupInitials } from '@/lib/ux-v1/p1/format';
-import { netOrigin, REGISTRY } from '@/lib/site/registry';
+import { netBase, REGISTRY } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 
 import type { HubOrigins, HubOpts, HubQuizCard, HubSite } from './types';
@@ -17,7 +17,7 @@ export function resolveOrigins(opts?: HubOpts): HubOrigins {
   const out = {} as Record<SiteId, string>;
   for (const id of SITE_IDS) {
     try {
-      out[id] = netOrigin(id, env);
+      out[id] = netBase(id, env); // FandomVerse: the base URL (the /anime sub-folder included), every href below is base + path
     } catch {
       out[id] = REGISTRY[id].url;
     }

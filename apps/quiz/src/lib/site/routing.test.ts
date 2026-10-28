@@ -515,13 +515,20 @@ describe('brand files of anime and hub (lane L1, owner decision D-099)', () => {
     const png = readFileSync(join(folder(site), 'og-default.png'));
     expect(png.subarray(1, 4).toString()).toBe('PNG');
     expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1200, 630]);
-    const manifest = JSON.parse(readFileSync(join(folder(site), 'site.webmanifest'), 'utf8')) as { name: string; short_name: string; description: string; icons: { src: string }[] };
+    const manifest = JSON.parse(readFileSync(join(folder(site), 'site.webmanifest'), 'utf8')) as { name: string; short_name: string; description: string; icons: { src: string }[]; start_url: string; scope?: string };
     expect(manifest.name).toBe(REGISTRY[site].brand.name);
     expect(manifest.short_name).toBe(REGISTRY[site].brand.shortName);
     expect(JSON.stringify(manifest)).not.toMatch(/kpop|k-pop/i);
+    // FandomVerse (owner, 2026-10-28): OtakuQuiz lives at fandomverse.org/anime, so its installed app starts there, stays there,
+    // and its icons are the files the anime build answers under /anime (the brand rewrite of rule 3b); the hub keeps the root.
+    const base = site === 'anime' ? '/anime' : '';
+    expect(manifest.start_url).toBe(base || '/');
+    expect(manifest.scope).toBe(base || undefined);
     for (const icon of manifest.icons) {
-      expect(PER_SITE_BRAND_FILES.includes(icon.src), icon.src).toBe(true);
-      expect(statSync(join(folder(site), icon.src)).isFile(), icon.src).toBe(true);
+      expect(icon.src.startsWith(`${base}/`), icon.src).toBe(true);
+      const file = icon.src.slice(base.length);
+      expect(PER_SITE_BRAND_FILES.includes(file), icon.src).toBe(true);
+      expect(statSync(join(folder(site), file)).isFile(), icon.src).toBe(true);
     }
   });
 

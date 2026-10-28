@@ -5,6 +5,7 @@
 // no K-pop description, keywords, authors, Pinterest verification tag or kpop origin
 // (F0 report, slice 13: the spike layout had to reset them; this removes the need).
 
+import { withBasePath } from './base-path';
 import { KPOP_THEME_COLOR } from './kpop';
 import { SITE } from './registry';
 
@@ -24,8 +25,9 @@ export function siteRootMetadata(kpopMetadata: Metadata, site: SiteConfig = SITE
     formatDetection: { telephone: false },
     openGraph: { type: 'website', siteName: site.brand.name, images: [image] },
     twitter: { card: 'summary_large_image', images: [site.brand.ogTemplate] },
-    icons: { icon: [{ url: site.brand.favicon, type: 'image/svg+xml' }] },
-    manifest: '/site.webmanifest',
+    // Next writes icon and manifest URLs as they are (no metadataBase): the anime build serves them under its base path.
+    icons: { icon: [{ url: withBasePath(site.brand.favicon), type: 'image/svg+xml' }] },
+    manifest: withBasePath('/site.webmanifest'),
   };
 }
 

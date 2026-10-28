@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { jsonLdString } from '@/lib/seo/json-ld';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 import { FOUNDER } from '@/lib/seo/org';
+import { joinSiteUrl } from '@/lib/site/base-path';
 import { MAILBOX, SITE } from '@/lib/site/registry';
 
 import { CORRECTIONS } from './corrections';
@@ -35,7 +36,7 @@ const breadcrumb = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: joinSiteUrl(SITE_URL, '/') },
     { '@type': 'ListItem', position: 2, name: 'About', item: `${SITE_URL}/about` },
     { '@type': 'ListItem', position: 3, name: 'Editorial policy', item: `${SITE_URL}/editorial-policy` },
   ],

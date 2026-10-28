@@ -2,6 +2,7 @@
 import Link from 'next/link';
 
 import { Mascot } from '@/components/ui/mascot';
+import { withBasePath } from '@/lib/site/base-path';
 import { SITE } from '@/lib/site/registry';
 
 export default function NotFound(): React.ReactElement {
@@ -18,7 +19,7 @@ export default function NotFound(): React.ReactElement {
 
       {/* Search: only where the site has a search page (its quizzes). */}
       {SITE.features.quizzes ? (
-        <form action="/search" method="GET" className="w-full max-w-md mb-10">
+        <form action={withBasePath('/search')} method="GET" className="w-full max-w-md mb-10">
           <input
             type="text"
             name="q"

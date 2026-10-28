@@ -3,9 +3,13 @@
 // registry origin of the site; the list is lib/site/root-files.ts sitemapEntriesFor (hub: home and /privacy; anime: home,
 // /series, the series hubs and the published quizzes). Read per request and kept by the CDN for an hour, so a quiz published
 // today is listed within the hour and a build never reads the database for it.
+// FandomVerse (lane 1): the hub's /sitemap.xml is the one index of fandomverse.org: its own pages (/sitemap-hub.xml, the route
+// next to this one) and the sitemap of every site in its sub-folders (https://fandomverse.org/anime/sitemap.xml). A site in a
+// sub-folder, and a site with none, keep their urlset here.
 
+import { zoneChildrenOf } from '@/lib/site/base-path';
 import { SITE } from '@/lib/site/registry';
-import { sitemapEntriesFor, sitemapXml } from '@/lib/site/root-files';
+import { sitemapEntriesFor, sitemapIndexXml, sitemapXml, zoneSitemaps } from '@/lib/site/root-files';
 import { isServedSite } from '@/lib/site/routing';
 
 export const dynamic = 'force-dynamic';
@@ -13,6 +17,12 @@ export const dynamic = 'force-dynamic';
 export async function GET(_req: Request, ctx: { params: Promise<{ site: string }> }): Promise<Response> {
   const { site } = await ctx.params;
   if (!isServedSite(site)) return new Response('Not found', { status: 404 });
+  const children = zoneChildrenOf(SITE);
+  if (children.length > 0) {
+    return new Response(sitemapIndexXml(zoneSitemaps(SITE, children)), {
+      headers: { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=300, s-maxage=3600, stale-while-revalidate=86400' },
+    });
+  }
   try {
     const body = sitemapXml(SITE.url, await sitemapEntriesFor(SITE));
     return new Response(body, {
