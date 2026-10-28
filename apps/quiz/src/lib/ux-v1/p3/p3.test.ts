@@ -13,6 +13,7 @@ import {
   averagePct,
   azBlocks,
   azKey,
+  categoryTexts,
   coarseAge,
   commentLine,
   debutYearOf,
@@ -315,5 +316,24 @@ describe('hub community empty-state door (X1-005 / C2-007)', () => {
   it('a parked space never gets a thread door: its door is the top quiz, else the community page as before', () => {
     expect(hubCommunityDoor(false, 'blackpink-ultimate-fan-challenge')).toEqual({ href: '/q/blackpink-ultimate-fan-challenge', label: 'Play the top quiz and leave the first comment' });
     expect(hubCommunityDoor(false, null)).toEqual({ href: '/community', label: 'Start the first thread' });
+  });
+});
+
+describe('categoryTexts topics (SEO phase 1, PR 16)', () => {
+  const list = 'K-pop history, debuts and groups';
+
+  it('the topics question comes second, with the number and names it is given', () => {
+    const { faqs } = categoryTexts('General K-pop', 172, { count: 3, list });
+    expect(faqs[1]).toMatchObject({
+      q: 'What topics do the General K-pop quizzes cover?',
+      a: '3 topics, each with its own page: K-pop history, debuts and groups. Open one from the topic list on this page.',
+    });
+  });
+
+  it('no topics question without at least 2 topics', () => {
+    const qs = (t: { count: number; list: string } | null) => categoryTexts('General K-pop', 172, t).faqs.map((f) => f.q);
+    expect(qs(null)).not.toContain('What topics do the General K-pop quizzes cover?');
+    expect(qs({ count: 1, list: 'K-pop history' })).not.toContain('What topics do the General K-pop quizzes cover?');
+    expect(qs(null)).toEqual(qs({ count: 0, list: '' }));
   });
 });

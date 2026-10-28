@@ -25,7 +25,7 @@ import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { flagshipSlug, hubPlus, hubPlusAnswer } from '@/lib/hubs/hub-plus';
 import { GENERAL_THEMES } from '@/lib/hubs/general-themes';
-import { themeCounts } from '@/lib/hubs/theme-view';
+import { themeCounts, topicList } from '@/lib/hubs/theme-view';
 import { monthYear, pooledScore, rankByMeasuredScore } from '@/lib/hubs/hub-scores';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { RELATED_GROUPS } from '@/lib/related-groups';
@@ -60,6 +60,7 @@ import { HubGrowth } from './hub-growth';
 import { HubPlusFacts, HubPlusTop } from './hub-plus';
 import { HubNotifyLoader, HubQuizzesLoader } from './loader';
 import { MemberTiles } from './member-tiles';
+import { ThemeTopics } from './theme-topics';
 
 import type { Group } from '@/lib/db/types';
 
@@ -152,10 +153,10 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
   const memberCount = nameAllGame?.count ?? null;
   // The full published list (read fail-closed): its length is the real count.
   const published = quizzes.length;
-  const cat = category ? categoryTexts(g.name, published) : null;
   // SEO phase 1 (PR 15): the category hub links its 10 theme pages, each with its count of listed quizzes.
   const topicCounts = category ? themeCounts(new Set(quizzes.map((q) => q.slug))) : null;
   const topics = topicCounts ? GENERAL_THEMES.filter((t) => (topicCounts.get(t.slug) ?? 0) > 0) : [];
+  const cat = category ? categoryTexts(g.name, published, { count: topics.length, list: topicList(topics) }) : null;
   const songs = playable[g.slug] ?? 0;
   // SEO Mission 2 part B: a strengthened hub (lib/hubs/hub-plus.ts; BTS today). Null for every
   // other hub, which renders exactly as before. On a strengthened hub one count is used
@@ -299,15 +300,15 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
 
   // Rendered with the quiz list, in the same child slot, so a group hub's tree is unchanged.
   const topicsSection = topics.length > 0 && topicCounts ? (
-        <section className="ux-sec" aria-labelledby="p3-topics-h">
-          <SectionHeader id="p3-topics-h" title="General K-pop quizzes by topic" />
-          <div className="ux-rows">
-            {topics.map((t) => {
-              const n = topicCounts.get(t.slug) ?? 0;
-              return <UxRow key={t.slug} href={`/${t.slug}`} lead={<span className="p3-rowico"><Icon name="t-classic" /></span>} title={t.h1} end={<span className="ux-num">{n} {n === 1 ? 'quiz' : 'quizzes'}</span>} />;
-            })}
-          </div>
-        </section>
+        <ThemeTopics id="p3-topics-h" topics={topics} counts={topicCounts}>
+          {jsonLdScript({
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            name: 'General K-pop quizzes by topic',
+            numberOfItems: topics.length,
+            itemListElement: topics.map((t, i) => ({ '@type': 'ListItem', position: i + 1, url: `${origin}/${t.slug}`, name: t.h1 })),
+          })}
+        </ThemeTopics>
       ) : null;
 
   const faqSection = faqItems.length > 0 ? (

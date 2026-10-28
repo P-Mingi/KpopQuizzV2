@@ -17,6 +17,9 @@ import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { AnswerFirst } from '@/components/group/answer-first';
 import { getGroupContentDate, formatContentMonth } from '@/lib/db/queries/group-freshness';
 import { atLeast } from '@/lib/stats/site-stats';
+import { GENERAL_THEMES } from '@/lib/hubs/general-themes';
+import { topicList } from '@/lib/hubs/theme-view';
+import { isCategoryGroup } from '@/lib/ux-v1/p3/model';
 
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
@@ -135,8 +138,12 @@ export function generateGroupQuizMetadata(group: Group): Metadata {
   // click, inside a ~150 char budget that cannot absorb an editorial paragraph.
   // seo_intro is now additive and VISIBLE only: it renders as the intro paragraph
   // at the top of the page (see `intro` below). The CTR formula always wins here.
+  // SEO phase 1, PR 16: the General K-pop category is not a group (no members, no fandom); its description names
+  // its theme pages (the same topic names as the hub's FAQ).
   const description = override?.description
     ? override.description
+    : isCategoryGroup(group.slug)
+    ? `Play ${n} free ${group.name} quizzes by topic: ${topicList(GENERAL_THEMES)}. No sign-up.`
     : override
     ? `Play ${atLeast(group.quiz_count)} free ${group.name} quizzes made by fans. ${override.hook}. Start now, no sign-up.`
     : n >= 2
