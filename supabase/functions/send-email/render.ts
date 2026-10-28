@@ -257,10 +257,44 @@ function onBase(href: string, base: string): boolean {
   return href === base || href.startsWith(`${base}/`);
 }
 
+/** The folder of a brand url ('/anime' of https://fandomverse.org/anime), '' when it is served at the root of its origin. */
+function folderOf(url: string): string {
+  try {
+    return new URL(url).pathname.replace(/\/+$/, '');
+  } catch {
+    return '';
+  }
+}
+
 /**
- * The site a redirect URL belongs to: the brand whose url holds it, the longest url first (OtakuQuiz, https://fandomverse.org/anime, is a
- * folder of the hub's origin since 2026-10-28), else an override origin (non-production staging, passed only when the function runs on a
- * dev project). Anything else, and a missing redirect, is kpop: the accounts that exist today.
+ * The url of `site` on this deployment: with an override (a bare staging origin, like NEXT_PUBLIC_NET_ORIGINS), that origin and the
+ * folder of the brand url (anime: `<staging origin>/anime`), else the brand url. Redirect URLs are matched against it and mails link to it.
+ */
+export function siteBaseFor(site: MailSite, brands: Readonly<Record<MailSite, MailBrand>>, overrides: Partial<Record<MailSite, string>> = {}): string {
+  const o = overrides[site];
+  return o === undefined ? brands[site].url : `${o}${folderOf(brands[site].url)}`;
+}
+
+const MAIL_SITES = ['anime', 'hub', 'kpop'] as const;
+
+/** The site whose base holds `href`, the longest base first (anime's folder before the hub on their shared origin); on a tie, the earlier one. */
+function longestBase(href: string, bases: ReadonlyArray<readonly [MailSite, string]>): MailSite | null {
+  let best: MailSite | null = null;
+  let len = -1;
+  for (const [id, base] of bases) {
+    if (base.length > len && onBase(href, base)) {
+      best = id;
+      len = base.length;
+    }
+  }
+  return best;
+}
+
+/**
+ * The site a redirect URL belongs to, the longest matching url first (OtakuQuiz, https://fandomverse.org/anime, is a folder of the hub's
+ * origin since 2026-10-28): a production brand url; else, on a dev project with override origins (staging), the staging url of a site
+ * (its origin and the folder of its brand url, so the hub and anime on one staging origin each get their own brand and colours); else the
+ * bare override origin of a site that has an origin of its own. Anything else, and a missing redirect, is kpop: the accounts that exist today.
  */
 export function siteFromRedirect(
   redirectTo: string | null | undefined,
@@ -269,20 +303,18 @@ export function siteFromRedirect(
 ): MailSite {
   const href = redirectTo ? hrefOf(redirectTo) : null;
   if (href === null) return 'kpop';
-  const ids = (['anime', 'hub', 'kpop'] as const).slice().sort((a, b) => brands[b].url.length - brands[a].url.length);
-  for (const id of ids) {
-    if (onBase(href, brands[id].url)) return id;
-  }
-  for (const id of ['anime', 'hub', 'kpop'] as const) {
-    const o = overrides[id];
-    if (o !== undefined && onBase(href, o)) return id;
-  }
-  return 'kpop';
+  const staged = MAIL_SITES.filter((id) => overrides[id] !== undefined);
+  return (
+    longestBase(href, MAIL_SITES.map((id) => [id, brands[id].url] as const)) ??
+    longestBase(href, staged.map((id) => [id, siteBaseFor(id, brands, overrides)] as const)) ??
+    longestBase(href, staged.map((id) => [id, overrides[id]!] as const)) ??
+    'kpop'
+  );
 }
 
-/** The origin a mail of `site` links to: the override when given, else the brand url. */
+/** The url a mail of `site` links to (siteBaseFor): the staging origin with the brand's folder when given, else the brand url. */
 export function originFor(site: MailSite, brands: Readonly<Record<MailSite, MailBrand>>, overrides: Partial<Record<MailSite, string>> = {}): string {
-  return overrides[site] ?? brands[site].url;
+  return siteBaseFor(site, brands, overrides);
 }
 
 const CONFIRM_TYPE: Readonly<Partial<Record<HookAction, 'magiclink' | 'signup' | 'email_change' | 'email'>>> = {
@@ -405,7 +437,7 @@ export interface HookEnv {
   readonly secret: string;
   /** The project's API URL: the kpop verify link starts with it. */
   readonly supabaseUrl: string;
-  /** Staging origins of anime and hub (SEND_EMAIL_ORIGINS); empty in production. */
+  /** Staging origins of anime and hub (SEND_EMAIL_ORIGINS, bare origins: anime adds the /anime of its brand url); empty in production. */
   readonly origins: Partial<Record<MailSite, string>>;
   /** Sender per site (`Name <address>`); anime and hub default to `<brand> <no-reply@domain>`, kpop has no default. */
   readonly from: Partial<Record<MailSite, string>>;
