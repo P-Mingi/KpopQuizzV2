@@ -61,11 +61,19 @@ Why Vercel Microfrontends and not a multi-zones rewrite (feasibility checked aga
 
 ## 3. SEO
 
+- **home headers**: the home of each build carries the headers of its other pages: `/` on the hub and `/anime` on OtakuQuiz answer
+  `X-Frame-Options: SAMEORIGIN`, `Content-Security-Policy: frame-ancestors 'self'`, and `X-Robots-Tag: noindex, nofollow` while
+  `NET_INDEXING` is off (`curl -sI https://fandomverse.org/anime`).
+- **noindex by host**: on the hub and anime builds `X-Robots-Tag: noindex, nofollow` is added only on `*.vercel.app` hosts of a
+  production build, and on every host of a preview or development build, whatever `NET_INDEXING` says; fandomverse.org and any
+  other domain of a production project answer what the page says. There is no "every host but fandomverse.org" rule.
 - **robots.txt**: one file, https://fandomverse.org/robots.txt, answered by the hub: its rules, then the same rules of every site in
   its sub-folders under their base path (`Disallow: /anime/api/`, `Allow: /anime/api/og/`, ...), then one `Sitemap:` line, the
   index. The anime build answers /anime/robots.txt with a 404.
 - **sitemaps**: https://fandomverse.org/sitemap.xml is a sitemap index: https://fandomverse.org/sitemap-hub.xml (the hub's own
-  pages) and https://fandomverse.org/anime/sitemap.xml (OtakuQuiz's urlset, unchanged but for the home without a trailing slash).
+  pages) and, only once the hub build has `NET_INDEXING=1`, https://fandomverse.org/anime/sitemap.xml (OtakuQuiz's urlset, unchanged
+  but for the home without a trailing slash). The hub llms.txt gains its `/anime` line at the same moment. The hub cannot read the
+  otakuquiz flag, so `NET_INDEXING=1` is set on `fandomverse` and `otakuquiz` together (RUNBOOK K10) and both are redeployed.
   The list of zones is read from the registry urls (`zoneChildrenOf`): a /kdrama site later joins by its url alone.
 - **canonical, Open Graph, JSON-LD, breadcrumbs, llms.txt, IndexNow, emails**: built from the registry url, so they carry /anime
   (relative metadata URLs through `metadataBase`). /anime/llms.txt names fandomverse.org/anime and its paths.
@@ -86,7 +94,10 @@ Why Vercel Microfrontends and not a multi-zones rewrite (feasibility checked aga
 /anime (Next also refuses an internal rewrite from outside the base path). On a build with a base path, each cron path of
 `vercel.json` is an external rewrite (`basePath: false`) to the same route of the site's own URL,
 `https://fandomverse.org/anime/api/cron/...`, which Vercel routes back to `otakuquiz`; the route checks `CRON_SECRET` as before.
-The hub's crons reach their routes as they are. To verify on launch day, once the domain is attached (RUNBOOK K6b, mandatory):
+Only cron routes are proxied (`/api/cron/<name>` and `/api/<area>/cron/<name>`, today `/api/ranked/cron/nightly`): every destination
+is under /anime, so no otakuquiz cron can reach the hub, and the proxy is an external rewrite that forwards the request headers, so
+`Authorization: Bearer <CRON_SECRET>` reaches the route (a unit test runs Next's own proxy). A cron path of another shape, or a
+missing or invalid vercel.json, fails the hub or anime build with vercel.json named. The hub's crons reach their routes as they are. To verify on launch day, once the domain is attached (RUNBOOK K6b, mandatory):
 the Logs and the cron logs of `otakuquiz` (Settings, Cron Jobs, View Logs) show 200 answers of `/anime/api/cron/...`, among them
 `/anime/api/cron/ensure-daily-quiz`, and the `fandomverse` Logs show no call of the anime proxy.
 
@@ -110,7 +121,7 @@ the Logs and the cron logs of `otakuquiz` (Settings, Cron Jobs, View Logs) show 
 Checks once both are live (curl -sI shows the status and headers):
 `https://fandomverse.org/anime` 200 from otakuquiz (header `x-vercel-mfe-app` with the cookie `VERCEL_MFE_DEBUG=1`);
 `https://fandomverse.org/anime/` 308 to `/anime`; `https://fandomverse.org/anime/robots.txt` 404; `https://fandomverse.org/robots.txt`
-lists `/anime/api/`; `https://fandomverse.org/sitemap.xml` is an index with `/anime/sitemap.xml`; with `NET_INDEXING=1`, no
+lists `/anime/api/`; `https://fandomverse.org/sitemap.xml` is an index with `/anime/sitemap.xml` (once `NET_INDEXING=1`); with `NET_INDEXING=1`, no
 `X-Robots-Tag` on `https://fandomverse.org/anime` and `X-Robots-Tag: noindex, nofollow` on `https://otakuquiz.vercel.app/anime`
 (behind its protection, use a bypass you already have or skip); a page of /anime loads its `/anime/_next/static` files with 200.
 
