@@ -10,6 +10,7 @@
 // Keep this module free of `@/` imports, next/* and Node built-ins: next.config.ts and the
 // middleware (edge) read it through lib/site/routing.ts.
 
+import { SITE_IDS } from './types';
 import type { SiteConfig, SiteFeatures, SiteId, ThemeTokens, NetworkConfig } from './types';
 
 /** The network umbrella (BACKLOG 5.1). */
@@ -352,7 +353,7 @@ export const PLACEHOLDERS: Readonly<Record<SiteId, readonly string[]>> = {
 
 /** True when `v` is one of the three SiteId values. */
 export function isSiteId(v: unknown): v is SiteId {
-  return v === 'kpop' || v === 'anime' || v === 'hub';
+  return (SITE_IDS as readonly unknown[]).includes(v);
 }
 
 export interface SiteEnv {
