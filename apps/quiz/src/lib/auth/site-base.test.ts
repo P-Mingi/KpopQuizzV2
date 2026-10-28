@@ -4,6 +4,7 @@
 // registry urls move to fandomverse.org; the production answers are pinned against the registry itself.
 import { describe, expect, it } from 'vitest';
 
+import { basePathOf as basePathOfUrl, originOf } from '@/lib/site/base-path';
 import { REGISTRY } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 
@@ -29,6 +30,15 @@ describe('the base path of each build', () => {
   it('anime is served under /anime, kpop and the hub at the root', () => {
     expect(SITE_BASE_PATH).toEqual({ kpop: '', anime: '/anime', hub: '' });
     for (const id of SITE_IDS) expect(basePathOf(id)).toBe(SITE_BASE_PATH[id]);
+  });
+
+  it('one source: the table equals the base path and origin lib/site/base-path.ts reads from the registry urls', () => {
+    // SITE_BASE_PATH stays a literal because this module reaches client bundles (create-funnel), which must not import
+    // lib/site/base-path.ts (ARCHITECTURE-FANDOMVERSE.md); this test keeps the two from drifting apart.
+    for (const id of SITE_IDS) {
+      expect(SITE_BASE_PATH[id]).toBe(basePathOfUrl(REGISTRY[id].url));
+      expect(siteOrigin(id, { VERCEL_ENV: 'production' })).toBe(originOf(REGISTRY[id].url));
+    }
   });
 
   it('withBase: an app path becomes the browser path of the build', () => {
