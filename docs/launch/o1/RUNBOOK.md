@@ -276,7 +276,7 @@ AUTH-FANDOMVERSE.md (lane 3): fandomverse.org uses Supabase's Google redirect, n
 Discord: nothing to add. The Discord application redirects to the Supabase callback, unchanged; the allowed return address is H4's.
 Email: fandomverse.org offers no email sign-in (code, lane 3); the email provider stays on for kpopquiz.org.
 Previews: they run on the `o1-dev` Supabase project, whose callback is not in the Google client, so Google sign-in cannot complete on a preview (Discord only shows its own page); nothing is added for them. End-to-end Google sign-in is proven only in production, by the owner at K6.
-Check: V10 later (K6): the sign-in sheet on fandomverse.org shows Google and Discord and no email field; both sign in; `/anime` shows the same session. Back: remove the origin.
+Check: V10 later (K6): the sign-in sheet on fandomverse.org shows Google and Discord and no email field; both sign in; `/anime` shows the same session. Back: nothing to undo (no JavaScript origin, no redirect URI and no client were added in Google Cloud or Discord).
 
 **H6  Buy the domain and set its DNS (not attached yet).**
 Do: buy `fandomverse.org` (any registrar; bought in Vercel, Domains, the records below are set for you). At the registrar's DNS, with a TTL of 300 seconds:
@@ -371,7 +371,7 @@ L09 to L11 (openings, formats, crossover quiz) are not part of the launch (secti
 **K1  Go / no-go (the evening before).** Who: Claude and a worker check each line; the owner decides. All true, or the day moves:
 - V1 to V7 passed in their phases; the watches C, D3 and F are clean; V9 passes for the three projects (the hub at `/` and OtakuQuiz at `/anime` on the `fandomverse` address).
 - `ls $M/launch/` shows L01 to L08, L10-PERS and L12 with their rollbacks; J2's three checks pass; L01's header names the FandomVerse domain (lane 2); J3 was run on these files.
-- H done: `dig +short fandomverse.org A` answers (H6), the Microfrontends group exists (H7), the two fandomverse.org callbacks are Supabase redirect URLs (H4), the service role key is linked (H3), the Google origin is set if AUTH-FANDOMVERSE.md asks for it (H5).
+- H done: `dig +short fandomverse.org A` answers (H6), the Microfrontends group exists (H7), the Supabase redirect URLs hold exactly the two fandomverse.org callbacks, no wildcard (H4), the service role key is linked (H3), and Google Cloud and Discord are unchanged: no JavaScript origin, no new client (H5, AUTH-FANDOMVERSE.md).
 - `apps/quiz/src/lib/site/registry.ts` list `PLACEHOLDERS` for anime and hub: each item is set or accepted. Brand (owner, 2026-10-28): bunny plus "FandomVerse" for the hub, bunny plus "OtakuQuiz" for `/anime`; the default share image of each site says its own name.
   IndexNow: the hub key at `https://fandomverse.org/339dab142e51883ae3a2c7e4737254e4.txt`, OtakuQuiz's at `https://fandomverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` (ENV.md 1.7). Organization mailbox: `hello@kpopquiz.org` on all three sites.
 - The hub privacy text and its controller are done (D-108, D-111, D-114); K10 checks the `privacy.controller` line.
@@ -560,7 +560,7 @@ Kept from 2026-10-23 (D-099) and 2026-10-26 (D-124):
 8. A verified fact is a **published** trivia row (L05, J2). The dev loader keeps filing every fact as a draft.
 9. The anime daily is dated with the kpop bank tool and its site scoping, auto-scheduling on through `QOTD_ROTATION_FIX=1` on `otakuquiz` and the 00:05 cron (J4, K9).
 10. Organization data in kpopquiz.org's footer: yes (L3, step 1). Organization mailbox `hello@kpopquiz.org` for all three sites.
-11. The indexing step (`NET_INDEXING=1`, which also removes the `X-Robots-Tag` header) comes last on launch day (K10).
+11. The indexing step (`NET_INDEXING=1`, which also removes the `X-Robots-Tag` header on fandomverse.org; `*.vercel.app` hosts keep it) comes last on launch day (K10), after the K9b check.
 12. The hub tables `001-quiz-daily-plays` and `002-xp-daily-snapshots` with their two nightly crons: yes, after L3, not on the launch path (L6).
 
 Superseded on 2026-10-28: the two domains `otakuquiz.org` and `fanquiz.org`, two Google clients, "no Discord on the new domains", `team.otakuquiz.org`, the T0 of 1 December 2026 and its dated calendar, the 7 day and 3 day watches, the separate IndexNow keys per new domain.
