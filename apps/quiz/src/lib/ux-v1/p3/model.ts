@@ -29,7 +29,12 @@ interface CategoryFaq { q: string; text: string; a: string }
 /** The category hub's texts (lead under the H1, About paragraph, FAQ), from the real
  *  count of published quizzes. They replace the group texts ("is a K-pop group with
  *  N members", the members FAQ) on the category hub only. */
-export function categoryTexts(name: string, quizzes: number): { intro: string; about: string; faqs: CategoryFaq[] } {
+export function categoryTexts(
+  name: string,
+  quizzes: number,
+  /** The theme pages listed on the hub (SEO phase 1, PR 16): their number and "K-pop history, ... and groups". */
+  topics: { count: number; list: string } | null = null,
+): { intro: string; about: string; faqs: CategoryFaq[] } {
   const n = quizzes.toLocaleString('en-US');
   const many = quizzes === 1 ? 'quiz' : 'quizzes';
   const faqs: CategoryFaq[] = [
@@ -37,6 +42,9 @@ export function categoryTexts(name: string, quizzes: number): { intro: string; a
       q: `What are ${name} quizzes?`,
       text: `Quizzes about K-pop in general, across every group and soloist: debuts, labels, fandom names, records, songs and eras. They are not about one group.`,
     },
+    ...(topics && topics.count >= 2
+      ? [{ q: `What topics do the ${name} quizzes cover?`, text: `${topics.count} topics, each with its own page: ${topics.list}. Open one from the topic list on this page.` }]
+      : []),
     ...(quizzes > 0 ? [{ q: `How many ${name} quizzes are there?`, text: `KpopQuiz has ${n} free fan-made ${name} ${many}.` }] : []),
     {
       q: 'Do I need to follow one group to play?',
