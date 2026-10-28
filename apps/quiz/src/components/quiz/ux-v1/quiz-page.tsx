@@ -17,6 +17,7 @@ import { jsonLdScript } from '@/lib/verse/jsonld';
 import { QUIZ_TYPE_ICON, QUIZ_TYPE_LABEL } from '@/lib/ux-v1/a0/icons';
 import { formatDuration } from '@/lib/ux-v1/p4/engine';
 import { aboutMinutes, cardAverage } from '@/lib/ux-v1/p4/format';
+import { averageText } from '@/lib/quiz/quiz-average';
 
 // client islands through code-split loaders (flag-off pages never download them)
 import { P4Follow, P4HofMine, P4ReportButton, P4Run, P4StartActions, P4StickyStart } from './islands';
@@ -70,6 +71,8 @@ export interface P4QuizPageProps {
   creatorNote: string | null;
   /** gated like the intro (unlock threshold, per-question types) */
   introAvg: number | null;
+  /** Completed plays behind introAvg, written beside it ("average of N completed plays"). */
+  introAvgOf?: number | null;
   perQuestionScore: boolean;
   extra: { fastestTimeSeconds: number | null; perfectScoreCount: number };
   passRate: number | null;
@@ -155,7 +158,7 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
             <span className="ux-num">{q.questionCount} {q.questionCount === 1 ? 'question' : 'questions'}</span>
             <span>{aboutMinutes(q.questionCount, p.run.timerOn, p.run.timerSeconds)}</span>
             <span className="ux-num">{q.playCount.toLocaleString('en-US')} plays</span>
-            {p.introAvg !== null ? <span className="ux-num">Average {p.introAvg}%</span> : null}
+            {p.introAvg !== null && p.introAvgOf ? <span className="ux-num">{averageText({ pct: p.introAvg, completions: p.introAvgOf })}</span> : null}
           </div>
           <div className="p4-author">
             <UxAvatar name={q.creatorUsername} src={p.creator?.avatarUrl ?? q.creatorAvatarUrl} size={28} team={team} />

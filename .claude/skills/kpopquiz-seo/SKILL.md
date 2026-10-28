@@ -90,6 +90,9 @@ AI engines lift self-contained chunks. Every indexable page:
 3. Percentages and averages show the denominator and window ("54% over 3,410 attempts since May
    2026"). Floors: 100 results for distributions, 200 attempts for percentiles, 50 attempts to
    rank a quiz by difficulty. Below the floor, show "Not enough data yet".
+   Owner exception (2026-10-28): the average score of one quiz shows from 30 completed plays,
+   always written "X% average of N completed plays" (lib/quiz/quiz-average.ts); below 30 the
+   page shows no average.
 4. No fandom rankings. No "fans think" claims drawn from quiz data.
 
 ## 5. Facts and sources

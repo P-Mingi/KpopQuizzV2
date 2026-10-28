@@ -23,7 +23,8 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { isNextInternalError, safeFetch } from '@/lib/error-handling';
 import { READ_RETRY_DELAY_MS } from '@/lib/ux-v1/p3/reads';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
-import { avgScorePct, scoreIsPerQuestion } from '@/lib/quiz/scoring';
+import { scoreIsPerQuestion } from '@/lib/quiz/scoring';
+import { averageText, quizAverage } from '@/lib/quiz/quiz-average';
 import { buildInThisQuiz } from '@/lib/quiz/in-this-quiz';
 import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
 import { UX_V1 } from '@/lib/ux-v1';
@@ -144,7 +145,7 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
   const quiz = await quizOr404(slug);
 
   const questionLen = (quiz.questions as unknown[]).length;
-  const avgScore = avgScorePct({ total_score_sum: quiz.total_score_sum, total_completions: quiz.total_completions, question_count: questionLen, quiz_type: quiz.quiz_type });
+  const average = quizAverage({ total_score_sum: quiz.total_score_sum, total_completions: quiz.total_completions, question_count: questionLen, quiz_type: quiz.quiz_type });
 
   // SEO indexguard PART 4 + 2026-10-13: the creator's note when it says something, else a
   // sentence from the quiz's real data; the title never cut inside a word (lib/seo/quiz-meta.ts).
@@ -152,7 +153,7 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
   const shown = shownTitle(quiz);
   const description = quizDescription({
     title: shown, difficulty: quiz.difficulty, questionCount: questionLen, groupName: quiz.group_name,
-    creator: quiz.creator_username, plays: quiz.play_count, avgScore, creatorNote: creatorNote ?? null,
+    creator: quiz.creator_username, plays: quiz.play_count, average: average ? averageText(average) : null, creatorNote: creatorNote ?? null,
   });
   const title = quizTitle(shown, questionLen);
   const ogImageUrl = `/api/og/${slug}`;
@@ -237,10 +238,10 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     extraStats.totalPlaysWithScore > 0
       ? extraStats.totalPlaysWithScore
       : quiz.play_count;
-  const scoresUnlocked = plays >= RANKING_UNLOCK_VOTES;
-  const introAvg = perQuestionScore && scoresUnlocked
-    ? avgScorePct({ total_score_sum: quiz.total_score_sum, total_completions: quiz.total_completions, question_count: questionCount, quiz_type: quiz.quiz_type })
-    : null;
+  // One average for the whole page (owner, 2026-10-28): from 30 completed plays, per-question scoring
+  // only, always written with its denominator (lib/quiz/quiz-average.ts, rulebook 4.3 exception).
+  const pageAverage = quizAverage({ total_score_sum: quiz.total_score_sum, total_completions: quiz.total_completions, question_count: questionCount, quiz_type: quiz.quiz_type });
+  const introAvg = pageAverage?.pct ?? null;
   // C4: perfect count is only meaningful when a perfect run == qcount;
   // otherwise the underlying rows do not match "perfect" as a user reads it.
   const introPerfCount = perQuestionScore ? extraStats.perfectScoreCount : 0;
@@ -255,18 +256,18 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   } else if (plays < 1000) {
     // Branch C: standard social proof (avg is gated by threshold-30 above
     // AND by perQuestionScore below)
-    socialProof = introAvg !== null
-      ? `${plays.toLocaleString('en-US')} fans have taken it, averaging ${introAvg}%. Think you can beat that?`
+    socialProof = pageAverage
+      ? `${plays.toLocaleString('en-US')} fans have taken it (${averageText(pageAverage)}). Think you can beat that?`
       : `${plays.toLocaleString('en-US')} fans have already tried it.`;
   } else {
     // Branch D: popular quiz - vary the framing by score profile.
     // R5: no editorial. State the perfect-count figure without judgement.
     // C4: falls through to the generic arm when perQuestionScore is false,
     // since introAvg and introPerfCount are both suppressed for those types.
-    if (introPerfCount > 0 && introAvg !== null && introAvg < 60) {
-      socialProof = `${plays.toLocaleString('en-US')} fans have battled it (avg ${introAvg}%), and ${introPerfCount.toLocaleString('en-US')} have scored perfect. Join them?`;
-    } else if (introAvg !== null) {
-      socialProof = `${plays.toLocaleString('en-US')} fans have taken it, averaging ${introAvg}%. See where you land.`;
+    if (introPerfCount > 0 && pageAverage && pageAverage.pct < 60) {
+      socialProof = `${plays.toLocaleString('en-US')} fans have battled it (${averageText(pageAverage)}), and ${introPerfCount.toLocaleString('en-US')} have scored perfect. Join them?`;
+    } else if (pageAverage) {
+      socialProof = `${plays.toLocaleString('en-US')} fans have taken it (${averageText(pageAverage)}). See where you land.`;
     } else {
       socialProof = `${plays.toLocaleString('en-US')} fans have played it.`;
     }
