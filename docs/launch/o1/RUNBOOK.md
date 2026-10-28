@@ -36,13 +36,15 @@ Rewritten on 2026-10-28 for the owner's FandomVerse decisions (section "Owner de
 - Keep a plain text log of your own, one line per step: time, step ID, file, result. `docs/o1/migration-log.md` is for the dev branches only.
 - Shell helpers (once per terminal; the connection string is typed, never saved):
 
+      export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
       read -rs PROD_DB_URL; export PROD_DB_URL
       M=docs/pending-migrations/multisite
       sql1() { psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f "$1"; }
       sqln() { psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f "$1"; }
       q()    { psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "$1"; }
 
-  Work from the repository root with `main` checked out after the merge (A5). `psql` 15 or later. `snap` is in VERIFY V1.
+  Work from the repository root with `main` checked out after the merge (A5). `psql` and `pg_dump` 15 or later: on the owner's Mac the default `psql` is 14,
+  the PATH line puts the Homebrew PostgreSQL 18 tools first (`A1-A3.sh` does the same); `psql --version` must then print 18. `snap` is in VERIFY V1.
   `read -rs` shows nothing while you paste; press return. The RUNBOOK's blocks carry no `#` comments on purpose: zsh, the macOS shell, passes them as arguments unless `interactivecomments` is set.
 
 | order | phase | waits for | hands-on | then wait |
