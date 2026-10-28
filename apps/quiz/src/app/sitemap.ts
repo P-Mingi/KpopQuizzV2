@@ -17,6 +17,8 @@ import { isThemePage } from '@/lib/growth/bt-themes';
 import { v12GrowthPaths } from '@/lib/growth/sitemap-v12';
 import { getWmaGroupSlugs } from '@/lib/personality/data';
 import { isUxV12 } from '@/lib/ux-v12';
+import { GENERAL_THEMES, THEME_MIN_LISTED } from '@/lib/hubs/general-themes';
+import { themeCounts } from '@/lib/hubs/theme-view';
 
 import type { MetadataRoute } from 'next';
 
@@ -210,6 +212,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   let quizPages: MetadataRoute.Sitemap = [];
+  let themePages: MetadataRoute.Sitemap = [];
   let groupPages: MetadataRoute.Sitemap = [];
   // SEO crawl-budget concentration: /u/ profile pages are intentionally NOT in the
   // sitemap. They are thin, rarely rank, and diluted crawl budget away from the
@@ -360,6 +363,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         || ((q.play_count ?? 0) === (cur.play_count ?? 0) && (q.like_count ?? 0) === (cur.like_count ?? 0) && q.slug < cur.slug);
       if (better) bestByTitle.set(key, q);
     }
+    // General K-pop theme pages (SEO phase 1): only those listing at least THEME_MIN_LISTED published
+    // quizzes (the others are noindex), dated by their newest listed quiz.
+    const createdBySlug = new Map(quizRows.map((q) => [q.slug, q.created_at]));
+    const counts = themeCounts(new Set(createdBySlug.keys()));
+    themePages = GENERAL_THEMES.filter((t) => (counts.get(t.slug) ?? 0) >= THEME_MIN_LISTED).map((t) => {
+      const dates = t.sections.flatMap((s) => s.slugs).map((slug) => createdBySlug.get(slug)).filter((d): d is string => typeof d === 'string');
+      const newest = dates.reduce((m, d) => (d > m ? d : m), dates[0]!);
+      return { url: `${SITE_URL}/${t.slug}`, lastModified: new Date(newest), changeFrequency: 'weekly' as const, priority: 0.7 };
+    });
     quizPages = [...bestByTitle.values()].map((q) => ({
       url: `${SITE_URL}/q/${q.slug}`,
       lastModified: quizLastModified(q.created_at, explainedAt.get(q.id)),
@@ -555,6 +567,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...blindTestGroupPages,
     ...groupPages,
     ...quizPages,
+    ...themePages,
     ...pulsePages,
     ...versePages,
   ];
