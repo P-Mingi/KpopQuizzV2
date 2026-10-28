@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { createBrowserClient } from '@/lib/supabase/client';
+import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { SITE } from '@/lib/site/registry';
-import { isAdmin } from '@/lib/admin';
+
+import type { MeResponse } from '@/lib/auth/use-me';
 
 interface Props {
   quizId: string;
@@ -14,39 +15,32 @@ interface Props {
 
 type ViewerRole = 'none' | 'owner' | 'admin';
 
+/** The viewer's role on a quiz, from the shared /api/auth/me result (null while loading or signed out). */
+export function viewerRole(me: MeResponse | null, creatorId: string | null): ViewerRole {
+  if (!me?.profile || !me.id) return 'none';
+  if (creatorId && me.id === creatorId) return 'owner';
+  return me.is_admin ? 'admin' : 'none';
+}
+
 /**
  * Owner + admin affordances on the quiz page.
  *
- * - Mounted on every quiz page; detects viewer client-side via the browser
- *   Supabase auth (so the page shell stays static/ISR-cacheable).
+ * - Mounted on every quiz page; detects the viewer client-side through the shared
+ *   /api/auth/me result (useUxMe, already loaded by the shell), so the page shell
+ *   stays static/ISR-cacheable and the page ships no supabase-js for it.
  * - Renders nothing when the viewer has no role.
  * - Owner: Edit + Delete.
  * - Admin (and not owner): Remove (admin route, also soft-deletes).
  */
 export function QuizOwnerActions({ quizId, creatorId }: Props): React.ReactElement | null {
   const router = useRouter();
-  const [role, setRole] = useState<ViewerRole>('none');
+  const me = useUxMe();
   const [busy, setBusy] = useState<'edit' | 'delete' | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
-    void (async () => {
-      try {
-        const supabase = createBrowserClient();
-        const { data: { user } } = await supabase.auth.getUser();
-        if (cancelled || !user) return;
-        if (creatorId && user.id === creatorId) {
-          setRole('owner');
-        } else if (isAdmin(user.id)) {
-          setRole('admin');
-        }
-      } catch {
-        /* anonymous - render nothing */
-      }
-    })();
-    return () => { cancelled = true; };
-  }, [creatorId]);
+  // Null while loading, during hydration and for a visitor: render nothing. is_admin comes
+  // from the server (the admin list is not readable in the browser).
+  const role = viewerRole(me, creatorId);
 
   async function handleDelete(asAdmin: boolean): Promise<void> {
     const confirmMsg = asAdmin

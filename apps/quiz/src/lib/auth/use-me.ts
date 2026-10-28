@@ -27,6 +27,8 @@ export interface MeProfile {
 
 export interface MeResponse {
   is_admin?: boolean;
+  /** The signed-in user's own id (absent when signed out). */
+  id?: string;
   profile: MeProfile | null;
 }
 
