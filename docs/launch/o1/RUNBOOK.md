@@ -264,12 +264,12 @@ If Vercel refuses `kpopquiz` because the project already has its own `SUPABASE_S
 Check: each of the three projects lists `SUPABASE_SERVICE_ROLE_KEY` for Production (shared or its own); V9 build logs name no missing variable. Back: unlink the shared variable from the project.
 
 **H4  Supabase Auth: redirect URLs.**
-Do: Supabase dashboard, Authentication, URL Configuration: keep Site URL `https://kpopquiz.org`; add to Redirect URLs `https://fandomverse.org/**` (it covers `/anime`). If you added `https://otakuquiz.org/**` or `https://fanquiz.org/**` earlier, remove them. `www.fandomverse.org` redirects to the apex (K6), so it needs no entry.
-Check: the list shows the kpopquiz.org entries and `https://fandomverse.org/**`. Back: remove the entry.
+Do: Supabase dashboard, Authentication, URL Configuration: keep Site URL `https://kpopquiz.org`; add to Redirect URLs exactly `https://fandomverse.org/auth/callback**` and `https://fandomverse.org/anime/auth/callback**`, never a wider `https://fandomverse.org/**` (AUTH-FANDOMVERSE.md: only the sign-in callbacks may receive a session). If you added `https://otakuquiz.org/**` or `https://fanquiz.org/**` earlier, remove them. `www.fandomverse.org` redirects to the apex (K6), so it needs no entry.
+Check: the list shows the kpopquiz.org entries and the two fandomverse.org callbacks. Back: remove the two entries.
 
 **H5  Google and Discord sign-in.**
 Google: fandomverse.org uses the same Google client as kpopquiz.org. No new client, no new id in Supabase's Google provider: the sign-in goes through Supabase, whose callback does not change.
-Only if AUTH-FANDOMVERSE.md (lane 3) says fandomverse.org shows the Google Identity Services button: Google Cloud Console, APIs and Services, Credentials, the Web client of kpopquiz.org, Authorized JavaScript origins, add `https://fandomverse.org`; if Google asks, add `fandomverse.org` to the consent screen's authorized domains.
+AUTH-FANDOMVERSE.md (lane 3): fandomverse.org uses Supabase's Google redirect, not the Google Identity Services button, so Google Cloud needs no JavaScript origin and no new redirect URI.
 Discord: nothing to add. The Discord application redirects to the Supabase callback, unchanged; the allowed return address is H4's.
 Email: fandomverse.org offers no email sign-in (code, lane 3); the email provider stays on for kpopquiz.org.
 Check: V10 later (K6): the sign-in sheet on fandomverse.org shows Google and Discord and no email field; both sign in; `/anime` shows the same session. Back: remove the origin.
@@ -366,7 +366,7 @@ L09 to L11 (openings, formats, crossover quiz) are not part of the launch (secti
 **K1  Go / no-go (the evening before).** All true, or the day moves:
 - V1 to V7 passed in their phases; the watches C, D3 and F are clean; V9 passes for the three projects (the hub at `/` and OtakuQuiz at `/anime` on the `fandomverse` address).
 - `ls $M/launch/` shows L01 to L08, L10-PERS and L12 with their rollbacks; J2's three checks pass; L01's header names the FandomVerse domain (lane 2); J3 was run on these files.
-- H done: `dig +short fandomverse.org A` answers (H6), the Microfrontends group exists (H7), `https://fandomverse.org/**` is a Supabase redirect URL (H4), the service role key is linked (H3), the Google origin is set if AUTH-FANDOMVERSE.md asks for it (H5).
+- H done: `dig +short fandomverse.org A` answers (H6), the Microfrontends group exists (H7), the two fandomverse.org callbacks are Supabase redirect URLs (H4), the service role key is linked (H3), the Google origin is set if AUTH-FANDOMVERSE.md asks for it (H5).
 - `apps/quiz/src/lib/site/registry.ts` list `PLACEHOLDERS` for anime and hub: each item is set or accepted. Brand (owner, 2026-10-28): bunny plus "FandomVerse" for the hub, bunny plus "OtakuQuiz" for `/anime`; the default share image of each site says its own name.
   IndexNow: the key fandomverse.org serves is `<<FROM INTEGRATOR>>` (ENV.md 1.7). Organization mailbox: `hello@kpopquiz.org` on all three sites.
 - The hub privacy text and its controller are done (D-108, D-111, D-114); K10 checks the `privacy.controller` line.
@@ -521,5 +521,5 @@ Superseded on 2026-10-28: the two domains `otakuquiz.org` and `fanquiz.org`, two
 Still open (the integrator or a code lane):
 
 - The IndexNow key fandomverse.org serves (one host for the hub and `/anime`): `<<FROM INTEGRATOR>>`. Submitting fandomverse.org URLs to IndexNow is a later code change (`apps/quiz/src/lib/indexnow.ts` posts for kpopquiz.org only).
-- Whether fandomverse.org shows the Google Identity Services button (then H5's JavaScript origin): AUTH-FANDOMVERSE.md, lane 3.
+- Settled 2026-10-28: no Google Identity Services button, so no JavaScript origin (AUTH-FANDOMVERSE.md).
 - The exact Microfrontends command of H7: the integrator confirms it.

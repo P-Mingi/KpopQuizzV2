@@ -31,7 +31,7 @@ dig +short team.fandomverse.org MX
 ```
 
 ### 3. Microfrontends group (10 min). [RUNBOOK H7](RUNBOOK.md#h-domain-vercel-supabase-and-google)
-Command confirmed by the integrator: `<<FROM INTEGRATOR>>`. Run it only after that confirmation.
+Command checked by the integrator on 2026-10-28 against the options of Vercel CLI 59.4.0 (`vercel microfrontends create-group --help`).
 ```
 mkdir -p ~/kpq-launch/mf
 ```
@@ -55,17 +55,17 @@ Supabase, Project Settings, API Keys: copy the `service_role` key. Vercel, Team 
 SUPABASE_SERVICE_ROLE_KEY
 ```
 
-### 5. Supabase redirect URL (5 min). [RUNBOOK H4](RUNBOOK.md#h-domain-vercel-supabase-and-google)
-Supabase, Authentication, URL Configuration, Redirect URLs, Add URL. Site URL stays `https://kpopquiz.org`. Remove `https://otakuquiz.org/**` and `https://fanquiz.org/**` if listed.
+### 5. Supabase redirect URLs (5 min). [RUNBOOK H4](RUNBOOK.md#h-domain-vercel-supabase-and-google)
+Supabase, Authentication, URL Configuration, Redirect URLs, Add URL, once per line below. Site URL stays `https://kpopquiz.org`. Remove `https://otakuquiz.org/**` and `https://fanquiz.org/**` if listed. Do not add a wider `https://fandomverse.org/**`: only the two sign-in callbacks may receive a session (AUTH-FANDOMVERSE.md).
 ```
-https://fandomverse.org/**
+https://fandomverse.org/auth/callback**
+```
+```
+https://fandomverse.org/anime/auth/callback**
 ```
 
-### 6. Google JavaScript origin (5 min, only if needed). [RUNBOOK H5](RUNBOOK.md#h-domain-vercel-supabase-and-google)
-Needed: `<<FROM LANE 3>>`. If yes: Google Cloud Console, APIs and Services, Credentials, the kpopquiz.org Web client, Authorized JavaScript origins, Add URI. Nothing to do for Discord.
-```
-https://fandomverse.org
-```
+### 6. Google and Discord (0 min: nothing to do). [RUNBOOK H5](RUNBOOK.md#h-domain-vercel-supabase-and-google)
+fandomverse.org signs in with Supabase's Google redirect and the kpopquiz.org Google client, like kpopquiz.org (AUTH-FANDOMVERSE.md): no JavaScript origin, no new redirect URI, no new client. Discord keeps its Supabase callback. Nothing to change in Google Cloud or in the Discord developer portal.
 
 ## Part 2. Merge and first deploys (1 h 55, when the integrator says the lanes are merged)
 
@@ -609,10 +609,7 @@ sql1 docs/pending-migrations/hub/002-xp-daily-snapshots.sql
 
 | placeholder | step | what fills it |
 |---|---|---|
-| `<<FROM INTEGRATOR>>` | 3 (and RUNBOOK H7) | the confirmed Microfrontends command (flags, team scope), or "use the dashboard" |
-| `<<FROM LANE 3>>` | 6 (and RUNBOOK H5) | yes or no: does fandomverse.org use the Google Identity Services button, so needs the JavaScript origin (AUTH-FANDOMVERSE.md) |
 | `<<FROM INTEGRATOR>>` | 59 (and RUNBOOK K1, K10, "Still open"; ENV.md 1.7) | the IndexNow key file fandomverse.org serves (one host for the hub and `/anime`) |
-| `<<FROM INTEGRATOR>>` | ENV.md legend | confirmation that the variables marked "set 2026-10-28 by the integrator" are the ones he set |
 
 Derived from the sub-folder layout, not decided by a lane yet (the integrator corrects them if ARCHITECTURE-FANDOMVERSE.md differs): the OtakuQuiz API answers under `/anime/api/...` (step 58),
 its sitemap is `https://fandomverse.org/anime/sitemap.xml` (step 59), its admin is `/anime/admin`, and the Vercel "Run" button of step 58 reaches the `otakuquiz` cron route.

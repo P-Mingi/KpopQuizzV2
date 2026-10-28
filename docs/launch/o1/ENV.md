@@ -13,7 +13,7 @@ Legend for "value source" and "state":
 - **copy kpopquiz**: the same value that the `kpopquiz` project already has.
 - **public**: not a secret (it ends up in the browser), but still set per project.
 - **secret, create**: a value created once (`openssl rand -base64 48 | pbcopy`, then paste, so it never shows in your scrollback). "Same on the 3" means one value in the three projects.
-- **set 2026-10-28 by the integrator**: set today with the Vercel CLI (owner exception), Production environment. The integrator confirms this list in his merge note: `<<FROM INTEGRATOR>>`.
+- **set 2026-10-28 by the integrator**: set today with the Vercel CLI (owner exception), Production environment. Confirmed by the integrator on 2026-10-28: the shared secrets were checked by length and fingerprint on the 3 projects, never by value.
 - **owner, RUNBOOK Xn**: you set it at that step.
 
 Environment: every variable below is for **Production**. Preview keeps the `o1-dev` values set for `o1/integration` (removed after launch, RUNBOOK "After launch"); never put a production secret in Preview.
@@ -66,7 +66,7 @@ The hub and `/anime` share one origin, so they share the session cookie directly
 
 | variable | kpopquiz | fandomverse | otakuquiz | value source |
 |---|---|---|---|---|
-| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | leave unset | see AUTH-FANDOMVERSE.md (lane 3) | see AUTH-FANDOMVERSE.md (lane 3) | public. If set, it is the client id of the kpopquiz.org Google client (no new client, owner 2026-10-28). |
+| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | leave unset | **do not set** | **do not set** | unread: fandomverse.org signs in through Supabase's Google redirect with the kpopquiz.org client (AUTH-FANDOMVERSE.md). |
 | `NEXT_PUBLIC_SITE_URL` | already (kpop override) | **never set** | **never set** | The hub and OtakuQuiz take their canonical origin from the registry (`https://fandomverse.org`, and `/anime` for OtakuQuiz). |
 
 ### 1.5 kpopquiz only: already set, leave alone, do not copy to the new projects
@@ -128,7 +128,7 @@ The deploy note is `docs/o1/b7/send-email-hook.md` (RUNBOOK section I). The `fan
 
 ### 2.2 Auth settings (dashboard, no variable)
 
-Site URL stays `https://kpopquiz.org`. Redirect URLs gain `https://fandomverse.org/**`, which covers `/anime` (RUNBOOK H4); `https://otakuquiz.org/**` and `https://fanquiz.org/**` are not needed (remove them if you added them).
+Site URL stays `https://kpopquiz.org`. Redirect URLs gain exactly `https://fandomverse.org/auth/callback**` and `https://fandomverse.org/anime/auth/callback**` (RUNBOOK H4), never a wider `https://fandomverse.org/**` (AUTH-FANDOMVERSE.md: only the callbacks may receive a session); `https://otakuquiz.org/**` and `https://fanquiz.org/**` are not needed (remove them if you added them).
 Google provider: the kpopquiz.org client serves fandomverse.org too; nothing is added to its "Client IDs" list (RUNBOOK H5). Discord provider: as it is for kpopquiz.org; nothing is added.
 Email sign-in is not offered on fandomverse.org (code, lane 3); the email provider stays on for kpopquiz.org. The Send Email hook stays off (2.1).
 The Data API's exposed schemas must **not** contain `passport` (006 revokes every grant, but the setting is the second wall).
