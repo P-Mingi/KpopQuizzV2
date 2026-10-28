@@ -300,7 +300,10 @@ export interface SiteCopy {
 export interface SiteConfig {
   readonly id: SiteId;
   readonly kind: SiteKind;
-  /** Absolute origin without a trailing slash, e.g. 'https://kpopquiz.org'. */
+  /**
+   * Absolute origin without a trailing slash, e.g. 'https://kpopquiz.org'; for a site in a sub-folder of another site's domain,
+   * the origin and the folder, e.g. 'https://fandomverse.org/anime' (its build's basePath: registry.ts basePathOf).
+   */
   readonly url: string;
   /** Bare host name, e.g. 'kpopquiz.org'. */
   readonly domain: string;

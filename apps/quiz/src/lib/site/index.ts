@@ -12,7 +12,7 @@ export type {
 export { SITE_IDS, UX_NEW_TOKEN_NAMES, UX_TOKEN_NAMES } from './types';
 export {
   NETWORK, O1_FLAGS, O1_SECRET_NAMES, PLACEHOLDERS, REGISTRY, SITE, SITE_ID, UNTOUCHED_FLAGS,
-  flagOn, isSiteId, netOrigin, parseNetOrigins, resolveSiteId, siteConfig, siteForOrigin,
+  basePathOf, flagOn, isSiteId, netBase, netOrigin, originOf, parseNetOrigins, resolveSiteId, siteConfig, siteForOrigin,
 } from './registry';
 export type { FlagScope, NetOriginEnv, O1Flag, SiteEnv } from './registry';
 export {
