@@ -12,8 +12,9 @@ export type {
 export { SITE_IDS, UX_NEW_TOKEN_NAMES, UX_TOKEN_NAMES } from './types';
 export {
   NETWORK, O1_FLAGS, O1_SECRET_NAMES, PLACEHOLDERS, REGISTRY, SITE, SITE_ID, UNTOUCHED_FLAGS,
-  flagOn, isSiteId, netOrigin, parseNetOrigins, resolveSiteId, siteConfig, siteForOrigin,
+  flagOn, isSiteId, netOrigin, parseNetOrigins, resolveSiteId, siteConfig,
 } from './registry';
+export { siteForOrigin } from './origin-site';
 export type { FlagScope, NetOriginEnv, O1Flag, SiteEnv } from './registry';
 export {
   AFTER_FILES_PATTERN, CATCH_ALL_PATTERN, INDEXNOW_KEY_FILE_RE, KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES,
