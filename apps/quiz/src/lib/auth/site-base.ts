@@ -11,6 +11,7 @@
 // MERGE NOTE (lane 1): SITE_BASE_PATH mirrors the basePath lane 1 gives the anime build in next.config.ts. When lane 1's
 // basePath helper lands, read the value from there so the repo has one source.
 
+import { joinBase } from '@/lib/auth/base-path';
 import { safeReturnTo } from '@/lib/auth/return-to';
 import { netOrigin } from '@/lib/site/registry';
 
@@ -18,29 +19,13 @@ import type { NetOriginEnv } from '@/lib/site/registry';
 import type { SiteId } from '@/lib/site/types';
 
 /** The basePath of each build: '' (served at the root of its origin) or '/anime'. */
+export { isSitePath, joinBase } from '@/lib/auth/base-path';
+
 export const SITE_BASE_PATH: Readonly<Record<SiteId, '' | '/anime'>> = { kpop: '', anime: '/anime', hub: '' };
 
 /** The basePath of `site`'s build. */
 export function basePathOf(site: SiteId): string {
   return SITE_BASE_PATH[site];
-}
-
-/** A path that safeReturnTo would keep as it is: a leading slash, not '//', no backslash. */
-function isSitePath(path: string): boolean {
-  return path.length > 0 && path[0] === '/' && path[1] !== '/' && !path.includes('\\');
-}
-
-/**
- * The browser path of an app path of a build whose basePath is `base`: '/' becomes the base itself, '/?x' and '/#x' keep
- * their query or fragment on the base, any other path is appended. Anything that is not a same-site path answers the
- * home of the build (fail closed: the answer never leaves the base).
- */
-export function joinBase(base: string, path: string): string {
-  if (!isSitePath(path)) return base || '/';
-  if (!base) return path;
-  if (path === '/') return base;
-  if (path[1] === '?' || path[1] === '#') return `${base}${path.slice(1)}`;
-  return `${base}${path}`;
 }
 
 /** The browser path of an app path of `site` (see joinBase). */

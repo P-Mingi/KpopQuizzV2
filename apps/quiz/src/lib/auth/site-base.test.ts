@@ -21,6 +21,8 @@ const HOSTILE = [
   '\\\\evil.com', '/\t/evil.com', 'javascript:alert(1)', 'data:text/html,x', 'https://fandomverse.org/x', 'https://kpopquiz.org/x',
   '/anime//evil.com', '/anime/\\evil.com', '/anime/../passport', '/%2e%2e/passport', '/anime/%2e%2e/passport', '/anime/.%2e/passport',
   '/..%2f..%2fpassport', '/anime/..', '/./../x', 'fandomverse.org/anime', '', `/${'a'.repeat(2048)}`,
+  // dot segments that normalise into a protocol-relative path (security review, 2026-10-28)
+  '/.//evil.com', '/a/..//evil.com', '/%2e//evil.com', '/anime/.//evil.com', '/anime/a/..//evil.com', '/anime/%2e//evil.com',
 ];
 
 describe('the base path of each build', () => {
@@ -38,6 +40,14 @@ describe('the base path of each build', () => {
     for (const site of ['kpop', 'hub'] as const) {
       for (const p of ['/', '/q/x', '/?a=1', '/passport#x']) expect(withBase(site, p)).toBe(p);
     }
+  });
+
+  it('the /login guest link of a world build: joinBase over safeReturnTo, never protocol-relative', () => {
+    for (const raw of ['/.//evil.com', '/a/..//evil.com', '/%2e//evil.com', '//evil.com', '/\\evil.com']) {
+      expect(joinBase('/anime', safeReturnTo(raw))).toBe('/anime');
+      expect(joinBase('', safeReturnTo(raw))).toBe('/');
+    }
+    expect(joinBase('/anime', safeReturnTo('/daily'))).toBe('/anime/daily');
   });
 
   it('joinBase fails closed: anything that is not a same-site path answers the home of the build', () => {

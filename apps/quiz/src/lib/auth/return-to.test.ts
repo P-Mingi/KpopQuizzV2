@@ -62,6 +62,31 @@ describe('safeReturnTo', () => {
     }
   });
 
+  // Security fix (FandomVerse review, 2026-10-28): dot segments that normalise into a protocol-relative path. Before the fix
+  // '/.//evil.com' came back as '//evil.com' (the "Just let me play as a guest" link of /login, the onboarding redirect).
+  it('refuses a path whose normalised form is protocol-relative (dot segments, encoded dots, backslash variants)', () => {
+    for (const hostile of [
+      '/.//evil.com', '/a/..//evil.com', '/%2e//evil.com', '/%2E//evil.com', '/././/evil.com', '/a/b/../..//evil.com',
+      '/.%2e//evil.com', '/%2e%2e//evil.com', '/..//evil.com', '/.//evil.com/x?y=1#z', '/.//\\evil.com', '/./\\evil.com',
+      '/.\\/evil.com', '/%2e/\\evil.com', '/.//%5cevil.com',
+    ]) {
+      expect(safeReturnTo(hostile), hostile).toBe('/');
+      expect(safeReturnTo(hostile, '/safe', 'anime'), hostile).toBe('/safe');
+      expect(safeReturnTo(hostile, '/safe', 'hub'), hostile).toBe('/safe');
+    }
+  });
+
+  it('a dot segment that stays inside the site is still normalised and kept', () => {
+    expect(safeReturnTo('/./q/x')).toBe('/q/x');
+    expect(safeReturnTo('/a/../q/x?y=1')).toBe('/q/x?y=1');
+    expect(safeReturnTo('/%2e/daily')).toBe('/daily');
+    for (const v of ['/./q/x', '/a/../q', '/%2e/daily', '/.//evil.com', '/a/..//evil.com']) {
+      const out = safeReturnTo(v);
+      expect(out.startsWith('//')).toBe(false);
+      expect(new URL(out, 'https://kpopquiz.org').origin).toBe('https://kpopquiz.org');
+    }
+  });
+
   it('an over-long value is refused', () => {
     expect(safeReturnTo('/' + 'a'.repeat(3000))).toBe('/');
   });
