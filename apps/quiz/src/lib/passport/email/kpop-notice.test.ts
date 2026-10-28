@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 
 import { COPY } from '@/copy/hub/b7';
 
-import { mailSinkFile, noticeDate, sendDeletionNotice } from './notice';
+import { mailSinkFile, noticeDate, sendDeletionNotice, settingsLink } from './notice';
 import { renderEmail } from './render';
 
 const calls: Array<{ url: string; body: { from: string; to: string[]; subject: string; html: string; text: string } }> = [];
@@ -47,6 +47,31 @@ describe('the notice of a kpop member', () => {
 
   it('noticeDate is the UTC day', () => {
     expect(noticeDate('2026-10-31T23:30:00.000Z')).toBe('2026-10-31');
+  });
+});
+
+describe('the cancel link carries the basePath of its site (review, 2026-10-28)', () => {
+  // A preview: kpop on its own origin, hub and anime on one FandomVerse origin (anime under '/anime').
+  const STAGING = 'kpop=https://kpop-preview.example,anime=https://fv-preview.example,hub=https://fv-preview.example';
+
+  it('settingsLink: the registry url in production, the staging origin with the basePath elsewhere', () => {
+    expect(settingsLink('anime', {})).toBe('https://fandomverse.org/anime/settings');
+    expect(settingsLink('anime', { VERCEL_ENV: 'production', NEXT_PUBLIC_NET_ORIGINS: STAGING })).toBe('https://fandomverse.org/anime/settings');
+    expect(settingsLink('anime', { NEXT_PUBLIC_NET_ORIGINS: STAGING })).toBe('https://fv-preview.example/anime/settings');
+    expect(settingsLink('hub', {})).toBe('https://fandomverse.org/settings');
+    expect(settingsLink('hub', { NEXT_PUBLIC_NET_ORIGINS: STAGING })).toBe('https://fv-preview.example/settings');
+    expect(settingsLink('kpop', {})).toBe('https://kpopquiz.org/settings');
+    expect(settingsLink('kpop', { VERCEL_ENV: 'production', NEXT_PUBLIC_NET_ORIGINS: STAGING })).toBe('https://kpopquiz.org/settings');
+    expect(settingsLink('kpop', { NEXT_PUBLIC_NET_ORIGINS: STAGING })).toBe('https://kpop-preview.example/settings');
+  });
+
+  it('a staging notice of the hub and of kpop links to its own settings on its staging origin', async () => {
+    for (const [site, link] of [['hub', 'https://fv-preview.example/settings'], ['kpop', 'https://kpop-preview.example/settings']] as const) {
+      calls.length = 0;
+      expect(await sendDeletionNotice('k@example.test', '2026-10-31T12:00:00.000Z', { RESEND_API_KEY: 'k', NEXT_PUBLIC_NET_ORIGINS: STAGING }, okFetch, site)).toBe(true);
+      expect(calls[0]!.body.html, site).toContain(`href="${link}"`);
+      expect(calls[0]!.body.text, site).toContain(`Cancel the deletion: ${link}\n`);
+    }
   });
 });
 

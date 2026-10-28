@@ -11,7 +11,8 @@
 // is inert there whatever O1_MAIL_SINK says.
 
 import { COPY } from '@/copy/hub/b7';
-import { NETWORK, REGISTRY, netOrigin } from '@/lib/site/registry';
+import { siteUrl } from '@/lib/auth/site-base';
+import { NETWORK, REGISTRY } from '@/lib/site/registry';
 
 import { renderEmail } from './render';
 
@@ -38,6 +39,15 @@ export function mailBrand(site: SiteId = 'hub'): MailBrand {
   const id = site === 'kpop' ? 'kpop' : 'hub';
   const cfg = REGISTRY[id];
   return { id, name: cfg.brand.name, url: cfg.url, domain: cfg.domain, network: NETWORK.name, privacyPath: '/privacy', accent: ACCENT[id] };
+}
+
+/**
+ * The settings page of `site` on this deployment, where the deletion is cancelled: the site's origin (NEXT_PUBLIC_NET_ORIGINS
+ * outside production) with its basePath, so a link of anime is https://fandomverse.org/anime/settings, never the hub's
+ * /settings of the bare shared origin. kpop and the hub have no basePath: their link is the one of before.
+ */
+export function settingsLink(site: SiteId, env: NetOriginEnv): string {
+  return siteUrl(site, env, '/settings');
 }
 
 /** `2026-10-28`: the UTC date the deletion runs (no time zone is guessed). */
@@ -68,7 +78,7 @@ export async function sendDeletionNotice(
     kind: 'deletionScheduled',
     brand,
     copy: COPY,
-    link: `${netOrigin(brand.id, env)}/settings`,
+    link: settingsLink(brand.id, env),
     date: noticeDate(runAfter),
   });
   if (sink) {
