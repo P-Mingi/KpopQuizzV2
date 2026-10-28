@@ -10,6 +10,8 @@ import { WarStrip } from '@/components/community/ux-v1/war-strip';
 import { UxPage } from '@/components/ux-v1/page';
 import { getEditorialLive } from '@/lib/editorial/live';
 import { safeFetch } from '@/lib/error-handling';
+import { siteAddress } from '@/lib/site/brand';
+import { SITE } from '@/lib/site/registry';
 import { UX_V1 } from '@/lib/ux-v1';
 import { getP8Features, NO_FEATURES } from '@/lib/ux-v1/p8/features';
 import { feedSources, getP8Groups, mergeFeed } from '@/lib/ux-v1/p8/feed';
@@ -34,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
   if (!UX_V1) return {};
   return {
     title: 'Community',
-    description: 'Threads, blogs, debates and score challenges from every anime fandom, the daily debate and what fans are playing right now on fandomverse.org/anime.',
+    description: `Threads, blogs, debates and score challenges from every anime fandom, the daily debate and what fans are playing right now on ${siteAddress(SITE)}.`,
     alternates: { canonical: '/community' },
     robots: { index: false, follow: true },
   };
