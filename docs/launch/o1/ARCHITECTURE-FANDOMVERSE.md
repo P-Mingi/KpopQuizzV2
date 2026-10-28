@@ -146,7 +146,7 @@ lists `/anime/api/`; `https://fandomverse.org/sitemap.xml` is an index with `/an
 - The `x-vercel-mfe` routing keeps the request host (the `*.vercel.app` noindex rule matches on it): check the headers of section 5
   and RUNBOOK K9b once open.
 
-## 8. Client JS (no extra client JS)
+## 8. Client JS
 
 Measured on offline builds (2026-10-28) from the client reference manifest of a route: the root main files and the entry JS files
 of the route's segments, gzip level 9. Anime: base 8f2b9c3 against the head of o1/fv-l1 with lane 2's registry values.
@@ -160,17 +160,31 @@ of the route's segments, gzip level 9. Anime: base 8f2b9c3 against the head of o
 | /anime/login | 246,181 | 246,643 | +462 | +309 | 25, the same |
 
 On anime the growth is the `/anime` strings of the addresses (no new module, no new chunk group; Turbopack also split one
-chunk in two, which costs part of the gzip delta). On kpop and the hub nothing changes: each of the 90 modules of a client
-bundle that this lane changed compiles to the same bytes as at the base once Next's defines of a build without base path are
-applied and the code is minified (Next's own SWC, `process.env.__NEXT_ROUTER_BASEPATH` = `''`, `process.browser` = `true`),
-`registry.ts` is untouched, no module joins a client graph, and the hub build's chunks carry no trace of the helpers. Hub home
-after: 199,487 gzip (with lane 2's values; no base build of the hub was made, the offline build budget was three).
+chunk in two, which costs part of the gzip delta).
 
-One module is not byte-identical on kpop and the hub once lane 2 is in: `apps/quiz/src/lib/share.ts`. On every build,
-`shareLevelUp` builds the level-up share URL with the base path (the page origin plus `BASE_PATH`, then `?utm_source=levelup...`:
-`https://fandomverse.org/anime?utm_source=levelup...` on anime, `<origin>/?utm_source=levelup...` on kpop and the hub, as before)
-and its text with the site address (`SITE.url` without its scheme: `kpopquiz.org`, `fandomverse.org`, `fandomverse.org/anime`)
-where it read `SITE.domain` before (lane 2). The base-path part folds away on kpop and the hub; the address part does not, so
-the client chunk that carries `share.ts` changes on those two builds, while the text kpopquiz.org members share stays
-`kpopquiz.org`. The other share links of the module (`/s/<code>`, `/q/<slug>`, `/u/<username>`, the passport card) only gain
-the base path, which folds away there.
+On kpopquiz.org the client JS did change, by a few hundred bytes. The earlier claim of this section, that each changed
+module compiles to the base's bytes on kpop, was wrong: the review of 2026-10-28 found extra bytes, and offline builds
+confirm them. Measured on offline kpop builds with the production flags (`NEXT_PUBLIC_UX_V1=1`, `NEXT_PUBLIC_UX_V12=1`,
+`NEXT_PUBLIC_BT_TRACKING=1`). Each figure is the gzip (level 9) total of the JS chunks a route's client reference manifest
+names (entry files plus client module chunks):
+
+| kpop route | main before FandomVerse (5113ee6) | FandomVerse merged (db12710) | siteForOrigin out of the registry |
+|---|---:|---:|---:|
+| /q/[slug] | 79,376 | 79,786 (+410) | 79,276 (-100) |
+| / (home) | 95,158 | 95,580 (+422) | 95,058 (-100) |
+| /[slug] (group hub) | 99,944 | 100,442 (+498) | 99,928 (-16) |
+| /blindtest/[mode] | 87,764 | 88,198 (+434) | 87,680 (-84) |
+| /quizzes | 98,920 | 99,318 (+398) | 98,802 (-118) |
+
+Most of the FandomVerse growth was in `lib/site/registry.ts`, which is in every kpop client bundle: `siteForOrigin` and its two
+URL helpers. They are only called by the beacon route on the server. They now live in `lib/site/origin-site.ts`, a
+server-only module, and registry.ts no longer exports them (pinned by registry.test.ts); `isSiteId` now reads `SITE_IDS`
+instead of a second hand-written list. Each kpop route now ends a little below its pre-FandomVerse size (measured at
+43f07fd), because an older siteForOrigin already sat in the registry before FandomVerse.
+
+Two smaller changes stay in kpop chunks, and nothing changes on screen:
+- `lib/site/client-base-path.ts`, the shared `BASE_PATH` constant of the twins fix. It folds to `''` on kpop.
+- `lib/share.ts`, which now builds its text with the site address (`siteAddress(SITE)`, still `kpopquiz.org`) and its
+  level-up URL with the base path. On kpop the base path folds away; the address part does not.
+
+The hub build was not measured against a base build; its chunks carry the same registry change.

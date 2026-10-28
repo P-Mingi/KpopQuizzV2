@@ -12,9 +12,11 @@ import { INDEXNOW_KEY } from '@/lib/indexnow';
 import { LEVEL_TITLES } from '@/lib/level-titles';
 import { validateSchedule, type QuizBankEntry } from '@/lib/quiz-bank-scheduling';
 
+import { siteForOrigin } from './origin-site';
+import * as registryModule from './registry';
 import {
   NETWORK, PLACEHOLDERS, REGISTRY, SITE, SITE_ID, flagOn, isSiteId, netOrigin, parseNetOrigins,
-  resolveSiteId, siteConfig, siteForOrigin,
+  resolveSiteId, siteConfig,
 } from './registry';
 import { SITE_IDS } from './types';
 
@@ -340,5 +342,13 @@ describe('siteForOrigin on a shared origin', () => {
     ]) {
       expect(siteForOrigin(bad, { NEXT_PUBLIC_NET_ORIGINS: PROXY }), bad).toBeNull();
     }
+  });
+});
+
+// FandomVerse review (2026-10-28): siteForOrigin is server-only; registry.ts is in every kpopquiz.org client bundle and must not
+// carry it (lib/site/origin-site.ts).
+describe('siteForOrigin lives outside the registry module', () => {
+  it('registry.ts exports no siteForOrigin', () => {
+    expect('siteForOrigin' in registryModule).toBe(false);
   });
 });

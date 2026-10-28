@@ -7,7 +7,8 @@ import {
   basePathOf, joinSiteUrl, originOf, prefixBasePath, stripBasePath, withBasePath, withoutBasePath, zoneChildrenOf,
 } from './base-path';
 import { netBase } from './base-path';
-import { REGISTRY, netOrigin, siteForOrigin } from './registry';
+import { siteForOrigin } from './origin-site';
+import { REGISTRY, netOrigin } from './registry';
 
 import type { SiteConfig, SiteId } from './types';
 
