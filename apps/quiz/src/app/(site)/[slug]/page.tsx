@@ -9,6 +9,7 @@ import { SourcedTriviaPage, generateSourcedTriviaMetadata } from './sourced-triv
 import { getSourcedTrivia } from '@/lib/trivia/sourced/store';
 import { UX_V1 } from '@/lib/ux-v1';
 import { GroupHubV11 } from '@/components/group/ux-v1/hub';
+import { THEME_SLUGS } from '@/lib/hubs/general-themes';
 
 import type { Metadata } from 'next';
 
@@ -20,6 +21,8 @@ const RESERVED_SLUGS = [
   'trending', 'new', 'most-liked', 'terms', 'privacy', 'login', 'settings',
   'admin', 'search', 'onboarding', 'banned', 'create', 'easy-kpop-quizzes',
   'hard-kpop-quizzes', 'kpop-quiz-2026', 'guess-the-kpop-idol', 'kpop-true-or-false',
+  // General K-pop theme pages (SEO phase 1): their own routes, never a group hub.
+  ...THEME_SLUGS,
 ];
 
 // ISR: revalidate the cached HTML hourly (SEO Fix 1).
