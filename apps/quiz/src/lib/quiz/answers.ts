@@ -5,6 +5,11 @@
 //   2. else the creator's fun fact, labelled as such (the existing questions block shows it the same way);
 //   3. else the answer alone.
 // A database fact that merely names the answer is not used: naming it does not explain the question.
+//
+// Questions about a person's age or birth, body, departure from a group, private life, family or origin
+// get no stated answer (rulebook 6.1 and 6.2): players write such questions, and the page must not assert
+// their answers about real people, minors included. A verified explanation is the exception: its lot was
+// checked against the same rules (no minors' age, birth or family, no heights, no departures).
 
 /** A question as stored in quizzes.questions (any quiz type). */
 export interface RawQuestion {
@@ -38,6 +43,25 @@ export interface AnswerRow {
 }
 
 const HTTPS = /^https:\/\/[^\s"'<>]+$/;
+
+/** Topics whose answers the page never states (matched on the question text, whole words). */
+export const NO_STATED_ANSWER: readonly RegExp[] = [
+  // age and birth
+  /\b(born|birth|births|birthday|birthdays|birthplace|age|ages|aged|old|older|oldest|young|younger|youngest|maknae|eldest)\b/i,
+  // body
+  /\b(tall|taller|tallest|short|shorter|shortest|height|heights|weigh|weighs|weight|cm|kg)\b/i,
+  // departures and disputes
+  /\b(left|leave|leaves|leaving|departed|departure|quit|kicked|removed|hiatus|lawsuit|dispute|terminated|disbanded)\b|no longer|not in the group|isn'?t in the group/i,
+  // private life and health
+  /\b(dating|dated|girlfriend|boyfriend|married|marriage|wife|husband|relationship|religion|religious|sick|illness|injury|injured|surgery|hospital|scandal|depression|anxiety)\b/i,
+  // family and origin
+  /\b(sister|sisters|brother|brothers|sibling|siblings|parent|parents|mother|father|mom|dad|family|cousin|nationality|ethnicity|heritage|hometown|grew up)\b|\bfrom (australia|america|the us|usa|canada|japan|china|thailand|vietnam|new zealand|indonesia|the philippines|taiwan|hong kong)\b/i,
+];
+
+/** True when the page must not state the answer of this question (see NO_STATED_ANSWER). */
+export function noStatedAnswer(question: string): boolean {
+  return NO_STATED_ANSWER.some((re) => re.test(question));
+}
 
 function text(v: unknown): string | null {
   return typeof v === 'string' && v.trim().length > 0 ? v.trim() : null;
@@ -83,6 +107,7 @@ export function buildAnswerRows(questions: Array<{ q: RawQuestion; qIndex: numbe
     // the checked question and answer must still be the live ones, word for word
     const checked = e && e.question === q.question && key !== null && e.answer === key ? e : null;
     const verifiedText = checked && HTTPS.test(checked.source_url) ? text(checked.explanation) : null;
+    if (!verifiedText && noStatedAnswer(question)) continue;
     const funFact = text(q.fun_fact);
     rows.push({
       qIndex,

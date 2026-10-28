@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { buildAnswerRows, displayAnswer, questionsJsonLd, storedAnswerKey } from './answers';
+import { buildAnswerRows, displayAnswer, noStatedAnswer, questionsJsonLd, storedAnswerKey } from './answers';
 
 import type { RawQuestion, StoredExplanation } from './answers';
 
@@ -102,5 +102,37 @@ describe('questionsJsonLd: the Quiz JSON-LD Questions carry the visible answers'
       { '@type': 'Question', name: 'x' },
     ]);
     expect(JSON.stringify(questionsJsonLd(shown, rows))).not.toContain('eduQuestionType');
+  });
+});
+
+describe('noStatedAnswer: the page never asserts these answers about real people', () => {
+  it('age and birth, body, departures, private life, family and origin', () => {
+    for (const q of [
+      'Which member was born in 2008?', 'Who is the oldest?', 'Who is the youngest in newjeans', 'Which member\'s birthday is October 6?',
+      'Who is the shortest...', 'Who is the tallest member?', 'Which member is currently not in the group?', 'Which member left the group in 2023?',
+      'Who is dating an actor?', 'Which member has a sister?', 'Which member had to gaurr? (From Australia)', 'What is the nationality of Hanni?',
+    ]) expect(noStatedAnswer(q), q).toBe(true);
+  });
+
+  it('keeps the questions about the music, the group and its history', () => {
+    for (const q of [
+      'Which year did BTS debut?', 'Which global brand did new jeans collab with?', 'What song did newjeans release while collabing with the brand>',
+      'Who is the leader of BTS?', 'How many members are in newjeans?', 'Which two members appeared in BTS\'s "Permission to Dance" music video?',
+      'Which album has the song Super Shy?', 'Who is the main dancer?', 'Who is not in BLACKPINK?',
+    ]) expect(noStatedAnswer(q), q).toBe(false);
+  });
+
+  it('such a question gets no row, so no stated answer and no acceptedAnswer', () => {
+    const shown = [{ q: { question: 'Which member was born in 2008?', options: ['Minji', 'Hanni', 'Hyein', 'Haerin'], correct: 2 }, qIndex: 0 }, { q: mc, qIndex: 1 }];
+    const rows = buildAnswerRows(shown, []);
+    expect(rows.map((r) => r.qIndex)).toEqual([1]);
+    expect(questionsJsonLd(shown, rows)[0]).toEqual({ '@type': 'Question', name: 'Which member was born in 2008?' });
+  });
+
+  it('a verified explanation (checked against the same rules) keeps its row; a fun fact does not', () => {
+    const oldest = { question: 'Who is the oldest member of BTS?', options: ['Jin', 'Suga', 'RM', 'J-Hope'], correct: 0, fun_fact: 'Jin was born in 1992.' };
+    const verified = expl({ question: oldest.question, answer: 'Jin', explanation: 'Jin, born on 4 December 1992, is the oldest of the seven BTS members.' });
+    expect(buildAnswerRows([{ q: oldest, qIndex: 0 }], [verified])[0]?.explanation?.kind).toBe('verified');
+    expect(buildAnswerRows([{ q: oldest, qIndex: 0 }], [])).toEqual([]);
   });
 });
