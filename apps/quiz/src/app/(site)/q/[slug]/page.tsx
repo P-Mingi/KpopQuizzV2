@@ -14,7 +14,7 @@ import { stableIndex } from '@/lib/trivia/pick-fact';
 import { getQuizHallOfFame } from '@/lib/db/queries/community';
 import { getQuizSocialCounts } from '@/lib/db/queries/quiz-social';
 import { getQuizExplanations } from '@/lib/db/queries/quiz-explanations';
-import { buildAnswerRows, questionsJsonLd } from '@/lib/quiz/answers';
+import { buildAnswerRows, noStatedAnswer, questionsJsonLd } from '@/lib/quiz/answers';
 import { AboutQuizDrawer, QuizPlayer, EmbedQuizToggle } from '@/components/quiz/legacy-islands';
 import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
 import { QuizHallOfFame } from '@/components/quiz/quiz-hall-of-fame';
@@ -25,6 +25,8 @@ import { READ_RETRY_DELAY_MS } from '@/lib/ux-v1/p3/reads';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { scoreIsPerQuestion } from '@/lib/quiz/scoring';
 import { averageText, quizAverage } from '@/lib/quiz/quiz-average';
+import { buildQuizIntro } from '@/lib/quiz/quiz-about';
+import { getGroupEntities } from '@/lib/db/queries/quiz-entities';
 import { buildInThisQuiz } from '@/lib/quiz/in-this-quiz';
 import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
 import { UX_V1 } from '@/lib/ux-v1';
@@ -34,6 +36,10 @@ import { qualifiedQuizTitle, quizDescription, quizTitle } from '@/lib/seo/quiz-m
 
 import type { Metadata } from 'next';
 import type { BreadcrumbItem } from '@/components/ui/breadcrumbs';
+import type { GroupEntities } from '@/lib/quiz/quiz-about';
+
+// The About sentence without entities (no group, or the read failed): today's plain sentence.
+const NO_ENTITIES: GroupEntities = { members: [], songs: [], albums: [] };
 
 // ISR: cached HTML revalidates hourly. The TOP_PRERENDER most-played slugs
 // pre-render at build time so Googlebot hits cold-cache static HTML with
@@ -245,7 +251,19 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   // C4: perfect count is only meaningful when a perfect run == qcount;
   // otherwise the underlying rows do not match "perfect" as a user reads it.
   const introPerfCount = perQuestionScore ? extraStats.perfectScoreCount : 0;
-  const base = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionCount}-question quiz by ${quiz.creator_username}.`;
+  // SEO phase 1: the lead sentence names what this quiz is about, from its own questions and options
+  // (lib/quiz/quiz-about.ts): the group's members, songs and albums it cites, and its years.
+  const entities = quiz.group_id != null
+    ? await safeFetch(getGroupEntities(quiz.group_id), NO_ENTITIES, '[q/[slug]] entities')
+    : NO_ENTITIES;
+  const base = buildQuizIntro({
+    groupName: quiz.group_name, quizType: quiz.quiz_type, questionCount, difficulty: quiz.difficulty, creator: quiz.creator_username,
+    texts: seoQuestions
+      .filter((q) => typeof q.question === 'string' && !noStatedAnswer(q.question))
+      .flatMap((q) => [q.question, ...(q.options ?? []), ...(q.clues ?? [])])
+      .filter((t): t is string => typeof t === 'string'),
+    entities,
+  });
   let socialProof: string;
   if (plays === 0) {
     // Branch A: brand new
