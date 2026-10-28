@@ -17,10 +17,12 @@ import { jsonLdScript } from '@/lib/verse/jsonld';
 import { QUIZ_TYPE_ICON, QUIZ_TYPE_LABEL } from '@/lib/ux-v1/a0/icons';
 import { formatDuration } from '@/lib/ux-v1/p4/engine';
 import { aboutMinutes, cardAverage } from '@/lib/ux-v1/p4/format';
+import { averageText } from '@/lib/quiz/quiz-average';
 
 // client islands through code-split loaders (flag-off pages never download them)
 import { P4Follow, P4HofMine, P4ReportButton, P4Run, P4StartActions, P4StickyStart } from './islands';
 
+import type { AnswerRow } from '@/lib/quiz/answers';
 import type { QuizCardData, QuizType } from '@/lib/db/types';
 import type { P4Creator, P4HofRow } from '@/lib/ux-v1/p4/queries';
 import type { P4RunQuiz } from './run-context';
@@ -69,6 +71,8 @@ export interface P4QuizPageProps {
   creatorNote: string | null;
   /** gated like the intro (unlock threshold, per-question types) */
   introAvg: number | null;
+  /** Completed plays behind introAvg, written beside it ("average of N completed plays"). */
+  introAvgOf?: number | null;
   perQuestionScore: boolean;
   extra: { fastestTimeSeconds: number | null; perfectScoreCount: number };
   passRate: number | null;
@@ -76,6 +80,8 @@ export interface P4QuizPageProps {
   inThisQuiz: { contextLine: string; topicsLine: string } | null;
   prompts: string[];
   review: P4ReviewQuestion[];
+  /** Answers & explanations at the bottom of the page (SEO phase 1); null or empty: no block. */
+  answers?: AnswerRow[] | null;
   dyk: { fact: string; category?: string | null } | null;
   triviaAvailable: boolean;
   fandomName: string;
@@ -114,6 +120,11 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
     p.counts.comments > 0 ? `${p.counts.comments.toLocaleString('en-US')} comment${p.counts.comments === 1 ? '' : 's'}` : null,
   ].filter(Boolean).join(' · ');
   const rest = Math.max(0, q.questionCount - p.prompts.length);
+  const hasAnswers = (p.answers?.length ?? 0) > 0;
+  // One text node, so a page without the answers block keeps exactly today's tree (owner wording, 2026-10-28).
+  const reviewNote = hasAnswers
+    ? ' quiz. Try it first. Answers and explanations are at the bottom of the page (spoilers).'
+    : ' quiz. The correct answers are revealed only when you play.';
 
   return (
     <UxPage width="full" padded={false} className="p4-page">
@@ -129,9 +140,11 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
             ))}
           </nav>
 
+          {/* The cover is the LCP element of /q/: fetchPriority high starts its preload and img at high
+              priority (preload alone does not), and sizes follows the 20 px side gutters on phones. */}
           <div className="p4-cover">
             {q.cover ? (
-              <Image className="p4-cover-img" src={q.cover} alt={`${q.title} - ${q.groupName || 'K-pop'} quiz`} fill priority sizes="(max-width: 760px) 100vw, 720px" />
+              <Image className="p4-cover-img" src={q.cover} alt={`${q.title} - ${q.groupName || 'K-pop'} quiz`} fill preload fetchPriority="high" sizes="(max-width: 760px) calc(100vw - 40px), 720px" />
             ) : (
               <span className="ux-fbn"><Icon name={QUIZ_TYPE_ICON[q.quizType] ?? 't-classic'} />{q.groupName}</span>
             )}
@@ -145,7 +158,7 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
             <span className="ux-num">{q.questionCount} {q.questionCount === 1 ? 'question' : 'questions'}</span>
             <span>{aboutMinutes(q.questionCount, p.run.timerOn, p.run.timerSeconds)}</span>
             <span className="ux-num">{q.playCount.toLocaleString('en-US')} plays</span>
-            {p.introAvg !== null ? <span className="ux-num">Average {p.introAvg}%</span> : null}
+            {p.introAvg !== null && p.introAvgOf ? <span className="ux-num">{averageText({ pct: p.introAvg, completions: p.introAvgOf })}</span> : null}
           </div>
           <div className="p4-author">
             <UxAvatar name={q.creatorUsername} src={p.creator?.avatarUrl ?? q.creatorAvatarUrl} size={28} team={team} />
@@ -223,7 +236,7 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
                   <summary>Show the {p.review.length} questions in this quiz<Icon name="chev" /></summary>
                   <div className="p4-ab">
                     <p>
-                      A preview of every question in this {q.groupName} quiz. The correct answers are revealed only when you play.
+                      A preview of every question in this {q.groupName}{reviewNote}
                       {p.inThisQuiz ? ` ${p.inThisQuiz.contextLine}. ${p.inThisQuiz.topicsLine.charAt(0).toUpperCase()}${p.inThisQuiz.topicsLine.slice(1)}.` : ''}
                     </p>
                     <ol>
@@ -293,6 +306,29 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
               <P4ReportButton quizId={q.id} withIcon />
             </div>
           </section>
+          {hasAnswers ? (
+            <section className="ux-sec" aria-label="Answers and explanations">
+              <details className="p4-acc p4-review">
+                <summary>Answers &amp; explanations<Icon name="chev" /></summary>
+                <div className="p4-ab">
+                  <p>Spoilers: the right answer to each question of this {q.groupName} quiz, with its explanation and source when we have one.</p>
+                  <ol>
+                    {(p.answers ?? []).map((a) => (
+                      <li key={a.qIndex}>
+                        <p><b>{a.n}.</b> {a.question}</p>
+                        <p><b>Answer:</b> {a.answer}</p>
+                        {a.explanation?.kind === 'verified' ? (
+                          <p className="p4-fun">{a.explanation.text} <a href={a.explanation.sourceUrl} rel="nofollow noopener" target="_blank">Source</a></p>
+                        ) : a.explanation?.kind === 'fun_fact' ? (
+                          <p className="p4-fun"><b>Fun fact:</b> {a.explanation.text}</p>
+                        ) : null}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </details>
+            </section>
+          ) : null}
           <div className="p4-owner"><QuizOwnerActions quizId={q.id} creatorId={q.creatorId} /></div>
         </div>
         <P4StickyStart />

@@ -2,8 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 
-import { ConfirmSheet } from '@/components/ux-v1/confirm-sheet';
-import { ShareSheet } from '@/components/ux-v1/share-sheet';
 import { useAnnounce, useUxToast } from '@/components/ux-v1/toast';
 import { useShellMode } from '@/components/ux-v1/use-shell-mode';
 import { refreshUxMe, useUxMe } from '@/components/ux-v1/use-ux-me';
@@ -23,16 +21,15 @@ import {
   getCorrectIndex, getEffectiveOptions, isAnswerCorrect, maxScoreFor, playPayload, questionSeconds, runReducer,
 } from '@/lib/ux-v1/p4/engine';
 
-import { P4Game } from './game';
-import { P4Results } from './results';
 import { P4RunContext } from './run-context';
-import { storyFile, downloadStory } from './story';
+import { loadRunUi, runUiNow } from './run-ui';
 
 import type { ChallengeOutcome, ChallengePublic } from '@/lib/ux-v1/p4/challenge';
 import type { P4CommentResume } from '@/lib/ux-v1/p4/comments';
 import type { QuestionData, RunState } from '@/lib/ux-v1/p4/engine';
 import type { QuizSettings, QuizType } from '@/lib/db/types';
 import type { LoadedChallenge, P4RunApi, P4RunQuiz } from './run-context';
+import type { RunUi } from './run-ui';
 
 /** What the results screen knows beyond the reducer's result phase. */
 export interface RunExtras {
@@ -109,6 +106,8 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
    *  ref read in render: a results render that suspends and restarts must still see it. */
   const [pendingComment, setPendingComment] = useState<P4CommentResume | null>(null);
   const pendingClaim = useRef(false);
+  // The game, results, sheets and story image load on demand (run-ui.ts).
+  const [ui, setUi] = useState<RunUi | null>(runUiNow);
 
   const inGame = state.phase === 'playing' || state.phase === 'answered';
   useShellMode(inGame ? 'focus' : null);
@@ -163,6 +162,27 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     ? state
     : (state.phase === 'intro' && restoreTick > 0 ? restoreResult.current : null);
   const phase: 'intro' | 'play' | 'result' = inGame ? 'play' : result ? 'result' : 'intro';
+
+  // Load the run UI when the browser is idle after the page's load event (never inside the first-load
+  // window of the CSS and the cover), or at once when a resumed run, a restored result or a share sheet
+  // needs it before start() ran.
+  const needUiNow = phase !== 'intro' || share !== null;
+  useEffect(() => {
+    if (ui) return;
+    let cancelled = false;
+    const go = (): void => { loadRunUi().then((u) => { if (!cancelled) setUi(u); }).catch(() => {}); };
+    if (needUiNow) { go(); return () => { cancelled = true; }; }
+    // Safari has no requestIdleCallback: a short timeout instead
+    const idle = typeof window.requestIdleCallback === 'function';
+    let id: number | null = null;
+    const schedule = (): void => { id = idle ? window.requestIdleCallback(go, { timeout: 4000 }) : window.setTimeout(go, 1500); };
+    if (document.readyState === 'complete') schedule(); else window.addEventListener('load', schedule, { once: true });
+    return () => {
+      cancelled = true;
+      window.removeEventListener('load', schedule);
+      if (id !== null) { if (idle) window.cancelIdleCallback(id); else window.clearTimeout(id); }
+    };
+  }, [ui, needUiNow]);
 
   // guest "Sign in to save" came back signed in: put this browser's runs on the account
   // through the existing claim flow (POST /api/claim-runs, same payload as ClaimRun).
@@ -223,7 +243,9 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     playTap();
     setLoading(true);
     try {
-      const res = await fetch(`/api/quiz/${quiz.id}/questions`);
+      // the questions and the game UI arrive together, so START never renders an empty run
+      const [res, loadedUi] = await Promise.all([fetch(`/api/quiz/${quiz.id}/questions`), loadRunUi()]);
+      setUi(loadedUi);
       if (!res.ok) throw new Error('questions');
       const data = (await res.json()) as { questions: QuestionData[]; settings: QuizSettings; quiz_type: string };
       const ch = challenge && !challenge.expired ? challenge : null;
@@ -497,8 +519,8 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
         title: 'Share your score',
         preview: { image: quiz.photo, line1: `${result.score}/${max} on ${quiz.title}`, line2: beat ?? `${quiz.groupName} quiz` },
         text: `I scored ${result.score}/${max} on "${quiz.title}". Can you beat me?`,
-        onStoryImage: async () => { toast((await downloadStory(story)) ? 'Story image saved' : 'Could not make the story image'); },
-        storyFile: () => storyFile(story),
+        onStoryImage: async () => { toast((await (await loadRunUi()).downloadStory(story)) ? 'Story image saved' : 'Could not make the story image'); },
+        storyFile: async () => (await loadRunUi()).storyFile(story),
         challenge: challengeUrl ? { url: challengeUrl } : undefined,
       };
     }
@@ -521,8 +543,8 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     <P4RunContext value={api}>
       <div className="p4-run" data-phase={phase} data-p4-quiz={quiz.id}>
         {phase === 'intro' ? children : null}
-        {phase === 'play' && (state.phase === 'playing' || state.phase === 'answered') ? (
-          <P4Game
+        {ui && phase === 'play' && (state.phase === 'playing' || state.phase === 'answered') ? (
+          <ui.P4Game
             quiz={quiz}
             state={state}
             challenge={runChallenge.current}
@@ -534,8 +556,8 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
             onQuit={quit}
           />
         ) : null}
-        {phase === 'result' && result ? (
-          <P4Results
+        {ui && phase === 'result' && result ? (
+          <ui.P4Results
             quiz={quiz}
             result={result}
             extras={extras}
@@ -548,17 +570,19 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
           />
         ) : null}
       </div>
-      <ConfirmSheet
-        open={confirmOpen}
-        title="Leave this quiz?"
-        body={`You answered ${answeredCount} of ${inGame ? (state as { questions: unknown[] }).questions.length : quiz.questionCount}. You can pick it up later from Continue playing.`}
-        confirmLabel="Leave"
-        cancelLabel="Keep playing"
-        onConfirm={leave}
-        onCancel={() => setConfirmOpen(false)}
-      />
-      {shareProps ? (
-        <ShareSheet
+      {ui ? (
+        <ui.ConfirmSheet
+          open={confirmOpen}
+          title="Leave this quiz?"
+          body={`You answered ${answeredCount} of ${inGame ? (state as { questions: unknown[] }).questions.length : quiz.questionCount}. You can pick it up later from Continue playing.`}
+          confirmLabel="Leave"
+          cancelLabel="Keep playing"
+          onConfirm={leave}
+          onCancel={() => setConfirmOpen(false)}
+        />
+      ) : null}
+      {ui && shareProps ? (
+        <ui.ShareSheet
           open={share !== null}
           onClose={() => setShare(null)}
           title={shareProps.title}

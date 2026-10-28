@@ -24,6 +24,8 @@ import { getQuizzesByGroup } from '@/lib/db/queries/quizzes';
 import { getRelatedQuizzes } from '@/lib/db/queries/related-quizzes';
 import { hasTriviaPage } from '@/lib/db/queries/trivia';
 import { flagshipSlug, hubPlus, hubPlusAnswer } from '@/lib/hubs/hub-plus';
+import { GENERAL_THEMES } from '@/lib/hubs/general-themes';
+import { themeCounts } from '@/lib/hubs/theme-view';
 import { monthYear, pooledScore, rankByMeasuredScore } from '@/lib/hubs/hub-scores';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { RELATED_GROUPS } from '@/lib/related-groups';
@@ -151,6 +153,9 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
   // The full published list (read fail-closed): its length is the real count.
   const published = quizzes.length;
   const cat = category ? categoryTexts(g.name, published) : null;
+  // SEO phase 1 (PR 15): the category hub links its 10 theme pages, each with its count of listed quizzes.
+  const topicCounts = category ? themeCounts(new Set(quizzes.map((q) => q.slug))) : null;
+  const topics = topicCounts ? GENERAL_THEMES.filter((t) => (topicCounts.get(t.slug) ?? 0) > 0) : [];
   const songs = playable[g.slug] ?? 0;
   // SEO Mission 2 part B: a strengthened hub (lib/hubs/hub-plus.ts; BTS today). Null for every
   // other hub, which renders exactly as before. On a strengthened hub one count is used
@@ -292,6 +297,19 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
     </section>
   ) : null;
 
+  // Rendered with the quiz list, in the same child slot, so a group hub's tree is unchanged.
+  const topicsSection = topics.length > 0 && topicCounts ? (
+        <section className="ux-sec" aria-labelledby="p3-topics-h">
+          <SectionHeader id="p3-topics-h" title="General K-pop quizzes by topic" />
+          <div className="ux-rows">
+            {topics.map((t) => {
+              const n = topicCounts.get(t.slug) ?? 0;
+              return <UxRow key={t.slug} href={`/${t.slug}`} lead={<span className="p3-rowico"><Icon name="t-classic" /></span>} title={t.h1} end={<span className="ux-num">{n} {n === 1 ? 'quiz' : 'quizzes'}</span>} />;
+            })}
+          </div>
+        </section>
+      ) : null;
+
   const faqSection = faqItems.length > 0 ? (
     <section className="p3-faq" aria-labelledby="group-faq">
       <h2 id="group-faq" className="ux-h2">{slots?.labels.faq ?? 'Questions fans ask'}</h2>
@@ -390,7 +408,7 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
 
       {/* Every quiz of the group is a real, server-rendered <a href> (12 cards, the
           rest in a native <details> "Show all N"): no link lives only in <noscript>. */}
-      {slots?.beforeQuizzes ? <>{slots.beforeQuizzes}{quizzesBlock}</> : quizzesBlock}
+      {topicsSection ? <>{topicsSection}{quizzesBlock}</> : slots?.beforeQuizzes ? <>{slots.beforeQuizzes}{quizzesBlock}</> : quizzesBlock}
 
       {plus && scored && pooled ? (
         <HubPlusFacts name={g.name} plus={plus} generation={g.generation ?? null} pooled={pooled} ranked={scored.ranked} asOf={asOf} />

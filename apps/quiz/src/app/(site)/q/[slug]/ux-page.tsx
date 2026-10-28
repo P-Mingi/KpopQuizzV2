@@ -12,6 +12,7 @@ import {
 import type { BreadcrumbItem } from '@/components/ui/breadcrumbs';
 import type { QuizCardData, QuizWithGroup } from '@/lib/db/types';
 import type { InThisQuizData } from '@/lib/quiz/in-this-quiz';
+import type { AnswerRow } from '@/lib/quiz/answers';
 import type { P4ReviewQuestion } from '@/components/quiz/ux-v1/quiz-page';
 import type { P4RunQuiz } from '@/components/quiz/ux-v1/run-context';
 
@@ -42,6 +43,8 @@ interface Args {
   creatorNote: string | null;
   breadcrumbItems: BreadcrumbItem[];
   quizJsonLd: Record<string, unknown>;
+  /** Answers & explanations block (SEO phase 1); absent or empty renders no block. */
+  answers?: AnswerRow[];
   /** The site origin of the JSON-LD URLs; default: the kpop site's. */
   origin?: string;
   /** A site's own block above the start buttons (the anime spoiler interstitial and shield). Default: none. */
@@ -135,6 +138,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
       intro={a.intro}
       creatorNote={a.creatorNote}
       introAvg={a.introAvg}
+      introAvgOf={a.introAvg !== null ? a.quiz.total_completions : null}
       perQuestionScore={a.perQuestionScore}
       extra={{ fastestTimeSeconds: a.extraStats.fastestTimeSeconds, perfectScoreCount: a.extraStats.perfectScoreCount }}
       passRate={a.passRate}
@@ -142,6 +146,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
       inThisQuiz={a.inThisQuiz}
       prompts={prompts}
       review={a.seoQuestions}
+      answers={a.answers ?? null}
       dyk={a.dykFact}
       triviaAvailable={a.triviaAvailable}
       fandomName={quiz.fandom_name}

@@ -34,6 +34,17 @@ export const TARGET_CLUSTERS: readonly TargetCluster[] = [
   { cluster: 'kpop groups a-z', url: '/groups', intent: 'browse K-pop groups', label: 'K-pop groups A to Z', status: 'live' },
   { cluster: '{group} quiz', url: '/{group}-quiz', intent: 'play quizzes about that group, with its games and facts', label: 'Group quiz hubs', status: 'live' },
   { cluster: 'kuis bts', url: '/id/kuis-bts', intent: 'play BTS quizzes in Indonesian', label: 'Kuis BTS', status: 'planned' },
+  // General K-pop theme pages (SEO strategy of 2026-10-27, phase 1; lib/hubs/general-themes.ts).
+  { cluster: 'kpop history quiz', url: '/kpop-history-quiz', intent: 'play K-pop history quizzes across groups', label: 'K-pop history quiz', status: 'live' },
+  { cluster: 'kpop debut quiz', url: '/kpop-debut-quiz', intent: 'play K-pop debut quizzes across groups', label: 'K-pop debut quiz', status: 'live' },
+  { cluster: 'kpop company quiz', url: '/kpop-company-quiz', intent: 'play K-pop company quizzes across groups', label: 'K-pop company quiz', status: 'live' },
+  { cluster: 'kpop fandom quiz', url: '/kpop-fandom-quiz', intent: 'play K-pop fandom quizzes across groups', label: 'K-pop fandom quiz', status: 'live' },
+  { cluster: 'kpop discography quiz', url: '/kpop-discography-quiz', intent: 'play K-pop discography quizzes across groups', label: 'K-pop discography quiz', status: 'live' },
+  { cluster: 'kpop dance quiz', url: '/kpop-dance-quiz', intent: 'play K-pop dance quizzes across groups', label: 'K-pop dance quiz', status: 'live' },
+  { cluster: 'kpop awards quiz', url: '/kpop-awards-quiz', intent: 'play K-pop awards quizzes across groups', label: 'K-pop awards quiz', status: 'live' },
+  { cluster: 'kpop drama and variety quiz', url: '/kpop-drama-variety-quiz', intent: 'play K-pop drama and variety quizzes across groups', label: 'K-pop drama and variety quiz', status: 'live' },
+  { cluster: 'kpop idol quiz', url: '/kpop-idol-quiz', intent: 'play K-pop idol quizzes across groups', label: 'K-pop idol quiz', status: 'live' },
+  { cluster: 'kpop groups quiz', url: '/kpop-groups-quiz', intent: 'play K-pop groups quizzes across groups', label: 'K-pop groups quiz', status: 'live' },
 ];
 
 export interface ParsedTarget {

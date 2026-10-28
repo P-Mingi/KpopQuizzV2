@@ -47,6 +47,7 @@ describe('vercel.json: crons', () => {
     const at = (path: string): string | undefined => config.crons.find((c) => c.path === path)?.schedule;
     expect(at('/api/cron/ensure-daily-debate')).toBe('10 0 * * *');
     expect(at('/api/ranked/cron/nightly')).toBe('20 0 * * *');
+    expect(at('/api/cron/quiz-corrections')).toBe('30 9 * * *');
     expect(new Set(config.crons.map((c) => c.path)).size).toBe(config.crons.length);
   });
 

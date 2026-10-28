@@ -7,6 +7,7 @@ import { ARTICLES } from '@/lib/articles/registry';
 import { slugify as verseSlugify } from '@/lib/verse/slug';
 import { verseHidden, spaceUnpublished } from '@/lib/verse/visibility';
 import { fetchAllRows } from '@/lib/db/fetch-all';
+import { quizLastModified, readExplanationDates } from '@/lib/db/queries/quiz-explanations';
 import { forSite } from '@/lib/site/scope';
 import { LEGAL, legalIsComplete } from '@/lib/legal-notice';
 import { getAdvertisablePlaylists, getPlayableStaticModes } from '@/lib/blind-test-playlists';
@@ -16,6 +17,8 @@ import { isThemePage } from '@/lib/growth/bt-themes';
 import { v12GrowthPaths } from '@/lib/growth/sitemap-v12';
 import { getWmaGroupSlugs } from '@/lib/personality/data';
 import { isUxV12 } from '@/lib/ux-v12';
+import { GENERAL_THEMES, THEME_MIN_LISTED } from '@/lib/hubs/general-themes';
+import { themeCounts } from '@/lib/hubs/theme-view';
 
 import type { MetadataRoute } from 'next';
 
@@ -209,6 +212,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   let quizPages: MetadataRoute.Sitemap = [];
+  let themePages: MetadataRoute.Sitemap = [];
   let groupPages: MetadataRoute.Sitemap = [];
   // SEO crawl-budget concentration: /u/ profile pages are intentionally NOT in the
   // sitemap. They are thin, rarely rank, and diluted crawl budget away from the
@@ -232,7 +236,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // 15s is generous (sitemap usually finishes <5s) and well under Vercel's
     // 60s per-page build cap. On timeout we emit just the static URLs below.
     type Row = { data: Array<Record<string, unknown>> | null };
-    type QuizRow = { slug: string; created_at: string; group_id: number | null; questions: unknown; title: string; question_count: number | null; play_count: number | null; like_count: number | null };
+    type QuizRow = { id: string; slug: string; created_at: string; group_id: number | null; questions: unknown; title: string; question_count: number | null; play_count: number | null; like_count: number | null };
     const SITEMAP_BATCH_TIMEOUT_MS = 15000;
     const timeoutSentinel = Symbol('sitemap-batch-timeout');
     const raced = await Promise.race([
@@ -241,12 +245,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         // silently stopped at 1000 published quizzes. Ordered by a unique key so
         // pages never overlap.
         fetchAllRows<QuizRow>(
-          () => forSite(supabase.from('quizzes').select('slug, created_at, group_id, questions, title, question_count, play_count, like_count')).eq('status', 'published').order('created_at', { ascending: false }).order('slug', { ascending: true }),
+          () => forSite(supabase.from('quizzes').select('id, slug, created_at, group_id, questions, title, question_count, play_count, like_count')).eq('status', 'published').order('created_at', { ascending: false }).order('slug', { ascending: true }),
         ).then((rows) => ({ data: rows.slice(0, QUIZZES_LIMIT) })),
         forSite(supabase.from('groups').select('id, slug')),
         // W7c: the advertisable playlist set (clip-ready AND able to fill a round),
         // the same one the /blindtest index links.
         getAdvertisablePlaylists(),
+        // SEO phase 1: a quiz's lastmod moves when it gets a verified explanation (a material change).
+        // A failed read keeps created_at for every quiz, never fails the sitemap.
+        readExplanationDates(supabase).catch((err: unknown) => {
+          console.warn('[sitemap] explanation dates failed, created_at only:', err instanceof Error ? err.message : err);
+          return new Map<string, number>();
+        }),
       ]),
       new Promise<typeof timeoutSentinel>((resolve) => setTimeout(() => resolve(timeoutSentinel), SITEMAP_BATCH_TIMEOUT_MS)),
     ]);
@@ -254,8 +264,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       console.warn('[sitemap] DB batch timed out - emitting static-only sitemap');
       throw new Error('sitemap batch timeout');
     }
-    const [quizzesResult, groupsResult, advertisablePlaylists] =
-      raced as [{ data: QuizRow[] }, Row, Awaited<ReturnType<typeof getAdvertisablePlaylists>>];
+    const [quizzesResult, groupsResult, advertisablePlaylists, explainedAt] =
+      raced as [{ data: QuizRow[] }, Row, Awaited<ReturnType<typeof getAdvertisablePlaylists>>, Map<string, number>];
 
     // LASTMOD: quizzes are ordered created_at desc, so [0] is the newest content
     // on the site. Also fold the per-group newest date and the per-group count of
@@ -353,9 +363,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         || ((q.play_count ?? 0) === (cur.play_count ?? 0) && (q.like_count ?? 0) === (cur.like_count ?? 0) && q.slug < cur.slug);
       if (better) bestByTitle.set(key, q);
     }
+    // General K-pop theme pages (SEO phase 1): only those listing at least THEME_MIN_LISTED published
+    // quizzes (the others are noindex), dated by their newest listed quiz.
+    const createdBySlug = new Map(quizRows.map((q) => [q.slug, q.created_at]));
+    const counts = themeCounts(new Set(createdBySlug.keys()));
+    themePages = GENERAL_THEMES.filter((t) => (counts.get(t.slug) ?? 0) >= THEME_MIN_LISTED).map((t) => {
+      const dates = t.sections.flatMap((s) => s.slugs).map((slug) => createdBySlug.get(slug)).filter((d): d is string => typeof d === 'string');
+      const newest = dates.reduce((m, d) => (d > m ? d : m), dates[0]!);
+      return { url: `${SITE_URL}/${t.slug}`, lastModified: new Date(newest), changeFrequency: 'weekly' as const, priority: 0.7 };
+    });
     quizPages = [...bestByTitle.values()].map((q) => ({
       url: `${SITE_URL}/q/${q.slug}`,
-      lastModified: new Date(q.created_at),
+      lastModified: quizLastModified(q.created_at, explainedAt.get(q.id)),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }));
@@ -548,6 +567,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...blindTestGroupPages,
     ...groupPages,
     ...quizPages,
+    ...themePages,
     ...pulsePages,
     ...versePages,
   ];

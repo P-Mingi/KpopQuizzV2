@@ -13,15 +13,17 @@ import { normalizeFactKey } from '@/lib/trivia/fact-key';
 import { stableIndex } from '@/lib/trivia/pick-fact';
 import { getQuizHallOfFame } from '@/lib/db/queries/community';
 import { getQuizSocialCounts } from '@/lib/db/queries/quiz-social';
-import { QuizPlayer } from '@/components/quiz/quiz-player';
+import { getQuizExplanations } from '@/lib/db/queries/quiz-explanations';
+import { buildAnswerRows, questionsJsonLd } from '@/lib/quiz/answers';
+import { AboutQuizDrawer, QuizPlayer } from '@/components/quiz/legacy-islands';
 import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
 import { QuizHallOfFame } from '@/components/quiz/quiz-hall-of-fame';
 import { QuizStatsBlock } from '@/components/quiz/quiz-stats-block';
-import { AboutQuizDrawer } from '@/components/quiz/about-quiz-drawer';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { isNextInternalError, safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
-import { avgScorePct, scoreIsPerQuestion } from '@/lib/quiz/scoring';
+import { scoreIsPerQuestion } from '@/lib/quiz/scoring';
+import { averageText, quizAverage } from '@/lib/quiz/quiz-average';
 import { buildInThisQuiz } from '@/lib/quiz/in-this-quiz';
 import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
 import { UX_V1 } from '@/lib/ux-v1';
@@ -124,14 +126,14 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
   const quiz = await quizOr404(slug);
 
   const questionLen = (quiz.questions as unknown[]).length;
-  const avgScore = avgScorePct({ total_score_sum: quiz.total_score_sum, total_completions: quiz.total_completions, question_count: questionLen, quiz_type: quiz.quiz_type });
+  const average = quizAverage({ total_score_sum: quiz.total_score_sum, total_completions: quiz.total_completions, question_count: questionLen, quiz_type: quiz.quiz_type });
 
   // SEO indexguard PART 4 + 2026-10-13: the creator's note when it says something, else a
   // sentence from the quiz's real data; the title never cut inside a word (lib/seo/quiz-meta.ts).
   const creatorNote = sanitizeCreatorNote(quiz.settings?.creator_note);
   const description = quizDescription({
     title: quiz.title, difficulty: quiz.difficulty, questionCount: questionLen, groupName: quiz.group_name,
-    creator: quiz.creator_username, plays: quiz.play_count, avgScore, creatorNote: creatorNote ?? null,
+    creator: quiz.creator_username, plays: quiz.play_count, average: average ? averageText(average) : null, creatorNote: creatorNote ?? null,
   });
   const title = quizTitle(quiz.title, questionLen);
   const ogImageUrl = `/api/og/${slug}`;
@@ -224,10 +226,10 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     extraStats.totalPlaysWithScore > 0
       ? extraStats.totalPlaysWithScore
       : quiz.play_count;
-  const scoresUnlocked = plays >= RANKING_UNLOCK_VOTES;
-  const introAvg = perQuestionScore && scoresUnlocked
-    ? avgScorePct({ total_score_sum: quiz.total_score_sum, total_completions: quiz.total_completions, question_count: questionCount, quiz_type: quiz.quiz_type })
-    : null;
+  // One average for the whole page (owner, 2026-10-28): from 30 completed plays, per-question scoring
+  // only, always written with its denominator (lib/quiz/quiz-average.ts, rulebook 4.3 exception).
+  const pageAverage = quizAverage({ total_score_sum: quiz.total_score_sum, total_completions: quiz.total_completions, question_count: questionCount, quiz_type: quiz.quiz_type });
+  const introAvg = pageAverage?.pct ?? null;
   // C4: perfect count is only meaningful when a perfect run == qcount;
   // otherwise the underlying rows do not match "perfect" as a user reads it.
   const introPerfCount = perQuestionScore ? extraStats.perfectScoreCount : 0;
@@ -242,18 +244,18 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   } else if (plays < 1000) {
     // Branch C: standard social proof (avg is gated by threshold-30 above
     // AND by perQuestionScore below)
-    socialProof = introAvg !== null
-      ? `${plays.toLocaleString('en-US')} fans have taken it, averaging ${introAvg}%. Think you can beat that?`
+    socialProof = pageAverage
+      ? `${plays.toLocaleString('en-US')} fans have taken it (${averageText(pageAverage)}). Think you can beat that?`
       : `${plays.toLocaleString('en-US')} fans have already tried it.`;
   } else {
     // Branch D: popular quiz - vary the framing by score profile.
     // R5: no editorial. State the perfect-count figure without judgement.
     // C4: falls through to the generic arm when perQuestionScore is false,
     // since introAvg and introPerfCount are both suppressed for those types.
-    if (introPerfCount > 0 && introAvg !== null && introAvg < 60) {
-      socialProof = `${plays.toLocaleString('en-US')} fans have battled it (avg ${introAvg}%), and ${introPerfCount.toLocaleString('en-US')} have scored perfect. Join them?`;
-    } else if (introAvg !== null) {
-      socialProof = `${plays.toLocaleString('en-US')} fans have taken it, averaging ${introAvg}%. See where you land.`;
+    if (introPerfCount > 0 && pageAverage && pageAverage.pct < 60) {
+      socialProof = `${plays.toLocaleString('en-US')} fans have battled it (${averageText(pageAverage)}), and ${introPerfCount.toLocaleString('en-US')} have scored perfect. Join them?`;
+    } else if (pageAverage) {
+      socialProof = `${plays.toLocaleString('en-US')} fans have taken it (${averageText(pageAverage)}). See where you land.`;
     } else {
       socialProof = `${plays.toLocaleString('en-US')} fans have played it.`;
     }
@@ -457,6 +459,11 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   // UX v11 (P4): the redesigned quiz page, game and results, behind the flag. Same
   // H1, intro paragraph, question list, links and JSON-LD; server rendered like today.
   if (UX_V1) {
+    // Answers & explanations (SEO phase 1): the same arc 0 questions as the questions block, with
+    // their index in quiz.questions (the key of quiz_explanations); the JSON-LD carries the same answers.
+    const shown = withoutTaggedQuestions(((quiz.questions as Array<{ question?: string; options?: string[]; correct?: number | boolean; fun_fact?: string; spoiler?: QuestionSpoiler }>) ?? [])
+      .map((q, qIndex) => ({ q, qIndex, spoiler: q.spoiler })));
+    const answers = buildAnswerRows(shown, await safeFetch(getQuizExplanations(quiz.id), [], '[q/[slug]] explanations'));
     return renderUxQuizPage({
       quiz,
       // Fusion A5: main's page takes the shown title; the anime H1 stays the stored title until the SEO lot of the quiz pages.
@@ -475,7 +482,8 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       inThisQuiz,
       creatorNote: creatorNote ?? null,
       breadcrumbItems,
-      quizJsonLd,
+      quizJsonLd: { ...quizJsonLd, hasPart: questionsJsonLd(shown, answers) },
+      answers,
       origin: SITE.url,
       ...(gate ? { gate } : {}),
     });
