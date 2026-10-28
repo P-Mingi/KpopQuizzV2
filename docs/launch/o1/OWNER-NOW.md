@@ -56,12 +56,12 @@ SUPABASE_SERVICE_ROLE_KEY
 ```
 
 ### 5. Supabase redirect URLs (5 min). [RUNBOOK H4](RUNBOOK.md#h-domain-vercel-supabase-and-google)
-Supabase, Authentication, URL Configuration, Redirect URLs, Add URL, once per line below. Site URL stays `https://kpopquiz.org`. Remove `https://otakuquiz.org/**` and `https://fanquiz.org/**` if listed. Do not add a wider `https://fandomverse.org/**`: only the two sign-in callbacks may receive a session (AUTH-FANDOMVERSE.md).
+Supabase, Authentication, URL Configuration, Redirect URLs, Add URL, once per line below. Site URL stays `https://kpopquiz.org`. Remove `https://otakuquiz.org/**` and `https://fanquiz.org/**` if listed. Exactly these two, with no `*` and no `?`: only the two sign-in callbacks may receive a session (AUTH-FANDOMVERSE.md).
 ```
-https://fandomverse.org/auth/callback**
+https://fandomverse.org/auth/callback
 ```
 ```
-https://fandomverse.org/anime/auth/callback**
+https://fandomverse.org/anime/auth/callback
 ```
 
 ### 6. Google and Discord (0 min: nothing to do). [RUNBOOK H5](RUNBOOK.md#h-domain-vercel-supabase-and-google)
@@ -564,7 +564,10 @@ https://fandomverse.org/sitemap.xml
 https://fandomverse.org/anime/sitemap.xml
 ```
 ```
-curl -sS -o /dev/null -w '%{http_code}\n' https://fandomverse.org/<<FROM INTEGRATOR>>.txt
+curl -sS -o /dev/null -w '%{http_code}\n' https://fandomverse.org/339dab142e51883ae3a2c7e4737254e4.txt
+```
+```
+curl -sS -o /dev/null -w '%{http_code}\n' https://fandomverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt
 ```
 
 ## Part 9. After launch (4 h 25)
@@ -605,11 +608,10 @@ sql1 docs/pending-migrations/hub/001-quiz-daily-plays.sql
 sql1 docs/pending-migrations/hub/002-xp-daily-snapshots.sql
 ```
 
-## Placeholders for the integrator
+## Values settled by the integrator (2026-10-28)
 
-| placeholder | step | what fills it |
-|---|---|---|
-| `<<FROM INTEGRATOR>>` | 59 (and RUNBOOK K1, K10, "Still open"; ENV.md 1.7) | the IndexNow key file fandomverse.org serves (one host for the hub and `/anime`) |
-
-Derived from the sub-folder layout, not decided by a lane yet (the integrator corrects them if ARCHITECTURE-FANDOMVERSE.md differs): the OtakuQuiz API answers under `/anime/api/...` (step 58),
-its sitemap is `https://fandomverse.org/anime/sitemap.xml` (step 59), its admin is `/anime/admin`, and the Vercel "Run" button of step 58 reaches the `otakuquiz` cron route.
+No placeholder is left. Confirmed by the lanes (ARCHITECTURE-FANDOMVERSE.md, AUTH-FANDOMVERSE.md): the OtakuQuiz API answers under
+`/anime/api/...` (step 58), its sitemap is `https://fandomverse.org/anime/sitemap.xml` and the root `https://fandomverse.org/sitemap.xml`
+is the index of both (step 59), its admin is `/anime/admin`. The cron paths of `vercel.json` carry no `/anime`: on the `otakuquiz`
+project they are proxied to `https://fandomverse.org/anime/api/cron/...`, so the Vercel "Run" button of step 58 works only once
+`fandomverse.org` is attached (step 55); check the `otakuquiz` cron logs after it.

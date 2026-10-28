@@ -264,7 +264,7 @@ If Vercel refuses `kpopquiz` because the project already has its own `SUPABASE_S
 Check: each of the three projects lists `SUPABASE_SERVICE_ROLE_KEY` for Production (shared or its own); V9 build logs name no missing variable. Back: unlink the shared variable from the project.
 
 **H4  Supabase Auth: redirect URLs.**
-Do: Supabase dashboard, Authentication, URL Configuration: keep Site URL `https://kpopquiz.org`; add to Redirect URLs exactly `https://fandomverse.org/auth/callback**` and `https://fandomverse.org/anime/auth/callback**`, never a wider `https://fandomverse.org/**` (AUTH-FANDOMVERSE.md: only the sign-in callbacks may receive a session). If you added `https://otakuquiz.org/**` or `https://fanquiz.org/**` earlier, remove them. `www.fandomverse.org` redirects to the apex (K6), so it needs no entry.
+Do: Supabase dashboard, Authentication, URL Configuration: keep Site URL `https://kpopquiz.org`; add to Redirect URLs exactly `https://fandomverse.org/auth/callback` and `https://fandomverse.org/anime/auth/callback` (no `*`, no `?`), never a wider `https://fandomverse.org/**` (AUTH-FANDOMVERSE.md: only the sign-in callbacks may receive a session). If you added `https://otakuquiz.org/**` or `https://fanquiz.org/**` earlier, remove them. `www.fandomverse.org` redirects to the apex (K6), so it needs no entry.
 Check: the list shows the kpopquiz.org entries and the two fandomverse.org callbacks. Back: remove the two entries.
 
 **H5  Google and Discord sign-in.**
@@ -368,7 +368,7 @@ L09 to L11 (openings, formats, crossover quiz) are not part of the launch (secti
 - `ls $M/launch/` shows L01 to L08, L10-PERS and L12 with their rollbacks; J2's three checks pass; L01's header names the FandomVerse domain (lane 2); J3 was run on these files.
 - H done: `dig +short fandomverse.org A` answers (H6), the Microfrontends group exists (H7), the two fandomverse.org callbacks are Supabase redirect URLs (H4), the service role key is linked (H3), the Google origin is set if AUTH-FANDOMVERSE.md asks for it (H5).
 - `apps/quiz/src/lib/site/registry.ts` list `PLACEHOLDERS` for anime and hub: each item is set or accepted. Brand (owner, 2026-10-28): bunny plus "FandomVerse" for the hub, bunny plus "OtakuQuiz" for `/anime`; the default share image of each site says its own name.
-  IndexNow: the key fandomverse.org serves is `<<FROM INTEGRATOR>>` (ENV.md 1.7). Organization mailbox: `hello@kpopquiz.org` on all three sites.
+  IndexNow: the hub key at `https://fandomverse.org/339dab142e51883ae3a2c7e4737254e4.txt`, OtakuQuiz's at `https://fandomverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` (ENV.md 1.7). Organization mailbox: `hello@kpopquiz.org` on all three sites.
 - The hub privacy text and its controller are done (D-108, D-111, D-114); K10 checks the `privacy.controller` line.
 - The Team e-mail domain is `team.fandomverse.org` with no mail (H6). `QOTD_ROTATION_FIX=1` is set on `otakuquiz`.
 - A person is free for 72 hours to watch.
@@ -449,7 +449,7 @@ The staging `noindex` is one server variable, not a line to merge: `NET_INDEXING
 With `NET_INDEXING=1` the build has no `X-Robots-Tag` rule (`INDEXING_OPEN` in `next.config.ts`) and each page speaks for itself: home, series, series hubs from `minPublishedForIndexableHub`, `/q/<slug>`, privacy and terms say index; `/settings`, `/me`, `/admin`, login, search and a profile keep their own noindex. The kpop build ignores the variable.
 Do: only when K9 is clean and nothing else is left for the day. First check that the line `privacy.controller` of `apps/quiz/src/copy/hub/h1.ts` names the data controller (not the placeholder), then set `NET_LAUNCH_DATE` = the launch date `YYYY-MM-DD` (Production) in `fandomverse` and `otakuquiz` (the build fails if `NET_INDEXING` comes without it). Then set `NET_INDEXING` = `1` (Production) in `fandomverse` and `otakuquiz` (not in `kpopquiz`), redeploy both (Deployments, Redeploy of the latest main build).
 In Search Console add the Domain property `fandomverse.org` (Google shows one TXT record: add it at the registrar) and submit `https://fandomverse.org/sitemap.xml` and `https://fandomverse.org/anime/sitemap.xml`.
-Check: V10 "after K10" on the hub home, `/anime`, `/anime/series`, a series page and a quiz: no `x-robots-tag` header and no `noindex` robots meta; `/settings`, `/me`, `/anime/admin` stay noindex. Each host answers its own IndexNow key file only: `curl -sS -o /dev/null -w '%{http_code}\n' https://fandomverse.org/<<FROM INTEGRATOR>>.txt` prints 200 and the same path on `https://kpopquiz.org` prints 404 (this needs the key-file rewrites of `docs/o1/requests/L1.md`, request 1, merged).
+Check: V10 "after K10" on the hub home, `/anime`, `/anime/series`, a series page and a quiz: no `x-robots-tag` header and no `noindex` robots meta; `/settings`, `/me`, `/anime/admin` stay noindex. Each host answers its own IndexNow key file only: `curl -sS -o /dev/null -w '%{http_code}\n' https://fandomverse.org/339dab142e51883ae3a2c7e4737254e4.txt` and `https://fandomverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` print 200, and the same paths on `https://kpopquiz.org` print 404 (this needs the key-file rewrites of `docs/o1/requests/L1.md`, request 1, merged).
 Back: remove the variable, redeploy the two projects (the pages close again at once; pages already crawled drop out slowly).
 
 ---------------------------------------------------------------------------------------------------------------------------------
@@ -520,6 +520,6 @@ Superseded on 2026-10-28: the two domains `otakuquiz.org` and `fanquiz.org`, two
 
 Still open (the integrator or a code lane):
 
-- The IndexNow key fandomverse.org serves (one host for the hub and `/anime`): `<<FROM INTEGRATOR>>`. Submitting fandomverse.org URLs to IndexNow is a later code change (`apps/quiz/src/lib/indexnow.ts` posts for kpopquiz.org only).
+- Settled 2026-10-28: each zone keeps its IndexNow key (hub at the root, OtakuQuiz under /anime as `keyLocation`, ENV.md 1.7). Submitting fandomverse.org URLs to IndexNow is a later code change (`apps/quiz/src/lib/indexnow.ts` posts for kpopquiz.org only).
 - Settled 2026-10-28: no Google Identity Services button, so no JavaScript origin (AUTH-FANDOMVERSE.md).
 - The exact Microfrontends command of H7: the integrator confirms it.

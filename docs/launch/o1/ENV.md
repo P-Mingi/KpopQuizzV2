@@ -98,12 +98,13 @@ anime blind test and `SPOTIFY_*` or `YOUTUBE_API_KEY`, O6 and Mission U part B).
 
 An IndexNow key is a public value served as `/<key>.txt` at the root of a host, so it lives in the repository, not in a variable.
 fandomverse.org is one host for the hub and `/anime`, so one key serves both. Two keys were generated on 2026-10-23 for the old two domains; their files exist:
-`apps/quiz/public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` (was anime's) and `apps/quiz/public/339dab142e51883ae3a2c7e4737254e4.txt` (was the hub's). Which key fandomverse.org serves is the code lanes' choice (ARCHITECTURE-FANDOMVERSE.md).
+`apps/quiz/public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` (was anime's) and `apps/quiz/public/339dab142e51883ae3a2c7e4737254e4.txt` (was the hub's). Each zone keeps its key (ARCHITECTURE-FANDOMVERSE.md): the hub's at the root, OtakuQuiz's under /anime, given to IndexNow as `keyLocation`.
 
 | host | key | registry field |
 |---|---|---|
 | kpopquiz.org | `apps/quiz/public/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt` (as before) | `seo.indexNowKey` of `kpop` and `INDEXNOW_KEY` in `apps/quiz/src/lib/indexnow.ts` |
-| fandomverse.org (hub and `/anime`) | `<<FROM INTEGRATOR>>` | `seo.indexNowKey` of `hub` and `anime` in `apps/quiz/src/lib/site/registry.ts` |
+| fandomverse.org (hub) | `apps/quiz/public/339dab142e51883ae3a2c7e4737254e4.txt`, served at `https://fandomverse.org/339dab142e51883ae3a2c7e4737254e4.txt` | `seo.indexNowKey` of `hub` |
+| fandomverse.org/anime | `apps/quiz/public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt`, served at `https://fandomverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` (pings send it as `keyLocation`, URLs under /anime only) | `seo.indexNowKey` of `anime` |
 
 Each key file is a static file in `public/`, which the three builds share. Each host must answer only its own key: the hub and anime builds block foreign key files in `apps/quiz/src/lib/site/routing.ts` (`keyFileBlocksFor`, inside `rewritesFor`); kpop needs the small patch of `next.config.ts` in `docs/o1/requests/L1.md` (request 1). RUNBOOK K10 checks it.
 The only IndexNow variable is `INDEXNOW_TRIGGER_TOKEN` (kpopquiz, 1.5).
@@ -129,7 +130,7 @@ The deploy note is `docs/o1/b7/send-email-hook.md` (RUNBOOK section I). The `fan
 
 ### 2.2 Auth settings (dashboard, no variable)
 
-Site URL stays `https://kpopquiz.org`. Redirect URLs gain exactly `https://fandomverse.org/auth/callback**` and `https://fandomverse.org/anime/auth/callback**` (RUNBOOK H4), never a wider `https://fandomverse.org/**` (AUTH-FANDOMVERSE.md: only the callbacks may receive a session); `https://otakuquiz.org/**` and `https://fanquiz.org/**` are not needed (remove them if you added them).
+Site URL stays `https://kpopquiz.org`. Redirect URLs gain exactly `https://fandomverse.org/auth/callback` and `https://fandomverse.org/anime/auth/callback` (RUNBOOK H4), with no `*` and no `?`, never a wider `https://fandomverse.org/**` (AUTH-FANDOMVERSE.md: only the callbacks may receive a session); `https://otakuquiz.org/**` and `https://fanquiz.org/**` are not needed (remove them if you added them).
 Google provider: the kpopquiz.org client serves fandomverse.org too; nothing is added to its "Client IDs" list (RUNBOOK H5). Discord provider: as it is for kpopquiz.org; nothing is added.
 Email sign-in is not offered on fandomverse.org (code, lane 3); the email provider stays on for kpopquiz.org. The Send Email hook stays off (2.1).
 The Data API's exposed schemas must **not** contain `passport` (006 revokes every grant, but the setting is the second wall).
