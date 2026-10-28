@@ -2,15 +2,22 @@
 // IndexNow lets us push changed URLs to Bing/Yandex/Seznam the instant they
 // change instead of waiting for a crawl. Standard protocol, no SEO risk: it
 // only asks engines to (re)crawl URLs we own. The key is published at
-// https://kpopquiz.org/<KEY>.txt (public/ file) which proves ownership.
+// https://<site>/<KEY>.txt (public/ file) which proves ownership.
+//
+// Per site (SEO phase 1, 2026-10-27): host and key come from the site registry, so an
+// anime or hub build pings its own domain with its own key, never kpopquiz.org; and a
+// site still closed to search engines (INDEXING_OPEN false) pings nothing.
+
+import { INDEXING_OPEN } from '@/lib/site/indexing';
+import { SITE } from '@/lib/site/registry';
 
 // Exported so a unit test can assert public/<KEY>.txt matches it. If the key is
 // ever rotated here but not in the public file (or the file is deleted), every
 // IndexNow submission silently 403s and Bing - our #1 referrer - stops recrawling.
-export const INDEXNOW_KEY = '4b2f9a7ce8d1465fb0a3e6c95d47128a';
+export const INDEXNOW_KEY: string | null = SITE.seo.indexNowKey;
 const KEY = INDEXNOW_KEY;
-const HOST = 'kpopquiz.org';
-const ORIGIN = `https://${HOST}`;
+const ORIGIN = SITE.url.replace(/\/+$/, '');
+const HOST = new URL(ORIGIN).host;
 const ENDPOINT = 'https://api.indexnow.org/indexnow';
 const BATCH = 10000; // IndexNow hard limit per request
 
@@ -24,8 +31,9 @@ function toAbsolute(pathOrUrl: string): string {
  * a user action (publish) or a deploy over. Batches to the 10k-per-call limit.
  */
 export async function pingIndexNow(pathsOrUrls: string[]): Promise<{ submitted: number; batches: number }> {
-  const urls = [...new Set(pathsOrUrls.map(toAbsolute))];
-  if (urls.length === 0) return { submitted: 0, batches: 0 };
+  // only this site's own URLs, and nothing while the site is closed to search engines
+  const urls = [...new Set(pathsOrUrls.map(toAbsolute))].filter((u) => u.startsWith(`${ORIGIN}/`) || u === ORIGIN);
+  if (urls.length === 0 || !INDEXING_OPEN || !KEY) return { submitted: 0, batches: 0 };
 
   let batches = 0;
   for (let i = 0; i < urls.length; i += BATCH) {
