@@ -129,9 +129,11 @@ export function P4QuizPage(p: P4QuizPageProps): React.ReactElement {
             ))}
           </nav>
 
+          {/* The cover is the LCP element of /q/: fetchPriority high starts its preload and img at high
+              priority (preload alone does not), and sizes follows the 20 px side gutters on phones. */}
           <div className="p4-cover">
             {q.cover ? (
-              <Image className="p4-cover-img" src={q.cover} alt={`${q.title} - ${q.groupName || 'K-pop'} quiz`} fill priority sizes="(max-width: 760px) 100vw, 720px" />
+              <Image className="p4-cover-img" src={q.cover} alt={`${q.title} - ${q.groupName || 'K-pop'} quiz`} fill preload fetchPriority="high" sizes="(max-width: 760px) calc(100vw - 40px), 720px" />
             ) : (
               <span className="ux-fbn"><Icon name={QUIZ_TYPE_ICON[q.quizType] ?? 't-classic'} />{q.groupName}</span>
             )}
