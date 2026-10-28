@@ -73,6 +73,7 @@ export const PRIVACY_PAGE = {
   h1: 'privacy.h1',
   lede: 'privacy.lede',
   updated: 'privacy.updated',
+  revised: 'privacy.revised',
 } as const satisfies Record<string, PrivacyKey>;
 
 /** The data controller line: one key (Louis Pecchia, entrepreneur individuel; owner, 2026-10-25). */
@@ -101,7 +102,7 @@ export const PRIVACY_SECTIONS: readonly PrivacySection[] = [
       p('privacy.cookies.intro'),
       list(
         'privacy.cookies.c1', 'privacy.cookies.c2', 'privacy.cookies.c3', 'privacy.cookies.c4', 'privacy.cookies.c5', 'privacy.cookies.c6',
-        'privacy.cookies.c7', 'privacy.cookies.l1', 'privacy.cookies.l2', 'privacy.cookies.l3', 'privacy.cookies.l4',
+        'privacy.cookies.c7', 'privacy.cookies.c8', 'privacy.cookies.l1', 'privacy.cookies.l2', 'privacy.cookies.l3', 'privacy.cookies.l4',
       ),
     ],
   },

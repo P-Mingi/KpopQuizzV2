@@ -279,8 +279,8 @@ describe('points 9 and 10: the cookies of cookies.md and the page match', () => 
 
   it('reads the contract', () => {
     expect(contractNames().sort()).toEqual([
-      '__Host-pp_tx', 'anime.spoiler.v1', 'fq.net.caps.v1', 'fq.net.via', 'kq_sl', 'nq_anon', 'pp_tx', 'preferred_locale',
-      'sb-<project ref>-auth-token', 'theme', 'verse_nav', 'world',
+      '__Host-fv_oauth', '__Host-pp_tx', 'anime.spoiler.v1', 'fq.net.caps.v1', 'fq.net.via', 'fv_oauth', 'kq_sl', 'nq_anon', 'pp_tx',
+      'preferred_locale', 'sb-<project ref>-auth-token', 'theme', 'verse_nav', 'world',
     ]);
     expect(TX_COOKIE_NAMES).toEqual({ https: '__Host-pp_tx', devHttp: 'pp_tx' });
   });
@@ -293,7 +293,8 @@ describe('points 9 and 10: the cookies of cookies.md and the page match', () => 
   it('every cookie the page lists is in cookies.md', async () => {
     const known = new Set(contractNames());
     const listed = LIST.map((k) => pageName(COPY[k]));
-    expect(listed).toHaveLength(11);
+    // FandomVerse (2026-10-28): the sign-in return cookie __Host-fv_oauth joins the list.
+    expect(listed).toHaveLength(12);
     for (const n of listed) expect(known.has(n), `${n} is not in cookies.md`).toBe(true);
     expect(new Set(listed).size).toBe(listed.length);
     // the reserved cookie is not listed: it is never set
@@ -405,5 +406,33 @@ describe('the wiring', () => {
     const anime = readFileSync(join(styles, 'anime/h1.css'), 'utf8').split('\n').filter((l) => l.startsWith('html.ux-v1[data-site="anime"] .'));
     expect(anime.length).toBeGreaterThan(8);
     for (const l of anime) expect(hub, l.slice(0, 70)).toContain(l.replace('data-site="anime"', 'data-site="hub"').replace(/anime-h1-/g, 'hub-h1-').replace(/--anime-gap/g, '--hub-gap'));
+  });
+});
+
+// FandomVerse (owner, 2026-10-28): the hub and /anime share fandomverse.org and its session; kpopquiz.org stays apart with the ticket.
+describe('FandomVerse cookies: one address for the hub and /anime', () => {
+  it('the session, the theme and the ticket cookie say what is shared and what is not', async () => {
+    const { fillHub } = await import('./copy');
+    const c1 = fillHub(COPY['privacy.cookies.c1']);
+    expect(c1).toContain(`${NETWORK.name} and ${REGISTRY.anime.brand.name} share one on ${REGISTRY.hub.domain}`);
+    expect(c1).toContain(`${REGISTRY.kpop.brand.name} keeps its own`);
+    expect(fillHub(COPY['privacy.cookies.l1'])).toContain(`share it on ${REGISTRY.hub.domain}`);
+    expect(fillHub(COPY['privacy.cookies.c2'])).toContain(`between ${REGISTRY.kpop.brand.name} and ${REGISTRY.hub.domain}`);
+    expect(COPY['privacy.cookies.c1']).not.toContain('Each site sets its own');
+  });
+
+  it('the sign-in return cookie: its life comes from the code', async () => {
+    const { fillHub } = await import('./copy');
+    const { OAUTH_RETURN_SECONDS } = await import('@/lib/auth/oauth-return');
+    expect(fillHub('{oauthMinutes}')).toBe(String(OAUTH_RETURN_SECONDS / 60));
+    expect(fillHub(COPY['privacy.cookies.c8'])).toMatch(/^__Host-fv_oauth: only on fandomverse\.org, set for at most 10 minutes/);
+  });
+
+  it('the page says when its text last changed, draft or live', async () => {
+    const { fillHub, PRIVACY_REVISED } = await import('./copy');
+    expect(PRIVACY_REVISED).toBe('2026-10-28');
+    expect(fillHub(COPY['privacy.revised'])).toBe('Last updated on 28 October 2026.');
+    const { text } = await render();
+    expect(text).toContain('Last updated on 28 October 2026.');
   });
 });

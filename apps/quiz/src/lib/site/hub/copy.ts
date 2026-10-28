@@ -25,6 +25,9 @@ function siteList(): string {
 /** The mailbox of the hub: the one network mailbox, from the registry. */
 export const HUB_EMAIL = MAILBOX;
 
+/** The day the privacy text last changed: bump it with every change of a privacy.* string (FandomVerse cookies, 2026-10-28). */
+export const PRIVACY_REVISED = '2026-10-28';
+
 /** The minimum age on the three sites (owner, 2026-10-24). */
 export const MIN_AGE = 15;
 
@@ -50,6 +53,11 @@ const BASE_VARS: HubCopyVars = {
   logDays: HANDOFF_LOG_DAYS,
   graceDays: DELETION_GRACE_DAYS,
   minAge: MIN_AGE,
+  // How long the sign-in return cookie lives (lib/auth/oauth-return.ts OAUTH_RETURN_SECONDS / 60; privacy-final.test.ts keeps them equal
+  // without importing that module here).
+  oauthMinutes: 10,
+  // The last change of the privacy text (PRIVACY_REVISED), "28 October 2026": shown on the draft and on the live page.
+  revised: formatLaunchDate(PRIVACY_REVISED) ?? '',
   // The launch date (NET_LAUNCH_DATE), "24 October 2026"; empty while it is missing (the page prints the line only when it has one).
   date: formatLaunchDate(process.env.NET_LAUNCH_DATE) ?? '',
 };

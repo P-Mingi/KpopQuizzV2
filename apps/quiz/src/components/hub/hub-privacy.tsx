@@ -64,6 +64,7 @@ export function HubPrivacy(): React.ReactElement {
         <h1>{ht(PRIVACY_PAGE.h1)}</h1>
         <p>{ht(PRIVACY_PAGE.lede)}</p>
         {date ? <p>{ht(PRIVACY_PAGE.updated)}</p> : null}
+        <p>{ht(PRIVACY_PAGE.revised)}</p>
       </div>
 
       {PRIVACY_SECTIONS.map((section) => <Section key={section.title} section={section} />)}
