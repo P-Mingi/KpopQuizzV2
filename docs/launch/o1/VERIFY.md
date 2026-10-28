@@ -13,7 +13,10 @@ Helpers (the same as `SQL-ORDER.md` section 1):
     read -rs PROD_DB_URL; export PROD_DB_URL
     q() { psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "$1"; }
     M=docs/pending-migrations/multisite
-    mkdir -p ~/kpq-launch        # a folder of your own for the snapshots below, outside the repository
+    mkdir -p ~/kpq-launch
+
+`~/kpq-launch` is a folder of your own for the snapshots below, outside the repository. In these blocks a `# ...` note follows only a `q` line,
+which reads its first argument only, so it is harmless in zsh too; any other command carries no note.
 
 Where a result is "the same as V0", compare with the numbers you saved in `~/kpq-launch/v0.txt`. Counts that move with traffic
 (plays, profiles) are compared with the rule written next to them, never as equal to the old number.
@@ -62,8 +65,8 @@ Snapshot the 60 parity URLs before the step, and again after. Pages with live nu
 
     snap() { mkdir -p "$1"; grep -v '^#' apps/quiz/e2e/o1/parity/urls.txt | grep . | while read -r p; do
       curl -sS -m 30 "https://kpopquiz.org$p" -o "$1/$(printf '%s' "$p" | tr '/?&=' '____').html"; done; }
-    snap ~/kpq-launch/before        # before the step
-    snap ~/kpq-launch/after         # after it
+    snap ~/kpq-launch/before
+    snap ~/kpq-launch/after
     diff -rq ~/kpq-launch/before ~/kpq-launch/after
 
 Expect: no file differs, or only the pages with a live counter, leaderboard time or the quiz of the day (as the three accepted cases
@@ -257,8 +260,9 @@ Run `content-verify.sql` after L04 to L08 and compare with `expected-counts.json
 
     psql "$PROD_DB_URL" -X -At -F ' | ' -f $M/launch/content-verify.sql
     cat $M/launch/expected-counts.json
-    grep -l '^-- DRAFTS' $M/launch/*.sql        # prints nothing
+    grep -l '^-- DRAFTS' $M/launch/*.sql
 
+The last command prints nothing.
 The columns are, in order: groups, series, arcs, characters, themes, trivia, entity_sources, then (when the files L02 and L07 are in) Team accounts,
 Team memberships, published quizzes, questions, then (L08) bank rows, bank questions. Each must equal the `counts` object, except `groups`, which is
 one more than `counts.groups` (the series groups plus `anime-mix`). Rehearsed on o1-scratch on 2026-10-23 with the DRAFTS files and the whole repository SQL (`SQL-ORDER.md` section 5):
@@ -297,12 +301,14 @@ OtakuQuiz has no address of its own to check: it is reached on the `fandomverse`
     FV=https://<fandomverse production .vercel.app address>
     for B in "$KP" "$FV" "$FV/anime"; do
       echo "== $B"
-      curl -sS -o /dev/null -w '%{http_code}\n' "$B"                       # 200
-      curl -sS -o /dev/null -w '%{http_code}\n' "$B/auth/authorize"        # 404 while PASSPORT_JUMP is off, not 500
-      curl -sS "$B" | grep -o 'application/ld+json' | head -1               # structured data present
-      curl -sS "$B" | grep -o '<title>[^<]*' | head -1                      # KpopQuiz, FandomVerse, OtakuQuiz in that order
+      curl -sS -o /dev/null -w 'home %{http_code}\n' "$B"
+      curl -sS -o /dev/null -w 'authorize %{http_code}\n' "$B/auth/authorize"
+      curl -sS "$B" | grep -o 'application/ld+json' | head -1
+      curl -sS "$B" | grep -o '<title>[^<]*' | head -1
     done
     curl -sS "$FV/robots.txt" | head -5
+
+Expect for each: home 200; authorize 404 while `PASSPORT_JUMP` is off (never 500); `application/ld+json` printed (structured data present); the titles name KpopQuiz, FandomVerse and OtakuQuiz in that order.
 
 The build log of each project must show `check:env` passing and no line naming a missing variable. The three secrets are equal by length only:
 in Vercel, open each project's variable, use "show" once, and compare the character count (never the value) of `PASSPORT_TICKET_SECRET`, `PASSPORT_REVALIDATE_SECRET` and `NET_IP_HASH_SALT` on the 3 projects.

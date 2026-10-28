@@ -43,23 +43,25 @@ Rewritten on 2026-10-28 for the owner's FandomVerse decisions (section "Owner de
       q()    { psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "$1"; }
 
   Work from the repository root with `main` checked out after the merge (A5). `psql` 15 or later. `snap` is in VERIFY V1.
+  `read -rs` shows nothing while you paste; press return. The RUNBOOK's blocks carry no `#` comments on purpose: zsh, the macOS shell, passes them as arguments unless `interactivecomments` is set.
 
 | order | phase | waits for | hands-on | then wait |
 |---|---|---|---|---|
 | done | A0. S4 | applied 2026-10-23 at 14:53 UTC (LEDGER D-103) | | |
-| 1 | A. Before (A1 to A7) | the integrator's merge of the FandomVerse lanes | 2 h 30 | |
-| 1, in parallel | H. Domain, Vercel, Supabase and Google | nothing (H8 waits for A5) | 1 h 15 | DNS, up to a few hours |
-| 1, in parallel | J. Content | lane 2's launch files | 1 h 30 | |
-| 2 | B. P1: 001 to 007 | A5 deployed on kpopquiz | 2 h | |
+| 1 | A. Before (A5, A6; A1 to A3 run in B1) | the integrator's merge of the FandomVerse lanes | 1 h 35 | |
+| 1, in parallel | H. Domain, Vercel, Supabase and Google | nothing (H8 waits for A5) | 1 h 10 | DNS, up to a few hours |
+| 1, in parallel | J. Content | lane 2's launch files | 1 h 15 | |
+| 2 | B. P1: 001 to 007 | A5 deployed on kpopquiz | 2 h 20 | |
 | 3 | C. 24 hour watch | B11 | 15 min | 24 hours |
-| 4 | D. P2: 008 | C clean | 1 h 10 | 24 hours (D3) |
+| 4 | D. P2: 008 (D3 included) | C clean | 1 h 40 | 24 hours (D3) |
 | 5 | E. P3: 009, the app deploy, 010 | D3 clean; a start that leaves 90 minutes before 23:50 | 1 h 05 | |
 | 6 | F. 24 hour watch after 010 | E4 | 30 min | 24 hours |
-| 7 | G. P5: 011 to 017 | F clean (Verrou 0 cleared) | 1 h 20 | |
-| 8 | K. Launch day | G, H, J and every line of K1 | 6 h 30 | |
-| 9 | L. After launch | K10 | 3 h | 72 hours of watching |
+| 7 | G. P5: 011 to 017 | F clean (Verrou 0 cleared) | 1 h 35 | |
+| 8 | K. Launch day (K1 the evening before included) | G, H, J and every line of K1 | 7 h | |
+| 9 | L. After launch | K10 | 4 h 25 | 72 hours of watching |
 
-Earliest path: B on day 1, D on day 2, E on the evening of day 3, F and G on day 4, launch day on day 5.
+Total hands-on: about 22 h 50 (18 h 25 up to the end of launch day). Earliest path: B on day 1, D on day 2, E on the evening of day 3, F and G on day 4, launch day on day 5.
+`OWNER-NOW.md` lists the same work as numbered actions with the lines to copy.
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -326,7 +328,17 @@ Who: owner (with your reviewers). The facts are marked verified by the lots of D
 Check: `node scripts/anime/editorial/check.mjs docs/anime/data` has 0 failures. Back: n/a.
 
 **J2  The launch SQL.**
-Do: check the files you will apply are the files that were reviewed: `shasum -a 256 $M/launch/L04-K1-series.sql` equals its line in `$M/launch/MANIFEST.json` (the manifest holds the sha256 of every file and of the data), and `grep -l '^-- DRAFTS' $M/launch/*.sql` prints nothing (a DRAFTS file must never reach production).
+Do: check the files you will apply are the files that were reviewed. `$M/launch/MANIFEST.json` holds the sha256 of every file and of the data; compare them all:
+
+    python3 - <<'EOF'
+    import json, hashlib
+    d = 'docs/pending-migrations/multisite/launch/'
+    m = json.load(open(d + 'MANIFEST.json'))
+    bad = [f['name'] for f in m['files'] if hashlib.sha256(open(d + f['name'], 'rb').read()).hexdigest() != f['sha256']]
+    print('files:', len(m['files']), '| sha256 different from MANIFEST.json:', bad if bad else 'none')
+    EOF
+
+It must print `none`. And `grep -l '^-- DRAFTS' $M/launch/*.sql` prints nothing (a DRAFTS file must never reach production).
 The Team addresses are on the new domain: `grep -c 'team.otakuquiz.org' $M/launch/L02-K2-team-accounts.sql` prints 0.
 Only if you change facts: regenerate with `node apps/quiz/e2e/o1/L1/content-sql.mjs --team-email-domain fandomverse.org` (verified only; it overwrites L02, L04, L05, L07, L08, L10-PERS and L12 with their rollbacks, `expected-counts.json`, `content-verify.sql`, `MANIFEST.json`), read the two lines it prints, and commit the folder to `main` through a PR.
 Check: the three commands above. Back: `git checkout` the folder.
@@ -367,12 +379,13 @@ Do: `sql1 $M/launch/L01-B2-sites.sql`. Check: V8 first query (the 3 rows L01's h
 **K4  The Team accounts: auth users, then L02.**
 Do: 1. The address of each account is `<username>@team.fandomverse.org` (decided). That sub-domain receives no mail (H6): the accounts never sign in and nobody can read a message sent to them. 2. In your shell, only for these commands (the key is typed, never shown):
 
-    read -rs SUPABASE_SERVICE_ROLE_KEY; export SUPABASE_SERVICE_ROLE_KEY      # service role key (Supabase, Project Settings, API Keys)
+    read -rs SUPABASE_SERVICE_ROLE_KEY; export SUPABASE_SERVICE_ROLE_KEY
     export SUPABASE_URL=https://rdkgouofytwfdpbxbzio.supabase.co
-    node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref rdkgouofytwfdpbxbzio --team-email-domain fandomverse.org             # dry run, prints a count
-    node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref rdkgouofytwfdpbxbzio --team-email-domain fandomverse.org --apply     # creates the 31 users, no email sent
+    node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref rdkgouofytwfdpbxbzio --team-email-domain fandomverse.org
+    node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref rdkgouofytwfdpbxbzio --team-email-domain fandomverse.org --apply
     unset SUPABASE_URL SUPABASE_SERVICE_ROLE_KEY
 
+`read -rs` waits for the service role key (Supabase, Project Settings, API Keys) and shows nothing. The first `node` line is a dry run that prints a count; the second creates the 31 users and sends no email.
 It prints counts only: `31 created, 0 already there, 0 failed`. A second run says `0 created, 31 already there`. Then `sql1 $M/launch/L02-K2-team-accounts.sql`.
 Check: dashboard, Authentication, Users, search `team.fandomverse.org`: 31 users, all confirmed; V8 (31 `editorial_accounts`, `sites.system_user_id` set, `fallback_group_slug` `anime-mix`, no kpop stamp for a Team account). Back: `sql1 $M/launch/L02-K2-team-accounts.rollback.sql`; the auth users are removed with the SQL its header gives.
 
@@ -385,13 +398,13 @@ Check: dashboard, Authentication, Users, search `team.fandomverse.org`: 31 users
 3c. **K5.3c** Promote the admin images (only if you uploaded images on o1-dev, from `/anime/admin` on the preview). Needs `M/018-entity-images.sql` (G1, SQL-ORDER row 14b).
    It copies the files of the bucket `entity-images` and the rows of `public.entity_images` from o1-dev to production; it never deletes anything there and a second run changes nothing. Run it before you delete the o1-dev branch (After launch). The production key is typed into your shell, never saved:
 
-       read -rs PROMOTE_TARGET_SERVICE_KEY; export PROMOTE_TARGET_SERVICE_KEY      # production service role key (Settings, API Keys)
+       read -rs PROMOTE_TARGET_SERVICE_KEY; export PROMOTE_TARGET_SERVICE_KEY
        export PROMOTE_TARGET_URL=https://rdkgouofytwfdpbxbzio.supabase.co
-       scripts/o1/env.sh dev -- node scripts/anime/images/promote.mjs              # dry run: prints the plan, writes nothing
-       scripts/o1/env.sh dev -- node scripts/anime/images/promote.mjs --apply      # writes the files first, then the rows
+       scripts/o1/env.sh dev -- node scripts/anime/images/promote.mjs
+       scripts/o1/env.sh dev -- node scripts/anime/images/promote.mjs --apply
        unset PROMOTE_TARGET_SERVICE_KEY PROMOTE_TARGET_URL
 
-   Without `scripts/o1/env.sh`, export `PROMOTE_SOURCE_URL` and `PROMOTE_SOURCE_SERVICE_KEY` (o1-dev's) instead. The dry run prints three lines of counts
+   `read -rs` waits for the production service role key. The first `promote.mjs` line is a dry run (prints the plan, writes nothing); `--apply` writes the files first, then the rows. Without `scripts/o1/env.sh`, export `PROMOTE_SOURCE_URL` and `PROMOTE_SOURCE_SERVICE_KEY` (o1-dev's) instead. The dry run prints three lines of counts
    (`rows: N insert, N update, N identical`, `files: N copy, N overwrite, N identical`). It refuses when source and target are the same project and when the source is production.
    Check: dashboard, Storage, `entity-images`: the folder `anime/` exists; `q "select kind, count(*) from public.entity_images group by 1"` matches the dry run.
    Back: delete the rows you do not want from the admin page of OtakuQuiz (it removes the files too), or run `M/018-entity-images.rollback.sql` after emptying the bucket and the table.

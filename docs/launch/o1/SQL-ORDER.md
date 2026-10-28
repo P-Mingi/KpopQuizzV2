@@ -17,10 +17,13 @@ Folder names used below:
 
 Set up once in your own terminal (the connection string is typed, never saved in a file):
 
-    read -rs PROD_DB_URL; export PROD_DB_URL          # paste the Supabase direct or session pooler string, press return
-    sql1() { psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f "$1"; }   # mode "single"
-    sqln() { psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f "$1"; }                         # mode "none"
-    q()    { psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "$1"; }                       # one read-only query
+    read -rs PROD_DB_URL; export PROD_DB_URL
+    sql1() { psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f "$1"; }
+    sqln() { psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f "$1"; }
+    q()    { psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "$1"; }
+
+`read -rs` waits for the Supabase direct or session pooler string (paste it, press return; nothing shows). `sql1` is mode "single", `sqln` mode "none",
+`q` one read-only query. These blocks carry no `#` comments: zsh, the macOS shell, passes them as arguments unless `interactivecomments` is set.
 
 - **single**: the file runs in one transaction (`sql1`). If anything fails, nothing is kept. Run it again after fixing the cause.
 - **none**: the header says `-- o1-transaction: none` (CREATE INDEX CONCURRENTLY, VALIDATE CONSTRAINT). Use `sqln`; each statement
@@ -113,9 +116,10 @@ every anime and hub row out of production until launch, and nothing before launc
 
 ## 4. The generated files
 
-    node apps/quiz/e2e/o1/L1/content-sql.mjs --team-email-domain fandomverse.org --drafts   # every draft fact and row (first line of each file: DRAFTS; never for production)
-    node apps/quiz/e2e/o1/L1/content-sql.mjs --team-email-domain fandomverse.org            # only what is marked verified; overwrites the same files
+    node apps/quiz/e2e/o1/L1/content-sql.mjs --team-email-domain fandomverse.org --drafts
+    node apps/quiz/e2e/o1/L1/content-sql.mjs --team-email-domain fandomverse.org
 
+The first writes every draft fact and row (first line of each file: DRAFTS; never for production); the second only what is marked verified, over the same files.
 Both write into `docs/pending-migrations/multisite/launch` (the `LAUNCH` folder; `--out <dir>` writes elsewhere, for a rehearsal). The script reads
 `docs/anime/data`, never touches a database, and prints the selection and the counts. It writes L02, L04, L05, L07, L08 and L12 with their rollbacks,
 `expected-counts.json` (what the load must give), `content-verify.sql` (one read-only query that returns those counts) and `MANIFEST.json` (the sha256 of
