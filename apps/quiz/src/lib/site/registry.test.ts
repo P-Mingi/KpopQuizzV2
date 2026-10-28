@@ -289,3 +289,56 @@ describe('origins outside production (flags-env.md 4)', () => {
     }
   });
 });
+
+// FandomVerse (finding 7): the hub and OtakuQuiz share the origin https://fandomverse.org. An Origin header has no path, so an origin
+// alone names the site at the root of the domain; 'anime' is only ever the answer for an address under /anime.
+describe('siteForOrigin on a shared origin', () => {
+  const PROXY = 'hub=http://localhost:3024,anime=http://localhost:3024';
+
+  it('every registry url maps back to its own site, in production and outside it', () => {
+    for (const id of SITE_IDS) {
+      expect(siteForOrigin(REGISTRY[id].url, {}), id).toBe(id);
+      expect(siteForOrigin(REGISTRY[id].url, { VERCEL_ENV: 'production' }), id).toBe(id);
+    }
+  });
+
+  it('a full URL under /anime is anime, never the hub', () => {
+    for (const url of [
+      'https://fandomverse.org/anime', 'https://fandomverse.org/anime/', 'https://fandomverse.org/anime/q/who-is-l?ref=x#top',
+      'https://FANDOMVERSE.org/anime/series', 'https://fandomverse.org:443/anime/auth/callback',
+    ]) {
+      expect(siteForOrigin(url, { VERCEL_ENV: 'production' }), url).toBe('anime');
+      expect(siteForOrigin(url, { NEXT_PUBLIC_NET_ORIGINS: PROXY }), url).toBe('anime');
+    }
+  });
+
+  it('the origin alone, and a path outside /anime, is the hub (the site at the root of fandomverse.org)', () => {
+    for (const url of [
+      'https://fandomverse.org', 'https://fandomverse.org/', 'https://fandomverse.org/privacy', 'https://fandomverse.org/animex',
+      'https://fandomverse.org/anime-mix-quiz', 'https://fandomverse.org/Anime', 'https://fandomverse.org/anime/../privacy',
+    ]) {
+      expect(siteForOrigin(url, { VERCEL_ENV: 'production' }), url).toBe('hub');
+    }
+    expect(siteForOrigin('https://kpopquiz.org/q/x', {})).toBe('kpop');
+  });
+
+  it('dev proxy (hub and anime on one origin): the bare origin is the hub (it was anime), /anime below it is anime, production ignores both', () => {
+    expect(siteForOrigin('http://localhost:3024', { NEXT_PUBLIC_NET_ORIGINS: PROXY })).toBe('hub');
+    expect(siteForOrigin('http://localhost:3024/anime', { NEXT_PUBLIC_NET_ORIGINS: PROXY })).toBe('anime');
+    expect(siteForOrigin('http://localhost:3024/anime/q/x', { NEXT_PUBLIC_NET_ORIGINS: PROXY })).toBe('anime');
+    expect(siteForOrigin('http://localhost:3024/privacy', { NEXT_PUBLIC_NET_ORIGINS: PROXY })).toBe('hub');
+    expect(siteForOrigin('http://anime.localhost:3001', { NEXT_PUBLIC_NET_ORIGINS: 'anime=http://anime.localhost:3001' })).toBeNull();
+    expect(siteForOrigin('http://anime.localhost:3001/anime', { NEXT_PUBLIC_NET_ORIGINS: 'anime=http://anime.localhost:3001' })).toBe('anime');
+    expect(siteForOrigin('http://localhost:3024', { NEXT_PUBLIC_NET_ORIGINS: PROXY, VERCEL_ENV: 'production' })).toBeNull();
+    expect(siteForOrigin('http://localhost:3024/anime', { NEXT_PUBLIC_NET_ORIGINS: PROXY, VERCEL_ENV: 'production' })).toBeNull();
+  });
+
+  it('anything that is not an http(s) address of a site of the network is null', () => {
+    for (const bad of [
+      '', 'null', 'fandomverse.org', 'javascript:alert(1)', 'ftp://fandomverse.org/anime', 'https://fandomverse.org.evil.example',
+      'https://evil.example/https://fandomverse.org/anime', 'https://user@evil.example/anime', 'http://fandomverse.org/anime',
+    ]) {
+      expect(siteForOrigin(bad, { NEXT_PUBLIC_NET_ORIGINS: PROXY }), bad).toBeNull();
+    }
+  });
+});
