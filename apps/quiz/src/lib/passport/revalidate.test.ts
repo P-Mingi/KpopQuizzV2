@@ -1,5 +1,5 @@
 // Run O1, lot (e), lane B7: POST /api/passport/revalidate (apis.md 3.3) and the signed sender.
-// FandomVerse (owner, 2026-10-28): the origins move from otakuquiz.org to fandomverse.org. The FandomVerse topology (hub and
+// FandomVerse (owner, 2026-10-28): the origins move from the old anime domain to fandomverse.org. The FandomVerse topology (hub and
 // anime on https://fandomverse.org, anime under '/anime') is given as a preview deployment (FV); the production answers are
 // pinned against the registry url, so they hold before and after the registry moves.
 import { createHmac } from 'node:crypto';
