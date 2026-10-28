@@ -1,5 +1,6 @@
 import { REDDIT_SUBREDDIT } from '@kpopquiz/shared/social-links';
 
+import { siteAddress } from '@/lib/site/brand';
 import { SITE } from '@/lib/site/registry';
 
 // FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
@@ -43,7 +44,7 @@ export type SharePlatform = 'native' | 'copy' | 'twitter' | 'reddit' | 'discord'
 export async function sharePassport(username: string, platform: SharePlatform): Promise<'shared' | 'copied' | 'opened' | 'failed'> {
   const origin = typeof window !== 'undefined' ? (BASE_PATH ? window.location.origin + BASE_PATH : window.location.origin) : SITE.url;
   const link = (src: string) => `${origin}/u/${username}?utm_source=${src}&utm_medium=passport-card`;
-  const text = `My K-pop passport on ${SITE.domain}`;
+  const text = `My K-pop passport on ${siteAddress(SITE)}`;
 
   if (platform === 'twitter') {
     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(link('twitter'))}`, '_blank', 'noopener');
