@@ -1,8 +1,11 @@
-# SQL order for production (run O1, lane L1)
+# SQL order for production (run O1, FandomVerse)
 
 Every SQL file of run O1, in the order the owner applies it to production. Source: `docs/o1/contracts/manifest.md`
-(frozen file names and order) and the header of each file. Second pass of 2026-10-23: every file below exists in the repository
-(`apps/quiz/e2e/o1/L1/runbook-paths.sh` proves it), and the owner's decisions of D-099 are applied. Nothing here has been applied to production.
+(frozen file names and order) and the header of each file. Every file below exists in the repository (`apps/quiz/e2e/o1/L1/runbook-paths.sh` proves it).
+Updated on 2026-10-28 for FandomVerse (fandomverse.org, OtakuQuiz at `/anime`): the files and their order do not change; lane 2 updates the names and
+domains inside them (the `sites` rows of L01, the Team addresses of L02 on `team.fandomverse.org`). Applied to production so far: S4 (row 0, 2026-10-23) and
+Mission U part D (row 18b, 2026-10-27, LEDGER D-127). Nothing else.
+No calendar: a phase starts when the one before is clean (RUNBOOK table). A backup (RUNBOOK A2) opens every SQL session.
 
 Folder names used below:
 - `M` = `docs/pending-migrations/multisite`
@@ -34,7 +37,7 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 
 | # | file | phase | mode | needs | verify (short) | back | V |
 |---|---|---|---|---|---|---|---|
-| 0 | `docs/pending-migrations/s4/S4-revoke-public-execute.sql` (owner decision D-099: first, before everything else) | S4, step A0 | single | none (standalone) | 28 rows: anon f, authenticated f, service_role t (the query of its header) | `docs/pending-migrations/s4/S4-revoke-public-execute.rollback.sql` | A0 |
+| 0 | `docs/pending-migrations/s4/S4-revoke-public-execute.sql` (owner decision D-099: first, before everything else; APPLIED 2026-10-23, D-103) | S4, step A0 | single | none (standalone) | 28 rows: anon f, authenticated f, service_role t (the query of its header) | `docs/pending-migrations/s4/S4-revoke-public-execute.rollback.sql` | A0 |
 | 1 | `M/001-sites.sql` | P1 | single | none | `select id from public.sites` gives only `kpop` | `M/001-sites.rollback.sql` | V2 |
 | 2 | `M/002a-site-columns.sql` | P1 | single | 001 | 24 columns `site_id` default `'kpop'`; 24 foreign keys not validated | `M/002a-site-columns.rollback.sql` | V2 |
 | 3 | `M/002b-site-validate.sql` | P1 | none | 002a | 0 `site_id` foreign keys not validated | `M/002b-site-validate.rollback.sql` | V2 |
@@ -45,20 +48,20 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 | 8 | `M/005-net-counters.sql` | P1 | single | 001 | RLS on, 0 policies, anon cannot select | `M/005-net-counters.rollback.sql` | V3 |
 | 9 | `M/006-passport-handoff.sql` | P1 | single | 001 | schema `passport`; anon has no usage | `M/006-passport-handoff.rollback.sql` | V3 |
 | 10 | `M/007-world-xp.sql` | P1 | single | 003, 004 | 6 functions; `award_world_xp` on kpop raises | `M/007-world-xp.rollback.sql` | V3 |
-| 11 | `M/008-write-locks.sql` | P2 (DANGEROUS), by T-14 | single | 002a, 003, 004, 007 | 11 functions, 5 triggers, same ACLs; equivalence evidence | `M/008-write-locks.rollback.sql` | V4 |
+| 11 | `M/008-write-locks.sql` | P2 (DANGEROUS), RUNBOOK D, after the 24 hour watch of B | single | 002a, 003, 004, 007 | 11 functions, 5 triggers, same ACLs; equivalence evidence | `M/008-write-locks.rollback.sql` | V4 |
 | 12 | `M/009-daily-prep.sql` | P3 | none | 002a | 2 valid unique indexes; check validated | `M/009-daily-prep.rollback.sql` | V5 |
-| 13 | `M/010-daily-v2.sql` | P3 (DANGEROUS), never alone | single | 009 | 2 old unique constraints gone; v2 function present | `M/010-daily-v2.rollback.sql` | V5 |
-| 14 | `M/011-anime-series.sql` | P5, after P4 | single | 002a, 001 | 7 tables with RLS; `series` is empty | `M/011-anime-series.rollback.sql` | V6 |
+| 13 | `M/010-daily-v2.sql` | P3 (DANGEROUS), never alone; then the 24 hour watch F | single | 009 | 2 old unique constraints gone; v2 function present | `M/010-daily-v2.rollback.sql` | V5 |
+| 14 | `M/011-anime-series.sql` | P5, after F (P4) | single | 002a, 001 | 7 tables with RLS; `series` is empty | `M/011-anime-series.rollback.sql` | V6 |
 | 14b | M/018-entity-images.sql (ADM back) | P5, after 14 (011); must be applied before K5 step 3c | single | 001 | table entity_images with RLS on; anon has no insert and no update, may select only the display columns; bucket entity-images public, 4 MB, image/webp | M/018-entity-images.rollback.sql (refused while a row or a file exists) | V6 |
 | 15 | `M/012-editorial-quiz.sql` | P5 | single | 002a, 001 | `review_batches` RLS on, 0 policies | `M/012-editorial-quiz.rollback.sql` | V6 |
 | 16 | `M/013-formats.sql` | P5 | single | 011 | `games_game_type_check` validated; column `character_id` | `M/013-formats.rollback.sql` | V6 |
 | 17 | `M/014-daily-openings.sql` | P5 | single | 011, 001 | table and function present; function closed to anon | `M/014-daily-openings.rollback.sql` | V6 |
 | 18 | `M/015-spoilers.sql` | P5 | single | 002a, 001, 011 | `report_spoiler` executable by authenticated only | `M/015-spoilers.rollback.sql` | V6 |
-| 18b | `docs/pending-migrations/account-deletion.sql` (Mission U part D, #105 on main) | P5, before 016; skip if the owner already ran it (its MODE-EMPLOI check: the `deleted_user` sentinel row and `public.admin_delete_account` exist) | single | none | sentinel `00000000-0000-0000-0000-00000000dead` and `admin_delete_account` executable by `service_role` only | `docs/pending-migrations/account-deletion-rollback.sql` | V6 |
+| 18b | `docs/pending-migrations/account-deletion.sql` (Mission U part D, #105 on main; APPLIED 2026-10-27, D-127) | P5, before 016; skip if already run (its MODE-EMPLOI check: the `deleted_user` sentinel row and `public.admin_delete_account` exist) | single | none | sentinel `00000000-0000-0000-0000-00000000dead` and `admin_delete_account` executable by `service_role` only | `docs/pending-migrations/account-deletion-rollback.sql` | V6 |
 | 19 | `M/016-passport-deletion.sql` | P5, WAITS for Mission U part D | single | 004, 006, 011 and the Mission U deletion file (`admin_delete_account`) | tables `passport.deletion_requests`, `passport.deletion_log` (RLS on); 5 functions callable by `service_role` only | `M/016-passport-deletion.rollback.sql` | V6 |
 | 19b | `M/017-deletion-kpop.sql` (B7, D-112) | P5, right after 016 | single | 016, 18b | `passport_run_deletion` calls `admin_delete_account(user, keep, false)` for the kpop data after the other sites' purges; service_role only | `M/017-deletion-kpop.rollback.sql` (restores 016's function; refused while a request is pending) | V6 |
-| 20 | `LAUNCH/L01-B2-sites.sql` | P7 step 1 (Verrou 0), runbook K3 | single | 001 | 3 rows in `sites`, anime and hub `building` | `LAUNCH/L01-B2-sites.rollback.sql` | V8 |
-| 21 | `LAUNCH/L02-K2-team-accounts.sql` (generated) | P7 | single | L01, 003, 009; the 31 auth users first (`team-auth.mjs`) | 31 `editorial_accounts` on anime; `sites.system_user_id` set | `LAUNCH/L02-K2-team-accounts.rollback.sql` | V8 |
+| 20 | `LAUNCH/L01-B2-sites.sql` | P7 step 1 (Verrou 0), runbook K3 | single | 001 | 3 rows in `sites` as its header lists (domains and brands of FandomVerse, lane 2), anime and hub `building` | `LAUNCH/L01-B2-sites.rollback.sql` | V8 |
+| 21 | `LAUNCH/L02-K2-team-accounts.sql` (generated) | P7 | single | L01, 003, 009; the 31 auth users first (`team-auth.mjs --team-email-domain fandomverse.org`) | 31 `editorial_accounts` on anime; `sites.system_user_id` set | `LAUNCH/L02-K2-team-accounts.rollback.sql` | V8 |
 | 22 | `LAUNCH/L03-B7-sentinel.sql` | P7 | single | L01, 003 | profiles `deleted_user_anime` and `deleted_user_hub`, ids `00000000-0000-0000-0000-00000000dea2` and `...dea3`, no membership | `LAUNCH/L03-B7-sentinel.rollback.sql` | V8 |
 | 23 | `LAUNCH/L04-K1-series.sql` (generated) | P7 | single | L01, 011 | `series` count = number of series loaded | `LAUNCH/L04-K1-series.rollback.sql` | V8 |
 | 24 | `LAUNCH/L05-K1-facts.sql` (generated) | P7 | single | L04 | `trivia` and `entity_sources` counts; verified facts are `published` | `LAUNCH/L05-K1-facts.rollback.sql` | V8 |
@@ -69,9 +72,10 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 | 31 | `LAUNCH/L12-L1-sites-live.sql` (generated) | P7 last | single | L01 to L08 | anime and hub `live` | `LAUNCH/L12-L1-sites-live.rollback.sql` | V8 |
 
 Rows 28, 29 and 30 (L09 openings, L10 formats, L11 crossover quiz) are not on the launch path (owner decision D-099): see "After launch" below.
-Order of the launch files on the day: L01, L02 (after its auth users), L03, L04, L05, L06, L07, L08, then the domains, then L12.
-Before launch day, `ls docs/pending-migrations/multisite/launch/` must show L01 to L08 and L12, each with its rollback, and
-`grep -l '^-- DRAFTS' docs/pending-migrations/multisite/launch/*.sql` must print nothing (RUNBOOK J2).
+Order of the launch files on the day: L01, L02 (after its auth users), L03, L04, L05, L06, L07, L08, L10-PERS, then the builds and the domain, then L12.
+Before launch day, `ls docs/pending-migrations/multisite/launch/` must show L01 to L08, L10-PERS and L12, each with its rollback,
+`grep -l '^-- DRAFTS' docs/pending-migrations/multisite/launch/*.sql` must print nothing and
+`grep -c 'team.otakuquiz.org' docs/pending-migrations/multisite/launch/L02-K2-team-accounts.sql` must print 0 (RUNBOOK J2).
 
 ### Files that wait for Mission U part D
 
@@ -97,36 +101,40 @@ exist nothing in the kit names them as a step; `L12` does not wait for them.
 0. S4 (row 0) goes first, before 001: it is standalone and independent of run O1.
 1. 001 before 002a; 002a, 002b, 002c, 002d in that order. 003 before 004, 005 and 007. 007 before 008. 006 before 016 and before the flag `PASSPORT_JUMP`.
 2. `SITE_SCOPE` on only after 002 is applied and verified (RUNBOOK step B6).
-3. 009, the app deploy and 010 in one session, away from the 00:05 UTC cron. Never 010 alone.
-4. 011 to 016 only after P4 (Verrou 0 cleared). They are additive, empty and dormant.
+3. 008 only after the 24 hour watch of B is clean (RUNBOOK C); 009 only after the 24 hour watch of 008 (D3).
+   009, the app deploy and 010 in one session, away from the 00:05 UTC cron. Never 010 alone.
+4. 011 to 017 only after F (the 24 hour watch after 010, Verrou 0 cleared). They are additive, empty and dormant.
 5. Anime and hub rows (L01) and all content only on launch day (Verrou 0, rule 6 of `docs/o1/briefs/COMMON.md`).
 6. After launch, do not roll 003 or 004 back: that would delete anime passport data. The way back is the flags, not a DROP (ROLLBACK.md).
+7. Never between 23:50 and 00:30 UTC. Every file sets `lock_timeout`; a backup (RUNBOOK A2) opens every SQL session.
 
 Note on L01: decided by the owner (D-099): L01 runs at launch, as the first launch step (runbook K3). The manifest and rule 6 of COMMON keep
 every anime and hub row out of production until launch, and nothing before launch needs it (009 and 010 act on the kpop row only).
 
 ## 4. The generated files
 
-    node apps/quiz/e2e/o1/L1/content-sql.mjs --drafts       # every draft fact and row (today's state of the repository; first line of each file: DRAFTS)
-    node apps/quiz/e2e/o1/L1/content-sql.mjs                # only what you marked verified; overwrites the same files
+    node apps/quiz/e2e/o1/L1/content-sql.mjs --team-email-domain fandomverse.org --drafts   # every draft fact and row (first line of each file: DRAFTS; never for production)
+    node apps/quiz/e2e/o1/L1/content-sql.mjs --team-email-domain fandomverse.org            # only what is marked verified; overwrites the same files
 
 Both write into `docs/pending-migrations/multisite/launch` (the `LAUNCH` folder; `--out <dir>` writes elsewhere, for a rehearsal). The script reads
 `docs/anime/data`, never touches a database, and prints the selection and the counts. It writes L02, L04, L05, L07, L08 and L12 with their rollbacks,
 `expected-counts.json` (what the load must give), `content-verify.sql` (one read-only query that returns those counts) and `MANIFEST.json` (the sha256 of
-the data and of every file). The files committed on 2026-10-23 are the DRAFTS ones: they let the dev branches and the scratch rehearsal run, and they must
-never reach production. After your review (RUNBOOK J1 and J2) you regenerate without `--drafts`, commit, and the first line of every file is no longer DRAFTS.
+the data and of every file). The files in the folder today are generated in "verified" mode (`expected-counts.json` says `"mode": "verified"`; no file starts
+with DRAFTS). A DRAFTS file must never reach production. Regenerate only when facts change (RUNBOOK J2), then commit, then rehearse again (J3).
 
 What "verified" means: a fact whose `status` is `verified` in `docs/anime/data/facts/<slug>.json` (with `verified_at`), set by the owner's review. It is loaded
 as a **published** trivia row (D-099; the dev loader `scripts/anime/k1/data-load.mjs` files every fact as a draft on purpose, this is the one difference between the
 two, and L05 also promotes a draft row left by an earlier run, never the other way). A series, arc, character or opening goes in when its row says `published`.
-A quiz or a daily row goes in when every question cites at least one fact and every cited fact is in. All 1,174 non-rejected facts are `draft` today, so a run without
-`--drafts` writes L02, L04, L05 (empty of facts), L12 and no L07 or L08. Review first, then generate.
+A quiz or a daily row goes in when every question cites at least one fact and every cited fact is in. The lots of D-106 to D-119 marked the facts verified;
+the selection of the current files is in `expected-counts.json` (50 series, 268 quizzes, 99 daily rows, 10 personality quizzes).
 
-The Team accounts need their auth users before L02: `node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref <ref> --apply`
-with `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` set in your shell (RUNBOOK step K4). Without `--apply` it only prints a count. Their addresses are
-`<username>@team.otakuquiz.org`, a domain that receives no mail (ENV.md).
+The Team accounts need their auth users before L02: `node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref <ref> --team-email-domain fandomverse.org --apply`
+with `--team-email-domain fandomverse.org`, `SUPABASE_URL` set and `SUPABASE_SERVICE_ROLE_KEY` read with `read -rs` in your shell (RUNBOOK step K4). Without `--apply` it only prints a count.
+Their addresses are `<username>@team.fandomverse.org`, a sub-domain that receives no mail (ENV.md 1.7).
 
 ## 5. Rehearsal (2026-10-23, o1-scratch, DRAFTS files)
+
+Repeat it (RUNBOOK J3) on the files you will apply, once lane 2's FandomVerse changes are in them. What was proven on 2026-10-23:
 
 L01, L03, L04, L05, L06, L07, L08 and L12 applied in order, each twice: the second run changed nothing (a fingerprint of sites, groups, series, arcs, characters,
 themes, trivia, quizzes, bank rows, badges and sentinels was identical). L02 was rehearsed inside a transaction on the 31 real auth users made by
