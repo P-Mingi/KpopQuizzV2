@@ -93,6 +93,8 @@ function constSink(names: ReadonlySet<string>): RegExp | null {
     String.raw`\baction=\{\s*${arg}`,
     String.raw`<(?:img|Image)\b[^>]*\bsrc=\{\s*${arg}`,
     String.raw`\bset[A-Z]\w*(?:Src|Url|URL|Image|Href)\(\s*${arg}`,
+    // A path constant as a branch: a ternary, or the fallback of || or ??.
+    ...branchSinks(arg),
   ].join('|'));
 }
 
@@ -185,6 +187,9 @@ describe('the browser sinks of the anime and hub builds carry the base path', ()
       "<img src={pct >= 50 ? `${BASE_PATH}/mascot/a.png` : `${BASE_PATH}/mascot/b.png`} alt=\"\" />", "<img src={cdn ? '//cdn/x.png' : x} />",
       "<img src={a ? b : c} alt=\"\" />", "fetch(`${BASE_PATH}/api/x?type=${a ? 'b' : 'c'}`)", "<Link href={a ? '/x' : '/y'}>",
     ]) expect(SINK.test(miss), miss).toBe(false);
+    expect(sink.test('<img src={big ? EP : small} />')).toBe(true);
+    expect(sink.test('fetch(cached ?? EP)')).toBe(true);
+    expect(sink.test('<img src={BASE_PATH ? BASE_PATH + EP : EP} />')).toBe(false);
     for (const miss of [
       'fetch(BASE_PATH ? BASE_PATH + EP : EP)', 'navigator.sendBeacon(ENDPOINT, b)', 'fetch(`${BASE_PATH}${EP}`)', 'fetch(EP_URL)',
       'fetch(EP.replace(a, b))', 'x.fetch(EP)', '<img src={src} />',

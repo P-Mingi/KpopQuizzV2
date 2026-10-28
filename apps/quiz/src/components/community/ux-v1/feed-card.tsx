@@ -14,13 +14,13 @@ import type { DebateData, FeedPost, P8Person } from '@/lib/ux-v1/p8/types';
 // One feed card (DESIGN-SPEC 13.1 + 17.7): A0's PostCard (bordered box, flair name,
 // pink-soft type chip, the title as a real link) with the per-type body. Rendered by
 // the client feed island, so no server-only import here. FandomVerse: a picture of a site
-// path (the mascot, a public/idols photo) is requested under /anime on the anime build
-// (withClientBase; a storage or cover-art URL is absolute and stays as it is). The links
-// are next/link, which adds the base path itself.
+// path (a public/idols photo) is requested under /anime on the anime build (withClientBase;
+// a storage or cover-art URL is absolute and stays as it is); SITE_AVATAR_SRC carries the
+// base path already. The links are next/link, which adds the base path itself.
 
 /** The author PostCard shows: a person, or the site itself for the daily debate. */
 export function cardAuthor(p: P8Person | null): { name: string; accent?: string | null; font?: string | null; bias?: string | null; avatarUrl?: string | null; href?: string } {
-  if (!p) return { name: 'KpopQuiz', avatarUrl: withClientBase(SITE_AVATAR_SRC) };
+  if (!p) return { name: 'KpopQuiz', avatarUrl: SITE_AVATAR_SRC };
   return { name: p.name, accent: p.accent, font: p.font, bias: p.bias, avatarUrl: p.avatarUrl, ...(p.href ? { href: p.href } : {}) };
 }
 
