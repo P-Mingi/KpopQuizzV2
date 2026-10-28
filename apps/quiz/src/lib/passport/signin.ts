@@ -24,6 +24,7 @@
 //
 // Never logged or returned: a token hash, an email, a via. The log line carries the route, the outcome and the site.
 
+import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import { oauthCallbackUrl } from '@/lib/auth/base-path';
@@ -280,6 +281,42 @@ export function oauthProviderAllowed(user: unknown, started: string | null, allo
   return oauth.length > 0 && oauth.every((p) => allowed.includes(p));
 }
 
+/** The storage key of the Supabase session cookies of a project URL: sb-<project ref>-auth-token (supabase-js default). */
+export function sessionCookieKey(supabaseUrl: string | undefined): string | null {
+  if (!supabaseUrl) return null;
+  try {
+    const ref = new URL(supabaseUrl).hostname.split('.')[0];
+    return ref ? `sb-${ref}-auth-token` : null;
+  } catch {
+    return null;
+  }
+}
+
+const SESSION_COOKIE_RE = /^sb-[a-z0-9-]+-auth-token(?:\.\d{1,2}|-code-verifier)?$/;
+
+/**
+ * Deletes the Supabase session cookies of this response (security review, 2026-10-28): a refused session must not stay in
+ * the browser even when Supabase's sign-out fails (5xx, 429, network) and keeps the cookies. Every name the exchange may have
+ * written (the key, its chunks .0 to .9, the PKCE verifier) and every session cookie the request carries is set to '' with
+ * Max-Age=0 on Path=/, through the same cookie store, so the deletion replaces the value the exchange wrote.
+ */
+async function clearSessionCookies(env: SigninEnv): Promise<void> {
+  try {
+    const store = await cookies();
+    const names = new Set<string>();
+    const key = sessionCookieKey(env.NEXT_PUBLIC_SUPABASE_URL);
+    if (key) {
+      names.add(key);
+      names.add(`${key}-code-verifier`);
+      for (let i = 0; i < 10; i++) names.add(`${key}.${i}`);
+    }
+    for (const c of store.getAll()) if (SESSION_COOKIE_RE.test(c.name)) names.add(c.name);
+    for (const name of names) store.set(name, '', { path: '/', sameSite: 'lax', maxAge: 0, expires: new Date(0) });
+  } catch {
+    // no cookie store outside a request: nothing to clear
+  }
+}
+
 function badRequest(): NextResponse {
   return harden(new NextResponse('bad request', { status: 400, headers: { 'content-type': 'text/plain; charset=utf-8' } }));
 }
@@ -353,10 +390,14 @@ export async function handleWorldCallback(request: NextRequest, ctx: SigninCtx =
 
   // Google and Discord only: a session opened any other way (an email link asked for by hand with this callback as its
   // address) is closed at once, this browser only, and never reaches a page.
-  if (sessionMethod(data?.session?.access_token) !== 'oauth') {
+  // A refused session: Supabase's sign-out of this browser (it revokes the refresh token), then the cookies deleted here
+  // whatever the sign-out answered.
+  const refuse = async (outcome: string): Promise<NextResponse> => {
     await supabase.auth.signOut({ scope: 'local' }).catch(() => undefined);
-    return fail('not_oauth');
-  }
+    await clearSessionCookies(env);
+    return fail(outcome);
+  };
+  if (sessionMethod(data?.session?.access_token) !== 'oauth') return refuse('not_oauth');
 
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return fail('no_user');
@@ -364,10 +405,7 @@ export async function handleWorldCallback(request: NextRequest, ctx: SigninCtx =
   // Google or Discord, not another OAuth provider of the shared project (the provider started by /auth/start, and the
   // account's identity of it).
   const allowed = REGISTRY[site].auth.providers.filter(isOAuthProvider);
-  if (!oauthProviderAllowed(user, back?.provider ?? null, allowed)) {
-    await supabase.auth.signOut({ scope: 'local' }).catch(() => undefined);
-    return fail('provider');
-  }
+  if (!oauthProviderAllowed(user, back?.provider ?? null, allowed)) return refuse('provider');
 
   const { data: profile } = await supabase.from('profiles').select('id, banned_at').eq('id', user.id).maybeSingle();
   if (!profile) {

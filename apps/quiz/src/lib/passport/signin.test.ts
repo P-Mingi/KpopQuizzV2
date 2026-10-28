@@ -23,6 +23,16 @@ const state = vi.hoisted(() => ({
   oauthUrl: undefined as string | null | undefined,
   oauthError: false,
   identities: [{ provider: 'google' }] as Array<{ provider: string }> | undefined,
+  signOutFails: '' as '' | 'error' | 'throw',
+  requestCookies: [] as Array<{ name: string; value: string }>,
+  cookieWrites: [] as Array<{ name: string; value: string; options: Record<string, unknown> | undefined }>,
+}));
+
+vi.mock('next/headers', () => ({
+  cookies: async () => ({
+    getAll: () => state.requestCookies,
+    set: (name: string, value: string, options?: Record<string, unknown>) => { state.cookieWrites.push({ name, value, options }); },
+  }),
 }));
 
 vi.mock('@/lib/supabase/server', () => ({
@@ -41,7 +51,12 @@ vi.mock('@/lib/supabase/server', () => ({
         state.user = state.otpUser ? ({ id: state.otpUser, identities: state.identities } as { id: string }) : null;
         return { data: { user: state.user, session: state.token === null ? null : { access_token: state.token } }, error: null };
       },
-      signOut: async (args?: { scope?: string }) => { state.signOuts += 1; state.signOutScopes.push(args?.scope ?? 'global'); return { error: null }; },
+      signOut: async (args?: { scope?: string }) => {
+        state.signOuts += 1;
+        state.signOutScopes.push(args?.scope ?? 'global');
+        if (state.signOutFails === 'throw') throw new Error('network');
+        return { error: state.signOutFails === 'error' ? { message: 'status 503' } : null };
+      },
       signInWithOAuth: async (args: { provider: string; options: { redirectTo: string } }) => {
         state.calls.push({ fn: 'auth.signInWithOAuth', args });
         if (state.oauthError) return { data: { provider: args.provider, url: null }, error: { message: 'oauth' } };
@@ -114,7 +129,7 @@ beforeEach(() => {
   Object.assign(state, {
     user: null, profile: { id: 'user-1', banned_at: null }, calls: [], otpError: false, otpUser: 'user-1', created: true,
     stampThrows: false, signOuts: 0, signOutScopes: [], exchangeError: false, token: jwt([{ method: 'oauth', timestamp: 1_800_000_000 }]),
-    oauthUrl: undefined, oauthError: false, identities: [{ provider: 'google' }],
+    oauthUrl: undefined, oauthError: false, identities: [{ provider: 'google' }], signOutFails: '', requestCookies: [], cookieWrites: [],
   });
   vi.spyOn(console, 'info').mockImplementation(() => undefined);
 });
@@ -545,6 +560,41 @@ describe('the provider of the sign-in: Google or Discord only (security review, 
       expect(oauthProviderAllowed(user, null, allowed)).toBe(false);
       expect(oauthProviderAllowed(user, 'google', allowed)).toBe(false);
     }
+  });
+});
+
+describe('a refused session leaves no session cookie, even when the sign-out fails (security review, 2026-10-28)', () => {
+  const KEY = 'sb-abcdefghijklmnopqrst-auth-token';
+  const ENV_URL = { ...FV, NEXT_PUBLIC_SUPABASE_URL: 'https://abcdefghijklmnopqrst.supabase.co' };
+  const callback = (cookie: string): NextRequest => new NextRequest('https://fandomverse.org/anime/auth/callback?code=c1', { headers: { cookie } });
+  const deleted = (): string[] => state.cookieWrites.filter((w) => w.value === '' && w.options?.maxAge === 0 && w.options?.path === '/').map((w) => w.name);
+
+  for (const fails of ['', 'error', 'throw'] as const) {
+    for (const why of ['not_oauth', 'provider'] as const) {
+      it(`${why}, sign-out ${fails || 'ok'}: the key, its chunks and the verifier are deleted on Path=/`, async () => {
+        state.signOutFails = fails;
+        if (why === 'not_oauth') state.token = jwt([{ method: 'magiclink', timestamp: 1 }]);
+        else state.identities = [{ provider: 'github' }];
+        const res = await handleWorldCallback(callback(startCookie('anime', '/daily')), { site: 'anime', env: ENV_URL });
+        expect(loc(res)).toBe('/anime/login');
+        expect(state.signOutScopes).toEqual(['local']);
+        const gone = deleted();
+        for (const name of [KEY, `${KEY}.0`, `${KEY}.1`, `${KEY}.9`, `${KEY}-code-verifier`]) expect(gone, name).toContain(name);
+      });
+    }
+  }
+
+  it('without the project url, the session cookies the request carries are deleted by name (and nothing else)', async () => {
+    state.signOutFails = 'error';
+    state.token = jwt([{ method: 'otp', timestamp: 1 }]);
+    state.requestCookies = [{ name: 'sb-otherref-auth-token.0', value: 'x' }, { name: 'sb-otherref-auth-token.1', value: 'y' }, { name: 'theme', value: 'dark' }];
+    await handleWorldCallback(callback(startCookie('anime', '/')), fv('anime'));
+    expect(deleted().sort()).toEqual(['sb-otherref-auth-token.0', 'sb-otherref-auth-token.1']);
+  });
+
+  it('an accepted session deletes nothing', async () => {
+    await handleWorldCallback(callback(startCookie('anime', '/daily')), { site: 'anime', env: ENV_URL });
+    expect(state.cookieWrites).toEqual([]);
   });
 });
 
