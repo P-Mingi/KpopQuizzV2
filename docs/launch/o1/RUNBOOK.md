@@ -275,6 +275,7 @@ Google: fandomverse.org uses the same Google client as kpopquiz.org. No new clie
 AUTH-FANDOMVERSE.md (lane 3): fandomverse.org uses Supabase's Google redirect, not the Google Identity Services button, so Google Cloud needs no JavaScript origin and no new redirect URI.
 Discord: nothing to add. The Discord application redirects to the Supabase callback, unchanged; the allowed return address is H4's.
 Email: fandomverse.org offers no email sign-in (code, lane 3); the email provider stays on for kpopquiz.org.
+Previews: they run on the `o1-dev` Supabase project, whose callback is not in the Google client, so Google sign-in cannot complete on a preview (Discord only shows its own page); nothing is added for them. End-to-end Google sign-in is proven only in production, by the owner at K6.
 Check: V10 later (K6): the sign-in sheet on fandomverse.org shows Google and Discord and no email field; both sign in; `/anime` shows the same session. Back: remove the origin.
 
 **H6  Buy the domain and set its DNS (not attached yet).**
