@@ -1,7 +1,8 @@
 // Run O1, lot H2b: helpers shared by the blocks of the home. Pure, except origins() which reads the environment.
 
 import { groupInitials } from '@/lib/ux-v1/p1/format';
-import { netBase, REGISTRY } from '@/lib/site/registry';
+import { netBase } from '@/lib/site/base-path';
+import { REGISTRY } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 
 import type { HubOrigins, HubOpts, HubQuizCard, HubSite } from './types';

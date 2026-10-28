@@ -6,7 +6,8 @@ import { withMicrofrontends } from '@vercel/microfrontends/next/config';
 import type { NextConfig } from 'next';
 
 import { INDEXING_OPEN } from './src/lib/site/indexing';
-import { SITE, SITE_ID, basePathOf } from './src/lib/site/registry';
+import { basePathOf } from './src/lib/site/base-path';
+import { SITE, SITE_ID } from './src/lib/site/registry';
 import { afterFilesFor, fallbackFor, keyFileBlocksFor, redirectsFor, rewritesFor } from './src/lib/site/routing';
 import { MFE_APPLICATIONS, cronProxyRewrites, nonCanonicalHostHeaders } from './src/lib/site/zones';
 import { buildUxStylesheet, uxStylesheetVersion } from './src/lib/ux-v1/a0/stylesheet';

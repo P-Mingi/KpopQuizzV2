@@ -3,7 +3,7 @@
 // origin or site name is written here.
 
 import { ht } from '@/lib/site/hub/copy';
-import { netBase, NETWORK, REGISTRY, SITE_ID } from '@/lib/site/registry';
+import { netOrigin, NETWORK, REGISTRY, SITE_ID } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 
 import type { COPY as H1 } from '@/copy/hub/h1';
@@ -36,7 +36,7 @@ export function networkCards(env: NetOriginEnv): NetworkCard[] {
       id,
       name: s.brand.name,
       pitch: ht('home.cardPitch', { topicPlural: s.vocabulary.topicPlural, memberPlural: s.vocabulary.memberPlural }),
-      origin: netBase(id, env),
+      origin: netOrigin(id, env),
       accentLight: light,
       accentDark: s.theme.dark.pink ?? light,
     };

@@ -447,29 +447,6 @@ export function flagOn(value: string | undefined): boolean {
 // email link), code asks `netOrigin`, which honours NEXT_PUBLIC_NET_ORIGINS on dev servers and
 // staging projects and ignores it on a production deployment.
 
-// FandomVerse (owner, 2026-10-28; docs/launch/o1/ARCHITECTURE-FANDOMVERSE.md): one domain, sub-folders. A site url is an origin plus,
-// for a site that lives in another site's domain, its sub-folder (https://fandomverse.org/anime): the base path of that build. Both
-// parts are read from the url, so there is one value per site. Here and not in base-path.ts: this module is in the kpop client
-// bundle already, and a new module there would change kpopquiz.org's client graph.
-
-const SITE_URL_RE = /^(https?:\/\/[a-z0-9.-]+(?::[0-9]{1,5})?)((?:\/[a-z0-9-]+)*)$/;
-
-function siteUrlParts(url: string): { origin: string; path: string } {
-  const m = SITE_URL_RE.exec(url);
-  if (!m) throw new Error(`site url "${url}" must be an origin with an optional /folder path and no trailing slash`);
-  return { origin: m[1]!, path: m[2] ?? '' };
-}
-
-/** The base path of a site url: '' for a site at the root of its domain, '/anime' for https://fandomverse.org/anime. */
-export function basePathOf(url: string): string {
-  return siteUrlParts(url).path;
-}
-
-/** The origin of a site url (scheme, host, port): what a browser sends in an Origin header and what a cookie is scoped to. */
-export function originOf(url: string): string {
-  return siteUrlParts(url).origin;
-}
-
 export interface NetOriginEnv {
   readonly NEXT_PUBLIC_NET_ORIGINS?: string | undefined;
   readonly VERCEL_ENV?: string | undefined;
@@ -514,24 +491,14 @@ export function netOrigin(id: SiteId, env: NetOriginEnv): string {
 }
 
 /**
- * FandomVerse (lane 1): the base URL of `id` on this deployment, the prefix of every address of the site: the origin of netOrigin
- * and the base path of the registry url (https://fandomverse.org/anime; with `anime=http://localhost:3024`, http://localhost:3024/anime).
- * An override stays a bare origin (flags-env.md 4): the sub-folder always comes from the registry. `netBase(id, env) + path` is a page.
- */
-export function netBase(id: SiteId, env: NetOriginEnv): string {
-  return `${originOf(netOrigin(id, env))}${basePathOf(REGISTRY[id].url)}`;
-}
-
-/**
  * The site an origin belongs to on this deployment (the email hook's brand, the `client` check of
  * /auth/authorize): a registry url always matches; an override matches only outside production.
- * Unknown origins return null. An origin names the site at the root of its domain: on fandomverse.org that is the hub, never
- * OtakuQuiz in its sub-folder (whose base URL is never a bare origin), with or without an override.
+ * Unknown origins return null.
  */
 export function siteForOrigin(origin: string, env: NetOriginEnv): SiteId | null {
   for (const id of SITE_IDS) if (REGISTRY[id].url === origin) return id;
   if (env.VERCEL_ENV === 'production') return null;
   const o = parseNetOrigins(env.NEXT_PUBLIC_NET_ORIGINS);
-  for (const id of SITE_IDS) if (o[id] !== undefined && `${o[id]}${basePathOf(REGISTRY[id].url)}` === origin) return id;
+  for (const id of SITE_IDS) if (o[id] === origin) return id;
   return null;
 }

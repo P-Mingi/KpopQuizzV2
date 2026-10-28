@@ -3,8 +3,7 @@
 // its shape; a block with no data is null (or empty) and the page leaves it out, as the design's sc-if does. Pure types and two pure
 // helpers: no site name or origin is written here.
 
-import { joinSiteUrl } from '@/lib/site/base-path';
-import { netBase } from '@/lib/site/registry';
+import { joinSiteUrl, netBase } from '@/lib/site/base-path';
 
 import type { SiteId } from '@/lib/site/types';
 

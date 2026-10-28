@@ -1,5 +1,5 @@
 // Run O1, lot (c), lane B6: the two links of the network (types.ts NetLinkFns, apis.md 2.1, link-allowlist.md).
-import { REGISTRY, SITE, basePathOf } from '@/lib/site/registry';
+import { REGISTRY, SITE } from '@/lib/site/registry';
 
 import type { SiteId } from '@/lib/site/types';
 import type { NetBridgeId, NetLinkFns } from './types';
@@ -23,5 +23,5 @@ export const bridgeHref: NetLinkFns['bridgeHref'] = (dst: SiteId, path: string, 
 export const editorialHref: NetLinkFns['editorialHref'] = (dst: SiteId, path: string) => {
   const url = REGISTRY[dst].url;
   const p = sitePath(path.split(/[?#]/)[0] ?? '/');
-  return p === '/' && basePathOf(url) ? url : `${url}${p}`;
+  return p === '/' && /^https?:\/\/[^/]+\/./.test(url) ? url : `${url}${p}`;
 };

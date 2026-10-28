@@ -5,7 +5,7 @@
 //
 // Keep this module free of `@/` imports, next/* and Node built-ins: next.config.ts imports it.
 
-import { basePathOf, originOf } from './registry';
+import { basePathOf, originOf } from './base-path';
 
 import type { SiteConfig, SiteId } from './types';
 

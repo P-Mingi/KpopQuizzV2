@@ -6,7 +6,8 @@ import { describe, expect, it } from 'vitest';
 import {
   basePathOf, joinSiteUrl, originOf, prefixBasePath, stripBasePath, withBasePath, withoutBasePath, zoneChildrenOf,
 } from './base-path';
-import { REGISTRY, netBase, netOrigin, siteForOrigin } from './registry';
+import { netBase } from './base-path';
+import { REGISTRY, netOrigin, siteForOrigin } from './registry';
 
 import type { SiteConfig, SiteId } from './types';
 

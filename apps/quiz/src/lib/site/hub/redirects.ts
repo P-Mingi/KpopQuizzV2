@@ -9,7 +9,8 @@
 //    MEMBER_FILTER_COLUMNS), never a private one. Home site = the first visible membership (activated, not banned, shown
 //    off its own site). No visible membership, an unknown or banned member, or any read error: null, and the page is a 404.
 
-import { isSiteId, netBase, REGISTRY } from '@/lib/site/registry';
+import { netBase } from '@/lib/site/base-path';
+import { isSiteId, REGISTRY } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 
 import type { SupabaseClient } from '@supabase/supabase-js';

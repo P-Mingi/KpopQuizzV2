@@ -1,7 +1,8 @@
 // FandomVerse (owner, 2026-10-28; docs/launch/o1/ARCHITECTURE-FANDOMVERSE.md): one domain, sub-folders. https://fandomverse.org
 // is the hub and https://fandomverse.org/anime is OtakuQuiz, a Next.js build with `basePath: '/anime'` that Vercel Microfrontends
 // serves on the hub's domain. The registry `url` of a site is its canonical base URL; its path is the site's base path ('' for
-// kpop and hub), read by `basePathOf` (registry.ts), so there is no second list to keep in sync.
+// kpop and hub), read by `basePathOf` below, so there is no second list to keep in sync. Not in registry.ts on purpose: that
+// module is in kpopquiz.org's client bundle, and nothing of this belongs there.
 //
 // The helpers of this module are for server code (route handlers, the middleware, server components and libraries, next.config.ts).
 // A module that can reach a client bundle does not import it: a new module in a shared client component would change kpopquiz.org's
@@ -11,12 +12,39 @@
 //
 // Keep this module free of `@/` imports, next/* and Node built-ins: next.config.ts and the edge middleware import it.
 
-import { REGISTRY, basePathOf, originOf } from './registry';
+import { REGISTRY, netOrigin } from './registry';
 import { SITE_IDS } from './types';
 
-import type { SiteConfig } from './types';
+import type { NetOriginEnv } from './registry';
+import type { SiteConfig, SiteId } from './types';
 
-export { basePathOf, originOf };
+const SITE_URL_RE = /^(https?:\/\/[a-z0-9.-]+(?::[0-9]{1,5})?)((?:\/[a-z0-9-]+)*)$/;
+
+function siteUrlParts(url: string): { origin: string; path: string } {
+  const m = SITE_URL_RE.exec(url);
+  if (!m) throw new Error(`site url "${url}" must be an origin with an optional /folder path and no trailing slash`);
+  return { origin: m[1]!, path: m[2] ?? '' };
+}
+
+/** The base path of a site url: '' for a site at the root of its domain, '/anime' for https://fandomverse.org/anime. */
+export function basePathOf(url: string): string {
+  return siteUrlParts(url).path;
+}
+
+/** The origin of a site url (scheme, host, port): what a browser sends in an Origin header and what a cookie is scoped to. */
+export function originOf(url: string): string {
+  return siteUrlParts(url).origin;
+}
+
+/**
+ * The base URL of `id` on this deployment, the prefix of every address of the site: the origin of netOrigin (registry.ts: the
+ * NEXT_PUBLIC_NET_ORIGINS override outside production, else the registry url) and the base path of the registry url
+ * (https://fandomverse.org/anime; with `anime=http://localhost:3024`, http://localhost:3024/anime). An override stays a bare
+ * origin (flags-env.md 4): the sub-folder always comes from the registry. `netBase(id, env) + path` is a page of the site.
+ */
+export function netBase(id: SiteId, env: NetOriginEnv): string {
+  return `${originOf(netOrigin(id, env))}${basePathOf(REGISTRY[id].url)}`;
+}
 
 /**
  * The sites served in a sub-folder of `site`'s domain (the zones of a Vercel Microfrontends group whose default application is
