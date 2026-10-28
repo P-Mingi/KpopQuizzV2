@@ -413,8 +413,10 @@ export async function handleWorldCallback(request: NextRequest, ctx: SigninCtx =
   };
   if (sessionMethod(data?.session?.access_token) !== 'oauth') return refuse('not_oauth');
 
+  // The exchange wrote a session: when Supabase cannot name its user, the provider check below cannot run, so the session is
+  // refused like any other (signed out, cookies deleted), never left in the browser unchecked.
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return fail('no_user');
+  if (!user) return refuse('no_user');
 
   // Google or Discord, not another OAuth provider of the shared project (the provider started by /auth/start, and the
   // account's identity of it).
