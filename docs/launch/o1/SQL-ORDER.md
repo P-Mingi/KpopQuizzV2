@@ -154,7 +154,7 @@ the Team auth users of the old addresses `<username>@team.otakuquiz.org` (made b
 scripts/o1/env.sh scratch -- bash -c '"$0" "$O1_DB_URL" -X -At -c "select id, domain, brand, status from public.sites order by sort"' /opt/homebrew/opt/postgresql@18/bin/psql
 ```
 
-   Old rows (`otakuquiz.org`, `fanquiz.org`): go on. Rows already on `fandomverse.org/anime` and `fandomverse.org`: skip to step 4.
+   Old rows (`otakuquiz.org`, `fanquiz.org`): go on. Rows already on `fandomverse.org/anime` and `fandomverse.org`: skip to step 3 (the old Team users may still be there).
 
 2. The launch rollbacks in reverse order, L01's last (it refuses while any row of another table points at anime or hub). One call, serial, logged in
    `docs/o1/migration-log.md`; it stops at the first file that refuses:
