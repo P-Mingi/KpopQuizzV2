@@ -5,10 +5,11 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import { validateRouting } from '@vercel/microfrontends/next/testing';
+import { matchHas } from 'next/dist/shared/lib/router/utils/prepare-destination';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { REGISTRY } from './registry';
-import { MFE_APPLICATIONS, canonicalHost, cronProxyRewrites, nonCanonicalHostHeaders } from './zones';
+import { MFE_APPLICATIONS, VERCEL_APP_HOST, canonicalHost, cronProxyRewrites, deploymentHostNoindexHeaders } from './zones';
 
 import type { NextConfig } from 'next';
 import type { SiteConfig, SiteId } from './types';
@@ -48,19 +49,53 @@ describe('microfrontends.json: the group of fandomverse.org', () => {
   });
 });
 
-describe('noindex on every host but the canonical one', () => {
+const NOINDEX = [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }];
+
+/** Does a header rule apply to a request on `host`? Next's own matcher of `has` and `missing` (what `next start` runs). */
+function appliesOn(rule: { has?: readonly { type: 'host'; value: string }[]; missing?: readonly { type: 'host'; value: string }[] }, host: string): boolean {
+  const req = { headers: { host } } as unknown as Parameters<typeof matchHas>[0];
+  return matchHas(req, {}, [...(rule.has ?? [])], [...(rule.missing ?? [])]) !== false;
+}
+
+describe('noindex on the *.vercel.app hosts of a deployment and on every host of a preview, never "every host but one"', () => {
   it('the canonical host of the hub and of OtakuQuiz is fandomverse.org', () => {
     expect(canonicalHost(HUB_FV)).toBe('fandomverse.org');
     expect(canonicalHost(ANIME_FV)).toBe('fandomverse.org');
     expect(canonicalHost(REGISTRY.kpop)).toBe('kpopquiz.org');
   });
 
-  it('is one header rule matched per request by host: X-Robots-Tag noindex, nofollow when the host is not the canonical one', () => {
-    expect(nonCanonicalHostHeaders(ANIME_FV)).toEqual([{
-      source: '/:path*',
-      missing: [{ type: 'host', value: 'fandomverse.org' }],
-      headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
-    }]);
+  it('a production build: one rule, X-Robots-Tag noindex, nofollow when the host is a *.vercel.app host (dots escaped, no missing)', () => {
+    for (const env of ['production', '', undefined]) {
+      expect(deploymentHostNoindexHeaders(env), String(env)).toEqual([{ source: '/:path*', has: [{ type: 'host', value: '.+\\.vercel\\.app' }], headers: NOINDEX }]);
+    }
+    expect(VERCEL_APP_HOST).toBe(String.raw`.+\.vercel\.app`);
+  });
+
+  it('Next applies it on a vercel.app host and on no other host, fandomverse.org and a future domain included', () => {
+    const [rule] = deploymentHostNoindexHeaders('production');
+    for (const host of ['otakuquiz.vercel.app', 'fandomverse.vercel.app', 'otakuquiz-git-main-team.vercel.app', 'OtakuQuiz-abc123-team.vercel.app:443']) {
+      expect(appliesOn(rule!, host), host).toBe(true);
+    }
+    for (const host of [
+      'fandomverse.org', 'fandomverse.org:443', 'www.fandomverse.org', 'staging.fandomverse.org', 'anime.example', 'localhost',
+      'vercel.app', 'evilvercel.app', 'otakuquiz.vercelxapp', 'otakuquiz.vercel.app.example.org',
+    ]) {
+      expect(appliesOn(rule!, host), host).toBe(false);
+    }
+  });
+
+  it('a preview or development build: the rule has no host condition, so every host says noindex', () => {
+    for (const env of ['preview', 'development']) {
+      const rules = deploymentHostNoindexHeaders(env);
+      expect(rules, env).toEqual([{ source: '/:path*', headers: NOINDEX }]);
+      for (const host of ['fandomverse.org', 'otakuquiz-git-x-team.vercel.app', 'preview.fandomverse.org']) expect(appliesOn(rules[0]!, host), host).toBe(true);
+    }
+  });
+
+  it('no rule of any build is "every host but fandomverse.org" (no missing condition)', () => {
+    for (const env of ['production', 'preview', 'development', undefined]) {
+      for (const r of deploymentHostNoindexHeaders(env)) expect('missing' in r, String(env)).toBe(false);
+    }
   });
 });
 
@@ -83,14 +118,14 @@ describe('the crons of the shared vercel.json on a build with a base path', () =
 // ---------------------------------------------------------------------------------------------------------------------------
 // next.config.ts per build
 
-async function loadConfig(site: SiteId, opts: { fandomVerse: boolean; indexing?: string }): Promise<NextConfig> {
+async function loadConfig(site: SiteId, opts: { fandomVerse: boolean; indexing?: string; vercelEnv?: string }): Promise<NextConfig> {
   vi.resetModules();
   vi.stubEnv('NEXT_PUBLIC_SITE_ID', site === 'kpop' ? '' : site);
   vi.stubEnv('SITE_ID', '');
   vi.stubEnv('NET_INDEXING', opts.indexing ?? '');
   vi.stubEnv('NEXT_PUBLIC_UX_V1', '1');
   vi.stubEnv('NEXT_PUBLIC_UX_V12', '1');
-  vi.stubEnv('VERCEL_ENV', '');
+  vi.stubEnv('VERCEL_ENV', opts.vercelEnv ?? '');
   if (opts.fandomVerse) {
     vi.doMock('./registry', async (importOriginal) => {
       const m = await importOriginal<typeof import('./registry')>();
@@ -102,7 +137,9 @@ async function loadConfig(site: SiteId, opts: { fandomVerse: boolean; indexing?:
 }
 
 type Rewrites = { beforeFiles: { source: string; destination: string; basePath?: false }[]; afterFiles: unknown[]; fallback: unknown[] };
-type Headers = { source: string; missing?: { type: string; value: string }[]; headers: { key: string; value: string }[] }[];
+type Headers = { source: string; has?: { type: string; value: string }[]; missing?: { type: string; value: string }[]; headers: { key: string; value: string }[] }[];
+
+const VERCEL_APP_RULE = { source: '/:path*', has: [{ type: 'host', value: VERCEL_APP_HOST }], headers: NOINDEX };
 
 describe('next.config.ts', () => {
   it('kpop: today\'s object, untouched (no basePath, no asset prefix, no microfrontends keys, the same rewrites)', async () => {
@@ -112,10 +149,10 @@ describe('next.config.ts', () => {
     const r = (await c.rewrites!()) as Rewrites;
     expect(r.beforeFiles.every((x) => x.basePath === undefined)).toBe(true);
     const h = (await c.headers!()) as Headers;
-    expect(h.some((x) => x.missing)).toBe(false);
+    expect(h.some((x) => x.missing || x.has)).toBe(false);
   });
 
-  it('anime on fandomverse.org: basePath /anime, Next\'s own asset prefix, the cron proxies first, noindex off the canonical host once open', async () => {
+  it('anime on fandomverse.org: basePath /anime, Next\'s own asset prefix, the cron proxies first, noindex on its vercel.app hosts once open', async () => {
     const c = await loadConfig('anime', { fandomVerse: true, indexing: '1' });
     expect(c.basePath).toBe('/anime');
     expect(c.assetPrefix).toBeUndefined();
@@ -126,14 +163,39 @@ describe('next.config.ts', () => {
     expect(r.beforeFiles.slice(0, crons.length)).toEqual(crons);
     expect(r.beforeFiles.some((x) => x.source.startsWith('/:path('))).toBe(true);
     const h = (await c.headers!()) as Headers;
-    expect(h[0]).toEqual({ source: '/:path*', missing: [{ type: 'host', value: 'fandomverse.org' }], headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] });
+    expect(h[0]).toEqual(VERCEL_APP_RULE);
+    expect(h.some((x) => x.missing)).toBe(false);
+    expect(h.filter((x) => x.headers.some((y) => y.key === 'X-Robots-Tag'))).toEqual([VERCEL_APP_RULE]);
   });
 
-  it('anime while closed: every answer already says noindex, no host rule is added', async () => {
+  it('anime while closed: every answer says noindex (the closed rule), the vercel.app rule stays, no "every host but" rule', async () => {
     const c = await loadConfig('anime', { fandomVerse: true, indexing: '' });
     const h = (await c.headers!()) as Headers;
     expect(h.some((x) => x.missing)).toBe(false);
-    expect(h[0]!.headers).toEqual([{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }]);
+    expect(h[0]).toEqual(VERCEL_APP_RULE);
+    expect(h).toContainEqual({ source: String.raw`/((?!robots\.txt|sitemap\.xml).*)`, headers: NOINDEX });
+  });
+
+  it('a preview build of anime or hub: noindex on every host, whatever NET_INDEXING says', async () => {
+    for (const site of ['anime', 'hub'] as const) {
+      for (const vercelEnv of ['preview', 'development']) {
+        const c = await loadConfig(site, { fandomVerse: true, indexing: '1', vercelEnv });
+        const h = (await c.headers!()) as Headers;
+        expect(h[0], `${site} ${vercelEnv}`).toEqual({ source: '/:path*', headers: NOINDEX });
+        expect(h.some((x) => x.missing || x.has), `${site} ${vercelEnv}`).toBe(false);
+      }
+    }
+  });
+
+  it('a production build of anime or hub: the vercel.app rule only, whatever NET_INDEXING says', async () => {
+    for (const site of ['anime', 'hub'] as const) {
+      for (const indexing of ['', '1']) {
+        const c = await loadConfig(site, { fandomVerse: true, indexing, vercelEnv: 'production' });
+        const h = (await c.headers!()) as Headers;
+        expect(h[0], `${site} ${indexing}`).toEqual(VERCEL_APP_RULE);
+        expect(h.some((x) => x.missing), `${site} ${indexing}`).toBe(false);
+      }
+    }
   });
 
   it('hub on fandomverse.org: the default application, no basePath, no cron proxy', async () => {
@@ -144,6 +206,7 @@ describe('next.config.ts', () => {
     const r = (await c.rewrites!()) as Rewrites;
     expect(r.beforeFiles.some((x) => x.basePath === false)).toBe(false);
     const h = (await c.headers!()) as Headers;
-    expect(h[0]!.missing).toEqual([{ type: 'host', value: 'fandomverse.org' }]);
+    expect(h[0]).toEqual(VERCEL_APP_RULE);
+    expect(h.some((x) => x.missing)).toBe(false);
   });
 });

@@ -9,7 +9,7 @@ import { INDEXING_OPEN } from './src/lib/site/indexing';
 import { basePathOf } from './src/lib/site/base-path';
 import { SITE, SITE_ID } from './src/lib/site/registry';
 import { afterFilesFor, fallbackFor, keyFileBlocksFor, redirectsFor, rewritesFor } from './src/lib/site/routing';
-import { MFE_APPLICATIONS, cronProxyRewrites, nonCanonicalHostHeaders } from './src/lib/site/zones';
+import { MFE_APPLICATIONS, cronProxyRewrites, deploymentHostNoindexHeaders } from './src/lib/site/zones';
 import { buildUxStylesheet, uxStylesheetVersion } from './src/lib/ux-v1/a0/stylesheet';
 
 // V12 (NEXT_PUBLIC_UX_V12, default off, and only together with NEXT_PUBLIC_UX_V1: the
@@ -227,7 +227,8 @@ const nextConfig: NextConfig = {
 //   - basePath: the path of the site's registry url ('/anime' for https://fandomverse.org/anime, nothing for the hub). Next then
 //     serves every page, handler, public file and /_next asset of the build under it; its rewrites, headers and middleware
 //     matcher are prefixed with it;
-//   - once the site is open (NET_INDEXING), X-Robots-Tag noindex on every host but the canonical one (lib/site/zones.ts);
+//   - X-Robots-Tag noindex on the *.vercel.app hosts of a production build, and on every host of a preview or development build
+//     (lib/site/zones.ts deploymentHostNoindexHeaders); never on fandomverse.org or another domain of a production build;
 //   - on a build with a base path, the cron paths of the shared vercel.json proxied to the site's own URL (zones.ts);
 //   - withMicrofrontends: it checks microfrontends.json at build time and wires the local proxy. The anime build skips its asset
 //     prefix and its asset rewrites: the base path already gives every asset of the build a path that Vercel routes to it, and
@@ -251,7 +252,9 @@ function zoneConfig(base: NextConfig): NextConfig {
     ...base,
     ...(ZONE_BASE_PATH ? { basePath: ZONE_BASE_PATH } : {}),
     async headers() {
-      return [...(INDEXING_OPEN ? nonCanonicalHostHeaders(SITE).map((r) => ({ ...r, missing: [...r.missing], headers: [...r.headers] })) : []), ...await baseHeaders()];
+      const deploymentHosts = deploymentHostNoindexHeaders(process.env.VERCEL_ENV)
+        .map((r) => ({ source: r.source, ...(r.has ? { has: [...r.has] } : {}), headers: [...r.headers] }));
+      return [...deploymentHosts, ...await baseHeaders()];
     },
     async rewrites() {
       const r = await baseRewrites();

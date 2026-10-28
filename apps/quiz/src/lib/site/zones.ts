@@ -19,7 +19,7 @@ export interface HostCondition {
 
 export interface ZoneHeaderRule {
   readonly source: string;
-  readonly missing: readonly HostCondition[];
+  readonly has?: readonly HostCondition[];
   readonly headers: readonly { readonly key: string; readonly value: string }[];
 }
 
@@ -29,17 +29,28 @@ export function canonicalHost(site: SiteConfig): string {
 }
 
 /**
- * Every answer on a host that is not the site's canonical one says noindex, nofollow: the *.vercel.app URLs of the project (preview
- * and production alike), a staging domain, a dev server. Only added once the site is open to search engines (NET_INDEXING): while it
- * is closed every answer already says so. A header rule of next.config.ts is matched per request by the host it was asked on, so a
- * page cached for every host still answers with the right header (the meta of a production page cannot: it is built once).
+ * The hosts Vercel gives a deployment (otakuquiz.vercel.app, fandomverse-git-<branch>-<team>.vercel.app, ...), as the value of a
+ * `has: host` condition. Next matches that value as a whole: it builds `new RegExp('^' + value + '$')` and tests the host without
+ * its port, lower-cased (matchHas, next/dist/shared/lib/router/utils/prepare-destination.js), so the dots are escaped and no anchor
+ * is written (`\.vercel\.app$` alone would become `^\.vercel\.app$$`, which no host matches).
  */
-export function nonCanonicalHostHeaders(site: SiteConfig): ZoneHeaderRule[] {
-  return [{
-    source: '/:path*',
-    missing: [{ type: 'host', value: canonicalHost(site) }],
-    headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
-  }];
+export const VERCEL_APP_HOST = '.+\\.vercel\\.app';
+
+/**
+ * X-Robots-Tag noindex, nofollow on the addresses of a hub or anime deployment that are not fandomverse.org, and only those:
+ *   - a production build (VERCEL_ENV production, or a local build without VERCEL_ENV): on a `*.vercel.app` host only. Any other
+ *     host (fandomverse.org, and any domain the owner adds later) answers what the page says;
+ *   - a preview or development build (VERCEL_ENV preview or development): on every host, a branch domain included, since nothing
+ *     of a preview is ever meant for search engines.
+ * Never "every host but fandomverse.org": that rule would also close any future legitimate host. A header rule is matched per
+ * request by the host it was asked on, so a page cached for every host still answers with the right header (the meta of a
+ * production page cannot: it is built once). Added whether the site is open or not: while it is closed the closed rule of
+ * next.config.ts already says the same on every host.
+ */
+export function deploymentHostNoindexHeaders(vercelEnv: string | undefined): ZoneHeaderRule[] {
+  const headers = [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }];
+  if (vercelEnv && vercelEnv !== 'production') return [{ source: '/:path*', headers }];
+  return [{ source: '/:path*', has: [{ type: 'host', value: VERCEL_APP_HOST }], headers }];
 }
 
 export interface CronProxyRewrite {
