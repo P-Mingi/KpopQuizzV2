@@ -152,3 +152,12 @@ bundle that this lane changed compiles to the same bytes as at the base once Nex
 applied and the code is minified (Next's own SWC, `process.env.__NEXT_ROUTER_BASEPATH` = `''`, `process.browser` = `true`),
 `registry.ts` is untouched, no module joins a client graph, and the hub build's chunks carry no trace of the helpers. Hub home
 after: 199,487 gzip (with lane 2's values; no base build of the hub was made, the offline build budget was three).
+
+One module is not byte-identical on kpop and the hub once lane 2 is in: `apps/quiz/src/lib/share.ts`. On every build,
+`shareLevelUp` builds the level-up share URL with the base path (the page origin plus `BASE_PATH`, then `?utm_source=levelup...`:
+`https://fandomverse.org/anime?utm_source=levelup...` on anime, `<origin>/?utm_source=levelup...` on kpop and the hub, as before)
+and its text with the site address (`SITE.url` without its scheme: `kpopquiz.org`, `fandomverse.org`, `fandomverse.org/anime`)
+where it read `SITE.domain` before (lane 2). The base-path part folds away on kpop and the hub; the address part does not, so
+the client chunk that carries `share.ts` changes on those two builds, while the text kpopquiz.org members share stays
+`kpopquiz.org`. The other share links of the module (`/s/<code>`, `/q/<slug>`, `/u/<username>`, the passport card) only gain
+the base path, which folds away there.
