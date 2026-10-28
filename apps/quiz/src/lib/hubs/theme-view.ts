@@ -75,6 +75,27 @@ export function buildThemeView(theme: GeneralTheme, published: HubQuiz[]): Theme
   };
 }
 
+// The short name of each theme in running text (PR 16: the category hub's description and FAQ). Every theme has
+// one (pinned by theme-view.test.ts).
+export const TOPIC_NAMES: Readonly<Record<string, string>> = {
+  'kpop-history-quiz': 'K-pop history',
+  'kpop-debut-quiz': 'debuts',
+  'kpop-company-quiz': 'companies',
+  'kpop-fandom-quiz': 'fandoms',
+  'kpop-discography-quiz': 'discography',
+  'kpop-dance-quiz': 'dance',
+  'kpop-awards-quiz': 'awards',
+  'kpop-drama-variety-quiz': 'TV shows',
+  'kpop-idol-quiz': 'idols',
+  'kpop-groups-quiz': 'groups',
+};
+
+/** "K-pop history, debuts, ... and groups", in the given order. */
+export function topicList(themes: readonly GeneralTheme[]): string {
+  const names = themes.map((t) => TOPIC_NAMES[t.slug] ?? t.h1);
+  return names.length < 2 ? names.join('') : `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`;
+}
+
 /** The listed count of every theme, for the sibling rows, the hub section and the sitemap. */
 export function themeCounts(publishedSlugs: ReadonlySet<string>): Map<string, number> {
   return new Map(GENERAL_THEMES.map((t) => [

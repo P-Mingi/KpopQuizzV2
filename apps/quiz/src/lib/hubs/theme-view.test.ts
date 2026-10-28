@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { GENERAL_THEMES } from './general-themes';
-import { buildThemeView, themeCounts } from './theme-view';
+import { TOPIC_NAMES, buildThemeView, themeCounts, topicList } from './theme-view';
 
 import type { HubQuiz } from '@/lib/ux-v1/p3/model';
 
@@ -52,5 +52,17 @@ describe('themeCounts', () => {
     const counts = themeCounts(new Set([...historySlugs, 'kpop-geral']));
     expect(counts.get('kpop-history-quiz')).toBe(historySlugs.length);
     expect(counts.get('kpop-dance-quiz')).toBe(0);
+  });
+});
+
+describe('topicList', () => {
+  it('every theme has a short name, and no name is left over', () => {
+    expect(Object.keys(TOPIC_NAMES).sort()).toEqual(GENERAL_THEMES.map((t) => t.slug).sort());
+  });
+
+  it('joins the names in the given order', () => {
+    expect(topicList(GENERAL_THEMES)).toBe('K-pop history, debuts, companies, fandoms, discography, dance, awards, TV shows, idols and groups');
+    expect(topicList(GENERAL_THEMES.slice(0, 2))).toBe('K-pop history and debuts');
+    expect(topicList(GENERAL_THEMES.slice(0, 1))).toBe('K-pop history');
   });
 });
