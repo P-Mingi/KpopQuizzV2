@@ -35,7 +35,7 @@ describe('bridgeHref', () => {
 describe('editorialHref', () => {
   it('is the canonical url of the target and the path, with no query or fragment', async () => {
     const { editorialHref } = await links('kpop');
-    expect(editorialHref('hub', '/')).toBe('https://fanquiz.org/');
-    expect(editorialHref('anime', '/about?x=1#y')).toBe('https://otakuquiz.org/about');
+    expect(editorialHref('hub', '/')).toBe('https://fandomverse.org/');
+    expect(editorialHref('anime', '/about?x=1#y')).toBe('https://fandomverse.org/anime/about');
   });
 });

@@ -18,7 +18,7 @@ interface ResultCardProps {
   traits?: readonly string[] | undefined;
   /** Group photo from `public/idols/` (groups only; a member result shows the
    *  initial, never a picture). `position` is a CSS object-position (the focal
-   *  point of an uploaded portrait on otakuquiz.org); without it the card is
+   *  point of an uploaded portrait on fandomverse.org/anime); without it the card is
    *  exactly what it always was. */
   photo?: { src: string; alt: string; position?: string | undefined } | undefined;
   /** "16% of STAY got Bang Chan": pass it only when the share is real. */

@@ -7,6 +7,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { COPY } from '@/copy/hub/h1';
 import { DELETION_GRACE_DAYS, HANDOFF_LOG_DAYS, KEEP_QUIZZES_DEFAULT, leavableSites } from '@/lib/passport/deletion/policy';
 import { PASSPORT_SECONDS, TX_COOKIE_NAMES } from '@/lib/passport/types';
+import { siteAddress } from '@/lib/site/brand';
 import { NETWORK, REGISTRY } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 
@@ -177,22 +178,22 @@ describe('point 2: the controller', () => {
 
 // Point 3: the three sites by name, origins from the registry.
 describe('point 3: the three sites', () => {
-  it('names KpopQuiz, OtakuQuiz and FanQuiz with their domains, from the registry', async () => {
+  it('names KpopQuiz, OtakuQuiz and FandomVerse with their domains, from the registry', async () => {
     const { text } = await render();
-    const names = SITE_IDS.map((id) => `${REGISTRY[id].brand.name} (${REGISTRY[id].domain})`);
-    expect(names).toEqual(['KpopQuiz (kpopquiz.org)', 'OtakuQuiz (otakuquiz.org)', 'FanQuiz (fanquiz.org)']);
+    const names = SITE_IDS.map((id) => `${REGISTRY[id].brand.name} (${siteAddress(REGISTRY[id])})`);
+    expect(names).toEqual(['KpopQuiz (kpopquiz.org)', 'OtakuQuiz (fandomverse.org/anime)', 'FandomVerse (fandomverse.org)']);
     expect(text).toContain(`three fan quiz sites: ${names[0]}, ${names[1]} and ${names[2]}.`);
   });
 });
 
 // Point 4: sign-in methods.
 describe('point 4: how you sign in, per site, from the registry', () => {
-  it('KpopQuiz: Google, Discord, email link; OtakuQuiz and FanQuiz: Google, email link', async () => {
+  it('KpopQuiz: Google, Discord, email link; OtakuQuiz and FandomVerse: Google, email link', async () => {
     const items = signInItems();
     expect(items.map((i) => i.text)).toEqual([
       'KpopQuiz: Google, Discord or an email link',
       'OtakuQuiz: Google or an email link',
-      'FanQuiz: Google or an email link',
+      'FandomVerse: Google or an email link',
     ]);
     const { text } = await render();
     for (const i of items) expect(text).toContain(i.text);
@@ -306,10 +307,11 @@ describe('points 9 and 10: the cookies of cookies.md and the page match', () => 
 describe('point 11: services and hosting', () => {
   it('names Resend, the EU hosting and the standard contractual clauses', async () => {
     const { text } = await render();
-    expect(text).toContain('Resend: sending the sign-in emails');
+    expect(text).toContain('Resend: sending the sign-in emails of KpopQuiz');
     expect(text).toContain('Supabase in Ireland and Vercel servers in Dublin');
     expect(text).toContain('standard contractual clauses of the European Commission');
-    expect(text).toContain('Discord: sign-in on KpopQuiz only');
+    // 2026-10-28: Discord signs in on the three sites, the email link is KpopQuiz's only (fandomverse.org: Google and Discord).
+    expect(text).toContain('Discord: sign-in, if you choose it');
     expect(text).toContain('We do not sell your data.');
   });
 });

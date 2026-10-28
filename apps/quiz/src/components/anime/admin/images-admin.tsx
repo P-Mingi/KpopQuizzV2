@@ -36,7 +36,7 @@ const FILTERS = [
 ] as const;
 
 /**
- * The Images tab of /admin on otakuquiz.org: on the left the series (search, a with/without filter and a counter), on the right the
+ * The Images tab of /admin on fandomverse.org/anime: on the left the series (search, a with/without filter and a counter), on the right the
  * series you chose, its cover slot and one portrait slot for each of its characters. Everything is a real button, link or field, in
  * reading order, so the tab key walks it top to bottom and Enter or Space does what a click does.
  */

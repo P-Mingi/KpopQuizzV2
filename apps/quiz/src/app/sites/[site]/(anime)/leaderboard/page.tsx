@@ -14,7 +14,7 @@ export const revalidate = 300;
 export const metadata: Metadata = {
   title: 'Anime Leaderboard: Who Wins This Week',
   description: 'See the top players of the week, watch what fans are playing right now, and follow the top quiz creators.',
-  openGraph: { title: 'Community | OtakuQuiz', description: 'The top players, a live feed of what fans are playing, and the top creators on otakuquiz.org.', url: '/leaderboard', images: [DEFAULT_OG_IMAGE] },
+  openGraph: { title: 'Community | OtakuQuiz', description: 'The top players, a live feed of what fans are playing, and the top creators on fandomverse.org/anime.', url: '/leaderboard', images: [DEFAULT_OG_IMAGE] },
   twitter: { card: 'summary_large_image' },
   alternates: { canonical: '/leaderboard' },
 };

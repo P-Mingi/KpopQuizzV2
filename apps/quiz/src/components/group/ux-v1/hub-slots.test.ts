@@ -50,7 +50,7 @@ function render(el: React.ReactElement): Promise<string> {
   });
 }
 
-const SITE = { origin: 'https://otakuquiz.org', brand: 'OtakuQuiz' };
+const SITE = { origin: 'https://fandomverse.org/anime', brand: 'OtakuQuiz' };
 const BANNED = /k-?pop|kpopquiz|[\u2013\u2014]|\p{Extended_Pictographic}/iu;
 
 async function hubHtml(hub: SeriesHub, v12: boolean): Promise<string> {
@@ -86,7 +86,7 @@ describe.each(FIXTURE_SLUGS)('the %s hub with the anime slots', (slug) => {
       expect(out).toContain('Other Series');
       expect(out).toContain('/series');
       // the series' JSON-LD and links are the site's
-      expect(out).toContain('"url":"https://otakuquiz.org/' + hub.group.slug + '-quiz"');
+      expect(out).toContain('"url":"https://fandomverse.org/anime/' + hub.group.slug + '-quiz"');
       expect(out).toContain(`Ways to play ${name} on OtakuQuiz`);
       expect(out).toContain(`href="/${hub.group.slug}-trivia"`);
       // nothing of kpop: no war, no MV pulse, no comeback, no Verse, no fans picked, no K-pop text

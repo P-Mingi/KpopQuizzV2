@@ -26,7 +26,7 @@ export const COPY = {
   'u.shareOwn': 'My {brand} passport',
   'u.shareOther': '{name} on {brand}',
   'u.guestTitle': 'Your {brand} passport',
-  'u.guestLead': 'Keep your scores, streak, badges and rank title in one place. Free, and no password: sign in with Google or an email link.',
+  'u.guestLead': 'Keep your scores, streak, badges and rank title in one place. Free, and no password: sign in with Google or Discord.',
   'team.chip': '{brand} team',
   'team.title': 'Editorial account run by the {brand} team',
   'team.profileLine': 'Editorial account of {brand}',

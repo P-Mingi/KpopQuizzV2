@@ -22,7 +22,7 @@ export default function DmcaPage(): React.ReactElement {
 
       <p className="text-sm text-secondary leading-relaxed">
         
-        OtakuQuiz (otakuquiz.org) lets fans add images to the spaces they curate. We copy every uploaded
+        OtakuQuiz (fandomverse.org/anime) lets fans add images to the spaces they curate. We copy every uploaded
         image into our own storage and review uploads after they go live. If you own an image and want it
         removed, we act on valid requests quickly.
       </p>

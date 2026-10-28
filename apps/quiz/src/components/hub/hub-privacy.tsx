@@ -1,4 +1,4 @@
-// Run O1, lot (d), lane H1: the body of fanquiz.org/privacy, also served by the otakuquiz.org build (canonical fanquiz.org). It renders
+// Run O1, lot (d), lane H1: the body of fandomverse.org/privacy, also served by the fandomverse.org/anime build (canonical fandomverse.org). It renders
 // PRIVACY_SECTIONS (lib/site/hub/network-page.ts), every string a copy key privacy.* (copy/hub/h1.ts), the names from the registry.
 // While the network is closed (INDEXING_OPEN false) it carries a visible "Draft" banner and no date; once it is open it has neither
 // the banner nor a draft look, and prints the launch date (NET_LAUNCH_DATE). The "What your passport shares" block is the one of the

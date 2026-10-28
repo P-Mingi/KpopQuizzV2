@@ -1,4 +1,4 @@
-// Run O1, lot H2b: the shapes the new FanQuiz home reads (docs/o1/design/fanquiz-hub/Plan.dc.html, sections 3 and 5; the sample data of
+// Run O1, lot H2b: the shapes the new FandomVerse home reads (docs/o1/design/fanquiz-hub/Plan.dc.html, sections 3 and 5; the sample data of
 // Main.dc.html gives the shape of each block). Plain data, no function, no Date: every value survives a cache and a JSON round trip.
 // Every link is the canonical page on its own site (netOrigin); nothing is copied onto the hub.
 

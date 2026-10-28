@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
   if (!UX_V1) return {};
   return {
     title: 'Community',
-    description: 'Threads, blogs, debates and score challenges from every anime fandom, the daily debate and what fans are playing right now on otakuquiz.org.',
+    description: 'Threads, blogs, debates and score challenges from every anime fandom, the daily debate and what fans are playing right now on fandomverse.org/anime.',
     alternates: { canonical: '/community' },
     robots: { index: false, follow: true },
   };

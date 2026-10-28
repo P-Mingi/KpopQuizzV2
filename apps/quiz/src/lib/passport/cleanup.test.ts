@@ -19,7 +19,7 @@ vi.mock('@/lib/supabase/server', () => ({
 
 import { handleCronCleanup } from './cleanup';
 
-const HUB = 'https://fanquiz.org';
+const HUB = 'https://fandomverse.org';
 const get = (auth?: string): Request => new Request(`${HUB}/api/cron/passport-cleanup`, { headers: auth ? { authorization: auth } : {} });
 const c = (site: 'kpop' | 'anime' | 'hub' = 'hub') => ({ site, secret: 'cron-secret' });
 

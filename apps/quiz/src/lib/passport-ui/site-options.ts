@@ -1,4 +1,4 @@
-// Run O1, owner order of 2026-10-26: no pink on otakuquiz.org. The passport settings offer name colours, avatar presets and passport themes; the kpop
+// Run O1, owner order of 2026-10-26: no pink on fandomverse.org/anime. The passport settings offer name colours, avatar presets and passport themes; the kpop
 // sets hold a "Pink" of each. On another site the pink choices are not offered, and the default passport theme (the site accent) shows as its own
 // orange. On kpop every export here is the very same array or object as before.
 

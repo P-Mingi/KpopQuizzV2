@@ -1,4 +1,4 @@
-// Run O1, lot (d), lane H1: the data of the network page (fanquiz.org, /). Pure: the sites come from the registry,
+// Run O1, lot (d), lane H1: the data of the network page (fandomverse.org, /). Pure: the sites come from the registry,
 // the words of a card from the vocabulary of its site, the link from netOrigin (the registry url on production). No
 // origin or site name is written here.
 

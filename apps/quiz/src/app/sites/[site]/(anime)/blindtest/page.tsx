@@ -105,7 +105,7 @@ function faqItems(stats: PublicStats | null): Array<{ q: string; a: string }> {
   },
   {
     q: 'Can I play on mobile?',
-    a: 'Yes. The blind test works on any device with a browser and audio. No app download needed. Just visit otakuquiz.org/blindtest and hit Start.',
+    a: 'Yes. The blind test works on any device with a browser and audio. No app download needed. Just visit fandomverse.org/anime/blindtest and hit Start.',
   },
   ];
 }

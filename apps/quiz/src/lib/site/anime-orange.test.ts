@@ -170,7 +170,7 @@ function filesUnder(dir: string, test: (f: string) => boolean): string[] {
   return out;
 }
 
-describe('no pink on otakuquiz.org', () => {
+describe('no pink on fandomverse.org/anime', () => {
   it('the anime theme holds no kpop pink, in any token, light or dark', () => {
     for (const [mode, t] of [['light', ANIME.light], ['dark', ANIME.dark]] as const) {
       for (const [name, value] of Object.entries(t)) {
@@ -365,7 +365,7 @@ describe('OtakuQuiz has no blind test', () => {
       vi.doMock('@/lib/personality/data', () => ({ getWmaGroupSlugs: async () => ['death-note'] }));
       vi.doMock('@/lib/db/queries/groups', () => ({ getAllGroups: async () => [{ slug: 'death-note', name: 'Death Note' }] }));
       vi.doMock('@/lib/personality/server', () => ({
-        SITE: 'https://otakuquiz.org',
+        SITE: 'https://fandomverse.org/anime',
         getWmaPage: async () => ({ group: { slug: 'death-note', name: 'Death Note' }, view: {}, blindtestSongs: 20 }),
       }));
       vi.doMock('@/components/personality/quiz', () => ({ PersonalityQuiz: (p: { also?: React.ReactNode }) => h('div', null, p.also) }));

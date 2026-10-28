@@ -13,12 +13,12 @@ import { SITE_IDS } from '@/lib/site/types';
 import type { Metadata } from 'next';
 
 // Lot (d), H1 (owner, 2026-10-24, brief H1-legal.md): the legal notice of the three sites. One route, the kpop one, is the source; the
-// OtakuQuiz and FanQuiz page re-exports it. One copy file (legal.* keys of copy/hub/h1.ts); the publisher is Louis Pecchia, entrepreneur
+// OtakuQuiz and FandomVerse page re-exports it. One copy file (legal.* keys of copy/hub/h1.ts); the publisher is Louis Pecchia, entrepreneur
 // individuel (owner, 2026-10-25) and his phone is given (owner, 2026-10-25): the real copy holds no placeholder. The launch gate stays, and
 // the tests that need a [BRACKETED] line printed mock 'legal.phone' as '[TELEPHONE]' (render option `placeholder`); a build with NET_INDEXING on
 // refuses to print it.
 // Fusion A5 (owner, 2026-10-27: main wins for kpop): kpopquiz.org now serves main's page (lib/legal-notice.ts, static metadata, /legal always
-// a known route); OtakuQuiz and FanQuiz serve the copy-key page through the twin, which exports networkLegalMetadata. The kpop cases below
+// a known route); OtakuQuiz and FandomVerse serve the copy-key page through the twin, which exports networkLegalMetadata. The kpop cases below
 // check main's page, the anime and hub cases the network one.
 
 const SRC = join(__dirname, '../../..');
@@ -121,7 +121,7 @@ describe('the page, on each site', () => {
       expect(html.match(/<h1\b/g)).toHaveLength(1);
       expect(html).toContain('<h1 class="text-2xl font-medium mb-2">Legal notice</h1>');
       expect(html).toContain('<p lang="fr" class="text-sm text-secondary mb-8">Mentions légales</p>');
-      expect(text).toContain(`${reg.brand.name} (${reg.domain}) is published by: Louis Pecchia, entrepreneur individuel (EI), 3560 chemin des Lauves, 13100 Aix-en-Provence, France`);
+      expect(text).toContain(`${reg.brand.name} (${reg.url.replace(/^https:\/\//, '')}) is published by: Louis Pecchia, entrepreneur individuel (EI), 3560 chemin des Lauves, 13100 Aix-en-Provence, France`);
       expect(text).toContain('Legal form: Entrepreneur individuel (EI) SIREN 109 686 634, SIRET du siège 109 686 634 00014 TVA non applicable, article 293 B du CGI Phone: +33 7 81 55 70 19 Email:');
       expect(text).toContain('The publication director is: Louis Pecchia');
       expect(text).not.toMatch(/RCS|gmail/i);
@@ -147,12 +147,12 @@ describe('the page, on each site', () => {
     });
   }
 
-  it('the email and the privacy link: hello@kpopquiz.org and the network policy on OtakuQuiz and FanQuiz, the own ones on KpopQuiz', async () => {
+  it('the email and the privacy link: hello@kpopquiz.org and the network policy on OtakuQuiz and FandomVerse, the own ones on KpopQuiz', async () => {
     for (const site of ['anime', 'hub'] as const) {
       const { html, text } = await render(site);
       expect(text, site).toContain('Email: hello@kpopquiz.org');
       expect(html, site).toContain('href="mailto:hello@kpopquiz.org"');
-      expect(html, site).toContain('href="https://fanquiz.org/privacy"');
+      expect(html, site).toContain('href="https://fandomverse.org/privacy"');
       // the one network mailbox is on kpopquiz.org; no other kpop mention
       expect(html.replaceAll('hello@kpopquiz.org', '').includes('kpopquiz.org'), site).toBe(false);
     }
@@ -160,10 +160,10 @@ describe('the page, on each site', () => {
     expect(kpop.text).toContain('Email: hello@kpopquiz.org');
     expect(kpop.html).toContain('href="mailto:hello@kpopquiz.org"');
     expect(kpop.html).toContain('href="https://kpopquiz.org/privacy"');
-    expect(kpop.html.includes('fanquiz.org')).toBe(false);
+    expect(kpop.html.includes('fandomverse.org')).toBe(false);
   });
 
-  it('the twin of OtakuQuiz and FanQuiz re-exports the page of the kpop route, and its metadata is the network one', () => {
+  it('the twin of OtakuQuiz and FandomVerse re-exports the page of the kpop route, and its metadata is the network one', () => {
     const twin = read('app/sites/[site]/legal/page.tsx');
     expect(twin).toMatch(/export \{ default \} from '@\/app\/\(site\)\/legal\/page';/);
     expect(twin).toMatch(/return networkLegalMetadata\(\);/);
@@ -275,7 +275,7 @@ describe('the launch gate', () => {
 });
 
 describe('the routes', () => {
-  it('OtakuQuiz and FanQuiz allow /legal; kpop knows it on every build, like /privacy (main lists it in KNOWN_ROUTES)', () => {
+  it('OtakuQuiz and FandomVerse allow /legal; kpop knows it on every build, like /privacy (main lists it in KNOWN_ROUTES)', () => {
     expect(REGISTRY.anime.routes.allow).toContain('/legal');
     expect(REGISTRY.hub.routes.allow).toContain('/legal');
     const on = { v1: true, v12: true };

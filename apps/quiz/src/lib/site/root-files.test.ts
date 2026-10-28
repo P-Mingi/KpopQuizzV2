@@ -42,20 +42,20 @@ describe('robotsText and sitemapXml', () => {
     const { robotsText } = await import('./root-files');
     expect(robotsText({
       rules: [{ userAgent: '*', allow: ['/', '/api/og/'], disallow: ['/api/'] }, { userAgent: 'GPTBot', allow: '/' }],
-      sitemap: 'https://otakuquiz.org/sitemap.xml',
-    })).toBe('User-Agent: *\nAllow: /\nAllow: /api/og/\nDisallow: /api/\n\nUser-Agent: GPTBot\nAllow: /\n\nSitemap: https://otakuquiz.org/sitemap.xml\n');
+      sitemap: 'https://fandomverse.org/anime/sitemap.xml',
+    })).toBe('User-Agent: *\nAllow: /\nAllow: /api/og/\nDisallow: /api/\n\nUser-Agent: GPTBot\nAllow: /\n\nSitemap: https://fandomverse.org/anime/sitemap.xml\n');
   });
 
   it('sitemapXml puts the origin before every path and escapes the XML characters', async () => {
     const { sitemapXml } = await import('./root-files');
-    const xml = sitemapXml('https://otakuquiz.org', [
+    const xml = sitemapXml('https://fandomverse.org/anime', [
       { path: '/', priority: 1 },
       { path: '/q/a&b', lastModified: new Date('2026-10-01T00:00:00Z'), changeFrequency: 'monthly' },
     ]);
-    expect(xml).toContain('<loc>https://otakuquiz.org/</loc>');
-    expect(xml).toContain('<loc>https://otakuquiz.org/q/a&amp;b</loc>');
+    expect(xml).toContain('<loc>https://fandomverse.org/anime/</loc>');
+    expect(xml).toContain('<loc>https://fandomverse.org/anime/q/a&amp;b</loc>');
     expect(xml).toContain('<lastmod>2026-10-01T00:00:00.000Z</lastmod>');
-    expect([...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].every((m) => m[1]!.startsWith('https://otakuquiz.org/'))).toBe(true);
+    expect([...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].every((m) => m[1]!.startsWith('https://fandomverse.org/anime/'))).toBe(true);
   });
 });
 
@@ -101,7 +101,7 @@ describe('the route handlers', () => {
     const body = await res.text();
     expect(res.status).toBe(200);
     expect(res.headers.get('content-type')).toMatch(/^text\/plain/);
-    expect(body).toContain('Sitemap: https://otakuquiz.org/sitemap.xml');
+    expect(body).toContain('Sitemap: https://fandomverse.org/anime/sitemap.xml');
     expect(body).not.toMatch(/kpopquiz|fanquiz/i);
   });
 
@@ -109,7 +109,7 @@ describe('the route handlers', () => {
     vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'hub');
     const res = await (await robotsRoute()).GET(req, ctx('hub'));
     expect(res.status).toBe(200);
-    expect(await res.text()).toContain('Sitemap: https://fanquiz.org/sitemap.xml');
+    expect(await res.text()).toContain('Sitemap: https://fandomverse.org/sitemap.xml');
   });
 
   it('hub: sitemap.xml lists its home on its origin and reads nothing', async () => {
@@ -119,7 +119,7 @@ describe('the route handlers', () => {
     const body = await res.text();
     expect(res.status).toBe(200);
     expect(res.headers.get('content-type')).toMatch(/xml/);
-    expect([...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])).toEqual(['https://fanquiz.org/']);
+    expect([...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])).toEqual(['https://fandomverse.org/']);
     expect((state.db as ReturnType<typeof recordingDb>).queries).toHaveLength(0);
   });
 
@@ -129,9 +129,9 @@ describe('the route handlers', () => {
     const res = await (await sitemapRoute()).GET(req, ctx('anime'));
     const locs = [...(await res.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]!);
     expect(res.status).toBe(200);
-    expect(locs.slice(0, 3)).toEqual(['https://otakuquiz.org/', 'https://otakuquiz.org/series', 'https://otakuquiz.org/death-note-quiz']);
+    expect(locs.slice(0, 3)).toEqual(['https://fandomverse.org/anime/', 'https://fandomverse.org/anime/series', 'https://fandomverse.org/anime/death-note-quiz']);
     expect(locs.length).toBe(7);
-    expect(locs.every((l) => l.startsWith('https://otakuquiz.org/'))).toBe(true);
+    expect(locs.every((l) => l.startsWith('https://fandomverse.org/anime/'))).toBe(true);
   });
 
   it('a failed read answers 503 with a retry hint, never a half list', async () => {

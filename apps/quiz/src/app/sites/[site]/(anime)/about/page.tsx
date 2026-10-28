@@ -128,7 +128,7 @@ export default async function AboutPage(): Promise<React.ReactElement> {
           <h2 className="mb-2 text-lg font-bold text-[var(--text-primary)]">Who runs OtakuQuiz?</h2>
           <p>
             
-            OtakuQuiz (otakuquiz.org) is run by {FOUNDER.name}, its founder. It is an independent fan site: it is not affiliated
+            OtakuQuiz (fandomverse.org/anime) is run by {FOUNDER.name}, its founder. It is an independent fan site: it is not affiliated
             with any artist, label or agency.
           </p>
         </div>

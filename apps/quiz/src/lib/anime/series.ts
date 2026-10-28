@@ -1,4 +1,4 @@
-// Run O1, lot (b), lane LB: the loader of the series hub (otakuquiz.org, /{series}-quiz and /{series}-trivia).
+// Run O1, lot (b), lane LB: the loader of the series hub (fandomverse.org/anime, /{series}-quiz and /{series}-trivia).
 //
 // A series is a `groups` row of site anime (series.group_id, 1:1). getSeriesHub(slug) reads the group, `series`,
 // `arcs`, `characters`, `series_themes`, `trivia` (entity_kind 'series'), `entity_sources`, the favourite counts and
