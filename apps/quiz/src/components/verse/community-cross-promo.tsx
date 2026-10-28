@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { WidgetShell } from '@/components/verse/primitives/widget-shell';
 import { useEffect, useState } from 'react';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 interface MySpace { slug: string; name: string; fandom: string | null; role: string; xp: number }
 
 // V-COMM-3 step 4 - the community-hub cross-promo. A client island (the hub is a
@@ -15,7 +18,7 @@ export function CommunityCrossPromo(): React.ReactElement | null {
 
   useEffect(() => {
     let live = true;
-    fetch('/api/verse/my-spaces', { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/verse/my-spaces`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => { if (live) setSpaces((d?.spaces as MySpace[]) ?? []); })
       .catch(() => { if (live) setSpaces([]); });

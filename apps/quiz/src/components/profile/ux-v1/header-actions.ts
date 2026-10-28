@@ -1,5 +1,8 @@
 'use client';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Client calls behind the header picture sheet (passport band + settings). The
 // file and link go to P10's routes (api/profile/header/*), which re-encode, store
 // and save header_url; "use the theme colour" clears header_url through the
@@ -22,7 +25,7 @@ export async function uploadHeader(file: File): Promise<HeaderResult> {
   const fd = new FormData();
   fd.append('file', file);
   try {
-    return await read(await fetch('/api/profile/header/upload', { method: 'POST', body: fd, credentials: 'include' }));
+    return await read(await fetch(`${BASE_PATH}/api/profile/header/upload`, { method: 'POST', body: fd, credentials: 'include' }));
   } catch {
     return { ok: false, error: 'We could not reach the server. Try again.' };
   }
@@ -30,7 +33,7 @@ export async function uploadHeader(file: File): Promise<HeaderResult> {
 
 export async function linkHeader(url: string): Promise<HeaderResult> {
   try {
-    return await read(await fetch('/api/profile/header/link', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url }), credentials: 'include' }));
+    return await read(await fetch(`${BASE_PATH}/api/profile/header/link`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url }), credentials: 'include' }));
   } catch {
     return { ok: false, error: 'We could not reach the server. Try again.' };
   }
@@ -50,7 +53,7 @@ export async function clearHeader(): Promise<HeaderResult> {
     }
   }
   try {
-    const res = await fetch('/api/auth/update-profile', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ header_url: null }), credentials: 'include' });
+    const res = await fetch(`${BASE_PATH}/api/auth/update-profile`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ header_url: null }), credentials: 'include' });
     if (res.ok) return { ok: true, url: null };
     let msg = 'We could not save that. Try again.';
     try { const d = (await res.json()) as { error?: string }; if (d.error) msg = d.error; } catch { /* keep */ }

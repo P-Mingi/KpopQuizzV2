@@ -19,6 +19,9 @@ import { useHub } from './hub-context';
 
 import type { BtGroup } from '@/lib/ux-v1/p6/playlists';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Client islands of the server-rendered hub. Each reads the controller through
 // useHub(); links keep their real href (crawlable, and a modified click opens the
 // playlist page), a plain click starts the run in place like the prototype.
@@ -83,7 +86,7 @@ export function BtRankedFoot(): React.ReactElement | null {
   const [line, setLine] = useState<string | null>(null);
   useEffect(() => {
     let alive = true;
-    fetch('/api/ranked/me', { credentials: 'include', cache: 'no-store' })
+    fetch(`${BASE_PATH}/api/ranked/me`, { credentials: 'include', cache: 'no-store' })
       .then((r) => (r.ok ? (r.json() as Promise<RankedMe>) : null))
       .then((d) => {
         if (!alive || !d?.season) return;
@@ -167,7 +170,7 @@ function PopularPhoto({ src, slug, name }: { src: string | null; slug: string; n
 function GroupRow({ g, onStart }: { g: BtGroup; onStart: (g: BtGroup, e: React.MouseEvent) => void }): React.ReactElement {
   return (
     <li>
-      <a className="p6-gi" href={`/blindtest/group-${g.slug}`} aria-label={`${g.name} blindtest, ${g.songs} songs`} onClick={(e) => onStart(g, e)}>
+      <a className="p6-gi" href={`${BASE_PATH}/blindtest/group-${g.slug}`} aria-label={`${g.name} blindtest, ${g.songs} songs`} onClick={(e) => onStart(g, e)}>
         <span className="p6-gn">{g.name}</span>
         <span className="p6-gc ux-num">{g.songs}<span className="p6-gcs"> songs</span></span>
         <Icon name="play" size="sm" className="p6-gp" />
@@ -212,7 +215,7 @@ export function BtGroupIndex({ popular }: { popular: BtGroup[] }): React.ReactEl
             const src = groupPhotoUrl(g.slug);
             return (
               <li key={g.slug}>
-              <a className="p6-bpt" href={`/blindtest/group-${g.slug}`} onClick={(e) => start(g, e)}>
+              <a className="p6-bpt" href={`${BASE_PATH}/blindtest/group-${g.slug}`} onClick={(e) => start(g, e)}>
                 <span className="p6-bpi">
                   <PopularPhoto src={src} slug={g.slug} name={g.name} />
                 </span>

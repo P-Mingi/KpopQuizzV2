@@ -1,11 +1,15 @@
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+
+import { withMicrofrontends } from '@vercel/microfrontends/next/config';
 
 import type { NextConfig } from 'next';
 
 import { INDEXING_OPEN } from './src/lib/site/indexing';
-import { SITE_ID } from './src/lib/site/registry';
+import { basePathOf } from './src/lib/site/base-path';
+import { SITE, SITE_ID } from './src/lib/site/registry';
 import { afterFilesFor, fallbackFor, keyFileBlocksFor, redirectsFor, rewritesFor } from './src/lib/site/routing';
+import { MFE_APPLICATIONS, cronProxyRewrites, nonCanonicalHostHeaders } from './src/lib/site/zones';
 import { buildUxStylesheet, uxStylesheetVersion } from './src/lib/ux-v1/a0/stylesheet';
 
 // V12 (NEXT_PUBLIC_UX_V12, default off, and only together with NEXT_PUBLIC_UX_V1: the
@@ -216,4 +220,50 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// FandomVerse (owner, 2026-10-28; docs/launch/o1/ARCHITECTURE-FANDOMVERSE.md): fandomverse.org is the hub, fandomverse.org/anime is
+// OtakuQuiz, one domain served by a Vercel Microfrontends group (default application `fandomverse`, child `otakuquiz`,
+// apps/quiz/microfrontends.json). The kpop build is in no group and exports the object above, untouched. The hub and the anime
+// builds add, on top of it:
+//   - basePath: the path of the site's registry url ('/anime' for https://fandomverse.org/anime, nothing for the hub). Next then
+//     serves every page, handler, public file and /_next asset of the build under it; its rewrites, headers and middleware
+//     matcher are prefixed with it;
+//   - once the site is open (NET_INDEXING), X-Robots-Tag noindex on every host but the canonical one (lib/site/zones.ts);
+//   - on a build with a base path, the cron paths of the shared vercel.json proxied to the site's own URL (zones.ts);
+//   - withMicrofrontends: it checks microfrontends.json at build time and wires the local proxy. The anime build skips its asset
+//     prefix and its asset rewrites: the base path already gives every asset of the build a path that Vercel routes to it, and
+//     the package does not support a basePath with its own prefix (docs, quickstart).
+const ZONE_BASE_PATH = SITE_ID === 'kpop' ? '' : basePathOf(SITE.url);
+
+function cronPaths(): string[] {
+  try {
+    const json = JSON.parse(readFileSync(join(process.cwd(), 'vercel.json'), 'utf8')) as { crons?: { path?: unknown }[] };
+    return (json.crons ?? []).map((c) => c.path).filter((p): p is string => typeof p === 'string');
+  } catch {
+    return [];
+  }
+}
+
+function zoneConfig(base: NextConfig): NextConfig {
+  const baseHeaders = base.headers!;
+  const baseRewrites = base.rewrites!;
+  const crons = cronProxyRewrites(SITE, cronPaths());
+  return {
+    ...base,
+    ...(ZONE_BASE_PATH ? { basePath: ZONE_BASE_PATH } : {}),
+    async headers() {
+      return [...(INDEXING_OPEN ? nonCanonicalHostHeaders(SITE).map((r) => ({ ...r, missing: [...r.missing], headers: [...r.headers] })) : []), ...await baseHeaders()];
+    },
+    async rewrites() {
+      const r = await baseRewrites();
+      if (Array.isArray(r)) return { beforeFiles: [...crons], afterFiles: r, fallback: [] };
+      return { ...r, beforeFiles: [...crons, ...(r.beforeFiles ?? [])] };
+    },
+  };
+}
+
+export default SITE_ID === 'kpop'
+  ? nextConfig
+  : withMicrofrontends(zoneConfig(nextConfig), {
+    appName: MFE_APPLICATIONS[SITE_ID]!,
+    ...(ZONE_BASE_PATH ? { skipTransforms: ['assetPrefix', 'rewrites'] as ('assetPrefix' | 'rewrites')[] } : {}),
+  });

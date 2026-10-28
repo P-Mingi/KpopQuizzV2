@@ -3,7 +3,7 @@
 // its shape; a block with no data is null (or empty) and the page leaves it out, as the design's sc-if does. Pure types and two pure
 // helpers: no site name or origin is written here.
 
-import { netOrigin } from '@/lib/site/registry';
+import { joinSiteUrl, netBase } from '@/lib/site/base-path';
 
 import type { SiteId } from '@/lib/site/types';
 
@@ -167,7 +167,8 @@ export interface HomeViewer {
 
 /** The absolute URL of a link on its own site: the registry origin on production, the dev origin of NEXT_PUBLIC_NET_ORIGINS elsewhere. */
 export function homeUrl(link: HomeLink): string {
-  return `${netOrigin(link.site, { NEXT_PUBLIC_NET_ORIGINS: process.env.NEXT_PUBLIC_NET_ORIGINS, VERCEL_ENV: process.env.VERCEL_ENV })}${link.path}`;
+  // FandomVerse: the base URL of the site (its sub-folder included); the home of a site in a sub-folder has no trailing slash.
+  return joinSiteUrl(netBase(link.site, { NEXT_PUBLIC_NET_ORIGINS: process.env.NEXT_PUBLIC_NET_ORIGINS, VERCEL_ENV: process.env.VERCEL_ENV }), link.path);
 }
 
 /** The Hot now list of a filter. */

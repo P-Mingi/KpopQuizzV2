@@ -8,6 +8,9 @@ import { useUnreadCount, setUnread as setStoreUnread, decrementUnread } from '@/
 
 import type { NotificationRow } from '@/app/api/notifications/route';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Notification center (Workstream M / O1). Full list, newest first, per-item
 // mark-read + dismiss + mute, all synced to the shared unread store so the bell
 // updates instantly. Reuses /api/notifications + mark-read + the shared card.
@@ -25,7 +28,7 @@ export function NotificationsCenter(): React.ReactElement {
     let cancelled = false;
     void (async () => {
       try {
-        const res = await fetch('/api/notifications?limit=50', { credentials: 'include' });
+        const res = await fetch(`${BASE_PATH}/api/notifications?limit=50`, { credentials: 'include' });
         if (!res.ok) return;
         const data = (await res.json()) as { notifications: NotificationRow[]; unreadCount: number };
         if (cancelled) return;
@@ -47,7 +50,7 @@ export function NotificationsCenter(): React.ReactElement {
     setItems((prev) => prev.map((n) => ({ ...n, is_read: true })));
     setStoreUnread(0);
     try {
-      await fetch('/api/notifications/mark-read', { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({}) });
+      await fetch(`${BASE_PATH}/api/notifications/mark-read`, { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({}) });
     } catch { /* UI already updated */ } finally { setMarking(false); }
   }
 
@@ -57,7 +60,7 @@ export function NotificationsCenter(): React.ReactElement {
     if (!item || item.is_read) return;
     setItems((prev) => prev.map((n) => (n.id === id ? { ...n, is_read: true } : n)));
     decrementUnread(1);
-    void fetch('/api/notifications/mark-read', { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ ids: [id] }) }).catch(() => {});
+    void fetch(`${BASE_PATH}/api/notifications/mark-read`, { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ ids: [id] }) }).catch(() => {});
   }
 
   // O1 item 6: dismiss (delete).
@@ -66,7 +69,7 @@ export function NotificationsCenter(): React.ReactElement {
     setItems((prev) => prev.filter((n) => n.id !== id));
     if (item && !item.is_read) decrementUnread(1);
     try {
-      await fetch('/api/notifications', { method: 'DELETE', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ id }) });
+      await fetch(`${BASE_PATH}/api/notifications`, { method: 'DELETE', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ id }) });
     } catch { /* UI already updated */ }
   }
 
@@ -74,7 +77,7 @@ export function NotificationsCenter(): React.ReactElement {
     if (loadingMore || !hasMore) return;
     setLoadingMore(true);
     try {
-      const res = await fetch(`/api/notifications?limit=50&offset=${items.length}`, { credentials: 'include' });
+      const res = await fetch(`${BASE_PATH}/api/notifications?limit=50&offset=${items.length}`, { credentials: 'include' });
       if (res.ok) {
         const data = (await res.json()) as { notifications: NotificationRow[]; hasMore?: boolean };
         setItems((prev) => [...prev, ...(data.notifications ?? [])]);
@@ -88,7 +91,7 @@ export function NotificationsCenter(): React.ReactElement {
     setItems((prev) => prev.filter((n) => n.quiz_id !== quizId));
     if (removedUnread > 0) decrementUnread(removedUnread);
     try {
-      await fetch('/api/notifications/prefs', { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ muteQuiz: quizId }) });
+      await fetch(`${BASE_PATH}/api/notifications/prefs`, { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ muteQuiz: quizId }) });
     } catch { /* UI already updated */ }
   }
 

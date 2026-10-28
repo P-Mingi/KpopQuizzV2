@@ -7,6 +7,9 @@ import { DiscordResultsLine } from '@/components/discord/discord-results-line';
 import { useToast } from '@/components/ui/toast-provider';
 import { analytics, type CrossPromoTarget, type GameType } from '@/lib/analytics';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Workstream LOOP part A - the shared "what happens next" footer.
 //
 // Every non-quiz result screen renders this BELOW its own score display. The
@@ -114,7 +117,7 @@ export function ResultLoop({
   const handleShare = useCallback(async () => {
     analytics.shareClick(game);
     const absolute =
-      typeof window !== 'undefined' ? `${window.location.origin}${shareUrl}` : shareUrl;
+      typeof window !== 'undefined' ? `${window.location.origin}${BASE_PATH}${shareUrl}` : shareUrl;
 
     if (typeof navigator !== 'undefined' && navigator.share) {
       try {

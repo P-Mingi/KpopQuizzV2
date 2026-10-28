@@ -19,6 +19,9 @@ import { NetEditorialLink } from './net-editorial-link';
 
 import type { NetLinkProps } from '@/lib/network/types';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 export interface NetLinkOwnProps extends NetLinkProps {
   readonly own?: boolean;
 }
@@ -59,7 +62,7 @@ function NetBridgeLink({ dst, path, linkId, className, own, children }: NetLinkO
     <a
       ref={ref}
       className={className}
-      href={bridgeHref(dst, path, linkId)}
+      href={BASE_PATH ? BASE_PATH + bridgeHref(dst, path, linkId) : bridgeHref(dst, path, linkId)}
       rel="nofollow"
       onClick={() => sendNetBeacon({ dst, bridge: linkId, step: 'click' })}
     >

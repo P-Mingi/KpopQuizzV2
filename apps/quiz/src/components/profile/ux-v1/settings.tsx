@@ -40,6 +40,9 @@ import type { ProfileForm, ProfileRow, UsernameStatus } from '@/lib/ux-v1/p10/se
 import type { OshiPick } from '@/components/passport-ui/settings-world';
 import type { SettingsWorld } from '@/lib/passport-ui/settings-world';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // A world site (Run O1, lot b, P1; rule 18): its sections and its reads and writes live in world-only modules, loaded when the
 // `world` prop is set and never on kpop (the sections are next/dynamic and rendered only with `world`; the kit is import()ed
 // by the load effect), so no kpop page reaches them.
@@ -199,7 +202,7 @@ export function UxSettings({ world }: { world?: SettingsWorld | undefined } = {}
     })();
     void (async () => {
       try {
-        const res = await fetch('/api/notifications/prefs', { credentials: 'include' });
+        const res = await fetch(`${BASE_PATH}/api/notifications/prefs`, { credentials: 'include' });
         if (res.ok) {
           const d = (await res.json()) as { categories?: Record<string, boolean> };
           if (!cancelled) { setPrefsBase(d.categories ?? {}); setPrefs(d.categories ?? {}); }
@@ -236,7 +239,7 @@ export function UxSettings({ world }: { world?: SettingsWorld | undefined } = {}
     setUError('');
     debounce.current = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/auth/check-username?username=${encodeURIComponent(form.username)}`);
+        const res = await fetch(`${BASE_PATH}/api/auth/check-username?username=${encodeURIComponent(form.username)}`);
         if (!res.ok) { setUStatus('invalid'); setUError('Could not check this name'); return; }
         const d = (await res.json()) as { available: boolean };
         setUStatus(d.available ? 'available' : 'taken');
@@ -278,7 +281,7 @@ export function UxSettings({ world }: { world?: SettingsWorld | undefined } = {}
       if (world) {
         if (!(await saveWorldWrites())) return;
       } else if (Object.keys(payload).length > 0) {
-        const res = await fetch('/api/auth/update-profile', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), credentials: 'include' });
+        const res = await fetch(`${BASE_PATH}/api/auth/update-profile`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), credentials: 'include' });
         const d = (await res.json().catch(() => ({}))) as { error?: string; profile?: ProfileRow };
         if (!res.ok) { setSaveError(d.error ?? 'We could not save your changes.'); return; }
         const saved = d.profile ? formFromRow(d.profile) : form;
@@ -286,7 +289,7 @@ export function UxSettings({ world }: { world?: SettingsWorld | undefined } = {}
         setForm(saved);
       }
       if (Object.keys(prefsDiff).length > 0) {
-        const res = await fetch('/api/notifications/prefs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categories: prefsDiff }), credentials: 'include' });
+        const res = await fetch(`${BASE_PATH}/api/notifications/prefs`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ categories: prefsDiff }), credentials: 'include' });
         const d = (await res.json().catch(() => ({}))) as { error?: string; categories?: Record<string, boolean> };
         if (!res.ok) { setSaveError(d.error ?? 'We could not save your notification settings.'); return; }
         const cats = d.categories ?? prefs;
@@ -319,7 +322,7 @@ export function UxSettings({ world }: { world?: SettingsWorld | undefined } = {}
   const download = async (): Promise<void> => {
     setExporting(true);
     try {
-      const res = await fetch('/api/ux-v1/p10/export', { credentials: 'include' });
+      const res = await fetch(`${BASE_PATH}/api/ux-v1/p10/export`, { credentials: 'include' });
       if (!res.ok) { toast('We could not prepare your file. Try again.'); return; }
       const blob = await res.blob();
       const a = document.createElement('a');

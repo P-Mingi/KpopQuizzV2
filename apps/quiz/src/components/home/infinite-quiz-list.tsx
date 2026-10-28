@@ -7,6 +7,9 @@ import { Spinner } from '@/components/ui/spinner';
 
 import type { QuizCardData } from '@/lib/db/types';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 interface InfiniteQuizListProps {
   initialQuizzes: QuizCardData[];
   fetchUrl: string;
@@ -30,7 +33,7 @@ export function InfiniteQuizList({ initialQuizzes, fetchUrl, isOwner }: Infinite
     setLoading(true);
     try {
       const sep = fetchUrl.includes('?') ? '&' : '?';
-      const res = await fetch(`${fetchUrl}${sep}offset=${offset}`);
+      const res = await fetch(`${BASE_PATH}${fetchUrl}${sep}offset=${offset}`);
       if (!res.ok) throw new Error('Failed to load');
       const data: { quizzes: QuizCardData[] } = await res.json();
       // Dedupe by id. Even with the guard above, a page can overlap what we

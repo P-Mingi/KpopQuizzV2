@@ -7,6 +7,9 @@ import { formatRelativeDate, getAvatarColors } from '@/lib/utils';
 import { playComment } from '@/lib/sounds';
 import { PersonCard } from '@/components/profile/person-card';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 interface Comment {
   id: string;
   quiz_id: string;
@@ -54,7 +57,7 @@ export function QuizComments({ quizId, isClues = false }: Props): React.ReactEle
     let cancelled = false;
     void (async () => {
       try {
-        const res = await fetch(`/api/quiz/${quizId}/comment?limit=20`);
+        const res = await fetch(`${BASE_PATH}/api/quiz/${quizId}/comment?limit=20`);
         if (!res.ok) return;
         const data: { comments: Comment[] } = await res.json();
         if (cancelled) return;
@@ -76,7 +79,7 @@ export function QuizComments({ quizId, isClues = false }: Props): React.ReactEle
     setPosting(true);
 
     try {
-      const res = await fetch(`/api/quiz/${quizId}/comment`, {
+      const res = await fetch(`${BASE_PATH}/api/quiz/${quizId}/comment`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: trimmed }),

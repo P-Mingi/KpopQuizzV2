@@ -17,6 +17,9 @@ import type { P4Standing } from '@/lib/ux-v1/p4/standing';
 
 import { useP4Run } from './run-context';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 /** Signed in (true), guest (false), still loading (null). Null during SSR and
  *  hydration too (the shared /api/auth/me cache can already be filled on the
  *  client), so the server HTML and the first client render always match. */
@@ -91,7 +94,7 @@ export function P4HofMine(): React.ReactElement {
   useEffect(() => {
     if (signedIn !== true) return;
     let cancelled = false;
-    fetch(`/api/ux-v1/p4/standing?quiz=${quiz.id}`, { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/ux-v1/p4/standing?quiz=${quiz.id}`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((raw: unknown) => { if (!cancelled) setStanding(parseStanding(raw)); })
       .catch(() => {});
@@ -134,7 +137,7 @@ export function P4Follow({ username }: { username: string }): React.ReactElement
     writes.current += 1;
     setBusy(true);
     try {
-      const res = await fetch('/api/follow', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, action }) });
+      const res = await fetch(`${BASE_PATH}/api/follow`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, action }) });
       if (res.status === 401) { signIn({ title: `Follow ${username}`, sub: 'Sign in to follow creators and see their new quizzes.', action: { id: 'p4-follow', payload: { username } } }); return; }
       const d = res.ok ? ((await res.json()) as { following?: boolean }) : null;
       if (d && typeof d.following === 'boolean') {
@@ -154,7 +157,7 @@ export function P4Follow({ username }: { username: string }): React.ReactElement
     if (signedIn !== true) return;
     let cancelled = false;
     const startedAt = writes.current;
-    fetch(`/api/follow?username=${encodeURIComponent(username)}`, { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/follow?username=${encodeURIComponent(username)}`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((d: { isSelf?: boolean; following?: boolean } | null) => {
         if (cancelled || !d) return;

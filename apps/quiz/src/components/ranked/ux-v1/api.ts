@@ -6,6 +6,9 @@ import type { PublicRound, RoundReveal } from '@/lib/ranked/run';
 import type { IssuedRun, SeasonCard, SubmittedRun } from '@/lib/ranked/service';
 import type { LadderScope, LadderView } from '@/lib/ranked/view';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 /** A refused or failed call: `code` is the API's error code ('not_live' for a 503). */
 export class RankedApiError extends Error {
   constructor(public readonly status: number, public readonly code: string, public readonly body: Record<string, unknown> = {}) {
@@ -17,7 +20,7 @@ export class RankedApiError extends Error {
 async function call<T>(url: string, init?: RequestInit): Promise<T> {
   let res: Response;
   try {
-    res = await fetch(url, { credentials: 'include', cache: 'no-store', ...init });
+    res = await fetch(BASE_PATH ? BASE_PATH + url : url, { credentials: 'include', cache: 'no-store', ...init });
   } catch {
     throw new RankedApiError(0, 'network');
   }

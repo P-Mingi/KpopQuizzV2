@@ -12,6 +12,9 @@ import { quizRowAverage, Thumb } from './rows';
 
 import type { QuizCardData } from '@/lib/db/types';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // A row of "Your quizzes" on the owner's passport (/me), with Edit and Delete (owner,
 // 2026-10-14: an owner could only reach these from the bottom of each quiz page, and the
 // passport list, where a creator looks for them, had none). Edit opens the owner editor
@@ -29,7 +32,7 @@ export function OwnQuizRow({ q }: { q: QuizCardData }): React.ReactElement | nul
     setState('deleting');
     setError(null);
     try {
-      const res = await fetch(`/api/quiz/${q.id}`, { method: 'DELETE', credentials: 'include' });
+      const res = await fetch(`${BASE_PATH}/api/quiz/${q.id}`, { method: 'DELETE', credentials: 'include' });
       if (!res.ok) {
         setError(res.status === 401
           ? 'Your session ended. Sign in again to delete this quiz.'

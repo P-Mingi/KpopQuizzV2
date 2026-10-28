@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { SITE } from '@/lib/site/registry';
 import { brandWordmark } from '@/lib/site/brand';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 /**
  * The brand mark: the rabbit mascot, then the wordmark. DESIGN-SPEC 17.1 first
  * kept the live pink "K" tile; the owner asked on 2026-10-04 (F7b) for the rabbit of
@@ -19,7 +22,7 @@ export function UxBrand({ href = '/', label = `${SITE.brand.name} home` }: { hre
     <>
       {/* Run O1 (H2a, owner 2026-10-25): the rabbit is the mark of the three sites, then the wordmark of the site: it replaces the letter tile
           (F, O) of the hub and the anime site. */}
-      <Image src="/mascot/mascot-default.png" alt="" width={28} height={28} loading="eager" className="ux-brand-rabbit" aria-hidden="true" />
+      <Image src={`${BASE_PATH}/mascot/mascot-default.png`} alt="" width={28} height={28} loading="eager" className="ux-brand-rabbit" aria-hidden="true" />
       <span>{brandWordmark().head}<b>{brandWordmark().tail}</b></span>
     </>
   );

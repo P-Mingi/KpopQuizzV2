@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation';
 
 import { haptic } from '@/lib/haptics';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Follow / Following button (Workstream M, M1.8). CLIENT island so the public
 // /u/[username] page stays static/ISR: the per-viewer follow state is resolved
 // client-side via /api/follow (reuses the ProfileOwnerControls / TopNavProfile
@@ -19,7 +22,7 @@ export function FollowButton({ profileUsername }: { profileUsername: string }): 
 
   useEffect(() => {
     let cancelled = false;
-    fetch(`/api/follow?username=${encodeURIComponent(profileUsername)}`, { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/follow?username=${encodeURIComponent(profileUsername)}`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((d: State) => { if (!cancelled) setState(d); })
       .catch(() => { if (!cancelled) setState(null); });
@@ -37,7 +40,7 @@ export function FollowButton({ profileUsername }: { profileUsername: string }): 
     setState({ ...state, following: next }); // optimistic
     setPending(true);
     try {
-      const res = await fetch('/api/follow', {
+      const res = await fetch(`${BASE_PATH}/api/follow`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include',
         body: JSON.stringify({ username: profileUsername, action: next ? 'follow' : 'unfollow' }),
       });

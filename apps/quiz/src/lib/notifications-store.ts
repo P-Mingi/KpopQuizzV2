@@ -2,6 +2,9 @@
 
 import { useSyncExternalStore } from 'react';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // O1 item 5: a tiny shared unread-count store so the bell and the center agree
 // and "mark all read" updates the bell instantly. Realtime is not enabled
 // anywhere in the app, so this is the lighter shared-store + refetch-on-focus
@@ -20,7 +23,7 @@ export function decrementUnread(by = 1): void { setUnread(unread - by); }
 /** Refetch the authoritative unread count from the API into the store. */
 export async function refetchUnread(): Promise<void> {
   try {
-    const r = await fetch('/api/notifications?limit=1', { credentials: 'include' });
+    const r = await fetch(`${BASE_PATH}/api/notifications?limit=1`, { credentials: 'include' });
     if (!r.ok) return;
     const d = (await r.json()) as { unreadCount?: number };
     setUnread(d.unreadCount ?? 0);

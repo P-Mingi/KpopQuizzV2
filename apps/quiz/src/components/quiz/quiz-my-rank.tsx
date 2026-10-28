@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Your standing on THIS quiz (Workstream M, M1.19). CLIENT island so /q stays
 // static/ISR. A concrete, bounded per-quiz rank (allowed); never a global
 // percentile / "top X%". Renders nothing when signed out.
@@ -12,7 +15,7 @@ export function QuizMyRank({ quizId, isClues = false }: { quizId: string; isClue
 
   useEffect(() => {
     let cancelled = false;
-    fetch(`/api/quiz/${quizId}/my-rank`, { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/quiz/${quizId}/my-rank`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((d: RankData | null) => { if (!cancelled) setData(d); })
       .catch(() => {});

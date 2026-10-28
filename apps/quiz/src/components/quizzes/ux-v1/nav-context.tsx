@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation';
 
 import { useAnnounce } from '@/components/ux-v1/toast';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // /quizzes browse navigation (P2). Every sort, filter, chip and page control is a
 // real <a href> (crawlable, works before hydration, opens in a new tab); once
 // hydrated, a plain click becomes a soft navigation inside a transition, so the
@@ -20,7 +23,7 @@ interface P2Nav {
   go: (href: string, focus?: string) => void;
 }
 
-const Ctx = createContext<P2Nav>({ pending: false, go: (href) => { window.location.assign(href); } });
+const Ctx = createContext<P2Nav>({ pending: false, go: (href) => { window.location.assign(BASE_PATH ? BASE_PATH + href : href); } });
 
 export function useP2Nav(): P2Nav {
   return useContext(Ctx);

@@ -15,6 +15,9 @@ import { useP8Viewer, useRequireAuth } from './viewer';
 import type { ReportTarget } from './actions';
 import type { P8Comment, P8Post } from '@/lib/ux-v1/p8/post';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Replies of a post (DESIGN-SPEC 13.4, 16.7 Post, 17.7): the reply box (grows on
 // focus, context chip, Reply), then the replies, a heart + count per reply (once the
 // likes store is live) and "Show N more replies". Writes:
@@ -45,7 +48,7 @@ export interface ReplyParent { id: string; vote: boolean; depth: number }
 
 async function postJson(url: string, body: unknown): Promise<{ ok: boolean; status: number; data: Record<string, unknown> }> {
   try {
-    const r = await fetch(url, { method: 'POST', credentials: 'include', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+    const r = await fetch(BASE_PATH ? BASE_PATH + url : url, { method: 'POST', credentials: 'include', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
     return { ok: r.ok, status: r.status, data: (await r.json().catch(() => ({}))) as Record<string, unknown> };
   } catch { return { ok: false, status: 0, data: {} }; }
 }
@@ -302,7 +305,7 @@ function CommentNode({ c, level, ctx }: { c: P8Comment; level: number; ctx: Node
       ) : null}
       {!folded && hasKids && level >= SHOWN_DEPTH ? (
         <div className="p8-thr p8-cont">
-          <a href={`${ctx.postHref}?branch=${encodeURIComponent(c.id)}#replies`} onClick={(e) => ctx.openBranch(c.id, e)}>
+          <a href={`${BASE_PATH}${ctx.postHref}?branch=${encodeURIComponent(c.id)}#replies`} onClick={(e) => ctx.openBranch(c.id, e)}>
             Continue this thread ({plural(below, 'reply', 'replies')})
           </a>
         </div>
@@ -430,7 +433,7 @@ export function Replies({ post, likesLive, chip, placeholder, children, reportab
       {children}
       {focus ? (
         <>
-          <p className="p8-branch-bar"><a href={`${post.href}#replies`} onClick={closeBranch}>Back to all replies</a></p>
+          <p className="p8-branch-bar"><a href={`${BASE_PATH}${post.href}#replies`} onClick={closeBranch}>Back to all replies</a></p>
           <CommentNode c={focus} level={1} ctx={ctx} />
         </>
       ) : (

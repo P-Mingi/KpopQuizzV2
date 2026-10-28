@@ -18,6 +18,9 @@ import type { Draft, EditorMode } from '@/lib/ux-v1/p8/draft';
 import type { P8Features } from '@/lib/ux-v1/p8/types';
 import type { VerseScope } from '@/lib/ux-v1/p8/verse-gate';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // The New post editor (DESIGN-SPEC 13.3 + 17.9, prototype sheet #editor): one sheet,
 // four modes. Writes go through the EXISTING endpoints with their existing payloads:
 //   Thread   POST /api/verse/threads { group_id, title, body }
@@ -66,7 +69,7 @@ function emptyDraft(mode: EditorMode, groupId: number | null): Draft {
 
 async function send(method: 'POST' | 'PATCH', url: string, body: unknown): Promise<{ ok: boolean; status: number; data: Record<string, unknown> }> {
   try {
-    const r = await fetch(url, { method, credentials: 'include', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+    const r = await fetch(BASE_PATH ? BASE_PATH + url : url, { method, credentials: 'include', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
     return { ok: r.ok, status: r.status, data: (await r.json().catch(() => ({}))) as Record<string, unknown> };
   } catch {
     return { ok: false, status: 0, data: {} };
@@ -151,7 +154,7 @@ export function EditorProvider({ children, groups, features, verse, community = 
   useEffect(() => {
     if (mode !== 'challenge' || !v.signedIn || results !== null) return;
     let off = false;
-    fetch(attach ? `/api/ux-v1/p8/my-results?quiz=${encodeURIComponent(attach)}` : '/api/ux-v1/p8/my-results', { credentials: 'include' })
+    fetch(attach ? `${BASE_PATH}/api/ux-v1/p8/my-results?quiz=${encodeURIComponent(attach)}` : `${BASE_PATH}/api/ux-v1/p8/my-results`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : { results: [] }))
       .then((d: { results?: Result[]; quiz?: { title: string } | null }) => {
         if (off) return;
@@ -202,7 +205,7 @@ export function EditorProvider({ children, groups, features, verse, community = 
       return;
     }
     if (d.mode === 'blog') {
-      const m = await fetch(`/api/verse/membership?group_id=${d.groupId}`, { credentials: 'include' }).then((x) => x.json()).catch(() => null) as { member?: boolean; blocked?: boolean } | null;
+      const m = await fetch(`${BASE_PATH}/api/verse/membership?group_id=${d.groupId}`, { credentials: 'include' }).then((x) => x.json()).catch(() => null) as { member?: boolean; blocked?: boolean } | null;
       if (m?.blocked) { setBusy(false); setErrors({ form: errorLine(403, 'blocked') }); return; }
       if (!m?.member) { setBusy(false); setJoinFor(g ?? null); return; }
       const c = await send('POST', '/api/verse/essays', { group_id: d.groupId, title: d.title.trim(), content: draftToDoc(d.body) });
@@ -331,7 +334,7 @@ export function EditorProvider({ children, groups, features, verse, community = 
               {!v.signedIn ? <p className="p8-help">Sign in to pick one of your recent scores.</p>
                 : results === null ? <p className="p8-help">Loading your recent scores...</p>
                   : !results.length ? (attach
-                    ? <p className="p8-help">No score on {attachTitle ?? 'this quiz'} yet. <a className="ux-lnk" href={`/q/${encodeURIComponent(attach)}`}>Play it once</a> and your score becomes the one to beat.</p>
+                    ? <p className="p8-help">No score on {attachTitle ?? 'this quiz'} yet. <a className="ux-lnk" href={`${BASE_PATH}/q/${encodeURIComponent(attach)}`}>Play it once</a> and your score becomes the one to beat.</p>
                     : <p className="p8-help">Play a quiz first: your recent scores show up here.</p>)
                     : (
                       <div className="p8-opts" role="radiogroup" aria-labelledby={`p8-r-${uid}`}>
@@ -409,7 +412,7 @@ function PhotoField({ id, photo, onChange, signedIn, onSignIn }: { id: string; p
     setBusy(true);
     try {
       const jpeg = await toJpeg(file);
-      const r = await fetch('/api/ux-v1/p8/photo', { method: 'POST', credentials: 'include', headers: { 'content-type': 'image/jpeg' }, body: jpeg });
+      const r = await fetch(`${BASE_PATH}/api/ux-v1/p8/photo`, { method: 'POST', credentials: 'include', headers: { 'content-type': 'image/jpeg' }, body: jpeg });
       const data = (await r.json().catch(() => ({}))) as { assetPath?: string; url?: string; error?: string };
       if (r.ok && data.assetPath && data.url) onChange({ assetPath: data.assetPath, url: data.url });
       else if (data.error === 'nsfw_image') setError('This photo cannot be posted here. Pick another one.');

@@ -7,6 +7,9 @@ import { createBrowserClient } from '@/lib/supabase/client';
 
 import type { SignInWords } from '@/lib/passport-ui/words';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 type Pending = 'google' | 'discord' | 'email' | null;
 
 const STATS: readonly (readonly [string, string])[] = [['Fan-made', 'quizzes'], ['Blind', 'tests'], ['Free', 'forever']];
@@ -242,12 +245,12 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
 
           {words && !words.hasTerms ? (
             <p className="auth-tos anime-c1-quiet hub-c1-quiet">
-              By continuing you agree to our <a href="/privacy">Privacy Policy</a>.
+              By continuing you agree to our <a href={`${BASE_PATH}/privacy`}>Privacy Policy</a>.
             </p>
           ) : (
           <p className={words ? 'auth-tos anime-c1-quiet hub-c1-quiet' : 'auth-tos'}>
-            By continuing you agree to our <a href="/terms">Terms</a> and{' '}
-            <a href="/privacy">Privacy Policy</a>.
+            By continuing you agree to our <a href={`${BASE_PATH}/terms`}>Terms</a> and{' '}
+            <a href={`${BASE_PATH}/privacy`}>Privacy Policy</a>.
           </p>
           )}
         </div>

@@ -11,6 +11,9 @@ import { formatLaunchDate, INDEXING_OPEN } from '@/lib/site/indexing';
 
 import type { PrivacyBlock, PrivacyKey, PrivacySection } from '@/lib/site/hub/network-page';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 /** A copy line with the hub mailbox turned into a mailto link. */
 function Text({ k }: { k: PrivacyKey }): React.ReactElement {
   const parts = ht(k).split(HUB_EMAIL);
@@ -28,7 +31,7 @@ function Text({ k }: { k: PrivacyKey }): React.ReactElement {
 
 function Block({ block }: { block: PrivacyBlock }): React.ReactElement {
   if (block.kind === 'shares') return <HubShares />;
-  if (block.kind === 'legal') return <p className={`${POLICY_CLASS}-prose`}>{ht(block.key)} <a href="/legal">{ht(block.link)}</a></p>;
+  if (block.kind === 'legal') return <p className={`${POLICY_CLASS}-prose`}>{ht(block.key)} <a href={`${BASE_PATH}/legal`}>{ht(block.link)}</a></p>;
   if (block.kind === 'signins') return <ul className={`${POLICY_CLASS}-prose-list`}>{signInItems().map((item) => <li key={item.id}>{item.text}</li>)}</ul>;
   if (block.kind === 'list') return <ul className={`${POLICY_CLASS}-prose-list`}>{block.keys.map((k) => <li key={k}><Text k={k} /></li>)}</ul>;
   return <p className={`${POLICY_CLASS}-prose`}><Text k={block.key} /></p>;

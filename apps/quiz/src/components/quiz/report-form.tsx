@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 interface ReportFormProps {
   quizId: string;
 }
@@ -26,7 +29,7 @@ export function ReportForm({ quizId }: ReportFormProps): React.ReactElement {
     setSubmitting(true);
 
     try {
-      const res = await fetch(`/api/quiz/${quizId}/report`, {
+      const res = await fetch(`${BASE_PATH}/api/quiz/${quizId}/report`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ reason, details: details.trim() }),

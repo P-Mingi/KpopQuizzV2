@@ -47,11 +47,13 @@ export function generateStaticParams(): { site: string }[] {
   return siteStaticParams();
 }
 // Closed to crawlers until the owner sets NET_INDEXING=1 (lib/site/indexing.ts); the root layout's kpop fields are reset.
+// FandomVerse (lane 1): the icons and the web manifest of the root (lib/site/metadata.ts, the site's own files under its base path)
+// are kept: a site in a sub-folder has no /favicon.ico of its own, and without its icon link the tab would show the hub's.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: { absolute: SITE.brand.name, template: SITE.seo.titleTemplate },
   description: null, keywords: null, authors: null, creator: null, publisher: null,
-  openGraph: null, twitter: null, icons: null, manifest: null,
+  openGraph: null, twitter: null,
   other: { 'p:domain_verify': [] },
   robots: robotsFor(true),
 };

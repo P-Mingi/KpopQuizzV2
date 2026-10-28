@@ -6,6 +6,9 @@
 
 import { analytics } from '@/lib/analytics';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 export type DailyKind = 'quiz' | 'game' | 'blindtest';
 
 function todayKey(): string {
@@ -55,7 +58,7 @@ export interface DailyCompleteResult {
 export async function completeDaily(kind: DailyKind): Promise<DailyCompleteResult | null> {
   markDailyPlayed(kind);
   try {
-    const res = await fetch('/api/daily/complete', {
+    const res = await fetch(`${BASE_PATH}/api/daily/complete`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ kind }),
     });
     if (!res.ok) return null;

@@ -6,6 +6,9 @@ import { ImageUploader } from '@/components/admin/image-uploader';
 import { QuizTypeBadge } from '@/components/ui/quiz-type-badge';
 import { QuestionListEditor, type QuestionData } from '@/components/quiz/question-list-editor';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 interface Props {
   quiz: Record<string, unknown>;
   // 'admin' (default): PATCHes the admin API, can set status. 'owner': the quiz
@@ -38,7 +41,7 @@ export function QuizEditor({ quiz, mode = 'admin' }: Props): React.ReactElement 
     setSaved(false);
     try {
       const res = isOwner
-        ? await fetch(`/api/quiz/${quiz.id}`, {
+        ? await fetch(`${BASE_PATH}/api/quiz/${quiz.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -51,7 +54,7 @@ export function QuizEditor({ quiz, mode = 'admin' }: Props): React.ReactElement 
               cover_image_url: coverImageUrl,
             }),
           })
-        : await fetch(`/api/admin/quiz/${quiz.id}`, {
+        : await fetch(`${BASE_PATH}/api/admin/quiz/${quiz.id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ title, difficulty, status, questions, cover_image_url: coverImageUrl }),

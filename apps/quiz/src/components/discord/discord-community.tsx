@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 interface WidgetData {
   online: number | null;
   members: Array<{ username: string; avatar_url: string | null }>;
@@ -20,7 +23,7 @@ export function DiscordCommunity(): React.ReactElement {
   const [data, setData] = useState<WidgetData | null>(null);
 
   useEffect(() => {
-    fetch('/api/discord/widget')
+    fetch(`${BASE_PATH}/api/discord/widget`)
       .then((r) => r.json())
       .then((d: WidgetData) => setData(d))
       .catch(() => setData(null));
@@ -71,7 +74,7 @@ export function DiscordCommunityStrip(): React.ReactElement {
   const [data, setData] = useState<WidgetData | null>(null);
 
   useEffect(() => {
-    fetch('/api/discord/widget').then((r) => r.json()).then((d: WidgetData) => setData(d)).catch(() => {});
+    fetch(`${BASE_PATH}/api/discord/widget`).then((r) => r.json()).then((d: WidgetData) => setData(d)).catch(() => {});
   }, []);
 
   const onlineLabel = data?.online != null ? `${data.online.toLocaleString('en-US')} fans online now` : 'Join the community';

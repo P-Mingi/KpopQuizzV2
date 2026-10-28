@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { ThemeInit } from '@/components/layout/theme-init';
 import { ToastProvider } from '@/components/ui/toast-provider';
 import { SITE_ID } from '@/lib/site/registry';
+import { withBasePath } from '@/lib/site/base-path';
 import { siteRootMetadata, siteViewport } from '@/lib/site/metadata';
 import { UX_V1 } from '@/lib/ux-v1';
 import { uxStylesheetHref } from '@/lib/ux-v1/a0/stylesheet-href';
@@ -115,7 +116,8 @@ const HTML_SITE_ATTR: { 'data-site'?: string } = SITE_ID === 'kpop' ? {} : { 'da
 // (see app/api/ux-v1/a0/styles/route.ts). Versioned by a hash of its content, computed
 // at build time in next.config.ts (UX_CSS_VERSION), so the address follows the CSS
 // whatever the way of deploying (a command-line deploy has no commit sha).
-const UX_CSS_HREF = uxStylesheetHref(process.env.UX_CSS_VERSION);
+// FandomVerse: under the anime build's base path (/anime) on the anime build, as it is everywhere else.
+const UX_CSS_HREF = withBasePath(uxStylesheetHref(process.env.UX_CSS_VERSION));
 
 // Canonical / Open Graph base. Use NEXT_PUBLIC_SITE_URL in production, but only
 // when it is an absolute https origin - never let a dev value

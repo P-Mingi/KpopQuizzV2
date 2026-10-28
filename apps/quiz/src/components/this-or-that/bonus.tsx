@@ -8,6 +8,9 @@ import { getAnonId } from '@/lib/anon-id';
 
 import type { DuelPair, DuelSong, PairsResponse, VoteResponse } from '@/lib/duel/types';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 /**
  * This or that bonus card (V12 G7, SYSTEM.md 5.3, prototype #e-tot): after a quiz
  * result, two songs of the quiz's group, tap one, see the real split, up to 5 pairs
@@ -68,7 +71,7 @@ export function ThisOrThatBonus({ groupSlug, groupName }: { groupSlug: string; g
     const id = getAnonId();
     anon.current = id;
     let cancelled = false;
-    fetch(`/api/duel/pairs?group=${encodeURIComponent(groupSlug)}`, { credentials: 'include', headers: id ? { 'x-duel-anon': id } : {} })
+    fetch(`${BASE_PATH}/api/duel/pairs?group=${encodeURIComponent(groupSlug)}`, { credentials: 'include', headers: id ? { 'x-duel-anon': id } : {} })
       .then((r) => (r.ok ? r.json() : null))
       .then((raw: unknown) => { if (!cancelled && isPairs(raw) && raw.pairs.length > 0) setData(raw); })
       .catch(() => {});
@@ -112,7 +115,7 @@ export function ThisOrThatBonus({ groupSlug, groupName }: { groupSlug: string; g
   const vote = (side: Side): void => {
     if (voted && voted.state !== 'failed') return;
     setVoted({ side, split: null, state: 'sending' });
-    fetch('/api/duel/vote', {
+    fetch(`${BASE_PATH}/api/duel/vote`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json', ...(anon.current ? { 'x-duel-anon': anon.current } : {}) },

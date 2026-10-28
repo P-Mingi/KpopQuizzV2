@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 import { teamSet } from '@/lib/ux-v1/p11/team';
 import { isUxV12 } from '@/lib/ux-v12';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // The editorial usernames, read once per page load (shared by the bell and the
 // notifications page). No request at all unless the v12 flag is on.
 
@@ -12,7 +15,7 @@ const EMPTY: ReadonlySet<string> = new Set();
 let shared: Promise<Set<string>> | null = null;
 
 function load(): Promise<Set<string>> {
-  shared ??= fetch('/api/ux-v1/p11/team')
+  shared ??= fetch(`${BASE_PATH}/api/ux-v1/p11/team`)
     .then((r) => (r.ok ? r.json() : null))
     .then((d) => teamSet(d))
     .catch(() => new Set<string>());
