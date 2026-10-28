@@ -116,7 +116,8 @@ describe('the top bar', () => {
     expect(nav).not.toMatch(/>F</);
     for (const [href, label] of [['#today', 'Today'], ['#hot', 'Hot now'], ['#top', 'Top fans']] as const) expect(nav).toMatch(new RegExp(`<a href="${href}"[^>]*>${label}</a>`));
     expect(nav).toContain('href="https://kpopquiz.org/"');
-    expect(nav).toContain('href="https://fandomverse.org/anime/"');
+    // FandomVerse (lane 1): the OtakuQuiz home is https://fandomverse.org/anime, without a trailing slash.
+    expect(nav).toContain('href="https://fandomverse.org/anime"');
     // the search button is a link to the search page of KpopQuiz (the filter of Hot now is All), no longer a button without action
     expect(nav).toMatch(/<a href="https:\/\/kpopquiz\.org\/search" aria-label="Search both sites" class="hub-h2-iconbtn hub-h2-btn">/);
     expect(nav).toMatch(/<button[^>]*aria-haspopup="dialog"[^>]*>Sign in<\/button>/);
@@ -160,7 +161,8 @@ describe('the hero', () => {
     for (const id of ['kpop', 'anime'] as const) {
       const s = registry.REGISTRY[id];
       expect(html).toContain(`<h2 class="hub-h2-name">${s.brand.name}</h2>`);
-      expect(html).toContain(`href="${s.url}/" class="hub-h2-enter hub-h2-btn"`);
+      // FandomVerse (lane 1): the OtakuQuiz home has no trailing slash (https://fandomverse.org/anime).
+      expect(html).toContain(`href="${id === 'anime' ? s.url : `${s.url}/`}" class="hub-h2-enter hub-h2-btn"`);
     }
     expect(html).not.toMatch(/hub-h2-tile"[^>]*>(K|O)</);
     expect(count(html, /class="hub-h2-tile-mk"/g)).toBe(2);
@@ -374,7 +376,7 @@ describe('the footer', () => {
     const foot = block(html, '<footer class="hub-h2-foot"', 'footer');
     expect(foot).toContain('The home of one account shared by KpopQuiz and OtakuQuiz. Fan-made quizzes, every fact sourced.');
     expect(foot).toContain('href="https://kpopquiz.org/"');
-    expect(foot).toContain('href="https://fandomverse.org/anime/"');
+    expect(foot).toContain('href="https://fandomverse.org/anime"');
     expect(foot).toContain('href="/privacy"');
     expect(foot).toContain('href="/legal"');
     expect(foot).toContain('>hello@kpopquiz.org</span>');
@@ -391,18 +393,19 @@ describe('every link is the canonical page of its own site', () => {
     expect(hrefs).toContain('https://kpopquiz.org/search');
     for (const h of hrefs) {
       if (h.startsWith('/_next') || own.has(h)) continue;
-      const onSite = [registry.REGISTRY.kpop.url, registry.REGISTRY.anime.url].some((base) => h.startsWith(`${base}/`));
+      const onSite = h === registry.REGISTRY.anime.url || [registry.REGISTRY.kpop.url, registry.REGISTRY.anime.url].some((base) => h.startsWith(`${base}/`));
       expect(onSite, h).toBe(true);
     }
     // The hub and OtakuQuiz share fandomverse.org: a link to the hub is one on fandomverse.org outside the /anime folder.
-    expect(hrefs.filter((h) => h.startsWith(registry.REGISTRY.hub.url) && !h.startsWith(`${registry.REGISTRY.anime.url}/`))).toEqual([]);
+    expect(hrefs.filter((h) => h.startsWith(registry.REGISTRY.hub.url) && h !== registry.REGISTRY.anime.url && !h.startsWith(`${registry.REGISTRY.anime.url}/`))).toEqual([]);
   });
 
   it('follows the dev origins outside production', async () => {
     vi.stubEnv('NEXT_PUBLIC_NET_ORIGINS', 'kpop=http://kpop.localhost:3000,anime=http://anime.localhost:3001');
     const html = await renderHome();
     expect(html).toContain('href="http://kpop.localhost:3000/q/zerobaseone-from-boys-planet-to-in-bloom?daily=quiz"');
-    expect(html).toContain('href="http://anime.localhost:3001/q/journeys-beginning-frieren-basics?daily=quiz"');
+    // FandomVerse (lane 1): a dev origin stays bare and the anime base path /anime comes from the registry.
+    expect(html).toContain('href="http://anime.localhost:3001/anime/q/journeys-beginning-frieren-basics?daily=quiz"');
     expect(html).toContain('href="http://kpop.localhost:3000/search"');
     vi.unstubAllEnvs();
   });

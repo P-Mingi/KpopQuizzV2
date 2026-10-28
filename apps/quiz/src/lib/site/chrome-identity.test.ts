@@ -42,7 +42,8 @@ describe('Breadcrumbs', () => {
     it(`${site}: the item URLs default to the origin of the site of the build`, async () => {
       const { Breadcrumbs } = await onSite(site, () => import('@/components/ui/breadcrumbs'));
       const html = renderToStaticMarkup(h(Breadcrumbs, { items: [{ label: 'Home', href: '/' }, { label: 'All series' }] }));
-      expect(JSON.parse(ld(html).replace(/&quot;/g, '"')).itemListElement[0].item).toBe(`${origin}/`);
+      // FandomVerse (lane 1): the anime home is https://fandomverse.org/anime, without a trailing slash.
+      expect(JSON.parse(ld(html).replace(/&quot;/g, '"')).itemListElement[0].item).toBe(site === 'anime' ? origin : `${origin}/`);
     });
   }
 });

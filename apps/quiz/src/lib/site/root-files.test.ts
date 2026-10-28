@@ -52,10 +52,11 @@ describe('robotsText and sitemapXml', () => {
       { path: '/', priority: 1 },
       { path: '/q/a&b', lastModified: new Date('2026-10-01T00:00:00Z'), changeFrequency: 'monthly' },
     ]);
-    expect(xml).toContain('<loc>https://fandomverse.org/anime/</loc>');
+    // FandomVerse (lane 1): the anime home is https://fandomverse.org/anime, without a trailing slash.
+    expect(xml).toContain('<loc>https://fandomverse.org/anime</loc>');
     expect(xml).toContain('<loc>https://fandomverse.org/anime/q/a&amp;b</loc>');
     expect(xml).toContain('<lastmod>2026-10-01T00:00:00.000Z</lastmod>');
-    expect([...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].every((m) => m[1]!.startsWith('https://fandomverse.org/anime/'))).toBe(true);
+    expect([...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].every((m) => m[1] === 'https://fandomverse.org/anime' || m[1]!.startsWith('https://fandomverse.org/anime/'))).toBe(true);
   });
 });
 
@@ -95,14 +96,11 @@ describe('the route handlers', () => {
   const sitemapRoute = () => import('@/app/sites/[site]/sitemap.xml/route');
   const req = new Request('http://localhost/x');
 
-  it('anime: robots.txt answers 200, its Sitemap line is its own origin, no kpop host', async () => {
+  it('anime: no robots.txt of its own (FandomVerse: one robots.txt at the root of fandomverse.org, served by the hub)', async () => {
     vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'anime');
     const res = await (await robotsRoute()).GET(req, ctx('anime'));
-    const body = await res.text();
-    expect(res.status).toBe(200);
-    expect(res.headers.get('content-type')).toMatch(/^text\/plain/);
-    expect(body).toContain('Sitemap: https://fandomverse.org/anime/sitemap.xml');
-    expect(body).not.toMatch(/kpopquiz|fanquiz/i);
+    expect(res.status).toBe(404);
+    expect(await res.text()).not.toMatch(/Sitemap:/i);
   });
 
   it('hub: robots.txt names the hub origin', async () => {
@@ -112,14 +110,15 @@ describe('the route handlers', () => {
     expect(await res.text()).toContain('Sitemap: https://fandomverse.org/sitemap.xml');
   });
 
-  it('hub: sitemap.xml lists its home on its origin and reads nothing', async () => {
+  it('hub: sitemap.xml is the index of fandomverse.org (the hub sitemap and the anime sitemap) and reads nothing', async () => {
     vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'hub');
     state.db = recordingDb();
     const res = await (await sitemapRoute()).GET(req, ctx('hub'));
     const body = await res.text();
     expect(res.status).toBe(200);
     expect(res.headers.get('content-type')).toMatch(/xml/);
-    expect([...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])).toEqual(['https://fandomverse.org/']);
+    expect(body).toContain('<sitemapindex');
+    expect([...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])).toEqual(['https://fandomverse.org/sitemap-hub.xml', 'https://fandomverse.org/anime/sitemap.xml']);
     expect((state.db as ReturnType<typeof recordingDb>).queries).toHaveLength(0);
   });
 
@@ -129,9 +128,9 @@ describe('the route handlers', () => {
     const res = await (await sitemapRoute()).GET(req, ctx('anime'));
     const locs = [...(await res.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]!);
     expect(res.status).toBe(200);
-    expect(locs.slice(0, 3)).toEqual(['https://fandomverse.org/anime/', 'https://fandomverse.org/anime/series', 'https://fandomverse.org/anime/death-note-quiz']);
+    expect(locs.slice(0, 3)).toEqual(['https://fandomverse.org/anime', 'https://fandomverse.org/anime/series', 'https://fandomverse.org/anime/death-note-quiz']);
     expect(locs.length).toBe(7);
-    expect(locs.every((l) => l.startsWith('https://fandomverse.org/anime/'))).toBe(true);
+    expect(locs.every((l) => l === 'https://fandomverse.org/anime' || l.startsWith('https://fandomverse.org/anime/'))).toBe(true);
   });
 
   it('a failed read answers 503 with a retry hint, never a half list', async () => {

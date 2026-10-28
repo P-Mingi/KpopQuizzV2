@@ -71,7 +71,8 @@ describe('siteUrl', () => {
   it('goes through the registry origin, and the override only outside production', () => {
     expect(siteUrl('anime', '/me', ENV)).toBe(`${REGISTRY.anime.url}/me`);
     const o = { NEXT_PUBLIC_NET_ORIGINS: 'anime=http://anime.localhost:3001' };
-    expect(siteUrl('anime', '/me', o)).toBe('http://anime.localhost:3001/me');
+    // FandomVerse (lane 1): a dev origin stays bare and the anime base path /anime comes from the registry.
+    expect(siteUrl('anime', '/me', o)).toBe('http://anime.localhost:3001/anime/me');
     expect(siteUrl('anime', '/me', { ...o, VERCEL_ENV: 'production' })).toBe(`${REGISTRY.anime.url}/me`);
   });
 });
