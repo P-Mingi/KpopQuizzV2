@@ -1,436 +1,374 @@
-# FandomVerse launch: your manual actions, in order (owner, 2026-10-28)
+# Lancement de FandomVerse : mes actions, dans l'ordre (2026-10-28)
 
-**Total: about 22 h 50 of hands-on work in 68 steps: 18 h 25 up to the end of launch day (steps 1 to 59), 4 h 25 after it (steps 60 to 68).**
-**Elapsed: at least 4 days from step 10 to launch day (three 24 hour watches: after B, after 008, after 010). Earliest: B on day 1, launch day on day 5.**
+**Moi : environ 4 h 45, en 49 étapes sur 67 (4 h 55 et 51 étapes si les deux étapes « si besoin » servent). Dont 4 h jusqu'à la fin du jour J.**
+**Claude : environ 7 h 30. Worker : environ 13 h 55, dont 7 h 30 à surveiller des journaux. Ils travaillent entre mes étapes et ne changent rien en production.**
+**Durée totale : au moins 5 jours de la session B au jour J inclus (trois veilles de 24 h : après B, après 008, après 010), puis 72 h de veille. Au plus tôt : B le jour 1, jour J le jour 5, décision finale le jour 8.**
 
-How to use this page: do the steps in order; each block is one command, copy it whole. `read -rs` shows nothing while you paste: press return.
-Times are UTC. Never run SQL between 23:50 and 00:30. Details, checks and the way back of each step: the RUNBOOK link. Steps 1 to 6 and 40 to 42 run in parallel with the others.
+Objectif « moins de 5 h » tenu, de justesse. Ce qui coûte le plus : le jour J (1 h 25), les six sauvegardes (une par session SQL, 30 min en tout) et les preuves avec un vrai compte (environ 40 min : aucun agent ne se connecte ni ne crée de compte en production).
 
-## Part 1. Now, while the lanes finish (50 min, no database change)
+## Comment lire cette page
 
-### 1. Buy the domain (10 min). [RUNBOOK H6](RUNBOOK.md#h-domain-vercel-supabase-and-google)
-Buy `fandomverse.org` at any registrar. Bought in Vercel (Domains): skip step 2.
+- **Moi** : ce que toi seul peux faire (achat, DNS, collage SQL en production, clés et réglages des tableaux de bord, drapeaux Vercel, go / no-go). **Claude** : l'intégrateur, SQL en lecture seule sur la production et journaux Supabase. **Worker** : un agent qui vérifie par curl et lit Vercel (déploiements, journaux, réglages). Tu ne lances jamais de commande de vérification.
+- Sous chaque titre : qui fait quoi, et combien de temps. Un bloc = une commande : copie-le en entier, dans le Terminal, depuis le dossier du dépôt. `read -rs` n'affiche rien pendant que tu colles : appuie sur Entrée.
+- Après chaque collage, écris dans le chat « collé n° X ». Claude (ou le worker) vérifie et répond OK avant la suite. Une sortie avec `ERROR` : ne lance rien d'autre, colle la sortie dans le chat. Chaque fichier se rejoue sans risque.
+- Heures en UTC (Paris en hiver : UTC + 1). Jamais de SQL entre 23:50 et 00:30. Une session SQL par phase, une sauvegarde au début de chaque session, les fichiers dans l'ordre de `SQL-ORDER.md`.
+- Le SQL passe par psql, dans le terminal ouvert par la sauvegarde de la session : il garde la chaîne de connexion jusqu'à sa fermeture. Terminal fermé en cours de session : relance seulement cette ligne.
+```
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL
+```
+- Variante pour un petit fichier « en une transaction » : `pbcopy < docs/pending-migrations/multisite/001-sites.sql` (le chemin du fichier), puis Cmd+V dans une nouvelle requête de l'éditeur SQL de Supabase, Run. Jamais l'éditeur pour 002b, 002c et 009 (hors transaction), ni pour L04, L05 et L07 (1,2 à 2,6 Mo).
+- Le détail, les vérifications et le retour arrière de chaque étape : le lien RUNBOOK (en anglais) et `ROLLBACK.md`. L'état et les décisions : `OWNER-TODO.md`.
 
-### 2. DNS records (10 min, then up to a few hours). [RUNBOOK H6](RUNBOOK.md#h-domain-vercel-supabase-and-google)
-At the registrar, TTL 300. No MX record for `team`. If Vercel shows other values at step 55, use Vercel's.
+Déjà fait, rien à faire : le groupe Microfrontends `fandomverse`, les variables Vercel de `fandomverse` et `otakuquiz`, les trois secrets passport et `CRON_SECRET` (l'intégrateur, le 2026-10-28, exception CLI). Google : aucune origine JavaScript, aucun client nouveau ; Discord : rien (`AUTH-FANDOMVERSE.md`).
 
-| type | name | value |
+## Partie 1. Maintenant, aucune base touchée (35 min pour moi)
+
+### 1. Acheter le domaine
+Moi 10 min. [RUNBOOK H6](RUNBOOK.md#h-domain-vercel-supabase-and-google)
+
+Achète `fandomverse.org` chez le registrar de ton choix. Acheté dans Vercel (Domains) : les enregistrements de l'étape 2 sont posés pour toi, fais seulement la partie Search Console.
+
+### 2. DNS et propriété Search Console
+Moi 12 min, Worker 5 min. [RUNBOOK H6 et K10](RUNBOOK.md#h-domain-vercel-supabase-and-google)
+
+Chez le registrar, TTL 300 secondes. Aucun MX pour `team`.
+
+| type | nom | valeur |
 |---|---|---|
 | A | `@` | `76.76.21.21` |
 | CNAME | `www` | `cname.vercel-dns.com` |
 
-Check (expect `76.76.21.21`, then `cname.vercel-dns.com.`, then nothing):
+Puis Search Console, Ajouter une propriété, type Domaine, le nom ci-dessous. Ajoute chez le registrar l'enregistrement TXT que Google affiche, puis Valider (ça peut attendre quelques heures). C'est un geste de K10 fait en avance : rien n'est indexé avant l'étape 56.
 ```
-dig +short fandomverse.org A
+fandomverse.org
 ```
-```
-dig +short www.fandomverse.org CNAME
-```
-```
-dig +short team.fandomverse.org MX
-```
+Vérif (worker) : A `76.76.21.21`, `www` en CNAME `cname.vercel-dns.com`, aucun MX pour `team.fandomverse.org`.
 
-### 3. Microfrontends group (10 min). [RUNBOOK H7](RUNBOOK.md#h-domain-vercel-supabase-and-google)
-Command checked by the integrator on 2026-10-28 against the options of Vercel CLI 59.4.0 (`vercel microfrontends create-group --help`).
-```
-mkdir -p ~/kpq-launch/mf
-```
-```
-cd ~/kpq-launch/mf
-```
-```
-vercel link --yes --project fandomverse
-```
-```
-vercel microfrontends create-group --name=fandomverse --project=fandomverse --project=otakuquiz --default-app=fandomverse --project-default-route=otakuquiz=/anime --yes
-```
-```
-cd -
-```
-Or in the dashboard: Vercel, Team Settings, Microfrontends: group `fandomverse`, `fandomverse` default application, `otakuquiz` default route `/anime`.
+### 3. La clé service_role en variable partagée
+Moi 8 min, Worker 5 min. [RUNBOOK H3](RUNBOOK.md#h-domain-vercel-supabase-and-google)
 
-### 4. Service role key as a team shared variable (10 min). [RUNBOOK H3](RUNBOOK.md#h-domain-vercel-supabase-and-google)
-Supabase, Project Settings, API Keys: copy the `service_role` key. Vercel, Team Settings, Environment Variables, Shared, Add: Sensitive, Production only, projects `kpopquiz`, `fandomverse`, `otakuquiz` (refused for `kpopquiz`: keep its own). Key:
+Supabase, Project Settings, API Keys : copie la clé `service_role` (ne la colle nulle part ailleurs). Vercel, Team Settings, Environment Variables, Shared, Add : Sensitive, Production seulement, projets `kpopquiz`, `fandomverse`, `otakuquiz`. Si Vercel refuse `kpopquiz` (il a déjà la sienne, même valeur) : garde-la et lie les deux autres. Clé :
 ```
 SUPABASE_SERVICE_ROLE_KEY
 ```
+Vérif (worker) : les trois projets montrent la variable en Production.
 
-### 5. Supabase redirect URLs (5 min). [RUNBOOK H4](RUNBOOK.md#h-domain-vercel-supabase-and-google)
-Supabase, Authentication, URL Configuration, Redirect URLs, Add URL, once per line below. Site URL stays `https://kpopquiz.org`. Remove `https://otakuquiz.org/**` and `https://fanquiz.org/**` if listed. Exactly these two, with no `*` and no `?`: only the two sign-in callbacks may receive a session (AUTH-FANDOMVERSE.md).
+### 4. Les adresses de retour Supabase
+Moi 5 min. [RUNBOOK H4](RUNBOOK.md#h-domain-vercel-supabase-and-google)
+
+Supabase, Authentication, URL Configuration, Redirect URLs, Add URL, une fois par ligne. Site URL reste `https://kpopquiz.org`. Exactement ces deux adresses, sans `*` ni `?`. Supprime `https://otakuquiz.org/**` et `https://fanquiz.org/**` s'ils y sont.
 ```
 https://fandomverse.org/auth/callback
 ```
 ```
 https://fandomverse.org/anime/auth/callback
 ```
+Vérif : au jour J, étape 49 (la connexion revient bien sur fandomverse.org).
 
-### 6. Google and Discord (0 min: nothing to do). [RUNBOOK H5](RUNBOOK.md#h-domain-vercel-supabase-and-google)
-fandomverse.org signs in with Supabase's Google redirect and the kpopquiz.org Google client, like kpopquiz.org (AUTH-FANDOMVERSE.md): no JavaScript origin, no new redirect URI, no new client. Discord keeps its Supabase callback. Nothing to change in Google Cloud or in the Discord developer portal.
+## Partie 2. Fusion et premiers déploiements (19 min pour moi)
 
-## Part 2. Merge and first deploys (1 h 55, when the integrator says the lanes are merged)
+### 5. Prêt à fusionner ?
+Claude 30 min. [RUNBOOK A5](RUNBOOK.md#a-before)
 
-### 7. Merge the PR `o1/integration` to `main` (90 min, then 1 h of logs). [RUNBOOK A5](RUNBOOK.md#a-before)
-Read `docs/launch/o1/A5-REVIEW.md`, ARCHITECTURE-FANDOMVERSE.md and AUTH-FANDOMVERSE.md; merge on GitHub when green. Vercel `kpopquiz`: the deploy is Ready, Runtime Logs quiet for an hour. Then, in your repository folder:
-```
-git checkout main
-```
-```
-git pull --ff-only
-```
+Claude confirme les quatre conditions de A5 : les lanes FandomVerse sont dans `o1/integration`, les vérifs sont vertes, aucun bloqueur n'est ouvert, la dernière comparaison de production était identique. Il te résume `docs/launch/o1/A5-REVIEW.md`.
 
-### 8. Cron list (5 min). [RUNBOOK A6](RUNBOOK.md#a-before)
-Both lines printed, and the count equals Vercel, `kpopquiz`, Settings, Cron Jobs.
-```
-grep -E 'passport-(deletions|cleanup)' apps/quiz/vercel.json
-```
-```
-grep -c '"path"' apps/quiz/vercel.json
-```
+### 6. Fusionner la PR `o1/integration` vers `main`
+Moi 15 min. [RUNBOOK A5](RUNBOOK.md#a-before)
 
-### 9. First deploys of the new projects (20 min). [RUNBOOK H8](RUNBOOK.md#h-domain-vercel-supabase-and-google)
-Vercel, `fandomverse`, Deployments, Redeploy the latest `main`; same on `otakuquiz`. Open the `fandomverse` `.vercel.app` address, then the same followed by `/anime`. Check: [VERIFY V9](VERIFY.md).
+Lis le résumé de Claude (le détail dans `A5-REVIEW.md` si tu veux), puis fusionne sur GitHub. C'est ta décision. Vercel déploie `kpopquiz` tout seul.
 
-## Part 3. SQL session B: 001 to 007 (2 h 20, after step 7)
+### 7. Après la fusion
+Worker 1 h 15, Claude 5 min. [RUNBOOK A4 à A6](RUNBOOK.md#a-before)
 
-### 10. Dashboard backup (5 min). [RUNBOOK A2](RUNBOOK.md#a-before)
-Supabase, Database, Backups: a backup of the last 24 hours exists (take one if your plan allows).
+Worker : le déploiement `kpopquiz` est Ready, Runtime Logs calmes pendant 1 h, V1 (pages identiques), même nombre de crons dans `apps/quiz/vercel.json` et dans Vercel (A6). Claude : `admin_delete_account` existe (A4).
 
-### 11. Dump and baseline in one run (15 min). [RUNBOOK A1 to A3](RUNBOOK.md#a-before)
-It asks the database password, prints PASS lines and the dump file name. No IPv6 on your network: the script's header gives the pooler variant.
-```
-bash docs/launch/o1/A1-A3.sh
-```
+### 8. Premiers déploiements des deux nouveaux projets
+Moi 4 min, Worker 20 min. [RUNBOOK H8](RUNBOOK.md#h-domain-vercel-supabase-and-google)
 
-### 12. Terminal set-up, once per terminal (5 min). [RUNBOOK 0](RUNBOOK.md#0-how-to-read-a-step)
-`read -rs` waits for the connection string (Supabase, Connect, direct or session pooler). `psql --version` must print 18.
+Après le OK de l'étape 7. Vercel, `otakuquiz`, Deployments : Redeploy du dernier `main`. Puis la même chose sur `fandomverse`. Cet ordre vient de `ARCHITECTURE-FANDOMVERSE.md`, section 5.
+
+Vérif (worker) : V9 (le hub sur `/`, OtakuQuiz sur `/anime`, noindex, `check:env` passe), le groupe Microfrontends, la liste de `ENV.md` section 4.
+
+## Partie 3. Session SQL B : 001 à 007 (40 min pour moi, 2 h 30 sur place)
+
+Ton heure la plus calme, jamais entre 23:50 et 00:30. Une heure d'attente à l'étape 14.
+
+### 9. Ouvrir la session B : sauvegarde
+Moi 5 min, Claude 2 min. [RUNBOOK A2](RUNBOOK.md#a-before)
+
+Supabase, Database, Backups : une sauvegarde de moins de 24 h existe (sinon prends-en une si ton plan le permet). Puis dans le Terminal :
 ```
-export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
-```
-```
-psql --version
-```
-```
-read -rs PROD_DB_URL
-```
-```
-export PROD_DB_URL
-```
-```
-M=docs/pending-migrations/multisite
+git checkout main && git pull --ff-only
 ```
 ```
-sql1() { psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f "$1"; }
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
+```
+`read -rs` attend la chaîne de connexion (Supabase, Connect : direct, ou session pooler si ton réseau n'a pas d'IPv6). Le dump prend quelques minutes. Garde ce terminal ouvert toute la session. Garde le dump 60 jours, sur ta machine seulement (données personnelles).
+
+Vérif (Claude) : le dump se relit (`pg_restore --list`, plusieurs centaines d'entrées).
+
+### 10. Point de départ
+Claude 10 min, Worker 10 min. [RUNBOOK A3, B1](RUNBOOK.md#b-p1-001-to-007)
+
+Claude : V0 dans `~/kpq-launch/v0.txt` et les 12 signatures dans `~/kpq-launch/functions-before.txt`. Worker : la production `kpopquiz` tourne le commit de `main` ; la photo V1 dans `~/kpq-launch/before`.
+
+### 11. 001 puis 002a
+Moi 4 min, Claude 4 min. [RUNBOOK B2, B3](RUNBOOK.md#b-p1-001-to-007)
+
+Un bloc, « collé n° 11 », le OK de Claude, puis le second. Un échec sur `lock_timeout` : relance plus tard.
+```
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/001-sites.sql
 ```
 ```
-sqln() { psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f "$1"; }
-```
-```
-q() { psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "$1"; }
-```
-```
-snap() { mkdir -p "$1"; grep -v '^#' apps/quiz/e2e/o1/parity/urls.txt | grep . | while read -r p; do curl -sS -m 30 "https://kpopquiz.org$p" -o "$1/$(printf '%s' "$p" | tr '/?&=' '____').html"; done; }
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/002a-site-columns.sql
 ```
 
-### 13. Production commit (5 min). [RUNBOOK B1](RUNBOOK.md#b-p1-001-to-007)
-The commit printed is the one Vercel shows for the current `kpopquiz` production deployment.
+### 12. 002b puis 002c, hors transaction (psql seulement)
+Moi 5 min, Claude 4 min. [RUNBOOK B4](RUNBOOK.md#b-p1-001-to-007)
+
+Les index prennent quelques minutes.
 ```
-git log -1 --format='%h %s' origin/main
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/pending-migrations/multisite/002b-site-validate.sql
+```
+```
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/pending-migrations/multisite/002c-site-indexes.sql
 ```
 
-### 14. 001 (5 min). [RUNBOOK B2](RUNBOOK.md#b-p1-001-to-007)
+### 13. 002d, DANGEREUX
+Moi 6 min, Claude 3 min. [RUNBOOK B5](RUNBOOK.md#b-p1-001-to-007)
 ```
-sql1 $M/001-sites.sql
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/002d-quiz-site-guard.sql
+```
+Tout de suite après, connecté sur kpopquiz.org : crée un quiz jetable, vérifie qu'il s'enregistre, supprime-le. Écris « collé n° 13, quiz OK » (ou ce qui a raté).
+
+### 14. `SITE_SCOPE=1` sur kpopquiz
+Moi 4 min, Worker 1 h 10, Claude 3 min. [RUNBOOK B6](RUNBOOK.md#b-p1-001-to-007)
+
+Après le OK de Claude sur 002b à 002d. Vercel, `kpopquiz`, Settings, Environment Variables, Add, Production : la clé ci-dessous, valeur `1`. Puis Deployments, Redeploy de la production sans le cache de build.
+```
+SITE_SCOPE
+```
+Vérif : worker (V1 identique, puis 1 h de Runtime Logs calmes), Claude (V2). Attends leur OK, environ 1 h, avant l'étape 15.
+
+### 15. 003, DANGEREUX
+Moi 9 min, Claude 3 min. [RUNBOOK B7](RUNBOOK.md#b-p1-001-to-007)
+```
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/003-memberships.sql
+```
+Tout de suite après, dans une fenêtre privée : inscris un compte jetable sur kpopquiz.org et termine l'accueil. Donne son nom d'utilisateur à Claude. Garde ce compte jusqu'à l'étape 23.
+
+### 16. 004 et 005
+Moi 3 min, Claude 4 min. [RUNBOOK B8](RUNBOOK.md#b-p1-001-to-007)
+```
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/004-passport-prefs.sql
+```
+```
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/005-net-counters.sql
 ```
 
-### 15. 002a (10 min). [RUNBOOK B3](RUNBOOK.md#b-p1-001-to-007)
+### 17. 006 puis 007
+Moi 4 min, Worker 3 min, Claude 4 min. [RUNBOOK B9, B10](RUNBOOK.md#b-p1-001-to-007)
+
+Avant 006, le worker confirme que `passport` n'est pas dans les « Exposed schemas » de l'API Supabase (par requête, VERIFY V3).
 ```
-sql1 $M/002a-site-columns.sql
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/006-passport-handoff.sql
+```
+```
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/007-world-xp.sql
 ```
 
-### 16. 002b, then 002c (20 min). [RUNBOOK B4](RUNBOOK.md#b-p1-001-to-007)
+### 18. Fermer la session B
+Worker 10 min, Claude 2 min. [RUNBOOK B11](RUNBOOK.md#b-p1-001-to-007)
+
+Worker : nouvelle photo V1 et comparaison. Claude note l'heure : la veille de 24 h commence. Tu peux fermer le terminal.
+
+## Partie 4. Veille, session D : 008, veille (21 min pour moi)
+
+### 19. La veille de 24 h, à l'étape 18 plus 24 h
+Claude 15 min, Worker 20 min. [RUNBOOK C](RUNBOOK.md#c-24-hour-watch-after-b)
+
+Claude : les lignes « 24 hour watch » de V3, des parties et des inscriptions qui arrivent toujours, l'audit des compteurs. Worker : Runtime Logs `kpopquiz` sur 24 h, V1, `robots.txt` et balises robots de kpopquiz.org inchangés (Search Console : toi, à l'étape 63). Leur « veille propre » ouvre la session D.
+
+### 20. Ouvrir la session D : sauvegarde
+Moi 5 min, Claude 2 min. [RUNBOOK A2](RUNBOOK.md#a-before)
+
+Ton heure la plus calme, loin de 00:05 et de 03:30 à 05:00 (les crons). Supabase, Database, Backups : une sauvegarde de moins de 24 h existe. Puis :
 ```
-sqln $M/002b-site-validate.sql
+git checkout main && git pull --ff-only
 ```
 ```
-sqln $M/002c-site-indexes.sql
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
 ```
 
-### 17. 002d, DANGEROUS (15 min). [RUNBOOK B5](RUNBOOK.md#b-p1-001-to-007)
-Right after it: create a throwaway quiz on kpopquiz.org while signed in, check it saves, delete it.
+### 21. La porte avant 008
+Claude 10 min. [RUNBOOK D1](RUNBOOK.md#d-p2-008-write-locks)
+
+Claude compare les 11 fonctions de production au fichier de retour de 008. Il doit lire `functions read: 11 | body different from the rollback file: none`. Un nom listé : on s'arrête.
+
+### 22. 008, DANGEREUX
+Moi 8 min, Claude 10 min, Worker 10 min. [RUNBOOK D2](RUNBOOK.md#d-p2-008-write-locks)
+
+Seulement après le « none » de l'étape 21.
 ```
-sql1 $M/002d-quiz-site-guard.sql
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/008-write-locks.sql
+```
+Tout de suite après, avec le compte jetable : joue un quiz, like un quiz, retire le like, crée un quiz puis supprime-le. Écris « collé n° 22 » et ce que tu as vu.
+
+Vérif : Claude (V4 après 008, `V-S4 ok`, XP et compteurs bougent comme avant, audit des compteurs), worker (V1).
+
+### 23. La veille de 24 h, à l'étape 22 plus 24 h
+Moi 8 min, Claude 15 min, Worker 20 min. [RUNBOOK D3](RUNBOOK.md#d-p2-008-write-locks)
+
+Claude : l'audit des compteurs reste au plus au niveau de base. Worker : Runtime Logs calmes sur 24 h. Toi : la même preuve qu'à l'étape 22 avec le compte jetable, puis supprime ce compte comme d'habitude (tableau de bord Supabase ou admin). Écris « fait n° 23 ». Leur « veille propre » ouvre la session E.
+
+## Partie 5. Session E : 009, le déploiement, 010 (10 min pour moi)
+
+Commence entre 18:00 et 22:20, un jour sans autre changement, et fais tout d'une traite.
+
+### 24. Ouvrir la session E : sauvegarde
+Moi 5 min, Claude 2 min. [RUNBOOK A2](RUNBOOK.md#a-before)
+
+Supabase, Database, Backups : une sauvegarde de moins de 24 h existe. Puis :
+```
+git checkout main && git pull --ff-only
+```
+```
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
 ```
 
-### 18. `SITE_SCOPE=1` on kpopquiz (15 min, then 1 h of logs). [RUNBOOK B6](RUNBOOK.md#b-p1-001-to-007)
-Vercel, `kpopquiz`, Settings, Environment Variables, Add, Production: key `SITE_SCOPE`, value `1`. Redeploy production without the build cache. Then:
+### 25. 009, hors transaction (psql seulement)
+Moi 3 min, Claude 9 min. [RUNBOOK E1, E2](RUNBOOK.md#e-p3-009-the-app-deploy-010)
+
+Avant : Claude confirme que les deux anciennes clés existent encore (`2`). Après : V5 « After 009 ».
 ```
-snap ~/kpq-launch/after-b6
-```
-```
-diff -rq ~/kpq-launch/before ~/kpq-launch/after-b6
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/pending-migrations/multisite/009-daily-prep.sql
 ```
 
-### 19. 003, DANGEROUS (15 min). [RUNBOOK B7](RUNBOOK.md#b-p1-001-to-007)
-Right after it: sign up a throwaway account on kpopquiz.org in a private window and finish onboarding.
+### 26. Le déploiement de l'app
+Worker 5 min, Moi (si besoin) 3 min. [RUNBOOK E3](RUNBOOK.md#e-p3-009-the-app-deploy-010)
+
+Worker : la production `kpopquiz` tourne le dernier `main` (la fusion ou plus récent) et `/daily` redirige vers une page `/q/`. Seulement s'il te le demande : Vercel, `kpopquiz`, Deployments, Redeploy du dernier `main` sans le cache.
+
+### 27. 010, DANGEREUX
+Moi 2 min, Claude 4 min. [RUNBOOK E4](RUNBOOK.md#e-p3-009-the-app-deploy-010)
+
+Tout de suite après l'étape 26. Jamais après 23:45 : sinon arrête-toi là et fais 010 le lendemain soir, avec une nouvelle sauvegarde (étape 24) ; 009 et le déploiement restent en place.
 ```
-sql1 $M/003-memberships.sql
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/010-daily-v2.sql
+```
+Vérif (Claude) : V5 « After 010 ». Il note l'heure.
+
+## Partie 6. Veille après 010, puis session G : 011 à 017 (21 min pour moi)
+
+### 28. Le lendemain matin, après 00:05
+Claude 5 min, Worker 5 min. [RUNBOOK E5](RUNBOOK.md#e-p3-009-the-app-deploy-010)
+
+Claude : la ligne `qotd_log` du jour avec `kpop`, un seul quiz du jour. Worker : `/daily` y mène ; Vercel, `kpopquiz`, Cron Jobs : `ensure-daily-quiz` a réussi.
+
+### 29. V7, à l'étape 27 plus 24 h
+Claude 15 min, Worker 10 min. [RUNBOOK F](RUNBOOK.md#f-24-hour-watch-after-010)
+
+Les six conditions de V7 sont vraies : le Verrou 0 est levé. Alors la session G.
+
+### 30. Ouvrir la session G : sauvegarde
+Moi 5 min, Claude 2 min. [RUNBOOK A2](RUNBOOK.md#a-before)
+
+Supabase, Database, Backups : une sauvegarde de moins de 24 h existe. Puis :
+```
+git checkout main && git pull --ff-only
+```
+```
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
 ```
 
-### 20. 004 and 005 (5 min). [RUNBOOK B8](RUNBOOK.md#b-p1-001-to-007)
+### 31. 011, 018, 012, 013, 014, 015
+Moi 12 min, Claude 18 min. [RUNBOOK G1](RUNBOOK.md#g-p5-011-to-017)
+
+Dans cet ordre, un bloc à la fois, « collé n° 31, 011 » après chacun, le OK de Claude (V6) entre deux. Si 013 s'arrête sur un nom de `game_type` : ne touche pas au fichier, colle la sortie, Claude s'en occupe.
 ```
-sql1 $M/004-passport-prefs.sql
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/011-anime-series.sql
 ```
 ```
-sql1 $M/005-net-counters.sql
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/018-entity-images.sql
+```
+```
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/012-editorial-quiz.sql
+```
+```
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/013-formats.sql
+```
+```
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/014-daily-openings.sql
+```
+```
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/015-spoilers.sql
 ```
 
-### 21. 006 (10 min). [RUNBOOK B9](RUNBOOK.md#b-p1-001-to-007)
-First: Supabase, Project Settings, API, Exposed schemas: `passport` is NOT listed.
+### 32. 016 et 017
+Moi 4 min, Claude 6 min. [RUNBOOK G2](RUNBOOK.md#g-p5-011-to-017)
+
+Seulement si Claude confirme que `admin_delete_account` existe (sinon on saute les deux).
 ```
-sql1 $M/006-passport-handoff.sql
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/016-passport-deletion.sql
+```
+```
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/017-deletion-kpop.sql
 ```
 
-### 22. 007 (5 min). [RUNBOOK B10](RUNBOOK.md#b-p1-001-to-007)
+### 33. Fermer la session G
+Claude 3 min, Worker 1 h 10. [RUNBOOK G3](RUNBOOK.md#g-p5-011-to-017)
+
+Claude : `V-S4 ok`. Worker : V1, puis 1 h de Runtime Logs.
+
+## Partie 7. Contenu et go / no-go (10 min pour moi)
+
+### 34. Le contenu
+Claude 1 h 30. [RUNBOOK J](RUNBOOK.md#j-content)
+
+En parallèle des parties 3 à 6. Claude relit un échantillon des paquets de `docs/anime/editorial/packets/` (J1), lance `node scripts/anime/editorial/check.mjs docs/anime/data` (0 échec), contrôle les sha256 de `MANIFEST.json`, l'absence de fichier DRAFTS et de `team.otakuquiz.org` (J2), et répète les fichiers de lancement sur `o1-scratch` (J3 : le second passage ne change rien). Il te donne le résultat.
+
+### 35. Le rapport K1, la veille du jour J
+Claude 20 min, Worker 15 min. [RUNBOOK K1](RUNBOOK.md#k-launch-day)
+
+Chaque ligne de K1 est vérifiée : veilles propres, V9, fichiers de lancement, DNS, groupe Microfrontends, adresses de retour, clé liée, `QOTD_ROTATION_FIX=1` sur `otakuquiz`. Claude dit aussi si l'étape 45 (images) sert.
+
+### 36. Go / no-go
+Moi 10 min. [RUNBOOK K1](RUNBOOK.md#k-launch-day)
+
+Lis le rapport. Tout est vrai et quelqu'un est libre les 72 h qui suivent le lancement : « go ». Sinon le jour J se décale.
+
+## Partie 8. Jour J (1 h 25 pour moi, une journée sur place)
+
+Commence après 00:30, finis avant 22:00.
+
+### 37. Ouvrir la session du jour J : sauvegarde
+Moi 5 min, Claude 2 min. [RUNBOOK K2](RUNBOOK.md#k-launch-day)
+
+Supabase, Database, Backups : une sauvegarde de moins de 24 h existe. Puis :
 ```
-sql1 $M/007-world-xp.sql
+git checkout main && git pull --ff-only
+```
+```
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
 ```
 
-### 23. Close session B (10 min). [RUNBOOK B11](RUNBOOK.md#b-p1-001-to-007)
-Note the time: the 24 hour watch starts.
+### 38. Point de départ du jour
+Claude 10 min, Worker 10 min. [RUNBOOK K2](RUNBOOK.md#k-launch-day)
+
+Claude : V0 dans `~/kpq-launch/v0-launch.txt`. Worker : la photo V1 dans `~/kpq-launch/before`.
+
+### 39. L01
+Moi 2 min, Claude 3 min. [RUNBOOK K3](RUNBOOK.md#k-launch-day)
 ```
-snap ~/kpq-launch/after-b
-```
-```
-diff -rq ~/kpq-launch/before ~/kpq-launch/after-b
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L01-B2-sites.sql
 ```
 
-## Part 4. Watch, then SQL session D: 008 (1 h 55)
+### 40. Les 31 comptes Team
+Moi 6 min, Claude 5 min. [RUNBOOK K4](RUNBOOK.md#k-launch-day)
 
-### 24. The 24 hour watch, at step 23 plus 24 hours (15 min). [RUNBOOK C](RUNBOOK.md#c-24-hour-watch-after-b)
-VERIFY V3 "24 hour watch" lines, `kpopquiz` Runtime Logs, Search Console for kpopquiz.org, then:
+Supabase, Project Settings, API Keys : copie la clé `service_role`. La première ligne l'attend. La deuxième est un essai à blanc : colle sa sortie (un nombre) dans le chat. Au OK de Claude, la troisième crée les comptes, sans aucun e-mail. La dernière efface la clé du terminal.
 ```
-snap ~/kpq-launch/after-c
-```
-```
-diff -rq ~/kpq-launch/before ~/kpq-launch/after-c
-```
-
-### 25. Backup (15 min). [RUNBOOK A2](RUNBOOK.md#a-before)
-Terminal set-up of step 12 if this is a new terminal. Dashboard backup (step 10), then:
-```
-F=~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
-```
-```
-pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f "$F"
-```
-```
-pg_restore --list "$F" | wc -l
-```
-
-### 26. Gate before 008 (20 min). [RUNBOOK D1](RUNBOOK.md#d-p2-008-write-locks)
-The second command must print `functions read: 11 | body different from the rollback file: none`. A name listed: stop.
-```
-q "select '@@@' || p.proname || E'\n' || p.prosrc || E'\n;;;;\n' from pg_proc p where p.pronamespace='public'::regnamespace and p.proname in ('award_xp','record_play','handle_new_quiz','increment_like_count','decrement_like_count','notify_badge_earned','notify_group_quiz_alerts','cast_duel_vote','passport_on_battle_result','record_bt_play','merge_anon_passport') order by p.proname, p.oid" > ~/kpq-launch/prod-functions.txt
-```
-```
-python3 - <<'EOF'
-import os
-n = lambda s: ' '.join(s.split())
-back = n(open('docs/pending-migrations/multisite/008-write-locks.rollback.sql').read())
-blocks = [b for b in open(os.path.expanduser('~/kpq-launch/prod-functions.txt')).read().split(';;;;') if b.strip()]
-blocks = [b.strip() for b in blocks]
-bad = [b.split('\n')[0][3:] for b in blocks if n(b.split('\n', 1)[1]) not in back]
-print('functions read:', len(blocks), '| body different from the rollback file:', bad if bad else 'none')
-EOF
-```
-
-### 27. 008, DANGEROUS (50 min). [RUNBOOK D2](RUNBOOK.md#d-p2-008-write-locks)
-Quietest hour. Then `V-S4 ok` must print; then VERIFY V4 "After 008" and the live proof with a throwaway account (play, like, unlike, create).
-```
-sql1 $M/008-write-locks.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/launch/o1/V-S4-closed.sql
-```
-
-### 28. The 24 hour watch, at step 27 plus 24 hours (15 min). [RUNBOOK D3](RUNBOOK.md#d-p2-008-write-locks)
-VERIFY V4 live proof again; Runtime Logs quiet; counters audit of V0 at or under baseline.
-
-## Part 5. SQL session E: 009, deploy, 010 (1 h 05; start between 18:00 and 22:20)
-
-### 29. Backup (15 min). [RUNBOOK A2](RUNBOOK.md#a-before)
-Terminal set-up of step 12 if this is a new terminal. Dashboard backup, then:
-```
-F=~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
-```
-```
-pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f "$F"
-```
-```
-pg_restore --list "$F" | wc -l
-```
-
-### 30. The old keys are still there (5 min). [RUNBOOK E1](RUNBOOK.md#e-p3-009-the-app-deploy-010)
-Expect `2`.
-```
-q "select count(*) from pg_constraint where conname in ('quiz_bank_scheduled_date_key','qotd_log_featured_date_key')"
-```
-
-### 31. 009 (15 min). [RUNBOOK E2](RUNBOOK.md#e-p3-009-the-app-deploy-010)
-Then VERIFY V5 "After 009".
-```
-sqln $M/009-daily-prep.sql
-```
-
-### 32. The app deploy (15 min). [RUNBOOK E3](RUNBOOK.md#e-p3-009-the-app-deploy-010)
-Vercel `kpopquiz`: production runs the latest `main`; else Redeploy without cache. The command prints a redirect to a `/q/` page.
-```
-curl -sS -o /dev/null -w '%{http_code} %{redirect_url}\n' https://kpopquiz.org/daily
-```
-
-### 33. 010, DANGEROUS (15 min). [RUNBOOK E4](RUNBOOK.md#e-p3-009-the-app-deploy-010)
-Not after 23:45 (then stop and do it the next day). Then VERIFY V5 "After 010". Note the time.
-```
-sql1 $M/010-daily-v2.sql
-```
-
-## Part 6. Watch after 010, then SQL session G: 011 to 017 (2 h 05)
-
-### 34. The next morning, after 00:05 (10 min). [RUNBOOK E5](RUNBOOK.md#e-p3-009-the-app-deploy-010)
-Today's date with `kpop`; `/daily` redirects to today's quiz; Vercel `kpopquiz`, Cron Jobs: `ensure-daily-quiz` succeeded.
-```
-q "select featured_date, site_id from public.qotd_log order by featured_date desc limit 3"
-```
-```
-curl -sS -o /dev/null -w '%{http_code} %{redirect_url}\n' https://kpopquiz.org/daily
-```
-
-### 35. V7, at step 33 plus 24 hours (20 min). [RUNBOOK F](RUNBOOK.md#f-24-hour-watch-after-010)
-VERIFY V7: the six conditions true. This clears Verrou 0.
-
-### 36. Backup (15 min). [RUNBOOK A2](RUNBOOK.md#a-before)
-Terminal set-up of step 12 if this is a new terminal. Dashboard backup, then:
-```
-F=~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
-```
-```
-pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f "$F"
-```
-```
-pg_restore --list "$F" | wc -l
-```
-
-### 37. 011, 018, 012, 013, 014, 015 (40 min). [RUNBOOK G1](RUNBOOK.md#g-p5-011-to-017)
-In this order, each followed by its VERIFY V6 lines. 013 stops with a `game_type` name: send it to the integrator.
-```
-sql1 $M/011-anime-series.sql
-```
-```
-sql1 $M/018-entity-images.sql
-```
-```
-sql1 $M/012-editorial-quiz.sql
-```
-```
-sql1 $M/013-formats.sql
-```
-```
-sql1 $M/014-daily-openings.sql
-```
-```
-sql1 $M/015-spoilers.sql
-```
-
-### 38. 016 and 017 (20 min). [RUNBOOK G2](RUNBOOK.md#g-p5-011-to-017)
-The first command must print a name, not an empty line; empty: skip 016 and 017.
-```
-q "select to_regprocedure('public.admin_delete_account(uuid,boolean,boolean)')"
-```
-```
-sql1 $M/016-passport-deletion.sql
-```
-```
-sql1 $M/017-deletion-kpop.sql
-```
-
-### 39. Close session G (20 min). [RUNBOOK G3](RUNBOOK.md#g-p5-011-to-017)
-`V-S4 ok` must print; then the kpop snapshot; then one hour of Runtime Logs.
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/launch/o1/V-S4-closed.sql
-```
-```
-snap ~/kpq-launch/after-g
-```
-```
-diff -rq ~/kpq-launch/before ~/kpq-launch/after-g
-```
-
-## Part 7. Content and go / no-go (1 h 45, in parallel with Parts 3 to 6)
-
-### 40. Content checks (10 min). [RUNBOOK J1, J2](RUNBOOK.md#j-content)
-Expect: 0 failures; `none`; nothing; `0`.
-```
-node scripts/anime/editorial/check.mjs docs/anime/data
-```
-```
-python3 - <<'EOF'
-import json, hashlib
-d = 'docs/pending-migrations/multisite/launch/'
-m = json.load(open(d + 'MANIFEST.json'))
-bad = [f['name'] for f in m['files'] if hashlib.sha256(open(d + f['name'], 'rb').read()).hexdigest() != f['sha256']]
-print('files:', len(m['files']), '| sha256 different from MANIFEST.json:', bad if bad else 'none')
-EOF
-```
-```
-grep -l '^-- DRAFTS' docs/pending-migrations/multisite/launch/*.sql
-```
-```
-grep -c 'team.otakuquiz.org' docs/pending-migrations/multisite/launch/L02-K2-team-accounts.sql
-```
-
-### 41. Sampling review and rehearsal result (65 min). [RUNBOOK J1, J3](RUNBOOK.md#j-content)
-Read a sample of `docs/anime/editorial/packets/` (60 min). The integrator rehearses the launch files on `o1-scratch` (J3); read his result: the second run of each file changed nothing (5 min).
-
-### 42. Go / no-go, the evening before launch day (30 min). [RUNBOOK K1](RUNBOOK.md#k-launch-day)
-Every line of K1 true, or the day moves.
-
-## Part 8. Launch day (J): start after 00:30, finish before 22:00 (6 h 30)
-
-### 43. Backup (15 min). [RUNBOOK K2](RUNBOOK.md#k-launch-day)
-Terminal set-up of step 12 if this is a new terminal. Dashboard backup, then:
-```
-F=~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
-```
-```
-pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f "$F"
-```
-```
-pg_restore --list "$F" | wc -l
-```
-
-### 44. Baseline of the day (20 min). [RUNBOOK K2](RUNBOOK.md#k-launch-day)
-```
-{ date -u; for s in "select count(*) from public.profiles" "select coalesce(sum(xp),0) from public.profiles" "select count(*), coalesce(sum(play_count),0) from public.quizzes" "select count(*) from public.plays" "select count(*) from public.groups" "select count(*) from public.quiz_bank" "select count(*) from public.qotd_log" "select count(*) from public.badge_definitions" "select count(*) from public.quizzes q where q.play_count <> (select count(*) from public.plays p where p.quiz_id = q.id)"; do echo "$s"; q "$s"; done; } | tee ~/kpq-launch/v0-launch.txt
-```
-```
-snap ~/kpq-launch/before
-```
-
-### 45. L01 (10 min). [RUNBOOK K3](RUNBOOK.md#k-launch-day)
-```
-sql1 $M/launch/L01-B2-sites.sql
-```
-
-### 46. The 31 Team auth users (15 min). [RUNBOOK K4](RUNBOOK.md#k-launch-day)
-`read -rs` waits for the service role key. The first `node` prints a count (dry run); the second creates the users, no email sent.
-```
-read -rs SUPABASE_SERVICE_ROLE_KEY
-```
-```
-export SUPABASE_SERVICE_ROLE_KEY
-```
-```
-export SUPABASE_URL=https://rdkgouofytwfdpbxbzio.supabase.co
+read -rs SUPABASE_SERVICE_ROLE_KEY && export SUPABASE_SERVICE_ROLE_KEY SUPABASE_URL=https://rdkgouofytwfdpbxbzio.supabase.co
 ```
 ```
 node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref rdkgouofytwfdpbxbzio --team-email-domain fandomverse.org
@@ -441,66 +379,54 @@ node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref rdkgouofytwfdpbxbzio --team
 ```
 unset SUPABASE_URL SUPABASE_SERVICE_ROLE_KEY
 ```
+Vérif (Claude) : 31 utilisateurs en `team.fandomverse.org`, tous confirmés.
 
-### 47. L02 (10 min). [RUNBOOK K4](RUNBOOK.md#k-launch-day)
+### 41. L02 puis L03
+Moi 4 min, Claude 6 min. [RUNBOOK K4, K5](RUNBOOK.md#k-launch-day)
 ```
-sql1 $M/launch/L02-K2-team-accounts.sql
-```
-
-### 48. L03 (5 min). [RUNBOOK K5](RUNBOOK.md#k-launch-day)
-```
-sql1 $M/launch/L03-B7-sentinel.sql
-```
-
-### 49. L04, L05, leak check (20 min). [RUNBOOK K5](RUNBOOK.md#k-launch-day)
-Every line of the last command prints `0`.
-```
-sql1 $M/launch/L04-K1-series.sql
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L02-K2-team-accounts.sql
 ```
 ```
-sql1 $M/launch/L05-K1-facts.sql
-```
-```
-for p in / /quizzes /new /trending /trivia /most-liked /sitemap.xml /llms.txt; do printf '%s ' "$p"; curl -sS "https://kpopquiz.org$p" | grep -ciE 'death note|one piece|spy x family|otakuquiz'; done
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L03-B7-sentinel.sql
 ```
 
-### 50. L06, L07, L08, counts (20 min). [RUNBOOK K5](RUNBOOK.md#k-launch-day)
-The counts of the last two commands match (VERIFY V8).
+### 42. L04 puis L05 (gros fichiers : psql seulement)
+Moi 6 min, Worker 3 min, Claude 6 min. [RUNBOOK K5](RUNBOOK.md#k-launch-day)
+
+Après L04, attends le OK du worker (aucun titre anime sur les pages de kpopquiz.org) avant L05.
 ```
-sql1 $M/launch/L06-B3-badges.sql
-```
-```
-sql1 $M/launch/L07-K2-catalogue.sql
-```
-```
-sql1 $M/launch/L08-K3-daily-bank.sql
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L04-K1-series.sql
 ```
 ```
-psql "$PROD_DB_URL" -X -At -F ' | ' -f $M/launch/content-verify.sql
-```
-```
-cat $M/launch/expected-counts.json
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L05-K1-facts.sql
 ```
 
-### 51. L10-PERS (10 min). [RUNBOOK K5.3b](RUNBOOK.md#k-launch-day)
-The second command prints `70`.
+### 43. L06, L07, L08
+Moi 8 min, Claude 10 min. [RUNBOOK K5](RUNBOOK.md#k-launch-day)
 ```
-sql1 $M/launch/L10-PERS-personality.sql
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L06-B3-badges.sql
 ```
 ```
-q "select count(*) from public.personality_profiles where site_id = 'anime'"
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L07-K2-catalogue.sql
 ```
+```
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L08-K3-daily-bank.sql
+```
+Vérif (Claude) : `content-verify.sql` donne les nombres de `expected-counts.json` (V8), `V-S4 ok`.
 
-### 52. Admin images, only if you uploaded some on o1-dev (15 min). [RUNBOOK K5.3c](RUNBOOK.md#k-launch-day)
-`read -rs` waits for the service role key. The first `promote.mjs` is a dry run; the second writes.
+### 44. L10-PERS
+Moi 2 min, Claude 3 min. [RUNBOOK K5.3b](RUNBOOK.md#k-launch-day)
 ```
-read -rs PROMOTE_TARGET_SERVICE_KEY
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L10-PERS-personality.sql
 ```
+Vérif (Claude) : 70 profils de personnalité pour `anime`.
+
+### 45. Les images de l'admin, seulement si Claude l'a dit (étape 35)
+Moi (si besoin) 6 min, Claude (si besoin) 5 min. [RUNBOOK K5.3c](RUNBOOK.md#k-launch-day)
+
+La première ligne attend la clé `service_role`. La deuxième est un essai à blanc : colle sa sortie dans le chat. Au OK de Claude, la troisième copie. La dernière efface la clé.
 ```
-export PROMOTE_TARGET_SERVICE_KEY
-```
-```
-export PROMOTE_TARGET_URL=https://rdkgouofytwfdpbxbzio.supabase.co
+read -rs PROMOTE_TARGET_SERVICE_KEY && export PROMOTE_TARGET_SERVICE_KEY PROMOTE_TARGET_URL=https://rdkgouofytwfdpbxbzio.supabase.co
 ```
 ```
 scripts/o1/env.sh dev -- node scripts/anime/images/promote.mjs
@@ -512,106 +438,186 @@ scripts/o1/env.sh dev -- node scripts/anime/images/promote.mjs --apply
 unset PROMOTE_TARGET_SERVICE_KEY PROMOTE_TARGET_URL
 ```
 
-### 53. Fourteen bank rows verified (10 min). [RUNBOOK K5](RUNBOOK.md#k-launch-day)
-It prints 14 titles.
+### 46. Les 14 lignes de la banque
+Moi 2 min, Claude 2 min. [RUNBOOK K5](RUNBOOK.md#k-launch-day)
+
+La ligne affiche 14 titres.
 ```
-q "update public.quiz_bank set status='verified', verified_at=now() where id in (select id from public.quiz_bank where site_id='anime' and status='draft' and scheduled_date is null order by md5(title) limit 14) returning title"
+psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "update public.quiz_bank set status='verified', verified_at=now() where id in (select id from public.quiz_bank where site_id='anime' and status='draft' and scheduled_date is null order by md5(title) limit 14) returning title"
 ```
 
-### 54. Builds on (15 min). [RUNBOOK K5b](RUNBOOK.md#k-launch-day)
-Vercel, `otakuquiz` then `fandomverse`, Settings, Git, Ignored Build Step: remove `exit 0` if present. Then Deployments, Redeploy the latest `main` on each. `kpopquiz` untouched.
+### 47. Les builds
+Moi 6 min, Worker 5 min. [RUNBOOK K5b](RUNBOOK.md#k-launch-day)
 
-### 55. Attach the domain (60 min with the certificate). [RUNBOOK K6](RUNBOOK.md#k-launch-day)
-Vercel, `fandomverse`, Settings, Domains: add the first name, then the second set to redirect to the first. Nothing on `otakuquiz`. Then sign in with Google, then Discord, on fandomverse.org; open `/anime`: still signed in. Check: [VERIFY V10](VERIFY.md).
+Vercel, `otakuquiz` puis `fandomverse`, Settings, Git, Ignored Build Step : enlève `exit 0` s'il y est. Puis Deployments, Redeploy du dernier `main` sur chacun, `otakuquiz` d'abord. Ne touche pas à `kpopquiz`.
+
+Vérif (worker) : un déploiement Ready de `main` sur chacun.
+
+### 48. Le domaine
+Moi 4 min, Worker 10 min. [RUNBOOK K6](RUNBOOK.md#k-launch-day)
+
+Vercel, `fandomverse`, Settings, Domains : ajoute le premier nom, puis le second, réglé pour rediriger vers le premier. Rien sur `otakuquiz`. Si Vercel demande d'autres valeurs DNS qu'à l'étape 2, mets les siennes chez le registrar. Le certificat arrive tout seul.
 ```
 fandomverse.org
 ```
 ```
 www.fandomverse.org
 ```
+Vérif (worker) : V10 (200, canonique et robots propres à chaque site, noindex encore présent, `www` redirige).
 
-### 56. `PASSPORT_JUMP=1` (25 min). [RUNBOOK K7](RUNBOOK.md#k-launch-day)
-Vercel, Production, in `kpopquiz`, `fandomverse` and `otakuquiz`: key `PASSPORT_JUMP`, value `1`; redeploy the three together. Then, signed in on kpopquiz.org, open the address below: you land on `/anime` signed in.
+### 49. Se connecter
+Moi 5 min, Claude 5 min. [RUNBOOK K6](RUNBOOK.md#k-launch-day)
+
+Sur `https://fandomverse.org` : connecte-toi avec Google, déconnecte-toi, puis avec Discord. Ouvre `https://fandomverse.org/anime` : tu y es connecté. Écris « fait n° 49 » et ce que tu as vu.
+
+Vérif (Claude) : journaux Auth de Supabase, aucune erreur Google ni Discord.
+
+### 50. `PASSPORT_JUMP=1`
+Moi 9 min, Worker 5 min. [RUNBOOK K7](RUNBOOK.md#k-launch-day)
+
+Vercel, Production, dans `kpopquiz`, `fandomverse` et `otakuquiz` : la clé ci-dessous, valeur `1`. Redéploie les trois ensemble. Puis, connecté sur kpopquiz.org, ouvre l'adresse ci-dessous : tu arrives sur `/anime` connecté, et `https://fandomverse.org` montre la même session.
+```
+PASSPORT_JUMP
+```
 ```
 https://kpopquiz.org/auth/passport/out?to=anime
 ```
 
-### 57. L12, the sites go live (10 min). [RUNBOOK K8](RUNBOOK.md#k-launch-day)
+### 51. L12 : les sites passent en ligne
+Moi 2 min, Claude 3 min. [RUNBOOK K8](RUNBOOK.md#k-launch-day)
 ```
-sql1 $M/launch/L12-L1-sites-live.sql
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L12-L1-sites-live.sql
 ```
+Vérif (Claude) : `kpop`, `anime` et `hub` sont `live`.
 
-### 58. The daily quiz and the go (90 min). [RUNBOOK K9](RUNBOOK.md#k-launch-day)
-Signed in as admin on `https://fandomverse.org/anime`, paste in the browser console (replace the date with today's); it answers `scheduled: 14`.
-```
-fetch('/anime/api/admin/quiz-bank/auto-schedule', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({start_date: 'YYYY-MM-DD'})}).then(r => r.json()).then(console.log)
-```
-Then Vercel, `otakuquiz`, Settings, Cron Jobs, `ensure-daily-quiz`, Run. The command below prints a redirect to an `/anime/q/` page. Then VERIFY V10 in full, V1 for kpop, a real play on `/anime`, 30 minutes of clean Runtime Logs, and announce.
-```
-curl -sS -o /dev/null -w '%{http_code} %{redirect_url}\n' https://fandomverse.org/anime/daily
-```
+### 52. Le quiz du jour
+Moi 6 min, Worker 5 min, Claude 3 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
 
-### 59. Open indexing, the very last step (40 min). [RUNBOOK K10](RUNBOOK.md#k-launch-day)
-The first command must print the controller, not a placeholder. Then Vercel, Production, in `fandomverse` and `otakuquiz` (never `kpopquiz`): first `NET_LAUNCH_DATE` = today `YYYY-MM-DD`, then `NET_INDEXING` = `1`; redeploy both.
-Search Console: add the Domain property `fandomverse.org` (its TXT record at the registrar), submit the two sitemaps below. The last command prints `200` (IndexNow key file).
+Connecté avec ton compte admin sur `https://fandomverse.org/anime`, colle cette ligne dans la console du navigateur (elle prend la date du jour toute seule). La réponse dit `scheduled: 14`.
 ```
-grep "'privacy.controller'" apps/quiz/src/copy/hub/h1.ts
+fetch('/anime/api/admin/quiz-bank/auto-schedule', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({start_date: new Date().toISOString().slice(0, 10)})}).then(r => r.json()).then(console.log)
 ```
+Puis Vercel, `otakuquiz`, Settings, Cron Jobs, `ensure-daily-quiz`, Run (ça marche depuis l'étape 48).
+
+Vérif : worker (`https://fandomverse.org/anime/daily` redirige vers une page `/anime/q/`, journal du cron), Claude (14 lignes datées).
+
+### 53. Une vraie partie
+Moi 6 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
+
+Sur `/anime`, avec ton compte : joue un quiz, like-le, ouvre la page du jour et une page de série (couverture anti-spoiler ; le blind test répond 404, c'est prévu). Sur le hub : la page réseau, déconnecté puis connecté.
+
+### 54. La vérification complète
+Worker 45 min, Claude 10 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
+
+Worker : V10 en entier (avec les fuites de texte), V1 pour kpopquiz.org, 30 min de Runtime Logs propres sur les trois projets. Claude : les lignes de fuite de V8 sont à 0.
+
+### 55. Go et annonce
+Moi 2 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
+
+Si V10 trouve un reste K-pop déjà connu sur `/anime` (`docs/o1/RAPPORT-FINAL.md`, section 5) : décide « corriger d'abord » ou « accepter » ; Claude note la date. Puis annonce.
+
+### 56. Ouvrir l'indexation, la toute dernière étape
+Moi 9 min, Claude 2 min, Worker 10 min. [RUNBOOK K10](RUNBOOK.md#k-launch-day)
+
+Seulement après le OK de Claude sur la ligne `privacy.controller` de `apps/quiz/src/copy/hub/h1.ts`. Vercel, Production, dans `fandomverse` et `otakuquiz` (jamais `kpopquiz`) : d'abord la première clé, valeur la date du jour au format `AAAA-MM-JJ` (Claude te la donne), puis la seconde, valeur `1`. Redéploie les deux.
+```
+NET_LAUNCH_DATE
+```
+```
+NET_INDEXING
+```
+Search Console, propriété `fandomverse.org`, Sitemaps : soumets les deux adresses.
 ```
 https://fandomverse.org/sitemap.xml
 ```
 ```
 https://fandomverse.org/anime/sitemap.xml
 ```
+Vérif (worker) : V10 « after K10 » (plus de noindex sur l'accueil, `/anime`, `/anime/series`, une série, un quiz ; toujours sur `/settings`, `/me`, `/anime/admin`), les deux fichiers de clé IndexNow répondent 200 sur fandomverse.org et 404 sur kpopquiz.org.
+
+## Partie 9. Après le lancement (44 min pour moi)
+
+### 57. Heure 0 à +1, puis +24 h
+Claude 25 min, Worker 1 h 15. [RUNBOOK L1, L2](RUNBOOK.md#l-after-launch)
+
+Worker : V10, V11 points 1 à 3, les inscriptions sur `/anime`. Claude : journaux Auth (erreurs Google et Discord), comptes Team absents des classements ; à +24 h, après le cron de 00:05, une ligne `kpop` et une ligne `anime` du jour dans `qotd_log`.
+
+### 58. Le pied de page réseau
+Moi 6 min, Worker 1 h 10. [RUNBOOK L3](RUNBOOK.md#l-after-launch)
+
+Après le « +24 h propre ». Vercel, Production, les trois projets : la clé ci-dessous, valeur `1`. Redéploie les trois.
 ```
-curl -sS -o /dev/null -w '%{http_code}\n' https://fandomverse.org/339dab142e51883ae3a2c7e4737254e4.txt
+NEXT_PUBLIC_NET_FOOTER
 ```
+Vérif (worker) : V1 (seuls la ligne du pied de page et l'Organization changent), V10, 1 h de journaux propres.
+
+### 59. Le menu réseau
+Moi 6 min, Worker 1 h 10. [RUNBOOK L3](RUNBOOK.md#l-after-launch)
+
+Après le OK du worker sur l'étape 58. Même geste, cette clé :
 ```
-curl -sS -o /dev/null -w '%{http_code}\n' https://fandomverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt
-```
-
-## Part 9. After launch (4 h 25)
-
-### 60. Hour 0 to +1 (60 min). [RUNBOOK L1](RUNBOOK.md#l-after-launch)
-VERIFY V10 and V11 items 1 to 4; sign-ups on `/anime`, Google and Discord sign-in errors.
-
-### 61. +24 hours, after the 00:05 cron (30 min). [RUNBOOK L2](RUNBOOK.md#l-after-launch)
-One `kpop` and one `anime` row for today.
-```
-q "select featured_date, site_id from public.qotd_log order by featured_date desc, site_id limit 4"
-```
-
-### 62. Footer flag (20 min). [RUNBOOK L3](RUNBOOK.md#l-after-launch)
-Vercel, Production, the three projects: key `NEXT_PUBLIC_NET_FOOTER`, value `1`; redeploy the three; V1 and V10; one hour of clean logs before step 63.
-
-### 63. Menu flag (20 min). [RUNBOOK L3](RUNBOOK.md#l-after-launch)
-Same with `NEXT_PUBLIC_NET_MENU` = `1`; one hour of clean logs before step 64.
-
-### 64. Beacon flag (20 min). [RUNBOOK L3](RUNBOOK.md#l-after-launch)
-Same with `NEXT_PUBLIC_NET_BEACON` = `1`.
-
-### 65. kpopquiz privacy and deletion (20 min). [RUNBOOK L3b](RUNBOOK.md#l-after-launch)
-Vercel `kpopquiz` only, Production: `NEXT_PUBLIC_NET_PRIVACY` = `1`; and `NEXT_PUBLIC_NET_DELETION` = `1` once 016 and 017 are applied and `passport-deletions` has run on `fandomverse`. Redeploy `kpopquiz`; V1.
-
-### 66. +48 and +72 hours (30 min). [RUNBOOK L4](RUNBOOK.md#l-after-launch)
-VERIFY V11 each time.
-
-### 67. Decide at +72 hours (20 min). [RUNBOOK L5](RUNBOOK.md#l-after-launch)
-V11 clean: raise the TTL of fandomverse.org back, keep the launch-day dump 60 days, write the date.
-
-### 68. Hub tables, after step 64 (45 min, plus a small code PR first). [RUNBOOK L6](RUNBOOK.md#l-after-launch)
-Backup (as step 43), then the two files, then the PR of the two cron routes (RUNBOOK L6 point 3).
-```
-sql1 docs/pending-migrations/hub/001-quiz-daily-plays.sql
-```
-```
-sql1 docs/pending-migrations/hub/002-xp-daily-snapshots.sql
+NEXT_PUBLIC_NET_MENU
 ```
 
-## Values settled by the integrator (2026-10-28)
+### 60. La balise réseau
+Moi 6 min, Worker 1 h 10. [RUNBOOK L3](RUNBOOK.md#l-after-launch)
 
-No placeholder is left. Confirmed by the lanes (ARCHITECTURE-FANDOMVERSE.md, AUTH-FANDOMVERSE.md): the OtakuQuiz API answers under
-`/anime/api/...` (step 58), its sitemap is `https://fandomverse.org/anime/sitemap.xml` and the root `https://fandomverse.org/sitemap.xml`
-is the index of both (step 59), its admin is `/anime/admin`. The cron paths of `vercel.json` carry no `/anime`: on the `otakuquiz`
-project they are proxied to `https://fandomverse.org/anime/api/cron/...`, so the Vercel "Run" button of step 58 works only once
-`fandomverse.org` is attached (step 55); check the `otakuquiz` cron logs after it.
+Après le OK du worker sur l'étape 59. Même geste, cette clé :
+```
+NEXT_PUBLIC_NET_BEACON
+```
+
+### 61. kpopquiz : confidentialité et suppression
+Moi 5 min, Claude 3 min, Worker 10 min. [RUNBOOK L3b](RUNBOOK.md#l-after-launch)
+
+Vercel, `kpopquiz` seulement, Production : les deux clés ci-dessous, valeur `1` (la seconde seulement si Claude confirme que 016 et 017 sont appliqués et que `passport-deletions` a tourné sur `fandomverse`). Redéploie `kpopquiz`.
+```
+NEXT_PUBLIC_NET_PRIVACY
+```
+```
+NEXT_PUBLIC_NET_DELETION
+```
+Vérif (worker) : V1.
+
+### 62. +48 h et +72 h
+Claude 30 min, Worker 40 min. [RUNBOOK L4](RUNBOOK.md#l-after-launch)
+
+V11 à chaque fois. Claude : les requêtes, les journaux Auth, les conseils de sécurité de la base. Worker : V10, les journaux, les crons.
+
+### 63. Décider à +72 h
+Moi 8 min. [RUNBOOK L5](RUNBOOK.md#l-after-launch)
+
+Regarde Search Console pour kpopquiz.org et fandomverse.org : sitemaps soumis, aucun nouveau « bloquée par robots.txt » ni « exclue par noindex » sur kpopquiz.org. Si V11 est propre depuis 72 h : remonte le TTL de fandomverse.org à la valeur par défaut du registrar, garde le dump du jour J 60 jours. Le lancement est fini. Sinon : `ROLLBACK.md` section 3, la couche la plus légère d'abord.
+
+### 64. Tables du hub : la PR des deux crons
+Worker 45 min. [RUNBOOK L6](RUNBOOK.md#l-after-launch)
+
+Le worker (ou l'intégrateur) prépare la petite PR des deux routes cron (RUNBOOK L6, point 3). Elle se fusionne seulement après l'étape 66.
+
+### 65. Ouvrir la session L6 : sauvegarde
+Moi 5 min, Claude 2 min. [RUNBOOK L6](RUNBOOK.md#l-after-launch)
+
+Après la balise réseau (étape 60) propre, à une heure calme. Supabase, Database, Backups : une sauvegarde de moins de 24 h existe. Puis :
+```
+git checkout main && git pull --ff-only
+```
+```
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
+```
+
+### 66. Les deux fichiers du hub
+Moi 4 min, Claude 10 min. [RUNBOOK L6](RUNBOOK.md#l-after-launch)
+```
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/hub/001-quiz-daily-plays.sql
+```
+```
+psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/hub/002-xp-daily-snapshots.sql
+```
+Vérif (Claude) : RUNBOOK L6, points 1 et 2.
+
+### 67. Fusionner la PR des crons
+Moi 4 min, Worker 10 min, Claude 10 min. [RUNBOOK L6](RUNBOOK.md#l-after-launch)
+
+Fusionne la PR de l'étape 64 sur GitHub. Puis Vercel, `fandomverse`, Settings, Cron Jobs, `hub-xp-snapshot`, Run.
+
+Vérif : worker (les deux crons listés sur `fandomverse`, `{"skipped":true}` sur les deux autres projets), Claude le lendemain matin (RUNBOOK L6, point 4).
