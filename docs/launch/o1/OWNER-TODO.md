@@ -5,7 +5,7 @@ Le détail de chaque étape (en anglais) : `RUNBOOK.md`. Le retour arrière : `R
 
 ## En bref
 
-- Moi : environ 4 h 45 en 49 étapes (4 h 55 avec les deux étapes « si besoin »). Claude : environ 7 h 30. Worker : environ 13 h 55, dont 7 h 30 à surveiller des journaux.
+- Moi : environ 4 h 45 en 49 étapes (4 h 55 avec les deux étapes « si besoin »). Claude : environ 7 h 30. Worker : environ 14 h 25, dont 7 h 50 à surveiller des journaux.
 - Durée : au moins 5 jours de la session B au jour J (veilles de 24 h après B, après 008 et après 010), puis 72 h de veille. Au plus tôt : B le jour 1, jour J le jour 5, fin le jour 8.
 - Je peux commencer maintenant : étapes 1 à 4 de `OWNER-NOW.md` (domaine, DNS, clé, adresses de retour). La suite attend la fusion des lanes par l'intégrateur.
 

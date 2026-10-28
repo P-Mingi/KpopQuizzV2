@@ -358,7 +358,7 @@ fandomverse.org offers no email sign-in, so there is no mail to test there.
 
 Each time:
 1. V10 loop, quickly. 2. Vercel, each project, Runtime Logs: errors in the last hour (compare with the previous hour; any new error type is a finding).
-3. Cron Jobs: `ensure-daily-quiz` on `kpopquiz` and `otakuquiz` (00:05 UTC; on `otakuquiz` it answers 500 when the day has no quiz, RUNBOOK J4), `passport-deletions` (03:50) and `passport-cleanup` (03:55, answers `{"codesDeleted":...}` on `fandomverse`); the other routes answer `{"skipped":true}` on a site that is not theirs.
+3. Cron Jobs: `ensure-daily-quiz` on `kpopquiz` and `otakuquiz` (00:05 UTC; on `otakuquiz` it answers 500 when the day has no quiz, RUNBOOK J4, and its log line is `/anime/api/cron/ensure-daily-quiz` with 200, never 401 or 404: RUNBOOK K6b), `passport-deletions` (03:50) and `passport-cleanup` (03:55, answers `{"codesDeleted":...}` on `fandomverse`); the other routes answer `{"skipped":true}` on a site that is not theirs.
 4. `q "select featured_date, site_id from public.qotd_log order by featured_date desc, site_id limit 4"`: today's date has one `kpop` and one `anime` row.
 5. `q "select site_id, count(*) from public.world_memberships group by 1 order by 1"`, `q "select src_site, dst_site, step, sum(n) from public.bridge_daily group by 1,2,3 order by 1,2,3"`:
    numbers only, small at first; no row of the 31 Team accounts in a leaderboard.

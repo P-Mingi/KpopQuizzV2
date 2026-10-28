@@ -138,7 +138,66 @@ Their addresses are `<username>@team.fandomverse.org`, a sub-domain that receive
 
 ## 5. Rehearsal (2026-10-23, o1-scratch, DRAFTS files)
 
-Repeat it (RUNBOOK J3) on the files you will apply, once lane 2's FandomVerse changes are in them. What was proven on 2026-10-23:
+Repeat it (RUNBOOK J3) on the files you will apply, once lane 2's FandomVerse changes are in them, after the reset below. What was proven on 2026-10-23 is at the end of this section.
+
+### Reset before the replay (the dev branches hold the OLD L01 rows)
+
+o1-scratch and o1-dev still hold what the old files wrote: the `sites` rows `anime | otakuquiz.org | OtakuQuiz` and `hub | fanquiz.org | FanQuiz`, and
+the Team auth users of the old addresses `<username>@team.otakuquiz.org` (made by `team-auth.mjs` with the old default domain). L01 inserts with
+`on conflict (id) do nothing` and then compares both rows with the registry, so a replay on top of the old rows stops with
+`L01-B2-sites: the anime or hub row differs from the registry`; L02 looks the Team users up by their new address. Reset the branch first, in this order
+(o1-scratch, the branch of the rehearsal; the commands run from the repository root and never print a key):
+
+1. Read what the branch holds:
+
+```
+scripts/o1/env.sh scratch -- bash -c '"$0" "$O1_DB_URL" -X -At -c "select id, domain, brand, status from public.sites order by sort"' /opt/homebrew/opt/postgresql@18/bin/psql
+```
+
+   Old rows (`otakuquiz.org`, `fanquiz.org`): go on. Rows already on `fandomverse.org/anime` and `fandomverse.org`: skip to step 3 (the old Team users may still be there).
+
+2. The launch rollbacks in reverse order, L01's last (it refuses while any row of another table points at anime or hub). One call, serial, logged in
+   `docs/o1/migration-log.md`; it stops at the first file that refuses:
+
+```
+scripts/o1/migrate-dev.sh --branch scratch docs/pending-migrations/multisite/launch/L12-L1-sites-live.rollback.sql docs/pending-migrations/multisite/launch/L10-PERS-personality.rollback.sql docs/pending-migrations/multisite/launch/L08-K3-daily-bank.rollback.sql docs/pending-migrations/multisite/launch/L07-K2-catalogue.rollback.sql docs/pending-migrations/multisite/launch/L06-B3-badges.rollback.sql docs/pending-migrations/multisite/launch/L05-K1-facts.rollback.sql docs/pending-migrations/multisite/launch/L04-K1-series.rollback.sql docs/pending-migrations/multisite/launch/L03-B7-sentinel.rollback.sql docs/pending-migrations/multisite/launch/L02-K2-team-accounts.rollback.sql docs/pending-migrations/multisite/launch/L01-B2-sites.rollback.sql
+```
+
+   All ten `ok`: step 1 again prints only `kpop`; go to step 3.
+   Only L01's rollback refused (its message names other tables: dev data of the branch points at anime or hub): leave that data alone and put the two
+   rows on the new values instead, in the Supabase dashboard, the branch `o1-scratch`, SQL Editor (one statement; it touches these two rows only):
+
+```
+update public.sites set domain = case id when 'anime' then 'fandomverse.org/anime' else 'fandomverse.org' end, brand = case id when 'anime' then 'OtakuQuiz' else 'FandomVerse' end where (id, domain) in (('anime', 'otakuquiz.org'), ('hub', 'fanquiz.org'));
+```
+
+   An earlier rollback refused (a played quiz, a Team account with quizzes): stop the reset, delete nothing by hand, and give the message to the integrator.
+
+3. The old Team auth users (their profiles went with the L02 rollback of step 2), in the same SQL Editor of the branch:
+
+```
+delete from auth.users where email like '%@team.otakuquiz.org';
+```
+
+4. The Team auth users on the new domain, as K4 does in production (section 4): a dry run that prints a count, then the run that creates them (no email sent):
+
+```
+scripts/o1/env.sh scratch -- bash -c 'SUPABASE_URL="$NEXT_PUBLIC_SUPABASE_URL" node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref "$O1_BRANCH_REF" --team-email-domain fandomverse.org'
+```
+
+```
+scripts/o1/env.sh scratch -- bash -c 'SUPABASE_URL="$NEXT_PUBLIC_SUPABASE_URL" node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref "$O1_BRANCH_REF" --team-email-domain fandomverse.org --apply'
+```
+
+   It prints `31 created, 0 already there, 0 failed` (a second run: `0 created, 31 already there`).
+
+5. Then the replay of RUNBOOK J3: L01 first, then the launch files in the order of section 2, each twice.
+
+o1-dev: `migrate-dev.sh --branch dev` skips a file its log already lists as applied and refuses a rollback out of the manifest order, so the files are
+not replayed there (the rehearsal is o1-scratch's). Its two old rows are put on the new values with the update of step 2 in the SQL Editor of the
+branch `o1-dev`, and steps 3 and 4 with `dev` in place of `scratch` before L02 is ever applied there.
+
+What was proven on 2026-10-23:
 
 L01, L03, L04, L05, L06, L07, L08 and L12 applied in order, each twice: the second run changed nothing (a fingerprint of sites, groups, series, arcs, characters,
 themes, trivia, quizzes, bank rows, badges and sentinels was identical). L02 was rehearsed inside a transaction on the 31 real auth users made by

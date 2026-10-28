@@ -69,11 +69,11 @@ Why Vercel Microfrontends and not a multi-zones rewrite (feasibility checked aga
   The list of zones is read from the registry urls (`zoneChildrenOf`): a /kdrama site later joins by its url alone.
 - **canonical, Open Graph, JSON-LD, breadcrumbs, llms.txt, IndexNow, emails**: built from the registry url, so they carry /anime
   (relative metadata URLs through `metadataBase`). /anime/llms.txt names fandomverse.org/anime and its paths.
-- **noindex off the canonical host**: while a site is closed (`NET_INDEXING` off) every answer says noindex (as before). Once
-  open, `next.config.ts` adds `X-Robots-Tag: noindex, nofollow` on every host but `fandomverse.org` (a header rule with
-  `missing: host`, matched per request: the production `*.vercel.app` aliases, a staging domain, localhost). A Vercel preview
-  or development build of hub or anime stays closed whatever `NET_INDEXING` says (meta and header), since it is only ever
-  served on `*.vercel.app`. A production page cannot change its meta per host (it is built once): on its `*.vercel.app` alias
+- **noindex**: while a site is closed (`NET_INDEXING` unset) every page of the hub and /anime says noindex, meta and
+  `X-Robots-Tag` (as before). With `NET_INDEXING=1` the only `X-Robots-Tag: noindex, nofollow` rule left in `next.config.ts`
+  is the one for `*.vercel.app` hosts (the production aliases of both projects), and a Vercel preview or development build of
+  hub or anime stays closed whatever `NET_INDEXING` says (meta and header). On fandomverse.org no header is added and each
+  page speaks for itself. A production page cannot change its meta per host (it is built once): on its `*.vercel.app` alias
   the header says noindex, and the alias is behind Vercel protection anyway.
 - **IndexNow**: OtakuQuiz keeps its own key. It pings with `host: fandomverse.org`, `keyLocation:
   https://fandomverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` and only URLs under /anime (a key file in a folder is valid
@@ -86,8 +86,9 @@ Why Vercel Microfrontends and not a multi-zones rewrite (feasibility checked aga
 /anime (Next also refuses an internal rewrite from outside the base path). On a build with a base path, each cron path of
 `vercel.json` is an external rewrite (`basePath: false`) to the same route of the site's own URL,
 `https://fandomverse.org/anime/api/cron/...`, which Vercel routes back to `otakuquiz`; the route checks `CRON_SECRET` as before.
-The hub's crons reach their routes as they are. To verify after launch: the cron logs of `otakuquiz` (Settings, Cron Jobs, View
-Logs) show 200 answers of `/anime/api/cron/ensure-daily-quiz`.
+The hub's crons reach their routes as they are. To verify on launch day, once the domain is attached (RUNBOOK K6b, mandatory):
+the Logs and the cron logs of `otakuquiz` (Settings, Cron Jobs, View Logs) show 200 answers of `/anime/api/cron/...`, among them
+`/anime/api/cron/ensure-daily-quiz`, and the `fandomverse` Logs show no call of the anime proxy.
 
 ## 5. What the owner or the integrator sets in Vercel (nothing else changes)
 
@@ -131,7 +132,8 @@ lists `/anime/api/`; `https://fandomverse.org/sitemap.xml` is an index with `/an
 - The cron proxy needs fandomverse.org live and the cron request to reach the protected production deployment of `otakuquiz`
   (as it had to before). If the logs show it does not: the fallback is cron entries for `/anime/api/cron/...` in vercel.json,
   which touches kpopquiz.org's cron list (an owner decision).
-- The `x-vercel-mfe` routing keeps the request host (the noindex rule depends on it): check the headers of section 5 once open.
+- The `x-vercel-mfe` routing keeps the request host (the `*.vercel.app` noindex rule matches on it): check the headers of section 5
+  and RUNBOOK K9b once open.
 
 ## 8. Client JS (no extra client JS)
 
@@ -152,3 +154,12 @@ bundle that this lane changed compiles to the same bytes as at the base once Nex
 applied and the code is minified (Next's own SWC, `process.env.__NEXT_ROUTER_BASEPATH` = `''`, `process.browser` = `true`),
 `registry.ts` is untouched, no module joins a client graph, and the hub build's chunks carry no trace of the helpers. Hub home
 after: 199,487 gzip (with lane 2's values; no base build of the hub was made, the offline build budget was three).
+
+One module is not byte-identical on kpop and the hub once lane 2 is in: `apps/quiz/src/lib/share.ts`. On every build,
+`shareLevelUp` builds the level-up share URL with the base path (the page origin plus `BASE_PATH`, then `?utm_source=levelup...`:
+`https://fandomverse.org/anime?utm_source=levelup...` on anime, `<origin>/?utm_source=levelup...` on kpop and the hub, as before)
+and its text with the site address (`SITE.url` without its scheme: `kpopquiz.org`, `fandomverse.org`, `fandomverse.org/anime`)
+where it read `SITE.domain` before (lane 2). The base-path part folds away on kpop and the hub; the address part does not, so
+the client chunk that carries `share.ts` changes on those two builds, while the text kpopquiz.org members share stays
+`kpopquiz.org`. The other share links of the module (`/s/<code>`, `/q/<slug>`, `/u/<username>`, the passport card) only gain
+the base path, which folds away there.

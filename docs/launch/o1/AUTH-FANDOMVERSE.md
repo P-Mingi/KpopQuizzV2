@@ -3,7 +3,8 @@
 Owner decisions of 2026-10-28: the hub (`https://fandomverse.org`, site `hub`) and OtakuQuiz (`https://fandomverse.org/anime`,
 site `anime`, its own Vercel project under the basePath `/anime`, same origin through Vercel Microfrontends) sign in with
 **Google and Discord only**. No email link, no code, no password. kpopquiz.org (site `kpop`) does not change.
-This replaces RUNBOOK H3 and H4 and the D-099 lines of ENV.md 2.2 for the new domain.
+RUNBOOK H4 (Supabase redirect URLs) and H5 (Google and Discord) and ENV.md 2.2 follow this file; it replaces the D-099 lines
+(two Google clients, wildcard redirect URLs on the old anime and hub domains).
 
 ## Flows
 
@@ -19,6 +20,11 @@ This replaces RUNBOOK H3 and H4 and the D-099 lines of ENV.md 2.2 for the new do
    the account must be Google or Discord), signs out a banned profile, stamps the membership, clears the cookie and
    sends the visitor back: the username page on anime when there is no profile, the hub home on the hub, else the return
    path of the cookie re-checked with safeReturnTo, always inside the build's basePath.
+   It also refuses a session whose user Supabase cannot name: local sign-out, session cookies deleted, return cookie cleared,
+   back to the login page of the build. A banned profile is signed out everywhere, and its session cookies are deleted even
+   if the sign-out call fails.
+   The client code of the old Google ID-token path is deleted (`signInWithGoogle`, `afterSignin`): `NEXT_PUBLIC_GOOGLE_CLIENT_ID`
+   stays unread and must not be set. The route `/api/passport/after-signin` still exists, but nothing in the UI calls it.
 2. **No email.** No email field on the hub and anime (sheet, `/login`, create funnel). `/auth/confirm` of the hub and anime
    answers 404 except on a development server or on a preview that sets `AUTH_FIXTURE_CONFIRM=1` (the fixture links of
    `signin-link.sh --vercel`, now under `/anime` for anime); never on `VERCEL_ENV=production`.
@@ -53,14 +59,14 @@ https://fandomverse.org/auth/callback
 https://fandomverse.org/anime/auth/callback
 ```
 
-Remove the two wildcard entries of the old anime and hub domains if they were added (RUNBOOK H3): no site sends a visitor
-there any more, and a redirect entry nothing uses is only attack surface.
+Never a wider `https://fandomverse.org/**`. Remove the two wildcard entries of the old anime and hub domains if they were added
+(RUNBOOK H4): no site sends a visitor there any more, and a redirect entry nothing uses is only attack surface.
 
 **Google Cloud.** Authorized JavaScript origin to add: **none**. The sites use Supabase's OAuth redirect, not Google Identity
 Services, so Google only ever talks to Supabase's callback. Authorized redirect URI changes: **none** (it stays
-`https://<project-ref>.supabase.co/auth/v1/callback`). No new client: do not create the two clients of RUNBOOK H4, and do not
-add client ids to Supabase's Google provider. (Only if One Tap is wanted one day: the origin would be exactly
-`https://fandomverse.org`, no path, no trailing slash; it covers `/anime` too.) The Google consent screen shows the name of
+`https://<project-ref>.supabase.co/auth/v1/callback`). No new client: do not create a Google client for fandomverse.org, and do not
+add client ids to Supabase's Google provider. (Not part of this launch: only if One Tap is wanted one day would an origin be
+added, exactly `https://fandomverse.org`, no path, no trailing slash; it would cover `/anime` too.) The Google consent screen shows the name of
 kpopquiz.org's client: rename it in Google Cloud if a neutral name is wanted (optional).
 
 **Discord Developer Portal.** Changes: **none**. The app's redirect stays Supabase's callback
@@ -80,15 +86,24 @@ Discord sign-in works). Scopes stay Supabase's default (`identify email`), as on
 | `AUTH_FIXTURE_CONFIRM` | unset | Preview only, `1`, if the fixture tool is used | Preview only, likewise | test switch, **never in production** (ENV 1.6) |
 | `NEXT_PUBLIC_NET_ORIGINS` | never in production | never in production | never in production | previews only: `kpop=<kpop preview origin>,hub=<fv preview origin>,anime=<fv preview origin>` (bare origins; anime gets `/anime` from code) |
 
+Staging mail (the `send-email` function, never in production): `SEND_EMAIL_ORIGINS` takes bare origins, like
+`NEXT_PUBLIC_NET_ORIGINS`, for example `anime=<fandomverse preview origin>,hub=<fandomverse preview origin>`; the `/anime` folder of
+anime comes from the code, and an entry with a path is ignored. On the shared origin, hub and anime mails keep their own brand
+and colours.
+
 Previews: the callback is built from the site's origin on that deployment (`NEXT_PUBLIC_NET_ORIGINS` outside production), never
 from the request's Host, so a preview with no override sends the provider back to production and the sign-in fails closed there
-(no verifier cookie). To sign in on a preview, give it a stable origin (the branch alias of the fandomverse project) in
-`NEXT_PUBLIC_NET_ORIGINS`, and the owner adds its two exact callbacks, no wildcard, on the Supabase project the preview uses:
-`<branch alias origin>/auth/callback` and `<branch alias origin>/anime/auth/callback`. A per-deployment URL needs its own pair.
+(no verifier cookie). A preview also runs on the O1 dev Supabase project (`o1-dev`, the Preview variables of `o1/integration`),
+whose own provider callback (`https://<o1-dev ref>.supabase.co/auth/v1/callback`) is not an authorized redirect URI of the
+kpopquiz.org Google client: Google refuses it, so Google sign-in cannot complete on a preview (Discord only shows its own page).
+Nothing is added to the Google client or to the Discord app for previews. End-to-end Google sign-in is checked only in
+production, by the owner's live proof with a real account (RUNBOOK K6, OWNER-NOW step 49). A signed-in check on a preview uses
+the fixture links of `scripts/o1-tools/signin-link.sh --vercel` instead (`/auth/confirm` with `AUTH_FIXTURE_CONFIRM=1`, Preview
+only), which go through no provider and no redirect URL.
 
 ## Merge notes
 
 - `lib/auth/site-base.ts` `SITE_BASE_PATH` mirrors lane 1's basePath (`anime: '/anime'`); read it from lane 1's helper once merged.
-- The registry urls of anime and hub still name the old anime and hub domains on this branch (lane 1 moves them). The auth code
-  takes origins from the registry and the basePath from `SITE_BASE_PATH`, so it is right whether the anime url is written
-  `https://fandomverse.org` or `https://fandomverse.org/anime`.
+- The registry urls are `https://fandomverse.org` (hub) and `https://fandomverse.org/anime` (anime) since the lanes were merged into
+  `o1/fv-int`. The auth code takes origins from the registry and the basePath from `SITE_BASE_PATH`, which a test keeps equal to the
+  base paths `lib/site/base-path.ts` reads from the registry.

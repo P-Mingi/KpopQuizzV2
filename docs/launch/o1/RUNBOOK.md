@@ -275,7 +275,8 @@ Google: fandomverse.org uses the same Google client as kpopquiz.org. No new clie
 AUTH-FANDOMVERSE.md (lane 3): fandomverse.org uses Supabase's Google redirect, not the Google Identity Services button, so Google Cloud needs no JavaScript origin and no new redirect URI.
 Discord: nothing to add. The Discord application redirects to the Supabase callback, unchanged; the allowed return address is H4's.
 Email: fandomverse.org offers no email sign-in (code, lane 3); the email provider stays on for kpopquiz.org.
-Check: V10 later (K6): the sign-in sheet on fandomverse.org shows Google and Discord and no email field; both sign in; `/anime` shows the same session. Back: remove the origin.
+Previews: they run on the `o1-dev` Supabase project, whose callback is not in the Google client, so Google sign-in cannot complete on a preview (Discord only shows its own page); nothing is added for them. End-to-end Google sign-in is proven only in production, by the owner at K6.
+Check: V10 later (K6): the sign-in sheet on fandomverse.org shows Google and Discord and no email field; both sign in; `/anime` shows the same session. Back: nothing to undo (no JavaScript origin, no redirect URI and no client were added in Google Cloud or Discord).
 
 **H6  Buy the domain and set its DNS (not attached yet).**
 Do: buy `fandomverse.org` (any registrar; bought in Vercel, Domains, the records below are set for you). At the registrar's DNS, with a TTL of 300 seconds:
@@ -306,15 +307,15 @@ Check: V9: the hub at `/`, OtakuQuiz at `/anime`, the staging look (noindex, no 
 
 **Postponed (owner, 2026-10-25): Resend not configured, the hook stays off at launch; sign-in emails use Supabase's default sender.** fandomverse.org offers no email sign-in (owner, 2026-10-28), so the hook only concerns kpopquiz.org mail and the hub's deletion notice. Do not run I1 to I3 now; the steps below are kept for later. The deletion email needs no Resend: without a key it is skipped and the deletion still runs.
 
-The deploy note is `docs/o1/b7/send-email-hook.md` (read it whole first); the function is `supabase/functions/send-email`. The run never deploys it. With the hook off, Supabase sends its own mail, as today.
+The deploy note is `docs/o1/b7/send-email-hook.md` (read it whole first; its step 3 still names the old default senders, the defaults are now the fandomverse.org ones of I2); the function is `supabase/functions/send-email`. The run never deploys it. With the hook off, Supabase sends its own mail, as today.
 
 **I1  Before enabling.** (1) Dashboard, Authentication, Email Templates: compare each template with `TODAY` in `apps/quiz/src/lib/passport/email/render.test.ts`; if you ever customised one, paste your text into `renderKpop` of `apps/quiz/src/lib/passport/email/render.ts` (and the copy in the function folder) before enabling, because the hook replaces the mailer for kpopquiz.org too.
 (2) Note the sender address kpopquiz.org mail uses today; its domain must be verified in Resend. A fandomverse.org sender needs `fandomverse.org` verified in Resend too (SPF and DKIM records only; no MX for `team.fandomverse.org`).
 Check: the templates match, or the text is pasted. Back: nothing.
 
 **I2  Deploy the function and set its secrets.**
-Do: `supabase functions deploy send-email --no-verify-jwt` (your Supabase CLI login; the hook is authenticated by its signature, not a JWT). Dashboard, Edge Functions, `send-email`, Secrets: `RESEND_API_KEY`, `SEND_EMAIL_FROM_KPOP` (required: kpop mail is refused without it), and `SEND_EMAIL_FROM_HUB` and `SEND_EMAIL_FROM_ANIME` with a fandomverse.org sender (on 2026-10-28 their built-in defaults name the old domains);
-`SEND_EMAIL_HOOK_SECRET` is the `v1,whsec_...` value of I3. Never set `SEND_EMAIL_ORIGINS` (staging only). On the Vercel project `fandomverse` add `RESEND_API_KEY` (and `SEND_EMAIL_FROM_HUB`) for the deletion notice; without them the notice is skipped and the deletion still goes ahead.
+Do: `supabase functions deploy send-email --no-verify-jwt` (your Supabase CLI login; the hook is authenticated by its signature, not a JWT). Dashboard, Edge Functions, `send-email`, Secrets: `RESEND_API_KEY`, `SEND_EMAIL_FROM_KPOP` (required: kpop mail is refused without it), and, only to use another sender, `SEND_EMAIL_FROM_HUB` and `SEND_EMAIL_FROM_ANIME` (unset, hub mail goes from `FandomVerse <no-reply@fandomverse.org>` and anime mail from `OtakuQuiz <no-reply@fandomverse.org>`, the built-in defaults of `supabase/functions/send-email/render.ts`);
+`SEND_EMAIL_HOOK_SECRET` is the `v1,whsec_...` value of I3. Never set `SEND_EMAIL_ORIGINS` (staging only). On the Vercel project `fandomverse` add `RESEND_API_KEY` for the deletion notice (it goes from `FandomVerse <no-reply@fandomverse.org>`; `SEND_EMAIL_FROM_HUB` there only for another sender); without the key the notice is skipped and the deletion still goes ahead.
 Check: the function shows as deployed in the dashboard, Edge Functions. Back: delete the function (it is unused until I3).
 
 **I3  Switch the hook on.** Dashboard, Authentication, Hooks, Send Email: type HTTPS or Supabase Function, choose `send-email`, generate the secret, paste it as `SEND_EMAIL_HOOK_SECRET` in I2, save.
@@ -349,7 +350,8 @@ Only if you change facts: regenerate with `node apps/quiz/e2e/o1/L1/content-sql.
 Check: the three commands above. Back: `git checkout` the folder.
 
 **J3  Rehearse on a branch.**
-Do: apply the files of the folder to o1-scratch or o1-dev with the operator's `scripts/o1/migrate-dev.sh --branch scratch <file>` (or run yourself `node scripts/anime/k1/load-fixtures.mjs dev --data docs/anime/data`, which goes through `scripts/o1/env.sh` by itself), each file twice: the second run must change nothing.
+Do: first reset the branch: o1-scratch and o1-dev still hold the OLD L01 rows (`otakuquiz.org`, `fanquiz.org`, brand `FanQuiz`) and the old Team auth users (`<username>@team.otakuquiz.org`), and a replay of L01 on top of them stops with `the anime or hub row differs from the registry`. The exact reset is `SQL-ORDER.md` section 5, "Reset before the replay", in this order: (1) read the `sites` rows; (2) the launch rollbacks L12 down to `$M/launch/L01-B2-sites.rollback.sql` with `scripts/o1/migrate-dev.sh --branch scratch` (or, if only L01's rollback refuses because dev data points at anime or hub, the one `update` of the two rows given there); (3) delete the old Team auth users of `team.otakuquiz.org`; (4) `node apps/quiz/e2e/o1/L1/team-auth.mjs` through `scripts/o1/env.sh scratch` with `--team-email-domain fandomverse.org`, dry run then `--apply`.
+Then apply the files of the folder to o1-scratch with the operator's `scripts/o1/migrate-dev.sh --branch scratch <file>`, L01 first, in the order of `SQL-ORDER.md` section 2, each file twice: the second run must change nothing. (o1-dev is not replayed: `migrate-dev.sh --branch dev` skips a file already applied; its two rows get the same `update` and its Team users steps 3 and 4, as section 5 says. `node scripts/anime/k1/load-fixtures.mjs dev --data docs/anime/data` goes through `scripts/o1/env.sh` by itself and loads the data as drafts on o1-dev; it is not a replay of the launch files.)
 Do it once more whenever the files changed since the last rehearsal (`SQL-ORDER.md` section 5), as lane 2's domain change does.
 Check: the second run changes nothing. Back: n/a (a branch).
 
@@ -369,7 +371,7 @@ L09 to L11 (openings, formats, crossover quiz) are not part of the launch (secti
 **K1  Go / no-go (the evening before).** Who: Claude and a worker check each line; the owner decides. All true, or the day moves:
 - V1 to V7 passed in their phases; the watches C, D3 and F are clean; V9 passes for the three projects (the hub at `/` and OtakuQuiz at `/anime` on the `fandomverse` address).
 - `ls $M/launch/` shows L01 to L08, L10-PERS and L12 with their rollbacks; J2's three checks pass; L01's header names the FandomVerse domain (lane 2); J3 was run on these files.
-- H done: `dig +short fandomverse.org A` answers (H6), the Microfrontends group exists (H7), the two fandomverse.org callbacks are Supabase redirect URLs (H4), the service role key is linked (H3), the Google origin is set if AUTH-FANDOMVERSE.md asks for it (H5).
+- H done: `dig +short fandomverse.org A` answers (H6), the Microfrontends group exists (H7), the Supabase redirect URLs hold exactly the two fandomverse.org callbacks, no wildcard (H4), the service role key is linked (H3), and Google Cloud and Discord are unchanged: no JavaScript origin, no new client (H5, AUTH-FANDOMVERSE.md).
 - `apps/quiz/src/lib/site/registry.ts` list `PLACEHOLDERS` for anime and hub: each item is set or accepted. Brand (owner, 2026-10-28): bunny plus "FandomVerse" for the hub, bunny plus "OtakuQuiz" for `/anime`; the default share image of each site says its own name.
   IndexNow: the hub key at `https://fandomverse.org/339dab142e51883ae3a2c7e4737254e4.txt`, OtakuQuiz's at `https://fandomverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` (ENV.md 1.7). Organization mailbox: `hello@kpopquiz.org` on all three sites.
 - The hub privacy text and its controller are done (D-108, D-111, D-114); K10 checks the `privacy.controller` line.
@@ -430,6 +432,16 @@ Do: Vercel, project `fandomverse`, Settings, Domains: add `fandomverse.org`, the
 Sign in with Google, then with Discord, on `https://fandomverse.org`; open `https://fandomverse.org/anime`: you are signed in there too.
 Check: V10 loop (200, own canonical, own robots, no cross-site string); the hub and `/anime` still carry the staging `noindex`. Back: remove the domain from the project (the hub and `/anime` go offline together) and the DNS records.
 
+**K6b  The anime crons reach `/anime` (MANDATORY).**
+Why: the cron paths of `apps/quiz/vercel.json` have no `/anime` (one file for the three projects), so on `otakuquiz` each cron call is proxied to `https://fandomverse.org/anime/api/cron/...` (ARCHITECTURE-FANDOMVERSE.md section 4), which works only once fandomverse.org is attached (K6). Failures in the `otakuquiz` cron log before K6 are expected.
+Who: a worker (Vercel, read-only). Do: 30 minutes after K6 (two runs of `editorial-publish`, every 15 minutes, and one of `live-expire`, every 30 minutes):
+1. Vercel, project `otakuquiz`, Logs, search `/anime/api/cron/`: `/anime/api/cron/editorial-publish` and `/anime/api/cron/live-expire` answer 200, once per run. A 401 means the Bearer `CRON_SECRET` did not reach the route; a 404 means the call did not reach the `otakuquiz` route; no line at all means the proxied call never reached `/anime`.
+2. Vercel, project `otakuquiz`, Settings, Cron Jobs, `editorial-publish` and `live-expire`, View Logs: the last runs succeeded.
+3. Vercel, project `fandomverse`, Logs, search `/api/cron/`: only the hub's own cron calls (one per job and per run) and no `/anime/api/cron/...` line: a call of the anime proxy must never show in the hub's logs.
+Then, at K9 (2) and on the next morning (L2), the same search on `otakuquiz` shows `/anime/api/cron/ensure-daily-quiz` with 200: from the Run of K9, then from the 00:05 UTC schedule.
+Check: the three points above, then the two `ensure-daily-quiz` lines. If a cron fails (401, 404 or no line): the worker tells the integrator the same hour; today's quiz can still go out with the `curl` of K9 (2), which calls `https://fandomverse.org/anime/api/cron/ensure-daily-quiz` directly. The fallback is to add `/anime/api/cron/...` entries to `apps/quiz/vercel.json`; that file is shared, so it changes kpopquiz.org's cron list too: an owner decision, through a PR.
+Back: n/a (read-only).
+
 **K7  `PASSPORT_JUMP=1` on the three projects.**
 Rule: after 006 and 007 (B), the secrets equal on the 3 (H2), the domain live (K6).
 Do: set `PASSPORT_JUMP` = `1` in `kpopquiz`, `fandomverse` and `otakuquiz`, redeploy all three together.
@@ -442,17 +454,48 @@ Do: `sql1 $M/launch/L12-L1-sites-live.sql`. Check: V8 (`kpop`, `anime`, `hub` al
 Do: (1) Sign in on `https://fandomverse.org/anime` with your admin account and, in the browser console of that tab, date the verified rows from today:
 `fetch('/anime/api/admin/quiz-bank/auto-schedule', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({start_date: '<today, YYYY-MM-DD>'})}).then(r => r.json()).then(console.log)`; it answers `{scheduled: 14, ...}`.
 (2) Publish today's quiz without waiting for 00:05: Vercel, project `otakuquiz`, Settings, Cron Jobs, `ensure-daily-quiz`, Run. (Or with the `otakuquiz` value of `CRON_SECRET`: `read -rs CRON_SECRET`, then
-`curl -sS -H "Authorization: Bearer $CRON_SECRET" https://fandomverse.org/anime/api/cron/ensure-daily-quiz`, which answers `{"ok":true,...}`, then `unset CRON_SECRET`.) Check `https://fandomverse.org/anime/daily` redirects to an `/anime/q/` page.
+`curl -sS -H "Authorization: Bearer $CRON_SECRET" https://fandomverse.org/anime/api/cron/ensure-daily-quiz`, which answers `{"ok":true,...}`, then `unset CRON_SECRET`.) Check `https://fandomverse.org/anime/daily` redirects to an `/anime/q/` page, and (K6b) Vercel, project `otakuquiz`, Logs shows the Run as `/anime/api/cron/ensure-daily-quiz` with 200.
 (3) V10 completely; V1 for kpop (only live numbers differ, nothing else; the NET flags are still off); on `/anime` with a real account: sign in, play a quiz, like it, check the daily page and the series page spoiler cover (the blind test is off on anime, D-120: a 404 is expected); on the hub: the network page signed out and signed in.
 Check: no error in the three projects' Runtime Logs for 30 minutes; V8 leak lines are 0. Then announce (X1's waitlist e-mail script is owner-run and is not on the launch path).
 Back: ROLLBACK.md section 3.
 
+**K9b  The noindex check, before `NET_INDEXING` is set (and again after K10).**
+Who: a worker (curl, read-only). Do: after K9, before the owner sets `NET_LAUNCH_DATE` and `NET_INDEXING` in K10, run the six commands below on the hub home, OtakuQuiz's home and one OtakuQuiz quiz page (`/anime/daily` redirects to today's `/anime/q/<slug>`; `-L` follows it, so the redirect and the quiz page are both read). The first three read the `X-Robots-Tag` header, the last three the robots meta of the HTML.
+
+```
+curl -sI https://fandomverse.org | grep -i '^x-robots-tag'
+```
+
+```
+curl -sI https://fandomverse.org/anime | grep -i '^x-robots-tag'
+```
+
+```
+curl -sIL https://fandomverse.org/anime/daily | grep -i '^x-robots-tag'
+```
+
+```
+curl -s https://fandomverse.org | grep -o '<meta name="robots" content="noindex[^"]*"'
+```
+
+```
+curl -s https://fandomverse.org/anime | grep -o '<meta name="robots" content="noindex[^"]*"'
+```
+
+```
+curl -sL https://fandomverse.org/anime/daily | grep -o '<meta name="robots" content="noindex[^"]*"'
+```
+
+Check, before K10 (`NET_INDEXING` unset): each command prints its noindex line (`x-robots-tag: noindex, nofollow`, or `<meta name="robots" content="noindex, nofollow"`). A command that prints nothing here means the check cannot see the switch: stop and tell the integrator before K10.
+Check, after the K10 redeploy of `fandomverse` and `otakuquiz` (`NET_INDEXING=1` deployed): the same six commands print nothing (no `X-Robots-Tag` header, no `<meta name="robots" content="noindex`). The `*.vercel.app` addresses keep their `X-Robots-Tag: noindex, nofollow`; they sit behind Vercel's protection, so a plain curl there only gets Vercel's sign-in page and proves nothing: skip them.
+Back: n/a (read-only).
+
 **K10  Open indexing (the very last step of launch day, after K9 and everything else; decided D-099).**
-The staging `noindex` is one server variable, not a line to merge: `NET_INDEXING` (`apps/quiz/src/lib/site/indexing.ts`, read by the layout, by `robotsFor` and by `apps/quiz/next.config.ts`). With it unset, every answer of an anime or hub build carries `noindex, nofollow` (meta tag and `X-Robots-Tag` header, except `robots.txt` and `sitemap.xml`).
-With `NET_INDEXING=1` the build has no `X-Robots-Tag` rule (`INDEXING_OPEN` in `next.config.ts`) and each page speaks for itself: home, series, series hubs from `minPublishedForIndexableHub`, `/q/<slug>`, privacy and terms say index; `/settings`, `/me`, `/admin`, login, search and a profile keep their own noindex. The kpop build ignores the variable.
+The staging `noindex` is one server variable, not a line to merge: `NET_INDEXING` (`apps/quiz/src/lib/site/indexing.ts`, read by the layout, by `robotsFor` and by `apps/quiz/next.config.ts`). With it unset, every page of the hub and `/anime` carries `noindex, nofollow` (meta tag and `X-Robots-Tag` header, except `robots.txt` and `sitemap.xml`).
+With `NET_INDEXING=1` the only `X-Robots-Tag: noindex, nofollow` rule left is the one for `*.vercel.app` hosts, and a preview deployment stays noindex whatever the variable says (meta and header). On fandomverse.org no header is added and each page speaks for itself: home, series, series hubs from `minPublishedForIndexableHub`, `/q/<slug>`, privacy and terms say index; `/settings`, `/me`, `/admin`, login, search and a profile keep their own noindex meta. The kpop build ignores the variable.
 Do: only when K9 is clean and nothing else is left for the day. First Claude checks that the line `privacy.controller` of `apps/quiz/src/copy/hub/h1.ts` names the data controller (not the placeholder), then set `NET_LAUNCH_DATE` = the launch date `YYYY-MM-DD` (Production) in `fandomverse` and `otakuquiz` (the build fails if `NET_INDEXING` comes without it). Then set `NET_INDEXING` = `1` (Production) in `fandomverse` and `otakuquiz` (not in `kpopquiz`), redeploy both (Deployments, Redeploy of the latest main build).
 In Search Console add the Domain property `fandomverse.org` (Google shows one TXT record: add it at the registrar) and submit `https://fandomverse.org/sitemap.xml` and `https://fandomverse.org/anime/sitemap.xml`.
-Check: V10 "after K10" on the hub home, `/anime`, `/anime/series`, a series page and a quiz: no `x-robots-tag` header and no `noindex` robots meta; `/settings`, `/me`, `/anime/admin` stay noindex. Each host answers its own IndexNow key file only: `curl -sS -o /dev/null -w '%{http_code}\n' https://fandomverse.org/339dab142e51883ae3a2c7e4737254e4.txt` and `https://fandomverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` print 200, and the same paths on `https://kpopquiz.org` print 404 (this needs the key-file rewrites of `docs/o1/requests/L1.md`, request 1, merged).
+Check: the six commands of K9b print nothing once both redeploys are Ready (before K10 they printed the noindex lines); V10 "after K10" on the hub home, `/anime`, `/anime/series`, a series page and a quiz: no `x-robots-tag` header and no `noindex` robots meta; `/settings`, `/me`, `/anime/admin` stay noindex. Each host answers its own IndexNow key file only: `curl -sS -o /dev/null -w '%{http_code}\n' https://fandomverse.org/339dab142e51883ae3a2c7e4737254e4.txt` and `https://fandomverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` print 200, and the same paths on `https://kpopquiz.org` print 404 (this needs the key-file rewrites of `docs/o1/requests/L1.md`, request 1, merged).
 Back: remove the variable, redeploy the two projects (the pages close again at once; pages already crawled drop out slowly).
 
 ---------------------------------------------------------------------------------------------------------------------------------
@@ -465,6 +508,7 @@ which is an SEO field of kpopquiz.org: the owner gave that approval on 2026-10-2
 **L1  Hour 0 to +1.** V10, V11 items 1 to 4. Watch sign-ups on `/anime`, Google and Discord sign-in errors, the Team accounts absent from `/leaderboard`.
 
 **L2  +24 hours (after the first 00:05 UTC cron).** V11 in full: today's `qotd_log` has one `kpop` and one `anime` row; `/daily` on kpopquiz.org and `/anime/daily` each redirect to their own quiz.
+MANDATORY (K6b): Vercel, project `otakuquiz`, Logs, search `/anime/api/cron/`: the 00:05 UTC `/anime/api/cron/ensure-daily-quiz` answered 200 (not 401, not 404), and the daily crons that ran since (`/anime/api/cron/...`) answered 200; Vercel, project `fandomverse`, Logs shows no `/anime/api/cron/...` line. A 401, a 404 or no line: K6b's fallback (a 500 of `ensure-daily-quiz` is J4's empty-day alarm, not the proxy).
 
 **L3  Network flags, chained, in this order.**
 1. `NEXT_PUBLIC_NET_FOOTER=1` on the three projects; redeploy; V1 on kpop shows only the footer line and the Organization data (approved by the owner). Back: remove, redeploy.
@@ -516,7 +560,7 @@ Kept from 2026-10-23 (D-099) and 2026-10-26 (D-124):
 8. A verified fact is a **published** trivia row (L05, J2). The dev loader keeps filing every fact as a draft.
 9. The anime daily is dated with the kpop bank tool and its site scoping, auto-scheduling on through `QOTD_ROTATION_FIX=1` on `otakuquiz` and the 00:05 cron (J4, K9).
 10. Organization data in kpopquiz.org's footer: yes (L3, step 1). Organization mailbox `hello@kpopquiz.org` for all three sites.
-11. The indexing step (`NET_INDEXING=1`, which also removes the `X-Robots-Tag` header) comes last on launch day (K10).
+11. The indexing step (`NET_INDEXING=1`, which also removes the `X-Robots-Tag` header on fandomverse.org; `*.vercel.app` hosts keep it) comes last on launch day (K10), after the K9b check.
 12. The hub tables `001-quiz-daily-plays` and `002-xp-daily-snapshots` with their two nightly crons: yes, after L3, not on the launch path (L6).
 
 Superseded on 2026-10-28: the two domains `otakuquiz.org` and `fanquiz.org`, two Google clients, "no Discord on the new domains", `team.otakuquiz.org`, the T0 of 1 December 2026 and its dated calendar, the 7 day and 3 day watches, the separate IndexNow keys per new domain.

@@ -1,7 +1,7 @@
 # Lancement de FandomVerse : mes actions, dans l'ordre (2026-10-28)
 
-**Moi : environ 4 h 45, en 49 étapes sur 67 (4 h 55 et 51 étapes si les deux étapes « si besoin » servent). Dont 4 h jusqu'à la fin du jour J.**
-**Claude : environ 7 h 30. Worker : environ 13 h 55, dont 7 h 30 à surveiller des journaux. Ils travaillent entre mes étapes et ne changent rien en production.**
+**Moi : environ 4 h 45, en 49 étapes sur 69 (4 h 55 et 51 étapes si les deux étapes « si besoin » servent). Dont 4 h jusqu'à la fin du jour J.**
+**Claude : environ 7 h 30. Worker : environ 14 h 25, dont 7 h 50 à surveiller des journaux. Ils travaillent entre mes étapes et ne changent rien en production.**
 **Durée totale : au moins 5 jours de la session B au jour J inclus (trois veilles de 24 h : après B, après 008, après 010), puis 72 h de veille. Au plus tôt : B le jour 1, jour J le jour 5, décision finale le jour 8.**
 
 Objectif « moins de 5 h » tenu, de justesse. Ce qui coûte le plus : le jour J (1 h 25), les six sauvegardes (une par session SQL, 30 min en tout) et les preuves avec un vrai compte (environ 40 min : aucun agent ne se connecte ni ne crée de compte en production).
@@ -325,7 +325,7 @@ Claude : `V-S4 ok`. Worker : V1, puis 1 h de Runtime Logs.
 ### 34. Le contenu
 Claude 1 h 30. [RUNBOOK J](RUNBOOK.md#j-content)
 
-En parallèle des parties 3 à 6. Claude relit un échantillon des paquets de `docs/anime/editorial/packets/` (J1), lance `node scripts/anime/editorial/check.mjs docs/anime/data` (0 échec), contrôle les sha256 de `MANIFEST.json`, l'absence de fichier DRAFTS et de `team.otakuquiz.org` (J2), et répète les fichiers de lancement sur `o1-scratch` (J3 : le second passage ne change rien). Il te donne le résultat.
+En parallèle des parties 3 à 6. Claude relit un échantillon des paquets de `docs/anime/editorial/packets/` (J1), lance `node scripts/anime/editorial/check.mjs docs/anime/data` (0 échec), contrôle les sha256 de `MANIFEST.json`, l'absence de fichier DRAFTS et de `team.otakuquiz.org` (J2), et répète les fichiers de lancement sur `o1-scratch` (J3 : d'abord la remise à zéro de `SQL-ORDER.md` section 5, car la branche garde les anciennes lignes de L01 et les anciennes adresses Team ; puis chaque fichier deux fois, le second passage ne change rien). Il te donne le résultat.
 
 ### 35. Le rapport K1, la veille du jour J
 Claude 20 min, Worker 15 min. [RUNBOOK K1](RUNBOOK.md#k-launch-day)
@@ -465,6 +465,17 @@ www.fandomverse.org
 ```
 Vérif (worker) : V10 (200, canonique et robots propres à chaque site, noindex encore présent, `www` redirige).
 
+### 48 bis. Les crons d'OtakuQuiz passent par `/anime` (obligatoire)
+Worker 20 min. [RUNBOOK K6b](RUNBOOK.md#k-launch-day)
+
+Les chemins des crons de `apps/quiz/vercel.json` n'ont pas `/anime` : sur `otakuquiz`, chaque appel est relayé vers `https://fandomverse.org/anime/api/cron/...`, ce qui ne marche qu'une fois le domaine attaché (étape 48). Avant l'étape 48, des échecs dans le journal des crons d'`otakuquiz` sont normaux. 30 minutes après l'étape 48, en parallèle des étapes 49 à 52, le worker regarde :
+- Vercel, projet `otakuquiz`, Logs, recherche `/anime/api/cron/` : `/anime/api/cron/editorial-publish` (toutes les 15 min) et `/anime/api/cron/live-expire` (toutes les 30 min) répondent 200. Un 401 : le `CRON_SECRET` n'arrive pas à la route ; un 404 : l'appel n'atteint pas `otakuquiz` ; aucune ligne : l'appel relayé n'arrive jamais sur `/anime`.
+- Vercel, projet `otakuquiz`, Settings, Cron Jobs, `editorial-publish` et `live-expire`, View Logs : les derniers passages ont réussi.
+- Vercel, projet `fandomverse`, Logs, recherche `/api/cron/` : seulement les crons du hub lui-même, aucune ligne `/anime/api/cron/...`.
+
+Puis au Run de l'étape 52 et le lendemain à 00:05 UTC (étape 57) : `/anime/api/cron/ensure-daily-quiz` répond 200 dans les Logs d'`otakuquiz`.
+Un cron en échec (401, 404 ou aucune ligne) : le worker prévient Claude dans l'heure ; Claude te dit comment publier le quiz du jour à la main (RUNBOOK K9). La solution de repli est d'ajouter des entrées `/anime/api/cron/...` dans `apps/quiz/vercel.json` : ce fichier sert aussi à kpopquiz.org, c'est donc ta décision (une PR).
+
 ### 49. Se connecter
 Moi 5 min, Claude 5 min. [RUNBOOK K6](RUNBOOK.md#k-launch-day)
 
@@ -499,7 +510,7 @@ fetch('/anime/api/admin/quiz-bank/auto-schedule', {method: 'POST', headers: {'co
 ```
 Puis Vercel, `otakuquiz`, Settings, Cron Jobs, `ensure-daily-quiz`, Run (ça marche depuis l'étape 48).
 
-Vérif : worker (`https://fandomverse.org/anime/daily` redirige vers une page `/anime/q/`, journal du cron), Claude (14 lignes datées).
+Vérif : worker (`https://fandomverse.org/anime/daily` redirige vers une page `/anime/q/` ; Vercel, projet `otakuquiz`, Logs : le Run apparaît comme `/anime/api/cron/ensure-daily-quiz` en 200, étape 48 bis), Claude (14 lignes datées).
 
 ### 53. Une vraie partie
 Moi 6 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
@@ -515,6 +526,31 @@ Worker : V10 en entier (avec les fuites de texte), V1 pour kpopquiz.org, 30 min 
 Moi 2 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
 
 Si V10 trouve un reste K-pop déjà connu sur `/anime` (`docs/o1/RAPPORT-FINAL.md`, section 5) : décide « corriger d'abord » ou « accepter » ; Claude note la date. Puis annonce.
+
+### 55 bis. Le noindex, avant l'indexation (et de nouveau après)
+Worker 10 min. [RUNBOOK K9b](RUNBOOK.md#k-launch-day)
+
+Avant que tu poses `NET_LAUNCH_DATE` et `NET_INDEXING` (étape 56), le worker lance ces six commandes : l'accueil du hub, l'accueil d'OtakuQuiz et une page de quiz d'OtakuQuiz (`/anime/daily` redirige vers le quiz du jour ; `-L` suit la redirection). Les trois premières lisent l'en-tête `X-Robots-Tag`, les trois dernières la balise robots du HTML.
+```
+curl -sI https://fandomverse.org | grep -i '^x-robots-tag'
+```
+```
+curl -sI https://fandomverse.org/anime | grep -i '^x-robots-tag'
+```
+```
+curl -sIL https://fandomverse.org/anime/daily | grep -i '^x-robots-tag'
+```
+```
+curl -s https://fandomverse.org | grep -o '<meta name="robots" content="noindex[^"]*"'
+```
+```
+curl -s https://fandomverse.org/anime | grep -o '<meta name="robots" content="noindex[^"]*"'
+```
+```
+curl -sL https://fandomverse.org/anime/daily | grep -o '<meta name="robots" content="noindex[^"]*"'
+```
+Avant l'étape 56 : chaque commande affiche sa ligne noindex (`x-robots-tag: noindex, nofollow` ou `<meta name="robots" content="noindex, nofollow"`). Une commande muette à ce moment-là : on s'arrête, le worker prévient Claude avant l'étape 56.
+Après les deux redéploiements de l'étape 56 (`NET_INDEXING=1` en ligne) : les six mêmes commandes n'affichent plus rien. Les adresses `*.vercel.app` gardent leur noindex ; elles sont protégées par Vercel, le worker ne les teste pas.
 
 ### 56. Ouvrir l'indexation, la toute dernière étape
 Moi 9 min, Claude 2 min, Worker 10 min. [RUNBOOK K10](RUNBOOK.md#k-launch-day)
@@ -533,14 +569,14 @@ https://fandomverse.org/sitemap.xml
 ```
 https://fandomverse.org/anime/sitemap.xml
 ```
-Vérif (worker) : V10 « after K10 » (plus de noindex sur l'accueil, `/anime`, `/anime/series`, une série, un quiz ; toujours sur `/settings`, `/me`, `/anime/admin`), les deux fichiers de clé IndexNow répondent 200 sur fandomverse.org et 404 sur kpopquiz.org.
+Vérif (worker) : les six commandes de l'étape 55 bis n'affichent plus rien ; V10 « after K10 » (plus de noindex sur l'accueil, `/anime`, `/anime/series`, une série, un quiz ; toujours sur `/settings`, `/me`, `/anime/admin`), les deux fichiers de clé IndexNow répondent 200 sur fandomverse.org et 404 sur kpopquiz.org.
 
 ## Partie 9. Après le lancement (44 min pour moi)
 
 ### 57. Heure 0 à +1, puis +24 h
 Claude 25 min, Worker 1 h 15. [RUNBOOK L1, L2](RUNBOOK.md#l-after-launch)
 
-Worker : V10, V11 points 1 à 3, les inscriptions sur `/anime`. Claude : journaux Auth (erreurs Google et Discord), comptes Team absents des classements ; à +24 h, après le cron de 00:05, une ligne `kpop` et une ligne `anime` du jour dans `qotd_log`.
+Worker : V10, V11 points 1 à 3, les inscriptions sur `/anime` ; à +24 h, obligatoire (étape 48 bis) : Vercel, projet `otakuquiz`, Logs, le `/anime/api/cron/ensure-daily-quiz` de 00:05 UTC et les autres crons du jour en `/anime/api/cron/...` répondent 200 (ni 401 ni 404), et Vercel, projet `fandomverse`, Logs n'a aucune ligne `/anime/api/cron/...`. Claude : journaux Auth (erreurs Google et Discord), comptes Team absents des classements ; à +24 h, après le cron de 00:05, une ligne `kpop` et une ligne `anime` du jour dans `qotd_log`.
 
 ### 58. Le pied de page réseau
 Moi 6 min, Worker 1 h 10. [RUNBOOK L3](RUNBOOK.md#l-after-launch)
