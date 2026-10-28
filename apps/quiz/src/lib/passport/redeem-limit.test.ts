@@ -39,7 +39,7 @@ describe('POST /api/passport/redeem rate limit', () => {
   it('429 rate_limited when the limiter refuses: logged, cookie cleared, next kept, the code is never redeemed', async () => {
     const res = await handleRedeem(post('203.0.113.50').req, ctx({ redeemLimiter: { hit: () => false } }));
     expect(res.status).toBe(429);
-    expect(await res.json()).toEqual({ error: 'rate_limited', next: '/quizzes' });
+    expect(await res.json()).toEqual({ error: 'rate_limited', next: '/anime/quizzes' }); // FandomVerse: anime's basePath
     expect(res.headers.get('set-cookie')).toMatch(/^pp_tx=;/);
     expect(res.headers.get('set-cookie')).toMatch(/Max-Age=0/i);
     expect(res.headers.get('cache-control')).toBe('no-store');

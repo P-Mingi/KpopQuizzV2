@@ -17,14 +17,21 @@
 // login_required (authorize), open_redirect = bad_ticket (arrive: a `next` that safeReturnTo changed, or a ticket
 // that does not match). other_user answers 409 and has no event value (a new outcome is a CR, BACKLOG 5.2).
 // Logging never fails a request. A code, a verifier, a state, a ticket and an email are never logged or returned.
+//
+// FandomVerse (owner, 2026-10-28): kpop stays https://kpopquiz.org, the hub is https://fandomverse.org and anime
+// https://fandomverse.org/anime (basePath '/anime', the same origin as the hub). Every URL of a site is its origin and its
+// basePath (lib/auth/site-base.ts siteBase); `next` in a ticket and in the transaction cookie is an app path, and a Location
+// of this build carries the basePath. The hub and anime share one cookie jar, so between them there is nothing to hand
+// off: /auth/passport/out sends the visitor straight to the page, and arrive and authorize refuse a same-origin peer.
+// Every Origin check compares origins exactly (no prefix, no suffix): the anime base has a path, an Origin never does.
 
 import { NextResponse } from 'next/server';
 
-import { safeReturnTo } from '@/lib/auth/return-to';
+import { basePathOf, safeAppPath, sameOrigin, siteBase, siteOrigin, siteUrl, withBase } from '@/lib/auth/site-base';
 import { createRateLimiter } from '@/lib/duel/rate-limit';
 import type { RateLimiter } from '@/lib/duel/rate-limit';
 import { VIA_RE } from '@/lib/network/types';
-import { REGISTRY, SITE_ID, isSiteId, netOrigin } from '@/lib/site/registry';
+import { REGISTRY, SITE_ID, isSiteId } from '@/lib/site/registry';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import {
@@ -152,17 +159,17 @@ export async function handleOut(request: NextRequest, ctx: HandoffCtx = {}): Pro
   const to = q.get('to');
   if (!isSiteId(to) || to === site) return jsonError(400, 'bad_request');
 
-  const next = safeReturnTo(q.get('next'), '/', to);
+  const next = safeAppPath(q.get('next'), '/', to);
   const via = keepVia(q.get('via'), site);
-  const base = netOrigin(to, env);
 
   // Flag off, or the viewer is signed out here: the target page, signed out (via as a query parameter).
   const plain = (): NextResponse => {
-    const url = new URL(next, base);
+    const url = new URL(siteUrl(to, env, next));
     if (via) url.searchParams.set('via', via);
     return redirect(url.toString());
   };
-  if (!passportJumpOn(env)) return plain();
+  // Hub and anime share the session (one origin): no ticket, the page itself.
+  if (!passportJumpOn(env) || sameOrigin(site, to, env)) return plain();
 
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -171,7 +178,7 @@ export async function handleOut(request: NextRequest, ctx: HandoffCtx = {}): Pro
   const ticket = signTicket(ticketSecret(env)!, { from: site, to, next }, nowSec);
   const params = new URLSearchParams({ from: site, next, t: ticket });
   if (via) params.set('via', via);
-  return redirect(`${base}/auth/arrive?${params.toString()}`);
+  return redirect(`${siteBase(to, env)}/auth/arrive?${params.toString()}`);
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -182,8 +189,9 @@ export async function handleArrive(request: NextRequest, ctx: HandoffCtx = {}): 
   const { site, env, nowSec } = run(ctx);
   const q = request.nextUrl.searchParams;
   const rawNext = q.get('next');
-  const next = safeReturnTo(rawNext, '/', site);
-  if (!passportJumpOn(env)) return toSelf(next);
+  const next = safeAppPath(rawNext, '/', site);
+  const back = withBase(site, next);
+  if (!passportJumpOn(env)) return toSelf(back);
 
   const fromParam = q.get('from');
   const from = isSiteId(fromParam) ? fromParam : null;
@@ -192,14 +200,19 @@ export async function handleArrive(request: NextRequest, ctx: HandoffCtx = {}): 
 
   if (q.has('mode')) {
     await bad();
-    return toSelf(next);
+    return toSelf(back);
   }
   const t = q.get('t');
-  if (!t) return toSelf(next); // crawlers and plain links write nothing
+  if (!t) return toSelf(back); // crawlers and plain links write nothing
+  // A peer on this very origin (hub and anime) shares the session: /auth/passport/out never mints such a ticket.
+  if (from !== null && sameOrigin(from, site, env)) {
+    await bad();
+    return toSelf(back);
+  }
 
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (user) return toSelf(next); // never switches account
+  if (user) return toSelf(back); // never switches account
 
   // An open redirect attempt: safeReturnTo changed the path. Same answer as a bad ticket, to the sanitised path.
   const check = rawNext !== null && rawNext === next
@@ -208,7 +221,7 @@ export async function handleArrive(request: NextRequest, ctx: HandoffCtx = {}): 
   const name = txCookieNameFor(request.url, request.headers.get('x-forwarded-proto'), env);
   if (!check.ok || from === null || name === null) {
     if (!check.ok) await bad();
-    return toSelf(next);
+    return toSelf(back);
   }
 
   const state = newState();
@@ -217,7 +230,7 @@ export async function handleArrive(request: NextRequest, ctx: HandoffCtx = {}): 
   const authorize = new URLSearchParams({
     client: site, state, code_challenge: pkceChallenge(verifier), method: 'S256', prompt: 'none',
   });
-  const res = redirect(`${netOrigin(from, env)}/auth/authorize?${authorize.toString()}`);
+  const res = redirect(`${siteBase(from, env)}/auth/authorize?${authorize.toString()}`);
   return setTxCookie(res, name, cookie);
 }
 
@@ -244,13 +257,13 @@ export async function handleAuthorize(request: NextRequest, ctx: HandoffCtx = {}
     q.get('prompt') !== 'none' || q.get('method') !== 'S256'
     || challenge === null || !B64U_32_RE.test(challenge)
     || state === null || !B64U_16_RE.test(state)
-    || !isSiteId(client) || client === site
+    || !isSiteId(client) || client === site || sameOrigin(client, site, env)
   ) {
     return plain400();
   }
 
   // The relying party never learns why: every refusal is the same fragment, the real outcome is logged here.
-  const target = `${netOrigin(client, env)}/auth/land`;
+  const target = `${siteBase(client, env)}/auth/land`;
   const refused = (): NextResponse => redirect(`${target}#error=login_required&state=${state}`, FRAME_CSP);
 
   const supabase = await createServerClient();
@@ -280,45 +293,55 @@ export async function handleAuthorize(request: NextRequest, ctx: HandoffCtx = {}
 // 2.4 GET /auth/land (on the relying party)
 // ---------------------------------------------------------------------------------------------------------------
 
-/** The land page's script: reads the fragment, strips it, posts to redeem, goes to the `next` of the answer. */
-function landScript(): string {
+/** A basePath that may be written into the land page as it is: '' or '/' and lowercase letters, digits and dashes. */
+const BASE_RE = /^(?:\/[a-z0-9-]+)?$/;
+
+/**
+ * The land page's script: reads the fragment, strips it, posts to redeem, goes to the `next` of the answer. `base` is the
+ * basePath of the build ('' on kpop and the hub: the script is the one of before, byte for byte): the page lives at
+ * base + /auth/land, posts to base + /api/passport/redeem, and only ever goes to a path inside the base (else the base).
+ */
+function landScript(base: string): string {
+  if (!BASE_RE.test(base)) throw new Error('landScript: bad basePath');
+  const home = base || '/';
+  const inBase = base ? `&&(u==='${base}'||u.indexOf('${base}/')===0||u.indexOf('${base}?')===0||u.indexOf('${base}#')===0)` : '';
   return [
     '(function(){',
     "var h=location.hash.replace(/^#/,'');",
-    "history.replaceState(null,'','/auth/land');",
+    `history.replaceState(null,'','${base}/auth/land');`,
     'var p=new URLSearchParams(h);',
     "var code=p.get('code'),state=p.get('state'),err=p.get('error');",
-    "function go(u){location.replace(typeof u==='string'&&u.charAt(0)==='/'&&u.charAt(1)!=='/'&&u.indexOf('\\\\')<0?u:'/');}",
-    "if(!state||(!code&&err!=='login_required')){go('/');return;}",
+    `function go(u){location.replace(typeof u==='string'&&u.charAt(0)==='/'&&u.charAt(1)!=='/'&&u.indexOf('\\\\')<0${inBase}?u:'${home}');}`,
+    `if(!state||(!code&&err!=='login_required')){go('${home}');return;}`,
     "var body=code?{code:code,state:state}:{error:'login_required',state:state};",
-    "fetch('/api/passport/redeem',{method:'POST',credentials:'same-origin',headers:{'content-type':'application/json'},body:JSON.stringify(body)})",
+    `fetch('${base}/api/passport/redeem',{method:'POST',credentials:'same-origin',headers:{'content-type':'application/json'},body:JSON.stringify(body)})`,
     '.then(function(r){return r.json().catch(function(){return {};});})',
     '.then(function(j){go(j&&j.next);})',
-    ".catch(function(){go('/');});",
+    `.catch(function(){go('${home}');});`,
     '})();',
   ].join('');
 }
 
-export function landHtml(nonce: string): string {
+export function landHtml(nonce: string, base = ''): string {
   return [
     '<!doctype html><html lang="en"><head><meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width,initial-scale=1">',
     '<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">',
     '<title>Signing in</title></head><body>',
     '<p>Signing you in...</p>',
-    '<noscript><p><a href="/">Continue</a></p></noscript>',
-    `<script nonce="${nonce}">${landScript()}</script>`,
+    `<noscript><p><a href="${base || '/'}">Continue</a></p></noscript>`,
+    `<script nonce="${nonce}">${landScript(base)}</script>`,
     '</body></html>',
   ].join('');
 }
 
 export async function handleLand(_request: NextRequest, ctx: HandoffCtx = {}): Promise<NextResponse> {
-  const { env } = run(ctx);
+  const { site, env } = run(ctx);
   if (!passportJumpOn(env)) return notFound();
   const nonce = newState(); // 16 random bytes, base64url: fresh per response
   const csp = `default-src 'none'; script-src 'nonce-${nonce}'; connect-src 'self'; base-uri 'none'; form-action 'none'; ${FRAME_CSP}`;
   return harden(
-    new NextResponse(landHtml(nonce), { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } }),
+    new NextResponse(landHtml(nonce, basePathOf(site)), { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } }),
     csp,
   );
 }
@@ -356,7 +379,7 @@ export async function handleRedeem(request: NextRequest, ctx: HandoffCtx = {}): 
   if (!passportJumpOn(env)) return notFound();
 
   const origin = request.headers.get('origin');
-  if (origin !== null && origin !== netOrigin(site, env)) return jsonError(403, 'origin');
+  if (origin !== null && origin !== siteOrigin(site, env)) return jsonError(403, 'origin');
 
   const name = txCookieNameFor(request.url, request.headers.get('x-forwarded-proto'), env);
   const secret = ticketSecret(env)!;
@@ -366,7 +389,8 @@ export async function handleRedeem(request: NextRequest, ctx: HandoffCtx = {}): 
     const res = harden(NextResponse.json(body, { status }));
     return name ? clearTxCookie(res, name) : res;
   };
-  const fail = (status: number, error: string, next: string): NextResponse => answer(status, { error, next });
+  // `next` of every answer is the browser path the land page goes to: the app path with the basePath of this build.
+  const fail = (status: number, error: string, next: string): NextResponse => answer(status, { error, next: withBase(site, next) });
 
   const contentType = request.headers.get('content-type') ?? '';
   const parsed = contentType.toLowerCase().startsWith('application/json') ? parseRedeemBody(await request.text()) : null;
@@ -375,7 +399,7 @@ export async function handleRedeem(request: NextRequest, ctx: HandoffCtx = {}): 
   const check = name ? verifyTx(secret, request.cookies.get(name)?.value, nowSec) : null;
   // The payload of a valid cookie, or of one that only expired (so the visitor still reaches its `next`).
   const tx = check === null ? null : check.ok ? check.tx : (check.tx ?? null);
-  const next = tx ? safeReturnTo(tx.next, '/', site) : '/';
+  const next = tx ? safeAppPath(tx.next, '/', site) : '/';
   const log = (outcome: HandoffOutcome, userId?: string | null): Promise<void> =>
     logEvent(request, env, { outcome, user: userId ?? null, from: tx?.from ?? null, to: site, via: tx?.via ?? null });
 
@@ -454,5 +478,5 @@ export async function handleRedeem(request: NextRequest, ctx: HandoffCtx = {}): 
     // fail soft
   }
 
-  return answer(200, { next });
+  return answer(200, { next: withBase(site, next) });
 }

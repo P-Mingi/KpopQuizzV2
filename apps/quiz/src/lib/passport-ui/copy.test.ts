@@ -52,8 +52,11 @@ describe('the words of a world site', () => {
     expect(p1('account.signOutHere', {}, 'anime')).toBe('Sign out of OtakuQuiz only');
     expect(p1('signin.title', {}, 'hub')).toBe('Sign in to FandomVerse');
     const all = JSON.stringify([passportWords('anime'), signInWords('anime'), onboardingWords('anime'), passportWords('hub'), signInWords('hub')]);
-    // 2026-10-28 (owner): fandomverse.org signs in with Google and Discord; Discord is named as a sign-in method and nowhere else.
-    expect(all.replaceAll('Google or Discord', '')).not.toMatch(/k-?pop|discord|stan\b/i);
+    // FandomVerse (owner, 2026-10-28, reverses D-099): fandomverse.org signs in with Google and Discord. Discord is named
+    // only as a sign-in method ("Google or Discord") and as the label of its button, nowhere else.
+    expect(signInWords('anime')?.discord).toBe('Continue with Discord');
+    expect(signInWords('hub')?.discord).toBe('Continue with Discord');
+    expect(all.replaceAll('Google or Discord', '').replaceAll('"discord":"Continue with Discord"', '')).not.toMatch(/k-?pop|discord|stan\b/i);
     expect(passportWords('anime')?.tagIcon).toBe('star');
     expect(passportWords('hub')?.tagIcon).toBe('heart');
   });

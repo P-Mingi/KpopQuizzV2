@@ -1,6 +1,10 @@
 // Run O1, lot (c) part 2 (B3): the five handlers of the jump (apis.md 2.1 to 2.5) with a mocked Supabase. Each
 // handler with the flag off, then each outcome of the brief on the handlers: ok, replay, pkce_fail, state_mismatch,
 // expired, open_redirect, banned, unconfirmed, other_user, no_session. Nothing leaves the process.
+// FandomVerse (owner, 2026-10-28): the anime build is served under the basePath '/anime' (lib/auth/site-base.ts). Its
+// addresses below move under /anime: the target page and /auth/arrive of the jump, /auth/land of authorize, the Locations of
+// arrive and the `next` of redeem (browser paths). The `next` of a ticket and of the transaction cookie stays an app path.
+// The FandomVerse topology itself (hub and anime on one origin) is tested in handoff-fandomverse.test.ts.
 import { NextRequest } from 'next/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -83,6 +87,8 @@ const ON = { PASSPORT_JUMP: '1', PASSPORT_TICKET_SECRET: SECRET, NET_IP_HASH_SAL
 const OFF = { PASSPORT_JUMP: '0', PASSPORT_TICKET_SECRET: SECRET, NEXT_PUBLIC_NET_ORIGINS: ORIGINS };
 const KPOP = 'http://kpop.localhost:3103';
 const ANIME = 'http://anime.localhost:3104';
+/** A browser path of the anime build: its basePath, then the path inside it. */
+const IN_ANIME = /^\/anime(?:[/?#]|$)/;
 
 const ctx = (site: SiteId, env: Record<string, string | undefined> = ON): HandoffCtx => ({ site, env, now: () => NOW_MS });
 const get = (url: string, headers: Record<string, string> = {}) => new NextRequest(url, { headers });
@@ -110,7 +116,7 @@ describe('flag off (or no secret): nothing new is reachable', () => {
     for (const env of [OFF, { ...ON, PASSPORT_TICKET_SECRET: undefined }, { ...ON, PASSPORT_JUMP: undefined }]) {
       const res = await handleOut(get(`${KPOP}/auth/passport/out?to=anime&next=/quizzes&via=k.menu`), ctx('kpop', env));
       expect(res.status).toBe(302);
-      expect(loc(res)).toBe(`${ANIME}/quizzes?via=k.menu`);
+      expect(loc(res)).toBe(`${ANIME}/anime/quizzes?via=k.menu`);
       expectPrivate(res);
     }
     expect(state.calls).toEqual([]); // not even a session lookup: the flag is read first
@@ -119,7 +125,7 @@ describe('flag off (or no secret): nothing new is reachable', () => {
   it('/auth/arrive 302s to next, writes nothing, sets nothing', async () => {
     const res = await handleArrive(get(`${ANIME}/auth/arrive?from=kpop&next=/quizzes&t=anything`), ctx('anime', OFF));
     expect(res.status).toBe(302);
-    expect(loc(res)).toBe('/quizzes');
+    expect(loc(res)).toBe('/anime/quizzes');
     expect(cookies(res)).toEqual([]);
     expect(state.calls).toEqual([]);
   });
@@ -149,7 +155,7 @@ describe('GET /auth/passport/out (flag on)', () => {
     expect(res.status).toBe(302);
     const url = new URL(loc(res));
     expect(url.origin).toBe(ANIME);
-    expect(url.pathname).toBe('/auth/arrive');
+    expect(url.pathname).toBe('/anime/auth/arrive');
     expect(url.searchParams.get('from')).toBe('kpop');
     expect(url.searchParams.get('next')).toBe('/quizzes?x=1');
     expect(url.searchParams.get('via')).toBe('k.menu');
@@ -162,7 +168,7 @@ describe('GET /auth/passport/out (flag on)', () => {
 
   it('signed out here: the target page, signed out', async () => {
     const res = await handleOut(get(`${KPOP}/auth/passport/out?to=anime&next=/&via=k.menu`), ctx('kpop'));
-    expect(loc(res)).toBe(`${ANIME}/?via=k.menu`);
+    expect(loc(res)).toBe(`${ANIME}/anime?via=k.menu`);
   });
 
   it('drops a via that is malformed or does not start with this site letter', async () => {
@@ -239,8 +245,8 @@ describe('GET /auth/arrive (flag on)', () => {
   });
 
   it('no t: 302 to next, nothing written (crawlers), no log', async () => {
-    const res = await arrive({ from: 'kpop', next: '/quizzes' });
-    expect(loc(res)).toBe('/quizzes');
+    const res = await arrive({ from: 'kpop', next: '/anime/quizzes' });
+    expect(loc(res)).toBe('/anime/quizzes');
     expect(cookies(res)).toEqual([]);
     expect(state.calls).toEqual([]);
   });
@@ -248,14 +254,14 @@ describe('GET /auth/arrive (flag on)', () => {
   it('already signed in here (any user): 302 to next, never switches account', async () => {
     state.user = { id: 'someone-else' };
     const res = await arrive({ from: 'kpop', next: '/quizzes', t: ticket() });
-    expect(loc(res)).toBe('/quizzes');
+    expect(loc(res)).toBe('/anime/quizzes');
     expect(cookies(res)).toEqual([]);
     expect(events()).toEqual([]);
   });
 
   it('a mode parameter: 302 to next, logged bad_ticket', async () => {
     const res = await arrive({ from: 'kpop', next: '/quizzes', t: ticket(), mode: 'seed' });
-    expect(loc(res)).toBe('/quizzes');
+    expect(loc(res)).toBe('/anime/quizzes');
     expect(cookies(res)).toEqual([]);
     expect(events()).toEqual(['bad_ticket']);
   });
@@ -276,6 +282,7 @@ describe('GET /auth/arrive (flag on)', () => {
       const res = await arrive(q);
       expect(res.status).toBe(302);
       expect(loc(res)).toMatch(/^\/(?!\/)/); // a path of this site, never another origin
+      expect(loc(res)).toMatch(IN_ANIME); // and inside the basePath of the build
       expect(cookies(res)).toEqual([]);
       expect(events()).toEqual(['bad_ticket']);
     }
@@ -285,7 +292,7 @@ describe('GET /auth/arrive (flag on)', () => {
     for (const next of ['//evil.tld', 'https://evil.tld', '/\\evil.tld']) {
       state.calls = [];
       const res = await arrive({ from: 'kpop', next, t: ticket({ next }) });
-      expect(loc(res)).toBe('/');
+      expect(loc(res)).toBe('/anime');
       expect(cookies(res)).toEqual([]);
       expect(events()).toEqual(['bad_ticket']);
     }
@@ -323,7 +330,7 @@ describe('GET /auth/authorize (flag on)', () => {
     const res = await authorize(p, { 'x-forwarded-for': '203.0.113.9', 'user-agent': 'Mozilla/5.0 Chrome/120 Safari/537' });
     expect(res.status).toBe(302);
     const target = loc(res);
-    expect(target.startsWith(`${ANIME}/auth/land#`)).toBe(true);
+    expect(target.startsWith(`${ANIME}/anime/auth/land#`)).toBe(true);
     const frag = new URLSearchParams(target.split('#')[1]);
     const code = frag.get('code')!;
     expect(code).toMatch(B64U_32_RE);
@@ -344,7 +351,7 @@ describe('GET /auth/authorize (flag on)', () => {
   it('no_session: no session here (a crawler, a signed-out visitor) gets login_required, logged login_required', async () => {
     const p = params();
     const res = await authorize(p);
-    expect(loc(res)).toBe(`${ANIME}/auth/land#error=login_required&state=${p.state}`);
+    expect(loc(res)).toBe(`${ANIME}/anime/auth/land#error=login_required&state=${p.state}`);
     expect(events()).toEqual(['login_required']);
     expect(calls('passport_issue_code')).toEqual([]);
     expect(calls('passport_log_event')[0]!.args).toMatchObject({ p_from_site: 'kpop', p_to_site: 'anime', p_user: null });
@@ -356,7 +363,7 @@ describe('GET /auth/authorize (flag on)', () => {
       state.issue = refusal;
       const p = params();
       const res = await authorize(p);
-      expect(loc(res)).toBe(`${ANIME}/auth/land#error=login_required&state=${p.state}`);
+      expect(loc(res)).toBe(`${ANIME}/anime/auth/land#error=login_required&state=${p.state}`);
       expect(loc(res)).not.toContain(refusal);
       expect(loc(res)).not.toContain('code=');
     },
@@ -404,7 +411,8 @@ describe('GET /auth/land (flag on)', () => {
     const script = html.split('<script nonce')[1]!;
     expect(script.indexOf('location.hash')).toBeLessThan(script.indexOf('replaceState'));
     expect(script.indexOf('replaceState')).toBeLessThan(script.indexOf('fetch('));
-    expect(script).toContain("'/api/passport/redeem'");
+    expect(script).toContain("'/anime/api/passport/redeem'");
+    expect(script).toContain("history.replaceState(null,'','/anime/auth/land')");
     expect(script).toContain('location.replace');
   });
 
@@ -441,7 +449,7 @@ describe('POST /api/passport/redeem (flag on)', () => {
     const s = setup();
     const res = await redeem(s, { code: s.code, state: s.state }, { 'x-forwarded-for': '203.0.113.9' });
     expect(res.status).toBe(200);
-    expect(await res.json()).toEqual({ next: '/quizzes' });
+    expect(await res.json()).toEqual({ next: '/anime/quizzes' });
     expect(cleared(res)).toBe(true);
     expectPrivate(res);
 
@@ -492,7 +500,7 @@ describe('POST /api/passport/redeem (flag on)', () => {
     const s = setup();
     const res = await redeem(s, { code: s.code, state: s.state });
     expect(res.status).toBe(400);
-    expect(await res.json()).toEqual({ error: 'replay', next: '/quizzes' });
+    expect(await res.json()).toEqual({ error: 'replay', next: '/anime/quizzes' });
     expect(cleared(res)).toBe(true);
     expect(calls('auth.verifyOtp')).toEqual([]);
     expect(calls('admin.generateLink')).toEqual([]);
@@ -503,7 +511,7 @@ describe('POST /api/passport/redeem (flag on)', () => {
     const s = setup();
     const res = await redeem(s, { code: s.code, state: s.state });
     expect(res.status).toBe(400);
-    expect(await res.json()).toEqual({ error: 'pkce_fail', next: '/quizzes' });
+    expect(await res.json()).toEqual({ error: 'pkce_fail', next: '/anime/quizzes' });
     expect(calls('auth.verifyOtp')).toEqual([]);
   });
 
@@ -512,14 +520,14 @@ describe('POST /api/passport/redeem (flag on)', () => {
     const s = setup();
     const res = await redeem(s, { code: s.code, state: s.state });
     expect(res.status).toBe(400);
-    expect(await res.json()).toEqual({ error: 'expired', next: '/quizzes' });
+    expect(await res.json()).toEqual({ error: 'expired', next: '/anime/quizzes' });
   });
 
   it('expired: a transaction cookie past 300 s is 400 expired, logged, and the code is never redeemed', async () => {
     const s = setup({ iat: NOW - 301 });
     const res = await redeem(s, { code: s.code, state: s.state });
     expect(res.status).toBe(400);
-    expect(await res.json()).toEqual({ error: 'expired', next: '/quizzes' });
+    expect(await res.json()).toEqual({ error: 'expired', next: '/anime/quizzes' });
     expect(cleared(res)).toBe(true);
     expect(events()).toEqual(['expired']);
     expect(calls('passport_redeem_code')).toEqual([]);
@@ -529,7 +537,7 @@ describe('POST /api/passport/redeem (flag on)', () => {
     const s = setup();
     const res = await redeem(s, { code: s.code, state: newState() });
     expect(res.status).toBe(400);
-    expect(await res.json()).toEqual({ error: 'state_mismatch', next: '/quizzes' });
+    expect(await res.json()).toEqual({ error: 'state_mismatch', next: '/anime/quizzes' });
     expect(cleared(res)).toBe(true);
     expect(events()).toEqual(['state_mismatch']);
     expect(calls('passport_redeem_code')).toEqual([]);
@@ -542,7 +550,7 @@ describe('POST /api/passport/redeem (flag on)', () => {
       const send = cookie === null ? null : { ...s, cookie };
       const res = await redeem(send, { code: s.code, state: s.state });
       expect(res.status).toBe(400);
-      expect(await res.json()).toEqual({ error: 'state_mismatch', next: '/' });
+      expect(await res.json()).toEqual({ error: 'state_mismatch', next: '/anime' });
       expect(cleared(res)).toBe(true);
       expect(events()).toEqual(['state_mismatch']);
       expect(calls('passport_redeem_code')).toEqual([]);
@@ -554,7 +562,7 @@ describe('POST /api/passport/redeem (flag on)', () => {
     const s = setup();
     const res = await redeem(s, { code: s.code, state: s.state });
     expect(res.status).toBe(409);
-    expect(await res.json()).toEqual({ error: 'other_user', next: '/quizzes' });
+    expect(await res.json()).toEqual({ error: 'other_user', next: '/anime/quizzes' });
     expect(cleared(res)).toBe(true);
     expect(calls('auth.verifyOtp')).toEqual([]);
     expect(calls('admin.generateLink')).toEqual([]);
@@ -566,7 +574,7 @@ describe('POST /api/passport/redeem (flag on)', () => {
     const s = setup();
     const res = await redeem(s, { code: s.code, state: s.state });
     expect(res.status).toBe(200);
-    expect(await res.json()).toEqual({ next: '/quizzes' });
+    expect(await res.json()).toEqual({ next: '/anime/quizzes' });
     expect(calls('auth.verifyOtp')).toEqual([]);
     expect(calls('admin.generateLink')).toEqual([]);
     expect(calls('ensure_membership')).toHaveLength(1);
@@ -576,7 +584,7 @@ describe('POST /api/passport/redeem (flag on)', () => {
     const s = setup();
     const res = await redeem(s, { error: 'login_required', state: s.state });
     expect(res.status).toBe(400);
-    expect(await res.json()).toEqual({ error: 'login_required', next: '/quizzes' });
+    expect(await res.json()).toEqual({ error: 'login_required', next: '/anime/quizzes' });
     expect(cleared(res)).toBe(true);
     expect(calls('passport_redeem_code')).toEqual([]);
     expect(events()).toEqual([]); // the identity site logged the real outcome
@@ -631,18 +639,18 @@ describe('POST /api/passport/redeem (flag on)', () => {
       ctx('anime'),
     );
     expect(wrongType.status).toBe(400);
-    expect(await wrongType.json()).toEqual({ error: 'bad_request', next: '/' });
+    expect(await wrongType.json()).toEqual({ error: 'bad_request', next: '/anime' });
     state.calls = [];
     const shortCode = await redeem(s, { code: 'short', state: s.state });
     expect(shortCode.status).toBe(400);
-    expect(await shortCode.json()).toEqual({ error: 'expired', next: '/quizzes' });
+    expect(await shortCode.json()).toEqual({ error: 'expired', next: '/anime/quizzes' });
     expect(calls('passport_redeem_code')).toEqual([]);
   });
 
   it('answers the cookie next, re-checked with safeReturnTo', async () => {
     const s = setup({ next: '//evil.tld' });
     const res = await redeem(s, { code: s.code, state: s.state });
-    expect(await res.json()).toEqual({ next: '/' });
+    expect(await res.json()).toEqual({ next: '/anime' });
   });
 
   it('never logs or returns a code, a verifier, a state, a ticket or an email', async () => {
@@ -665,7 +673,7 @@ describe('POST /api/passport/redeem (flag on)', () => {
       ctx('anime'),
     );
     expect(dev.status).toBe(400); // no downgrade: the dev name is never read on https
-    expect(await dev.json()).toEqual({ error: 'state_mismatch', next: '/' });
+    expect(await dev.json()).toEqual({ error: 'state_mismatch', next: '/anime' });
     const host = await handleRedeem(
       new NextRequest(`${https}/api/passport/redeem`, {
         method: 'POST', body: JSON.stringify({ code: s.code, state: s.state }),

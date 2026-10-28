@@ -255,9 +255,12 @@ const ANIME: SiteConfig = {
     21: { en: 'Superfan' },
     30: { en: 'Legend' },
   },
+  // FandomVerse (owner, 2026-10-28, reverses D-099): Google and Discord only, both through Supabase's OAuth redirect with
+  // kpopquiz.org's own Google client (no Google Identity Services client id, no email sign-in). emailLanding stays in the
+  // frozen shape; with no email sign-in nothing sends a link to it.
   auth: {
-    providers: ['google', 'email'],
-    googleClientIdEnv: 'NEXT_PUBLIC_GOOGLE_CLIENT_ID',
+    providers: ['google', 'discord'],
+    googleClientIdEnv: null,
     emailLanding: '/auth/confirm',
     signOutModes: ['global', 'local'],
   },
@@ -314,9 +317,12 @@ const HUB: SiteConfig = {
   theme: { light: HUB_LIGHT, dark: HUB_DARK, fontDisplay: 'Inter' },
   // The passport level is private and shown only on /passport (P); placeholder ladder.
   levelTitles: { 1: { en: 'Member' } },
+  // FandomVerse (owner, 2026-10-28, reverses D-099): Google and Discord only, both through Supabase's OAuth redirect with
+  // kpopquiz.org's own Google client (no Google Identity Services client id, no email sign-in). emailLanding stays in the
+  // frozen shape; with no email sign-in nothing sends a link to it.
   auth: {
-    providers: ['google', 'email'],
-    googleClientIdEnv: 'NEXT_PUBLIC_GOOGLE_CLIENT_ID',
+    providers: ['google', 'discord'],
+    googleClientIdEnv: null,
     emailLanding: '/auth/confirm',
     signOutModes: ['global', 'local'],
   },

@@ -10,13 +10,21 @@
 //    profile (onboarding on anime, the home on the hub), banned (sign out, /login), else the stamp and `next`. Any failure
 //    goes to /login.
 //
+//  - handleWorldCallback (FandomVerse, owner 2026-10-28): GET /auth/callback of anime and hub, where Google and Discord come
+//    back through Supabase's OAuth redirect. The code is exchanged, a session that no OAuth provider opened (an email link
+//    someone requested by hand) is closed again, then the branches of handleConfirm and the membership stamp with the via.
+//
+// FandomVerse paths: hub is https://fandomverse.org, anime https://fandomverse.org/anime (basePath '/anime', same origin).
+// Every `next` here is an app path (lib/auth/site-base.ts); a Location header carries it with the basePath of the build, so
+// a redirect of the anime build never lands on a page of the hub. The Origin check compares origins (the anime base has a path).
+//
 // Never logged or returned: a token hash, an email, a via. The log line carries the route, the outcome and the site.
 
 import { NextResponse } from 'next/server';
 
-import { safeReturnTo } from '@/lib/auth/return-to';
+import { safeAppPath, siteOrigin, withBase } from '@/lib/auth/site-base';
 import { VIA_RE } from '@/lib/network/types';
-import { REGISTRY, SITE_ID, netOrigin } from '@/lib/site/registry';
+import { REGISTRY, SITE_ID } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
@@ -115,13 +123,13 @@ export async function handleAfterSignin(request: NextRequest, ctx: SigninCtx = {
   const env = ctx.env ?? (process.env as NetOriginEnv);
 
   const origin = request.headers.get('origin');
-  if (origin !== null && origin !== netOrigin(site, env)) return json(403, { error: 'origin' });
+  if (origin !== null && origin !== siteOrigin(site, env)) return json(403, { error: 'origin' });
 
   const contentType = request.headers.get('content-type') ?? '';
   const parsed = contentType.toLowerCase().startsWith('application/json') ? parseBody(await request.text()) : null;
   if (!parsed) return json(400, { error: 'bad_request' });
 
-  const next = safeReturnTo(parsed.next, '/', site);
+  const next = safeAppPath(parsed.next, '/', site);
   const via = parsed.via !== null && VIA_RE.test(parsed.via) ? parsed.via : null;
 
   const supabase = await createServerClient();
@@ -158,14 +166,19 @@ function isConfirmType(v: string | null): v is ConfirmType {
 export async function handleConfirm(request: NextRequest, ctx: SigninCtx = {}): Promise<NextResponse> {
   const site = ctx.site ?? SITE_ID;
   if (site === 'kpop') return notFound();
+  // FandomVerse (owner, 2026-10-28): no email sign-in on the hub and anime. A production deployment answers 404, like kpop,
+  // before it reads anything. Outside production the landing stays for the O1 fixture tool (scripts/o1-tools/signin-link.sh
+  // mints its links with the admin API of o1-dev, no email is sent).
+  const env = ctx.env ?? (process.env as NetOriginEnv);
+  if (env.VERCEL_ENV === 'production') return notFound();
 
   const params = new URL(request.url).searchParams;
   const tokenHash = params.get('token_hash');
   const type = params.get('type');
-  const next = safeReturnTo(params.get('next'), '/', site);
+  const next = safeAppPath(params.get('next'), '/', site);
   const fail = (outcome: string): NextResponse => {
     log('confirm', outcome, site);
-    return toSelf('/login');
+    return toSelf(withBase(site, '/login'));
   };
 
   if (!tokenHash || !isConfirmType(type)) return fail('bad_link');
@@ -179,7 +192,7 @@ export async function handleConfirm(request: NextRequest, ctx: SigninCtx = {}): 
   const { data: profile } = await supabase.from('profiles').select('id, banned_at').eq('id', user.id).maybeSingle();
   if (!profile) {
     log('confirm', 'needs_username', site);
-    return toSelf(site === 'hub' ? '/' : `/onboarding?returnTo=${encodeURIComponent(next)}`);
+    return toSelf(withBase(site, noProfilePath(site, next)));
   }
   if ((profile as { banned_at?: string | null }).banned_at) {
     await supabase.auth.signOut();
@@ -188,5 +201,87 @@ export async function handleConfirm(request: NextRequest, ctx: SigninCtx = {}): 
 
   await stamp(supabase, site, null);
   log('confirm', 'ok', site);
-  return toSelf(next);
+  return toSelf(withBase(site, next));
+}
+
+/** Where an account without a profile goes (an app path): the username page on anime, the home on the hub (it has none). */
+function noProfilePath(site: SiteId, next: string): string {
+  return site === 'hub' ? '/' : `/onboarding?returnTo=${encodeURIComponent(next)}`;
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// FandomVerse: GET /auth/callback of anime and hub (Google and Discord through Supabase's OAuth redirect)
+// ---------------------------------------------------------------------------------------------------------------
+
+/**
+ * How the session of an access token was opened: the `method` of its newest `amr` entry ('oauth' for Google and Discord,
+ * 'otp', 'magiclink', 'email/signup', 'password' and so on otherwise), or null when the token cannot be read. The token
+ * comes straight from Supabase's token endpoint (exchangeCodeForSession), so its payload is read, not verified again here.
+ */
+export function sessionMethod(accessToken: string | null | undefined): string | null {
+  if (typeof accessToken !== 'string') return null;
+  const parts = accessToken.split('.');
+  if (parts.length !== 3 || !parts[1] || !/^[A-Za-z0-9_-]+$/.test(parts[1])) return null;
+  let payload: unknown;
+  try {
+    payload = JSON.parse(Buffer.from(parts[1], 'base64url').toString('utf8'));
+  } catch {
+    return null;
+  }
+  const amr = typeof payload === 'object' && payload !== null ? (payload as { amr?: unknown }).amr : undefined;
+  if (!Array.isArray(amr) || amr.length === 0) return null;
+  let newest: { method: string; at: number } | null = null;
+  for (const entry of amr) {
+    if (typeof entry !== 'object' || entry === null) return null;
+    const { method, timestamp } = entry as { method?: unknown; timestamp?: unknown };
+    if (typeof method !== 'string' || typeof timestamp !== 'number' || !Number.isFinite(timestamp)) return null;
+    if (newest === null || timestamp >= newest.at) newest = { method, at: timestamp };
+  }
+  return newest?.method ?? null;
+}
+
+export async function handleWorldCallback(request: NextRequest, ctx: SigninCtx = {}): Promise<NextResponse> {
+  const site = ctx.site ?? SITE_ID;
+  if (site === 'kpop') return notFound();
+
+  const params = new URL(request.url).searchParams;
+  const code = params.get('code');
+  const next = safeAppPath(params.get('returnTo'), '/', site);
+  const rawVia = params.get('via');
+  const via = rawVia !== null && VIA_RE.test(rawVia) ? rawVia : null;
+  const fail = (outcome: string): NextResponse => {
+    log('callback', outcome, site);
+    return toSelf(withBase(site, '/login'));
+  };
+
+  // A provider error (the visitor said no) comes back with ?error= and no code.
+  if (!code) return fail('no_code');
+
+  const supabase = await createServerClient();
+  const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+  if (error) return fail('exchange');
+
+  // Google and Discord only: a session opened any other way (an email link asked for by hand with this callback as its
+  // address) is closed at once, this browser only, and never reaches a page.
+  if (sessionMethod(data?.session?.access_token) !== 'oauth') {
+    await supabase.auth.signOut({ scope: 'local' }).catch(() => undefined);
+    return fail('not_oauth');
+  }
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return fail('no_user');
+
+  const { data: profile } = await supabase.from('profiles').select('id, banned_at').eq('id', user.id).maybeSingle();
+  if (!profile) {
+    log('callback', 'needs_username', site);
+    return toSelf(withBase(site, noProfilePath(site, next)));
+  }
+  if ((profile as { banned_at?: string | null }).banned_at) {
+    await supabase.auth.signOut();
+    return fail('banned');
+  }
+
+  await stamp(supabase, site, via);
+  log('callback', 'ok', site);
+  return toSelf(withBase(site, next));
 }

@@ -44,6 +44,9 @@ const TITLE_PLACEHOLDER = 'e.g. Only real ITZY stans can pass this';
 const MIN_QUESTIONS = 3; // I1: publish floor lowered 5 -> 3 (matches /api/quiz/create + the DB constraint)
 const MIN_TITLE = 5;
 const RESUME_RETURN = '/create?resume=publish';
+// FandomVerse (owner, 2026-10-28): on a world build (the anime /create) sign-in is Google and Discord only, through the
+// site's own /auth/callback (its basePath included). The test is the build-time constant, so the kpop bundle imports nothing new.
+const IS_WORLD_BUILD = (process.env.NEXT_PUBLIC_SITE_ID || 'kpop') !== 'kpop';
 
 const GoogleIcon = (
   <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true"><path d="M15.5 8.2c0-.6-.1-1-.2-1.5H8v2.8h4.2c-.2.9-.7 1.7-1.4 2.2v1.8h2.3c1.4-1.2 2.2-3.1 2.2-5.3z" fill="#4285F4" /><path d="M8 16c2.2 0 4-.7 5.3-2l-2.3-1.8c-.7.5-1.6.8-2.9.8-2.2 0-4.1-1.5-4.8-3.5H.8v1.9C2.2 14.1 4.9 16 8 16z" fill="#34A853" /><path d="M3.2 9.5c-.2-.5-.3-1-.3-1.5s.1-1 .3-1.5V4.6H.8C.3 5.6 0 6.8 0 8s.3 2.4.8 3.4l2.4-1.9z" fill="#FBBC05" /><path d="M8 3.2c1.3 0 2.4.4 3.3 1.3l2.4-2.4C12 .8 10.2 0 8 0 4.9 0 2.2 1.9.8 4.6l2.4 1.9C4 4.6 5.8 3.2 8 3.2z" fill="#EA4335" /></svg>
@@ -402,10 +405,17 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
   const signInWith = async (provider: 'google' | 'discord') => {
     const supabase = createBrowserClient();
     const origin = window.location.origin;
+    if (IS_WORLD_BUILD) {
+      const [{ signInWithProvider, readTabVia }, { SITE_ID }, { basePathOf }] = await Promise.all([
+        import('@/lib/passport-ui/signin-client'), import('@/lib/site/registry'), import('@/lib/auth/site-base'),
+      ]);
+      await signInWithProvider(supabase, SITE_ID, provider, RESUME_RETURN, { base: `${origin}${basePathOf(SITE_ID)}`, via: readTabVia() });
+      return;
+    }
     await supabase.auth.signInWithOAuth({ provider, options: { redirectTo: `${origin}/auth/callback?returnTo=${encodeURIComponent(RESUME_RETURN)}` } });
   };
   const signInEmail = async () => {
-    if (!email.trim()) return;
+    if (IS_WORLD_BUILD || !email.trim()) return;
     const supabase = createBrowserClient();
     const origin = window.location.origin;
     const { error } = await supabase.auth.signInWithOtp({ email: email.trim(), options: { emailRedirectTo: `${origin}/auth/callback?returnTo=${encodeURIComponent(RESUME_RETURN)}` } });
@@ -654,6 +664,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
               <p className="cf-reassure">Your quiz is saved. Sign in once to publish it and keep it linked to you - takes 5 seconds.</p>
               <button type="button" className="auth-btn auth-google" disabled={!ready} onClick={() => void signInWith('google')}><span className="auth-icon">{GoogleIcon}</span>Continue with Google</button>
               <button type="button" className="auth-btn auth-discord" disabled={!ready} onClick={() => void signInWith('discord')}><span className="auth-icon">{DiscordIcon}</span>Continue with Discord</button>
+              {IS_WORLD_BUILD ? null : (<>
               <div className="auth-divider"><span>or with email</span></div>
               {emailSent ? (
                 <p className="cf-reassure">Magic link sent to <strong>{email}</strong>. Open it on this device to finish and publish.</p>
@@ -663,6 +674,7 @@ export function CreateFunnel({ groups, initialGroupSlug }: { groups: FunnelGroup
                   <button type="button" className="email-btn" disabled={!ready || !email.trim()} onClick={() => void signInEmail()}>Sign in with email</button>
                 </>
               )}
+              </>)}
             </>
           )}
 

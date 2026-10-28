@@ -1,11 +1,17 @@
 import { NextResponse } from 'next/server';
 
 import { safeReturnTo } from '@/lib/auth/return-to';
+import { handleWorldCallback } from '@/lib/passport/signin';
+import { SITE_ID } from '@/lib/site/registry';
 import { createServerClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
+  // FandomVerse (owner, 2026-10-28): the hub and anime builds land Google and Discord through the shared world handler
+  // (OAuth sessions only, the membership stamp, the basePath of the build). The kpop build runs the code below, unchanged.
+  if (SITE_ID !== 'kpop') return handleWorldCallback(request);
+
   const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
   // Same-site paths only: anything else (another host, a scheme) becomes '/'.
