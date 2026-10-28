@@ -5,6 +5,8 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import { validateRouting } from '@vercel/microfrontends/next/testing';
+import { buildCustomRoute } from 'next/dist/lib/build-custom-route';
+import * as customRoutes from 'next/dist/lib/load-custom-routes';
 import { matchHas } from 'next/dist/shared/lib/router/utils/prepare-destination';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
@@ -12,6 +14,7 @@ import { REGISTRY } from './registry';
 import { MFE_APPLICATIONS, VERCEL_APP_HOST, canonicalHost, cronProxyRewrites, deploymentHostNoindexHeaders } from './zones';
 
 import type { NextConfig } from 'next';
+import type { Header } from 'next/dist/lib/load-custom-routes';
 import type { SiteConfig, SiteId } from './types';
 
 const APP = fileURLToPath(new URL('../../../', import.meta.url));
@@ -208,5 +211,79 @@ describe('next.config.ts', () => {
     const h = (await c.headers!()) as Headers;
     expect(h[0]).toEqual(VERCEL_APP_RULE);
     expect(h.some((x) => x.missing)).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------------------------------------------------------
+// The home of a build gets the headers of every other page (finding 2). Next prefixes each header source with the base path
+// (processRoutes in next/dist/lib/load-custom-routes.js): '/((?!embed/).*)' becomes '/anime/((?!embed/).*)', which does not match
+// /anime, while a source '/' becomes '/anime'. The headers a path gets are computed here with Next's own code: loadCustomRoutes
+// (validation and base path), buildCustomRoute (the regex of the routes manifest), matchHas, and the order of resolve-routes.js
+// (every matching rule, in order, a later value of a key replacing an earlier one).
+
+type LoadCustomRoutes = (config: NextConfig) => Promise<{ headers: Header[] }>;
+// The module is CommonJS with a default export: depending on the interop, `default` is the function or the exports object.
+const customRoutesModule = customRoutes as unknown as { default: LoadCustomRoutes | { default: LoadCustomRoutes } };
+const loadCustomRoutes: LoadCustomRoutes = typeof customRoutesModule.default === 'function' ? customRoutesModule.default : customRoutesModule.default.default;
+
+async function headersAt(c: NextConfig, paths: readonly string[], host = 'fandomverse.org'): Promise<Record<string, Record<string, string>>> {
+  const routes = await loadCustomRoutes({ ...c, basePath: c.basePath ?? '', trailingSlash: false, i18n: null } as NextConfig);
+  const rules = routes.headers.map((r) => buildCustomRoute('header', r));
+  const req = { headers: { host } } as unknown as Parameters<typeof matchHas>[0];
+  return Object.fromEntries(paths.map((p) => {
+    const out: Record<string, string> = {};
+    for (const r of rules) {
+      if (new RegExp(r.regex).test(p) && matchHas(req, {}, r.has, r.missing) !== false) for (const h of r.headers) out[h.key] = h.value;
+    }
+    return [p, out];
+  }));
+}
+
+const FRAME_SELF = { 'Content-Security-Policy': "frame-ancestors 'self'", 'X-Frame-Options': 'SAMEORIGIN' };
+const CLOSED = { 'X-Robots-Tag': 'noindex, nofollow' };
+
+describe('the home of a build gets the security headers and the noindex of every other page', () => {
+  it('kpop: headers() is today\'s list, value for value, and its home already gets the framing headers', async () => {
+    const c = await loadConfig('kpop', { fandomVerse: true, indexing: '' });
+    expect(await c.headers!()).toEqual([
+      { source: '/embed/:path*', headers: [{ key: 'Content-Security-Policy', value: 'frame-ancestors *' }] },
+      { source: '/((?!embed/).*)', headers: [{ key: 'Content-Security-Policy', value: "frame-ancestors 'self'" }, { key: 'X-Frame-Options', value: 'SAMEORIGIN' }] },
+    ]);
+    const at = await headersAt(c, ['/', '/q/x', '/embed/x'], 'kpopquiz.org');
+    expect(at['/']).toEqual(FRAME_SELF);
+    expect(at['/q/x']).toEqual(FRAME_SELF);
+    expect(at['/embed/x']).toEqual({ 'Content-Security-Policy': 'frame-ancestors *' });
+  });
+
+  it('anime closed: /anime gets X-Frame-Options, frame-ancestors \'self\' and the noindex, like /anime/q/x (it got none before)', async () => {
+    const c = await loadConfig('anime', { fandomVerse: true, indexing: '' });
+    expect(((await c.headers!()) as Headers).at(-1)).toEqual({
+      source: '/', headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }, ...Object.entries(FRAME_SELF).map(([key, value]) => ({ key, value }))],
+    });
+    const at = await headersAt(c, ['/anime', '/anime/q/x', '/anime/series', '/anime/embed/x']);
+    expect(at['/anime/q/x']).toEqual({ ...CLOSED, ...FRAME_SELF });
+    expect(at['/anime']).toEqual(at['/anime/q/x']);
+    expect(at['/anime']).toEqual(at['/anime/series']);
+    expect(at['/anime/embed/x']).toEqual({ ...CLOSED, 'Content-Security-Policy': 'frame-ancestors *' });
+  });
+
+  it('anime open: /anime gets the framing headers and no noindex on fandomverse.org, the noindex on a vercel.app host', async () => {
+    const c = await loadConfig('anime', { fandomVerse: true, indexing: '1', vercelEnv: 'production' });
+    const at = await headersAt(c, ['/anime', '/anime/q/x']);
+    expect(at['/anime']).toEqual(FRAME_SELF);
+    expect(at['/anime']).toEqual(at['/anime/q/x']);
+    const vercel = await headersAt(c, ['/anime', '/anime/q/x'], 'otakuquiz.vercel.app');
+    expect(vercel['/anime']).toEqual({ ...CLOSED, ...FRAME_SELF });
+    expect(vercel['/anime']).toEqual(vercel['/anime/q/x']);
+  });
+
+  it('hub closed and open: / gets the headers of /privacy (the two rules already matched it, the home rule repeats the values)', async () => {
+    for (const indexing of ['', '1']) {
+      const c = await loadConfig('hub', { fandomVerse: true, indexing, vercelEnv: 'production' });
+      const at = await headersAt(c, ['/', '/privacy']);
+      expect(at['/'], indexing).toEqual(indexing ? FRAME_SELF : { ...CLOSED, ...FRAME_SELF });
+      expect(at['/'], indexing).toEqual(at['/privacy']);
+      expect(((await c.headers!()) as Headers).filter((x) => x.source === '/'), indexing).toHaveLength(1);
+    }
   });
 });

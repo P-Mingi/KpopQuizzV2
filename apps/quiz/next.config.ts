@@ -35,6 +35,15 @@ const WMA_GROUPS = [
 ];
 const WMA = WMA_GROUPS.join('|');
 
+// The headers of the framing policy every page but /embed gets (W4, headers() below) and the noindex of every answer of an anime
+// or hub build while it is closed (NET_INDEXING). Functions, so each rule holds its own objects; zoneConfig gives the home of a
+// build the same ones.
+const frameSelfHeaders = (): { key: string; value: string }[] => [
+  { key: 'Content-Security-Policy', value: "frame-ancestors 'self'" },
+  { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+];
+const closedHeaders = (): { key: string; value: string }[] => [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }];
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
@@ -197,7 +206,7 @@ const nextConfig: NextConfig = {
       // every answer but robots.txt and sitemap.xml says noindex, nofollow. The kpop build never gets this entry.
       ...(INDEXING_OPEN ? [] : [{
         source: '/((?!robots\\.txt|sitemap\\.xml).*)',
-        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+        headers: closedHeaders(),
       }]),
       {
         source: '/embed/:path*',
@@ -211,10 +220,7 @@ const nextConfig: NextConfig = {
         // widget was unframeable, which is the one thing it must not be. The
         // negative lookahead keeps the two policies from overlapping at all.
         source: '/((?!embed/).*)',
-        headers: [
-          { key: 'Content-Security-Policy', value: "frame-ancestors 'self'" },
-          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
-        ],
+        headers: frameSelfHeaders(),
       },
     ];
   },
@@ -229,6 +235,7 @@ const nextConfig: NextConfig = {
 //     matcher are prefixed with it;
 //   - X-Robots-Tag noindex on the *.vercel.app hosts of a production build, and on every host of a preview or development build
 //     (lib/site/zones.ts deploymentHostNoindexHeaders); never on fandomverse.org or another domain of a production build;
+//   - a header rule for the home of the build ('/', which Next turns into the base path), with the headers of every other page;
 //   - on a build with a base path, the cron paths of the shared vercel.json proxied to the site's own URL (zones.ts);
 //   - withMicrofrontends: it checks microfrontends.json at build time and wires the local proxy. The anime build skips its asset
 //     prefix and its asset rewrites: the base path already gives every asset of the build a path that Vercel routes to it, and
@@ -254,7 +261,13 @@ function zoneConfig(base: NextConfig): NextConfig {
     async headers() {
       const deploymentHosts = deploymentHostNoindexHeaders(process.env.VERCEL_ENV)
         .map((r) => ({ source: r.source, ...(r.has ? { has: [...r.has] } : {}), headers: [...r.headers] }));
-      return [...deploymentHosts, ...await baseHeaders()];
+      // The home of the build. Next prefixes each header source with the base path: '/((?!embed/).*)' becomes
+      // '/anime/((?!embed/).*)', which needs a slash after /anime, so the home (/anime, the URL Next serves) matched neither the
+      // framing rule nor the closed rule. A source '/' becomes the base path itself ('/anime'; '/' on the hub, where both rules
+      // already match it and this one repeats the same values). zones.test.ts compares the home with the other pages through
+      // Next's own route processing.
+      const home = { source: '/', headers: [...(INDEXING_OPEN ? [] : closedHeaders()), ...frameSelfHeaders()] };
+      return [...deploymentHosts, ...await baseHeaders(), home];
     },
     async rewrites() {
       const r = await baseRewrites();
