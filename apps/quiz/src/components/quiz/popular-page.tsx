@@ -161,7 +161,7 @@ export async function PopularPage({ window }: { window: PopularWindow }): Promis
         </p>
       ) : (
         <p className="pop-foot">
-          {`Ranked from real, first-party play data on ${SITE.domain}.`}
+          {`Ranked from real, first-party play data on ${SITE.url.replace(/^https?:\/\//, '')}.`}
           {SITE.features.blindTest ? <> See also the <Link href="/blindtest" className="pop-foot-link">blind test</Link>.</> : null}
         </p>
       )}

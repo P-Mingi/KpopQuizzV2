@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-import { SITE } from '@/lib/site/registry';
+import { siteAddress } from '@/lib/site/brand';
 
 import type { NextRequest } from 'next/server';
 
@@ -51,7 +51,7 @@ export async function GET(request: NextRequest): Promise<Response> {
         </div>
         <div style={{ display: 'flex', fontSize: 34, marginTop: 18, opacity: 0.92 }}>
           {level ? `Level ${level} on ` : 'on '}
-          <span style={{ fontWeight: 800, marginLeft: 8 }}>{SITE.domain}</span>
+          <span style={{ fontWeight: 800, marginLeft: 8 }}>{siteAddress()}</span>
         </div>
       </div>
     ),

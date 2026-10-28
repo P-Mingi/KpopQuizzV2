@@ -9,7 +9,7 @@ const ok = (name, fn) => { fn(); n += 1; };
 ok('addresses', () => {
   assert.equal(VERCEL_SITES.kpop, 'https://kpopquiz-git-o1-integration-p-mingis-projects.vercel.app');
   assert.equal(VERCEL_SITES.anime, 'https://otakuquiz-git-o1-integration-p-mingis-projects.vercel.app');
-  assert.equal(VERCEL_SITES.hub, 'https://fanquiz-git-o1-integration-p-mingis-projects.vercel.app');
+  assert.equal(VERCEL_SITES.hub, 'https://fandomverse-git-o1-integration-p-mingis-projects.vercel.app');
 });
 ok('anime', () => {
   assert.equal(vercelLink('anime', T), `${VERCEL_SITES.anime}/auth/confirm?token_hash=${T}&type=magiclink&next=%2F`);

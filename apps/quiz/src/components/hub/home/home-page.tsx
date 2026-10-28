@@ -1,4 +1,4 @@
-// Run O1, lot H2a: the new FanQuiz home (docs/o1/design/fanquiz-hub/), block by block, in the order of the Plan: top bar, hero with the two
+// Run O1, lot H2a: the new FandomVerse home (docs/o1/design/fanquiz-hub/), block by block, in the order of the Plan: top bar, hero with the two
 // doors and Surprise me, Today, 60 seconds, Hot right now, For you or Start easy, Crossover, Top fans and the passport, footer.
 // Each block takes its data from one loader of lib/site/hub/home-*.ts; the page is the composition and the structured data.
 // Lot H2c: a block whose data is missing (null or empty) is left out and the grid around it adapts, as the design's sc-if does; the

@@ -41,7 +41,7 @@ while [ $# -gt 0 ]; do
 done
 [ -n "$who" ] || usage
 site="${site:-kpop}"
-case "$site" in kpopquiz) site=kpop ;; otakuquiz) site=anime ;; fanquiz) site=hub ;; esac
+case "$site" in kpopquiz) site=kpop ;; otakuquiz) site=anime ;; fandomverse|fanquiz) site=hub ;; esac
 case "$site" in kpop|anime|hub) ;; *) die "the site must be kpop, anime or hub" ;; esac
 case "$HPORT" in ''|*[!0-9]*) die "bad O1_SIGNIN_PORT" ;; esac
 

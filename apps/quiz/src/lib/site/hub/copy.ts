@@ -4,6 +4,7 @@
 import { COPY as H1 } from '@/copy/hub/h1';
 import { HANDOFF_LOG_DAYS, DELETION_GRACE_DAYS, leavableSites } from '@/lib/passport/deletion/policy';
 import { PASSPORT_SECONDS } from '@/lib/passport/types';
+import { siteAddress } from '@/lib/site/brand';
 import { formatLaunchDate } from '@/lib/site/indexing';
 import { MAILBOX, NETWORK, SITE, siteConfig } from '@/lib/site/registry';
 import { SITE_IDS } from '@/lib/site/types';
@@ -16,9 +17,9 @@ function andList(names: readonly string[]): string {
   return names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : (names[0] ?? '');
 }
 
-/** The sites of the network, in display order, with their domains: "A (a.org), B (b.org) and C (c.org)". */
+/** The sites of the network, in display order, with their addresses: "A (a.org), B (c.org/b) and C (c.org)" (siteAddress: OtakuQuiz is a folder of fandomverse.org). */
 function siteList(): string {
-  return andList(SITE_IDS.map((id) => `${siteConfig(id).brand.name} (${siteConfig(id).domain})`));
+  return andList(SITE_IDS.map((id) => `${siteConfig(id).brand.name} (${siteAddress(siteConfig(id))})`));
 }
 
 /** The mailbox of the hub: the one network mailbox, from the registry. */
@@ -31,9 +32,9 @@ const BASE_VARS: HubCopyVars = {
   network: NETWORK.name,
   brand: siteConfig('hub').brand.name,
   domain: siteConfig('hub').domain,
-  // The legal notice (legal.*): the site that serves the page, from the registry.
+  // The legal notice (legal.*): the site that serves the page, from the registry, with its address (fandomverse.org/anime on OtakuQuiz).
   site: SITE.brand.name,
-  siteDomain: SITE.domain,
+  siteDomain: siteAddress(SITE),
   // The privacy draft (privacy.*): the three sites with their domains, and the hub mailbox.
   sites: siteList(),
   email: HUB_EMAIL,

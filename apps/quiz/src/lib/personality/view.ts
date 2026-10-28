@@ -18,7 +18,7 @@ export interface ResultView {
   traits: string[];
   /** A group photo from public/idols. A member result never has one. */
   photo: string | null;
-  /** CSS object-position of the photo (the focal point of an owner's portrait on otakuquiz.org). Absent everywhere else, kpop included. */
+  /** CSS object-position of the photo (the focal point of an owner's portrait on fandomverse.org/anime). Absent everywhere else, kpop included. */
   photoPosition?: string | undefined;
   songs?: Array<{ title: string; year: number }>;
   /** The group page, when the group exists. */

@@ -49,7 +49,7 @@ describe('BlindtestHubV11', () => {
       expect(html).toContain('anime opening');
       expect(html).not.toContain('/live');
       expect(html).not.toContain('/guess-the-kpop-song');
-      expect(html).toContain('https://otakuquiz.org/');
+      expect(html).toContain('https://fandomverse.org/anime/');
     });
   }
 });

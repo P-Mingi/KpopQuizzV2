@@ -27,7 +27,7 @@ describe('NetLink', () => {
   it('editorial: a plain followed <a> to the canonical url, no query, no rel', async () => {
     const { NetLink } = await load('kpop');
     const html = renderToString(h(NetLink, { dst: 'hub', path: '/', linkId: 'foot', editorial: true, className: 'x', children: 'Hub' }));
-    expect(html).toBe('<a class="x" href="https://fanquiz.org/">Hub</a>');
+    expect(html).toBe('<a class="x" href="https://fandomverse.org/">Hub</a>');
   });
   it('not editorial: nothing in the server HTML', async () => {
     const { NetLink } = await load('kpop');
@@ -42,7 +42,7 @@ describe('NetFooterLine', () => {
       const { NetFooterLine } = await load(site);
       const html = renderToString(h(NetFooterLine));
       expect([...html.matchAll(/<a\b[^>]*>/g)]).toHaveLength(1);
-      expect(html).toContain('href="https://fanquiz.org/"');
+      expect(html).toContain('href="https://fandomverse.org/"');
       expect(html).not.toMatch(/rel=|\?|nofollow/);
       expect(html).not.toMatch(/[\u2013\u2014]/);
       if (site === 'anime') expect(html).not.toMatch(/k-?pop/i);

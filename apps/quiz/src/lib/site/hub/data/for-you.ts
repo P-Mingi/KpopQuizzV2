@@ -2,7 +2,7 @@
 // other site. At most three cards, and the bridge is always from the other site.
 //
 // Continue is NOT available: the run in progress lives in the browser (localStorage "ux:continue:v1", lib/ux-v1/p4/continue.ts) and
-// each site has its own origin, so fanquiz.org cannot read it and no server table holds it. The card is never invented; the block
+// kpopquiz.org is another origin than fandomverse.org, so the hub cannot read it there, and no server table holds it. The card is never invented; the block
 // returns the other cards (data report: what is missing).
 // Next in your fandom: the group or series played the most (plays rows, newest 1000), then its unplayed quizzes by quality. The
 // difficulty adapts: an average of 80% or more on that group goes one step harder than the last quiz played there, under 50% one step

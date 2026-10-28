@@ -108,7 +108,9 @@ describe('/me on anime', () => {
     const { UxPassportGuest } = await import('@/components/profile/ux-v1/passport-guest');
     const html = renderToStaticMarkup(h(UxPassportGuest, { words: (me as Extract<typeof me, { kind: 'guest' }>).words }));
     expect(html).toContain('Your OtakuQuiz passport');
-    expect(html).not.toMatch(/k-?pop|discord/i);
+    // 2026-10-28 (owner): fandomverse.org signs in with Google and Discord, so Discord is named there as a sign-in method and nowhere else.
+    expect(html).toContain('sign in with Google or Discord.');
+    expect(html.replace('Google or Discord', '')).not.toMatch(/k-?pop|discord/i);
   });
 
   it('a user with no profile goes to /onboarding', async () => {

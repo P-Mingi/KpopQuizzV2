@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 
 import { describe, expect, it } from 'vitest';
 
-import { brandWordmark, domainWordmark, siteUrl, splitAtQuiz } from './brand';
+import { brandWordmark, domainWordmark, siteAddress, siteUrl, splitAtQuiz } from './brand';
 import { siteNavigationJsonLd } from './jsonld';
 import { KPOP_THEME_COLOR } from './kpop';
 import { siteRootMetadata, siteViewport } from './metadata';
@@ -52,7 +52,8 @@ describe('root metadata', () => {
       const m = siteRootMetadata({ title: 'kpop object' }, site);
       const text = JSON.stringify(m);
       expect(text, id).not.toMatch(/kpop|k-pop|p:domain_verify|pinterest/i);
-      expect(String(m.metadataBase)).toBe(`${site.url}/`);
+      // The registry url, folder included on OtakuQuiz (https://fandomverse.org/anime, 2026-10-28).
+      expect(String(m.metadataBase)).toBe(new URL(site.url).href);
       expect(m.title).toEqual({ default: site.brand.name, template: site.seo.titleTemplate });
       expect(m.openGraph?.siteName).toBe(site.brand.name);
       expect(JSON.stringify(m.openGraph?.images)).toContain(site.brand.ogTemplate);
@@ -87,7 +88,7 @@ describe('site navigation JSON-LD (app/(site)/layout.tsx before B1)', () => {
 
   it('other sites list the links of their own features, on their own origin', () => {
     const anime = siteNavigationJsonLd(REGISTRY.anime).hasPart as { url: string }[];
-    expect(anime.map((p) => p.url)).toEqual(['/quizzes', '/leaderboard', '/trivia'].map((p) => `https://otakuquiz.org${p}`));
+    expect(anime.map((p) => p.url)).toEqual(['/quizzes', '/leaderboard', '/trivia'].map((p) => `https://fandomverse.org/anime${p}`));
     expect(siteNavigationJsonLd(REGISTRY.hub).hasPart).toEqual([]);
   });
 });
@@ -109,8 +110,12 @@ describe('brand helpers', () => {
 
   it('anime and hub split on their own names', () => {
     expect(brandWordmark(REGISTRY.anime)).toEqual({ head: 'Otaku', tail: 'Quiz' });
-    expect(domainWordmark(REGISTRY.anime)).toEqual({ head: 'otaku', tail: 'quiz.org' });
-    expect(brandWordmark(REGISTRY.hub)).toEqual({ head: 'Fan', tail: 'Quiz' });
+    expect(domainWordmark(REGISTRY.anime)).toEqual({ head: 'fandom', tail: 'verse.org/anime' });
+    expect(brandWordmark(REGISTRY.hub)).toEqual({ head: 'Fandom', tail: 'Verse' });
+    expect(domainWordmark(REGISTRY.hub)).toEqual({ head: 'fandom', tail: 'verse.org' });
+    expect(siteAddress(REGISTRY.kpop)).toBe(REGISTRY.kpop.domain);
+    expect(siteAddress(REGISTRY.anime)).toBe('fandomverse.org/anime');
+    expect(siteAddress(REGISTRY.hub)).toBe('fandomverse.org');
   });
 });
 

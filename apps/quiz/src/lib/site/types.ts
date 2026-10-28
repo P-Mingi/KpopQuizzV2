@@ -16,7 +16,7 @@ export type SiteId = 'kpop' | 'anime' | 'hub';
 /** Every SiteId, in the network's display order (kpop, anime, hub). */
 export const SITE_IDS: readonly SiteId[] = ['kpop', 'anime', 'hub'];
 
-/** A world is a fan site with quizzes; the hub is fanquiz.org (network page and passport). */
+/** A world is a fan site with quizzes; the hub is fandomverse.org (network page and passport). */
 export type SiteKind = 'world' | 'hub';
 
 /** One letter per site, used by `via` codes (`^[kaf]\.[a-z]{2,8}$`) and NetBridgeId values. */
@@ -24,12 +24,12 @@ export type SiteLetter = 'k' | 'a' | 'f';
 
 /** The network umbrella (naming.md: lib/network and the Net prefix). */
 export interface NetworkConfig {
-  readonly name: 'FanQuiz';
-  readonly url: 'https://fanquiz.org';
+  readonly name: 'FandomVerse';
+  readonly url: 'https://fandomverse.org';
 }
 
 export interface SiteBrand {
-  /** Display name, as written in titles and JSON-LD (KpopQuiz, OtakuQuiz, FanQuiz). */
+  /** Display name, as written in titles and JSON-LD (KpopQuiz, OtakuQuiz, FandomVerse). */
   readonly name: string;
   /** Short name for the web manifest and tight spaces. */
   readonly shortName: string;

@@ -1,7 +1,7 @@
 // Run O1, lane Q0a, leak suite: canonical and OG per site. Never a cross-domain canonical: on every page of a site the
 // canonical, og:url and hreflang alternates are on the site's own domain, og:site_name is the site's brand, og:image
 // and twitter:image are on the own domain or Supabase storage (never another network site), JSON-LD urls never name
-// the other world (the FanQuiz parent organization excepted); robots.txt and sitemap.xml list own-domain URLs only.
+// the other world (the FandomVerse parent organization excepted); robots.txt and sitemap.xml list own-domain URLs only.
 import { expect, test } from '@playwright/test';
 
 import { analyzeHtml, checkIdentity, checkRootFile } from '../../../scripts/o1/leak-lib.mjs';

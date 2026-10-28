@@ -292,7 +292,7 @@ export default function HomePage(): React.ReactElement {
   }
   return (
     <div className="pt-1 pb-8">
-      {/* Run O1: no Verse redirect on otakuquiz.org (kpop only). */}
+      {/* Run O1: no Verse redirect on fandomverse.org/anime (kpop only). */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

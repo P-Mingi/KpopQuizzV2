@@ -20,7 +20,7 @@ async function onSite<T>(site: 'kpop' | 'anime' | 'hub', load: () => Promise<T>)
 }
 
 describe('organizationJsonLdFor', () => {
-  for (const [site, name, origin, email] of [['anime', 'OtakuQuiz', 'https://otakuquiz.org', 'hello@kpopquiz.org'], ['hub', 'FanQuiz', 'https://fanquiz.org', 'hello@kpopquiz.org']] as const) {
+  for (const [site, name, origin, email] of [['anime', 'OtakuQuiz', 'https://fandomverse.org/anime', 'hello@kpopquiz.org'], ['hub', 'FandomVerse', 'https://fandomverse.org', 'hello@kpopquiz.org']] as const) {
     it(`${site}: its own name, host, origin, logo and organization mailbox; no founder, no profile links, no kpop`, async () => {
       const { organizationJsonLdFor } = await onSite(site, () => import('./jsonld'));
       const org = organizationJsonLdFor();
@@ -38,7 +38,7 @@ describe('organizationJsonLdFor', () => {
 
 describe('Breadcrumbs', () => {
   const ld = (html: string): string => html.slice(html.indexOf('{'), html.lastIndexOf('}') + 1);
-  for (const [site, origin] of [['kpop', 'https://kpopquiz.org'], ['anime', 'https://otakuquiz.org']] as const) {
+  for (const [site, origin] of [['kpop', 'https://kpopquiz.org'], ['anime', 'https://fandomverse.org/anime']] as const) {
     it(`${site}: the item URLs default to the origin of the site of the build`, async () => {
       const { Breadcrumbs } = await onSite(site, () => import('@/components/ui/breadcrumbs'));
       const html = renderToStaticMarkup(h(Breadcrumbs, { items: [{ label: 'Home', href: '/' }, { label: 'All series' }] }));
@@ -61,8 +61,8 @@ describe('DEFAULT_OG_IMAGE', () => {
 describe('the hub /directory metadata', () => {
   it('names the hub: Open Graph site name, URL and title, canonical /directory, noindex', async () => {
     const { metadata } = await onSite('hub', () => import('@/app/sites/[site]/(hub)/directory/page'));
-    expect(metadata.openGraph).toMatchObject({ siteName: 'FanQuiz', url: 'https://fanquiz.org/directory' });
-    expect(String((metadata.openGraph as { title: string }).title)).toContain('FanQuiz');
+    expect(metadata.openGraph).toMatchObject({ siteName: 'FandomVerse', url: 'https://fandomverse.org/directory' });
+    expect(String((metadata.openGraph as { title: string }).title)).toContain('FandomVerse');
     expect(metadata.alternates?.canonical).toBe('/directory');
     expect(metadata.robots).toEqual({ index: false, follow: false });
     expect(JSON.stringify(metadata)).not.toMatch(/kpop/i);

@@ -2,14 +2,21 @@
 // (the origin of the site plus the path); the shapes of the home keep the path and let homeUrl add the origin, so each link is
 // built once, from the registry.
 
-import type { HubQuizCard } from './data';
-import type { HomeQuiz } from './home-types';
+import { REGISTRY } from '@/lib/site/registry';
 
-/** The path (and query) of an absolute link of a module; a path stays as it is. */
-export function pathOf(href: string): string {
+import type { HubQuizCard } from './data';
+import type { HomeQuiz, HomeSite } from './home-types';
+
+/**
+ * The path (and query) of an absolute link of a module; a path stays as it is. With `site`, the folder of that site's registry url is
+ * taken off too (OtakuQuiz lives at fandomverse.org/anime since 2026-10-28): homeUrl adds the site's url back, so the folder is never doubled.
+ */
+export function pathOf(href: string, site?: HomeSite): string {
   try {
     const u = new URL(href);
-    return `${u.pathname}${u.search}`;
+    const folder = site ? new URL(REGISTRY[site].url).pathname.replace(/\/$/, '') : '';
+    const inFolder = folder !== '' && (u.pathname === folder || u.pathname.startsWith(`${folder}/`));
+    return `${inFolder ? u.pathname.slice(folder.length) || '/' : u.pathname}${u.search}`;
   } catch {
     return href;
   }

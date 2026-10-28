@@ -23,7 +23,7 @@ describe('readTabVia', () => {
 
 describe('emailRedirect and destinationAfterSignin', () => {
   it('the email link comes back to the site landing with next as its only query', () => {
-    expect(emailRedirect('https://otakuquiz.org', '/auth/confirm', '/q/my quiz?a=1')).toBe('https://otakuquiz.org/auth/confirm?next=%2Fq%2Fmy%20quiz%3Fa%3D1');
+    expect(emailRedirect('https://fandomverse.org/anime', '/auth/confirm', '/q/my quiz?a=1')).toBe('https://fandomverse.org/anime/auth/confirm?next=%2Fq%2Fmy%20quiz%3Fa%3D1');
   });
   it('anime asks for a username, the hub goes home, a member goes to next', () => {
     expect(destinationAfterSignin('anime', { next: '/daily', needsUsername: true })).toBe('/onboarding?returnTo=%2Fdaily');
@@ -66,7 +66,7 @@ describe('signInWithGoogle', () => {
       },
     };
   }
-  const opts = { clientId: 'cid', origin: 'https://otakuquiz.org', via: 'k.menu' };
+  const opts = { clientId: 'cid', origin: 'https://fandomverse.org/anime', via: 'k.menu' };
 
   it('with a Google token: Supabase, then after-signin, then the place to go', async () => {
     const db = client();
@@ -92,7 +92,7 @@ describe('signInWithGoogle', () => {
     const db = client();
     const out = await signInWithGoogle(db, 'anime', '/q/a b', opts, { token: async () => ({ kind: 'unavailable' }) });
     expect(out).toEqual({ kind: 'redirecting' });
-    expect(db.calls).toEqual(['oauth:https://otakuquiz.org/auth/callback?returnTo=%2Fq%2Fa%20b']);
+    expect(db.calls).toEqual(['oauth:https://fandomverse.org/anime/auth/callback?returnTo=%2Fq%2Fa%20b']);
     const failing = client({ oauth: { message: 'nope' } });
     expect(await signInWithGoogle(failing, 'anime', '/', opts, { token: async () => ({ kind: 'unavailable' }) })).toEqual({ kind: 'error', message: 'nope' });
   });

@@ -154,7 +154,7 @@ describe('the transaction cookie (cookies.md 2)', () => {
 
 describe('the cookie name follows the protocol (cookies.md 2)', () => {
   it('__Host-pp_tx on every https request, with Secure', () => {
-    for (const url of ['https://kpopquiz.org/auth/arrive', 'https://anime.localhost:3104/auth/arrive', 'https://otakuquiz.org/']) {
+    for (const url of ['https://kpopquiz.org/auth/arrive', 'https://anime.localhost:3104/auth/arrive', 'https://fandomverse.org/anime/']) {
       expect(txCookieName(url, null, {})).toBe(TX_COOKIE_NAMES.https);
     }
     expect(txCookieName('http://x.test/', 'https', {})).toBe('__Host-pp_tx');

@@ -4,7 +4,7 @@
 --         then the inventory: verse_threads, verse_essays, editorial_posts, community_replies, community_debates,
 --         community_challenges, reports, live_rooms, challenges, personality_profiles), and on each one the foreign
 --         key <table>_site_id_fkey references public.sites(id), added NOT VALID (002b validates it).
--- Why:    one database serves kpopquiz.org, otakuquiz.org and fanquiz.org; every scoped read filters by site_id
+-- Why:    one database serves kpopquiz.org, fandomverse.org/anime and fandomverse.org; every scoped read filters by site_id
 --         (forSite, SITE_SCOPE) and every scoped insert carries it (withSite). Additive only: kpop code that never
 --         names site_id keeps working, and every existing and future kpop row reads 'kpop' through the default.
 -- Rows:   24 tables altered; no row is rewritten or scanned (a constant default is catalog-only since Postgres 11,

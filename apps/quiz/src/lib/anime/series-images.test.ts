@@ -233,7 +233,7 @@ describe('the credit line on the series page', () => {
 
   it('is in the header slots of the general mix hub, as for a series, and only when the licence asks for it', async () => {
     const { buildMixSlots } = await import('@/components/anime/series-hub-slots');
-    const site = { origin: 'https://otakuquiz.org', brand: 'OtakuQuiz' };
+    const site = { origin: 'https://fandomverse.org/anime', brand: 'OtakuQuiz' };
     const group = (slug: string): never => ({ slug, name: 'Fixture', quiz_count: 3 }) as never;
     const withCredit = buildMixSlots(group('fixture-cc-by'), site);
     expect(html(h('div', null, withCredit.heroFacts as React.ReactNode))).toContain('Photo: <a');

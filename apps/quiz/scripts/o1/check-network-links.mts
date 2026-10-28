@@ -1,9 +1,9 @@
 // Run O1, lane Q0a: check-network-links (Q-bridges D0; BACKLOG 2.6, the CI gate of the link allowlist).
 //
-// An anonymous crawl of each site given: every link to another FanQuiz site must be on the allowlist, carry no `via`,
+// An anonymous crawl of each site given: every link to another FandomVerse site must be on the allowlist, carry no `via`,
 // have the rel the allowlist asks (nofollow where it says so, followed brand links where it says so), stay under its
-// per-page cap; no canonical or alternate head link points to another network site; and on otakuquiz.org the HTML
-// never contains "kpopquiz.org" outside the allowlisted links (the mirror on kpopquiz.org: "otakuquiz.org").
+// per-page cap; no canonical or alternate head link points to another network site; and on fandomverse.org/anime the HTML
+// never contains "kpopquiz.org" outside the allowlisted links (the mirror on kpopquiz.org: "fandomverse.org/anime").
 // The rules live in apps/quiz/scripts/o1/leak-lib.mjs (unit tests: leak-lib.test.mjs), shared with the Playwright
 // leak suite (apps/quiz/e2e/o1/leak/link-leak.o1.ts), so the gate and the suite judge with one implementation.
 //

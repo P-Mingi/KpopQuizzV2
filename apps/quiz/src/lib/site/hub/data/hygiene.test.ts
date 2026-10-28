@@ -29,7 +29,7 @@ describe('the files of the home data', () => {
   it('writes no site address: every link is built from the origins of the registry', () => {
     for (const f of prod) {
       const code = source(f).split('\n').filter((l) => !l.trim().startsWith('//') && !l.trim().startsWith('*')).join('\n');
-      expect(code, f).not.toMatch(/https?:\/\/(?:www\.)?(?:kpopquiz|otakuquiz|fanquiz)/i);
+      expect(code, f).not.toMatch(/https?:\/\/(?:www\.)?(?:kpopquiz|otakuquiz|fanquiz|fandomverse)/i);
     }
   });
 

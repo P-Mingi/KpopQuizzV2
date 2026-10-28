@@ -1,4 +1,4 @@
-/* Run O1, lot H2a: the new FanQuiz home (docs/o1/design/fanquiz-hub/Main.dc.html at 1440, Mobile.dc.html at 390), as classes.
+/* Run O1, lot H2a: the new FandomVerse home (docs/o1/design/fanquiz-hub/Main.dc.html at 1440, Mobile.dc.html at 390), as classes.
    Every selector starts with the site scope and names only hub-h2-* classes (tokens.md 3.3). Colours are the frozen --ux-* tokens
    wherever the design's value is the token's value; the rest are the --hub-* locals below with the design's exact values (the
    KpopQuiz pink and the OtakuQuiz orange are only on what belongs to their site; the hub itself is ink and cream).

@@ -1,5 +1,5 @@
-// Run O1 (rule 18): the home of an anime or hub build. otakuquiz.org shows the twin of kpopquiz.org's home (TWINS row 1,
-// home-anime.tsx); fanquiz.org shows the twin of its /about page (row H-1, home-hub.tsx). Both are copies made by
+// Run O1 (rule 18): the home of an anime or hub build. fandomverse.org/anime shows the twin of kpopquiz.org's home (TWINS row 1,
+// home-anime.tsx); fandomverse.org shows the twin of its /about page (row H-1, home-hub.tsx). Both are copies made by
 // scripts/o1/twins-codemod.mjs that import the kpop components.
 import type { Metadata } from 'next';
 

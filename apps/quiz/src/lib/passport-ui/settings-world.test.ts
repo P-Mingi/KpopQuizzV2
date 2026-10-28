@@ -28,7 +28,7 @@ describe('settingsWorld', () => {
     expect(w.signOutModes).toEqual(['global', 'local']);
     expect(w.words.signOutHere).toBe('Sign out of OtakuQuiz only');
     expect(w.words.signOutEverywhere).toBe('Sign out everywhere');
-    expect(w.words.passportRow).toBe('FanQuiz passport');
+    expect(w.words.passportRow).toBe('FandomVerse passport');
     expect(w.words.oshi).toBe('Oshi');
     expect(w.passportHref).toBe('/auth/passport/out?to=hub&next=%2Fpassport&via=a.pp');
   });

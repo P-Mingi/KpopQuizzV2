@@ -4,7 +4,7 @@
 //                            the decoded page data (React Flight) and the text layer.
 //   checkLinks(...)          cross-site links against the allowlist (Q-bridges D0: never a cross-site link outside it,
 //                            never `via` for an anonymous visitor, nofollow where the allowlist says so, and on
-//                            otakuquiz.org no "kpopquiz.org" anywhere outside the allowlisted links; the mirror on kpop).
+//                            fandomverse.org/anime no "kpopquiz.org" anywhere outside the allowlisted links; the mirror on kpop).
 //   checkIdentity(...)       canonical, og:url, og:site_name, og:image, hreflang and JSON-LD urls per site (never a
 //                            cross-domain canonical).
 //   checkStrings(...)        P2 and its mirror: no K-pop marker on anime pages, no anime marker on kpop pages.
@@ -31,8 +31,8 @@ export const SITE_IDS = ['kpop', 'anime', 'hub'];
 /** Contract values used when F0's registry is not importable (BACKLOG 5.1, frozen names). */
 export const FALLBACK_CONTRACT = {
   source: 'fallback (BACKLOG 5.1)',
-  domains: { kpop: 'kpopquiz.org', anime: 'otakuquiz.org', hub: 'fanquiz.org' },
-  brands: { kpop: 'KpopQuiz', anime: 'OtakuQuiz', hub: 'FanQuiz' },
+  domains: { kpop: 'kpopquiz.org', anime: 'fandomverse.org/anime', hub: 'fandomverse.org' },
+  brands: { kpop: 'KpopQuiz', anime: 'OtakuQuiz', hub: 'FandomVerse' },
   devHosts: { kpop: 'kpop.localhost', anime: 'anime.localhost', hub: 'hub.localhost' },
 };
 
@@ -188,13 +188,53 @@ export function textLayer(an, dropRaw = []) {
 // ---------------------------------------------------------------------------------------------------------------
 // Sites and URLs
 
-/** The site of a host: a production domain (www. allowed), a dev host, or null (outside the network). */
+/**
+ * The host and the folder of a site address of the contract: `fandomverse.org/anime` gives fandomverse.org and /anime (OtakuQuiz is a
+ * folder of fandomverse.org since 2026-10-28), `kpopquiz.org` gives kpopquiz.org and ''.
+ */
+export function splitAddress(address) {
+  const a = String(address || '').toLowerCase();
+  const i = a.indexOf('/');
+  return i < 0 ? { host: a, folder: '' } : { host: a.slice(0, i), folder: a.slice(i).replace(/\/+$/, '') };
+}
+
+const bareHost = (host) => String(host || '').toLowerCase().replace(/:\d+$/, '').replace(/^www\./, '');
+
+/** The site of a host: a production address with no folder whose host it is (www. allowed), a dev host, or null (outside the network). */
 export function siteOfHost(host, contract = FALLBACK_CONTRACT) {
-  const h = String(host || '').toLowerCase().replace(/:\d+$/, '').replace(/^www\./, '');
+  const h = bareHost(host);
   for (const s of SITE_IDS) {
-    if (h === contract.domains[s]) return s;
+    const a = splitAddress(contract.domains[s]);
+    if (h === a.host && a.folder === '') return s;
     if (contract.devHosts && h === contract.devHosts[s]) return s;
   }
+  return null;
+}
+
+/**
+ * The site of a URL: the production address that holds it, the longest first (https://fandomverse.org/anime/x is OtakuQuiz,
+ * https://fandomverse.org/x the hub), else a dev host (unless `dev` is false), else null (outside the network). `path` is the path inside
+ * that site.
+ * @returns {{ site: Site, path: string } | null}
+ */
+export function siteOfUrl(url, contract = FALLBACK_CONTRACT, dev = true) {
+  let u;
+  try {
+    u = typeof url === 'string' ? new URL(url) : url;
+  } catch {
+    return null;
+  }
+  if (!u || !/^https?:$/.test(u.protocol)) return null;
+  const h = bareHost(u.host);
+  let best = null;
+  for (const s of SITE_IDS) {
+    const a = splitAddress(contract.domains[s]);
+    if (h !== a.host) continue;
+    const inside = a.folder === '' || u.pathname === a.folder || u.pathname.startsWith(`${a.folder}/`);
+    if (inside && (best === null || a.folder.length > best.folder.length)) best = { site: s, folder: a.folder };
+  }
+  if (best) return { site: best.site, path: u.pathname.slice(best.folder.length) || '/' };
+  if (dev) for (const s of SITE_IDS) if (contract.devHosts && h === contract.devHosts[s]) return { site: s, path: u.pathname };
   return null;
 }
 
@@ -213,10 +253,11 @@ export function linkTarget(href, pageUrl, site, contract = FALLBACK_CONTRACT) {
   }
   if (!/^https?:$/.test(u.protocol)) return { kind: 'none' };
   const page = new URL(pageUrl);
+  // The address first: a page of fandomverse.org and a page of fandomverse.org/anime share the host but not the site.
+  const s = siteOfUrl(u, contract);
+  if (s && s.site === site) return { kind: 'self', url: u };
+  if (s) return { kind: 'site', site: s.site, url: u, path: s.path };
   if (u.host === page.host) return { kind: 'self', url: u };
-  const s = siteOfHost(u.host, contract);
-  if (s === site) return { kind: 'self', url: u };
-  if (s) return { kind: 'site', site: s, url: u };
   return { kind: 'external', url: u };
 }
 
@@ -236,13 +277,13 @@ function asList(v) {
 }
 
 /** Allowlist entries that admit a link from (site, path) to (target, url). */
-export function allowedBy(allowlist, site, path, target, url) {
+export function allowedBy(allowlist, site, path, target, url, targetPath = url.pathname) {
   return (allowlist.links || []).filter(
     (e) =>
       asList(e.from).includes(site) &&
       asList(e.page).some((p) => pageMatches(p, path)) &&
       asList(e.to).includes(target) &&
-      asList(e.href ?? '*').some((p) => pageMatches(p, url.pathname)),
+      asList(e.href ?? '*').some((p) => pageMatches(p, targetPath)),
   );
 }
 
@@ -268,7 +309,7 @@ export function checkLinks({ site, path, pageUrl, an, allowlist, contract = FALL
     if (t.kind !== 'site') continue;
     const where = `${t.site} ${t.url.host}${t.url.pathname}${t.url.search}`;
     if (anonymous && t.url.searchParams.has('via')) violations.push({ code: 'via-anonymous', detail: where });
-    const entries = allowedBy(allowlist, site, path, t.site, t.url);
+    const entries = allowedBy(allowlist, site, path, t.site, t.url, t.path);
     if (entries.length === 0) {
       violations.push({ code: 'link-not-allowed', detail: `${where} "${short(a.text, 40)}"` });
       continue;
@@ -292,7 +333,7 @@ export function checkLinks({ site, path, pageUrl, an, allowlist, contract = FALL
     if (t.kind === 'site') violations.push({ code: 'head-link-cross-site', detail: `${l.rel} ${t.url.host}${t.url.pathname}` });
   }
   // The domain of the other world anywhere in the page (markup, metadata, JSON-LD, page data, scripts), once the
-  // allowlisted links are removed: otakuquiz.org never says kpopquiz.org (Q-bridges D0), and the mirror on kpop.
+  // allowlisted links are removed: fandomverse.org/anime never says kpopquiz.org (Q-bridges D0), and the mirror on kpop.
   for (const other of asList((allowlist.domainText || {})[site])) {
     const domain = contract.domains[other];
     if (!domain) continue;
@@ -315,7 +356,7 @@ function jsonLdUrls(blocks) {
     if (Array.isArray(v)) v.forEach((x) => walk(x, key));
     else if (v && typeof v === 'object') {
       for (const [k, x] of Object.entries(v)) {
-        if (k === 'parentOrganization') continue; // the network parent (fanquiz.org) is allowed on every site
+        if (k === 'parentOrganization') continue; // the network parent (fandomverse.org) is allowed on every site
         walk(x, k);
       }
     } else if (typeof v === 'string' && /^(url|@id|sameAs|item|mainEntityOfPage)$/.test(key || '') && /^https?:\/\//.test(v)) out.push(v);
@@ -342,7 +383,6 @@ function jsonLdUrls(blocks) {
 export function checkIdentity({ site, an, contract = FALLBACK_CONTRACT }) {
   /** @type {Violation[]} */
   const violations = [];
-  const own = contract.domains[site];
   const hostOf = (u) => {
     try {
       return new URL(u).host.toLowerCase();
@@ -350,16 +390,19 @@ export function checkIdentity({ site, an, contract = FALLBACK_CONTRACT }) {
       return null;
     }
   };
+  // The site of a URL by its address (host and folder): fandomverse.org/anime is OtakuQuiz, fandomverse.org the hub. Canonical, hreflang
+  // and og:url must be the own production address (`prod`); a dev host there is a violation, as before.
+  const siteOf = (u) => siteOfUrl(u, contract)?.site ?? null;
+  const prod = (u) => siteOfUrl(u, contract, false)?.site ?? null;
   for (const l of an.headLinks) {
     if (!l.href) continue;
     if (l.rel.split(/\s+/).includes('canonical') || (l.rel.split(/\s+/).includes('alternate') && l.hreflang)) {
-      const h = hostOf(l.href);
       const kind = l.rel.includes('canonical') ? 'canonical' : `hreflang ${l.hreflang}`;
-      if (h !== own) violations.push({ code: h && siteOfHost(h, contract) ? 'cross-domain-canonical' : 'canonical-foreign-host', detail: `${kind} ${short(l.href, 70)}` });
+      if (prod(l.href) !== site) violations.push({ code: siteOf(l.href) ? 'cross-domain-canonical' : 'canonical-foreign-host', detail: `${kind} ${short(l.href, 70)}` });
     }
   }
   const ogUrl = metaContent(an, 'og:url');
-  if (ogUrl !== null && hostOf(ogUrl) !== own) violations.push({ code: 'og-url-foreign', detail: short(ogUrl, 70) });
+  if (ogUrl !== null && prod(ogUrl) !== site) violations.push({ code: 'og-url-foreign', detail: short(ogUrl, 70) });
   const siteName = metaContent(an, 'og:site_name');
   if (siteName !== null && siteName !== contract.brands[site]) violations.push({ code: 'og-site-name', detail: `${siteName} (want ${contract.brands[site]})` });
   for (const key of ['og:image', 'twitter:image', 'og:image:secure_url']) {
@@ -367,7 +410,7 @@ export function checkIdentity({ site, an, contract = FALLBACK_CONTRACT }) {
     if (v === null) continue;
     const h = hostOf(v);
     if (h === null) continue; // relative: resolved on the own origin
-    const s = siteOfHost(h, contract);
+    const s = siteOf(v);
     if (s && s !== site) violations.push({ code: 'og-image-cross-site', detail: `${key} ${short(v, 70)}` });
     else if (!s && !/\.supabase\.co$/.test(h)) violations.push({ code: 'og-image-foreign-host', detail: `${key} ${short(v, 70)}` });
   }
@@ -376,7 +419,7 @@ export function checkIdentity({ site, an, contract = FALLBACK_CONTRACT }) {
       violations.push({ code: 'jsonld-invalid', detail: 'a JSON-LD block does not parse' });
       continue;
     }
-    const s = siteOfHost(hostOf(u), contract);
+    const s = siteOf(u);
     if (s && s !== site && s !== 'hub' && site !== 'hub') violations.push({ code: 'jsonld-cross-world', detail: short(u, 70) });
   }
   return violations;
@@ -388,18 +431,11 @@ export function checkIdentity({ site, an, contract = FALLBACK_CONTRACT }) {
  * @returns {Violation[]}
  */
 export function checkRootFile({ site, path, body, contract = FALLBACK_CONTRACT }) {
-  const own = contract.domains[site];
   const urls =
     path === '/robots.txt'
       ? [...body.matchAll(/^\s*sitemap:\s*(\S+)/gim)].map((m) => m[1])
       : [...body.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/gi)].map((m) => decodeEntities(m[1]));
-  const bad = urls.filter((u) => {
-    try {
-      return new URL(u).host.toLowerCase() !== own;
-    } catch {
-      return true;
-    }
-  });
+  const bad = urls.filter((u) => siteOfUrl(u, contract, false)?.site !== site);
   return bad.length ? [{ code: 'root-file-foreign-url', detail: `${path}: ${bad.length} of ${urls.length}, first ${short(bad[0], 60)}` }] : [];
 }
 

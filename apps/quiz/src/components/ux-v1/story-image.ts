@@ -205,7 +205,7 @@ export async function renderStoryCard(card: StoryCard): Promise<Blob | null> {
   } else {
     ctx.fillStyle = 'rgba(255,255,255,.82)';
     ctx.font = `600 36px ${font}`;
-    ctx.fillText(SITE.domain, PAD, L.footerY);
+    ctx.fillText(SITE.url.replace(/^https?:\/\//, ''), PAD, L.footerY);
   }
   if (L.qr) {
     const code = card.qr ? await loadImage(card.qr) : null;

@@ -1,4 +1,4 @@
-// Run O1, lot H2a: the shapes of the new FanQuiz home (docs/o1/design/fanquiz-hub/). Each block of the page takes its data from
+// Run O1, lot H2a: the shapes of the new FandomVerse home (docs/o1/design/fanquiz-hub/). Each block of the page takes its data from
 // one loader (home-*.ts) that returns one of these shapes. Lot H2c: every loader maps its module of lib/site/hub/data/ (lot H2b) to
 // its shape; a block with no data is null (or empty) and the page leaves it out, as the design's sc-if does. Pure types and two pure
 // helpers: no site name or origin is written here.

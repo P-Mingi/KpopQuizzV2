@@ -23,7 +23,7 @@ const BANNED = /k-?pop|discord|kpopquiz|bunny|\bstans?\b/i;
 const DASHES = /[\u2013\u2014]/;
 
 describe('the sign-in sheet on a world site', () => {
-  for (const [site, brand] of [['anime', 'OtakuQuiz'], ['hub', 'FanQuiz']] as const) {
+  for (const [site, brand] of [['anime', 'OtakuQuiz'], ['hub', 'FandomVerse']] as const) {
     it(`${site}: Google and the email link, the network line and the privacy line`, async () => {
       const { WorldSignInSheet } = await onSite(site, () => import('./world-sign-in-sheet'));
       const html = renderToStaticMarkup(h(WorldSignInSheet, { open: true, request: {}, onClose: () => undefined, inline: true }));
@@ -31,7 +31,7 @@ describe('the sign-in sheet on a world site', () => {
       expect(html).toContain('Continue with Google');
       expect(html).not.toContain('Continue with Discord');
       expect(html).toContain('Email me a sign-in link');
-      expect(html).toContain('One FanQuiz passport works on every site of the network.');
+      expect(html).toContain('One FandomVerse passport works on every site of the network.');
       expect(html).toContain('We never post for you.');
       expect(html).not.toMatch(BANNED);
       expect(html).not.toMatch(DASHES);
@@ -55,7 +55,7 @@ describe('the login body on a world site', () => {
     expect(html).not.toMatch(BANNED);
     expect(html).not.toMatch(DASHES);
     expect(html).toContain('Just let me play as a guest');
-    expect(html).toContain('One FanQuiz passport works on every site of the network.');
+    expect(html).toContain('One FandomVerse passport works on every site of the network.');
     expect(html).toContain('Email me a sign-in link');
   });
 });
@@ -65,7 +65,7 @@ describe('the onboarding form on anime', () => {
     const [{ OnboardingForm }, { onboardingWords }] = await onSite('anime', () => Promise.all([import('@/app/(site)/onboarding/onboarding-form'), import('@/lib/passport-ui/words')]));
     const html = renderToStaticMarkup(h(OnboardingForm, { words: onboardingWords('anime')! }));
     expect(html).toContain('Pick a username');
-    expect(html).toContain('every site of FanQuiz');
+    expect(html).toContain('every site of FandomVerse');
     expect(html).toContain('Claim username');
     expect(html).not.toMatch(BANNED);
     expect(html).not.toContain('army_mina');

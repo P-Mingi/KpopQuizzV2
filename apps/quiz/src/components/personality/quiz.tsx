@@ -35,7 +35,8 @@ const BIAS_ACTION = 'g5-bias';
 const PICK_DELAY_MS = 160;
 // Run O1 (PERS-2): the words of the site (the bias offer and the call to action of the story image): kpop says what it said before, anime says oshi.
 const OFFER = pickOfferWords(SITE.vocabulary.favourites.pickLabel);
-const CTA = playCta(SITE.domain);
+// The address of the site: its registry url without the scheme (fandomverse.org/anime on OtakuQuiz), written here so the module graph of the kpop page stays the same.
+const CTA = playCta(SITE.url.replace(/^https?:\/\//, ''));
 /** Sheets already sent when storage is blocked: per page load only. */
 const sentThisLoad = new Set<string>();
 

@@ -191,7 +191,7 @@ test('request, mail, cancel, request again, cron: the account is gone, the quizz
   results['mail: count'] = 1;
   results['mail: subject is the kpop one (1 = yes)'] = mail.subject === 'Your KpopQuiz passport will be deleted' ? 1 : 0;
   results['mail: date is today + 7 days (1 = yes)'] = mail.date === want ? 1 : 0;
-  results['mail: cancel link is the kpop settings page (1 = yes)'] = /\/settings"/.test(mail.html) && !/fanquiz/.test(mail.html.replace(/FanQuiz is the home[^<]*/, '')) ? 1 : 0;
+  results['mail: cancel link is the kpop settings page (1 = yes)'] = /\/settings"/.test(mail.html) && !/fandomverse/.test(mail.html.replace(/FandomVerse is the home[^<]*/, '')) ? 1 : 0;
   expect(mail.subject).toBe('Your KpopQuiz passport will be deleted');
   expect(mail.date).toBe(want);
   expect(mail.site).toBe('kpop');
