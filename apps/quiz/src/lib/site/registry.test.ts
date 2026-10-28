@@ -186,11 +186,15 @@ describe('frozen values of every entry (BACKLOG 5.1)', () => {
     }
   });
 
-  it('anime: star oshi, /auth/confirm, no Discord, both sign-out scopes, kpop-only features off', () => {
+  // FandomVerse (owner, 2026-10-28, reverses D-099): anime and hub sign in with Google and Discord only, Google through
+  // Supabase's OAuth redirect (kpopquiz.org's client, no client id env), never with an email link.
+  it('anime: star oshi, /auth/confirm, Google and Discord only, both sign-out scopes, kpop-only features off', () => {
     const a = REGISTRY.anime;
     expect(a.vocabulary.favourites.pickIcon).toBe('star');
     expect(a.auth.emailLanding).toBe('/auth/confirm');
-    expect(a.auth.providers).not.toContain('discord');
+    expect(a.auth.providers).toEqual(['google', 'discord']);
+    expect(a.auth.providers).not.toContain('email');
+    expect(a.auth.googleClientIdEnv).toBeNull();
     expect(a.auth.signOutModes).toEqual(['global', 'local']);
     for (const k of ['imageQuiz', 'fandomWar', 'mvPulse', 'live', 'verse', 'embed', 'localizedLandings'] as const) {
       expect(a.features[k], k).toBe(false);
@@ -205,6 +209,8 @@ describe('frozen values of every entry (BACKLOG 5.1)', () => {
     const on = Object.entries(h.features).filter(([, v]) => v).map(([k]) => k);
     expect(on).toEqual(['passportPages']);
     expect(h.auth.emailLanding).toBe('/auth/confirm');
+    expect(h.auth.providers).toEqual(['google', 'discord']);
+    expect(h.auth.googleClientIdEnv).toBeNull();
   });
 
   it('placeholders are declared for anime and hub', () => {

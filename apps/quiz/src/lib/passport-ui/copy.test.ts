@@ -52,7 +52,10 @@ describe('the words of a world site', () => {
     expect(p1('account.signOutHere', {}, 'anime')).toBe('Sign out of OtakuQuiz only');
     expect(p1('signin.title', {}, 'hub')).toBe('Sign in to FanQuiz');
     const all = JSON.stringify([passportWords('anime'), signInWords('anime'), onboardingWords('anime'), passportWords('hub'), signInWords('hub')]);
-    expect(all).not.toMatch(/k-?pop|discord|stan\b/i);
+    // FandomVerse (owner, 2026-10-28, reverses D-099): the Discord button is the one place Discord is named, as its label.
+    expect(signInWords('anime')?.discord).toBe('Continue with Discord');
+    expect(signInWords('hub')?.discord).toBe('Continue with Discord');
+    expect(all.replaceAll('"discord":"Continue with Discord"', '')).not.toMatch(/k-?pop|discord|stan\b/i);
     expect(passportWords('anime')?.tagIcon).toBe('star');
     expect(passportWords('hub')?.tagIcon).toBe('heart');
   });

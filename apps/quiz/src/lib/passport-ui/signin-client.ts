@@ -1,10 +1,14 @@
-// Run O1, lot (b), lane P1: the browser side of signing in on a world site (anime, hub). The email link goes through
-// `signInWithOtp` with `emailRedirectTo` the site's /auth/confirm (registry auth.emailLanding); Google goes through the
-// Google Identity Services button of the site's own client id, an ID token to Supabase, then POST
-// /api/passport/after-signin (apis.md 3.1), which stamps the membership and says where to go. Without a client id (or when
-// Google shows no prompt) Google falls back to Supabase's redirect flow. kpop never imports this module.
+// Run O1, lot (b), lane P1: the browser side of signing in on a world site (anime, hub). kpop never imports this module.
+//
+// FandomVerse (owner, 2026-10-28): fandomverse.org (hub) and fandomverse.org/anime sign in with Google and Discord only, both
+// through Supabase's OAuth redirect (signInWithProvider): the same Google client as kpopquiz.org, no Google Identity Services,
+// no email. The provider sends the browser back to the site's own /auth/callback (its basePath included) with the return
+// path and the tab's via; the callback (lib/passport/signin.ts handleWorldCallback) stamps the membership and says where to
+// go. The helpers of the earlier flow (the email link, the Google ID token, after-signin) stay exported and tested; the
+// FandomVerse sheets no longer call them.
 
 import { VIA_RE } from '@/lib/network/types';
+import { siteConfig } from '@/lib/site/registry';
 
 import type { SiteId } from '@/lib/site/types';
 
@@ -178,5 +182,54 @@ export async function signInWithGoogle(
     return { kind: 'error', message: done.error === 'banned' ? 'This account cannot sign in.' : 'We could not sign you in. Try again.' };
   }
   const { error } = await db.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${opts.origin}/auth/callback?returnTo=${encodeURIComponent(back)}` } });
+  return error ? { kind: 'error', message: error.message } : { kind: 'redirecting' };
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// FandomVerse: Google and Discord through Supabase's OAuth redirect
+// ---------------------------------------------------------------------------------------------------------------
+
+/** The two providers of a world site (registry auth.providers of anime and hub). */
+export type OAuthProvider = 'google' | 'discord';
+
+/** The part of the Supabase browser client the OAuth flow uses (tests pass a stand-in). */
+export interface OAuthClient {
+  readonly auth: {
+    signInWithOAuth(args: { provider: OAuthProvider; options: { redirectTo: string } }): Promise<{ error: { message: string } | null }>;
+  };
+}
+
+/**
+ * The address the provider sends the browser back to: `base` (the site's origin and basePath, 'https://fandomverse.org/anime')
+ * + /auth/callback, with the return path (an app path) and the tab's via when it is valid. Every value is encoded.
+ */
+export function oauthCallbackUrl(base: string, back: string, via: string | null): string {
+  const q = new URLSearchParams({ returnTo: back });
+  if (via !== null && VIA_RE.test(via)) q.set('via', via);
+  return `${base}/auth/callback?${q.toString()}`;
+}
+
+/** The app path of the page the browser is on (its basePath dropped): what a sign-in without an explicit returnTo comes back to. */
+export function currentAppPath(basePath: string, pathname: string, search: string): string {
+  let path = pathname;
+  if (basePath && (pathname === basePath || pathname.startsWith(`${basePath}/`))) path = pathname.slice(basePath.length) || '/';
+  return `${path}${search}`;
+}
+
+export type OAuthOutcome = { readonly kind: 'redirecting' } | { readonly kind: 'error'; readonly message: string };
+
+/**
+ * Google or Discord on a world site: Supabase's OAuth redirect, back to the site's /auth/callback. A provider the site does
+ * not offer (registry auth.providers) is refused before any call.
+ */
+export async function signInWithProvider(
+  db: OAuthClient,
+  site: SiteId,
+  provider: OAuthProvider,
+  back: string,
+  opts: { readonly base: string; readonly via: string | null },
+): Promise<OAuthOutcome> {
+  if (!siteConfig(site).auth.providers.includes(provider)) return { kind: 'error', message: 'This sign-in is not offered here.' };
+  const { error } = await db.auth.signInWithOAuth({ provider, options: { redirectTo: oauthCallbackUrl(opts.base, back, opts.via) } });
   return error ? { kind: 'error', message: error.message } : { kind: 'redirecting' };
 }
