@@ -21,7 +21,7 @@ describe('the notice of a kpop member', () => {
     expect(sent.subject).toBe('Your KpopQuiz passport will be deleted');
     expect(sent.html).toContain('2026-10-31');
     expect(sent.html).toContain('https://kpopquiz.org/settings');
-    expect(sent.html).not.toContain('fanquiz.org/settings');
+    expect(sent.html).not.toContain('fandomverse.org/settings');
     expect(sent.text).toContain('Cancel the deletion: https://kpopquiz.org/settings');
     expect(sent.from).toBe('KpopQuiz <no-reply@kpopquiz.org>');
     calls.length = 0;
@@ -32,12 +32,12 @@ describe('the notice of a kpop member', () => {
   it('the hub notice is unchanged (default site)', async () => {
     calls.length = 0;
     await sendDeletionNotice('f@example.test', '2026-10-31T12:00:00.000Z', { RESEND_API_KEY: 'k' }, okFetch);
-    expect(calls[0]!.body.subject).toBe('Your FanQuiz passport will be deleted');
-    expect(calls[0]!.body.html).toContain('https://fanquiz.org/settings');
+    expect(calls[0]!.body.subject).toBe('Your FandomVerse passport will be deleted');
+    expect(calls[0]!.body.html).toContain('https://fandomverse.org/settings');
   });
 
   it('the renderer: kpop renders deletionScheduled only; anime still does not; kpop sign-in emails still go to renderKpop', () => {
-    const kpop = { id: 'kpop' as const, name: 'KpopQuiz', url: 'https://kpopquiz.org', domain: 'kpopquiz.org', network: 'FanQuiz', privacyPath: '/privacy', accent: '#E8458B' };
+    const kpop = { id: 'kpop' as const, name: 'KpopQuiz', url: 'https://kpopquiz.org', domain: 'kpopquiz.org', network: 'FandomVerse', privacyPath: '/privacy', accent: '#E8458B' };
     const m = renderEmail({ kind: 'deletionScheduled', brand: kpop, copy: COPY, link: 'https://kpopquiz.org/settings', date: '2026-10-31' });
     expect(m.subject).toBe('Your KpopQuiz passport will be deleted');
     expect(() => renderEmail({ kind: 'magicLink', brand: kpop, copy: COPY, link: 'x' })).toThrow();

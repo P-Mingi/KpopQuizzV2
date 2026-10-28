@@ -83,7 +83,7 @@ export function privacyUrl(brand: MailBrand): string {
   return `${brand.url}${brand.privacyPath}`;
 }
 
-/** The rabbit before the name of OtakuQuiz and FanQuiz (owner, 2026-10-25); KpopQuiz's own mails keep the name alone. */
+/** The rabbit before the name of OtakuQuiz and FandomVerse (owner, 2026-10-25); KpopQuiz's own mails keep the name alone. */
 function mark(brand: MailBrand): string {
   if (brand.id !== 'anime' && brand.id !== 'hub') return '';
   return `<img src="${esc(brand.url)}/mascot/mascot-default.png" width="28" height="28" alt="" style="vertical-align:middle;border:0;margin-right:8px">`;
@@ -242,28 +242,40 @@ export function parseOrigins(raw: string | undefined): Partial<Record<MailSite, 
   return out;
 }
 
-function originOf(url: string): string | null {
+/** The origin and the path of an http(s) URL (no query, no hash), or null. */
+function hrefOf(url: string): string | null {
   try {
     const u = new URL(url);
-    return u.protocol === 'https:' || u.protocol === 'http:' ? u.origin : null;
+    return u.protocol === 'https:' || u.protocol === 'http:' ? `${u.origin}${u.pathname}` : null;
   } catch {
     return null;
   }
 }
 
+/** True when `href` is on the site whose url is `base`: its origin, and its folder when it has one (https://fandomverse.org/anime). */
+function onBase(href: string, base: string): boolean {
+  return href === base || href.startsWith(`${base}/`);
+}
+
 /**
- * The site a redirect URL belongs to: an exact match of a brand url, or of an override origin (non-production staging, passed only
- * when the function runs on a dev project). Anything else, and a missing redirect, is kpop: the accounts that exist today.
+ * The site a redirect URL belongs to: the brand whose url holds it, the longest url first (OtakuQuiz, https://fandomverse.org/anime, is a
+ * folder of the hub's origin since 2026-10-28), else an override origin (non-production staging, passed only when the function runs on a
+ * dev project). Anything else, and a missing redirect, is kpop: the accounts that exist today.
  */
 export function siteFromRedirect(
   redirectTo: string | null | undefined,
   brands: Readonly<Record<MailSite, MailBrand>>,
   overrides: Partial<Record<MailSite, string>> = {},
 ): MailSite {
-  const o = redirectTo ? originOf(redirectTo) : null;
-  if (o === null) return 'kpop';
+  const href = redirectTo ? hrefOf(redirectTo) : null;
+  if (href === null) return 'kpop';
+  const ids = (['anime', 'hub', 'kpop'] as const).slice().sort((a, b) => brands[b].url.length - brands[a].url.length);
+  for (const id of ids) {
+    if (onBase(href, brands[id].url)) return id;
+  }
   for (const id of ['anime', 'hub', 'kpop'] as const) {
-    if (brands[id].url === o || overrides[id] === o) return id;
+    const o = overrides[id];
+    if (o !== undefined && onBase(href, o)) return id;
   }
   return 'kpop';
 }
@@ -289,13 +301,18 @@ export function kindForAction(action: string): MailKind | null {
   return null;
 }
 
-/** `next` of the redirect URL (its own `next` parameter, else a path other than /auth/confirm), always a path starting with one slash; '/' otherwise. */
-export function nextFromRedirect(redirectTo: string | null | undefined): string {
+/**
+ * `next` of the redirect URL (its own `next` parameter, else a path other than /auth/confirm), always a path starting with one slash; '/'
+ * otherwise. With `base` (the url the mail links to), the folder of that url is taken off the path first (https://fandomverse.org/anime).
+ */
+export function nextFromRedirect(redirectTo: string | null | undefined, base?: string): string {
   if (!redirectTo) return '/';
   try {
     const u = new URL(redirectTo);
+    const folder = base ? new URL(base).pathname.replace(/\/+$/, '') : '';
+    const path = folder && (u.pathname === folder || u.pathname.startsWith(`${folder}/`)) ? u.pathname.slice(folder.length) || '/' : u.pathname;
     const n = u.searchParams.get('next');
-    const pick = n ?? (u.pathname !== '/auth/confirm' && u.pathname !== '/auth/callback' ? u.pathname + u.search : '/');
+    const pick = n ?? (path !== '/auth/confirm' && path !== '/auth/callback' ? path + u.search : '/');
     return pick.startsWith('/') && !pick.startsWith('//') && !pick.includes('\\') ? pick : '/';
   } catch {
     return '/';
@@ -306,7 +323,7 @@ export function nextFromRedirect(redirectTo: string | null | undefined): string 
 export function confirmLink(origin: string, tokenHash: string, action: HookAction, redirectTo: string | null | undefined): string | null {
   const type = CONFIRM_TYPE[action];
   if (!type) return null;
-  const q = `token_hash=${encodeURIComponent(tokenHash)}&type=${type}&next=${encodeURIComponent(nextFromRedirect(redirectTo))}`;
+  const q = `token_hash=${encodeURIComponent(tokenHash)}&type=${type}&next=${encodeURIComponent(nextFromRedirect(redirectTo, origin))}`;
   return `${origin}/auth/confirm?${q}`;
 }
 
