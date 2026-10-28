@@ -10,6 +10,9 @@ import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
 
 import { likeKey, useP8Viewer, useRequireAuth } from './viewer';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // The community's small write controls. Every write goes through an EXISTING
 // endpoint with its existing payload (data-safety 3):
 //   blog heart     POST /api/verse/essays/reactions { essay_id }        (toggle)
@@ -21,7 +24,7 @@ import { likeKey, useP8Viewer, useRequireAuth } from './viewer';
 
 async function postJson(url: string, body: unknown): Promise<{ ok: boolean; status: number; data: Record<string, unknown> }> {
   try {
-    const r = await fetch(url, { method: 'POST', credentials: 'include', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+    const r = await fetch(BASE_PATH ? BASE_PATH + url : url, { method: 'POST', credentials: 'include', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
     const data = (await r.json().catch(() => ({}))) as Record<string, unknown>;
     return { ok: r.ok, status: r.status, data };
   } catch {
@@ -99,7 +102,7 @@ export function LikeButton({ type, id, count, variant = 'post', label }: LikePro
 export function ShareButton({ path, title, line2, image }: { path: string; title: string; line2: string; image?: string | null }): React.ReactElement {
   const [open, setOpen] = useState(false);
   const [url, setUrl] = useState(path);
-  useEffect(() => { setUrl(`${window.location.origin}${path}`); }, [path]);
+  useEffect(() => { setUrl(`${window.location.origin}${BASE_PATH}${path}`); }, [path]);
   return (
     <>
       <button type="button" className="ux-pa2" style={{ marginLeft: 'auto' }} aria-label="Share" onClick={() => setOpen(true)}>

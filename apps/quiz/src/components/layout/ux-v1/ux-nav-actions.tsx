@@ -27,6 +27,9 @@ import { useUxSearch } from './ux-search';
 import type { MeProfile } from '@/lib/auth/use-me';
 import type { StreakView } from '@/lib/ux-v1/a0/streak';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 const POLL_MS = 90_000;
 
 /** Streak popover content (also rendered statically by the /ux-v1/kit gallery). */
@@ -123,7 +126,7 @@ function Bell(): React.ReactElement {
  *  link navigates and the passport opens the tab from the hash. */
 function openMyQuizzes(e: React.MouseEvent<HTMLAnchorElement>): void {
   if (!isPlainClick(e)) return;
-  const hash = samePageHash(MY_QUIZZES_HREF, window.location.pathname);
+  const hash = samePageHash(BASE_PATH ? BASE_PATH + MY_QUIZZES_HREF : MY_QUIZZES_HREF, window.location.pathname);
   if (!hash) return;
   e.preventDefault();
   window.history.replaceState(window.history.state, '', hash);
@@ -174,7 +177,7 @@ function Account({ profile, accountExtra }: { profile: MeProfile; accountExtra?:
       await createBrowserClient().auth.signOut();
     } catch { /* still leave */ }
     clearMe();
-    window.location.assign('/');
+    window.location.assign(BASE_PATH || '/');
   };
   return (
     <UxPopover

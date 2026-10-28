@@ -18,6 +18,9 @@ import { fmt } from '@/lib/passport-ui/fmt';
 import { SITE } from '@/lib/site/registry';
 import { createBrowserClient } from '@/lib/supabase/client';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 type Problem = 'confirm' | 'reauth' | 'server' | 'staff' | 'manual' | null;
 
 /** `2026-10-28`: the UTC date of an ISO time. */
@@ -40,7 +43,7 @@ export function AccountDeletion({ username }: { username: string }): React.React
     let cancelled = false;
     void (async () => {
       try {
-        const res = await fetch('/api/passport/delete', { credentials: 'include', cache: 'no-store' });
+        const res = await fetch(`${BASE_PATH}/api/passport/delete`, { credentials: 'include', cache: 'no-store' });
         if (!res.ok) return;
         const d = (await res.json()) as { pending?: boolean; runAfter?: string };
         if (!cancelled) setPending(d.pending === true && typeof d.runAfter === 'string' ? d.runAfter : null);
@@ -62,7 +65,7 @@ export function AccountDeletion({ username }: { username: string }): React.React
     setBusy(true);
     setProblem(null);
     try {
-      const res = await fetch('/api/passport/delete', {
+      const res = await fetch(`${BASE_PATH}/api/passport/delete`, {
         method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ keepQuizzes: !remove, confirm: typed }),
       });
@@ -96,7 +99,7 @@ export function AccountDeletion({ username }: { username: string }): React.React
     if (busy) return;
     setBusy(true);
     try {
-      const res = await fetch('/api/passport/cancel', { method: 'POST', credentials: 'include' });
+      const res = await fetch(`${BASE_PATH}/api/passport/cancel`, { method: 'POST', credentials: 'include' });
       if (!res.ok) { toast(COPY['delete.cancelError']); return; }
       setPending(null);
       toast(COPY['delete.cancelledToast']);

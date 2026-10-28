@@ -7,6 +7,9 @@ import { Sheet } from '@/components/ux-v1/sheet';
 import { useUxToast } from '@/components/ux-v1/toast';
 import { useIsClient } from '@/components/ux-v1/use-is-client';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Same reasons and the same POST /api/quiz/[id]/report { reason, details } payload as
 // the EXISTS components/quiz/report-form.tsx; only the skin is new (a sheet).
 const REASONS = [
@@ -34,7 +37,7 @@ export function P4ReportButton({ quizId, withIcon = false, className }: { quizId
     if (!reason || busy) return;
     setBusy(true);
     try {
-      const res = await fetch(`/api/quiz/${quizId}/report`, {
+      const res = await fetch(`${BASE_PATH}/api/quiz/${quizId}/report`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ reason, details: details.trim() }),

@@ -45,6 +45,9 @@ import { formatCount } from '@/lib/utils';
 
 import type { Difficulty, QuizSettings, QuizType } from '@/lib/db/types';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // ============================================
 // Types
 // ============================================
@@ -452,13 +455,13 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         void completeDaily('quiz');
       }
       router.refresh();
-      fetch('/api/auth/me', { credentials: 'include' })
+      fetch(`${BASE_PATH}/api/auth/me`, { credentials: 'include' })
         .then((r) => (r.ok ? r.json() : null))
         .then((d: { profile: { xp?: number } | null } | null) => {
           setProfileXp(typeof d?.profile?.xp === 'number' ? d.profile.xp : null);
         })
         .catch(() => {});
-      fetch(`/api/quiz/${quiz.id}/related`)
+      fetch(`${BASE_PATH}/api/quiz/${quiz.id}/related`)
         .then(res => res.json())
         .then((data: { quizzes: RelatedQuiz[] }) => setRelatedQuizzes(data.quizzes))
         .catch(() => {});
@@ -532,7 +535,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     playTap();
     setLoading(true);
     try {
-      const res = await fetch(`/api/quiz/${quiz.id}/questions`);
+      const res = await fetch(`${BASE_PATH}/api/quiz/${quiz.id}/questions`);
       if (!res.ok) throw new Error('Failed to fetch questions');
       const data: { questions: QuestionData[]; settings: QuizSettings; quiz_type: string } = await res.json();
       questionStartRef.current = Date.now();
@@ -588,7 +591,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     const maxScore = isClues ? state.questions.length * 3 : state.questions.length;
 
     try {
-      const res = await fetch(`/api/quiz/${quiz.id}/play`, {
+      const res = await fetch(`${BASE_PATH}/api/quiz/${quiz.id}/play`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -648,7 +651,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     if (typeof navigator !== 'undefined' && navigator.share) {
       // Use tracked link for native share
       const shareUrl = await copyShareLink(quiz.id, quiz.slug).then(() =>
-        `${window.location.origin}/q/${quiz.slug}`
+        `${window.location.origin}${BASE_PATH}/q/${quiz.slug}`
       );
       try {
         await navigator.share({ title: quiz.title, text: shareText, url: shareUrl });

@@ -7,6 +7,9 @@ import { useUxMe } from '@/components/ux-v1/use-ux-me';
 
 import type { SignInRequest } from '@/components/ux-v1/sign-in-sheet';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // The signed-in fan's own community state, read once per page view through
 // GET /api/ux-v1/p8/viewer (their follows, blog hearts and, once the pending store
 // exists, their other hearts). Guests never call it (no auth cookie = no request,
@@ -52,7 +55,7 @@ export function P8ViewerProvider({ children }: { children: React.ReactNode }): R
   useEffect(() => {
     if (!signedIn || !hasAuthCookie()) return;
     let off = false;
-    fetch('/api/ux-v1/p8/viewer', { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/ux-v1/p8/viewer`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((d: { following?: string[]; liked?: string[] } | null) => {
         if (off || !d) return;

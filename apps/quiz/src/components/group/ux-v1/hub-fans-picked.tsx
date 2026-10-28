@@ -8,6 +8,9 @@ import { useUxToast } from '@/components/ux-v1/toast';
 import { getAnonId } from '@/lib/anon-id';
 import { FANS_PICKED_ID, movementView } from '@/lib/ux-v1/p3/growth';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 export interface FansPickedRow {
   id: string;
   rank: number;
@@ -53,7 +56,7 @@ export function HubFansPicked({ groupSlug, groupName, title, votes, hasMovement,
     let has = false;
     try {
       const id = getAnonId();
-      const res = await fetch(`/api/duel/pairs?group=${encodeURIComponent(groupSlug)}`, { credentials: 'include', headers: id ? { 'x-duel-anon': id } : {} });
+      const res = await fetch(`${BASE_PATH}/api/duel/pairs?group=${encodeURIComponent(groupSlug)}`, { credentials: 'include', headers: id ? { 'x-duel-anon': id } : {} });
       const raw = res.ok ? (await res.json()) as { pairs?: unknown } : null;
       has = Array.isArray(raw?.pairs) && raw.pairs.length > 0;
     } catch { has = false; }

@@ -4,6 +4,9 @@ import { useState } from 'react';
 
 import { useToast } from '@/components/ui/toast-provider';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // F2b B7 - a cheer on a happening-now activity. One tap, one per user per event.
 // The count is baked at ISR; this island makes only the viewer's own tap live:
 // optimistic bump + lock, reconciled with the server count. Anon tap nudges to
@@ -20,7 +23,7 @@ export function CheerButton({ eventId, initialCount }: { eventId: number; initia
     setCheered(true);
     setCount((c) => c + 1); // optimistic
     try {
-      const res = await fetch('/api/cheer', {
+      const res = await fetch(`${BASE_PATH}/api/cheer`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

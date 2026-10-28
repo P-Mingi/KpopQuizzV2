@@ -38,6 +38,9 @@ import type { P4Standing } from '@/lib/ux-v1/p4/standing';
 import type { RunExtras } from './quiz-run';
 import type { P4RunQuiz } from './run-context';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 type Result = Extract<RunState, { phase: 'result' }>;
 
 const CONFETTI = ['#E8457A', '#FF9DBC', '#C99A1E', '#4FC07F', '#7A50DC', '#3FA3A3'];
@@ -118,7 +121,7 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
   useEffect(() => {
     if (extras.outcome || signedIn === null) return;
     let cancelled = false;
-    fetch(`/api/ux-v1/p4/standing?quiz=${quiz.id}&score=${result.score}`, { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/ux-v1/p4/standing?quiz=${quiz.id}&score=${result.score}`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((raw: unknown) => {
         if (cancelled) return;
@@ -307,7 +310,7 @@ function P4LikePill({ quizId, initial }: { quizId: string; initial: number }): R
     if (anonLikes().includes(quizId)) setLiked(true);
     let cancelled = false;
     const startedAt = clicks.current;
-    fetch(`/api/quiz/${quizId}/like`, { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/quiz/${quizId}/like`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((d: { liked: boolean; like_count: number } | null) => {
         if (cancelled || !d || clicks.current !== startedAt) return;
@@ -327,7 +330,7 @@ function P4LikePill({ quizId, initial }: { quizId: string; initial: number }): R
     setCount((c) => Math.max(0, c + (next ? 1 : -1)));
     setBusy(true);
     try {
-      const res = await fetch(`/api/quiz/${quizId}/like`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: next ? 'like' : 'unlike' }) });
+      const res = await fetch(`${BASE_PATH}/api/quiz/${quizId}/like`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: next ? 'like' : 'unlike' }) });
       const d = res.ok ? ((await res.json()) as { liked?: boolean; like_count?: number }) : null;
       if (!d || typeof d.liked !== 'boolean') {
         if (!res.ok) { setLiked(!next); setCount((c) => Math.max(0, c + (next ? -1 : 1))); }

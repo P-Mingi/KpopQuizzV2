@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 
+import { withBasePath } from '@/lib/site/base-path';
 import { SITE } from '@/lib/site/registry';
 
 import type { NextRequest } from 'next/server';
@@ -34,7 +35,7 @@ export async function GET(request: NextRequest): Promise<Response> {
         {/* celebrate rabbit */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={`${origin}/mascot/mascot-celebrate.png`}
+          src={`${origin}${withBasePath('/mascot/mascot-celebrate.png')}`}
           width={210}
           height={210}
           alt=""

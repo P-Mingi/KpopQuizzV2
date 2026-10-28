@@ -20,6 +20,9 @@ import type { BoardResponse } from '@/lib/ux-v1/p6/board-types';
 import type { ChallengeView } from '@/lib/ux-v1/p6/challenge';
 import type { BtGroup, BtPick, MixItem } from '@/lib/ux-v1/p6/playlists';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 interface Props {
   groups: BtGroup[];
   songs: number;
@@ -42,7 +45,7 @@ function subscribePlayed(cb: () => void): () => void {
 
 async function fetchBoard(): Promise<BoardResponse | null> {
   try {
-    const res = await fetch('/api/ux-v1/p6/board', { credentials: 'include', cache: 'no-store' });
+    const res = await fetch(`${BASE_PATH}/api/ux-v1/p6/board`, { credentials: 'include', cache: 'no-store' });
     return res.ok ? ((await res.json()) as BoardResponse) : null;
   } catch {
     return null; // the board is a nice-to-have; the hub stands without it
@@ -127,11 +130,11 @@ export function BtHubController({ groups, songs, themes, children }: Props): Rea
     const code = (params.get('c') ?? '').toUpperCase();
     if (code) {
       // Drop ?c= so a refresh after the run does not reopen the challenge.
-      window.history.replaceState(null, '', '/blindtest');
+      window.history.replaceState(null, '', `${BASE_PATH}/blindtest`);
       if (!CODE_RE.test(code)) { toast('This challenge link does not exist.'); return; }
       void (async () => {
         try {
-          const res = await fetch(`/api/ux-v1/p6/challenge/${code}`, { cache: 'no-store' });
+          const res = await fetch(`${BASE_PATH}/api/ux-v1/p6/challenge/${code}`, { cache: 'no-store' });
           if (res.status === 404) { toast('This challenge link does not exist.'); return; }
           if (!res.ok) { toast('Could not open this challenge. Try again later.'); return; }
           const v = (await res.json()) as ChallengeView;
@@ -157,7 +160,7 @@ export function BtHubController({ groups, songs, themes, children }: Props): Rea
     const key = `${challenge.code}:${run.answers.length}:${run.summary.points}:${run.answers.reduce((s, a) => s + a.time_ms, 0)}`;
     if (attemptFor.current === key) return;
     attemptFor.current = key;
-    void fetch(`/api/ux-v1/p6/challenge/${challenge.code}/attempt`, {
+    void fetch(`${BASE_PATH}/api/ux-v1/p6/challenge/${challenge.code}/attempt`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

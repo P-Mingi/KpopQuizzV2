@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { UxPage } from '@/components/ux-v1/page';
 import { SERIES_IMAGE_CREDITS } from '@/lib/anime/series-images.generated';
+import { withBasePath } from '@/lib/site/base-path';
 
 import type { OwnerCreditRow } from '@/lib/anime/entity-images-rules';
 import type { SeriesImageCredit } from '@/lib/anime/series-images';
@@ -44,7 +45,7 @@ export function CreditsPage({ credits = SERIES_IMAGE_CREDITS, owner = [] }: Cred
         <ul className="anime-o2-credits-list" data-testid="credits-list">
           {rows.map(([slug, c]) => (
             <li key={slug} className="anime-o2-credits-item" data-slug={slug}>
-              <span className="anime-o2-credits-thumb"><Image src={c.file} alt={c.alt} width={72} height={96} sizes="72px" className="anime-o2-photo-img" /></span>
+              <span className="anime-o2-credits-thumb"><Image src={withBasePath(c.file)} alt={c.alt} width={72} height={96} sizes="72px" className="anime-o2-photo-img" /></span>
               <div className="anime-o2-credits-text">
                 <h2 className="anime-o2-credits-name"><Link href={`/${slug}-quiz`}>{c.name}</Link></h2>
                 <p>Photo: <a href={c.sourceUrl} rel="noopener noreferrer" target="_blank">{c.author}</a>, <a href={c.licenseUrl} rel="noopener noreferrer" target="_blank">{c.license}</a></p>

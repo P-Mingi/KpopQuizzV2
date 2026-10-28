@@ -12,6 +12,9 @@ import type { FetchLike } from '@/lib/anime/entity-images-api';
 import type { AdminImage, AdminSeries, EntityKind, ImageFilter } from '@/lib/anime/entity-images-rules';
 import type { ImagesApi } from './image-slot';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 /** The calls of the real API (part 1), over the browser's fetch and XMLHttpRequest. */
 export function realApi(fetcher: FetchLike): ImagesApi {
   return {
@@ -108,7 +111,7 @@ export function ImagesAdmin({ initial, fetcher, api }: ImagesAdminProps): React.
           {current ? (
             <>
               <h2 className="anime-adm-detail-h">{current.name}</h2>
-              <p className="anime-adm-hint"><a href={`/${current.slug}-quiz`} target="_blank" rel="noopener noreferrer">Open the series page</a></p>
+              <p className="anime-adm-hint"><a href={`${BASE_PATH}/${current.slug}-quiz`} target="_blank" rel="noopener noreferrer">Open the series page</a></p>
               <ImageSlot
                 key={`series:${current.slug}`}
                 kind="series"

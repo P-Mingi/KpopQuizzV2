@@ -15,6 +15,9 @@ import type { NameAllWords } from '@/lib/name-all/words';
 import type { NameAllMember } from '@/lib/name-all/match';
 import type { NameAllStats, RoundPayload } from '@/lib/name-all/round';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 /**
  * Name them all (V12 G6, SYSTEM.md 5.1, prototype view `nta`): name every member
  * of a group in 60 seconds. Three states on one URL: intro, play, result.
@@ -83,7 +86,7 @@ export function NameAllGame({ group, members, stats, path, words = KPOP_WORDS }:
   const foundRef = useRef<string[]>([]);
   const sent = useRef(false);
 
-  useEffect(() => { setOrigin(window.location.origin); }, []);
+  useEffect(() => { setOrigin(BASE_PATH ? window.location.origin + BASE_PATH : window.location.origin); }, []);
 
   const finish = useCallback((gaveUp: boolean) => {
     if (sent.current) return;
@@ -96,7 +99,7 @@ export function NameAllGame({ group, members, stats, path, words = KPOP_WORDS }:
     const anon = getAnonId();
     if (!anon) return; // no storage: the round is simply not counted
     const payload: RoundPayload = { group: group.slug, found: names, seconds: elapsed, gaveUp };
-    fetch('/api/name-all/result', {
+    fetch(`${BASE_PATH}/api/name-all/result`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-nta-anon': anon },
       body: JSON.stringify(payload),

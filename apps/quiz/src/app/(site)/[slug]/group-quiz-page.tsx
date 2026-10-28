@@ -24,6 +24,9 @@ import { isCategoryGroup } from '@/lib/ux-v1/p3/model';
 import type { Metadata } from 'next';
 import type { Group } from '@/lib/db/types';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 export function generateDefaultIntro(group: Group): string {
   if (group.quiz_count === 0) {
     return `No ${group.name} quizzes yet - be the first to create one! Think you know ${group.name} well enough to challenge other ${group.fandom_name}s? Create a free quiz at kpopquiz.org.`;
@@ -325,7 +328,7 @@ export async function GroupQuizPage({ group }: { group: Group }): Promise<React.
             <ul>
               {allQuizLinks.map((q) => (
                 <li key={q.slug}>
-                  <a href={`/q/${q.slug}`}>{q.title}</a>
+                  <a href={`${BASE_PATH}/q/${q.slug}`}>{q.title}</a>
                 </li>
               ))}
             </ul>

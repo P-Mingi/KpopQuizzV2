@@ -12,6 +12,9 @@ import { useP8Viewer, useRequireAuth } from './viewer';
 
 import type { TodayDebate } from '@/lib/ux-v1/p8/types';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Today's daily debate in the rail (desktop panel) and on phones (the surface box on
 // top of the feed): tap a side = one vote (POST /api/debate/vote { side }, the
 // existing one-per-day RPC), then the split shows. The viewer's vote comes from the
@@ -46,7 +49,7 @@ export function useDebateVote(debate: TodayDebate): {
   useEffect(() => {
     if (!v.signedIn) return;
     let off = false;
-    fetch('/api/debate/me', { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/debate/me`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((d: { voted?: boolean; side?: Side | null } | null) => { if (!off && d?.voted && d.side) setSide(d.side); })
       .catch(() => {});
@@ -59,7 +62,7 @@ export function useDebateVote(debate: TodayDebate): {
     let data: { a?: number; b?: number; error?: string } = {};
     let ok = false;
     try {
-      const r = await fetch('/api/debate/vote', {
+      const r = await fetch(`${BASE_PATH}/api/debate/vote`, {
         method: 'POST', credentials: 'include', headers: { 'content-type': 'application/json' },
         body: JSON.stringify(comment ? { side: s, comment } : { side: s }),
       });

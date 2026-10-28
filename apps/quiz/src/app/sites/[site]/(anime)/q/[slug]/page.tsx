@@ -42,6 +42,9 @@ import type { BreadcrumbItem } from '@/components/ui/breadcrumbs';
 import type { QuestionSpoiler } from '@/lib/anime/types';
 import type { TriviaFact } from '@/lib/trivia/types';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // ISR: cached HTML revalidates hourly. The TOP_PRERENDER most-played slugs
 // pre-render at build time so Googlebot hits cold-cache static HTML with
 // zero DB queries - direct relief for the crawl wave that saturates the
@@ -680,7 +683,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
           <ul className="related-quizzes-list">
             {related.map((rq) => (
               <li key={rq.id}>
-                <a href={`/q/${rq.slug}`} className="related-quiz-link">
+                <a href={`${BASE_PATH}/q/${rq.slug}`} className="related-quiz-link">
                   <span className="related-quiz-name">{rq.title}</span>
                   <span className="related-quiz-meta">
                     {rq.group_name} · {rq.play_count.toLocaleString('en-US')} plays
@@ -704,13 +707,13 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
             <ul className="quiz-article-links">
               {articleLinks.map((link) => (
                 <li key={link.slug}>
-                  <a href={`/articles/${link.slug}`} className="quiz-article-link">
+                  <a href={`${BASE_PATH}/articles/${link.slug}`} className="quiz-article-link">
                     {link.label}
                   </a>
                 </li>
               ))}
               <li>
-                <a href={`/${quiz.group_slug}-quiz`} className="quiz-article-link">
+                <a href={`${BASE_PATH}/${quiz.group_slug}-quiz`} className="quiz-article-link">
                   All {quiz.group_name} quizzes
                 </a>
               </li>

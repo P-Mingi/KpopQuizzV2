@@ -14,6 +14,9 @@ import type { QuizCardData } from '@/lib/db/types';
 import type { P2Filters } from '@/lib/ux-v1/p2/filters';
 import type { P2LinkOption } from './controls';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 export interface P2ChipData {
   key: string;
   label: string;
@@ -113,7 +116,7 @@ export function P2QuizzesPage(p: P2QuizzesPageProps): React.ReactElement {
             <div className="p2-empty-act">
               {p.empty.create ? <UxButton variant="ghost" href="/create" icon="plus">Make the first quiz</UxButton> : null}
               {p.empty.action.reload ? (
-                <a href={p.empty.action.href} className="ux-btn ux-btn-ghost">{p.empty.action.label}</a>
+                <a href={BASE_PATH ? BASE_PATH + p.empty.action.href : p.empty.action.href} className="ux-btn ux-btn-ghost">{p.empty.action.label}</a>
               ) : (
                 <P2NavLink href={p.empty.action.href} focus={p.empty.action.focus} className={`ux-btn ${p.empty.create ? 'ux-btn-quiet' : 'ux-btn-ghost'}`}>
                   {p.empty.action.label}

@@ -13,6 +13,9 @@ import { useIsOwner } from './passport-band';
 
 import type { PassportWords } from '@/lib/passport-ui/words';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 interface PassportActionsProps {
   username: string;
   displayName: string;
@@ -40,13 +43,13 @@ export function PassportActions({ username, displayName, owner, level, words }: 
   const [pending, setPending] = useState(false);
   const [origin, setOrigin] = useState('https://kpopquiz.org');
 
-  useEffect(() => { setOrigin(window.location.origin); }, []);
+  useEffect(() => { setOrigin(BASE_PATH ? window.location.origin + BASE_PATH : window.location.origin); }, []);
 
   // Visitor follow state (GET, read only). Not asked on /me.
   useEffect(() => {
     if (owner === 'server') return;
     let cancelled = false;
-    fetch(`/api/follow?username=${encodeURIComponent(username)}`, { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/follow?username=${encodeURIComponent(username)}`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : null))
       .then((d: FollowState) => { if (!cancelled) setFollow(d); })
       .catch(() => { if (!cancelled) setFollow(null); });
@@ -57,7 +60,7 @@ export function PassportActions({ username, displayName, owner, level, words }: 
     setFollow((s) => (s ? { ...s, following: next } : s));
     setPending(true);
     try {
-      const res = await fetch('/api/follow', {
+      const res = await fetch(`${BASE_PATH}/api/follow`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include',
         body: JSON.stringify({ username, action: next ? 'follow' : 'unfollow' }),
       });
@@ -109,10 +112,10 @@ export function PassportActions({ username, displayName, owner, level, words }: 
         url={url}
         text={words ? (isOwner ? words.shareOwn : words.shareOther.replace('{name}', () => displayName)) : isOwner ? 'My K-pop passport on KpopQuiz' : `${displayName}'s K-pop passport on KpopQuiz`}
         {...(isOwner && !words ? {
-          onStoryImage: () => { window.open(`/api/fancard/${encodeURIComponent(username)}`, '_blank', 'noopener'); },
+          onStoryImage: () => { window.open(`${BASE_PATH}/api/fancard/${encodeURIComponent(username)}`, '_blank', 'noopener'); },
           storyFile: async () => {
             try {
-              const r = await fetch(`/api/fancard/${encodeURIComponent(username)}`);
+              const r = await fetch(`${BASE_PATH}/api/fancard/${encodeURIComponent(username)}`);
               if (!r.ok) return null;
               return new File([await r.blob()], `fancard-${username}.png`, { type: 'image/png' });
             } catch { return null; }

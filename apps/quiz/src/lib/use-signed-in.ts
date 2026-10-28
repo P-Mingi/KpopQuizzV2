@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Workstream LOOP - one place that answers "is this player signed in?" for the
 // result screens, so the ResultLoop anon nudge never shows to a signed-in user.
 //
@@ -14,7 +17,7 @@ export function useSignedIn(): boolean | null {
 
   useEffect(() => {
     let cancelled = false;
-    fetch('/api/auth/me', { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/auth/me`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : { profile: null }))
       .then((d: { profile: unknown }) => {
         if (!cancelled) setSignedIn(Boolean(d.profile));

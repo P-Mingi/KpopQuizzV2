@@ -12,6 +12,9 @@ import type { RunApi } from './use-run';
 import type { BtStrings } from '@/lib/growth/bt-strings';
 import type { FrozenQuestion } from '@/lib/ux-v1/p6/challenge';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Results: "Challenge a friend with these exact songs" + Copy link (prototype
 // #btend .mine), and the Share sheet's Challenge link block (prototype #share
 // #sh-ch). ONE link per run, shared by both: the first ask creates it (POST
@@ -66,10 +69,10 @@ export function useBtChallengeLink(run: RunApi): BtChallengeLinkState {
     const p = (async (): Promise<string | null> => {
       setBusy(true);
       try {
-        const res = await fetch('/api/ux-v1/p6/challenge', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body });
+        const res = await fetch(`${BASE_PATH}/api/ux-v1/p6/challenge`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body });
         const d = (await res.json().catch(() => ({}))) as { path?: string };
         if (!res.ok || typeof d.path !== 'string') return null;
-        const link = `${window.location.origin}${d.path}`;
+        const link = `${window.location.origin}${BASE_PATH}${d.path}`;
         setMade({ key, url: link });
         return link;
       } catch {

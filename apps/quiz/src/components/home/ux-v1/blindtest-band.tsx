@@ -9,6 +9,9 @@ import { countdownLabel, fansLabel, hoursLeftLabel, minutesToUtcMidnight, utcDay
 
 import { useNowMs, useStoredValue } from './use-client-values';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 interface BandMe {
   signedIn: boolean;
   date: string;
@@ -49,7 +52,7 @@ export function BlindtestBand({ fans, date }: Props): React.ReactElement {
   useEffect(() => {
     if (!signedIn) return;
     let cancelled = false;
-    fetch('/api/ux-v1/p1/daily-band', { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/ux-v1/p1/daily-band`, { credentials: 'include' })
       .then((r) => (r.ok ? (r.json() as Promise<BandMe>) : null))
       .then((d) => { if (!cancelled && d) setMine(d); })
       .catch(() => {});

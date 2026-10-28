@@ -12,6 +12,9 @@ import { decrementUnread, setUnread } from '@/lib/notifications-store';
 
 import type { P11Notification } from './notifications';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 const JSON_HEADERS = { 'Content-Type': 'application/json' } as const;
 
 export interface P11Page {
@@ -24,7 +27,7 @@ export interface P11Page {
 export async function fetchNotifications(limit: number, offset = 0): Promise<P11Page | null> {
   try {
     const q = offset > 0 ? `limit=${limit}&offset=${offset}` : `limit=${limit}`;
-    const res = await fetch(`/api/notifications?${q}`, { credentials: 'include' });
+    const res = await fetch(`${BASE_PATH}/api/notifications?${q}`, { credentials: 'include' });
     if (!res.ok) return null;
     const d = (await res.json()) as { notifications?: P11Notification[]; unreadCount?: number; hasMore?: boolean };
     return { notifications: d.notifications ?? [], unreadCount: d.unreadCount ?? 0, hasMore: d.hasMore ?? false };
@@ -49,7 +52,7 @@ function emit<T>(name: string, detail: T): void {
 export function markAllRead(): void {
   setUnread(0);
   emit<P11ReadDetail>(P11_READ_EVENT, { all: true });
-  void fetch('/api/notifications/mark-read', { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({}), keepalive: true }).catch(() => {});
+  void fetch(`${BASE_PATH}/api/notifications/mark-read`, { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({}), keepalive: true }).catch(() => {});
 }
 
 /** Mark one unread notification read (opening it, or "Mark as read"). */
@@ -57,14 +60,14 @@ export function markOneRead(n: Pick<P11Notification, 'id' | 'is_read'>): void {
   if (n.is_read) return;
   decrementUnread(1);
   emit<P11ReadDetail>(P11_READ_EVENT, { ids: [n.id] });
-  void fetch('/api/notifications/mark-read', { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ ids: [n.id] }), keepalive: true }).catch(() => {});
+  void fetch(`${BASE_PATH}/api/notifications/mark-read`, { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ ids: [n.id] }), keepalive: true }).catch(() => {});
 }
 
 /** Dismiss (delete) one of the viewer's notifications. */
 export function dismissNotification(n: Pick<P11Notification, 'id' | 'is_read'>): void {
   if (!n.is_read) decrementUnread(1);
   emit<P11RemoveDetail>(P11_REMOVE_EVENT, { ids: [n.id] });
-  void fetch('/api/notifications', { method: 'DELETE', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ id: n.id }) }).catch(() => {});
+  void fetch(`${BASE_PATH}/api/notifications`, { method: 'DELETE', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ id: n.id }) }).catch(() => {});
 }
 
 /** Mute a quiz: its notifications leave the list (the live center's rule) and
@@ -73,7 +76,7 @@ export function muteQuiz(quizId: string, removed: Pick<P11Notification, 'id' | '
   const unread = removed.filter((r) => !r.is_read).length;
   if (unread > 0) decrementUnread(unread);
   emit<P11RemoveDetail>(P11_REMOVE_EVENT, { ids: removed.map((r) => r.id) });
-  void fetch('/api/notifications/prefs', { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ muteQuiz: quizId }) }).catch(() => {});
+  void fetch(`${BASE_PATH}/api/notifications/prefs`, { method: 'POST', headers: JSON_HEADERS, credentials: 'include', body: JSON.stringify({ muteQuiz: quizId }) }).catch(() => {});
 }
 
 /** Apply a read event to a list (returns the same array when nothing changed). */

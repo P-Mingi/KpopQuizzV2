@@ -8,6 +8,9 @@ import { RESERVED_USERNAMES } from '@/lib/constants';
 
 import type { OnboardingWords } from '@/lib/passport-ui/words';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 type ValidationState =
   | { status: 'idle' }
   | { status: 'checking' }
@@ -54,7 +57,7 @@ export function OnboardingForm({ words }: { words?: OnboardingWords | undefined 
 
     debounceRef.current = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/auth/check-username?username=${encodeURIComponent(trimmed)}`);
+        const res = await fetch(`${BASE_PATH}/api/auth/check-username?username=${encodeURIComponent(trimmed)}`);
         if (!res.ok) {
           setValidation({ status: 'invalid', message: 'Could not check availability' });
           return;
@@ -78,7 +81,7 @@ export function OnboardingForm({ words }: { words?: OnboardingWords | undefined 
     setSubmitting(true);
 
     try {
-      const res = await fetch('/api/auth/create-profile', {
+      const res = await fetch(`${BASE_PATH}/api/auth/create-profile`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: username.trim(), ...(words ? { via: (await import('@/lib/passport-ui/signin-client')).readTabVia() } : {}) }),

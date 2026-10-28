@@ -31,6 +31,9 @@ import type { QuizSettings, QuizType } from '@/lib/db/types';
 import type { LoadedChallenge, P4RunApi, P4RunQuiz } from './run-context';
 import type { RunUi } from './run-ui';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 /** What the results screen knows beyond the reducer's result phase. */
 export interface RunExtras {
   playId: string | null;
@@ -117,7 +120,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     const params = new URLSearchParams(window.location.search);
     const c = parseChallengeParam(params.get('c'));
     if (c) {
-      fetch(`/api/ux-v1/p4/challenge/${c.id}?s=${c.sig}`)
+      fetch(`${BASE_PATH}/api/ux-v1/p4/challenge/${c.id}?s=${c.sig}`)
         .then((r) => (r.ok ? (r.json() as Promise<ChallengePublic>) : null))
         .then((d) => {
           if (!d || d.quizId !== quiz.id) return;
@@ -191,7 +194,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     pendingClaim.current = false;
     void (async () => {
       try {
-        const res = await fetch('/api/claim-runs', {
+        const res = await fetch(`${BASE_PATH}/api/claim-runs`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ anonId: getAnonId() }),
@@ -244,7 +247,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     setLoading(true);
     try {
       // the questions and the game UI arrive together, so START never renders an empty run
-      const [res, loadedUi] = await Promise.all([fetch(`/api/quiz/${quiz.id}/questions`), loadRunUi()]);
+      const [res, loadedUi] = await Promise.all([fetch(`${BASE_PATH}/api/quiz/${quiz.id}/questions`), loadRunUi()]);
       setUi(loadedUi);
       if (!res.ok) throw new Error('questions');
       const data = (await res.json()) as { questions: QuestionData[]; settings: QuizSettings; quiz_type: string };
@@ -307,7 +310,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     let playId: string | null = null;
     let saved = false;
     try {
-      const res = await fetch(`/api/quiz/${quiz.id}/play`, {
+      const res = await fetch(`${BASE_PATH}/api/quiz/${quiz.id}/play`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -358,7 +361,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     }
     // relaxed run: mark the play (v11-p4-relaxed-runs.sql) so the hall of fame leaves it out
     if (relaxedRun && playId) {
-      void fetch('/api/ux-v1/p4/relaxed', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playId }) }).catch(() => {});
+      void fetch(`${BASE_PATH}/api/ux-v1/p4/relaxed`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playId }) }).catch(() => {});
     }
     // challenge run: record the attempt (battle_results) and report win / lose
     if (ch) {
@@ -366,7 +369,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
         const a = state.answers[i];
         return a !== null && a !== undefined && isAnswerCorrect(q, a);
       });
-      void fetch(`/api/ux-v1/p4/challenge/${ch.id}/attempt`, {
+      void fetch(`${BASE_PATH}/api/ux-v1/p4/challenge/${ch.id}/attempt`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sig: ch.sig, score: state.score, perQuestion, timeMs: now - state.startTime }),
@@ -460,14 +463,14 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
         score = result.score;
       } else if (share.kind === 'best') {
         try {
-          const r = await fetch(`/api/quiz/${quiz.id}/questions`);
+          const r = await fetch(`${BASE_PATH}/api/quiz/${quiz.id}/questions`);
           if (r.ok) texts = ((await r.json()) as { questions: QuestionData[] }).questions.map((q) => q.question);
         } catch { /* no link */ }
         score = share.score;
       }
       if (!texts) return;
       try {
-        const r = await fetch('/api/ux-v1/p4/challenge', {
+        const r = await fetch(`${BASE_PATH}/api/ux-v1/p4/challenge`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ quizId: quiz.id, questions: texts, score }),
@@ -488,9 +491,9 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     setShareUrl(`${base}?utm_source=link&utm_medium=social&utm_campaign=quiz_share`);
     if (signedIn !== true) return;
     let cancelled = false;
-    fetch('/api/share/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quizId: quiz.id, platform: 'link' }) })
+    fetch(`${BASE_PATH}/api/share/generate`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quizId: quiz.id, platform: 'link' }) })
       .then((r) => (r.ok ? r.json() : null))
-      .then((d: { shareCode?: string } | null) => { if (!cancelled && d?.shareCode) setShareUrl(`${window.location.origin}/s/${d.shareCode}`); })
+      .then((d: { shareCode?: string } | null) => { if (!cancelled && d?.shareCode) setShareUrl(`${window.location.origin}${BASE_PATH}/s/${d.shareCode}`); })
       .catch(() => {});
     return () => { cancelled = true; };
   }, [share, signedIn, quiz.id, quiz.slug]);

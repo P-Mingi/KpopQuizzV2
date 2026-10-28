@@ -6,6 +6,9 @@ import { useEffect, useState } from 'react';
 
 import type { NetMe } from './types';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 let cache: NetMe | null | undefined; // undefined: not asked yet; null: guest or unavailable
 let inflight: Promise<NetMe | null> | null = null;
 
@@ -24,7 +27,7 @@ export function fetchNetMe(): Promise<NetMe | null> {
     cache = null;
     return Promise.resolve(null);
   }
-  inflight = fetch('/api/n/me', { credentials: 'same-origin', cache: 'no-store' })
+  inflight = fetch(`${BASE_PATH}/api/n/me`, { credentials: 'same-origin', cache: 'no-store' })
     .then((r) => (r.ok ? (r.json() as Promise<NetMe>) : null))
     .catch(() => null)
     .then((d) => { cache = d; inflight = null; return d; });

@@ -10,6 +10,9 @@ import { Spinner } from '@/components/ui/spinner';
 
 import type { QuizCardData } from '@/lib/db/types';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 interface GroupFeedProps {
   groupId: number;
   initialQuizzes: QuizCardData[];
@@ -46,7 +49,7 @@ export function GroupFeed({ groupId, initialQuizzes }: GroupFeedProps): React.Re
   const fetchQuizzes = useCallback(async (tab: string, currentOffset: number, append: boolean) => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/quizzes/group?groupId=${groupId}&tab=${tab}&offset=${currentOffset}`);
+      const res = await fetch(`${BASE_PATH}/api/quizzes/group?groupId=${groupId}&tab=${tab}&offset=${currentOffset}`);
       if (!res.ok) throw new Error('Failed to load quizzes');
       const data: { quizzes: QuizCardData[] } = await res.json();
 

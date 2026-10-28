@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 
 import { shareToReddit, shareToTwitter, shareToDiscord } from '@/lib/share';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 const POPULAR_KPOP_SUBS = ['kpop', 'Kpop_Verse', 'kpopthoughts', 'kpophelp', 'bangtan', 'BLACKPINK', 'Stray_Kids', 'GOT7', 'TWICE', 'aespa'];
 
 // H6/H8 share-card customizer. Creator (canEdit) gets the live editor + Save &
@@ -99,7 +102,7 @@ export function ShareCardModal({ quizId, slug, quizTitle, platform, canEdit, onC
     setImagePosting(true);
     setImagePostResult(null);
     try {
-      const res = await fetch('/api/share/reddit-image', {
+      const res = await fetch(`${BASE_PATH}/api/share/reddit-image`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug, subreddit: subreddit.trim(), title: title.trim() || quizTitle }),
@@ -122,7 +125,7 @@ export function ShareCardModal({ quizId, slug, quizTitle, platform, canEdit, onC
     setSaving(true);
     setDiscordCopied(null);
     try {
-      await fetch(`/api/quiz/${quizId}/share-card`, {
+      await fetch(`${BASE_PATH}/api/quiz/${quizId}/share-card`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ overlay, opacity, hook: hook.trim(), title: title.trim() }),
       });

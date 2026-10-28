@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Activity ticker, Option A (Workstream M, M1.7 + M1.13 polish). Slim live strip
 // below the navbar. CLIENT island -> home stays static/ISR. Mounted on HOME ONLY.
 // READ-ONLY. When there is real activity it cycles those events; when the feed is
@@ -27,11 +30,11 @@ export function ActivityTicker(): React.ReactElement | null {
 
   useEffect(() => {
     let cancelled = false;
-    fetch('/api/activity/recent')
+    fetch(`${BASE_PATH}/api/activity/recent`)
       .then((r) => (r.ok ? r.json() : { events: [] }))
       .then((d: { events: TickerEvent[] }) => { if (!cancelled) setEvents(Array.isArray(d.events) ? d.events : []); })
       .catch(() => { if (!cancelled) setEvents([]); });
-    fetch('/api/stats/live')
+    fetch(`${BASE_PATH}/api/stats/live`)
       .then((r) => (r.ok ? r.json() : null))
       .then((d: { online: number | null } | null) => {
         if (cancelled || !d?.online) return;

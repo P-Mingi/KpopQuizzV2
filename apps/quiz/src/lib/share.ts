@@ -2,10 +2,13 @@ import { REDDIT_SUBREDDIT } from '@kpopquiz/shared/social-links';
 
 import { SITE } from '@/lib/site/registry';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 /** Generate a tracked share link via the API. Returns the share code. */
 async function getShareCode(quizId: string, platform: string): Promise<string | null> {
   try {
-    const res = await fetch('/api/share/generate', {
+    const res = await fetch(`${BASE_PATH}/api/share/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ quizId, platform }),
@@ -20,7 +23,7 @@ async function getShareCode(quizId: string, platform: string): Promise<string | 
 
 /** Build a tracked share URL, falling back to direct quiz URL if generation fails. */
 async function getShareUrl(quizId: string, slug: string, platform: string): Promise<string> {
-  const origin = typeof window !== 'undefined' ? window.location.origin : '';
+  const origin = typeof window !== 'undefined' ? (BASE_PATH ? window.location.origin + BASE_PATH : window.location.origin) : '';
   const shareCode = await getShareCode(quizId, platform);
   if (shareCode) {
     return `${origin}/s/${shareCode}`;
@@ -38,7 +41,7 @@ async function getShareUrl(quizId: string, slug: string, platform: string): Prom
 export type SharePlatform = 'native' | 'copy' | 'twitter' | 'reddit' | 'discord';
 
 export async function sharePassport(username: string, platform: SharePlatform): Promise<'shared' | 'copied' | 'opened' | 'failed'> {
-  const origin = typeof window !== 'undefined' ? window.location.origin : SITE.url;
+  const origin = typeof window !== 'undefined' ? (BASE_PATH ? window.location.origin + BASE_PATH : window.location.origin) : SITE.url;
   const link = (src: string) => `${origin}/u/${username}?utm_source=${src}&utm_medium=passport-card`;
   const text = `My K-pop passport on ${SITE.domain}`;
 
@@ -69,7 +72,7 @@ export async function sharePassport(username: string, platform: SharePlatform): 
 // Download the rendered passport card PNG.
 export async function downloadPassportCard(username: string): Promise<boolean> {
   try {
-    const res = await fetch(`/api/og/passport/${username}`);
+    const res = await fetch(`${BASE_PATH}/api/og/passport/${username}`);
     if (!res.ok) return false;
     const blob = await res.blob();
     const url = URL.createObjectURL(blob);
@@ -85,8 +88,8 @@ export async function downloadPassportCard(username: string): Promise<boolean> {
 }
 
 export async function shareLevelUp(title: string, level: number): Promise<'shared' | 'copied' | 'failed'> {
-  const origin = typeof window !== 'undefined' ? window.location.origin : SITE.url;
-  const url = `${origin}/?utm_source=levelup&utm_medium=social&utm_campaign=level_up`;
+  const origin = typeof window !== 'undefined' ? (BASE_PATH ? window.location.origin + BASE_PATH : window.location.origin) : SITE.url;
+  const url = `${origin}${BASE_PATH ? '?' : '/?'}utm_source=levelup&utm_medium=social&utm_campaign=level_up`;
   const text = `I reached ${title} (Level ${level}) on ${SITE.domain}`;
   if (typeof navigator !== 'undefined' && navigator.share) {
     try {
@@ -114,7 +117,7 @@ export async function shareToReddit(_quizId: string, slug: string, quizTitle: st
   // clean canonical /q/<slug> URL so Reddit fetches the OG image directly
   // and renders the link post with the big card. We lose Reddit-attributed
   // share tracking - acceptable trade-off for the rich preview.
-  const origin = typeof window !== 'undefined' ? window.location.origin : SITE.url;
+  const origin = typeof window !== 'undefined' ? (BASE_PATH ? window.location.origin + BASE_PATH : window.location.origin) : SITE.url;
   const shareUrl = `${origin}/q/${slug}`;
   const shareText = quizTitle;
 

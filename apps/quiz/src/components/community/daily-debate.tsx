@@ -8,6 +8,9 @@ import { analytics } from '@/lib/analytics';
 
 import type { DailyDebate as DailyDebateData, DebateComment } from '@/lib/db/queries/debate';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // F2b B3 - Daily Debate, the conversation centerpiece. Client island so the
 // vote, the live split and the comment flow are interactive, but it is SSR'd
 // with the baked data (question + split + comments) so the content is in the
@@ -73,7 +76,7 @@ export function DailyDebate({ debate }: { debate: DailyDebateData }): React.Reac
     if (stored) { setPhase('voted'); setMySide(stored); }
 
     let cancelled = false;
-    fetch('/api/debate/me', { credentials: 'include' })
+    fetch(`${BASE_PATH}/api/debate/me`, { credentials: 'include' })
       .then((r) => (r.ok ? r.json() : { signedIn: false, voted: false, side: null }))
       .then((d: { signedIn: boolean; voted: boolean; side: 'a' | 'b' | null }) => {
         if (cancelled) return;
@@ -104,7 +107,7 @@ export function DailyDebate({ debate }: { debate: DailyDebateData }): React.Reac
     if (!pendingSide || submitting) return;
     setSubmitting(true);
     try {
-      const res = await fetch('/api/debate/vote', {
+      const res = await fetch(`${BASE_PATH}/api/debate/vote`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -268,7 +271,7 @@ function CommentRow({ c }: { c: DebateComment }): React.ReactElement {
     if (busy || reported || isMine) return;
     setBusy(true);
     try {
-      const res = await fetch('/api/debate/report', {
+      const res = await fetch(`${BASE_PATH}/api/debate/report`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

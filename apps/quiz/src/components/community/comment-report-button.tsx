@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 // Reuses the existing quiz report infra (/api/quiz/[id]/report) for a comment on
 // the community wall. It flags the quiz the comment is on, since the reports
 // table has no per-comment target for quiz comments; that is the "reuse existing
@@ -14,7 +17,7 @@ export function CommentReportButton({ quizId }: { quizId: string }): React.React
     if (busy || reported) return;
     setBusy(true);
     try {
-      const res = await fetch(`/api/quiz/${quizId}/report`, {
+      const res = await fetch(`${BASE_PATH}/api/quiz/${quizId}/report`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

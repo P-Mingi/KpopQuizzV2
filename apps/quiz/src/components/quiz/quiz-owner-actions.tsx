@@ -8,6 +8,9 @@ import { SITE } from '@/lib/site/registry';
 
 import type { MeResponse } from '@/lib/auth/use-me';
 
+// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
+
 interface Props {
   quizId: string;
   creatorId: string | null;
@@ -50,7 +53,7 @@ export function QuizOwnerActions({ quizId, creatorId }: Props): React.ReactEleme
     setBusy('delete');
     setError(null);
     try {
-      const url = asAdmin ? `/api/admin/quiz/${quizId}/remove` : `/api/quiz/${quizId}`;
+      const url = asAdmin ? `${BASE_PATH}/api/admin/quiz/${quizId}/remove` : `${BASE_PATH}/api/quiz/${quizId}`;
       const method = asAdmin ? 'POST' : 'DELETE';
       const res = await fetch(url, { method });
       if (!res.ok) {
@@ -76,7 +79,7 @@ export function QuizOwnerActions({ quizId, creatorId }: Props): React.ReactEleme
           <>
             {SITE.id === 'kpop' ? (
             <a
-              href={`/quiz/${quizId}/edit`}
+              href={`${BASE_PATH}/quiz/${quizId}/edit`}
               className="quiz-owner-btn"
               aria-busy={busy === 'edit' ? 'true' : 'false'}
               onClick={() => setBusy('edit')}
