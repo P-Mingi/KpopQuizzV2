@@ -3,7 +3,7 @@
 
 import { NextResponse, after } from 'next/server';
 
-import { netOrigin } from '@/lib/site/registry';
+import { siteOrigin } from '@/lib/auth/site-base';
 
 import type { NextRequest } from 'next/server';
 import type { NetOriginEnv } from '@/lib/site/registry';
@@ -34,10 +34,14 @@ export function log(route: string, outcome: string, site: SiteId): void {
   console.info(`[passport] ${route} ${outcome} ${site}`);
 }
 
-/** apis.md 1.1.3: an Origin header that is present must be this site's own origin. */
+/**
+ * apis.md 1.1.3: an Origin header that is present must be this site's own origin, exactly. FandomVerse: the origin of the
+ * site's base (the anime base https://fandomverse.org/anime has a path, an Origin never does), so hub and anime, one origin,
+ * accept each other's same-origin calls and nothing else.
+ */
 export function originOk(request: NextRequest, site: SiteId, env: NetOriginEnv): boolean {
   const origin = request.headers.get('origin');
-  return origin === null || origin === netOrigin(site, env);
+  return origin === null || origin === siteOrigin(site, env);
 }
 
 /** apis.md 1.1.3: application/json only. */
