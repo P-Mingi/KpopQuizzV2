@@ -38,6 +38,15 @@ describe('feed card pictures carry the base path of the build', () => {
     expect(await render('/anime', BLOG('https://coverartarchive.org/release-group/x/front-500'))).toContain('src="https://coverartarchive.org/release-group/x/front-500"');
   });
 
+  it('a post of the site itself is signed with the brand of the build: OtakuQuiz on anime, KpopQuiz on kpop', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'anime');
+    const anime = await render('/anime', DEBATE);
+    expect(anime).toContain('OtakuQuiz');
+    expect(anime).not.toContain('KpopQuiz');
+    vi.unstubAllEnvs();
+    expect(await render(undefined, DEBATE)).toContain('KpopQuiz');
+  });
+
   it('kpop and the hub (no base path): the same paths as before', async () => {
     expect(await render(undefined, DEBATE)).toContain('src="/mascot/mascot-default.png"');
     expect(await render(undefined, BLOG('/idols/BTS.jpg'))).toContain('src="/idols/BTS.jpg"');
