@@ -29,6 +29,9 @@ export const COPY = {
   'hp.nav.level': 'Lv {level}',
   'hp.hero.eyebrow': 'Two fandoms, one passport, every day',
   'hp.hero.h1': 'Quizzes and daily games for K-pop and anime fans',
+  // Owner decision 2026-10-29 (SEO rule 3.1): one sentence right under the H1, in the server HTML: what the site is and who it is for, in
+  // plain words, with no number and no superlative. The detailed answer (hp.seo.*) stays at the bottom of the page.
+  'hp.hero.def': '{network} is a free website where K-pop and anime fans play quizzes and daily games, with one account for every site.',
   'hp.hero.lede': 'Pick your side, or play both.',
   'hp.surprise.button': 'Surprise me',
   'hp.surprise.pick': 'Random pick on {name}',

@@ -113,6 +113,7 @@ html.ux-v1[data-site="hub"] .hub-h2-hero { display: flex; flex-direction: column
 html.ux-v1[data-site="hub"] .hub-h2-hero-text { display: flex; flex-direction: column; gap: 12px; }
 html.ux-v1[data-site="hub"] .hub-h2-eyebrow { margin: 0; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ux-muted); }
 html.ux-v1[data-site="hub"] .hub-h2-h1 { margin: 0; font-size: 44px; line-height: 1.05; letter-spacing: -0.035em; font-weight: 800; text-wrap: balance; }
+html.ux-v1[data-site="hub"] .hub-h2-def { margin: 0; font-size: 17px; line-height: 1.5; color: var(--hub-ink-3); max-width: 66ch; }
 html.ux-v1[data-site="hub"] .hub-h2-lede-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
 html.ux-v1[data-site="hub"] .hub-h2-lede { margin: 0; font-size: 17px; color: var(--hub-ink-2); }
 html.ux-v1[data-site="hub"] .hub-h2-ghost { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--ux-ink); background: var(--ux-raised); color: var(--ux-ink); font: inherit; font-weight: 700; font-size: 14px; cursor: pointer; }

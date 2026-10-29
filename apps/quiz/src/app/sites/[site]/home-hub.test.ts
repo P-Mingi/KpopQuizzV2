@@ -208,6 +208,33 @@ describe('row 1: the title and the two sites', () => {
     expect(html).not.toContain('role="status"');
   });
 
+  it('says what Bunnyverse is and who it is for, in one sentence right under the H1, in the server HTML (owner, 2026-10-29: rule 3.1)', async () => {
+    const html = await renderHome();
+    const { registry } = await load();
+    const h1 = '<h1 id="hero-h" class="hub-h2-h1">Quizzes and daily games for K-pop and anime fans</h1>';
+    // the element right after the H1, before the line and Surprise me (DOM order = reading order)
+    const m = /<\/h1><p class="hub-h2-def">([^<]*)<\/p><div class="hub-h2-lede-row"><p class="hub-h2-lede">/.exec(html);
+    expect(m, 'the definition right under the H1').not.toBeNull();
+    const at = { h1: html.indexOf(h1), def: html.indexOf('<p class="hub-h2-def">'), lede: html.indexOf('<p class="hub-h2-lede">') };
+    expect(at.h1).toBeGreaterThan(-1);
+    expect(at.h1 < at.def && at.def < at.lede).toBe(true);
+    const def = m![1]!;
+    expect(def).toBe('Bunnyverse is a free website where K-pop and anime fans play quizzes and daily games, with one account for every site.');
+    // what the site is (its name from the registry) and who it is for
+    expect(def.startsWith(`${registry.REGISTRY.hub.brand.name} is a `)).toBe(true);
+    expect(def).toContain('K-pop and anime fans');
+    // one sentence: one end mark, the last character
+    expect(def.match(/[.!?]/g)).toEqual(['.']);
+    expect(def.endsWith('.')).toBe(true);
+    // no typed number, no superlative, no dash; plain words
+    expect(def).not.toMatch(/\d/);
+    expect(def).not.toMatch(/\b(best|most|top|greatest|ultimate|biggest|largest|leading|number one|favou?rite)\b/i);
+    expect(def).not.toMatch(DASHES);
+    expect(def.split(/\s+/).length).toBeLessThanOrEqual(30);
+    // one place only: the detailed answer at the bottom keeps its own words
+    expect(html.split(def).length - 1).toBe(1);
+  });
+
   it('has the two sites side by side, in the network order, each card the link to its site', async () => {
     const html = await renderHome();
     const { registry } = await load();

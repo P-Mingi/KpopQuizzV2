@@ -3,6 +3,8 @@
 // beside it (its pick shows as one row), then the two sites side by side, image first: the owner's 3:2 image (site_assets) or, until there
 // is one, a background in the colours of the site with its name written down the side in Korean or Japanese; the name, the real count of
 // quizzes, what it is about, its quiz of the moment and one way in. The whole card is the link to the site.
+// Owner decision 2026-10-29 (SEO rule 3.1): right under the H1, one sentence in the server HTML says what Bunnyverse is and who it is for;
+// the line and Surprise me follow it, as on the board.
 import { ht } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
 
@@ -72,6 +74,7 @@ export function HomeHero({ doors, pool, playedIds, assets }: { doors: readonly H
       <div className="hub-h2-hero-text">
         <p className="hub-h2-eyebrow">{ht('hp.hero.eyebrow')}</p>
         <h1 id="hero-h" className="hub-h2-h1">{ht('hp.hero.h1')}</h1>
+        <p className="hub-h2-def">{ht('hp.hero.def')}</p>
         <HomeSurprise
           pool={pool}
           playedIds={playedIds}
