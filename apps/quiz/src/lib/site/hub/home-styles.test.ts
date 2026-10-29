@@ -65,6 +65,15 @@ describe('h2.css and the blocks of the home', () => {
     expect([...defined].filter((c) => !used.has(c)).sort()).toEqual([]);
   });
 
+  it('lets a filter row wrap inside its column and keeps each chip label on one line (review fix: 320 and 375 px)', () => {
+    const rule = (cls: string): string => h2.split('\n').find((l) => l.startsWith(`html.ux-v1[data-site="hub"] .${cls} {`)) ?? '';
+    expect(rule('hub-h2-seg')).toMatch(/flex-wrap: wrap;/);
+    expect(rule('hub-h2-seg')).toMatch(/max-width: 100%;/);
+    expect(rule('hub-h2-seg')).toMatch(/box-sizing: border-box;/);
+    expect(rule('hub-h2-segbtn')).toMatch(/white-space: nowrap;/);
+    expect(rule('hub-h2-fans-h')).toMatch(/flex-wrap: wrap;/);
+  });
+
   it('writes no site name or colour of a site in the hub chrome rules, and no hub pink', () => {
     expect(h2).not.toMatch(/--ux-pink/);
   });
@@ -99,8 +108,16 @@ describe('AA contrast of the design colours (4.5 for text, in both themes)', () 
     ['hub-ink-2', 'ux-page'], ['hub-ink-2', 'ux-raised'], ['hub-ink-2', 'ux-surface'], ['hub-ink-2', 'hub-thead'], ['hub-ink-3', 'ux-page'],
     ['ux-ink', 'hub-hover'], ['ux-muted', 'hub-hover'], ['ux-ink', 'ux-ok-soft'], ['ux-ink', 'ux-no-soft'], ['ux-ink', 'hub-k-soft'], ['ux-ink', 'hub-a-soft'],
     ['ux-on-ok', 'ux-ok'], ['ux-on-ok', 'ux-no'],
+    // review fix: the pressed chip of a filter has its own ground (--hub-seg-on): the label of Hot right now, the site ink of a Top fans tab.
+    ['ux-ink', 'hub-seg-on'], ['hub-k-ink', 'hub-seg-on'], ['hub-a-ink', 'hub-seg-on'],
   ];
   for (const [theme, map] of [['light', light], ['dark', dark]] as const) {
+    it(`draws the pressed chip of a filter on a ground other than its track, in the ${theme} theme`, () => {
+      // the track is --ux-surface; the pressed chip was --ux-raised, which equals it in the dark theme (the chip vanished)
+      expect(map['hub-seg-on'], theme).toMatch(/^#[0-9A-Fa-f]{6}$/);
+      expect(map['hub-seg-on']!.toUpperCase(), theme).not.toBe(map['ux-surface']!.toUpperCase());
+      expect(h2).toMatch(/\.hub-h2-segbtn\[aria-pressed="true"\] \{ background: var\(--hub-seg-on\);/);
+    });
     it(`passes in the ${theme} theme`, () => {
       for (const [fg, bg] of PAIRS) {
         const a = map[fg];

@@ -5,6 +5,7 @@
 // Home v3 (2026-10-29, Home.dc.html): a table of rows (rank, the quiz's image, title, site, group and difficulty, plays or New) and four
 // chips: All, KpopQuiz, OtakuQuiz and Start easy (the easy quizzes of both sites; it replaces the old "New here? Start easy" block and is
 // left out when there is none). A quiz without its own cover shows the initials of its group on the colour of its site.
+// Review fix: a site chip whose list is empty is left out too, like Start easy; a chip is only drawn over a list that has quizzes.
 import { useHotFilter } from './home-filter';
 import { ArrowIcon } from './home-icons';
 import { siteClass } from './site-class';
@@ -41,16 +42,23 @@ interface HomeHotProps {
   };
 }
 
-export function HomeHot({ lists, allLinks, labels }: HomeHotProps): React.ReactElement {
-  // The filter is shared with the search button of the top bar (home-filter.tsx).
-  const { filter, setFilter } = useHotFilter();
-  const chips: { id: HotFilterId; label: string; dot: string }[] = [
+/** The chips of the filter: All, then each list that has a quiz (a site chip or Start easy with an empty list is left out, never a door
+ *  to an empty list). */
+export function hotChips(lists: HomeHotProps['lists'], labels: HomeHotProps['labels']): { id: HotFilterId; label: string; dot: string }[] {
+  const all: { id: HotFilterId; label: string; dot: string }[] = [
     { id: 'all', label: labels.all, dot: 'hub-h2-segdot' },
     { id: 'kpop', label: labels.kpop, dot: 'hub-h2-segdot hub-h2-segdot-k' },
     { id: 'anime', label: labels.anime, dot: 'hub-h2-segdot hub-h2-segdot-a' },
-    ...(lists.easy.length > 0 ? [{ id: 'easy' as const, label: labels.easy, dot: 'hub-h2-segdot hub-h2-segdot-e' }] : []),
+    { id: 'easy', label: labels.easy, dot: 'hub-h2-segdot hub-h2-segdot-e' },
   ];
-  const shown = lists[filter].length > 0 ? lists[filter] : lists.all;
+  return all.filter((c) => c.id === 'all' || lists[c.id].length > 0);
+}
+
+export function HomeHot({ lists, allLinks, labels }: HomeHotProps): React.ReactElement {
+  // The filter is shared with the search button of the top bar (home-filter.tsx).
+  const { filter, setFilter } = useHotFilter();
+  const chips = hotChips(lists, labels);
+  const shown = lists[filter];
   return (
     <section id="hot" aria-labelledby="hot-h" className="hub-h2-hot">
       <div className="hub-h2-hot-head">

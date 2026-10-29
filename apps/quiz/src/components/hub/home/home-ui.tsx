@@ -1,9 +1,11 @@
 // Run O1, lot H2a: the small pieces the server blocks of the new home share. Server components, no state.
 // Home v3 (2026-10-29): the wordmark of the board (the first part in ink, the second in the KpopQuiz pink: "Bunny" and "verse", split by
 // brandWordmark from the registry name) and the image of an admin slot (lib/site/hub/home-assets.ts).
+// Review fix: "Source: <name>" beside a fact, the name a link to the source (SEO rules 3.8 and 5.5).
 import Image from 'next/image';
 
 import { brandWordmark } from '@/lib/site/brand';
+import { ht } from '@/lib/site/hub/copy';
 
 import type { HomeAsset } from '@/lib/site/hub/home-assets';
 
@@ -23,4 +25,17 @@ export function SlotImage({ asset, width, height, className }: { asset: HomeAsse
   // A plain img: the thumbnails are made at the right sizes on upload (step 2), so the image optimizer of Vercel is not used.
   // eslint-disable-next-line @next/next/no-img-element
   return <img src={asset.src} alt="" width={width} height={height} loading="lazy" decoding="async" className={className} style={{ objectPosition: asset.position }} />;
+}
+
+/**
+ * "Source: <name>" beside a fact, the name a link to the source's page. `url` is an absolute https URL (the loaders keep no other); React
+ * escapes the name and the address at this sink. nofollow: a citation, not an endorsement; noopener: the source never reaches this page.
+ */
+export function FactSource({ name, url, className }: { name: string; url: string; className: string }): React.ReactElement {
+  const [before = '', after = ''] = ht('hp.quick.source', { source: '{source}' }).split('{source}');
+  return (
+    <span className={className}>
+      {before}<a href={url} rel="nofollow noopener" className="hub-h2-srclink">{name}</a>{after}
+    </span>
+  );
 }

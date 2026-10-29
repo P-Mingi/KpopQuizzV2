@@ -2,11 +2,12 @@
 // Lot H2c: the question and each fact are left out when there is none.
 // Home v3 (2026-10-29, Home.dc.html): the right column of the second row. "60 seconds" (the quiz the question comes from, the question, its
 // four answers as rows A to D, the story after the pick and the way to the full quiz), then "Did you know": the facts as rows, each with its
-// source. With no question the facts stand alone under their own heading.
+// subject (the group or series it is about) and its source, linked. With no question the facts stand alone under their own heading.
 import { ht } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
 
 import { HomeQuestion } from './home-question';
+import { FactSource } from './home-ui';
 import { siteClass } from './site-class';
 
 import type { HomeQuick as HomeQuickData } from '@/lib/site/hub/home-types';
@@ -17,8 +18,9 @@ export function HomeQuick({ quick }: { quick: HomeQuickData }): React.ReactEleme
     <ul className="hub-h2-lines">
       {quick.facts.map((f) => (
         <li key={f.site} className={`hub-h2-fact ${siteClass(f.site)}`}>
-          <span className="hub-h2-fact-t"><span aria-hidden="true" className="hub-h2-fdot" />{f.text}</span>
-          <span className="hub-h2-fsrc">{ht('hp.quick.source', { source: f.source })}</span>
+          <span className="hub-h2-fact-subj"><span aria-hidden="true" className="hub-h2-fdot" />{f.subject}</span>
+          <span className="hub-h2-fact-t">{f.text}</span>
+          <FactSource name={f.source} url={f.sourceUrl} className="hub-h2-fsrc" />
         </li>
       ))}
     </ul>

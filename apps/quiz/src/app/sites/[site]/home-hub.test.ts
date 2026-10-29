@@ -34,6 +34,13 @@ vi.mock('@/lib/site/hub/data', async () => {
   return out;
 });
 
+// The Burrow switch: the real one (the registry feature dailyGuess AND the hub's pages), unless a test opens it to see the rows it draws.
+const burrowSwitch = vi.hoisted(() => ({ open: false }));
+vi.mock('@/lib/site/hub/daily-guess', async (importOriginal) => {
+  const real = await importOriginal<typeof import('@/lib/site/hub/daily-guess')>();
+  return { ...real, burrowOpen: (...args: Parameters<typeof real.burrowOpen>) => burrowSwitch.open || real.burrowOpen(...args) };
+});
+
 const TODAY = new Date().toISOString().slice(0, 10);
 
 const fake = vi.hoisted(() => ({
@@ -100,6 +107,15 @@ async function renderHome(): Promise<string> {
   return renderToStaticMarkup(await home.default());
 }
 
+/** The page with the hub's registry feature dailyGuess set as given (undefined: no key, as on main before daily games step 1). */
+async function renderHomeWithDailyGuess(dailyGuess: boolean | undefined): Promise<string> {
+  const { home, registry } = await load();
+  const features = registry.REGISTRY.hub.features as unknown as Record<string, unknown>;
+  if (dailyGuess === undefined) delete features.dailyGuess;
+  else features.dailyGuess = dailyGuess;
+  return renderToStaticMarkup(await home.default());
+}
+
 const lines = (html: string): string[] => html.replace(/<[^>]+>/g, '\n').split('\n').map((s) => s.trim()).filter(Boolean);
 const count = (html: string, re: RegExp): number => (html.match(re) ?? []).length;
 /** The markup of the first element of `html` that starts with `open`, nested elements of the same tag counted. */
@@ -123,6 +139,7 @@ beforeEach(() => {
   fake.throwOn = null;
   fake.playsToday = [];
   fake.playsAsked = [];
+  burrowSwitch.open = false;
 });
 afterEach(() => { vi.unstubAllEnvs(); });
 
@@ -141,8 +158,9 @@ describe('the top bar', () => {
     // the Burrow is closed (no dailyGuess, no page) and the hub has no French page yet: no tab, no switch to nowhere
     expect(nav).not.toContain('The Burrow');
     expect(nav).not.toContain('lang="fr"');
-    // the search button is a link to the search page of KpopQuiz (the filter of Hot now is All)
-    expect(nav).toMatch(/<a href="https:\/\/kpopquiz\.org\/search" aria-label="Search both sites" class="hub-h2-iconbtn hub-h2-btn">/);
+    // the search button is a link to the search page of KpopQuiz (the filter of Hot now is All), named after that site (review fix)
+    expect(nav).toMatch(/<a href="https:\/\/kpopquiz\.org\/search" aria-label="Search KpopQuiz" class="hub-h2-iconbtn hub-h2-btn">/);
+    expect(nav).not.toContain('both sites');
     expect(nav).toMatch(/<button[^>]*aria-haspopup="dialog"[^>]*>Sign in<\/button>/);
   });
 
@@ -155,12 +173,14 @@ describe('the top bar', () => {
     }
   });
 
-  it('signed in: the level chip links to the passport column, no sign in button', async () => {
+  it('signed in: the level chip links to the fan\'s passport page, no sign in button', async () => {
     fake.user = { id: 'u-1' };
     const html = await renderHome();
     const { getLevelInfo } = await import('@/lib/constants');
     const nav = block(html, '<header class="hub-h2-head"', 'header');
-    expect(nav).toMatch(/<a href="#fans" class="hub-h2-me">.*M<\/span>Lv \d+<\/a>/);
+    // review fix: a signed-in fan keeps a real way to /passport (a route of the hub) from the home
+    expect(nav).toMatch(/<a href="\/passport" class="hub-h2-me">.*M<\/span>Lv \d+<\/a>/);
+    expect(nav).not.toContain('href="#fans" class="hub-h2-me"');
     expect(nav).toContain(`Lv ${getLevelInfo(90080, 'hub').level}`);
     expect(nav).not.toContain('>Sign in<');
   });
@@ -243,12 +263,47 @@ describe('Today', () => {
     expect(count(today, /<span class="hub-h2-th hub-h2-th-row"><svg/g)).toBe(3);
   });
 
-  it('hides the Burrow (Kpopdle and Otakudle) while the dailyGuess flag is off, and while the hub has no page for it even with the flag on', async () => {
-    for (const flag of ['', '1']) {
-      vi.stubEnv('DAILY_GUESS', flag);
-      const html = await renderHome();
-      for (const word of ['Kpopdle', 'Otakudle', 'The Burrow', 'Open the Burrow', 'href="/daily"', 'href="/kpopdle"']) expect(html, `${flag} ${word}`).not.toContain(word);
+  it('hides the Burrow (Kpopdle and Otakudle) while the registry feature dailyGuess is off or missing, and while the hub has no page for it even with it on', async () => {
+    for (const feature of [undefined, false, true]) {
+      const html = await renderHomeWithDailyGuess(feature);
+      for (const word of ['Kpopdle', 'Otakudle', 'The Burrow', 'Open the Burrow', 'href="/daily"', 'href="/kpopdle"']) expect(html, `${String(feature)} ${word}`).not.toContain(word);
     }
+    // the old environment flag is not the switch
+    vi.stubEnv('DAILY_GUESS', '1');
+    expect(await renderHome()).not.toContain('Kpopdle');
+  });
+
+  it('with the Burrow open: the progress and the badge of its tab count the same rows, the playable dailies (never the debate)', async () => {
+    burrowSwitch.open = true;
+    // signed out: four games left (Kpopdle, Otakudle, the two quizzes of the day); the debate of the sample is not one of them
+    let html = await renderHome();
+    let nav = block(html, '<header class="hub-h2-head"', 'header');
+    expect(nav).toContain('<a href="/daily" class="hub-h2-tab">The Burrow<span class="hub-h2-badge hub-h2-num">4<span class="hub-h2-sr"> left today</span></span></a>');
+    let today = block(html, '<aside id="today"', 'aside');
+    expect(today).toContain('>Kpopdle</span>');
+    expect(today).toContain('>Otakudle</span>');
+    expect(today).toContain('Debate of the day');
+    // signed in, with the K-pop quiz of the day done: 1 of 4 in the progress, 3 on the badge
+    fake.user = { id: 'u-1' };
+    fake.playsToday = [{ quiz_id: 'kpop:zerobaseone-from-boys-planet-to-in-bloom' }];
+    html = await renderHome();
+    nav = block(html, '<header class="hub-h2-head"', 'header');
+    today = block(html, '<aside id="today"', 'aside');
+    expect(today).toContain('1 of 4 done');
+    expect(nav).toContain('>3<span class="hub-h2-sr"> left today</span>');
+    // without the debate nothing changes in the count
+    blocks.values.getDebate = null;
+    html = await renderHome();
+    expect(block(html, '<aside id="today"', 'aside')).toContain('1 of 4 done');
+    expect(block(html, '<header class="hub-h2-head"', 'header')).toContain('>3<span class="hub-h2-sr"> left today</span>');
+  });
+
+  it('the progress counts only the playable dailies: with the Burrow closed, the two quizzes of the day, not the debate', async () => {
+    fake.user = { id: 'u-1' };
+    fake.playsToday = [{ quiz_id: 'kpop:zerobaseone-from-boys-planet-to-in-bloom' }, { quiz_id: 'anime:journeys-beginning-frieren-basics' }];
+    const today = block(await renderHome(), '<aside id="today"', 'aside');
+    expect(today).toContain('2 of 2 done');
+    expect(today).toContain('Debate of the day');
   });
 
   it('signed out: one line offers sign in to keep the streaks, no progress', async () => {
@@ -290,12 +345,59 @@ describe('60 seconds and Did you know', () => {
     expect(quick).toContain('From K-pop Songs About Magic');
     expect(quick).not.toContain('role="status"');
     expect(quick).toContain('>Did you know</p>');
-    expect(count(quick, /<span class="hub-h2-fsrc">Source: Wikipedia<\/span>/g)).toBe(2);
+    // each source is a visible link beside its fact (SEO rules 3.8 and 5.5), https only, nofollow noopener (review fix)
+    expect(count(quick, /<span class="hub-h2-fsrc">Source: <a href="https:\/\/en\.wikipedia\.org\/wiki\/[A-Za-z_]+" rel="nofollow noopener" class="hub-h2-srclink">Wikipedia<\/a><\/span>/g)).toBe(2);
+    expect(quick).toContain('href="https://en.wikipedia.org/wiki/In_Bloom"');
+    expect(quick).toContain('href="https://en.wikipedia.org/wiki/Frieren"');
+    // each fact names its subject, the group or series it is about (review fix)
+    expect(quick).toContain('<span class="hub-h2-fact-subj"><span aria-hidden="true" class="hub-h2-fdot"></span>ZEROBASEONE</span>');
+    expect(quick).toContain('<span class="hub-h2-fact-subj"><span aria-hidden="true" class="hub-h2-fdot"></span>Frieren: Beyond Journey&#x27;s End</span>');
     expect(quick).toContain('Sōsō no Furīren');
   });
 });
 
+describe('the sources of the facts (review fix: SEO rules 3.8 and 5.5)', () => {
+  it('leaves out a fact whose source has no https page, and one with no subject; the other fact stays', async () => {
+    const s = await import('@/lib/site/hub/home-samples.test-support');
+    const d = s.sampleDyk();
+    for (const kpop of [{ ...d.kpop!, sourceUrl: 'http://en.wikipedia.org/wiki/In_Bloom' }, { ...d.kpop!, sourceUrl: 'javascript:alert(1)' }, { ...d.kpop!, sourceUrl: null }, { ...d.kpop!, subject: null }]) {
+      blocks.values.getDidYouKnow = { ...d, kpop };
+      const quick = block(await renderHome(), '<aside aria-labelledby="quick-h"', 'aside');
+      expect(quick).not.toContain('In Bloom samples');
+      expect(quick).not.toContain('javascript:');
+      expect(quick).toContain('Sōsō no Furīren');
+    }
+  });
+
+  it('a Crossover fact whose source has no https page leaves with its source; the tiles stay', async () => {
+    const s = await import('@/lib/site/hub/home-samples.test-support');
+    const x = s.sampleCrossover();
+    blocks.values.getCrossover = { ...x, fact: { ...x.fact!, sourceUrl: '//en.wikipedia.org/wiki/IVE' } };
+    const cross = block(await renderHome(), '<section aria-labelledby="cross-h"', 'section');
+    expect(cross).not.toContain('IVE sang');
+    expect(cross).not.toContain('hub-h2-srclink');
+    expect(count(cross, /class="hub-h2-xt /g)).toBe(3);
+  });
+
+  it('escapes the source at the sink: a name or an address with markup in it stays text', async () => {
+    await load();
+    const { FactSource } = await import('@/components/hub/home/home-ui');
+    const { createElement } = await import('react');
+    const html = renderToStaticMarkup(createElement(FactSource, { name: '<b>Wiki</b>', url: 'https://x.test/a"onmouseover="y', className: 'hub-h2-fsrc' }));
+    expect(html).toBe('<span class="hub-h2-fsrc">Source: <a href="https://x.test/a&quot;onmouseover=&quot;y" rel="nofollow noopener" class="hub-h2-srclink">&lt;b&gt;Wiki&lt;/b&gt;</a></span>');
+  });
+});
+
 describe('Hot right now', () => {
+  it('leaves a site chip out when that site has no hot quiz (review fix), as Start easy already was', async () => {
+    const s = await import('@/lib/site/hub/home-samples.test-support');
+    const h = s.sampleHot();
+    blocks.values.getHot = { ...h, anime: [], all: h.kpop, easy: h.easy!.filter((c) => c.site === 'kpop') };
+    const hot = block(await renderHome(), '<section id="hot"', 'section');
+    const chips = [...hot.matchAll(/class="hub-h2-segbtn"><span aria-hidden="true" class="[^"]+"><\/span>([^<]+)<\/button>/g)].map((m) => m[1]);
+    expect(chips).toEqual(['All', 'KpopQuiz', 'Start easy']);
+  });
+
   it('lists six quizzes, three of each site alternating, each linked to its own site', async () => {
     const html = await renderHome();
     const hot = block(html, '<section id="hot"', 'section');
@@ -344,8 +446,8 @@ describe('When K-pop meets anime', () => {
     expect([...cross.matchAll(/class="hub-h2-ph hub-h2-xph (hub-h2-xph-\d)"/g)].map((m) => m[1])).toEqual(['hub-h2-xph-1', 'hub-h2-xph-2', 'hub-h2-xph-3']);
     expect(cross).not.toContain('<img');
     expect(cross).toContain('IVE sang Will, the opening theme of Pok');
-    // the fact names its source beside it (SEO rule 3.8)
-    expect(cross).toContain('<span class="hub-h2-cross-src"> Source: Wikipedia</span>');
+    // the fact names its source beside it (SEO rule 3.8), the name a link to the source (rule 5.5, review fix)
+    expect(cross).toContain('<span class="hub-h2-cross-src">Source: <a href="https://en.wikipedia.org/wiki/IVE" rel="nofollow noopener" class="hub-h2-srclink">Wikipedia</a></span>');
     expect(cross).toContain('href="https://kpopquiz.org/kpop-demon-hunters-quiz"');
     expect(cross).toContain('Six questions · The animated film and its songs');
     expect(cross).toContain('href="https://bunnyverse.org/anime/q/one-opening-many-endings-chainsaw-man-theme-songs"');
@@ -398,6 +500,8 @@ describe('Top fans and the passport', () => {
     const k = getLevelInfo(90000, 'kpop');
     const a = getLevelInfo(80, 'anime');
     expect(passport).toContain('Your passport, @mingi');
+    // review fix: the heading of the card is the link to the fan's passport page
+    expect(passport).toContain('<h3 class="hub-h2-pass-h"><a href="/passport" class="hub-h2-pass-link">Your passport, @mingi</a></h3>');
     expect(passport).toContain(`KpopQuiz · Lv ${k.level}`);
     expect(passport).toContain(`${k.progress}% to ${k.level + 1}`);
     expect(passport).toContain(`OtakuQuiz · Lv ${a.level}`);
@@ -429,6 +533,68 @@ describe('the SEO block', () => {
     expect(seo).not.toContain('How do the daily games work?');
   });
 
+  it('builds the answer from today\'s data: the blind test and the debate are named only when today has them, always 40 to 60 words', async () => {
+    await load();
+    const { whatIsText } = await import('@/components/hub/home/home-seo');
+    const { loadHomeToday } = await import('@/lib/site/hub/home-today');
+    const full = (await loadHomeToday())!;
+    const kpopQuiz = full.quizzes.find((q) => q.site === 'kpop')!;
+    const animeQuiz = full.quizzes.find((q) => q.site === 'anime')!;
+    const wordsOf = (t: string): number => t.split(/\s+/).length;
+    for (const quizzes of [[kpopQuiz, animeQuiz], [animeQuiz], []]) {
+      for (const blindtest of [full.blindtest, null]) {
+        for (const debate of [full.debate, null]) {
+          for (const burrow of [false, true]) {
+            const today = quizzes.length === 0 && !blindtest && !debate ? null : { ...full, quizzes, blindtest, debate };
+            const text = whatIsText(today, burrow);
+            const label = `${quizzes.length} quizzes, bt ${!!blindtest}, debate ${!!debate}, burrow ${burrow}`;
+            expect(wordsOf(text), label).toBeGreaterThanOrEqual(40);
+            expect(wordsOf(text), label).toBeLessThanOrEqual(60);
+            expect(text.includes('blind test'), label).toBe(!!blindtest);
+            expect(text.includes('debate'), label).toBe(!!debate);
+            expect(text.includes('a new quiz on each site'), label).toBe(quizzes.length === 2);
+            expect(text.includes('a new quiz on OtakuQuiz'), label).toBe(quizzes.length === 1);
+            expect(text.includes('Kpopdle'), label).toBe(burrow);
+            expect(text, label).not.toMatch(DASHES);
+          }
+        }
+      }
+    }
+    expect(whatIsText({ ...full, blindtest: null }, false)).toBe('Bunnyverse is a free website of quizzes and daily games for K-pop and anime fans. It hosts OtakuQuiz and links to KpopQuiz on kpopquiz.org. Each day brings a new quiz on each site and a debate. One passport keeps your levels and streaks on every site.');
+    expect(whatIsText(null, false)).toBe('Bunnyverse is a free website of quizzes and daily games for K-pop and anime fans. It hosts OtakuQuiz and links to KpopQuiz on kpopquiz.org. Every quiz link opens the quiz on its own site. One passport keeps your levels and streaks on every site.');
+  });
+
+  it('on the page: without the blind test and the debate of the day, the answer names neither', async () => {
+    const seo = block(await (async () => { blocks.values.getBlindtest = null; blocks.values.getDebate = null; return renderHome(); })(), '<section aria-labelledby="what-h"', 'section');
+    const answer = lines(block(seo, '<p class="hub-h2-seo-p"', 'p'))[0]!;
+    expect(answer).toBe('Bunnyverse is a free website of quizzes and daily games for K-pop and anime fans. It hosts OtakuQuiz and links to KpopQuiz on kpopquiz.org. Each day brings a new quiz on each site. One passport keeps your levels and streaks on every site.');
+    expect(answer.split(/\s+/).length).toBeGreaterThanOrEqual(40);
+    expect(seo).not.toContain('Blind test of the day');
+  });
+
+  it('says "N questions on each site" only when both sites have a quiz of the day with that count, else each site\'s own', async () => {
+    await load();
+    const { qotdText } = await import('@/components/hub/home/home-seo');
+    const { loadHomeToday } = await import('@/lib/site/hub/home-today');
+    const full = (await loadHomeToday())!;
+    const [k, a] = [full.quizzes.find((q) => q.site === 'kpop')!, full.quizzes.find((q) => q.site === 'anime')!];
+    expect(qotdText(full)).toBe('10 questions on each site');
+    expect(qotdText({ ...full, quizzes: [a] })).toBe('10 questions on OtakuQuiz');
+    expect(qotdText({ ...full, quizzes: [k] })).toBe('10 questions on KpopQuiz');
+    expect(qotdText({ ...full, quizzes: [k, { ...a, questions: 12 }] })).toBe('10 questions on KpopQuiz and 12 questions on OtakuQuiz');
+    expect(qotdText({ ...full, quizzes: [k, { ...a, questions: 0 }] })).toBe('10 questions on KpopQuiz');
+    expect(qotdText({ ...full, quizzes: [{ ...k, questions: 0 }, { ...a, questions: 0 }] })).toBe('A new quiz on each site, every day');
+    expect(qotdText({ ...full, quizzes: [{ ...a, questions: 0 }] })).toBe('A new quiz on OtakuQuiz, every day');
+    expect(qotdText({ ...full, quizzes: [] })).toBeNull();
+    expect(qotdText(null)).toBeNull();
+    // on the page, with the anime quiz of the day only
+    const s = await import('@/lib/site/hub/home-samples.test-support');
+    blocks.values.getDailyQuizzes = { kpop: null, anime: s.sampleDaily().anime };
+    const seo = block(await renderHome(), '<section aria-labelledby="what-h"', 'section');
+    expect(seo).toContain('<td class="hub-h2-seo-game">Quiz of the day</td><td>10 questions on OtakuQuiz</td>');
+    expect(seo).not.toContain('on each site');
+  });
+
   it('has the table of the daily games, with the numbers of today\'s data', async () => {
     const seo = block(await renderHome(), '<section aria-labelledby="what-h"', 'section');
     expect(seo).toContain('<caption class="hub-h2-sr">Daily games on Bunnyverse</caption>');
@@ -456,8 +622,14 @@ describe('the footer', () => {
 
 describe('every link is the canonical page of its own site', () => {
   it('has no link to a quiz path on the hub, and every quiz link is on kpopquiz.org or bunnyverse.org/anime', async () => {
-    const html = await renderHome();
+    const page = await renderHome();
     const { registry } = await load();
+    // The sources of the facts (review fix, SEO rules 3.8 and 5.5) are the only links off the network: exactly the three of the samples,
+    // https and nofollow noopener. Every other link is checked below, as before.
+    const SOURCE = /<a href="([^"]+)" rel="nofollow noopener" class="hub-h2-srclink">/g;
+    expect([...page.matchAll(SOURCE)].map((m) => m[1])).toEqual(['https://en.wikipedia.org/wiki/In_Bloom', 'https://en.wikipedia.org/wiki/Frieren', 'https://en.wikipedia.org/wiki/IVE']);
+    const html = page.replace(SOURCE, '<a>');
+    expect(html).not.toContain('nofollow');
     const hrefs = [...html.matchAll(/ href="([^"]+)"/g)].map((m) => m[1]!);
     const own = new Set(['/', '/privacy', '/legal', '#hot', '#today', '#fans', '#main']);
     expect(hrefs).toContain('https://kpopquiz.org/search');

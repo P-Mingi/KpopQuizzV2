@@ -7,8 +7,8 @@ import { pickSurprise } from '@/lib/site/hub/data/surprise-pick';
 import { HomeBlindtest } from './home-blindtest';
 import { clockText, HomeCountdown, secondsToReset } from './home-countdown';
 import { HomeFans } from './home-fans';
-import { HomeFilterProvider, HomeSearch, searchSite } from './home-filter';
-import { HomeHot } from './home-hot';
+import { HomeFilterProvider, HomeSearch, searchSite, searchTarget } from './home-filter';
+import { HomeHot, hotChips } from './home-hot';
 import { HomeQuestion } from './home-question';
 import { HomeSurprise } from './home-surprise';
 
@@ -62,9 +62,21 @@ describe('the search button follows the Hot now filter', () => {
     expect(searchSite('anime')).toBe('anime');
   });
 
-  it('starts on the search page of KpopQuiz (the filter is All), as a link with the design label', () => {
-    const html = renderToStaticMarkup(createElement(HomeFilterProvider, null, createElement(HomeSearch, { hrefs: { kpop: 'https://k.test/search', anime: 'https://a.test/search' }, label: 'Search both sites' })));
-    expect(html).toBe('<a href="https://k.test/search" aria-label="Search both sites" class="hub-h2-iconbtn hub-h2-btn"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg></a>');
+  // Review fix: the button was named "Search both sites" while it opens one site's search; its name now says which site.
+  const hrefs = { kpop: 'https://k.test/search', anime: 'https://a.test/search' };
+  const labels = { kpop: 'Search KpopQuiz', anime: 'Search OtakuQuiz' };
+
+  it('starts on the search page of KpopQuiz (the filter is All), as a link named after that site', () => {
+    const html = renderToStaticMarkup(createElement(HomeFilterProvider, null, createElement(HomeSearch, { hrefs, labels })));
+    expect(html).toBe('<a href="https://k.test/search" aria-label="Search KpopQuiz" class="hub-h2-iconbtn hub-h2-btn"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg></a>');
+    expect(html).not.toContain('both');
+  });
+
+  it('names the site it goes to on every filter: its name and its address always agree', () => {
+    expect(searchTarget('all', hrefs, labels)).toEqual({ href: 'https://k.test/search', label: 'Search KpopQuiz' });
+    expect(searchTarget('kpop', hrefs, labels)).toEqual({ href: 'https://k.test/search', label: 'Search KpopQuiz' });
+    expect(searchTarget('easy', hrefs, labels)).toEqual({ href: 'https://k.test/search', label: 'Search KpopQuiz' });
+    expect(searchTarget('anime', hrefs, labels)).toEqual({ href: 'https://a.test/search', label: 'Search OtakuQuiz' });
   });
 });
 
@@ -155,10 +167,26 @@ describe('Hot right now', () => {
   });
 
   it('leaves the Start easy chip out when there is no easy quiz', () => {
-    const lists = { all: [card(1, 'kpop')], kpop: [card(1, 'kpop')], anime: [], easy: [] };
+    const lists = { all: [card(1, 'kpop')], kpop: [card(1, 'kpop')], anime: [card(2, 'anime')], easy: [] };
     const html = renderToStaticMarkup(createElement(HomeHot, { lists, labels, allLinks: links }));
     expect(html).not.toContain('Start easy');
     expect(html.match(/class="hub-h2-segbtn"/g)).toHaveLength(3);
+  });
+
+  it('leaves a site chip out when its list is empty (review fix), and never shows another list under a chip', () => {
+    const chipsOf = (html: string): string[] => [...html.matchAll(/class="hub-h2-segbtn"><span aria-hidden="true" class="[^"]+"><\/span>([^<]+)</g)].map((m) => m[1]!);
+    const noAnime = { all: [card(1, 'kpop'), card(3, 'kpop')], kpop: [card(1, 'kpop'), card(3, 'kpop')], anime: [], easy: [] };
+    let html = renderToStaticMarkup(createElement(HomeHot, { lists: noAnime, labels, allLinks: links }));
+    expect(chipsOf(html)).toEqual(['All', 'KpopQuiz']);
+    expect(html).not.toContain('OtakuQuiz');
+    const noKpop = { all: [card(2, 'anime')], kpop: [], anime: [card(2, 'anime')], easy: [card(2, 'anime')] };
+    html = renderToStaticMarkup(createElement(HomeHot, { lists: noKpop, labels, allLinks: links }));
+    expect(chipsOf(html)).toEqual(['All', 'OtakuQuiz', 'Start easy']);
+    // the first render shows the All list itself
+    expect(html.match(/class="hub-h2-line hub-h2-hrow /g)).toHaveLength(1);
+    expect(hotChips({ all: [card(1, 'kpop')], kpop: [], anime: [], easy: [] }, labels).map((c) => c.id)).toEqual(['all']);
+    expect(hotChips({ all: [card(1, 'kpop')], kpop: [card(1, 'kpop')], anime: [card(2, 'anime')], easy: [card(3, 'kpop')] }, labels).map((c) => c.id))
+      .toEqual(['all', 'kpop', 'anime', 'easy']);
   });
 });
 

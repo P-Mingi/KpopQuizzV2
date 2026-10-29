@@ -4,14 +4,14 @@
 // Home v3 (2026-10-29, Home.dc.html): the right column of the third row. Top fans per site, as rows (rank, initial, handle, level when it is
 // public), with K-pop and Anime tabs and the fan's own row marked; then the passport: signed out, the rabbit, the promise and Sign in (the
 // block of what other sites see and never see stays one click away, word for word the privacy page's); signed in, the level of each site
-// the fan joined and the way to the next one.
+// the fan joined and the way to the next one; its heading is the link to the fan's passport page (/passport).
 import { HubShares } from '@/components/hub/hub-shares';
 import { ht } from '@/lib/site/hub/copy';
 
 import { HomeFans } from './home-fans';
 import { HomeSignIn } from './home-signin';
 import { RabbitMark } from './home-ui';
-import { siteName } from './home-names';
+import { PASSPORT_PATH, siteName } from './home-names';
 import { siteClass } from './site-class';
 
 import type { HomeFans as HomeFansData, HomeViewer } from '@/lib/site/hub/home-types';
@@ -39,7 +39,7 @@ function Passport({ viewer, heading }: { viewer: HomeViewer | null; heading: 'h2
   const sites = (['kpop', 'anime'] as const).filter((s) => viewer.sites[s]);
   return (
     <div id="passport" className="hub-h2-pass hub-h2-pass-in">
-      <H className="hub-h2-pass-h">{ht('hp.pass.mine', { name: viewer.username })}</H>
+      <H className="hub-h2-pass-h"><a href={PASSPORT_PATH} className="hub-h2-pass-link">{ht('hp.pass.mine', { name: viewer.username })}</a></H>
       {sites.map((s) => {
         const lv = viewer.sites[s]!;
         return (

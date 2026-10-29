@@ -12,13 +12,16 @@ html.ux-v1[data-site="hub"] {
   --hub-a: #C2410C; --hub-a-soft: #FFF1E6; --hub-a-ink: #9A3412; --hub-a-g2: #FBE1CC; --hub-a-dots: rgba(194, 65, 12, .2); --hub-a-x1: #F9DEC9; --hub-a-x3: #FFF7EF;
   --hub-shadow-hover: 0 2px 4px rgba(31, 27, 23, .04), 0 18px 40px rgba(31, 27, 23, .09);
   --hub-shadow-seg: 0 1px 2px rgba(31, 27, 23, .1);
+  /* The pressed chip of a filter (Hot right now, Top fans): its own ground, never the track's (--ux-surface). */
+  --hub-seg-on: #FFFFFF;
 }
 html.ux-v1.dark[data-site="hub"] {
   --hub-ink-2: #C9C2B8; --hub-ink-3: #DDD7CF; --hub-row: #262422; --hub-hover: #201E1C; --hub-thead: #1F1D1B;
   --hub-k-soft: #3A2129; --hub-k-ink: #FF9DBC; --hub-k-g2: #4A2A37; --hub-k-dots: rgba(255, 157, 188, .18); --hub-k-x1: #42232F; --hub-k-x3: #2E2236;
   --hub-a-soft: #3A2214; --hub-a-ink: #FDBA74; --hub-a-g2: #4A2B18; --hub-a-dots: rgba(253, 186, 116, .16); --hub-a-x1: #452816; --hub-a-x3: #2F1D12;
   --hub-shadow-hover: 0 2px 4px rgba(0, 0, 0, .35), 0 18px 40px rgba(0, 0, 0, .45);
-  --hub-shadow-seg: 0 1px 2px rgba(0, 0, 0, .4);
+  --hub-shadow-seg: 0 1px 2px rgba(0, 0, 0, .4), inset 0 0 0 1px #57514B;
+  --hub-seg-on: #3A3631;
 }
 @media (prefers-color-scheme: dark) {
   html.ux-v1[data-site="hub"]:not(.light) {
@@ -26,7 +29,8 @@ html.ux-v1.dark[data-site="hub"] {
     --hub-k-soft: #3A2129; --hub-k-ink: #FF9DBC; --hub-k-g2: #4A2A37; --hub-k-dots: rgba(255, 157, 188, .18); --hub-k-x1: #42232F; --hub-k-x3: #2E2236;
     --hub-a-soft: #3A2214; --hub-a-ink: #FDBA74; --hub-a-g2: #4A2B18; --hub-a-dots: rgba(253, 186, 116, .16); --hub-a-x1: #452816; --hub-a-x3: #2F1D12;
     --hub-shadow-hover: 0 2px 4px rgba(0, 0, 0, .35), 0 18px 40px rgba(0, 0, 0, .45);
-    --hub-shadow-seg: 0 1px 2px rgba(0, 0, 0, .4);
+    --hub-shadow-seg: 0 1px 2px rgba(0, 0, 0, .4), inset 0 0 0 1px #57514B;
+    --hub-seg-on: #3A3631;
   }
 }
 
@@ -87,9 +91,9 @@ html.ux-v1[data-site="hub"] .hub-h2-home a.hub-h2-line:hover, html.ux-v1[data-si
 html.ux-v1[data-site="hub"] .hub-h2-th { flex: none; display: grid; place-items: center; overflow: hidden; font-weight: 800; background: var(--hub-s-soft); color: var(--hub-s-ink); }
 html.ux-v1[data-site="hub"] .hub-h2-th-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 html.ux-v1[data-site="hub"] .hub-h2-glabel { margin: 14px 0 2px; font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ux-muted); }
-html.ux-v1[data-site="hub"] .hub-h2-seg { display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; background: var(--ux-surface); }
-html.ux-v1[data-site="hub"] .hub-h2-segbtn { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 13px; border-radius: 999px; border: 0; background: transparent; font: inherit; font-weight: 700; font-size: 13px; cursor: pointer; color: var(--ux-ink); }
-html.ux-v1[data-site="hub"] .hub-h2-segbtn[aria-pressed="true"] { background: var(--ux-raised); box-shadow: var(--hub-shadow-seg); }
+html.ux-v1[data-site="hub"] .hub-h2-seg { display: inline-flex; flex-wrap: wrap; gap: 2px; max-width: 100%; box-sizing: border-box; padding: 3px; border-radius: 20px; background: var(--ux-surface); }
+html.ux-v1[data-site="hub"] .hub-h2-segbtn { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 13px; border-radius: 999px; border: 0; background: transparent; font: inherit; font-weight: 700; font-size: 13px; white-space: nowrap; cursor: pointer; color: var(--ux-ink); }
+html.ux-v1[data-site="hub"] .hub-h2-segbtn[aria-pressed="true"] { background: var(--hub-seg-on); box-shadow: var(--hub-shadow-seg); }
 html.ux-v1[data-site="hub"] .hub-h2-segbtn-site { min-height: 34px; padding: 0 12px; color: var(--ux-muted); }
 html.ux-v1[data-site="hub"] .hub-h2-segbtn-site[aria-pressed="true"] { color: var(--hub-s-ink); }
 html.ux-v1[data-site="hub"] .hub-h2-segdot { width: 7px; height: 7px; border-radius: 50%; background: var(--ux-ink); }
@@ -203,9 +207,11 @@ html.ux-v1[data-site="hub"] .hub-h2-home .hub-h2-full { font-weight: 700; font-s
 html.ux-v1[data-site="hub"] .hub-h2-again { min-height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--ux-edge); background: var(--ux-raised); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--ux-ink); }
 html.ux-v1[data-site="hub"] .hub-h2-dyk { margin-top: 18px; }
 html.ux-v1[data-site="hub"] .hub-h2-fact { padding: 10px 0; display: flex; flex-direction: column; gap: 4px; }
+html.ux-v1[data-site="hub"] .hub-h2-fact-subj { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: var(--hub-s-ink); }
 html.ux-v1[data-site="hub"] .hub-h2-fact-t { font-size: 15px; line-height: 1.45; font-weight: 600; }
-html.ux-v1[data-site="hub"] .hub-h2-fact-t .hub-h2-fdot { margin-right: 8px; vertical-align: middle; }
-html.ux-v1[data-site="hub"] .hub-h2-fsrc { font-size: 12px; color: var(--ux-muted); padding-left: 15px; }
+html.ux-v1[data-site="hub"] .hub-h2-fsrc { font-size: 12px; color: var(--ux-muted); }
+html.ux-v1[data-site="hub"] .hub-h2-home a.hub-h2-srclink { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+html.ux-v1[data-site="hub"] .hub-h2-home a.hub-h2-srclink:hover { color: var(--ux-ink); }
 
 /* Row 3, left: When K-pop meets anime. */
 html.ux-v1[data-site="hub"] .hub-h2-cross { display: flex; flex-direction: column; gap: 14px; }
@@ -224,7 +230,7 @@ html.ux-v1[data-site="hub"] .hub-h2-xmeta { font-size: 13px; color: var(--ux-mut
 
 /* Row 3, right: Top fans per site and the passport. */
 html.ux-v1[data-site="hub"] .hub-h2-fans { display: flex; flex-direction: column; gap: 10px; }
-html.ux-v1[data-site="hub"] .hub-h2-fans-h { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+html.ux-v1[data-site="hub"] .hub-h2-fans-h { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
 html.ux-v1[data-site="hub"] .hub-h2-fan { min-height: 50px; }
 html.ux-v1[data-site="hub"] .hub-h2-fan-me { background: var(--hub-s-soft); }
 html.ux-v1[data-site="hub"] .hub-h2-fan-rank { flex: none; width: 18px; text-align: right; font-size: 14px; color: var(--ux-muted); }
@@ -237,6 +243,8 @@ html.ux-v1[data-site="hub"] .hub-h2-pass-out { display: flex; align-items: cente
 html.ux-v1[data-site="hub"] .hub-h2-pass-mk { width: 48px; height: 48px; flex: none; object-fit: contain; }
 html.ux-v1[data-site="hub"] .hub-h2-pass-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 html.ux-v1[data-site="hub"] .hub-h2-pass-h { margin: 0; font-size: 15px; font-weight: 800; }
+html.ux-v1[data-site="hub"] .hub-h2-home a.hub-h2-pass-link { color: var(--ux-ink); text-decoration: none; }
+html.ux-v1[data-site="hub"] .hub-h2-home a.hub-h2-pass-link:hover { text-decoration: underline; text-underline-offset: 3px; }
 html.ux-v1[data-site="hub"] .hub-h2-pass-p { font-size: 13px; color: var(--ux-muted); }
 html.ux-v1[data-site="hub"] .hub-h2-pass-cta { flex: none; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 0; background: var(--ux-ink); color: var(--ux-page); font: inherit; font-weight: 700; font-size: 14px; cursor: pointer; }
 html.ux-v1[data-site="hub"] .hub-h2-pass-shares { font-size: 14px; }

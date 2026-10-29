@@ -2,11 +2,11 @@
 // Home v3 (2026-10-29, Home.dc.html): the left column of the third row, light now (the dark band is gone): "When K-pop meets anime", the
 // sourced fact under it, then three tiles, image first (3:2): the owner's image (site_assets) or, until there is one, a soft gradient in
 // the colours of the tile's site; its site, its title and its line. Each tile links to its quiz on its own site. The fact names its source
-// beside it (SEO rule 3.8), which the board leaves out.
+// beside it (SEO rule 3.8), which the board leaves out; the name is a link to the source (review fix, rule 5.5).
 import { ht } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
 
-import { SlotImage } from './home-ui';
+import { FactSource, SlotImage } from './home-ui';
 import { siteName } from './home-names';
 import { siteClass } from './site-class';
 
@@ -24,7 +24,8 @@ export function HomeCrossover({ data, assets }: { data: HomeCrossoverData; asset
         <h2 id="cross-h" className="hub-h2-h2">{ht('hp.cross.title')}</h2>
         {data.fact ? (
           <p className="hub-h2-sub">
-            {data.fact}{data.factSource ? <span className="hub-h2-cross-src"> {ht('hp.quick.source', { source: data.factSource })}</span> : null}
+            {data.fact}
+            {data.factSource && data.factUrl ? <>{' '}<FactSource name={data.factSource} url={data.factUrl} className="hub-h2-cross-src" /></> : null}
           </p>
         ) : null}
       </div>

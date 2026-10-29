@@ -5,11 +5,14 @@
 // dailyGuess flag is on (lib/site/hub/daily-guess.ts), Quizzes without Hot right now, Blind test without the blind test of the day.
 // The EN/FR switch of the board is not drawn: the hub has no French page yet (the /fr pages come with the Burrow), and a switch to nowhere
 // would be a dead door.
+// Review fixes: the level chip of a signed-in fan is the way to their passport page (/passport); the search button is named after the site
+// whose search it opens (it follows the Hot filter), never "both sites".
 import { BURROW_PATHS } from '@/lib/site/hub/daily-guess';
 import { ht } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
 
 import { HomeSearch } from './home-filter';
+import { PASSPORT_PATH, siteName } from './home-names';
 import { HomeSignIn } from './home-signin';
 import { HubWordmark, RabbitMark } from './home-ui';
 
@@ -44,10 +47,10 @@ export function HomeNav({ viewer, sections, burrowLeft }: { viewer: HomeViewer |
         <div className="hub-h2-actions">
           <HomeSearch
             hrefs={{ kpop: homeUrl({ site: 'kpop', path: '/search' }), anime: homeUrl({ site: 'anime', path: '/search' }) }}
-            label={ht('hp.nav.search')}
+            labels={{ kpop: ht('hp.nav.search', { name: siteName('kpop') }), anime: ht('hp.nav.search', { name: siteName('anime') }) }}
           />
           {viewer ? (
-            <a href="#fans" className="hub-h2-me">
+            <a href={PASSPORT_PATH} className="hub-h2-me">
               <span aria-hidden="true" className="hub-h2-me-av">{viewer.username.charAt(0).toUpperCase()}</span>{ht('hp.nav.level', { level: viewer.level })}
             </a>
           ) : (
