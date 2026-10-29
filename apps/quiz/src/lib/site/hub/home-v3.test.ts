@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 // Home v3 (2026-10-29, docs/strategy/o1/dle/prototype/Home.dc.html): the three small modules the new home adds. The done marks of Today
 // (the fan's plays of today on the quizzes of the day), the image slots (site_assets, empty until step 2 creates the table) and the Burrow
-// switch (the dailyGuess flag and the pages of the hub).
+// switch (the registry feature dailyGuess and the pages of the hub).
 
 const fake = vi.hoisted(() => ({ rows: [] as Array<{ quiz_id: string }>, error: null as null | { message: string }, asked: [] as Array<Record<string, unknown>>, reads: 0 }));
 vi.mock('@/lib/supabase/server', () => ({
@@ -24,6 +24,8 @@ vi.mock('@/lib/supabase/server', () => ({
     };
   },
 }));
+
+import { REGISTRY } from '@/lib/site/registry';
 
 import { burrowOpen, dailyGuessOn } from './daily-guess';
 import { HOME_ASSET_KEYS, loadHomeAssets } from './home-assets';
@@ -87,16 +89,29 @@ describe('the image slots', () => {
 });
 
 describe('the Burrow', () => {
-  it('is off by default: dailyGuess is the server flag DAILY_GUESS, 1 or true', () => {
-    expect(dailyGuessOn(undefined)).toBe(false);
-    expect(dailyGuessOn('')).toBe(false);
-    expect(dailyGuessOn('0')).toBe(false);
-    expect(dailyGuessOn('1')).toBe(true);
-    expect(dailyGuessOn('true')).toBe(true);
+  // The owner's switch is the registry feature `dailyGuess` of the hub (daily games step 1), not an environment variable.
+  const withKey = (on: boolean) => ({ ...REGISTRY.hub.features, dailyGuess: on }) as typeof REGISTRY.hub.features;
+
+  it('is off by default: the registry feature dailyGuess, a missing key reading as false', () => {
+    expect(dailyGuessOn()).toBe(false);
+    // the hub's registry entry: no key yet (step 1 adds it as false)
+    expect((REGISTRY.hub.features as unknown as Record<string, unknown>).dailyGuess ?? false).toBe(false);
+    expect(dailyGuessOn(REGISTRY.hub.features)).toBe(false);
+    expect(dailyGuessOn(withKey(false))).toBe(false);
+    expect(dailyGuessOn(withKey(true))).toBe(true);
+    // a truthy value that is not true is not the switch
+    expect(dailyGuessOn({ ...REGISTRY.hub.features, dailyGuess: 1 } as unknown as typeof REGISTRY.hub.features)).toBe(false);
   });
 
-  it('stays closed with the flag on while the hub has no /daily, /kpopdle and /otakudle', () => {
-    expect(burrowOpen(undefined)).toBe(false);
-    expect(burrowOpen('1')).toBe(false);
+  it('ignores the old DAILY_GUESS environment variable', () => {
+    vi.stubEnv('DAILY_GUESS', '1');
+    expect(dailyGuessOn()).toBe(false);
+    expect(burrowOpen()).toBe(false);
+  });
+
+  it('stays closed with the feature on while the hub has no /daily, /kpopdle and /otakudle', () => {
+    expect(burrowOpen()).toBe(false);
+    expect(burrowOpen(withKey(false))).toBe(false);
+    expect(burrowOpen(withKey(true))).toBe(false);
   });
 });

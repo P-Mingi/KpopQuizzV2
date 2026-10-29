@@ -5,6 +5,8 @@
 // Sign in; then rows with a small image each: the Burrow (Kpopdle and Otakudle, only while the Burrow is open, lib/site/hub/daily-guess.ts),
 // the K-pop and the anime quiz of the day, the debate of the day; and the blind test, playable in its row. A row's image is the owner's
 // (site_assets) or, until there is one, an icon on the colour of its site.
+// Review fix: the progress line and the badge of the Burrow tab count the same rows (todayCounts): the playable dailies, i.e. the quizzes
+// of the day plus Kpopdle and Otakudle while the Burrow is open; the debate is a vote and counts in neither.
 import { BURROW_PATHS } from '@/lib/site/hub/daily-guess';
 import { ht } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
@@ -41,9 +43,9 @@ function burrowRows(): TodayRow[] {
   ];
 }
 
-/** The quizzes of the day and the debate. */
+/** The quizzes of the day, each marked done once the fan finished it today. */
 function quizRows(today: HomeTodayData, done: HomeDone): TodayRow[] {
-  const rows: TodayRow[] = today.quizzes.map((q) => ({
+  return today.quizzes.map((q) => ({
     key: q.site === 'kpop' ? 'qotdK' : 'qotdA',
     site: q.site,
     name: q.site === 'kpop' ? ht('hp.today.qotdKpop') : ht('hp.today.qotdAnime'),
@@ -52,16 +54,29 @@ function quizRows(today: HomeTodayData, done: HomeDone): TodayRow[] {
     icon: ROW_ICONS.quiz,
     state: done[q.site] ? 'done' : 'play',
   }));
-  if (today.debate) {
-    rows.push({ key: 'debate', site: null, name: ht('hp.today.debate'), desc: today.debate.title, href: homeUrl(today.debate), icon: ROW_ICONS.vote, state: 'vote' });
-  }
-  return rows;
 }
 
-/** The games of today not done yet, for the badge of the Burrow tab: every row of Today but the ones finished. */
-export function todayLeft(today: HomeTodayData | null, done: HomeDone, burrow: boolean): number {
+/** The debate of the day: a vote, never a game to finish. */
+function debateRows(today: HomeTodayData): TodayRow[] {
+  return today.debate
+    ? [{ key: 'debate', site: null, name: ht('hp.today.debate'), desc: today.debate.title, href: homeUrl(today.debate), icon: ROW_ICONS.vote, state: 'vote' }]
+    : [];
+}
+
+/**
+ * The playable dailies of today and how many of them the fan finished: the quizzes of the day, plus Kpopdle and Otakudle while the Burrow
+ * is open. The debate can never be marked done, so it counts in neither. The progress line of Today and the badge of the Burrow tab both
+ * read these rows, so they always agree.
+ */
+export function todayCounts(today: HomeTodayData | null, done: HomeDone, burrow: boolean): { readonly done: number; readonly total: number } {
   const rows = [...(burrow ? burrowRows() : []), ...(today ? quizRows(today, done) : [])];
-  return rows.filter((r) => r.state !== 'done').length;
+  return { done: rows.filter((r) => r.state === 'done').length, total: rows.length };
+}
+
+/** The playable dailies not done yet, for the badge of the Burrow tab. */
+export function todayLeft(today: HomeTodayData | null, done: HomeDone, burrow: boolean): number {
+  const c = todayCounts(today, done, burrow);
+  return c.total - c.done;
 }
 
 function days(n: number): string {
@@ -93,9 +108,8 @@ function Row({ row, assets }: { row: TodayRow; assets: HomeAssets }): React.Reac
 
 export function HomeToday({ today, viewer, done, assets, burrow }: { today: HomeTodayData; viewer: HomeViewer | null; done: HomeDone; assets: HomeAssets; burrow: boolean }): React.ReactElement {
   const bt = today.blindtest;
-  const quizzes = quizRows(today, done);
-  const tracked = today.quizzes.length;
-  const doneN = today.quizzes.filter((q) => done[q.site]).length;
+  const quizzes = [...quizRows(today, done), ...debateRows(today)];
+  const { done: doneN, total: tracked } = todayCounts(today, done, burrow);
   const streaks = viewer
     ? (['kpop', 'anime'] as const).filter((s) => viewer.sites[s]).map((s) => (s === 'kpop' ? ht('hp.today.streakKpop', { days: days(viewer.streaks.kpop) }) : ht('hp.today.streakAnime', { days: days(viewer.streaks.anime) })))
     : [];

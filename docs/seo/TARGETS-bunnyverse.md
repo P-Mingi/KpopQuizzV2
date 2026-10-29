@@ -38,7 +38,7 @@ named gap in the plan; blank when none was recorded yet.
 - Title (absolute): "K-pop and Anime Daily Games and Quizzes | Bunnyverse" (52 characters); H1: "Quizzes and daily games for K-pop and anime
   fans"; the description starts with the same phrase (rule 2.1).
 - Answer block: the "What is Bunnyverse?" paragraph in the server HTML, 40 to 60 words, saying only what exists (the Burrow, Kpopdle and
-  Otakudle appear once the `DAILY_GUESS` flag is on and their pages exist).
+  Otakudle appear once the hub's registry feature `dailyGuess` is on and their pages exist).
 - Structured data: WebSite (no search action) and the ItemList of Hot right now (canonical URLs on their own sites); the Organization of the
   layout.
 - Numbers: the count of quizzes of each site (rounded down by `atLeast`, the shared helper of lib/stats/site-stats.ts), plays from 100 plays,
