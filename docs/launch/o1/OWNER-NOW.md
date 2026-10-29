@@ -87,7 +87,7 @@ Worker : le déploiement `kpopquiz` est Ready, Runtime Logs calmes pendant 1 h, 
 ### 8. Premiers déploiements des deux nouveaux projets
 Moi 4 min, Worker 20 min. [RUNBOOK H8](RUNBOOK.md#h-domain-vercel-supabase-and-google)
 
-Après le OK de l'étape 7. Vercel, `otakuquiz`, Deployments : Redeploy du dernier `main`. Puis la même chose sur `fandomverse`. Cet ordre vient de `ARCHITECTURE-BUNNYVERSE.md`, section 5.
+Après le OK de l'étape 7. Vercel, `otakuquiz`, Deployments : Redeploy du dernier `main`, et dans la fenêtre du Redeploy, décoche « Use project's Ignore Build Step » (sinon la pause d'avant le lancement, `NET_PRODUCTION_HOLD` dans `apps/quiz/scripts/vercel-ignore-build.sh`, annule le build). Puis la même chose sur `fandomverse`. Cet ordre vient de `ARCHITECTURE-BUNNYVERSE.md`, section 5.
 
 Vérif (worker) : V9 (le hub sur `/`, OtakuQuiz sur `/anime`, noindex, `check:env` passe), le groupe Microfrontends, la liste de `ENV.md` section 4.
 
@@ -146,7 +146,7 @@ Tout de suite après, connecté sur kpopquiz.org : crée un quiz jetable, vérif
 ### 14. `SITE_SCOPE=1` sur kpopquiz
 Moi 4 min, Worker 1 h 10, Claude 3 min. [RUNBOOK B6](RUNBOOK.md#b-p1-001-to-007)
 
-Après le OK de Claude sur 002b à 002d. Vercel, `kpopquiz`, Settings, Environment Variables, Add, Production : la clé ci-dessous, valeur `1`. Puis Deployments, Redeploy de la production sans le cache de build.
+Après le OK de Claude sur 002b à 002d. Vercel, `kpopquiz`, Settings, Environment Variables, Add, Production : la clé ci-dessous, valeur `1`. Puis Deployments, Redeploy de la production sans le cache de build (décoche « Use project's Ignore Build Step »).
 ```
 SITE_SCOPE
 ```
@@ -249,7 +249,7 @@ psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/pending-migrations/multisite/0
 ### 26. Le déploiement de l'app
 Worker 5 min, Moi (si besoin) 3 min. [RUNBOOK E3](RUNBOOK.md#e-p3-009-the-app-deploy-010)
 
-Worker : la production `kpopquiz` tourne le dernier `main` (la fusion ou plus récent) et `/daily` redirige vers une page `/q/`. Seulement s'il te le demande : Vercel, `kpopquiz`, Deployments, Redeploy du dernier `main` sans le cache.
+Worker : la production `kpopquiz` tourne le dernier `main` (la fusion ou plus récent) et `/daily` redirige vers une page `/q/`. Seulement s'il te le demande : Vercel, `kpopquiz`, Deployments, Redeploy du dernier `main` sans le cache (décoche « Use project's Ignore Build Step »).
 
 ### 27. 010, DANGEREUX
 Moi 2 min, Claude 4 min. [RUNBOOK E4](RUNBOOK.md#e-p3-009-the-app-deploy-010)
@@ -451,7 +451,7 @@ psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "update public.quiz_bank set st
 ### 47. Les builds
 Moi 6 min, Worker 5 min. [RUNBOOK K5b](RUNBOOK.md#k-launch-day)
 
-Vercel, `otakuquiz` puis `fandomverse`, Settings, Git, Ignored Build Step : enlève `exit 0` s'il y est. Puis Deployments, Redeploy du dernier `main` sur chacun, `otakuquiz` d'abord. Ne touche pas à `kpopquiz`.
+Fusionne la PR du jour J préparée par Claude : elle passe `NET_PRODUCTION_HOLD` à 0 dans `apps/quiz/scripts/vercel-ignore-build.sh` et retire `o1/integration` des branches déployées de `apps/quiz/vercel.json`. La fusion construit `main` sur les trois projets (`kpopquiz` sans changement de pages). Rien à régler dans les Settings : depuis le 2026-10-29, l'`ignoreCommand` de `vercel.json` remplace l'Ignored Build Step du tableau de bord.
 
 Vérif (worker) : un déploiement Ready de `main` sur chacun.
 
