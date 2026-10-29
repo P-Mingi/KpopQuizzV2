@@ -20,7 +20,7 @@ async function open(tab?: string): Promise<string> {
   return renderToStaticMarkup(el);
 }
 
-describe('/admin on fandomverse.org/anime', () => {
+describe('/admin on bunnyverse.org/anime', () => {
   it('is a 404 for a visitor who is not signed in, on every tab', async () => {
     for (const tab of [undefined, 'images', 'overview', 'zzz']) await expect(open(tab)).rejects.toThrow('NEXT_NOT_FOUND');
   });

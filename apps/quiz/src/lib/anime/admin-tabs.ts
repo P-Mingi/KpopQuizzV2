@@ -1,4 +1,4 @@
-// Run O1 (ADM front): the tabs of /admin on fandomverse.org/anime. Images first; to add a tab, add a row here and a branch in the page.
+// Run O1 (ADM front): the tabs of /admin on bunnyverse.org/anime. Images first; to add a tab, add a row here and a branch in the page.
 
 export const ADMIN_TABS = [
   { id: 'images', label: 'Images' },

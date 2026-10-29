@@ -1,4 +1,4 @@
--- 001-quiz-daily-plays.sql (run O1, lot H2b; the daily plays table of the Hot right now block of fandomverse.org)
+-- 001-quiz-daily-plays.sql (run O1, lot H2b; the daily plays table of the Hot right now block of bunnyverse.org)
 --
 -- What:   creates public.quiz_daily_plays (one row per quiz and UTC day: plays, and started when something records it), its RLS (read
 --         for everyone, no insert, update or delete policy), and public.hub_refresh_quiz_daily(p_days), the function that fills it from

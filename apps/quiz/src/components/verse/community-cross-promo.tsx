@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { WidgetShell } from '@/components/verse/primitives/widget-shell';
 import { useEffect, useState } from 'react';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 interface MySpace { slug: string; name: string; fandom: string | null; role: string; xp: number }

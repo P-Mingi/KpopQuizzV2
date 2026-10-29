@@ -1,7 +1,7 @@
 // Run O1, lot (d), lane H1: the legal notice (mentions légales) of the three sites. Pure: every string is a legal.* key of
 // copy/hub/h1.ts (legal.publisher is the publisher's name and address; privacy.controller is the same person for the privacy policy), the site name and domain come from the
 // registry, the contact mailbox and the place of the privacy policy follow the site: kpopquiz.org keeps its own mailbox and its own
-// /privacy, OtakuQuiz and FandomVerse print the network mailbox and link the network policy.
+// /privacy, OtakuQuiz and Bunnyverse print the network mailbox and link the network policy.
 
 import { COPY } from '@/copy/hub/h1';
 import { HUB_EMAIL, ht } from '@/lib/site/hub/copy';

@@ -15,7 +15,7 @@ import type { KitResponse } from '@/app/api/creators/kit/route';
 import type { StoryFormat } from '@/components/ux-v1/story-image';
 import type { KitQuiz } from './captions';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 export interface ShareKitProps {

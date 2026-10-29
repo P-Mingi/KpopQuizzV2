@@ -9,7 +9,7 @@ import type { HomeQuiz, HomeSite } from './home-types';
 
 /**
  * The path (and query) of an absolute link of a module; a path stays as it is. With `site`, the folder of that site's registry url is
- * taken off too (OtakuQuiz lives at fandomverse.org/anime since 2026-10-28): homeUrl adds the site's url back, so the folder is never doubled.
+ * taken off too (OtakuQuiz lives at bunnyverse.org/anime since 2026-10-28): homeUrl adds the site's url back, so the folder is never doubled.
  */
 export function pathOf(href: string, site?: HomeSite): string {
   try {

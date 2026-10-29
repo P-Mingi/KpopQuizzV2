@@ -7,7 +7,7 @@ import { Sheet } from '@/components/ux-v1/sheet';
 import { useUxToast } from '@/components/ux-v1/toast';
 import { useIsClient } from '@/components/ux-v1/use-is-client';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 // Same reasons and the same POST /api/quiz/[id]/report { reason, details } payload as

@@ -12,7 +12,7 @@ import { isUxV12 } from '@/lib/ux-v12';
 
 import type { CreateFunnel } from '@/lib/ux-v1/p5/use-create-funnel';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 // Done state (prototype #pub-done): the mascot, "It's live" and its line, the live

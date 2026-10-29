@@ -1,6 +1,6 @@
-// FandomVerse (lane 1): the base path of a site in a sub-folder of another site's domain, read from its registry url
-// (docs/launch/o1/ARCHITECTURE-FANDOMVERSE.md). The registry values of the run are stubbed where the zone matters, so the test
-// says the same thing before and after the registry carries https://fandomverse.org/anime.
+// Bunnyverse (lane 1): the base path of a site in a sub-folder of another site's domain, read from its registry url
+// (docs/launch/o1/ARCHITECTURE-BUNNYVERSE.md). The registry values of the run are stubbed where the zone matters, so the test
+// says the same thing before and after the registry carries https://bunnyverse.org/anime.
 import { describe, expect, it } from 'vitest';
 
 import {
@@ -12,26 +12,26 @@ import { REGISTRY, netOrigin } from './registry';
 
 import type { SiteConfig, SiteId } from './types';
 
-/** The registry as FandomVerse sets it: the hub at the root of fandomverse.org, OtakuQuiz in /anime, kpop on its own domain. */
+/** The registry as Bunnyverse sets it: the hub at the root of bunnyverse.org, OtakuQuiz in /anime, kpop on its own domain. */
 function fandomVerse(): Record<SiteId, SiteConfig> {
   return {
     kpop: REGISTRY.kpop,
-    anime: { ...REGISTRY.anime, url: 'https://fandomverse.org/anime', domain: 'fandomverse.org' },
-    hub: { ...REGISTRY.hub, url: 'https://fandomverse.org', domain: 'fandomverse.org' },
+    anime: { ...REGISTRY.anime, url: 'https://bunnyverse.org/anime', domain: 'bunnyverse.org' },
+    hub: { ...REGISTRY.hub, url: 'https://bunnyverse.org', domain: 'bunnyverse.org' },
   };
 }
 
 describe('basePathOf and originOf read the one registry value', () => {
   it('a site at the root has no base path; a site in a sub-folder has its folder', () => {
     expect(basePathOf('https://kpopquiz.org')).toBe('');
-    expect(basePathOf('https://fandomverse.org')).toBe('');
-    expect(basePathOf('https://fandomverse.org/anime')).toBe('/anime');
-    expect(originOf('https://fandomverse.org/anime')).toBe('https://fandomverse.org');
+    expect(basePathOf('https://bunnyverse.org')).toBe('');
+    expect(basePathOf('https://bunnyverse.org/anime')).toBe('/anime');
+    expect(originOf('https://bunnyverse.org/anime')).toBe('https://bunnyverse.org');
     expect(originOf('http://localhost:3024')).toBe('http://localhost:3024');
   });
 
   it('refuses a url that is not an origin with an optional folder (a trailing slash, a query, upper case)', () => {
-    for (const bad of ['https://fandomverse.org/', 'https://fandomverse.org/anime/', 'https://fandomverse.org/anime?x', 'fandomverse.org', 'https://FandomVerse.org']) {
+    for (const bad of ['https://bunnyverse.org/', 'https://bunnyverse.org/anime/', 'https://bunnyverse.org/anime?x', 'bunnyverse.org', 'https://Bunnyverse.org']) {
       expect(() => basePathOf(bad), bad).toThrow(/site url/);
     }
   });
@@ -45,13 +45,13 @@ describe('joinSiteUrl: absolute URLs of a site path', () => {
   it('kpop and the hub keep today\'s bytes, the home with its slash', () => {
     expect(joinSiteUrl('https://kpopquiz.org', '/')).toBe('https://kpopquiz.org/');
     expect(joinSiteUrl('https://kpopquiz.org', '/q/x')).toBe('https://kpopquiz.org/q/x');
-    expect(joinSiteUrl('https://fandomverse.org', '/')).toBe('https://fandomverse.org/');
+    expect(joinSiteUrl('https://bunnyverse.org', '/')).toBe('https://bunnyverse.org/');
   });
 
   it('a site in a sub-folder: its home is the url itself (Next answers /anime/ with a 308), every other path is appended', () => {
-    expect(joinSiteUrl('https://fandomverse.org/anime', '/')).toBe('https://fandomverse.org/anime');
-    expect(joinSiteUrl('https://fandomverse.org/anime', '/?utm_source=x')).toBe('https://fandomverse.org/anime?utm_source=x');
-    expect(joinSiteUrl('https://fandomverse.org/anime', '/q/who-is-l')).toBe('https://fandomverse.org/anime/q/who-is-l');
+    expect(joinSiteUrl('https://bunnyverse.org/anime', '/')).toBe('https://bunnyverse.org/anime');
+    expect(joinSiteUrl('https://bunnyverse.org/anime', '/?utm_source=x')).toBe('https://bunnyverse.org/anime?utm_source=x');
+    expect(joinSiteUrl('https://bunnyverse.org/anime', '/q/who-is-l')).toBe('https://bunnyverse.org/anime/q/who-is-l');
     expect(joinSiteUrl('http://localhost:3024/anime', '/series')).toBe('http://localhost:3024/anime/series');
   });
 });
@@ -67,7 +67,7 @@ describe('prefixBasePath and stripBasePath: browser paths and site paths', () =>
   });
 
   it('leaves alone what is not a root-relative path, and everything when there is no base path', () => {
-    for (const p of ['https://fandomverse.org/x', '//evil.example/x', '#top', 'relative', '']) expect(prefixBasePath('/anime', p)).toBe(p);
+    for (const p of ['https://bunnyverse.org/x', '//evil.example/x', '#top', 'relative', '']) expect(prefixBasePath('/anime', p)).toBe(p);
     expect(prefixBasePath('', '/q/x')).toBe('/q/x');
   });
 
@@ -87,14 +87,14 @@ describe('prefixBasePath and stripBasePath: browser paths and site paths', () =>
 });
 
 describe('zones of a domain', () => {
-  it('the hub of fandomverse.org has OtakuQuiz in its sub-folder; OtakuQuiz and kpopquiz.org have none', () => {
+  it('the hub of bunnyverse.org has OtakuQuiz in its sub-folder; OtakuQuiz and kpopquiz.org have none', () => {
     const r = fandomVerse();
     expect(zoneChildrenOf(r.hub, r).map((s) => s.id)).toEqual(['anime']);
     expect(zoneChildrenOf(r.anime, r)).toEqual([]);
     expect(zoneChildrenOf(r.kpop, r)).toEqual([]);
   });
 
-  it('three sites on three domains (the values before FandomVerse) have no zone', () => {
+  it('three sites on three domains (the values before Bunnyverse) have no zone', () => {
     const r: Record<SiteId, SiteConfig> = {
       kpop: REGISTRY.kpop,
       anime: { ...REGISTRY.anime, url: 'https://anime.example' },

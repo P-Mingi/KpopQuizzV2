@@ -52,8 +52,8 @@ describe('popular pages', () => {
         expect(text).not.toMatch(/K-?pop|kpopquiz|Pulse/i);
         expect(text).not.toMatch(DASHES);
       }
-      expect(html).toContain('https://fandomverse.org/anime/q/a-quiz');
-      expect(html).toContain('on fandomverse.org/anime');
+      expect(html).toContain('https://bunnyverse.org/anime/q/a-quiz');
+      expect(html).toContain('on bunnyverse.org/anime');
       expect(html).toMatch(/most played anime quizzes/i);
       expect([...html.matchAll(/<a\b[^>]*?\bhref="([^"]+)"/g)].map((m) => m[1])).not.toContain('/stats');
     });

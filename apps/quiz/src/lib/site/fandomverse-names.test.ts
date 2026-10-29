@@ -1,7 +1,9 @@
-// FandomVerse (owner, 2026-10-28): the hub is FandomVerse on fandomverse.org and OtakuQuiz lives at fandomverse.org/anime. The old hub
-// name and the two old domains must not come back in the code: this test reads every text file of the code tree and fails with the
-// file and the line of each hit. Banned: the old hub name written in camel case (case-sensitive), the old hub domain and the old
-// anime domain (any case). Scanned: apps/quiz/src, apps/quiz/public (text files), the config files at the root of apps/quiz,
+// Hub names (owner): the hub took a first new name on 2026-10-28, then became Bunnyverse on bunnyverse.org on 2026-10-29 (that
+// first name's .net and .com belong to others); OtakuQuiz lives at bunnyverse.org/anime. The old hub names and the old domains must
+// not come back in the code: this test reads every text file of the code tree and fails with the file and the line of each hit.
+// Banned: the two old hub names written in camel case (case-sensitive), the two old hub domains and the old anime domain (any case).
+// The lower-case internal name kept by the Vercel project and the Microfrontends group (owner, 2026-10-29) is not banned.
+// Scanned: apps/quiz/src, apps/quiz/public (text files), the config files at the root of apps/quiz,
 // apps/quiz/e2e, apps/quiz/scripts, supabase/functions, scripts and docs/pending-migrations (its README files included). Not scanned:
 // the history (docs/o1, docs/launch and the other reports), node_modules and build output. The design folder name of the hub
 // (docs/o1/design/fanquiz-hub) holds none of the banned strings. The tokens below are built in pieces, so this file is no hit.
@@ -15,9 +17,11 @@ const REPO = fileURLToPath(new URL('../../../../../', import.meta.url));
 const APP = join(REPO, 'apps/quiz');
 
 const OLD_NAME = ['Fan', 'Quiz'].join('');
-const OLD_DOMAINS = [['fanquiz', 'org'].join('.'), ['otakuquiz', 'org'].join('.')];
+const OLD_HUB_NAME = ['Fandom', 'Verse'].join('');
+const OLD_DOMAINS = [['fanquiz', 'org'].join('.'), ['otakuquiz', 'org'].join('.'), [OLD_HUB_NAME.toLowerCase(), 'org'].join('.')];
 const BANNED: readonly { readonly label: string; readonly re: RegExp }[] = [
   { label: OLD_NAME, re: new RegExp(OLD_NAME) },
+  { label: OLD_HUB_NAME, re: new RegExp(OLD_HUB_NAME) },
   ...OLD_DOMAINS.map((d) => ({ label: d, re: new RegExp(d.replace('.', '\\.'), 'i') })),
 ];
 
@@ -74,7 +78,7 @@ function hits(file: string): string[] {
   return out;
 }
 
-describe('FandomVerse: no old hub name or old domain in the code', () => {
+describe('Bunnyverse: no old hub name or old domain in the code', () => {
   it('scans a real tree (the registry, a copy file, the email brands, a pending migration and a script are in scope)', () => {
     const files = scope().map((f) => relative(REPO, f));
     for (const f of [
@@ -98,7 +102,12 @@ describe('FandomVerse: no old hub name or old domain in the code', () => {
     expect(match(`https://${OLD_DOMAINS[0]!.toUpperCase()}/privacy`)).toEqual([OLD_DOMAINS[0]]);
     expect(match(`x@team.${OLD_DOMAINS[1]}`)).toEqual([OLD_DOMAINS[1]]);
     expect(match('docs/o1/design/fanquiz-hub/Main.dc.html')).toEqual([]);
-    expect(match('FandomVerse on fandomverse.org, OtakuQuiz on fandomverse.org/anime')).toEqual([]);
+    expect(match(`${OLD_HUB_NAME} hub`)).toEqual([OLD_HUB_NAME]);
+    expect(match(OLD_HUB_NAME.toLowerCase())).toEqual([]);
+    expect(match(`https://www.${OLD_DOMAINS[2]!.toUpperCase()}/anime`)).toEqual([OLD_DOMAINS[2]]);
+    expect(match(`x@team.${OLD_DOMAINS[2]}`)).toEqual([OLD_DOMAINS[2]]);
+    expect(match(`the Vercel project ${OLD_HUB_NAME.toLowerCase()}, ${OLD_HUB_NAME.toLowerCase()}-git-main-team.vercel.app`)).toEqual([]);
+    expect(match('Bunnyverse on bunnyverse.org, OtakuQuiz on bunnyverse.org/anime')).toEqual([]);
   });
 
   it('finds none (each hit is printed as file:line: token)', () => {

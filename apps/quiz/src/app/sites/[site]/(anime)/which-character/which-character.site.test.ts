@@ -92,8 +92,8 @@ describe('a series with a quiz', () => {
     const page = await onAnime();
     const html = renderToString(await page.default({ params: Promise.resolve({ group: 'death-note' }) }));
     expect(html).not.toMatch(/kpopquiz\.org/i);
-    expect(html).toContain('https://fandomverse.org/anime/series');
-    expect(html).toContain('https://fandomverse.org/anime/death-note-quiz');
+    expect(html).toContain('https://bunnyverse.org/anime/series');
+    expect(html).toContain('https://bunnyverse.org/anime/death-note-quiz');
     expect(html).not.toMatch(/blind ?test|openings quiz/i);
     expect(html).not.toMatch(/<img\b|\.png|\.jpe?g|\.webp/i);
     expect(html.match(/<h1\b/g)).toHaveLength(1);
@@ -109,7 +109,7 @@ describe('a series with a quiz', () => {
     expect(html).not.toMatch(/member-are-you/);
   });
 
-  it('is indexable at its pretty URL: the canonical and the share URL are /which-death-note-character-are-you on fandomverse.org/anime', async () => {
+  it('is indexable at its pretty URL: the canonical and the share URL are /which-death-note-character-are-you on bunnyverse.org/anime', async () => {
     data.series = SERIES;
     const page = await onAnime();
     const meta = await page.generateMetadata({ params: Promise.resolve({ group: 'death-note' }) });

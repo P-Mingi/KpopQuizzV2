@@ -1,4 +1,4 @@
-// Run O1, owner order of 2026-10-26: no pink is visible on fandomverse.org/anime. This opens the pages of a running anime build in a real browser, light and
+// Run O1, owner order of 2026-10-26: no pink is visible on bunnyverse.org/anime. This opens the pages of a running anime build in a real browser, light and
 // dark, and reads the COMPUTED colour of every rendered element (text, background, borders, outline, shadows, gradients, svg fill and stroke, and the
 // ::before and ::after of each), then fails when one of them is a kpop pink.
 //   node e2e/o1/ORANGE/no-pink.mjs [--base http://127.0.0.1:3011] [--paths /,/series,...] [--cookie name=value] [--out file]

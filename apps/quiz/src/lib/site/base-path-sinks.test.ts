@@ -1,5 +1,5 @@
-// FandomVerse (lane 1, requirement 2 of the brief): on the anime build every page lives under /anime, but a browser sends a
-// root-relative address ('/api/...', '/login') to the root of fandomverse.org, which is the hub. Next adds the base path only for
+// Bunnyverse (lane 1, requirement 2 of the brief): on the anime build every page lives under /anime, but a browser sends a
+// root-relative address ('/api/...', '/login') to the root of bunnyverse.org, which is the hub. Next adds the base path only for
 // next/link, router.push and redirect(); fetch, sendBeacon, window.open, window.location, history.pushState, a plain <a href>, an
 // <img>/<Image> src and a form action need it written (`${BASE_PATH}/...`, lib/site/base-path.ts). This walks the modules a
 // page of the anime and hub builds can reach (from app/sites/, the shared auth routes and the root layout) and refuses a sink

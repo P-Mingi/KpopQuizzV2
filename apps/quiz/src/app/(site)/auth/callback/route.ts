@@ -8,7 +8,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import type { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
-  // FandomVerse (owner, 2026-10-28): the hub and anime builds land Google and Discord through the shared world handler
+  // Bunnyverse (owner, 2026-10-28): the hub and anime builds land Google and Discord through the shared world handler
   // (OAuth sessions only, the membership stamp, the basePath of the build). The kpop build runs the code below, unchanged.
   if (SITE_ID !== 'kpop') return handleWorldCallback(request);
 

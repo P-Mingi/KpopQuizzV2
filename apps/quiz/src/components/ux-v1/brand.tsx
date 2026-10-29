@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { SITE } from '@/lib/site/registry';
 import { brandWordmark } from '@/lib/site/brand';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 /**

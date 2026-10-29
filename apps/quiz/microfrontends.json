@@ -3,7 +3,7 @@
   "applications": {
     "fandomverse": {
       "development": {
-        "fallback": "fandomverse.org"
+        "fallback": "bunnyverse.org"
       }
     },
     "otakuquiz": {

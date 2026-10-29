@@ -17,7 +17,7 @@ async function footer(site: 'kpop' | 'anime' | 'hub', flag: string | null): Prom
   return renderToString(h(UxFooter, { showFandoms: true, year: 2026 }));
 }
 
-const hubLinks = (html: string): string[] => [...html.matchAll(/<a\b[^>]*?\bhref="(https?:\/\/fandomverse\.org[^"]*)"[^>]*>/g)].map((m) => m[0]);
+const hubLinks = (html: string): string[] => [...html.matchAll(/<a\b[^>]*?\bhref="(https?:\/\/bunnyverse\.org[^"]*)"[^>]*>/g)].map((m) => m[0]);
 
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); });
 
@@ -35,7 +35,7 @@ describe('UxFooter network line', () => {
       const html = await footer(site, '1');
       const links = hubLinks(html);
       expect(links).toHaveLength(1);
-      expect(links[0]).toMatch(/^<a href="https:\/\/fandomverse\.org\/">$/);
+      expect(links[0]).toMatch(/^<a href="https:\/\/bunnyverse\.org\/">$/);
       expect(html).not.toMatch(/[\u2013\u2014]/);
       expect(await footer(site, 'true')).toBe(html);
     });
@@ -47,6 +47,6 @@ describe('UxFooter network line', () => {
     const on = await footer('kpop', '1');
     const off = await footer('kpop', null);
     expect(on.length).toBeGreaterThan(off.length);
-    expect(on.replace(/<div class="ux-ftop"><b>[^<]*<\/b><a href="https:\/\/fandomverse\.org\/">[^<]*<\/a><\/div>/, '')).toBe(off);
+    expect(on.replace(/<div class="ux-ftop"><b>[^<]*<\/b><a href="https:\/\/bunnyverse\.org\/">[^<]*<\/a><\/div>/, '')).toBe(off);
   });
 });

@@ -1,4 +1,4 @@
-// FandomVerse (owner, 2026-10-28; lane 3): hub (https://fandomverse.org) and anime (https://fandomverse.org/anime, basePath
+// Bunnyverse (owner, 2026-10-28; lane 3): hub (https://bunnyverse.org) and anime (https://bunnyverse.org/anime, basePath
 // '/anime') share one session. That holds because both builds write the Supabase session cookies with Path=/ and no Domain,
 // under one name that comes from the Supabase project, never from the site or the host. Proven with the real @supabase/ssr
 // behind our server client (lib/supabase/server.ts): a sign-in writes the cookies, a sign-out clears the same cookies, with
@@ -194,22 +194,22 @@ describe('the session middleware on the anime build (basePath /anime)', () => {
 
   it('a signed-out visitor of /anime/settings goes to /anime/login with returnTo the app path', async () => {
     const updateSession = await updateSessionOn('anime', null);
-    const res = await updateSession(new NextRequest('https://fandomverse.org/anime/settings', { nextConfig: { basePath: '/anime' } }));
-    expect(res.headers.get('location')).toBe('https://fandomverse.org/anime/login?returnTo=%2Fsettings');
+    const res = await updateSession(new NextRequest('https://bunnyverse.org/anime/settings', { nextConfig: { basePath: '/anime' } }));
+    expect(res.headers.get('location')).toBe('https://bunnyverse.org/anime/login?returnTo=%2Fsettings');
   });
 
   it('a signed-in visitor of /anime/login goes to /anime; the hub and kpop redirects are the URLs of before', async () => {
     const anime = await updateSessionOn('anime', { id: 'user-1' });
-    expect((await anime(new NextRequest('https://fandomverse.org/anime/login', { nextConfig: { basePath: '/anime' } }))).headers.get('location')).toBe('https://fandomverse.org/anime');
+    expect((await anime(new NextRequest('https://bunnyverse.org/anime/login', { nextConfig: { basePath: '/anime' } }))).headers.get('location')).toBe('https://bunnyverse.org/anime');
     const hub = await updateSessionOn('hub', null);
-    expect((await hub(new NextRequest('https://fandomverse.org/settings'))).headers.get('location')).toBe('https://fandomverse.org/login?returnTo=%2Fsettings');
+    expect((await hub(new NextRequest('https://bunnyverse.org/settings'))).headers.get('location')).toBe('https://bunnyverse.org/login?returnTo=%2Fsettings');
     const kpop = await updateSessionOn('kpop', null);
     expect((await kpop(new NextRequest('https://kpopquiz.org/settings'))).headers.get('location')).toBe('https://kpopquiz.org/login?returnTo=%2Fsettings');
   });
 
   it('the refreshed cookie of the hub and anime carries Secure on https; kpop\'s does not (as before)', async () => {
     for (const [site, url, secure] of [
-      ['anime', 'https://fandomverse.org/anime/settings', true], ['hub', 'https://fandomverse.org/settings', true],
+      ['anime', 'https://bunnyverse.org/anime/settings', true], ['hub', 'https://bunnyverse.org/settings', true],
       ['anime', 'http://anime.localhost:3063/anime/settings', false], ['kpop', 'https://kpopquiz.org/settings', false],
     ] as const) {
       const updateSession = await updateSessionOn(site, { id: 'user-1' }, { name: KEY, value: 'base64-xyz', options: { ...DEFAULT_COOKIE_OPTIONS } });
@@ -222,7 +222,7 @@ describe('the session middleware on the anime build (basePath /anime)', () => {
 
   it('a refreshed session cookie leaves the middleware with Path=/ and no Domain on the anime build', async () => {
     const updateSession = await updateSessionOn('anime', { id: 'user-1' }, { name: KEY, value: 'base64-xyz', options: { ...DEFAULT_COOKIE_OPTIONS } });
-    const res = await updateSession(new NextRequest('https://fandomverse.org/anime/settings', { nextConfig: { basePath: '/anime' } }));
+    const res = await updateSession(new NextRequest('https://bunnyverse.org/anime/settings', { nextConfig: { basePath: '/anime' } }));
     const set = res.headers.getSetCookie().find((c) => c.startsWith(`${KEY}=`));
     expect(set).toBeDefined();
     expect(set).toMatch(/Path=\/(;|$)/);

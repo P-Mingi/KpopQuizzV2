@@ -9,7 +9,7 @@ import type { SiteConfig } from './types';
 
 /**
  * Splits a brand name or an address at its "Quiz" part, else at its "Verse" part: OtakuQuiz gives Otaku + Quiz, kpopquiz.org gives
- * kpop + quiz.org, FandomVerse gives Fandom + Verse (2026-10-28: the hub is FandomVerse, a name without "Quiz").
+ * kpop + quiz.org, Bunnyverse gives Bunny + verse (2026-10-29: the hub is Bunnyverse, a name without "Quiz").
  */
 export function splitAtQuiz(text: string): { readonly head: string; readonly tail: string } {
   const lower = text.toLowerCase();
@@ -24,8 +24,8 @@ export function brandWordmark(site: SiteConfig = SITE): { readonly head: string;
 }
 
 /**
- * The address of a site as a reader types it: its canonical url without the scheme. kpopquiz.org, fandomverse.org/anime (OtakuQuiz lives
- * in a folder of fandomverse.org since 2026-10-28) and fandomverse.org. On kpop it is the domain, so a kpop string does not change.
+ * The address of a site as a reader types it: its canonical url without the scheme. kpopquiz.org, bunnyverse.org/anime (OtakuQuiz lives
+ * in a folder of bunnyverse.org since 2026-10-28) and bunnyverse.org. On kpop it is the domain, so a kpop string does not change.
  */
 export function siteAddress(site: SiteConfig = SITE): string {
   return site.url.replace(/^https?:\/\//, '');
