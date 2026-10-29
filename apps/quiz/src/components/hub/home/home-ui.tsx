@@ -1,6 +1,8 @@
 // Run O1, lot H2a: the small pieces the server blocks of the new home share. Server components, no state.
-// Home v3 (2026-10-29): the wordmark of the board (the first part in ink, the second in the KpopQuiz pink: "Bunny" and "verse", split by
+// Home v3 (2026-10-29): the wordmark of the board (the first part in ink, the second in the pink of the mockups: "Bunny" and "verse", split by
 // brandWordmark from the registry name) and the image of an admin slot (lib/site/hub/home-assets.ts).
+// Owner decision 2026-10-29: the tail's class is the one the shared shell's wordmark gets on the hub (wordmarkTailClass of lib/site/brand.ts);
+// its rule reads the token --hub-brand-tail, the one source of that colour on every hub page.
 // Review fix: "Source: <name>" beside a fact, the name a link to the source (SEO rules 3.8 and 5.5).
 import Image from 'next/image';
 
@@ -14,7 +16,7 @@ export function RabbitMark({ size, className }: { size: number; className: strin
   return <Image src="/mascot/mascot-default.png" alt="" width={size} height={size} loading="eager" className={className} aria-hidden="true" />;
 }
 
-/** The name of the hub as the board writes it: the head in ink, the tail in the accent. */
+/** The name of the hub as the board writes it: the head in ink, the tail in --hub-brand-tail (the class wordmarkTailClass gives the hub). */
 export function HubWordmark({ className }: { className: string }): React.ReactElement {
   const { head, tail } = brandWordmark();
   return <span className={className}>{head}<span className="hub-h2-brand-tail">{tail}</span></span>;

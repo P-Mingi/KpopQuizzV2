@@ -14,6 +14,10 @@ html.ux-v1[data-site="hub"] {
   --hub-shadow-seg: 0 1px 2px rgba(31, 27, 23, .1);
   /* The pressed chip of a filter (Hot right now, Top fans): its own ground, never the track's (--ux-surface). */
   --hub-seg-on: #FFFFFF;
+  /* The second part of the hub's wordmark ("verse"), on every hub page: the home's bar and footer and the shared shell's header and
+     footer all give the tail the class hub-h2-brand-tail. Owner, 2026-10-29: the pink of the mockups, in both themes; equal to
+     HUB_WORDMARK_TAIL of lib/site/brand.ts (a test compares them). */
+  --hub-brand-tail: #D13A6E;
 }
 html.ux-v1.dark[data-site="hub"] {
   --hub-ink-2: #C9C2B8; --hub-ink-3: #DDD7CF; --hub-row: #262422; --hub-hover: #201E1C; --hub-thead: #1F1D1B;
@@ -60,7 +64,7 @@ html.ux-v1[data-site="hub"] .hub-h2-nav { max-width: 1180px; margin: 0 auto; pad
 html.ux-v1[data-site="hub"] .hub-h2-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 html.ux-v1[data-site="hub"] .hub-h2-brand-mk { width: 40px; height: 40px; display: block; object-fit: contain; }
 html.ux-v1[data-site="hub"] .hub-h2-brand-name { font-weight: 800; font-size: 21px; letter-spacing: -0.02em; color: var(--ux-ink); }
-html.ux-v1[data-site="hub"] .hub-h2-brand-tail { color: var(--hub-k); }
+html.ux-v1[data-site="hub"] .hub-h2-brand-tail { color: var(--hub-brand-tail); }
 html.ux-v1[data-site="hub"] .hub-h2-tabs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; flex: 1 1 auto; }
 html.ux-v1[data-site="hub"] .hub-h2-tab { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 15px; }
 html.ux-v1[data-site="hub"] .hub-h2-home .hub-h2-tab { color: var(--hub-ink-2); }

@@ -7,7 +7,7 @@ import { getProfileByUsername } from '@/lib/db/queries/profiles';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { readPassportSpine, readCollectionProgress, readPassportGroupStats } from '@/lib/passport';
-import { brandWordmark, domainWordmark } from '@/lib/site/brand';
+import { brandWordmark, domainWordmark, wordmarkTailColour } from '@/lib/site/brand';
 
 import type { NextRequest } from 'next/server';
 
@@ -17,6 +17,9 @@ import type { NextRequest } from 'next/server';
 // score". PUBLIC data only. Brand DM Sans is embedded (Pretendard fallback for
 // Korean glyphs) so it renders in real brand type, not a system fallback.
 const BRAND = '#E8457A';
+// The tail of the wordmark ("quiz", "quiz.org"): BRAND on kpop and anime (their card is today's); on the hub, "verse" and "verse.org" take
+// the hub's wordmark colour (owner, 2026-10-29), read from lib/site/brand.ts, which holds the value of the token --hub-brand-tail.
+const TAIL = wordmarkTailColour() ?? BRAND;
 const BRAND_DK = '#B5345F';
 const PINK_LT = '#FCE8EF';
 const CREAM = '#FAF8F5';
@@ -67,7 +70,7 @@ export async function GET(
     return new ImageResponse(
       (
         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: CREAM, fontFamily: FAMILY }}>
-          <div style={{ display: 'flex', fontSize: 72, fontWeight: 800, color: DARK }}>{brandWordmark().head.toLowerCase()}<span style={{ display: 'flex', color: BRAND }}>{brandWordmark().tail.toLowerCase()}</span></div>
+          <div style={{ display: 'flex', fontSize: 72, fontWeight: 800, color: DARK }}>{brandWordmark().head.toLowerCase()}<span style={{ display: 'flex', color: TAIL }}>{brandWordmark().tail.toLowerCase()}</span></div>
           <div style={{ display: 'flex', fontSize: 30, color: MUTED, marginTop: 14 }}>Make your own K-pop passport</div>
         </div>
       ),
@@ -144,7 +147,7 @@ export async function GET(
           )}
 
           <div style={{ display: 'flex', alignItems: 'center', marginTop: 36 }}>
-            <div style={{ display: 'flex', fontSize: 38, fontWeight: 800, color: DARK }}>{domainWordmark().head}<span style={{ display: 'flex', color: BRAND }}>{domainWordmark().tail}</span></div>
+            <div style={{ display: 'flex', fontSize: 38, fontWeight: 800, color: DARK }}>{domainWordmark().head}<span style={{ display: 'flex', color: TAIL }}>{domainWordmark().tail}</span></div>
             <div style={{ display: 'flex', fontSize: 24, fontWeight: 700, color: MUTED, marginLeft: 18 }}>Can you beat it?</div>
           </div>
         </div>
