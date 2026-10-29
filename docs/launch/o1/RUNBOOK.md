@@ -211,7 +211,7 @@ Back: `sqln $M/009-daily-prep.rollback.sql`.
 
 **E3  The app deploy.**
 Do: a worker makes sure production `kpopquiz` runs the `main` commit that carries the P3 code (the daily writer upserts on `site_id,featured_date`, `getQuizOfTheDay(site)`): that is the A5 merge or later. In Vercel, Deployments, open the current production deployment and compare its commit with `main`;
-if it is older, or unsure, the owner presses "Redeploy" on the latest `main` build without cache.
+if it is older, or unsure, the owner presses "Redeploy" on the latest `main` build without cache (unticking "Use project's Ignore Build Step").
 Check: Ready; `curl -sS -o /dev/null -w '%{http_code} %{redirect_url}\n' https://kpopquiz.org/daily` redirects to a `/q/` page; V1. Back: Instant Rollback to the previous deployment (compatible, ROLLBACK.md section 2).
 
 **E4  010 daily v2 (DANGEROUS).**
@@ -252,7 +252,7 @@ Check: V6 (016 lines). Back: `sql1 $M/017-deletion-kpop.rollback.sql`, then `sql
 In parallel with A to G. Nothing here is visible to readers: the domain is attached only on launch day (K6).
 
 **H1  The Vercel projects.**
-`otakuquiz` and `fanquiz` were created on 2026-10-22 (the owner's setup script: linked to the repository, builds paused by the Ignored Build Step `exit 0`, removed at K5b). On 2026-10-28 the integrator renamed `fanquiz` to `fandomverse`.
+`otakuquiz` and `fanquiz` were created on 2026-10-22 (the owner's setup script: linked to the repository, builds paused by the Ignored Build Step `exit 0`, removed at K5b). Since 2026-10-29 the `ignoreCommand` of `apps/quiz/vercel.json` (`apps/quiz/scripts/vercel-ignore-build.sh`) overrides every dashboard Ignored Build Step: the pause is its `NET_PRODUCTION_HOLD=1`, which skips every production build of `otakuquiz` and `fandomverse`. On 2026-10-28 the integrator renamed `fanquiz` to `fandomverse`.
 Do (a worker, Vercel read-only): check the three projects against `ENV.md` section 4 (Root Directory `apps/quiz`, the settings of `kpopquiz`, region `dub1`, Production Branch `main`, Deployment Protection on for previews).
 Check: `ENV.md` section 4 ticked for `fandomverse` and `otakuquiz`. Back: n/a.
 
@@ -298,7 +298,7 @@ The routing itself (`/anime` and `/anime/:path*` to `otakuquiz`) is the microfro
 Check (a worker): Team Settings, Microfrontends lists the group with the two projects and `fandomverse` as default. Back: delete the group (the projects stay).
 
 **H8  First deploys.**
-Do: once A5 is on `main` and H7 is done, in each new project, Deployments, Redeploy the latest `main` build. A worker then opens the `fandomverse` production `.vercel.app` address, and the same address followed by `/anime` (Vercel read access).
+Do: once A5 is on `main` and H7 is done, in each new project, Deployments, Redeploy the latest `main` build, unticking "Use project's Ignore Build Step" in the Redeploy window (the script cannot tell a redeploy from a push, so `NET_PRODUCTION_HOLD` would skip it). A worker then opens the `fandomverse` production `.vercel.app` address, and the same address followed by `/anime` (Vercel read access).
 Check: V9: the hub at `/`, OtakuQuiz at `/anime`, the staging look (noindex, no content yet), the build log passes `check:env`. Back: delete the deployment.
 
 ---------------------------------------------------------------------------------------------------------------------------------
@@ -423,9 +423,9 @@ Check (Claude, read-only SQL on `auth.users`): 31 users on `team.fandomverse.org
 Back: each file's rollback, in reverse (refused once data was written, ROLLBACK.md section 3).
 
 **K5b  Turn the builds on.**
-Do: Vercel, project `otakuquiz`, Settings, Git, Ignored Build Step: if it still holds `exit 0`, remove it (back to the default, so every push to main builds); same for project `fandomverse`. Then redeploy the latest main commit of each project once (Deployments, Redeploy). The `kpopquiz` project is not touched.
+Do: the owner merges the launch-day PR: `NET_PRODUCTION_HOLD=0` in `apps/quiz/scripts/vercel-ignore-build.sh`, and `"o1/integration": true` removed from `git.deploymentEnabled` in `apps/quiz/vercel.json`. The merge builds `main` on the three projects; nothing to set in the dashboard (the `ignoreCommand` overrides it). `kpopquiz` builds the same pages.
 Check: each project has a Ready production deployment of the main commit, built with its own `NEXT_PUBLIC_SITE_ID` (hub, anime).
-Back: put `exit 0` back in the Ignored Build Step of the project (no new build; the last deployment stays as it is).
+Back: revert that PR (`NET_PRODUCTION_HOLD=1`): the two projects build nothing more, their last deployment stays as it is.
 
 **K6  Attach the domain.**
 Do: Vercel, project `fandomverse`, Settings, Domains: add `fandomverse.org`, then add `www.fandomverse.org` set to redirect to `fandomverse.org`. Nothing on `otakuquiz`: `/anime` reaches it through the Microfrontends group. If Vercel shows DNS values other than H6's, set Vercel's at the registrar. Wait for the certificate. The `kpopquiz` project keeps `kpopquiz.org`.
