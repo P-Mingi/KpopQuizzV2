@@ -42,6 +42,8 @@ export function toHomeQuiz(card: HubQuizCard): HomeQuiz {
     ...(format ? { format } : {}),
     plays: card.plays,
     isNew: card.isNew,
+    // A card cached before the cover joined the shape has none.
+    cover: card.cover ?? null,
   };
 }
 

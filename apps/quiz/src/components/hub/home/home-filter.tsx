@@ -3,11 +3,12 @@
 // Run O1, lot H2c: the filter of "Hot right now" (All, KpopQuiz, OtakuQuiz) is shared with the search button of the top bar, which
 // leads to the search page of KpopQuiz on All and KpopQuiz and to the one of OtakuQuiz on OtakuQuiz. A context keeps the one value;
 // the server blocks around stay server components (they are the children).
+// Home v3 (2026-10-29): a fourth filter, Start easy (both sites); the search then opens KpopQuiz's, as on All.
 import { createContext, useContext, useMemo, useState } from 'react';
 
 import { SearchIcon } from './home-icons';
 
-export type HotFilterId = 'all' | 'kpop' | 'anime';
+export type HotFilterId = 'all' | 'kpop' | 'anime' | 'easy';
 
 interface FilterState {
   readonly filter: HotFilterId;
@@ -26,7 +27,7 @@ export function useHotFilter(): FilterState {
   return useContext(FilterContext);
 }
 
-/** The site whose search page the button opens: OtakuQuiz on the OtakuQuiz filter, KpopQuiz otherwise. */
+/** The site whose search page the button opens: OtakuQuiz on the OtakuQuiz filter, KpopQuiz otherwise (All and Start easy too). */
 export function searchSite(filter: HotFilterId): 'kpop' | 'anime' {
   return filter === 'anime' ? 'anime' : 'kpop';
 }

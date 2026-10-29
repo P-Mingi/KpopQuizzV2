@@ -2,11 +2,16 @@
 // composition of components/hub/home/*; each block reads its data from one loader of lib/site/hub/home-*.ts (lot H2c: the real data of
 // lib/site/hub/data/, a block with no data is left out). The one indexable page of the hub: title, description and canonical from the copy and the registry, JSON-LD WebSite
 // and the Hot now ItemList. Styles: styles/sites/hub/h2.css (classes hub-h2-*).
+// Home v3 (2026-10-29, docs/strategy/o1/dle/prototype/Home.dc.html): two columns, images first; the images of the slots come from
+// site_assets (empty until step 2), the quizzes of the day the fan finished today from their plays, the Burrow stays hidden until the
+// dailyGuess flag is on and its pages exist.
 import { HomePage } from '@/components/hub/home/home-page';
 import { ht } from '@/lib/site/hub/copy';
+import { burrowOpen } from '@/lib/site/hub/daily-guess';
+import { loadHomeAssets } from '@/lib/site/hub/home-assets';
 import { loadHomeCrossover } from '@/lib/site/hub/home-crossover';
+import { loadHomeDone } from '@/lib/site/hub/home-done';
 import { loadHomeDoors } from '@/lib/site/hub/home-doors';
-import { loadHomeForYou } from '@/lib/site/hub/home-foryou';
 import { loadHomeHot } from '@/lib/site/hub/home-hot';
 import { loadHomeQuick } from '@/lib/site/hub/home-quick';
 import { loadHomeToday } from '@/lib/site/hub/home-today';
@@ -41,8 +46,9 @@ export default async function HubHome(): Promise<React.ReactElement> {
   // Any error of the account reads as signed out, and a block whose data fails is null: the page never fails because the database is down.
   const session = await loadHomeSession();
   const userId = session?.userId ?? null;
-  const [doors, today, quick, hot, forYou, crossover, fans, surprise] = await Promise.all([
-    loadHomeDoors(), loadHomeToday(), loadHomeQuick(), loadHomeHot(), loadHomeForYou(userId), loadHomeCrossover(), loadHomeTopFans(), loadHomeSurprise(userId),
+  const [doors, today, quick, hot, crossover, fans, surprise, assets] = await Promise.all([
+    loadHomeDoors(), loadHomeToday(), loadHomeQuick(), loadHomeHot(), loadHomeCrossover(), loadHomeTopFans(), loadHomeSurprise(userId), loadHomeAssets(),
   ]);
-  return <HomePage data={{ viewer: session?.viewer ?? null, doors, surprise, today, quick, hot, forYou, crossover, fans }} />;
+  const done = await loadHomeDone(userId, today);
+  return <HomePage data={{ viewer: session?.viewer ?? null, doors, surprise, today, done, quick, hot, crossover, fans, assets, burrow: burrowOpen() }} />;
 }

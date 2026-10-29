@@ -1,5 +1,6 @@
 // Run O1, lot H2b: helpers shared by the blocks of the home. Pure, except origins() which reads the environment.
 
+import { isConfiguredImageHost } from '@/lib/image-hosts';
 import { groupInitials } from '@/lib/ux-v1/p1/format';
 import { netBase } from '@/lib/site/base-path';
 import { REGISTRY } from '@/lib/site/registry';
@@ -81,7 +82,7 @@ export const NEW_DAYS = 14;
 
 /** The columns every card needs, as one select (the group is embedded). */
 export const QUIZ_SELECT =
-  'id, slug, title, quiz_type, difficulty, status, group_id, site_id, created_at, play_count, like_count, total_completions, report_count, question_count, groups!inner(name, slug)';
+  'id, slug, title, quiz_type, difficulty, status, group_id, site_id, created_at, play_count, like_count, total_completions, report_count, question_count, cover_image_url, groups!inner(name, slug)';
 
 export interface QuizRow {
   readonly id: string;
@@ -98,6 +99,8 @@ export interface QuizRow {
   readonly total_completions: number | null;
   readonly report_count: number | null;
   readonly question_count: number | null;
+  /** Optional: rows read before the column joined the select (and test rows) have none. */
+  readonly cover_image_url?: string | null;
   readonly groups: { readonly name: string; readonly slug: string } | readonly { readonly name: string; readonly slug: string }[] | null;
 }
 
@@ -106,6 +109,12 @@ export function groupOf(row: Pick<QuizRow, 'groups'>): { name: string; slug: str
   const g = Array.isArray(row.groups) ? row.groups[0] : row.groups;
   const gg = g as { name?: string; slug?: string } | null | undefined;
   return { name: gg?.name ?? '', slug: gg?.slug ?? '' };
+}
+
+/** The quiz's own cover: K-pop only (no anime artwork without a written licence), on a host the app serves images from. */
+export function coverOf(row: Pick<QuizRow, 'site_id' | 'cover_image_url'>): string | null {
+  const url = row.cover_image_url ?? null;
+  return row.site_id === 'kpop' && url && isConfiguredImageHost(url) ? url : null;
 }
 
 /** The card of a quiz row: the canonical page on its own site, never a copy. */
@@ -131,6 +140,7 @@ export function toCard(row: QuizRow, origins: HubOrigins, now: Date): HubQuizCar
     isNew: now.getTime() - Date.parse(row.created_at) < NEW_DAYS * DAY_MS,
     hasPlays: plays !== '',
     questionCount: row.question_count ?? 0,
+    cover: coverOf(row),
   };
 }
 

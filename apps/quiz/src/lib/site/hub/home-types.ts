@@ -2,6 +2,8 @@
 // one loader (home-*.ts) that returns one of these shapes. Lot H2c: every loader maps its module of lib/site/hub/data/ (lot H2b) to
 // its shape; a block with no data is null (or empty) and the page leaves it out, as the design's sc-if does. Pure types and two pure
 // helpers: no site name or origin is written here.
+// Home v3 (2026-10-29, docs/strategy/o1/dle/prototype/Home.dc.html): the quiz image of a Hot row, the Start easy filter, Top fans per
+// site, the level of each site and the quizzes of the day done today; For you and the old Start easy block are gone.
 
 import { joinSiteUrl, netBase } from '@/lib/site/base-path';
 
@@ -31,26 +33,27 @@ export interface HomeQuiz extends HomeLink {
   /** "2.7k plays", or '' when the quiz is new. */
   readonly plays: string;
   readonly isNew: boolean;
+  /** The quiz's own cover image (K-pop only), or null: the row then shows the initials tile. */
+  readonly cover: string | null;
 }
 
-/** The three filters of the Hot now chips. */
-export type HotFilter = 'all' | 'kpop' | 'anime';
-
-/** A site door of the hero. */
+/** A site card of the first row: its name, the real count of its quizzes, what it is about, one quiz and the way in. */
 export interface HomeDoor {
   readonly site: HomeSite;
   readonly name: string;
   readonly tagline: string;
-  /** The pills of the desktop card ("N quizzes", "Daily blindtest"). */
-  readonly chips: readonly string[];
-  /** The one line of the phone card ("N quizzes", "N quizzes · N series"). */
-  readonly phoneLine: string;
-  /** "Top now" or "Just added", then the quiz; null when the site has no quiz to feature (the box then disappears). */
+  /** "N quizzes": the real count, rounded down by the shared helper (lib/stats/site-stats.ts atLeast, "450+" from 455). */
+  readonly count: string;
+  /** "Top now" or "Just added", then the quiz; null when the site has no quiz to feature (the line then disappears). */
   readonly spotlight: { readonly label: string; readonly title: string; readonly path: string } | null;
 }
 
 export interface HomeTodayQuiz extends HomeLink {
+  /** The quiz id (the signed-in fan's plays of today are matched on it). */
+  readonly id: string;
   readonly title: string;
+  /** The number of questions (0 when unknown). */
+  readonly questions: number;
   /** "10 questions · Easy". */
   readonly meta: string;
 }
@@ -110,30 +113,13 @@ export interface HomeQuick {
   readonly facts: readonly HomeFact[];
 }
 
-/** The three lists of the filter chips, each in rank order: `all` already alternates the two sites. */
+/** The lists of the filter chips, each in rank order: `all` and `easy` already alternate the two sites; `easy` may be empty (no chip). */
 export interface HomeHot {
   readonly all: readonly HomeQuiz[];
   readonly kpop: readonly HomeQuiz[];
   readonly anime: readonly HomeQuiz[];
+  readonly easy: readonly HomeQuiz[];
   readonly allPaths: Readonly<Record<HomeSite, string>>;
-}
-
-export interface HomeForYouCard extends HomeLink {
-  /** The small line above the title ("Continue", "Next for a Stray Kids fan"), without the site name. */
-  readonly label: string;
-  readonly title: string;
-  readonly meta: string;
-  /** Continue only: how far the fan is, 0 to 100. */
-  readonly progress?: number;
-  /** The bridge to the other site: its card takes the colour of that site. */
-  readonly bridge?: boolean;
-}
-
-export interface HomeForYou {
-  /** Signed in: continue, the next one in the fandom, the bridge to the other site. */
-  readonly signedIn: readonly HomeForYouCard[];
-  /** Signed out: the friendliest first quiz of each site. */
-  readonly signedOut: readonly HomeForYouCard[];
 }
 
 export interface HomeCrossoverCard extends HomeLink {
@@ -149,10 +135,17 @@ export interface HomeCrossover {
 
 export interface HomeFan {
   readonly handle: string;
-  /** The passport level; null while the fan keeps it private. */
+  /** The level on the site of the board; null while the fan keeps it private. */
   readonly level: number | null;
-  readonly onKpop: boolean;
-  readonly onAnime: boolean;
+}
+
+/** Top fans this week, one board per site; a site with no public fan has an empty board (its tab is left out). */
+export type HomeFans = Readonly<Record<HomeSite, readonly HomeFan[]>>;
+
+/** The level of the signed-in fan on one site, and the progress to the next one (0 to 100). */
+export interface HomeSiteLevel {
+  readonly level: number;
+  readonly progress: number;
 }
 
 /** The signed-in fan: the passport (username, level, sites joined), the progress to the next level and the daily streak of each site. */
@@ -163,17 +156,17 @@ export interface HomeViewer {
   /** Progress to the next level, 0 to 100. */
   readonly progress: number;
   readonly streaks: Readonly<Record<HomeSite, number>>;
+  /** The level of each site the fan joined (the passport card of the home lists them). */
+  readonly sites: Readonly<Partial<Record<HomeSite, HomeSiteLevel>>>;
 }
+
+/** The quizzes of the day the signed-in fan finished today (a row of `plays` since 00:00 UTC), by site. */
+export type HomeDone = Readonly<Record<HomeSite, boolean>>;
 
 /** The absolute URL of a link on its own site: the registry origin on production, the dev origin of NEXT_PUBLIC_NET_ORIGINS elsewhere. */
 export function homeUrl(link: HomeLink): string {
   // Bunnyverse: the base URL of the site (its sub-folder included); the home of a site in a sub-folder has no trailing slash.
   return joinSiteUrl(netBase(link.site, { NEXT_PUBLIC_NET_ORIGINS: process.env.NEXT_PUBLIC_NET_ORIGINS, VERCEL_ENV: process.env.VERCEL_ENV }), link.path);
-}
-
-/** The Hot now list of a filter. */
-export function hotList(hot: Pick<HomeHot, 'all' | 'kpop' | 'anime'>, filter: HotFilter): readonly HomeQuiz[] {
-  return hot[filter];
 }
 
 /** One quiz of the Surprise me pool: the 200 best quizzes of both sites. */

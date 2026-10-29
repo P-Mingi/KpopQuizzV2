@@ -86,13 +86,19 @@ describe('AA contrast of the design colours (4.5 for text, in both themes)', () 
   const light = { ...vars(h2, SC), ...Object.fromEntries(Object.entries(REGISTRY.hub.theme.light).map(([k, v]) => [`ux-${k}`, v])) } as Record<string, string>;
   const dark = { ...light, ...vars(h2, 'html.ux-v1.dark[data-site="hub"]'), ...Object.fromEntries(Object.entries(REGISTRY.hub.theme.dark).map(([k, v]) => [`ux-${k}`, v])) } as Record<string, string>;
   // [text, ground]: names of variables (light and dark values come from the maps above)
+  // Home v3 (2026-10-29): the dark Crossover band is gone (its five hub-x-* pairs with it); the light rows add the pairs below the line.
   const PAIRS: [string, string][] = [
     ['hub-white', 'hub-k'], ['hub-white', 'hub-a'],
     ['hub-k-ink', 'hub-k-soft'], ['hub-a-ink', 'hub-a-soft'], ['hub-k-ink', 'ux-raised'], ['hub-a-ink', 'ux-raised'],
     ['ux-muted', 'ux-page'], ['ux-muted', 'ux-raised'], ['ux-muted', 'ux-surface'],
     ['ux-ink', 'ux-page'], ['ux-ink', 'ux-raised'], ['ux-ink', 'ux-surface'], ['ux-page', 'ux-ink'],
     ['ux-ok', 'ux-raised'], ['ux-no', 'ux-raised'], ['ux-ok', 'ux-ok-soft'], ['ux-no', 'ux-no-soft'],
-    ['hub-x-muted', 'hub-x-bg'], ['hub-x-muted', 'hub-x-card'], ['hub-x-fg', 'hub-x-card'], ['hub-x-k', 'hub-x-card'], ['hub-x-a', 'hub-x-card'],
+    // v3: site inks on the page, the second and third inks (tabs, lede, letters, table head, SEO text), the hover ground, the rows marked
+    // right or wrong, the letters on green and red.
+    ['hub-k-ink', 'ux-page'], ['hub-a-ink', 'ux-page'], ['hub-k-ink', 'ux-surface'], ['hub-a-ink', 'ux-surface'],
+    ['hub-ink-2', 'ux-page'], ['hub-ink-2', 'ux-raised'], ['hub-ink-2', 'ux-surface'], ['hub-ink-2', 'hub-thead'], ['hub-ink-3', 'ux-page'],
+    ['ux-ink', 'hub-hover'], ['ux-muted', 'hub-hover'], ['ux-ink', 'ux-ok-soft'], ['ux-ink', 'ux-no-soft'], ['ux-ink', 'hub-k-soft'], ['ux-ink', 'hub-a-soft'],
+    ['ux-on-ok', 'ux-ok'], ['ux-on-ok', 'ux-no'],
   ];
   for (const [theme, map] of [['light', light], ['dark', dark]] as const) {
     it(`passes in the ${theme} theme`, () => {
