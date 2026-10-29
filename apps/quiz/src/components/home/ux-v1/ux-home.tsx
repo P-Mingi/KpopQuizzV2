@@ -5,6 +5,7 @@ import { UxPage } from '@/components/ux-v1/page';
 import { UxQuizCard, UxQuizGrid } from '@/components/ux-v1/quiz-card';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { GENERATIONS_HUB_PATH } from '@/lib/generations/generations';
+import { SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 import { getHomeBand, getHomeCommunity, getHomeGroups, getHomeLists, getHomeQotd } from '@/lib/ux-v1/p1/home-data';
 import { IS_KPOP, titleCase } from '@/lib/site/genre';
 import { SITE } from '@/lib/site/registry';
@@ -80,8 +81,10 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
           <SectionHeader id="p1-trend-h" icon="flame" title="Trending this week" action={{ href: '/quizzes/popular-this-week', label: 'See all' }} />
           {/* Six cards as the live home (four in view at 1440 as the prototype, the
               rest in the same scrolling row, like the groups rail). v12: eight, in two
-              rows of four (styles/ux-v12/home.css). */}
-          <div className="p1-trend">
+              rows of four (styles/ux-v12/home.css). On the anime build (the SERIES_ART slot is
+              filled there only) anime-o2-trend gives the series art the 4:3 cover of the kpop
+              card (the O2 sheet of the anime site, owner 2026-10-29); kpop renders what it did. */}
+          <div className={SERIES_ART.dress ? 'p1-trend anime-o2-trend' : 'p1-trend'}>
             <UxQuizGrid>
               {lists.trending.map((q) => <UxQuizCard key={q.id} quiz={q} />)}
             </UxQuizGrid>
