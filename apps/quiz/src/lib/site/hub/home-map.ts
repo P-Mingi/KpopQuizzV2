@@ -22,6 +22,22 @@ export function pathOf(href: string, site?: HomeSite): string {
   }
 }
 
+/**
+ * The link of a fact's source, only when it is an absolute https URL (SEO rules 3.8 and 5.5: the source link is visible beside the fact).
+ * The URL parser normalizes it (quotes, spaces and angle brackets come back percent-encoded); anything else (http, javascript:, a
+ * protocol-relative or relative path, an unparsable string) is null, and the loader then leaves the fact out.
+ */
+export function httpsUrl(raw: string | null | undefined): string | null {
+  const s = (raw ?? '').trim();
+  if (!/^https:\/\/[^/]/i.test(s)) return null;
+  try {
+    const u = new URL(s);
+    return u.protocol === 'https:' && u.hostname !== '' ? u.href : null;
+  } catch {
+    return null;
+  }
+}
+
 /** "Easy" and "True or false" from "Easy · True or false". */
 export function splitMeta(meta: string): { level: string; format?: string } {
   const [level = '', ...rest] = meta.split(' · ');

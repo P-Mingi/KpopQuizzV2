@@ -165,6 +165,9 @@ export interface HubFact {
   readonly site: HubSite;
   readonly siteName: string;
   readonly fact: string;
+  /** Home v3 review: the group or series the fact is about (null when the row has none). Missing from a value cached before it existed:
+   *  read it as null. */
+  readonly subject?: string | null;
   readonly source: string;
   readonly sourceUrl: string | null;
   /** The trivia page of the site. */

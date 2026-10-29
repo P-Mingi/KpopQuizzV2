@@ -111,10 +111,14 @@ export function groupOf(row: Pick<QuizRow, 'groups'>): { name: string; slug: str
   return { name: gg?.name ?? '', slug: gg?.slug ?? '' };
 }
 
-/** The quiz's own cover: K-pop only (no anime artwork without a written licence), on a host the app serves images from. */
+/**
+ * The quiz's own cover: K-pop only (no anime artwork without a written licence), on a host the app serves images from. Only an absolute
+ * https URL: isConfiguredImageHost takes any path starting with "/" as a local asset, so a protocol-relative "//host/x.jpg" (another host)
+ * or a root-relative path (it would resolve on the hub, not on KpopQuiz) is refused here.
+ */
 export function coverOf(row: Pick<QuizRow, 'site_id' | 'cover_image_url'>): string | null {
-  const url = row.cover_image_url ?? null;
-  return row.site_id === 'kpop' && url && isConfiguredImageHost(url) ? url : null;
+  const url = (row.cover_image_url ?? '').trim();
+  return row.site_id === 'kpop' && /^https:\/\/[^/]/i.test(url) && isConfiguredImageHost(url) ? url : null;
 }
 
 /** The card of a quiz row: the canonical page on its own site, never a copy. */

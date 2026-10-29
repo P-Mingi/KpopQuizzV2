@@ -35,7 +35,7 @@ import { loadHomeQuick } from './home-quick';
 import { loadHomeSurprise } from './home-surprise';
 import { loadHomeToday } from './home-today';
 import { loadHomeTopFans } from './home-topfans';
-import { firstSentence, pathOf, plainTime, splitMeta } from './home-map';
+import { firstSentence, httpsUrl, pathOf, plainTime, splitMeta } from './home-map';
 
 beforeEach(() => {
   mod.values = {};
@@ -68,6 +68,16 @@ describe('the small helpers', () => {
     expect(firstSentence('One. Two. Three.')).toBe('One.');
     expect(firstSentence('No full stop here')).toBe('No full stop here');
     expect(firstSentence('')).toBe('');
+  });
+});
+
+describe('the link of a source', () => {
+  it('keeps an absolute https URL only, normalized', () => {
+    expect(httpsUrl('https://en.wikipedia.org/wiki/IVE')).toBe('https://en.wikipedia.org/wiki/IVE');
+    expect(httpsUrl('  HTTPS://En.Wikipedia.org/wiki/IVE ')).toBe('https://en.wikipedia.org/wiki/IVE');
+    for (const bad of [null, undefined, '', 'http://en.wikipedia.org/', '//en.wikipedia.org/wiki/IVE', '/wiki/IVE', 'javascript:alert(1)', 'data:text/html,x', 'https://', 'https:///x', 'wikipedia']) {
+      expect(httpsUrl(bad), String(bad)).toBeNull();
+    }
   });
 });
 
@@ -151,6 +161,34 @@ describe('60 seconds', () => {
     expect(quick!.question!.options).toHaveLength(4);
     expect(quick!.facts.map((f) => [f.site, f.source, f.path])).toEqual([['kpop', 'Wikipedia', '/trivia'], ['anime', 'Wikipedia', '/trivia']]);
   });
+  it('carries the subject of each fact (its group or series) and the https link of its source (home v3 review)', async () => {
+    const quick = await loadHomeQuick();
+    expect(quick!.facts.map((f) => [f.subject, f.sourceUrl])).toEqual([
+      ['ZEROBASEONE', 'https://en.wikipedia.org/wiki/In_Bloom'],
+      ["Frieren: Beyond Journey's End", 'https://en.wikipedia.org/wiki/Frieren'],
+    ]);
+  });
+  it('leaves out a fact with no subject, or with no https source link (SEO rule 5.5), and keeps the other one', async () => {
+    const d = sampleDyk();
+    for (const bad of [
+      { subject: null }, { subject: '  ' }, { subject: undefined },
+      { sourceUrl: null }, { sourceUrl: 'http://en.wikipedia.org/wiki/In_Bloom' }, { sourceUrl: '//en.wikipedia.org/wiki/In_Bloom' },
+      { sourceUrl: '/wiki/In_Bloom' }, { sourceUrl: 'javascript:alert(1)' }, { sourceUrl: 'https://' }, { sourceUrl: 'not a url' },
+    ]) {
+      mod.values.getDidYouKnow = { ...d, kpop: { ...d.kpop!, ...bad } };
+      expect((await loadHomeQuick())!.facts.map((f) => f.site), JSON.stringify(bad)).toEqual(['anime']);
+    }
+    // a fact cached before the subject joined the shape has none: left out for that hour
+    const { subject: _s, ...old } = d.anime!;
+    mod.values.getDidYouKnow = { ...d, kpop: null, anime: old };
+    expect((await loadHomeQuick())!.facts).toEqual([]);
+  });
+  it('normalizes the source link with the URL parser, so a quote or an angle bracket never reaches the markup raw', async () => {
+    const d = sampleDyk();
+    mod.values.getDidYouKnow = { ...d, kpop: { ...d.kpop!, sourceUrl: ' https://en.wikipedia.org/wiki/A"b<c> ' } };
+    const url = (await loadHomeQuick())!.facts[0]!.sourceUrl;
+    expect(url).toBe('https://en.wikipedia.org/wiki/A%22b%3Cc%3E');
+  });
   it('has an empty story for a question with no anecdote', async () => {
     mod.values.getSixtySeconds = { ...sampleSixty(), explanation: null };
     expect((await loadHomeQuick())!.question).toMatchObject({ explain: '', explainShort: '' });
@@ -210,6 +248,7 @@ describe('Crossover', () => {
     const c = await loadHomeCrossover();
     expect(c!.fact).toBe('IVE sang Will, the opening theme of Pokémon Horizons, released on April 12, 2024.');
     expect(c!.factSource).toBe('Wikipedia');
+    expect(c!.factUrl).toBe('https://en.wikipedia.org/wiki/IVE');
     expect(c!.cards).toEqual([
       { site: 'kpop', title: 'KPop Demon Hunters Quiz', sub: 'Six questions · The animated film and its songs', path: '/kpop-demon-hunters-quiz' },
       { site: 'anime', title: 'One Opening, Many Endings: Chainsaw Man Theme Songs', sub: 'Medium · for music fans', path: '/q/one-opening-many-endings-chainsaw-man-theme-songs' },
@@ -220,6 +259,15 @@ describe('Crossover', () => {
     mod.values.getCrossover = { ...sampleCrossover(), fact: null };
     expect((await loadHomeCrossover())!.fact).toBeNull();
     expect((await loadHomeCrossover())!.factSource).toBeNull();
+    expect((await loadHomeCrossover())!.factUrl).toBeNull();
+    // a fact whose source is not an https page is left out with its source (SEO rule 5.5); the tiles stay
+    for (const sourceUrl of ['http://en.wikipedia.org/wiki/IVE', '//en.wikipedia.org/wiki/IVE', 'javascript:alert(1)', '']) {
+      const x = sampleCrossover();
+      mod.values.getCrossover = { ...x, fact: { ...x.fact!, sourceUrl } };
+      const c = await loadHomeCrossover();
+      expect(c, sourceUrl).toMatchObject({ fact: null, factSource: null, factUrl: null });
+      expect(c!.cards).toHaveLength(3);
+    }
     mod.values.getCrossover = { ...sampleCrossover(), quizzes: [] };
     expect(await loadHomeCrossover()).toBeNull();
     nul('getCrossover');

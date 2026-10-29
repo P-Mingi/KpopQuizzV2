@@ -204,6 +204,32 @@ describe('pickHot', () => {
     expect(hot.all.map((c) => c.href)).toEqual(['https://kpop.example/q/bts-era', 'https://anime.example/q/frieren-basics']);
   });
 
+  it('picks Start easy: the easy quizzes of each site in the Hot order, two per group at most, six per site, the sites alternating', () => {
+    const easyK = [
+      q({ id: 'e1', group_id: 1, difficulty: 'easy' }), q({ id: 'e2', group_id: 1, difficulty: 'easy' }), q({ id: 'e3', group_id: 1, difficulty: 'easy' }),
+      q({ id: 'e4', group_id: 2, difficulty: 'easy' }), q({ id: 'h1', group_id: 3, difficulty: 'hard' }), q({ id: 'm1', group_id: 4, difficulty: 'medium' }),
+      ...[5, 6, 7, 8, 9].map((g) => q({ id: `e${g}`, group_id: g, difficulty: 'easy' })),
+    ];
+    const kPlays: PlaysByQuiz = new Map(easyK.map((k, i) => [k.id, days([['2026-10-25', 200 - i * 10]])]));
+    const anime = [
+      q({ id: 'a1', site_id: 'anime', group_id: 20, difficulty: 'easy', created_at: '2026-10-24T00:00:00Z' }),
+      q({ id: 'a2', site_id: 'anime', group_id: 21, difficulty: 'medium', created_at: '2026-10-24T00:00:00Z' }),
+      q({ id: 'a3', site_id: 'anime', group_id: 22, difficulty: 'easy', created_at: '2026-09-01T00:00:00Z' }),
+    ];
+    const p = pickHot(input({ kpop: easyK, plays: kPlays, anime, tiers: new Map([[20, 'A'], [21, 'A'], [22, 'B']]), animeFirstPlayAt: '2026-10-22T00:00:00Z' }));
+    // K-pop: only easy, best first, the third of group 1 left out, six at most
+    expect(p.easy.kpop.map((r) => r.id)).toEqual(['e1', 'e2', 'e4', 'e5', 'e6', 'e7']);
+    // OtakuQuiz in its first week: its New places first, then the rest of its editorial order; medium left out
+    expect(p.easy.anime.map((r) => r.id)).toEqual(['a1', 'a3']);
+    // the quiz of the day is never a Start easy pick either
+    expect(pickHot(input({ kpop: easyK, plays: kPlays, qotdIds: new Set(['e1']) })).easy.kpop.map((r) => r.id)).not.toContain('e1');
+    const hot = composeHot(p, ORIGINS, NOW, 'plays-rows');
+    expect(hot.easy!.map((c) => c.site)).toEqual(['kpop', 'anime', 'kpop', 'anime', 'kpop', 'kpop']);
+    expect(hot.easy!.every((c) => c.difficulty === 'easy')).toBe(true);
+    // no easy quiz anywhere: an empty list (the chip is then left out)
+    expect(pickHot(input({ kpop, plays })).easy).toEqual({ kpop: [], anime: [] });
+  });
+
   it('flags the completion rate as measured once started runs exist', () => {
     const p = pickHot(input({ kpop: [q({ id: 'k1' })], plays: new Map([['k1', days([['2026-10-25', 30, 40]])]]) }));
     expect(p.completionMeasured).toBe(true);

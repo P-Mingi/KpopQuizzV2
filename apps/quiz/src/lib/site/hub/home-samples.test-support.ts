@@ -105,11 +105,11 @@ export function sampleSixty(): HubSixtySeconds {
 export function sampleDyk(): HubDidYouKnow {
   return {
     kpop: {
-      site: 'kpop', siteName: 'KpopQuiz', fact: "ZEROBASEONE's 2023 debut single In Bloom samples the riff of a-ha's 1984 hit Take On Me.", source: 'Wikipedia',
+      site: 'kpop', siteName: 'KpopQuiz', subject: 'ZEROBASEONE', fact: "ZEROBASEONE's 2023 debut single In Bloom samples the riff of a-ha's 1984 hit Take On Me.", source: 'Wikipedia',
       sourceUrl: 'https://en.wikipedia.org/wiki/In_Bloom', moreHref: `${ORIGIN.kpop}/trivia`,
     },
     anime: {
-      site: 'anime', siteName: 'OtakuQuiz', fact: 'In Japan, Frieren is called Sōsō no Furīren, which literally means Frieren at the Funeral.', source: 'Wikipedia',
+      site: 'anime', siteName: 'OtakuQuiz', subject: "Frieren: Beyond Journey's End", fact: 'In Japan, Frieren is called Sōsō no Furīren, which literally means Frieren at the Funeral.', source: 'Wikipedia',
       sourceUrl: 'https://en.wikipedia.org/wiki/Frieren', moreHref: `${ORIGIN.anime}/trivia`,
     },
     pool: { kpop: 80, anime: 900 },
@@ -179,6 +179,6 @@ export const SAMPLE_NAMES: readonly string[] = [
   'ZEROBASEONE: From Boys Planet', 'Best title track of 2025', 'Cheshire', 'Take On Me', 'Sōsō no Furīren',
   'Ultimate BTS era quiz', 'SKZ true or false', 'BLACKPINK ultimate fan challenge', 'K-pop company quiz', 'are u a real GLLIT',
   'Name and Face: Death Note', 'Raising the Flag', 'One Opening, Many Endings', 'Four Seasons and a Finale',
-  'First Steps into Jujutsu Kaisen', 'Stray Kids albums and B-sides', 'KPop Demon Hunters Quiz', 'IVE sang Will',
+  'First Steps into Jujutsu Kaisen', 'Stray Kids albums and B-sides', 'KPop Demon Hunters Quiz', 'IVE sang Will', "Beyond Journey's End",
   '482 quizzes', '138 quizzes', '31 series', '480+ quizzes', '130+ quizzes', 'ultimate-bts-era-quiz.jpg',
 ];

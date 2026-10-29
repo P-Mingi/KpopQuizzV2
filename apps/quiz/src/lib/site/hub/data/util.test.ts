@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 
 import { ORIGINS, quizRow } from './test-support';
 import {
-  ageInDays, capPerKey, chunk, difficultyLabel, isListable, metaLine, playsLabel, ratingFor, REPORT_EXCLUDE_AT, resolveOrigins, stableHash, toCard, utcDate,
+  ageInDays, capPerKey, chunk, coverOf, difficultyLabel, isListable, metaLine, playsLabel, ratingFor, REPORT_EXCLUDE_AT, resolveOrigins, stableHash, toCard,
+  utcDate,
 } from './util';
 
 import type { QuizRow } from './util';
@@ -58,6 +59,22 @@ describe('toCard', () => {
     expect(old.isNew).toBe(false);
     expect(old.plays).toBe('2.7k plays');
     expect(old.hasPlays).toBe(true);
+  });
+});
+
+describe('coverOf (home v3)', () => {
+  const COVER = 'https://abc.supabase.co/storage/v1/object/public/images/covers/x.jpg';
+  it('keeps the own cover of a K-pop quiz on a configured image host, as an absolute https URL', () => {
+    expect(coverOf({ site_id: 'kpop', cover_image_url: COVER })).toBe(COVER);
+    expect(coverOf({ site_id: 'kpop', cover_image_url: ` ${COVER} ` })).toBe(COVER);
+    expect(toCard(quizRow({ id: 'a', cover_image_url: COVER }) as unknown as QuizRow, ORIGINS, NOW).cover).toBe(COVER);
+  });
+  it('refuses a protocol-relative URL (another host), a root-relative path, http, an unknown host, an anime quiz and no cover', () => {
+    for (const url of ['//abc.supabase.co/storage/v1/object/public/images/covers/x.jpg', '//evil.example/x.jpg', '/covers/x.jpg', 'http://abc.supabase.co/x.jpg', 'https://evil.example/x.jpg', 'https:///x.jpg', 'javascript:alert(1)', '', null]) {
+      expect(coverOf({ site_id: 'kpop', cover_image_url: url }), String(url)).toBeNull();
+    }
+    expect(coverOf({ site_id: 'kpop' })).toBeNull();
+    expect(coverOf({ site_id: 'anime', cover_image_url: COVER })).toBeNull();
   });
 });
 

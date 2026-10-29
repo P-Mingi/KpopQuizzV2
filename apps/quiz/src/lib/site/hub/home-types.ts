@@ -102,8 +102,12 @@ export interface HomeQuestion {
 
 /** A sourced fact; `path` is the trivia page of its site. */
 export interface HomeFact extends HomeLink {
+  /** The group or series the fact is about, shown with it (a fact without one is left out). */
+  readonly subject: string;
   readonly text: string;
   readonly source: string;
+  /** The source's own page, an absolute https URL, linked from the source name (a fact without one is left out). */
+  readonly sourceUrl: string;
 }
 
 export interface HomeQuick {
@@ -132,6 +136,8 @@ export interface HomeCrossover {
   readonly fact: string | null;
   /** The name of the fact's source, printed beside it (SEO rule 3.8); null with no fact. */
   readonly factSource: string | null;
+  /** The source's own page (absolute https), linked from its name; null with no fact. A fact without one is left out. */
+  readonly factUrl: string | null;
   readonly cards: readonly HomeCrossoverCard[];
 }
 
