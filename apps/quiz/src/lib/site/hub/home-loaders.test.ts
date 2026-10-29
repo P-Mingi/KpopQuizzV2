@@ -209,6 +209,7 @@ describe('Crossover', () => {
   it('maps the cards (title, meta and line, path on its own site) and the sourced fact', async () => {
     const c = await loadHomeCrossover();
     expect(c!.fact).toBe('IVE sang Will, the opening theme of Pokémon Horizons, released on April 12, 2024.');
+    expect(c!.factSource).toBe('Wikipedia');
     expect(c!.cards).toEqual([
       { site: 'kpop', title: 'KPop Demon Hunters Quiz', sub: 'Six questions · The animated film and its songs', path: '/kpop-demon-hunters-quiz' },
       { site: 'anime', title: 'One Opening, Many Endings: Chainsaw Man Theme Songs', sub: 'Medium · for music fans', path: '/q/one-opening-many-endings-chainsaw-man-theme-songs' },
@@ -218,6 +219,7 @@ describe('Crossover', () => {
   it('has no fact line without a sourced fact, and is null with no pick or on an error', async () => {
     mod.values.getCrossover = { ...sampleCrossover(), fact: null };
     expect((await loadHomeCrossover())!.fact).toBeNull();
+    expect((await loadHomeCrossover())!.factSource).toBeNull();
     mod.values.getCrossover = { ...sampleCrossover(), quizzes: [] };
     expect(await loadHomeCrossover()).toBeNull();
     nul('getCrossover');

@@ -344,6 +344,8 @@ describe('When K-pop meets anime', () => {
     expect([...cross.matchAll(/class="hub-h2-ph hub-h2-xph (hub-h2-xph-\d)"/g)].map((m) => m[1])).toEqual(['hub-h2-xph-1', 'hub-h2-xph-2', 'hub-h2-xph-3']);
     expect(cross).not.toContain('<img');
     expect(cross).toContain('IVE sang Will, the opening theme of Pok');
+    // the fact names its source beside it (SEO rule 3.8)
+    expect(cross).toContain('<span class="hub-h2-cross-src"> Source: Wikipedia</span>');
     expect(cross).toContain('href="https://kpopquiz.org/kpop-demon-hunters-quiz"');
     expect(cross).toContain('Six questions · The animated film and its songs');
     expect(cross).toContain('href="https://bunnyverse.org/anime/q/one-opening-many-endings-chainsaw-man-theme-songs"');
@@ -599,6 +601,7 @@ describe('a block with no data leaves the page, and its grid adapts', () => {
     blocks.values.getCrossover = { ...s.sampleCrossover(), fact: null };
     const cross = block(await renderHome(), '<section aria-labelledby="cross-h"', 'section');
     expect(cross).not.toContain('IVE sang');
+    expect(cross).not.toContain('hub-h2-cross-src');
     expect(count(cross, /class="hub-h2-xt /g)).toBe(3);
     blocks.values = {};
     expect(await none('getCrossover')).toContain('<div class="hub-h2-cols hub-h2-row hub-h2-cols-one"><aside id="fans"');

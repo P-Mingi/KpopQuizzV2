@@ -1,7 +1,8 @@
 // Run O1, lot H2a: the Crossover block: quizzes that cross K-pop and anime, and one fact that links the two worlds.
 // Home v3 (2026-10-29, Home.dc.html): the left column of the third row, light now (the dark band is gone): "When K-pop meets anime", the
 // sourced fact under it, then three tiles, image first (3:2): the owner's image (site_assets) or, until there is one, a soft gradient in
-// the colours of the tile's site; its site, its title and its line. Each tile links to its quiz on its own site.
+// the colours of the tile's site; its site, its title and its line. Each tile links to its quiz on its own site. The fact names its source
+// beside it (SEO rule 3.8), which the board leaves out.
 import { ht } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
 
@@ -21,7 +22,11 @@ export function HomeCrossover({ data, assets }: { data: HomeCrossoverData; asset
     <section aria-labelledby="cross-h" className="hub-h2-cross">
       <div className="hub-h2-cross-h">
         <h2 id="cross-h" className="hub-h2-h2">{ht('hp.cross.title')}</h2>
-        {data.fact ? <p className="hub-h2-sub">{data.fact}</p> : null}
+        {data.fact ? (
+          <p className="hub-h2-sub">
+            {data.fact}{data.factSource ? <span className="hub-h2-cross-src"> {ht('hp.quick.source', { source: data.factSource })}</span> : null}
+          </p>
+        ) : null}
       </div>
       <div className="hub-h2-xts">
         {data.cards.slice(0, SLOTS.length).map((card, i) => {

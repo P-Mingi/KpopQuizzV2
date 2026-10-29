@@ -12,6 +12,7 @@ async function readCrossover(): Promise<HomeCrossover | null> {
   if (!crossover || crossover.quizzes.length === 0) return null;
   return {
     fact: crossover.fact ? crossover.fact.text : null,
+    factSource: crossover.fact ? crossover.fact.source : null,
     cards: crossover.quizzes.map((q) => ({ site: q.site, title: q.title, sub: [q.meta, q.line].filter(Boolean).join(' · '), path: pathOf(q.href, q.site) })),
   };
 }

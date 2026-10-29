@@ -130,6 +130,8 @@ export interface HomeCrossoverCard extends HomeLink {
 export interface HomeCrossover {
   /** The fact that links the two worlds; null when no sourced one is available (the line is left out). */
   readonly fact: string | null;
+  /** The name of the fact's source, printed beside it (SEO rule 3.8); null with no fact. */
+  readonly factSource: string | null;
   readonly cards: readonly HomeCrossoverCard[];
 }
 
