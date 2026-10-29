@@ -59,7 +59,7 @@ export async function generateMetadata(): Promise<Metadata> {
   openGraph: {
     title: copy.social,
     description: copy.description,
-    // The site url itself: a relative '/' joins the base path with a trailing slash (https://fandomverse.org/anime/, a 308).
+    // The site url itself: a relative '/' joins the base path with a trailing slash (https://bunnyverse.org/anime/, a 308).
     url: SITE.url,
     images: [DEFAULT_OG_IMAGE],
   },
@@ -293,7 +293,7 @@ export default function HomePage(): React.ReactElement {
   }
   return (
     <div className="pt-1 pb-8">
-      {/* Run O1: no Verse redirect on fandomverse.org/anime (kpop only). */}
+      {/* Run O1: no Verse redirect on bunnyverse.org/anime (kpop only). */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

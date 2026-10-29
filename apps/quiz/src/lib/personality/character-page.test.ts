@@ -59,7 +59,7 @@ describe('getCharacterPage', () => {
     expect(v.groupSlug).toBe('death-note');
     expect(v.title).toEqual({ before: 'Which ', em: 'Death Note', after: ' character are you?' });
     expect(v.kicker).toBe('Which character are you');
-    expect(v.shareUrl).toBe('https://fandomverse.org/anime/which-death-note-character-are-you');
+    expect(v.shareUrl).toBe('https://bunnyverse.org/anime/which-death-note-character-are-you');
     expect(v.shareKicker).toBe('Which Death Note character are you');
     expect(v.meta).toEqual(['8 questions', 'About 2 minutes', 'No pictures needed']);
     expect(v.questions).toHaveLength(8);

@@ -1,4 +1,4 @@
-// Run O1, lot (e) part 2 (E1a): the series directory of fandomverse.org/anime lists the published series of the anime site.
+// Run O1, lot (e) part 2 (E1a): the series directory of bunnyverse.org/anime lists the published series of the anime site.
 import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('next/cache', () => ({ unstable_cache: <T extends (...a: never[]) => unknown>(fn: T) => fn }));

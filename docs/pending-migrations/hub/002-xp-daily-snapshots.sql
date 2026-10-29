@@ -1,4 +1,4 @@
--- 002-xp-daily-snapshots.sql (run O1, lot H2b; the weekly XP of the Top fans block of fandomverse.org)
+-- 002-xp-daily-snapshots.sql (run O1, lot H2b; the weekly XP of the Top fans block of bunnyverse.org)
 --
 -- What:   creates public.xp_daily_snapshots (one row per UTC day, member and site: the XP of that member on that site at the snapshot),
 --         RLS with no policy (only the service role reads or writes it), and public.hub_snapshot_xp(), the function that writes today's

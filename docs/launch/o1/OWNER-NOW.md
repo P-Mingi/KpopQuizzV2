@@ -1,4 +1,4 @@
-# Lancement de FandomVerse : mes actions, dans l'ordre (2026-10-28)
+# Lancement de Bunnyverse : mes actions, dans l'ordre (2026-10-28, nom Bunnyverse le 2026-10-29)
 
 **Moi : environ 4 h 45, en 49 étapes sur 69 (4 h 55 et 51 étapes si les deux étapes « si besoin » servent). Dont 4 h jusqu'à la fin du jour J.**
 **Claude : environ 7 h 30. Worker : environ 14 h 25, dont 7 h 50 à surveiller des journaux. Ils travaillent entre mes étapes et ne changent rien en production.**
@@ -19,30 +19,32 @@ export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL
 - Variante pour un petit fichier « en une transaction » : `pbcopy < docs/pending-migrations/multisite/001-sites.sql` (le chemin du fichier), puis Cmd+V dans une nouvelle requête de l'éditeur SQL de Supabase, Run. Jamais l'éditeur pour 002b, 002c et 009 (hors transaction), ni pour L04, L05 et L07 (1,2 à 2,6 Mo).
 - Le détail, les vérifications et le retour arrière de chaque étape : le lien RUNBOOK (en anglais) et `ROLLBACK.md`. L'état et les décisions : `OWNER-TODO.md`.
 
-Déjà fait, rien à faire : le groupe Microfrontends `fandomverse`, les variables Vercel de `fandomverse` et `otakuquiz`, les trois secrets passport et `CRON_SECRET` (l'intégrateur, le 2026-10-28, exception CLI). Google : aucune origine JavaScript, aucun client nouveau ; Discord : rien (`AUTH-FANDOMVERSE.md`).
+Déjà fait, rien à faire : le groupe Microfrontends `fandomverse`, les variables Vercel de `fandomverse` et `otakuquiz`, les trois secrets passport et `CRON_SECRET` (l'intégrateur, le 2026-10-28, exception CLI). Google : aucune origine JavaScript, aucun client nouveau ; Discord : rien (`AUTH-BUNNYVERSE.md`).
+
+Le nom (2026-10-29) : Bunnyverse, sur `bunnyverse.org` seulement (fandomverse.net et .com sont déjà pris, pas de .com pour Bunnyverse). KpopQuiz et OtakuQuiz gardent leur nom. Le projet Vercel `fandomverse`, le groupe Microfrontends `fandomverse` et les cookies gardent leur nom interne : le public ne les voit pas, rien à renommer.
 
 ## Partie 1. Maintenant, aucune base touchée (35 min pour moi)
 
 ### 1. Acheter le domaine
 Moi 10 min. [RUNBOOK H6](RUNBOOK.md#h-domain-vercel-supabase-and-google)
 
-Achète `fandomverse.org` chez le registrar de ton choix. Acheté dans Vercel (Domains) : les enregistrements de l'étape 2 sont posés pour toi, fais seulement la partie Search Console.
+Achète `bunnyverse.org` chez le registrar de ton choix (seulement le .org : ni .com, ni l'ancien nom). Acheté dans Vercel (Domains) : les enregistrements de l'étape 2 sont posés pour toi, fais seulement la partie Search Console.
 
 ### 2. DNS et propriété Search Console
 Moi 12 min, Worker 5 min. [RUNBOOK H6 et K10](RUNBOOK.md#h-domain-vercel-supabase-and-google)
 
-Chez le registrar, TTL 300 secondes. Aucun MX pour `team`.
+Chez le registrar de `bunnyverse.org`, TTL 300 secondes. Aucun MX pour `team`.
 
 | type | nom | valeur |
 |---|---|---|
 | A | `@` | `76.76.21.21` |
 | CNAME | `www` | `cname.vercel-dns.com` |
 
-Puis Search Console, Ajouter une propriété, type Domaine, le nom ci-dessous. Ajoute chez le registrar l'enregistrement TXT que Google affiche, puis Valider (ça peut attendre quelques heures). C'est un geste de K10 fait en avance : rien n'est indexé avant l'étape 56.
+Puis Search Console, Ajouter une propriété, type Domaine (pas « Préfixe d'URL »), le nom ci-dessous. Ajoute chez le registrar l'enregistrement TXT que Google affiche, puis Valider (ça peut attendre quelques heures). C'est un geste de K10 fait en avance : rien n'est indexé avant l'étape 56.
 ```
-fandomverse.org
+bunnyverse.org
 ```
-Vérif (worker) : A `76.76.21.21`, `www` en CNAME `cname.vercel-dns.com`, aucun MX pour `team.fandomverse.org`.
+Vérif (worker) : A `76.76.21.21`, `www` en CNAME `cname.vercel-dns.com`, aucun MX pour `team.bunnyverse.org`.
 
 ### 3. La clé service_role en variable partagée
 Moi 8 min, Worker 5 min. [RUNBOOK H3](RUNBOOK.md#h-domain-vercel-supabase-and-google)
@@ -56,21 +58,21 @@ Vérif (worker) : les trois projets montrent la variable en Production.
 ### 4. Les adresses de retour Supabase
 Moi 5 min. [RUNBOOK H4](RUNBOOK.md#h-domain-vercel-supabase-and-google)
 
-Supabase, Authentication, URL Configuration, Redirect URLs, Add URL, une fois par ligne. Site URL reste `https://kpopquiz.org`. Exactement ces deux adresses, sans `*` ni `?`. Supprime `https://otakuquiz.org/**` et `https://fanquiz.org/**` s'ils y sont.
+Supabase, Authentication, URL Configuration, Redirect URLs, Add URL, une fois par ligne. Site URL reste `https://kpopquiz.org`. Exactement ces deux adresses, sans `*` ni `?`. Supprime `https://otakuquiz.org/**` et `https://fanquiz.org/**` s'ils y sont, et aussi les deux adresses de l'ancien nom (`https://fandomverse.org/auth/callback`, `https://fandomverse.org/anime/auth/callback`) si tu les avais déjà ajoutées.
 ```
-https://fandomverse.org/auth/callback
+https://bunnyverse.org/auth/callback
 ```
 ```
-https://fandomverse.org/anime/auth/callback
+https://bunnyverse.org/anime/auth/callback
 ```
-Vérif : au jour J, étape 49 (la connexion revient bien sur fandomverse.org).
+Vérif : au jour J, étape 49 (la connexion revient bien sur bunnyverse.org).
 
 ## Partie 2. Fusion et premiers déploiements (19 min pour moi)
 
 ### 5. Prêt à fusionner ?
 Claude 30 min. [RUNBOOK A5](RUNBOOK.md#a-before)
 
-Claude confirme les quatre conditions de A5 : les lanes FandomVerse sont dans `o1/integration`, les vérifs sont vertes, aucun bloqueur n'est ouvert, la dernière comparaison de production était identique. Il te résume `docs/launch/o1/A5-REVIEW.md`.
+Claude confirme les quatre conditions de A5 : les lanes Bunnyverse sont dans `o1/integration`, les vérifs sont vertes, aucun bloqueur n'est ouvert, la dernière comparaison de production était identique. Il te résume `docs/launch/o1/A5-REVIEW.md`.
 
 ### 6. Fusionner la PR `o1/integration` vers `main`
 Moi 15 min. [RUNBOOK A5](RUNBOOK.md#a-before)
@@ -85,7 +87,7 @@ Worker : le déploiement `kpopquiz` est Ready, Runtime Logs calmes pendant 1 h, 
 ### 8. Premiers déploiements des deux nouveaux projets
 Moi 4 min, Worker 20 min. [RUNBOOK H8](RUNBOOK.md#h-domain-vercel-supabase-and-google)
 
-Après le OK de l'étape 7. Vercel, `otakuquiz`, Deployments : Redeploy du dernier `main`, et dans la fenêtre du Redeploy, décoche « Use project's Ignore Build Step » (sinon la pause d'avant le lancement, `NET_PRODUCTION_HOLD` dans `apps/quiz/scripts/vercel-ignore-build.sh`, annule le build). Puis la même chose sur `fandomverse`. Cet ordre vient de `ARCHITECTURE-FANDOMVERSE.md`, section 5.
+Après le OK de l'étape 7. Vercel, `otakuquiz`, Deployments : Redeploy du dernier `main`, et dans la fenêtre du Redeploy, décoche « Use project's Ignore Build Step » (sinon la pause d'avant le lancement, `NET_PRODUCTION_HOLD` dans `apps/quiz/scripts/vercel-ignore-build.sh`, annule le build). Puis la même chose sur `fandomverse`. Cet ordre vient de `ARCHITECTURE-BUNNYVERSE.md`, section 5.
 
 Vérif (worker) : V9 (le hub sur `/`, OtakuQuiz sur `/anime`, noindex, `check:env` passe), le groupe Microfrontends, la liste de `ENV.md` section 4.
 
@@ -371,15 +373,15 @@ Supabase, Project Settings, API Keys : copie la clé `service_role`. La premièr
 read -rs SUPABASE_SERVICE_ROLE_KEY && export SUPABASE_SERVICE_ROLE_KEY SUPABASE_URL=https://rdkgouofytwfdpbxbzio.supabase.co
 ```
 ```
-node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref rdkgouofytwfdpbxbzio --team-email-domain fandomverse.org
+node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref rdkgouofytwfdpbxbzio --team-email-domain bunnyverse.org
 ```
 ```
-node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref rdkgouofytwfdpbxbzio --team-email-domain fandomverse.org --apply
+node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref rdkgouofytwfdpbxbzio --team-email-domain bunnyverse.org --apply
 ```
 ```
 unset SUPABASE_URL SUPABASE_SERVICE_ROLE_KEY
 ```
-Vérif (Claude) : 31 utilisateurs en `team.fandomverse.org`, tous confirmés.
+Vérif (Claude) : 31 utilisateurs en `team.bunnyverse.org`, tous confirmés.
 
 ### 41. L02 puis L03
 Moi 4 min, Claude 6 min. [RUNBOOK K4, K5](RUNBOOK.md#k-launch-day)
@@ -458,17 +460,17 @@ Moi 4 min, Worker 10 min. [RUNBOOK K6](RUNBOOK.md#k-launch-day)
 
 Vercel, `fandomverse`, Settings, Domains : ajoute le premier nom, puis le second, réglé pour rediriger vers le premier. Rien sur `otakuquiz`. Si Vercel demande d'autres valeurs DNS qu'à l'étape 2, mets les siennes chez le registrar. Le certificat arrive tout seul.
 ```
-fandomverse.org
+bunnyverse.org
 ```
 ```
-www.fandomverse.org
+www.bunnyverse.org
 ```
 Vérif (worker) : V10 (200, canonique et robots propres à chaque site, noindex encore présent, `www` redirige).
 
 ### 48 bis. Les crons d'OtakuQuiz passent par `/anime` (obligatoire)
 Worker 20 min. [RUNBOOK K6b](RUNBOOK.md#k-launch-day)
 
-Les chemins des crons de `apps/quiz/vercel.json` n'ont pas `/anime` : sur `otakuquiz`, chaque appel est relayé vers `https://fandomverse.org/anime/api/cron/...`, ce qui ne marche qu'une fois le domaine attaché (étape 48). Avant l'étape 48, des échecs dans le journal des crons d'`otakuquiz` sont normaux. 30 minutes après l'étape 48, en parallèle des étapes 49 à 52, le worker regarde :
+Les chemins des crons de `apps/quiz/vercel.json` n'ont pas `/anime` : sur `otakuquiz`, chaque appel est relayé vers `https://bunnyverse.org/anime/api/cron/...`, ce qui ne marche qu'une fois le domaine attaché (étape 48). Avant l'étape 48, des échecs dans le journal des crons d'`otakuquiz` sont normaux. 30 minutes après l'étape 48, en parallèle des étapes 49 à 52, le worker regarde :
 - Vercel, projet `otakuquiz`, Logs, recherche `/anime/api/cron/` : `/anime/api/cron/editorial-publish` (toutes les 15 min) et `/anime/api/cron/live-expire` (toutes les 30 min) répondent 200. Un 401 : le `CRON_SECRET` n'arrive pas à la route ; un 404 : l'appel n'atteint pas `otakuquiz` ; aucune ligne : l'appel relayé n'arrive jamais sur `/anime`.
 - Vercel, projet `otakuquiz`, Settings, Cron Jobs, `editorial-publish` et `live-expire`, View Logs : les derniers passages ont réussi.
 - Vercel, projet `fandomverse`, Logs, recherche `/api/cron/` : seulement les crons du hub lui-même, aucune ligne `/anime/api/cron/...`.
@@ -479,14 +481,14 @@ Un cron en échec (401, 404 ou aucune ligne) : le worker prévient Claude dans l
 ### 49. Se connecter
 Moi 5 min, Claude 5 min. [RUNBOOK K6](RUNBOOK.md#k-launch-day)
 
-Sur `https://fandomverse.org` : connecte-toi avec Google, déconnecte-toi, puis avec Discord. Ouvre `https://fandomverse.org/anime` : tu y es connecté. Écris « fait n° 49 » et ce que tu as vu.
+Sur `https://bunnyverse.org` : connecte-toi avec Google, déconnecte-toi, puis avec Discord. Ouvre `https://bunnyverse.org/anime` : tu y es connecté. Écris « fait n° 49 » et ce que tu as vu.
 
 Vérif (Claude) : journaux Auth de Supabase, aucune erreur Google ni Discord.
 
 ### 50. `PASSPORT_JUMP=1`
 Moi 9 min, Worker 5 min. [RUNBOOK K7](RUNBOOK.md#k-launch-day)
 
-Vercel, Production, dans `kpopquiz`, `fandomverse` et `otakuquiz` : la clé ci-dessous, valeur `1`. Redéploie les trois ensemble. Puis, connecté sur kpopquiz.org, ouvre l'adresse ci-dessous : tu arrives sur `/anime` connecté, et `https://fandomverse.org` montre la même session.
+Vercel, Production, dans `kpopquiz`, `fandomverse` et `otakuquiz` : la clé ci-dessous, valeur `1`. Redéploie les trois ensemble. Puis, connecté sur kpopquiz.org, ouvre l'adresse ci-dessous : tu arrives sur `/anime` connecté, et `https://bunnyverse.org` montre la même session.
 ```
 PASSPORT_JUMP
 ```
@@ -504,13 +506,13 @@ Vérif (Claude) : `kpop`, `anime` et `hub` sont `live`.
 ### 52. Le quiz du jour
 Moi 6 min, Worker 5 min, Claude 3 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
 
-Connecté avec ton compte admin sur `https://fandomverse.org/anime`, colle cette ligne dans la console du navigateur (elle prend la date du jour toute seule). La réponse dit `scheduled: 14`.
+Connecté avec ton compte admin sur `https://bunnyverse.org/anime`, colle cette ligne dans la console du navigateur (elle prend la date du jour toute seule). La réponse dit `scheduled: 14`.
 ```
 fetch('/anime/api/admin/quiz-bank/auto-schedule', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({start_date: new Date().toISOString().slice(0, 10)})}).then(r => r.json()).then(console.log)
 ```
 Puis Vercel, `otakuquiz`, Settings, Cron Jobs, `ensure-daily-quiz`, Run (ça marche depuis l'étape 48).
 
-Vérif : worker (`https://fandomverse.org/anime/daily` redirige vers une page `/anime/q/` ; Vercel, projet `otakuquiz`, Logs : le Run apparaît comme `/anime/api/cron/ensure-daily-quiz` en 200, étape 48 bis), Claude (14 lignes datées).
+Vérif : worker (`https://bunnyverse.org/anime/daily` redirige vers une page `/anime/q/` ; Vercel, projet `otakuquiz`, Logs : le Run apparaît comme `/anime/api/cron/ensure-daily-quiz` en 200, étape 48 bis), Claude (14 lignes datées).
 
 ### 53. Une vraie partie
 Moi 6 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
@@ -532,22 +534,22 @@ Worker 10 min. [RUNBOOK K9b](RUNBOOK.md#k-launch-day)
 
 Avant que tu poses `NET_LAUNCH_DATE` et `NET_INDEXING` (étape 56), le worker lance ces six commandes : l'accueil du hub, l'accueil d'OtakuQuiz et une page de quiz d'OtakuQuiz (`/anime/daily` redirige vers le quiz du jour ; `-L` suit la redirection). Les trois premières lisent l'en-tête `X-Robots-Tag`, les trois dernières la balise robots du HTML.
 ```
-curl -sI https://fandomverse.org | grep -i '^x-robots-tag'
+curl -sI https://bunnyverse.org | grep -i '^x-robots-tag'
 ```
 ```
-curl -sI https://fandomverse.org/anime | grep -i '^x-robots-tag'
+curl -sI https://bunnyverse.org/anime | grep -i '^x-robots-tag'
 ```
 ```
-curl -sIL https://fandomverse.org/anime/daily | grep -i '^x-robots-tag'
+curl -sIL https://bunnyverse.org/anime/daily | grep -i '^x-robots-tag'
 ```
 ```
-curl -s https://fandomverse.org | grep -o '<meta name="robots" content="noindex[^"]*"'
+curl -s https://bunnyverse.org | grep -o '<meta name="robots" content="noindex[^"]*"'
 ```
 ```
-curl -s https://fandomverse.org/anime | grep -o '<meta name="robots" content="noindex[^"]*"'
+curl -s https://bunnyverse.org/anime | grep -o '<meta name="robots" content="noindex[^"]*"'
 ```
 ```
-curl -sL https://fandomverse.org/anime/daily | grep -o '<meta name="robots" content="noindex[^"]*"'
+curl -sL https://bunnyverse.org/anime/daily | grep -o '<meta name="robots" content="noindex[^"]*"'
 ```
 Avant l'étape 56 : chaque commande affiche sa ligne noindex (`x-robots-tag: noindex, nofollow` ou `<meta name="robots" content="noindex, nofollow"`). Une commande muette à ce moment-là : on s'arrête, le worker prévient Claude avant l'étape 56.
 Après les deux redéploiements de l'étape 56 (`NET_INDEXING=1` en ligne) : les six mêmes commandes n'affichent plus rien. Les adresses `*.vercel.app` gardent leur noindex ; elles sont protégées par Vercel, le worker ne les teste pas.
@@ -562,14 +564,14 @@ NET_LAUNCH_DATE
 ```
 NET_INDEXING
 ```
-Search Console, propriété `fandomverse.org`, Sitemaps : soumets les deux adresses.
+Search Console, propriété `bunnyverse.org`, Sitemaps : soumets les deux adresses.
 ```
-https://fandomverse.org/sitemap.xml
+https://bunnyverse.org/sitemap.xml
 ```
 ```
-https://fandomverse.org/anime/sitemap.xml
+https://bunnyverse.org/anime/sitemap.xml
 ```
-Vérif (worker) : les six commandes de l'étape 55 bis n'affichent plus rien ; V10 « after K10 » (plus de noindex sur l'accueil, `/anime`, `/anime/series`, une série, un quiz ; toujours sur `/settings`, `/me`, `/anime/admin`), les deux fichiers de clé IndexNow répondent 200 sur fandomverse.org et 404 sur kpopquiz.org.
+Vérif (worker) : les six commandes de l'étape 55 bis n'affichent plus rien ; V10 « after K10 » (plus de noindex sur l'accueil, `/anime`, `/anime/series`, une série, un quiz ; toujours sur `/settings`, `/me`, `/anime/admin`), les deux fichiers de clé IndexNow répondent 200 sur bunnyverse.org et 404 sur kpopquiz.org.
 
 ## Partie 9. Après le lancement (44 min pour moi)
 
@@ -623,7 +625,7 @@ V11 à chaque fois. Claude : les requêtes, les journaux Auth, les conseils de s
 ### 63. Décider à +72 h
 Moi 8 min. [RUNBOOK L5](RUNBOOK.md#l-after-launch)
 
-Regarde Search Console pour kpopquiz.org et fandomverse.org : sitemaps soumis, aucun nouveau « bloquée par robots.txt » ni « exclue par noindex » sur kpopquiz.org. Si V11 est propre depuis 72 h : remonte le TTL de fandomverse.org à la valeur par défaut du registrar, garde le dump du jour J 60 jours. Le lancement est fini. Sinon : `ROLLBACK.md` section 3, la couche la plus légère d'abord.
+Regarde Search Console pour kpopquiz.org et bunnyverse.org : sitemaps soumis, aucun nouveau « bloquée par robots.txt » ni « exclue par noindex » sur kpopquiz.org. Si V11 est propre depuis 72 h : remonte le TTL de bunnyverse.org à la valeur par défaut du registrar, garde le dump du jour J 60 jours. Le lancement est fini. Sinon : `ROLLBACK.md` section 3, la couche la plus légère d'abord.
 
 ### 64. Tables du hub : la PR des deux crons
 Worker 45 min. [RUNBOOK L6](RUNBOOK.md#l-after-launch)

@@ -17,7 +17,7 @@ function andList(names: readonly string[]): string {
   return names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : (names[0] ?? '');
 }
 
-/** The sites of the network, in display order, with their addresses: "A (a.org), B (c.org/b) and C (c.org)" (siteAddress: OtakuQuiz is a folder of fandomverse.org). */
+/** The sites of the network, in display order, with their addresses: "A (a.org), B (c.org/b) and C (c.org)" (siteAddress: OtakuQuiz is a folder of bunnyverse.org). */
 function siteList(): string {
   return andList(SITE_IDS.map((id) => `${siteConfig(id).brand.name} (${siteAddress(siteConfig(id))})`));
 }
@@ -25,8 +25,8 @@ function siteList(): string {
 /** The mailbox of the hub: the one network mailbox, from the registry. */
 export const HUB_EMAIL = MAILBOX;
 
-/** The day the privacy text last changed: bump it with every change of a privacy.* string (FandomVerse cookies, 2026-10-28). */
-export const PRIVACY_REVISED = '2026-10-28';
+/** The day the privacy text last changed: bump it with every change of a privacy.* string (the hub cookies, 2026-10-28; the Bunnyverse name and bunnyverse.org, 2026-10-29). */
+export const PRIVACY_REVISED = '2026-10-29';
 
 /** The minimum age on the three sites (owner, 2026-10-24). */
 export const MIN_AGE = 15;
@@ -35,7 +35,7 @@ const BASE_VARS: HubCopyVars = {
   network: NETWORK.name,
   brand: siteConfig('hub').brand.name,
   domain: siteConfig('hub').domain,
-  // The legal notice (legal.*): the site that serves the page, from the registry, with its address (fandomverse.org/anime on OtakuQuiz).
+  // The legal notice (legal.*): the site that serves the page, from the registry, with its address (bunnyverse.org/anime on OtakuQuiz).
   site: SITE.brand.name,
   siteDomain: siteAddress(SITE),
   // The privacy draft (privacy.*): the three sites with their domains, and the hub mailbox.
@@ -56,7 +56,7 @@ const BASE_VARS: HubCopyVars = {
   // How long the sign-in return cookie lives (lib/auth/oauth-return.ts OAUTH_RETURN_SECONDS / 60; privacy-final.test.ts keeps them equal
   // without importing that module here).
   oauthMinutes: 10,
-  // The last change of the privacy text (PRIVACY_REVISED), "28 October 2026": shown on the draft and on the live page.
+  // The last change of the privacy text (PRIVACY_REVISED), "29 October 2026": shown on the draft and on the live page.
   revised: formatLaunchDate(PRIVACY_REVISED) ?? '',
   // The launch date (NET_LAUNCH_DATE), "24 October 2026"; empty while it is missing (the page prints the line only when it has one).
   date: formatLaunchDate(process.env.NET_LAUNCH_DATE) ?? '',

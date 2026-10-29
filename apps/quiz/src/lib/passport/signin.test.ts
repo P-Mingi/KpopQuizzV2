@@ -1,7 +1,7 @@
 // Run O1, lot (b), lane P1: POST /api/passport/after-signin and GET /auth/confirm (apis.md 3.1 and 3.2) with a mocked
 // Supabase. Every status of the contract: 404 on kpop, 403 origin, 400, 401, 403 banned, 200 with and without a profile,
 // the membership stamp and its join counter, the confirm branches (onboarding, hub home, banned, success, every failure).
-// FandomVerse (owner, 2026-10-28): anime is served under the basePath '/anime', so every Location of the anime build carries
+// Bunnyverse (owner, 2026-10-28): anime is served under the basePath '/anime', so every Location of the anime build carries
 // it (an app path '/daily' is the browser path '/anime/daily'); /auth/confirm answers 404 on a production deployment of anime
 // and hub (no email sign-in there); GET /auth/callback of anime and hub (handleWorldCallback) takes OAuth sessions only.
 import { NextRequest } from 'next/server';
@@ -304,19 +304,19 @@ describe('GET /auth/confirm (apis.md 3.2)', () => {
 });
 
 // ---------------------------------------------------------------------------------------------------------------
-// FandomVerse (owner, 2026-10-28)
+// Bunnyverse (owner, 2026-10-28)
 // ---------------------------------------------------------------------------------------------------------------
 
-/** The FandomVerse topology on a preview deployment: hub and anime on one origin, anime under '/anime'. */
-const FV = { VERCEL_ENV: 'preview', NEXT_PUBLIC_NET_ORIGINS: 'kpop=https://kpopquiz.org,anime=https://fandomverse.org,hub=https://fandomverse.org' };
+/** The Bunnyverse topology on a preview deployment: hub and anime on one origin, anime under '/anime'. */
+const FV = { VERCEL_ENV: 'preview', NEXT_PUBLIC_NET_ORIGINS: 'kpop=https://kpopquiz.org,anime=https://bunnyverse.org,hub=https://bunnyverse.org' };
 const fv = (site: SiteId) => ({ site, env: FV });
-/** Origin headers that are not fandomverse.org, whatever they look like. */
+/** Origin headers that are not bunnyverse.org, whatever they look like. */
 const NOT_FV = [
-  'https://fandomverse.org.evil.com', 'https://evil.com', 'https://kpopquiz.org', 'http://fandomverse.org', 'https://www.fandomverse.org',
-  'https://fandomverse.org:8443', 'https://fandomverse.org/anime', 'https://fandomverse.org/', 'null', 'https://xn--fandomverse-q2b.org',
+  'https://bunnyverse.org.evil.com', 'https://evil.com', 'https://kpopquiz.org', 'http://bunnyverse.org', 'https://www.bunnyverse.org',
+  'https://bunnyverse.org:8443', 'https://bunnyverse.org/anime', 'https://bunnyverse.org/', 'null', 'https://xn--bunnyverse-q2b.org',
 ];
 
-describe('GET /auth/confirm off in production (FandomVerse: no email sign-in on hub and anime)', () => {
+describe('GET /auth/confirm off in production (Bunnyverse: no email sign-in on hub and anime)', () => {
   it('answers 404 on anime and hub, before it reads anything, for every type of link', async () => {
     for (const site of ['anime', 'hub'] as const) {
       for (const type of ['email', 'magiclink', 'signup', 'email_change']) {
@@ -360,11 +360,11 @@ describe('GET /auth/confirm off in production (FandomVerse: no email sign-in on 
   });
 });
 
-describe('POST /api/passport/after-signin on fandomverse.org', () => {
-  it('hub and anime both accept their one origin https://fandomverse.org (the anime base has a path, the Origin never does)', async () => {
+describe('POST /api/passport/after-signin on bunnyverse.org', () => {
+  it('hub and anime both accept their one origin https://bunnyverse.org (the anime base has a path, the Origin never does)', async () => {
     state.user = { id: 'user-1' };
     for (const site of ['hub', 'anime'] as const) {
-      const res = await handleAfterSignin(post({ next: '/' }, { origin: 'https://fandomverse.org' }), fv(site));
+      const res = await handleAfterSignin(post({ next: '/' }, { origin: 'https://bunnyverse.org' }), fv(site));
       expect(res.status).toBe(200);
     }
   });
@@ -383,9 +383,9 @@ describe('POST /api/passport/after-signin on fandomverse.org', () => {
 
   it('answers an app path: a browser path of the anime build loses its basePath, an outside address becomes /', async () => {
     state.user = { id: 'user-1' };
-    const own = await handleAfterSignin(post({ next: '/anime/daily?x=1' }, { origin: 'https://fandomverse.org' }), fv('anime'));
+    const own = await handleAfterSignin(post({ next: '/anime/daily?x=1' }, { origin: 'https://bunnyverse.org' }), fv('anime'));
     expect(await own.json()).toEqual({ next: '/daily?x=1', needsUsername: false });
-    for (const next of ['https://fandomverse.org.evil.com/x', 'https://evil.com/fandomverse.org', '//fandomverse.org.evil.com', '/anime//evil.com']) {
+    for (const next of ['https://bunnyverse.org.evil.com/x', 'https://evil.com/bunnyverse.org', '//bunnyverse.org.evil.com', '/anime//evil.com']) {
       const res = await handleAfterSignin(post({ next }), fv('anime'));
       expect(await res.json()).toEqual({ next: '/', needsUsername: false });
     }
@@ -417,9 +417,9 @@ function startCookie(site: 'anime' | 'hub', next: string, via: string | null = n
 }
 
 describe('GET /auth/callback of anime and hub (handleWorldCallback)', () => {
-  const callback = (query: string, base = 'https://fandomverse.org/anime', cookie: string | null = null): NextRequest =>
+  const callback = (query: string, base = 'https://bunnyverse.org/anime', cookie: string | null = null): NextRequest =>
     new NextRequest(`${base}/auth/callback${query}`, { headers: cookie ? { cookie } : {} });
-  const HUB_BASE = 'https://fandomverse.org';
+  const HUB_BASE = 'https://bunnyverse.org';
   const clearsCookie = (res: Response): boolean =>
     res.headers.getSetCookie().some((c) => c.startsWith(`${OAUTH_RETURN_COOKIE.https}=;`) && /Max-Age=0/i.test(c) && /Path=\//.test(c) && /HttpOnly/i.test(c) && /Secure/i.test(c));
 
@@ -534,15 +534,15 @@ describe('GET /auth/callback of anime and hub (handleWorldCallback)', () => {
 
   it('the next of the cookie goes through safeAppPath: an outside address is the home, the anime answer never leaves /anime', async () => {
     const hostile = [
-      'https://fandomverse.org.evil.com/x', 'https://evil.com/fandomverse.org', '//fandomverse.org.evil.com', '//evil.com', '/\\evil.com',
-      'javascript:alert(1)', '/anime//evil.com', 'https://fandomverse.org/x', '/anime/../x', '/%2e%2e/x', '/anime/%2e%2e/passport', '/..%2f..%2fx',
+      'https://bunnyverse.org.evil.com/x', 'https://evil.com/bunnyverse.org', '//bunnyverse.org.evil.com', '//evil.com', '/\\evil.com',
+      'javascript:alert(1)', '/anime//evil.com', 'https://bunnyverse.org/x', '/anime/../x', '/%2e%2e/x', '/anime/%2e%2e/passport', '/..%2f..%2fx',
       '/.//evil.com', '/a/..//evil.com', '/%2e//evil.com',
     ];
     for (const raw of hostile) {
       state.calls = [];
       const res = await handleWorldCallback(callback('?code=c1', undefined, startCookie('anime', raw)), fv('anime'));
-      const where = new URL(loc(res), 'https://fandomverse.org');
-      expect(where.origin, raw).toBe('https://fandomverse.org');
+      const where = new URL(loc(res), 'https://bunnyverse.org');
+      expect(where.origin, raw).toBe('https://bunnyverse.org');
       expect(where.pathname === '/anime' || where.pathname.startsWith('/anime/'), `${raw} -> ${loc(res)}`).toBe(true);
     }
     // a browser path of the anime build is not doubled
@@ -561,7 +561,7 @@ describe('GET /auth/callback of anime and hub (handleWorldCallback)', () => {
 
 describe('the provider of the sign-in: Google or Discord only (security review, 2026-10-28)', () => {
   const callback = (cookie: string | null, site: 'anime' | 'hub' = 'anime'): NextRequest =>
-    new NextRequest(`https://fandomverse.org${site === 'anime' ? '/anime' : ''}/auth/callback?code=c1`, { headers: cookie ? { cookie } : {} });
+    new NextRequest(`https://bunnyverse.org${site === 'anime' ? '/anime' : ''}/auth/callback?code=c1`, { headers: cookie ? { cookie } : {} });
 
   it('accepts Google and Discord when the account holds that identity (an email identity next to it is fine)', async () => {
     for (const provider of ['google', 'discord'] as const) {
@@ -613,7 +613,7 @@ describe('the provider of the sign-in: Google or Discord only (security review, 
 describe('a refused session leaves no session cookie, even when the sign-out fails (security review, 2026-10-28)', () => {
   const KEY = 'sb-abcdefghijklmnopqrst-auth-token';
   const ENV_URL = { ...FV, NEXT_PUBLIC_SUPABASE_URL: 'https://abcdefghijklmnopqrst.supabase.co' };
-  const callback = (cookie: string): NextRequest => new NextRequest('https://fandomverse.org/anime/auth/callback?code=c1', { headers: { cookie } });
+  const callback = (cookie: string): NextRequest => new NextRequest('https://bunnyverse.org/anime/auth/callback?code=c1', { headers: { cookie } });
   const deleted = (): string[] => state.cookieWrites.filter((w) => w.value === '' && w.options?.maxAge === 0 && w.options?.path === '/').map((w) => w.name);
 
   for (const fails of ['', 'error', 'throw'] as const) {
@@ -663,7 +663,7 @@ describe('a banned profile leaves no session cookie, even when the sign-out fail
 
   for (const fails of ['', 'error', 'throw'] as const) {
     it(`GET /auth/callback, sign-out ${fails || 'ok'}: signed out everywhere, cookies deleted, the login page, no stamp`, async () => {
-      for (const [site, base] of [['anime', 'https://fandomverse.org/anime'], ['hub', 'https://fandomverse.org']] as const) {
+      for (const [site, base] of [['anime', 'https://bunnyverse.org/anime'], ['hub', 'https://bunnyverse.org']] as const) {
         Object.assign(state, { calls: [], signOutScopes: [], cookieWrites: [], signOutFails: fails, profile: BANNED });
         const req = new NextRequest(`${base}/auth/callback?code=c1`, { headers: { cookie: startCookie(site, '/daily') } });
         const res = await handleWorldCallback(req, { site, env: { ...FV, NEXT_PUBLIC_SUPABASE_URL: SUPA } });
@@ -697,14 +697,14 @@ describe('a banned profile leaves no session cookie, even when the sign-out fail
 
 describe('GET /auth/start of anime and hub (handleOAuthStart)', () => {
   const FV_START = { ...FV, NEXT_PUBLIC_SUPABASE_URL: 'https://abcdefghijklmnopqrst.supabase.co' };
-  const start = (query: string, base = 'https://fandomverse.org/anime'): NextRequest => new NextRequest(`${base}/auth/start${query}`);
+  const start = (query: string, base = 'https://bunnyverse.org/anime'): NextRequest => new NextRequest(`${base}/auth/start${query}`);
   const ctxStart = (site: SiteId) => ({ site, env: FV_START, now: () => 1_800_000_000_000 });
   const startCookieOf = (res: Response): string | undefined => res.headers.getSetCookie().find((c) => c.startsWith(`${OAUTH_RETURN_COOKIE.https}=`));
 
   it('asks Supabase for the provider with the EXACT callback of the build (no query) and redirects to it', async () => {
     for (const [site, base, callbackUrl] of [
-      ['anime', 'https://fandomverse.org/anime', 'https://fandomverse.org/anime/auth/callback'],
-      ['hub', 'https://fandomverse.org', 'https://fandomverse.org/auth/callback'],
+      ['anime', 'https://bunnyverse.org/anime', 'https://bunnyverse.org/anime/auth/callback'],
+      ['hub', 'https://bunnyverse.org', 'https://bunnyverse.org/auth/callback'],
     ] as const) {
       for (const provider of ['google', 'discord'] as const) {
         state.calls = [];
@@ -731,7 +731,7 @@ describe('GET /auth/start of anime and hub (handleOAuthStart)', () => {
   });
 
   it('a hostile returnTo or via never reaches the cookie as it is', async () => {
-    for (const raw of ['//evil.com', 'https://fandomverse.org.evil.com', '/.//evil.com', '/anime//evil.com']) {
+    for (const raw of ['//evil.com', 'https://bunnyverse.org.evil.com', '/.//evil.com', '/anime//evil.com']) {
       const res = await handleOAuthStart(start(`?provider=google&returnTo=${encodeURIComponent(raw)}&via=x.evil`), ctxStart('anime'));
       const value = startCookieOf(res)!.split(';')[0]!.slice(`${OAUTH_RETURN_COOKIE.https}=`.length);
       expect(decodeOAuthReturn(value, 'anime', 1_800_000_000)).toMatchObject({ next: '/', via: null });
@@ -757,7 +757,7 @@ describe('GET /auth/start of anime and hub (handleOAuthStart)', () => {
     }
     state.oauthUrl = undefined;
     state.oauthError = true;
-    expect(loc(await handleOAuthStart(start('?provider=google', 'https://fandomverse.org'), ctxStart('hub')))).toBe('/login');
+    expect(loc(await handleOAuthStart(start('?provider=google', 'https://bunnyverse.org'), ctxStart('hub')))).toBe('/login');
   });
 });
 
@@ -784,10 +784,10 @@ describe('the return cookie (lib/auth/oauth-return.ts)', () => {
   });
 
   it('the name follows the request like the passport cookie: __Host- on https and in production, plain only on http localhost', () => {
-    expect(oauthReturnCookieName('https://fandomverse.org/anime/auth/start', null, {})).toBe('__Host-fv_oauth');
+    expect(oauthReturnCookieName('https://bunnyverse.org/anime/auth/start', null, {})).toBe('__Host-fv_oauth');
     expect(oauthReturnCookieName('http://localhost:3063/auth/start', null, { VERCEL_ENV: 'production' })).toBe('__Host-fv_oauth');
     expect(oauthReturnCookieName('http://anime.localhost:3063/anime/auth/start', null, {})).toBe('fv_oauth');
-    expect(oauthReturnCookieName('http://fandomverse.org/auth/start', null, {})).toBeNull();
+    expect(oauthReturnCookieName('http://bunnyverse.org/auth/start', null, {})).toBeNull();
     expect(oauthReturnAttributes('fv_oauth')).toEqual({ httpOnly: true, secure: false, sameSite: 'lax', path: '/', maxAge: 600 });
   });
 });

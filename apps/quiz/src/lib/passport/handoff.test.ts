@@ -1,10 +1,10 @@
 // Run O1, lot (c) part 2 (B3): the five handlers of the jump (apis.md 2.1 to 2.5) with a mocked Supabase. Each
 // handler with the flag off, then each outcome of the brief on the handlers: ok, replay, pkce_fail, state_mismatch,
 // expired, open_redirect, banned, unconfirmed, other_user, no_session. Nothing leaves the process.
-// FandomVerse (owner, 2026-10-28): the anime build is served under the basePath '/anime' (lib/auth/site-base.ts). Its
+// Bunnyverse (owner, 2026-10-28): the anime build is served under the basePath '/anime' (lib/auth/site-base.ts). Its
 // addresses below move under /anime: the target page and /auth/arrive of the jump, /auth/land of authorize, the Locations of
 // arrive and the `next` of redeem (browser paths). The `next` of a ticket and of the transaction cookie stays an app path.
-// The FandomVerse topology itself (hub and anime on one origin) is tested in handoff-fandomverse.test.ts.
+// The Bunnyverse topology itself (hub and anime on one origin) is tested in handoff-fandomverse.test.ts.
 import { NextRequest } from 'next/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 

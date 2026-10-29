@@ -1,5 +1,5 @@
-// FandomVerse (owner, 2026-10-28; lane 3): where a browser reaches the sign-in and passport routes of each site. kpop stays
-// https://kpopquiz.org; the hub is https://fandomverse.org; anime is https://fandomverse.org/anime, its own Vercel project
+// Bunnyverse (owner, 2026-10-28; lane 3): where a browser reaches the sign-in and passport routes of each site. kpop stays
+// https://kpopquiz.org; the hub is https://bunnyverse.org; anime is https://bunnyverse.org/anime, its own Vercel project
 // under the basePath '/anime', on the same origin as the hub (Vercel Microfrontends), so hub and anime share one cookie jar.
 //
 // Two kinds of path. An app path is what a build knows ('/q/x', '/login'): safeReturnTo answers one, a ticket and the
@@ -24,7 +24,7 @@ import type { SiteId } from '@/lib/site/types';
 /** The basePath of each build: '' (served at the root of its origin) or '/anime'. */
 export { isSitePath, joinBase } from '@/lib/auth/base-path';
 
-/** The path of a registry url without its trailing slash: '' for https://kpopquiz.org, '/anime' for https://fandomverse.org/anime. */
+/** The path of a registry url without its trailing slash: '' for https://kpopquiz.org, '/anime' for https://bunnyverse.org/anime. */
 function pathOfSiteUrl(url: string): string {
   return new URL(url).pathname.replace(/\/+$/, '');
 }
@@ -72,7 +72,7 @@ export function siteOrigin(site: SiteId, env: NetOriginEnv): string {
   return new URL(netOrigin(site, env)).origin;
 }
 
-/** The prefix of every browser URL of `site`: its origin and its basePath ('https://fandomverse.org/anime'). */
+/** The prefix of every browser URL of `site`: its origin and its basePath ('https://bunnyverse.org/anime'). */
 export function siteBase(site: SiteId, env: NetOriginEnv): string {
   return `${siteOrigin(site, env)}${SITE_BASE_PATH[site]}`;
 }
@@ -82,7 +82,7 @@ export function siteUrl(site: SiteId, env: NetOriginEnv, path: string): string {
   return `${siteOrigin(site, env)}${withBase(site, path)}`;
 }
 
-/** True when two sites answer on one browser origin (hub and anime on fandomverse.org): they share the session cookies. */
+/** True when two sites answer on one browser origin (hub and anime on bunnyverse.org): they share the session cookies. */
 export function sameOrigin(a: SiteId, b: SiteId, env: NetOriginEnv): boolean {
   return siteOrigin(a, env) === siteOrigin(b, env);
 }

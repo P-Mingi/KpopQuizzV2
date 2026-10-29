@@ -63,8 +63,8 @@ describe('cleanUrl', () => {
     const { cleanUrl } = await via('kpop');
     expect(cleanUrl('https://kpopquiz.org/quizzes?page=2&via=a.menu&t=abc&code=x&state=y')).toBe('https://kpopquiz.org/quizzes?page=2');
     expect(cleanUrl('/series/naruto?via=k.menu')).toBe('/series/naruto');
-    expect(cleanUrl('https://fandomverse.org/anime/auth/land#code=abc&state=def')).toBe('https://fandomverse.org/anime/auth/land');
-    expect(cleanUrl('https://fandomverse.org/anime/a#section')).toBe('https://fandomverse.org/anime/a#section');
+    expect(cleanUrl('https://bunnyverse.org/anime/auth/land#code=abc&state=def')).toBe('https://bunnyverse.org/anime/auth/land');
+    expect(cleanUrl('https://bunnyverse.org/anime/a#section')).toBe('https://bunnyverse.org/anime/a#section');
   });
 });
 
@@ -120,7 +120,7 @@ describe('catchVia', () => {
   });
   it('a via without a known link id is kept but counts no land', async () => {
     const { catchVia } = await via('anime');
-    const { win, session } = fakeWindow('https://fandomverse.org/anime/?via=k.zzzz');
+    const { win, session } = fakeWindow('https://bunnyverse.org/anime/?via=k.zzzz');
     catchVia(win);
     expect(session.getItem('fq.net.via')).toBe('k.zzzz');
     expect(sent).toEqual([]);

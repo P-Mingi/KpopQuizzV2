@@ -116,7 +116,7 @@ export function checkSiteSheet(site: SiteId, raw: string, file = 'tokens.css'): 
   const problems: string[] = [];
   const lane = file.replace(/\.css$/, '');
   const blockPrefix = lane === 'tokens' ? null : `${site}-${lane}-`;
-  // Owner order of 2026-10-26 (no pink on fandomverse.org/anime): anime only, `legacy.css` is the generated override of the pink of the shared sheets
+  // Owner order of 2026-10-26 (no pink on bunnyverse.org/anime): anime only, `legacy.css` is the generated override of the pink of the shared sheets
   // (lib/site/anime-legacy-pink.ts). It may repeat a shared selector under the site scope, but only with colour properties, and its bare scope
   // blocks declare only the legacy custom properties that module lists (docs/o1/requests/ORANGE.md, 7).
   const legacy = site === 'anime' && file === 'legacy.css';
@@ -697,8 +697,8 @@ describe('schema.sql', () => {
   });
 
   it('the sites rows mirror the registry (id, address, brand, kind) and use only SiteId values', () => {
-    // 2026-10-28 (owner, FandomVerse): OtakuQuiz is the folder /anime of fandomverse.org and sites.domain is unique, so the column holds the
-    // address, the registry url without its scheme (kpopquiz.org, fandomverse.org/anime, fandomverse.org): the domain itself on kpop and hub.
+    // 2026-10-28 (owner, Bunnyverse): OtakuQuiz is the folder /anime of bunnyverse.org and sites.domain is unique, so the column holds the
+    // address, the registry url without its scheme (kpopquiz.org, bunnyverse.org/anime, bunnyverse.org): the domain itself on kpop and hub.
     const vals = [...sql.matchAll(/\('([a-z]+)', +'([a-z./]+)', +'([A-Za-z]+)', +'(world|hub)', +'(building|live)', (\d)\)/g)];
     expect(vals.map((v) => v[1])).toEqual([...SITE_IDS]);
     for (const v of vals) {

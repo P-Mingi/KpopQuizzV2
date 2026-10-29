@@ -1,4 +1,4 @@
-// Run O1, lot (e) part 2, lane E1a: the loader of the series directory of fandomverse.org/anime (/series). It lists the
+// Run O1, lot (e) part 2, lane E1a: the loader of the series directory of bunnyverse.org/anime (/series). It lists the
 // published series of the anime site: the `groups` rows of site anime that have a published `series` row, with the real
 // count of their published quizzes (never groups.quiz_count, which is denormalised: the same rule as the kpop directory).
 // Every read of a scoped table goes through forSite. Any failed read throws, so unstable_cache never keeps a bad list;

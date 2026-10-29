@@ -7,7 +7,7 @@
 --         anon and authenticated may SELECT only the display columns (column grants), through one select policy;
 --         creates the Storage bucket 'entity-images' (public read, WebP only, 4 MB per file) with no insert, update or
 --         delete policy for anon or authenticated; a trigger keeps updated_at.
--- Why:    the owner uploads the photo of each series and each character from /admin on fandomverse.org/anime. Files are copied into
+-- Why:    the owner uploads the photo of each series and each character from /admin on bunnyverse.org/anime. Files are copied into
 --         the bucket (never hot-linked); the app reads the row first, then the bundled series photo, then the neutral
 --         placeholder. The file path ends with a content hash, so a replaced image never serves stale bytes.
 -- Rows:   1 table, 1 trigger function, 1 trigger, 1 policy, 1 bucket; no entity_images row is inserted by the file.

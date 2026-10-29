@@ -40,7 +40,7 @@ import type { ProfileForm, ProfileRow, UsernameStatus } from '@/lib/ux-v1/p10/se
 import type { OshiPick } from '@/components/passport-ui/settings-world';
 import type { SettingsWorld } from '@/lib/passport-ui/settings-world';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 // A world site (Run O1, lot b, P1; rule 18): its sections and its reads and writes live in world-only modules, loaded when the

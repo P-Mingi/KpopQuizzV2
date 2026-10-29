@@ -1,9 +1,9 @@
-// Run O1, lot (d), lane H1: the copy of the network page (fandomverse.org, /) and of the "What your passport shares" block
+// Run O1, lot (d), lane H1: the copy of the network page (bunnyverse.org, /) and of the "What your passport shares" block
 // (copy-keys.md 3, namespace hub.h1). Placeholders are filled by lib/site/hub/copy.ts: {network} is the network name
 // (NETWORK.name), {brand} the hub brand, {name} the site of a card, {topicPlural} and {memberPlural} the vocabulary of
 // that site (siteConfig(id).vocabulary). No site name or domain is written in this file.
-// The privacy.* keys are the one text of the network privacy policy (fandomverse.org/privacy, shown on the fandomverse.org/anime build too,
-// canonical on fandomverse.org); the owner's answers of 2026-10-24 are in docs/o1/briefs/H1-privacy.md. Placeholders are filled by
+// The privacy.* keys are the one text of the network privacy policy (bunnyverse.org/privacy, shown on the bunnyverse.org/anime build too,
+// canonical on bunnyverse.org); the owner's answers of 2026-10-24 are in docs/o1/briefs/H1-privacy.md. Placeholders are filled by
 // lib/site/hub/copy.ts: {sites} the three sites with their domains, {kpopName} and {animeName} the names of two of them, {email} the contact
 // mailbox, {date} the launch date, and the numbers the code decides ({ticketMinutes}, {codeSeconds}, {logDays}, {graceDays},
 // {freshMinutes}, {minAge}). No site name, domain or number of those is written in this file.
@@ -11,7 +11,7 @@
 // (the site that serves the page, from the registry). The publisher is Louis Pecchia, entrepreneur individuel (owner, 2026-10-25) and his phone is given (owner, 2026-10-25), so
 // no [BRACKETED] placeholder is left; lib/site/hub/legal.ts still refuses a launch build if one is ever written back (LEGAL_PLACEHOLDER_KEYS).
 export const COPY = {
-  // The new FandomVerse home (lot H2a, docs/o1/design/fanquiz-hub/): the keys of the page are the hp.* ones. The names of the sites are
+  // The new Bunnyverse home (lot H2a, docs/o1/design/fanquiz-hub/): the keys of the page are the hp.* ones. The names of the sites are
   // placeholders ({name}, {kpopName}, {animeName}) filled from the registry, never written here.
   'hp.meta.title': '{network}: K-pop and anime quizzes, one account',
   'hp.meta.description': '{network} is the home of one account shared by {kpopName} and {animeName}. Play K-pop and anime quizzes and keep one level, streaks and badges on both sites.',

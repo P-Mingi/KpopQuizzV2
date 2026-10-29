@@ -32,18 +32,18 @@ describe('pingIndexNow per site', () => {
 
   it('an open anime site pings its own domain with its own key', async () => {
     const { bodies } = await ping('anime', '1', ['/q/death-note-quiz']);
-    expect(bodies[0]).toMatchObject({ host: 'fandomverse.org', key: '760f9a9459d4db0bd8a08f13a0f1ec6e' });
-    expect(bodies[0]?.urlList).toEqual(['https://fandomverse.org/anime/q/death-note-quiz']);
+    expect(bodies[0]).toMatchObject({ host: 'bunnyverse.org', key: '760f9a9459d4db0bd8a08f13a0f1ec6e' });
+    expect(bodies[0]?.urlList).toEqual(['https://bunnyverse.org/anime/q/death-note-quiz']);
   });
 
   it('never submits a URL of another domain', async () => {
-    const { result, bodies } = await ping('kpop', '', ['https://fandomverse.org/anime/q/x', 'https://kpopquiz.org/q/y']);
+    const { result, bodies } = await ping('kpop', '', ['https://bunnyverse.org/anime/q/x', 'https://kpopquiz.org/q/y']);
     expect(result.submitted).toBe(1);
     expect(bodies[0]?.urlList).toEqual(['https://kpopquiz.org/q/y']);
   });
 });
 
-// FandomVerse (finding 3): the hub's /sitemap.xml is a sitemap index. A deploy resubmit sends the page URLs of its child sitemaps,
+// Bunnyverse (finding 3): the hub's /sitemap.xml is a sitemap index. A deploy resubmit sends the page URLs of its child sitemaps,
 // never the URL of a sitemap file.
 const urlset = (urls: string[]): string => `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `<url><loc>${u}</loc><changefreq>weekly</changefreq></url>`).join('\n')}\n</urlset>\n`;
 const index = (urls: string[]): string => `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `<sitemap><loc>${u}</loc></sitemap>`).join('\n')}\n</sitemapindex>\n`;
@@ -68,34 +68,34 @@ async function sitemapsOf(site: string, files: Record<string, string>, indexing 
 }
 
 describe('sitemapUrls on a sitemap index', () => {
-  const HUB_PAGES = ['https://fandomverse.org/', 'https://fandomverse.org/privacy', 'https://fandomverse.org/legal'];
-  const ANIME_PAGES = ['https://fandomverse.org/anime', 'https://fandomverse.org/anime/series', 'https://fandomverse.org/anime/q/who-is-l'];
+  const HUB_PAGES = ['https://bunnyverse.org/', 'https://bunnyverse.org/privacy', 'https://bunnyverse.org/legal'];
+  const ANIME_PAGES = ['https://bunnyverse.org/anime', 'https://bunnyverse.org/anime/series', 'https://bunnyverse.org/anime/q/who-is-l'];
 
   it('hub: the page URLs of /sitemap-hub.xml and /anime/sitemap.xml, never a sitemap file URL, and no child off its origin', async () => {
     const { urls, fetched } = await sitemapsOf('hub', {
-      'https://fandomverse.org/sitemap.xml': index(['https://fandomverse.org/sitemap-hub.xml', 'https://fandomverse.org/anime/sitemap.xml', 'https://evil.example/sitemap.xml']),
-      'https://fandomverse.org/sitemap-hub.xml': urlset(HUB_PAGES),
-      'https://fandomverse.org/anime/sitemap.xml': urlset(ANIME_PAGES),
+      'https://bunnyverse.org/sitemap.xml': index(['https://bunnyverse.org/sitemap-hub.xml', 'https://bunnyverse.org/anime/sitemap.xml', 'https://evil.example/sitemap.xml']),
+      'https://bunnyverse.org/sitemap-hub.xml': urlset(HUB_PAGES),
+      'https://bunnyverse.org/anime/sitemap.xml': urlset(ANIME_PAGES),
     });
     expect(urls).toEqual([...HUB_PAGES, ...ANIME_PAGES]);
     expect((urls as string[]).some((u) => u.endsWith('.xml'))).toBe(false);
-    expect(fetched).toEqual(['https://fandomverse.org/sitemap.xml', 'https://fandomverse.org/sitemap-hub.xml', 'https://fandomverse.org/anime/sitemap.xml']);
+    expect(fetched).toEqual(['https://bunnyverse.org/sitemap.xml', 'https://bunnyverse.org/sitemap-hub.xml', 'https://bunnyverse.org/anime/sitemap.xml']);
   });
 
   it('hub: a child that is an index again is not followed and none of its locs is returned', async () => {
     const { urls, fetched } = await sitemapsOf('hub', {
-      'https://fandomverse.org/sitemap.xml': index(['https://fandomverse.org/sitemap-hub.xml', 'https://fandomverse.org/more.xml']),
-      'https://fandomverse.org/sitemap-hub.xml': urlset(HUB_PAGES),
-      'https://fandomverse.org/more.xml': index(['https://fandomverse.org/deeper.xml']),
+      'https://bunnyverse.org/sitemap.xml': index(['https://bunnyverse.org/sitemap-hub.xml', 'https://bunnyverse.org/more.xml']),
+      'https://bunnyverse.org/sitemap-hub.xml': urlset(HUB_PAGES),
+      'https://bunnyverse.org/more.xml': index(['https://bunnyverse.org/deeper.xml']),
     });
     expect(urls).toEqual(HUB_PAGES);
-    expect(fetched).not.toContain('https://fandomverse.org/deeper.xml');
+    expect(fetched).not.toContain('https://bunnyverse.org/deeper.xml');
   });
 
   it('hub: a child sitemap that fails makes the resubmit fail, as the index itself does (never a half list)', async () => {
     const { urls } = await sitemapsOf('hub', {
-      'https://fandomverse.org/sitemap.xml': index(['https://fandomverse.org/sitemap-hub.xml', 'https://fandomverse.org/anime/sitemap.xml']),
-      'https://fandomverse.org/sitemap-hub.xml': urlset(HUB_PAGES),
+      'https://bunnyverse.org/sitemap.xml': index(['https://bunnyverse.org/sitemap-hub.xml', 'https://bunnyverse.org/anime/sitemap.xml']),
+      'https://bunnyverse.org/sitemap-hub.xml': urlset(HUB_PAGES),
     });
     expect(urls).toBeInstanceOf(Error);
     expect((urls as Error).message).toBe('sitemap fetch 503');
@@ -105,16 +105,16 @@ describe('sitemapUrls on a sitemap index', () => {
     const kpop = await sitemapsOf('kpop', { 'https://kpopquiz.org/sitemap.xml': urlset(['https://kpopquiz.org/', 'https://kpopquiz.org/q/x']) });
     expect(kpop.urls).toEqual(['https://kpopquiz.org/', 'https://kpopquiz.org/q/x']);
     expect(kpop.fetched).toEqual(['https://kpopquiz.org/sitemap.xml']);
-    const anime = await sitemapsOf('anime', { 'https://fandomverse.org/anime/sitemap.xml': urlset(ANIME_PAGES) });
+    const anime = await sitemapsOf('anime', { 'https://bunnyverse.org/anime/sitemap.xml': urlset(ANIME_PAGES) });
     expect(anime.urls).toEqual(ANIME_PAGES);
-    expect(anime.fetched).toEqual(['https://fandomverse.org/anime/sitemap.xml']);
+    expect(anime.fetched).toEqual(['https://bunnyverse.org/anime/sitemap.xml']);
   });
 
   it('hub open, the deploy resubmit end to end: IndexNow receives the page URLs only', async () => {
     const { urls, load, bodies } = await sitemapsOf('hub', {
-      'https://fandomverse.org/sitemap.xml': index(['https://fandomverse.org/sitemap-hub.xml', 'https://fandomverse.org/anime/sitemap.xml']),
-      'https://fandomverse.org/sitemap-hub.xml': urlset(HUB_PAGES),
-      'https://fandomverse.org/anime/sitemap.xml': urlset(ANIME_PAGES),
+      'https://bunnyverse.org/sitemap.xml': index(['https://bunnyverse.org/sitemap-hub.xml', 'https://bunnyverse.org/anime/sitemap.xml']),
+      'https://bunnyverse.org/sitemap-hub.xml': urlset(HUB_PAGES),
+      'https://bunnyverse.org/anime/sitemap.xml': urlset(ANIME_PAGES),
     });
     const { pingIndexNow } = await load();
     expect(await pingIndexNow(urls as string[])).toEqual({ submitted: 6, batches: 1 });

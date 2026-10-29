@@ -24,7 +24,7 @@ describe('the one mailbox', () => {
   });
 
   it('no file under apps/quiz/src (tests excluded) contains contact@ or support@ (or a hello@ of another site)', () => {
-    const offenders = files(SRC).filter((f) => /\b((contact|support)@|hello@(otakuquiz|fanquiz|fandomverse)\.org)/i.test(readFileSync(f, 'utf8')));
+    const offenders = files(SRC).filter((f) => /\b((contact|support)@|hello@(otakuquiz|fanquiz|fandomverse|bunnyverse)\.org)/i.test(readFileSync(f, 'utf8')));
     expect(offenders.map((f) => f.slice(SRC.length + 1))).toEqual([]);
   });
 });

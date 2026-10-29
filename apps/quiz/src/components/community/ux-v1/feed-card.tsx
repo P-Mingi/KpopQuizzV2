@@ -14,7 +14,7 @@ import type { DebateData, FeedPost, P8Person } from '@/lib/ux-v1/p8/types';
 
 // One feed card (DESIGN-SPEC 13.1 + 17.7): A0's PostCard (bordered box, flair name,
 // pink-soft type chip, the title as a real link) with the per-type body. Rendered by
-// the client feed island, so no server-only import here. FandomVerse: a picture of a site
+// the client feed island, so no server-only import here. Bunnyverse: a picture of a site
 // path (a public/idols photo) is requested under /anime on the anime build (withClientBase;
 // a storage or cover-art URL is absolute and stays as it is); SITE_AVATAR_SRC carries the
 // base path already. The links are next/link, which adds the base path itself.

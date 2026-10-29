@@ -1,6 +1,6 @@
-// FandomVerse (lane 1): the Vercel Microfrontends group of fandomverse.org (apps/quiz/microfrontends.json) and the next.config.ts
-// of each build (docs/launch/o1/ARCHITECTURE-FANDOMVERSE.md). The registry values of FandomVerse are stubbed where they matter
-// (`fandomVerse` below), so the test says the same thing before and after the registry carries https://fandomverse.org/anime.
+// Bunnyverse (lane 1): the Vercel Microfrontends group of bunnyverse.org (apps/quiz/microfrontends.json) and the next.config.ts
+// of each build (docs/launch/o1/ARCHITECTURE-BUNNYVERSE.md). The registry values of Bunnyverse are stubbed where they matter
+// (`fandomVerse` below), so the test says the same thing before and after the registry carries https://bunnyverse.org/anime.
 import { mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { tmpdir } from 'node:os';
@@ -26,19 +26,19 @@ import type { SiteConfig, SiteId } from './types';
 const APP = fileURLToPath(new URL('../../../', import.meta.url));
 const MFE = `${APP}microfrontends.json`;
 
-const ANIME_FV: SiteConfig = { ...REGISTRY.anime, url: 'https://fandomverse.org/anime', domain: 'fandomverse.org' };
-const HUB_FV: SiteConfig = { ...REGISTRY.hub, url: 'https://fandomverse.org', domain: 'fandomverse.org' };
+const ANIME_FV: SiteConfig = { ...REGISTRY.anime, url: 'https://bunnyverse.org/anime', domain: 'bunnyverse.org' };
+const HUB_FV: SiteConfig = { ...REGISTRY.hub, url: 'https://bunnyverse.org', domain: 'bunnyverse.org' };
 
 const vercelCrons = (JSON.parse(readFileSync(`${APP}vercel.json`, 'utf8')) as { crons: { path: string }[] }).crons.map((c) => c.path);
 
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); vi.doUnmock('./registry'); });
 
-describe('microfrontends.json: the group of fandomverse.org', () => {
+describe('microfrontends.json: the group of bunnyverse.org', () => {
   it('names the two Vercel projects: the hub is the default application, OtakuQuiz the child; kpop is in no group', () => {
     const config = JSON.parse(readFileSync(MFE, 'utf8')) as { applications: Record<string, { routing?: unknown; development?: { fallback?: string } }> };
     expect(Object.keys(config.applications).sort()).toEqual([MFE_APPLICATIONS.hub, MFE_APPLICATIONS.anime].sort());
     expect(config.applications[MFE_APPLICATIONS.hub!]!.routing).toBeUndefined();
-    expect(config.applications[MFE_APPLICATIONS.hub!]!.development?.fallback).toBe('fandomverse.org');
+    expect(config.applications[MFE_APPLICATIONS.hub!]!.development?.fallback).toBe('bunnyverse.org');
     expect(MFE_APPLICATIONS.kpop).toBeUndefined();
   });
 
@@ -67,9 +67,9 @@ function appliesOn(rule: { has?: readonly { type: 'host'; value: string }[]; mis
 }
 
 describe('noindex on the *.vercel.app hosts of a deployment and on every host of a preview, never "every host but one"', () => {
-  it('the canonical host of the hub and of OtakuQuiz is fandomverse.org', () => {
-    expect(canonicalHost(HUB_FV)).toBe('fandomverse.org');
-    expect(canonicalHost(ANIME_FV)).toBe('fandomverse.org');
+  it('the canonical host of the hub and of OtakuQuiz is bunnyverse.org', () => {
+    expect(canonicalHost(HUB_FV)).toBe('bunnyverse.org');
+    expect(canonicalHost(ANIME_FV)).toBe('bunnyverse.org');
     expect(canonicalHost(REGISTRY.kpop)).toBe('kpopquiz.org');
   });
 
@@ -80,13 +80,13 @@ describe('noindex on the *.vercel.app hosts of a deployment and on every host of
     expect(VERCEL_APP_HOST).toBe(String.raw`.+\.vercel\.app`);
   });
 
-  it('Next applies it on a vercel.app host and on no other host, fandomverse.org and a future domain included', () => {
+  it('Next applies it on a vercel.app host and on no other host, bunnyverse.org and a future domain included', () => {
     const [rule] = deploymentHostNoindexHeaders('production');
     for (const host of ['otakuquiz.vercel.app', 'fandomverse.vercel.app', 'otakuquiz-git-main-team.vercel.app', 'OtakuQuiz-abc123-team.vercel.app:443']) {
       expect(appliesOn(rule!, host), host).toBe(true);
     }
     for (const host of [
-      'fandomverse.org', 'fandomverse.org:443', 'www.fandomverse.org', 'staging.fandomverse.org', 'anime.example', 'localhost',
+      'bunnyverse.org', 'bunnyverse.org:443', 'www.bunnyverse.org', 'staging.bunnyverse.org', 'anime.example', 'localhost',
       'vercel.app', 'evilvercel.app', 'otakuquiz.vercelxapp', 'otakuquiz.vercel.app.example.org',
     ]) {
       expect(appliesOn(rule!, host), host).toBe(false);
@@ -97,11 +97,11 @@ describe('noindex on the *.vercel.app hosts of a deployment and on every host of
     for (const env of ['preview', 'development']) {
       const rules = deploymentHostNoindexHeaders(env);
       expect(rules, env).toEqual([{ source: '/:path*', headers: NOINDEX }]);
-      for (const host of ['fandomverse.org', 'otakuquiz-git-x-team.vercel.app', 'preview.fandomverse.org']) expect(appliesOn(rules[0]!, host), host).toBe(true);
+      for (const host of ['bunnyverse.org', 'otakuquiz-git-x-team.vercel.app', 'preview.bunnyverse.org']) expect(appliesOn(rules[0]!, host), host).toBe(true);
     }
   });
 
-  it('no rule of any build is "every host but fandomverse.org" (no missing condition)', () => {
+  it('no rule of any build is "every host but bunnyverse.org" (no missing condition)', () => {
     for (const env of ['production', 'preview', 'development', undefined]) {
       for (const r of deploymentHostNoindexHeaders(env)) expect('missing' in r, String(env)).toBe(false);
     }
@@ -113,9 +113,9 @@ describe('the crons of the shared vercel.json on a build with a base path', () =
     const rules = cronProxyRewrites(ANIME_FV, vercelCrons);
     expect(rules.length).toBe(new Set(vercelCrons).size);
     expect(rules).toContainEqual({
-      source: '/api/cron/ensure-daily-quiz', destination: 'https://fandomverse.org/anime/api/cron/ensure-daily-quiz', basePath: false,
+      source: '/api/cron/ensure-daily-quiz', destination: 'https://bunnyverse.org/anime/api/cron/ensure-daily-quiz', basePath: false,
     });
-    for (const r of rules) expect(r.destination).toBe(`https://fandomverse.org/anime${r.source}`);
+    for (const r of rules) expect(r.destination).toBe(`https://bunnyverse.org/anime${r.source}`);
   });
 
   it('a build at the root of its domain gets none (its crons reach their routes as they are)', () => {
@@ -161,7 +161,7 @@ describe('next.config.ts', () => {
     expect(h.some((x) => x.missing || x.has)).toBe(false);
   });
 
-  it('anime on fandomverse.org: basePath /anime, Next\'s own asset prefix, the cron proxies first, noindex on its vercel.app hosts once open', async () => {
+  it('anime on bunnyverse.org: basePath /anime, Next\'s own asset prefix, the cron proxies first, noindex on its vercel.app hosts once open', async () => {
     const c = await loadConfig('anime', { fandomVerse: true, indexing: '1' });
     expect(c.basePath).toBe('/anime');
     expect(c.assetPrefix).toBeUndefined();
@@ -207,7 +207,7 @@ describe('next.config.ts', () => {
     }
   });
 
-  it('hub on fandomverse.org: the default application, no basePath, no cron proxy', async () => {
+  it('hub on bunnyverse.org: the default application, no basePath, no cron proxy', async () => {
     const c = await loadConfig('hub', { fandomVerse: true, indexing: '1' });
     expect(c.basePath).toBeUndefined();
     expect(c.assetPrefix).toBeUndefined();
@@ -232,7 +232,7 @@ type LoadCustomRoutes = (config: NextConfig) => Promise<{ headers: Header[]; rew
 const customRoutesModule = customRoutes as unknown as { default: LoadCustomRoutes | { default: LoadCustomRoutes } };
 const loadCustomRoutes: LoadCustomRoutes = typeof customRoutesModule.default === 'function' ? customRoutesModule.default : customRoutesModule.default.default;
 
-async function headersAt(c: NextConfig, paths: readonly string[], host = 'fandomverse.org'): Promise<Record<string, Record<string, string>>> {
+async function headersAt(c: NextConfig, paths: readonly string[], host = 'bunnyverse.org'): Promise<Record<string, Record<string, string>>> {
   const routes = await loadCustomRoutes({ ...c, basePath: c.basePath ?? '', trailingSlash: false, i18n: null } as NextConfig);
   const rules = routes.headers.map((r) => buildCustomRoute('header', r));
   const req = { headers: { host } } as unknown as Parameters<typeof matchHas>[0];
@@ -273,7 +273,7 @@ describe('the home of a build gets the security headers and the noindex of every
     expect(at['/anime/embed/x']).toEqual({ ...CLOSED, 'Content-Security-Policy': 'frame-ancestors *' });
   });
 
-  it('anime open: /anime gets the framing headers and no noindex on fandomverse.org, the noindex on a vercel.app host', async () => {
+  it('anime open: /anime gets the framing headers and no noindex on bunnyverse.org, the noindex on a vercel.app host', async () => {
     const c = await loadConfig('anime', { fandomVerse: true, indexing: '1', vercelEnv: 'production' });
     const at = await headersAt(c, ['/anime', '/anime/q/x']);
     expect(at['/anime']).toEqual(FRAME_SELF);
@@ -351,7 +351,7 @@ describe('the cron paths of vercel.json', () => {
 // ---------------------------------------------------------------------------------------------------------------------------
 // The cron proxies of the anime build (finding 4). vercel.json has no /anime, so on the otakuquiz project each cron hits
 // /api/cron/<name> of its own deployment, which serves nothing outside /anime; next.config.ts rewrites it (basePath: false) to
-// https://fandomverse.org/anime/api/cron/<name>.
+// https://bunnyverse.org/anime/api/cron/<name>.
 //
 // (a) The cron's `Authorization: Bearer <CRON_SECRET>` must reach the route. A rewrite to an absolute URL is a reverse proxy: Next's
 // docs say rewrites "act as a URL proxy" (next/dist/docs, rewrites.md), and Next's own server runs it with http-proxy
@@ -372,7 +372,7 @@ describe('the cron proxies of the anime build', () => {
       expect(r.destination).toBe(`${ANIME_FV.url}${r.source}`);
       expect(r.source, r.source).toMatch(CRON_ROUTE_RE);
       const u = new URL(r.destination);
-      expect(u.origin).toBe('https://fandomverse.org');
+      expect(u.origin).toBe('https://bunnyverse.org');
       expect(u.pathname).toBe(`/anime${r.source}`);
       expect(u.search + u.hash).toBe('');
     }
@@ -410,7 +410,7 @@ describe('the cron proxies of the anime build', () => {
   it('the proxy forwards the cron request with its Authorization header to the destination path (Next\'s own external rewrite proxy)', async () => {
     const anime = await loadConfig('anime', { fandomVerse: true, indexing: '1' });
     const rule = ((await anime.rewrites!()) as Rewrites).beforeFiles.find((r) => r.source === '/api/cron/ensure-daily-quiz')!;
-    expect(rule.destination).toBe('https://fandomverse.org/anime/api/cron/ensure-daily-quiz');
+    expect(rule.destination).toBe('https://bunnyverse.org/anime/api/cron/ensure-daily-quiz');
 
     const seen: { method: string | undefined; url: string | undefined; authorization: string | undefined; userAgent: string | undefined; forwardedHost: string | undefined }[] = [];
     const target = createServer((req, res) => {
@@ -418,7 +418,7 @@ describe('the cron proxies of the anime build', () => {
       res.end('{"ok":true}');
     });
     await new Promise<void>((resolve) => target.listen(0, '127.0.0.1', resolve));
-    // The destination of the rule with its origin swapped for a local server (fandomverse.org is not reachable from a unit test).
+    // The destination of the rule with its origin swapped for a local server (bunnyverse.org is not reachable from a unit test).
     const local = `http://127.0.0.1:${(target.address() as AddressInfo).port}${new URL(rule.destination).pathname}`;
     const front = createServer((req, res) => { void proxyRequest(req, res, parseUrl(local, true) as unknown as NextUrlWithParsedQuery, undefined, undefined, 5000); });
     await new Promise<void>((resolve) => front.listen(0, '127.0.0.1', resolve));

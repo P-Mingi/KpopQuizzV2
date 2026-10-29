@@ -14,7 +14,7 @@ import { SITE_IDS } from './types';
 import type { SiteConfig, SiteFeatures, SiteId, ThemeTokens, NetworkConfig } from './types';
 
 /** The network umbrella (BACKLOG 5.1). */
-export const NETWORK: NetworkConfig = { name: 'FandomVerse', url: 'https://fandomverse.org' };
+export const NETWORK: NetworkConfig = { name: 'Bunnyverse', url: 'https://bunnyverse.org' };
 
 /** The one routed mailbox of the whole network (owner, 2026-10-25): every site prints and publishes this address. */
 export const MAILBOX = 'hello@kpopquiz.org';
@@ -182,8 +182,8 @@ const KPOP: SiteConfig = {
 const ANIME: SiteConfig = {
   id: 'anime',
   kind: 'world',
-  url: 'https://fandomverse.org/anime',
-  domain: 'fandomverse.org',
+  url: 'https://bunnyverse.org/anime',
+  domain: 'bunnyverse.org',
   letter: 'a',
   brand: {
     name: 'OtakuQuiz',
@@ -231,16 +231,16 @@ const ANIME: SiteConfig = {
   },
   seo: {
     titleTemplate: '%s | OtakuQuiz',
-    // The key of public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt (RUNBOOK ENV.md 1.7), served by the anime build (fandomverse.org/anime) only.
+    // The key of public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt (RUNBOOK ENV.md 1.7), served by the anime build (bunnyverse.org/anime) only.
     indexNowKey: '760f9a9459d4db0bd8a08f13a0f1ec6e',
     minPublishedForIndexableHub: 3,
     organization: {
       name: 'OtakuQuiz',
-      alternateName: 'fandomverse.org/anime',
+      alternateName: 'bunnyverse.org/anime',
       logo: '/brand/anime/logo-512.png',
       email: MAILBOX,
     },
-    llmsTxt: { title: 'OtakuQuiz on fandomverse.org' },
+    llmsTxt: { title: 'OtakuQuiz on bunnyverse.org' },
   },
   audio: { source: 'deezer', kit: 'required' },
   theme: { light: ANIME_LIGHT, dark: ANIME_DARK, fontDisplay: 'M PLUS Rounded 1c' },
@@ -255,7 +255,7 @@ const ANIME: SiteConfig = {
     21: { en: 'Superfan' },
     30: { en: 'Legend' },
   },
-  // FandomVerse (owner, 2026-10-28, reverses D-099): Google and Discord only, both through Supabase's OAuth redirect with
+  // Bunnyverse (owner, 2026-10-28, reverses D-099): Google and Discord only, both through Supabase's OAuth redirect with
   // kpopquiz.org's own Google client (no Google Identity Services client id, no email sign-in). emailLanding stays in the
   // frozen shape; with no email sign-in nothing sends a link to it.
   auth: {
@@ -275,15 +275,15 @@ const ANIME: SiteConfig = {
 const HUB: SiteConfig = {
   id: 'hub',
   kind: 'hub',
-  url: 'https://fandomverse.org',
-  domain: 'fandomverse.org',
+  url: 'https://bunnyverse.org',
+  domain: 'bunnyverse.org',
   letter: 'f',
   brand: {
-    name: 'FandomVerse',
-    shortName: 'FandomVerse',
+    name: 'Bunnyverse',
+    shortName: 'Bunnyverse',
     mascot: null,
     // Owner decision D-099: kpopquiz's logo, favicon, touch and manifest icons for now (copies in public/brand/hub/);
-    // the default share image says FandomVerse (e2e/o1/L1/brand-og.mjs).
+    // the default share image says Bunnyverse (e2e/o1/L1/brand-og.mjs).
     logo: '/brand/hub/logo-512.png',
     favicon: '/brand/hub/favicon.svg',
     ogTemplate: '/brand/hub/og-default.png',
@@ -301,23 +301,23 @@ const HUB: SiteConfig = {
     allow: ['/', '/privacy', '/legal', '/passport', '/u/{username}', '/settings/**', '/login', '/directory'],
   },
   seo: {
-    titleTemplate: '%s | FandomVerse',
-    // The key of public/339dab142e51883ae3a2c7e4737254e4.txt (RUNBOOK ENV.md 1.7), served by the hub build (fandomverse.org) only.
+    titleTemplate: '%s | Bunnyverse',
+    // The key of public/339dab142e51883ae3a2c7e4737254e4.txt (RUNBOOK ENV.md 1.7), served by the hub build (bunnyverse.org) only.
     indexNowKey: '339dab142e51883ae3a2c7e4737254e4',
     minPublishedForIndexableHub: 0,
     organization: {
-      name: 'FandomVerse',
-      alternateName: 'fandomverse.org',
+      name: 'Bunnyverse',
+      alternateName: 'bunnyverse.org',
       logo: '/brand/hub/logo-512.png',
       email: MAILBOX,
     },
-    llmsTxt: { title: 'fandomverse.org' },
+    llmsTxt: { title: 'bunnyverse.org' },
   },
   audio: { source: 'deezer', kit: 'required' },
   theme: { light: HUB_LIGHT, dark: HUB_DARK, fontDisplay: 'Inter' },
   // The passport level is private and shown only on /passport (P); placeholder ladder.
   levelTitles: { 1: { en: 'Member' } },
-  // FandomVerse (owner, 2026-10-28, reverses D-099): Google and Discord only, both through Supabase's OAuth redirect with
+  // Bunnyverse (owner, 2026-10-28, reverses D-099): Google and Discord only, both through Supabase's OAuth redirect with
   // kpopquiz.org's own Google client (no Google Identity Services client id, no email sign-in). emailLanding stays in the
   // frozen shape; with no email sign-in nothing sends a link to it.
   auth: {

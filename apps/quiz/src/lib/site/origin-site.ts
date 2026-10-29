@@ -1,4 +1,4 @@
-// The site an address belongs to (the beacon's origin check), server side only (FandomVerse review, 2026-10-28): it lived in
+// The site an address belongs to (the beacon's origin check), server side only (Bunnyverse review, 2026-10-28): it lived in
 // registry.ts, which is in every client bundle of kpopquiz.org, and no client module calls it. Moved here so the kpop client JS
 // does not carry it; registry.ts keeps the data (REGISTRY, parseNetOrigins) it reads.
 import { REGISTRY, parseNetOrigins } from './registry';
@@ -39,9 +39,9 @@ function siteHolding(at: { origin: string; path: string }, bases: Partial<Record
  * The site an address belongs to on this deployment (the beacon's origin check): a registry url always matches; outside
  * production an override of NEXT_PUBLIC_NET_ORIGINS matches too, with the sub-folder of the registry url. `address` is an Origin
  * header value or a full URL; anything that is not an http(s) address of a site of the network returns null.
- * The hub and OtakuQuiz share https://fandomverse.org, and an Origin header carries no path: an origin alone names the site at the
- * root of its domain (the hub for https://fandomverse.org, whichever of the two sent the request), so it says "a site of the
- * network", never "anime". 'anime' is the answer for an address under its sub-folder only (https://fandomverse.org/anime,
+ * The hub and OtakuQuiz share https://bunnyverse.org, and an Origin header carries no path: an origin alone names the site at the
+ * root of its domain (the hub for https://bunnyverse.org, whichever of the two sent the request), so it says "a site of the
+ * network", never "anime". 'anime' is the answer for an address under its sub-folder only (https://bunnyverse.org/anime,
  * .../anime/q/x): the longest sub-folder that holds the path wins. A caller that must tell the hub from /anime passes a full URL
  * (a redirect target, a Referer) or reads the build's SITE_ID.
  */
