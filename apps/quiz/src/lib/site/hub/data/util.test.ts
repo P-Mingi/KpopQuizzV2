@@ -1,9 +1,12 @@
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
 import { describe, expect, it } from 'vitest';
 
 import { ORIGINS, quizRow } from './test-support';
 import {
-  ageInDays, capPerKey, chunk, coverOf, difficultyLabel, isListable, metaLine, playsLabel, ratingFor, REPORT_EXCLUDE_AT, resolveOrigins, stableHash, toCard,
-  utcDate,
+  ageInDays, capPerKey, chunk, coverOf, difficultyLabel, isListable, metaLine, playsLabel, QUIZ_SELECT, ratingFor, REPORT_EXCLUDE_AT, resolveOrigins, stableHash,
+  toCard, utcDate,
 } from './util';
 
 import type { QuizRow } from './util';
@@ -64,17 +67,36 @@ describe('toCard', () => {
 
 describe('coverOf (home v3)', () => {
   const COVER = 'https://abc.supabase.co/storage/v1/object/public/images/covers/x.jpg';
+  // A row the hub lists (owner decision 2026-10-29: the cover follows the moderation of the quiz page, see the last case).
+  const LISTED = { status: 'published', report_count: 0 } as const;
   it('keeps the own cover of a K-pop quiz on a configured image host, as an absolute https URL', () => {
-    expect(coverOf({ site_id: 'kpop', cover_image_url: COVER })).toBe(COVER);
-    expect(coverOf({ site_id: 'kpop', cover_image_url: ` ${COVER} ` })).toBe(COVER);
+    expect(coverOf({ ...LISTED, site_id: 'kpop', cover_image_url: COVER })).toBe(COVER);
+    expect(coverOf({ ...LISTED, site_id: 'kpop', cover_image_url: ` ${COVER} ` })).toBe(COVER);
     expect(toCard(quizRow({ id: 'a', cover_image_url: COVER }) as unknown as QuizRow, ORIGINS, NOW).cover).toBe(COVER);
   });
   it('refuses a protocol-relative URL (another host), a root-relative path, http, an unknown host, an anime quiz and no cover', () => {
     for (const url of ['//abc.supabase.co/storage/v1/object/public/images/covers/x.jpg', '//evil.example/x.jpg', '/covers/x.jpg', 'http://abc.supabase.co/x.jpg', 'https://evil.example/x.jpg', 'https:///x.jpg', 'javascript:alert(1)', '', null]) {
-      expect(coverOf({ site_id: 'kpop', cover_image_url: url }), String(url)).toBeNull();
+      expect(coverOf({ ...LISTED, site_id: 'kpop', cover_image_url: url }), String(url)).toBeNull();
     }
-    expect(coverOf({ site_id: 'kpop' })).toBeNull();
-    expect(coverOf({ site_id: 'anime', cover_image_url: COVER })).toBeNull();
+    expect(coverOf({ ...LISTED, site_id: 'kpop' })).toBeNull();
+    expect(coverOf({ ...LISTED, site_id: 'anime', cover_image_url: COVER })).toBeNull();
+  });
+  it('shows the cover the kpop quiz page shows, with its moderation: the same field, and only while the quiz is published and listed', () => {
+    // The quiz page reads quizzes.cover_image_url of a row read with status published (any other status is its 404); the hub reads the same
+    // column in its one select.
+    const read = (rel: string): string => readFileSync(fileURLToPath(new URL(rel, import.meta.url)), 'utf8');
+    expect(read('../../../../app/(site)/q/[slug]/ux-page.tsx')).toContain('const cover = quiz.cover_image_url ?? groupPhoto;');
+    expect(read('../../../db/queries/quizzes.ts')).toMatch(/\.eq\('slug', slug\)\s*\.eq\('status', 'published'\)/);
+    expect(QUIZ_SELECT.split(', ')).toContain('cover_image_url');
+    // A quiz the page no longer shows (a draft, a quiz taken down, one waiting for review) has no cover on the hub, whoever asks.
+    for (const status of ['draft', 'flagged', 'removed', 'hidden', 'pending', 'rejected', '']) {
+      expect(coverOf({ status, report_count: 0, site_id: 'kpop', cover_image_url: COVER }), status).toBeNull();
+      expect(toCard(quizRow({ id: 'a', status, cover_image_url: COVER }) as unknown as QuizRow, ORIGINS, NOW).cover, status).toBeNull();
+    }
+    // At the auto-flag line (5 reports) the quiz leaves every hub list, and its cover with it; under it the cover stays.
+    expect(coverOf({ status: 'published', report_count: REPORT_EXCLUDE_AT, site_id: 'kpop', cover_image_url: COVER })).toBeNull();
+    expect(coverOf({ status: 'published', report_count: REPORT_EXCLUDE_AT - 1, site_id: 'kpop', cover_image_url: COVER })).toBe(COVER);
+    expect(coverOf({ status: 'published', report_count: null, site_id: 'kpop', cover_image_url: COVER })).toBe(COVER);
   });
 });
 

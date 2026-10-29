@@ -115,10 +115,14 @@ export function groupOf(row: Pick<QuizRow, 'groups'>): { name: string; slug: str
  * The quiz's own cover: K-pop only (no anime artwork without a written licence), on a host the app serves images from. Only an absolute
  * https URL: isConfiguredImageHost takes any path starting with "/" as a local asset, so a protocol-relative "//host/x.jpg" (another host)
  * or a root-relative path (it would resolve on the hub, not on KpopQuiz) is refused here.
+ * Owner decision 2026-10-29: the cover the kpop quiz page shows, with its moderation. The page reads the same field (quizzes.cover_image_url,
+ * app/(site)/q/[slug]/ux-page.tsx) and shows a quiz only while it is published (getQuizBySlug; any other status is its 404); a reported
+ * quiz leaves the page when the auto flag takes it down, and an admin clears a cover by setting the field to null. So a cover shows here
+ * only for a row the hub lists (isListable: published, under the auto-flag line), whoever calls this.
  */
-export function coverOf(row: Pick<QuizRow, 'site_id' | 'cover_image_url'>): string | null {
+export function coverOf(row: Pick<QuizRow, 'site_id' | 'cover_image_url' | 'status' | 'report_count'>): string | null {
   const url = (row.cover_image_url ?? '').trim();
-  return row.site_id === 'kpop' && /^https:\/\/[^/]/i.test(url) && isConfiguredImageHost(url) ? url : null;
+  return row.site_id === 'kpop' && isListable(row) && /^https:\/\/[^/]/i.test(url) && isConfiguredImageHost(url) ? url : null;
 }
 
 /** The card of a quiz row: the canonical page on its own site, never a copy. */
