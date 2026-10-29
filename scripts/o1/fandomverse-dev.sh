@@ -1,6 +1,6 @@
 #!/bin/bash
-# FandomVerse (lane 1, docs/launch/o1/ARCHITECTURE-FANDOMVERSE.md "Local development"): the hub and OtakuQuiz on ONE origin in
-# development, as Vercel Microfrontends serves them on fandomverse.org: http://localhost:<proxy>/ is the hub, /anime/... is the
+# Bunnyverse (lane 1, docs/launch/o1/ARCHITECTURE-BUNNYVERSE.md "Local development"): the hub and OtakuQuiz on ONE origin in
+# development, as Vercel Microfrontends serves them on bunnyverse.org: http://localhost:<proxy>/ is the hub, /anime/... is the
 # anime build (its basePath). The two dev servers are the ones of scripts/o1/dev-multi.sh (a mirror of apps/quiz each, the
 # database through scripts/o1/env.sh); in front of them runs the local proxy of @vercel/microfrontends with the group of
 # apps/quiz/microfrontends.json, whose two applications are pointed at the two dev servers.
@@ -9,7 +9,7 @@
 #
 # NEXT_PUBLIC_NET_ORIGINS is set to hub=http://localhost:<proxy>,anime=http://localhost:<proxy> for both builds (a bare origin per
 # site; the /anime sub-folder comes from the registry, lib/site/registry.ts netBase), unless the caller exports one.
-# Both sites share one host, so they share the Supabase session cookies: as on fandomverse.org.
+# Both sites share one host, so they share the Supabase session cookies: as on bunnyverse.org.
 # --print-config prints the generated proxy config and exits (nothing is started). Never a build, never production.
 set -uo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"

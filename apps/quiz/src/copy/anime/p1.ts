@@ -69,7 +69,7 @@ export const COPY = {
   'signin.title': 'Sign in to {brand}',
   'signin.body': 'Keep your scores, streak and badges. No password needed.',
   'signin.google': 'Continue with Google',
-  // FandomVerse (owner, 2026-10-28): Discord on the hub and anime (lane 3 string; lane 2's copy wins at merge).
+  // Bunnyverse (owner, 2026-10-28): Discord on the hub and anime (lane 3 string; lane 2's copy wins at merge).
   'signin.discord': 'Continue with Discord',
   'signin.emailDivider': 'or',
   'signin.emailPlaceholder': 'you@example.com',

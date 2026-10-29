@@ -1,5 +1,5 @@
 // Run O1, lane Q0a, leak suite: link leak (Q-bridges D0, check-network-links). As an anonymous visitor, every link
-// to another FandomVerse site is on the allowlist (leak/link-allowlist.json, or F0's contract copy), carries no `via`,
+// to another Bunnyverse site is on the allowlist (leak/link-allowlist.json, or F0's contract copy), carries no `via`,
 // has the rel the allowlist asks, stays under its per-page cap; no head link (canonical, alternate) points to another
 // network site; and the other world's domain appears nowhere in the HTML outside the allowlisted links.
 // Two readings: the server HTML of the whole page set (what a crawler gets), and the hydrated DOM of the first pages

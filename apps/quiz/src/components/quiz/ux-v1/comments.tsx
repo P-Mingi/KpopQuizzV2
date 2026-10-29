@@ -15,7 +15,7 @@ import { relativeTime } from '@/lib/ux-v1/p4/format';
 
 import type { LikeTarget, P4CommentExtras, P4CommentResume, P4Reply } from '@/lib/ux-v1/p4/comments';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 interface CommentRow {

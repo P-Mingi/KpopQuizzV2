@@ -1,4 +1,4 @@
-// Run O1, lot H2a: the home of the hub build (fandomverse.org, /): the new FandomVerse home of docs/o1/design/fanquiz-hub/. The page is the
+// Run O1, lot H2a: the home of the hub build (bunnyverse.org, /): the new Bunnyverse home of docs/o1/design/fanquiz-hub/. The page is the
 // composition of components/hub/home/*; each block reads its data from one loader of lib/site/hub/home-*.ts (lot H2c: the real data of
 // lib/site/hub/data/, a block with no data is left out). The one indexable page of the hub: title, description and canonical from the copy and the registry, JSON-LD WebSite
 // and the Hot now ItemList. Styles: styles/sites/hub/h2.css (classes hub-h2-*).

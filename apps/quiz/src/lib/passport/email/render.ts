@@ -83,7 +83,7 @@ export function privacyUrl(brand: MailBrand): string {
   return `${brand.url}${brand.privacyPath}`;
 }
 
-/** The rabbit before the name of OtakuQuiz and FandomVerse (owner, 2026-10-25); KpopQuiz's own mails keep the name alone. */
+/** The rabbit before the name of OtakuQuiz and Bunnyverse (owner, 2026-10-25); KpopQuiz's own mails keep the name alone. */
 function mark(brand: MailBrand): string {
   if (brand.id !== 'anime' && brand.id !== 'hub') return '';
   return `<img src="${esc(brand.url)}/mascot/mascot-default.png" width="28" height="28" alt="" style="vertical-align:middle;border:0;margin-right:8px">`;
@@ -252,12 +252,12 @@ function hrefOf(url: string): string | null {
   }
 }
 
-/** True when `href` is on the site whose url is `base`: its origin, and its folder when it has one (https://fandomverse.org/anime). */
+/** True when `href` is on the site whose url is `base`: its origin, and its folder when it has one (https://bunnyverse.org/anime). */
 function onBase(href: string, base: string): boolean {
   return href === base || href.startsWith(`${base}/`);
 }
 
-/** The folder of a brand url ('/anime' of https://fandomverse.org/anime), '' when it is served at the root of its origin. */
+/** The folder of a brand url ('/anime' of https://bunnyverse.org/anime), '' when it is served at the root of its origin. */
 function folderOf(url: string): string {
   try {
     return new URL(url).pathname.replace(/\/+$/, '');
@@ -291,7 +291,7 @@ function longestBase(href: string, bases: ReadonlyArray<readonly [MailSite, stri
 }
 
 /**
- * The site a redirect URL belongs to, the longest matching url first (OtakuQuiz, https://fandomverse.org/anime, is a folder of the hub's
+ * The site a redirect URL belongs to, the longest matching url first (OtakuQuiz, https://bunnyverse.org/anime, is a folder of the hub's
  * origin since 2026-10-28): a production brand url; else, on a dev project with override origins (staging), the staging url of a site
  * (its origin and the folder of its brand url, so the hub and anime on one staging origin each get their own brand and colours); else the
  * bare override origin of a site that has an origin of its own. Anything else, and a missing redirect, is kpop: the accounts that exist today.
@@ -335,7 +335,7 @@ export function kindForAction(action: string): MailKind | null {
 
 /**
  * `next` of the redirect URL (its own `next` parameter, else a path other than /auth/confirm), always a path starting with one slash; '/'
- * otherwise. With `base` (the url the mail links to), the folder of that url is taken off the path first (https://fandomverse.org/anime).
+ * otherwise. With `base` (the url the mail links to), the folder of that url is taken off the path first (https://bunnyverse.org/anime).
  */
 export function nextFromRedirect(redirectTo: string | null | undefined, base?: string): string {
   if (!redirectTo) return '/';

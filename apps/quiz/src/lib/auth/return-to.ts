@@ -15,7 +15,7 @@
 // origin of the check is then that site's registry url. Without it the origin is today's
 // literal, so every call of today answers exactly what it answered before.
 //
-// Security fix (FandomVerse review, 2026-10-28): the answer is the path the URL parser NORMALISED, and dot segments can
+// Security fix (Bunnyverse review, 2026-10-28): the answer is the path the URL parser NORMALISED, and dot segments can
 // turn a path that passed the first checks into a protocol-relative one: '/.//evil.com', '/a/..//evil.com' and
 // '/%2e//evil.com' all normalise to '//evil.com', which a browser reads as another host. A normalised answer that starts
 // with two slashes (or a slash and a backslash) is refused like the raw form. kpop changes only for those inputs.

@@ -20,8 +20,8 @@ const [kp, an, hb] = opt('--ports', '3106,3107,3108').split(',').map(Number);
 const plant = opt('--plant', 'none');
 const P = (id) => plant === id;
 
-const DOMAIN = { kpop: 'kpopquiz.org', anime: 'fandomverse.org/anime', hub: 'fandomverse.org' };
-const BRAND = { kpop: 'KpopQuiz', anime: 'OtakuQuiz', hub: 'FandomVerse' };
+const DOMAIN = { kpop: 'kpopquiz.org', anime: 'bunnyverse.org/anime', hub: 'bunnyverse.org' };
+const BRAND = { kpop: 'KpopQuiz', anime: 'OtakuQuiz', hub: 'Bunnyverse' };
 
 function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -32,9 +32,9 @@ function render(site, path, { body = '', head = '', data = '', dataSite = site !
   const canonical = P('canonical') && site === 'anime' && path === '/series' ? `https://kpopquiz.org${path}` : url;
   const siteName = P('og-site-name') && site === 'hub' ? 'KpopQuiz' : BRAND[site];
   const ld = { '@context': 'https://schema.org', '@type': 'Organization', name: BRAND[site], url: `https://${DOMAIN[site]}` };
-  if (site !== 'hub') ld.parentOrganization = { '@type': 'Organization', name: 'FandomVerse', url: 'https://fandomverse.org' };
+  if (site !== 'hub') ld.parentOrganization = { '@type': 'Organization', name: 'Bunnyverse', url: 'https://bunnyverse.org' };
   const via = P('link-via') && site === 'anime' ? '?via=a.foot' : '';
-  const footer = site === 'hub' ? '' : `<footer><span>2027 ${BRAND[site]}. Part of the <a href="https://fandomverse.org/${via}">FandomVerse network</a>.</span></footer>`;
+  const footer = site === 'hub' ? '' : `<footer><span>2027 ${BRAND[site]}. Part of the <a href="https://bunnyverse.org/${via}">Bunnyverse network</a>.</span></footer>`;
   const flight = [`0:{"P":null,"b":"build"}\n`, `1:I[4242,["/_next/static/chunks/app-abc.js"],"default"]\n`, `2:["$","main",null,{"children":${JSON.stringify(`${BRAND[site]} page ${path}`)}}]\n`];
   if (data) flight.push(`3:["$","p",null,{"children":${JSON.stringify(data)}}]\n`);
   const push = flight.map((r) => `<script>self.__next_f.push([1,${JSON.stringify(r)}])</script>`).join('');
@@ -61,7 +61,7 @@ const ANIME_PAGES = {
   '/login': 'Sign in.',
   '/search': 'Search series and quizzes.',
   '/community': 'Community.',
-  '/about': 'OtakuQuiz is made by the team behind <a href="https://kpopquiz.org/">KpopQuiz</a>, part of the <a href="https://fandomverse.org/">FandomVerse network</a>.',
+  '/about': 'OtakuQuiz is made by the team behind <a href="https://kpopquiz.org/">KpopQuiz</a>, part of the <a href="https://bunnyverse.org/">Bunnyverse network</a>.',
   '/editorial-policy': 'Editorial policy.',
   '/privacy': 'Privacy.',
   '/terms': 'Terms.',
@@ -69,17 +69,17 @@ const ANIME_PAGES = {
   '/q/death-note-quiz-o1-fixture': 'Death Note quiz.',
 };
 const HUB_PAGES = {
-  '/': 'One passport for every fandom. <a href="https://kpopquiz.org/">KpopQuiz</a> <a href="https://fandomverse.org/anime/">OtakuQuiz</a>',
+  '/': 'One passport for every fandom. <a href="https://kpopquiz.org/">KpopQuiz</a> <a href="https://bunnyverse.org/anime/">OtakuQuiz</a>',
   '/privacy': 'Network privacy policy.',
   '/login': 'Sign in.',
-  '/directory': `Directory <a rel="nofollow" href="https://kpopquiz.org/bts-quiz">BTS</a> <a${P('link-nofollow') ? '' : ' rel="nofollow"'} href="https://fandomverse.org/anime/naruto-quiz">Naruto</a>`,
+  '/directory': `Directory <a rel="nofollow" href="https://kpopquiz.org/bts-quiz">BTS</a> <a${P('link-nofollow') ? '' : ' rel="nofollow"'} href="https://bunnyverse.org/anime/naruto-quiz">Naruto</a>`,
 };
 
 function kpopPage(path) {
   let body = `K-pop quiz page ${esc(path)}. Pick your bias.`;
-  if (path === '/about') body += ' Also by our team: <a href="https://fandomverse.org/anime/">OtakuQuiz</a>, for anime fans.';
+  if (path === '/about') body += ' Also by our team: <a href="https://bunnyverse.org/anime/">OtakuQuiz</a>, for anime fans.';
   if (path === '/quizzes' && P('string-kpop')) body += ' New: try OtakuQuiz for anime.';
-  if (path === '/quizzes' && P('link-kpop')) body += ' <a href="https://fandomverse.org/anime/series">Anime series</a>';
+  if (path === '/quizzes' && P('link-kpop')) body += ' <a href="https://bunnyverse.org/anime/series">Anime series</a>';
   if (path === '/quizzes' && P('content')) body += ' <a href="/q/death-note-quiz-o1-fixture">Death Note quiz</a>';
   if (path === '/' && P('link-hydrated')) body += `<script>window.addEventListener('load',()=>{const a=document.createElement('a');a.href='https://'+'otaku'+'quiz.org/';a.textContent='x';document.body.appendChild(a)})</script>`;
   return render('kpop', path, { body });

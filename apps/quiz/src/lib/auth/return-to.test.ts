@@ -62,7 +62,7 @@ describe('safeReturnTo', () => {
     }
   });
 
-  // Security fix (FandomVerse review, 2026-10-28): dot segments that normalise into a protocol-relative path. Before the fix
+  // Security fix (Bunnyverse review, 2026-10-28): dot segments that normalise into a protocol-relative path. Before the fix
   // '/.//evil.com' came back as '//evil.com' (the "Just let me play as a guest" link of /login, the onboarding redirect).
   it('refuses a path whose normalised form is protocol-relative (dot segments, encoded dots, backslash variants)', () => {
     for (const hostile of [

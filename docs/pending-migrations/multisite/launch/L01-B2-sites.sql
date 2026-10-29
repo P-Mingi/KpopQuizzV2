@@ -3,13 +3,13 @@
 -- What:   inserts the anime and hub rows of public.sites, status 'building' (L12, lane L1, sets 'live' on launch day).
 -- Why:    production phase launch, the first launch file (Verrou 0 keeps every anime and hub row out of production
 --         until launch day). On the dev branches it runs right after 001, so anime content rows can load once 002a
---         is on the branch. Values mirror the registry (registry.md, lib/site/registry.ts). FandomVerse (owner, 2026-10-28): OtakuQuiz
---         is the folder /anime of fandomverse.org; `domain` is unique, so it holds the address (the registry url without its scheme).
+--         is on the branch. Values mirror the registry (registry.md, lib/site/registry.ts). Bunnyverse (owner, 2026-10-28): OtakuQuiz
+--         is the folder /anime of bunnyverse.org; `domain` is unique, so it holds the address (the registry url without its scheme).
 -- Rows:   2 rows inserted into public.sites (anime, hub). No other table is touched.
 -- Verify: select id, domain, brand, kind, status, sort from public.sites order by sort;
 --           expect 3 rows: kpop | kpopquiz.org | KpopQuiz | world | live | 1
---                          anime | fandomverse.org/anime | OtakuQuiz | world | building | 2
---                          hub | fandomverse.org | FandomVerse | hub | building | 3
+--                          anime | bunnyverse.org/anime | OtakuQuiz | world | building | 2
+--                          hub | bunnyverse.org | Bunnyverse | hub | building | 3
 -- Undo:   launch/L01-B2-sites.rollback.sql (refused while any row of another table references anime or hub).
 -- Needs:  001-sites.sql.
 -- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing.
@@ -25,16 +25,16 @@ begin
 end $$;
 
 insert into public.sites (id, domain, brand, kind, status, sort) values
-  ('anime', 'fandomverse.org/anime', 'OtakuQuiz',   'world', 'building', 2),
-  ('hub',   'fandomverse.org',       'FandomVerse', 'hub',   'building', 3)
+  ('anime', 'bunnyverse.org/anime', 'OtakuQuiz',   'world', 'building', 2),
+  ('hub',   'bunnyverse.org',       'Bunnyverse', 'hub',   'building', 3)
 on conflict (id) do nothing;
 
 -- Self-check: both rows read as the registry says (status may already be 'live' when L12 ran before a rerun).
 do $$
 begin
   if (select count(*) from public.sites
-       where (id, domain, brand, kind, sort) in (('anime', 'fandomverse.org/anime', 'OtakuQuiz', 'world', 2::smallint),
-                                                 ('hub', 'fandomverse.org', 'FandomVerse', 'hub', 3::smallint))) <> 2 then
+       where (id, domain, brand, kind, sort) in (('anime', 'bunnyverse.org/anime', 'OtakuQuiz', 'world', 2::smallint),
+                                                 ('hub', 'bunnyverse.org', 'Bunnyverse', 'hub', 3::smallint))) <> 2 then
     raise exception 'L01-B2-sites: the anime or hub row differs from the registry';
   end if;
 end $$;

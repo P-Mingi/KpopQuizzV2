@@ -168,10 +168,10 @@ describe('frozen values of every entry (BACKLOG 5.1)', () => {
     });
     expect(rows).toEqual([
       ['kpop', 'world', 'k', 'KpopQuiz', 'kpopquiz.org', 'https://kpopquiz.org'],
-      ['anime', 'world', 'a', 'OtakuQuiz', 'fandomverse.org', 'https://fandomverse.org/anime'],
-      ['hub', 'hub', 'f', 'FandomVerse', 'fandomverse.org', 'https://fandomverse.org'],
+      ['anime', 'world', 'a', 'OtakuQuiz', 'bunnyverse.org', 'https://bunnyverse.org/anime'],
+      ['hub', 'hub', 'f', 'Bunnyverse', 'bunnyverse.org', 'https://bunnyverse.org'],
     ]);
-    expect(NETWORK).toEqual({ name: 'FandomVerse', url: 'https://fandomverse.org' });
+    expect(NETWORK).toEqual({ name: 'Bunnyverse', url: 'https://bunnyverse.org' });
   });
 
   it('every entry has the same keys in the same order (the frozen shape)', () => {
@@ -188,7 +188,7 @@ describe('frozen values of every entry (BACKLOG 5.1)', () => {
     }
   });
 
-  // FandomVerse (owner, 2026-10-28, reverses D-099): anime and hub sign in with Google and Discord only, Google through
+  // Bunnyverse (owner, 2026-10-28, reverses D-099): anime and hub sign in with Google and Discord only, Google through
   // Supabase's OAuth redirect (kpopquiz.org's client, no client id env), never with an email link.
   it('anime: star oshi, /auth/confirm, Google and Discord only, both sign-out scopes, kpop-only features off', () => {
     const a = REGISTRY.anime;
@@ -264,7 +264,7 @@ describe('origins outside production (flags-env.md 4)', () => {
     });
     expect(parseNetOrigins(undefined)).toEqual({});
     expect(netOrigin('anime', { NEXT_PUBLIC_NET_ORIGINS: DEV })).toBe('http://anime.localhost:3001');
-    expect(netOrigin('anime', { NEXT_PUBLIC_NET_ORIGINS: 'hub=https://fq-staging.vercel.app' })).toBe('https://fandomverse.org/anime');
+    expect(netOrigin('anime', { NEXT_PUBLIC_NET_ORIGINS: 'hub=https://fq-staging.vercel.app' })).toBe('https://bunnyverse.org/anime');
     expect(netOrigin('hub', { NEXT_PUBLIC_NET_ORIGINS: 'hub=https://fq-staging.vercel.app', VERCEL_ENV: 'preview' }))
       .toBe('https://fq-staging.vercel.app');
   });
@@ -272,19 +272,19 @@ describe('origins outside production (flags-env.md 4)', () => {
   it('production ignores the map entirely', () => {
     expect(netOrigin('kpop', { NEXT_PUBLIC_NET_ORIGINS: DEV, VERCEL_ENV: 'production' })).toBe('https://kpopquiz.org');
     expect(siteForOrigin('http://anime.localhost:3001', { NEXT_PUBLIC_NET_ORIGINS: DEV, VERCEL_ENV: 'production' })).toBeNull();
-    expect(siteForOrigin('https://fandomverse.org/anime', { VERCEL_ENV: 'production' })).toBe('anime');
+    expect(siteForOrigin('https://bunnyverse.org/anime', { VERCEL_ENV: 'production' })).toBe('anime');
   });
 
   it('maps an origin back to its site, registry urls first', () => {
-    expect(siteForOrigin('https://fandomverse.org', {})).toBe('hub');
+    expect(siteForOrigin('https://bunnyverse.org', {})).toBe('hub');
     expect(siteForOrigin('http://hub.localhost:3002', { NEXT_PUBLIC_NET_ORIGINS: DEV })).toBe('hub');
     expect(siteForOrigin('https://evil.example', { NEXT_PUBLIC_NET_ORIGINS: DEV })).toBeNull();
   });
 
   it('refuses malformed entries', () => {
     for (const bad of [
-      'anime', 'anime=', `${LEGACY_HUB_ID}=https://fandomverse.org`, 'world=https://x.org',
-      'anime=https://fandomverse.org/anime/', 'anime=https://fandomverse.org/anime/path', 'anime=http://fandomverse.org/anime',
+      'anime', 'anime=', `${LEGACY_HUB_ID}=https://bunnyverse.org`, 'world=https://x.org',
+      'anime=https://bunnyverse.org/anime/', 'anime=https://bunnyverse.org/anime/path', 'anime=http://bunnyverse.org/anime',
       'anime=javascript:alert(1)', 'anime=https://a.org,anime=https://b.org',
     ]) {
       expect(() => parseNetOrigins(bad), bad).toThrow(/NEXT_PUBLIC_NET_ORIGINS/);
@@ -292,7 +292,7 @@ describe('origins outside production (flags-env.md 4)', () => {
   });
 });
 
-// FandomVerse (finding 7): the hub and OtakuQuiz share the origin https://fandomverse.org. An Origin header has no path, so an origin
+// Bunnyverse (finding 7): the hub and OtakuQuiz share the origin https://bunnyverse.org. An Origin header has no path, so an origin
 // alone names the site at the root of the domain; 'anime' is only ever the answer for an address under /anime.
 describe('siteForOrigin on a shared origin', () => {
   const PROXY = 'hub=http://localhost:3024,anime=http://localhost:3024';
@@ -306,18 +306,18 @@ describe('siteForOrigin on a shared origin', () => {
 
   it('a full URL under /anime is anime, never the hub', () => {
     for (const url of [
-      'https://fandomverse.org/anime', 'https://fandomverse.org/anime/', 'https://fandomverse.org/anime/q/who-is-l?ref=x#top',
-      'https://FANDOMVERSE.org/anime/series', 'https://fandomverse.org:443/anime/auth/callback',
+      'https://bunnyverse.org/anime', 'https://bunnyverse.org/anime/', 'https://bunnyverse.org/anime/q/who-is-l?ref=x#top',
+      'https://BUNNYVERSE.org/anime/series', 'https://bunnyverse.org:443/anime/auth/callback',
     ]) {
       expect(siteForOrigin(url, { VERCEL_ENV: 'production' }), url).toBe('anime');
       expect(siteForOrigin(url, { NEXT_PUBLIC_NET_ORIGINS: PROXY }), url).toBe('anime');
     }
   });
 
-  it('the origin alone, and a path outside /anime, is the hub (the site at the root of fandomverse.org)', () => {
+  it('the origin alone, and a path outside /anime, is the hub (the site at the root of bunnyverse.org)', () => {
     for (const url of [
-      'https://fandomverse.org', 'https://fandomverse.org/', 'https://fandomverse.org/privacy', 'https://fandomverse.org/animex',
-      'https://fandomverse.org/anime-mix-quiz', 'https://fandomverse.org/Anime', 'https://fandomverse.org/anime/../privacy',
+      'https://bunnyverse.org', 'https://bunnyverse.org/', 'https://bunnyverse.org/privacy', 'https://bunnyverse.org/animex',
+      'https://bunnyverse.org/anime-mix-quiz', 'https://bunnyverse.org/Anime', 'https://bunnyverse.org/anime/../privacy',
     ]) {
       expect(siteForOrigin(url, { VERCEL_ENV: 'production' }), url).toBe('hub');
     }
@@ -337,15 +337,15 @@ describe('siteForOrigin on a shared origin', () => {
 
   it('anything that is not an http(s) address of a site of the network is null', () => {
     for (const bad of [
-      '', 'null', 'fandomverse.org', 'javascript:alert(1)', 'ftp://fandomverse.org/anime', 'https://fandomverse.org.evil.example',
-      'https://evil.example/https://fandomverse.org/anime', 'https://user@evil.example/anime', 'http://fandomverse.org/anime',
+      '', 'null', 'bunnyverse.org', 'javascript:alert(1)', 'ftp://bunnyverse.org/anime', 'https://bunnyverse.org.evil.example',
+      'https://evil.example/https://bunnyverse.org/anime', 'https://user@evil.example/anime', 'http://bunnyverse.org/anime',
     ]) {
       expect(siteForOrigin(bad, { NEXT_PUBLIC_NET_ORIGINS: PROXY }), bad).toBeNull();
     }
   });
 });
 
-// FandomVerse review (2026-10-28): siteForOrigin is server-only; registry.ts is in every kpopquiz.org client bundle and must not
+// Bunnyverse review (2026-10-28): siteForOrigin is server-only; registry.ts is in every kpopquiz.org client bundle and must not
 // carry it (lib/site/origin-site.ts).
 describe('siteForOrigin lives outside the registry module', () => {
   it('registry.ts exports no siteForOrigin', () => {

@@ -1,4 +1,4 @@
-// FandomVerse (review of 2026-10-28): the site's own avatar is requested under /anime on the anime build. It is prefixed once,
+// Bunnyverse (review of 2026-10-28): the site's own avatar is requested under /anime on the anime build. It is prefixed once,
 // at its source; its users pass it on as it is (a second prefix would ask for /anime/anime/...).
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';

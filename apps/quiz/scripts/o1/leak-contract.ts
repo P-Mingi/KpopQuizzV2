@@ -96,8 +96,8 @@ function fallbackContract(): LeakContract {
   };
   return {
     source: 'fallback (BACKLOG 5.1, lib/route-allowlist.ts)',
-    domains: { kpop: 'kpopquiz.org', anime: 'fandomverse.org/anime', hub: 'fandomverse.org' },
-    brands: { kpop: 'KpopQuiz', anime: 'OtakuQuiz', hub: 'FandomVerse' },
+    domains: { kpop: 'kpopquiz.org', anime: 'bunnyverse.org/anime', hub: 'bunnyverse.org' },
+    brands: { kpop: 'KpopQuiz', anime: 'OtakuQuiz', hub: 'Bunnyverse' },
     devHosts: { kpop: 'kpop.localhost', anime: 'anime.localhost', hub: 'hub.localhost' },
     kpopOnlySamples: {
       anime: kpopSamplesFromAllowlist().filter((p) => !isKnownRoute('anime', p)),
@@ -137,7 +137,7 @@ export function loadContract(appDir: string = APP_DIR): Promise<LeakContract> {
     };
     return {
       source: 'F0 registry and routing (apps/quiz/src/lib/site)',
-      // The address of each site (its url without the scheme): fandomverse.org/anime and fandomverse.org share a host (2026-10-28).
+      // The address of each site (its url without the scheme): bunnyverse.org/anime and bunnyverse.org share a host (2026-10-28).
       domains: { kpop: address(r.REGISTRY.kpop.url), anime: address(r.REGISTRY.anime.url), hub: address(r.REGISTRY.hub.url) },
       brands: { kpop: r.REGISTRY.kpop.brand.name, anime: r.REGISTRY.anime.brand.name, hub: r.REGISTRY.hub.brand.name },
       devHosts: { kpop: 'kpop.localhost', anime: 'anime.localhost', hub: 'hub.localhost' },

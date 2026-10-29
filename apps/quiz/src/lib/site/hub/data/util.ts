@@ -18,7 +18,7 @@ export function resolveOrigins(opts?: HubOpts): HubOrigins {
   const out = {} as Record<SiteId, string>;
   for (const id of SITE_IDS) {
     try {
-      out[id] = netBase(id, env); // FandomVerse: the base URL (the /anime sub-folder included), every href below is base + path
+      out[id] = netBase(id, env); // Bunnyverse: the base URL (the /anime sub-folder included), every href below is base + path
     } catch {
       out[id] = REGISTRY[id].url;
     }

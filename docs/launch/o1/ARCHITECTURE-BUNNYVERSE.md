@@ -1,11 +1,15 @@
-# FandomVerse: one domain, sub-folders (lane 1, 2026-10-28)
+# Bunnyverse: one domain, sub-folders (lane 1, 2026-10-28)
 
 Why Vercel Microfrontends and not a multi-zones rewrite (feasibility checked against the docs and the package source first):
 1. Vercel routes `/anime/**` to the `otakuquiz` project inside its own network, in the same request: no rewrite to a `*.vercel.app` URL, so the SSO wall of those URLs (all_except_custom_domains) is never in the way and needs no bypass secret.
-2. The `otakuquiz` deployments stay reachable only through fandomverse.org/anime (their own URLs stay protected): nothing is served on two public URLs, and branch previews of both projects are paired by Vercel.
+2. The `otakuquiz` deployments stay reachable only through bunnyverse.org/anime (their own URLs stay protected): nothing is served on two public URLs, and branch previews of both projects are paired by Vercel.
 3. The anime build is a plain Next.js app with `basePath: '/anime'`; its pages, `/anime/_next` assets, route handlers, OG routes and public files all live under the one routed prefix `/anime/:path*`.
 4. Blocker checked and avoided: the docs say `withMicrofrontends` does not support `basePath`; the reason is its automatic asset prefix (`/vc-ap-<hash>`), so the anime build skips that transform (`skipTransforms: ['assetPrefix', 'rewrites']`, an option of the package) and keeps Next's default asset prefix, which is the base path.
 5. kpopquiz.org is not in the group and its build is untouched: the wiring runs only when the site of the build is `hub` or `anime`; the one new dependency is `@vercel/microfrontends` 2.4.1 (exact pin), for the build-time config check and the local proxy.
+
+Name (owner, 2026-10-29): the hub is Bunnyverse on bunnyverse.org (it was named FandomVerse on fandomverse.org the day before; that
+name's .net and .com belong to others). Only public names changed: the Vercel project `fandomverse`, the Microfrontends group
+`fandomverse`, its application name in `apps/quiz/microfrontends.json` and the cookie `__Host-fv_oauth` keep their internal names.
 
 (The rest of this file is the reference: what each piece does, what the owner sets in Vercel, how to run it locally.)
 
@@ -13,14 +17,14 @@ Why Vercel Microfrontends and not a multi-zones rewrite (feasibility checked aga
 
 | address | Vercel project | build (`NEXT_PUBLIC_SITE_ID`) | Next `basePath` | in the group |
 |---|---|---|---|---|
-| https://fandomverse.org/ and every path not below /anime | `fandomverse` (renamed from `fanquiz`) | `hub` | none | yes, default application |
-| https://fandomverse.org/anime and everything below it | `otakuquiz` | `anime` | `/anime` | yes, child (routing `/anime/:path*`) |
+| https://bunnyverse.org/ and every path not below /anime | `fandomverse` (renamed from `fanquiz`) | `hub` | none | yes, default application |
+| https://bunnyverse.org/anime and everything below it | `otakuquiz` | `anime` | `/anime` | yes, child (routing `/anime/:path*`) |
 | https://kpopquiz.org | `kpopquiz` | unset (kpop) | none | no |
 
 - The three projects build `apps/quiz`. The group is read from `apps/quiz/microfrontends.json` in the deployment of the default
   application (`fandomverse`). kpopquiz.org is in no group: Vercel reads the file only for the projects of a group, and the kpop
   build never calls the package (`next.config.ts` exports today's object when the site is kpop).
-- Vercel routes `/anime/**` of fandomverse.org to the production deployment of `otakuquiz` in the same request (no proxy hop).
+- Vercel routes `/anime/**` of bunnyverse.org to the production deployment of `otakuquiz` in the same request (no proxy hop).
   A branch URL of `fandomverse` pairs with the `otakuquiz` deployment of the same branch, else the group's fallback environment
   (Production by default). The anime `*.vercel.app` URLs keep their protection (all_except_custom_domains): they are never a
   public origin and nothing is served twice.
@@ -33,12 +37,12 @@ Why Vercel Microfrontends and not a multi-zones rewrite (feasibility checked aga
 
 ## 2. One source for the base path
 
-- The registry `url` of a site is its base URL: `https://fandomverse.org/anime` for OtakuQuiz (lane 2's values). Its path is the
+- The registry `url` of a site is its base URL: `https://bunnyverse.org/anime` for OtakuQuiz (lane 2's values). Its path is the
   build's base path: `basePathOf(url)` in `lib/site/base-path.ts`; `next.config.ts` sets `basePath: basePathOf(SITE.url)` on the
   hub and anime builds only (empty on the hub, so no key). There is no second list.
 - Server code (route handlers, middleware, server components and libraries): `withBasePath(path)` for an address the browser
   requests (a redirect built from `request.url`, a `Location`, a plain `<a href>`, an `<img src>`, a form action, an HTML string);
-  `joinSiteUrl(siteUrl, path)` for an absolute URL (the home of a site in a sub-folder is `https://fandomverse.org/anime`, without
+  `joinSiteUrl(siteUrl, path)` for an absolute URL (the home of a site in a sub-folder is `https://bunnyverse.org/anime`, without
   the trailing slash that Next answers with a 308); `netBase(site, env)` for the base URL of another site on this deployment.
 - A module that can reach a client bundle never imports `base-path.ts` (a new module in a shared client component would change
   kpopquiz.org's client graph, which P1's `kpop-chunks.sh` checks). It reads the constant Next inlines from `basePath` instead:
@@ -47,7 +51,7 @@ Why Vercel Microfrontends and not a multi-zones rewrite (feasibility checked aga
   today's, byte for byte (section 8). `base-path-sinks.test.ts` refuses a bare root-relative address at a browser sink in any
   module an anime or hub page reaches.
 - Never write the base path for next/link, `router.push`, `redirect()` of next/navigation or a relative metadata URL (the
-  `metadataBase` of an anime page is `https://fandomverse.org/anime`, and Next joins its path): those add it themselves.
+  `metadataBase` of an anime page is `https://bunnyverse.org/anime`, and Next joins its path): those add it themselves.
 - `request.nextUrl.pathname` and `usePathname()` have no base path; `request.url` and `window.location` have it. A return path
   (`returnTo`, `next`) is a site path: strip the base path of a browser path before using it as one.
 - Between the hub and /anime a link is a full page load: a plain `<a>` with an absolute URL (`homeUrl`, `editorialHref`,
@@ -63,28 +67,28 @@ Why Vercel Microfrontends and not a multi-zones rewrite (feasibility checked aga
 
 - **home headers**: the home of each build carries the headers of its other pages: `/` on the hub and `/anime` on OtakuQuiz answer
   `X-Frame-Options: SAMEORIGIN`, `Content-Security-Policy: frame-ancestors 'self'`, and `X-Robots-Tag: noindex, nofollow` while
-  `NET_INDEXING` is off (`curl -sI https://fandomverse.org/anime`).
+  `NET_INDEXING` is off (`curl -sI https://bunnyverse.org/anime`).
 - **noindex by host**: on the hub and anime builds `X-Robots-Tag: noindex, nofollow` is added only on `*.vercel.app` hosts of a
-  production build, and on every host of a preview or development build, whatever `NET_INDEXING` says; fandomverse.org and any
-  other domain of a production project answer what the page says. There is no "every host but fandomverse.org" rule.
-- **robots.txt**: one file, https://fandomverse.org/robots.txt, answered by the hub: its rules, then the same rules of every site in
+  production build, and on every host of a preview or development build, whatever `NET_INDEXING` says; bunnyverse.org and any
+  other domain of a production project answer what the page says. There is no "every host but bunnyverse.org" rule.
+- **robots.txt**: one file, https://bunnyverse.org/robots.txt, answered by the hub: its rules, then the same rules of every site in
   its sub-folders under their base path (`Disallow: /anime/api/`, `Allow: /anime/api/og/`, ...), then one `Sitemap:` line, the
   index. The anime build answers /anime/robots.txt with a 404.
-- **sitemaps**: https://fandomverse.org/sitemap.xml is a sitemap index: https://fandomverse.org/sitemap-hub.xml (the hub's own
-  pages) and, only once the hub build has `NET_INDEXING=1`, https://fandomverse.org/anime/sitemap.xml (OtakuQuiz's urlset, unchanged
+- **sitemaps**: https://bunnyverse.org/sitemap.xml is a sitemap index: https://bunnyverse.org/sitemap-hub.xml (the hub's own
+  pages) and, only once the hub build has `NET_INDEXING=1`, https://bunnyverse.org/anime/sitemap.xml (OtakuQuiz's urlset, unchanged
   but for the home without a trailing slash). The hub llms.txt gains its `/anime` line at the same moment. The hub cannot read the
   otakuquiz flag, so `NET_INDEXING=1` is set on `fandomverse` and `otakuquiz` together (RUNBOOK K10) and both are redeployed.
   The list of zones is read from the registry urls (`zoneChildrenOf`): a /kdrama site later joins by its url alone.
 - **canonical, Open Graph, JSON-LD, breadcrumbs, llms.txt, IndexNow, emails**: built from the registry url, so they carry /anime
-  (relative metadata URLs through `metadataBase`). /anime/llms.txt names fandomverse.org/anime and its paths.
+  (relative metadata URLs through `metadataBase`). /anime/llms.txt names bunnyverse.org/anime and its paths.
 - **noindex**: while a site is closed (`NET_INDEXING` unset) every page of the hub and /anime says noindex, meta and
   `X-Robots-Tag` (as before). With `NET_INDEXING=1` the only `X-Robots-Tag: noindex, nofollow` rule left in `next.config.ts`
   is the one for `*.vercel.app` hosts (the production aliases of both projects), and a Vercel preview or development build of
-  hub or anime stays closed whatever `NET_INDEXING` says (meta and header). On fandomverse.org no header is added and each
+  hub or anime stays closed whatever `NET_INDEXING` says (meta and header). On bunnyverse.org no header is added and each
   page speaks for itself. A production page cannot change its meta per host (it is built once): on its `*.vercel.app` alias
   the header says noindex, and the alias is behind Vercel protection anyway.
-- **IndexNow**: OtakuQuiz keeps its own key. It pings with `host: fandomverse.org`, `keyLocation:
-  https://fandomverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` and only URLs under /anime (a key file in a folder is valid
+- **IndexNow**: OtakuQuiz keeps its own key. It pings with `host: bunnyverse.org`, `keyLocation:
+  https://bunnyverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` and only URLs under /anime (a key file in a folder is valid
   for the URLs of that folder). The anime build serves that file at /anime/<key>.txt; the hub serves its own key at the root;
   each build answers 404 for the other keys (keyFileBlocksFor, unchanged).
 
@@ -93,7 +97,7 @@ Why Vercel Microfrontends and not a multi-zones rewrite (feasibility checked aga
 `vercel.json` is shared by the three projects, so its cron paths have no base path, and the anime build serves nothing outside
 /anime (Next also refuses an internal rewrite from outside the base path). On a build with a base path, each cron path of
 `vercel.json` is an external rewrite (`basePath: false`) to the same route of the site's own URL,
-`https://fandomverse.org/anime/api/cron/...`, which Vercel routes back to `otakuquiz`; the route checks `CRON_SECRET` as before.
+`https://bunnyverse.org/anime/api/cron/...`, which Vercel routes back to `otakuquiz`; the route checks `CRON_SECRET` as before.
 Only cron routes are proxied (`/api/cron/<name>` and `/api/<area>/cron/<name>`, today `/api/ranked/cron/nightly`): every destination
 is under /anime, so no otakuquiz cron can reach the hub, and the proxy is an external rewrite that forwards the request headers, so
 `Authorization: Bearer <CRON_SECRET>` reaches the route (a unit test runs Next's own proxy). A cron path of another shape, or a
@@ -108,26 +112,26 @@ the Logs and the cron logs of `otakuquiz` (Settings, Cron Jobs, View Logs) show 
    `vercel mf create-group --name=fandomverse --project=fandomverse --project=otakuquiz --default-app=fandomverse --project-default-route=otakuquiz=/anime --yes`
    (or the dashboard: team Settings, Microfrontends, Create Group, the same choices). Do not add `kpopquiz`.
 3. Root Directory of both projects stays `apps/quiz`: `microfrontends.json` is found there, no `VC_MICROFRONTENDS_CONFIG_FILE_NAME`.
-4. The domain `fandomverse.org` (and `www.fandomverse.org` as a redirect to it) on the project `fandomverse` only; `otakuquiz` gets no
+4. The domain `bunnyverse.org` (and `www.bunnyverse.org` as a redirect to it) on the project `fandomverse` only; `otakuquiz` gets no
    domain. Deployment protection stays as it is on both (`all_except_custom_domains`).
 5. Deploy `otakuquiz` (main, with its basePath) first, then `fandomverse`: the routing of `/anime` starts with the first
    production deployment of `fandomverse` that carries `microfrontends.json`.
 6. No new environment variable. `NEXT_PUBLIC_SITE_ID` stays `hub` on `fandomverse` and `anime` on `otakuquiz`; `NET_INDEXING` per
    project as before; `NEXT_PUBLIC_NET_ORIGINS` is ignored in production.
-7. Supabase Auth: the redirect URLs of the anime build are under /anime (lane 3's AUTH-FANDOMVERSE.md has the exact lines).
+7. Supabase Auth: the redirect URLs of the anime build are under /anime (lane 3's AUTH-BUNNYVERSE.md has the exact lines).
 8. Optional: the Vercel Web Analytics of /anime pages are counted in the `fandomverse` project (the analytics script and its
    beacon go to `/_vercel/insights`, at the root of the domain, served by the default application).
 
 Checks once both are live (curl -sI shows the status and headers):
-`https://fandomverse.org/anime` 200 from otakuquiz (header `x-vercel-mfe-app` with the cookie `VERCEL_MFE_DEBUG=1`);
-`https://fandomverse.org/anime/` 308 to `/anime`; `https://fandomverse.org/anime/robots.txt` 404; `https://fandomverse.org/robots.txt`
-lists `/anime/api/`; `https://fandomverse.org/sitemap.xml` is an index with `/anime/sitemap.xml` (once `NET_INDEXING=1`); with `NET_INDEXING=1`, no
-`X-Robots-Tag` on `https://fandomverse.org/anime` and `X-Robots-Tag: noindex, nofollow` on `https://otakuquiz.vercel.app/anime`
+`https://bunnyverse.org/anime` 200 from otakuquiz (header `x-vercel-mfe-app` with the cookie `VERCEL_MFE_DEBUG=1`);
+`https://bunnyverse.org/anime/` 308 to `/anime`; `https://bunnyverse.org/anime/robots.txt` 404; `https://bunnyverse.org/robots.txt`
+lists `/anime/api/`; `https://bunnyverse.org/sitemap.xml` is an index with `/anime/sitemap.xml` (once `NET_INDEXING=1`); with `NET_INDEXING=1`, no
+`X-Robots-Tag` on `https://bunnyverse.org/anime` and `X-Robots-Tag: noindex, nofollow` on `https://otakuquiz.vercel.app/anime`
 (behind its protection, use a bypass you already have or skip); a page of /anime loads its `/anime/_next/static` files with 200.
 
 ## 6. Local development
 
-- Both sites on one origin, as on fandomverse.org (the Vercel microfrontends proxy in front of two dev servers of
+- Both sites on one origin, as on bunnyverse.org (the Vercel microfrontends proxy in front of two dev servers of
   `scripts/o1/dev-multi.sh`):
   `scripts/o1/fandomverse-dev.sh offline --ports <hub>,<anime> --proxy <port>` then open `http://localhost:<port>/` (hub) and
   `http://localhost:<port>/anime` (OtakuQuiz). It sets `NEXT_PUBLIC_NET_ORIGINS=hub=http://localhost:<port>,anime=http://localhost:<port>`
@@ -140,7 +144,7 @@ lists `/anime/api/`; `https://fandomverse.org/sitemap.xml` is an index with `/an
 
 - Hub and anime share one host, so one cookie jar: one Supabase session for both (lane 3 built on that).
 - The analytics of /anime pages count in the `fandomverse` project (section 5.8).
-- The cron proxy needs fandomverse.org live and the cron request to reach the protected production deployment of `otakuquiz`
+- The cron proxy needs bunnyverse.org live and the cron request to reach the protected production deployment of `otakuquiz`
   (as it had to before). If the logs show it does not: the fallback is cron entries for `/anime/api/cron/...` in vercel.json,
   which touches kpopquiz.org's cron list (an owner decision).
 - The `x-vercel-mfe` routing keeps the request host (the `*.vercel.app` noindex rule matches on it): check the headers of section 5
@@ -168,7 +172,7 @@ confirm them. Measured on offline kpop builds with the production flags (`NEXT_P
 `NEXT_PUBLIC_BT_TRACKING=1`). Each figure is the gzip (level 9) total of the JS chunks a route's client reference manifest
 names (entry files plus client module chunks):
 
-| kpop route | main before FandomVerse (5113ee6) | FandomVerse merged (db12710) | siteForOrigin out of the registry |
+| kpop route | main before Bunnyverse (5113ee6) | Bunnyverse merged (db12710) | siteForOrigin out of the registry |
 |---|---:|---:|---:|
 | /q/[slug] | 79,376 | 79,786 (+410) | 79,276 (-100) |
 | / (home) | 95,158 | 95,580 (+422) | 95,058 (-100) |
@@ -176,11 +180,11 @@ names (entry files plus client module chunks):
 | /blindtest/[mode] | 87,764 | 88,198 (+434) | 87,680 (-84) |
 | /quizzes | 98,920 | 99,318 (+398) | 98,802 (-118) |
 
-Most of the FandomVerse growth was in `lib/site/registry.ts`, which is in every kpop client bundle: `siteForOrigin` and its two
+Most of the Bunnyverse growth was in `lib/site/registry.ts`, which is in every kpop client bundle: `siteForOrigin` and its two
 URL helpers. They are only called by the beacon route on the server. They now live in `lib/site/origin-site.ts`, a
 server-only module, and registry.ts no longer exports them (pinned by registry.test.ts); `isSiteId` now reads `SITE_IDS`
-instead of a second hand-written list. Each kpop route now ends a little below its pre-FandomVerse size (measured at
-43f07fd), because an older siteForOrigin already sat in the registry before FandomVerse.
+instead of a second hand-written list. Each kpop route now ends a little below its pre-Bunnyverse size (measured at
+43f07fd), because an older siteForOrigin already sat in the registry before Bunnyverse.
 
 Two smaller changes stay in kpop chunks, and nothing changes on screen:
 - `lib/site/client-base-path.ts`, the shared `BASE_PATH` constant of the twins fix. It folds to `''` on kpop.

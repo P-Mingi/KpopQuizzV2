@@ -23,8 +23,8 @@ import type { Metadata } from 'next';
 import type { SiteId } from './types';
 
 /**
- * FandomVerse (lane 1): a build of a Vercel preview or development deployment is only ever served on *.vercel.app hosts, never on
- * fandomverse.org: it stays closed whatever NET_INDEXING says (meta and X-Robots-Tag). A production build is open with the flag;
+ * Bunnyverse (lane 1): a build of a Vercel preview or development deployment is only ever served on *.vercel.app hosts, never on
+ * bunnyverse.org: it stays closed whatever NET_INDEXING says (meta and X-Robots-Tag). A production build is open with the flag;
  * its own *.vercel.app hosts get the X-Robots-Tag of next.config.ts (lib/site/zones.ts). Local builds (no VERCEL_ENV) follow the flag.
  */
 // `process.browser` is Next's build constant (true in a client bundle): this module is in client bundles too, where VERCEL_ENV is

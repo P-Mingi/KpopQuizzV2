@@ -1,4 +1,4 @@
-// FandomVerse (security review, 2026-10-28; lane 3): where Google and Discord send the visitor back to, kept on the server.
+// Bunnyverse (security review, 2026-10-28; lane 3): where Google and Discord send the visitor back to, kept on the server.
 //
 // GET /auth/start (lib/passport/signin.ts handleOAuthStart) asks Supabase for the provider URL with the EXACT callback of the
 // build as redirectTo (no query string, so Supabase's Redirect URLs list it with no wildcard), and keeps the return path, the

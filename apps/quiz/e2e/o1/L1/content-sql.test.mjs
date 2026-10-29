@@ -122,7 +122,7 @@ test('rollbacks refuse when data was written', () => {
 });
 
 test('teamEmail and the arguments', () => {
-  assert.equal(teamEmail('oq_creator_01'), 'oq_creator_01@team.fandomverse.org');
+  assert.equal(teamEmail('oq_creator_01'), 'oq_creator_01@team.bunnyverse.org');
   assert.equal(parseArgs([]).out, 'docs/pending-migrations/multisite/launch');
   assert.equal(parseArgs(['--drafts']).out, 'docs/pending-migrations/multisite/launch');
   assert.throws(() => parseArgs(['--nope']), /unknown argument/);
@@ -131,7 +131,7 @@ test('teamEmail and the arguments', () => {
 test('the real data folder generates in both modes and the manifest matches the bytes', () => {
   for (const drafts of [false, true]) {
     const out = mkdtempSync(join(tmpdir(), 'o1-l1-'));
-    const r = generate({ data: 'docs/anime/data', out, drafts, teamDomain: 'fandomverse.org' });
+    const r = generate({ data: 'docs/anime/data', out, drafts, teamDomain: 'bunnyverse.org' });
     assert.equal(r.counts.groups, 50);
     assert.equal(r.counts.creators, 31);
     assert.ok(readdirSync(out).includes('MANIFEST.json'));

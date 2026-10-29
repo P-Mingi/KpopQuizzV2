@@ -10,7 +10,7 @@ import { takePendingAction } from '@/lib/ux-v1/a0/pending-action';
 
 import { likeKey, useP8Viewer, useRequireAuth } from './viewer';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 // The community's small write controls. Every write goes through an EXISTING

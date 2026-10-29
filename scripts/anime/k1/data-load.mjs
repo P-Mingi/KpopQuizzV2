@@ -59,7 +59,7 @@ export function readDataDir(dir) {
   return out;
 }
 
-const SITE_URL = 'https://fandomverse.org/anime';
+const SITE_URL = 'https://bunnyverse.org/anime';
 const USERNAME_RE = /^[a-z0-9_]{3,20}$/;
 const QUIZ_SLUG_RE = /^[a-z0-9-]{1,80}$/;
 const QUIZ_TYPES = ['multiple_choice', 'true_false', 'guess_from_clues', 'intruder'];

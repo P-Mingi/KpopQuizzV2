@@ -1,6 +1,6 @@
 // Run O1, lot (e), lane B7: POST /api/passport/revalidate (apis.md 3.3) and the signed sender.
-// FandomVerse (owner, 2026-10-28): the origins move from the old anime domain to fandomverse.org. The FandomVerse topology (hub and
-// anime on https://fandomverse.org, anime under '/anime') is given as a preview deployment (FV); the production answers are
+// Bunnyverse (owner, 2026-10-28): the origins move from the old anime domain to bunnyverse.org. The Bunnyverse topology (hub and
+// anime on https://bunnyverse.org, anime under '/anime') is given as a preview deployment (FV); the production answers are
 // pinned against the registry url, so they hold before and after the registry moves.
 import { createHmac } from 'node:crypto';
 
@@ -13,12 +13,12 @@ import { handleRevalidate, notifyRevalidate, purgePaths, revalidateSecret, signR
 
 const SECRET = 'revalidate-secret-value-0123456789';
 const env = { PASSPORT_REVALIDATE_SECRET: SECRET, VERCEL_ENV: 'production' };
-const FV = { PASSPORT_REVALIDATE_SECRET: SECRET, VERCEL_ENV: 'preview', NEXT_PUBLIC_NET_ORIGINS: 'kpop=https://kpopquiz.org,anime=https://fandomverse.org,hub=https://fandomverse.org' };
+const FV = { PASSPORT_REVALIDATE_SECRET: SECRET, VERCEL_ENV: 'preview', NEXT_PUBLIC_NET_ORIGINS: 'kpop=https://kpopquiz.org,anime=https://bunnyverse.org,hub=https://bunnyverse.org' };
 
 function req(raw: string, sig: string | null, headers: Record<string, string> = {}): NextRequest {
   const h: Record<string, string> = { 'content-type': 'application/json', ...headers };
   if (sig !== null) h['x-passport-signature'] = sig;
-  return new NextRequest('https://fandomverse.org/anime/api/passport/revalidate', { method: 'POST', body: raw, headers: h });
+  return new NextRequest('https://bunnyverse.org/anime/api/passport/revalidate', { method: 'POST', body: raw, headers: h });
 }
 
 const body = (o: unknown): string => JSON.stringify(o);
@@ -95,12 +95,12 @@ describe('POST /api/passport/revalidate', () => {
     expect((await handleRevalidate(req(raw, signRevalidate(SECRET, raw), { 'content-type': 'text/plain' }), ctx)).status).toBe(400);
   });
 
-  it('fandomverse.org: hub and anime accept their one origin exactly; a look-alike, a path, a scheme or a port is 403', async () => {
+  it('bunnyverse.org: hub and anime accept their one origin exactly; a look-alike, a path, a scheme or a port is 403', async () => {
     const raw = body({ username: 'fan_one', sites: ['anime', 'hub'] });
     for (const site of ['anime', 'hub'] as const) {
       const ctx = { site, env: FV, purge: () => undefined };
-      expect((await handleRevalidate(req(raw, signRevalidate(SECRET, raw), { origin: 'https://fandomverse.org' }), ctx)).status).toBe(204);
-      for (const origin of ['https://fandomverse.org.evil.com', 'https://evil.com', 'https://fandomverse.org/anime', 'http://fandomverse.org', 'https://fandomverse.org:444', 'https://kpopquiz.org', 'null']) {
+      expect((await handleRevalidate(req(raw, signRevalidate(SECRET, raw), { origin: 'https://bunnyverse.org' }), ctx)).status).toBe(204);
+      for (const origin of ['https://bunnyverse.org.evil.com', 'https://evil.com', 'https://bunnyverse.org/anime', 'http://bunnyverse.org', 'https://bunnyverse.org:444', 'https://kpopquiz.org', 'null']) {
         expect((await handleRevalidate(req(raw, signRevalidate(SECRET, raw), { origin }), ctx)).status, `${site} ${origin}`).toBe(403);
       }
     }
@@ -123,7 +123,7 @@ describe('notifyRevalidate (the sender)', () => {
     const fetchImpl = (async (url: string, init: RequestInit) => { calls.push({ url, init }); return new Response(null, { status: 204 }); }) as unknown as typeof fetch;
     const out = await notifyRevalidate('fan_one', ['kpop', 'anime', 'anime'], { env: FV, fetchImpl });
     expect(out).toEqual({ sent: 2, failed: 0 });
-    expect(calls.map((c) => c.url).sort()).toEqual(['https://fandomverse.org/anime/api/passport/revalidate', 'https://kpopquiz.org/api/passport/revalidate']);
+    expect(calls.map((c) => c.url).sort()).toEqual(['https://bunnyverse.org/anime/api/passport/revalidate', 'https://kpopquiz.org/api/passport/revalidate']);
     for (const c of calls) {
       const raw = String(c.init.body);
       expect(JSON.parse(raw)).toEqual({ username: 'fan_one', sites: ['kpop', 'anime'] });
@@ -132,11 +132,11 @@ describe('notifyRevalidate (the sender)', () => {
     }
   });
 
-  it('reaches the hub at the root of fandomverse.org and anime under /anime; on production, the registry origin and the basePath', async () => {
+  it('reaches the hub at the root of bunnyverse.org and anime under /anime; on production, the registry origin and the basePath', async () => {
     const urls: string[] = [];
     const fetchImpl = (async (url: string) => { urls.push(url); return new Response(null, { status: 204 }); }) as unknown as typeof fetch;
     await notifyRevalidate('fan_one', ['hub', 'anime'], { env: FV, fetchImpl });
-    expect(urls.sort()).toEqual(['https://fandomverse.org/anime/api/passport/revalidate', 'https://fandomverse.org/api/passport/revalidate']);
+    expect(urls.sort()).toEqual(['https://bunnyverse.org/anime/api/passport/revalidate', 'https://bunnyverse.org/api/passport/revalidate']);
     urls.length = 0;
     await notifyRevalidate('fan_one', ['kpop', 'anime', 'hub'], { env, fetchImpl });
     expect(urls.sort()).toEqual([

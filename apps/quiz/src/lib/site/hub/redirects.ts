@@ -1,5 +1,5 @@
 // Run O1, lot (d), lane H1: the hub pages that send a fan to their own site. /passport, /settings and /u/{username} of
-// fandomverse.org keep no copy of the kpop pages: they answer with a temporary redirect to the same page on the home site of
+// bunnyverse.org keep no copy of the kpop pages: they answer with a temporary redirect to the same page on the home site of
 // the member, through the registry origin (netOrigin: the registry url on production). Pure choices first, then the two
 // readers; every reader takes its Supabase client, so the pages stay a few lines long and the tests need no network.
 //
@@ -70,7 +70,7 @@ export function pickMemberHomeSite(rows: readonly MembershipChoiceRow[]): SiteId
   return first ? (first.site_id as SiteId) : null;
 }
 
-/** `path` on `site`, through the registry origin of this deployment (FandomVerse: its base URL, /anime included). */
+/** `path` on `site`, through the registry origin of this deployment (Bunnyverse: its base URL, /anime included). */
 export function siteUrl(site: SiteId, path: string, env: NetOriginEnv): string {
   return `${netBase(site, env)}${path}`;
 }

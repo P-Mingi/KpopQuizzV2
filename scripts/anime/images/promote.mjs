@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Run O1 (ADM back): promotes the admin images of fandomverse.org/anime from o1-dev to production. Copies the files of the Storage bucket
+// Run O1 (ADM back): promotes the admin images of bunnyverse.org/anime from o1-dev to production. Copies the files of the Storage bucket
 // 'entity-images' and the rows of public.entity_images (docs/pending-migrations/multisite/018-entity-images.sql must be applied on
 // the target first). Idempotent: a file whose sha256 equals the target's is skipped, rows are upserted on (site_id, kind, slug) and
 // a row that is already identical is left alone. Nothing is ever deleted on the target (rows and files that exist only there are

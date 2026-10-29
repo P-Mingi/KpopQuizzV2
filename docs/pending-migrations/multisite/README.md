@@ -1,4 +1,4 @@
-# Run O1 SQL: multi-site, passport, OtakuQuiz and FandomVerse
+# Run O1 SQL: multi-site, passport, OtakuQuiz and Bunnyverse
 
 Every file here is written by a run O1 lane and applied to production only by the owner, after a backup, in the
 order of `docs/o1/contracts/manifest.md` (BACKLOG section 4.4). Nothing in this folder has been applied to production.

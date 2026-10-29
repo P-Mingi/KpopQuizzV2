@@ -1,9 +1,9 @@
-# SQL order for production (run O1, FandomVerse)
+# SQL order for production (run O1, Bunnyverse)
 
 Every SQL file of run O1, in the order the owner applies it to production. Source: `docs/o1/contracts/manifest.md`
 (frozen file names and order) and the header of each file. Every file below exists in the repository (`apps/quiz/e2e/o1/L1/runbook-paths.sh` proves it).
-Updated on 2026-10-28 for FandomVerse (fandomverse.org, OtakuQuiz at `/anime`): the files and their order do not change; lane 2 updates the names and
-domains inside them (the `sites` rows of L01, the Team addresses of L02 on `team.fandomverse.org`). Applied to production so far: S4 (row 0, 2026-10-23) and
+Updated on 2026-10-28 for Bunnyverse (bunnyverse.org, OtakuQuiz at `/anime`): the files and their order do not change; lane 2 updates the names and
+domains inside them (the `sites` rows of L01, the Team addresses of L02 on `team.bunnyverse.org`). Applied to production so far: S4 (row 0, 2026-10-23) and
 Mission U part D (row 18b, 2026-10-27, LEDGER D-127). Nothing else.
 No calendar: a phase starts when the one before is clean (RUNBOOK table). A backup (RUNBOOK A2) opens every SQL session.
 
@@ -63,8 +63,8 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 | 18b | `docs/pending-migrations/account-deletion.sql` (Mission U part D, #105 on main; APPLIED 2026-10-27, D-127) | P5, before 016; skip if already run (its MODE-EMPLOI check: the `deleted_user` sentinel row and `public.admin_delete_account` exist) | single | none | sentinel `00000000-0000-0000-0000-00000000dead` and `admin_delete_account` executable by `service_role` only | `docs/pending-migrations/account-deletion-rollback.sql` | V6 |
 | 19 | `M/016-passport-deletion.sql` | P5, WAITS for Mission U part D | single | 004, 006, 011 and the Mission U deletion file (`admin_delete_account`) | tables `passport.deletion_requests`, `passport.deletion_log` (RLS on); 5 functions callable by `service_role` only | `M/016-passport-deletion.rollback.sql` | V6 |
 | 19b | `M/017-deletion-kpop.sql` (B7, D-112) | P5, right after 016 | single | 016, 18b | `passport_run_deletion` calls `admin_delete_account(user, keep, false)` for the kpop data after the other sites' purges; service_role only | `M/017-deletion-kpop.rollback.sql` (restores 016's function; refused while a request is pending) | V6 |
-| 20 | `LAUNCH/L01-B2-sites.sql` | P7 step 1 (Verrou 0), runbook K3 | single | 001 | 3 rows in `sites` as its header lists (domains and brands of FandomVerse, lane 2), anime and hub `building` | `LAUNCH/L01-B2-sites.rollback.sql` | V8 |
-| 21 | `LAUNCH/L02-K2-team-accounts.sql` (generated) | P7 | single | L01, 003, 009; the 31 auth users first (`team-auth.mjs --team-email-domain fandomverse.org`) | 31 `editorial_accounts` on anime; `sites.system_user_id` set | `LAUNCH/L02-K2-team-accounts.rollback.sql` | V8 |
+| 20 | `LAUNCH/L01-B2-sites.sql` | P7 step 1 (Verrou 0), runbook K3 | single | 001 | 3 rows in `sites` as its header lists (domains and brands of Bunnyverse, lane 2), anime and hub `building` | `LAUNCH/L01-B2-sites.rollback.sql` | V8 |
+| 21 | `LAUNCH/L02-K2-team-accounts.sql` (generated) | P7 | single | L01, 003, 009; the 31 auth users first (`team-auth.mjs --team-email-domain bunnyverse.org`) | 31 `editorial_accounts` on anime; `sites.system_user_id` set | `LAUNCH/L02-K2-team-accounts.rollback.sql` | V8 |
 | 22 | `LAUNCH/L03-B7-sentinel.sql` | P7 | single | L01, 003 | profiles `deleted_user_anime` and `deleted_user_hub`, ids `00000000-0000-0000-0000-00000000dea2` and `...dea3`, no membership | `LAUNCH/L03-B7-sentinel.rollback.sql` | V8 |
 | 23 | `LAUNCH/L04-K1-series.sql` (generated) | P7 | single | L01, 011 | `series` count = number of series loaded | `LAUNCH/L04-K1-series.rollback.sql` | V8 |
 | 24 | `LAUNCH/L05-K1-facts.sql` (generated) | P7 | single | L04 | `trivia` and `entity_sources` counts; verified facts are `published` | `LAUNCH/L05-K1-facts.rollback.sql` | V8 |
@@ -116,8 +116,8 @@ every anime and hub row out of production until launch, and nothing before launc
 
 ## 4. The generated files
 
-    node apps/quiz/e2e/o1/L1/content-sql.mjs --team-email-domain fandomverse.org --drafts
-    node apps/quiz/e2e/o1/L1/content-sql.mjs --team-email-domain fandomverse.org
+    node apps/quiz/e2e/o1/L1/content-sql.mjs --team-email-domain bunnyverse.org --drafts
+    node apps/quiz/e2e/o1/L1/content-sql.mjs --team-email-domain bunnyverse.org
 
 The first writes every draft fact and row (first line of each file: DRAFTS; never for production); the second only what is marked verified, over the same files.
 Both write into `docs/pending-migrations/multisite/launch` (the `LAUNCH` folder; `--out <dir>` writes elsewhere, for a rehearsal). The script reads
@@ -132,13 +132,13 @@ two, and L05 also promotes a draft row left by an earlier run, never the other w
 A quiz or a daily row goes in when every question cites at least one fact and every cited fact is in. The lots of D-106 to D-119 marked the facts verified;
 the selection of the current files is in `expected-counts.json` (50 series, 268 quizzes, 99 daily rows, 10 personality quizzes).
 
-The Team accounts need their auth users before L02: `node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref <ref> --team-email-domain fandomverse.org --apply`
-with `--team-email-domain fandomverse.org`, `SUPABASE_URL` set and `SUPABASE_SERVICE_ROLE_KEY` read with `read -rs` in your shell (RUNBOOK step K4). Without `--apply` it only prints a count.
-Their addresses are `<username>@team.fandomverse.org`, a sub-domain that receives no mail (ENV.md 1.7).
+The Team accounts need their auth users before L02: `node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref <ref> --team-email-domain bunnyverse.org --apply`
+with `--team-email-domain bunnyverse.org`, `SUPABASE_URL` set and `SUPABASE_SERVICE_ROLE_KEY` read with `read -rs` in your shell (RUNBOOK step K4). Without `--apply` it only prints a count.
+Their addresses are `<username>@team.bunnyverse.org`, a sub-domain that receives no mail (ENV.md 1.7).
 
 ## 5. Rehearsal (2026-10-23, o1-scratch, DRAFTS files)
 
-Repeat it (RUNBOOK J3) on the files you will apply, once lane 2's FandomVerse changes are in them, after the reset below. What was proven on 2026-10-23 is at the end of this section.
+Repeat it (RUNBOOK J3) on the files you will apply, once lane 2's Bunnyverse changes are in them, after the reset below. What was proven on 2026-10-23 is at the end of this section.
 
 ### Reset before the replay (the dev branches hold the OLD L01 rows)
 
@@ -154,7 +154,7 @@ the Team auth users of the old addresses `<username>@team.otakuquiz.org` (made b
 scripts/o1/env.sh scratch -- bash -c '"$0" "$O1_DB_URL" -X -At -c "select id, domain, brand, status from public.sites order by sort"' /opt/homebrew/opt/postgresql@18/bin/psql
 ```
 
-   Old rows (`otakuquiz.org`, `fanquiz.org`): go on. Rows already on `fandomverse.org/anime` and `fandomverse.org`: skip to step 3 (the old Team users may still be there).
+   Old rows (`otakuquiz.org`, `fanquiz.org`): go on. Rows already on `bunnyverse.org/anime` and `bunnyverse.org`: skip to step 3 (the old Team users may still be there).
 
 2. The launch rollbacks in reverse order, L01's last (it refuses while any row of another table points at anime or hub). One call, serial, logged in
    `docs/o1/migration-log.md`; it stops at the first file that refuses:
@@ -168,7 +168,7 @@ scripts/o1/migrate-dev.sh --branch scratch docs/pending-migrations/multisite/lau
    rows on the new values instead, in the Supabase dashboard, the branch `o1-scratch`, SQL Editor (one statement; it touches these two rows only):
 
 ```
-update public.sites set domain = case id when 'anime' then 'fandomverse.org/anime' else 'fandomverse.org' end, brand = case id when 'anime' then 'OtakuQuiz' else 'FandomVerse' end where (id, domain) in (('anime', 'otakuquiz.org'), ('hub', 'fanquiz.org'));
+update public.sites set domain = case id when 'anime' then 'bunnyverse.org/anime' else 'bunnyverse.org' end, brand = case id when 'anime' then 'OtakuQuiz' else 'Bunnyverse' end where (id, domain) in (('anime', 'otakuquiz.org'), ('hub', 'fanquiz.org'));
 ```
 
    An earlier rollback refused (a played quiz, a Team account with quizzes): stop the reset, delete nothing by hand, and give the message to the integrator.
@@ -182,11 +182,11 @@ delete from auth.users where email like '%@team.otakuquiz.org';
 4. The Team auth users on the new domain, as K4 does in production (section 4): a dry run that prints a count, then the run that creates them (no email sent):
 
 ```
-scripts/o1/env.sh scratch -- bash -c 'SUPABASE_URL="$NEXT_PUBLIC_SUPABASE_URL" node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref "$O1_BRANCH_REF" --team-email-domain fandomverse.org'
+scripts/o1/env.sh scratch -- bash -c 'SUPABASE_URL="$NEXT_PUBLIC_SUPABASE_URL" node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref "$O1_BRANCH_REF" --team-email-domain bunnyverse.org'
 ```
 
 ```
-scripts/o1/env.sh scratch -- bash -c 'SUPABASE_URL="$NEXT_PUBLIC_SUPABASE_URL" node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref "$O1_BRANCH_REF" --team-email-domain fandomverse.org --apply'
+scripts/o1/env.sh scratch -- bash -c 'SUPABASE_URL="$NEXT_PUBLIC_SUPABASE_URL" node apps/quiz/e2e/o1/L1/team-auth.mjs --project-ref "$O1_BRANCH_REF" --team-email-domain bunnyverse.org --apply'
 ```
 
    It prints `31 created, 0 already there, 0 failed` (a second run: `0 created, 31 already there`).

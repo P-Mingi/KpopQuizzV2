@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { COPY } from '@/copy/hub/h1';
 
-// Lot H2a: the new FandomVerse home of the hub build (docs/o1/design/fanquiz-hub/), block by block. Supabase is a fake; no network, no write.
+// Lot H2a: the new Bunnyverse home of the hub build (docs/o1/design/fanquiz-hub/), block by block. Supabase is a fake; no network, no write.
 // Lot H2c: the blocks read the modules of lib/site/hub/data/ (lot H2b), which are replaced here by the design's sample data in their own
 // shapes (lib/site/hub/home-samples.test-support.ts, tests only); a test sets a block to null to see it leave the page.
 // The registry reads the site of the build when it loads, so each test loads the modules after setting NEXT_PUBLIC_SITE_ID.
@@ -112,12 +112,12 @@ describe('the top bar', () => {
     const nav = block(html, '<header class="hub-h2-head"', 'header');
     expect(nav).toContain(`<nav aria-label="${COPY['hp.nav.main']}"`);
     expect(nav).toContain('src="/_next/image?url=%2Fmascot%2Fmascot-default.png');
-    expect(nav).toContain('>FandomVerse</span>');
+    expect(nav).toContain('>Bunnyverse</span>');
     expect(nav).not.toMatch(/>F</);
     for (const [href, label] of [['#today', 'Today'], ['#hot', 'Hot now'], ['#top', 'Top fans']] as const) expect(nav).toMatch(new RegExp(`<a href="${href}"[^>]*>${label}</a>`));
     expect(nav).toContain('href="https://kpopquiz.org/"');
-    // FandomVerse (lane 1): the OtakuQuiz home is https://fandomverse.org/anime, without a trailing slash.
-    expect(nav).toContain('href="https://fandomverse.org/anime"');
+    // Bunnyverse (lane 1): the OtakuQuiz home is https://bunnyverse.org/anime, without a trailing slash.
+    expect(nav).toContain('href="https://bunnyverse.org/anime"');
     // the search button is a link to the search page of KpopQuiz (the filter of Hot now is All), no longer a button without action
     expect(nav).toMatch(/<a href="https:\/\/kpopquiz\.org\/search" aria-label="Search both sites" class="hub-h2-iconbtn hub-h2-btn">/);
     expect(nav).toMatch(/<button[^>]*aria-haspopup="dialog"[^>]*>Sign in<\/button>/);
@@ -161,7 +161,7 @@ describe('the hero', () => {
     for (const id of ['kpop', 'anime'] as const) {
       const s = registry.REGISTRY[id];
       expect(html).toContain(`<h2 class="hub-h2-name">${s.brand.name}</h2>`);
-      // FandomVerse (lane 1): the OtakuQuiz home has no trailing slash (https://fandomverse.org/anime).
+      // Bunnyverse (lane 1): the OtakuQuiz home has no trailing slash (https://bunnyverse.org/anime).
       expect(html).toContain(`href="${id === 'anime' ? s.url : `${s.url}/`}" class="hub-h2-enter hub-h2-btn"`);
     }
     expect(html).not.toMatch(/hub-h2-tile"[^>]*>(K|O)</);
@@ -190,7 +190,7 @@ describe('Today', () => {
     expect(today).toContain('Journey&#x27;s Beginning: Frieren Basics');
     // the real slug of each bank, entering the daily run (?daily=quiz), never the /daily redirect
     expect(today).toContain('href="https://kpopquiz.org/q/zerobaseone-from-boys-planet-to-in-bloom?daily=quiz"');
-    expect(today).toContain('href="https://fandomverse.org/anime/q/journeys-beginning-frieren-basics?daily=quiz"');
+    expect(today).toContain('href="https://bunnyverse.org/anime/q/journeys-beginning-frieren-basics?daily=quiz"');
     expect(today).toContain('Blindtest of the day');
     // the real size of the set (10 songs), not the design's 5
     expect(today).toContain('10 songs, 10 seconds each');
@@ -229,7 +229,7 @@ describe('60 seconds', () => {
     expect(quick).toContain('>More K-pop trivia</a>');
     expect(quick).toContain('>More anime trivia</a>');
     expect(quick).toContain('href="https://kpopquiz.org/trivia"');
-    expect(quick).toContain('href="https://fandomverse.org/anime/trivia"');
+    expect(quick).toContain('href="https://bunnyverse.org/anime/trivia"');
   });
 });
 
@@ -240,8 +240,8 @@ describe('Hot right now', () => {
     const ol = block(hot, '<ol class="hub-h2-hot-list"', 'ol');
     const hrefs = [...ol.matchAll(/<a href="([^"]+)" class="hub-h2-hcard/g)].map((m) => m[1]!);
     expect(hrefs).toHaveLength(6);
-    // OtakuQuiz lives in the folder /anime of fandomverse.org (2026-10-28): the site of a link is its registry url, folder included.
-    const siteOf = (h: string): string => (h.startsWith('https://kpopquiz.org/') ? 'kpop' : h.startsWith('https://fandomverse.org/anime/') ? 'anime' : h);
+    // OtakuQuiz lives in the folder /anime of bunnyverse.org (2026-10-28): the site of a link is its registry url, folder included.
+    const siteOf = (h: string): string => (h.startsWith('https://kpopquiz.org/') ? 'kpop' : h.startsWith('https://bunnyverse.org/anime/') ? 'anime' : h);
     expect(hrefs.map(siteOf)).toEqual(['kpop', 'anime', 'kpop', 'anime', 'kpop', 'anime']);
     expect(hot).toContain('Ultimate BTS era quiz - only real ARMYs survive');
     expect(hot).toContain('Name and Face: Death Note True or False');
@@ -281,7 +281,7 @@ describe('For you and Start easy', () => {
     expect(html).toContain('For you, mingi');
     expect(html).toContain('Next for a Stray Kids fan · KpopQuiz');
     expect(html).toContain('Stray Kids fans also play · OtakuQuiz');
-    expect(html).toContain('href="https://fandomverse.org/anime/q/first-steps-into-jujutsu-kaisen"');
+    expect(html).toContain('href="https://bunnyverse.org/anime/q/first-steps-into-jujutsu-kaisen"');
     // no Continue card is invented: the run in progress lives in the browser of each site
     expect(html).not.toContain('Continue ·');
     expect(count(html, /hub-h2-fcard-bridge/g)).toBe(1);
@@ -310,7 +310,7 @@ describe('Crossover', () => {
     expect(cross).toContain('IVE sang Will, the opening theme of Pok');
     expect(cross).toContain('href="https://kpopquiz.org/kpop-demon-hunters-quiz"');
     expect(cross).toContain('Six questions · The animated film and its songs');
-    expect(cross).toContain('href="https://fandomverse.org/anime/q/one-opening-many-endings-chainsaw-man-theme-songs"');
+    expect(cross).toContain('href="https://bunnyverse.org/anime/q/one-opening-many-endings-chainsaw-man-theme-songs"');
   });
 });
 
@@ -376,7 +376,7 @@ describe('the footer', () => {
     const foot = block(html, '<footer class="hub-h2-foot"', 'footer');
     expect(foot).toContain('The home of one account shared by KpopQuiz and OtakuQuiz. Fan-made quizzes, every fact sourced.');
     expect(foot).toContain('href="https://kpopquiz.org/"');
-    expect(foot).toContain('href="https://fandomverse.org/anime"');
+    expect(foot).toContain('href="https://bunnyverse.org/anime"');
     expect(foot).toContain('href="/privacy"');
     expect(foot).toContain('href="/legal"');
     expect(foot).toContain('>hello@kpopquiz.org</span>');
@@ -385,7 +385,7 @@ describe('the footer', () => {
 });
 
 describe('every link is the canonical page of its own site', () => {
-  it('has no link to a quiz path on the hub, and every quiz link is on kpopquiz.org or fandomverse.org/anime', async () => {
+  it('has no link to a quiz path on the hub, and every quiz link is on kpopquiz.org or bunnyverse.org/anime', async () => {
     const html = await renderHome();
     const { registry } = await load();
     const hrefs = [...html.matchAll(/ href="([^"]+)"/g)].map((m) => m[1]!);
@@ -396,7 +396,7 @@ describe('every link is the canonical page of its own site', () => {
       const onSite = h === registry.REGISTRY.anime.url || [registry.REGISTRY.kpop.url, registry.REGISTRY.anime.url].some((base) => h.startsWith(`${base}/`));
       expect(onSite, h).toBe(true);
     }
-    // The hub and OtakuQuiz share fandomverse.org: a link to the hub is one on fandomverse.org outside the /anime folder.
+    // The hub and OtakuQuiz share bunnyverse.org: a link to the hub is one on bunnyverse.org outside the /anime folder.
     expect(hrefs.filter((h) => h.startsWith(registry.REGISTRY.hub.url) && h !== registry.REGISTRY.anime.url && !h.startsWith(`${registry.REGISTRY.anime.url}/`))).toEqual([]);
   });
 
@@ -404,7 +404,7 @@ describe('every link is the canonical page of its own site', () => {
     vi.stubEnv('NEXT_PUBLIC_NET_ORIGINS', 'kpop=http://kpop.localhost:3000,anime=http://anime.localhost:3001');
     const html = await renderHome();
     expect(html).toContain('href="http://kpop.localhost:3000/q/zerobaseone-from-boys-planet-to-in-bloom?daily=quiz"');
-    // FandomVerse (lane 1): a dev origin stays bare and the anime base path /anime comes from the registry.
+    // Bunnyverse (lane 1): a dev origin stays bare and the anime base path /anime comes from the registry.
     expect(html).toContain('href="http://anime.localhost:3001/anime/q/journeys-beginning-frieren-basics?daily=quiz"');
     expect(html).toContain('href="http://kpop.localhost:3000/search"');
     vi.unstubAllEnvs();
@@ -418,7 +418,7 @@ describe('the structured data', () => {
 
   it('carries the WebSite of the hub, without a search action', async () => {
     const [site] = blocks(await renderHome());
-    expect(site).toMatchObject({ '@type': 'WebSite', name: 'FandomVerse', url: 'https://fandomverse.org' });
+    expect(site).toMatchObject({ '@type': 'WebSite', name: 'Bunnyverse', url: 'https://bunnyverse.org' });
     expect(site).not.toHaveProperty('potentialAction');
   });
 
@@ -428,8 +428,8 @@ describe('the structured data', () => {
     const items = list.itemListElement as { position: number; name: string; url: string }[];
     expect(items.map((i) => i.position)).toEqual([1, 2, 3, 4, 5, 6]);
     expect(items[0]).toMatchObject({ name: 'Ultimate BTS era quiz - only real ARMYs survive', url: 'https://kpopquiz.org/q/ultimate-bts-era-quiz' });
-    expect(items[1]!.url).toMatch(/^https:\/\/fandomverse\.org\/anime\/q\//);
-    expect(items.some((i) => i.url.startsWith('https://fandomverse.org') && !i.url.startsWith('https://fandomverse.org/anime/'))).toBe(false);
+    expect(items[1]!.url).toMatch(/^https:\/\/bunnyverse\.org\/anime\/q\//);
+    expect(items.some((i) => i.url.startsWith('https://bunnyverse.org') && !i.url.startsWith('https://bunnyverse.org/anime/'))).toBe(false);
   });
 });
 
@@ -600,11 +600,11 @@ describe('the metadata', () => {
     expect(m.robots).toEqual({ index: true, follow: true });
     expect(m.alternates?.canonical).toBe(`${registry.NETWORK.url}/`);
     const title = (m.title as { absolute: string }).absolute;
-    expect(title).toBe('FandomVerse: K-pop and anime quizzes, one account');
+    expect(title).toBe('Bunnyverse: K-pop and anime quizzes, one account');
     expect(title.length).toBeLessThanOrEqual(60);
     expect(String(m.description).length).toBeGreaterThanOrEqual(120);
     expect(String(m.description).length).toBeLessThanOrEqual(160);
-    expect(m.openGraph).toMatchObject({ url: `${registry.NETWORK.url}/`, title, siteName: 'FandomVerse' });
+    expect(m.openGraph).toMatchObject({ url: `${registry.NETWORK.url}/`, title, siteName: 'Bunnyverse' });
     expect(JSON.stringify(m)).not.toMatch(DASHES);
   });
 });

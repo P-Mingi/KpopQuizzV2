@@ -10,15 +10,15 @@
 //    profile (onboarding on anime, the home on the hub), banned (sign out, /login), else the stamp and `next`. Any failure
 //    goes to /login.
 //
-//  - handleOAuthStart (FandomVerse, owner 2026-10-28): GET /auth/start?provider&returnTo&via of anime and hub. Asks Supabase
+//  - handleOAuthStart (Bunnyverse, owner 2026-10-28): GET /auth/start?provider&returnTo&via of anime and hub. Asks Supabase
 //    (server side, PKCE verifier in the session cookies) for the Google or Discord URL with the EXACT callback of the build as
 //    redirectTo, keeps returnTo, via and the provider in the HttpOnly cookie of lib/auth/oauth-return.ts, and redirects.
-//  - handleWorldCallback (FandomVerse): GET /auth/callback of anime and hub, where Google and Discord come back. The code is
+//  - handleWorldCallback (Bunnyverse): GET /auth/callback of anime and hub, where Google and Discord come back. The code is
 //    exchanged, a session that no OAuth provider opened (an email link someone requested by hand) is closed again, then the
 //    branches of handleConfirm and the membership stamp with the via of the cookie. The callback reads no query but `code`:
 //    Supabase's Redirect URLs list it exactly, with no wildcard (security review, 2026-10-28).
 //
-// FandomVerse paths: hub is https://fandomverse.org, anime https://fandomverse.org/anime (basePath '/anime', same origin).
+// Bunnyverse paths: hub is https://bunnyverse.org, anime https://bunnyverse.org/anime (basePath '/anime', same origin).
 // Every `next` here is an app path (lib/auth/site-base.ts); a Location header carries it with the basePath of the build, so
 // a redirect of the anime build never lands on a page of the hub. The Origin check compares origins (the anime base has a path).
 //
@@ -197,7 +197,7 @@ function isConfirmType(v: string | null): v is ConfirmType {
 export async function handleConfirm(request: NextRequest, ctx: SigninCtx = {}): Promise<NextResponse> {
   const site = ctx.site ?? SITE_ID;
   if (site === 'kpop') return notFound();
-  // FandomVerse (owner, 2026-10-28): no email sign-in on the hub and anime. Off (404, like kpop, before it reads anything)
+  // Bunnyverse (owner, 2026-10-28): no email sign-in on the hub and anime. Off (404, like kpop, before it reads anything)
   // unless confirmLive: a development server, or a preview that opts in for the O1 fixture tool (scripts/o1-tools/
   // signin-link.sh mints its links with the admin API of o1-dev, no email is sent).
   const env = ctx.env ?? (process.env as SigninEnv);
@@ -241,7 +241,7 @@ function noProfilePath(site: SiteId, next: string): string {
 }
 
 // ---------------------------------------------------------------------------------------------------------------
-// FandomVerse: GET /auth/callback of anime and hub (Google and Discord through Supabase's OAuth redirect)
+// Bunnyverse: GET /auth/callback of anime and hub (Google and Discord through Supabase's OAuth redirect)
 // ---------------------------------------------------------------------------------------------------------------
 
 /**

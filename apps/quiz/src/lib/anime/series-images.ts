@@ -8,7 +8,7 @@ import { creditLine, LICENSE_PATTERN, licenseRequiresAttribution } from './serie
 
 import type { SeriesImage, SeriesPhoto } from './series-images-rules';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 export type { SeriesImage, SeriesImageAttribution, SeriesImageCredit, SeriesPhoto } from './series-images-rules';
@@ -22,7 +22,7 @@ export function seriesImageOf(slug: string | null | undefined, map: Readonly<Rec
   if (!slug || !Object.prototype.hasOwnProperty.call(map, slug)) return null;
   const e = map[slug];
   if (!e || e.fallback || !e.file || !e.alt) return null;
-  // FandomVerse: the browser asks for the bundled file under the build's base path (/anime/series/<slug>.webp on the anime build).
+  // Bunnyverse: the browser asks for the bundled file under the build's base path (/anime/series/<slug>.webp on the anime build).
   return { file: BASE_PATH ? BASE_PATH + e.file : e.file, alt: e.alt, attribution: e.attribution };
 }
 

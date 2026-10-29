@@ -3,7 +3,7 @@
 // on anime). The cases are written now and skip, saying why, until their three conditions hold:
 //   - a dev branch with the fixture rows (O1_ENV=dev or scratch from scripts/o1/env.sh; owner gate G1),
 //   - B2's SITE_SCOPE on in the server under test (O1_SITE_SCOPE=1, set by gate-checks.sh when it starts it so),
-//   - a positive control: the fixture series are visible on fandomverse.org/anime itself, so an absence on kpop means scope,
+//   - a positive control: the fixture series are visible on bunnyverse.org/anime itself, so an absence on kpop means scope,
 //     not missing data.
 // Fixture strings: the series fixtures of BACKLOG 5.1 (Death Note, One Piece, Spy x Family) and, on the mirror, the
 // K-pop groups of the fixture users (BTS, BLACKPINK, TWICE: bias and groups of the kpop-heavy fixture).
@@ -52,7 +52,7 @@ async function positiveControl(): Promise<string | null> {
   if (anime.state !== 'live') return `positive control needs the anime server: ${anime.reason}`;
   const r = await get('anime', '/series');
   const seen = ANIME_FIXTURES.filter((s) => r.body.includes(s));
-  return seen.length ? null : 'positive control: no fixture series visible on fandomverse.org/anime /series (fixture rows missing on the branch)';
+  return seen.length ? null : 'positive control: no fixture series visible on bunnyverse.org/anime /series (fixture rows missing on the branch)';
 }
 
 test('content leak: no anime fixture row on kpop lists, sitemap, search and llms.txt', async () => {
@@ -93,7 +93,7 @@ test('content leak mirror: no kpop row on anime lists, sitemap, search and llms.
     const r = await get('anime', p);
     for (const h of searchHits(r.body, r.url, s)) found.push(`${p} result ${h}`);
   }
-  expect(found, 'kpop rows on fandomverse.org/anime').toEqual([]);
+  expect(found, 'kpop rows on bunnyverse.org/anime').toEqual([]);
 });
 
 for (const surface of ['bell (/notifications)', 'badge shelf (/me)', 'passport stats (/me)', 'activity (/u/<fixture>)']) {

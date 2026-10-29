@@ -34,7 +34,7 @@ const bySlug = (slug: string): DataFile => all.find((f) => f.group.slug === slug
 
 const MANHWA = ['omniscient-readers-viewpoint', 'solo-leveling', 'tower-of-god'];
 const WITH_ANIME = ['solo-leveling', 'tower-of-god'];
-const SITE = { origin: 'https://fandomverse.org/anime', brand: 'OtakuQuiz' };
+const SITE = { origin: 'https://bunnyverse.org/anime', brand: 'OtakuQuiz' };
 
 describe('the label is derived from series.type', () => {
   it('reads the data files of every series, the three webtoons among them', () => {

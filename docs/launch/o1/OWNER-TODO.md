@@ -1,4 +1,4 @@
-# Lancement de FandomVerse : où on en est (2026-10-28)
+# Lancement de Bunnyverse : où on en est (2026-10-28, nom Bunnyverse le 2026-10-29)
 
 Une page d'état. Les actions, dans l'ordre, avec qui fait quoi, la durée et les lignes à copier : `OWNER-NOW.md`.
 Le détail de chaque étape (en anglais) : `RUNBOOK.md`. Le retour arrière : `ROLLBACK.md`.
@@ -16,18 +16,19 @@ Le détail de chaque étape (en anglais) : `RUNBOOK.md`. Le retour arrière : `R
 - Vercel, par l'intégrateur le 2026-10-28 (exception CLI) : `fanquiz` renommé `fandomverse`, variables de production de `fandomverse` et `otakuquiz`, les trois secrets passport identiques sur les trois projets, `CRON_SECRET`, le groupe Microfrontends `fandomverse`. Aucun domaine attaché. Builds des deux nouveaux projets en pause (`exit 0`) jusqu'au jour J.
 - `apps/quiz/vercel.json` liste `passport-deletions` et `passport-cleanup` (18 crons).
 - kpopquiz.org : mentions légales et `privacy/age-15` fusionnées (#122, #123), identité légale remplie (D-114). Images par série faites (D-122).
-- Google : aucune origine JavaScript, aucun client nouveau. Discord : rien. Resend et le hook d'e-mail : reportés (D-115) ; fandomverse.org n'a pas de connexion par e-mail.
+- Google : aucune origine JavaScript, aucun client nouveau. Discord : rien. Resend et le hook d'e-mail : reportés (D-115) ; bunnyverse.org n'a pas de connexion par e-mail.
 
 ## Ce qui est décidé
 
 Le 2026-10-28 :
-1. « FanQuiz » devient « FandomVerse ». Un seul domaine, `fandomverse.org` : le hub à `/`, OtakuQuiz à `/anime`, plus tard `/kdrama` et `/cpop`. kpopquiz.org reste à part et ne change pas.
-2. Connexion sur fandomverse.org : Google (le client de kpopquiz.org) et Discord, pas d'e-mail. Le hub et `/anime` partagent la session. Entre kpopquiz.org et fandomverse.org, le ticket passport reste.
-3. Logos : le lapin et « FandomVerse », le lapin et « OtakuQuiz ».
+1. « FanQuiz » devient « FandomVerse » le 2026-10-28, puis « Bunnyverse » le 2026-10-29 (fandomverse.net et .com sont pris ; pas de .com pour Bunnyverse). Un seul domaine, `bunnyverse.org` : le hub à `/`, OtakuQuiz à `/anime`, plus tard `/kdrama` et `/cpop`. kpopquiz.org reste à part et ne change pas.
+2. Connexion sur bunnyverse.org : Google (le client de kpopquiz.org) et Discord, pas d'e-mail. Le hub et `/anime` partagent la session. Entre kpopquiz.org et bunnyverse.org, le ticket passport reste.
+3. Logos : le lapin et « Bunnyverse », le lapin et « OtakuQuiz ».
 4. Pas de calendrier : on lance dès que tout est prêt. Veilles de 24 h après B, 008 et 010. Une sauvegarde avant chaque session SQL.
 5. Vercel par l'intégrateur en CLI (exception). Moi : la clé `service_role` en variable partagée.
-6. Comptes Team : `<username>@team.fandomverse.org`, un sous-domaine qui ne reçoit aucun courrier.
+6. Comptes Team : `<username>@team.bunnyverse.org`, un sous-domaine qui ne reçoit aucun courrier.
 7. Mes pages en français et allégées : je garde seulement ce que moi seul peux faire ; toutes les vérifications passent à Claude ou à un worker ; moins de 5 h pour moi.
+7 bis. Le 2026-10-29, le renommage ne touche que ce que le public voit (noms, domaine, logo, image de partage, e-mails, pages légales). Le projet Vercel `fandomverse`, le groupe Microfrontends `fandomverse`, le cookie `__Host-fv_oauth` et les autres noms internes restent.
 
 Toujours valables (D-099, D-124) :
 8. `L10-PERS-personality.sql` part au lancement, entre L08 et L12.
@@ -42,5 +43,5 @@ Abandonné le 2026-10-28 : le calendrier daté (lancement au 1er décembre), les
 - Quand commencer la session B (pas de calendrier).
 - Les « go » déjà placés dans `OWNER-NOW.md` : la fusion (étape 6), le go / no-go (étape 36), l'annonce (étape 55), la fin à +72 h (étape 63).
 - Au jour J, si V10 trouve un reste K-pop déjà connu sur `/anime` (`docs/o1/RAPPORT-FINAL.md`, section 5) : corriger d'abord, ou accepter et dater.
-- Si les crons d'OtakuQuiz n'arrivent pas après le jour J (`ARCHITECTURE-FANDOMVERSE.md`, section 7) : ajouter des entrées `/anime/api/cron/...` dans `vercel.json`, ce qui touche la liste des crons de kpopquiz.org.
+- Si les crons d'OtakuQuiz n'arrivent pas après le jour J (`ARCHITECTURE-BUNNYVERSE.md`, section 7) : ajouter des entrées `/anime/api/cron/...` dans `vercel.json`, ce qui touche la liste des crons de kpopquiz.org.
 - Plus tard, hors lancement : brancher Resend et le hook d'e-mail (RUNBOOK I) ; supprimer les branches Supabase `o1-dev` et `o1-scratch` une fois le lancement stable (D-113).
