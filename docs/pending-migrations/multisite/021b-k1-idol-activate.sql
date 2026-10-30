@@ -2,8 +2,8 @@
 --
 -- What:   activates exactly the idols the owner lists below, as (id, 'QID') pairs copied from the rows marked "oui" of
 --         K1-RELECTURE.md: active true, needs_review false, review_reason null (what the admin "confirm" action does).
---         The whole file is refused, with nothing changed, when:
---         - the list is empty (the placeholder is all there is);
+--         An empty list (the placeholder only) activates nobody and passes, so session G can run the file before the owner's
+--         decision. The whole file is refused, with nothing changed, when:
 --         - a listed id does not exist, carries another QID, is detached, or is an inactive row that is not waiting for review;
 --         - a listed idol is under 18 or has no birth date (a minor is never active, whatever the review says).
 --         A listed idol that is already active and reviewed is left as it is (a second run changes nothing).
@@ -40,7 +40,8 @@ declare
   bad text;
 begin
   if not exists (select 1 from k1_activate) then
-    raise exception '021b-k1-idol-activate: the id list is empty. Fill it from K1-RELECTURE.md (rows marked oui) and run again';
+    -- An empty list is the owner's choice "nobody yet" (session G runs this file in order): nothing is activated.
+    raise notice '021b-k1-idol-activate: the id list is empty, no idol is activated (fill it from K1-RELECTURE.md, rows marked oui, then run it again)';
   end if;
   select string_agg(a.id::text, ', ' order by a.id) into bad from k1_activate a where not exists (select 1 from public.idols i where i.id = a.id);
   if bad is not null then

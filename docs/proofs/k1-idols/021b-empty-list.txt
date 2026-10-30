@@ -1,0 +1,7 @@
+Lot K1, 021b with its id list empty (2026-10-30, throwaway local Postgres 18, the 204-idol snapshot with synthetic birth dates).
+Change: an empty list no longer refuses the file; it activates nobody and passes, so session G can run 021b before the owner's decision.
+
+021a exit 0
+NOTICE:  021b-k1-idol-activate: the id list is empty, no idol is activated (fill it from K1-RELECTURE.md, rows marked oui, then run it again)
+NOTICE:  021b-k1-idol-activate: 0 listed idol(s) are active
+021b exit 0 active before=116 after=116
