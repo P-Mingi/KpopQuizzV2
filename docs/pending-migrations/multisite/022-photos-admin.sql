@@ -4,11 +4,14 @@
 --         - public.entity_images (018) opens to the kinds idol, group and agency (site kpop, slug = the id of the idol, the group or
 --           the agency), beside series and character (unchanged, site anime). It reuses the two columns of 019, license_verified (the
 --           admin's "licence verifiee" box) and thumb_path (the 96 px WebP made at upload); no parallel column is added. A verified
---           row must have its 96 px file. A trigger keeps it fail closed: a new file (path changes) that comes without a new 96 px
---           file loses its check (license_verified false, thumb_path null), so the upload route of 018, which knows neither column,
---           can never leave an old check on a new picture. The select policy of 018 is narrowed to its own kinds: the browser roles read
---           a picture of an idol, a group or an agency only through the view below, once verified;
---         - the view entity_images_public: the verified rows only, their display columns, the 96 px file and the name of the entity
+--           row must have its 96 px file, and a picture of an idol, a group or an agency names an https source page. Two triggers keep
+--           the check fail closed: any update that changes the file (path or thumb_path), the licence (license, license_note) or the
+--           credit (author, source_url) leaves the row unverified unless the same statement sets license_verified to true itself (the
+--           Photos tab does), and a new file that comes without a new 96 px file also drops the old 96 px file; so the upload route of
+--           018, which knows neither column, can never leave an old check on a new picture or a new credit. The select policy of 018 is
+--           narrowed to its own kinds: the browser roles read a picture of an idol, a group or an agency only through the view below,
+--           once verified;
+--         - the view entity_images_public: the verified rows with an https source page only, their display columns, the 96 px file and the name of the entity
 --           (idol, group, agency, series; a character's name is read by the app, which hides the characters under a spoiler). The
 --           only way a browser role reads a verified picture; /credits reads it;
 --         - public.agencies: one row per agency (name, mother company for "same mother company", official site, sources), filled
@@ -17,18 +20,21 @@
 --         - public.site_assets: the banners, card images, icons and stickers of the pages of Bunnyverse (key, type, page, settings,
 --           the WebP files at 1920, 400 and 96 px, credit, licence, the "licence verifiee" box, published_at for "publish now" or
 --           "at a date", retired_at). Every row is a version: the live one of a key is the latest published one; older ones stay as
---           the history. RLS on with no policy: only the service role writes;
+--           the history. An icon or a sticker is an illustration of our own or one used with written permission (own_photo or
+--           licensed: never a Creative Commons picture, which /credits would not list). RLS on with no policy: only the service role
+--           writes; the identity sequences of both tables are closed to the browser roles too;
 --         - the view site_assets_public: per key, the latest version published at or before now(), never a retired one. A row with
 --           a picture can only be published with its licence verified (a check), so the view never shows an unlicensed picture.
 -- Why:    v2 section 7: only licensed pictures, with their credit on /credits; the owner sets them in the admin of bunnyverse.org/anime
 --         (Photos tab). The thumbnails are made in the admin's browser (canvas, WebP), stored in the bucket entity-images of 018;
 --         no Vercel image optimisation.
--- Rows:   2 tables, 2 views, 2 trigger functions, 1 check function, 3 triggers, 1 policy replaced (018's select policy, narrowed); up to 17 public.agencies rows (the cited labels, by
+-- Rows:   2 tables, 2 views, 3 trigger functions, 1 check function, 4 triggers, 1 policy replaced (018's select policy, narrowed); up to 17 public.agencies rows (the cited labels, by
 --         name). No entity_images or site_assets row.
 -- Needs:  001 (sites), 002a (groups.site_id), 018 (entity_images), 019 (its columns license_verified and thumb_path). Supabase's auth.users.
 -- Verify: select relname, relrowsecurity from pg_class where oid in ('public.agencies'::regclass, 'public.site_assets'::regclass) order by 1;   expect agencies t, site_assets t
 --         select count(*) from pg_policies where schemaname = 'public' and tablename in ('agencies', 'site_assets');   expect 0
 --         select has_table_privilege('anon', 'public.site_assets', 'select'), has_table_privilege('authenticated', 'public.site_assets', 'insert'), has_table_privilege('anon', 'public.agencies', 'select'), has_table_privilege('anon', 'public.site_assets_public', 'select'), has_table_privilege('anon', 'public.entity_images_public', 'select'), has_table_privilege('anon', 'public.site_assets_public', 'insert');   expect f, f, f, t, t, f
+--         select has_sequence_privilege('anon', 'public.site_assets_id_seq', 'usage'), has_sequence_privilege('authenticated', 'public.agencies_id_seq', 'usage');   expect f, f
 --         select pg_get_constraintdef(oid) from pg_constraint where conname = 'entity_images_kind_check';   expect the five kinds
 --         select count(*) from public.agencies;   expect 17 (the distinct record labels of the kpop groups)
 -- Undo:   022-photos-admin.rollback.sql (refused while an idol, group or agency picture, a site_assets row, or an agency the owner
@@ -82,19 +88,51 @@ alter table public.entity_images add constraint entity_images_verified_thumb_che
 drop policy if exists entity_images_select_display on public.entity_images;
 create policy entity_images_select_display on public.entity_images for select to anon, authenticated using (kind in ('series', 'character'));
 
-create or replace function public.entity_images_licence_reset() returns trigger
+-- A picture of an idol, a group or an agency names an https source page (the credit links it; the dle view of 020 shows its 96 px file
+-- with the credit on /credits only). 018's check, which allows http for its own kinds, is left as it is.
+alter table public.entity_images drop constraint if exists entity_images_kpop_source_check;
+alter table public.entity_images add constraint entity_images_kpop_source_check
+  check (kind in ('series', 'character') or source_url ~ '^https://');
+
+-- The check of a picture belongs to its file and its credit. An update that changes the file (path or thumb_path), the licence (license,
+-- license_note) or the credit (author, source_url) leaves the row unverified, unless the same statement sets license_verified to true
+-- itself. A BEFORE trigger cannot see the SET list, but a trigger declared UPDATE OF license_verified fires exactly when the statement
+-- names that column: trg_entity_images_licence_listed (BEFORE triggers of a row run in name order, so before the reset) marks the row
+-- for this transaction, and trg_entity_images_licence_reset reads and clears the mark. A new file that comes without a new 96 px file
+-- always loses its check and the old 96 px file (it shows the old picture), whatever the statement says.
+create or replace function public.entity_images_licence_listed() returns trigger
 language plpgsql
 set search_path = public
 as $$
 begin
+  perform set_config('entity_images.licence_listed', new.id::text, true);
+  return new;
+end $$;
+revoke all on function public.entity_images_licence_listed() from public, anon, authenticated;
+
+create or replace function public.entity_images_licence_reset() returns trigger
+language plpgsql
+set search_path = public
+as $$
+declare
+  listed boolean := coalesce(current_setting('entity_images.licence_listed', true), '') = new.id::text;
+begin
+  perform set_config('entity_images.licence_listed', '', true);
   if new.path is distinct from old.path and new.thumb_path is not distinct from old.thumb_path then
     new.thumb_path := null;
+    new.license_verified := false;
+  elsif (new.path, new.thumb_path, new.license, new.license_note, new.author, new.source_url)
+      is distinct from (old.path, old.thumb_path, old.license, old.license_note, old.author, old.source_url)
+    and not (listed and new.license_verified) then
     new.license_verified := false;
   end if;
   return new;
 end $$;
 revoke all on function public.entity_images_licence_reset() from public, anon, authenticated;
 
+drop trigger if exists trg_entity_images_licence_listed on public.entity_images;
+create trigger trg_entity_images_licence_listed before update of license_verified on public.entity_images
+  for each row execute function public.entity_images_licence_listed();
 drop trigger if exists trg_entity_images_licence_reset on public.entity_images;
 create trigger trg_entity_images_licence_reset before update on public.entity_images
   for each row execute function public.entity_images_licence_reset();
@@ -140,6 +178,8 @@ create trigger trg_agencies_touch before update on public.agencies
 alter table public.agencies enable row level security;
 revoke all on table public.agencies from public, anon, authenticated;
 grant all on table public.agencies to service_role;
+-- Supabase's default privileges grant the identity sequence to anon and authenticated too: closed like the table.
+revoke all on sequence public.agencies_id_seq from public, anon, authenticated;
 
 -- The labels the kpop groups cite today, by name only (the dle view of 020 reads groups.record_label; "near" needs parent_id).
 -- A label whose slug is already taken by another name is skipped (on conflict) and named in a notice.
@@ -211,9 +251,16 @@ drop trigger if exists trg_site_assets_touch on public.site_assets;
 create trigger trg_site_assets_touch before update on public.site_assets
   for each row execute function public.photos_touch();
 
+-- An icon or a sticker is our own illustration (the board's one checkbox) or used with written permission: never a Creative Commons
+-- picture, which /credits does not list (it lists the banners and card images).
+alter table public.site_assets drop constraint if exists site_assets_small_license_check;
+alter table public.site_assets add constraint site_assets_small_license_check
+  check (type in ('banner', 'card_image') or license is null or license in ('own_photo', 'licensed'));
+
 alter table public.site_assets enable row level security;
 revoke all on table public.site_assets from public, anon, authenticated;
 grant all on table public.site_assets to service_role;
+revoke all on sequence public.site_assets_id_seq from public, anon, authenticated;
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 -- 4. The public views (owner-rights views, like favourite_character_counts of 011: they read tables the browser roles cannot,
@@ -241,7 +288,9 @@ select e.site_id, e.kind, e.slug, e.path, e.thumb_path, e.width, e.height, e.foc
     when 'series' then (select g.name from public.groups g where g.slug = e.slug and g.site_id = e.site_id)
   end as name
 from public.entity_images e
-where e.license_verified and e.thumb_path is not null;
+-- Only an https source page is passed on (018 allows http for series and characters); source_url is never null in 018, so a row with
+-- no source page cannot occur here.
+where e.license_verified and e.thumb_path is not null and e.source_url ~ '^https://';
 
 revoke all on table public.entity_images_public from public, anon, authenticated;
 grant select on table public.entity_images_public to anon, authenticated, service_role;
@@ -288,6 +337,20 @@ begin
   end if;
   if pg_get_viewdef('public.entity_images_public'::regclass) !~ 'license_verified' then
     raise exception '022-photos-admin: entity_images_public does not filter on license_verified';
+  end if;
+  if pg_get_viewdef('public.entity_images_public'::regclass) !~ 'https' then
+    raise exception '022-photos-admin: entity_images_public passes on a source page that is not https';
+  end if;
+  foreach t in array array['public.agencies_id_seq', 'public.site_assets_id_seq'] loop
+    if has_sequence_privilege('anon', t, 'usage') or has_sequence_privilege('authenticated', t, 'usage')
+      or has_sequence_privilege('anon', t, 'select') or has_sequence_privilege('authenticated', t, 'select')
+      or has_sequence_privilege('anon', t, 'update') or has_sequence_privilege('authenticated', t, 'update') then
+      raise exception '022-photos-admin: a browser role has a privilege on %', t;
+    end if;
+  end loop;
+  if not exists (select 1 from pg_trigger where tgrelid = 'public.entity_images'::regclass and tgname = 'trg_entity_images_licence_listed' and not tgisinternal)
+    or not exists (select 1 from pg_trigger where tgrelid = 'public.entity_images'::regclass and tgname = 'trg_entity_images_licence_reset' and not tgisinternal) then
+    raise exception '022-photos-admin: the triggers that reset the check of entity_images are missing';
   end if;
   if pg_get_viewdef('public.site_assets_public'::regclass) !~ 'retired_at IS NULL' then
     raise exception '022-photos-admin: site_assets_public shows retired rows';

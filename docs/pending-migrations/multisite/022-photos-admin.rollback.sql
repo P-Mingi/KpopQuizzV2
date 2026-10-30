@@ -1,9 +1,11 @@
 -- 022-photos-admin.rollback.sql (run O1, daily games step 2): undo of 022-photos-admin.sql.
 --
--- What:   drops the views site_assets_public and entity_images_public, the tables site_assets and agencies (their triggers go with
---         them), the trigger of entity_images that resets the check on a new file, the functions photos_touch(),
---         agencies_sources_ok(text[]) and entity_images_licence_reset(), and puts back the kind and slug checks of 018 (series and
---         character only) and its select policy (every row). The columns license_verified and thumb_path stay: they are 019's.
+-- What:   drops the views site_assets_public and entity_images_public, the tables site_assets and agencies (their triggers, checks and
+--         identity sequences go with them), the two triggers of entity_images that reset the check, the functions photos_touch(),
+--         agencies_sources_ok(text[]), entity_images_licence_listed() and entity_images_licence_reset(), the checks 022 added to
+--         entity_images, and puts back the kind and slug checks of 018 (series and character only) and its select policy (every row).
+--         The columns license_verified and thumb_path stay: they are 019's. Nothing else is restored: the sequence grants 022 revoked
+--         belonged to its own tables.
 -- Why:    the rollback of step 2's tables.
 -- Rows:   Refused, with nothing changed, while entity_images holds a picture of an idol, a group or an agency, while site_assets
 --         holds a row (the owner's banners, icons and stickers would be lost), or while an agency carries what the owner typed (a
@@ -52,9 +54,11 @@ do $$
 begin
   if to_regclass('public.entity_images') is not null then
     drop trigger if exists trg_entity_images_licence_reset on public.entity_images;
+    drop trigger if exists trg_entity_images_licence_listed on public.entity_images;
     drop policy if exists entity_images_select_display on public.entity_images;
     create policy entity_images_select_display on public.entity_images for select to anon, authenticated using (true);
     alter table public.entity_images drop constraint if exists entity_images_verified_thumb_check;
+    alter table public.entity_images drop constraint if exists entity_images_kpop_source_check;
     alter table public.entity_images drop constraint if exists entity_images_kind_site_check;
     alter table public.entity_images drop constraint if exists entity_images_kind_check;
     alter table public.entity_images add constraint entity_images_kind_check check (kind in ('series', 'character'));
@@ -64,5 +68,6 @@ begin
   end if;
 end $$;
 drop function if exists public.entity_images_licence_reset();
+drop function if exists public.entity_images_licence_listed();
 
 notify pgrst, 'reload schema';
