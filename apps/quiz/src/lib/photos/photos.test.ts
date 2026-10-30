@@ -13,7 +13,7 @@ import { webpInfo } from './webp';
 
 vi.mock('@/lib/entity-images/store', async (orig) => ({ ...(await orig<typeof import('@/lib/entity-images/store')>()) }));
 
-import { loadLiveAssets, loadPublicPictures, toLiveAsset, toPublicPicture } from './public-read';
+import { isMissingView, loadLiveAssets, loadPublicPictures, toLiveAsset, toPublicPicture } from './public-read';
 import { HOME_ASSET_KEYS } from '@/lib/site/hub/home-assets';
 
 describe('crop', () => {
@@ -250,5 +250,8 @@ describe('public reads', () => {
     expect(await loadLiveAssets(db)).toHaveLength(1);
     expect(await loadPublicPictures(db)).toEqual([]);
     await expect(loadLiveAssets(photosFakeDb({}, ['site_assets_public']))).rejects.toThrow(/does not exist/);
+    // a missing view is told apart from a blip: only the first is an answer the cache may keep
+    expect(isMissingView(new Error("fetchAllRows: Could not find the table 'public.site_assets_public' in the schema cache"))).toBe(true);
+    expect(isMissingView(new Error('fetchAllRows: TypeError: fetch failed'))).toBe(false);
   });
 });

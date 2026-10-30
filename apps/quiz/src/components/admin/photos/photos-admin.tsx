@@ -108,7 +108,7 @@ export function PhotosAdmin({ data, nav, initialTab, now, logo, emptyArt }: {
   const stickerKeys = new Set(data.assets.filter((a) => a.type === 'sticker').map((a) => a.key));
   counts.stickers = [...stickerKeys].filter((k) => liveVersion(data.assets, k, now)?.url).length;
 
-  const pick = (t: TabId): void => { setTab(t); setSel(null); setShown(PAGE); setMessage(null); };
+  const pick = (t: TabId): void => { setTab(t); setFilter('none'); setQuery(''); setSel(null); setShown(PAGE); setMessage(null); };
   const saved = (m: string): void => { setMessage(m); router.refresh(); };
   const mode = isPhotos ? 'photos' : (tab as 'banners' | 'icons' | 'stickers');
 

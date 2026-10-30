@@ -77,6 +77,9 @@ interface ImageRow {
   source_url: string; author: string; license: string; license_note: string | null; license_verified?: boolean; thumb_path?: string | null;
 }
 
+/** The catch-all kpop group (general K-pop quizzes), never a real group. */
+const CATCH_ALL_GROUP = 'general-kpop';
+
 const IMAGE_COLUMNS = 'site_id, kind, slug, path, focal_x, focal_y, source_url, author, license, license_note';
 
 /** Is this error a missing table or column (PostgREST and Postgres codes)? Anything else is a real failure. */
@@ -86,9 +89,12 @@ function missing(error: { code?: string; message?: string } | null | undefined):
 }
 
 async function probe(db: Db, table: string, columns: string): Promise<boolean> {
-  const { error } = await db.from(table).select(columns).limit(1);
-  if (!error) return true;
-  if (missing(error)) return false;
+  // One retry: a network blip must not read as "the table is missing", nor fail the whole tab at once.
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const { error } = await db.from(table).select(columns).limit(1);
+    if (!error) return true;
+    if (missing(error)) return false;
+  }
   throw new Error(`photos admin: ${table} could not be read`);
 }
 
@@ -112,7 +118,7 @@ function imageOf(r: ImageRow | undefined): AdminImage | null {
 }
 
 interface IdolRow { id: number; name: string; group_id: number; photo_url: string | null; needs_review: boolean }
-interface GroupRow { id: number; name: string; slug: string; logo_url: string | null; record_label: string | null }
+interface GroupRow { id: number; name: string; slug: string; logo_url: string | null; record_label: string | null; needs_review: boolean | null }
 interface AgencyRow { id: number; name: string; parent_id: number | null; official_url: string | null; sources: string[] | null }
 interface SeriesRow { group_id: number }
 interface CharRow { group_id: number; slug: string; name: string }
@@ -144,7 +150,7 @@ export async function loadPhotosAdmin(db: Db): Promise<PhotosAdminData> {
 
   const imageMap = new Map(img.rows.map((r) => [`${r.kind}|${r.slug}`, r]));
   const [groups, idols, animeGroups] = await Promise.all([
-    fetchAllRows<GroupRow>(() => db.from('groups').select('id, name, slug, logo_url, record_label').eq('site_id', 'kpop').order('id', { ascending: true })),
+    fetchAllRows<GroupRow>(() => db.from('groups').select('id, name, slug, logo_url, record_label, needs_review').eq('site_id', 'kpop').order('id', { ascending: true })),
     fetchAllRows<IdolRow>(() => db.from('idols').select('id, name, group_id, photo_url, needs_review').order('id', { ascending: true })),
     schema.anime
       ? fetchAllRows<{ id: number; name: string; slug: string }>(() => db.from('groups').select('id, name, slug').eq('site_id', 'anime').order('id', { ascending: true }))
@@ -159,10 +165,11 @@ export async function loadPhotosAdmin(db: Db): Promise<PhotosAdminData> {
   }));
   idolRows.sort((a, b) => byName({ name: a.context }, { name: b.context }) || byName(a, b));
 
-  const groupRows: AdminRow[] = groups.map((g): AdminRow => ({
+  // The catch-all group of the kpop quizzes that name no group is not a group: no picture (the group games leave it out too).
+  const groupRows: AdminRow[] = groups.filter((g) => g.slug !== CATCH_ALL_GROUP).map((g): AdminRow => ({
     kind: 'group', slug: String(g.id), name: g.name, context: (g.record_label ?? '').trim(),
     legacy: legacyUrl(g.logo_url) ? { url: legacyUrl(g.logo_url)!, sourceUrl: null, author: null } : null,
-    review: false, fresh: false, image: imageOf(imageMap.get(`group|${g.id}`)),
+    review: g.needs_review === true, fresh: false, image: imageOf(imageMap.get(`group|${g.id}`)),
   })).sort(byName);
 
   const groupsOfLabel = new Map<string, string[]>();

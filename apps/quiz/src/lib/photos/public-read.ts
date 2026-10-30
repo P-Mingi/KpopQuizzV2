@@ -77,10 +77,25 @@ export async function loadLiveAssets(db: Db): Promise<LiveAsset[]> {
   return rows.map(toLiveAsset).filter((a): a is LiveAsset => a !== null);
 }
 
-// A failed read throws inside the cache, so it is never kept: the next request tries again, and a page never stays empty for a whole
-// cache period because of one blip.
+/** True for the answer of a view that is not there yet (022 not applied): PostgREST's schema cache or Postgres itself says so. */
+export function isMissingView(err: unknown): boolean {
+  return /could not find the table|does not exist|PGRST205|42P01/i.test(String((err as Error)?.message ?? err));
+}
+
+/** The view is not there yet: an empty answer that the cache may keep (one read a minute until 022 is applied, not one per page). */
+async function orEmptyWhenMissing<T>(read: () => Promise<T[]>): Promise<T[]> {
+  try {
+    return await read();
+  } catch (err) {
+    if (isMissingView(err)) return [];
+    throw err;
+  }
+}
+
+// Any other failed read throws inside the cache, so it is never kept: the next request tries again, and a page never stays empty for a
+// whole cache period because of one blip.
 const liveAssetsCached = unstable_cache(
-  async (): Promise<LiveAsset[]> => loadLiveAssets(createPublicReadClient()),
+  async (): Promise<LiveAsset[]> => orEmptyWhenMissing(() => loadLiveAssets(createPublicReadClient())),
   ['db:hub:site-assets-public:v1'],
   { revalidate: PUBLIC_TTL, tags: ['site-assets'] },
 );
@@ -145,7 +160,7 @@ export async function loadPublicPictures(db: Db): Promise<PublicPicture[]> {
 }
 
 const picturesCached = unstable_cache(
-  async (): Promise<PublicPicture[]> => loadPublicPictures(createPublicReadClient()),
+  async (): Promise<PublicPicture[]> => orEmptyWhenMissing(() => loadPublicPictures(createPublicReadClient())),
   ['db:hub:entity-images-public:v1'],
   { revalidate: PUBLIC_TTL * 5, tags: ['entity-images-public'] },
 );

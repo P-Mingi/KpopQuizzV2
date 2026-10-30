@@ -3,6 +3,7 @@
 // service role (the pictures not verified yet and the drafts are the admin's only) and hands them to the board. The fonts are the board's
 // and the Bunnyverse home's (DM Sans, DM Mono: components/hub/home/home-font.ts), scoped to this tab.
 import { dmMono, dmSans } from '@/components/hub/home/home-font';
+import { UxPage } from '@/components/ux-v1/page';
 import { loadPhotosAdmin } from '@/lib/photos/admin-data';
 import { tabOf } from '@/lib/photos/slots';
 import { withBasePath } from '@/lib/site/base-path';
@@ -23,23 +24,26 @@ export async function PhotosAdminPage({ nav, kind }: { nav: readonly AdminNavIte
   const fonts = `${dmSans.variable} ${dmMono.variable}`;
   if (!data) {
     return (
-      <div className={fonts} data-testid="photos-admin-error" style={{ padding: 24 }}>
-        <h1>Photos</h1>
+      <UxPage width="text" className={fonts}>
+        <h1 className="ux-h1" data-testid="photos-admin-error">Photos</h1>
         <p>La base n&apos;a pas pu être lue. Recharge la page dans un instant.</p>
-      </div>
+      </UxPage>
     );
   }
   return (
-    <div className={fonts} data-testid="photos-admin">
-      <PhotosAdmin
-        data={data}
-        nav={nav}
-        initialTab={tabOf(typeof kind === 'string' ? kind : undefined)}
-        // The "now" of the server render, so the live, scheduled and draft versions read the same on the server and in the browser.
-        now={Date.now()}
-        logo={withBasePath('/mascot/mascot-default.png')}
-        emptyArt={withBasePath('/mascot/mascot-think.png')}
-      />
-    </div>
+    // A full-width page (UxPage "full", no padding): the board is 1320 px wide, out of the shell's text column.
+    <UxPage width="full" padded={false} className={fonts}>
+      <div data-testid="photos-admin">
+        <PhotosAdmin
+          data={data}
+          nav={nav}
+          initialTab={tabOf(typeof kind === 'string' ? kind : undefined)}
+          // The "now" of the server render, so the live, scheduled and draft versions read the same on the server and in the browser.
+          now={Date.now()}
+          logo={withBasePath('/mascot/mascot-default.png')}
+          emptyArt={withBasePath('/mascot/mascot-think.png')}
+        />
+      </div>
+    </UxPage>
   );
 }
