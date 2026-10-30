@@ -22,9 +22,10 @@ import { SITE, SITE_ID } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
 
-// The hub's period (its reads are cached for one and five minutes); the anime page renders under the [site] layout's one-minute read
-// as before, so its pages still refresh within the minute.
-export const revalidate = 300;
+// One hour, the period of the [slug] page that served OtakuQuiz's /credits on main (s-maxage=3600). The hub's page keeps the one minute
+// it had: its read of site_assets_public is cached for 60 seconds (lib/photos/public-read.ts), and Next takes the shortest period a render
+// reads, so its next build lists /credits at 1m as before.
+export const revalidate = 3600;
 
 async function hubSections(): Promise<ReturnType<typeof creditSections>> {
   const [pictures, assets] = await Promise.all([getPublicPictures(), getLiveAssets()]);

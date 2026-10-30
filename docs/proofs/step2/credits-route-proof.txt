@@ -1,0 +1,88 @@
+Step 2, review finding 1: /credits on the anime and hub builds after the move (one page file, app/sites/[site]/credits/page.tsx).
+Builds: next build with production flags (NEXT_PUBLIC_UX_V1=1 NEXT_PUBLIC_UX_V12=1 NEXT_PUBLIC_BT_TRACKING=1), offline database (scripts/o1/env.sh
+offline), each under scripts/o1/build-lock.sh; served with next start; outputs deleted after. Date 2026-10-30.
+
+=== 1. Before the fix (16d114f): two routes prerendered the same path on the anime build and on the hub build
+anime build of 16d114f (scratchpad build-anime.txt of the first run):
+  1022:├ ● /sites/[site]/[slug]                                                1m      1y
+  1023-│ └ /sites/anime/credits                                                1m      1y
+  1039:├ ● /sites/[site]/credits                                               1m      1y
+  1040-│ └ /sites/anime/credits                                                1m      1y
+hub build of 16d114f:
+  992-├ ● /sites/[site]/[slug]                                                1m      1y
+  993:│ └ /sites/hub/credits                                                  1m      1y
+  1009-├ ● /sites/[site]/credits                                               1m      1y
+  1010:│ └ /sites/hub/credits                                                  1m      1y
+A static segment wins over [slug], so /sites/anime/credits was served by (hub)/credits, whose (hub) layout calls notFound() off the hub.
+
+=== 2. main (76927f7), anime build: OtakuQuiz's /credits served by (anime)/[slug]
+  1008:├ ● /sites/[site]/[slug]                                                1h      1y
+  1009-│ └ /sites/anime/credits                                                1h      1y
+
+=== 3. head, anime build ([slug] prerenders no path here: no series in the offline database; it no longer lists credits)
+  1019:├ ● /sites/[site]/[slug]
+  1020-├ ● /sites/[site]/about                                                 1h      1y
+  1035:├ ● /sites/[site]/credits                                               1h      1y
+  1036-│ └ /sites/anime/credits                                                1h      1y
+$ curl -sI http://127.0.0.1:4171/anime/credits   (anime build of the head, production flags, offline database)
+HTTP/1.1 200 OK
+X-Robots-Tag: noindex, nofollow
+Content-Security-Policy: frame-ancestors 'self'
+X-Frame-Options: SAMEORIGIN
+Vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding
+x-nextjs-cache: HIT
+x-nextjs-prerender: 1
+x-nextjs-prerender: 1
+x-nextjs-stale-time: 300
+Cache-Control: s-maxage=3600, stale-while-revalidate=31532400
+Content-Type: text/html; charset=utf-8
+Content-Length: 194471
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+200 /anime/credits
+404 /anime/directory
+404 /anime/passport
+404 /anime/nope-quiz
+body: <title>Photo credits | OtakuQuiz</title>, one h1 "Photo credits", 51 credit items (class anime-o2-credits-item), no hub-credits markup.
+main's response headers for /anime/credits:
+  HTTP/1.1 200 OK
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: s-maxage=3600, stale-while-revalidate=31532400
+HTML of /anime/credits, main against head, after removing <script> elements (the RSC payload names the route file) and folding
+hashed asset links and the next/font class hash (it hashes the build folder; main was built in another folder): identical after normalisation
+headers, main against head (date, etag and content-length aside): identical
+
+=== 4. head, hub build (the same: only the credits route prerenders /sites/hub/credits)
+  998:├ ● /sites/[site]/[slug]
+  999-├ ● /sites/[site]/about                                                 6h      1y
+  1014:├ ● /sites/[site]/credits                                               1m      1y
+  1015-│ └ /sites/hub/credits                                                  1m      1y
+$ curl -sI http://127.0.0.1:4173/credits   (hub build of the head, production flags, offline database)
+HTTP/1.1 200 OK
+X-Robots-Tag: noindex, nofollow
+Content-Security-Policy: frame-ancestors 'self'
+X-Frame-Options: SAMEORIGIN
+Vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding
+x-nextjs-cache: HIT
+x-nextjs-prerender: 1
+x-nextjs-prerender: 1
+x-nextjs-stale-time: 300
+Cache-Control: s-maxage=60, stale-while-revalidate=31535940
+Content-Type: text/html; charset=utf-8
+Content-Length: 23988
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+200 /credits
+200 /directory
+404 /anime-mix-quiz
+404 /x-quiz
+body: <title>Photo credits | Bunnyverse</title>, canonical https://bunnyverse.org/credits, robots noindex (closed build), class "ux-page ux-col ux-pg hub-credits", the empty state (offline database: no view).
+HTML of /credits, 16d114f (the hub page before the move) against head, same normalisation: identical after normalisation; headers identical (date, etag, content-length aside).
+
+=== 5. head, kpop build (kpopquiz.org): no /credits
+  404 /credits
+  404 /sites/anime/credits
+  404 /sites/hub/credits
+  200 /privacy
