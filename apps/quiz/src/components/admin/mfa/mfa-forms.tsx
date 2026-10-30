@@ -141,7 +141,7 @@ export function MfaSetupForm(): React.ReactElement {
       </ol>
       {/* eslint-disable-next-line @next/next/no-img-element -- an SVG data URL from Supabase, never a remote image */}
       <img src={factor.qr} alt="QR code to add to your authenticator app" width={200} height={200} style={{ background: '#fff', borderRadius: 8, padding: 8 }} />
-      <p style={{ fontSize: 12, margin: 0, wordBreak: 'break-all' }}>Key: <code>{factor.secret}</code></p>
+      <p style={{ fontSize: 12, margin: 0, overflowWrap: 'anywhere' }}>Key: <code>{factor.secret}</code></p>
       <label htmlFor="admin-code" style={{ fontSize: 13, fontWeight: 600 }}>Code</label>
       <CodeInput value={code} onChange={setCode} />
       <p id="admin-code-help" style={{ fontSize: 12, margin: 0, opacity: 0.75 }}>The code changes every 30 seconds.</p>
