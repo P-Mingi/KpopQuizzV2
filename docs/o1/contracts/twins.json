@@ -1476,6 +1476,21 @@
       "notes": "ADMIN-1 (owner, 2026-10-30): thin re-export of the kpop TOTP setup page (requireAdmin('mfa'), 404 to anyone but a listed admin at aal1 with no factor). Admin only, never indexed, never linked."
     },
     {
+      "id": "45",
+      "site": "anime",
+      "route": "guard layout of the anime admin tree",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/admin/layout.tsx",
+      "twin": null,
+      "mustImport": [],
+      "allowed": [],
+      "notes": "ADMIN-1 review (owner, 2026-10-30): technical, requireAdmin('mfa') answers notFound() before any admin page runs; renders its children and nothing of its own.",
+      "renders": [
+        "nothing visible: an admin guard that renders its children, or a 404"
+      ],
+      "owner": "O1",
+      "body": "none"
+    },
+    {
       "id": "H-0",
       "site": "hub",
       "route": "shell: nav, tab bar, footer",

@@ -8,5 +8,5 @@ import { requireAdmin } from '@/lib/admin/guard';
 export default async function AnimeAdminLayout({ children }: { children: React.ReactNode }): Promise<React.ReactElement> {
   const admin = await requireAdmin('mfa');
   if (!admin) notFound();
-  return <>{children}</>;
+  return children as React.ReactElement;
 }

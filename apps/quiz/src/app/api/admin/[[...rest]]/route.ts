@@ -1,4 +1,4 @@
-// ADMIN-1 review: every path under /api/admin that no route serves gets the same 404 JSON as a refused request to a real route, for every
+// ADMIN-1 review: /api/admin itself and every path under it that no route serves get the same 404 JSON as a refused request to a real route, for every
 // method, so an unknown path cannot be told from a real one (Next would answer its HTML 404 here).
 import { adminNotFound } from '@/lib/admin/guard';
 

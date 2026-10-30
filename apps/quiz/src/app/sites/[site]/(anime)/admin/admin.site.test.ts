@@ -38,9 +38,11 @@ describe('/admin on bunnyverse.org/anime', () => {
     for (const tab of [undefined, 'images', 'overview', 'photos']) await expect(open(tab)).rejects.toThrow('NEXT_REDIRECT /admin/k7q2m/code');
   });
 
-  it('sends an admin with no factor to the TOTP setup page', async () => {
+  it('sends an admin with no factor to the TOTP setup page only while enrolment is open; closed, it is the 404 of anyone', async () => {
     auth.user = { id: 'admin-2' };
     auth.factor = false;
+    await expect(open()).rejects.toThrow('NEXT_NOT_FOUND');
+    vi.stubEnv('ADMIN_MFA_ENROL_OPEN', '1');
     await expect(open()).rejects.toThrow('NEXT_REDIRECT /admin/k7q2m/setup');
   });
 

@@ -154,7 +154,7 @@ describe('every route under api/admin is guarded, method by method', () => {
   });
 
   it('the catch-all answers the admin 404 for every method, so an unknown path cannot be told from a real one', () => {
-    const hs = handlers(strip(read(`${API_ADMIN}/[...rest]/route.ts`)));
+    const hs = handlers(strip(read(`${API_ADMIN}/[[...rest]]/route.ts`)));
     expect(hs.map((h) => h.value)).toEqual(Array(7).fill('adminNotFound'));
   });
 

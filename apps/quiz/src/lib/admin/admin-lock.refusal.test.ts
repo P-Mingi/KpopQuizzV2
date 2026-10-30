@@ -179,7 +179,7 @@ describe('admin routes: the admin 404 JSON for every method, before any read', (
       s.auth = auth;
       setEnrol(enrol);
       const mod = await import(/* @vite-ignore */ modulePath(f)) as Record<string, unknown>;
-      const url = `http://localhost:3021/${f.replace(/^app\//, '').replace(/\/route\.[a-z]+$/, '').replace(/\[id\]/g, '1').replace('[...rest]', 'a/b')}`;
+      const url = `http://localhost:3021/${f.replace(/^app\//, '').replace(/\/route\.[a-z]+$/, '').replace(/\[id\]/g, '1').replace('[[...rest]]', 'a/b')}`;
       let seen = 0;
       for (const method of METHODS) {
         const h = mod[method] as ((req: NextRequest, ctx: unknown) => Promise<Response>) | undefined;
