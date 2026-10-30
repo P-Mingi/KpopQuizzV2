@@ -291,6 +291,7 @@ part_G() {
   apply single "$M/020-dle-kpop-idol.sql";  check "$C/V-020.sql"
   apply single "$K1A_SQL";                  check "$C/V-K1a.sql"
   apply single "$K1B_SQL";                  check "$C/V-K1b.sql"
+  apply single "$M/022-photos-admin.sql";   check "$C/V-022.sql"
   apply single "$M/012-editorial-quiz.sql"; check "$C/V-012.sql"
   apply single "$M/013-formats.sql";        check "$C/V-013.sql"
   apply single "$M/014-daily-openings.sql"; check "$C/V-014.sql"
