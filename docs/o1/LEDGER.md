@@ -268,6 +268,7 @@ batches. ORCH is the only committer of this file; `scripts/o1/merge-lane.sh` app
 | CR-009 | Q0a | Parity made stricter: on every URL flag-off-diff finds identical, compare the content of every stylesheet the page links (after the asset-name normalisation, N1 for the UX sheet), fail as `css-content` (Q0a request 20) | ORCH (stricter only, BACKLOG 5.2) | approved 2026-10-17 |
 | CR-010 | Q0a (F0) | Parity normalisation N5, the narrow form of F0-17(b) and Q0a request 24: a React text separator `<!-- -->` immediately followed by a closing tag `</` reads as nothing on both sides (it only marks where a prerender segment ended, which depends on stream timing, not on code); every other separator, element, attribute and text stays compared. Q0a writes it in `scripts/o1/parity/compare.mjs` with tests | ORCH ruling under rule 15 (as CR-008); the narrower of the two proposals | approved 2026-10-18 |
 | CR-007 | O1, D0 | No locale switcher in the anime footer (English only): the slot is absent, added to F | ORCH ruling on R's D0 audit decision 2 | approved 2026-10-16 |
+| CR-011 | O1 (PR #172) | TWINS code A8, Surprise me on the OtakuQuiz home, row 1 only: under the hero buttons (UxHome's afterHeader slot; kpop passes none), the hub's `HomeSurprise` with the `anime-h2` class prefix, drawing from the published, listable anime quizzes only; absent with no pool. Recorded by ORCH after its review of the amendment (comment on PR #172) | owner | approved 2026-10-29 and 2026-10-30 (owner), merged with #172 |
 
 ## Review verdicts
 

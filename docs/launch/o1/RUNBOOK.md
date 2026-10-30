@@ -46,6 +46,13 @@ Rewritten on 2026-10-28 for the owner's Bunnyverse decisions (section "Owner dec
       sqln() { psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f "$1"; }
       q()    { psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "$1"; }
 
+  Session commands (owner order 2026-10-30): every SQL step of B, D, E, G and K runs through `bash docs/launch/o1/session.sh <part>`, one command per
+  part (B1 = 001 to 002d, B2 = 003, B3 = 004 to 007, D = 008, E1 = 009, E2 = 010, G = 011, 018, 019, 020, the lot K1 file, 012 to 017, J1 = L01,
+  J2 = L02 to L04, J3 = L05 to L10-PERS and the fourteen bank rows, J4 = L12 and the lot A1 file). It reads `PROD_DB_URL` (exported by the backup line),
+  refuses any other database and the 23:50 to 00:30 window, applies each file with psql and ON_ERROR_STOP (single or none as below), runs the checks of
+  `docs/launch/o1/checks` (VERIFY's lines as OK or KO rows) after each file, prints counts only, and stops at the first KO. A part can be run again from its
+  start. `--dry-run` prints a part's plan. The parts are cut where the owner acts (OWNER-NOW.md). `session-rehearsal.sh` plays them all twice on a local copy
+  of production's schema. The `sql1`, `sqln` and `q` helpers below stay for rollbacks and one-off reads.
   Work from the repository root with `main` checked out after the merge (A5). `psql` and `pg_dump` 15 or later: on the owner's Mac the default `psql` is 14,
   the PATH line puts the Homebrew PostgreSQL 18 tools first (`A1-A3.sh` does the same); `psql --version` must then print 18. `snap` is in VERIFY V1.
   `read -rs` shows nothing while you paste; press return. The RUNBOOK's blocks carry no `#` comments on purpose: zsh, the macOS shell, passes them as arguments unless `interactivecomments` is set.
@@ -132,7 +139,7 @@ Waits for A5 (the code is on main and deployed). All files are additive: they ad
 Do: A2 backup (first session: `bash docs/launch/o1/A1-A3.sh` does the dump and the A3 baseline). `git log -1 origin/main` is the commit Vercel shows as the current `kpopquiz` production deployment. V1 `snap ~/kpq-launch/before`.
 Check: all true. Back: n/a.
 
-**B2  001 `sites`.**
+**B2  001 `sites`.** (B2 to B5: `bash docs/launch/o1/session.sh B1`.)
 Do: `sql1 $M/001-sites.sql`. Check: V2 first query (one row, `kpop`). Back: `sql1 $M/001-sites.rollback.sql`.
 
 **B3  002a site columns (24 tables).**
@@ -153,11 +160,12 @@ Do: Vercel, `kpopquiz` project, Settings, Environment Variables: add `SITE_SCOPE
 Rule: only after 002 is applied and verified (B3 to B5 checks done), and before any anime row exists.
 Check: V1 (identical pages); V2 counts still true; `kpopquiz` Runtime Logs quiet for an hour. Back: remove the variable, redeploy (possible only while no anime row exists).
 
-**B7  003 memberships (DANGEROUS: a trigger on `profiles`, the sign-up table).**
+**B7  003 memberships (DANGEROUS: a trigger on `profiles`, the sign-up table).** (`bash docs/launch/o1/session.sh B2`.)
 Do: `sql1 $M/003-memberships.sql`. Immediately sign up a throwaway account on kpopquiz.org in a private window and finish onboarding.
 Check: V3 (memberships = profiles; no kpop stamp carries progress; trigger enabled; the sign-up proof). Back: `sql1 $M/003-memberships.rollback.sql` (needs 004, 007 rolled back first).
 
-**B8  004 passport prefs, 005 network counters.**
+**B8  004 passport prefs, 005 network counters.** (B8 to B10: `bash docs/launch/o1/session.sh B3`, which reads V3 of 003 to 005 again before 006.)
+Note: 004 creates 8 policies (the contract, `docs/o1/contracts/schema.sql`); its header says 7 (stale since `favourites_update_own` was added).
 Do: `sql1 $M/004-passport-prefs.sql`, `sql1 $M/005-net-counters.sql`. Check: V3. Back: their rollbacks (refused if rows exist).
 
 **B9  006 passport handoff.**
@@ -188,7 +196,7 @@ Do (Claude, read-only): VERIFY V4 "Gate" (the query and the python comparison). 
 Check: `functions read: 11 | body different from the rollback file: none`. If a name is listed, stop (production changed since 2026-10-17): ask for a new rollback and a new equivalence run before going on.
 Back: n/a.
 
-**D2  Apply.**
+**D2  Apply.** (D1 and D2: `bash docs/launch/o1/session.sh D`: the gate of D1 first, then 008, V4 and V-S4.)
 Do: A2 backup; `sql1 $M/008-write-locks.sql` in the quietest hour, not near a cron.
 Check: V4 after (signatures equal to `functions-before.txt` except `merge_anon_passport` gaining `p_site`; 5 triggers; live proof with a throwaway account: play, like, unlike, create; xp and counters move as before); V-S4 (`V-S4 ok`, VERIFY A0); V1; counters audit of V0.
 S4 after 008: nothing to do. 008 replaces `merge_anon_passport` with the 7 argument version for `service_role` only, so the S4 state holds; V4 shows its ACL as `{postgres=X/postgres,service_role=X/postgres}`.
@@ -204,7 +212,7 @@ One session, away from the 00:05 cron; never 010 alone. Waits for D3. Start at a
 
 **E1  Start.** Do: A2 backup; V5 baseline reads (`sites`, indexes, categories). Check: `q "select count(*) from pg_constraint where conname in ('quiz_bank_scheduled_date_key','qotd_log_featured_date_key')"` is 2 (the old keys are still there). Back: n/a.
 
-**E2  009 daily prep.**
+**E2  009 daily prep.** (E1 and E2: `bash docs/launch/o1/session.sh E1`, which refuses to start after 22:20.)
 Do: `sqln $M/009-daily-prep.sql` (outside a transaction: it builds two unique indexes concurrently).
 Check: V5 "After 009" (kpop row has the author and `general-kpop`; 2 valid indexes; the category check validated; only the twelve categories in the bank). An invalid index: `DROP INDEX CONCURRENTLY` it and run the file again.
 Back: `sqln $M/009-daily-prep.rollback.sql`.
@@ -214,7 +222,7 @@ Do: a worker makes sure production `kpopquiz` runs the `main` commit that carrie
 if it is older, or unsure, the owner presses "Redeploy" on the latest `main` build without cache (unticking "Use project's Ignore Build Step").
 Check: Ready; `curl -sS -o /dev/null -w '%{http_code} %{redirect_url}\n' https://kpopquiz.org/daily` redirects to a `/q/` page; V1. Back: Instant Rollback to the previous deployment (compatible, ROLLBACK.md section 2).
 
-**E4  010 daily v2 (DANGEROUS).**
+**E4  010 daily v2 (DANGEROUS).** (`bash docs/launch/o1/session.sh E2`, which refuses after 23:45.)
 Do: immediately, `sql1 $M/010-daily-v2.sql`. Not a minute after midnight UTC; if the clock has passed 23:45 stop at E3 and do E4 the next day (E2 and E3 can stay in place).
 Check: V5 "After 010" (the two old unique constraints gone; two functions; ACLs as before). Evidence of equivalence: `docs/o1/reports/K1/scratch.md`.
 Back: `sql1 $M/010-daily-v2.rollback.sql`, then 009's if needed.
@@ -233,8 +241,11 @@ P4: clears Verrou 0. Who: Claude and a worker. Do: E5 in the morning, then at E4
 
 Waits for F. Additive, empty, dormant. Order of `SQL-ORDER.md` rows 14 to 19b.
 
-**G1  011, 018, 012, 013, 014, 015, in this order.**
-Do: A2 backup, then for each `sql1 $M/<file>.sql`: 011-anime-series, 018-entity-images (row 14b, needed by K5.3c and the admin images), 012-editorial-quiz, 013-formats, 014-daily-openings, 015-spoilers. After each, its V6 lines.
+**G1  011, 018, 019, 020, the lot K1 file, 012, 013, 014, 015, in this order (owner order 2026-10-30).** (G1 to G3: `bash docs/launch/o1/session.sh G`.)
+Do: A2 backup, then for each `sql1 $M/<file>.sql`: 011-anime-series, 018-entity-images (row 14b, needed by K5.3c and the admin images), 019-dle-core and
+020-dle-kpop-idol (the daily games engine, switched off: rows 14c and 14d), the file of lot K1 (`021-k1-idol-gender-debut.sql`, row 14e: `idols.gender`
+and `idols.debut_year`), 012-editorial-quiz, 013-formats, 014-daily-openings, 015-spoilers. After each, its V6 lines (019 and 020: `dle-smoke.sql`).
+The command stops on the lot K1 file while it is not on main: G waits for that lot.
 Check: V6 (empty tables, RLS on, functions closed to anon). 013 stops with the name of a `games.game_type` value nobody listed, if production has one: send that name to the run's lead, do not edit the file.
 Back: `sql1` the rollbacks in reverse (015 down to 011).
 
@@ -380,7 +391,7 @@ L09 to L11 (openings, formats, crossover quiz) are not part of the launch (secti
 
 **K2  Morning start.** Do: A2 backup (owner); V0 again into `~/kpq-launch/v0-launch.txt` (Claude); `snap ~/kpq-launch/before` (a worker). Check: files exist. Back: n/a.
 
-**K3  L01: the anime and hub rows of `sites` (Verrou 0 ends here; decided: L01 runs at launch).**
+**K3  L01: the anime and hub rows of `sites` (Verrou 0 ends here; decided: L01 runs at launch).** (`bash docs/launch/o1/session.sh J1`: the J2 checks of the launch files first.)
 Do: `sql1 $M/launch/L01-B2-sites.sql`. Check: V8 first query (the 3 rows L01's header lists; anime and hub `building`). Back: `sql1 $M/launch/L01-B2-sites.rollback.sql`.
 
 **K4  The Team accounts: auth users, then L02.**
@@ -396,7 +407,7 @@ Do: 1. The address of each account is `<username>@team.bunnyverse.org` (decided)
 It prints counts only: `31 created, 0 already there, 0 failed`. A second run says `0 created, 31 already there`. Then `sql1 $M/launch/L02-K2-team-accounts.sql`.
 Check (Claude, read-only SQL on `auth.users`): 31 users on `team.bunnyverse.org`, all confirmed; V8 (31 `editorial_accounts`, `sites.system_user_id` set, `fallback_group_slug` `anime-mix`, no kpop stamp for a Team account). Back: `sql1 $M/launch/L02-K2-team-accounts.rollback.sql`; the auth users are removed with the SQL its header gives.
 
-**K5  The content files, in order, each followed by its V8 line.**
+**K5  The content files, in order, each followed by its V8 line.** (`session.sh J2` = L02 after its auth users, L03, L04; `session.sh J3` = L05 to L08, L10-PERS, content-verify, V-S4 and the fourteen bank rows of step 4.)
 1. `sql1 $M/launch/L03-B7-sentinel.sql` (the "deleted user" profiles of anime and hub). Check: V8 sentinel lines. Back: its rollback.
 2. `sql1 $M/launch/L04-K1-series.sql`, then `sql1 $M/launch/L05-K1-facts.sql`. After L04, run the SITE_SCOPE leak check of V1: no anime title on any kpop page.
 3. `sql1 $M/launch/L06-B3-badges.sql` (the six anime badges), `sql1 $M/launch/L07-K2-catalogue.sql`, `sql1 $M/launch/L08-K3-daily-bank.sql`. After L08 run `content-verify.sql` against `expected-counts.json` (V8).
@@ -447,8 +458,9 @@ Rule: after 006 and 007 (B), the secrets equal on the 3 (H2), the domain live (K
 Do: set `PASSPORT_JUMP` = `1` in `kpopquiz`, `fandomverse` and `otakuquiz`, redeploy all three together.
 Check: V10 "Cross-site cookie check": from a signed-in kpopquiz.org open `/auth/passport/out?to=anime`, you land on `https://bunnyverse.org/anime` signed in, and `https://bunnyverse.org` shows the same session; XP counted per site. Back: set to `0`, redeploy the three (ROLLBACK.md section 3, layer 2).
 
-**K8  L12: the sites go live.**
-Do: `sql1 $M/launch/L12-L1-sites-live.sql`. Check: V8 (`kpop`, `anime`, `hub` all `live`). Back: `sql1 $M/launch/L12-L1-sites-live.rollback.sql`.
+**K8  L12: the sites go live, then the lot A1 file.** (`bash docs/launch/o1/session.sh J4`.)
+Do: `sql1 $M/launch/L12-L1-sites-live.sql`, then the file of lot A1 (`L13-A1-character-facts.sql` in `$M/launch`: the character facts Otakudle reads), after the launch
+files (owner order 2026-10-30); content-verify and V-S4 again. The command stops on the lot A1 file while it is not on main. Check: V8 (`kpop`, `anime`, `hub` all `live`). Back: `sql1 $M/launch/L12-L1-sites-live.rollback.sql`.
 
 **K9  The daily quiz and the go.**
 Do: (1) Sign in on `https://bunnyverse.org/anime` with your admin account and, in the browser console of that tab, date the verified rows from today:
