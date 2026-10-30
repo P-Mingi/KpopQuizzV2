@@ -22,6 +22,6 @@ Question du owner : une fonction ou une policy SQL donne-t-elle un droit admin �
 
 ## Le vrai risque SQL n'est pas un droit admin, c'est l'inverse
 
-Les policies nommées "admin" des tables `blind_test_songs`, `songs`, `pinterest_pins`, `pinterest_auth`, `pinterest_boards` et `quiz_pinterest_cards` sont ouvertes à tous (rôle PUBLIC, la clé anon comprise) : ADMIN-0 section 7 et 9 bis (Q25, confirmé en production). Elles ne reconnaissent pas un admin, elles donnent le droit à n'importe qui ; y ajouter `aal2` laisserait écrire tout compte connecté qui a mis en place un code. Le bon correctif est de les supprimer : c'est le correctif SQL déjà donné au owner le 2026-10-30, hors dépôt.
+Les policies nommées "admin" des tables `blind_test_songs`, `songs`, `pinterest_pins`, `pinterest_auth`, `pinterest_boards` et `quiz_pinterest_cards` étaient ouvertes à tous (rôle PUBLIC, la clé anon comprise). Elles ne reconnaissaient pas un admin, elles donnaient le droit à n'importe qui ; y ajouter `aal2` aurait laissé écrire tout compte connecté qui a mis en place un code. Le bon correctif était de les supprimer : c'est fait en production le 2026-10-30 (relevé en lecture seule, ADMIN-0 section 9 bis).
 
 ADMIN-1 prépare le code à cette suppression : les deux seules écritures de l'app qui en dépendaient, `POST /api/admin/songs` et `PUT, DELETE /api/admin/songs/[id]`, écrivent maintenant avec la clé service, seulement après `requireAdmin`. Aucune écriture de l'app sur `songs` n'existe (lectures seulement).
