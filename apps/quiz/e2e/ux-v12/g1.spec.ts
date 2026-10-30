@@ -483,8 +483,8 @@ test.describe('tracking switch off', () => {
     test.skip(await trackingOn(request), 'NEXT_PUBLIC_BT_TRACKING is on in this build');
     const res404 = await request.post(TRACK, { data: { event: 'start' } });
     expect(res404.status()).toBe(404);
-    // A guest gets what any admin URL that does not exist gives (the middleware sends
-    // guests to sign in before a page is looked up); signed in, the page is a 404.
+    // A guest gets what any admin URL that does not exist gives (ADMIN-1: a 404, never a
+    // redirect to /login).
     const runs = await request.get('/admin/blind-tests/runs', { maxRedirects: 0 });
     const ghost = await request.get('/admin/blind-tests/does-not-exist', { maxRedirects: 0 });
     expect(runs.status()).toBe(ghost.status());
@@ -533,11 +533,12 @@ test.describe('endpoint guards (no database access on any of these)', () => {
     expect((await request.get(TRACK)).status(), 'no GET').toBe(405);
   });
 
-  test('/admin/blind-tests/runs: a guest is sent away, the page is not indexable', async ({ request }) => {
+  test('/admin/blind-tests/runs: a guest gets a 404 (ADMIN-1), the page is not indexable', async ({ request }) => {
     test.skip(!(await trackingOn(request)), 'NEXT_PUBLIC_BT_TRACKING is off on this build');
     const res = await request.get('/admin/blind-tests/runs', { maxRedirects: 0 });
-    expect([302, 303, 307, 308]).toContain(res.status());
-    expect(new URL(res.headers().location ?? '', 'http://x').pathname).not.toBe('/admin/blind-tests/runs');
+    expect(res.status()).toBe(404);
+    expect(res.headers().location ?? '').toBe('');
+    expect(res.headers()['x-robots-tag']).toBe('noindex, nofollow');
     expect(await res.text()).not.toContain('Runs per day');
   });
 });
