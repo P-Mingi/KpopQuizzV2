@@ -133,6 +133,8 @@ export interface SiteFeatures {
   readonly passportPages: boolean;
   /** Optional network directory of the hub (/directory, noindex). */
   readonly directory: boolean;
+  /** The daily guessing games of the hub (Kpopdle, Otakudle; lib/dle). Off everywhere until step 4 of the daily games. */
+  readonly dailyGuess: boolean;
 }
 
 export type FeatureKey = keyof SiteFeatures;

@@ -26,7 +26,7 @@ const ALL_OFF: SiteFeatures = {
   mvPulse: false, airingBanner: false, spoilers: false, live: false, community: false,
   ranked: false, challenges: false, leaderboards: false, news: false, articles: false,
   dataPages: false, localizedLandings: false, verse: false, embed: false, passportPages: false,
-  directory: false,
+  directory: false, dailyGuess: false,
 };
 
 // styles/ux-v1/a0.css, html.ux-v1 (light) and html.ux-v1.dark (dark), as of origin/main 30e7091.

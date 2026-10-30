@@ -43,11 +43,14 @@ the CR rules of `CONTRACT.md` (values of anime and hub are 5.2: extendable; the 
 
 `quizzes, topicHubs, trivia, create, dailyQuiz, blindTest, dailyBlindTest, openingOfTheDay, nameAll, personality,
 thisOrThat, trueFalse, imageQuiz, fandomWar, mvPulse, airingBanner, spoilers, live, community, ranked, challenges,
-leaderboards, news, articles, dataPages, localizedLandings, verse, embed, passportPages, directory`.
+leaderboards, news, articles, dataPages, localizedLandings, verse, embed, passportPages, directory, dailyGuess`.
+
+`dailyGuess` (daily games step 1, owner 2026-10-29): the Kpopdle and Otakudle games of the hub (`lib/dle`), off on every site
+until step 4 switches it on for the hub.
 
 | site | on |
 |---|---|
-| kpop | every key except openingOfTheDay, airingBanner, spoilers, passportPages, directory |
+| kpop | every key except openingOfTheDay, airingBanner, spoilers, passportPages, directory, dailyGuess |
 | anime | quizzes, topicHubs, trivia, create, dailyQuiz, blindTest, openingOfTheDay, nameAll, personality, thisOrThat, airingBanner, spoilers, community, challenges, leaderboards |
 | hub | passportPages (directory is an optional stretch of H1: off) |
 

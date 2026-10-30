@@ -1,0 +1,29 @@
+{
+  "about": "Cases of the one comparator, public.dle_compare (019-dle-core.sql). The SQL tests run each case against the function; the TypeScript tests read the same expected statuses for the board and the share line. guess and target are column values: {\"v\": value, \"p\": [parents]}.",
+  "cases": [
+    { "name": "single equal", "kind": "single", "near": null, "guess": { "v": "female" }, "target": { "v": "female" }, "expect": { "status": "correct", "arrow": null } },
+    { "name": "single different", "kind": "single", "near": null, "guess": { "v": "male" }, "target": { "v": "female" }, "expect": { "status": "wrong", "arrow": null } },
+    { "name": "single same mother company", "kind": "single", "near": null, "guess": { "v": "BIGHIT MUSIC", "p": ["HYBE"] }, "target": { "v": "Source Music", "p": ["HYBE"] }, "expect": { "status": "near", "arrow": null } },
+    { "name": "single no parent in common", "kind": "single", "near": null, "guess": { "v": "JYP Entertainment" }, "target": { "v": "Source Music", "p": ["HYBE"] }, "expect": { "status": "wrong", "arrow": null } },
+    { "name": "single value given as a one-item list", "kind": "single", "near": null, "guess": { "v": ["YG Entertainment"] }, "target": { "v": ["YG Entertainment"] }, "expect": { "status": "correct", "arrow": null } },
+    { "name": "multi same set in another order", "kind": "multi", "near": null, "guess": { "v": ["Japan", "South Korea"] }, "target": { "v": ["South Korea", "Japan"] }, "expect": { "status": "correct", "arrow": null } },
+    { "name": "multi one in common", "kind": "multi", "near": null, "guess": { "v": ["South Korea"] }, "target": { "v": ["South Korea", "Japan"] }, "expect": { "status": "near", "arrow": null } },
+    { "name": "multi nothing in common", "kind": "multi", "near": null, "guess": { "v": ["Thailand"] }, "target": { "v": ["South Korea"] }, "expect": { "status": "wrong", "arrow": null } },
+    { "name": "multi sub-unit of the same group", "kind": "multi", "near": null, "guess": { "v": ["NCT 127"], "p": ["NCT"] }, "target": { "v": ["NCT DREAM"], "p": ["NCT"] }, "expect": { "status": "near", "arrow": null } },
+    { "name": "multi group and its sub-unit", "kind": "multi", "near": null, "guess": { "v": ["NCT"], "p": ["NCT"] }, "target": { "v": ["NCT 127"], "p": ["NCT"] }, "expect": { "status": "near", "arrow": null } },
+    { "name": "multi same unit", "kind": "multi", "near": null, "guess": { "v": ["NCT 127"], "p": ["NCT"] }, "target": { "v": ["NCT 127"], "p": ["NCT"] }, "expect": { "status": "correct", "arrow": null } },
+    { "name": "number equal", "kind": "number", "near": 2, "guess": { "v": 1997 }, "target": { "v": 1997 }, "expect": { "status": "correct", "arrow": null } },
+    { "name": "number near, target later", "kind": "number", "near": 2, "guess": { "v": 1997 }, "target": { "v": 1999 }, "expect": { "status": "near", "arrow": "up" } },
+    { "name": "number near, target earlier", "kind": "number", "near": 2, "guess": { "v": 1999 }, "target": { "v": 1998 }, "expect": { "status": "near", "arrow": "down" } },
+    { "name": "number just outside near", "kind": "number", "near": 2, "guess": { "v": 1996 }, "target": { "v": 1999 }, "expect": { "status": "wrong", "arrow": "up" } },
+    { "name": "number far below", "kind": "number", "near": 1, "guess": { "v": 2020 }, "target": { "v": 2015 }, "expect": { "status": "wrong", "arrow": "down" } },
+    { "name": "number with no near", "kind": "number", "near": null, "guess": { "v": 2019 }, "target": { "v": 2020 }, "expect": { "status": "wrong", "arrow": "up" } },
+    { "name": "ordinal equal", "kind": "ordinal", "near": null, "guess": { "v": 4 }, "target": { "v": 4 }, "expect": { "status": "correct", "arrow": null } },
+    { "name": "ordinal next one is never near", "kind": "ordinal", "near": null, "guess": { "v": 3 }, "target": { "v": 4 }, "expect": { "status": "wrong", "arrow": "up" } },
+    { "name": "ordinal lower", "kind": "ordinal", "near": null, "guess": { "v": 5 }, "target": { "v": 2 }, "expect": { "status": "wrong", "arrow": "down" } },
+    { "name": "guess value missing", "kind": "single", "near": null, "guess": { "v": null }, "target": { "v": "female" }, "expect": { "status": "unknown", "arrow": null } },
+    { "name": "guess column absent", "kind": "number", "near": 2, "guess": null, "target": { "v": 1999 }, "expect": { "status": "unknown", "arrow": null } },
+    { "name": "guess list empty", "kind": "multi", "near": null, "guess": { "v": [] }, "target": { "v": ["South Korea"] }, "expect": { "status": "unknown", "arrow": null } },
+    { "name": "guess list holds only a null", "kind": "multi", "near": null, "guess": { "v": [null] }, "target": { "v": ["South Korea"] }, "expect": { "status": "unknown", "arrow": null } }
+  ]
+}
