@@ -57,7 +57,8 @@ function card(q: HomeQuiz): HotCard {
     line: ht('hp.hot.line', { name: siteName(q.site), group: q.group, meta: q.format ? `${q.level} · ${q.format}` : q.level }),
     plays: q.plays,
     isNew: q.isNew,
-    cover: q.cover,
+    // The quiz's own cover, else the photo of its group or series (owner decision 2026-10-30), else null for the initials.
+    cover: q.cover ?? q.photo ?? null,
   };
 }
 

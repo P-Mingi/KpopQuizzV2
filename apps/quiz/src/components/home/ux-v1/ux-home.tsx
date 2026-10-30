@@ -5,6 +5,7 @@ import { UxPage } from '@/components/ux-v1/page';
 import { UxQuizCard, UxQuizGrid } from '@/components/ux-v1/quiz-card';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { GENERATIONS_HUB_PATH } from '@/lib/generations/generations';
+import { SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 import { getHomeBand, getHomeCommunity, getHomeGroups, getHomeLists, getHomeQotd } from '@/lib/ux-v1/p1/home-data';
 import { IS_KPOP, titleCase } from '@/lib/site/genre';
 import { SITE } from '@/lib/site/registry';
@@ -28,7 +29,12 @@ const TOPICS_HREF = IS_KPOP ? '/groups' : '/series';
  * fail-soft (safeFetch): a failing read hides its section (min-gate), never the page,
  * and such a render is never kept in the page cache (render-health.ts, C3-003).
  */
-export async function UxHome({ head }: { head?: React.ReactNode }): Promise<React.ReactElement> {
+export async function UxHome({ head, afterHeader }: {
+  head?: React.ReactNode;
+  /** A block right under the header, before the quiz of the day: the OtakuQuiz home passes its Surprise me there (TWINS row 1, A8);
+   *  kpopquiz.org passes nothing and renders what it rendered. */
+  afterHeader?: React.ReactNode;
+}): Promise<React.ReactElement> {
   const now = new Date();
   const health = new RenderHealth();
   const [qotd, groups, community, band] = await Promise.all([
@@ -41,6 +47,7 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
   // A render that lost a read is not cached: at runtime it throws (the cached page
   // stays), at build it is kept for 30 s only.
   await settleRender(health);
+  const qotdRow = qotd ? <QotdRow qotd={qotd} /> : null;
 
   return (
     <UxPage width="wide" className="p1-home">
@@ -51,7 +58,9 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
 
       <HomeHeader />
 
-      {qotd ? <QotdRow qotd={qotd} /> : null}
+      {/* The quiz of the day. With an afterHeader block, the two share this one place of the tree (a fragment), so the
+          page data of kpopquiz.org, which passes none, keeps its bytes. */}
+      {afterHeader ? <>{afterHeader}{qotdRow}</> : qotdRow}
 
       {/* Every run saved on this device shows here (C2-004), even when its quiz is
           also in a list below: it is the fan's own run, with its resume link. */}
@@ -80,8 +89,10 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
           <SectionHeader id="p1-trend-h" icon="flame" title="Trending this week" action={{ href: '/quizzes/popular-this-week', label: 'See all' }} />
           {/* Six cards as the live home (four in view at 1440 as the prototype, the
               rest in the same scrolling row, like the groups rail). v12: eight, in two
-              rows of four (styles/ux-v12/home.css). */}
-          <div className="p1-trend">
+              rows of four (styles/ux-v12/home.css). On the anime build (the SERIES_ART slot is
+              filled there only) anime-o2-trend gives the series art the 4:3 cover of the kpop
+              card (the O2 sheet of the anime site, owner 2026-10-29); kpop renders what it did. */}
+          <div className={SERIES_ART.dress ? 'p1-trend anime-o2-trend' : 'p1-trend'}>
             <UxQuizGrid>
               {lists.trending.map((q) => <UxQuizCard key={q.id} quiz={q} />)}
             </UxQuizGrid>
