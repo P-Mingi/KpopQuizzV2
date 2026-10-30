@@ -1,4 +1,4 @@
--- V-K1 (run O1, session.sh): after the SQL of lot K1 (idols.gender, idols.debut_year)
+-- V-K1a (run O1, session.sh): after 021a-k1-idol-gender-debut.sql, the first file of lot K1 (idols.gender, idols.debut_year)
 -- Read only, in a read-only transaction. Each row is: ok or KO | what | the number found. Never a name, an e-mail or a row of a person.
 -- From the contract agreed with the owner on 2026-10-30: idols.gender is 'female' or 'male' (lower case), idols.debut_year is an integer.
 begin transaction read only;

@@ -24,7 +24,9 @@ M="docs/pending-migrations/multisite"
 L="$M/launch"
 C="docs/launch/o1/checks"
 # The files of the two lots of the old worker (owner order 2026-10-30). The session stops with a KO while a file is not on main.
-K1_SQL="$M/021-k1-idol-gender-debut.sql"
+# Lot K1 is two files (K1-RELECTURE.md): 021a stores gender and debut year with their sources, 021b activates the idols the owner chose.
+K1A_SQL="$M/021a-k1-idol-gender-debut.sql"
+K1B_SQL="$M/021b-k1-idol-activate.sql"
 A1_SQL="$L/L13-A1-character-facts.sql"
 
 PART="${1:-}"
@@ -33,7 +35,7 @@ DRY=0
 REHEARSAL=0
 [ "${KPQ_REHEARSAL:-}" = "1" ] && REHEARSAL=1
 # A rehearsal may point the two lots at stand-in files while theirs are not on main (session-rehearsal.sh); production never can.
-[ "$REHEARSAL" = 1 ] && K1_SQL="${KPQ_K1_SQL:-$K1_SQL}" && A1_SQL="${KPQ_A1_SQL:-$A1_SQL}"
+[ "$REHEARSAL" = 1 ] && K1A_SQL="${KPQ_K1A_SQL:-$K1A_SQL}" && K1B_SQL="${KPQ_K1B_SQL:-$K1B_SQL}" && A1_SQL="${KPQ_A1_SQL:-$A1_SQL}"
 
 [ -d /opt/homebrew/opt/postgresql@18/bin ] && export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
 umask 077
@@ -287,7 +289,8 @@ part_G() {
   apply single "$M/018-entity-images.sql";  check "$C/V-018.sql"
   apply single "$M/019-dle-core.sql";       check "$C/V-019.sql"
   apply single "$M/020-dle-kpop-idol.sql";  check "$C/V-020.sql"
-  apply single "$K1_SQL";                   check "$C/V-K1.sql"
+  apply single "$K1A_SQL";                  check "$C/V-K1a.sql"
+  apply single "$K1B_SQL";                  check "$C/V-K1b.sql"
   apply single "$M/012-editorial-quiz.sql"; check "$C/V-012.sql"
   apply single "$M/013-formats.sql";        check "$C/V-013.sql"
   apply single "$M/014-daily-openings.sql"; check "$C/V-014.sql"

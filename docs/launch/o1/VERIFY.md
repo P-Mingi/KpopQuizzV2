@@ -240,7 +240,8 @@ Run V-S4 (section A0) after this step: it must print `V-S4 ok`.
     q "select proname, has_function_privilege('anon', oid, 'execute'), has_function_privilege('authenticated', oid, 'execute'), has_function_privilege('service_role', oid, 'execute') from pg_proc where proname in ('passport_run_deletion', 'passport_deletion_status') order by 1"   # f|f|t for both
 
 019 and 020 (SQL-ORDER rows 14c and 14d): `psql "$PROD_DB_URL" -X -At -f $M/dle-smoke.sql` prints `ok` on its ten rows (three more are information).
-The lot K1 file (row 14e): `idols.gender` and `idols.debut_year` exist, every gender is 'female' or 'male' (`docs/launch/o1/checks/V-K1.sql`).
+Lot K1, 021a (row 14e): `idols.gender` and `idols.debut_year` exist, every gender is 'female' or 'male' (`docs/launch/o1/checks/V-K1a.sql`).
+Lot K1, 021b (row 14e bis): no active idol is still to review, and no minor and no idol without a birth date is in the game (`docs/launch/o1/checks/V-K1b.sql`).
 
 After the whole P5, V-S4 (section A0), V1 once more (nothing visible may have changed on kpop) and the Vercel runtime errors of `kpopquiz` for the last hour.
 

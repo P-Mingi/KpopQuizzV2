@@ -63,7 +63,8 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 | 14b | M/018-entity-images.sql (ADM back) | P5, after 14 (011); must be applied before K5 step 3c | single | 001 | table entity_images with RLS on; anon has no insert and no update, may select only the display columns; bucket entity-images public, 4 MB, image/webp | M/018-entity-images.rollback.sql (refused while a row or a file exists) | V6 |
 | 14c | `M/019-dle-core.sql` (daily games step 1, owner order 2026-10-30) | P5, after 14b (018) | single | 001, 018 | 9 `dle_` tables with RLS and no policy; only `dle_guess`, `dle_give_up`, `dle_day`, `dle_pool` open to the browser roles (`dle-smoke.sql` checks 1 to 4) | `M/019-dle-core.rollback.sql` (refused once a game exists) | V6 |
 | 14d | `M/020-dle-kpop-idol.sql` | P5, right after 019 | single | 019 | view `dle_src_kpop_idol` closed to the browser roles; game `kpopdle-idol` switched off, 8 columns (`dle-smoke.sql`) | `M/020-dle-kpop-idol.rollback.sql` (refused once a play exists) | V6 |
-| 14e | the file of lot K1, `021-k1-idol-gender-debut.sql` in `M` (written by the old worker; not on main yet) | P5, right after 020 | single | 020 | `idols.gender` ('female' or 'male') and `idols.debut_year` (integer) exist | its own rollback | V6 |
+| 14e | lot K1, first file: `021a-k1-idol-gender-debut.sql` in `M` (written by the old worker; not on main yet) | P5, right after 020 | single | 020 | `idols.gender` ('female' or 'male') and `idols.debut_year` (integer) exist, with their sources (`checks/V-K1a.sql`) | its own rollback | V6 |
+| 14e bis | lot K1, second file: `021b-k1-idol-activate.sql` in `M` (the idols the owner chose in K1-RELECTURE.md; not on main yet) | P5, right after 021a | single | 021a | no active idol left to review; no minor and no idol without a birth date in the game (`checks/V-K1b.sql`) | its own rollback | V6 |
 | 15 | `M/012-editorial-quiz.sql` | P5 | single | 002a, 001 | `review_batches` RLS on, 0 policies | `M/012-editorial-quiz.rollback.sql` | V6 |
 | 16 | `M/013-formats.sql` | P5 | single | 011 | `games_game_type_check` validated; column `character_id` | `M/013-formats.rollback.sql` | V6 |
 | 17 | `M/014-daily-openings.sql` | P5 | single | 011, 001 | table and function present; function closed to anon | `M/014-daily-openings.rollback.sql` | V6 |
@@ -85,7 +86,7 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 
 Rows 28, 29 and 30 (L09 openings, L10 formats, L11 crossover quiz) are not on the launch path (owner decision D-099): see "After launch" below.
 Order of the launch files on the day: L01, L02 (after its auth users), L03, L04, L05, L06, L07, L08, L10-PERS, then the builds and the domain, then L12, then the lot A1 file.
-Order of session G (owner order 2026-10-30): 011, 018, 019, 020, the lot K1 file, 012, 013, 014, 015, 016, 017.
+Order of session G (owner order 2026-10-30): 011, 018, 019, 020, 021a, 021b, 012, 013, 014, 015, 016, 017. Daily games step 2 (`022-photos-admin.sql`, row 14f once its PR lands) goes right after 021b.
 Before launch day, `ls docs/pending-migrations/multisite/launch/` must show L01 to L08, L10-PERS and L12, each with its rollback,
 `grep -l '^-- DRAFTS' docs/pending-migrations/multisite/launch/*.sql` must print nothing and
 `grep -c 'team.otakuquiz.org' docs/pending-migrations/multisite/launch/L02-K2-team-accounts.sql` must print 0 (RUNBOOK J2).

@@ -12,8 +12,8 @@
 # others (a throwaway quiz, a deploy, a flag) do not touch the database.
 # Stops that must happen are checked too: J2 before the Team users, G and J4 while the K1 and A1 files are not on main, and a
 # check that finds a KO.
-# The files of lots K1 and A1 are not on main yet: the rehearsal uses two stand-ins it writes in its work folder (K1: the two
-# columns of the contract, empty; A1: no change), and says so. Everything else is the repository's files.
+# The files of lots K1 (021a, 021b) and A1 are not on main yet: the rehearsal uses stand-ins it writes in its work folder (021a: the
+# two columns of the contract, empty; 021b and A1: no change), and says so. Everything else is the repository's files.
 #
 # Prints PASS or FAIL per step and the parts' own output in its work folder. Exit 0 when every step passed. The cluster is stopped
 # and its folder removed at the end, pass or fail (nothing keeps running).
@@ -66,11 +66,12 @@ run "$ADMIN" -c "create database base" &&
 pass "base: production's schema copy, S4 and Mission U part D, V-S4 ok"
 
 # ---- the stand-ins of lots K1 and A1 --------------------------------------------------------------------------------------
-cat >"$WORK/K1-stand-in.sql" <<'EOF'
--- Rehearsal stand-in for the SQL of lot K1 (not on main yet): the two columns of the contract, no value.
+cat >"$WORK/K1a-stand-in.sql" <<'EOF'
+-- Rehearsal stand-in for 021a of lot K1 (not on main yet): the two columns of the contract, no value.
 alter table public.idols add column if not exists gender text check (gender in ('female', 'male'));
 alter table public.idols add column if not exists debut_year integer;
 EOF
+printf -- '-- Rehearsal stand-in for 021b of lot K1 (not on main yet): activates nobody.\nselect 1;\n' >"$WORK/K1b-stand-in.sql"
 printf -- '-- Rehearsal stand-in for the SQL of lot A1 (not on main yet): no change.\nselect 1;\n' >"$WORK/A1-stand-in.sql"
 
 # ---- the parts --------------------------------------------------------------------------------------------------------------
@@ -85,9 +86,10 @@ part() {   # part <name> <expected exit> <grep that the output must hold> [env a
   else fail "$name (run $n): exit $got, expected $want and \"$must\""; sed 's/^/    /' "$out" | tail -12; fi
 }
 n=0
-STAND="KPQ_K1_SQL=$WORK/K1-stand-in.sql KPQ_A1_SQL=$WORK/A1-stand-in.sql"
+STAND="KPQ_K1A_SQL=$WORK/K1a-stand-in.sql KPQ_K1B_SQL=$WORK/K1b-stand-in.sql KPQ_A1_SQL=$WORK/A1-stand-in.sql"
 for p in B1 B2 B3 D E1 E2; do part "$p" 0 "terminée : tout est OK"; part "$p" 0 "terminée : tout est OK"; done
-part G 1 "021-k1-idol-gender-debut.sql : fichier absent de main"
+part G 1 "021a-k1-idol-gender-debut.sql : fichier absent de main"
+part G 1 "021b-k1-idol-activate.sql : fichier absent de main" "KPQ_K1A_SQL=$WORK/K1a-stand-in.sql"
 part G 0 "terminée : tout est OK" $STAND; part G 0 "terminée : tout est OK" $STAND
 part J1 0 "terminée : tout est OK"; part J1 0 "terminée : tout est OK"
 part J2 1 "V-TEAM : une ligne KO"
