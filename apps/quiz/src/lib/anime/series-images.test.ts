@@ -271,6 +271,9 @@ describe('/credits', () => {
     const { isKnownRouteFor } = await import('@/lib/site/routing');
     const flags = { v1: true, v12: true } as const;
     expect(isKnownRouteFor('anime', '/credits', flags)).toBe(true);
-    expect(isKnownRouteFor('hub', '/credits', flags)).toBe(false);
+    // Daily games step 2: the hub has its own /credits now (twins row H-11, its own page and data, the footer of the hub already linked
+    // it); the anime page stays the anime build's. kpopquiz.org still has none.
+    expect(isKnownRouteFor('hub', '/credits', flags)).toBe(true);
+    expect(isKnownRouteFor('kpop', '/credits', flags)).toBe(false);
   });
 });

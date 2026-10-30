@@ -1660,6 +1660,26 @@
       "owner": "H1",
       "body": "shared",
       "notes": "The legal notice (mentions légales), the same file as row 26d."
+    },
+    {
+      "id": "H-11",
+      "site": "hub",
+      "route": "/credits",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/credits/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/credits/hub-credits.tsx",
+        "components/ux-v1/page.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The licensed photo credits of bunnyverse.org (daily games step 2, RAPPORT-JEUX-DU-JOUR-v2.md 7.1): Bunnyverse only, no kpop twin page, so the twin is the kpop [slug] page, as for row 42. Page-local body, plain English text, the credit system of row 42 (the licence words and links of lib/anime/entity-images-rules.ts). Linked from the footer of row H-0, which already pointed at /credits."
     }
   ]
 }

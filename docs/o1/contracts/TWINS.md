@@ -147,6 +147,7 @@ and security, your data) with Leave a world and Delete my passport (S6 steps).
 | H-8 | 404 | `app/sites/[site]/not-found.tsx` | `app/(site)/not-found.tsx` | (none) | the structure of the twin 404; the mascot slot renders nothing (Bf) | Tn Bf C | H1 | local | The file is shared with row 27 (which imports the mascot for anime). Page-local body (request F0-9). |
 | H-9 | site guard of the (hub) route group (D-048) | `app/sites/[site]/(hub)/layout.tsx` | (none) | (none) | nothing visible: a site guard that renders its children, or a 404 on any other build | none | O1 | none | Technical: a 404 on any other build, renders nothing of its own |
 | H-10 | /legal | `app/sites/[site]/legal/page.tsx` | `app/(site)/legal/page.tsx` | `@/app/(site)/legal/page` | the sections of the twin page | Tn Bf C | H1 | shared | The legal notice (mentions légales), the same file as row 26d. |
+| H-11 | /credits | `app/sites/[site]/(hub)/credits/page.tsx` | `app/(site)/[slug]/page.tsx` | (none) | components/hub/credits/hub-credits.tsx, components/ux-v1/page.tsx | Tn Bf C | H1 | local | The licensed photo credits of bunnyverse.org (daily games step 2, RAPPORT-JEUX-DU-JOUR-v2.md 7.1): Bunnyverse only, no kpop twin page, so the twin is the kpop [slug] page, as for row 42. Page-local body, plain English text, the credit system of row 42 (the licence words and links of lib/anime/entity-images-rules.ts). Linked from the footer of row H-0, which already pointed at /credits. |
 
 ## 5. kpopquiz.org deltas (flagged, not twins)
 

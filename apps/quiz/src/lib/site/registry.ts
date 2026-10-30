@@ -298,7 +298,8 @@ const HUB: SiteConfig = {
   },
   features: { ...ALL_OFF, passportPages: true, directory: false },
   routes: {
-    allow: ['/', '/privacy', '/legal', '/passport', '/u/{username}', '/settings/**', '/login', '/directory'],
+    // Daily games step 2: /credits, the licensed photos of the site (the footer of the hub already links it).
+    allow: ['/', '/privacy', '/legal', '/passport', '/u/{username}', '/settings/**', '/login', '/directory', '/credits'],
   },
   seo: {
     titleTemplate: '%s | Bunnyverse',
