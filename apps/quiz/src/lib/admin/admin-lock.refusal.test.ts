@@ -1,7 +1,7 @@
 // ADMIN-1 (owner, 2026-10-30): every admin page and every admin route, run for real against the local auth stand-in, in each case the
-// guard refuses. A page throws notFound() (an admin at aal1 is redirected to the MFA page instead); a route answers the admin 404 JSON;
-// and nothing is read or written first (no query on the user's client, no service-role client made). The flags of the gated pages
-// are on, so the guard itself is what answers.
+// guard refuses. A page throws notFound() (an admin with a factor at aal1, or with none while enrolment is open, is redirected to the MFA
+// page instead); a route answers the admin 404 JSON; a generateMetadata names nothing; and nothing is read or written first (no query on the
+// user's client, no service-role client made). The flags of the gated pages are on, so the guard itself is what answers.
 import { existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -45,24 +45,33 @@ function walk(rel: string): string[] {
   if (!existsSync(dir)) return [];
   return readdirSync(dir).flatMap((n) => (statSync(join(dir, n)).isDirectory() ? walk(relative(SRC, join(dir, n))) : [relative(SRC, join(dir, n))]));
 }
-const PAGES = [...walk('app/(site)/admin'), ...walk('app/sites/[site]/(anime)/admin')].filter((f) => f.endsWith('/page.tsx'));
-const ROUTES = walk('app/api/admin').filter((f) => f.endsWith('/route.ts'));
+const TREES = [...walk('app/(site)/admin'), ...walk('app/sites/[site]/(anime)/admin'), ...walk('app/api/admin')];
+const PAGES = TREES.filter((f) => /(^|\/)(page|template|default)\.(tsx|ts|jsx|js|mdx)$/.test(f));
+const ROUTES = TREES.filter((f) => /(^|\/)route\.(tsx|ts|jsx|js)$/.test(f));
+const modulePath = (f: string): string => `@/${f.replace(/\.[a-z]+$/, '')}`;
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'] as const;
 const isMfaPage = (f: string): boolean => f.includes('/admin/k7q2m/');
 
-const REFUSED: Array<[string, typeof s.auth]> = [
+const OPEN = '1';
+const REFUSED: Array<[string, typeof s.auth, string?]> = [
   ['a signed-out visitor', { user: null }],
   ['a signed-in fan', { user: { id: 'fan-9' } }],
   ['a forged cookie that claims the admin', { user: null, sessionUser: { id: 'admin-1' } }],
   ['the admin at aal1 with a factor', { user: { id: 'admin-1' }, aal: 'aal1', factor: true }],
-  ['the admin at aal1 with no factor', { user: { id: 'admin-1' }, factor: false }],
+  ['the admin at aal1 with no factor, enrolment closed', { user: { id: 'admin-1' }, factor: false }],
+  ['the admin at aal2 with no factor left, enrolment closed', { user: { id: 'admin-1' }, aal: 'aal2', factor: false }],
+  ['the admin at aal1 with no factor, enrolment open', { user: { id: 'admin-1' }, factor: false }, OPEN],
+  ['the admin at aal2 with no factor left, enrolment open', { user: { id: 'admin-1' }, aal: 'aal2', factor: false }, OPEN],
 ];
-const isAal1 = (a: typeof s.auth): boolean => a.user?.id === 'admin-1';
+/** The MFA pages serve this case: a listed admin with a factor, or with none while enrolment is open. */
+const reachesMfa = (a: typeof s.auth, enrol?: string): boolean => a.user?.id === 'admin-1' && (a.factor !== false || enrol === OPEN);
+const setEnrol = (enrol?: string): void => { if (enrol === undefined) delete process.env.ADMIN_MFA_ENROL_OPEN; else process.env.ADMIN_MFA_ENROL_OPEN = enrol; };
 
 beforeAll(() => { process.env.ADMIN_USER_IDS = 'admin-1'; process.env.CRON_SECRET = 'unit-test-cron-secret'; });
 afterAll(() => {
   delete process.env.ADMIN_USER_IDS;
   delete process.env.CRON_SECRET;
+  delete process.env.ADMIN_MFA_ENROL_OPEN;
   const put = (k: string, v: string | undefined): void => { if (v === undefined) delete process.env[k]; else process.env[k] = v; };
   put('NEXT_PUBLIC_UX_V1', s.saved.v1);
   put('NEXT_PUBLIC_UX_V12', s.saved.v12);
@@ -72,28 +81,58 @@ beforeEach(() => { s.reads = []; });
 
 const props = { params: Promise.resolve({ id: '1', site: 'anime' }), searchParams: Promise.resolve({}) };
 
-describe('admin pages: notFound() (or the MFA page for an admin at aal1), before any read', () => {
+describe('admin pages: notFound() (or the MFA page for an admin it serves), before any read, and no title from generateMetadata', () => {
   it('covers every page of both admin trees', () => {
     expect(PAGES.length).toBe(30);
   });
 
-  for (const [name, auth] of REFUSED) {
+  for (const [name, auth, enrol] of REFUSED) {
     it.each(PAGES)(`${name}: %s`, async (f) => {
       s.auth = auth;
-      const mod = await import(/* @vite-ignore */ `@/${f.replace(/\.tsx$/, '')}`) as { default: (p: unknown) => Promise<unknown> };
+      setEnrol(enrol);
+      const mod = await import(/* @vite-ignore */ modulePath(f)) as { default: (p: unknown) => Promise<unknown>; generateMetadata?: (p: unknown) => Promise<{ title?: unknown }> };
       const err = await mod.default(props).then(() => null, (e: unknown) => (e instanceof Error ? e.message : String(e)));
       if (isMfaPage(f)) {
-        // The MFA pages answer every listed admin at aal1 (that is their job) and 404 everyone else.
-        if (isAal1(auth)) expect(err === null || /^NEXT_REDIRECT \/admin\/k7q2m\/(code|setup)$/.test(err)).toBe(true);
+        // The MFA pages answer every admin they serve (that is their job) and 404 everyone else.
+        if (reachesMfa(auth, enrol)) expect(err === null || /^NEXT_REDIRECT \/admin\/k7q2m\/(code|setup)$/.test(err)).toBe(true);
         else expect(err).toBe('NEXT_NOT_FOUND');
-      } else if (isAal1(auth)) {
+      } else if (reachesMfa(auth, enrol)) {
         expect(err).toBe(auth.factor === false ? 'NEXT_REDIRECT /admin/k7q2m/setup' : 'NEXT_REDIRECT /admin/k7q2m/code');
       } else {
         expect(err).toBe('NEXT_NOT_FOUND');
       }
+      if (mod.generateMetadata) {
+        const meta: { title?: unknown } = await mod.generateMetadata(props).catch((e: unknown) => (e instanceof Error && e.message === 'NEXT_NOT_FOUND' ? {} : Promise.reject(e)));
+        expect(meta.title, `${f}: a title for a refused request`).toBeUndefined();
+      }
       expect(s.reads).toEqual([]);
     });
   }
+});
+
+describe('the anime admin layout: a refused visitor never reaches a page of the tree', () => {
+  const layout = async (): Promise<{ default: (p: { children: unknown }) => Promise<unknown> }> =>
+    await import(/* @vite-ignore */ '@/app/sites/[site]/(anime)/admin/layout') as never;
+
+  it.each(REFUSED)('%s', async (_n, auth, enrol) => {
+    s.auth = auth;
+    setEnrol(enrol);
+    const l = await layout();
+    if (reachesMfa(auth, enrol)) {
+      const { renderToStaticMarkup } = await import('react-dom/server');
+      expect(renderToStaticMarkup((await l.default({ children: 'x' })) as never)).toBe('x');
+    } else {
+      await expect(l.default({ children: null })).rejects.toThrow('NEXT_NOT_FOUND');
+    }
+    expect(s.reads).toEqual([]);
+  });
+
+  it('an admin at aal2 gets the page', async () => {
+    s.auth = { user: { id: 'admin-1' }, aal: 'aal2' };
+    setEnrol();
+    const { renderToStaticMarkup } = await import('react-dom/server');
+    expect(renderToStaticMarkup((await (await layout()).default({ children: 'x' })) as never)).toBe('x');
+  });
 });
 
 describe('the kpop admin layout: its nav and its title never reach a refused visitor', () => {
@@ -101,8 +140,9 @@ describe('the kpop admin layout: its nav and its title never reach a refused vis
     await import(/* @vite-ignore */ '@/app/(site)/admin/layout') as never;
   const NAV = 'Quiz Bank';
 
-  it.each(REFUSED.filter(([, a]) => !isAal1(a)))('%s: notFound(), and no title', async (_n, auth) => {
+  it.each(REFUSED.filter(([, a, e]) => !reachesMfa(a, e)))('%s: notFound(), and no title', async (_n, auth, enrol) => {
     s.auth = auth;
+    setEnrol(enrol);
     const l = await layout();
     await expect(l.default({ children: null })).rejects.toThrow('NEXT_NOT_FOUND');
     const m = await l.generateMetadata();
@@ -110,8 +150,9 @@ describe('the kpop admin layout: its nav and its title never reach a refused vis
     expect(m.robots).toEqual({ index: false, follow: false });
   });
 
-  it.each(REFUSED.filter(([, a]) => isAal1(a)))('%s: the MFA pages render, without the nav and without the title', async (_n, auth) => {
+  it.each(REFUSED.filter(([, a, e]) => reachesMfa(a, e)))('%s: the MFA pages render, without the nav and without the title', async (_n, auth, enrol) => {
     s.auth = auth;
+    setEnrol(enrol);
     const l = await layout();
     const { renderToStaticMarkup } = await import('react-dom/server');
     expect(renderToStaticMarkup((await l.default({ children: 'x' })) as never)).not.toContain(NAV);
@@ -120,6 +161,7 @@ describe('the kpop admin layout: its nav and its title never reach a refused vis
 
   it('an admin at aal2 gets the nav and the title', async () => {
     s.auth = { user: { id: 'admin-1' }, aal: 'aal2' };
+    setEnrol();
     const l = await layout();
     const { renderToStaticMarkup } = await import('react-dom/server');
     expect(renderToStaticMarkup((await l.default({ children: 'x' })) as never)).toContain(NAV);
@@ -128,22 +170,23 @@ describe('the kpop admin layout: its nav and its title never reach a refused vis
 });
 
 describe('admin routes: the admin 404 JSON for every method, before any read', () => {
-  it('covers every route under api/admin', () => {
-    expect(ROUTES.length).toBe(46);
+  it('covers every route under api/admin, the catch-all included', () => {
+    expect(ROUTES.length).toBe(47);
   });
 
-  for (const [name, auth] of REFUSED) {
+  for (const [name, auth, enrol] of REFUSED) {
     it.each(ROUTES)(`${name}: %s`, async (f) => {
       s.auth = auth;
-      const mod = await import(/* @vite-ignore */ `@/${f.replace(/\.ts$/, '')}`) as Record<string, unknown>;
-      const url = `http://localhost:3021/${f.replace(/^app\//, '').replace(/\/route\.ts$/, '').replace(/\[id\]/g, '1')}`;
+      setEnrol(enrol);
+      const mod = await import(/* @vite-ignore */ modulePath(f)) as Record<string, unknown>;
+      const url = `http://localhost:3021/${f.replace(/^app\//, '').replace(/\/route\.[a-z]+$/, '').replace(/\[id\]/g, '1').replace('[...rest]', 'a/b')}`;
       let seen = 0;
       for (const method of METHODS) {
         const h = mod[method] as ((req: NextRequest, ctx: unknown) => Promise<Response>) | undefined;
         if (!h) continue;
         seen += 1;
-        // The MFA route serves a listed admin at aal1 (its own steps, tested in mfa.test.ts); every other case here is its 404.
-        if (f === 'app/api/admin/k7q2m/route.ts' && isAal1(auth) && method === 'POST') continue;
+        // The MFA route serves the admin the MFA pages serve (its own steps, tested in mfa.test.ts); every other case here is its 404.
+        if (f === 'app/api/admin/k7q2m/route.ts' && reachesMfa(auth, enrol) && method === 'POST') continue;
         const req = new NextRequest(url, {
           method,
           headers: { host: 'localhost:3021', origin: 'http://localhost:3021', 'content-type': 'application/json' },

@@ -1,8 +1,10 @@
 // ADMIN-1 (owner, 2026-10-30): the static ratchet of the admin lock. It fails when
-//   - a page under app/(site)/admin/** or app/sites/[site]/(anime)/admin/** does not call requireAdmin (the two MFA pages:
-//     AdminMfaPage, whose module calls requireAdmin('mfa') and answers notFound()), or is not a plain re-export of such a page;
-//   - a handler of a route under app/api/admin/** is not guarded by requireAdmin('api') (or a thin wrapper that calls it: the
-//     adminGate of lib/entity-images/route-kit.ts or lib/editorial/admin-api.ts), or answers a 401 or a 403 of its own;
+//   - a page, template or default file (any extension) in the three admin trees, app/(site)/admin/**, app/sites/[site]/(anime)/admin/**
+//     and app/api/admin/**, does not call requireAdmin (the two MFA pages: AdminMfaPage, whose module calls requireAdmin('mfa') and answers
+//     notFound()), or is not a plain re-export of such a page;
+//   - a handler of a route (any extension) in the same three trees is not guarded by requireAdmin('api') (or a thin wrapper that calls it:
+//     the adminGate of lib/entity-images/route-kit.ts or lib/editorial/admin-api.ts), or answers a 401 or a 403 of its own;
+//   - any other Next convention file (loading, error, not-found, an icon or an image route) or a nested layout appears in a page tree;
 //   - one of the other admin call sites of ADMIN-0 (INVENTAIRE.md sections 4 and 5) stops going through the guard;
 //   - an isAdmin call, an import of the old lib/admin module or a read of ADMIN_USER_IDS remains outside lib/admin/guard.ts;
 //   - the MFA paths appear in robots, the sitemap or anywhere outside the admin lock's own files;
@@ -38,12 +40,17 @@ function strip(text: string): string {
 
 const KPOP_ADMIN = 'app/(site)/admin';
 const ANIME_ADMIN = 'app/sites/[site]/(anime)/admin';
+const API_ADMIN = 'app/api/admin';
+const ADMIN_TREES = [...walk(KPOP_ADMIN), ...walk(ANIME_ADMIN), ...walk(API_ADMIN)];
+const PAGE_FILE = /(^|\/)(page|template|default)\.(tsx|ts|jsx|js|mdx)$/;
+const ROUTE_FILE = /(^|\/)route\.(tsx|ts|jsx|js)$/;
+const BANNED_FILE = /(^|\/)(loading|error|global-error|not-found|forbidden|unauthorized|opengraph-image|twitter-image|icon|apple-icon|sitemap|robots|manifest)\.[a-z]+$/;
 const MFA_SEGMENT = 'k7q2m';
 const PAGE_GATE = /\bawait requireAdmin\(\)/;
 const MFA_PAGE = 'components/admin/mfa/mfa-page.tsx';
 const MFA_GATE = /\breturn AdminMfaPage\(\{ step: '(code|setup)' \}\);/;
 
-const adminPages = [...walk(KPOP_ADMIN), ...walk(ANIME_ADMIN)].filter((f) => f.endsWith('/page.tsx'));
+const adminPages = ADMIN_TREES.filter((f) => PAGE_FILE.test(f));
 const isMfa = (f: string): boolean => f.includes(`/admin/${MFA_SEGMENT}/`);
 
 /** The admin page a plain re-export points at (`import X from '@/app/...'` then `export default X;`), else null. */
@@ -85,7 +92,7 @@ describe('every admin page calls requireAdmin', () => {
     for (const f of adminPages.filter((x) => isMfa(x) && x.startsWith(KPOP_ADMIN))) expect(strip(read(f)), f).toMatch(/from '@\/components\/admin\/mfa\/mfa-page'/);
     expect(strip(read(MFA_PAGE))).toMatch(/const admin = await requireAdmin\('mfa'\);\s*if \(!admin\) notFound\(\);/);
     const users = walk('').filter(code).filter((f) => /requireAdmin\('mfa'\)/.test(strip(read(f))));
-    expect(users.sort()).toEqual([MFA_PAGE, `${KPOP_ADMIN}/layout.tsx`, `app/api/admin/${MFA_SEGMENT}/route.ts`].sort());
+    expect(users.sort()).toEqual([MFA_PAGE, `${KPOP_ADMIN}/layout.tsx`, `${ANIME_ADMIN}/layout.tsx`, `app/api/admin/${MFA_SEGMENT}/route.ts`].sort());
   });
 
   it('the kpop admin layout answers 404 before its nav and its title, so a refused visitor\'s 404 says nothing about the admin', () => {
@@ -93,8 +100,13 @@ describe('every admin page calls requireAdmin', () => {
     expect(layout).toMatch(/const admin = await requireAdmin\('mfa'\);\s*if \(!admin\) notFound\(\);\s*if \(admin\.level !== 'pass'\) return/);
     expect(layout).not.toMatch(/export const metadata/);
     expect(layout).toMatch(/export async function generateMetadata[\s\S]*await requireAdmin\('check'\)/);
-    // No not-found file inside an admin tree: it would render inside the admin's layout.
-    expect([...walk(KPOP_ADMIN), ...walk(ANIME_ADMIN)].filter((f) => /not-found\.tsx$/.test(f))).toEqual([]);
+    // No not-found, loading, error or image file inside an admin tree: it would render inside the admin's layout, or before its guard.
+    expect(ADMIN_TREES.filter((f) => BANNED_FILE.test(f))).toEqual([]);
+  });
+
+  it('the anime admin layout answers 404 before any page, like the kpop one, and these two are the only layouts of the trees', () => {
+    expect(strip(read(`${ANIME_ADMIN}/layout.tsx`))).toMatch(/const admin = await requireAdmin\('mfa'\);\s*if \(!admin\) notFound\(\);/);
+    expect(ADMIN_TREES.filter((f) => /(^|\/)layout\.[a-z]+$/.test(f)).sort()).toEqual([`${KPOP_ADMIN}/layout.tsx`, `${ANIME_ADMIN}/layout.tsx`].sort());
   });
 });
 
@@ -105,11 +117,12 @@ const WRAPPERS: Array<[RegExp, string]> = [
 ];
 const ROUTE_GATE = /const (\w+) = await requireAdmin\('api'\);\s*if \(!\1\.ok\) return \1\.res;/;
 const WRAPPER_GATE = /const (\w+) = await adminGate\(\);\s*if \(!\1\.ok\) return \1\.res;/;
-const CRON_GATE = /if \(!isCronAuthorized\(req\)\) \{\s*const (\w+) = await requireAdmin\('api'\);\s*if \(!\1\.ok\) return \1\.res;\s*\}/;
+const CRON_GATE = /if \(!isCronAuthorized\(req\)\) \{\s*if \(!sameOrigin\(req\)\) return adminNotFound\(\);\s*const (\w+) = await requireAdmin\('api'\);\s*if \(!\1\.ok\) return \1\.res;\s*\}/;
+const POST_CRON_GATE = /if \(!isCronAuthorized\(req\)\) \{\s*const (\w+) = await requireAdmin\('api'\);\s*if \(!\1\.ok\) return \1\.res;\s*\}/;
 const MFA_ROUTE_GATE = /const (\w+) = await requireAdmin\('mfa'\);\s*if \(!\1\) return adminNotFound\(\);/;
 const NOT_FOUND_EXPORTS = new Set(['notFoundHandler', 'adminNotFound']);
 
-const adminRoutes = walk('app/api/admin').filter((f) => f.endsWith('/route.ts'));
+const adminRoutes = ADMIN_TREES.filter((f) => ROUTE_FILE.test(f));
 
 /** The exported handlers of a route file: name, and the body (a function) or the value (`export const X = Y`). */
 function handlers(text: string): Array<{ name: string; body: string | null; value: string | null }> {
@@ -135,8 +148,14 @@ function importedBody(text: string, name: string, file: string): string | null {
 }
 
 describe('every route under api/admin is guarded, method by method', () => {
-  it('finds the 45 routes of ADMIN-0 and the MFA route', () => {
-    expect(adminRoutes.length).toBe(46);
+  it('finds the 45 routes of ADMIN-0, the MFA route and the catch-all, all under api/admin (a route in a page tree would need its own review)', () => {
+    expect(adminRoutes.length).toBe(47);
+    expect(adminRoutes.filter((f) => !f.startsWith(`${API_ADMIN}/`))).toEqual([]);
+  });
+
+  it('the catch-all answers the admin 404 for every method, so an unknown path cannot be told from a real one', () => {
+    const hs = handlers(strip(read(`${API_ADMIN}/[...rest]/route.ts`)));
+    expect(hs.map((h) => h.value)).toEqual(Array(7).fill('adminNotFound'));
   });
 
   it.each(adminRoutes)('%s answers every method itself (never Next\'s 405 and its Allow header)', (f) => {
@@ -156,7 +175,7 @@ describe('every route under api/admin is guarded, method by method', () => {
         continue;
       }
       const body = h.body!;
-      const gated = ROUTE_GATE.test(body) || WRAPPER_GATE.test(body) || CRON_GATE.test(body) || (f === `app/api/admin/${MFA_SEGMENT}/route.ts` && MFA_ROUTE_GATE.test(body));
+      const gated = ROUTE_GATE.test(body) || WRAPPER_GATE.test(body) || POST_CRON_GATE.test(body) || (f === `app/api/admin/${MFA_SEGMENT}/route.ts` && MFA_ROUTE_GATE.test(body));
       expect(gated, `${f} ${h.name}: not guarded by requireAdmin`).toBe(true);
       expect(body, `${f} ${h.name}: a 401 or 403 of its own`).not.toMatch(/status: 40[13]\b|'Unauthorized'|'Forbidden'/);
       expect(body, `${f} ${h.name}: a getUser gate of its own`).not.toMatch(/auth\.getUser\(/);
@@ -176,7 +195,18 @@ describe('every route under api/admin is guarded, method by method', () => {
       const text = strip(read(f));
       expect(text, f).not.toMatch(/createServerClient|gate\.supabase|const \{ supabase \} = gate/);
       for (const h of handlers(text).filter((x) => x.body !== null)) expect(h.body!, `${f} ${h.name}`).toMatch(/if \(!gate\.ok\) return gate\.res;\s*const db = createServiceRoleClient\(\);/);
+      expect(text, `${f}: a body spread into a service-role write`).not.toMatch(/\.\.\.body/);
     }
+  });
+
+  it('the song PUT writes the very columns the song POST inserts', () => {
+    const insert = /\.insert\(\{([\s\S]*?)\}\)/.exec(strip(read('app/api/admin/songs/route.ts')));
+    expect(insert).not.toBeNull();
+    const inserted = [...insert![1]!.matchAll(/^\s*(\w+):/gm)].map((m) => m[1]!).sort();
+    const allowed = /SONG_WRITE_FIELDS = \[([\s\S]*?)\]/.exec(strip(read('app/api/admin/songs/song-fields.ts')));
+    expect(allowed).not.toBeNull();
+    expect([...allowed![1]!.matchAll(/'(\w+)'/g)].map((m) => m[1]!).sort()).toEqual(inserted);
+    expect(strip(read('app/api/admin/songs/[id]/route.ts'))).toMatch(/\.update\(\{ \.\.\.pickSongFields\(body as Record<string, unknown>\), updated_at: /);
   });
 });
 
@@ -243,9 +273,17 @@ describe('no admin list outside the guard', () => {
     expect(sources.filter((f) => /process\.env\.ADMIN_USER_IDS|process\.env\[['"]ADMIN_USER_IDS/.test(strip(read(f))))).toEqual(['lib/admin/list.ts']);
   });
 
-  it('isListedAdminId grants nothing: outside the guard only the publisher (a stored id) and the middleware (a narrowing 404) use it', () => {
+  it('ADMIN_MFA_ENROL_OPEN is read by lib/admin/list.ts only, and its reader is used by the guard and the middleware\'s narrowing only', () => {
+    expect(sources.filter((f) => /ADMIN_MFA_ENROL_OPEN/.test(strip(read(f))) && !/process\.env\.ADMIN_MFA_ENROL_OPEN/.test(strip(read(f))))).toEqual([]);
+    expect(sources.filter((f) => /process\.env\.ADMIN_MFA_ENROL_OPEN|process\.env\[['"]ADMIN_MFA_ENROL_OPEN/.test(strip(read(f))))).toEqual(['lib/admin/list.ts']);
+    expect(sources.filter((f) => f !== 'lib/admin/list.ts' && /\badminEnrolOpen\b/.test(strip(read(f))))).toEqual(['lib/admin/guard.ts']);
+  });
+
+  it('the list grants nothing: outside the guard only the publisher (a stored id) and the middleware (a narrowing 404) use it', () => {
     const users = sources.filter((f) => !['lib/admin/guard.ts', 'lib/admin/list.ts'].includes(f) && /\bisListedAdminId\b/.test(strip(read(f))));
-    expect(users.sort()).toEqual(['app/api/cron/editorial-publish/route.ts', 'lib/supabase/middleware.ts']);
+    expect(users).toEqual(['app/api/cron/editorial-publish/route.ts']);
+    const narrowing = sources.filter((f) => f !== 'lib/admin/list.ts' && /\bmayReachAdminPages\b/.test(strip(read(f))));
+    expect(narrowing).toEqual(['lib/supabase/middleware.ts']);
   });
 });
 

@@ -154,10 +154,11 @@ export async function middleware(request: NextRequest) {
 // requests to those now reach the middleware's 410 (or, for the per-group personality
 // URLs, the next.config redirect that runs before it). `g/` stays: /g/[slug] (blind
 // test) is a kept cached page.
+// ADMIN-1: the file extensions below are not excluded under /admin/, so /admin/songs/x.png gets the same answer as /admin/songs/x.
 // A prefix added to the allowlist but not here only costs a wasted invocation, never
 // wrong behaviour. See middleware-matcher.test.ts for the full path matrix.
 export const config = {
   matcher: [
-    '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|q/|g/|s/|u/|quiz/|group/|embed/|(?:quizzes|blindtest|leaderboard|trivia|articles|data|groups|trending|new|most-liked|build|search|profile|me|notifications|news|stats|create|guess-the-kpop-idol|kpop-true-or-false|easy-kpop-quizzes|hard-kpop-quizzes|kpop-quiz-2026|terms|privacy|legal|dmca|about|faq|contact|daily)(?:/|$)|[^/]+-(?:quiz|trivia)(?:/|$)|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt)$|$).*)',
+    '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|q/|g/|s/|u/|quiz/|group/|embed/|(?:quizzes|blindtest|leaderboard|trivia|articles|data|groups|trending|new|most-liked|build|search|profile|me|notifications|news|stats|create|guess-the-kpop-idol|kpop-true-or-false|easy-kpop-quizzes|hard-kpop-quizzes|kpop-quiz-2026|terms|privacy|legal|dmca|about|faq|contact|daily)(?:/|$)|[^/]+-(?:quiz|trivia)(?:/|$)|(?!admin/).*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt)$|$).*)',
   ],
 };
