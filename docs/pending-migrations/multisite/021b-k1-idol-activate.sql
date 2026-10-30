@@ -12,7 +12,7 @@
 --         site and the pool of Kpopdle Idol. Activating an idol makes its row readable by everyone (policy idols_public_read)
 --         and puts it on the public group and member pages.
 -- Rows:   one update per listed idol; nothing else.
--- Needs:  021a-k1-idol-facts.sql (the review list shows its values; this file does not read the new columns) and the owner's list.
+-- Needs:  021a-k1-idol-gender-debut.sql (the review list shows its values; this file does not read the new columns) and the owner's list.
 -- Verify: select id, active, needs_review from public.idols where id in (<the listed ids>);   expect t, f on every row
 --         select count(*) from public.idols where active and birth_date > (current_date - interval '18 years')::date;   expect 0
 -- Undo:   021b-k1-idol-activate.rollback.sql with the same list.

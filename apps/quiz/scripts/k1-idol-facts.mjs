@@ -27,7 +27,7 @@
 // No birth date ever leaves the database: the snapshot says adult, minor or none. A Wikidata birth year is read in memory
 // only to refuse a "debut" that is not at least 8 years after it; it is never written.
 //
-// Output (--out): k1-facts.json (every fetched fact and decision), 021a-k1-idol-facts.sql (the additive SQL for the owner)
+// Output (--out): k1-facts.json (every fetched fact and decision), 021a-k1-idol-gender-debut.sql (the additive SQL for the owner)
 // and K1-RELECTURE.md (the French review list, kept out of git).
 //
 // Usage (Node 22): node apps/quiz/scripts/k1-idol-facts.mjs --idols <idols.psv> --groups <groups.psv> --cache <dir> --out <dir>
@@ -330,7 +330,7 @@ await mkdir(OUT, { recursive: true });
 const summary = summarize();
 await writeFile(path.join(OUT, 'k1-facts.json'), JSON.stringify({ snapshot_date: SNAPSHOT_DATE, summary, groups: Object.fromEntries(
   [...groups.values()].map((g) => [g.id, { ...g, mb: groupMb.get(g.id) }])), facts }, null, 1));
-await writeFile(path.join(OUT, '021a-k1-idol-facts.sql'), buildSql());
+await writeFile(path.join(OUT, '021a-k1-idol-gender-debut.sql'), buildSql());
 await writeFile(path.join(OUT, 'K1-RELECTURE.md'), buildReview());
 console.log(JSON.stringify(summary, null, 1));
 console.log(`[k1] http: ${fetchedCount} fetched, ${cachedCount} from cache`);
@@ -378,7 +378,7 @@ function buildSql() {
   const perTxt = ['debut_year', 'gender'].flatMap((fl) => ['musicbrainz', 'wikidata'].map((so) => `${fl} ${so} ${per(fl, so)}`)).join(', ');
   const nG = rows.filter((f) => f.gender.value).length;
   const nD = rows.filter((f) => f.debut_year.value).length;
-  return `-- 021a-k1-idol-facts.sql (lot K1, idol data for Kpopdle Idol, owner brief of 2026-10-30; RAPPORT-JEUX-DU-JOUR-v2.md 5.1 and 14)
+  return `-- 021a-k1-idol-gender-debut.sql (lot K1, idol data for Kpopdle Idol, owner brief of 2026-10-30; RAPPORT-JEUX-DU-JOUR-v2.md 5.1 and 14)
 --
 -- What:   adds two nullable columns to public.idols: gender (text, 'female' or 'male' only) and debut_year (integer, the idol's
 --         OWN debut year, 1980 to 2100), then fills them for the idols that have a Wikidata QID, with one public.entity_sources
@@ -401,7 +401,7 @@ function buildSql() {
 --         select field, source, count(*) from public.entity_sources where entity_type = 'idol' and field in ('gender', 'debut_year') group by 1, 2 order by 1, 2;
 --           expect ${perTxt}
 --         select count(*) from public.idols where active and birth_date > (current_date - interval '18 years')::date;   expect 0
--- Undo:   021a-k1-idol-facts.rollback.sql (refused while the game kpopdle-idol is active).
+-- Undo:   021a-k1-idol-gender-debut.rollback.sql (refused while the game kpopdle-idol is active).
 -- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing.
 
 set lock_timeout = '5s';
@@ -410,7 +410,7 @@ set client_min_messages = warning;
 do $$
 begin
   if to_regclass('public.idols') is null or to_regclass('public.entity_sources') is null then
-    raise exception '021a-k1-idol-facts: public.idols or public.entity_sources is missing';
+    raise exception '021a-k1-idol-gender-debut: public.idols or public.entity_sources is missing';
   end if;
 end $$;
 
@@ -465,7 +465,7 @@ begin
   where v.gender is not null and (i.id is null or i.wikidata_qid is distinct from v.qid or i.gender is distinct from v.gender);
   select count(*) into skip_d from k1_values v left join public.idols i on i.id = v.id
   where v.debut_year is not null and (i.id is null or i.wikidata_qid is distinct from v.qid or i.debut_year is distinct from v.debut_year);
-  raise notice '021a-k1-idol-facts: filled % gender and % debut_year; skipped (row gone, QID changed or other value kept): % gender, % debut_year',
+  raise notice '021a-k1-idol-gender-debut: filled % gender and % debut_year; skipped (row gone, QID changed or other value kept): % gender, % debut_year',
     n_g, n_d, skip_g, skip_d;
 end $$;
 
@@ -485,34 +485,34 @@ declare
 begin
   if (select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'idols'
       and ((column_name = 'gender' and data_type = 'text') or (column_name = 'debut_year' and data_type = 'integer'))) <> 2 then
-    raise exception '021a-k1-idol-facts: idols.gender or idols.debut_year is missing or has the wrong type';
+    raise exception '021a-k1-idol-gender-debut: idols.gender or idols.debut_year is missing or has the wrong type';
   end if;
   if (select count(*) from pg_constraint where conrelid = 'public.idols'::regclass and conname in ('idols_gender_check', 'idols_debut_year_check') and convalidated) <> 2 then
-    raise exception '021a-k1-idol-facts: a check constraint is missing or not validated';
+    raise exception '021a-k1-idol-gender-debut: a check constraint is missing or not validated';
   end if;
   select count(*) into n from public.idols where (gender is not null and gender not in ('female', 'male')) or (debut_year is not null and debut_year not between 1980 and 2100);
   if n > 0 then
-    raise exception '021a-k1-idol-facts: % idol(s) hold a value outside the checks', n;
+    raise exception '021a-k1-idol-gender-debut: % idol(s) hold a value outside the checks', n;
   end if;
   select count(*) into n from k1_sources s join k1_values v on v.id = s.id join public.idols i on i.id = s.id and i.wikidata_qid = s.qid
   where ((s.field = 'gender' and i.gender = v.gender) or (s.field = 'debut_year' and i.debut_year = v.debut_year))
     and not exists (select 1 from public.entity_sources e where e.entity_type = 'idol' and e.entity_id = s.id::text and e.field = s.field and e.source = s.source);
   if n > 0 then
-    raise exception '021a-k1-idol-facts: % stored value(s) have no entity_sources row', n;
+    raise exception '021a-k1-idol-gender-debut: % stored value(s) have no entity_sources row', n;
   end if;
   if (select count(*) filter (where active) from public.idols) <> (select active_n from k1_before) then
-    raise exception '021a-k1-idol-facts: the number of active idols changed (this file never activates)';
+    raise exception '021a-k1-idol-gender-debut: the number of active idols changed (this file never activates)';
   end if;
   select count(*) into n from public.idols where active and birth_date > (current_date - interval '18 years')::date;
   if n > 0 then
-    raise exception '021a-k1-idol-facts: % active idol(s) are under 18', n;
+    raise exception '021a-k1-idol-gender-debut: % active idol(s) are under 18', n;
   end if;
   select count(*) into n from public.idols where active and birth_date is null;
-  raise notice '021a-k1-idol-facts: % active idol(s) have no birth date (the game never shows them; K1 does not touch them)', n;
+  raise notice '021a-k1-idol-gender-debut: % active idol(s) have no birth date (the game never shows them; K1 does not touch them)', n;
   select count(*) into n from public.idols i
   where i.active and not i.needs_review and i.detached_at is null and i.birth_date <= (current_date - interval '18 years')::date
     and nullif(btrim(i.nationality), '') is not null and i.gender is not null and i.debut_year is not null;
-  raise notice '021a-k1-idol-facts: % active adult idol(s) now have gender, debut_year and nationality', n;
+  raise notice '021a-k1-idol-gender-debut: % active adult idol(s) now have gender, debut_year and nationality', n;
 end $$;
 
 drop table if exists pg_temp.k1_before, pg_temp.k1_values, pg_temp.k1_sources;

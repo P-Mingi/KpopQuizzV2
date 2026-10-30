@@ -5,7 +5,7 @@
 --         Paste the SAME (id, 'QID') lines as in 021b-k1-idol-activate.sql. Refused, with nothing changed, when the list is
 --         empty or a listed id is unknown or carries another QID.
 -- Why:    the rollback of the K1 activation. The idol leaves the public pages and, at the next pool refresh, Kpopdle Idol.
--- Rows:   one update per listed idol that is active; nothing else (the K1 columns and sources stay: 021a-k1-idol-facts.rollback.sql).
+-- Rows:   one update per listed idol that is active; nothing else (the K1 columns and sources stay: 021a-k1-idol-gender-debut.rollback.sql).
 -- Verify: select id, active, needs_review from public.idols where id in (<the listed ids>);   expect f, t on every row
 -- Undo:   run 021b-k1-idol-activate.sql again with the same list.
 -- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing.
