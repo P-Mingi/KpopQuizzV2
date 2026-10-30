@@ -23,7 +23,9 @@ La mise en place n'est ouverte que pendant cette étape, par un interrupteur ser
 7. Refaire 2 à 6 pour chaque autre compte de `ADMIN_USER_IDS`, avec ses deux applications, ou retirer ce compte de la liste.
 8. Retirer `ADMIN_MFA_ENROL_OPEN` de Vercel et redéployer. Vérifier : `/admin` demande toujours les 6 chiffres.
 
-Le même code sert pour bunnyverse.org/anime/admin (même compte, même base).
+Le même code sert pour bunnyverse.org/anime/admin (même compte, même base). Il faut seulement retaper les 6 chiffres sur ce site : il a sa propre session.
+
+Une preview tourne sur une autre base (`o1-dev`) : le code de la production n'y marche pas. Pour y ouvrir l'admin, refaire les sections 1 et 2 sur ce projet Supabase, avec l'interrupteur dans les variables Preview du projet Vercel de la preview.
 
 ## 3. Les fois suivantes
 

@@ -200,7 +200,7 @@ Vérif : la commande fait V4 après 008 (seule `merge_anon_passport` change) et 
 ### 23. La veille de 24 h, à l'étape 22 plus 24 h
 Moi 8 min, Claude 15 min, Worker 20 min. [RUNBOOK D3](RUNBOOK.md#d-p2-008-write-locks)
 
-Claude : l'audit des compteurs reste au plus au niveau de base. Worker : Runtime Logs calmes sur 24 h. Toi : la même preuve qu'à l'étape 22 avec le compte jetable, puis supprime ce compte comme d'habitude (tableau de bord Supabase ou admin). Écris « fait n° 23 ». Leur « veille propre » ouvre la session E.
+Claude : l'audit des compteurs reste au plus au niveau de base. Worker : Runtime Logs calmes sur 24 h. Toi : la même preuve qu'à l'étape 22 avec le compte jetable, puis supprime ce compte comme d'habitude (tableau de bord Supabase, ou admin : l'admin demande d'abord ton code à 6 chiffres, à mettre en place une fois avec l'interrupteur `ADMIN_MFA_ENROL_OPEN`, `docs/o1/admin/MFA-OWNER.md` section 2). Écris « fait n° 23 ». Leur « veille propre » ouvre la session E.
 
 ## Partie 5. Session E : 009, le déploiement, 010 (10 min pour moi)
 
@@ -368,6 +368,8 @@ L10-PERS et ses 70 profils sont dans la commande de l'étape 43 : rien à coller
 ### 45. Les images de l'admin, seulement si Claude l'a dit (étape 35)
 Moi (si besoin) 6 min, Claude (si besoin) 5 min. [RUNBOOK K5.3c](RUNBOOK.md#k-launch-day)
 
+Le code admin d'abord, pour envoyer des images. Ces images s'envoient avant cette étape, depuis `/anime/admin` sur la preview. La preview a sa propre base (`o1-dev`) : le code de la production n'y marche pas, il lui faut le sien, avec l'interrupteur `ADMIN_MFA_ENROL_OPEN` sur les variables Preview de `otakuquiz` (`docs/o1/admin/MFA-OWNER.md`, sections 1, 2 et 8). Les commandes ci-dessous n'ouvrent pas l'admin : pas de code pour elles.
+
 La première ligne attend la clé `service_role`. La deuxième est un essai à blanc : colle sa sortie dans le chat. Au OK de Claude, la troisième copie. La dernière efface la clé.
 ```
 read -rs PROMOTE_TARGET_SERVICE_KEY && export PROMOTE_TARGET_SERVICE_KEY PROMOTE_TARGET_URL=https://rdkgouofytwfdpbxbzio.supabase.co
@@ -442,9 +444,13 @@ bash docs/launch/o1/session.sh J4
 ```
 
 ### 52. Le quiz du jour
-Moi 6 min, Worker 5 min, Claude 3 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
+Moi 6 min (5 min de plus si ton compte n'a pas encore de code admin), Worker 5 min, Claude 3 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
 
-Connecté avec ton compte admin sur `https://bunnyverse.org/anime`, colle cette ligne dans la console du navigateur (elle prend la date du jour toute seule). La réponse dit `scheduled: 14`.
+Le code admin d'abord. Sans code à 6 chiffres, la ligne ci-dessous répond 404.
+
+1. Si ton compte n'a pas encore de code : `docs/o1/admin/MFA-OWNER.md` section 2 (`ADMIN_MFA_ENROL_OPEN` = `1` sur `kpopquiz`, redéploiement, QR code, puis retirer l'interrupteur et redéployer). Mieux vaut le faire le jour où le verrou de l'admin part en production, pas le jour J.
+2. Connecté avec ton compte admin sur `https://bunnyverse.org/anime`, ouvre `https://bunnyverse.org/anime/admin` et tape les 6 chiffres. Ce site a sa propre session : il faut les taper ici, même si tu l'as déjà fait sur kpopquiz.org.
+3. Dans le même onglet, colle cette ligne dans la console du navigateur (elle prend la date du jour toute seule). La réponse dit `scheduled: 14`. Si elle dit `not_found` : refais le point 2.
 ```
 fetch('/anime/api/admin/quiz-bank/auto-schedule', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({start_date: new Date().toISOString().slice(0, 10)})}).then(r => r.json()).then(console.log)
 ```

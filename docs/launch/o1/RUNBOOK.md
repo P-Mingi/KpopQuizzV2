@@ -368,7 +368,7 @@ Check: the second run changes nothing. Back: n/a (a branch).
 
 **J4  The first fourteen daily quizzes of OtakuQuiz (decided, D-099).**
 The anime daily publishes only a bank row that is `verified` or `scheduled` and dated that day (`ensure_daily_quiz_v2`, 010); L08 loads the bank as undated drafts, so K5 step 4 verifies fourteen rows and K9 dates them.
-The tool is the kpop bank tool with the site parameter: `POST /api/admin/quiz-bank/auto-schedule` and `PATCH /api/admin/quiz-bank/<id>` read and write `quiz_bank` through `forSite()`, so on the `otakuquiz` build they only touch rows of site `anime`. The screen belongs to the kpop build: you call the routes from the browser console of `https://bunnyverse.org/anime` while signed in with an id of `ADMIN_USER_IDS` (K9), under the `/anime` prefix.
+The tool is the kpop bank tool with the site parameter: `POST /api/admin/quiz-bank/auto-schedule` and `PATCH /api/admin/quiz-bank/<id>` read and write `quiz_bank` through `forSite()`, so on the `otakuquiz` build they only touch rows of site `anime`. The screen belongs to the kpop build: you call the routes from the browser console of `https://bunnyverse.org/anime` while signed in with an id of `ADMIN_USER_IDS`, its 6-digit TOTP code typed first (K9), under the `/anime` prefix.
 Auto-scheduling is on: the cron `/api/cron/ensure-daily-quiz` (`5 0 * * *`) with `QOTD_ROTATION_FIX=1` on the `otakuquiz` project (ENV.md 1.2). When no row is dated for the day the cron pulls the next open bank row to that day, else picks from the catalogue, and answers 500 when the day stays empty, so a failed cron job is the alarm. Never set it on `fandomverse`.
 
 ---------------------------------------------------------------------------------------------------------------------------------
@@ -414,6 +414,7 @@ Check (Claude, read-only SQL on `auth.users`): 31 users on `team.bunnyverse.org`
 3b. **K5.3b** `sql1 $M/launch/L10-PERS-personality.sql` (the "Which character are you" quizzes of 10 series: 80 questions, 70 profiles; SQL-ORDER row 27b). After L08 and before L12. Needs L04, 002a and 013 (G1). Owner decision of 2026-10-26 (D-124): it ships at launch.
    Check: `q "select count(*) from public.personality_profiles where site_id = 'anime'"` prints 70; `content-verify.sql` against `expected-counts.json` (personality 10, personality_questions 80, personality_profiles 70) still passes. Back: `sql1 $M/launch/L10-PERS-personality.rollback.sql` (saved results stay: it never touches `personality_results`).
 3c. **K5.3c** Promote the admin images (only if you uploaded images on o1-dev, from `/anime/admin` on the preview). Needs `M/018-entity-images.sql` (G1, SQL-ORDER row 14b).
+   TOTP first, for anything done on the admin page. `/anime/admin` and its routes answer 404 to a session with no 6-digit code, and to a listed account with no code while the switch is off. The upload happens on the preview, which runs on o1-dev: another auth database, so a code made on production does not work there. Before uploading: turn TOTP on in that Supabase project, set `ADMIN_MFA_ENROL_OPEN=1` on the `otakuquiz` Preview variables, redeploy the preview, enrol with an id of its Preview `ADMIN_USER_IDS`, remove the switch, redeploy (`docs/o1/admin/MFA-OWNER.md` sections 1, 2 and 8). The `promote.mjs` commands below do not open the admin. The `Back` line below does, on production: same code as K9.
    It copies the files of the bucket `entity-images` and the rows of `public.entity_images` from o1-dev to production; it never deletes anything there and a second run changes nothing. Run it before you delete the o1-dev branch (After launch). The production key is typed into your shell, never saved:
 
        read -rs PROMOTE_TARGET_SERVICE_KEY; export PROMOTE_TARGET_SERVICE_KEY
@@ -430,7 +431,7 @@ Check (Claude, read-only SQL on `auth.users`): 31 users on `team.bunnyverse.org`
 
        q "update public.quiz_bank set status='verified', verified_at=now() where id in (select id from public.quiz_bank where site_id='anime' and status='draft' and scheduled_date is null order by md5(title) limit 14) returning title"
 
-   The dating comes at K9 (it needs the signed-in admin on `/anime`); the cron then keeps going by itself (J4).
+   The dating comes at K9 (it needs the signed-in admin on `/anime`, TOTP code included); the cron then keeps going by itself (J4).
 Back: each file's rollback, in reverse (refused once data was written, ROLLBACK.md section 3).
 
 **K5b  Turn the builds on.**
@@ -463,8 +464,9 @@ Do: `sql1 $M/launch/L12-L1-sites-live.sql`, then the file of lot A1 (`L13-A1-cha
 files (owner order 2026-10-30); content-verify and V-S4 again. The command stops on the lot A1 file while it is not on main. Check: V8 (`kpop`, `anime`, `hub` all `live`). Back: `sql1 $M/launch/L12-L1-sites-live.rollback.sql`.
 
 **K9  The daily quiz and the go.**
-Do: (1) Sign in on `https://bunnyverse.org/anime` with your admin account and, in the browser console of that tab, date the verified rows from today:
-`fetch('/anime/api/admin/quiz-bank/auto-schedule', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({start_date: '<today, YYYY-MM-DD>'})}).then(r => r.json()).then(console.log)`; it answers `{scheduled: 14, ...}`.
+Do: (0) TOTP first. `/anime/api/admin/*` answers 404 to a session with no 6-digit code. If your account has no code yet, make it before anything else: `ADMIN_MFA_ENROL_OPEN=1` on `kpopquiz` (Production), redeploy, enrol, remove the switch, redeploy (`docs/o1/admin/MFA-OWNER.md` section 2). That is two redeploys of `kpopquiz`, so do it the day the admin lock ships, not on launch day, if you can. The code also works on OtakuQuiz (same account, same database); the session does not carry over.
+(1) Sign in on `https://bunnyverse.org/anime` with your admin account, open `https://bunnyverse.org/anime/admin`, type the 6 digits (the admin home opens) and, in the browser console of that tab, date the verified rows from today:
+`fetch('/anime/api/admin/quiz-bank/auto-schedule', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({start_date: '<today, YYYY-MM-DD>'})}).then(r => r.json()).then(console.log)`; it answers `{scheduled: 14, ...}`. An answer of `{error: 'Not found.', code: 'not_found'}` means this session has no code: type the 6 digits on `/anime/admin` again, in this tab.
 (2) Publish today's quiz without waiting for 00:05: Vercel, project `otakuquiz`, Settings, Cron Jobs, `ensure-daily-quiz`, Run. (Or with the `otakuquiz` value of `CRON_SECRET`: `read -rs CRON_SECRET`, then
 `curl -sS -H "Authorization: Bearer $CRON_SECRET" https://bunnyverse.org/anime/api/cron/ensure-daily-quiz`, which answers `{"ok":true,...}`, then `unset CRON_SECRET`.) Check `https://bunnyverse.org/anime/daily` redirects to an `/anime/q/` page, and (K6b) Vercel, project `otakuquiz`, Logs shows the Run as `/anime/api/cron/ensure-daily-quiz` with 200.
 (3) V10 completely; V1 for kpop (only live numbers differ, nothing else; the NET flags are still off); on `/anime` with a real account: sign in, play a quiz, like it, check the daily page and the series page spoiler cover (the blind test is off on anime, D-120: a 404 is expected); on the hub: the network page signed out and signed in.
