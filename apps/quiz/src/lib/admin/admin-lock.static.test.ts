@@ -85,7 +85,16 @@ describe('every admin page calls requireAdmin', () => {
     for (const f of adminPages.filter((x) => isMfa(x) && x.startsWith(KPOP_ADMIN))) expect(strip(read(f)), f).toMatch(/from '@\/components\/admin\/mfa\/mfa-page'/);
     expect(strip(read(MFA_PAGE))).toMatch(/const admin = await requireAdmin\('mfa'\);\s*if \(!admin\) notFound\(\);/);
     const users = walk('').filter(code).filter((f) => /requireAdmin\('mfa'\)/.test(strip(read(f))));
-    expect(users.sort()).toEqual([MFA_PAGE, `app/api/admin/${MFA_SEGMENT}/route.ts`].sort());
+    expect(users.sort()).toEqual([MFA_PAGE, `${KPOP_ADMIN}/layout.tsx`, `app/api/admin/${MFA_SEGMENT}/route.ts`].sort());
+  });
+
+  it('the kpop admin layout answers 404 before its nav and its title, so a refused visitor\'s 404 says nothing about the admin', () => {
+    const layout = strip(read(`${KPOP_ADMIN}/layout.tsx`));
+    expect(layout).toMatch(/const admin = await requireAdmin\('mfa'\);\s*if \(!admin\) notFound\(\);\s*if \(admin\.level !== 'pass'\) return/);
+    expect(layout).not.toMatch(/export const metadata/);
+    expect(layout).toMatch(/export async function generateMetadata[\s\S]*await requireAdmin\('check'\)/);
+    // No not-found file inside an admin tree: it would render inside the admin's layout.
+    expect([...walk(KPOP_ADMIN), ...walk(ANIME_ADMIN)].filter((f) => /not-found\.tsx$/.test(f))).toEqual([]);
   });
 });
 

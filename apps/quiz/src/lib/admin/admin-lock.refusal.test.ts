@@ -96,6 +96,37 @@ describe('admin pages: notFound() (or the MFA page for an admin at aal1), before
   }
 });
 
+describe('the kpop admin layout: its nav and its title never reach a refused visitor', () => {
+  const layout = async (): Promise<{ default: (p: { children: unknown }) => Promise<unknown>; generateMetadata: () => Promise<{ title?: unknown; robots?: unknown }> }> =>
+    await import(/* @vite-ignore */ '@/app/(site)/admin/layout') as never;
+  const NAV = 'Quiz Bank';
+
+  it.each(REFUSED.filter(([, a]) => !isAal1(a)))('%s: notFound(), and no title', async (_n, auth) => {
+    s.auth = auth;
+    const l = await layout();
+    await expect(l.default({ children: null })).rejects.toThrow('NEXT_NOT_FOUND');
+    const m = await l.generateMetadata();
+    expect(m.title).toBeUndefined();
+    expect(m.robots).toEqual({ index: false, follow: false });
+  });
+
+  it.each(REFUSED.filter(([, a]) => isAal1(a)))('%s: the MFA pages render, without the nav and without the title', async (_n, auth) => {
+    s.auth = auth;
+    const l = await layout();
+    const { renderToStaticMarkup } = await import('react-dom/server');
+    expect(renderToStaticMarkup((await l.default({ children: 'x' })) as never)).not.toContain(NAV);
+    expect((await l.generateMetadata()).title).toBeUndefined();
+  });
+
+  it('an admin at aal2 gets the nav and the title', async () => {
+    s.auth = { user: { id: 'admin-1' }, aal: 'aal2' };
+    const l = await layout();
+    const { renderToStaticMarkup } = await import('react-dom/server');
+    expect(renderToStaticMarkup((await l.default({ children: 'x' })) as never)).toContain(NAV);
+    expect((await l.generateMetadata()).title).toBe('Admin');
+  });
+});
+
 describe('admin routes: the admin 404 JSON for every method, before any read', () => {
   it('covers every route under api/admin', () => {
     expect(ROUTES.length).toBe(46);
