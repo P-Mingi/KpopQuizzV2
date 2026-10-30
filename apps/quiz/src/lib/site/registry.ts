@@ -298,7 +298,7 @@ const HUB: SiteConfig = {
   },
   features: { ...ALL_OFF, passportPages: true, directory: false },
   routes: {
-    // Daily games step 2: /credits, the licensed photos of the site (the footer of the hub already links it).
+    // Daily games step 2: /credits, the licensed photos of the site (the footer's Credits link appears where the route exists).
     allow: ['/', '/privacy', '/legal', '/passport', '/u/{username}', '/settings/**', '/login', '/directory', '/credits'],
   },
   seo: {

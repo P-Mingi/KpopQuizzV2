@@ -60,8 +60,10 @@ describe('UxFooter', () => {
   it('hub: only the links of its route map', async () => {
     const html = await footer('hub', true);
     const hrefs = anchorHrefs(html).filter((x) => x.startsWith('/'));
-    for (const x of hrefs) expect(['/', '/privacy', '/legal', '/passport', '/login', '/directory'], x).toContain(x);
+    // Daily games step 2: /credits joined the hub's route map (twins row H-11), so its footer link (shown where the route exists) appears.
+    for (const x of hrefs) expect(['/', '/privacy', '/legal', '/passport', '/login', '/directory', '/credits'], x).toContain(x);
     expect(hrefs).toContain('/privacy');
     expect(hrefs).toContain('/legal');
+    expect(hrefs).toContain('/credits');
   });
 });

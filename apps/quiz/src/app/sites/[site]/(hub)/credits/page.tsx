@@ -1,7 +1,7 @@
 // Daily games step 2 (RAPPORT-JEUX-DU-JOUR-v2.md 7.1): /credits on bunnyverse.org, the hub build only (the (hub) layout is a 404 elsewhere).
 // Every licensed photo the site shows with its author, its licence and its source page, read from the public views of migration 022
 // (verified pictures and live banners only; lib/photos/public-read.ts), the names of the characters as OtakuQuiz prints them (no spoiler).
-// The footer of the hub already links here (components/layout/ux-v1/ux-footer.tsx). Server-rendered, ISR: the reads are cached and fail
+// The footer's Credits link (components/layout/ux-v1/ux-footer.tsx, shown where the route exists) now appears on the hub. Server-rendered, ISR: the reads are cached and fail
 // closed (no row, no error page). Indexing follows NET_INDEXING like every hub page (robotsFor), and the page is noindex while it lists
 // nothing (an empty page is never offered to search engines). English only: the hub has no French routes yet (/fr/credits waits for the
 // French pages of the Burrow).
@@ -30,7 +30,10 @@ export async function generateMetadata(): Promise<Metadata> {
     description: CREDITS_DESCRIPTION,
     alternates: { canonical: '/credits' },
     robots: robotsFor(listed),
-    openGraph: { title: `${CREDITS_TITLE} | ${SITE.brand.name}`, description: CREDITS_DESCRIPTION, url: `${SITE.url}/credits`, siteName: SITE.brand.name, type: 'website' },
+    openGraph: {
+      title: `${CREDITS_TITLE} | ${SITE.brand.name}`, description: CREDITS_DESCRIPTION, url: `${SITE.url}/credits`, siteName: SITE.brand.name, type: 'website',
+      images: [{ url: SITE.brand.ogTemplate, width: 1200, height: 630, alt: SITE.brand.name }],
+    },
   };
 }
 
