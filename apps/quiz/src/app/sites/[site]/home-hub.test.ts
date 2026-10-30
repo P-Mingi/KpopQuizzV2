@@ -444,12 +444,28 @@ describe('Hot right now', () => {
     expect(hot).toMatch(/>All anime quizzes on OtakuQuiz<svg/);
   });
 
-  it('shows the quiz\'s own cover when it has one, else the initials of its group on the colour of its site', async () => {
+  it('shows the quiz\'s own cover when it has one, else its group\'s photo as its own site shows it (owner, 2026-10-30), else the initials of its group on the colour of its site', async () => {
     const hot = block(await renderHome(), '<section id="hot"', 'section');
     const { SAMPLE_COVER } = await import('@/lib/site/hub/home-samples.test-support');
     expect(hot).toContain(`<img src="${SAMPLE_COVER}" alt="" width="52" height="52" loading="lazy" decoding="async" class="hub-h2-th-img"/>`);
-    expect(count(hot, /<img /g)).toBe(1);
-    expect(hot).toContain('<span aria-hidden="true" class="hub-h2-th hub-h2-hthumb">DN</span>');
+    // Owner decision 2026-10-30 (was: one image, the cover): BLACKPINK has no cover of its own and shows the group photo kpopquiz.org
+    // shows (public/idols, groupPhotoUrl), with no credit, as there. Exactly these two images, in the order of the rows.
+    expect(hot).toContain('<img src="/idols/BLACKPINK.jpg" alt="" width="52" height="52" loading="lazy" decoding="async" class="hub-h2-th-img"/>');
+    expect([...hot.matchAll(/<img src="([^"]+)"/g)].map((m) => m[1])).toEqual([SAMPLE_COVER, '/idols/BLACKPINK.jpg']);
+    expect(count(hot, /<img /g)).toBe(2);
+    // No photo under the group or series of the others: the initials, as before.
+    for (const tile of ['DN', 'SK', 'OP', 'CM']) expect(hot).toContain(`<span aria-hidden="true" class="hub-h2-th hub-h2-hthumb">${tile}</span>`);
+  });
+
+  it('shows the photo OtakuQuiz shows for a series (its free photo), never the initials over it (owner, 2026-10-30)', async () => {
+    const s = await import('@/lib/site/hub/home-samples.test-support');
+    const h = s.sampleHot();
+    const frieren = h.anime.find((c) => c.group === 'Frieren')!;
+    blocks.values.getHot = { ...h, all: [h.kpop[1]!, frieren] };
+    const hot = block(await renderHome(), '<section id="hot"', 'section');
+    expect(hot).toContain('<span aria-hidden="true" class="hub-h2-th hub-h2-hthumb"><img src="/series/frieren.webp" alt="" width="52" height="52" loading="lazy" decoding="async" class="hub-h2-th-img"/></span>');
+    expect(hot).not.toContain('class="hub-h2-th hub-h2-hthumb">Fr</span>');
+    expect(hot).toContain('class="hub-h2-th hub-h2-hthumb">SK</span>');
   });
 
   it('has the filter group with four chips, All pressed and Start easy last; no Start easy chip without an easy list', async () => {

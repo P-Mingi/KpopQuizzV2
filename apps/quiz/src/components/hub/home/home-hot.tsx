@@ -5,6 +5,8 @@
 // Home v3 (2026-10-29, Home.dc.html): a table of rows (rank, the quiz's image, title, site, group and difficulty, plays or New) and four
 // chips: All, KpopQuiz, OtakuQuiz and Start easy (the easy quizzes of both sites; it replaces the old "New here? Start easy" block and is
 // left out when there is none). A quiz without its own cover shows the initials of its group on the colour of its site.
+// Owner decision 2026-10-30: a quiz without its own cover shows the photo of its group or series when its own site shows one
+// (lib/site/hub/home-photo.ts, given here as `cover`); the initials are left for the others.
 // Review fix: a site chip whose list is empty is left out too, like Start easy; a chip is only drawn over a list that has quizzes.
 import { useHotFilter } from './home-filter';
 import { ArrowIcon } from './home-icons';
@@ -21,7 +23,7 @@ export interface HotCard {
   readonly line: string;
   readonly plays: string;
   readonly isNew: boolean;
-  /** The quiz's own cover image, or null. */
+  /** The picture of the row: the quiz's own cover, else the photo of its group or series, or null for the initials. */
   readonly cover: string | null;
 }
 

@@ -33,8 +33,11 @@ export interface HomeQuiz extends HomeLink {
   /** "2.7k plays", or '' when the quiz is new. */
   readonly plays: string;
   readonly isNew: boolean;
-  /** The quiz's own cover image (K-pop only), or null: the row then shows the initials tile. */
+  /** The quiz's own cover image (K-pop only), or null: the row then shows `photo`, else the initials tile. */
   readonly cover: string | null;
+  /** Owner decision 2026-10-30: the photo of its group (K-pop) or series (anime) as its own site shows it, for a quiz with no cover of its
+   *  own (lib/site/hub/home-photo.ts), or null. Missing on a quiz mapped before it existed: read it as null. */
+  readonly photo?: string | null;
 }
 
 /** A site card of the first row: its name, the real count of its quizzes, what it is about, one quiz and the way in. */
