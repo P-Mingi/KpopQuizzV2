@@ -6,17 +6,21 @@
 //      over the token, it is never trusted on its own: a forged or edited cookie fails here;
 //   2. the verified user id is in ADMIN_USER_IDS;
 //   3. that same verified token is at assurance level aal2 (auth.mfa.getAuthenticatorAssuranceLevel(token): currentLevel
-//      'aal2', read from the token the auth server has just verified).
+//      'aal2', read from the token the auth server has just verified) AND the account still has a verified factor. auth-js starts
+//      nextLevel at currentLevel and only raises it, so nextLevel alone says 'aal2' for an aal2 token whose factors were deleted
+//      in SQL: the factors of the verified user are what tell.
 // Every other case is a 404, never a 401, a 403 or a redirect to /login: a page calls notFound(), a route answers the 404
-// JSON of adminNotFound(). The only exception is an admin (steps 1 and 2 passed) at aal1: a page sends them to the TOTP
-// code page (a factor exists) or the TOTP setup page (none yet); a route still answers 404.
+// JSON of adminNotFound(). The only exceptions are for an admin (steps 1 and 2 passed): at aal1 with a verified factor, a page
+// sends them to the TOTP code page; with no verified factor (at aal1, or at aal2 after a factor was deleted), a page sends them
+// to the TOTP setup page ONLY while the server switch ADMIN_MFA_ENROL_OPEN=1 is on, and otherwise they are refused like anyone,
+// so a stolen password cannot claim the TOTP of a listed id. A route still answers 404.
 //
 // Modes of the one function:
 //   requireAdmin()         pages, layouts and server components: the context, or notFound() / redirect to the MFA pages
 //   requireAdmin('api')    route handlers: { ok: true, user, supabase } or { ok: false, res } (the 404 JSON)
 //   requireAdmin('check')  never throws: the context at aal2, else null (an "admin OR curator" decision, the is_admin flag)
-//   requireAdmin('mfa')    the two MFA pages and their server actions: any listed, verified admin with the level they are
-//                          at ('pass', 'challenge' or 'enrol'), else null (the caller answers 404)
+//   requireAdmin('mfa')    the two MFA pages and their route: any listed, verified admin with the level they are at ('pass',
+//                          'challenge' or, while enrolment is open, 'enrol'), else null (the caller answers 404)
 // The decision is computed once per server render (React cache); a route handler computes it on each call.
 import { cache } from 'react';
 import { notFound, redirect } from 'next/navigation';
@@ -24,7 +28,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 
-import { isListedAdminId } from './list';
+import { adminEnrolOpen, hasVerifiedFactor, isListedAdminId } from './list';
 import { ADMIN_MFA_CODE_PATH, ADMIN_MFA_SETUP_PATH } from './paths';
 
 import type { User } from '@supabase/supabase-js';
@@ -39,7 +43,7 @@ export interface AdminContext {
 
 export type AdminGate = ({ readonly ok: true } & AdminContext) | { readonly ok: false; readonly res: NextResponse };
 
-/** Where a listed, verified admin stands: aal2 ('pass'), aal1 with a verified factor ('challenge'), aal1 with none ('enrol'). */
+/** Where a listed, verified admin stands: aal2 with a verified factor ('pass'), aal1 with one ('challenge'), none while enrolment is open ('enrol'). */
 export type AdminLevel = 'pass' | 'challenge' | 'enrol';
 
 export interface AdminMfaContext extends AdminContext {
@@ -76,9 +80,9 @@ async function decideNow(): Promise<Decision> {
     if (userError || !user || !isListedAdminId(user.id)) return NONE;
     const { data: aal, error: aalError } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel(token);
     if (aalError || !aal) return NONE;
-    if (aal.currentLevel === 'aal2') return { level: 'pass', user, supabase };
-    if (aal.currentLevel !== 'aal1') return NONE;
-    return { level: aal.nextLevel === 'aal2' ? 'challenge' : 'enrol', user, supabase };
+    if (aal.currentLevel !== 'aal1' && aal.currentLevel !== 'aal2') return NONE;
+    if (aal.nextLevel === 'aal2' && hasVerifiedFactor(user)) return { level: aal.currentLevel === 'aal2' ? 'pass' : 'challenge', user, supabase };
+    return adminEnrolOpen() ? { level: 'enrol', user, supabase } : NONE;
   } catch {
     return NONE;
   }

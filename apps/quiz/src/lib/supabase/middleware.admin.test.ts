@@ -1,11 +1,11 @@
 // Run O1 (ADM join): /admin goes through the session branch of the middleware (its session is refreshed there). ADMIN-1 (owner, 2026-10-30):
 // it is no longer a protected path: nobody is sent to /login (that redirect told anyone where the admin is). Anyone who is not a listed
-// account gets the answer of an unknown URL (a rewrite to the site's 404); a listed account goes on to the page, whose requireAdmin decides
-// (lib/admin/guard.ts, admin-lock.refusal.test.ts). /onboarding and /settings keep their redirect to /login.
+// account, and a listed account with no verified factor while enrolment is closed, gets the answer of an unknown URL (a rewrite to the site's
+// 404); any other listed account goes on to the page, whose requireAdmin decides (lib/admin/guard.ts, admin-lock.refusal.test.ts). /onboarding and /settings keep their redirect to /login.
 import { NextRequest } from 'next/server';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-const auth = vi.hoisted(() => ({ user: null as { id: string } | null }));
+const auth = vi.hoisted(() => ({ user: null as { id: string; factors?: Array<{ status: string }> } | null }));
 vi.mock('@supabase/ssr', () => ({ createServerClient: () => ({ auth: { getUser: async () => ({ data: { user: auth.user } }) } }) }));
 
 import { SITE_ID } from '@/lib/site/registry';
@@ -21,12 +21,13 @@ beforeEach(() => {
   vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'anon');
   auth.user = null;
 });
+afterEach(() => { vi.unstubAllEnvs(); });
 
 const open = (path: string): Promise<Response> => updateSession(new NextRequest(`http://anime.localhost:3021${path}`));
 
 describe('/admin on the session check', () => {
   const NOT_FOUND = SITE_ID === 'anime' ? '/anime/page-not-found' : '/page-not-found';
-  const PATHS = ['/admin', '/admin?tab=images', '/admin?tab=overview', '/admin/reports', '/admin/k7q2m/code', '/admin/k7q2m/setup'];
+  const PATHS = ['/admin', '/admin?tab=images', '/admin?tab=overview', '/admin/reports', '/admin/k7q2m/code', '/admin/k7q2m/setup', '/admin/songs/x.png', '/admin/x.txt'];
 
   it.each(PATHS)('a signed-out visitor of %s gets the answer of an unknown URL, never /login', async (path) => {
     const res = await open(path);
@@ -56,12 +57,40 @@ describe('/admin on the session check', () => {
     expect(await res.text()).toBe('');
   });
 
-  it('lets a listed account through to the page (the page decides, with requireAdmin: verified, listed, aal2)', async () => {
-    vi.stubEnv('ADMIN_USER_IDS', 'admin-1');
-    auth.user = { id: 'admin-1' };
-    const res = await open('/admin');
+  const VERIFIED = [{ status: 'verified' }];
+  const passes = (res: Response): void => {
     expect(res.headers.get('location')).toBeNull();
     expect(res.headers.get('x-middleware-rewrite')).toBeNull();
     expect(res.headers.get('x-middleware-next')).toBe('1');
+  };
+
+  it('lets a listed account with a verified factor through to the page (the page decides, with requireAdmin: verified, listed, aal2)', async () => {
+    vi.stubEnv('ADMIN_USER_IDS', 'admin-1');
+    auth.user = { id: 'admin-1', factors: VERIFIED };
+    passes(await open('/admin'));
+  });
+
+  it.each(PATHS)('a listed account with no verified factor, enrolment closed, gets the answer of an unknown URL on %s', async (path) => {
+    vi.stubEnv('ADMIN_USER_IDS', 'admin-1');
+    for (const factors of [undefined, [], [{ status: 'unverified' }]]) {
+      auth.user = { id: 'admin-1', ...(factors ? { factors } : {}) };
+      const res = await open(path);
+      expect(res.headers.get('location')).toBeNull();
+      expect(new URL(res.headers.get('x-middleware-rewrite') ?? 'http://x/none').pathname).toBe(NOT_FOUND);
+    }
+  });
+
+  it('a listed account with no verified factor goes on to the setup page only while enrolment is open', async () => {
+    vi.stubEnv('ADMIN_USER_IDS', 'admin-1');
+    vi.stubEnv('ADMIN_MFA_ENROL_OPEN', '1');
+    auth.user = { id: 'admin-1' };
+    passes(await open('/admin/k7q2m/setup'));
+  });
+
+  it('enrolment open changes nothing for an account that is not listed', async () => {
+    vi.stubEnv('ADMIN_USER_IDS', 'admin-1');
+    vi.stubEnv('ADMIN_MFA_ENROL_OPEN', '1');
+    auth.user = { id: 'user-9', factors: VERIFIED };
+    expect(new URL((await open('/admin')).headers.get('x-middleware-rewrite') ?? 'http://x/none').pathname).toBe(NOT_FOUND);
   });
 });

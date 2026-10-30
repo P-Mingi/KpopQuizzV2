@@ -1,6 +1,7 @@
 // ADMIN-1 (owner, 2026-10-30): the one guard, on local stand-ins only (lib/admin/test-support.ts): no account, no network, no real
 // password, token or TOTP code. Every refused case is a notFound() for a page and the admin 404 JSON for a route; an admin at aal1 is
-// sent to the code page (a factor exists) or the setup page (none); only an admin at aal2 passes; a forged cookie never passes.
+// sent to the code page (a factor exists) or, only while ADMIN_MFA_ENROL_OPEN=1 is on, the setup page (none); only an admin at aal2 with a
+// verified factor passes; a forged cookie never passes.
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { AuthStubState } from './test-support';
@@ -92,12 +93,30 @@ describe('requireAdmin: an admin at aal1', () => {
     expect(await adminPowerFor(ADMIN.id)).toBe(false);
   });
 
-  it('with no factor: a page sends them to the setup page; a route is still a 404', async () => {
+  it('with no factor and enrolment open: a page sends them to the setup page; a route is still a 404', async () => {
+    vi.stubEnv('ADMIN_MFA_ENROL_OPEN', '1');
     s.auth = { user: ADMIN, factor: false };
     await expect(requireAdmin()).rejects.toThrow(`NEXT_REDIRECT ${ADMIN_MFA_SETUP_PATH}`);
     await api404();
     expect(await requireAdmin('check')).toBeNull();
     expect((await requireAdmin('mfa'))?.level).toBe('enrol');
+  });
+
+  it.each([[undefined], [''], ['0'], ['true']])('with no factor and enrolment closed (%s): the same 404 as anyone, a stolen password claims nothing', async (value) => {
+    if (value !== undefined) vi.stubEnv('ADMIN_MFA_ENROL_OPEN', value);
+    s.auth = { user: ADMIN, factor: false };
+    await expect(requireAdmin()).rejects.toThrow('NEXT_NOT_FOUND');
+    await api404();
+    expect(await requireAdmin('check')).toBeNull();
+    expect(await requireAdmin('mfa')).toBeNull();
+    expect(await adminPowerFor(ADMIN.id)).toBe(false);
+  });
+
+  it('with a factor: enrolment open or closed changes nothing, the code is still asked', async () => {
+    vi.stubEnv('ADMIN_MFA_ENROL_OPEN', '1');
+    s.auth = { user: ADMIN, aal: 'aal1', factor: true };
+    await expect(requireAdmin()).rejects.toThrow(`NEXT_REDIRECT ${ADMIN_MFA_CODE_PATH}`);
+    expect((await requireAdmin('mfa'))?.level).toBe('challenge');
   });
 
   it('the MFA paths sit under /admin at an unlisted segment', () => {
@@ -117,6 +136,26 @@ describe('requireAdmin: an admin at aal2 passes', () => {
     if (g.ok) expect(g.user.id).toBe(ADMIN.id);
     expect((await requireAdmin('check'))?.user.id).toBe(ADMIN.id);
     expect((await requireAdmin('mfa'))?.level).toBe('pass');
+  });
+});
+
+describe('requireAdmin: an aal2 token with no verified factor left (the factors were deleted in SQL)', () => {
+  it('enrolment closed: the same 404 as anyone, no admin power', async () => {
+    s.auth = { user: ADMIN, aal: 'aal2', factor: false };
+    await expect(requireAdmin()).rejects.toThrow('NEXT_NOT_FOUND');
+    await api404();
+    expect(await requireAdmin('check')).toBeNull();
+    expect(await requireAdmin('mfa')).toBeNull();
+    expect(await adminPowerFor(ADMIN.id)).toBe(false);
+  });
+
+  it('enrolment open: the setup page, never a pass', async () => {
+    vi.stubEnv('ADMIN_MFA_ENROL_OPEN', '1');
+    s.auth = { user: ADMIN, aal: 'aal2', factor: false };
+    await expect(requireAdmin()).rejects.toThrow(`NEXT_REDIRECT ${ADMIN_MFA_SETUP_PATH}`);
+    await api404();
+    expect(await requireAdmin('check')).toBeNull();
+    expect((await requireAdmin('mfa'))?.level).toBe('enrol');
   });
 });
 

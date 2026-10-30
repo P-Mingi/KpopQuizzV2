@@ -43,7 +43,7 @@ export async function verifyCode(ctx: AdminMfaContext, raw: unknown): Promise<Mf
 }
 
 /**
- * aal1 with no verified factor: a new TOTP factor. An unverified TOTP factor left by an abandoned setup is removed first (a
+ * No verified factor, while enrolment is open (level 'enrol', lib/admin/guard.ts): a new TOTP factor. An unverified TOTP factor left by an abandoned setup is removed first (a
  * verified one is never touched here), so a reload starts clean.
  */
 export async function startSetup(ctx: AdminMfaContext, issuer: string, now: Date = new Date()): Promise<SetupStart | Extract<MfaResult, { ok: false }>> {

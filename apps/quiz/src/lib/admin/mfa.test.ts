@@ -158,7 +158,30 @@ describe('POST /api/admin/k7q2m', () => {
     expect(await good.json()).toEqual({ ok: true });
   });
 
-  it('an admin with no factor: start gives the QR code and the secret, confirm turns it on', async () => {
+  it('an admin with no factor, enrolment closed: start and confirm are the admin 404, and nothing is called', async () => {
+    m.auth = { user: { id: 'admin-1' }, factor: false };
+    m.factors = [{ id: 'planted', factor_type: 'totp', status: 'unverified' }];
+    for (const body of [{ action: 'start' }, { action: 'confirm', factorId: 'planted', code: '123456' }, { action: 'verify', code: '123456' }]) {
+      const res = await post(body);
+      expect(res.status).toBe(404);
+      expect(await res.json()).toEqual({ error: 'Not found.', code: 'not_found' });
+    }
+    expect(m.calls).toEqual([]);
+  });
+
+  it('an admin with a factor: start and confirm are the admin 404 too, enrolment open or not (a verified factor is never replaced here)', async () => {
+    m.factors = [{ id: 'f1', factor_type: 'totp', status: 'verified' }];
+    m.auth = { user: { id: 'admin-1' }, aal: 'aal1', factor: true };
+    for (const open of ['', '1']) {
+      vi.stubEnv('ADMIN_MFA_ENROL_OPEN', open);
+      expect((await post({ action: 'start' })).status).toBe(404);
+      expect((await post({ action: 'confirm', factorId: 'f1', code: '123456' })).status).toBe(404);
+    }
+    expect(m.calls).toEqual([]);
+  });
+
+  it('an admin with no factor, enrolment open: start gives the QR code and the secret, confirm turns it on', async () => {
+    vi.stubEnv('ADMIN_MFA_ENROL_OPEN', '1');
     m.auth = { user: { id: 'admin-1' }, factor: false };
     const s = await post({ action: 'start' });
     expect(s.status).toBe(200);
