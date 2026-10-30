@@ -8,7 +8,7 @@ import { BUCKET, MAX_OUTPUT_BYTES } from '@/lib/entity-images/constants';
 import { ImageError } from '@/lib/entity-images/errors';
 import { assertEntity as assertAnimeEntity } from '@/lib/entity-images/store';
 
-import { ASSET_WIDTHS, KIND_SITE, PHOTO_BOX, SMALL_ASSET_WIDTHS, THUMB_BOX, photoFolder } from './slots';
+import { ASSET_WIDTHS, KIND_SITE, PHOTO_BOX, SMALL_ASSET_LICENSES, SMALL_ASSET_WIDTHS, THUMB_BOX, photoFolder } from './slots';
 import { webpInfo } from './webp';
 
 import type { ImageMeta } from '@/lib/entity-images/types';
@@ -136,6 +136,23 @@ export async function savePhoto(db: Db, a: SavePhotoInput): Promise<SavedPhoto> 
   }
 }
 
+/**
+ * Removes the picture of an entity (the Photos tab's "Retirer la photo"): its row, then its three files (1x, 2x, 96 px), so no address of it
+ * stays public in the bucket. A series or a character goes back to its bundled photo or the placeholder on OtakuQuiz.
+ */
+export async function removePhoto(db: Db, kind: PhotoKind, slug: string): Promise<{ readonly kind: PhotoKind; readonly slug: string; readonly files: number }> {
+  const site = KIND_SITE[kind];
+  const { data, error } = await db.from('entity_images').select('path, thumb_path').eq('site_id', site).eq('kind', kind).eq('slug', slug).maybeSingle();
+  if (error) throw DB_FAILED();
+  const row = (data as PhotoRow | null) ?? null;
+  if (!row) throw new ImageError('no_image', 404, 'Cette fiche n\'a pas de photo à retirer.');
+  const { error: deleteError } = await db.from('entity_images').delete().eq('site_id', site).eq('kind', kind).eq('slug', slug);
+  if (deleteError) throw DB_FAILED();
+  const files = [row.path, row.path.replace(/\.webp$/, '-2x.webp'), row.thumb_path];
+  await removeFiles(db, files);
+  return { kind, slug, files: files.filter(Boolean).length };
+}
+
 // ---- site assets (banners, card images, icons, stickers) ---------------------------------------------------------------------------
 
 export interface AssetFiles { readonly large: Uint8Array; readonly mid: Uint8Array | null; readonly thumb: Uint8Array }
@@ -200,6 +217,9 @@ export async function saveAsset(db: Db, a: SaveAssetInput): Promise<{ id: number
   // Every refusal comes before a file is stored, so a refused version leaves nothing in the bucket.
   const hasFile = Boolean(checked ?? previous?.path);
   if (hasFile && !a.meta) throw new ImageError('bad_meta', 400, 'Le crédit et la licence sont obligatoires pour une image.');
+  if (hasFile && (a.slot.type === 'icon' || a.slot.type === 'sticker') && !SMALL_ASSET_LICENSES.includes(a.meta!.license)) {
+    throw new ImageError('bad_meta', 422, 'Une icône ou un sticker est une illustration à nous ou sous accord écrit : pas de licence Creative Commons (la page Crédits ne les liste pas).');
+  }
   if (hasFile && a.publishAt !== null && !a.verified) {
     throw new ImageError('bad_meta', 422, 'Coche « licence vérifiée » avant de publier : une image sans licence vérifiée ne s\'affiche jamais.');
   }
@@ -244,10 +264,29 @@ export async function saveAsset(db: Db, a: SaveAssetInput): Promise<{ id: number
   return { id: Number(data.id) };
 }
 
-/** Takes every version of a key off the site (a sticker removed). The rows stay, retired. */
-export async function retireAsset(db: Db, key: string): Promise<void> {
-  const { error } = await db.from('site_assets').update({ retired_at: new Date().toISOString() }).eq('key', key).is('retired_at', null);
+type AssetFilesRow = Pick<AssetFileRow, 'path' | 'mid_path' | 'thumb_path'>;
+const filesOfRows = (rows: readonly AssetFilesRow[]): string[] => rows.flatMap((r) => [r.path, r.mid_path, r.thumb_path]).filter((p): p is string => typeof p === 'string' && p !== '');
+
+/**
+ * Takes every version of a key off the site (a sticker removed). The rows stay, retired, as the history; the files of the versions retired
+ * now leave the bucket, so a removed picture has no public address left. Never a file a version still on the site names: a version saved
+ * without new files reuses the files of the one before, so the files of the key's rows that are not retired (one saved meanwhile) stay,
+ * and only files under the key's own folder are ever removed.
+ */
+export async function retireAsset(db: Db, key: string): Promise<{ readonly retired: number; readonly files: number }> {
+  const { data, error } = await db.from('site_assets').update({ retired_at: new Date().toISOString() }).eq('key', key).is('retired_at', null)
+    .select('path, mid_path, thumb_path');
   if (error) throw DB_FAILED();
+  const retired = (data ?? []) as AssetFilesRow[];
+  const folder = `${assetFolder(key)}/`;
+  const candidates = new Set(filesOfRows(retired).filter((p) => p.startsWith(folder)));
+  if (candidates.size === 0) return { retired: retired.length, files: 0 };
+  const { data: live, error: liveError } = await db.from('site_assets').select('path, mid_path, thumb_path').eq('key', key).is('retired_at', null);
+  // When the rows still on the site cannot be read, nothing is removed: a file left behind is harmless, a live file removed is not.
+  if (liveError) return { retired: retired.length, files: 0 };
+  for (const p of filesOfRows((live ?? []) as AssetFilesRow[])) candidates.delete(p);
+  await removeFiles(db, [...candidates]);
+  return { retired: retired.length, files: candidates.size };
 }
 
 /** Puts an older version back on the site: its published_at becomes now, so it is the latest one again (the history's "remettre"). */

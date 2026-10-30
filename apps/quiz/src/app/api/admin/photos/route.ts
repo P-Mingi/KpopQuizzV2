@@ -2,7 +2,7 @@ import { revalidateImage } from '@/lib/entity-images/cache';
 import { MAX_OUTPUT_BYTES } from '@/lib/entity-images/constants';
 import { ImageError } from '@/lib/entity-images/errors';
 import { adminGate, failure, forbidden, notFoundHandler, ok, readForm, sameOrigin } from '@/lib/entity-images/route-kit';
-import { assertPhotoEntity, savePhoto } from '@/lib/photos/store';
+import { assertPhotoEntity, removePhoto, savePhoto } from '@/lib/photos/store';
 import { parseFlag, parseFocalFields, parsePhotoMeta, parsePhotoTarget } from '@/lib/photos/validate';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 
@@ -12,6 +12,8 @@ import type { NextRequest, NextResponse } from 'next/server';
 // license, license_note), verified ('1' or '0'), focal_x, focal_y, and optionally the three WebP files the admin's browser made (x1, x2,
 // thumb: the 1x box of the kind, twice that, the 96 px square). Without files, the stored picture keeps its files and gets the new credit,
 // box and focal point. A series or a character is saved only with its licence verified: OtakuQuiz shows its rows as soon as they exist.
+// action 'remove' (with kind and slug only): removes the picture, its row and its three files ("Retirer la photo"; a series or a character
+// goes back to its bundled photo or the placeholder). No action, or 'save': the save above.
 // Admin only on the anime build, the gate of the anime admin (404 otherwise); same-origin writes only.
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -31,6 +33,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const form = await readForm(req, MAX_FORM);
     const { kind, slug } = parsePhotoTarget(form.get('kind'), form.get('slug'));
+    const action = form.get('action');
+    if (action === 'remove') {
+      const removed = await removePhoto(createServiceRoleClient(), kind, slug);
+      if (kind === 'series' || kind === 'character') revalidateImage(kind, slug);
+      return ok({ removed });
+    }
+    if (action !== null && action !== 'save') throw new ImageError('bad_request', 400, 'Action inconnue.');
     let rawMeta: unknown;
     try { rawMeta = JSON.parse(String(form.get('meta') ?? '')); } catch { throw new ImageError('bad_meta', 400, 'La source, l\'auteur et la licence sont obligatoires.'); }
     const meta = parsePhotoMeta(rawMeta);

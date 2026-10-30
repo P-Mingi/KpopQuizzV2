@@ -73,6 +73,27 @@ export function PhotoDrawer({ row, kind, blocked, onSaved, onSkip }: {
 
   const problem = useMemo(() => metaProblem(meta), [meta]);
 
+  // "Retirer la photo": the row and its three files go (the files leave the public bucket); the record shows the picture the site had, or none.
+  const remove = async (): Promise<void> => {
+    if (!row?.image || blocked) return;
+    if (!window.confirm(`Retirer la photo de ${row.name} ? Ses fichiers sont supprimés du stockage.`)) return;
+    setBusy(true);
+    setError(null);
+    try {
+      const form = new FormData();
+      form.set('action', 'remove');
+      form.set('kind', kind);
+      form.set('slug', row.slug);
+      const res = await postForm(PHOTO_API.save, form);
+      if (!res.ok) throw new Error(res.error);
+      onSaved(`${row.name} : photo retirée, ses fichiers sont supprimés.`);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const save = async (): Promise<void> => {
     if (!row || blocked) return;
     if (problem) { setError(problem); return; }
@@ -164,6 +185,9 @@ export function PhotoDrawer({ row, kind, blocked, onSaved, onSkip }: {
       <div className={s.actions}>
         <button type="button" className={s.primary} onClick={() => { void save(); }} disabled={busy || !row || Boolean(blocked)}>{busy ? 'Enregistrement en cours' : 'Enregistrer'}</button>
         <button type="button" className={s.secondary} onClick={onSkip} disabled={busy}>Passer</button>
+        {row?.image ? (
+          <button type="button" className={s.danger} onClick={() => { void remove(); }} disabled={busy || Boolean(blocked)}>Retirer la photo</button>
+        ) : null}
       </div>
     </aside>
   );

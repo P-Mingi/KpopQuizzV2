@@ -94,6 +94,43 @@ describe('saveImage', () => {
   });
 });
 
+describe('the 96 px file of step 2 (019\'s thumb_path)', () => {
+  const OLD = 'anime/series/death-note/0123456789abcdef';
+  const stored = (): ReturnType<typeof fakeDb> => {
+    const db = fakeDb({ ...animeSeed(), entity_images: [{
+      id: 7, site_id: 'anime', kind: 'series', slug: 'death-note', path: `${OLD}.webp`, thumb_path: `${OLD}-96.webp`, license_verified: true,
+      width: 736, height: 981, focal_x: 50, focal_y: 50, source_url: 'https://x.org/a', author: 'A', license: 'cc0', license_note: null, updated_at: '2026-10-30T00:00:00Z',
+    }] });
+    for (const f of [`${OLD}.webp`, `${OLD}-2x.webp`, `${OLD}-96.webp`]) db.files.set(`${BUCKET}/${f}`, Buffer.from('x'));
+    return db;
+  };
+
+  it('a replacement removes the old 96 px file with the 1x and the 2x, and the row drops it and its check', async () => {
+    const db = stored();
+    const { image } = await saved(db);
+    expect(db.removed).toEqual([`${OLD}.webp`, `${OLD}-2x.webp`, `${OLD}-96.webp`]);
+    expect(db.tables.entity_images![0]).toMatchObject({ path: `anime/series/death-note/${image.hash}.webp`, thumb_path: null, license_verified: false });
+    expect([...db.files.keys()].some((k) => k.includes(OLD))).toBe(false);
+  });
+
+  it('a delete removes the 96 px file too', async () => {
+    const db = stored();
+    await deleteImage(db, 'series', 'death-note', vi.fn());
+    expect(db.removed).toEqual([`${OLD}.webp`, `${OLD}-2x.webp`, `${OLD}-96.webp`]);
+    expect(db.files.size).toBe(0);
+  });
+
+  it('before 019 (no thumb_path column) a replace and a delete still work on the two files', async () => {
+    const db = fakeDb(animeSeed(), { missingColumns: ['thumb_path'] });
+    const first = await saved(db, vi.fn(), 'series', 'death-note', 'png');
+    await saved(db, vi.fn(), 'series', 'death-note', 'jpeg');
+    expect(db.removed).toEqual([`anime/series/death-note/${first.image.hash}.webp`, `anime/series/death-note/${first.image.hash}-2x.webp`]);
+    expect(db.tables.entity_images![0]).not.toHaveProperty('thumb_path');
+    await deleteImage(db, 'series', 'death-note', vi.fn());
+    expect(db.files.size).toBe(0);
+  });
+});
+
 describe('setFocal', () => {
   it('saves the focal point and revalidates the image', async () => {
     const db = fakeDb(animeSeed());

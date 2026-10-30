@@ -6,7 +6,7 @@ import { cropToBox, fitWidth, tooSmall } from './crop';
 import {
   ICON_SLOTS, IMAGE_SLOTS, HOME_SLOT_KEY, PHOTO_BOX, isPhotoSlug, parseFocal, parseIconSettings, parseStickerSettings, photoFolder, tabOf,
 } from './slots';
-import { assertPhotoEntity, checkAssetFiles, checkPhotoFiles, restoreAsset, retireAsset, saveAsset, savePhoto } from './store';
+import { assertPhotoEntity, checkAssetFiles, checkPhotoFiles, removePhoto, restoreAsset, retireAsset, saveAsset, savePhoto } from './store';
 import { META, photoFiles, photosFakeDb, webpOf } from './test-support';
 import { parseAssetMeta, parseAssetSettings, parseAssetSlot, parseFocalFields, parsePhotoTarget, parsePublish } from './validate';
 import { webpInfo } from './webp';
@@ -174,6 +174,29 @@ describe('store: pictures of entities', () => {
   });
 });
 
+describe('store: removing a picture', () => {
+  it('removes the row and its three files; a record with no picture says so', async () => {
+    const db = photosFakeDb({ idols: [{ id: 5, name: 'Idol' }], entity_images: [] });
+    const saved = await savePhoto(db, { kind: 'idol', slug: '5', files: await photoFiles(400, 500), meta: META, verified: true, focal: { x: 50, y: 50 }, userId: 'u-1' });
+    expect(db.files.size).toBe(3);
+    expect(await removePhoto(db, 'idol', '5')).toEqual({ kind: 'idol', slug: '5', files: 3 });
+    expect(db.tables.entity_images).toEqual([]);
+    expect(db.files.size).toBe(0);
+    expect(db.removed).toEqual([saved.path, saved.path.replace('.webp', '-2x.webp'), saved.thumbPath]);
+    await expect(removePhoto(db, 'idol', '5')).rejects.toThrow(/pas de photo/);
+  });
+
+  it('touches only the picture of that record (kind, site and slug)', async () => {
+    const db = photosFakeDb({ entity_images: [
+      { site_id: 'kpop', kind: 'group', slug: '5', path: 'kpop/group/5/a.webp', thumb_path: 'kpop/group/5/a-96.webp' },
+      { site_id: 'kpop', kind: 'idol', slug: '5', path: 'kpop/idol/5/b.webp', thumb_path: null },
+    ] });
+    await removePhoto(db, 'idol', '5');
+    expect(db.tables.entity_images).toEqual([expect.objectContaining({ kind: 'group', slug: '5' })]);
+    expect(db.removed).toEqual(['kpop/idol/5/b.webp', 'kpop/idol/5/b-2x.webp']);
+  });
+});
+
 describe('store: site assets', () => {
   const banner = { key: 'banner:kpopdle', type: 'banner' as const, page: 'kpopdle' };
 
@@ -205,6 +228,30 @@ describe('store: site assets', () => {
     await expect(saveAsset(photosFakeDb({ site_assets: [] }), { slot: banner, files: null, noFile: false, settings: {}, meta: META, verified: true, publishAt: 'now', userId: 'u-1' })).rejects.toThrow(/Choisis une image/);
   });
 
+  it('an icon or a sticker drawn as a PNG takes only our own illustration or a written permission, never a CC licence', async () => {
+    const sticker = { key: 'sticker:daily:ab12cd34', type: 'sticker' as const, page: 'daily' };
+    const icon = { key: 'icon:k-idol', type: 'icon' as const, page: 'kpopdle' };
+    const stickerSettings = { side: 'left', x: 10, y: 200, w: 140, r: 0, o: 100, mirror: false, anim: true };
+    const iconSettings = { mode: 'png', icon: 'star', circle: false, color: 'ink' };
+    const small = async (): Promise<{ large: Uint8Array; mid: null; thumb: Uint8Array }> => ({ large: await webpOf(300, 300, 'alpha'), mid: null, thumb: await webpOf(96, 96, 'alpha') });
+    for (const license of ['cc_by', 'cc_by_sa', 'cc0', 'public_domain', 'other'] as const) {
+      const db = photosFakeDb({ site_assets: [] });
+      const meta = { ...META, license, license_note: license === 'other' ? 'x' : null };
+      await expect(saveAsset(db, { slot: sticker, files: await small(), noFile: false, settings: stickerSettings, meta, verified: true, publishAt: 'now', userId: 'u-1' }), license).rejects.toThrow(/Creative Commons/);
+      await expect(saveAsset(db, { slot: icon, files: await small(), noFile: false, settings: iconSettings, meta, verified: true, publishAt: 'now', userId: 'u-1' }), license).rejects.toThrow(/Creative Commons/);
+      expect(db.files.size, license).toBe(0);
+      expect(db.tables.site_assets, license).toEqual([]);
+    }
+    const db = photosFakeDb({ site_assets: [] });
+    await saveAsset(db, { slot: sticker, files: await small(), noFile: false, settings: stickerSettings, meta: { source_url: '', author: 'Bunnyverse', license: 'own_photo', license_note: null }, verified: true, publishAt: 'now', userId: 'u-1' });
+    await saveAsset(db, { slot: icon, files: await small(), noFile: false, settings: iconSettings, meta: { ...META, license: 'licensed' }, verified: true, publishAt: 'now', userId: 'u-1' });
+    expect(db.tables.site_assets!.map((r) => r.license)).toEqual(['own_photo', 'licensed']);
+    // A banner keeps every licence of its form.
+    const banner = photosFakeDb({ site_assets: [] });
+    await saveAsset(banner, { slot: { key: 'banner:daily', type: 'banner', page: 'daily' }, files: { large: await webpOf(1920, 600), mid: await webpOf(400, 125), thumb: await webpOf(96, 30) }, noFile: false, settings: { focal: { x: 50, y: 50 } }, meta: { ...META, license: 'cc_by' }, verified: true, publishAt: 'now', userId: 'u-1' });
+    expect(banner.tables.site_assets).toHaveLength(1);
+  });
+
   it('an icon of the library has no file and no credit', async () => {
     const db = photosFakeDb({ site_assets: [] });
     await saveAsset(db, { slot: { key: 'icon:k-idol', type: 'icon', page: 'kpopdle' }, files: null, noFile: true, settings: { mode: 'icon', icon: 'star', circle: false, color: 'ink' }, meta: null, verified: false, publishAt: 'now', userId: 'u-1' });
@@ -217,12 +264,54 @@ describe('store: site assets', () => {
       { id: 2, key: 'banner:daily', path: 'hub/banner/daily/a-1920.webp', license_verified: true, retired_at: null, published_at: '2026-10-01T00:00:00Z' },
       { id: 3, key: 'banner:daily', path: 'hub/banner/daily/b-1920.webp', license_verified: false, retired_at: null, published_at: null },
     ] });
-    await retireAsset(db, 'sticker:home:abcdef12');
+    expect(await retireAsset(db, 'sticker:home:abcdef12')).toEqual({ retired: 1, files: 1 });
     expect(db.tables.site_assets![0]!.retired_at).toEqual(expect.any(String));
+    expect(db.removed).toEqual(['hub/sticker/home/abcdef12/a-400.webp']);
     await restoreAsset(db, 2);
     expect(Date.parse(String(db.tables.site_assets![1]!.published_at))).toBeGreaterThan(Date.parse('2026-10-30T00:00:00Z'));
     await expect(restoreAsset(db, 3)).rejects.toThrow(/licence vérifiée/);
     await expect(restoreAsset(db, 1)).rejects.toThrow(/retirée/);
+  });
+});
+
+describe('store: the files of a retired version', () => {
+  it('leave the bucket with the retired rows; a file a version still on the site names stays; never a file of another key', async () => {
+    const db = photosFakeDb({ site_assets: [] });
+    const sticker = { key: 'sticker:daily:ab12cd34', type: 'sticker' as const, page: 'daily' };
+    const own = { source_url: '', author: 'Bunnyverse', license: 'own_photo' as const, license_note: null };
+    const settings = { side: 'left', x: 10, y: 200, w: 140, r: 0, o: 100, mirror: false, anim: true };
+    await saveAsset(db, { slot: sticker, files: { large: await webpOf(300, 300, 'alpha'), mid: null, thumb: await webpOf(96, 96, 'alpha') }, noFile: false, settings, meta: own, verified: true, publishAt: 'now', userId: 'u-1' });
+    // A second version without files reuses the first one's files.
+    await saveAsset(db, { slot: sticker, files: null, noFile: false, settings: { ...settings, x: 20 }, meta: own, verified: true, publishAt: 'now', userId: 'u-1' });
+    expect(db.files.size).toBe(2);
+    const shared = String(db.tables.site_assets![0]!.path);
+    expect(db.tables.site_assets![1]!.path).toBe(shared);
+    // A stray row of another key that names the same file is never a reason to remove a file outside the retired key's folder.
+    db.tables.site_assets!.push({ id: 99, key: 'sticker:home:zz99zz99', path: 'hub/sticker/home/zz99zz99/x-400.webp', mid_path: null, thumb_path: null, retired_at: null });
+    db.files.set('entity-images/hub/sticker/home/zz99zz99/x-400.webp', 1);
+    expect(await retireAsset(db, sticker.key)).toEqual({ retired: 2, files: 2 });
+    expect([...db.files.keys()]).toEqual(['entity-images/hub/sticker/home/zz99zz99/x-400.webp']);
+    expect(db.tables.site_assets!.filter((r) => r.key === sticker.key).every((r) => typeof r.retired_at === 'string')).toBe(true);
+  });
+
+  it('keeps a file that a row of the key saved meanwhile (not retired) still names', async () => {
+    const db = photosFakeDb({ site_assets: [
+      { id: 1, key: 'banner:daily', path: 'hub/banner/daily/a-1920.webp', mid_path: 'hub/banner/daily/a-400m.webp', thumb_path: 'hub/banner/daily/a-96t.webp', retired_at: null },
+    ] });
+    // The read of the rows still on the site answers a version that reuses the 1920 file (a save between the two statements).
+    const from = db.from.bind(db);
+    let reads = 0;
+    (db as { from: (t: string) => unknown }).from = (t: string) => {
+      const q = from(t) as Record<string, unknown>;
+      const select = q.select as (c?: string) => unknown;
+      q.select = (c?: string) => {
+        if (c === 'path, mid_path, thumb_path' && (reads += 1) === 2) db.tables.site_assets!.push({ id: 2, key: 'banner:daily', path: 'hub/banner/daily/a-1920.webp', mid_path: null, thumb_path: null, retired_at: null });
+        return select(c);
+      };
+      return q;
+    };
+    expect(await retireAsset(db, 'banner:daily')).toEqual({ retired: 1, files: 2 });
+    expect(db.removed.sort()).toEqual(['hub/banner/daily/a-400m.webp', 'hub/banner/daily/a-96t.webp']);
   });
 });
 

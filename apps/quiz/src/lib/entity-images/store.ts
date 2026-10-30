@@ -60,11 +60,24 @@ async function removeFiles(db: Db, paths: string[]): Promise<void> {
   }
 }
 
-async function rowOf(db: Db, kind: ImageKind, slug: string): Promise<EntityImageRow | null> {
-  const { data, error } = await db.from('entity_images').select(DISPLAY_COLUMNS).eq('site_id', IMAGE_SITE).eq('kind', kind).eq('slug', slug).maybeSingle();
+/** A stored row with its 96 px file (019's thumb_path, made by the Photos tab of step 2): a replace or a delete removes it with the others. */
+type StoredRow = EntityImageRow & { readonly thumb_path?: string | null };
+
+/** A column that is not there yet (019 not applied): PostgREST's and Postgres's codes. */
+const missingColumn = (error: { code?: string; message?: string } | null): boolean =>
+  Boolean(error) && (['42703', 'PGRST204'].includes(error?.code ?? '') || /column .* does not exist/i.test(error?.message ?? ''));
+
+async function rowOf(db: Db, kind: ImageKind, slug: string): Promise<StoredRow | null> {
+  const read = (columns: string) => db.from('entity_images').select(columns).eq('site_id', IMAGE_SITE).eq('kind', kind).eq('slug', slug).maybeSingle();
+  let { data, error } = await read(`${DISPLAY_COLUMNS}, thumb_path`);
+  // Before 019 the table has no thumb_path, so no row has a 96 px file: read the display columns alone.
+  if (missingColumn(error)) ({ data, error } = await read(DISPLAY_COLUMNS));
   if (error) throw new ImageError('db_failed', 500, 'The database could not be read.');
-  return (data as EntityImageRow | null) ?? null;
+  return (data as StoredRow | null) ?? null;
 }
+
+/** Every file of a stored row: the 1x, the 2x and, when it has one, the 96 px file. */
+const filesOf = (row: StoredRow): string[] => [row.path, path2x(row.path), ...(row.thumb_path ? [row.thumb_path] : [])];
 
 /** Stores both files, then upserts the row (a replaced image goes back to the middle focal point), then drops the old files. */
 export async function saveImage(
@@ -85,16 +98,20 @@ export async function saveImage(
   }
   let oldPath: string | null = null;
   try {
-    oldPath = (await rowOf(db, kind, slug))?.path ?? null;
-    const fields = {
+    const old = await rowOf(db, kind, slug);
+    oldPath = old?.path ?? null;
+    const fields: Record<string, unknown> = {
       path, width: image.width, height: image.height, focal_x: DEFAULT_FOCAL, focal_y: DEFAULT_FOCAL,
       source_url: meta.source_url, author: meta.author, license: meta.license, license_note: meta.license_note ?? null,
     };
+    // A new picture over a row that had a 96 px file: that file is the old picture's and goes below, so the row drops it and its check
+    // (022's trigger does the same; said here so the row never points at a removed file, 022 applied or not).
+    if (old?.thumb_path && oldPath !== path) Object.assign(fields, { thumb_path: null, license_verified: false });
     const res = oldPath !== null
       ? await db.from('entity_images').update(fields).eq('site_id', IMAGE_SITE).eq('kind', kind).eq('slug', slug).select(DISPLAY_COLUMNS).single()
       : await db.from('entity_images').insert({ site_id: IMAGE_SITE, kind, slug, created_by: a.userId, ...fields }).select(DISPLAY_COLUMNS).single();
     if (res.error || !res.data) throw new ImageError('db_failed', 500, 'The picture was stored but the database refused it.');
-    if (oldPath !== null && oldPath !== path) await removeFiles(db, [oldPath, path2x(oldPath)]);
+    if (old && oldPath !== path) await removeFiles(db, filesOf(old));
     revalidate(kind, slug);
     return toDto(res.data as EntityImageRow);
   } catch (e) {
@@ -112,13 +129,13 @@ export async function setFocal(db: Db, kind: ImageKind, slug: string, x: number,
   return toDto(data as EntityImageRow);
 }
 
-/** Removes the row and its files: the page goes back to the bundled photo or the placeholder. */
+/** Removes the row and its files (the 96 px one too): the page goes back to the bundled photo or the placeholder. */
 export async function deleteImage(db: Db, kind: ImageKind, slug: string, revalidate: Revalidate): Promise<EntityImageDto> {
   const row = await rowOf(db, kind, slug);
   if (!row) throw new ImageError('no_image', 404, 'There is no uploaded picture to remove.');
   const { error } = await db.from('entity_images').delete().eq('site_id', IMAGE_SITE).eq('kind', kind).eq('slug', slug);
   if (error) throw new ImageError('db_failed', 500, 'The picture could not be removed.');
-  await removeFiles(db, [row.path, path2x(row.path)]);
+  await removeFiles(db, filesOf(row));
   revalidate(kind, slug);
   return toDto(row);
 }

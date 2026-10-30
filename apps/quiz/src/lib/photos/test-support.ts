@@ -25,7 +25,7 @@ export function photosFakeDb(seed: Record<string, Row[]> = {}, missing: readonly
     tables, files, removed, missing: gone, fail,
     from(table: string) {
       const filters: Array<(r: Row) => boolean> = [];
-      let op: 'select' | 'insert' | 'update' = 'select';
+      let op: 'select' | 'insert' | 'update' | 'delete' = 'select';
       let payload: Row = {};
       let columns = '*';
       let mode: 'many' | 'one' | 'maybe' = 'many';
@@ -47,6 +47,10 @@ export function photosFakeDb(seed: Record<string, Row[]> = {}, missing: readonly
           out = rows.filter((r) => filters.every((f) => f(r)));
           for (const r of out) Object.assign(r, payload);
         }
+        if (op === 'delete') {
+          out = rows.filter((r) => filters.every((f) => f(r)));
+          tables[table] = rows.filter((r) => !out.includes(r));
+        }
         if (window) out = out.slice(window[0], window[1] + 1);
         if (limit !== null) out = out.slice(0, limit);
         out = out.map((r) => ({ ...r }));
@@ -64,6 +68,7 @@ export function photosFakeDb(seed: Record<string, Row[]> = {}, missing: readonly
         range: (a: number, b: number) => { window = [a, b]; return q; },
         insert: (r: Row) => { op = 'insert'; payload = r; return q; },
         update: (r: Row) => { op = 'update'; payload = r; return q; },
+        delete: () => { op = 'delete'; return q; },
         maybeSingle: () => { mode = 'maybe'; return exec(); },
         single: () => { mode = 'one'; return exec(); },
         then: (ok: (v: unknown) => unknown, bad?: (e: unknown) => unknown) => exec().then(ok, bad),

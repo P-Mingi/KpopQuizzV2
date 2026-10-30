@@ -50,6 +50,7 @@ beforeEach(() => {
 describe('the gate', () => {
   const calls = (): Array<() => Promise<Response>> => [
     () => saveModule.POST(multipart('/api/admin/photos', { kind: 'idol', slug: '5', meta: JSON.stringify(META), verified: '0', focal_x: '50', focal_y: '50' })),
+    () => saveModule.POST(multipart('/api/admin/photos', { action: 'remove', kind: 'idol', slug: '5' })),
     () => assetsModule.POST(multipart('/api/admin/photos/assets', { action: 'retire', key: 'icon:k-idol' })),
     () => fetchModule.POST(new NextRequest(`${BASE}/api/admin/photos/fetch`, { method: 'POST', body: JSON.stringify({ url: 'https://x.org/a.jpg' }), headers: { 'content-type': 'application/json', origin: BASE } })),
   ];
@@ -104,6 +105,32 @@ describe('POST /api/admin/photos', () => {
   });
 });
 
+describe('POST /api/admin/photos, action remove', () => {
+  it('removes the picture of an idol, its row and its three files; refuses another site; says so when there is none', async () => {
+    const files = await photoFiles(400, 500);
+    expect((await saveModule.POST(multipart('/api/admin/photos', { kind: 'idol', slug: '5', meta: JSON.stringify(META), verified: '1', focal_x: '50', focal_y: '50', ...files }))).status).toBe(200);
+    expect(dbOf().files.size).toBe(3);
+    const evil = await saveModule.POST(multipart('/api/admin/photos', { action: 'remove', kind: 'idol', slug: '5' }, { origin: 'https://evil.example', host: 'localhost:3064' }));
+    expect(evil.status).toBe(403);
+    expect(dbOf().files.size).toBe(3);
+    const res = await saveModule.POST(multipart('/api/admin/photos', { action: 'remove', kind: 'idol', slug: '5' }));
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ ok: true, removed: { kind: 'idol', slug: '5', files: 3 } });
+    expect(dbOf().tables.entity_images).toEqual([]);
+    expect(dbOf().files.size).toBe(0);
+    expect((await saveModule.POST(multipart('/api/admin/photos', { action: 'remove', kind: 'idol', slug: '5' }))).status).toBe(404);
+    expect((await saveModule.POST(multipart('/api/admin/photos', { action: 'zap', kind: 'idol', slug: '5' }))).status).toBe(400);
+  });
+
+  it('a series removed expires the anime display\'s cache', async () => {
+    const big = await photoFiles(736, 981);
+    await saveModule.POST(multipart('/api/admin/photos', { kind: 'series', slug: 'death-note', meta: JSON.stringify(META), verified: '1', focal_x: '50', focal_y: '50', ...big }));
+    revalidateTag.mockClear();
+    expect((await saveModule.POST(multipart('/api/admin/photos', { action: 'remove', kind: 'series', slug: 'death-note' }))).status).toBe(200);
+    expect(revalidateTag).toHaveBeenCalled();
+  });
+});
+
 describe('POST /api/admin/photos/assets', () => {
   it('publishes a banner, keeps the history, retires a sticker', async () => {
     const files = { large: await webpOf(1920, 600), mid: await webpOf(400, 125), thumb: await webpOf(96, 30) };
@@ -119,6 +146,18 @@ describe('POST /api/admin/photos/assets', () => {
     expect(icon.status).toBe(200);
     expect((await assetsModule.POST(multipart('/api/admin/photos/assets', { action: 'save', key: 'banner:elsewhere', settings: '{}', publish: 'now' }))).status).toBe(400);
     expect((await assetsModule.POST(multipart('/api/admin/photos/assets', { action: 'retire', key: 'sticker:home:abcdef12' }))).status).toBe(200);
+  });
+
+  it('refuses a sticker or an icon PNG under a Creative Commons licence, takes our own illustration', async () => {
+    const small = { large: await webpOf(300, 300, 'alpha'), thumb: await webpOf(96, 96, 'alpha') };
+    const settings = JSON.stringify({ side: 'left', x: 10, y: 200, w: 140, r: 0, o: 100, mirror: false, anim: true });
+    const cc = await assetsModule.POST(multipart('/api/admin/photos/assets', { action: 'save', key: 'sticker:daily:ab12cd34', settings, meta: JSON.stringify(META), verified: '1', publish: 'now', ...small }));
+    expect(cc.status).toBe(422);
+    expect(dbOf().files.size).toBe(0);
+    const own = await assetsModule.POST(multipart('/api/admin/photos/assets', {
+      action: 'save', key: 'sticker:daily:ab12cd34', settings, meta: JSON.stringify({ source_url: '', author: 'Bunnyverse', license: 'own_photo', license_note: '' }), verified: '1', publish: 'now', ...small,
+    }));
+    expect(own.status).toBe(200);
   });
 });
 

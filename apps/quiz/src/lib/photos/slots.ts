@@ -297,6 +297,13 @@ export const BANNER_LICENSE_OPTIONS: readonly { readonly value: ImageLicense; re
   { value: 'licensed', label: 'Sous licence, accord écrit' },
 ];
 
+/**
+ * The licences of an icon or a sticker drawn as a PNG: our own illustration (the board's one checkbox) or one used with written permission.
+ * Never a Creative Commons picture: /credits lists the banners and card images only, so such a credit would be shown nowhere (022 checks it
+ * too, site_assets_small_license_check).
+ */
+export const SMALL_ASSET_LICENSES: readonly ImageLicense[] = ['own_photo', 'licensed'];
+
 export function isLicense(v: unknown): v is ImageLicense {
   return typeof v === 'string' && (LICENSES as readonly string[]).includes(v);
 }
