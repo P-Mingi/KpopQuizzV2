@@ -6,13 +6,18 @@ import { describe, expect, it, vi } from 'vitest';
 
 import type { LiveAsset, PublicPicture } from '@/lib/photos/public-read';
 
-const reads = vi.hoisted(() => ({ pictures: [] as unknown[], assets: [] as unknown[] }));
+const reads = vi.hoisted(() => ({ pictures: [] as unknown[], assets: [] as unknown[], site: null as string | null }));
 vi.mock('@/lib/photos/public-read', () => ({ getPublicPictures: async () => reads.pictures, getLiveAssets: async () => reads.assets }));
+// The /credits file serves OtakuQuiz and the hub and chooses by SITE_ID: these tests read it as the hub build does.
+vi.mock('@/lib/site/registry', async (orig) => {
+  const real = await orig<typeof import('@/lib/site/registry')>();
+  return { ...real, get SITE_ID() { return reads.site ?? real.SITE_ID; } };
+});
 vi.mock('@/lib/anime/entity-images-read', () => ({ getCreditNames: async () => ({ series: { 'one-piece': 'One Piece' }, character: { 'one-piece/luffy': 'Monkey D. Luffy' } }) }));
 
 import { robotsFor } from '@/lib/site/indexing';
 
-import { CREDITS_DESCRIPTION, HubCreditsPage, creditSections } from './hub-credits';
+import { CREDITS_DESCRIPTION, HubCreditsPage, creditSections, namesCharacter } from './hub-credits';
 
 const pic = (kind: string, slug: string, name: string | null, over: Partial<PublicPicture> = {}): PublicPicture => ({
   site: kind === 'series' || kind === 'character' ? 'anime' : 'kpop', kind, slug, url: `https://s/${slug}.webp`, thumb: `https://s/${slug}-96.webp`, position: '50% 40%',
@@ -40,6 +45,49 @@ describe('the sections', () => {
   });
 });
 
+describe('a character under a spoiler', () => {
+  /** Every React key of an element tree (the keys travel in the RSC payload of a server component, so they are page data too). */
+  const keysOf = (node: unknown): string[] => {
+    if (Array.isArray(node)) return node.flatMap(keysOf);
+    if (!node || typeof node !== 'object' || !('props' in node)) return [];
+    const el = node as { key: string | null; props: { children?: unknown } };
+    return [...(el.key === null ? [] : [String(el.key)]), ...keysOf(el.props.children)];
+  };
+
+  it('is listed with its credit, never its slug, picture or name: no data-key, keyed by position', () => {
+    const hidden = pic('character', 'one-piece/nico-robin', null, { sourceUrl: 'https://example.org/gallery/4471', licenseNote: 'Cropped', author: 'Jane Doe' });
+    const s = creditSections([hidden], [], {}, { 'one-piece': 'One Piece' });
+    expect(s[0]!.items[0]).toMatchObject({ key: null, name: 'A character of One Piece', thumb: null, author: 'Jane Doe', license: 'cc_by_sa', sourceUrl: 'https://example.org/gallery/4471', note: 'Cropped' });
+    const page = HubCreditsPage({ sections: s });
+    const html = renderToStaticMarkup(page);
+    expect(html).not.toMatch(/nico|robin|data-key/i);
+    expect(keysOf(page).join(' ')).not.toMatch(/nico|robin/i);
+    expect(html).toContain('A character of One Piece');
+    expect(html).toContain('<a href="https://example.org/gallery/4471" rel="noopener noreferrer nofollow" target="_blank">Jane Doe</a>');
+    expect(html).toContain('>CC BY-SA<');
+  });
+
+  it('keeps the author and the licence but drops the source link and the note when they name the character', () => {
+    const named = pic('character', 'one-piece/nico-robin', null, { sourceUrl: 'https://commons.wikimedia.org/wiki/File:Nico_Robin_cosplay.jpg', licenseNote: 'Robin at a convention', author: 'Jane Doe' });
+    const s = creditSections([named], [], {}, { 'one-piece': 'One Piece' });
+    expect(s[0]!.items[0]).toMatchObject({ key: null, sourceUrl: null, note: null, author: 'Jane Doe', license: 'cc_by_sa' });
+    const html = renderToStaticMarkup(HubCreditsPage({ sections: s }));
+    expect(html).not.toMatch(/nico|robin|Source page/i);
+    expect(html).toContain('Photo: Jane Doe, <a href="https://creativecommons.org/share-your-work/cclicenses/"');
+    // An unlocked character keeps its key and its link.
+    const open = creditSections([pic('character', 'one-piece/luffy', null)], [], { 'one-piece/luffy': 'Monkey D. Luffy' }, {})[0]!.items[0]!;
+    expect(open).toMatchObject({ key: 'character:one-piece/luffy', sourceUrl: 'https://commons.wikimedia.org/wiki/File:one-piece/luffy.jpg' });
+  });
+
+  it('knows when an address or a note names the character (the whole slug or a word of it, any case, separators or escapes)', () => {
+    expect(namesCharacter('https://commons.wikimedia.org/wiki/File:Monkey_D._Luffy.jpg', 'one-piece/monkey-d-luffy')).toBe(true);
+    expect(namesCharacter('https://x.org/LUFFY%20photo', 'one-piece/monkey-d-luffy')).toBe(true);
+    expect(namesCharacter('https://x.org/p/4471', 'one-piece/monkey-d-luffy')).toBe(false);
+    expect(namesCharacter('https://x.org/d/', 'one-piece/monkey-d-luffy')).toBe(false);
+    expect(namesCharacter(null, 'one-piece/monkey-d-luffy')).toBe(false);
+  });
+});
+
 describe('the page', () => {
   it('prints each credit with its author linked to the source and its licence linked to its text, one h1', () => {
     const html = renderToStaticMarkup(h(HubCreditsPage, { sections: creditSections([pic('idol', '1', 'Ana', { licenseNote: 'Cropped' })], [], {}, {}) }));
@@ -59,7 +107,8 @@ describe('the page', () => {
   });
 
   it('is noindex while it lists nothing, and asks for indexing (closed until NET_INDEXING) once it lists a photo', async () => {
-    const page = await import('@/app/sites/[site]/(hub)/credits/page');
+    const page = await import('@/app/sites/[site]/credits/page');
+    reads.site = 'hub';
     reads.pictures = [];
     reads.assets = [];
     const empty = await page.generateMetadata();
@@ -73,5 +122,7 @@ describe('the page', () => {
     expect((await page.generateMetadata()).robots).toEqual(robotsFor(true));
     const html = renderToStaticMarkup(await page.default());
     expect(html).toContain('One Piece');
+    expect(html).toContain('class="ux-page ux-col ux-pg hub-credits"');
+    reads.site = null;
   });
 });

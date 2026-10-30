@@ -1,7 +1,7 @@
 // Run O1 (IMG): the free photos of the series. The generated map equals docs/anime/images, a listed file exists in public/series, an entry
 // that lacks its source, author or licence is refused, a fallback and a missing entry show the title card, the credit line follows the
 // licence, and /credits lists every photo. The photos below are two fixtures (a grey and a brown rectangle), not real data.
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -26,10 +26,48 @@ const REAL_DATA = path.join(ROOT, 'docs/anime/images');
 const REAL_SERIES = path.join(ROOT, 'docs/anime/data/series');
 const FIX = path.join(HERE, '__fixtures__/series-images');
 
+const SITE_DIR = path.join(QUIZ, 'src/app/sites/[site]');
+
+/**
+ * The page files Next's App Router serves for /sites/<site>/<segment>, with the route-group layouts that wrap each: a group folder (x) adds
+ * no segment, a static folder named `segment` wins over a [param] folder, which wins over a [...catch-all]. Paths relative to SITE_DIR.
+ */
+function pagesFor(segment: string): Array<{ page: string; layouts: string[] }> {
+  type Candidate = { dir: string; name: string; layouts: string[] };
+  const children = (dir: string, layouts: string[]): Candidate[] => readdirSync(dir, { withFileTypes: true }).filter((e) => e.isDirectory()).flatMap((e) => {
+    const full = path.join(dir, e.name);
+    if (/^\(.+\)$/.test(e.name)) return children(full, existsSync(path.join(full, 'layout.tsx')) ? [...layouts, path.join(full, 'layout.tsx')] : layouts);
+    return [{ dir: full, name: e.name, layouts }];
+  });
+  const rank = (name: string): number => (name === segment ? 0 : /^\[\[?\.\.\./.test(name) ? 2 : /^\[[^\]]+\]$/.test(name) ? 1 : 9);
+  const pages = children(SITE_DIR, []).filter((c) => existsSync(path.join(c.dir, 'page.tsx')) && rank(c.name) < 9);
+  const best = Math.min(...pages.map((c) => rank(c.name)));
+  return pages.filter((c) => rank(c.name) === best)
+    .map((c) => ({ page: path.relative(SITE_DIR, path.join(c.dir, 'page.tsx')), layouts: c.layouts.map((l) => path.relative(SITE_DIR, l)) }));
+}
+
 const realExists = (p: string): boolean => existsSync(path.join(QUIZ, 'public', p));
 const fixExists = (p: string): boolean => existsSync(path.join(FIX, 'public', p));
 const fixtureRows = (): ImageRow[] => readImageRows(path.join(FIX, 'data'));
 const fixtureBuilt = (): ReturnType<typeof buildSeriesImages> => buildSeriesImages(fixtureRows(), { fileExists: fixExists, names: { 'fixture-cc-by': 'Fixture One' } });
+
+// /credits is one file for OtakuQuiz and the hub that chooses by SITE_ID: the resolution test below reads it as each build does, with the
+// reads it makes answered here (no database). Every other test of this file keeps the real SITE_ID.
+const credits = vi.hoisted(() => ({ site: null as string | null }));
+vi.mock('@/lib/site/registry', async (orig) => {
+  const real = await orig<typeof import('@/lib/site/registry')>();
+  return { ...real, get SITE_ID() { return credits.site ?? real.SITE_ID; } };
+});
+vi.mock('@/lib/anime/entity-images-read', async (orig) => ({
+  ...(await orig<typeof import('@/lib/anime/entity-images-read')>()),
+  getOwnerCreditRows: async () => [],
+  getCreditNames: async () => ({ series: {}, character: {} }),
+}));
+vi.mock('@/lib/photos/public-read', async (orig) => ({
+  ...(await orig<typeof import('@/lib/photos/public-read')>()),
+  getPublicPictures: async () => [],
+  getLiveAssets: async () => [],
+}));
 
 // The components read the generated map; these tests give them the two fixtures in its place.
 vi.mock('./series-images.generated', async () => {
@@ -265,6 +303,46 @@ describe('/credits', () => {
     const out = html(h(CreditsPage, { credits: {} }));
     expect(out).toContain('data-testid="credits-empty"');
     expect(out).not.toContain('credits-list');
+  });
+
+  it('is answered on the anime build by the page file Next resolves for it, OtakuQuiz\'s credits; on the hub by the hub\'s; on kpop by none', async () => {
+    // The allowlist below says which site knows the path; this says which FILE Next serves for it. The App Router sorts a static
+    // folder above a [param] folder above a [...catch-all], and a route group (x) adds no segment but its layout wraps the page. A
+    // static (hub)/credits beside (anime)/[slug] was resolved for /credits on the anime build, and its (hub) layout answered 404.
+    const files = pagesFor('credits');
+    expect(files).toEqual([{ page: 'credits/page.tsx', layouts: [] }]);
+    const page = await import('@/app/sites/[site]/credits/page');
+    const { robotsFor } = await import('@/lib/site/indexing');
+    const anime = await import('@/components/anime/credits-page');
+    const hub = await import('@/components/hub/credits/hub-credits');
+    try {
+      for (const site of ['anime', 'hub']) {
+        credits.site = site;
+        // Each route-group layout between [site] and the page renders on this build (no 404).
+        for (const l of files[0]!.layouts) {
+          const layout = (await import(path.join(SITE_DIR, l))) as { default: (p: { children: unknown }) => unknown };
+          expect(() => layout.default({ children: null }), `${site} ${l}`).not.toThrow();
+        }
+        const out = html(await page.default());
+        const meta = await page.generateMetadata();
+        if (site === 'anime') {
+          expect(out).toContain('anime-o2-credits');
+          expect(out).toContain('data-slug="fixture-cc-by"');
+          expect(meta).toEqual({ title: anime.CREDITS_TITLE, description: anime.CREDITS_DESCRIPTION, robots: robotsFor(true), alternates: { canonical: '/credits' } });
+        } else {
+          expect(out).toContain('hub-credits');
+          expect(out).not.toContain('anime-o2-credits');
+          expect(meta).toMatchObject({ title: hub.CREDITS_TITLE, description: hub.CREDITS_DESCRIPTION, robots: robotsFor(false), alternates: { canonical: '/credits' } });
+        }
+      }
+      credits.site = 'kpop';
+      await expect(page.default()).rejects.toThrow('404');
+      await expect(page.generateMetadata()).rejects.toThrow('404');
+    } finally {
+      credits.site = null;
+    }
+    // The anime [slug] page no longer serves or prerenders credits (two files claimed /sites/anime/credits at build).
+    expect(readFileSync(path.join(SITE_DIR, '(anime)/[slug]/page.tsx'), 'utf8')).not.toMatch(/credits-page|CREDITS_/);
   });
 
   it('is a route of the anime site, linked from its footer, and of no other site', async () => {

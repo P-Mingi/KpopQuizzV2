@@ -15,7 +15,8 @@ export const CREDITS_DESCRIPTION = 'Every licensed photo shown on Bunnyverse, wi
 
 /** One line of the page. */
 export interface CreditItem {
-  readonly key: string;
+  /** The record it credits (data-key), or null for a locked character: nothing on its line may name it. */
+  readonly key: string | null;
   readonly name: string;
   /** The 96 px file, or null (a locked character, a banner credited by its slot name). */
   readonly thumb: string | null;
@@ -48,6 +49,26 @@ const SLOT_NAMES: Readonly<Record<string, string>> = {
 
 const byName = (a: CreditItem, b: CreditItem): number => a.name.localeCompare(b.name, 'en', { sensitivity: 'base' });
 
+/** Letters and digits only, lower case: 'File:Monkey_D._Luffy.jpg' and 'monkey-d-luffy' compare as 'filemonkeydluffyjpg' and 'monkeydluffy'. */
+const squash = (v: string): string => {
+  let t = v;
+  try { t = decodeURIComponent(v); } catch { /* a malformed escape: compare the raw text */ }
+  return t.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '');
+};
+
+/**
+ * True when `text` may name the character of `characterSlug` ('<series>/<character>'): it holds the whole character slug, or one of its
+ * words of three letters or more (a source page is often named after the character: File:Luffy_cosplay.jpg). Fail closed: a false match
+ * only drops a link or a note, never the author and the licence.
+ */
+export function namesCharacter(text: string | null, characterSlug: string): boolean {
+  if (!text) return false;
+  const own = characterSlug.split('/')[1] ?? '';
+  const hay = squash(text);
+  if (own && hay.includes(squash(own))) return true;
+  return own.split('-').some((w) => w.length >= 3 && hay.includes(squash(w)));
+}
+
 /**
  * The sections of the page, in the order of the games: idols, groups, agencies, series, characters, then the banners and images of the pages.
  * `characterNames` holds the names OtakuQuiz prints (published characters with no spoiler); a character it does not name is locked.
@@ -60,10 +81,18 @@ export function creditSections(
   seriesNames: Readonly<Record<string, string>>,
 ): CreditSection[] {
   const words = (slug: string): string => slug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-  const line = (p: PublicPicture, name: string, locked = false): CreditItem => ({
-    key: `${p.kind}:${p.slug}`, name, thumb: locked ? null : p.thumb, position: p.position, author: p.author, sourceUrl: p.sourceUrl,
-    license: p.license, note: p.licenseNote && p.licenseNote.trim() ? p.licenseNote.trim() : null,
-  });
+  const line = (p: PublicPicture, name: string, locked = false): CreditItem => {
+    const note = p.licenseNote && p.licenseNote.trim() ? p.licenseNote.trim() : null;
+    // A locked character keeps its credit (author and licence), never its slug, picture or name. Its source page is linked only when the
+    // address does not name it; otherwise the line prints the author and the licence without the link (and a note that names it goes).
+    if (locked) {
+      return {
+        key: null, name, thumb: null, position: p.position, author: p.author, sourceUrl: namesCharacter(p.sourceUrl, p.slug) ? null : p.sourceUrl,
+        license: p.license, note: namesCharacter(note, p.slug) ? null : note,
+      };
+    }
+    return { key: `${p.kind}:${p.slug}`, name, thumb: p.thumb, position: p.position, author: p.author, sourceUrl: p.sourceUrl, license: p.license, note };
+  };
   const of = (kind: string): PublicPicture[] => pictures.filter((p) => p.kind === kind);
   const named = (kind: string): CreditItem[] => of(kind).filter((p) => p.name).map((p) => line(p, p.name!)).sort(byName);
   const characters = of('character').map((p) => {
@@ -92,7 +121,7 @@ function Credit({ item }: { item: CreditItem }): React.ReactElement {
   const label = LICENSE_LABEL[item.license];
   const licenseUrl = LICENSE_URL[item.license];
   return (
-    <li className="hub-credits-item" data-key={item.key}>
+    <li className="hub-credits-item" data-key={item.key ?? undefined}>
       {item.thumb ? (
         // A plain img: the 96 px file made at upload (no Vercel image optimisation). Decorative: the name is printed beside it.
         // eslint-disable-next-line @next/next/no-img-element
@@ -128,7 +157,8 @@ export function HubCreditsPage({ sections }: { sections: readonly CreditSection[
         <section key={s.id} className="hub-credits-section" aria-labelledby={`cr-${s.id}`}>
           <h2 id={`cr-${s.id}`} className="hub-credits-h2">{s.title}</h2>
           <ul className="hub-credits-list">
-            {s.items.map((i) => <Credit key={i.key} item={i} />)}
+            {/* Keyed by position: a key from the record would print a locked character's slug into the page's data. */}
+            {s.items.map((i, n) => <Credit key={n} item={i} />)}
           </ul>
         </section>
       ))}
