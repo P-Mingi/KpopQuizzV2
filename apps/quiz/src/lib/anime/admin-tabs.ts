@@ -3,6 +3,8 @@
 export const ADMIN_TABS = [
   { id: 'images', label: 'Images' },
   { id: 'overview', label: 'Overview' },
+  // Daily games step 2: the licensed photos, banners, icons and stickers of Bunnyverse (board Admin.dc.html).
+  { id: 'photos', label: 'Photos' },
 ] as const;
 
 export type AdminTabId = (typeof ADMIN_TABS)[number]['id'];
