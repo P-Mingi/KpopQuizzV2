@@ -1,0 +1,14 @@
+/* Daily games step 2: /credits of the hub (components/hub/credits/hub-credits.tsx), the rules of OtakuQuiz's credits page
+   (styles/sites/anime/o2.css, anime-o2-credits-*) on the hub's tokens. The hub build only reads this folder. */
+html.ux-v1[data-site="hub"] .hub-credits-lede { margin: 12px 0 24px; max-width: 66ch; font-size: 15px; line-height: 1.55; color: var(--ux-muted); }
+html.ux-v1[data-site="hub"] .hub-credits-empty { margin: 0; padding: 16px; max-width: 66ch; border: 1px dashed var(--ux-line); border-radius: 14px; font-size: 15px; line-height: 1.5; color: var(--ux-muted); }
+html.ux-v1[data-site="hub"] .hub-credits-section { margin: 0 0 28px; }
+html.ux-v1[data-site="hub"] .hub-credits-h2 { margin: 0 0 12px; font-size: 20px; line-height: 1.25; font-weight: 700; color: var(--ux-ink); }
+html.ux-v1[data-site="hub"] .hub-credits-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+html.ux-v1[data-site="hub"] .hub-credits-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px; border: 1px solid var(--ux-line); border-radius: 14px; background: var(--ux-raised); }
+html.ux-v1[data-site="hub"] .hub-credits-thumb { flex: 0 0 auto; width: 48px; height: 48px; border-radius: 10px; object-fit: cover; }
+html.ux-v1[data-site="hub"] .hub-credits-text { min-width: 0; display: grid; gap: 4px; font-size: 15px; line-height: 1.45; color: var(--ux-ink); overflow-wrap: anywhere; }
+html.ux-v1[data-site="hub"] .hub-credits-text p { margin: 0; }
+html.ux-v1[data-site="hub"] .hub-credits-name { margin: 0; font-size: 16px; font-weight: 600; }
+html.ux-v1[data-site="hub"] .hub-credits-text a { color: var(--ux-ink); text-decoration: underline; text-underline-offset: 2px; }
+html.ux-v1[data-site="hub"] .hub-credits-meta { font-size: 13px; color: var(--ux-muted); }

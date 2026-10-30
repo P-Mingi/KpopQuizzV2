@@ -65,6 +65,7 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 | 14d | `M/020-dle-kpop-idol.sql` | P5, right after 019 | single | 019 | view `dle_src_kpop_idol` closed to the browser roles; game `kpopdle-idol` switched off, 8 columns (`dle-smoke.sql`) | `M/020-dle-kpop-idol.rollback.sql` (refused once a play exists) | V6 |
 | 14e | lot K1, first file: `021a-k1-idol-gender-debut.sql` in `M` (written by the old worker; not on main yet) | P5, right after 020 | single | 020 | `idols.gender` ('female' or 'male') and `idols.debut_year` (integer) exist, with their sources (`checks/V-K1a.sql`) | its own rollback | V6 |
 | 14e bis | lot K1, second file: `021b-k1-idol-activate.sql` in `M` (the idols the owner chose in K1-RELECTURE.md; not on main yet) | P5, right after 021a | single | 021a | no active idol left to review; no minor and no idol without a birth date in the game (`checks/V-K1b.sql`) | its own rollback | V6 |
+| 14f | `M/022-photos-admin.sql` (daily games step 2, photos and admin) | P5, right after 021a and 021b (the lot K1, rows 14e and 14e bis) | single | 001, 002a, 018, 019 | tables `agencies` and `site_assets` with RLS on and 0 policies; views `site_assets_public` and `entity_images_public` readable by anon, the two tables and their sequences not; 17 agencies (the labels the kpop groups cite) (`checks/V-022.sql`) | `M/022-photos-admin.rollback.sql` (refused while an idol, group or agency picture, a site_assets row or an agency the owner edited exists) | V6 |
 | 15 | `M/012-editorial-quiz.sql` | P5 | single | 002a, 001 | `review_batches` RLS on, 0 policies | `M/012-editorial-quiz.rollback.sql` | V6 |
 | 16 | `M/013-formats.sql` | P5 | single | 011 | `games_game_type_check` validated; column `character_id` | `M/013-formats.rollback.sql` | V6 |
 | 17 | `M/014-daily-openings.sql` | P5 | single | 011, 001 | table and function present; function closed to anon | `M/014-daily-openings.rollback.sql` | V6 |
@@ -86,7 +87,7 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 
 Rows 28, 29 and 30 (L09 openings, L10 formats, L11 crossover quiz) are not on the launch path (owner decision D-099): see "After launch" below.
 Order of the launch files on the day: L01, L02 (after its auth users), L03, L04, L05, L06, L07, L08, L10-PERS, then the builds and the domain, then L12, then the lot A1 file.
-Order of session G (owner order 2026-10-30): 011, 018, 019, 020, 021a, 021b, 012, 013, 014, 015, 016, 017. Daily games step 2 (`022-photos-admin.sql`, row 14f once its PR lands) goes right after 021b.
+Order of session G (owner order 2026-10-30): 011, 018, 019, 020, 021a, 021b, 022, 012, 013, 014, 015, 016, 017.
 Before launch day, `ls docs/pending-migrations/multisite/launch/` must show L01 to L08, L10-PERS and L12, each with its rollback,
 `grep -l '^-- DRAFTS' docs/pending-migrations/multisite/launch/*.sql` must print nothing and
 `grep -c 'team.otakuquiz.org' docs/pending-migrations/multisite/launch/L02-K2-team-accounts.sql` must print 0 (RUNBOOK J2).

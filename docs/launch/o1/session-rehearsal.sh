@@ -8,8 +8,10 @@
 # has and the launch files write, production's schema copy (schema only, no data), the rows part of schema.base.sql, then what was
 # applied in production since the copy: S4 (2026-10-23) and Mission U part D (2026-10-27).
 # Then, in the order of OWNER-NOW.md: B1 B2 B3 D E1 E2 G J1 J2 J3 J4. Each part runs twice: the second run must change nothing and
-# say OK. The owner's steps between parts are simulated where the database sees them (the 31 Team auth users of step 40); the
-# others (a throwaway quiz, a deploy, a flag) do not touch the database.
+# say OK. "Nothing" is read, not assumed: the schema (pg_dump --schema-only, grants included) and every table's rows (count and md5
+# of the sorted rows; sequences are left out, an insert that meets a conflict still takes a number) before and after the second run.
+# The owner's steps between parts are simulated where the database sees them (the 31 Team auth users of step 40); the others (a
+# throwaway quiz, a deploy, a flag) do not touch the database.
 # Stops that must happen are checked too: J2 before the Team users, G and J4 while the K1 and A1 files are not on main, and a
 # check that finds a KO.
 # The files of lots K1 (021a, 021b) and A1 are not on main yet: the rehearsal uses stand-ins it writes in its work folder (021a: the
@@ -85,13 +87,36 @@ part() {   # part <name> <expected exit> <grep that the output must hold> [env a
   if [ "$got" = "$want" ] && grep -q "$must" "$out"; then pass "$name (run $n): exit $got, \"$must\""
   else fail "$name (run $n): exit $got, expected $want and \"$must\""; sed 's/^/    /' "$out" | tail -12; fi
 }
+# again <part arguments>: the second run of a part; it must say OK and leave the schema and every row as the first run left them.
+fingerprint() {
+  pg_dump "$PROD_DB_URL" --schema-only --no-owner 2>>"$WORK/build.log" | grep -vE '^\\(un)?restrict ' >"$1.schema"
+  psql "$PROD_DB_URL" -X -q -At -F ' ' -v ON_ERROR_STOP=1 >"$1.rows" 2>>"$WORK/build.log" <<'SQL'
+select format('select %L, count(*), md5(coalesce(string_agg(t::text, %L order by t::text), %L)) from %I.%I t', n.nspname || '.' || c.relname, chr(10), '', n.nspname, c.relname)
+from pg_class c join pg_namespace n on n.oid = c.relnamespace
+where c.relkind in ('r', 'p') and n.nspname not in ('pg_catalog', 'information_schema', 'pg_toast')
+order by n.nspname, c.relname
+\gexec
+SQL
+}
+again() {
+  fingerprint "$WORK/fp-before"
+  part "$@"
+  fingerprint "$WORK/fp-after"
+  if cmp -s "$WORK/fp-before.schema" "$WORK/fp-after.schema" && cmp -s "$WORK/fp-before.rows" "$WORK/fp-after.rows" && [ -s "$WORK/fp-after.rows" ]; then
+    pass "$1 (run $n): the second run changed nothing ($(wc -l <"$WORK/fp-after.rows" | tr -d ' ') tables, same rows; same schema and grants)"
+  else
+    fail "$1 (run $n): the second run changed the database"
+    diff "$WORK/fp-before.schema" "$WORK/fp-after.schema" | head -20 | sed 's/^/    schema /'
+    diff "$WORK/fp-before.rows" "$WORK/fp-after.rows" | grep '^[<>]' | cut -d' ' -f1-3 | head -20 | sed 's/^/    rows /'
+  fi
+}
 n=0
 STAND="KPQ_K1A_SQL=$WORK/K1a-stand-in.sql KPQ_K1B_SQL=$WORK/K1b-stand-in.sql KPQ_A1_SQL=$WORK/A1-stand-in.sql"
-for p in B1 B2 B3 D E1 E2; do part "$p" 0 "terminée : tout est OK"; part "$p" 0 "terminée : tout est OK"; done
+for p in B1 B2 B3 D E1 E2; do part "$p" 0 "terminée : tout est OK"; again "$p" 0 "terminée : tout est OK"; done
 part G 1 "021a-k1-idol-gender-debut.sql : fichier absent de main"
 part G 1 "021b-k1-idol-activate.sql : fichier absent de main" "KPQ_K1A_SQL=$WORK/K1a-stand-in.sql"
-part G 0 "terminée : tout est OK" $STAND; part G 0 "terminée : tout est OK" $STAND
-part J1 0 "terminée : tout est OK"; part J1 0 "terminée : tout est OK"
+part G 0 "terminée : tout est OK" $STAND; again G 0 "terminée : tout est OK" $STAND
+part J1 0 "terminée : tout est OK"; again J1 0 "terminée : tout est OK"
 part J2 1 "V-TEAM : une ligne KO"
 # Step 40, as team-auth.mjs leaves it: the 31 Team auth users, confirmed, with the addresses L02 looks up.
 grep -o "[a-z0-9_]*@team\.bunnyverse\.org" docs/pending-migrations/multisite/launch/L02-K2-team-accounts.sql | sort -u >"$WORK/team.txt"
@@ -101,9 +126,9 @@ emails = [l.strip() for l in open(sys.argv[1]) if l.strip()]
 print("insert into auth.users (email, email_confirmed_at, aud, role) values " + ", ".join(f"('{e}', now(), 'authenticated', 'authenticated')" for e in emails) + ";")
 PY
 psql "$PROD_DB_URL" -X -q -v ON_ERROR_STOP=1 -f "$WORK/team.sql" >>"$WORK/build.log" 2>&1 && pass "step 40 simulated: $(wc -l <"$WORK/team.txt" | tr -d ' ') Team auth users" || fail "step 40 simulated"
-for p in J2 J3; do part "$p" 0 "terminée : tout est OK"; part "$p" 0 "terminée : tout est OK"; done
+for p in J2 J3; do part "$p" 0 "terminée : tout est OK"; again "$p" 0 "terminée : tout est OK"; done
 part J4 1 "L13-A1-character-facts.sql : fichier absent de main"
-part J4 0 "terminée : tout est OK" $STAND; part J4 0 "terminée : tout est OK" $STAND
+part J4 0 "terminée : tout est OK" $STAND; again J4 0 "terminée : tout est OK" $STAND
 # A difference no file repairs stops the part: award_xp opened to anon again (an S4 function) makes V-S4 fail at the end of J4.
 reopen() { psql "$PROD_DB_URL" -X -q -c "do \$\$ declare f regprocedure; begin for f in select oid::regprocedure from pg_proc where pronamespace = 'public'::regnamespace and proname = 'award_xp' loop execute format('$1 execute on function %s $2 anon', f); end loop; end \$\$;" >/dev/null 2>&1; }
 reopen grant to

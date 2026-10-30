@@ -1,0 +1,28 @@
+-- Stand-in for what 018 to 022 read that the contract base does not carry (production columns of 2026-10-30).
+\set ON_ERROR_STOP on
+alter table storage.buckets add column if not exists file_size_limit bigint, add column if not exists allowed_mime_types text[];
+alter table public.groups add column if not exists fandom_name text not null default 'fan', add column if not exists generation text,
+  add column if not exists inception_date date, add column if not exists record_label text;
+create table public.group_units (id serial primary key, parent_group_id integer not null references public.groups(id), name text not null);
+create table public.idols (
+  id serial primary key, group_id integer not null references public.groups(id), unit_id integer references public.group_units(id),
+  name text not null, name_romanized text, name_hangul text, birth_date date, nationality text,
+  positions text[] not null default '{}', photo_url text, wikidata_qid text, active boolean not null default true,
+  ord integer not null default 0, needs_review boolean not null default false, review_reason text,
+  created_at timestamptz not null default now(), updated_at timestamptz not null default now(),
+  height_cm integer, blood_type text, mbti text, origin text not null default 'wikidata', created_by uuid, detached_at timestamptz
+);
+-- The 17 record labels the kpop groups cite in production (2026-10-30), one stand-in group each (names of the labels only), plus a
+-- second group on a label already cited, a group with no label, and one anime series group.
+insert into public.groups (name, slug, display_color, text_color, record_label, site_id)
+select 'Group ' || n, 'group-' || n, '#000000', '#FFFFFF', l, 'kpop'
+from unnest(array['Belift Lab', 'BPM Entertainment', 'Capitol Records', 'Columbia Records', 'Cube Entertainment', 'Geffen Records',
+  'JYP Entertainment', 'Lapone Entertainment', 'Pledis Entertainment', 'Rainbow Bridge World', 'RCA Records', 'Republic Records',
+  'SM Entertainment', 'Source Music', 'The Muze Entertainment', 'WakeOne', 'YG Entertainment']) with ordinality as t(l, n);
+insert into public.groups (name, slug, display_color, text_color, record_label, site_id) values
+  ('Group 18', 'group-18', '#000000', '#FFFFFF', ' JYP Entertainment ', 'kpop'),
+  ('Group 19', 'group-19', '#000000', '#FFFFFF', null, 'kpop'),
+  ('Series A', 'series-a', '#000000', '#FFFFFF', null, 'anime');
+insert into public.idols (group_id, name, birth_date, photo_url) values
+  (1, 'Idol One', '1995-01-01', '/idols/one.jpg'), (2, 'Idol Two', '1998-01-01', null);
+insert into auth.users (id) values ('00000000-0000-0000-0000-0000000000aa');

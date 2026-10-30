@@ -47,7 +47,7 @@ Rewritten on 2026-10-28 for the owner's Bunnyverse decisions (section "Owner dec
       q()    { psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "$1"; }
 
   Session commands (owner order 2026-10-30): every SQL step of B, D, E, G and K runs through `bash docs/launch/o1/session.sh <part>`, one command per
-  part (B1 = 001 to 002d, B2 = 003, B3 = 004 to 007, D = 008, E1 = 009, E2 = 010, G = 011, 018, 019, 020, 021a and 021b (lot K1), 012 to 017, J1 = L01,
+  part (B1 = 001 to 002d, B2 = 003, B3 = 004 to 007, D = 008, E1 = 009, E2 = 010, G = 011, 018, 019, 020, 021a and 021b (lot K1), 022, 012 to 017, J1 = L01,
   J2 = L02 to L04, J3 = L05 to L10-PERS and the fourteen bank rows, J4 = L12 and the lot A1 file). It reads `PROD_DB_URL` (exported by the backup line),
   refuses any other database and the 23:50 to 00:30 window, applies each file with psql and ON_ERROR_STOP (single or none as below), runs the checks of
   `docs/launch/o1/checks` (VERIFY's lines as OK or KO rows) after each file, prints counts only, and stops at the first KO. A part can be run again from its
@@ -241,13 +241,13 @@ P4: clears Verrou 0. Who: Claude and a worker. Do: E5 in the morning, then at E4
 
 Waits for F. Additive, empty, dormant. Order of `SQL-ORDER.md` rows 14 to 19b.
 
-**G1  011, 018, 019, 020, 021a, 021b, 012, 013, 014, 015, in this order (owner order 2026-10-30).** (G1 to G3: `bash docs/launch/o1/session.sh G`.)
+**G1  011, 018, 019, 020, 021a, 021b, 022, 012, 013, 014, 015, 016, 017, in this order (owner order 2026-10-30; 016 and 017 are G2).** (G1 to G3: `bash docs/launch/o1/session.sh G`.)
 Do: A2 backup, then for each `sql1 $M/<file>.sql`: 011-anime-series, 018-entity-images (row 14b, needed by K5.3c and the admin images), 019-dle-core and
 020-dle-kpop-idol (the daily games engine, switched off: rows 14c and 14d), the two files of lot K1 (`021a-k1-idol-gender-debut.sql`, row 14e: `idols.gender`
-and `idols.debut_year`; `021b-k1-idol-activate.sql`, row 14e bis: the idols the owner chose), 012-editorial-quiz, 013-formats, 014-daily-openings, 015-spoilers. After each, its V6 lines (019 and 020: `dle-smoke.sql`).
+and `idols.debut_year`; `021b-k1-idol-activate.sql`, row 14e bis: the idols the owner chose), 022-photos-admin (row 14f: `agencies`, `site_assets` and their two public views), 012-editorial-quiz, 013-formats, 014-daily-openings, 015-spoilers. After each, its V6 lines (019 and 020: `dle-smoke.sql`; 022: `V-022`).
 The command stops on a lot K1 file while it is not on main: G waits for that lot.
 Check: V6 (empty tables, RLS on, functions closed to anon). 013 stops with the name of a `games.game_type` value nobody listed, if production has one: send that name to the run's lead, do not edit the file.
-Back: `sql1` the rollbacks in reverse (015 down to 011).
+Back: `sql1` the rollbacks in reverse: 015 down to 012, then 022, 021b (with the same list), 021a, 020, 019, 018 and 011.
 
 **G2  18b check, then 016 and 017 (passport deletion).**
 Do: `q "select to_regprocedure('public.admin_delete_account(uuid,boolean,boolean)')"` is not null (Mission U part D, row 18b, applied 2026-10-27). Then `sql1 $M/016-passport-deletion.sql`, then `sql1 $M/017-deletion-kpop.sql` (row 19b).

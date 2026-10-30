@@ -262,10 +262,10 @@ git checkout main && git pull --ff-only
 export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
 ```
 
-### 31. G : 011, 018, 019, 020, les deux fichiers du lot K1, puis 012 à 017
+### 31. G : 011, 018, 019, 020, les deux fichiers du lot K1, 022, puis 012 à 017
 Moi 5 min, Claude 8 min. [RUNBOOK G1, G2](RUNBOOK.md#g-p5-011-to-017)
 
-Une commande, dans cet ordre (décision du 2026-10-30) : 011, 018, 019 et 020 (le socle des jeux du jour, éteint), les deux fichiers du lot K1 (`021a-k1-idol-gender-debut.sql` : genre et année de début des idols ; `021b-k1-idol-activate.sql` : les idols que tu as choisies dans la relecture), 012, 013, 014, 015, puis 016 et 017 si `admin_delete_account` existe (sinon elle s'arrête avant 016), et V-S4. Tant qu'un fichier du lot K1 n'est pas sur main, elle s'arrête sur lui : G attend ce lot. Si 013 s'arrête sur un nom de `game_type` : ne touche pas au fichier, colle la sortie, Claude s'en occupe.
+Une commande, dans cet ordre (décision du 2026-10-30) : 011, 018, 019 et 020 (le socle des jeux du jour, éteint), les deux fichiers du lot K1 (`021a-k1-idol-gender-debut.sql` : genre et année de début des idols ; `021b-k1-idol-activate.sql` : les idols que tu as choisies dans la relecture), 022 (photos et admin : les tables des agences et des images du site, fermées au navigateur), 012, 013, 014, 015, puis 016 et 017 si `admin_delete_account` existe (sinon elle s'arrête avant 016), et V-S4. Tant qu'un fichier du lot K1 n'est pas sur main, elle s'arrête sur lui : G attend ce lot. Si 013 s'arrête sur un nom de `game_type` : ne touche pas au fichier, colle la sortie, Claude s'en occupe.
 ```
 bash docs/launch/o1/session.sh G
 ```
