@@ -7,7 +7,7 @@ import { isUxV12 } from '@/lib/ux-v12';
 
 export const metadata: Metadata = {
   title: 'Admin | KpopQuiz',
-  robots: { index: false, follow: true },
+  robots: { index: false, follow: false },
 };
 
 interface AdminLayoutProps {

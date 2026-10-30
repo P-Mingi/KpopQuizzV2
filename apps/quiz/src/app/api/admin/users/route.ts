@@ -1,17 +1,13 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { requireAdmin } from '@/lib/admin/guard';
 
 import type { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user || !isAdmin(user.id)) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
+  const { supabase } = gate;
 
   const { searchParams } = new URL(request.url);
   const offset = parseInt(searchParams.get('offset') ?? '0', 10);

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { adminPowerFor } from '@/lib/admin/guard';
 
 import type { NextRequest } from 'next/server';
 
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   // the LITERAL membership row role - the join button's Leave/label key off
   // this so a global admin who is a plain member still sees the right control.
   const memberRole = row?.status === 'active' ? row.role : 'visitor';
-  const role = isAdmin(user.id) ? 'space_admin' : memberRole;
+  const role = (await adminPowerFor(user.id)) ? 'space_admin' : memberRole;
   return NextResponse.json({ signedIn: true, member: !!row && row.status === 'active', role, memberRole, blocked: row?.status === 'blocked', memberCount: count ?? undefined });
 }
 

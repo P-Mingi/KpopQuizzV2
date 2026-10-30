@@ -1,10 +1,9 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/admin/editorial/page.tsx, rows 29: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
-import { isAdmin } from '@/lib/admin';
+import { requireAdmin } from '@/lib/admin/guard';
 import { editorialLive, supabaseStore } from '@/lib/editorial/store';
 import { safeFetch } from '@/lib/error-handling';
-import { createServerClient } from '@/lib/supabase/server';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { getP8Groups } from '@/lib/ux-v1/p8/feed';
 import { isUxV12 } from '@/lib/ux-v12';
@@ -18,7 +17,7 @@ import type { Metadata } from 'next';
 // accounts. Queue, preview rendered exactly like the post, edit, approve with a
 // date, reject. Nothing is published without an admin's approval; the cron
 // /api/cron/editorial-publish publishes what is approved and due.
-// Gates: v12 flag off = 404; not an admin = redirect to / (as every /admin page).
+// Gates: v12 flag off = 404; not an admin = 404 (ADMIN-1: requireAdmin, as every /admin page).
 // Never indexed (the admin layout already says so; said again here).
 export const dynamic = 'force-dynamic';
 
@@ -29,9 +28,7 @@ export const metadata: Metadata = {
 
 export default async function EditorialAdminPage(): Promise<React.ReactElement> {
   if (!isUxV12()) notFound();
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  await requireAdmin();
 
   let live = false;
   let failed = false;

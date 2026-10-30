@@ -1,7 +1,6 @@
-import { redirect, notFound } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
-import { createServerClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { requireAdmin } from '@/lib/admin/guard';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { EditSongClient } from './edit-song-client';
 
@@ -11,9 +10,7 @@ interface EditSongPageProps {
 
 export default async function EditSongPage({ params }: EditSongPageProps): Promise<React.ReactElement> {
   const { id } = await params;
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  const { supabase } = await requireAdmin();
 
   const { data: song } = await supabase
     .from('blind_test_songs')

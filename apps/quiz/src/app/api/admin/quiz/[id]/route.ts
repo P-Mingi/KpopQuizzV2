@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
 import { onQuizChanged } from '@/lib/seo/quiz-freshness';
 import { SITE_ID } from '@/lib/site/registry';
 import { forSite } from '@/lib/site/scope';
@@ -12,11 +12,8 @@ export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ): Promise<NextResponse> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
 
   const { id } = await params;
   const adminDb = createServiceRoleClient();
@@ -35,11 +32,8 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ): Promise<NextResponse> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
 
   const { id } = await params;
   let body: Record<string, unknown>;

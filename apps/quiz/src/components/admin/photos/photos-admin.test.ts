@@ -7,8 +7,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { AdminRow, PhotosAdminData } from '@/lib/photos/admin-data';
 
 const auth = vi.hoisted(() => ({ user: null as { id: string } | null, loads: 0, data: null as unknown }));
-vi.mock('@/lib/supabase/server', () => ({
-  createServerClient: async () => ({ auth: { getUser: async () => ({ data: { user: auth.user } }) } }),
+// ADMIN-1: the auth stand-in of lib/admin/test-support.ts (getSession, getUser, the assurance level: aal2 by default).
+vi.mock('@/lib/supabase/server', async () => ({
+  createServerClient: async () => ({ auth: (await import('@/lib/admin/test-support')).stubAuth(() => ({ user: auth.user })) }),
   createServiceRoleClient: () => ({}),
 }));
 vi.mock('next/navigation', () => ({ notFound: () => { throw new Error('NEXT_NOT_FOUND'); }, redirect: () => { throw new Error('redirect'); }, usePathname: () => '/admin', useRouter: () => ({ refresh: () => undefined }) }));

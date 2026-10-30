@@ -1,21 +1,16 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
 import { parseComeback } from '../route';
 
 import type { NextRequest } from 'next/server';
 
 // Workstream T1.5: update or delete one comeback calendar entry.
 
-async function gate(): Promise<boolean> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  return !!user && isAdmin(user.id);
-}
-
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse> {
-  if (!(await gate())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
   const { id } = await params;
   const numId = Number(id);
   if (!Number.isInteger(numId)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 });
@@ -33,7 +28,8 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 }
 
 export async function DELETE(_request: NextRequest, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse> {
-  if (!(await gate())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
   const { id } = await params;
   const numId = Number(id);
   if (!Number.isInteger(numId)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 });

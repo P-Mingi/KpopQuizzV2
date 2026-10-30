@@ -1,15 +1,11 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { requireAdmin } from '@/lib/admin/guard';
 
 export async function GET(): Promise<NextResponse> {
-  const supabase = await createServerClient();
-
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
+  const { supabase } = gate;
 
   const [pendingRes, allGroupsRes] = await Promise.all([
     supabase

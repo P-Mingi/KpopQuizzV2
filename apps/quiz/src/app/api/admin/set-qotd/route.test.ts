@@ -7,9 +7,9 @@ import { NextRequest } from 'next/server';
 interface Call { table: string; op: string; arg?: unknown; opts?: unknown; filters: Array<[string, unknown]> }
 const state = vi.hoisted(() => ({ calls: [] as Array<{ table: string; op: string; arg?: unknown; opts?: unknown; filters: Array<[string, unknown]> }>, user: null as { id: string } | null }));
 
-vi.mock('@/lib/admin', () => ({ isAdmin: (id: string) => id === 'admin-user' }));
-vi.mock('@/lib/supabase/server', () => ({
-  createServerClient: async () => ({ auth: { getUser: async () => ({ data: { user: state.user } }) } }),
+// ADMIN-1: the real guard (lib/admin/guard.ts): admin-user is the listed admin (ADMIN_USER_IDS below), its session at aal2.
+vi.mock('@/lib/supabase/server', async () => ({
+  createServerClient: async () => ({ auth: (await import('@/lib/admin/test-support')).stubAuth(() => ({ user: state.user })) }),
   createServiceRoleClient: () => ({
     from(table: string) {
       const c = { table, op: 'select', filters: [] as Array<[string, unknown]> } as { table: string; op: string; arg?: unknown; opts?: unknown; filters: Array<[string, unknown]> };
@@ -28,6 +28,7 @@ async function post(site: string, body: unknown): Promise<Response> {
   vi.resetModules();
   vi.stubEnv('NEXT_PUBLIC_SITE_ID', site);
   vi.stubEnv('SITE_ID', '');
+  vi.stubEnv('ADMIN_USER_IDS', 'admin-user');
   const { POST } = await import('./route');
   return POST(new NextRequest('https://example.test/api/admin/set-qotd', { method: 'POST', body: JSON.stringify(body) }));
 }
@@ -36,9 +37,9 @@ beforeEach(() => { state.calls = []; state.user = { id: 'admin-user' }; });
 afterEach(() => { vi.unstubAllEnvs(); });
 
 describe('POST /api/admin/set-qotd', () => {
-  it('a non-admin gets 403 and nothing is written', async () => {
+  it('a non-admin gets the admin 404 (ADMIN-1: never a 401 or 403) and nothing is written', async () => {
     state.user = { id: 'some-fan' };
-    expect((await post('', { quiz_id: 'q1', date: '2026-10-20' })).status).toBe(403);
+    expect((await post('', { quiz_id: 'q1', date: '2026-10-20' })).status).toBe(404);
     expect(state.calls).toEqual([]);
   });
 

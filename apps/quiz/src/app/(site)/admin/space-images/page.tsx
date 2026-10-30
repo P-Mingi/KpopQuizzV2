@@ -1,7 +1,5 @@
-import { redirect } from 'next/navigation';
-
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
 import { SpaceImageQueue } from '@/components/admin/space-image-queue';
 
 import type { QueueImage } from '@/components/admin/space-image-queue';
@@ -16,9 +14,7 @@ export const metadata: Metadata = { title: 'Image moderation', robots: { index: 
 const BUCKET = 'verse-space-assets';
 
 export default async function SpaceImagesAdminPage(): Promise<React.ReactElement> {
-  const supa = await createServerClient();
-  const { data: { user } } = await supa.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  await requireAdmin();
 
   const svc = createServiceRoleClient();
   const { data } = await svc.from('verse_space_assets')

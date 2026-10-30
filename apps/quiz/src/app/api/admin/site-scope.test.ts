@@ -12,7 +12,7 @@ const dbOf = (): RecordingDb => state.db as RecordingDb;
 
 vi.mock('@/lib/site/registry', async (orig) => ({ ...(await orig<typeof import('@/lib/site/registry')>()), get SITE_ID() { return state.site; } }));
 vi.mock('@/lib/supabase/server', () => ({ createServerClient: async () => state.db, createServiceRoleClient: () => state.db }));
-vi.mock('@/lib/admin', () => ({ isAdmin: (id: string) => id === 'admin-1' }));
+// ADMIN-1: the real guard (lib/admin/guard.ts) on the recording client's auth stand-in; admin-1 is the listed admin, at aal2.
 vi.mock('@/lib/seo/quiz-freshness', () => ({ onQuizChanged: () => undefined }));
 
 import { GET as listQuizzes } from './quizzes/route';
@@ -29,9 +29,10 @@ const patch = (path: string, body: unknown): NextRequest => new NextRequest(`htt
 
 beforeEach(() => {
   delete process.env.SITE_SCOPE;
+  vi.stubEnv('ADMIN_USER_IDS', 'admin-1');
   state.db = recordingDb({ quizzes: [], reports: [], profiles: [] });
 });
-afterEach(() => { delete process.env.SITE_SCOPE; });
+afterEach(() => { delete process.env.SITE_SCOPE; vi.unstubAllEnvs(); });
 
 const CASES: Array<[string, () => Promise<unknown>, string]> = [
   ['GET /api/admin/quizzes', () => listQuizzes(get('/api/admin/quizzes')), 'quizzes'],
@@ -103,11 +104,11 @@ describe('admin quiz routes, anime build', () => {
     expect(dbOf().scopedTo('quizzes', 'anime')).toBe(true);
   });
 
-  it('a non admin is refused before any query', async () => {
+  it('a non admin is refused before any query, with the admin 404 (ADMIN-1: never a 401 or 403)', async () => {
     state.site = 'anime';
     state.db = recordingDb({}, {}, 'someone');
     const res = await listQuizzes(get('/api/admin/quizzes')) as Response;
-    expect(res.status).toBe(403);
+    expect(res.status).toBe(404);
     expect(dbOf().queries).toHaveLength(0);
   });
 });

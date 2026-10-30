@@ -1,7 +1,7 @@
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
-import { isAdmin } from '@/lib/admin';
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
+import { createServiceRoleClient } from '@/lib/supabase/server';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import { RestoreList } from './restore-list';
@@ -12,7 +12,7 @@ import type { Metadata } from 'next';
 // /admin/community-reports (owner, 2026-10-06): what the 3rd report by 3 different accounts
 // hid on /community (community_autohidden, migration v12-community-posts.sql). Nothing is
 // deleted: Restore gives the content its status back and dismisses its reports.
-// Gates: v12 flag off = 404; not an admin = redirect to / (as every /admin page).
+// Gates: v12 flag off = 404; not an admin = 404 (ADMIN-1: requireAdmin, as every /admin page).
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
@@ -63,9 +63,7 @@ async function previews(rows: { target_type: string; target_id: number; target_r
 
 export default async function CommunityReportsPage(): Promise<React.ReactElement> {
   if (!isUxV12()) notFound();
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  await requireAdmin();
 
   const svc = createServiceRoleClient();
   const { data, error } = await svc.from('community_autohidden').select('id, target_type, target_id, target_ref, prev_status, reports, hidden_at')

@@ -13,8 +13,9 @@ const revalidateTag = vi.hoisted(() => vi.fn());
 
 vi.mock('next/cache', () => ({ revalidateTag, unstable_cache: (fn: unknown) => fn }));
 vi.mock('@/lib/site/registry', async (orig) => ({ ...(await orig<typeof import('@/lib/site/registry')>()), get SITE_ID() { return state.site; } }));
-vi.mock('@/lib/supabase/server', () => ({
-  createServerClient: async () => ({ auth: { getUser: async () => ({ data: { user: state.user } }) } }),
+// ADMIN-1: the auth stand-in of lib/admin/test-support.ts (getSession, getUser, the assurance level: aal2 by default).
+vi.mock('@/lib/supabase/server', async () => ({
+  createServerClient: async () => ({ auth: (await import('@/lib/admin/test-support')).stubAuth(() => ({ user: state.user })) }),
   createServiceRoleClient: () => state.db,
 }));
 vi.mock('@/lib/entity-images/fetch-remote', async (orig) => ({

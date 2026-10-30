@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 
 import { NextResponse } from 'next/server';
 
-import { isAdmin } from '@/lib/admin';
+import { adminNotFound, isListedAdminId } from '@/lib/admin/guard';
 import { isCronAuthorized } from '@/lib/cron-auth';
 import { runPublisher } from '@/lib/editorial/pipeline';
 import { editorialLive, supabaseStore } from '@/lib/editorial/store';
@@ -22,16 +22,17 @@ import type { NextRequest } from 'next/server';
 //
 // Does nothing, in this order:
 //   v12 flag off                 404 (the route does not exist in a v11 build)
-//   wrong or missing secret      401
+//   wrong or missing secret      404 (ADMIN-1: the admin 404, never a 401)
 //   SQL not applied              200 { ok: true, published: null, reason: 'not_live' }, no write
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   if (!isUxV12()) return NextResponse.json({ error: 'not_found' }, { status: 404 });
-  if (!isCronAuthorized(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!isCronAuthorized(req)) return adminNotFound();
   try {
     if (!(await editorialLive())) return NextResponse.json({ ok: true, published: null, reason: 'not_live' });
-    const run = await runPublisher(supabaseStore(), { now: Date.now(), isAdmin, runId: randomUUID() });
+    // ADMIN-1: the stored reviewer must be a listed admin (requireAdmin recorded it at approval, aal2); grants nothing to this request.
+    const run = await runPublisher(supabaseStore(), { now: Date.now(), isAdmin: isListedAdminId, runId: randomUUID() });
     return NextResponse.json({ ok: true, published: run.published, reason: run.reason, skipped: run.skipped.length });
   } catch (err) {
     console.error('[cron/editorial-publish] failed:', err instanceof Error ? err.message : err);

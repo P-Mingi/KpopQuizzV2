@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 
 import { isCronAuthorized } from '@/lib/cron-auth';
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
 import { runVerseRefresh } from '@/lib/verse/refresh';
 import { verseAlert } from '@/lib/verse/alert';
 
@@ -18,12 +18,10 @@ export const dynamic = 'force-dynamic';
 export const maxDuration = 300;
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
+  // ADMIN-1: Bearer CRON_SECRET, or an admin that requireAdmin lets through (verified, listed, aal2); anyone else gets the admin 404.
   if (!isCronAuthorized(req)) {
-    const serverClient = await createServerClient();
-    const { data: { user } } = await serverClient.auth.getUser();
-    if (!user || !isAdmin(user.id)) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const gate = await requireAdmin('api');
+    if (!gate.ok) return gate.res;
   }
 
   const svc = createServiceRoleClient();

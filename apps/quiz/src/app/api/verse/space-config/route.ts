@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { adminNotFound, adminPowerFor } from '@/lib/admin/guard';
 import { canCurateSpace } from '@/lib/verse/roles';
 import { STAGES } from '@/lib/verse/stage';
 
@@ -40,7 +40,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if ('sns_links' in body) patch.sns_links = cleanLinks(body.sns_links);
   // W4.11: the collaboration stage flip is a policy switch - global admins (owner) only.
   if ('stage' in body) {
-    if (!isAdmin(user.id)) return NextResponse.json({ error: 'stage_requires_admin' }, { status: 403 });
+    // ADMIN-1: the stage is the admin's alone (requireAdmin, aal2); anyone else gets the admin 404.
+    if (!(await adminPowerFor(user.id))) return adminNotFound();
     const stage = String(body.stage);
     if (!STAGES.includes(stage as (typeof STAGES)[number])) return NextResponse.json({ error: 'bad_stage' }, { status: 400 });
     patch.stage = stage;

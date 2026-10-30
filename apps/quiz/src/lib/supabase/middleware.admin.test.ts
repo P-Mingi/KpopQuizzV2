@@ -1,6 +1,7 @@
-// Run O1 (ADM join): /admin is behind the session check of the middleware. A signed-out visitor is sent to /login (a redirect with no body: the
-// page, its tabs and its API are not read, nothing about the admin is shown); a signed-in account passes to the page, which answers the 404 of
-// the site to every account that is not in ADMIN_USER_IDS (app/sites/[site]/(anime)/admin/admin.site.test.ts).
+// Run O1 (ADM join): /admin goes through the session branch of the middleware (its session is refreshed there). ADMIN-1 (owner, 2026-10-30):
+// it is no longer a protected path: a signed-out visitor is never sent to /login (that redirect told anyone where the admin is); every request
+// passes to the page, which answers the 404 of the site to everyone requireAdmin refuses (lib/admin/guard.ts, admin-lock.test.ts).
+// /onboarding and /settings keep their redirect to /login.
 import { NextRequest } from 'next/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -24,13 +25,20 @@ beforeEach(() => {
 const open = (path: string): Promise<Response> => updateSession(new NextRequest(`http://anime.localhost:3021${path}`));
 
 describe('/admin on the session check', () => {
-  it.each(['/admin', '/admin?tab=images', '/admin?tab=overview', '/admin/reports'])('sends a signed-out visitor of %s to /login and shows nothing', async (path) => {
+  it.each(['/admin', '/admin?tab=images', '/admin?tab=overview', '/admin/reports', '/admin/k7q2m/code', '/admin/k7q2m/setup'])('never sends a signed-out visitor of %s to /login: the request goes on to the page (its 404)', async (path) => {
+    const res = await open(path);
+    expect(res.headers.get('location')).toBeNull();
+    expect(res.status).toBe(200);
+    expect(res.headers.get('x-middleware-next')).toBe('1');
+  });
+
+  it.each(['/onboarding', '/settings', '/settings/account'])('still sends a signed-out visitor of %s to /login', async (path) => {
     const res = await open(path);
     expect(res.status).toBeGreaterThanOrEqual(300);
     expect(res.status).toBeLessThan(400);
     const to = new URL(res.headers.get('location') ?? '');
     expect(to.pathname).toBe(LOGIN);
-    expect(to.searchParams.get('returnTo')).toBe(new URL(path, 'http://x').pathname);
+    expect(to.searchParams.get('returnTo')).toBe(path);
     expect(await res.text()).toBe('');
   });
 

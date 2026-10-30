@@ -1438,6 +1438,44 @@
       "notes": "The series photo credits (IMG, owner rules 2026-10-26): OtakuQuiz only, no kpop twin page, so the twin is the kpop [slug] page of rows 3 to 5. Served by the one /credits file of app/sites/[site], shared with row H-11, which dispatches on the site as the legal notice of rows 26d and H-10 does (daily games step 2 review: a static (hub)/credits beside the dynamic [slug] took the path from OtakuQuiz, so the file left [slug]). Page-local body, plain English text, no K-pop text. Links the footer of row 28."
     },
     {
+      "id": "43",
+      "site": "anime",
+      "route": "/admin/k7q2m/code",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/admin/k7q2m/code/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/admin/k7q2m/code/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "app/(site)/admin/k7q2m/code/page.tsx",
+        "components/admin/mfa/mfa-page.tsx"
+      ],
+      "allowed": [
+        "T",
+        "C"
+      ],
+      "owner": "O1",
+      "body": "shared",
+      "notes": "ADMIN-1 (owner, 2026-10-30): thin re-export of the kpop TOTP code page (requireAdmin('mfa'), 404 to anyone but a listed admin at aal1 with a factor). Admin only, never indexed, never linked."
+    },
+    {
+      "id": "44",
+      "site": "anime",
+      "route": "/admin/k7q2m/setup",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/admin/k7q2m/setup/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/admin/k7q2m/setup/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "app/(site)/admin/k7q2m/setup/page.tsx",
+        "components/admin/mfa/mfa-page.tsx"
+      ],
+      "allowed": [
+        "T",
+        "C"
+      ],
+      "owner": "O1",
+      "body": "shared",
+      "notes": "ADMIN-1 (owner, 2026-10-30): thin re-export of the kpop TOTP setup page (requireAdmin('mfa'), 404 to anyone but a listed admin at aal1 with no factor). Admin only, never indexed, never linked."
+    },
+    {
       "id": "H-0",
       "site": "hub",
       "route": "shell: nav, tab bar, footer",

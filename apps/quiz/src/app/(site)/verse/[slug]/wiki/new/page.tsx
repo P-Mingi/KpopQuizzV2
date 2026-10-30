@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getSpace } from '@/lib/verse/space';
 import { currentSpaceRole, roleAtLeast } from '@/lib/verse/roles';
-import { isAdmin } from '@/lib/admin';
+import { adminPowerFor } from '@/lib/admin/guard';
 import { kindsForSpace } from '@/lib/verse/pages/kinds';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
 import { NewPageForm } from '@/components/verse/pages/new-page-form';
@@ -23,7 +23,7 @@ export default async function NewWikiPage({ params }: { params: Promise<{ slug: 
   const space = await getSpace(slug);
   if (!space) notFound();
   const { userId, role } = await currentSpaceRole(space.group.id);
-  const allowed = (userId && isAdmin(userId)) || roleAtLeast(role, 'contributor');
+  const allowed = (await adminPowerFor(userId)) || roleAtLeast(role, 'contributor');
   const kinds = kindsForSpace(KPOP_PAGE_REGISTRY, space.presentation.enabledKinds ?? null);
 
   return (

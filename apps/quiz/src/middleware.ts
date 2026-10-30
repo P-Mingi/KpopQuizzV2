@@ -17,6 +17,7 @@ import type { NextRequest } from 'next/server';
 // is what was driving the [middleware] auth.getUser timed out warnings on
 // the edge runtime (which is globally distributed, not co-located with
 // Supabase in eu-west-1). Public requests pay zero Supabase cost.
+// ADMIN-1: /admin stays here for the session refresh only; lib/supabase/middleware.ts no longer sends it to /login.
 const PROTECTED_PATH_PREFIXES = ['/onboarding', '/settings', '/admin'];
 
 // The W-CUSTOM studio (and its curator-only draft preview) require a fresh session

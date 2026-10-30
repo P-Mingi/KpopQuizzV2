@@ -13,10 +13,13 @@ import type { NextRequest } from 'next/server';
 // and the hub withBase is the identity, so their redirects are the same URLs as before. The session cookies keep the options
 // @supabase/ssr gives them (Path=/, no Domain): one cookie jar for the hub and anime (session-cookies.site.test.ts).
 
-// Called only for paths that actually need a session: /login + PROTECTED_PATHS
-// (/onboarding, /settings, /admin). Public traffic is gated in middleware.ts
+// Called only for paths that actually need a session: /login, /admin + PROTECTED_PATHS
+// (/onboarding, /settings). Public traffic is gated in middleware.ts
 // and never reaches this function, so it never pays the Supabase round trip.
-const PROTECTED_PATHS = ['/onboarding', '/settings', '/admin'];
+// ADMIN-1 (owner, 2026-10-30): /admin is no longer a protected path here. Its session is still refreshed (middleware.ts sends
+// it to this function), but a signed-out visitor is never sent to /login: the page answers the site's 404 (requireAdmin), so
+// the address of the admin cannot be learned from a redirect.
+const PROTECTED_PATHS = ['/onboarding', '/settings'];
 
 export async function updateSession(request: NextRequest): Promise<NextResponse> {
   try {

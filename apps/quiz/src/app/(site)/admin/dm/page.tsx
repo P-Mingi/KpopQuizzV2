@@ -1,7 +1,4 @@
-import { redirect } from 'next/navigation';
-
-import { createServerClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { requireAdmin } from '@/lib/admin/guard';
 import { DmComposer } from './dm-composer';
 
 import type { Metadata } from 'next';
@@ -14,9 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminDmPage(): Promise<React.ReactElement> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  await requireAdmin();
 
   return (
     <div style={{ maxWidth: 640, margin: '0 auto', padding: '32px 20px 80px' }}>

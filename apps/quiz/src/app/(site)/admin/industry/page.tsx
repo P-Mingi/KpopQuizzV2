@@ -1,7 +1,5 @@
-import { redirect } from 'next/navigation';
-
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
 
 import { IndustryAdmin } from './industry-admin';
 
@@ -32,9 +30,7 @@ export interface ComebackRow {
 export interface GroupOption { id: number; name: string; hasSpotify: boolean }
 
 export default async function IndustryAdminPage(): Promise<React.ReactElement> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  await requireAdmin();
 
   const svc = createServiceRoleClient();
   const [{ data: mvRows }, { data: cbRows }, { data: groupRows }, { data: snapRows }] = await Promise.all([

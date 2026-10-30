@@ -2,8 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 import { isCronAuthorized } from '@/lib/cron-auth';
-import { createServerClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { requireAdmin } from '@/lib/admin/guard';
 import { ensureDailyQuizRpc } from '@/lib/daily-quiz';
 import { SITE } from '@/lib/site/registry';
 import { qotdRotationFixEnabled } from '@/lib/quiz-bank-scheduling';
@@ -17,13 +16,10 @@ import type { NextRequest } from 'next/server';
 // the cron does it (lib/ux-v1/p1/qotd-rotation.ts); switch OFF (the default) this
 // route behaves exactly as before.
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  // Bearer CRON_SECRET, or a signed-in admin (a cron header alone is not a credential).
+  // ADMIN-1: Bearer CRON_SECRET, or an admin that requireAdmin lets through (verified, listed, aal2); anyone else gets the admin 404.
   if (!isCronAuthorized(req)) {
-    const serverClient = await createServerClient();
-    const { data: { user } } = await serverClient.auth.getUser();
-    if (!user || !isAdmin(user.id)) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const gate = await requireAdmin('api');
+    if (!gate.ok) return gate.res;
   }
 
   const supabase = createClient(

@@ -1,4 +1,5 @@
 import { EmbedGenerator } from '@/components/embed/embed-generator';
+import { requireAdmin } from '@/lib/admin/guard';
 import { getBrowseQuizzes } from '@/lib/db/queries/quizzes';
 import { safeFetch } from '@/lib/error-handling';
 
@@ -16,6 +17,8 @@ export const metadata: Metadata = {
 };
 
 export default async function EmbedGeneratorPage(): Promise<React.ReactElement> {
+  // ADMIN-1: this page had no admin check (any signed-in account opened it); it now has the one of every admin page.
+  await requireAdmin();
   // Real published quizzes, most played first. Nothing invented, nothing padded.
   const quizzes = await safeFetch(getBrowseQuizzes({ sort: 'most_played', limit: 60, offset: 0 }), [], '[admin/embed] getBrowseQuizzes');
 

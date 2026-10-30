@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
 
 // Workstream T1.5: create a tracked MV (admin-only, service-role write).
 
@@ -34,9 +34,8 @@ export function parseMv(body: unknown): { row: MvInput } | { error: string } {
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
 
   let body: unknown;
   try { body = await request.json(); } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }); }
