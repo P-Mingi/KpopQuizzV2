@@ -2,7 +2,7 @@
 // links the two worlds), from getCrossover. Null when nothing can be shown (the block disappears).
 
 import { getCrossover } from './data';
-import { pathOf } from './home-map';
+import { httpsUrl, pathOf } from './home-map';
 import { safeBlock } from './home-safe';
 
 import type { HomeCrossover } from './home-types';
@@ -10,8 +10,12 @@ import type { HomeCrossover } from './home-types';
 async function readCrossover(): Promise<HomeCrossover | null> {
   const crossover = await getCrossover();
   if (!crossover || crossover.quizzes.length === 0) return null;
+  // The fact shows only with a link to its source (an https URL, SEO rules 3.8 and 5.5); without one the line is left out.
+  const factUrl = crossover.fact ? httpsUrl(crossover.fact.sourceUrl) : null;
   return {
-    fact: crossover.fact ? crossover.fact.text : null,
+    fact: crossover.fact && factUrl ? crossover.fact.text : null,
+    factSource: crossover.fact && factUrl ? crossover.fact.source : null,
+    factUrl,
     cards: crossover.quizzes.map((q) => ({ site: q.site, title: q.title, sub: [q.meta, q.line].filter(Boolean).join(' · '), path: pathOf(q.href, q.site) })),
   };
 }

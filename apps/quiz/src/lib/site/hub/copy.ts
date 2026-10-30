@@ -44,6 +44,8 @@ const BASE_VARS: HubCopyVars = {
   // Two of the three sites by name (the cookies and the sign-in methods that belong to one site only).
   kpopName: siteConfig('kpop').brand.name,
   animeName: siteConfig('anime').brand.name,
+  // The address of KpopQuiz, for the one sentence of the home that says where it lives (kpopquiz.org).
+  kpopDomain: siteAddress(siteConfig('kpop')),
   // The sites a member can leave (everything but kpop).
   leavable: andList(leavableSites().map((id) => siteConfig(id).brand.name)),
   // The numbers the code decides (lib/passport/types.ts PASSPORT_SECONDS, lib/passport/deletion/policy.ts), never typed in the copy.

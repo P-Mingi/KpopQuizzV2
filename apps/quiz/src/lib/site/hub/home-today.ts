@@ -13,7 +13,9 @@ import type { HomeToday, HomeTodayQuiz } from './home-types';
 export function toTodayQuiz(q: HubDailyQuiz): HomeTodayQuiz {
   return {
     site: q.site,
+    id: q.id,
     title: q.title,
+    questions: q.questionCount,
     meta: [q.questionCount > 0 ? `${q.questionCount} questions` : '', q.difficulty].filter(Boolean).join(' · '),
     path: `${q.path}?daily=quiz`,
   };

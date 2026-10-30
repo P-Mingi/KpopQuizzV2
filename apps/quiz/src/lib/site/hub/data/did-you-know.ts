@@ -6,6 +6,8 @@
 // stable shuffle, so a fact is never shown twice within `pool` days: with 60 facts or more nothing repeats inside 60 days. A pool below 60
 // repeats earlier (the rotation is the longest one the pool allows) and `pool` says by how much. Nothing is invented: a site with
 // no usable fact gives null. The link goes to the trivia page of the site.
+// Home v3 review (2026-10-29): each fact carries its subject, the name of its group or series (the trivia row's group, embedded), so the
+// home can say what the fact is about ("The third and final season of the TV anime..." alone does not name the series).
 
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { forSite } from '@/lib/site/scope';
@@ -32,6 +34,15 @@ export interface TriviaRow {
   readonly entity_kind: string | null;
   readonly source: string | null;
   readonly source_url: string | null;
+  /** The group or series of the fact (trivia.group_id, embedded); absent or null when the row has none. */
+  readonly groups?: { readonly name: string | null } | readonly { readonly name: string | null }[] | null;
+}
+
+/** The name of the fact's group or series, or null. */
+export function subjectOf(row: Pick<TriviaRow, 'groups'>): string | null {
+  const g = Array.isArray(row.groups) ? row.groups[0] : row.groups;
+  const name = (g as { readonly name: string | null } | null | undefined)?.name?.trim();
+  return name ? name : null;
 }
 
 const SOURCE_NAMES: Readonly<Record<string, string>> = {
@@ -69,7 +80,7 @@ export function factOfDay(pool: readonly TriviaRow[], now: Date): TriviaRow | nu
 
 export async function loadTrivia(db: Db, site: HubSite): Promise<TriviaRow[]> {
   return fetchAllRows<TriviaRow>(() =>
-    forSite(db.from('trivia').select('id, fact, category, entity_kind, source, source_url'), site)
+    forSite(db.from('trivia').select('id, fact, category, entity_kind, source, source_url, groups(name)'), site)
       .eq('status', 'published').in('category', [...DYK_CATEGORIES]).order('id'));
 }
 
@@ -83,6 +94,7 @@ export async function readDidYouKnow(origins: HubOrigins, now: Date, db: Db): Pr
       site,
       siteName: siteName(site),
       fact: row.fact ?? '',
+      subject: subjectOf(row),
       source: sourceName(row.source ?? ''),
       sourceUrl: row.source_url && row.source_url.trim() ? row.source_url.trim() : null,
       moreHref: `${origins[site]}/trivia`,

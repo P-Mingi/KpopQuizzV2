@@ -24,6 +24,27 @@ export function brandWordmark(site: SiteConfig = SITE): { readonly head: string;
 }
 
 /**
+ * The second colour of the hub's wordmark (owner, 2026-10-29): "verse" in the pink of every validated mockup, "Bunny" in ink. One value
+ * for every surface that draws the wordmark: the token --hub-brand-tail of styles/sites/hub/h2.css (the class below reads it), the brand
+ * files public/brand/hub/logo-primary.svg and og-default.png (e2e/o1/H1/H2a/brand-marks.mjs), and the images drawn without CSS (the
+ * passport card). A test compares them all with this constant.
+ */
+export const HUB_WORDMARK_TAIL = '#D13A6E';
+
+/**
+ * The class of the wordmark's tail on this build: on the hub, the class whose rule reads --hub-brand-tail (styles/sites/hub/h2.css). kpop
+ * and anime get none, so their wordmark keeps the markup and the colour it has.
+ */
+export function wordmarkTailClass(site: SiteConfig = SITE): string | undefined {
+  return site.id === 'hub' ? 'hub-h2-brand-tail' : undefined;
+}
+
+/** The colour an image drawn without CSS gives the wordmark's tail on this build: the hub's own, or null where the image keeps its own. */
+export function wordmarkTailColour(site: SiteConfig = SITE): string | null {
+  return site.id === 'hub' ? HUB_WORDMARK_TAIL : null;
+}
+
+/**
  * The address of a site as a reader types it: its canonical url without the scheme. kpopquiz.org, bunnyverse.org/anime (OtakuQuiz lives
  * in a folder of bunnyverse.org since 2026-10-28) and bunnyverse.org. On kpop it is the domain, so a kpop string does not change.
  */

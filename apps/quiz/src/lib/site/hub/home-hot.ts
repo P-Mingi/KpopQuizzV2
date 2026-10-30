@@ -15,6 +15,8 @@ async function readHot(): Promise<HomeHot | null> {
     all: hot.all.map(toHomeQuiz),
     kpop: hot.kpop.map(toHomeQuiz),
     anime: hot.anime.map(toHomeQuiz),
+    // Start easy (home v3); a ranking cached before it existed has none, and the chip is then left out.
+    easy: (hot.easy ?? []).map(toHomeQuiz),
     // The way to every quiz of a site: its quiz list (the same route on both sites).
     allPaths: { kpop: '/quizzes', anime: '/quizzes' },
   };

@@ -3,6 +3,8 @@
 // xp of the passport (every site added up); the streak of each site is its daily streak, which is live only while its last day is
 // today or yesterday (effectiveStreak, as the passports show it): KpopQuiz keeps it on the profile, OtakuQuiz on its membership.
 // Any error reads as signed out, so the page never fails because the database is down.
+// Home v3 (2026-10-29): the level of each site the fan joined (KpopQuiz: the xp of the profile; OtakuQuiz: the xp of its membership), for
+// the passport card of the home.
 
 import { getLevelInfo } from '@/lib/constants';
 import { effectiveStreak } from '@/lib/passport-ui/world-reads';
@@ -11,7 +13,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import { buildPassportSummary, passportXp } from './passport-summary';
 
 import type { SummaryMembership, SummaryProfile } from './passport-summary';
-import type { HomeSite, HomeViewer } from './home-types';
+import type { HomeSite, HomeSiteLevel, HomeViewer } from './home-types';
 
 export interface ViewerProfile extends SummaryProfile {
   readonly daily_streak: number | null;
@@ -32,12 +34,20 @@ export function buildHomeViewer(profile: ViewerProfile | null, rows: readonly Vi
     kpop: effectiveStreak(profile.daily_streak ?? 0, profile.last_daily_date, now),
     anime: anime ? effectiveStreak(anime.daily_streak ?? 0, anime.last_daily_date ?? null, now) : 0,
   };
+  const sites: Partial<Record<HomeSite, HomeSiteLevel>> = {};
+  for (const s of summary.sites) {
+    if (s.id !== 'kpop' && s.id !== 'anime') continue;
+    const xp = s.id === 'kpop' ? (profile.xp ?? 0) : (anime?.xp ?? 0);
+    const info = getLevelInfo(xp, s.id);
+    sites[s.id] = { level: info.level, progress: info.progress };
+  }
   return {
     username: summary.username,
     level: summary.level,
     sitesJoined: summary.sites.length,
     progress: getLevelInfo(passportXp(profile, rows), 'hub').progress,
     streaks,
+    sites,
   };
 }
 

@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
-  quizCard, sampleBlindtest, sampleCrossover, sampleDaily, sampleDoors, sampleDyk, sampleHot, sampleRotation, sampleSixty,
-  sampleStartEasy, sampleSurprise, sampleTopFans,
+  SAMPLE_COVER, sampleBlindtest, sampleCrossover, sampleDaily, sampleDoors, sampleDyk, sampleHot, sampleRotation, sampleSixty, sampleSurprise,
+  sampleTopFans,
 } from './home-samples.test-support';
 
 // Lot H2c: each loader of the home maps its module of lib/site/hub/data/ (lot H2b) to the shape of the page: the normal path, the missing
@@ -13,7 +13,7 @@ vi.mock('./data', async () => {
   const s = await import('./home-samples.test-support');
   const samples: Record<string, () => unknown> = {
     getDoors: s.sampleDoors, getDailyQuizzes: s.sampleDaily, getBlindtest: s.sampleBlindtest, getDebate: s.sampleDebate, getRotation: s.sampleRotation,
-    getSixtySeconds: s.sampleSixty, getDidYouKnow: s.sampleDyk, getHot: s.sampleHot, getStartEasy: s.sampleStartEasy, getForYou: s.sampleForYou,
+    getSixtySeconds: s.sampleSixty, getDidYouKnow: s.sampleDyk, getHot: s.sampleHot,
     getCrossover: s.sampleCrossover, getTopFans: s.sampleTopFans, getSurprise: s.sampleSurprise,
   };
   const out: Record<string, unknown> = {};
@@ -30,13 +30,12 @@ vi.mock('./data', async () => {
 
 import { loadHomeCrossover } from './home-crossover';
 import { loadHomeDoors } from './home-doors';
-import { loadHomeForYou } from './home-foryou';
 import { loadHomeHot } from './home-hot';
 import { loadHomeQuick } from './home-quick';
 import { loadHomeSurprise } from './home-surprise';
 import { loadHomeToday } from './home-today';
 import { loadHomeTopFans } from './home-topfans';
-import { firstSentence, pathOf, plainTime, splitMeta } from './home-map';
+import { firstSentence, httpsUrl, pathOf, plainTime, splitMeta } from './home-map';
 
 beforeEach(() => {
   mod.values = {};
@@ -72,23 +71,35 @@ describe('the small helpers', () => {
   });
 });
 
+describe('the link of a source', () => {
+  it('keeps an absolute https URL only, normalized', () => {
+    expect(httpsUrl('https://en.wikipedia.org/wiki/IVE')).toBe('https://en.wikipedia.org/wiki/IVE');
+    expect(httpsUrl('  HTTPS://En.Wikipedia.org/wiki/IVE ')).toBe('https://en.wikipedia.org/wiki/IVE');
+    for (const bad of [null, undefined, '', 'http://en.wikipedia.org/', '//en.wikipedia.org/wiki/IVE', '/wiki/IVE', 'javascript:alert(1)', 'data:text/html,x', 'https://', 'https:///x', 'wikipedia']) {
+      expect(httpsUrl(bad), String(bad)).toBeNull();
+    }
+  });
+});
+
 describe('the doors', () => {
   it('maps the real counts, the registry names and the featured quiz', async () => {
     const doors = await loadHomeDoors();
     expect(doors.map((d) => d.site)).toEqual(['kpop', 'anime']);
     expect(doors.map((d) => d.name)).toEqual(['KpopQuiz', 'OtakuQuiz']);
+    // Home v3: the count of quizzes, rounded down by the shared helper of the public counts (atLeast), so it never says more than the site.
     expect(doors[0]).toMatchObject({
-      chips: ['482 quizzes', 'Daily blindtest', 'Which member are you'], phoneLine: '482 quizzes',
+      count: '480+ quizzes', tagline: 'Groups, eras, members, songs',
       spotlight: { label: 'Top now', title: 'Ultimate BTS era quiz - only real ARMYs survive', path: '/q/ultimate-bts-era-quiz' },
     });
-    expect(doors[1]).toMatchObject({ chips: ['138 quizzes', '31 series', 'New site'], phoneLine: '138 quizzes · 31 series', spotlight: { label: 'Just added' } });
+    expect(doors[1]).toMatchObject({ count: '130+ quizzes', tagline: 'Series, arcs, characters, openings', spotlight: { label: 'Just added' } });
   });
-  it('drops the New site pill once OtakuQuiz has its week of data, and writes thousands with a comma', async () => {
+  it('rounds every count with atLeast: exact under 100, then to the ten, the hundred, the thousand, with a comma', async () => {
     const d = sampleDoors();
-    mod.values.getDoors = { kpop: { ...d.kpop, quizCount: 1204 }, anime: { ...d.anime, featuredLabel: 'Top now' } };
+    mod.values.getDoors = { kpop: { ...d.kpop, quizCount: 1204 }, anime: { ...d.anime, quizCount: 47, featuredLabel: 'Top now' } };
     const doors = await loadHomeDoors();
-    expect(doors[0]!.chips[0]).toBe('1,204 quizzes');
-    expect(doors[1]!.chips).toEqual(['138 quizzes', '31 series']);
+    expect(doors[0]!.count).toBe('1,200+ quizzes');
+    expect(doors[1]!.count).toBe('47 quizzes');
+    expect(doors[1]!.spotlight).toMatchObject({ label: 'Top now' });
   });
   it('has no featured box without a quiz, and no door when the module has nothing', async () => {
     const d = sampleDoors();
@@ -105,8 +116,14 @@ describe('Today', () => {
   it('maps the quizzes of the day (the daily run link), the blind test with its preview, the debate and the rotation', async () => {
     const today = await loadHomeToday();
     expect(today!.quizzes).toEqual([
-      { site: 'kpop', title: 'ZEROBASEONE: From Boys Planet to In Bloom', meta: '10 questions · Easy', path: '/q/zerobaseone-from-boys-planet-to-in-bloom?daily=quiz' },
-      { site: 'anime', title: "Journey's Beginning: Frieren Basics", meta: '10 questions · Easy', path: '/q/journeys-beginning-frieren-basics?daily=quiz' },
+      {
+        site: 'kpop', id: 'kpop:zerobaseone-from-boys-planet-to-in-bloom', title: 'ZEROBASEONE: From Boys Planet to In Bloom', questions: 10, meta: '10 questions · Easy',
+        path: '/q/zerobaseone-from-boys-planet-to-in-bloom?daily=quiz',
+      },
+      {
+        site: 'anime', id: 'anime:journeys-beginning-frieren-basics', title: "Journey's Beginning: Frieren Basics", questions: 10, meta: '10 questions · Easy',
+        path: '/q/journeys-beginning-frieren-basics?daily=quiz',
+      },
     ]);
     expect(today!.blindtest).toEqual({ site: 'kpop', path: '/blindtest?daily=true', songs: 10, seconds: 10, previewUrl: sampleBlindtest().previewUrl });
     expect(today!.debate).toEqual({ site: 'kpop', title: 'Best title track of 2025 so far?', path: '/community' });
@@ -144,6 +161,34 @@ describe('60 seconds', () => {
     expect(quick!.question!.options).toHaveLength(4);
     expect(quick!.facts.map((f) => [f.site, f.source, f.path])).toEqual([['kpop', 'Wikipedia', '/trivia'], ['anime', 'Wikipedia', '/trivia']]);
   });
+  it('carries the subject of each fact (its group or series) and the https link of its source (home v3 review)', async () => {
+    const quick = await loadHomeQuick();
+    expect(quick!.facts.map((f) => [f.subject, f.sourceUrl])).toEqual([
+      ['ZEROBASEONE', 'https://en.wikipedia.org/wiki/In_Bloom'],
+      ["Frieren: Beyond Journey's End", 'https://en.wikipedia.org/wiki/Frieren'],
+    ]);
+  });
+  it('leaves out a fact with no subject, or with no https source link (SEO rule 5.5), and keeps the other one', async () => {
+    const d = sampleDyk();
+    for (const bad of [
+      { subject: null }, { subject: '  ' }, { subject: undefined },
+      { sourceUrl: null }, { sourceUrl: 'http://en.wikipedia.org/wiki/In_Bloom' }, { sourceUrl: '//en.wikipedia.org/wiki/In_Bloom' },
+      { sourceUrl: '/wiki/In_Bloom' }, { sourceUrl: 'javascript:alert(1)' }, { sourceUrl: 'https://' }, { sourceUrl: 'not a url' },
+    ]) {
+      mod.values.getDidYouKnow = { ...d, kpop: { ...d.kpop!, ...bad } };
+      expect((await loadHomeQuick())!.facts.map((f) => f.site), JSON.stringify(bad)).toEqual(['anime']);
+    }
+    // a fact cached before the subject joined the shape has none: left out for that hour
+    const { subject: _s, ...old } = d.anime!;
+    mod.values.getDidYouKnow = { ...d, kpop: null, anime: old };
+    expect((await loadHomeQuick())!.facts).toEqual([]);
+  });
+  it('normalizes the source link with the URL parser, so a quote or an angle bracket never reaches the markup raw', async () => {
+    const d = sampleDyk();
+    mod.values.getDidYouKnow = { ...d, kpop: { ...d.kpop!, sourceUrl: ' https://en.wikipedia.org/wiki/A"b<c> ' } };
+    const url = (await loadHomeQuick())!.facts[0]!.sourceUrl;
+    expect(url).toBe('https://en.wikipedia.org/wiki/A%22b%3Cc%3E');
+  });
   it('has an empty story for a question with no anecdote', async () => {
     mod.values.getSixtySeconds = { ...sampleSixty(), explanation: null };
     expect((await loadHomeQuick())!.question).toMatchObject({ explain: '', explainShort: '' });
@@ -173,6 +218,20 @@ describe('Hot right now', () => {
     expect(hot!.anime[1]).not.toHaveProperty('format');
     expect(hot!.allPaths).toEqual({ kpop: '/quizzes', anime: '/quizzes' });
     for (const q of hot!.all) expect(q.path).toMatch(/^\/q\/[a-z0-9-]+$/);
+    // home v3: the quiz's own cover (K-pop only, from the module), else null and the row shows the initials
+    expect(hot!.kpop[0]!.cover).toBe(SAMPLE_COVER);
+    expect(hot!.anime.every((q) => q.cover === null)).toBe(true);
+  });
+  it('maps Start easy (home v3): the easy quizzes of both sites, alternating; none for a ranking cached before it existed', async () => {
+    const hot = await loadHomeHot();
+    expect(hot!.easy.map((q) => [q.site, q.level])).toEqual([['kpop', 'Easy'], ['anime', 'Easy'], ['kpop', 'Easy'], ['anime', 'Easy'], ['kpop', 'Easy']]);
+    const { easy: _easy, ...old } = sampleHot();
+    mod.values.getHot = old;
+    expect((await loadHomeHot())!.easy).toEqual([]);
+    // a card cached before the cover existed reads as no cover
+    const noCover = sampleHot();
+    mod.values.getHot = { ...noCover, kpop: noCover.kpop.map(({ cover: _c, ...c }) => c) };
+    expect((await loadHomeHot())!.kpop[0]!.cover).toBeNull();
   });
   it('is null with no ranking, an empty one or an error', async () => {
     nul('getHot');
@@ -184,41 +243,12 @@ describe('Hot right now', () => {
   });
 });
 
-describe('For you and Start easy', () => {
-  it('signed in: the cards of the module, the bridge flagged, no Continue; and Start easy for everyone', async () => {
-    const out = await loadHomeForYou('user-1');
-    expect(mod.calls).toContainEqual(['getForYou', { userId: 'user-1' }]);
-    expect(out.signedIn).toEqual([
-      { site: 'kpop', label: 'Next for a Stray Kids fan', title: 'Stray Kids albums and B-sides deep dive', meta: 'Medium · you scored 9/10 on the basics', path: '/q/stray-kids-albums-and-b-sides-deep-dive' },
-      { site: 'anime', label: 'Stray Kids fans also play', title: 'First Steps into Jujutsu Kaisen', meta: 'Easy · same account, nothing to sign up for', path: '/q/first-steps-into-jujutsu-kaisen', bridge: true },
-    ]);
-    expect(out.signedOut.map((c) => [c.site, c.label, c.meta])).toEqual([['kpop', 'First K-pop quiz', 'Easy · 1.7k plays'], ['anime', 'First anime quiz', 'Easy · New']]);
-  });
-  it('signed out: the module For you is never asked for', async () => {
-    const out = await loadHomeForYou(null);
-    expect(mod.calls.map((c) => c[0])).not.toContain('getForYou');
-    expect(out.signedIn).toEqual([]);
-    expect(out.signedOut).toHaveLength(2);
-  });
-  it('has no card for a site with no easy quiz, and nothing at all when the modules are null or fail', async () => {
-    mod.values.getStartEasy = { kpop: sampleStartEasy().kpop, anime: null };
-    expect((await loadHomeForYou(null)).signedOut.map((c) => c.site)).toEqual(['kpop']);
-    nul('getForYou', 'getStartEasy');
-    expect(await loadHomeForYou('user-1')).toEqual({ signedIn: [], signedOut: [] });
-    boom('getForYou');
-    expect(await loadHomeForYou('user-1')).toEqual({ signedIn: [], signedOut: [] });
-  });
-  it('writes "Easy" alone for a quiz that is neither played enough nor new', async () => {
-    const old = { ...quizCard('kpop', 'K', 'K-pop', 'An old one', 'Easy', '', 'an-old-one'), isNew: false };
-    mod.values.getStartEasy = { kpop: old, anime: null };
-    expect((await loadHomeForYou(null)).signedOut[0]!.meta).toBe('Easy');
-  });
-});
-
 describe('Crossover', () => {
   it('maps the cards (title, meta and line, path on its own site) and the sourced fact', async () => {
     const c = await loadHomeCrossover();
     expect(c!.fact).toBe('IVE sang Will, the opening theme of Pokémon Horizons, released on April 12, 2024.');
+    expect(c!.factSource).toBe('Wikipedia');
+    expect(c!.factUrl).toBe('https://en.wikipedia.org/wiki/IVE');
     expect(c!.cards).toEqual([
       { site: 'kpop', title: 'KPop Demon Hunters Quiz', sub: 'Six questions · The animated film and its songs', path: '/kpop-demon-hunters-quiz' },
       { site: 'anime', title: 'One Opening, Many Endings: Chainsaw Man Theme Songs', sub: 'Medium · for music fans', path: '/q/one-opening-many-endings-chainsaw-man-theme-songs' },
@@ -228,6 +258,16 @@ describe('Crossover', () => {
   it('has no fact line without a sourced fact, and is null with no pick or on an error', async () => {
     mod.values.getCrossover = { ...sampleCrossover(), fact: null };
     expect((await loadHomeCrossover())!.fact).toBeNull();
+    expect((await loadHomeCrossover())!.factSource).toBeNull();
+    expect((await loadHomeCrossover())!.factUrl).toBeNull();
+    // a fact whose source is not an https page is left out with its source (SEO rule 5.5); the tiles stay
+    for (const sourceUrl of ['http://en.wikipedia.org/wiki/IVE', '//en.wikipedia.org/wiki/IVE', 'javascript:alert(1)', '']) {
+      const x = sampleCrossover();
+      mod.values.getCrossover = { ...x, fact: { ...x.fact!, sourceUrl } };
+      const c = await loadHomeCrossover();
+      expect(c, sourceUrl).toMatchObject({ fact: null, factSource: null, factUrl: null });
+      expect(c!.cards).toHaveLength(3);
+    }
     mod.values.getCrossover = { ...sampleCrossover(), quizzes: [] };
     expect(await loadHomeCrossover()).toBeNull();
     nul('getCrossover');
@@ -238,18 +278,25 @@ describe('Crossover', () => {
 });
 
 describe('Top fans', () => {
-  it('maps the five fans with their sites, and the private level as null', async () => {
-    mod.values.getTopFans = { ...sampleTopFans(), fans: sampleTopFans().fans.map((f, i) => (i === 3 ? { ...f, level: null } : f)) };
+  it('maps one board per site (home v3), each fan with the level of that site, and the private level as null', async () => {
+    const top = sampleTopFans();
+    mod.values.getTopFans = { ...top, bySite: { ...top.bySite!, anime: top.bySite!.anime.map((f, i) => (i === 1 ? { ...f, level: null } : f)) } };
     const fans = await loadHomeTopFans();
-    expect(fans).toHaveLength(5);
-    expect(fans[0]).toEqual({ handle: 'sunbae_mira', level: 42, onKpop: true, onAnime: true });
-    expect(fans[3]).toEqual({ handle: 'kenjiro_k', level: null, onKpop: false, onAnime: true });
+    expect(fans.kpop).toHaveLength(5);
+    expect(fans.anime).toHaveLength(5);
+    expect(fans.kpop[0]).toEqual({ handle: 'sunbae_mira', level: 42 });
+    expect(fans.anime[0]).toEqual({ handle: 'kenjiro_k', level: 33 });
+    expect(fans.anime[1]).toEqual({ handle: 'shoujo_nova', level: null });
+    expect(fans.anime[4]).toEqual({ handle: 'mingi', level: 12 });
   });
-  it('is empty when nobody is public, and on an error', async () => {
+  it('is empty when nobody is public, on an error, and for a board cached before the boards per site existed', async () => {
     nul('getTopFans');
-    expect(await loadHomeTopFans()).toEqual([]);
+    expect(await loadHomeTopFans()).toEqual({ kpop: [], anime: [] });
     boom('getTopFans');
-    expect(await loadHomeTopFans()).toEqual([]);
+    expect(await loadHomeTopFans()).toEqual({ kpop: [], anime: [] });
+    const { bySite: _b, ...old } = sampleTopFans();
+    mod.values.getTopFans = old;
+    expect(await loadHomeTopFans()).toEqual({ kpop: [], anime: [] });
   });
 });
 

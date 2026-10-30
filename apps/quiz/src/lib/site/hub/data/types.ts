@@ -40,17 +40,23 @@ export interface HubQuizCard {
   readonly isNew: boolean;
   readonly hasPlays: boolean;
   readonly questionCount: number;
+  /** Home v3 (2026-10-29): the quiz's own cover image (its `cover_image_url` on a configured image host), K-pop only; null for every anime
+   *  quiz (no artwork without a written licence) and for a quiz without one. The home then shows the initials tile. */
+  readonly cover: string | null;
 }
 
 export interface HubHotCard extends HubQuizCard {
   readonly rank: number;
 }
 
-/** Hot right now: six ranked quizzes for each filter of the home (All, KpopQuiz, OtakuQuiz). */
+/** Hot right now: six ranked quizzes for each filter of the home (All, KpopQuiz, OtakuQuiz, Start easy). */
 export interface HubHot {
   readonly all: readonly HubHotCard[];
   readonly kpop: readonly HubHotCard[];
   readonly anime: readonly HubHotCard[];
+  /** Home v3: the Start easy filter, the easy quizzes of both sites in the same order and mix (two per group or series at most), the sites
+   *  alternating. Missing from a value cached before it existed: read it as empty. */
+  readonly easy?: readonly HubHotCard[];
   /** Where the numbers come from, for the data report and the page's footnote logic. */
   readonly basis: {
     /** plays per day: the daily table when it is fresh, else the plays rows of the last 7 days. */
@@ -159,6 +165,9 @@ export interface HubFact {
   readonly site: HubSite;
   readonly siteName: string;
   readonly fact: string;
+  /** Home v3 review: the group or series the fact is about (null when the row has none). Missing from a value cached before it existed:
+   *  read it as null. */
+  readonly subject?: string | null;
   readonly source: string;
   readonly sourceUrl: string | null;
   /** The trivia page of the site. */
@@ -246,7 +255,11 @@ export interface HubTopFan {
 }
 
 export interface HubTopFans {
+  /** Both sites together: the XP of the week of every public stamp, the passport level. */
   readonly fans: readonly HubTopFan[];
+  /** Home v3: one board per site, the XP of the week on that site only and the level of that site. Missing from a value cached before it
+   *  existed: read it as empty. */
+  readonly bySite?: Readonly<Record<HubSite, readonly HubTopFan[]>>;
   /** `snapshots`: XP now minus XP seven days ago. `plays`: the XP of the quiz plays of the week (no XP ledger exists). */
   readonly basis: 'snapshots' | 'plays';
 }

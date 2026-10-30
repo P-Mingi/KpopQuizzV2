@@ -5,7 +5,7 @@ vi.mock('next/cache', () => ({ unstable_cache: <T>(fn: T) => fn }));
 vi.mock('@/lib/supabase/server', () => ({ createPublicReadClient: () => ({}), createServiceRoleClient: () => ({}) }));
 vi.mock('@/lib/db/queries/quizzes', () => ({ getQuizOfTheDay: async () => null }));
 
-import { DYK_NO_REPEAT_DAYS, factOfDay, readDidYouKnow, sourceName, usablePool } from './did-you-know';
+import { DYK_NO_REPEAT_DAYS, factOfDay, readDidYouKnow, sourceName, subjectOf, usablePool } from './did-you-know';
 import { candidatesOf, pickQuestion, readSixtySeconds, siteOfDay, toCandidate } from './sixty-seconds';
 import { fakeDb, ORIGINS } from './test-support';
 
@@ -177,6 +177,24 @@ describe('Did you know', () => {
     expect(out?.pool).toEqual({ kpop: 1, anime: 5 });
     expect(sourceName('wikipedia')).toBe('Wikipedia');
     expect(sourceName('Billboard')).toBe('Billboard');
+  });
+
+  it('names the subject of each fact, the group or series of its row (embedded), and asks for it in the select (home v3 review)', async () => {
+    const db = fakeDb({
+      trivia: [
+        { ...fact(1), status: 'published', site_id: 'anime', groups: { name: "Frieren: Beyond Journey's End" } },
+        { ...fact(100), status: 'published', site_id: 'kpop', groups: [{ name: ' ZEROBASEONE ' }] },
+      ],
+    });
+    const out = await readDidYouKnow(ORIGINS, day('2026-10-25'), db as never);
+    expect(out?.anime?.subject).toBe("Frieren: Beyond Journey's End");
+    expect(out?.kpop?.subject).toBe('ZEROBASEONE');
+    for (const call of db.calls.filter((c) => c.table === 'trivia')) expect(call.ops[0]).toEqual(['select', 'id, fact, category, entity_kind, source, source_url, groups(name)']);
+    // a row with no group, or a group with no name, has no subject
+    expect(subjectOf({ groups: null })).toBeNull();
+    expect(subjectOf({})).toBeNull();
+    expect(subjectOf({ groups: { name: '  ' } })).toBeNull();
+    expect(subjectOf({ groups: [] })).toBeNull();
   });
 
   it('gives a site with no usable fact null, and nothing when neither has one', async () => {
