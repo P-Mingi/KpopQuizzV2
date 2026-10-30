@@ -15,11 +15,11 @@ agencies|t
 site_assets|t
 policies on agencies and site_assets 0
 CHECK ((kind = ANY (ARRAY['series'::text, 'character'::text, 'idol'::text, 'group'::text, 'agency'::text])))
-fingerprint after run 1: f4146f9fe82364eb1dd5622bc63a3626
+fingerprint after run 1: 9c06d1f867333d915cbfc94bfc267348
 
 === 2. apply 022 again, outside a transaction (plain psql -f): nothing changes
 exit: 0
-fingerprint after run 2: f4146f9fe82364eb1dd5622bc63a3626
+fingerprint after run 2: 9c06d1f867333d915cbfc94bfc267348
 IDEMPOTENT: identical
 
 === 3. privileges of the browser roles (each statement in a rolled back transaction)
@@ -51,6 +51,8 @@ insert entity_images: ERROR:  permission denied for table entity_images
 agency 7 JYP Entertainment cc0 kpop/agency/x/cccc-96.webp
 idol 1 Idol One cc_by_sa kpop/idol/1/aaaa-96.webp
 series series-a Series A cc_by anime/series/series-a/dddd-96.webp
+the table itself as anon (018's policy narrowed: the anime kinds only, verified or not): series series-a
+the same as the service role: agency 7, group 2, idol 1, series series-a
 idol slug with a '/': ERROR:  new row for relation "entity_images" violates check constraint "entity_images_slug_check"
 idol on the anime site: ERROR:  new row for relation "entity_images" violates check constraint "entity_images_kind_site_check"
 verified with no 96 px file: ERROR:  new row for relation "entity_images" violates check constraint "entity_images_verified_thumb_check"
@@ -88,10 +90,11 @@ exit: 0
 |||
 CHECK ((kind = ANY (ARRAY['series'::text, 'character'::text])))
 019's columns kept: 2
+018's policy back: true
 rows of 018 kept: character series-a/hero, series series-a
 second rollback: ok, nothing to do
 022 again after the rollback: ok, agencies 17
-fingerprint now: f4146f9fe82364eb1dd5622bc63a3626
+fingerprint now: 9c06d1f867333d915cbfc94bfc267348
 same catalog and rows as run 1
 
 === done

@@ -6,7 +6,8 @@
 --           admin's "licence verifiee" box) and thumb_path (the 96 px WebP made at upload); no parallel column is added. A verified
 --           row must have its 96 px file. A trigger keeps it fail closed: a new file (path changes) that comes without a new 96 px
 --           file loses its check (license_verified false, thumb_path null), so the upload route of 018, which knows neither column,
---           can never leave an old check on a new picture;
+--           can never leave an old check on a new picture. The select policy of 018 is narrowed to its own kinds: the browser roles read
+--           a picture of an idol, a group or an agency only through the view below, once verified;
 --         - the view entity_images_public: the verified rows only, their display columns, the 96 px file and the name of the entity
 --           (idol, group, agency, series; a character's name is read by the app, which hides the characters under a spoiler). The
 --           only way a browser role reads a verified picture; /credits reads it;
@@ -22,7 +23,7 @@
 -- Why:    v2 section 7: only licensed pictures, with their credit on /credits; the owner sets them in the admin of bunnyverse.org/anime
 --         (Photos tab). The thumbnails are made in the admin's browser (canvas, WebP), stored in the bucket entity-images of 018;
 --         no Vercel image optimisation.
--- Rows:   2 tables, 2 views, 2 trigger functions, 1 check function, 3 triggers; up to 17 public.agencies rows (the cited labels, by
+-- Rows:   2 tables, 2 views, 2 trigger functions, 1 check function, 3 triggers, 1 policy replaced (018's select policy, narrowed); up to 17 public.agencies rows (the cited labels, by
 --         name). No entity_images or site_assets row.
 -- Needs:  001 (sites), 002a (groups.site_id), 018 (entity_images), 019 (its columns license_verified and thumb_path). Supabase's auth.users.
 -- Verify: select relname, relrowsecurity from pg_class where oid in ('public.agencies'::regclass, 'public.site_assets'::regclass) order by 1;   expect agencies t, site_assets t
@@ -75,6 +76,11 @@ alter table public.entity_images add constraint entity_images_kind_site_check
 alter table public.entity_images drop constraint if exists entity_images_verified_thumb_check;
 alter table public.entity_images add constraint entity_images_verified_thumb_check
   check (not license_verified or thumb_path is not null);
+
+-- The browser roles keep reading the rows of 018's kinds directly (the display of bunnyverse.org/anime, owner rule of 2026-10-26); a picture
+-- of an idol, a group or an agency is read only through entity_images_public, once its licence is verified. The column grants of 018 stay.
+drop policy if exists entity_images_select_display on public.entity_images;
+create policy entity_images_select_display on public.entity_images for select to anon, authenticated using (kind in ('series', 'character'));
 
 create or replace function public.entity_images_licence_reset() returns trigger
 language plpgsql
@@ -276,6 +282,9 @@ begin
     or has_column_privilege('anon', 'public.entity_images', 'license_verified', 'select')
     or has_column_privilege('anon', 'public.entity_images', 'thumb_path', 'select') then
     raise exception '022-photos-admin: the browser grants of entity_images changed (018 and 019 keep them)';
+  end if;
+  if (select pg_get_expr(polqual, polrelid) from pg_policy where polrelid = 'public.entity_images'::regclass and polname = 'entity_images_select_display') !~ 'character' then
+    raise exception '022-photos-admin: the select policy of entity_images is not narrowed to series and character';
   end if;
   if pg_get_viewdef('public.entity_images_public'::regclass) !~ 'license_verified' then
     raise exception '022-photos-admin: entity_images_public does not filter on license_verified';

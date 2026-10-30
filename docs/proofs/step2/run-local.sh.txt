@@ -25,6 +25,7 @@ FP() { Q "select md5(concat_ws('|',
   (select string_agg(proname || prosrc || coalesce(proacl::text, ''), ',' order by proname) from pg_proc where pronamespace = 'public'::regnamespace and proname in ('photos_touch', 'agencies_sources_ok', 'entity_images_licence_reset')),
   (select string_agg(tgname, ',' order by tgname) from pg_trigger where not tgisinternal and tgrelid in ('public.entity_images'::regclass, 'public.agencies'::regclass, 'public.site_assets'::regclass)),
   (select count(*)::text from pg_policy where polrelid in ('public.agencies'::regclass, 'public.site_assets'::regclass)),
+  (select string_agg(polname || pg_get_expr(polqual, polrelid), ',') from pg_policy where polrelid = 'public.entity_images'::regclass),
   (select string_agg(id || slug || name, ',' order by id) from public.agencies)))"; }
 
 echo "Step 2: local proof of 022-photos-admin.sql on a throwaway Postgres $(postgres --version | awk '{print $3}') ($(date -u +%Y-%m-%d))."
@@ -83,6 +84,8 @@ Q "set role service_role; insert into public.entity_images (site_id, kind, slug,
   ('anime', 'series', 'series-a', 'anime/series/series-a/dddd.webp', 736, 981, 'https://commons.wikimedia.org/wiki/File:D.jpg', 'Author D', 'cc_by', true, 'anime/series/series-a/dddd-96.webp')" >/dev/null
 echo "4 rows in; the public view as anon:"
 AS anon "select kind || ' ' || slug || ' ' || coalesce(name, '-') || ' ' || license || ' ' || thumb_path from public.entity_images_public order by kind"
+echo "the table itself as anon (018's policy narrowed: the anime kinds only, verified or not): $(AS anon "select string_agg(kind || ' ' || slug, ', ' order by kind) from public.entity_images")"
+echo "the same as the service role: $(Q "set role service_role; select string_agg(kind || ' ' || slug, ', ' order by kind) from public.entity_images")"
 echo "idol slug with a '/': $(F "insert into public.entity_images (site_id, kind, slug, path, width, height, source_url, author, license) values ('kpop', 'idol', '1/2', 'k/a.webp', 1, 1, 'https://x.org', 'A', 'cc0')")"
 echo "idol on the anime site: $(F "insert into public.entity_images (site_id, kind, slug, path, width, height, source_url, author, license) values ('anime', 'idol', '9', 'k/a.webp', 1, 1, 'https://x.org', 'A', 'cc0')")"
 echo "verified with no 96 px file: $(F "insert into public.entity_images (site_id, kind, slug, path, width, height, source_url, author, license, license_verified) values ('kpop', 'idol', '2', 'k/a.webp', 1, 1, 'https://x.org', 'A', 'cc0', true)")"
@@ -137,6 +140,7 @@ echo "exit: ${PIPESTATUS[0]}"
 Q "select to_regclass('public.site_assets'), to_regclass('public.agencies'), to_regclass('public.site_assets_public'), to_regclass('public.entity_images_public')"
 Q "select pg_get_constraintdef(oid) from pg_constraint where conname = 'entity_images_kind_check'"
 echo "019's columns kept: $(Q "select count(*) from information_schema.columns where table_name = 'entity_images' and column_name in ('license_verified', 'thumb_path')")"
+echo "018's policy back: $(Q "select pg_get_expr(polqual, polrelid) from pg_policy where polrelid = 'public.entity_images'::regclass")"
 echo "rows of 018 kept: $(Q "select string_agg(kind || ' ' || slug, ', ' order by kind) from public.entity_images")"
 P -v ON_ERROR_STOP=1 --single-transaction -f "$M/022-photos-admin.rollback.sql" >/dev/null 2>&1 && echo "second rollback: ok, nothing to do"
 P -v ON_ERROR_STOP=1 --single-transaction -f "$M/022-photos-admin.sql" >/dev/null 2>&1 && echo "022 again after the rollback: ok, agencies $(Q 'select count(*) from public.agencies')"
