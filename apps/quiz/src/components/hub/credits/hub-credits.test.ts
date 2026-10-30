@@ -49,7 +49,7 @@ describe('the page', () => {
     expect(html).toContain('href="https://creativecommons.org/share-your-work/cclicenses/"');
     expect(html).toContain('>CC BY-SA<');
     expect(html).toContain('Cropped');
-    expect(html).not.toMatch(/[–—]/);
+    expect(html).not.toMatch(/[\u2013\u2014]/);
   });
 
   it('says so when nothing is listed yet', () => {

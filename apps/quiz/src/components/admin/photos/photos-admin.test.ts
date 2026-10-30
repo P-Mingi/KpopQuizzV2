@@ -93,7 +93,7 @@ describe('/admin?tab=photos on bunnyverse.org/anime', () => {
     expect(html).toContain('2 sur 2 idols sans photo. Toutes ces fiches sont aussi à relire.');
     expect(html).toContain('Ajouter une photo');
     expect(html).toContain('J&#x27;ai vérifié que cette licence autorise l&#x27;usage sur le site, avec le crédit affiché.');
-    expect(html).not.toMatch(/[–—]/);
+    expect(html).not.toMatch(/[\u2013\u2014]/);
     expect(auth.loads).toBe(1);
   });
 
