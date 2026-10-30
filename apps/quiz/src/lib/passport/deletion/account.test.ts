@@ -63,7 +63,7 @@ vi.mock('@/lib/supabase/server', () => {
 
 import { handleCancel, handleCronDeletions, handleDelete, handleLeave, isFreshSignIn, leavableSites } from './account';
 
-const HUB = 'https://fandomverse.org';
+const HUB = 'https://bunnyverse.org';
 const NOW = Date.parse('2026-10-21T12:00:00Z');
 const fresh = '2026-10-21T11:55:00Z';
 const stale = '2026-10-21T11:40:00Z';

@@ -1,5 +1,5 @@
-// FandomVerse (owner, 2026-10-28; lane 3): the passport jump between kpopquiz.org and fandomverse.org. kpop stays
-// https://kpopquiz.org; the hub is https://fandomverse.org; anime is https://fandomverse.org/anime (basePath '/anime', the
+// Bunnyverse (owner, 2026-10-28; lane 3): the passport jump between kpopquiz.org and bunnyverse.org. kpop stays
+// https://kpopquiz.org; the hub is https://bunnyverse.org; anime is https://bunnyverse.org/anime (basePath '/anime', the
 // same origin as the hub, so hub and anime share one session and never hand off to each other). The topology is given as a
 // preview deployment (NEXT_PUBLIC_NET_ORIGINS), so these tests hold before and after the registry urls move.
 //
@@ -56,18 +56,18 @@ const NOW_MS = 1_800_000_000_000;
 const NOW = NOW_MS / 1000;
 const FV = {
   PASSPORT_JUMP: '1', PASSPORT_TICKET_SECRET: SECRET, NET_IP_HASH_SALT: 'salt', VERCEL_ENV: 'preview',
-  NEXT_PUBLIC_NET_ORIGINS: 'kpop=https://kpopquiz.org,anime=https://fandomverse.org,hub=https://fandomverse.org',
+  NEXT_PUBLIC_NET_ORIGINS: 'kpop=https://kpopquiz.org,anime=https://bunnyverse.org,hub=https://bunnyverse.org',
 };
 const KPOP = 'https://kpopquiz.org';
-const FVO = 'https://fandomverse.org';
+const FVO = 'https://bunnyverse.org';
 const ctx = (site: SiteId): HandoffCtx => ({ site, env: FV, now: () => NOW_MS });
 const get = (url: string, headers: Record<string, string> = {}): NextRequest => new NextRequest(url, { headers });
 const loc = (res: Response): string => res.headers.get('location') ?? '';
 const fns = (): string[] => state.calls.map((c) => c.fn);
-/** Origins that are not https://fandomverse.org, in every look-alike shape. */
+/** Origins that are not https://bunnyverse.org, in every look-alike shape. */
 const NOT_FV = [
-  'https://fandomverse.org.evil.com', 'https://evil.com', 'https://kpopquiz.org', 'http://fandomverse.org', 'https://www.fandomverse.org',
-  'https://fandomverse.org:8443', 'https://fandomverse.org/anime', 'https://fandomverse.org/', 'null', 'https://evil.com/fandomverse.org',
+  'https://bunnyverse.org.evil.com', 'https://evil.com', 'https://kpopquiz.org', 'http://bunnyverse.org', 'https://www.bunnyverse.org',
+  'https://bunnyverse.org:8443', 'https://bunnyverse.org/anime', 'https://bunnyverse.org/', 'null', 'https://evil.com/bunnyverse.org',
 ];
 
 beforeEach(() => {
@@ -75,8 +75,8 @@ beforeEach(() => {
   state.calls = [];
 });
 
-describe('kpopquiz.org to fandomverse.org (and back): every leg at the origin and basePath of its site', () => {
-  it('kpop to anime: the ticket goes to https://fandomverse.org/anime/auth/arrive, its next an app path', async () => {
+describe('kpopquiz.org to bunnyverse.org (and back): every leg at the origin and basePath of its site', () => {
+  it('kpop to anime: the ticket goes to https://bunnyverse.org/anime/auth/arrive, its next an app path', async () => {
     state.user = { id: 'user-1' };
     const res = await handleOut(get(`${KPOP}/auth/passport/out?to=anime&next=%2Fquizzes%3Fx%3D1&via=k.menu`), ctx('kpop'));
     const url = new URL(loc(res));
@@ -85,7 +85,7 @@ describe('kpopquiz.org to fandomverse.org (and back): every leg at the origin an
     expect(verifyTicket(SECRET, url.searchParams.get('t')!, { to: 'anime', from: 'kpop', next: '/quizzes?x=1' }, NOW + 1).ok).toBe(true);
   });
 
-  it('kpop to the hub: https://fandomverse.org/auth/arrive', async () => {
+  it('kpop to the hub: https://bunnyverse.org/auth/arrive', async () => {
     state.user = { id: 'user-1' };
     const url = new URL(loc(await handleOut(get(`${KPOP}/auth/passport/out?to=hub&next=%2Fpassport`), ctx('kpop'))));
     expect(`${url.origin}${url.pathname}`).toBe(`${FVO}/auth/arrive`);
@@ -107,8 +107,8 @@ describe('kpopquiz.org to fandomverse.org (and back): every leg at the origin an
     }
   });
 
-  it('a hostile next never leaves the target: fandomverse.org inside /anime, the ticket carries the home', async () => {
-    const hostile = ['https://fandomverse.org.evil.com/x', 'https://evil.com/fandomverse.org', '//fandomverse.org.evil.com', '/\\evil.com', '/anime//evil.com', '/anime/../passport', '/%2e%2e/passport'];
+  it('a hostile next never leaves the target: bunnyverse.org inside /anime, the ticket carries the home', async () => {
+    const hostile = ['https://bunnyverse.org.evil.com/x', 'https://evil.com/bunnyverse.org', '//bunnyverse.org.evil.com', '/\\evil.com', '/anime//evil.com', '/anime/../passport', '/%2e%2e/passport'];
     for (const next of hostile) {
       state.user = null;
       const plain = new URL(loc(await handleOut(get(`${KPOP}/auth/passport/out?to=anime&next=${encodeURIComponent(next)}`), ctx('kpop'))));
@@ -123,7 +123,7 @@ describe('kpopquiz.org to fandomverse.org (and back): every leg at the origin an
   });
 
   it('the target is a site id, never an address: an origin-shaped `to` is 400', async () => {
-    for (const to of ['https://fandomverse.org', 'fandomverse.org', 'https://fandomverse.org.evil.com', 'anime/']) {
+    for (const to of ['https://bunnyverse.org', 'bunnyverse.org', 'https://bunnyverse.org.evil.com', 'anime/']) {
       expect((await handleOut(get(`${KPOP}/auth/passport/out?to=${encodeURIComponent(to)}&next=%2F`), ctx('kpop'))).status).toBe(400);
     }
   });
@@ -155,7 +155,7 @@ describe('hub and anime share one origin: nothing to hand off between them', () 
   });
 });
 
-describe('arrive and authorize between kpop and fandomverse.org', () => {
+describe('arrive and authorize between kpop and bunnyverse.org', () => {
   it('arrive on anime: the __Host- transaction cookie (Path=/, no Domain), then kpop /auth/authorize with client anime', async () => {
     const t = signTicket(SECRET, { from: 'kpop', to: 'anime', next: '/quizzes' }, NOW);
     const res = await handleArrive(get(`${FVO}/anime/auth/arrive?${new URLSearchParams({ from: 'kpop', next: '/quizzes', t }).toString()}`), ctx('anime'));
@@ -180,7 +180,7 @@ describe('arrive and authorize between kpop and fandomverse.org', () => {
   });
 });
 
-describe('POST /api/passport/redeem on fandomverse.org', () => {
+describe('POST /api/passport/redeem on bunnyverse.org', () => {
   function post(site: 'anime' | 'hub', headers: Record<string, string>, next = '/quizzes'): Promise<Response> {
     const st = newState();
     const cookie = signTx(SECRET, { state: st, verifier: newVerifier(), next, from: 'kpop', via: null, iat: NOW });
@@ -194,7 +194,7 @@ describe('POST /api/passport/redeem on fandomverse.org', () => {
     );
   }
 
-  it('anime and hub accept the Origin https://fandomverse.org; anime answers a next inside /anime', async () => {
+  it('anime and hub accept the Origin https://bunnyverse.org; anime answers a next inside /anime', async () => {
     const anime = await post('anime', { origin: FVO });
     expect(anime.status).toBe(200);
     expect(await anime.json()).toEqual({ next: '/anime/quizzes' });
@@ -216,7 +216,7 @@ describe('POST /api/passport/redeem on fandomverse.org', () => {
   });
 
   it('a hostile next in the cookie still answers a path inside /anime', async () => {
-    for (const next of ['//evil.com', 'https://fandomverse.org.evil.com', '/anime//evil.com', '/../passport', '/\\evil.com']) {
+    for (const next of ['//evil.com', 'https://bunnyverse.org.evil.com', '/anime//evil.com', '/../passport', '/\\evil.com']) {
       state.user = null;
       const body = (await (await post('anime', { origin: FVO }, next)).json()) as { next: string };
       expect(body.next === '/anime' || body.next.startsWith('/anime/'), `${next} -> ${body.next}`).toBe(true);

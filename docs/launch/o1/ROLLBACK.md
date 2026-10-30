@@ -1,8 +1,8 @@
-# Rollback (run O1, FandomVerse)
+# Rollback (run O1, Bunnyverse)
 
 For each phase of `RUNBOOK.md`: how to return to the state before it, and the point after which that is no longer possible because
-data has been written. Sites (2026-10-28): kpopquiz.org (project `kpopquiz`), the FandomVerse hub at `https://fandomverse.org` (project `fandomverse`)
-and OtakuQuiz at `https://fandomverse.org/anime` (project `otakuquiz`, no domain, reached through the Microfrontends group `fandomverse`).
+data has been written. Sites (2026-10-28): kpopquiz.org (project `kpopquiz`), the Bunnyverse hub at `https://bunnyverse.org` (project `fandomverse`)
+and OtakuQuiz at `https://bunnyverse.org/anime` (project `otakuquiz`, no domain, reached through the Microfrontends group `fandomverse`).
 Every SQL file has its rollback beside it (`SQL-ORDER.md`); every launch file (L01 to L08, L10-PERS, L12) has its
 rollback in `docs/pending-migrations/multisite/launch/` (`M` = `docs/pending-migrations/multisite`, as in `SQL-ORDER.md`). A rollback refuses, and changes nothing, when undoing would delete data written since (the message names what).
 Rollbacks run in reverse order of the apply order. Same shell helpers as `SQL-ORDER.md` section 1 (`sql1`, `sqln`, `q`).
@@ -31,7 +31,7 @@ Rules that hold everywhere:
 | E. P3: 009, deploy, 010 | in this order: `sql1 M/010-daily-v2.rollback.sql` (today's function and the two single-date unique constraints come back; refused while a non-kpop bank or log row exists), then `sqln M/009-daily-prep.rollback.sql` (refused while a non-kpop sites row carries the columns). The PR app keeps working after the 010 rollback (009's unique indexes stay until 009's own rollback). Roll 009 back only if you also go back to the pre-PR app (section 2) | before launch: always. After L02 or L08 (anime rows in `quiz_bank`, `qotd_log`, `sites.system_user_id`) these refuse, by design |
 | F. The 24 hour watch after 010 (P4) | nothing to undo | n/a |
 | G. P5: 011 to 017 | `sql1` the rollbacks in reverse: 017, 016, 015, 014, 013, 012, 018, 011 | each refuses while rows of its tables exist (series data, spoiler reports, daily openings, review batches, deletion requests, entity images and their files); empty before launch |
-| H. Domain, DNS, Microfrontends group, Vercel variables, Supabase redirect URLs | remove `fandomverse.org` and `www.fandomverse.org` from the `fandomverse` project (the hub and `/anime` go offline together), delete the DNS records, delete the Microfrontends group (the projects stay), unlink the shared `SUPABASE_SERVICE_ROLE_KEY`, and in Supabase, Authentication, URL Configuration, Redirect URLs remove the two exact entries `https://fandomverse.org/auth/callback` and `https://fandomverse.org/anime/auth/callback` (RUNBOOK H4 added only these two, no wildcard). Google Cloud: nothing to undo, no JavaScript origin, no redirect URI and no client were added (AUTH-FANDOMVERSE.md). The domain purchase itself is not undone | always |
+| H. Domain, DNS, Microfrontends group, Vercel variables, Supabase redirect URLs | remove `bunnyverse.org` and `www.bunnyverse.org` from the `fandomverse` project (the hub and `/anime` go offline together), delete the DNS records, delete the Microfrontends group (the projects stay), unlink the shared `SUPABASE_SERVICE_ROLE_KEY`, and in Supabase, Authentication, URL Configuration, Redirect URLs remove the two exact entries `https://bunnyverse.org/auth/callback` and `https://bunnyverse.org/anime/auth/callback` (RUNBOOK H4 added only these two, no wildcard). Google Cloud: nothing to undo, no JavaScript origin, no redirect URI and no client were added (AUTH-BUNNYVERSE.md). The domain purchase itself is not undone | always |
 | I. Emails (postponed) | Supabase dashboard, Authentication, Hooks, Send Email: switch the hook off. Auth sends its built-in mail again within seconds. Keep the function deployed but unused | always (a mail already sent cannot be recalled) |
 | J. Generated files | `git checkout` the folder `docs/pending-migrations/multisite/launch` (or revert the PR); nothing was applied | always |
 | K. Launch day | section 3 | see below |
@@ -62,7 +62,7 @@ project (public flags are baked at build), then the V10 loop.
 2. **A problem with the shared sign-in.** Set `PASSPORT_JUMP` to `0` on the three projects and redeploy them. The links become plain links; `/auth/authorize`,
    `/auth/land` and `/api/passport/redeem` answer 404. Accounts and stamps stay.
 3. **A problem on one new site only.** OtakuQuiz (`/anime`): Instant Rollback on `otakuquiz`, or pause the `otakuquiz` project (`/anime` then answers an error page; the hub stays).
-   The hub: Instant Rollback on `fandomverse`. Both at once: remove `fandomverse.org` from the `fandomverse` project, or pause it (the hub and `/anime` go offline together, they share the domain).
+   The hub: Instant Rollback on `fandomverse`. Both at once: remove `bunnyverse.org` from the `fandomverse` project, or pause it (the hub and `/anime` go offline together, they share the domain).
    kpopquiz.org and the database are not touched. To mark it: `sql1 M/launch/L12-L1-sites-live.rollback.sql` puts `sites.status` back to `building`.
 4. **Content that must come down.** For one quiz: unpublish it in the admin (status, not DELETE). For the whole catalogue: `update public.quizzes set status = 'draft' where site_id = 'anime'`
    (a reversible hide; save the count first). Do not run the L07 or L04 rollbacks once a quiz has been played: they refuse, on purpose.

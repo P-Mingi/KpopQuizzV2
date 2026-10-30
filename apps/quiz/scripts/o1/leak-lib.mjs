@@ -4,7 +4,7 @@
 //                            the decoded page data (React Flight) and the text layer.
 //   checkLinks(...)          cross-site links against the allowlist (Q-bridges D0: never a cross-site link outside it,
 //                            never `via` for an anonymous visitor, nofollow where the allowlist says so, and on
-//                            fandomverse.org/anime no "kpopquiz.org" anywhere outside the allowlisted links; the mirror on kpop).
+//                            bunnyverse.org/anime no "kpopquiz.org" anywhere outside the allowlisted links; the mirror on kpop).
 //   checkIdentity(...)       canonical, og:url, og:site_name, og:image, hreflang and JSON-LD urls per site (never a
 //                            cross-domain canonical).
 //   checkStrings(...)        P2 and its mirror: no K-pop marker on anime pages, no anime marker on kpop pages.
@@ -31,8 +31,8 @@ export const SITE_IDS = ['kpop', 'anime', 'hub'];
 /** Contract values used when F0's registry is not importable (BACKLOG 5.1, frozen names). */
 export const FALLBACK_CONTRACT = {
   source: 'fallback (BACKLOG 5.1)',
-  domains: { kpop: 'kpopquiz.org', anime: 'fandomverse.org/anime', hub: 'fandomverse.org' },
-  brands: { kpop: 'KpopQuiz', anime: 'OtakuQuiz', hub: 'FandomVerse' },
+  domains: { kpop: 'kpopquiz.org', anime: 'bunnyverse.org/anime', hub: 'bunnyverse.org' },
+  brands: { kpop: 'KpopQuiz', anime: 'OtakuQuiz', hub: 'Bunnyverse' },
   devHosts: { kpop: 'kpop.localhost', anime: 'anime.localhost', hub: 'hub.localhost' },
 };
 
@@ -189,8 +189,8 @@ export function textLayer(an, dropRaw = []) {
 // Sites and URLs
 
 /**
- * The host and the folder of a site address of the contract: `fandomverse.org/anime` gives fandomverse.org and /anime (OtakuQuiz is a
- * folder of fandomverse.org since 2026-10-28), `kpopquiz.org` gives kpopquiz.org and ''.
+ * The host and the folder of a site address of the contract: `bunnyverse.org/anime` gives bunnyverse.org and /anime (OtakuQuiz is a
+ * folder of bunnyverse.org since 2026-10-28), `kpopquiz.org` gives kpopquiz.org and ''.
  */
 export function splitAddress(address) {
   const a = String(address || '').toLowerCase();
@@ -212,8 +212,8 @@ export function siteOfHost(host, contract = FALLBACK_CONTRACT) {
 }
 
 /**
- * The site of a URL: the production address that holds it, the longest first (https://fandomverse.org/anime/x is OtakuQuiz,
- * https://fandomverse.org/x the hub), else a dev host (unless `dev` is false), else null (outside the network). `path` is the path inside
+ * The site of a URL: the production address that holds it, the longest first (https://bunnyverse.org/anime/x is OtakuQuiz,
+ * https://bunnyverse.org/x the hub), else a dev host (unless `dev` is false), else null (outside the network). `path` is the path inside
  * that site.
  * @returns {{ site: Site, path: string } | null}
  */
@@ -253,7 +253,7 @@ export function linkTarget(href, pageUrl, site, contract = FALLBACK_CONTRACT) {
   }
   if (!/^https?:$/.test(u.protocol)) return { kind: 'none' };
   const page = new URL(pageUrl);
-  // The address first: a page of fandomverse.org and a page of fandomverse.org/anime share the host but not the site.
+  // The address first: a page of bunnyverse.org and a page of bunnyverse.org/anime share the host but not the site.
   const s = siteOfUrl(u, contract);
   if (s && s.site === site) return { kind: 'self', url: u };
   if (s) return { kind: 'site', site: s.site, url: u, path: s.path };
@@ -333,7 +333,7 @@ export function checkLinks({ site, path, pageUrl, an, allowlist, contract = FALL
     if (t.kind === 'site') violations.push({ code: 'head-link-cross-site', detail: `${l.rel} ${t.url.host}${t.url.pathname}` });
   }
   // The domain of the other world anywhere in the page (markup, metadata, JSON-LD, page data, scripts), once the
-  // allowlisted links are removed: fandomverse.org/anime never says kpopquiz.org (Q-bridges D0), and the mirror on kpop.
+  // allowlisted links are removed: bunnyverse.org/anime never says kpopquiz.org (Q-bridges D0), and the mirror on kpop.
   for (const other of asList((allowlist.domainText || {})[site])) {
     const domain = contract.domains[other];
     if (!domain) continue;
@@ -356,7 +356,7 @@ function jsonLdUrls(blocks) {
     if (Array.isArray(v)) v.forEach((x) => walk(x, key));
     else if (v && typeof v === 'object') {
       for (const [k, x] of Object.entries(v)) {
-        if (k === 'parentOrganization') continue; // the network parent (fandomverse.org) is allowed on every site
+        if (k === 'parentOrganization') continue; // the network parent (bunnyverse.org) is allowed on every site
         walk(x, k);
       }
     } else if (typeof v === 'string' && /^(url|@id|sameAs|item|mainEntityOfPage)$/.test(key || '') && /^https?:\/\//.test(v)) out.push(v);
@@ -390,7 +390,7 @@ export function checkIdentity({ site, an, contract = FALLBACK_CONTRACT }) {
       return null;
     }
   };
-  // The site of a URL by its address (host and folder): fandomverse.org/anime is OtakuQuiz, fandomverse.org the hub. Canonical, hreflang
+  // The site of a URL by its address (host and folder): bunnyverse.org/anime is OtakuQuiz, bunnyverse.org the hub. Canonical, hreflang
   // and og:url must be the own production address (`prod`); a dev host there is a violation, as before.
   const siteOf = (u) => siteOfUrl(u, contract)?.site ?? null;
   const prod = (u) => siteOfUrl(u, contract, false)?.site ?? null;

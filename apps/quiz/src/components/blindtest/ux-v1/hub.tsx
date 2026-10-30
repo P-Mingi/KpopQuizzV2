@@ -55,7 +55,7 @@ const BREADCRUMB_JSONLD = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   // Run O1: /kpop-games is a kpop page; another site keeps the trail it had (Home > Blind Test, its own home: joinSiteUrl gives
-  // https://fandomverse.org/anime without the trailing slash Next answers with a 308, and https://fandomverse.org/ on the hub).
+  // https://bunnyverse.org/anime without the trailing slash Next answers with a 308, and https://bunnyverse.org/ on the hub).
   itemListElement: IS_KPOP ? [
     { '@type': 'ListItem', position: 1, name: 'K-pop games', item: 'https://kpopquiz.org/kpop-games' },
     { '@type': 'ListItem', position: 2, name: 'Blind test', item: 'https://kpopquiz.org/blindtest' },

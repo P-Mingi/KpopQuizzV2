@@ -33,8 +33,19 @@ const NAV_FEATURE: Record<NavKey, keyof typeof SITE.features | null> = {
   home: null, quizzes: 'quizzes', groups: 'topicHubs', blindtest: 'blindTest', community: 'community', leaderboard: 'leaderboards',
 };
 
+// The hub (home v3, 2026-10-29, docs/strategy/o1/dle/prototype/Home.dc.html): the tabs of its home on every hub page. Its sections live on
+// the home, so the tabs lead there: Quizzes to Hot right now, Blind test to Today (its player), Community to Top fans. The Burrow joins
+// them with its pages and the dailyGuess flag (step 4 of the daily games).
+const HUB_NAV: NavItem<NavKey>[] = [
+  { key: 'home', label: 'Home', href: '/', icon: 'home' },
+  { key: 'quizzes', label: 'Quizzes', href: '/#hot', icon: 'layers' },
+  { key: 'blindtest', label: 'Blind test', href: '/#today', icon: 'music' },
+  { key: 'community', label: 'Community', href: '/#fans', icon: 'msg' },
+];
+
 export function navItemsFor(site: typeof SITE = SITE): NavItem<NavKey>[] {
   if (site.id === 'kpop') return NAV_ITEMS;
+  if (site.id === 'hub') return HUB_NAV;
   const topic = site.vocabulary.topicPlural;
   return NAV_ITEMS
     .map((it) => (it.key === 'groups' ? { ...it, label: topic.charAt(0).toUpperCase() + topic.slice(1), href: '/series' } : it))
@@ -59,8 +70,14 @@ const TAB_FEATURE: Record<TabKey, keyof typeof SITE.features | null> = {
 };
 const YOU_HREF: Record<'anime' | 'hub', string> = { anime: '/me', hub: '/passport' };
 
+const HUB_TABS: NavItem<TabKey>[] = [
+  ...HUB_NAV.map((it) => ({ ...it, key: it.key as TabKey, icon: it.key === 'community' ? ('users' as const) : it.icon })),
+  { key: 'you', label: 'You', href: YOU_HREF.hub, icon: 'user' },
+];
+
 export function tabItemsFor(site: typeof SITE = SITE): NavItem<TabKey>[] {
   if (site.id === 'kpop') return TAB_ITEMS;
+  if (site.id === 'hub') return HUB_TABS;
   const id = site.id;
   return TAB_ITEMS
     .map((it) => (it.key === 'you' ? { ...it, href: YOU_HREF[id] } : it))

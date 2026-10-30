@@ -113,7 +113,7 @@ export async function notifyRevalidate(username: string, sites: readonly SiteId[
   const results = await Promise.all(
     unique.map(async (s) => {
       try {
-        // FandomVerse: the site's base (origin and basePath), so anime is reached at https://fandomverse.org/anime/api/...
+        // Bunnyverse: the site's base (origin and basePath), so anime is reached at https://bunnyverse.org/anime/api/...
         const res = await doFetch(`${siteBase(s, env)}/api/passport/revalidate`, {
           method: 'POST',
           headers: { 'content-type': 'application/json', [REVALIDATE_HEADER]: signature },

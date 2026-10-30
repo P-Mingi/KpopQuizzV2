@@ -3,9 +3,9 @@
 // registry origin of the site; the list is lib/site/root-files.ts sitemapEntriesFor (hub: home and /privacy; anime: home,
 // /series, the series hubs and the published quizzes). Read per request and kept by the CDN for an hour, so a quiz published
 // today is listed within the hour and a build never reads the database for it.
-// FandomVerse (lane 1): the hub's /sitemap.xml is the one index of fandomverse.org: its own pages (/sitemap-hub.xml, the route
+// Bunnyverse (lane 1): the hub's /sitemap.xml is the one index of bunnyverse.org: its own pages (/sitemap-hub.xml, the route
 // next to this one) and, once open (the hub's NET_INDEXING, root-files.ts openZoneChildren), the sitemap of every site in its
-// sub-folders (https://fandomverse.org/anime/sitemap.xml). A site in a sub-folder, and a site with none, keep their urlset here.
+// sub-folders (https://bunnyverse.org/anime/sitemap.xml). A site in a sub-folder, and a site with none, keep their urlset here.
 
 import { zoneChildrenOf } from '@/lib/site/base-path';
 import { SITE } from '@/lib/site/registry';

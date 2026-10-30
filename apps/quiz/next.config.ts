@@ -226,15 +226,15 @@ const nextConfig: NextConfig = {
   },
 };
 
-// FandomVerse (owner, 2026-10-28; docs/launch/o1/ARCHITECTURE-FANDOMVERSE.md): fandomverse.org is the hub, fandomverse.org/anime is
+// Bunnyverse (owner, 2026-10-28; docs/launch/o1/ARCHITECTURE-BUNNYVERSE.md): bunnyverse.org is the hub, bunnyverse.org/anime is
 // OtakuQuiz, one domain served by a Vercel Microfrontends group (default application `fandomverse`, child `otakuquiz`,
 // apps/quiz/microfrontends.json). The kpop build is in no group and exports the object above, untouched. The hub and the anime
 // builds add, on top of it:
-//   - basePath: the path of the site's registry url ('/anime' for https://fandomverse.org/anime, nothing for the hub). Next then
+//   - basePath: the path of the site's registry url ('/anime' for https://bunnyverse.org/anime, nothing for the hub). Next then
 //     serves every page, handler, public file and /_next asset of the build under it; its rewrites, headers and middleware
 //     matcher are prefixed with it;
 //   - X-Robots-Tag noindex on the *.vercel.app hosts of a production build, and on every host of a preview or development build
-//     (lib/site/zones.ts deploymentHostNoindexHeaders); never on fandomverse.org or another domain of a production build;
+//     (lib/site/zones.ts deploymentHostNoindexHeaders); never on bunnyverse.org or another domain of a production build;
 //   - a header rule for the home of the build ('/', which Next turns into the base path), with the headers of every other page;
 //   - on a build with a base path, the cron paths of the shared vercel.json proxied to the site's own URL (zones.ts);
 //   - withMicrofrontends: it checks microfrontends.json at build time and wires the local proxy. The anime build skips its asset

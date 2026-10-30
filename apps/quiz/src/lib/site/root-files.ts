@@ -52,7 +52,7 @@ function xmlEscape(text: string): string {
 
 /**
  * A sitemap as XML: every `<loc>` is `origin` + the entry's path. `origin` is the site url: for a site in a sub-folder
- * (https://fandomverse.org/anime) its home is the url itself, with no trailing slash (lib/site/base-path.ts joinSiteUrl).
+ * (https://bunnyverse.org/anime) its home is the url itself, with no trailing slash (lib/site/base-path.ts joinSiteUrl).
  */
 export function sitemapXml(origin: string, entries: readonly SitemapEntry[]): string {
   const urls = entries.map((e) => [
@@ -67,7 +67,7 @@ export function sitemapXml(origin: string, entries: readonly SitemapEntry[]): st
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------
-// FandomVerse (owner, 2026-10-28; docs/launch/o1/ARCHITECTURE-FANDOMVERSE.md): one domain, sub-folders. The site at the root of the
+// Bunnyverse (owner, 2026-10-28; docs/launch/o1/ARCHITECTURE-BUNNYVERSE.md): one domain, sub-folders. The site at the root of the
 // domain (the hub) answers the one robots.txt and the one sitemap index of the domain for the sites in its sub-folders; a site in a
 // sub-folder answers neither robots.txt (404) nor anything at the root, and keeps its own sitemap at <base>/sitemap.xml.
 
@@ -182,7 +182,7 @@ export async function sitemapEntriesFor(site: SiteConfig, db: SeriesDb = createP
 export function llmsText(site: SiteConfig, children: readonly SiteConfig[] = zoneChildrenOf(site), raw: string | undefined = process.env.NET_INDEXING): string {
   const { name } = site.brand;
   const title = site.seo.llmsTxt.title;
-  // FandomVerse (lane 1): a site in a sub-folder is named by its full address (fandomverse.org/anime, the url without its scheme: the
+  // Bunnyverse (lane 1): a site in a sub-folder is named by its full address (bunnyverse.org/anime, the url without its scheme: the
   // idea of siteAddress in lib/site/brand.ts) and its paths carry the sub-folder, since the file is read at <base>/llms.txt.
   const address = site.url.replace(/^https?:\/\//, '');
   const b = basePathOf(site.url);

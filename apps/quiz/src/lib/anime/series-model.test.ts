@@ -16,7 +16,7 @@ import { MIN_OSHI_PICKS, MIN_PLAYABLE_THEMES } from './types';
 import type { SeriesHub } from './series';
 import type { ArcRow } from './types';
 
-const ORIGIN = 'https://fandomverse.org/anime';
+const ORIGIN = 'https://bunnyverse.org/anime';
 const BRAND = 'OtakuQuiz';
 
 describe('A1 header facts', () => {

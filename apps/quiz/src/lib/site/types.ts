@@ -16,7 +16,7 @@ export type SiteId = 'kpop' | 'anime' | 'hub';
 /** Every SiteId, in the network's display order (kpop, anime, hub). */
 export const SITE_IDS: readonly SiteId[] = ['kpop', 'anime', 'hub'];
 
-/** A world is a fan site with quizzes; the hub is fandomverse.org (network page and passport). */
+/** A world is a fan site with quizzes; the hub is bunnyverse.org (network page and passport). */
 export type SiteKind = 'world' | 'hub';
 
 /** One letter per site, used by `via` codes (`^[kaf]\.[a-z]{2,8}$`) and NetBridgeId values. */
@@ -24,12 +24,12 @@ export type SiteLetter = 'k' | 'a' | 'f';
 
 /** The network umbrella (naming.md: lib/network and the Net prefix). */
 export interface NetworkConfig {
-  readonly name: 'FandomVerse';
-  readonly url: 'https://fandomverse.org';
+  readonly name: 'Bunnyverse';
+  readonly url: 'https://bunnyverse.org';
 }
 
 export interface SiteBrand {
-  /** Display name, as written in titles and JSON-LD (KpopQuiz, OtakuQuiz, FandomVerse). */
+  /** Display name, as written in titles and JSON-LD (KpopQuiz, OtakuQuiz, Bunnyverse). */
   readonly name: string;
   /** Short name for the web manifest and tight spaces. */
   readonly shortName: string;
@@ -133,6 +133,8 @@ export interface SiteFeatures {
   readonly passportPages: boolean;
   /** Optional network directory of the hub (/directory, noindex). */
   readonly directory: boolean;
+  /** The daily guessing games of the hub (Kpopdle, Otakudle; lib/dle). Off everywhere until step 4 of the daily games. */
+  readonly dailyGuess: boolean;
 }
 
 export type FeatureKey = keyof SiteFeatures;
@@ -302,7 +304,7 @@ export interface SiteConfig {
   readonly kind: SiteKind;
   /**
    * Absolute origin without a trailing slash, e.g. 'https://kpopquiz.org'; for a site in a sub-folder of another site's domain,
-   * the origin and the folder, e.g. 'https://fandomverse.org/anime' (its build's basePath: registry.ts basePathOf).
+   * the origin and the folder, e.g. 'https://bunnyverse.org/anime' (its build's basePath: registry.ts basePathOf).
    */
   readonly url: string;
   /** Bare host name, e.g. 'kpopquiz.org'. */

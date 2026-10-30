@@ -16,7 +16,7 @@ import type { SignInWords } from '@/lib/passport-ui/words';
 // Run O1, lot (b), P1 (rule 18): the sign-in sheet of a world site (anime, hub). It says the site's words. The shared sheet
 // (ux-v1/sign-in-sheet) loads this file on the first open when the build is a world site; a kpop build never imports it, so the
 // kpop client graph is the base one.
-// FandomVerse (owner, 2026-10-28): Google and Discord only, started on the server of the build (/auth/start, its basePath
+// Bunnyverse (owner, 2026-10-28): Google and Discord only, started on the server of the build (/auth/start, its basePath
 // included), which sends the provider back to the build's exact /auth/callback; no email field.
 
 const WORLD: SignInWords | undefined = signInWords(SITE_ID);

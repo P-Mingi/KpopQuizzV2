@@ -1,6 +1,6 @@
 // Run O1, lot (b), lane P1: the browser side of signing in on a world site (anime, hub). kpop never imports this module.
 //
-// FandomVerse (owner, 2026-10-28): fandomverse.org (hub) and fandomverse.org/anime sign in with Google and Discord only, both
+// Bunnyverse (owner, 2026-10-28): bunnyverse.org (hub) and bunnyverse.org/anime sign in with Google and Discord only, both
 // through Supabase's OAuth redirect with the same Google client as kpopquiz.org, no Google Identity Services, no email. The
 // browser goes to /auth/start of its build (signInWithProvider); the server keeps the return path and the tab's via in an
 // HttpOnly cookie and sends the provider back to the exact /auth/callback of the build (lib/passport/signin.ts), which stamps
@@ -33,7 +33,7 @@ export function emailRedirect(origin: string, landing: string, next: string): st
 }
 
 // ---------------------------------------------------------------------------------------------------------------
-// FandomVerse: Google and Discord, started on the server of the build (GET /auth/start)
+// Bunnyverse: Google and Discord, started on the server of the build (GET /auth/start)
 // ---------------------------------------------------------------------------------------------------------------
 
 /** The two providers of a world site (registry auth.providers of anime and hub). */

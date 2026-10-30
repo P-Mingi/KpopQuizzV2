@@ -1,5 +1,5 @@
 // Run O1 (OSHI): where the oshi shows and where it never does. It shows on the fan's OtakuQuiz profile (the oshi slot of the anime
-// profile) and nowhere else: not in HubShares, not on fandomverse.org, not on kpopquiz.org, not in any cross-site payload.
+// profile) and nowhere else: not in HubShares, not on bunnyverse.org, not on kpopquiz.org, not in any cross-site payload.
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { join, relative } from 'node:path';
@@ -74,7 +74,7 @@ describe('the oshi is absent everywhere else', () => {
     for (const k of [...SHARES_SEES, ...SHARES_HIDES]) expect(ht(k)).not.toMatch(/oshi|favourite|character|\btag\b/i);
   });
 
-  it('fandomverse.org: no string of the hub copy speaks of an oshi', () => {
+  it('bunnyverse.org: no string of the hub copy speaks of an oshi', () => {
     expect(Object.values(H1).filter((v) => /oshi/i.test(v))).toEqual([]);
   });
 

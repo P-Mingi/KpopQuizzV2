@@ -44,7 +44,7 @@ const TITLE_PLACEHOLDER = 'e.g. Only real ITZY stans can pass this';
 const MIN_QUESTIONS = 3; // I1: publish floor lowered 5 -> 3 (matches /api/quiz/create + the DB constraint)
 const MIN_TITLE = 5;
 const RESUME_RETURN = '/create?resume=publish';
-// FandomVerse (owner, 2026-10-28): on a world build (the anime /create) sign-in is Google and Discord only, started on the
+// Bunnyverse (owner, 2026-10-28): on a world build (the anime /create) sign-in is Google and Discord only, started on the
 // server of the build (/auth/start, its basePath included). The test is the build-time constant, so the kpop bundle imports nothing new.
 const IS_WORLD_BUILD = (process.env.NEXT_PUBLIC_SITE_ID || 'kpop') !== 'kpop';
 

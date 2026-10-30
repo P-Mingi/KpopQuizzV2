@@ -1,5 +1,5 @@
-// FandomVerse (owner, 2026-10-28; docs/launch/o1/ARCHITECTURE-FANDOMVERSE.md): the next.config.ts parts of the two sites of
-// fandomverse.org. The hub (Vercel project `fandomverse`) is the default application of a Vercel Microfrontends group and OtakuQuiz
+// Bunnyverse (owner, 2026-10-28; docs/launch/o1/ARCHITECTURE-BUNNYVERSE.md): the next.config.ts parts of the two sites of
+// bunnyverse.org. The hub (Vercel project `fandomverse`) is the default application of a Vercel Microfrontends group and OtakuQuiz
 // (project `otakuquiz`) its child, built with `basePath: '/anime'`; kpopquiz.org (project `kpopquiz`) is in no group and gets
 // none of this (next.config.ts returns its config untouched).
 //
@@ -23,7 +23,7 @@ export interface ZoneHeaderRule {
   readonly headers: readonly { readonly key: string; readonly value: string }[];
 }
 
-/** The canonical host of a site: the host of its url (fandomverse.org for the hub and for OtakuQuiz in /anime). */
+/** The canonical host of a site: the host of its url (bunnyverse.org for the hub and for OtakuQuiz in /anime). */
 export function canonicalHost(site: SiteConfig): string {
   return originOf(site.url).replace(/^https?:\/\//, '').replace(/:\d+$/, '');
 }
@@ -37,12 +37,12 @@ export function canonicalHost(site: SiteConfig): string {
 export const VERCEL_APP_HOST = '.+\\.vercel\\.app';
 
 /**
- * X-Robots-Tag noindex, nofollow on the addresses of a hub or anime deployment that are not fandomverse.org, and only those:
+ * X-Robots-Tag noindex, nofollow on the addresses of a hub or anime deployment that are not bunnyverse.org, and only those:
  *   - a production build (VERCEL_ENV production, or a local build without VERCEL_ENV): on a `*.vercel.app` host only. Any other
- *     host (fandomverse.org, and any domain the owner adds later) answers what the page says;
+ *     host (bunnyverse.org, and any domain the owner adds later) answers what the page says;
  *   - a preview or development build (VERCEL_ENV preview or development): on every host, a branch domain included, since nothing
  *     of a preview is ever meant for search engines.
- * Never "every host but fandomverse.org": that rule would also close any future legitimate host. A header rule is matched per
+ * Never "every host but bunnyverse.org": that rule would also close any future legitimate host. A header rule is matched per
  * request by the host it was asked on, so a page cached for every host still answers with the right header (the meta of a
  * production page cannot: it is built once). Added whether the site is open or not: while it is closed the closed rule of
  * next.config.ts already says the same on every host.
@@ -89,7 +89,7 @@ export const CRON_ROUTE_RE = /^\/api\/(?:[a-z0-9-]+\/)?cron\/[a-z0-9-]+$/;
 /**
  * vercel.json is shared by the three projects, so its cron paths (/api/cron/...) carry no base path, and a build with one answers
  * them 404 (Next serves nothing outside its base path, and refuses an internal rewrite from outside it). On such a build each cron
- * path of vercel.json is proxied to the same route of the site's own public URL (https://fandomverse.org/anime/api/cron/...), which
+ * path of vercel.json is proxied to the same route of the site's own public URL (https://bunnyverse.org/anime/api/cron/...), which
  * the Microfrontends group routes back to this project (/anime/:path*); the route checks CRON_SECRET as it always does. The proxy
  * forwards the request with its headers, so the cron's `Authorization: Bearer <CRON_SECRET>` reaches the route (zones.test.ts).
  * Every destination is the site url followed by a cron route (CRON_ROUTE_RE), so a cron of this project never lands outside its base

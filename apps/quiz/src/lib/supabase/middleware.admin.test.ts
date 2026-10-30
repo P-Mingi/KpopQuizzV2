@@ -11,7 +11,7 @@ import { SITE_ID } from '@/lib/site/registry';
 
 import { updateSession } from './middleware';
 
-// FandomVerse (owner, 2026-10-28): the anime build is served under the basePath '/anime', so on that build (a per-site run
+// Bunnyverse (owner, 2026-10-28): the anime build is served under the basePath '/anime', so on that build (a per-site run
 // with NEXT_PUBLIC_SITE_ID=anime) its login page is /anime/login; on every other build it is /login, as before.
 const LOGIN = SITE_ID === 'anime' ? '/anime/login' : '/login';
 

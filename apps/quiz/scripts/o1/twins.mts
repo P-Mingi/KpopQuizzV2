@@ -1,5 +1,5 @@
-// Run O1, rule 18 (owner, 16 October 2026): OtakuQuiz and FandomVerse are kpopquiz.org re-skinned, not a new design.
-// Every anime and FandomVerse page imports the shared components of its kpop twin and never forks, copies or rewrites them.
+// Run O1, rule 18 (owner, 16 October 2026): OtakuQuiz and Bunnyverse are kpopquiz.org re-skinned, not a new design.
+// Every anime and Bunnyverse page imports the shared components of its kpop twin and never forks, copies or rewrites them.
 //
 //   tsx apps/quiz/scripts/o1/twins.mts --root <worktree> --twins <twins.json> [--json <out.json>]
 //

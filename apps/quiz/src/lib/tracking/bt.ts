@@ -26,7 +26,7 @@ import { BT_TRACKING, BT_TRACK_ENDPOINT, UUID_RE, btSourceFor, buildBtPayload } 
 
 import type { BtRunEvent, BtRunSource } from './bt-shared';
 
-// FandomVerse: the address the browser posts to, beacon and fetch alike. BT_TRACK_ENDPOINT is the site path the route answers;
+// Bunnyverse: the address the browser posts to, beacon and fetch alike. BT_TRACK_ENDPOINT is the site path the route answers;
 // the anime build serves it under its base path ('/anime/api/track/bt-run'), kpop and the hub at the root (the same string).
 const ENDPOINT = BASE_PATH ? BASE_PATH + BT_TRACK_ENDPOINT : BT_TRACK_ENDPOINT;
 

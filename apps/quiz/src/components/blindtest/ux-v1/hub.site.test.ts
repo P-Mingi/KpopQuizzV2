@@ -50,8 +50,8 @@ describe('BlindtestHubV11', () => {
       expect(html).not.toContain('/live');
       expect(html).not.toContain('/guess-the-kpop-song');
       // The home of the trail is the site's home as Next serves it, without the trailing slash (a 308): joinSiteUrl.
-      expect(html).toContain('{"@type":"ListItem","position":1,"name":"Home","item":"https://fandomverse.org/anime"}');
-      expect(html).not.toContain('https://fandomverse.org/anime/"');
+      expect(html).toContain('{"@type":"ListItem","position":1,"name":"Home","item":"https://bunnyverse.org/anime"}');
+      expect(html).not.toContain('https://bunnyverse.org/anime/"');
     });
   }
 });

@@ -178,17 +178,17 @@ describe('point 2: the controller', () => {
 
 // Point 3: the three sites by name, origins from the registry.
 describe('point 3: the three sites', () => {
-  it('names KpopQuiz, OtakuQuiz and FandomVerse with their domains, from the registry', async () => {
+  it('names KpopQuiz, OtakuQuiz and Bunnyverse with their domains, from the registry', async () => {
     const { text } = await render();
     const names = SITE_IDS.map((id) => `${REGISTRY[id].brand.name} (${siteAddress(REGISTRY[id])})`);
-    expect(names).toEqual(['KpopQuiz (kpopquiz.org)', 'OtakuQuiz (fandomverse.org/anime)', 'FandomVerse (fandomverse.org)']);
+    expect(names).toEqual(['KpopQuiz (kpopquiz.org)', 'OtakuQuiz (bunnyverse.org/anime)', 'Bunnyverse (bunnyverse.org)']);
     expect(text).toContain(`three fan quiz sites: ${names[0]}, ${names[1]} and ${names[2]}.`);
   });
 });
 
 // Point 4: sign-in methods.
 describe('point 4: how you sign in, per site, from the registry', () => {
-  // FandomVerse (owner, 2026-10-28, reverses D-099): anime and the hub sign in with Google or Discord, no email link. Their
+  // Bunnyverse (owner, 2026-10-28, reverses D-099): anime and the hub sign in with Google or Discord, no email link. Their
   // names come from the registry (lane 2 owns them).
   it('KpopQuiz: Google, Discord, email link; anime and the hub: Google or Discord', async () => {
     const items = signInItems();
@@ -293,7 +293,7 @@ describe('points 9 and 10: the cookies of cookies.md and the page match', () => 
   it('every cookie the page lists is in cookies.md', async () => {
     const known = new Set(contractNames());
     const listed = LIST.map((k) => pageName(COPY[k]));
-    // FandomVerse (2026-10-28): the sign-in return cookie __Host-fv_oauth joins the list.
+    // Bunnyverse (2026-10-28): the sign-in return cookie __Host-fv_oauth joins the list.
     expect(listed).toHaveLength(12);
     for (const n of listed) expect(known.has(n), `${n} is not in cookies.md`).toBe(true);
     expect(new Set(listed).size).toBe(listed.length);
@@ -313,7 +313,7 @@ describe('point 11: services and hosting', () => {
     expect(text).toContain('Resend: sending the sign-in emails of KpopQuiz');
     expect(text).toContain('Supabase in Ireland and Vercel servers in Dublin');
     expect(text).toContain('standard contractual clauses of the European Commission');
-    // 2026-10-28: Discord signs in on the three sites, the email link is KpopQuiz's only (fandomverse.org: Google and Discord).
+    // 2026-10-28: Discord signs in on the three sites, the email link is KpopQuiz's only (bunnyverse.org: Google and Discord).
     expect(text).toContain('Discord: sign-in, if you choose it');
     expect(text).toContain('We do not sell your data.');
   });
@@ -409,8 +409,8 @@ describe('the wiring', () => {
   });
 });
 
-// FandomVerse (owner, 2026-10-28): the hub and /anime share fandomverse.org and its session; kpopquiz.org stays apart with the ticket.
-describe('FandomVerse cookies: one address for the hub and /anime', () => {
+// Bunnyverse (owner, 2026-10-28): the hub and /anime share bunnyverse.org and its session; kpopquiz.org stays apart with the ticket.
+describe('Bunnyverse cookies: one address for the hub and /anime', () => {
   it('the session, the theme and the ticket cookie say what is shared and what is not', async () => {
     const { fillHub } = await import('./copy');
     const c1 = fillHub(COPY['privacy.cookies.c1']);
@@ -425,14 +425,15 @@ describe('FandomVerse cookies: one address for the hub and /anime', () => {
     const { fillHub } = await import('./copy');
     const { OAUTH_RETURN_SECONDS } = await import('@/lib/auth/oauth-return');
     expect(fillHub('{oauthMinutes}')).toBe(String(OAUTH_RETURN_SECONDS / 60));
-    expect(fillHub(COPY['privacy.cookies.c8'])).toMatch(/^__Host-fv_oauth: only on fandomverse\.org, set for at most 10 minutes/);
+    expect(fillHub(COPY['privacy.cookies.c8'])).toMatch(/^__Host-fv_oauth: only on bunnyverse\.org, set for at most 10 minutes/);
   });
 
   it('the page says when its text last changed, draft or live', async () => {
     const { fillHub, PRIVACY_REVISED } = await import('./copy');
-    expect(PRIVACY_REVISED).toBe('2026-10-28');
-    expect(fillHub(COPY['privacy.revised'])).toBe('Last updated on 28 October 2026.');
+    // 2026-10-29: the policy now names Bunnyverse and bunnyverse.org (filled from the registry), so the date moved with it.
+    expect(PRIVACY_REVISED).toBe('2026-10-29');
+    expect(fillHub(COPY['privacy.revised'])).toBe('Last updated on 29 October 2026.');
     const { text } = await render();
-    expect(text).toContain('Last updated on 28 October 2026.');
+    expect(text).toContain('Last updated on 29 October 2026.');
   });
 });

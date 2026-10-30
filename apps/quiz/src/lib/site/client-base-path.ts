@@ -1,4 +1,4 @@
-// FandomVerse (docs/launch/o1/ARCHITECTURE-FANDOMVERSE.md, section 2): the base path of this build for a module that can reach a
+// Bunnyverse (docs/launch/o1/ARCHITECTURE-BUNNYVERSE.md, section 2): the base path of this build for a module that can reach a
 // client bundle, which must not import lib/site/base-path.ts (that one is for server code). It is the constant Next inlines
 // from next.config.ts `basePath` in every bundle: '' on the kpop and hub builds, where the minifier folds it away (today's
 // code), '/anime' on the anime build. Unit tests run outside Next: there it is '' (the kpop answer).

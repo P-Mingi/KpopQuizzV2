@@ -11,7 +11,7 @@ export const VERCEL_SITES = {
 // kpop has no /auth/confirm: the link is the anime one and its `next` is the passport jump to kpop, which signs the user in there.
 export const KPOP_JUMP = '/auth/passport/out?to=kpop&next=/';
 
-// FandomVerse (owner, 2026-10-28): the anime build is served under the basePath '/anime', so its routes are below /anime.
+// Bunnyverse (owner, 2026-10-28): the anime build is served under the basePath '/anime', so its routes are below /anime.
 // /auth/confirm of the hub and anime answers only on a preview that sets AUTH_FIXTURE_CONFIRM=1 (docs/launch/o1/ENV.md 1.6).
 export const BASE_PATHS = { kpop: '', anime: '/anime', hub: '' };
 

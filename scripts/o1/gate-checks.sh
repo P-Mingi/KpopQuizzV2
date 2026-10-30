@@ -21,7 +21,7 @@
 #   anime and hub: check:metadata-dupes keeps the path of any loc, so it runs on the gate build of a wired site with
 #     a sitemap.xml route (offline today: the static pages; the dev branch after G1: the fixture rows too).
 #     check:indexability, orphans and sitemap-hygiene hardcode kpopquiz.org and the kpop catalogue (toLocal rewrites
-#     only that origin, so a fandomverse.org/anime loc would be fetched from the internet): skipped with that reason.
+#     only that origin, so a bunnyverse.org/anime loc would be fetched from the internet): skipped with that reason.
 #     The scripts are run unchanged from the harness checkout through their *_BASE_URL overrides (RATCHET LAW).
 #   check:site-scope: B2's static lint, on the head source, when apps/quiz/scripts/o1/check-site-scope.mts exists.
 #   network-links: check-network-links.mts on every served site (an unwired anime or hub build is left out: it serves

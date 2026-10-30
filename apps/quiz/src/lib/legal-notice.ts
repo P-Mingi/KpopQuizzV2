@@ -2,7 +2,7 @@
 // its publication director and its host. One place for the text and for the facts the owner still has to give: a
 // [BRACKETED] line below is written once. While one is left the page says noindex and stays out of the sitemap.
 // Publisher (owner, 2026-10-25): the register names Louis Pecchia, entrepreneur individuel; no trade register line (an EI is not in it).
-// (The same notice is on OtakuQuiz and FandomVerse in the run O1 tree, which reads these strings from its copy file.)
+// (The same notice is on OtakuQuiz and Bunnyverse in the run O1 tree, which reads these strings from its copy file.)
 
 export const LEGAL = {
   site: 'KpopQuiz',

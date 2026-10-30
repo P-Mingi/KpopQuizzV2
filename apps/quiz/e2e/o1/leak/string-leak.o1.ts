@@ -2,7 +2,7 @@
 // page, no anime marker on a kpop page, read on the text layer of the anonymous server HTML: visible text, content
 // attributes, title, text metas, JSON-LD and the page data (React Flight copy, module rows and asset paths left out).
 // The links the allowlist admits (the /about lines) are dropped first. Markers: leak/string-markers.json.
-// The signed-in half of P2 (a fixture user with a K-pop bias, groups, header and bio, seen on fandomverse.org/anime) needs
+// The signed-in half of P2 (a fixture user with a K-pop bias, groups, header and bio, seen on bunnyverse.org/anime) needs
 // the dev branch and the fixture users: content-leak.o1.ts holds it.
 import path from 'node:path';
 

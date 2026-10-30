@@ -59,6 +59,28 @@ describe('rankFans', () => {
     expect(rankFans({ ...base, stamps, weekXp }).map((f) => f.handle)).toEqual(['sunbae']);
   });
 
+  it('with a site (home v3): that site\'s board only, ranked by its XP of the week, with the level of that site', () => {
+    const stamps = [stamp(1, 'kpop'), stamp(1, 'anime', 250), stamp(2, 'kpop'), stamp(3, 'anime', 100)];
+    const weekXp = new Map([[`${U(1)}:kpop`, 20], [`${U(1)}:anime`, 25], [`${U(2)}:kpop`, 45], [`${U(3)}:anime`, 40]]);
+    // both sites together, sunbae leads (20 + 25 = 45, tie with tteok broken by the handle)
+    expect(rankFans({ ...base, stamps, weekXp }).map((f) => f.handle)).toEqual(['sunbae', 'tteok', 'kenjiro']);
+    const kpop = rankFans({ ...base, stamps, weekXp }, 'kpop');
+    // on the K-pop board only the K-pop XP of the week counts: tteok 45, sunbae 20; kenjiro has no K-pop stamp
+    expect(kpop.map((f) => [f.handle, f.rank])).toEqual([['tteok', 1], ['sunbae', 2]]);
+    expect(kpop.every((f) => f.kpop && !f.anime)).toBe(true);
+    // sunbae made the level public: on the K-pop board it is the level of the K-pop XP (the profile), not the passport's
+    expect(kpop.find((f) => f.handle === 'sunbae')!.level).toBe(getLevelInfo(400, 'kpop').level);
+    expect(kpop.find((f) => f.handle === 'tteok')!.level).toBeNull();
+    const anime = rankFans({ ...base, stamps, weekXp }, 'anime');
+    expect(anime.map((f) => [f.handle, f.rank])).toEqual([['kenjiro', 1], ['sunbae', 2]]);
+    // on the anime board: the XP of the membership, and the anime ladder
+    expect(anime.find((f) => f.handle === 'sunbae')!.level).toBe(getLevelInfo(250, 'anime').level);
+    expect(anime.find((f) => f.handle === 'kenjiro')!.level).toBe(getLevelInfo(100, 'anime').level);
+    expect(anime.every((f) => f.anime && !f.kpop)).toBe(true);
+    // a fan with no XP this week on that site is not on its board
+    expect(rankFans({ ...base, stamps, weekXp: new Map([[`${U(1)}:anime`, 5]]) }, 'kpop')).toEqual([]);
+  });
+
   it('keeps five fans at most', () => {
     const profiles = new Map(Array.from({ length: 8 }, (_, i) => [U(i + 10), profile(i + 10, `fan${i}`, 10)] as const));
     const stamps = Array.from({ length: 8 }, (_, i) => stamp(i + 10, 'kpop'));

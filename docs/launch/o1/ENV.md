@@ -1,12 +1,12 @@
-# Environment variables (run O1, FandomVerse)
+# Environment variables (run O1, Bunnyverse)
 
 Three Vercel projects serve the network from the same repository (`apps/quiz`):
 - **kpopquiz**: kpopquiz.org (site `kpop`), exists today, stays as it is.
-- **fandomverse**: the FandomVerse hub (site `hub`) at `https://fandomverse.org`. Renamed from `fanquiz` on 2026-10-28. It alone carries the domain.
-- **otakuquiz**: OtakuQuiz (site `anime`) at `https://fandomverse.org/anime`, reached through the Microfrontends group `fandomverse` (RUNBOOK H7). No domain of its own.
+- **fandomverse**: the Bunnyverse hub (site `hub`) at `https://bunnyverse.org`. Renamed from `fanquiz` on 2026-10-28. It alone carries the domain.
+- **otakuquiz**: OtakuQuiz (site `anime`) at `https://bunnyverse.org/anime`, reached through the Microfrontends group `fandomverse` (RUNBOOK H7). No domain of its own.
 
 One Supabase project serves all three. Sources: `docs/o1/contracts/flags-env.md`, the registry (`apps/quiz/src/lib/site/registry.ts`), and a grep of `process.env` in `apps/quiz/src`.
-Variables that the sub-folder layout itself may add are listed by the code lanes in ARCHITECTURE-FANDOMVERSE.md (this folder, once merged); none is assumed here.
+Variables that the sub-folder layout itself may add are listed by the code lanes in ARCHITECTURE-BUNNYVERSE.md (this folder, once merged); none is assumed here.
 Values are never written in the repo, a log, a commit or the chat.
 
 Legend for "value source" and "state":
@@ -44,7 +44,7 @@ Public variables (`NEXT_PUBLIC_*`) are baked in at build: changing one needs a r
 | `NEXT_PUBLIC_NET_MENU` | `1`, L3 step 2 | `1` | `1` | `1`. Visible on kpopquiz.org. |
 | `NEXT_PUBLIC_NET_BEACON` | `1`, L3 step 3 | `1` | `1` | `1`. Counts clicks between sites (aggregate counters only, no identifier). |
 | `NEXT_PUBLIC_NET_FACTS` | `1` later | not used | `1` later | `1`, only when L11 (X1) has been applied (after launch). |
-| `NET_INDEXING` | ignored (kpop is never closed) | `1`, owner, RUNBOOK K10, last step of launch day | `1`, K10 | Server flag, read at build. Unset: every page of the hub and `/anime` answers `noindex, nofollow` (meta tag and `X-Robots-Tag` header, except `robots.txt` and `sitemap.xml`). `1`: the only `X-Robots-Tag: noindex, nofollow` rule left is the one for `*.vercel.app` hosts, and a preview deployment stays noindex whatever the value (meta and header); on fandomverse.org no header is added and each page speaks for itself (`/settings`, `/me`, `/admin`, login, search, profiles keep their own noindex meta). Redeploy after changing it; RUNBOOK K9b and K10 check it. |
+| `NET_INDEXING` | ignored (kpop is never closed) | `1`, owner, RUNBOOK K10, last step of launch day | `1`, K10 | Server flag, read at build. Unset: every page of the hub and `/anime` answers `noindex, nofollow` (meta tag and `X-Robots-Tag` header, except `robots.txt` and `sitemap.xml`). `1`: the only `X-Robots-Tag: noindex, nofollow` rule left is the one for `*.vercel.app` hosts, and a preview deployment stays noindex whatever the value (meta and header); on bunnyverse.org no header is added and each page speaks for itself (`/settings`, `/me`, `/admin`, login, search, profiles keep their own noindex meta). Redeploy after changing it; RUNBOOK K9b and K10 check it. |
 | `NET_LAUNCH_DATE` | ignored | `YYYY-MM-DD`, the launch date, owner, K10, before `NET_INDEXING` | the same date, K10 | Server value, read at build (`apps/quiz/src/lib/site/indexing.ts`): the network privacy policy prints "In force since <date>". With `NET_INDEXING=1` and no valid date the build fails with a message naming it, so set it first. |
 | `NEXT_PUBLIC_NET_PRIVACY` | `1`, owner, RUNBOOK L3b | always on (no effect) | always on (no effect) | Public, read at build: redeploy kpopquiz after setting it. Off: kpopquiz.org as today. |
 | `NEXT_PUBLIC_NET_DELETION` | `1`, owner, RUNBOOK L3b, after SQL 18b, 016 and 19b (017) are applied and the `passport-deletions` cron runs on `fandomverse` | ignored | ignored | Public, read at build: KpopQuiz Settings, "Delete account" starts the passport deletion (7 days, quizzes kept unless asked). Needs no Resend sender: with no Resend key the "deletion scheduled" email is skipped (logged without any address) and the request, the cancel and the deletion still run. Off: the part D contact-page text. |
@@ -60,14 +60,14 @@ Public variables (`NEXT_PUBLIC_*`) are baked in at build: changing one needs a r
 | `NET_IP_HASH_SALT` | the same, **same on the 3** | Salt for the hashed IP of rate limits and of the 90 day jump log. Changing it later only resets those limits. |
 
 If the three values differ, the jump fails with an invalid ticket. Check by length only (VERIFY V9); when Vercel hides the value (Sensitive), the jump test of RUNBOOK K7 is the check.
-The hub and `/anime` share one origin, so they share the session cookie directly; the ticket is only for the jump between kpopquiz.org and fandomverse.org.
+The hub and `/anime` share one origin, so they share the session cookie directly; the ticket is only for the jump between kpopquiz.org and bunnyverse.org.
 
 ### 1.4 Per site
 
 | variable | kpopquiz | fandomverse | otakuquiz | value source |
 |---|---|---|---|---|
-| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | leave unset | **do not set** | **do not set** | unread: fandomverse.org signs in through Supabase's Google redirect with the kpopquiz.org client (AUTH-FANDOMVERSE.md). |
-| `NEXT_PUBLIC_SITE_URL` | already (kpop override) | **never set** | **never set** | The hub and OtakuQuiz take their canonical origin from the registry (`https://fandomverse.org`, and `/anime` for OtakuQuiz). |
+| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | leave unset | **do not set** | **do not set** | unread: bunnyverse.org signs in through Supabase's Google redirect with the kpopquiz.org client (AUTH-BUNNYVERSE.md). |
+| `NEXT_PUBLIC_SITE_URL` | already (kpop override) | **never set** | **never set** | The hub and OtakuQuiz take their canonical origin from the registry (`https://bunnyverse.org`, and `/anime` for OtakuQuiz). |
 
 ### 1.5 kpopquiz only: already set, leave alone, do not copy to the new projects
 
@@ -97,42 +97,42 @@ anime blind test and `SPOTIFY_*` or `YOUTUBE_API_KEY`, O6 and Mission U part B).
 ### 1.7 IndexNow keys, mailboxes, Team addresses (no environment variable)
 
 An IndexNow key is a public value served as `/<key>.txt` at the root of a host, so it lives in the repository, not in a variable.
-fandomverse.org is one host for the hub and `/anime`, so one key serves both. Two keys were generated on 2026-10-23 for the old two domains; their files exist:
-`apps/quiz/public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` (was anime's) and `apps/quiz/public/339dab142e51883ae3a2c7e4737254e4.txt` (was the hub's). Each zone keeps its key (ARCHITECTURE-FANDOMVERSE.md): the hub's at the root, OtakuQuiz's under /anime, given to IndexNow as `keyLocation`.
+bunnyverse.org is one host for the hub and `/anime`, so one key serves both. Two keys were generated on 2026-10-23 for the old two domains; their files exist:
+`apps/quiz/public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` (was anime's) and `apps/quiz/public/339dab142e51883ae3a2c7e4737254e4.txt` (was the hub's). Each zone keeps its key (ARCHITECTURE-BUNNYVERSE.md): the hub's at the root, OtakuQuiz's under /anime, given to IndexNow as `keyLocation`.
 
 | host | key | registry field |
 |---|---|---|
 | kpopquiz.org | `apps/quiz/public/4b2f9a7ce8d1465fb0a3e6c95d47128a.txt` (as before) | `seo.indexNowKey` of `kpop` and `INDEXNOW_KEY` in `apps/quiz/src/lib/indexnow.ts` |
-| fandomverse.org (hub) | `apps/quiz/public/339dab142e51883ae3a2c7e4737254e4.txt`, served at `https://fandomverse.org/339dab142e51883ae3a2c7e4737254e4.txt` | `seo.indexNowKey` of `hub` |
-| fandomverse.org/anime | `apps/quiz/public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt`, served at `https://fandomverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` (pings send it as `keyLocation`, URLs under /anime only) | `seo.indexNowKey` of `anime` |
+| bunnyverse.org (hub) | `apps/quiz/public/339dab142e51883ae3a2c7e4737254e4.txt`, served at `https://bunnyverse.org/339dab142e51883ae3a2c7e4737254e4.txt` | `seo.indexNowKey` of `hub` |
+| bunnyverse.org/anime | `apps/quiz/public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt`, served at `https://bunnyverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` (pings send it as `keyLocation`, URLs under /anime only) | `seo.indexNowKey` of `anime` |
 
 Each key file is a static file in `public/`, which the three builds share. Each host must answer only its own key: the hub and anime builds block foreign key files in `apps/quiz/src/lib/site/routing.ts` (`keyFileBlocksFor`, inside `rewritesFor`); kpop needs the small patch of `next.config.ts` in `docs/o1/requests/L1.md` (request 1). RUNBOOK K10 checks it.
 The only IndexNow variable is `INDEXNOW_TRIGGER_TOKEN` (kpopquiz, 1.5).
 Organization mailbox (public value, `MAILBOX` in the registry, owner decision 2026-10-25): `hello@kpopquiz.org` for all three sites (`seo.organization.email`). It is the one routed mailbox (RUNBOOK H6).
-Team accounts: `<username>@team.fandomverse.org` (owner, 2026-10-28). That sub-domain must not receive mail: no MX record and no mailbox for `team.fandomverse.org`.
+Team accounts: `<username>@team.bunnyverse.org` (owner, 2026-10-28). That sub-domain must not receive mail: no MX record and no mailbox for `team.bunnyverse.org`.
 
 ## 2. Supabase
 
 ### 2.1 Edge Function `send-email` (lane B7, merged)
 
 Postponed (owner, 2026-10-25): Resend is not configured and the Send Email hook stays off at launch, so none of the variables below is needed at launch; sign-in emails use Supabase's default sender.
-fandomverse.org offers no email sign-in (owner, 2026-10-28): the hook would serve kpopquiz.org mail and the hub's deletion notice. Keep the table for later.
+bunnyverse.org offers no email sign-in (owner, 2026-10-28): the hook would serve kpopquiz.org mail and the hub's deletion notice. Keep the table for later.
 
 | variable | value source | notes |
 |---|---|---|
 | `SEND_EMAIL_HOOK_SECRET` | the secret Supabase shows when you create the Send Email hook (secret) | signature check of the hook; the function refuses unsigned calls |
 | `RESEND_API_KEY` | secret, from your Resend account (a key limited to sending) | sending the branded emails |
 | `SEND_EMAIL_FROM_KPOP` | the sender kpopquiz.org mail uses today (required) | the function refuses kpop mail without it, so a missing sender never sends from a wrong address |
-| `SEND_EMAIL_FROM_ANIME`, `SEND_EMAIL_FROM_HUB` | optional: set one only to send from another sender | unset, the function sends anime mail from `OtakuQuiz <no-reply@fandomverse.org>` and hub mail from `FandomVerse <no-reply@fandomverse.org>` (the built-in `<brand> <no-reply@<domain>>` of `supabase/functions/send-email/render.ts`, brands in `supabase/functions/send-email/brands.ts`); `fandomverse.org` must be verified in Resend either way (RUNBOOK I1) |
-| `SEND_EMAIL_ORIGINS` | **never in production** | staging projects only. Bare origins, like `NEXT_PUBLIC_NET_ORIGINS`: `anime=<fandomverse preview origin>,hub=<fandomverse preview origin>`; the `/anime` folder comes from the code and an entry with a path is ignored; hub and anime mails keep their own brand and colours on the shared origin (AUTH-FANDOMVERSE.md) |
+| `SEND_EMAIL_FROM_ANIME`, `SEND_EMAIL_FROM_HUB` | optional: set one only to send from another sender | unset, the function sends anime mail from `OtakuQuiz <no-reply@bunnyverse.org>` and hub mail from `Bunnyverse <no-reply@bunnyverse.org>` (the built-in `<brand> <no-reply@<domain>>` of `supabase/functions/send-email/render.ts`, brands in `supabase/functions/send-email/brands.ts`); `bunnyverse.org` must be verified in Resend either way (RUNBOOK I1) |
+| `SEND_EMAIL_ORIGINS` | **never in production** | staging projects only. Bare origins, like `NEXT_PUBLIC_NET_ORIGINS`: `anime=<fandomverse preview origin>,hub=<fandomverse preview origin>`; the `/anime` folder comes from the code and an entry with a path is ignored; hub and anime mails keep their own brand and colours on the shared origin (AUTH-BUNNYVERSE.md) |
 
-The deploy note is `docs/o1/b7/send-email-hook.md` (RUNBOOK section I). The `fandomverse` Vercel project may also take `RESEND_API_KEY` for the "your passport will be deleted" notice, later; it is not required: without it the notice is skipped (logged without any address) and the deletion still goes ahead. The notice goes from `FandomVerse <no-reply@fandomverse.org>` (`apps/quiz/src/lib/passport/email/notice.ts`); `SEND_EMAIL_FROM_HUB` on that project is optional, only to use another sender.
+The deploy note is `docs/o1/b7/send-email-hook.md` (RUNBOOK section I). The `fandomverse` Vercel project may also take `RESEND_API_KEY` for the "your passport will be deleted" notice, later; it is not required: without it the notice is skipped (logged without any address) and the deletion still goes ahead. The notice goes from `Bunnyverse <no-reply@bunnyverse.org>` (`apps/quiz/src/lib/passport/email/notice.ts`); `SEND_EMAIL_FROM_HUB` on that project is optional, only to use another sender.
 
 ### 2.2 Auth settings (dashboard, no variable)
 
-Site URL stays `https://kpopquiz.org`. Redirect URLs gain exactly `https://fandomverse.org/auth/callback` and `https://fandomverse.org/anime/auth/callback` (RUNBOOK H4), with no `*` and no `?`, never a wider `https://fandomverse.org/**` (AUTH-FANDOMVERSE.md: only the callbacks may receive a session); `https://otakuquiz.org/**` and `https://fanquiz.org/**` are not needed (remove them if you added them).
-Google provider: the kpopquiz.org client serves fandomverse.org too; nothing is added to its "Client IDs" list (RUNBOOK H5). Discord provider: as it is for kpopquiz.org; nothing is added.
-Email sign-in is not offered on fandomverse.org (code, lane 3); the email provider stays on for kpopquiz.org. The Send Email hook stays off (2.1).
+Site URL stays `https://kpopquiz.org`. Redirect URLs gain exactly `https://bunnyverse.org/auth/callback` and `https://bunnyverse.org/anime/auth/callback` (RUNBOOK H4), with no `*` and no `?`, never a wider `https://bunnyverse.org/**` (AUTH-BUNNYVERSE.md: only the callbacks may receive a session); `https://otakuquiz.org/**` and `https://fanquiz.org/**` are not needed (remove them if you added them).
+Google provider: the kpopquiz.org client serves bunnyverse.org too; nothing is added to its "Client IDs" list (RUNBOOK H5). Discord provider: as it is for kpopquiz.org; nothing is added.
+Email sign-in is not offered on bunnyverse.org (code, lane 3); the email provider stays on for kpopquiz.org. The Send Email hook stays off (2.1).
 The Data API's exposed schemas must **not** contain `passport` (006 revokes every grant, but the setting is the second wall).
 
 ## 3. Owner's shell only (not a project)
@@ -150,4 +150,4 @@ For each of the three projects (`kpopquiz`, `fandomverse`, `otakuquiz`), tick: p
 commands as `kpopquiz`, region `dub1` (from `apps/quiz/vercel.json`), Production branch `main`, the variables of 1.1 to 1.4 in Production, none of 1.6,
 Deployment Protection on for previews.
 For `fandomverse` and `otakuquiz`: both in the Microfrontends group `fandomverse`, `fandomverse` as default application (RUNBOOK H7).
-Domains: `fandomverse.org` and `www.fandomverse.org` (redirect to the apex) on `fandomverse` only, attached on launch day (RUNBOOK K6); `otakuquiz` never has a domain; `kpopquiz` keeps `kpopquiz.org`.
+Domains: `bunnyverse.org` and `www.bunnyverse.org` (redirect to the apex) on `fandomverse` only, attached on launch day (RUNBOOK K6); `otakuquiz` never has a domain; `kpopquiz` keeps `kpopquiz.org`.

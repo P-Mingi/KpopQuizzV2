@@ -18,8 +18,8 @@
 // that does not match). other_user answers 409 and has no event value (a new outcome is a CR, BACKLOG 5.2).
 // Logging never fails a request. A code, a verifier, a state, a ticket and an email are never logged or returned.
 //
-// FandomVerse (owner, 2026-10-28): kpop stays https://kpopquiz.org, the hub is https://fandomverse.org and anime
-// https://fandomverse.org/anime (basePath '/anime', the same origin as the hub). Every URL of a site is its origin and its
+// Bunnyverse (owner, 2026-10-28): kpop stays https://kpopquiz.org, the hub is https://bunnyverse.org and anime
+// https://bunnyverse.org/anime (basePath '/anime', the same origin as the hub). Every URL of a site is its origin and its
 // basePath (lib/auth/site-base.ts siteBase); `next` in a ticket and in the transaction cookie is an app path, and a Location
 // of this build carries the basePath. The hub and anime share one cookie jar, so between them there is nothing to hand
 // off: /auth/passport/out sends the visitor straight to the page, and arrive and authorize refuse a same-origin peer.

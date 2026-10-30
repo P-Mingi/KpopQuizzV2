@@ -9,7 +9,7 @@ import type { HomeQuiz, HomeSite } from './home-types';
 
 /**
  * The path (and query) of an absolute link of a module; a path stays as it is. With `site`, the folder of that site's registry url is
- * taken off too (OtakuQuiz lives at fandomverse.org/anime since 2026-10-28): homeUrl adds the site's url back, so the folder is never doubled.
+ * taken off too (OtakuQuiz lives at bunnyverse.org/anime since 2026-10-28): homeUrl adds the site's url back, so the folder is never doubled.
  */
 export function pathOf(href: string, site?: HomeSite): string {
   try {
@@ -19,6 +19,22 @@ export function pathOf(href: string, site?: HomeSite): string {
     return `${inFolder ? u.pathname.slice(folder.length) || '/' : u.pathname}${u.search}`;
   } catch {
     return href;
+  }
+}
+
+/**
+ * The link of a fact's source, only when it is an absolute https URL (SEO rules 3.8 and 5.5: the source link is visible beside the fact).
+ * The URL parser normalizes it (quotes, spaces and angle brackets come back percent-encoded); anything else (http, javascript:, a
+ * protocol-relative or relative path, an unparsable string) is null, and the loader then leaves the fact out.
+ */
+export function httpsUrl(raw: string | null | undefined): string | null {
+  const s = (raw ?? '').trim();
+  if (!/^https:\/\/[^/]/i.test(s)) return null;
+  try {
+    const u = new URL(s);
+    return u.protocol === 'https:' && u.hostname !== '' ? u.href : null;
+  } catch {
+    return null;
   }
 }
 
@@ -42,6 +58,8 @@ export function toHomeQuiz(card: HubQuizCard): HomeQuiz {
     ...(format ? { format } : {}),
     plays: card.plays,
     isNew: card.isNew,
+    // A card cached before the cover joined the shape has none.
+    cover: card.cover ?? null,
   };
 }
 

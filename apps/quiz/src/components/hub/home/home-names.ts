@@ -12,3 +12,6 @@ export function siteName(site: HomeSite): string {
 export function hubName(): string {
   return SITE.brand.name;
 }
+
+/** The fan's passport page on the hub (a route of the hub's registry map): the level chip and the passport card lead there. */
+export const PASSPORT_PATH = '/passport';

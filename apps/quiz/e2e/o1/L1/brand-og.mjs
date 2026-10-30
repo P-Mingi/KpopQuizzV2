@@ -31,7 +31,7 @@ const SITES = {
     pills: ['Series quizzes', 'Trivia', 'Openings', 'Which character are you', 'Daily quiz'],
   },
   hub: {
-    head: 'fandom', tail: 'verse',
+    head: 'bunny', tail: 'verse',
     line: 'One account for the fan quiz sites.',
     pills: ['Your passport', 'Your sites', 'Sign in once'],
   },

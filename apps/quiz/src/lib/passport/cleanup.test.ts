@@ -19,7 +19,7 @@ vi.mock('@/lib/supabase/server', () => ({
 
 import { handleCronCleanup } from './cleanup';
 
-const HUB = 'https://fandomverse.org'; // FandomVerse (owner, 2026-10-28): the hub moved from the old hub domain
+const HUB = 'https://bunnyverse.org'; // Bunnyverse (owner, 2026-10-28): the hub moved from the old hub domain
 const get = (auth?: string): Request => new Request(`${HUB}/api/cron/passport-cleanup`, { headers: auth ? { authorization: auth } : {} });
 const c = (site: 'kpop' | 'anime' | 'hub' = 'hub') => ({ site, secret: 'cron-secret' });
 

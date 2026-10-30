@@ -38,8 +38,8 @@ export const STORY_H = 1920;
 export const STORY_SQUARE_H = 1080;
 /**
  * The file name of a story image of `site`: its brand name in lower case, so a saved or shared picture says which site it comes
- * from (kpopquiz-story.png as before, otakuquiz-story.png, fandomverse-story.png; the first part of the domain named both sites
- * of fandomverse.org 'fandomverse'). components/quiz/ux-v1/story.ts names its photocard the same way.
+ * from (kpopquiz-story.png as before, otakuquiz-story.png, bunnyverse-story.png; the first part of the domain named both sites
+ * of bunnyverse.org 'bunnyverse'). components/quiz/ux-v1/story.ts names its photocard the same way.
  */
 export function storyFileName(kind: 'story' | 'square', site: Pick<SiteConfig, 'brand'> = SITE): string {
   return `${site.brand.name.toLowerCase()}-${kind}.png`;

@@ -1,4 +1,4 @@
-// Run O1, lot (e), lane B7: the sign-in emails of fandomverse.org/anime (copy-keys.md 3, namespace anime.b7). Placeholders {brand},
+// Run O1, lot (e), lane B7: the sign-in emails of bunnyverse.org/anime (copy-keys.md 3, namespace anime.b7). Placeholders {brand},
 // {network} and {domain} are filled by the renderer (lib/passport/email/render.ts) from the registry brand. The same keys and
 // values live in supabase/functions/send-email/copy/anime.ts, which runs outside Next; email.copy.test.ts keeps the two equal.
 export const COPY = {

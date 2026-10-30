@@ -1,5 +1,5 @@
 // Run O1 (PERS-2): the words of the pick offer under a result and the call to action of the story image come from the site. kpop keeps
-// today's strings; anime says oshi and fandomverse.org/anime. components/personality/quiz.tsx holds no kpop literal of its own any more.
+// today's strings; anime says oshi and bunnyverse.org/anime. components/personality/quiz.tsx holds no kpop literal of its own any more.
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
@@ -22,12 +22,12 @@ describe('pickOfferWords and playCta', () => {
     expect(playCta(siteAddress(kpop))).toBe('Play at kpopquiz.org');
   });
 
-  it('anime: oshi and fandomverse.org/anime', () => {
+  it('anime: oshi and bunnyverse.org/anime', () => {
     const o = pickOfferWords(anime.vocabulary.favourites.pickLabel);
     expect(o.tag).toBe('oshi tag');
     expect(o.button).toBe('Set as oshi');
     expect(o.doneToast('L')).toBe('Oshi tag set to L');
-    expect(playCta(siteAddress(anime))).toBe('Play at fandomverse.org/anime');
+    expect(playCta(siteAddress(anime))).toBe('Play at bunnyverse.org/anime');
   });
 
   it('the word of an offer never says bias on anime, and never says oshi on kpop', () => {

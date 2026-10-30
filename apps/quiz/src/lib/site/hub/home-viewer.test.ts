@@ -68,7 +68,17 @@ describe('buildHomeViewer', () => {
 
   it('shows a new fan at the start of the first level', () => {
     const v = buildHomeViewer(profile({ xp: 0, daily_streak: 0 }), [], NOW)!;
-    expect(v).toMatchObject({ level: 1, progress: 0, sitesJoined: 0, streaks: { kpop: 0, anime: 0 } });
+    expect(v).toMatchObject({ level: 1, progress: 0, sitesJoined: 0, streaks: { kpop: 0, anime: 0 }, sites: {} });
+  });
+
+  it('gives the level of each site joined (home v3): KpopQuiz from the xp of the profile, OtakuQuiz from its membership', () => {
+    const v = buildHomeViewer(profile(), [kpopRow, animeRow()], NOW)!;
+    const k = getLevelInfo(1200, 'kpop');
+    const a = getLevelInfo(300, 'anime');
+    expect(v.sites).toEqual({ kpop: { level: k.level, progress: k.progress }, anime: { level: a.level, progress: a.progress } });
+    // a site not joined, or banned, has no level on the home
+    expect(buildHomeViewer(profile(), [kpopRow], NOW)!.sites).toEqual({ kpop: { level: k.level, progress: k.progress } });
+    expect(buildHomeViewer(profile(), [kpopRow, animeRow({ banned_at: '2026-10-20T00:00:00Z' })], NOW)!.sites.anime).toBeUndefined();
   });
 });
 

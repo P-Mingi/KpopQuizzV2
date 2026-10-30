@@ -1,5 +1,5 @@
-// FandomVerse (owner, 2026-10-28; docs/launch/o1/ARCHITECTURE-FANDOMVERSE.md): one domain, sub-folders. https://fandomverse.org
-// is the hub and https://fandomverse.org/anime is OtakuQuiz, a Next.js build with `basePath: '/anime'` that Vercel Microfrontends
+// Bunnyverse (owner, 2026-10-28; docs/launch/o1/ARCHITECTURE-BUNNYVERSE.md): one domain, sub-folders. https://bunnyverse.org
+// is the hub and https://bunnyverse.org/anime is OtakuQuiz, a Next.js build with `basePath: '/anime'` that Vercel Microfrontends
 // serves on the hub's domain. The registry `url` of a site is its canonical base URL; its path is the site's base path ('' for
 // kpop and hub), read by `basePathOf` below, so there is no second list to keep in sync. Not in registry.ts on purpose: that
 // module is in kpopquiz.org's client bundle, and nothing of this belongs there.
@@ -26,7 +26,7 @@ function siteUrlParts(url: string): { origin: string; path: string } {
   return { origin: m[1]!, path: m[2] ?? '' };
 }
 
-/** The base path of a site url: '' for a site at the root of its domain, '/anime' for https://fandomverse.org/anime. */
+/** The base path of a site url: '' for a site at the root of its domain, '/anime' for https://bunnyverse.org/anime. */
 export function basePathOf(url: string): string {
   return siteUrlParts(url).path;
 }
@@ -39,7 +39,7 @@ export function originOf(url: string): string {
 /**
  * The base URL of `id` on this deployment, the prefix of every address of the site: the origin of netOrigin (registry.ts: the
  * NEXT_PUBLIC_NET_ORIGINS override outside production, else the registry url) and the base path of the registry url
- * (https://fandomverse.org/anime; with `anime=http://localhost:3024`, http://localhost:3024/anime). An override stays a bare
+ * (https://bunnyverse.org/anime; with `anime=http://localhost:3024`, http://localhost:3024/anime). An override stays a bare
  * origin (flags-env.md 4): the sub-folder always comes from the registry. `netBase(id, env) + path` is a page of the site.
  */
 export function netBase(id: SiteId, env: NetOriginEnv): string {
@@ -48,7 +48,7 @@ export function netBase(id: SiteId, env: NetOriginEnv): string {
 
 /**
  * The sites served in a sub-folder of `site`'s domain (the zones of a Vercel Microfrontends group whose default application is
- * `site`): same origin, a base path. The hub of fandomverse.org has OtakuQuiz (/anime); a site in a sub-folder, and kpopquiz.org,
+ * `site`): same origin, a base path. The hub of bunnyverse.org has OtakuQuiz (/anime); a site in a sub-folder, and kpopquiz.org,
  * have none. Read from the registry urls only.
  */
 export function zoneChildrenOf(site: SiteConfig, registry: Readonly<Record<string, SiteConfig>> = REGISTRY): SiteConfig[] {
@@ -59,7 +59,7 @@ export function zoneChildrenOf(site: SiteConfig, registry: Readonly<Record<strin
 
 /**
  * The absolute URL of a site path: `base` is a site url (maybe with a sub-folder), `path` starts with '/'. The home of a site in
- * a sub-folder has no trailing slash (https://fandomverse.org/anime, the URL Next serves; with the slash it is a 308), the home of a
+ * a sub-folder has no trailing slash (https://bunnyverse.org/anime, the URL Next serves; with the slash it is a 308), the home of a
  * site at the root keeps it (https://kpopquiz.org/, today's bytes). A query or a fragment on the home stays on the base.
  */
 export function joinSiteUrl(base: string, path: string): string {

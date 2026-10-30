@@ -1,4 +1,4 @@
-// FandomVerse (review of 2026-10-28, finding 8): on the anime build every page lives under /anime, so a picture of a site path in a
+// Bunnyverse (review of 2026-10-28, finding 8): on the anime build every page lives under /anime, so a picture of a site path in a
 // feed card (the site's own avatar, a public/idols cover, a photo) is requested under /anime; an absolute URL stays as it is and
 // kpop and the hub (no base path) render what they rendered before. The base path is the constant Next inlines, stubbed here.
 import { afterEach, describe, expect, it, vi } from 'vitest';

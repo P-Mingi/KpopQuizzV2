@@ -12,7 +12,7 @@ import type { FetchLike } from '@/lib/anime/entity-images-api';
 import type { AdminImage, AdminSeries, EntityKind, ImageFilter } from '@/lib/anime/entity-images-rules';
 import type { ImagesApi } from './image-slot';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 /** The calls of the real API (part 1), over the browser's fetch and XMLHttpRequest. */
@@ -39,7 +39,7 @@ const FILTERS = [
 ] as const;
 
 /**
- * The Images tab of /admin on fandomverse.org/anime: on the left the series (search, a with/without filter and a counter), on the right the
+ * The Images tab of /admin on bunnyverse.org/anime: on the left the series (search, a with/without filter and a counter), on the right the
  * series you chose, its cover slot and one portrait slot for each of its characters. Everything is a real button, link or field, in
  * reading order, so the tab key walks it top to bottom and Enter or Space does what a click does.
  */

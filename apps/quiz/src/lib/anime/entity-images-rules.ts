@@ -1,4 +1,4 @@
-// Run O1 (ADM front, joined to ADM back): the owner's own images of the series and the characters of fandomverse.org/anime. Pure rules, no React and
+// Run O1 (ADM front, joined to ADM back): the owner's own images of the series and the characters of bunnyverse.org/anime. Pure rules, no React and
 // no I/O: the form rules, the focal point, the order in which an image is picked for display (the owner's, else the bundled photo, else the
 // neutral placeholder), the credit rule and the rows of /credits. The shapes of the admin API are those of part 1 itself (type-only imports
 // of lib/entity-images: the answers of the routes are EntityImageDto and ListedSeries, nothing is restated here). The admin UI, the display

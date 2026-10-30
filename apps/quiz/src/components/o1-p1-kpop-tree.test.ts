@@ -10,7 +10,7 @@ import type { PassportInput } from '@/lib/ux-v1/p10/build-passport';
 import type { Profile, QuizCardData } from '@/lib/db/types';
 
 // Lot (b), P1: the kpop screens must keep the React Flight tree and the HTML they had before the passport pages of
-// fandomverse.org/anime were added to the shared components (passport, person name, sign-in sheet, login body, onboarding form,
+// bunnyverse.org/anime were added to the shared components (passport, person name, sign-in sheet, login body, onboarding form,
 // settings, the passport view model). Each kpop render below is written with realistic kpop props (no prop of the anime
 // path) and compared with the file of __o1_p1_kpop_tree__/: the Flight tree (lib/o1-flight-tree.ts) for the server
 // components, the static HTML for the client components and for every server component too, and the JSON of the view

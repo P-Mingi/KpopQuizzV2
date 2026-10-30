@@ -15,7 +15,7 @@ import { useP8Viewer, useRequireAuth } from './viewer';
 import type { ReportTarget } from './actions';
 import type { P8Comment, P8Post } from '@/lib/ux-v1/p8/post';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 // Replies of a post (DESIGN-SPEC 13.4, 16.7 Post, 17.7): the reply box (grows on

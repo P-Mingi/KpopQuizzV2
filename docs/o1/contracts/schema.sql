@@ -52,12 +52,12 @@ insert into public.sites (id, domain, brand, kind, status, sort) values ('kpop',
 -- @file L01-B2-sites
 -- owner B2; launch row file; tx single; production phase launch (first launch file); on the dev branches it runs
 -- right after 001 (manifest.md). Values mirror registry.md; L12 (L1) sets status 'live' on launch day.
--- 2026-10-28 (owner, FandomVerse): OtakuQuiz is the folder /anime of fandomverse.org, so `domain` holds the address (the registry url
+-- 2026-10-28 (owner, Bunnyverse): OtakuQuiz is the folder /anime of bunnyverse.org, so `domain` holds the address (the registry url
 -- without its scheme): sites_domain_key is unique and the two sites share the host.
 -- =============================================================================================================
 insert into public.sites (id, domain, brand, kind, status, sort) values
-  ('anime', 'fandomverse.org/anime', 'OtakuQuiz',   'world', 'building', 2),
-  ('hub',   'fandomverse.org',       'FandomVerse', 'hub',   'building', 3);
+  ('anime', 'bunnyverse.org/anime', 'OtakuQuiz',   'world', 'building', 2),
+  ('hub',   'bunnyverse.org',       'Bunnyverse', 'hub',   'building', 3);
 
 -- =============================================================================================================
 -- @file 002a-site-columns

@@ -26,7 +26,7 @@ function render(el: React.ReactElement): Promise<string> {
   });
 }
 
-const SITE = { origin: 'https://fandomverse.org/anime', brand: 'OtakuQuiz' };
+const SITE = { origin: 'https://bunnyverse.org/anime', brand: 'OtakuQuiz' };
 const BANNED = /k-?pop|kpopquiz|[\u2013\u2014]|\p{Extended_Pictographic}/iu;
 
 describe.each(FIXTURE_SLUGS)('the %s trivia page', (slug) => {
@@ -40,7 +40,7 @@ describe.each(FIXTURE_SLUGS)('the %s trivia page', (slug) => {
     expect(out).toContain('href="https://en.wikipedia.org/wiki/Special:Search"');
     expect(out).toContain(`${name} Trivia`);
     expect(out).toContain('"@type":"TVSeries"');
-    expect(out).toContain(`"url":"https://fandomverse.org/anime/${hub.group.slug}-trivia"`);
+    expect(out).toContain(`"url":"https://bunnyverse.org/anime/${hub.group.slug}-trivia"`);
     expect(out).toContain('"name":"OtakuQuiz"');
     expect(out).not.toContain('trivia-fact-link');
     expect(out).not.toContain('/verse/');

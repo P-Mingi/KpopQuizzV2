@@ -1,4 +1,4 @@
-// Run O1, lane P1: the passport pages of fandomverse.org/anime on o1-dev, in a real browser (Chromium of the installed Playwright).
+// Run O1, lane P1: the passport pages of bunnyverse.org/anime on o1-dev, in a real browser (Chromium of the installed Playwright).
 //
 //   O1_P1_ANIME_URL                    the anime server (http://anime.localhost:<port>, scripts/o1-tools/dev-up.sh); unset skips everything.
 // The sign-in links of the fixture accounts are asked from scripts/o1-tools/signin-link.sh when a test needs one (it needs the
@@ -66,7 +66,7 @@ test.describe('the anime-only member', () => {
     await expect(page.getByRole('heading', { name: 'Your look' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Sign out everywhere' }).first()).toBeVisible();
     await expect(page.getByRole('button', { name: 'Sign out of OtakuQuiz only' }).first()).toBeVisible();
-    await expect(page.getByText('FandomVerse passport').first()).toBeVisible();
+    await expect(page.getByText('Bunnyverse passport').first()).toBeVisible();
     expectNoKpop(await surface(page), '/settings');
 
     await page.goto(`${ANIME}/u/o1_anime_new`);
@@ -79,14 +79,14 @@ test.describe('the anime-only member', () => {
     expectNoKpop(await surface(page), '/onboarding');
   });
 
-  // FandomVerse (owner, 2026-10-28, reverses D-099): Google and Discord, no email sign-in. Discord is named only by its button.
+  // Bunnyverse (owner, 2026-10-28, reverses D-099): Google and Discord, no email sign-in. Discord is named only by its button.
   test('/login and the sign-in sheet say OtakuQuiz, offer Google and Discord, no email link', async ({ page }) => {
     await page.goto(`${ANIME}/login`);
     await expect(page.getByRole('button', { name: 'Continue with Google' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Continue with Discord' })).toBeVisible();
     await expect(page.getByRole('button', { name: /email/i })).toHaveCount(0);
     await expect(page.locator('input[type="email"]')).toHaveCount(0);
-    await expect(page.getByText('One FandomVerse passport works on every site of the network.')).toBeVisible();
+    await expect(page.getByText('One Bunnyverse passport works on every site of the network.')).toBeVisible();
     expectNoKpop(await surface(page), '/login', '', 'Continue with Discord');
   });
 
@@ -99,7 +99,7 @@ test.describe('the anime-only member', () => {
     await expect(sheet.getByRole('button', { name: 'Continue with Discord' })).toBeVisible();
     await expect(sheet.getByRole('button', { name: /email/i })).toHaveCount(0);
     await expect(sheet.locator('input[type="email"]')).toHaveCount(0);
-    await expect(sheet.getByText('One FandomVerse passport works on every site of the network.')).toBeVisible();
+    await expect(sheet.getByText('One Bunnyverse passport works on every site of the network.')).toBeVisible();
     await expect(sheet.getByText('We never post for you.')).toBeVisible();
     expect((await sheet.innerText()).replaceAll('Continue with Discord', '')).not.toMatch(/k-?pop|kpopquiz|discord/i);
   });

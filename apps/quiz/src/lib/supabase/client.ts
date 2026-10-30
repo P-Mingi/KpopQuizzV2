@@ -1,6 +1,6 @@
 import { createBrowserClient as createClient } from '@supabase/ssr';
 
-// FandomVerse (security review, 2026-10-28): on the hub and anime builds the session cookies carry Secure when the page is
+// Bunnyverse (security review, 2026-10-28): on the hub and anime builds the session cookies carry Secure when the page is
 // served over https. The test is the build-time constant (inlined), so the kpop bundle keeps today's call, with no option.
 const IS_WORLD_BUILD = (process.env.NEXT_PUBLIC_SITE_ID || 'kpop') !== 'kpop';
 

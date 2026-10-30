@@ -80,7 +80,7 @@ export interface SignInWords {
   readonly saveScore: string;
   readonly body: string;
   readonly google: string;
-  /** FandomVerse: the Discord button (anime and hub sign in with Google and Discord only). */
+  /** Bunnyverse: the Discord button (anime and hub sign in with Google and Discord only). */
   readonly discord: string;
   readonly emailDivider: string;
   readonly emailPlaceholder: string;
@@ -102,7 +102,7 @@ export interface SignInWords {
   readonly brand: string;
   /** Run C1: the site has a /terms page (the hub has none, so its agreement line names the privacy policy only). */
   readonly hasTerms: boolean;
-  /** FandomVerse: the basePath of the site's build ('' or '/anime'), for a plain link to one of its own pages. */
+  /** Bunnyverse: the basePath of the site's build ('' or '/anime'), for a plain link to one of its own pages. */
   readonly basePath: string;
 }
 

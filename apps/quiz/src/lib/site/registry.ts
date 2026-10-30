@@ -14,7 +14,7 @@ import { SITE_IDS } from './types';
 import type { SiteConfig, SiteFeatures, SiteId, ThemeTokens, NetworkConfig } from './types';
 
 /** The network umbrella (BACKLOG 5.1). */
-export const NETWORK: NetworkConfig = { name: 'FandomVerse', url: 'https://fandomverse.org' };
+export const NETWORK: NetworkConfig = { name: 'Bunnyverse', url: 'https://bunnyverse.org' };
 
 /** The one routed mailbox of the whole network (owner, 2026-10-25): every site prints and publishes this address. */
 export const MAILBOX = 'hello@kpopquiz.org';
@@ -26,7 +26,7 @@ const ALL_OFF: SiteFeatures = {
   mvPulse: false, airingBanner: false, spoilers: false, live: false, community: false,
   ranked: false, challenges: false, leaderboards: false, news: false, articles: false,
   dataPages: false, localizedLandings: false, verse: false, embed: false, passportPages: false,
-  directory: false,
+  directory: false, dailyGuess: false,
 };
 
 // styles/ux-v1/a0.css, html.ux-v1 (light) and html.ux-v1.dark (dark), as of origin/main 30e7091.
@@ -182,8 +182,8 @@ const KPOP: SiteConfig = {
 const ANIME: SiteConfig = {
   id: 'anime',
   kind: 'world',
-  url: 'https://fandomverse.org/anime',
-  domain: 'fandomverse.org',
+  url: 'https://bunnyverse.org/anime',
+  domain: 'bunnyverse.org',
   letter: 'a',
   brand: {
     name: 'OtakuQuiz',
@@ -231,16 +231,16 @@ const ANIME: SiteConfig = {
   },
   seo: {
     titleTemplate: '%s | OtakuQuiz',
-    // The key of public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt (RUNBOOK ENV.md 1.7), served by the anime build (fandomverse.org/anime) only.
+    // The key of public/760f9a9459d4db0bd8a08f13a0f1ec6e.txt (RUNBOOK ENV.md 1.7), served by the anime build (bunnyverse.org/anime) only.
     indexNowKey: '760f9a9459d4db0bd8a08f13a0f1ec6e',
     minPublishedForIndexableHub: 3,
     organization: {
       name: 'OtakuQuiz',
-      alternateName: 'fandomverse.org/anime',
+      alternateName: 'bunnyverse.org/anime',
       logo: '/brand/anime/logo-512.png',
       email: MAILBOX,
     },
-    llmsTxt: { title: 'OtakuQuiz on fandomverse.org' },
+    llmsTxt: { title: 'OtakuQuiz on bunnyverse.org' },
   },
   audio: { source: 'deezer', kit: 'required' },
   theme: { light: ANIME_LIGHT, dark: ANIME_DARK, fontDisplay: 'M PLUS Rounded 1c' },
@@ -255,7 +255,7 @@ const ANIME: SiteConfig = {
     21: { en: 'Superfan' },
     30: { en: 'Legend' },
   },
-  // FandomVerse (owner, 2026-10-28, reverses D-099): Google and Discord only, both through Supabase's OAuth redirect with
+  // Bunnyverse (owner, 2026-10-28, reverses D-099): Google and Discord only, both through Supabase's OAuth redirect with
   // kpopquiz.org's own Google client (no Google Identity Services client id, no email sign-in). emailLanding stays in the
   // frozen shape; with no email sign-in nothing sends a link to it.
   auth: {
@@ -275,15 +275,15 @@ const ANIME: SiteConfig = {
 const HUB: SiteConfig = {
   id: 'hub',
   kind: 'hub',
-  url: 'https://fandomverse.org',
-  domain: 'fandomverse.org',
+  url: 'https://bunnyverse.org',
+  domain: 'bunnyverse.org',
   letter: 'f',
   brand: {
-    name: 'FandomVerse',
-    shortName: 'FandomVerse',
+    name: 'Bunnyverse',
+    shortName: 'Bunnyverse',
     mascot: null,
     // Owner decision D-099: kpopquiz's logo, favicon, touch and manifest icons for now (copies in public/brand/hub/);
-    // the default share image says FandomVerse (e2e/o1/L1/brand-og.mjs).
+    // the default share image says Bunnyverse (e2e/o1/L1/brand-og.mjs).
     logo: '/brand/hub/logo-512.png',
     favicon: '/brand/hub/favicon.svg',
     ogTemplate: '/brand/hub/og-default.png',
@@ -301,23 +301,23 @@ const HUB: SiteConfig = {
     allow: ['/', '/privacy', '/legal', '/passport', '/u/{username}', '/settings/**', '/login', '/directory'],
   },
   seo: {
-    titleTemplate: '%s | FandomVerse',
-    // The key of public/339dab142e51883ae3a2c7e4737254e4.txt (RUNBOOK ENV.md 1.7), served by the hub build (fandomverse.org) only.
+    titleTemplate: '%s | Bunnyverse',
+    // The key of public/339dab142e51883ae3a2c7e4737254e4.txt (RUNBOOK ENV.md 1.7), served by the hub build (bunnyverse.org) only.
     indexNowKey: '339dab142e51883ae3a2c7e4737254e4',
     minPublishedForIndexableHub: 0,
     organization: {
-      name: 'FandomVerse',
-      alternateName: 'fandomverse.org',
+      name: 'Bunnyverse',
+      alternateName: 'bunnyverse.org',
       logo: '/brand/hub/logo-512.png',
       email: MAILBOX,
     },
-    llmsTxt: { title: 'fandomverse.org' },
+    llmsTxt: { title: 'bunnyverse.org' },
   },
   audio: { source: 'deezer', kit: 'required' },
   theme: { light: HUB_LIGHT, dark: HUB_DARK, fontDisplay: 'Inter' },
   // The passport level is private and shown only on /passport (P); placeholder ladder.
   levelTitles: { 1: { en: 'Member' } },
-  // FandomVerse (owner, 2026-10-28, reverses D-099): Google and Discord only, both through Supabase's OAuth redirect with
+  // Bunnyverse (owner, 2026-10-28, reverses D-099): Google and Discord only, both through Supabase's OAuth redirect with
   // kpopquiz.org's own Google client (no Google Identity Services client id, no email sign-in). emailLanding stays in the
   // frozen shape; with no email sign-in nothing sends a link to it.
   auth: {
@@ -353,7 +353,7 @@ export const PLACEHOLDERS: Readonly<Record<SiteId, readonly string[]>> = {
 
 /** True when `v` is one of the three SiteId values. */
 export function isSiteId(v: unknown): v is SiteId {
-  return v === 'kpop' || v === 'anime' || v === 'hub';
+  return (SITE_IDS as readonly unknown[]).includes(v);
 }
 
 export interface SiteEnv {
@@ -494,56 +494,4 @@ export function parseNetOrigins(raw: string | undefined): Partial<Record<SiteId,
 export function netOrigin(id: SiteId, env: NetOriginEnv): string {
   if (env.VERCEL_ENV === 'production') return REGISTRY[id].url;
   return parseNetOrigins(env.NEXT_PUBLIC_NET_ORIGINS)[id] ?? REGISTRY[id].url;
-}
-
-/** The origin of an http(s) address and its base path ('' at the root), or null for anything else. */
-function addressParts(address: string): { origin: string; path: string } | null {
-  let u: URL;
-  try {
-    u = new URL(address);
-  } catch {
-    return null;
-  }
-  if (u.protocol !== 'https:' && u.protocol !== 'http:') return null;
-  return { origin: u.origin, path: u.pathname === '/' ? '' : u.pathname };
-}
-
-/** The site whose base (an origin and an optional sub-folder) holds `at`; the longest sub-folder wins. */
-function siteHolding(at: { origin: string; path: string }, bases: Partial<Record<SiteId, string>>): SiteId | null {
-  let found: SiteId | null = null;
-  let depth = -1;
-  for (const id of SITE_IDS) {
-    const base = bases[id] === undefined ? null : addressParts(bases[id]!);
-    if (base === null || base.origin !== at.origin) continue;
-    const inside = base.path === '' || at.path === base.path || at.path.startsWith(`${base.path}/`);
-    if (inside && base.path.length > depth) {
-      found = id;
-      depth = base.path.length;
-    }
-  }
-  return found;
-}
-
-/**
- * The site an address belongs to on this deployment (the beacon's origin check): a registry url always matches; outside
- * production an override of NEXT_PUBLIC_NET_ORIGINS matches too, with the sub-folder of the registry url. `address` is an Origin
- * header value or a full URL; anything that is not an http(s) address of a site of the network returns null.
- * The hub and OtakuQuiz share https://fandomverse.org, and an Origin header carries no path: an origin alone names the site at the
- * root of its domain (the hub for https://fandomverse.org, whichever of the two sent the request), so it says "a site of the
- * network", never "anime". 'anime' is the answer for an address under its sub-folder only (https://fandomverse.org/anime,
- * .../anime/q/x): the longest sub-folder that holds the path wins. A caller that must tell the hub from /anime passes a full URL
- * (a redirect target, a Referer) or reads the build's SITE_ID.
- */
-export function siteForOrigin(address: string, env: NetOriginEnv): SiteId | null {
-  const at = addressParts(address);
-  if (at === null) return null;
-  const registry = siteHolding(at, Object.fromEntries(SITE_IDS.map((id) => [id, REGISTRY[id].url])));
-  if (registry !== null || env.VERCEL_ENV === 'production') return registry;
-  const o = parseNetOrigins(env.NEXT_PUBLIC_NET_ORIGINS);
-  const overrides: Partial<Record<SiteId, string>> = {};
-  for (const id of SITE_IDS) {
-    const sub = addressParts(REGISTRY[id].url)?.path ?? '';
-    if (o[id] !== undefined) overrides[id] = `${o[id]}${sub}`;
-  }
-  return siteHolding(at, overrides);
 }

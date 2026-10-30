@@ -85,7 +85,7 @@ test('the cut covers the quiz statements too: nothing of the loader is left over
 });
 
 test('the real data folder: L10 carries the ten quizzes of the data folder, and the others files are the same as without it', () => {
-  const a = generate({ data: 'docs/anime/data', out: mkdtempSync(join(tmpdir(), 'l10-a-')), drafts: false, teamDomain: 'fandomverse.org' });
+  const a = generate({ data: 'docs/anime/data', out: mkdtempSync(join(tmpdir(), 'l10-a-')), drafts: false, teamDomain: 'bunnyverse.org' });
   assert.ok(a.files.includes('L10-PERS-personality'));
   assert.equal(a.counts.personality, 10);
   assert.deepEqual(a.report.personality, { total: 10, loaded: 10 });

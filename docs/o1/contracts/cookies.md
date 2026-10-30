@@ -93,13 +93,13 @@ outcome, `via`, an IP hash (`NET_IP_HASH_SALT`) and the user-agent family. Kept 
 
 | name | kind | owner today | note |
 |---|---|---|---|
-| `sb-<project ref>-auth-token` (and its chunks) | cookie, per host | `@supabase/ssr` | kpopquiz.org has its own session cookies; on fandomverse.org the hub and /anime share one (same origin, Path=/, no Domain; FandomVerse 2026-10-28); the three projects share one Supabase project |
+| `sb-<project ref>-auth-token` (and its chunks) | cookie, per host | `@supabase/ssr` | kpopquiz.org has its own session cookies; on bunnyverse.org the hub and /anime share one (same origin, Path=/, no Domain; Bunnyverse 2026-10-28); the three projects share one Supabase project |
 | `nq_anon` | cookie | `lib/anon-claim.ts` | guest id, per host |
 | `kq_sl` | cookie | `lib/creators/link-plays.ts` | share link attribution, kpop |
 | `preferred_locale` | cookie | locale switcher | kpop localized landings |
 | `verse_nav` | cookie | Verse nav | kpop Verse |
 | `world` | cookie | `lib/world.ts` (`play` or `verse`) | kpop's own Play or Verse choice; unrelated to the network and never renamed |
-| `theme` | localStorage | root layout `THEME_SCRIPT` | light, dark or system, per origin: kpopquiz.org keeps its own, the hub and /anime share one on fandomverse.org |
+| `theme` | localStorage | root layout `THEME_SCRIPT` | light, dark or system, per origin: kpopquiz.org keeps its own, the hub and /anime share one on bunnyverse.org |
 
 No new cookie is added on kpopquiz.org outside `/auth/*` responses: the network layer uses no cookie (Q D0:
 `via-catcher` keeps the value in the tab only).
@@ -110,7 +110,7 @@ No new cookie is added on kpopquiz.org outside `/auth/*` responses: the network 
 |---|---|---|---|
 | `__Host-pp_tx` / `pp_tx` | cookie | B4 | section 2 |
 | `pp_seeded` | cookie | B4, reserved (P3a, PASSPORT_SEED) | never set in the run |
-| `__Host-fv_oauth` / `fv_oauth` | cookie | FandomVerse lane 3 (`lib/auth/oauth-return.ts`) | fandomverse.org only (hub and /anime): set by `GET /auth/start` for a Google or Discord sign-in, holds the return path, the entry point and the provider; HttpOnly, SameSite=Lax, Path=/, no Domain, `__Host-` name on https, 600 s, cleared by the callback |
+| `__Host-fv_oauth` / `fv_oauth` | cookie | Bunnyverse lane 3 (`lib/auth/oauth-return.ts`) | bunnyverse.org only (hub and /anime): set by `GET /auth/start` for a Google or Discord sign-in, holds the return path, the entry point and the provider; HttpOnly, SameSite=Lax, Path=/, no Domain, `__Host-` name on https, 600 s, cleared by the callback |
 | `fq.net.caps.v1` | localStorage | B6 | cross-site link impression counters and dismissals (Q 2.4), JSON, try/catch on every access |
 | `fq.net.via` | sessionStorage | B6 (`via-catcher`) | the validated `via` of this tab, read by the sign-in `redirectTo`; removed after sign-in |
 | `anime.spoiler.v1` | localStorage | O3 (`SpoilerShield`) | guest progress per series `{[seriesSlug]: {arc: number, scope: 'anime' \| 'manga'}}` (`AnimeSpoilerStore`: `scope` is the medium followed, `arc` 0 the spoiler-free view, 32767 "Show everything"), claimed into `series_progress` (medium, arc_ord) at sign-in |

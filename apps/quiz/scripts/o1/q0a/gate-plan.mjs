@@ -16,7 +16,7 @@
 //     build (frozen production state, writes refused). The offline or dev kpop build would fail them by construction.
 //   anime and hub: check:metadata-dupes is site-agnostic (it keeps the path of any loc) and runs on the gate build of
 //     a wired site with a sitemap.xml route. check:indexability, orphans and sitemap-hygiene hardcode kpopquiz.org
-//     and the kpop catalogue (toLocal rewrites only that origin, so a fandomverse.org/anime loc would be fetched from the
+//     and the kpop catalogue (toLocal rewrites only that origin, so a bunnyverse.org/anime loc would be fetched from the
 //     internet): skipped with that reason until a per-site version exists.
 //   Lane specs and the content leak never meet the kept parity build: a browser on it would reach the production
 //     Supabase directly, and production holds no anime row (Verrou 0), so the content leak would prove nothing.

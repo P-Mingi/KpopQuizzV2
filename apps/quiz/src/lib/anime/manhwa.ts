@@ -1,4 +1,4 @@
-// Run O1, lot (manhwa): the "Manhwa" label of fandomverse.org/anime. A series is a manhwa when its `series.type` is `webtoon` (a
+// Run O1, lot (manhwa): the "Manhwa" label of bunnyverse.org/anime. A series is a manhwa when its `series.type` is `webtoon` (a
 // Korean webtoon); the label is derived from that column and from nothing else (never from a list of slugs). The same word
 // is printed on the series page, on its cards and in the series list. A manhwa that has an anime (the series data holds
 // anime years, seasons or episodes) also says, on its page, that the anime adapts it. Pure: no I/O.

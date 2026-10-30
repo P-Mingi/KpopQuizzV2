@@ -1,7 +1,7 @@
-// FandomVerse (owner, 2026-10-28; lane 3): the base paths and origins of the sign-in and passport routes. hub is
-// https://fandomverse.org, anime https://fandomverse.org/anime (basePath '/anime', same origin), kpop stays kpopquiz.org.
+// Bunnyverse (owner, 2026-10-28; lane 3): the base paths and origins of the sign-in and passport routes. hub is
+// https://bunnyverse.org, anime https://bunnyverse.org/anime (basePath '/anime', same origin), kpop stays kpopquiz.org.
 // The topology is given here as a preview deployment (NEXT_PUBLIC_NET_ORIGINS), so the tests hold before and after the
-// registry urls move to fandomverse.org; the production answers are pinned against the registry itself.
+// registry urls move to bunnyverse.org; the production answers are pinned against the registry itself.
 import { readFileSync } from 'node:fs';
 
 import { describe, expect, it } from 'vitest';
@@ -15,15 +15,15 @@ import {
   SITE_BASE_PATH, basePathOf, joinBase, safeAppPath, sameOrigin, siteBase, siteOrigin, siteUrl, stripBase, withBase,
 } from './site-base';
 
-const FV = { VERCEL_ENV: 'preview', NEXT_PUBLIC_NET_ORIGINS: 'kpop=https://kpopquiz.org,hub=https://fandomverse.org,anime=https://fandomverse.org' };
+const FV = { VERCEL_ENV: 'preview', NEXT_PUBLIC_NET_ORIGINS: 'kpop=https://kpopquiz.org,hub=https://bunnyverse.org,anime=https://bunnyverse.org' };
 const PROD = { VERCEL_ENV: 'production', NEXT_PUBLIC_NET_ORIGINS: FV.NEXT_PUBLIC_NET_ORIGINS };
 
 /** Inputs an attacker controls, in every spelling that has turned a return path into another place before. */
 const HOSTILE = [
-  'https://fandomverse.org.evil.com/x', 'https://evil.com/fandomverse.org', '//fandomverse.org.evil.com', '//evil.com', '/\\evil.com',
-  '\\\\evil.com', '/\t/evil.com', 'javascript:alert(1)', 'data:text/html,x', 'https://fandomverse.org/x', 'https://kpopquiz.org/x',
+  'https://bunnyverse.org.evil.com/x', 'https://evil.com/bunnyverse.org', '//bunnyverse.org.evil.com', '//evil.com', '/\\evil.com',
+  '\\\\evil.com', '/\t/evil.com', 'javascript:alert(1)', 'data:text/html,x', 'https://bunnyverse.org/x', 'https://kpopquiz.org/x',
   '/anime//evil.com', '/anime/\\evil.com', '/anime/../passport', '/%2e%2e/passport', '/anime/%2e%2e/passport', '/anime/.%2e/passport',
-  '/..%2f..%2fpassport', '/anime/..', '/./../x', 'fandomverse.org/anime', '', `/${'a'.repeat(2048)}`,
+  '/..%2f..%2fpassport', '/anime/..', '/./../x', 'bunnyverse.org/anime', '', `/${'a'.repeat(2048)}`,
   // dot segments that normalise into a protocol-relative path (security review, 2026-10-28)
   '/.//evil.com', '/a/..//evil.com', '/%2e//evil.com', '/anime/.//evil.com', '/anime/a/..//evil.com', '/anime/%2e//evil.com',
 ];
@@ -36,7 +36,7 @@ describe('the base path of each build', () => {
 
   it('one source: the table equals the base path and origin lib/site/base-path.ts reads from the registry urls', () => {
     // SITE_BASE_PATH is derived inline from the registry urls because this module reaches client bundles (create-funnel),
-    // which must not import lib/site/base-path.ts (ARCHITECTURE-FANDOMVERSE.md); this test keeps the two from drifting apart.
+    // which must not import lib/site/base-path.ts (ARCHITECTURE-BUNNYVERSE.md); this test keeps the two from drifting apart.
     for (const id of SITE_IDS) {
       expect(SITE_BASE_PATH[id]).toBe(basePathOfUrl(REGISTRY[id].url));
       expect(siteOrigin(id, { VERCEL_ENV: 'production' })).toBe(originOf(REGISTRY[id].url));
@@ -112,33 +112,33 @@ describe('safeAppPath: the return path of a sign-in or a jump', () => {
     }
   });
 
-  it('for every hostile input, the browser path of the anime answer stays on fandomverse.org inside /anime', () => {
+  it('for every hostile input, the browser path of the anime answer stays on bunnyverse.org inside /anime', () => {
     for (const raw of HOSTILE) {
       const browser = withBase('anime', safeAppPath(raw, '/', 'anime'));
-      const where = new URL(browser, 'https://fandomverse.org');
-      expect(where.origin, raw).toBe('https://fandomverse.org');
+      const where = new URL(browser, 'https://bunnyverse.org');
+      expect(where.origin, raw).toBe('https://bunnyverse.org');
       expect(where.pathname === '/anime' || where.pathname.startsWith('/anime/'), `${raw} -> ${browser}`).toBe(true);
     }
   });
 
-  it('for every hostile input, the hub answer stays on fandomverse.org', () => {
+  it('for every hostile input, the hub answer stays on bunnyverse.org', () => {
     for (const raw of HOSTILE) {
       const browser = withBase('hub', safeAppPath(raw, '/', 'hub'));
-      expect(new URL(browser, 'https://fandomverse.org').origin, raw).toBe('https://fandomverse.org');
+      expect(new URL(browser, 'https://bunnyverse.org').origin, raw).toBe('https://bunnyverse.org');
       expect(browser.startsWith('/') && !browser.startsWith('//')).toBe(true);
     }
   });
 });
 
-describe('origins and bases of the FandomVerse topology', () => {
-  it('hub https://fandomverse.org, anime https://fandomverse.org/anime, kpop https://kpopquiz.org', () => {
-    expect(siteBase('hub', FV)).toBe('https://fandomverse.org');
-    expect(siteBase('anime', FV)).toBe('https://fandomverse.org/anime');
+describe('origins and bases of the Bunnyverse topology', () => {
+  it('hub https://bunnyverse.org, anime https://bunnyverse.org/anime, kpop https://kpopquiz.org', () => {
+    expect(siteBase('hub', FV)).toBe('https://bunnyverse.org');
+    expect(siteBase('anime', FV)).toBe('https://bunnyverse.org/anime');
     expect(siteBase('kpop', FV)).toBe('https://kpopquiz.org');
-    expect(siteOrigin('anime', FV)).toBe('https://fandomverse.org');
-    expect(siteUrl('anime', FV, '/auth/callback')).toBe('https://fandomverse.org/anime/auth/callback');
-    expect(siteUrl('anime', FV, '/')).toBe('https://fandomverse.org/anime');
-    expect(siteUrl('hub', FV, '/passport')).toBe('https://fandomverse.org/passport');
+    expect(siteOrigin('anime', FV)).toBe('https://bunnyverse.org');
+    expect(siteUrl('anime', FV, '/auth/callback')).toBe('https://bunnyverse.org/anime/auth/callback');
+    expect(siteUrl('anime', FV, '/')).toBe('https://bunnyverse.org/anime');
+    expect(siteUrl('hub', FV, '/passport')).toBe('https://bunnyverse.org/passport');
   });
 
   it('hub and anime share one origin (one cookie jar), kpop has its own', () => {
@@ -157,7 +157,7 @@ describe('origins and bases of the FandomVerse topology', () => {
   });
 
   it('an override that is not a bare origin is refused loudly (no path, no look-alike smuggled as a base)', () => {
-    for (const bad of ['anime=https://evil.com/fandomverse.org', 'anime=https://fandomverse.org/anime', 'hub=fandomverse.org', 'hub=http://fandomverse.org']) {
+    for (const bad of ['anime=https://evil.com/bunnyverse.org', 'anime=https://bunnyverse.org/anime', 'hub=bunnyverse.org', 'hub=http://bunnyverse.org']) {
       expect(() => siteBase('anime', { NEXT_PUBLIC_NET_ORIGINS: bad })).toThrow();
     }
   });

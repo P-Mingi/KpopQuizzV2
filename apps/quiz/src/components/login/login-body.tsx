@@ -8,7 +8,7 @@ import { createBrowserClient } from '@/lib/supabase/client';
 
 import type { SignInWords } from '@/lib/passport-ui/words';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 type Pending = 'google' | 'discord' | 'email' | null;
@@ -25,7 +25,7 @@ const SPARKLE = 'M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z'
 
 /**
  * The body of /login for every site (Run O1, lot b, P1; rule 18). Kpop renders it with no prop, byte for byte what the page
- * rendered. A world site (anime, hub) passes its words. FandomVerse (owner, 2026-10-28): Google and Discord only, started on the
+ * rendered. A world site (anime, hub) passes its words. Bunnyverse (owner, 2026-10-28): Google and Discord only, started on the
  * server of the build (/auth/start, its basePath included), which sends the provider back to the build's exact /auth/callback;
  * no email form. The sign-in client
  * is import()ed by the handler of a world site, so no kpop page reaches it.
@@ -73,7 +73,7 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // FandomVerse: a world site has no email sign-in (the form is not rendered there either).
+    // Bunnyverse: a world site has no email sign-in (the form is not rendered there either).
     if (!email || pending || words) return;
     setErrorMsg(null);
     setPending('email');
@@ -176,7 +176,7 @@ export function LoginBody({ words }: { words?: SignInWords | undefined } = {}): 
             {words ? words.discord : 'Continue with Discord'}
           </button>
 
-          {/* FandomVerse: no email sign-in on a world site. */}
+          {/* Bunnyverse: no email sign-in on a world site. */}
           {words ? null : (<>
           <div className="auth-divider"><span>or with email</span></div>
 

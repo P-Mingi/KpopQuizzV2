@@ -1,4 +1,4 @@
-// FandomVerse (lane 1): /sitemap-hub.xml, the urlset of the hub's own pages once its /sitemap.xml is the index of fandomverse.org
+// Bunnyverse (lane 1): /sitemap-hub.xml, the urlset of the hub's own pages once its /sitemap.xml is the index of bunnyverse.org
 // (the route next to this one). It is no rewrite rule: the dotted path meets no file and the afterFiles rule of the build sends it
 // here (lib/site/routing.ts). Only a site with sites in its sub-folders answers it; any other build, and a site in a sub-folder
 // (/anime/sitemap-hub.xml), answers 404.

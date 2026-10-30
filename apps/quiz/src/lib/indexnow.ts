@@ -64,7 +64,7 @@ async function fetchSitemap(url: string): Promise<string> {
 
 /**
  * The page URLs of the live sitemap, for a full-site resubmit on deploy: every <loc> of a urlset. When /sitemap.xml is a sitemap
- * index (the hub of fandomverse.org lists /sitemap-hub.xml and, once open, /anime/sitemap.xml), the page URLs of each child sitemap
+ * index (the hub of bunnyverse.org lists /sitemap-hub.xml and, once open, /anime/sitemap.xml), the page URLs of each child sitemap
  * of this site's origin, never the URL of a sitemap file itself; a child that is an index again is not followed.
  */
 export async function sitemapUrls(): Promise<string[]> {

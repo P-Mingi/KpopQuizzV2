@@ -154,8 +154,8 @@ describe('the transaction cookie (cookies.md 2)', () => {
 
 describe('the cookie name follows the protocol (cookies.md 2)', () => {
   it('__Host-pp_tx on every https request, with Secure', () => {
-    // FandomVerse (owner, 2026-10-28): the hub and anime addresses moved from the old hub and anime domains to fandomverse.org.
-    for (const url of ['https://kpopquiz.org/auth/arrive', 'https://anime.localhost:3104/auth/arrive', 'https://fandomverse.org/', 'https://fandomverse.org/anime/auth/arrive']) {
+    // Bunnyverse (owner, 2026-10-28): the hub and anime addresses moved from the old hub and anime domains to bunnyverse.org.
+    for (const url of ['https://kpopquiz.org/auth/arrive', 'https://anime.localhost:3104/auth/arrive', 'https://bunnyverse.org/', 'https://bunnyverse.org/anime/auth/arrive']) {
       expect(txCookieName(url, null, {})).toBe(TX_COOKIE_NAMES.https);
     }
     expect(txCookieName('http://x.test/', 'https', {})).toBe('__Host-pp_tx');

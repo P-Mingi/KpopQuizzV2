@@ -195,9 +195,9 @@ describe('story image variants', () => {
     expect(storyFormat('story')).toEqual({ width: 1080, height: 1920, fileName: 'kpopquiz-story.png' });
     expect(storyFormat('square')).toEqual({ width: 1080, height: 1080, fileName: 'kpopquiz-square.png' });
   });
-  it('the file is named for its site (FandomVerse: hub and anime share a domain, not a name), kpop as before', () => {
-    expect(SITE_IDS.map((id) => storyFileName('story', REGISTRY[id]))).toEqual(['kpopquiz-story.png', 'otakuquiz-story.png', 'fandomverse-story.png']);
-    expect(SITE_IDS.map((id) => storyFileName('square', REGISTRY[id]))).toEqual(['kpopquiz-square.png', 'otakuquiz-square.png', 'fandomverse-square.png']);
+  it('the file is named for its site (Bunnyverse: hub and anime share a domain, not a name), kpop as before', () => {
+    expect(SITE_IDS.map((id) => storyFileName('story', REGISTRY[id]))).toEqual(['kpopquiz-story.png', 'otakuquiz-story.png', 'bunnyverse-story.png']);
+    expect(SITE_IDS.map((id) => storyFileName('square', REGISTRY[id]))).toEqual(['kpopquiz-square.png', 'otakuquiz-square.png', 'bunnyverse-square.png']);
     // The photocard of a quiz run (components/quiz/ux-v1/story.ts, a lazy chunk) names its file the same way.
     const story = fs.readFileSync(path.resolve(here, '../../../components/quiz/ux-v1/story.ts'), 'utf8');
     expect(story).toContain("const STORY_FILE = `${SITE.brand.name.toLowerCase()}-story.png`;");

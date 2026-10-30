@@ -83,6 +83,12 @@
       ],
       "text": "Typographic title card SVG where kpop shows a group logo or photo."
     },
+    "A8": {
+      "sites": [
+        "anime"
+      ],
+      "text": "Surprise me on the home (owner, 2026-10-29 and 2026-10-30): under the hero buttons, the hub's component (components/hub/home/home-surprise.tsx) with the anime-h2 class prefix, drawing from the published, listable anime quizzes only (the hub's pool rules on one site); absent with no pool."
+    },
     "Tn": {
       "sites": [
         "hub"
@@ -150,11 +156,12 @@
         "C",
         "F",
         "N",
-        "A7"
+        "A7",
+        "A8"
       ],
       "owner": "O1",
       "body": "shared",
-      "notes": "The series rail shows title cards (A7); the blind test band becomes the openings band through V. No A5 on the home (D-020). The community section renders as the shared component does with zero rows (D-020). The file is shared with row H-1 and dispatches on the site."
+      "notes": "The series rail shows title cards (A7); the blind test band becomes the openings band through V. No A5 on the home (D-020). The community section renders as the shared component does with zero rows (D-020). The file is shared with row H-1 and dispatches on the site. Surprise me (A8) sits under the hero buttons, before the quiz of the day (UxHome's afterHeader slot; kpop passes none)."
     },
     {
       "id": "2",

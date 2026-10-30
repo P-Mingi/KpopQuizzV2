@@ -2,38 +2,30 @@
 // real number of published quizzes per site and of groups or series that have one (getDoors, cached an hour); the quiz is the Top
 // now one (KpopQuiz) or the Just added one (OtakuQuiz while it has less than a week of data). The names come from the registry.
 // No door when the data is missing: the hero then shows the title and Surprise me only.
+// Home v3 (2026-10-29): the two site cards of the first row show the count of quizzes only, rounded down by the shared helper of the
+// public counts (atLeast: "480+"), so the hub never prints a more precise number than the sites themselves.
 
 import { REGISTRY } from '@/lib/site/registry';
+import { atLeast } from '@/lib/stats/site-stats';
 
 import { getDoors } from './data';
-import { count } from './home-map';
 import { safeBlock } from './home-safe';
 
 import type { HubDoor } from './data';
 import type { HomeDoor, HomeSite } from './home-types';
 
-/** What each site is about, in words (the design's tagline), and the features its pill names. These are not numbers. */
+/** What each site is about, in words (the design's tagline). These are not numbers. */
 const TAGLINE: Readonly<Record<HomeSite, string>> = {
   kpop: 'Groups, eras, members, songs',
   anime: 'Series, arcs, characters, openings',
 };
-const FEATURES: Readonly<Record<HomeSite, readonly string[]>> = {
-  kpop: ['Daily blindtest', 'Which member are you'],
-  anime: [],
-};
 
 export function toHomeDoor(door: HubDoor): HomeDoor {
-  const quizzes = `${count(door.quizCount)} quizzes`;
-  const topics = `${count(door.topicCount)} ${door.topicLabel}`;
-  // The design's "New site" pill belongs to OtakuQuiz's first week, the same rule as its Just added quiz.
-  const isNew = door.site === 'anime' && door.featuredLabel === 'Just added';
-  const chips = door.site === 'kpop' ? [quizzes, ...FEATURES.kpop] : [quizzes, topics, ...(isNew ? ['New site'] : [])];
   return {
     site: door.site,
     name: REGISTRY[door.site].brand.name,
     tagline: TAGLINE[door.site],
-    chips,
-    phoneLine: door.site === 'kpop' ? quizzes : `${quizzes} · ${topics}`,
+    count: `${atLeast(door.quizCount)} quizzes`,
     spotlight: door.featured ? { label: door.featuredLabel, title: door.featured.title, path: door.featured.path } : null,
   };
 }

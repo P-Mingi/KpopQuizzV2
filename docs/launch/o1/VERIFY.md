@@ -1,11 +1,11 @@
-# Verification (run O1, FandomVerse)
+# Verification (run O1, Bunnyverse)
 
 Read-only commands and queries, phase by phase, each with the result to expect. Nothing here writes to a database or changes a
 setting, and every query returns names and numbers only. "Stop" means: do not go on to the next step; the way back is in
 `ROLLBACK.md`.
 
-Sites (2026-10-28): kpopquiz.org (project `kpopquiz`), the FandomVerse hub at `https://fandomverse.org` (project `fandomverse`) and OtakuQuiz at
-`https://fandomverse.org/anime` (project `otakuquiz`, through the Microfrontends group `fandomverse`). Every OtakuQuiz path starts with `/anime`.
+Sites (2026-10-28): kpopquiz.org (project `kpopquiz`), the Bunnyverse hub at `https://bunnyverse.org` (project `fandomverse`) and OtakuQuiz at
+`https://bunnyverse.org/anime` (project `otakuquiz`, through the Microfrontends group `fandomverse`). Every OtakuQuiz path starts with `/anime`.
 Watches: 24 hours after B, after 008 (D3) and after 010 (F) (RUNBOOK).
 
 Helpers (the same as `SQL-ORDER.md` section 1):
@@ -269,7 +269,7 @@ one more than `counts.groups` (the series groups plus `anime-mix`). Rehearsed on
 every file applied twice with no change the second time, every rollback refused when data had been written and ran clean otherwise.
 
     q "select id, domain, brand, kind, status, sort from public.sites order by sort"
-After L01: the three rows its header lists ("Verify" lines): `kpop|kpopquiz.org|KpopQuiz|world|live|1`, then `anime` and `hub` with the FandomVerse domains and brands lane 2 wrote, both `building`, sort 2 and 3. After L12 (K8): all three `live`.
+After L01: the three rows its header lists ("Verify" lines): `kpop|kpopquiz.org|KpopQuiz|world|live|1`, then `anime` and `hub` with the Bunnyverse domains and brands lane 2 wrote, both `building`, sort 2 and 3. After L12 (K8): all three `live`.
 
 After L03 (the sentinels): `q "select username, id from public.profiles where id::text like '00000000-0000-0000-0000-%' and username like 'deleted_user_%' order by 1"` gives `deleted_user_anime|00000000-0000-0000-0000-00000000dea2` and `deleted_user_hub|...dea3`
 (plus `deleted_user` of Mission U part D when it is applied); `q "select count(*) from public.world_memberships where user_id in ('00000000-0000-0000-0000-00000000dea2', '00000000-0000-0000-0000-00000000dea3')"` is 0;
@@ -308,7 +308,7 @@ OtakuQuiz has no address of its own to check: it is reached on the `fandomverse`
     done
     curl -sS "$FV/robots.txt" | head -5
 
-Expect for each: home 200; authorize 404 while `PASSPORT_JUMP` is off (never 500); `application/ld+json` printed (structured data present); the titles name KpopQuiz, FandomVerse and OtakuQuiz in that order.
+Expect for each: home 200; authorize 404 while `PASSPORT_JUMP` is off (never 500); `application/ld+json` printed (structured data present); the titles name KpopQuiz, Bunnyverse and OtakuQuiz in that order.
 
 The build log of each project must show `check:env` passing and no line naming a missing variable. The three secrets are equal by length only:
 in Vercel, open each project's variable, use "show" once, and compare the character count (never the value) of `PASSPORT_TICKET_SECRET`, `PASSPORT_REVALIDATE_SECRET` and `NET_IP_HASH_SALT` on the 3 projects.
@@ -316,43 +316,43 @@ If they are marked Sensitive (Vercel shows no value), skip this: the jump test o
 
 ## V10. The three live sites (domain attached, flags as the runbook step says)
 
-    for B in https://kpopquiz.org https://fandomverse.org https://fandomverse.org/anime; do
+    for B in https://kpopquiz.org https://bunnyverse.org https://bunnyverse.org/anime; do
       echo "== $B"; curl -sS -o /dev/null -w 'home %{http_code} %{time_total}s\n' "$B"
       curl -sS "$B" | grep -o '<link rel="canonical"[^>]*>' | head -1
       curl -sS -o /dev/null -w 'sitemap %{http_code}\n' "$B/sitemap.xml"
       curl -sSI "$B" | grep -iE '^(strict-transport|x-robots-tag|set-cookie)' | sed 's/=.*//'
     done
-    for H in kpopquiz.org fandomverse.org; do
+    for H in kpopquiz.org bunnyverse.org; do
       echo "== $H"; curl -sS "https://$H/robots.txt" | grep -i '^sitemap'
       curl -sS -o /dev/null -w 'llms %{http_code}\n' "https://$H/llms.txt"
     done
-    curl -sS -o /dev/null -w 'www %{http_code} %{redirect_url}\n' https://www.fandomverse.org/
+    curl -sS -o /dev/null -w 'www %{http_code} %{redirect_url}\n' https://www.bunnyverse.org/
 
-Expect: home 200 on all three; each canonical names its own base (`https://kpopquiz.org`, `https://fandomverse.org`, `https://fandomverse.org/anime`), never another;
-one `robots.txt` per host, and the `Sitemap:` lines of fandomverse.org name only fandomverse.org addresses (never kpopquiz.org); sitemaps and llms 200;
-`www.fandomverse.org` redirects (301 or 308) to `https://fandomverse.org/`; no `x-robots-tag: noindex` once indexing is open (RUNBOOK K10);
+Expect: home 200 on all three; each canonical names its own base (`https://kpopquiz.org`, `https://bunnyverse.org`, `https://bunnyverse.org/anime`), never another;
+one `robots.txt` per host, and the `Sitemap:` lines of bunnyverse.org name only bunnyverse.org addresses (never kpopquiz.org); sitemaps and llms 200;
+`www.bunnyverse.org` redirects (301 or 308) to `https://bunnyverse.org/`; no `x-robots-tag: noindex` once indexing is open (RUNBOOK K10);
 on the hub and `/anime` homes no `set-cookie` of a kpop name; `strict-transport-security` present.
-Before indexing is open the hub and `/anime` homes carry a `noindex` robots meta (`curl -sS https://fandomverse.org/anime | grep -io '<meta name="robots"[^>]*>'`); after K10 it must be gone on the hub home, `/anime`, `/anime/series`, a series page and `/anime/q/<slug>`, and still there on `/settings`, `/me`, `/anime/admin`.
+Before indexing is open the hub and `/anime` homes carry a `noindex` robots meta (`curl -sS https://bunnyverse.org/anime | grep -io '<meta name="robots"[^>]*>'`); after K10 it must be gone on the hub home, `/anime`, `/anime/series`, a series page and `/anime/q/<slug>`, and still there on `/settings`, `/me`, `/anime/admin`.
 
 String leaks (a site must not talk like another):
 
     for p in / /series /quizzes /daily /about /privacy /terms /faq /dmca; do
-      printf 'anime %s ' "$p"; curl -sSL "https://fandomverse.org/anime$p" | grep -ciE 'k-?pop|idol|bias group|kpopquiz'; done
-    for p in / /privacy; do printf 'hub %s ' "$p"; curl -sSL "https://fandomverse.org$p" | grep -ciE 'k-?pop|bias group'; done
+      printf 'anime %s ' "$p"; curl -sSL "https://bunnyverse.org/anime$p" | grep -ciE 'k-?pop|idol|bias group|kpopquiz'; done
+    for p in / /privacy; do printf 'hub %s ' "$p"; curl -sSL "https://bunnyverse.org$p" | grep -ciE 'k-?pop|bias group'; done
 
 Expect `0` on each line. Known leftovers from `RAPPORT-FINAL.md` section 5 (K-pop text on `/u/<name>`, name-all, the empty hub, the "Ways to play"
 tiles and `/dmca`) may show here: write each hit down as a launch decision (fix first, or accept and date it).
 
-Sign-in sheet (owner decision 2026-10-28, AUTH-FANDOMVERSE.md): on fandomverse.org and `/anime` it offers Google and Discord and no email field; both sign in.
-Same session: signed in on `https://fandomverse.org`, `https://fandomverse.org/anime` is signed in too, with no jump (one origin).
+Sign-in sheet (owner decision 2026-10-28, AUTH-BUNNYVERSE.md): on bunnyverse.org and `/anime` it offers Google and Discord and no email field; both sign in.
+Same session: signed in on `https://bunnyverse.org`, `https://bunnyverse.org/anime` is signed in too, with no jump (one origin).
 
-Cross-site cookie check: sign in on kpopquiz.org, open fandomverse.org in the same browser: you are signed out there until the jump is on. After `PASSPORT_JUMP` (K7): from kpop open
-`https://kpopquiz.org/auth/passport/out?to=anime`, you land on `https://fandomverse.org/anime` signed in, and `https://fandomverse.org` shows the same session; the Network tab shows the `via` parameter once and no token left in the URL after the landing.
+Cross-site cookie check: sign in on kpopquiz.org, open bunnyverse.org in the same browser: you are signed out there until the jump is on. After `PASSPORT_JUMP` (K7): from kpop open
+`https://kpopquiz.org/auth/passport/out?to=anime`, you land on `https://bunnyverse.org/anime` signed in, and `https://bunnyverse.org` shows the same session; the Network tab shows the `via` parameter once and no token left in the URL after the landing.
 
-Admin and noindex pages answer 404 or a login page for an anonymous visitor: `curl -sS -o /dev/null -w '%{http_code}\n' https://fandomverse.org/anime/admin/review` is not 200; `https://fandomverse.org/admin` is 404.
+Admin and noindex pages answer 404 or a login page for an anonymous visitor: `curl -sS -o /dev/null -w '%{http_code}\n' https://bunnyverse.org/anime/admin/review` is not 200; `https://bunnyverse.org/admin` is 404.
 
 Email (section I of the runbook, only once the hook is on): request a magic link on kpopquiz.org with a mailbox you own; the mail looks exactly as before and signs you in; the Resend dashboard shows delivered, not bounced.
-fandomverse.org offers no email sign-in, so there is no mail to test there.
+bunnyverse.org offers no email sign-in, so there is no mail to test there.
 
 ## V11. First 72 hours (hour 0, +1h, +24h, +48h, +72h)
 
@@ -364,5 +364,5 @@ Each time:
    numbers only, small at first; no row of the 31 Team accounts in a leaderboard.
 6. V1 for kpop (flags that touch kpop are on from this phase; the only expected differences are the footer line, the "Your sites" menu and the organization JSON-LD, each in the step that enabled it).
 7. Supabase dashboard: Auth logs (no burst of failed Google or Discord sign-ins), Database advisors (no new security finding about the new tables); Resend bounce rate under 2 percent once the hook is on.
-8. Search Console for kpopquiz.org and fandomverse.org: the sitemaps submitted (on fandomverse.org the hub's and `/anime`'s), no new "blocked by robots" or "noindex" on kpopquiz.org URLs.
+8. Search Console for kpopquiz.org and bunnyverse.org: the sitemaps submitted (on bunnyverse.org the hub's and `/anime`'s), no new "blocked by robots" or "noindex" on kpopquiz.org URLs.
 At +72h write down the numbers of step 5 and 3 and decide whether to leave everything on (RUNBOOK L5).

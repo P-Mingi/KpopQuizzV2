@@ -8,6 +8,9 @@
 // that list cannot be read the block fails (the last good value or nothing), it never shows a list it could not check.
 // The default of show_elsewhere is false, so a board starts small and grows with the fans who opt in.
 //
+// Home v3 (2026-10-29): one board per site as well (bySite). On the board of a site only that site's public stamp counts: its XP of the week
+// ranks, and the level printed (same rule: public only) is the level of that site's XP (KpopQuiz: profiles.xp; OtakuQuiz: its membership).
+//
 // XP of the week:
 //   'snapshots'  XP now minus XP on the oldest daily snapshot of the last 7 days (docs/pending-migrations/hub/002-xp-daily-snapshots.sql)
 //                when that table exists and has a snapshot at least one day old. No XP ledger exists; this is the exact figure.
@@ -51,11 +54,20 @@ export interface RankInput {
   readonly origins: HubOrigins;
 }
 
-/** The pure ranking: public stamps only, Team out, banned out, no username out, best week first, ties by handle. */
-export function rankFans(input: RankInput): HubTopFan[] {
+/** The XP of one stamp: KpopQuiz keeps it on the profile, every other site on its membership. */
+function stampXp(s: Stamp, p: ProfileInfo): number {
+  return Math.max(0, s.site_id === 'kpop' ? (p.xp ?? 0) : (s.xp ?? 0));
+}
+
+/**
+ * The pure ranking: public stamps only, Team out, banned out, no username out, best week first, ties by handle. With `site`, the board of
+ * that site: only its stamps, ranked by its XP of the week, with the level of its XP; without, both sites and the passport level.
+ */
+export function rankFans(input: RankInput, site?: HubSite): HubTopFan[] {
   const byUser = new Map<string, Stamp[]>();
   for (const s of input.stamps) {
     if (input.teamIds.has(s.user_id)) continue;
+    if (site && s.site_id !== site) continue;
     const list = byUser.get(s.user_id) ?? [];
     list.push(s);
     byUser.set(s.user_id, list);
@@ -67,11 +79,11 @@ export function rankFans(input: RankInput): HubTopFan[] {
     if (!p || p.banned_at || !handle) continue;
     const week = stamps.reduce((sum, s) => sum + (input.weekXp.get(key(user, s.site_id)) ?? 0), 0);
     if (week <= 0) continue;
-    const total = stamps.reduce((sum, s) => sum + Math.max(0, s.site_id === 'kpop' ? (p.xp ?? 0) : (s.xp ?? 0)), 0);
+    const total = stamps.reduce((sum, s) => sum + stampXp(s, p), 0);
     rows.push({
       handle,
       week,
-      level: input.levelPublic.has(user) ? getLevelInfo(total, 'hub').level : null,
+      level: input.levelPublic.has(user) ? getLevelInfo(total, site ?? 'hub').level : null,
       kpop: stamps.some((s) => s.site_id === 'kpop'),
       anime: stamps.some((s) => s.site_id === 'anime'),
     });
@@ -185,8 +197,9 @@ export async function readTopFans(origins: HubOrigins, now: Date, db: Db): Promi
   const [profiles, levelPublic] = await Promise.all([loadProfiles(db, ids), loadLevelPublic(db, ids)]);
   const snap = await weekXpFromSnapshots(db, stamps, profiles, now);
   const weekXp = snap ?? (await weekXpFromPlays(db, stamps, now));
-  const fans = rankFans({ stamps, profiles, levelPublic, teamIds, weekXp, origins });
-  return fans.length > 0 ? { fans, basis: snap ? 'snapshots' : 'plays' } : null;
+  const input: RankInput = { stamps, profiles, levelPublic, teamIds, weekXp, origins };
+  const fans = rankFans(input);
+  return fans.length > 0 ? { fans, bySite: { kpop: rankFans(input, 'kpop'), anime: rankFans(input, 'anime') }, basis: snap ? 'snapshots' : 'plays' } : null;
 }
 
 const cached = hubCached('top-fans', (origins: HubOrigins) => readTopFans(origins, new Date(), createServiceRoleClient()));

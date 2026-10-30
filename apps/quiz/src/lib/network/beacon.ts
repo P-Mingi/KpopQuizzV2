@@ -6,7 +6,8 @@
 import { NextResponse } from 'next/server';
 
 import { clientIp, ipHash } from '@/lib/passport/ticket';
-import { SITE_ID, flagOn, isSiteId, siteForOrigin } from '@/lib/site/registry';
+import { siteForOrigin } from '@/lib/site/origin-site';
+import { SITE_ID, flagOn, isSiteId } from '@/lib/site/registry';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import { NET_BEACON_STEPS, NET_LINK_IDS } from './types';

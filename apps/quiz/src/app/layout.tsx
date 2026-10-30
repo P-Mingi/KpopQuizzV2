@@ -116,7 +116,7 @@ const HTML_SITE_ATTR: { 'data-site'?: string } = SITE_ID === 'kpop' ? {} : { 'da
 // (see app/api/ux-v1/a0/styles/route.ts). Versioned by a hash of its content, computed
 // at build time in next.config.ts (UX_CSS_VERSION), so the address follows the CSS
 // whatever the way of deploying (a command-line deploy has no commit sha).
-// FandomVerse: under the anime build's base path (/anime) on the anime build, as it is everywhere else.
+// Bunnyverse: under the anime build's base path (/anime) on the anime build, as it is everywhere else.
 const UX_CSS_HREF = withBasePath(uxStylesheetHref(process.env.UX_CSS_VERSION));
 
 // Canonical / Open Graph base. Use NEXT_PUBLIC_SITE_URL in production, but only

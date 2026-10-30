@@ -25,7 +25,8 @@ const RENDER_PATHS: string[] = [
 describe('no sample in a render path', () => {
   it('scans the loaders, the components and the page', () => {
     const names = RENDER_PATHS.map((f) => f.slice(SRC.length));
-    for (const f of ['home-doors', 'home-today', 'home-quick', 'home-hot', 'home-foryou', 'home-crossover', 'home-topfans', 'home-viewer', 'home-surprise']) {
+    // home v3: For you is gone; the done marks of Today and the image slots joined
+    for (const f of ['home-doors', 'home-today', 'home-quick', 'home-hot', 'home-crossover', 'home-topfans', 'home-viewer', 'home-surprise', 'home-done', 'home-assets']) {
       expect(names, f).toContain(`lib/site/hub/${f}.ts`);
     }
     expect(names).toContain('components/hub/home/home-page.tsx');

@@ -1,4 +1,4 @@
-// Run O1, lot (e), lane B7: the sign-in and deletion emails of fandomverse.org (copy-keys.md 3, namespace hub.b7). Placeholders
+// Run O1, lot (e), lane B7: the sign-in and deletion emails of bunnyverse.org (copy-keys.md 3, namespace hub.b7). Placeholders
 // {brand}, {network}, {domain} and {date} are filled by the renderer (lib/passport/email/render.ts). The same keys and values
 // live in supabase/functions/send-email/copy/hub.ts, which runs outside Next; email.copy.test.ts keeps the two equal.
 export const COPY = {

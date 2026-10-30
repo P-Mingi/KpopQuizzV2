@@ -20,7 +20,7 @@ const twins = JSON.parse(fs.readFileSync(path.join(O1, 'docs/o1/contracts/twins.
 const ANIME = [
   ['K-pop groups', 'anime series'], ['K-pop group', 'anime series'], ['K-pop idols', 'anime characters'],
   ['K-pop fans', 'anime fans'], ['K-pop', 'anime'], ['k-pop', 'anime'], ['KPOP', 'ANIME'],
-  ['kpopquiz.org', 'fandomverse.org/anime'], ['KpopQuiz', 'OtakuQuiz'], ['Kpop', 'Anime'],
+  ['kpopquiz.org', 'bunnyverse.org/anime'], ['KpopQuiz', 'OtakuQuiz'], ['Kpop', 'Anime'],
   ['groups', 'series'], ['Groups', 'Series'], ['group', 'series'], ['Group', 'Series'],
   ['members', 'characters'], ['Members', 'Characters'], ['member', 'character'], ['Member', 'Character'],
   ['idols', 'characters'], ['Idols', 'Characters'], ['idol', 'character'], ['Idol', 'Character'],

@@ -10,9 +10,10 @@ const config = JSON.parse(readFileSync(fileURLToPath(new URL('../../vercel.json'
   crons: { path: string; schedule: string }[];
 };
 
-// Vercel matches branch names with minimatch: `*` stays inside one path segment.
+// Vercel matches branch names with minimatch: `*` stays inside one path segment, `**` crosses them.
+const escape = (s: string): string => s.replace(/[.+?^${}()|[\]\\]/g, '\\$&');
 const matches = (pattern: string, branch: string): boolean =>
-  new RegExp(`^${pattern.split('*').map((s) => s.replace(/[.+?^${}()|[\]\\]/g, '\\$&')).join('[^/]*')}$`).test(branch);
+  new RegExp(`^${pattern.split('**').map((p) => p.split('*').map(escape).join('[^/]*')).join('.*')}$`).test(branch);
 
 /** Vercel's rule: a branch deploys unless a matching rule says false and no matching rule says true. */
 function deploys(branch: string): boolean {
@@ -20,15 +21,17 @@ function deploys(branch: string): boolean {
   return rules.length === 0 || rules.some(([, on]) => on);
 }
 
-describe('vercel.json: which branches build (F8)', () => {
-  it('agent branches do not build', () => {
-    for (const b of ['ux11/a0-fix8', 'ux11/p2-quizzes', 'w3/support', 'v12/g3-blindtest', 'v12/c1-check']) {
+// Owner, 2026-10-29 (Vercel cost): only main and preview/<topic> deploy, plus o1/integration until launch day (K5b);
+// every other branch is checked locally.
+describe('vercel.json: which branches build (F8, owner 2026-10-29)', () => {
+  it('agent, integration and release branches do not build', () => {
+    for (const b of ['ux11/a0-fix8', 'ux11/p2-quizzes', 'w3/support', 'v12/g3-blindtest', 'v12/c1-check', 'feat/v12', 'feat/ux-v1-v11', 'r1/fixes', 'r1/report', 'v12', 'ux11', 'o1/fv-int', 'o1/vercel-builds']) {
       expect(deploys(b), b).toBe(false);
     }
   });
 
-  it('main, integration and release branches still build', () => {
-    for (const b of ['main', 'feat/v12', 'feat/ux-v1-v11', 'r1/fixes', 'r1/report', 'preview/x', 'v12', 'ux11']) {
+  it('main, preview/** and o1/integration build', () => {
+    for (const b of ['main', 'preview/x', 'preview/anime-home', 'preview/hub/mobile', 'o1/integration']) {
       expect(deploys(b), b).toBe(true);
     }
   });

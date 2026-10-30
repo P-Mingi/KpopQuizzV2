@@ -1,4 +1,4 @@
-// FandomVerse (owner, 2026-10-28; lane 3): GET /auth/callback hands the hub and anime builds to the shared world handler
+// Bunnyverse (owner, 2026-10-28; lane 3): GET /auth/callback hands the hub and anime builds to the shared world handler
 // (lib/passport/signin.ts handleWorldCallback: OAuth sessions only, the membership stamp, the basePath of the build) and
 // keeps the kpop code as it was: on the kpop build the world handler is never called.
 import { NextRequest } from 'next/server';
@@ -28,7 +28,7 @@ describe('GET /auth/callback by build', () => {
   for (const site of ['anime', 'hub'] as const) {
     it(`${site}: the world handler answers, the kpop code is not run`, async () => {
       const { GET } = await routeOn(site);
-      const res = await GET(new NextRequest('https://fandomverse.org/auth/callback?code=c1&returnTo=%2F'));
+      const res = await GET(new NextRequest('https://bunnyverse.org/auth/callback?code=c1&returnTo=%2F'));
       expect(res.status).toBe(299);
       expect(seen.world).toBe(1);
       expect(seen.exchange).toBe(0);

@@ -16,7 +16,7 @@ import { GroupAvatar } from './board';
 
 import type { P9Standing } from '@/lib/ux-v1/p9/standing';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 // The pinned "you" rows under each board (prototype .pin[data-auth]): per-viewer

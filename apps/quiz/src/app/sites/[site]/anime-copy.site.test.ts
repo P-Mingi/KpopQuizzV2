@@ -1,7 +1,7 @@
 // Run O1, lane O1: the anime pages that were copies of the kpop ones (about, editorial policy, contact, terms) and
 // the 404 of anime and hub name no K-pop, no KpopQuiz, no kpop host, no Discord, no stats page and no mailbox of kpopquiz.org.
 // Lot (d), H1 (owner, 2026-10-24): /privacy is no longer one of them. Anime and hub both serve the network policy, which names the
-// three sites (KpopQuiz, OtakuQuiz, FandomVerse) and their sign-in methods; its test is the last describe of this file.
+// three sites (KpopQuiz, OtakuQuiz, Bunnyverse) and their sign-in methods; its test is the last describe of this file.
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -39,7 +39,7 @@ describe('the anime pages that were kpop copies', () => {
       const html = renderToString(out as React.ReactElement) + JSON.stringify((mod as { metadata?: unknown }).metadata ?? {});
       const banned = name === 'contact' ? /K-?pop(?!_)|kpopquiz|Discord/i : BANNED;
       // the one network mailbox (owner, 2026-10-25) is the only kpopquiz.org text these pages may print; Discord is named only as a way
-      // to sign in (owner, 2026-10-28: fandomverse.org signs in with Google and Discord)
+      // to sign in (owner, 2026-10-28: bunnyverse.org signs in with Google and Discord)
       expect(html.replaceAll(MAILBOX, '').replaceAll('Google or Discord', '')).not.toMatch(banned);
       expect(html).not.toMatch(DASHES);
       if (/mailto:/.test(html)) expect(html).toContain(`mailto:${MAILBOX}`);
@@ -61,7 +61,7 @@ describe('the network privacy policy on the hub and on anime', () => {
       }
       expect(html).toContain('mailto:hello@kpopquiz.org');
       expect(html.replaceAll(MAILBOX, '')).not.toContain('@kpopquiz.org');
-      expect(html).not.toContain('@fandomverse.org/anime');
+      expect(html).not.toContain('@bunnyverse.org/anime');
       expect(html).not.toMatch(DASHES);
     }
   });
@@ -71,8 +71,8 @@ describe('the network privacy policy on the hub and on anime', () => {
     const hubHtml = renderToString(hub.default() as React.ReactElement);
     const anime = await onSite('anime', () => import('./privacy/page'));
     expect(renderToString(anime.default() as React.ReactElement).replace(/anime-h1-/g, 'hub-h1-')).toBe(hubHtml);
-    expect(anime.generateMetadata().alternates?.canonical).toBe('https://fandomverse.org/privacy');
-    expect(hub.generateMetadata().alternates?.canonical).toBe('https://fandomverse.org/privacy');
+    expect(anime.generateMetadata().alternates?.canonical).toBe('https://bunnyverse.org/privacy');
+    expect(hub.generateMetadata().alternates?.canonical).toBe('https://bunnyverse.org/privacy');
   });
 });
 

@@ -1,9 +1,11 @@
 'use client';
 
-// Run O1, lot H2a: the preview player of the blindtest card (the design's script: press play, ten seconds count, then "Song 1 done").
+// Run O1, lot H2a: the preview player of the blindtest (the design's script: press play, ten seconds count, then "Song 1 done").
 // Lot H2c: it plays the real preview of the first song of the day (`previewUrl`, audio only: no title, no artist, no cover reaches the
 // page) and stops at the clip length. Nothing is loaded before the first press. If the browser refuses the sound, the player goes back
 // to "press play".
+// Home v3 (2026-10-29, Home.dc.html): the player is one row of Today: the round play button, the name, the bar and the line, and the way to
+// the whole set on its own site.
 import { useEffect, useRef, useState } from 'react';
 
 interface HomeBlindtestProps {
@@ -11,19 +13,24 @@ interface HomeBlindtestProps {
   readonly seconds: number;
   /** The preview of the first song of the day (about 30 seconds long; the player plays the first `seconds`). */
   readonly previewUrl: string;
+  /** The blind test of the day on its own site. */
+  readonly href: string;
   readonly labels: {
+    readonly title: string;
     readonly playAria: string;
     readonly pauseAria: string;
-    /** "Song 1 of 5 · press play". */
+    /** "KpopQuiz · 10 songs, 10 s each". */
     readonly press: string;
-    /** "Song 1 of 5 · 0:{sec} / 0:10". */
+    /** "Song 1 of 10 · 0:{sec} / 0:10". */
     readonly playing: string;
-    /** "Song 1 done. 4 to go on KpopQuiz". */
+    /** "Song 1 done · {rest} to go". */
     readonly done: string;
+    /** "All 10 songs". */
+    readonly all: string;
   };
 }
 
-export function HomeBlindtest({ songs, seconds, previewUrl, labels }: HomeBlindtestProps): React.ReactElement {
+export function HomeBlindtest({ songs, seconds, previewUrl, href, labels }: HomeBlindtestProps): React.ReactElement {
   const [playing, setPlaying] = useState(false);
   const [sec, setSec] = useState(0);
   const timer = useRef<number | null>(null);
@@ -87,18 +94,20 @@ export function HomeBlindtest({ songs, seconds, previewUrl, labels }: HomeBlindt
       ? labels.playing.replace('{sec}', sec < 10 ? `0${sec}` : String(sec))
       : labels.press;
   return (
-    <div className="hub-h2-btplayer">
+    <div className="hub-h2-line hub-h2-btrow">
       <button type="button" onClick={toggle} aria-label={playing ? labels.pauseAria : labels.playAria} className="hub-h2-btbtn hub-h2-btn">
         {playing ? (
-          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4.5" width="4" height="15" rx="1" /><rect x="14" y="4.5" width="4" height="15" rx="1" /></svg>
+          <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4.5" width="4" height="15" rx="1" /><rect x="14" y="4.5" width="4" height="15" rx="1" /></svg>
         ) : (
-          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z" /></svg>
+          <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z" /></svg>
         )}
       </button>
-      <div className="hub-h2-btbody">
-        <div className="hub-h2-bar"><div className="hub-h2-bar-in" style={{ width: `${(sec / seconds) * 100}%` }} /></div>
-        <span className="hub-h2-btlabel">{label}</span>
-      </div>
+      <span className="hub-h2-btbody">
+        <span className="hub-h2-tname">{labels.title}</span>
+        <span className="hub-h2-btbar"><span className="hub-h2-btbar-in" style={{ width: `${(sec / seconds) * 100}%` }} /></span>
+        <span className="hub-h2-btlabel hub-h2-num">{label}</span>
+      </span>
+      <a href={href} className="hub-h2-btall">{labels.all}</a>
     </div>
   );
 }

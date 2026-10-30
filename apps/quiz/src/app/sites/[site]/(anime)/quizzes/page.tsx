@@ -16,7 +16,7 @@ import { quizzesIndexRule, quizzesLastPage, quizzesNeedsLastPage, readQuizzesUrl
 
 import type { Metadata } from 'next';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 // ISR: revalidate hourly (SEO Fix 1). This page already server-renders the quiz

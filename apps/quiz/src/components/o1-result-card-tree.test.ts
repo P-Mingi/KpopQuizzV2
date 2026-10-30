@@ -7,7 +7,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { clientRefsOf, flightTree } from '@/lib/o1-flight-tree';
 
 // Run O1 (ADM join): the shared ResultCard gets an optional photo position (the focal point of a character portrait on the personality
-// result of fandomverse.org/anime). On kpopquiz.org nothing may change, so every kpop use of the card keeps, byte for byte, the React Flight
+// result of bunnyverse.org/anime). On kpopquiz.org nothing may change, so every kpop use of the card keeps, byte for byte, the React Flight
 // tree it has at the base (e589af9, before this change): the same props and children, no new prop even undefined, no new client
 // component. The files of __o1_kpop_tree__/result-card-*.json were written from the base ResultCard with O1_WRITE_TREE=1 (never from
 // the head); a plain run compares. The same pattern as o1-kpop-tree.test.ts.
@@ -83,7 +83,7 @@ describe('the kpop result card keeps its tree', () => {
   });
 });
 
-describe('the result card with a focal point (fandomverse.org/anime)', () => {
+describe('the result card with a focal point (bunnyverse.org/anime)', () => {
   const base = { eyebrow: 'You are', name: 'Ryuk', role: 'Shinigami' };
   it('puts the focal point on the picture as its object-position, in the v11 and in the v12 picture', async () => {
     const { ResultCard } = await import('@/components/ux-v1/result-card');

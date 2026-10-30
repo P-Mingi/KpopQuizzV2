@@ -1,4 +1,4 @@
-/* Run O1 (ADM front): the admin of the owner's images on fandomverse.org/anime (/admin, tab Images) and the places where those images are drawn
+/* Run O1 (ADM front): the admin of the owner's images on bunnyverse.org/anime (/admin, tab Images) and the places where those images are drawn
    (a character portrait on its tile, the credit lines, the credits page heading). Every selector starts with the site scope and names
    only anime-adm-* classes (tokens.md 3.3); colours, lines and the focus ring come from the frozen --ux-* tokens, so the light and the
    dark theme follow without a rule of their own. The shared kit (UxButton, Panel, UxField, Segmented) draws its own parts. */

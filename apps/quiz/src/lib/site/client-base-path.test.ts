@@ -1,4 +1,4 @@
-// FandomVerse: lib/site/client-base-path.ts is the base path of client modules (they never import lib/site/base-path.ts). Its
+// Bunnyverse: lib/site/client-base-path.ts is the base path of client modules (they never import lib/site/base-path.ts). Its
 // BASE_PATH is the constant Next inlines ('' on kpop and the hub, '/anime' on the anime build) and its withClientBase gives the
 // answer of prefixBasePath of base-path.ts for that base path, so the client and the server address a path the same way.
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -8,7 +8,7 @@ import { prefixBasePath } from './base-path';
 const PATHS = [
   '/', '/?a=1', '/#top', '/q/x', '/q/x?y=1#z', '/mascot/mascot-default.png', '/idols/BTS%20(1).jpg', '/anime', '/anime/q/x',
   '/anime?a=1', '/anime#h', '/animex', '/anime-mix-quiz', 'https://cdn.example.com/a.png', '//cdn.example.com/a.png',
-  'data:image/png;base64,AAAA', 'blob:https://fandomverse.org/1', 'relative.png', '', '#frag',
+  'data:image/png;base64,AAAA', 'blob:https://bunnyverse.org/1', 'relative.png', '', '#frag',
 ];
 
 async function load(base: string | undefined): Promise<typeof import('./client-base-path')> {

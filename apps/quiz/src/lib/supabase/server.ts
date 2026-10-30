@@ -4,7 +4,7 @@ import { cookies, headers } from 'next/headers';
 
 export async function createServerClient() {
   const cookieStore = await cookies();
-  // FandomVerse (security review, 2026-10-28): on the hub and anime builds the session cookies carry Secure over https (the
+  // Bunnyverse (security review, 2026-10-28): on the hub and anime builds the session cookies carry Secure over https (the
   // forwarded proto) and always on a production deployment, the rule of lib/auth/session-cookie.ts, written out here so the
   // kpop module graph stays the one of before. kpop passes no cookie option, exactly as before, and reads no header here.
   const world = (process.env.NEXT_PUBLIC_SITE_ID || 'kpop') !== 'kpop';

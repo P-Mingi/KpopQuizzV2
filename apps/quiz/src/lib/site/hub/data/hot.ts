@@ -15,6 +15,8 @@
 //          today from the plays rows; without the table every day comes from the plays rows (fetchAllRows, paged past the 1000 row cap).
 // A site with fewer than 6 scored quizzes is completed in its own order (K-pop: lifetime plays; anime: editorial order), never
 // with an invented number.
+// Start easy (home v3, 2026-10-29: the filter that replaces the old "New here? Start easy" block): the easy quizzes of each site in that
+// same order (anime: its places first, then the rest of its editorial order), two per group or series at most, the sites alternating.
 
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { forSite } from '@/lib/site/scope';
@@ -157,6 +159,8 @@ export interface HotInput {
 export interface HotPicks {
   readonly kpop: QuizRow[];
   readonly anime: QuizRow[];
+  /** The Start easy picks of each site (six at most). */
+  readonly easy: { readonly kpop: QuizRow[]; readonly anime: QuizRow[] };
   readonly animeStartup: boolean;
   readonly completionMeasured: boolean;
 }
@@ -175,17 +179,26 @@ export function pickHot(input: HotInput): HotPicks {
   const aListable = input.anime.filter((q) => !qotdIds.has(q.id) && isListable(q));
   const aNew = editorialOrder(aListable.filter((q) => now.getTime() - Date.parse(q.created_at) < NEW_DAYS * DAY_MS), tiers);
   let anime: QuizRow[];
+  let aOrder: QuizRow[];
   if (startup) {
     anime = capPerKey(aNew, group, HOT_PER_GROUP).slice(0, HOT_SIZE);
+    const taken = new Set(aNew.map((q) => q.id));
+    aOrder = [...aNew, ...editorialOrder(aListable.filter((q) => !taken.has(q.id)), tiers)];
   } else {
     const aScored = rankQuizzes(aListable as QuizRow[], plays, now, qotdIds);
     const aTop = aScored.filter((s) => s.score > 0).map((s) => s.quiz);
     const taken = new Set(aTop.map((q) => q.id));
     const aRest = editorialOrder(aListable.filter((q) => !taken.has(q.id)), tiers);
     anime = capPerKey([...aTop, ...aRest], group, HOT_PER_GROUP).slice(0, HOT_SIZE);
+    aOrder = [...aTop, ...aRest];
   }
+  const isEasy = (q: QuizRow): boolean => q.difficulty === 'easy';
+  const easy = {
+    kpop: capPerKey([...kTop, ...kRest].filter(isEasy), group, HOT_PER_GROUP).slice(0, HOT_SIZE),
+    anime: capPerKey(aOrder.filter(isEasy), group, HOT_PER_GROUP).slice(0, HOT_SIZE),
+  };
   const measured = [...kScored, ...rankQuizzes(input.anime, plays, now, qotdIds)].some((s) => s.completion !== null);
-  return { kpop, anime, animeStartup: startup, completionMeasured: measured };
+  return { kpop, anime, easy, animeStartup: startup, completionMeasured: measured };
 }
 
 /** The three lists of the home from the picks. */
@@ -197,6 +210,7 @@ export function composeHot(picks: HotPicks, origins: HubOrigins, now: Date, play
     all,
     kpop: ranked(picks.kpop),
     anime: ranked(picks.anime),
+    easy: alternate(picks.easy.kpop, picks.easy.anime).map(card),
     basis: { plays, completionMeasured: picks.completionMeasured, animeStartup: picks.animeStartup },
   };
 }

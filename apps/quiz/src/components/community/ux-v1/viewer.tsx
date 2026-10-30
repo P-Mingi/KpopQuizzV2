@@ -7,7 +7,7 @@ import { useUxMe } from '@/components/ux-v1/use-ux-me';
 
 import type { SignInRequest } from '@/components/ux-v1/sign-in-sheet';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 // The signed-in fan's own community state, read once per page view through

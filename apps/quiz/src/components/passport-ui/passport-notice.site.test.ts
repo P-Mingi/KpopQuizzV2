@@ -32,7 +32,7 @@ describe('the sign-in sheet of anime and hub', () => {
       expect(html).toContain('data-passport-notice');
       for (const k of ['privacy.notice.l1', 'privacy.notice.l2', 'privacy.notice.l3'] as const) expect(html).toContain(ht(k));
       expect(html).toContain(`href="${NETWORK.url}/privacy"`);
-      expect(`${NETWORK.url}/privacy`).toBe('https://fandomverse.org/privacy');
+      expect(`${NETWORK.url}/privacy`).toBe('https://bunnyverse.org/privacy');
       expect(html).toContain(`>${ht('privacy.notice.link')}</a>`);
       expect(html).not.toMatch(/>\s*(?:OK|Okay|I agree|Accept)\s*</i);
       expect(html).not.toMatch(DASHES);
@@ -53,7 +53,7 @@ describe('the login page of anime and hub', () => {
       const { ht } = await import('@/lib/site/hub/copy');
       const html = renderToStaticMarkup(h(LoginBody, {}));
       for (const k of ['privacy.notice.l1', 'privacy.notice.l2', 'privacy.notice.l3', 'privacy.notice.full'] as const) expect(html).toContain(ht(k));
-      expect(ht('privacy.notice.full')).toBe('The full text is at fandomverse.org/privacy.');
+      expect(ht('privacy.notice.full')).toBe('The full text is at bunnyverse.org/privacy.');
       expect(html).toContain('We never post for you.');
       expect(html).not.toMatch(DASHES);
     });
@@ -83,12 +83,12 @@ describe('kpop: the notice is behind NEXT_PUBLIC_NET_PRIVACY', () => {
     return { html: await settled(h(LoginBody)), ht };
   }
 
-  it('off (unset, 0, false): the kpop login body has no notice and no link to fandomverse.org', async () => {
+  it('off (unset, 0, false): the kpop login body has no notice and no link to bunnyverse.org', async () => {
     for (const flag of [undefined, '', '0', 'false']) {
       const { html, ht } = await kpopLogin(flag);
       expect(html, String(flag)).not.toContain('data-passport-notice');
       expect(html, String(flag)).not.toContain(ht('privacy.notice.l1'));
-      expect(html, String(flag)).not.toContain('fandomverse.org');
+      expect(html, String(flag)).not.toContain('bunnyverse.org');
     }
   });
 
@@ -103,7 +103,7 @@ describe('kpop: the notice is behind NEXT_PUBLIC_NET_PRIVACY', () => {
       const { html, ht } = await kpopLogin(flag);
       expect(html, flag).toContain('data-passport-notice');
       for (const k of ['privacy.notice.l1', 'privacy.notice.l2', 'privacy.notice.l3'] as const) expect(html, flag).toContain(ht(k));
-      expect(html, flag).toContain('href="https://fandomverse.org/privacy"');
+      expect(html, flag).toContain('href="https://bunnyverse.org/privacy"');
       expect(html, flag).toContain('class="auth-note" data-passport-notice');
       expect(html, flag).not.toMatch(DASHES);
     }
@@ -121,11 +121,11 @@ describe('kpop: the notice is behind NEXT_PUBLIC_NET_PRIVACY', () => {
     };
     const on = await sheet('1');
     expect(on).toContain('data-passport-notice');
-    expect(on).toContain('href="https://fandomverse.org/privacy"');
+    expect(on).toContain('href="https://bunnyverse.org/privacy"');
     expect(on).toContain('Continue with Discord');
     const off = await sheet(undefined);
     expect(off).not.toContain('data-passport-notice');
-    expect(off).not.toContain('fandomverse.org');
+    expect(off).not.toContain('bunnyverse.org');
   });
 
   it('the shared kpop modules reach the notice only through a lazy import, shown only with the flag on', () => {

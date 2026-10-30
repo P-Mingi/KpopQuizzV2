@@ -18,7 +18,7 @@ import type { Draft, EditorMode } from '@/lib/ux-v1/p8/draft';
 import type { P8Features } from '@/lib/ux-v1/p8/types';
 import type { VerseScope } from '@/lib/ux-v1/p8/verse-gate';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 // The New post editor (DESIGN-SPEC 13.3 + 17.9, prototype sheet #editor): one sheet,

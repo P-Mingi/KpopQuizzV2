@@ -52,7 +52,7 @@ describe('root metadata', () => {
       const m = siteRootMetadata({ title: 'kpop object' }, site);
       const text = JSON.stringify(m);
       expect(text, id).not.toMatch(/kpop|k-pop|p:domain_verify|pinterest/i);
-      // The registry url, folder included on OtakuQuiz (https://fandomverse.org/anime, 2026-10-28).
+      // The registry url, folder included on OtakuQuiz (https://bunnyverse.org/anime, 2026-10-28).
       expect(String(m.metadataBase)).toBe(new URL(site.url).href);
       expect(m.title).toEqual({ default: site.brand.name, template: site.seo.titleTemplate });
       expect(m.openGraph?.siteName).toBe(site.brand.name);
@@ -88,7 +88,7 @@ describe('site navigation JSON-LD (app/(site)/layout.tsx before B1)', () => {
 
   it('other sites list the links of their own features, on their own origin', () => {
     const anime = siteNavigationJsonLd(REGISTRY.anime).hasPart as { url: string }[];
-    expect(anime.map((p) => p.url)).toEqual(['/quizzes', '/leaderboard', '/trivia'].map((p) => `https://fandomverse.org/anime${p}`));
+    expect(anime.map((p) => p.url)).toEqual(['/quizzes', '/leaderboard', '/trivia'].map((p) => `https://bunnyverse.org/anime${p}`));
     expect(siteNavigationJsonLd(REGISTRY.hub).hasPart).toEqual([]);
   });
 });
@@ -110,12 +110,12 @@ describe('brand helpers', () => {
 
   it('anime and hub split on their own names', () => {
     expect(brandWordmark(REGISTRY.anime)).toEqual({ head: 'Otaku', tail: 'Quiz' });
-    expect(domainWordmark(REGISTRY.anime)).toEqual({ head: 'fandom', tail: 'verse.org/anime' });
-    expect(brandWordmark(REGISTRY.hub)).toEqual({ head: 'Fandom', tail: 'Verse' });
-    expect(domainWordmark(REGISTRY.hub)).toEqual({ head: 'fandom', tail: 'verse.org' });
+    expect(domainWordmark(REGISTRY.anime)).toEqual({ head: 'bunny', tail: 'verse.org/anime' });
+    expect(brandWordmark(REGISTRY.hub)).toEqual({ head: 'Bunny', tail: 'verse' });
+    expect(domainWordmark(REGISTRY.hub)).toEqual({ head: 'bunny', tail: 'verse.org' });
     expect(siteAddress(REGISTRY.kpop)).toBe(REGISTRY.kpop.domain);
-    expect(siteAddress(REGISTRY.anime)).toBe('fandomverse.org/anime');
-    expect(siteAddress(REGISTRY.hub)).toBe('fandomverse.org');
+    expect(siteAddress(REGISTRY.anime)).toBe('bunnyverse.org/anime');
+    expect(siteAddress(REGISTRY.hub)).toBe('bunnyverse.org');
   });
 });
 

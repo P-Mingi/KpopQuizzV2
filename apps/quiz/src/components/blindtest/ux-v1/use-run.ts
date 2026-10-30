@@ -15,7 +15,7 @@ import type { RunSummary } from '@/lib/ux-v1/p6/points';
 import type { BtRunContext } from '@/lib/tracking/bt';
 import type { BtPick } from '@/lib/ux-v1/p6/playlists';
 
-// FandomVerse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
+// Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 // The run engine of the v11 blindtest (DESIGN-SPEC 14.7, 16.7). It is the live

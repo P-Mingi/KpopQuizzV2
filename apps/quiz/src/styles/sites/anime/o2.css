@@ -95,6 +95,14 @@ html.ux-v1[data-site="anime"] .anime-o2-art-type { display: flex; align-items: c
 html.ux-v1[data-site="anime"] .anime-o2-art-type svg { flex: 0 0 auto; width: 16px; height: 16px; }
 html.ux-v1[data-site="anime"] .anime-o2-art-name { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; -webkit-line-clamp: 4; line-clamp: 4; }
 
+/* Trending this week on the home (owner, 2026-10-29): the cover keeps the 4:3 box of the kpop card (.ux-qcov of ux-v1/a0.css) in place
+   of the strip, so the two rows of four of ux-v12/home.css have the image height of the kpopquiz.org home. The photo of a series fills
+   the box (the photo of the strip, sized for the card). A series with no photo shows its square art in place of the strip: a 4:3 box
+   crops the square at the top and the bottom, where the strip would lose the ends of its title. */
+html.ux-v1[data-site="anime"] .anime-o2-trend .anime-o2-art-cov { aspect-ratio: 4 / 3; }
+html.ux-v1[data-site="anime"] .anime-o2-trend .anime-o2-art-strip:not(:has(.anime-o2-photo)) { display: none; }
+html.ux-v1[data-site="anime"] .anime-o2-trend .anime-o2-art-strip:not(:has(.anime-o2-photo)) + .anime-o2-art-sq { display: block; }
+
 /* Rails and rows. */
 html.ux-v1[data-site="anime"] .anime-o2-art-item { width: 140px; }
 html.ux-v1[data-site="anime"] .anime-o2-art-item .anime-o2-art-name { text-wrap: balance; }

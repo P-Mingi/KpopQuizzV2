@@ -1,4 +1,4 @@
-// FandomVerse (lane 3): the pure part of lib/auth/site-base.ts, with no import, so a shared client component (the /login body)
+// Bunnyverse (lane 3): the pure part of lib/auth/site-base.ts, with no import, so a shared client component (the /login body)
 // can build a link of a world build without pulling the registry into the kpop bundle.
 
 /** A path that safeReturnTo would keep as it is: a leading slash, not '//', no backslash. */

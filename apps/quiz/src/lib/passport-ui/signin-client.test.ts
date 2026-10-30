@@ -1,7 +1,7 @@
 // Run O1, lot (b), lane P1: the browser side of signing in on a world site: the tab's via, the email link address. Nothing
 // leaves the process.
-// FandomVerse (owner, 2026-10-28): the origins move from the old anime domain to fandomverse.org/anime (the anime base: origin and
-// basePath); the Google and Discord flow of the FandomVerse sheets (signInWithProvider, /auth/start) is tested at the end. The
+// Bunnyverse (owner, 2026-10-28): the origins move from the old anime domain to bunnyverse.org/anime (the anime base: origin and
+// basePath); the Google and Discord flow of the Bunnyverse sheets (signInWithProvider, /auth/start) is tested at the end. The
 // tests of the removed Google ID-token flow (signInWithGoogle, afterSignin, destinationAfterSignin) went with it (review,
 // 2026-10-28); the server side they called stays guarded by lib/passport/signin.test.ts.
 import { readFileSync } from 'node:fs';
@@ -32,17 +32,17 @@ describe('readTabVia', () => {
 
 describe('emailRedirect', () => {
   it('the email link comes back to the site landing with next as its only query', () => {
-    expect(emailRedirect('https://fandomverse.org/anime', '/auth/confirm', '/q/my quiz?a=1')).toBe('https://fandomverse.org/anime/auth/confirm?next=%2Fq%2Fmy%20quiz%3Fa%3D1');
+    expect(emailRedirect('https://bunnyverse.org/anime', '/auth/confirm', '/q/my quiz?a=1')).toBe('https://bunnyverse.org/anime/auth/confirm?next=%2Fq%2Fmy%20quiz%3Fa%3D1');
   });
 });
 
 // Security review (2026-10-28): the callback is registered in Supabase exactly, so it never carries a query; the return path
 // and the via travel to the server of the build on /auth/start, which keeps them in an HttpOnly cookie.
-describe('FandomVerse: Google and Discord, started on the server of the build', () => {
+describe('Bunnyverse: Google and Discord, started on the server of the build', () => {
   it('the callback is the exact base + /auth/callback: no query, no fragment, whatever the base', () => {
-    expect(oauthCallbackUrl('https://fandomverse.org/anime')).toBe('https://fandomverse.org/anime/auth/callback');
-    expect(oauthCallbackUrl('https://fandomverse.org')).toBe('https://fandomverse.org/auth/callback');
-    for (const base of ['https://fandomverse.org', 'https://fandomverse.org/anime']) {
+    expect(oauthCallbackUrl('https://bunnyverse.org/anime')).toBe('https://bunnyverse.org/anime/auth/callback');
+    expect(oauthCallbackUrl('https://bunnyverse.org')).toBe('https://bunnyverse.org/auth/callback');
+    for (const base of ['https://bunnyverse.org', 'https://bunnyverse.org/anime']) {
       const url = new URL(oauthCallbackUrl(base));
       expect(url.search).toBe('');
       expect(url.hash).toBe('');
@@ -54,10 +54,10 @@ describe('FandomVerse: Google and Discord, started on the server of the build', 
     expect(oauthStartPath('/anime', 'discord', '/q/a b?x=1', 'k.menu')).toBe('/anime/auth/start?provider=discord&returnTo=%2Fq%2Fa+b%3Fx%3D1&via=k.menu');
     expect(oauthStartPath('', 'google', '/passport', null)).toBe('/auth/start?provider=google&returnTo=%2Fpassport');
     for (const via of ['x.menu', 'k.m', '<b>', '']) {
-      expect(new URL(oauthStartPath('', 'google', '/', via), 'https://fandomverse.org').searchParams.has('via')).toBe(false);
+      expect(new URL(oauthStartPath('', 'google', '/', via), 'https://bunnyverse.org').searchParams.has('via')).toBe(false);
     }
     // whatever the return path holds, it stays one encoded parameter
-    const url = new URL(oauthStartPath('/anime', 'google', '/x&via=k.evil#frag', null), 'https://fandomverse.org');
+    const url = new URL(oauthStartPath('/anime', 'google', '/x&via=k.evil#frag', null), 'https://bunnyverse.org');
     expect(url.pathname).toBe('/anime/auth/start');
     expect(url.hash).toBe('');
     expect(url.searchParams.get('returnTo')).toBe('/x&via=k.evil#frag');

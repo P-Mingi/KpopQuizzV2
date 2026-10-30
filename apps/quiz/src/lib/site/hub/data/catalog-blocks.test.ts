@@ -13,7 +13,7 @@ import { dbCrossoverReads, isoWeek, readCrossover, rotate, weekIndex } from './c
 import { readDoors } from './doors';
 import { bestEasy, readStartEasy } from './start-easy';
 import { pickSurprise } from './surprise-pick';
-import { readPlayedIds, readSurprisePool, SURPRISE_PER_SITE } from './surprise';
+import { readPlayedIds, readSiteSurprisePool, readSurprisePool, SURPRISE_PER_SITE } from './surprise';
 import { fakeDb, ORIGINS, quizRow } from './test-support';
 
 import type { Row } from './test-support';
@@ -82,6 +82,36 @@ describe('Surprise me', () => {
     expect(out!.filter((c) => c.site === 'anime')).toHaveLength(40);
     expect(out!.some((c) => c.id === 'k-flagged')).toBe(false);
     expect(out!.find((c) => c.id === 'a3')?.href).toBe('https://anime.example/q/a3');
+  });
+
+  it('builds the pool of one site by the same rules: OtakuQuiz reads only its published, listable quizzes, its 100 best, the same cards', async () => {
+    const rows: Row[] = [
+      ...Array.from({ length: 130 }, (_, i) => quizRow({ id: `a${i}`, slug: `a${i}`, site_id: 'anime', play_count: 1000 - i, like_count: 100 - Math.floor(i / 2), group_id: 500 + i, groups: { name: `Series ${i}`, slug: `series-${i}` } })),
+      ...Array.from({ length: 20 }, (_, i) => quizRow({ id: `k${i}`, slug: `k${i}`, play_count: 99999, like_count: 99999, group_id: i })),
+      quizRow({ id: 'a-flagged', slug: 'af', site_id: 'anime', status: 'flagged', play_count: 99999, like_count: 99999, group_id: 900 }),
+      quizRow({ id: 'a-reported', slug: 'ar', site_id: 'anime', report_count: 5, play_count: 99999, like_count: 99999, group_id: 901 }),
+    ];
+    const db = fakeDb({ quizzes: rows, series: [] });
+    const out = await readSiteSurprisePool('anime', ORIGINS, NOW, db as never);
+    expect(out).toHaveLength(SURPRISE_PER_SITE);
+    expect(out!.every((c) => c.site === 'anime' && c.siteName === 'OtakuQuiz')).toBe(true);
+    expect(out!.some((c) => c.id === 'a-flagged' || c.id === 'a-reported')).toBe(false);
+    const listed = rows.filter((r) => r.site_id === 'anime' && r.status === 'published' && Number(r.report_count ?? 0) < 5) as unknown as QuizRow[];
+    expect(out!.map((c) => c.id)).toEqual(rankByQuality(listed, new Map()).slice(0, 100).map((r) => r.id));
+    expect(out!.find((c) => c.id === 'a3')).toEqual({ id: 'a3', site: 'anime', siteName: 'OtakuQuiz', tile: 'S3', title: 'Title a3', group: 'Series 3', href: 'https://anime.example/q/a3' });
+    // The read names the site (forSite) and the published status, and pages past the 1000 row cap.
+    const quizReads = db.calls.filter((c) => c.table === 'quizzes');
+    expect(quizReads.length).toBeGreaterThan(0);
+    for (const c of quizReads) {
+      expect(c.ops).toContainEqual(['eq', 'site_id', 'anime']);
+      expect(c.ops).toContainEqual(['eq', 'status', 'published']);
+      expect(c.ops.some((o) => o[0] === 'range')).toBe(true);
+    }
+    // The same cards as the anime share of the hub's pool.
+    const both = await readSurprisePool(ORIGINS, NOW, fakeDb({ quizzes: rows, series: [] }) as never);
+    expect(both!.filter((c) => c.site === 'anime')).toEqual(out);
+    // No quiz on the site: no pool.
+    expect(await readSiteSurprisePool('anime', ORIGINS, NOW, fakeDb({ quizzes: rows.filter((r) => r.site_id !== 'anime'), series: [] }) as never)).toBeNull();
   });
 
   it('never draws a played quiz, and never the same site twice in a row', () => {

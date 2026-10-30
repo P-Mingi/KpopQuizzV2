@@ -11,7 +11,7 @@ ok('addresses', () => {
   assert.equal(VERCEL_SITES.anime, 'https://otakuquiz-git-o1-integration-p-mingis-projects.vercel.app');
   assert.equal(VERCEL_SITES.hub, 'https://fandomverse-git-o1-integration-p-mingis-projects.vercel.app');
 });
-// FandomVerse (owner, 2026-10-28): the anime build lives under the basePath /anime.
+// Bunnyverse (owner, 2026-10-28): the anime build lives under the basePath /anime.
 ok('base paths', () => {
   assert.deepEqual(BASE_PATHS, { kpop: '', anime: '/anime', hub: '' });
 });

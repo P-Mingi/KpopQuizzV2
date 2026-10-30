@@ -35,8 +35,8 @@ export function log(route: string, outcome: string, site: SiteId): void {
 }
 
 /**
- * apis.md 1.1.3: an Origin header that is present must be this site's own origin, exactly. FandomVerse: the origin of the
- * site's base (the anime base https://fandomverse.org/anime has a path, an Origin never does), so hub and anime, one origin,
+ * apis.md 1.1.3: an Origin header that is present must be this site's own origin, exactly. Bunnyverse: the origin of the
+ * site's base (the anime base https://bunnyverse.org/anime has a path, an Origin never does), so hub and anime, one origin,
  * accept each other's same-origin calls and nothing else.
  */
 export function originOk(request: NextRequest, site: SiteId, env: NetOriginEnv): boolean {

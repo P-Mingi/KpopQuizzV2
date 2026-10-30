@@ -64,7 +64,9 @@ role-shape tiles, never an image; oshi star; counts shown from 30); **A4** openi
 slot, blind test link at 15 or more playable previews); **A5** spoiler protection (progress setting, "Safe for you" and
 "Covers {arc}" labels, interstitial, spoiler-tagged questions absent from HTML and JSON-LD, spoiler tag and source per
 question in create, thread spoiler flair); **A6** fan-made notice in the footer; **A7** typographic title card SVG where
-kpop shows a group logo or photo.
+kpop shows a group logo or photo; **A8** Surprise me on the home (owner, 2026-10-29 and 2026-10-30): under the hero buttons,
+the hub's component (`components/hub/home/home-surprise.tsx`) with the anime-h2 class prefix, drawing from the published,
+listable anime quizzes only (the hub's pool rules on one site); absent with no pool.
 
 FanQuiz rows: **Tn** the neutral FanQuiz theme (same token names); **Bf** FanQuiz wordmark, no mascot; **C**; **N** (no
 quiz, playlist or series content on the hub). Hub blocks: **H1** one card per site with real counts above 30; **H2**
@@ -76,7 +78,7 @@ and security, your data) with Leave a world and Delete my passport (S6 steps).
 
 | id | route | file | kpop twin | mustImport | renders | allowed | owner | body | notes |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | / | `app/sites/[site]/page.tsx` | `app/(site)/page.tsx` | `@/components/home/ux-v1/ux-home` | components/home/ux-v1/ux-home.tsx, home-header.tsx, qotd-row.tsx, continue-playing.tsx, groups-rail.tsx, quiz-rows.tsx, blindtest-band.tsx, community-rows.tsx, components/ux-v1/page.tsx, section-header.tsx, quiz-card.tsx | T B V C F N A7 | O1 | shared | The series rail shows title cards (A7); the blind test band becomes the openings band through V. No A5 on the home (D-020). The community section renders as the shared component does with zero rows (D-020). The file is shared with row H-1 and dispatches on the site. |
+| 1 | / | `app/sites/[site]/page.tsx` | `app/(site)/page.tsx` | `@/components/home/ux-v1/ux-home` | components/home/ux-v1/ux-home.tsx, home-header.tsx, qotd-row.tsx, continue-playing.tsx, groups-rail.tsx, quiz-rows.tsx, blindtest-band.tsx, community-rows.tsx, components/ux-v1/page.tsx, section-header.tsx, quiz-card.tsx | T B V C F N A7 A8 | O1 | shared | The series rail shows title cards (A7); the blind test band becomes the openings band through V. No A5 on the home (D-020). The community section renders as the shared component does with zero rows (D-020). The file is shared with row H-1 and dispatches on the site. Surprise me (A8) sits under the hero buttons, before the quiz of the day (UxHome's afterHeader slot; kpop passes none). |
 | 2 | /series | `app/sites/[site]/(anime)/series/page.tsx` | `app/(site)/groups/page.tsx` | `@/components/group/ux-v1/groups-index` | components/group/ux-v1/groups-index.tsx, groups-browser.tsx, group-avatar.tsx | T B V C N A7 | O2 | shared | One filter field, as the twin (no tier or type filter without a CR). |
 | 3 | /{series}-quiz | `app/sites/[site]/(anime)/[slug]/page.tsx` | `app/(site)/[slug]/page.tsx` | `@/components/group/ux-v1/hub` | components/group/ux-v1/hub.tsx, hub-quizzes.tsx, hub-growth.tsx, hub-notify.tsx, components/ux-v1/page.tsx, section-header.tsx, panel.tsx, button.tsx, person-name.tsx | T B V C F N A1 A2 A3 A4 A5 A7 | O2 | shared | F: no Fans picked. The anime blocks go into slots of the shared hub (props added by its owner on request); no separate series hub component. The file is shared with rows 4 and 5 and dispatches on the suffix, as the twin. |
 | 4 | /anime-mix-quiz | `app/sites/[site]/(anime)/[slug]/page.tsx` | `app/(site)/[slug]/page.tsx` | `@/components/group/ux-v1/hub` | as row 3 (the general K-pop hub branch of the twin) | T B V C F N A7 | O2 | shared | No A1 to A4: not a series. |

@@ -79,7 +79,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const id = row.id as string;
   const sig = signChallenge(id);
   if (!sig) return NextResponse.json({ error: 'not_configured' }, { status: 503 });
-  // FandomVerse (lane 1): kpop keeps its override and literal; another site links to its own url (with its base path, /anime).
+  // Bunnyverse (lane 1): kpop keeps its override and literal; another site links to its own url (with its base path, /anime).
   const origin = SITE.id === 'kpop' ? process.env.NEXT_PUBLIC_SITE_URL || 'https://kpopquiz.org' : SITE.url;
   return NextResponse.json({ id, url: `${origin}${challengeHref(q.slug, id, sig)}` });
 }
