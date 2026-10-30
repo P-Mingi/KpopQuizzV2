@@ -1,8 +1,10 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse } from 'next/server';
 
+import { isListedAdminId } from '@/lib/admin/list';
 import { secureRequest } from '@/lib/auth/session-cookie';
 import { withBase } from '@/lib/auth/site-base';
+import { NOT_FOUND_REWRITE } from '@/lib/route-allowlist';
 import { SITE_ID } from '@/lib/site/registry';
 
 import type { NextRequest } from 'next/server';
@@ -17,8 +19,8 @@ import type { NextRequest } from 'next/server';
 // (/onboarding, /settings). Public traffic is gated in middleware.ts
 // and never reaches this function, so it never pays the Supabase round trip.
 // ADMIN-1 (owner, 2026-10-30): /admin is no longer a protected path here. Its session is still refreshed (middleware.ts sends
-// it to this function), but a signed-out visitor is never sent to /login: the page answers the site's 404 (requireAdmin), so
-// the address of the admin cannot be learned from a redirect.
+// it to this function), but a signed-out visitor is never sent to /login: they get the site's 404, so the address of the admin
+// cannot be learned from a redirect.
 const PROTECTED_PATHS = ['/onboarding', '/settings'];
 
 export async function updateSession(request: NextRequest): Promise<NextResponse> {
@@ -88,6 +90,15 @@ async function updateSessionInner(request: NextRequest): Promise<NextResponse> {
 
   const pathname = request.nextUrl.pathname;
   const isProtected = PROTECTED_PATHS.some((p) => pathname.startsWith(p));
+
+  // ADMIN-1: under /admin, anyone who is not a listed account gets the very answer of an unknown URL. A page's own notFound() is still a
+  // 404, but its Flight data names the route and the page's title; this rewrite shows neither. The refreshed session cookies stay on
+  // the answer. Grants nothing: a listed account goes on to the page, whose requireAdmin decides (and answers for this branch failing open).
+  if ((pathname === '/admin' || pathname.startsWith('/admin/')) && !isListedAdminId(user?.id)) {
+    const notFoundAnswer = NextResponse.rewrite(new URL(withBase(SITE_ID, NOT_FOUND_REWRITE), request.url));
+    response.cookies.getAll().forEach((c) => notFoundAnswer.cookies.set(c));
+    return notFoundAnswer;
+  }
 
   // Redirect unauthenticated users from protected paths to login
   if (isProtected && !user) {

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
-import { requireAdmin } from '@/lib/admin/guard';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
 
 import type { NextRequest } from 'next/server';
 
@@ -68,3 +68,11 @@ export async function POST(
 
   return NextResponse.json({ success: true });
 }
+
+// ADMIN-1: a method this route does not implement is the admin 404 too (Next would answer 405 and name the real ones).
+export const GET = adminNotFound;
+export const PUT = adminNotFound;
+export const PATCH = adminNotFound;
+export const DELETE = adminNotFound;
+export const HEAD = adminNotFound;
+export const OPTIONS = adminNotFound;

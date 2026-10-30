@@ -1,4 +1,5 @@
 import { adminGate, failure, notFoundHandler, ok } from '@/lib/entity-images/route-kit';
+import { adminNotFound } from '@/lib/admin/guard';
 import { IMAGE_SITE } from '@/lib/entity-images/constants';
 import { ImageError } from '@/lib/entity-images/errors';
 import { listImages } from '@/lib/entity-images/list';
@@ -28,3 +29,6 @@ export const PUT = notFoundHandler;
 export const PATCH = notFoundHandler;
 export const DELETE = notFoundHandler;
 export const OPTIONS = notFoundHandler;
+
+// ADMIN-1: a method this route does not implement is the admin 404 too (Next would answer 405 and name the real ones).
+export const HEAD = adminNotFound;

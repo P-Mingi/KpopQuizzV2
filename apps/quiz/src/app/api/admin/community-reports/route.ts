@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { requireAdmin } from '@/lib/admin/guard';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { isUxV12 } from '@/lib/ux-v12';
 
@@ -54,3 +54,11 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   await svc.from('community_autohidden').update({ restored_at: now, restored_by: user.id }).eq('id', row.id);
   return NextResponse.json({ ok: true });
 }
+
+// ADMIN-1: a method this route does not implement is the admin 404 too (Next would answer 405 and name the real ones).
+export const GET = adminNotFound;
+export const PUT = adminNotFound;
+export const PATCH = adminNotFound;
+export const DELETE = adminNotFound;
+export const HEAD = adminNotFound;
+export const OPTIONS = adminNotFound;

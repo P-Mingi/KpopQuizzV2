@@ -1,5 +1,5 @@
 // ADMIN-1 (owner, 2026-10-30): the admin lock. The ONE server guard of every admin page, admin route, admin cron door and
-// admin power (the Verse super-user included). Nothing else in the app reads ADMIN_USER_IDS.
+// admin power (the Verse super-user included). ADMIN_USER_IDS is read in lib/admin/list.ts only, and being listed grants nothing alone.
 //
 // requireAdmin() lets a request through only when ALL of these hold:
 //   1. the access token of the session cookie is verified by the auth server (auth.getUser(token)); getSession() only hands
@@ -24,6 +24,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 
+import { isListedAdminId } from './list';
 import { ADMIN_MFA_CODE_PATH, ADMIN_MFA_SETUP_PATH } from './paths';
 
 import type { User } from '@supabase/supabase-js';
@@ -45,6 +46,7 @@ export interface AdminMfaContext extends AdminContext {
   readonly level: AdminLevel;
 }
 
+export { isListedAdminId };
 export { ADMIN_HOME_PATH, ADMIN_MFA_API, ADMIN_MFA_CODE_PATH, ADMIN_MFA_DIR, ADMIN_MFA_SETUP_PATH } from './paths';
 
 /** The headers of every admin answer: never indexed, never stored by a cache. next.config.ts sets them on the paths too. */
@@ -56,18 +58,6 @@ export const ADMIN_RESPONSE_HEADERS: Readonly<Record<string, string>> = {
 /** The answer of an admin route to anyone requireAdmin refuses: a plain 404, the same for every case. */
 export function adminNotFound(): NextResponse {
   return NextResponse.json({ error: 'Not found.', code: 'not_found' }, { status: 404, headers: { ...ADMIN_RESPONSE_HEADERS } });
-}
-
-function listedIds(): string[] {
-  return (process.env.ADMIN_USER_IDS ?? '').split(',').map((id) => id.trim()).filter((id) => id.length > 0);
-}
-
-/**
- * True when `id` is in ADMIN_USER_IDS. For a STORED id only (the reviewer requireAdmin recorded on an editorial draft, checked
- * again by the publisher cron): it grants nothing to the current request. A request is an admin only through requireAdmin.
- */
-export function isListedAdminId(id: string | null | undefined): boolean {
-  return typeof id === 'string' && id.length > 0 && listedIds().includes(id);
 }
 
 type Decision = { readonly level: 'none' } | ({ readonly level: AdminLevel } & AdminContext);

@@ -139,6 +139,10 @@ describe('every route under api/admin is guarded, method by method', () => {
     expect(adminRoutes.length).toBe(46);
   });
 
+  it.each(adminRoutes)('%s answers every method itself (never Next\'s 405 and its Allow header)', (f) => {
+    expect(handlers(strip(read(f))).map((h) => h.name).sort()).toEqual(['DELETE', 'GET', 'HEAD', 'OPTIONS', 'PATCH', 'POST', 'PUT']);
+  });
+
   it.each(adminRoutes)('%s', (f) => {
     const text = strip(read(f));
     const hs = handlers(text);
@@ -171,7 +175,7 @@ describe('every route under api/admin is guarded, method by method', () => {
     for (const f of ['app/api/admin/songs/route.ts', 'app/api/admin/songs/[id]/route.ts']) {
       const text = strip(read(f));
       expect(text, f).not.toMatch(/createServerClient|gate\.supabase|const \{ supabase \} = gate/);
-      for (const h of handlers(text)) expect(h.body!, `${f} ${h.name}`).toMatch(/if \(!gate\.ok\) return gate\.res;\s*const db = createServiceRoleClient\(\);/);
+      for (const h of handlers(text).filter((x) => x.body !== null)) expect(h.body!, `${f} ${h.name}`).toMatch(/if \(!gate\.ok\) return gate\.res;\s*const db = createServiceRoleClient\(\);/);
     }
   });
 });
@@ -235,13 +239,13 @@ describe('no admin list outside the guard', () => {
     expect(found).toEqual([]);
   });
 
-  it('ADMIN_USER_IDS is read by lib/admin/guard.ts only', () => {
-    expect(sources.filter((f) => /process\.env\.ADMIN_USER_IDS|process\.env\[['"]ADMIN_USER_IDS/.test(strip(read(f))))).toEqual(['lib/admin/guard.ts']);
+  it('ADMIN_USER_IDS is read by lib/admin/list.ts only', () => {
+    expect(sources.filter((f) => /process\.env\.ADMIN_USER_IDS|process\.env\[['"]ADMIN_USER_IDS/.test(strip(read(f))))).toEqual(['lib/admin/list.ts']);
   });
 
-  it('isListedAdminId (a stored id, never a request) is used by the editorial publisher only', () => {
-    const users = sources.filter((f) => f !== 'lib/admin/guard.ts' && /\bisListedAdminId\b/.test(strip(read(f))));
-    expect(users).toEqual(['app/api/cron/editorial-publish/route.ts']);
+  it('isListedAdminId grants nothing: outside the guard only the publisher (a stored id) and the middleware (a narrowing 404) use it', () => {
+    const users = sources.filter((f) => !['lib/admin/guard.ts', 'lib/admin/list.ts'].includes(f) && /\bisListedAdminId\b/.test(strip(read(f))));
+    expect(users.sort()).toEqual(['app/api/cron/editorial-publish/route.ts', 'lib/supabase/middleware.ts']);
   });
 });
 

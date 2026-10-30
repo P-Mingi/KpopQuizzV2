@@ -47,7 +47,7 @@ function walk(rel: string): string[] {
 }
 const PAGES = [...walk('app/(site)/admin'), ...walk('app/sites/[site]/(anime)/admin')].filter((f) => f.endsWith('/page.tsx'));
 const ROUTES = walk('app/api/admin').filter((f) => f.endsWith('/route.ts'));
-const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const;
+const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'] as const;
 const isMfaPage = (f: string): boolean => f.includes('/admin/k7q2m/');
 
 const REFUSED: Array<[string, typeof s.auth]> = [
@@ -147,7 +147,7 @@ describe('admin routes: the admin 404 JSON for every method, before any read', (
         const req = new NextRequest(url, {
           method,
           headers: { host: 'localhost:3021', origin: 'http://localhost:3021', 'content-type': 'application/json' },
-          ...(method === 'GET' ? {} : { body: JSON.stringify({ action: 'verify', code: '123456', quiz_id: '1', id: 1 }) }),
+          ...(method === 'GET' || method === 'HEAD' ? {} : { body: JSON.stringify({ action: 'verify', code: '123456', quiz_id: '1', id: 1 }) }),
         });
         const res = await h(req, { params: Promise.resolve({ id: '1' }) });
         expect(res.status, `${method} ${f}`).toBe(404);
