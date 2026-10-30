@@ -1,5 +1,7 @@
 # Lancement de Bunnyverse : mes actions, dans l'ordre (2026-10-28, nom Bunnyverse le 2026-10-29)
 
+Depuis le 2026-10-30 : une commande par partie de session SQL (`session.sh`), donc moins de collages ; les durées d'attente ne changent pas.
+
 **Moi : environ 4 h 45, en 49 étapes sur 69 (4 h 55 et 51 étapes si les deux étapes « si besoin » servent). Dont 4 h jusqu'à la fin du jour J.**
 **Claude : environ 7 h 30. Worker : environ 14 h 25, dont 7 h 50 à surveiller des journaux. Ils travaillent entre mes étapes et ne changent rien en production.**
 **Durée totale : au moins 5 jours de la session B au jour J inclus (trois veilles de 24 h : après B, après 008, après 010), puis 72 h de veille. Au plus tôt : B le jour 1, jour J le jour 5, décision finale le jour 8.**
@@ -12,11 +14,12 @@ Objectif « moins de 5 h » tenu, de justesse. Ce qui coûte le plus : le jour J
 - Sous chaque titre : qui fait quoi, et combien de temps. Un bloc = une commande : copie-le en entier, dans le Terminal, depuis le dossier du dépôt. `read -rs` n'affiche rien pendant que tu colles : appuie sur Entrée.
 - Après chaque collage, écris dans le chat « collé n° X ». Claude (ou le worker) vérifie et répond OK avant la suite. Une sortie avec `ERROR` : ne lance rien d'autre, colle la sortie dans le chat. Chaque fichier se rejoue sans risque.
 - Heures en UTC (Paris en hiver : UTC + 1). Jamais de SQL entre 23:50 et 00:30. Une session SQL par phase, une sauvegarde au début de chaque session, les fichiers dans l'ordre de `SQL-ORDER.md`.
-- Le SQL passe par psql, dans le terminal ouvert par la sauvegarde de la session : il garde la chaîne de connexion jusqu'à sa fermeture. Terminal fermé en cours de session : relance seulement cette ligne.
+- Le SQL passe par une seule commande par partie de session, `bash docs/launch/o1/session.sh <partie>` (B1, B2, B3, D, E1, E2, G, J1 à J4), dans le terminal ouvert par la sauvegarde de la session : la sauvegarde exporte la chaîne de connexion, la commande la lit. Elle applique les fichiers dans l'ordre de `SQL-ORDER.md` avec psql, lance après chacun ses vérifications, n'affiche que OK ou KO et des comptes (jamais un nom, un e-mail ni une clé), et s'arrête au premier KO. Elle se relance sans risque depuis le début de la partie : un fichier déjà appliqué ne change rien la seconde fois. Le détail complet va dans `~/kpq-launch/logs`, sur ta machine seulement. Terminal fermé en cours de session : relance seulement cette ligne, puis la commande de la partie.
 ```
-export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL
 ```
-- Variante pour un petit fichier « en une transaction » : `pbcopy < docs/pending-migrations/multisite/001-sites.sql` (le chemin du fichier), puis Cmd+V dans une nouvelle requête de l'éditeur SQL de Supabase, Run. Jamais l'éditeur pour 002b, 002c et 009 (hors transaction), ni pour L04, L05 et L07 (1,2 à 2,6 Mo).
+- Tu ne colles donc plus que deux choses par session : la sauvegarde, puis la commande de la partie (et les gestes hors base : quiz jetable, compte jetable, drapeaux, domaine). Après chaque commande, écris « collé B1 » (ou la partie) ; un KO : colle ses lignes dans le chat.
+- Plus d'éditeur SQL de Supabase pour ces fichiers : 002b, 002c et 009 (hors transaction) et L04, L05 et L07 (1,2 à 2,6 Mo) passent par psql dans les commandes, comme tous les autres.
 - Le détail, les vérifications et le retour arrière de chaque étape : le lien RUNBOOK (en anglais) et `ROLLBACK.md`. L'état et les décisions : `OWNER-TODO.md`.
 
 Déjà fait, rien à faire : le groupe Microfrontends `fandomverse`, les variables Vercel de `fandomverse` et `otakuquiz`, les trois secrets passport et `CRON_SECRET` (l'intégrateur, le 2026-10-28, exception CLI). Google : aucune origine JavaScript, aucun client nouveau ; Discord : rien (`AUTH-BUNNYVERSE.md`).
@@ -103,7 +106,7 @@ Supabase, Database, Backups : une sauvegarde de moins de 24 h existe (sinon pren
 git checkout main && git pull --ff-only
 ```
 ```
-export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
 ```
 `read -rs` attend la chaîne de connexion (Supabase, Connect : direct, ou session pooler si ton réseau n'a pas d'IPv6). Le dump prend quelques minutes. Garde ce terminal ouvert toute la session. Garde le dump 60 jours, sur ta machine seulement (données personnelles).
 
@@ -114,34 +117,21 @@ Claude 10 min, Worker 10 min. [RUNBOOK A3, B1](RUNBOOK.md#b-p1-001-to-007)
 
 Claude : V0 dans `~/kpq-launch/v0.txt` et les 12 signatures dans `~/kpq-launch/functions-before.txt`. Worker : la production `kpopquiz` tourne le commit de `main` ; la photo V1 dans `~/kpq-launch/before`.
 
-### 11. 001 puis 002a
-Moi 4 min, Claude 4 min. [RUNBOOK B2, B3](RUNBOOK.md#b-p1-001-to-007)
+### 11. B1 : 001, 002a, 002b, 002c, 002d (002d est DANGEREUX)
+Moi 5 min, Claude 4 min. [RUNBOOK B2 à B5](RUNBOOK.md#b-p1-001-to-007)
 
-Un bloc, « collé n° 11 », le OK de Claude, puis le second. Un échec sur `lock_timeout` : relance plus tard.
+Une commande. 002b et 002c tournent hors transaction (les index prennent quelques minutes). Un KO sur `lock_timeout` : relance la même commande plus tard.
 ```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/001-sites.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/002a-site-columns.sql
+bash docs/launch/o1/session.sh B1
 ```
 
-### 12. 002b puis 002c, hors transaction (psql seulement)
-Moi 5 min, Claude 4 min. [RUNBOOK B4](RUNBOOK.md#b-p1-001-to-007)
+### 12. (dans B1)
+002b et 002c sont dans la commande de l'étape 11 : rien à coller.
 
-Les index prennent quelques minutes.
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/pending-migrations/multisite/002b-site-validate.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/pending-migrations/multisite/002c-site-indexes.sql
-```
+### 13. Le quiz jetable, juste après B1
+Moi 6 min. [RUNBOOK B5](RUNBOOK.md#b-p1-001-to-007)
 
-### 13. 002d, DANGEREUX
-Moi 6 min, Claude 3 min. [RUNBOOK B5](RUNBOOK.md#b-p1-001-to-007)
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/002d-quiz-site-guard.sql
-```
-Tout de suite après, connecté sur kpopquiz.org : crée un quiz jetable, vérifie qu'il s'enregistre, supprime-le. Écris « collé n° 13, quiz OK » (ou ce qui a raté).
+Tout de suite après le OK de B1, connecté sur kpopquiz.org : crée un quiz jetable, vérifie qu'il s'enregistre, supprime-le. Écris « collé B1, quiz OK » (ou ce qui a raté).
 
 ### 14. `SITE_SCOPE=1` sur kpopquiz
 Moi 4 min, Worker 1 h 10, Claude 3 min. [RUNBOOK B6](RUNBOOK.md#b-p1-001-to-007)
@@ -152,32 +142,23 @@ SITE_SCOPE
 ```
 Vérif : worker (V1 identique, puis 1 h de Runtime Logs calmes), Claude (V2). Attends leur OK, environ 1 h, avant l'étape 15.
 
-### 15. 003, DANGEREUX
+### 15. B2 : 003, DANGEREUX
 Moi 9 min, Claude 3 min. [RUNBOOK B7](RUNBOOK.md#b-p1-001-to-007)
 ```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/003-memberships.sql
+bash docs/launch/o1/session.sh B2
 ```
 Tout de suite après, dans une fenêtre privée : inscris un compte jetable sur kpopquiz.org et termine l'accueil. Donne son nom d'utilisateur à Claude. Garde ce compte jusqu'à l'étape 23.
 
-### 16. 004 et 005
-Moi 3 min, Claude 4 min. [RUNBOOK B8](RUNBOOK.md#b-p1-001-to-007)
+### 16. B3 : 004, 005, 006, 007
+Moi 4 min, Worker 3 min, Claude 4 min. [RUNBOOK B8 à B10](RUNBOOK.md#b-p1-001-to-007)
+
+Avant la commande, le worker a confirmé que `passport` n'est pas dans les « Exposed schemas » de l'API Supabase (par requête, VERIFY V3 ; il le fait pendant l'heure de veille de l'étape 14). La commande relit les vérifications V3 de 003 à 005 avant d'appliquer 006.
 ```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/004-passport-prefs.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/005-net-counters.sql
+bash docs/launch/o1/session.sh B3
 ```
 
-### 17. 006 puis 007
-Moi 4 min, Worker 3 min, Claude 4 min. [RUNBOOK B9, B10](RUNBOOK.md#b-p1-001-to-007)
-
-Avant 006, le worker confirme que `passport` n'est pas dans les « Exposed schemas » de l'API Supabase (par requête, VERIFY V3).
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/006-passport-handoff.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/007-world-xp.sql
-```
+### 17. (dans B3)
+006 et 007 sont dans la commande de l'étape 16 : rien à coller.
 
 ### 18. Fermer la session B
 Worker 10 min, Claude 2 min. [RUNBOOK B11](RUNBOOK.md#b-p1-001-to-007)
@@ -199,24 +180,22 @@ Ton heure la plus calme, loin de 00:05 et de 03:30 à 05:00 (les crons). Supabas
 git checkout main && git pull --ff-only
 ```
 ```
-export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
 ```
 
-### 21. La porte avant 008
-Claude 10 min. [RUNBOOK D1](RUNBOOK.md#d-p2-008-write-locks)
+### 21. La porte avant 008 (dans D)
+Claude 5 min. [RUNBOOK D1](RUNBOOK.md#d-p2-008-write-locks)
 
-Claude compare les 11 fonctions de production au fichier de retour de 008. Il doit lire `functions read: 11 | body different from the rollback file: none`. Un nom listé : on s'arrête.
+La commande D compare d'abord les 11 fonctions de production au fichier de retour de 008 et s'arrête si une seule diffère (`porte 008`). Claude relit la preuve d'équivalence avant que tu la lances.
 
-### 22. 008, DANGEREUX
+### 22. D : 008, DANGEREUX
 Moi 8 min, Claude 10 min, Worker 10 min. [RUNBOOK D2](RUNBOOK.md#d-p2-008-write-locks)
-
-Seulement après le « none » de l'étape 21.
 ```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/008-write-locks.sql
+bash docs/launch/o1/session.sh D
 ```
-Tout de suite après, avec le compte jetable : joue un quiz, like un quiz, retire le like, crée un quiz puis supprime-le. Écris « collé n° 22 » et ce que tu as vu.
+Tout de suite après, avec le compte jetable : joue un quiz, like un quiz, retire le like, crée un quiz puis supprime-le. Écris « collé D » et ce que tu as vu.
 
-Vérif : Claude (V4 après 008, `V-S4 ok`, XP et compteurs bougent comme avant, audit des compteurs), worker (V1).
+Vérif : la commande fait V4 après 008 (seule `merge_anon_passport` change) et V-S4 ; Claude (XP et compteurs bougent comme avant, audit des compteurs), worker (V1).
 
 ### 23. La veille de 24 h, à l'étape 22 plus 24 h
 Moi 8 min, Claude 15 min, Worker 20 min. [RUNBOOK D3](RUNBOOK.md#d-p2-008-write-locks)
@@ -235,15 +214,15 @@ Supabase, Database, Backups : une sauvegarde de moins de 24 h existe. Puis :
 git checkout main && git pull --ff-only
 ```
 ```
-export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
 ```
 
-### 25. 009, hors transaction (psql seulement)
-Moi 3 min, Claude 9 min. [RUNBOOK E1, E2](RUNBOOK.md#e-p3-009-the-app-deploy-010)
+### 25. E1 : 009, hors transaction
+Moi 3 min, Claude 4 min. [RUNBOOK E1, E2](RUNBOOK.md#e-p3-009-the-app-deploy-010)
 
-Avant : Claude confirme que les deux anciennes clés existent encore (`2`). Après : V5 « After 009 ».
+La commande vérifie d'abord que les deux anciennes clés existent encore, refuse de commencer après 22:20, applique 009 puis V5 « After 009 ».
 ```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/pending-migrations/multisite/009-daily-prep.sql
+bash docs/launch/o1/session.sh E1
 ```
 
 ### 26. Le déploiement de l'app
@@ -251,14 +230,14 @@ Worker 5 min, Moi (si besoin) 3 min. [RUNBOOK E3](RUNBOOK.md#e-p3-009-the-app-de
 
 Worker : la production `kpopquiz` tourne le dernier `main` (la fusion ou plus récent) et `/daily` redirige vers une page `/q/`. Seulement s'il te le demande : Vercel, `kpopquiz`, Deployments, Redeploy du dernier `main` sans le cache (décoche « Use project's Ignore Build Step »).
 
-### 27. 010, DANGEREUX
-Moi 2 min, Claude 4 min. [RUNBOOK E4](RUNBOOK.md#e-p3-009-the-app-deploy-010)
+### 27. E2 : 010, DANGEREUX
+Moi 2 min, Claude 2 min. [RUNBOOK E4](RUNBOOK.md#e-p3-009-the-app-deploy-010)
 
-Tout de suite après l'étape 26. Jamais après 23:45 : sinon arrête-toi là et fais 010 le lendemain soir, avec une nouvelle sauvegarde (étape 24) ; 009 et le déploiement restent en place.
+Tout de suite après l'étape 26. Jamais après 23:45 (la commande refuse) : sinon arrête-toi là et fais E2 le lendemain soir, avec une nouvelle sauvegarde (étape 24) ; 009 et le déploiement restent en place.
 ```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/010-daily-v2.sql
+bash docs/launch/o1/session.sh E2
 ```
-Vérif (Claude) : V5 « After 010 ». Il note l'heure.
+Vérif : la commande fait V5 « After 010 ». Claude note l'heure.
 
 ## Partie 6. Veille après 010, puis session G : 011 à 017 (21 min pour moi)
 
@@ -280,47 +259,24 @@ Supabase, Database, Backups : une sauvegarde de moins de 24 h existe. Puis :
 git checkout main && git pull --ff-only
 ```
 ```
-export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
 ```
 
-### 31. 011, 018, 012, 013, 014, 015
-Moi 12 min, Claude 18 min. [RUNBOOK G1](RUNBOOK.md#g-p5-011-to-017)
+### 31. G : 011, 018, 019, 020, le SQL du lot K1, puis 012 à 017
+Moi 5 min, Claude 8 min. [RUNBOOK G1, G2](RUNBOOK.md#g-p5-011-to-017)
 
-Dans cet ordre, un bloc à la fois, « collé n° 31, 011 » après chacun, le OK de Claude (V6) entre deux. Si 013 s'arrête sur un nom de `game_type` : ne touche pas au fichier, colle la sortie, Claude s'en occupe.
+Une commande, dans cet ordre (décision du 2026-10-30) : 011, 018, 019 et 020 (le socle des jeux du jour, éteint), le fichier du lot K1 (`021-k1-idol-gender-debut.sql` : genre et année de début des idols), 012, 013, 014, 015, puis 016 et 017 si `admin_delete_account` existe (sinon elle s'arrête avant 016), et V-S4. Tant que le fichier du lot K1 n'est pas sur main, elle s'arrête sur lui : G attend ce lot. Si 013 s'arrête sur un nom de `game_type` : ne touche pas au fichier, colle la sortie, Claude s'en occupe.
 ```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/011-anime-series.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/018-entity-images.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/012-editorial-quiz.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/013-formats.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/014-daily-openings.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/015-spoilers.sql
+bash docs/launch/o1/session.sh G
 ```
 
-### 32. 016 et 017
-Moi 4 min, Claude 6 min. [RUNBOOK G2](RUNBOOK.md#g-p5-011-to-017)
-
-Seulement si Claude confirme que `admin_delete_account` existe (sinon on saute les deux).
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/016-passport-deletion.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/017-deletion-kpop.sql
-```
+### 32. (dans G)
+016 et 017 sont dans la commande de l'étape 31 : rien à coller.
 
 ### 33. Fermer la session G
 Claude 3 min, Worker 1 h 10. [RUNBOOK G3](RUNBOOK.md#g-p5-011-to-017)
 
-Claude : `V-S4 ok`. Worker : V1, puis 1 h de Runtime Logs.
+La commande a fait V-S4. Worker : V1, puis 1 h de Runtime Logs.
 
 ## Partie 7. Contenu et go / no-go (10 min pour moi)
 
@@ -351,7 +307,7 @@ Supabase, Database, Backups : une sauvegarde de moins de 24 h existe. Puis :
 git checkout main && git pull --ff-only
 ```
 ```
-export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
 ```
 
 ### 38. Point de départ du jour
@@ -359,10 +315,12 @@ Claude 10 min, Worker 10 min. [RUNBOOK K2](RUNBOOK.md#k-launch-day)
 
 Claude : V0 dans `~/kpq-launch/v0-launch.txt`. Worker : la photo V1 dans `~/kpq-launch/before`.
 
-### 39. L01
-Moi 2 min, Claude 3 min. [RUNBOOK K3](RUNBOOK.md#k-launch-day)
+### 39. J1 : L01
+Moi 2 min, Claude 2 min. [RUNBOOK K3](RUNBOOK.md#k-launch-day)
+
+La commande vérifie d'abord les fichiers de lancement (les sha256 de `MANIFEST.json`, aucun fichier DRAFTS, aucune ancienne adresse Team), puis applique L01.
 ```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L01-B2-sites.sql
+bash docs/launch/o1/session.sh J1
 ```
 
 ### 40. Les 31 comptes Team
@@ -383,45 +341,29 @@ unset SUPABASE_URL SUPABASE_SERVICE_ROLE_KEY
 ```
 Vérif (Claude) : 31 utilisateurs en `team.bunnyverse.org`, tous confirmés.
 
-### 41. L02 puis L03
-Moi 4 min, Claude 6 min. [RUNBOOK K4, K5](RUNBOOK.md#k-launch-day)
+### 41. J2 : L02, L03, L04 (L04 est gros : psql seulement)
+Moi 4 min, Claude 4 min. [RUNBOOK K4, K5](RUNBOOK.md#k-launch-day)
+
+La commande vérifie d'abord que les 31 comptes Team de l'étape 40 existent, puis applique L02, L03 et L04, chacun suivi de ses comptes (V8).
 ```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L02-K2-team-accounts.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L03-B7-sentinel.sql
+bash docs/launch/o1/session.sh J2
 ```
 
-### 42. L04 puis L05 (gros fichiers : psql seulement)
-Moi 6 min, Worker 3 min, Claude 6 min. [RUNBOOK K5](RUNBOOK.md#k-launch-day)
+### 42. Pas de titre anime sur kpopquiz.org
+Worker 3 min. [RUNBOOK K5](RUNBOOK.md#k-launch-day)
 
-Après L04, attends le OK du worker (aucun titre anime sur les pages de kpopquiz.org) avant L05.
+Après J2, attends le OK du worker (aucun titre anime sur les pages de kpopquiz.org) avant J3.
+
+### 43. J3 : L05, L06, L07, L08, L10-PERS, et les 14 lignes de la banque
+Moi 4 min, Claude 4 min. [RUNBOOK K5, K5.3b](RUNBOOK.md#k-launch-day)
+
+Gros fichiers, psql seulement. Après chaque fichier, ses nombres face à `expected-counts.json` ; à la fin, toutes les colonnes de `content-verify.sql`, V-S4, puis les 14 premières lignes de la banque anime passent à « verified » (jamais plus de 14, même relancée).
 ```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L04-K1-series.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L05-K1-facts.sql
+bash docs/launch/o1/session.sh J3
 ```
 
-### 43. L06, L07, L08
-Moi 8 min, Claude 10 min. [RUNBOOK K5](RUNBOOK.md#k-launch-day)
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L06-B3-badges.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L07-K2-catalogue.sql
-```
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L08-K3-daily-bank.sql
-```
-Vérif (Claude) : `content-verify.sql` donne les nombres de `expected-counts.json` (V8), `V-S4 ok`.
-
-### 44. L10-PERS
-Moi 2 min, Claude 3 min. [RUNBOOK K5.3b](RUNBOOK.md#k-launch-day)
-```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L10-PERS-personality.sql
-```
-Vérif (Claude) : 70 profils de personnalité pour `anime`.
+### 44. (dans J3)
+L10-PERS et ses 70 profils sont dans la commande de l'étape 43 : rien à coller.
 
 ### 45. Les images de l'admin, seulement si Claude l'a dit (étape 35)
 Moi (si besoin) 6 min, Claude (si besoin) 5 min. [RUNBOOK K5.3c](RUNBOOK.md#k-launch-day)
@@ -440,13 +382,8 @@ scripts/o1/env.sh dev -- node scripts/anime/images/promote.mjs --apply
 unset PROMOTE_TARGET_SERVICE_KEY PROMOTE_TARGET_URL
 ```
 
-### 46. Les 14 lignes de la banque
-Moi 2 min, Claude 2 min. [RUNBOOK K5](RUNBOOK.md#k-launch-day)
-
-La ligne affiche 14 titres.
-```
-psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "update public.quiz_bank set status='verified', verified_at=now() where id in (select id from public.quiz_bank where site_id='anime' and status='draft' and scheduled_date is null order by md5(title) limit 14) returning title"
-```
+### 46. (dans J3)
+Les 14 lignes de la banque sont vérifiées par la commande de l'étape 43 : rien à coller.
 
 ### 47. Les builds
 Moi 6 min, Worker 5 min. [RUNBOOK K5b](RUNBOOK.md#k-launch-day)
@@ -496,12 +433,13 @@ PASSPORT_JUMP
 https://kpopquiz.org/auth/passport/out?to=anime
 ```
 
-### 51. L12 : les sites passent en ligne
+### 51. J4 : L12 (les sites passent en ligne), puis le SQL du lot A1
 Moi 2 min, Claude 3 min. [RUNBOOK K8](RUNBOOK.md#k-launch-day)
+
+La commande applique L12, vérifie que `kpop`, `anime` et `hub` sont `live`, puis le fichier du lot A1 (`L13-A1-character-facts.sql` : les faits des personnages pour Otakudle, après les fichiers de lancement), revérifie tout le contenu et V-S4. Tant que le fichier du lot A1 n'est pas sur main, elle s'arrête sur lui, après L12.
 ```
-psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/multisite/launch/L12-L1-sites-live.sql
+bash docs/launch/o1/session.sh J4
 ```
-Vérif (Claude) : `kpop`, `anime` et `hub` sont `live`.
 
 ### 52. Le quiz du jour
 Moi 6 min, Worker 5 min, Claude 3 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
@@ -640,11 +578,13 @@ Après la balise réseau (étape 60) propre, à une heure calme. Supabase, Datab
 git checkout main && git pull --ff-only
 ```
 ```
-export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
 ```
 
 ### 66. Les deux fichiers du hub
 Moi 4 min, Claude 10 min. [RUNBOOK L6](RUNBOOK.md#l-after-launch)
+
+Après le lancement, hors des commandes de session (deux petits fichiers du hub) :
 ```
 psql "$PROD_DB_URL" -X -v ON_ERROR_STOP=1 --single-transaction -f docs/pending-migrations/hub/001-quiz-daily-plays.sql
 ```

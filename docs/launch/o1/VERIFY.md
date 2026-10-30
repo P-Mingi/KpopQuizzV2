@@ -1,6 +1,7 @@
 # Verification (run O1, Bunnyverse)
 
-Read-only commands and queries, phase by phase, each with the result to expect. Nothing here writes to a database or changes a
+Read-only commands and queries, phase by phase, each with the result to expect. Since 2026-10-30 `docs/launch/o1/session.sh` runs the SQL lines of
+V2 to V8 by itself after each file, as the OK or KO rows of `docs/launch/o1/checks/*.sql`; the HTTP checks (V1, V9, V10, the Data API wall of V3) stay the worker's. Nothing here writes to a database or changes a
 setting, and every query returns names and numbers only. "Stop" means: do not go on to the next step; the way back is in
 `ROLLBACK.md`.
 
@@ -124,7 +125,7 @@ then `q "select count(*) from public.world_memberships m join public.profiles p 
 Delete that account afterwards the way you delete accounts today (Mission U part D function, or the dashboard).
 
     q "select to_regclass('public.passport_prefs'), to_regclass('public.favourites'), to_regclass('public.world_follows')"                      # 3 names (004)
-    q "select count(*) from pg_policy where polrelid in ('public.passport_prefs'::regclass,'public.favourites'::regclass,'public.world_follows'::regclass)"   # 7
+    q "select count(*) from pg_policy where polrelid in ('public.passport_prefs'::regclass,'public.favourites'::regclass,'public.world_follows'::regclass)"   # 8 (the contract; 004's header says 7)
     q "select relrowsecurity from pg_class where oid='public.bridge_daily'::regclass"                                                            # t (005)
     q "select count(*) from pg_policy where polrelid='public.bridge_daily'::regclass"                                                            # 0
     q "select has_table_privilege('anon','public.bridge_daily','select'), has_table_privilege('authenticated','public.bridge_daily','select')"   # f|f
@@ -237,6 +238,9 @@ Run V-S4 (section A0) after this step: it must print `V-S4 ok`.
 017 (row 19b), the query of its header:
 
     q "select proname, has_function_privilege('anon', oid, 'execute'), has_function_privilege('authenticated', oid, 'execute'), has_function_privilege('service_role', oid, 'execute') from pg_proc where proname in ('passport_run_deletion', 'passport_deletion_status') order by 1"   # f|f|t for both
+
+019 and 020 (SQL-ORDER rows 14c and 14d): `psql "$PROD_DB_URL" -X -At -f $M/dle-smoke.sql` prints `ok` on its ten rows (three more are information).
+The lot K1 file (row 14e): `idols.gender` and `idols.debut_year` exist, every gender is 'female' or 'male' (`docs/launch/o1/checks/V-K1.sql`).
 
 After the whole P5, V-S4 (section A0), V1 once more (nothing visible may have changed on kpop) and the Vercel runtime errors of `kpopquiz` for the last hour.
 

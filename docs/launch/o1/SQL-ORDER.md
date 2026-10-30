@@ -15,6 +15,11 @@ Folder names used below:
 
 ## 1. How a file is applied
 
+Since 2026-10-30 (owner order) the owner pastes only the session's backup line and one command per part: `bash docs/launch/o1/session.sh <part>`
+(B1 B2 B3 D E1 E2 G J1 J2 J3 J4; RUNBOOK section 0 lists what each part holds). It applies the files below in this order, in the mode of the table (psql,
+ON_ERROR_STOP, `--single-transaction` for "single"), runs their checks (`docs/launch/o1/checks`, VERIFY's lines as OK or KO rows), prints counts only and
+stops at the first KO. The helpers below stay for rollbacks and one-off reads.
+
 Set up once in your own terminal (the connection string is typed, never saved in a file):
 
     read -rs PROD_DB_URL; export PROD_DB_URL
@@ -47,7 +52,7 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 | 4 | `M/002c-site-indexes.sql` | P1 | none | 002b | 9 valid indexes | `M/002c-site-indexes.rollback.sql` | V2 |
 | 5 | `M/002d-quiz-site-guard.sql` | P1 (DANGEROUS) | single | 002c | trigger `trg_quizzes_site_guard` enabled | `M/002d-quiz-site-guard.rollback.sql` | V2 |
 | 6 | `M/003-memberships.sql` | P1 (DANGEROUS) | single | 001 | kpop memberships = profiles; `sum(xp)` unchanged | `M/003-memberships.rollback.sql` | V3 |
-| 7 | `M/004-passport-prefs.sql` | P1 | single | 003 | 3 tables, 7 policies | `M/004-passport-prefs.rollback.sql` | V3 |
+| 7 | `M/004-passport-prefs.sql` | P1 | single | 003 | 3 tables, 8 policies (the file's header says 7: stale) | `M/004-passport-prefs.rollback.sql` | V3 |
 | 8 | `M/005-net-counters.sql` | P1 | single | 001 | RLS on, 0 policies, anon cannot select | `M/005-net-counters.rollback.sql` | V3 |
 | 9 | `M/006-passport-handoff.sql` | P1 | single | 001 | schema `passport`; anon has no usage | `M/006-passport-handoff.rollback.sql` | V3 |
 | 10 | `M/007-world-xp.sql` | P1 | single | 003, 004 | 6 functions; `award_world_xp` on kpop raises | `M/007-world-xp.rollback.sql` | V3 |
@@ -56,6 +61,9 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 | 13 | `M/010-daily-v2.sql` | P3 (DANGEROUS), never alone; then the 24 hour watch F | single | 009 | 2 old unique constraints gone; v2 function present | `M/010-daily-v2.rollback.sql` | V5 |
 | 14 | `M/011-anime-series.sql` | P5, after F (P4) | single | 002a, 001 | 7 tables with RLS; `series` is empty | `M/011-anime-series.rollback.sql` | V6 |
 | 14b | M/018-entity-images.sql (ADM back) | P5, after 14 (011); must be applied before K5 step 3c | single | 001 | table entity_images with RLS on; anon has no insert and no update, may select only the display columns; bucket entity-images public, 4 MB, image/webp | M/018-entity-images.rollback.sql (refused while a row or a file exists) | V6 |
+| 14c | `M/019-dle-core.sql` (daily games step 1, owner order 2026-10-30) | P5, after 14b (018) | single | 001, 018 | 9 `dle_` tables with RLS and no policy; only `dle_guess`, `dle_give_up`, `dle_day`, `dle_pool` open to the browser roles (`dle-smoke.sql` checks 1 to 4) | `M/019-dle-core.rollback.sql` (refused once a game exists) | V6 |
+| 14d | `M/020-dle-kpop-idol.sql` | P5, right after 019 | single | 019 | view `dle_src_kpop_idol` closed to the browser roles; game `kpopdle-idol` switched off, 8 columns (`dle-smoke.sql`) | `M/020-dle-kpop-idol.rollback.sql` (refused once a play exists) | V6 |
+| 14e | the file of lot K1, `021-k1-idol-gender-debut.sql` in `M` (written by the old worker; not on main yet) | P5, right after 020 | single | 020 | `idols.gender` ('female' or 'male') and `idols.debut_year` (integer) exist | its own rollback | V6 |
 | 15 | `M/012-editorial-quiz.sql` | P5 | single | 002a, 001 | `review_batches` RLS on, 0 policies | `M/012-editorial-quiz.rollback.sql` | V6 |
 | 16 | `M/013-formats.sql` | P5 | single | 011 | `games_game_type_check` validated; column `character_id` | `M/013-formats.rollback.sql` | V6 |
 | 17 | `M/014-daily-openings.sql` | P5 | single | 011, 001 | table and function present; function closed to anon | `M/014-daily-openings.rollback.sql` | V6 |
@@ -73,9 +81,11 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 | 27 | `LAUNCH/L08-K3-daily-bank.sql` (generated, only rows whose facts are all verified) | P7 | single | L04, 009 | `quiz_bank` rows, site anime | `LAUNCH/L08-K3-daily-bank.rollback.sql` | V8 |
 | 27b | `LAUNCH/L10-PERS-personality.sql` (generated, 10 series, by apps/quiz/e2e/o1/L1/content-sql.mjs, only the sets marked published) | PERS | single | L04, 002a, 013 | personality_questions and personality_profiles rows, site anime | `LAUNCH/L10-PERS-personality.rollback.sql` | V8 |
 | 31 | `LAUNCH/L12-L1-sites-live.sql` (generated) | P7 last | single | L01 to L08 | anime and hub `live` | `LAUNCH/L12-L1-sites-live.rollback.sql` | V8 |
+| 32 | the file of lot A1, `L13-A1-character-facts.sql` in `LAUNCH` (written by the old worker; not on main yet) | P7, after the launch files (owner order 2026-10-30) | single | L04, 011 | content-verify unchanged; the character facts Otakudle reads | its own rollback | V8 |
 
 Rows 28, 29 and 30 (L09 openings, L10 formats, L11 crossover quiz) are not on the launch path (owner decision D-099): see "After launch" below.
-Order of the launch files on the day: L01, L02 (after its auth users), L03, L04, L05, L06, L07, L08, L10-PERS, then the builds and the domain, then L12.
+Order of the launch files on the day: L01, L02 (after its auth users), L03, L04, L05, L06, L07, L08, L10-PERS, then the builds and the domain, then L12, then the lot A1 file.
+Order of session G (owner order 2026-10-30): 011, 018, 019, 020, the lot K1 file, 012, 013, 014, 015, 016, 017.
 Before launch day, `ls docs/pending-migrations/multisite/launch/` must show L01 to L08, L10-PERS and L12, each with its rollback,
 `grep -l '^-- DRAFTS' docs/pending-migrations/multisite/launch/*.sql` must print nothing and
 `grep -c 'team.otakuquiz.org' docs/pending-migrations/multisite/launch/L02-K2-team-accounts.sql` must print 0 (RUNBOOK J2).
