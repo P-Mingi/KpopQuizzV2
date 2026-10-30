@@ -1,0 +1,97 @@
+lot A1, local proof; psql (PostgreSQL) 18.2 (Homebrew)
+
+== the base (schema.base.sql, 001, 002a, 011, L01), the DDL of the contract, L04, the entity_sources rows of L05
+applied schema.base.sql
+applied 001-sites.sql
+applied 002a-site-columns.sql
+applied 011-anime-series.sql
+applied L01-B2-sites.sql
+applied ddl.sql
+applied L04-K1-series.sql
+applied L05-entity-sources.sql
+
+== before L13: row fingerprints (table | rows | md5 | newest xmin)
+character_facts | 0 | d41d8cd98f00b204e9800998ecf8427e | 0
+characters | 1000 | dbb4ecf1d1036de3d2c92b5b1dacde04 | 0
+entity_sources (L13 fields) | 0 | d41d8cd98f00b204e9800998ecf8427e | 0
+entity_sources (other rows) | 4145 | a42bf3f930d13b3c233307b1cad15c62 | 760
+series | 50 | 5dad5e6e93b26bc760aa66a261015e76 | 0
+series_facts | 0 | d41d8cd98f00b204e9800998ecf8427e | 0
+
+== L13, first run
+applied L13-A1-character-facts.sql
+character_facts | 120 | 4b20652032214012cdc76ea46a153aec | 762
+characters | 1000 | dbb4ecf1d1036de3d2c92b5b1dacde04 | 0
+entity_sources (L13 fields) | 560 | 17f27c997c071120633bfae1e7ab0693 | 762
+entity_sources (other rows) | 4145 | a42bf3f930d13b3c233307b1cad15c62 | 760
+series | 50 | 5dad5e6e93b26bc760aa66a261015e76 | 0
+series_facts | 50 | f39ffc4d3daf58dd58a3abb434c28d01 | 762
+
+== L13, second run: nothing may change, not even a row version
+applied L13-A1-character-facts.sql
+character_facts | 120 | 4b20652032214012cdc76ea46a153aec | 762
+characters | 1000 | dbb4ecf1d1036de3d2c92b5b1dacde04 | 0
+entity_sources (L13 fields) | 560 | 17f27c997c071120633bfae1e7ab0693 | 762
+entity_sources (other rows) | 4145 | a42bf3f930d13b3c233307b1cad15c62 | 760
+series | 50 | 5dad5e6e93b26bc760aa66a261015e76 | 0
+series_facts | 50 | f39ffc4d3daf58dd58a3abb434c28d01 | 762
+PASS second run identical (content and xmin)
+PASS L13 touched no character, series or other source row
+
+== V-L13, checks 1 to 3 of the contract (4 and 5 need O1's 023)
+BEGIN
+ok | démographie : les 50 séries de lancement | 50
+ok | faits de personnages hors du pool (brouillon, spoiler) : 0 | -
+ok | valeurs sans source : 0 | -
+ROLLBACK
+
+== extra checks: one source row per stored value, per series counts, species words
+stored character values | 510
+character source rows | 510
+values with no source row of its own field (all 5 fields) | 0
+source rows with no url | 0
+source hosts | en.wikipedia.org, www.wikidata.org
+attack-on-titan | 17 | 16 | human
+black-clover | 6 | 6 | human
+bleach | 10 | 9 | human, mod-soul, quincy, shinigami
+chainsaw-man | 9 | 8 | devil, fiend, human, hybrid
+demon-slayer | 7 | 6 | demon, human
+dragon-ball | 7 | 7 | creature, human, pig
+frieren | 17 | 17 | demon, dwarf, elf, human
+hunter-x-hunter | 8 | 8 | human
+jujutsu-kaisen | 8 | 7 | curse, human
+my-hero-academia | 18 | 18 | human
+naruto | 7 | 7 | human
+one-piece | 6 | 6 | human
+none | 12
+seinen | 6
+shojo | 2
+shonen | 30
+
+== the rollback refuses once otakudle has a play (stand-in dle_plays, in a transaction that is undone)
+ERROR:  L13 rollback refused: the game otakudle has a play
+PASS nothing was deleted by the refused rollback
+
+== the rollback, twice
+applied L13-A1-character-facts.rollback.sql
+character_facts | 0 | d41d8cd98f00b204e9800998ecf8427e | 0
+characters | 1000 | dbb4ecf1d1036de3d2c92b5b1dacde04 | 0
+entity_sources (L13 fields) | 0 | d41d8cd98f00b204e9800998ecf8427e | 0
+entity_sources (other rows) | 4145 | a42bf3f930d13b3c233307b1cad15c62 | 760
+series | 50 | 5dad5e6e93b26bc760aa66a261015e76 | 0
+series_facts | 0 | d41d8cd98f00b204e9800998ecf8427e | 0
+applied L13-A1-character-facts.rollback.sql
+PASS back to the fingerprints before L13
+
+== L13 again after the rollback: the same values and the same sources as the first run
+applied L13-A1-character-facts.rollback.sql
+applied L13-A1-character-facts.sql
+values | 120 | 77e6bf20fe726fd23f0372c2a236f2b7
+demographics | 50 | 292286d9aa7af5465f074370e58200e8
+sources | 560 | 23e1b22e66edcf2fb43a71b36a2a4a7d
+applied L13-A1-character-facts.rollback.sql
+applied L13-A1-character-facts.sql
+values | 120 | 77e6bf20fe726fd23f0372c2a236f2b7
+demographics | 50 | 292286d9aa7af5465f074370e58200e8
+sources | 560 | 23e1b22e66edcf2fb43a71b36a2a4a7d
+PASS rollback then re-apply gives the same rows
