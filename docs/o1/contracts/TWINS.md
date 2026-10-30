@@ -35,7 +35,7 @@ Rules that go with the table:
 2. A difference outside the row's `allowed` list needs a CR approved in `LEDGER.md` before it is built. Adding a module
    to a row's `mustImport` (for example the shared component a `local` twin's body moves into) tightens the check and
    adds no difference: no CR, ORCH records it. Removing one is a CR.
-3. A file listed by several rows (`page.tsx` for rows 1 and H-1, `[slug]/page.tsx` for rows 3 to 5, `q/[slug]/page.tsx`
+3. A file listed by several rows (`page.tsx` for rows 1 and H-1, `[slug]/page.tsx` for rows 3 to 5, `credits/page.tsx` for rows 42 and H-11, `q/[slug]/page.tsx`
    for rows 6 to 8, the shell, the 404, `/privacy`, `/u`, `/settings`, `/login`) dispatches on the site or on the
    path as the twin does, and reaches the `mustImport` of every row it carries. A file serves only the sites of its
    rows: on any other site it calls `notFound()` (the hub build compiles the anime pages too).
@@ -130,7 +130,7 @@ and security, your data) with Leave a world and Delete my passport (S6 steps).
 | 39 | /admin | `app/sites/[site]/(anime)/admin/page.tsx` | `app/(site)/admin/page.tsx` | (none) | app/(site)/admin/page.tsx, admin-dashboard.tsx | T C | O1 | shared | Thin re-export of the kpop page (lot e part 2): its quizzes, reports and groups reads go through forSite. Admin only, never indexed. |
 | 40 | /admin/quiz/search | `app/sites/[site]/(anime)/admin/quiz/search/page.tsx` | `app/(site)/admin/quiz/search/page.tsx` | (none) | app/(site)/admin/quiz/search/page.tsx, quiz-search-list.tsx | T C | O1 | shared | Thin re-export of the kpop page (lot e part 2): the read goes through forSite. |
 | 41 | /admin/quiz/{id}/edit | `app/sites/[site]/(anime)/admin/quiz/[id]/edit/page.tsx` | `app/(site)/admin/quiz/[id]/edit/page.tsx` | (none) | app/(site)/admin/quiz/[id]/edit/page.tsx, components/quiz/quiz-editor.tsx | T C | O1 | shared | Thin re-export of the kpop page (lot e part 2): the read goes through forSite, so a quiz of another site is a 404. |
-| 42 | /credits | `app/sites/[site]/(anime)/[slug]/page.tsx` | `app/(site)/[slug]/page.tsx` | (none) | components/anime/credits-page.tsx, components/ux-v1/page.tsx | T B C | O1 | local | The series photo credits (IMG, owner rules 2026-10-26): OtakuQuiz only, no kpop twin page, so the twin is the kpop [slug] page of rows 3 to 5, whose file serves it (it dispatches on the slug credits). Page-local body, plain English text, no K-pop text. Links the footer of row 28. |
+| 42 | /credits | `app/sites/[site]/credits/page.tsx` | `app/(site)/[slug]/page.tsx` | (none) | components/anime/credits-page.tsx, components/ux-v1/page.tsx | T B C | O1 | local | The series photo credits (IMG, owner rules 2026-10-26): OtakuQuiz only, no kpop twin page, so the twin is the kpop [slug] page of rows 3 to 5. Served by the one /credits file of app/sites/[site], shared with row H-11, which dispatches on the site as the legal notice of rows 26d and H-10 does (daily games step 2 review: a static (hub)/credits beside the dynamic [slug] took the path from OtakuQuiz, so the file left [slug]). Page-local body, plain English text, no K-pop text. Links the footer of row 28. |
 
 ## 4. fanquiz.org
 
@@ -147,6 +147,7 @@ and security, your data) with Leave a world and Delete my passport (S6 steps).
 | H-8 | 404 | `app/sites/[site]/not-found.tsx` | `app/(site)/not-found.tsx` | (none) | the structure of the twin 404; the mascot slot renders nothing (Bf) | Tn Bf C | H1 | local | The file is shared with row 27 (which imports the mascot for anime). Page-local body (request F0-9). |
 | H-9 | site guard of the (hub) route group (D-048) | `app/sites/[site]/(hub)/layout.tsx` | (none) | (none) | nothing visible: a site guard that renders its children, or a 404 on any other build | none | O1 | none | Technical: a 404 on any other build, renders nothing of its own |
 | H-10 | /legal | `app/sites/[site]/legal/page.tsx` | `app/(site)/legal/page.tsx` | `@/app/(site)/legal/page` | the sections of the twin page | Tn Bf C | H1 | shared | The legal notice (mentions légales), the same file as row 26d. |
+| H-11 | /credits | `app/sites/[site]/credits/page.tsx` | `app/(site)/[slug]/page.tsx` | (none) | components/hub/credits/hub-credits.tsx, components/ux-v1/page.tsx | Tn Bf C | H1 | local | The licensed photo credits of bunnyverse.org (daily games step 2, RAPPORT-JEUX-DU-JOUR-v2.md 7.1): Bunnyverse only, no kpop twin page, so the twin is the kpop [slug] page, as for row 42. The same file as row 42, at the root of app/sites/[site] (not in the (hub) group: one path cannot have two files, and a static file there took /credits from OtakuQuiz). Page-local body, plain English text, the credit system of row 42 (the licence words and links of lib/anime/entity-images-rules.ts). Linked from the footer of row H-0 (its Credits link shows where the route exists). |
 
 ## 5. kpopquiz.org deltas (flagged, not twins)
 
