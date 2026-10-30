@@ -24,7 +24,7 @@ async function get(site: string): Promise<Response> {
   vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'not-a-credential-unit-test-placeholder');
   vi.stubEnv('ADMIN_USER_IDS', 'admin-user');
   const { GET } = await import('./route');
-  return GET(new NextRequest('https://example.test/api/qotd/publish?date=2026-10-01'));
+  return GET(new NextRequest('https://example.test/api/qotd/publish?date=2026-10-01', { headers: { 'sec-fetch-site': 'same-origin' } }));
 }
 
 beforeEach(() => { state.rpcs = []; state.data = 'quiz-of-the-day-id'; });

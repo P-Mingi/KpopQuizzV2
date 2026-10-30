@@ -77,15 +77,23 @@ describe('GET /api/qotd/publish authorization', () => {
 
   it('an admin session at aal2 publishes without any secret (the /admin/quiz-bank button)', async () => {
     state.user = { id: 'admin-user' };
-    const res = await call();
+    // The button is a same-origin fetch GET: no Origin, and the browser's own Sec-Fetch-Site.
+    const res = await call({ 'sec-fetch-site': 'same-origin' });
     expect(res.status).toBe(200);
     expect(state.rpcCalls).toBe(1);
+  });
+
+  it('an admin session on a link from another site gets 404 and nothing runs', async () => {
+    state.user = { id: 'admin-user' };
+    const res = await call({ 'sec-fetch-site': 'cross-site' });
+    expect(res.status).toBe(404);
+    expect(state.rpcCalls).toBe(0);
   });
 
   it('with no CRON_SECRET configured the secret door is closed, the admin door still works', async () => {
     delete process.env.CRON_SECRET;
     expect((await call({ authorization: 'Bearer undefined' })).status).toBe(404);
     state.user = { id: 'admin-user' };
-    expect((await call()).status).toBe(200);
+    expect((await call({ 'sec-fetch-site': 'same-origin' })).status).toBe(200);
   });
 });

@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 import { isCronAuthorized } from '@/lib/cron-auth';
-import { requireAdmin } from '@/lib/admin/guard';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { sameOrigin } from '@/lib/entity-images/route-kit';
 import { ensureDailyQuizRpc } from '@/lib/daily-quiz';
 import { SITE } from '@/lib/site/registry';
 import { qotdRotationFixEnabled } from '@/lib/quiz-bank-scheduling';
@@ -16,8 +17,10 @@ import type { NextRequest } from 'next/server';
 // the cron does it (lib/ux-v1/p1/qotd-rotation.ts); switch OFF (the default) this
 // route behaves exactly as before.
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  // ADMIN-1: Bearer CRON_SECRET, or an admin that requireAdmin lets through (verified, listed, aal2); anyone else gets the admin 404.
+  // ADMIN-1: Bearer CRON_SECRET, or an admin that requireAdmin lets through (verified, listed, aal2) on a same-origin request: this GET writes,
+  // and a Lax session cookie goes along on a link from another site. Anyone else gets the admin 404.
   if (!isCronAuthorized(req)) {
+    if (!sameOrigin(req)) return adminNotFound();
     const gate = await requireAdmin('api');
     if (!gate.ok) return gate.res;
   }
