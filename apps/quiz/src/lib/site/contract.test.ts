@@ -870,8 +870,15 @@ describe('twins (TWINS.md, twins.json, rule 18)', () => {
     for (let i = 0; i <= 8; i++) expect(base.has(`H-${i}`), `row H-${i}`).toBe(true);
     for (const r of doc.pages) expect(Array.isArray(r.allowed), r.id).toBe(true);
     expect(Object.keys(doc.differenceCodes).sort()).toEqual(
-      ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'B', 'Bf', 'C', 'F', 'H1', 'H2', 'H3', 'H4', 'N', 'T', 'Tn', 'V'].sort(),
+      ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'B', 'Bf', 'C', 'F', 'H1', 'H2', 'H3', 'H4', 'N', 'T', 'Tn', 'V'].sort(),
     );
+  });
+
+  it('A8 (Surprise me, owner 2026-10-29 and 2026-10-30) is an anime block of the home only, and the home allows nothing else new', () => {
+    expect(doc.differenceCodes.A8?.sites).toEqual(['anime']);
+    expect(doc.pages.filter((r) => r.allowed.includes('A8')).map((r) => r.id)).toEqual(['1']);
+    expect(doc.pages.find((r) => r.id === '1')!.allowed).toEqual(['T', 'B', 'V', 'C', 'F', 'N', 'A7', 'A8']);
+    expect(md).toContain('**A8** Surprise me on the home');
   });
 
   it('every anime route pattern of the registry is the route of a row (no screen without a twin)', () => {
