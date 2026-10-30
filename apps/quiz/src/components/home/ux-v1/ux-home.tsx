@@ -29,7 +29,12 @@ const TOPICS_HREF = IS_KPOP ? '/groups' : '/series';
  * fail-soft (safeFetch): a failing read hides its section (min-gate), never the page,
  * and such a render is never kept in the page cache (render-health.ts, C3-003).
  */
-export async function UxHome({ head }: { head?: React.ReactNode }): Promise<React.ReactElement> {
+export async function UxHome({ head, afterHeader }: {
+  head?: React.ReactNode;
+  /** A block right under the header, before the quiz of the day: the OtakuQuiz home passes its Surprise me there (TWINS row 1, A8);
+   *  kpopquiz.org passes nothing and renders what it rendered. */
+  afterHeader?: React.ReactNode;
+}): Promise<React.ReactElement> {
   const now = new Date();
   const health = new RenderHealth();
   const [qotd, groups, community, band] = await Promise.all([
@@ -42,6 +47,7 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
   // A render that lost a read is not cached: at runtime it throws (the cached page
   // stays), at build it is kept for 30 s only.
   await settleRender(health);
+  const qotdRow = qotd ? <QotdRow qotd={qotd} /> : null;
 
   return (
     <UxPage width="wide" className="p1-home">
@@ -52,7 +58,9 @@ export async function UxHome({ head }: { head?: React.ReactNode }): Promise<Reac
 
       <HomeHeader />
 
-      {qotd ? <QotdRow qotd={qotd} /> : null}
+      {/* The quiz of the day. With an afterHeader block, the two share this one place of the tree (a fragment), so the
+          page data of kpopquiz.org, which passes none, keeps its bytes. */}
+      {afterHeader ? <>{afterHeader}{qotdRow}</> : qotdRow}
 
       {/* Every run saved on this device shows here (C2-004), even when its quiz is
           also in a list below: it is the fan's own run, with its resume link. */}

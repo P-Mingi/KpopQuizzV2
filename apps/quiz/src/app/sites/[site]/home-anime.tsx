@@ -18,6 +18,7 @@ import { ScrollRow } from '@/components/ui/scroll-row';
 import { VerseHomeStrip } from '@/components/verse/verse-home-strip';
 import { QuizCard } from '@/components/ui/quiz-card';
 import { UxHome } from '@/components/home/ux-v1/ux-home';
+import { AnimeHomeSurprise } from '@/components/anime/home-surprise';
 import { UX_V1 } from '@/lib/ux-v1';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 import { SITE } from '@/lib/site/registry';
@@ -278,6 +279,7 @@ export default function HomePage(): React.ReactElement {
     // canonical, hreflang, JSON-LD, H1 and intro as the live home. Its client
     // islands sit behind next/dynamic (components/home/ux-v1/islands.tsx), so the
     // flag-off home ships none of their code.
+    // Surprise me (owner, 2026-10-29 and 2026-10-30; TWINS row 1, code A8): under the hero buttons, anime quizzes only.
     return (
       <UxHome
         head={(
@@ -288,6 +290,7 @@ export default function HomePage(): React.ReactElement {
             </Suspense>
           </>
         )}
+        afterHeader={<AnimeHomeSurprise />}
       />
     );
   }
