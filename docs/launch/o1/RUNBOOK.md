@@ -532,6 +532,13 @@ MANDATORY (K6b): Vercel, project `otakuquiz`, Logs, search `/anime/api/cron/`: t
 
 **L3b  kpopquiz: privacy and deletion.** `NEXT_PUBLIC_NET_PRIVACY=1` and, once 18b, 016 and 017 are applied and the `passport-deletions` cron runs on `fandomverse`, `NEXT_PUBLIC_NET_DELETION=1`, both on `kpopquiz` only; redeploy `kpopquiz`; V1 (ENV.md 1.2, D-110, D-112). Back: remove, redeploy.
 
+**L3c  kpopquiz: the Kpopdle module, on launch day, after the game (CR-018).** The module under the quiz of the day, "Play Kpopdle", links to bunnyverse.org. One server variable on `kpopquiz` only, `NET_KPOPDLE_HOME`. It changes `/` of kpopquiz.org and no other page. It is not part of the L3 chain: it follows K10 the same day and does not wait for the +24 hours of L2. The game goes on through the launch-day PR that sets the hub's `dailyGuess` to true (`HUB_FEATURES` in `apps/quiz/src/lib/site/registry.ts`, a code constant, so a PR is the only way); if that PR waits, this step waits with it.
+Who: owner for the go and the Do; a worker for the Check.
+Go / no-go. All of these, or leave the variable unset: (1) that PR is merged on `main`, and both `fandomverse` and `kpopquiz` Production deployments are Ready on its commit; (2) `curl -s -o /dev/null -w '%{http_code}\n' https://bunnyverse.org/kpopdle` and the same for `/daily` each print 200; (3) the owner played today's game there on a phone, to the end; (4) K10 is done, so the link does not lead to a noindex page; (5) Runtime Logs of `fandomverse` show no `[dle]` error for an hour.
+Do: Vercel, project `kpopquiz`, Production, `NET_KPOPDLE_HOME` = `1`; redeploy `kpopquiz`.
+Check: `curl -s https://kpopquiz.org/ | grep -o 'href="https://bunnyverse.org/kpopdle"' | wc -l` prints 1, and `curl -s https://kpopquiz.org/ | grep -o '<h1' | wc -l` prints 1; the module shows at desktop and at 375 px, between the quiz of the day and the groups, with today's number and no idol's name; V1 shows only `/` changed. If the link is missing with the variable set, the module failed closed (the hub's switch, or `dle_day`): the home is intact, read the `[home] Kpopdle` line of the logs of `kpopquiz`.
+Back: remove the variable, redeploy `kpopquiz`. The game going off on its own (`dle_unavailable`) hides the module at the next regeneration of the home, within the hour, with nothing to do.
+
 **L4  The first 72 hours.** At +1h, +24h, +48h, +72h do V11 (Claude and a worker). Keep the log. A worker watches Runtime Logs.
 
 **L5  Decide at +72h.** If V11 is clean for 72 hours, the launch is done: raise the DNS TTL of bunnyverse.org back to your registrar's default, keep the backup of K2 for 60 days, write the date of the last step. If anything is wrong, use the layers of `ROLLBACK.md` section 3 from the lightest.

@@ -9,6 +9,7 @@ import { SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 import { getHomeBand, getHomeCommunity, getHomeGroups, getHomeLists, getHomeQotd } from '@/lib/ux-v1/p1/home-data';
 import { IS_KPOP, titleCase } from '@/lib/site/genre';
 import { SITE } from '@/lib/site/registry';
+import { loadKpopdleHome } from '@/lib/ux-v1/p1/kpopdle-home';
 import { RenderHealth, settleRender } from '@/lib/ux-v1/p1/render-health';
 
 import { CommunityRows } from './community-rows';
@@ -47,6 +48,8 @@ export async function UxHome({ head, afterHeader }: {
   // A render that lost a read is not cached: at runtime it throws (the cached page
   // stays), at build it is kept for 30 s only.
   await settleRender(health);
+  // Not a health.read: a Kpopdle that is down hides its module, it never costs the home its cache (CR-018).
+  const kpopdle = await loadKpopdleHome();
   const qotdRow = qotd ? <QotdRow qotd={qotd} /> : null;
 
   return (
@@ -64,7 +67,8 @@ export async function UxHome({ head, afterHeader }: {
 
       {/* Every run saved on this device shows here (C2-004), even when its quiz is
           also in a list below: it is the fan's own run, with its resume link. */}
-      <ContinuePlaying />
+      {/* With the Kpopdle module (CR-018, off by default) the two share this one place of the tree, as afterHeader above, so the page data of a home without it keeps its bytes. */}
+      {kpopdle ? <><ContinuePlaying />{kpopdle}</> : <ContinuePlaying />}
 
       {groups.groups.length > 0 ? (
         <section className="ux-sec ux-sec-lg" aria-labelledby="p1-groups-h">

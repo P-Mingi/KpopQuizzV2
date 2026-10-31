@@ -2,7 +2,7 @@
 
 Depuis le 2026-10-30 : une commande par partie de session SQL (`session.sh`), donc moins de collages ; les durées d'attente ne changent pas.
 
-**Moi : environ 4 h 50, en 49 étapes sur 69, code admin compris (5 h 05 et 51 étapes si les deux étapes « si besoin » servent, l'étape 45 demandant alors un second code). Dont 4 h 05 jusqu'à la fin du jour J.**
+**Moi : environ 4 h 50, en 50 étapes sur 70, code admin compris (5 h 05 et 52 étapes si les deux étapes « si besoin » servent, l'étape 45 demandant alors un second code). Dont 4 h 05 jusqu'à la fin du jour J.**
 **Claude : environ 7 h 30. Worker : environ 14 h 25, dont 7 h 50 à surveiller des journaux. Ils travaillent entre mes étapes et ne changent rien en production.**
 **Durée totale : au moins 5 jours de la session B au jour J inclus (trois veilles de 24 h : après B, après 008, après 010), puis 72 h de veille. Au plus tôt : B le jour 1, jour J le jour 5, décision finale le jour 8.**
 
@@ -519,7 +519,7 @@ https://bunnyverse.org/anime/sitemap.xml
 ```
 Vérif (worker) : les six commandes de l'étape 55 bis n'affichent plus rien ; V10 « after K10 » (plus de noindex sur l'accueil, `/anime`, `/anime/series`, une série, un quiz ; toujours sur `/settings`, `/me`, `/anime/admin`), les deux fichiers de clé IndexNow répondent 200 sur bunnyverse.org et 404 sur kpopquiz.org.
 
-## Partie 9. Après le lancement (44 min pour moi)
+## Partie 9. Après le lancement (47 min pour moi)
 
 ### 57. Heure 0 à +1, puis +24 h
 Claude 25 min, Worker 1 h 15. [RUNBOOK L1, L2](RUNBOOK.md#l-after-launch)
@@ -562,6 +562,17 @@ NEXT_PUBLIC_NET_PRIVACY
 NEXT_PUBLIC_NET_DELETION
 ```
 Vérif (worker) : V1.
+
+### 61 bis. Le module Kpopdle sur kpopquiz.org, le jour J
+Moi 3 min, Worker 10 min. [RUNBOOK L3c](RUNBOOK.md#l-after-launch)
+
+Le jour J, après l'étape 56, sans attendre les +24 h des étapes 58 à 60. Le jeu s'allume par la PR du jour J qui met `dailyGuess` à true : si elle n'est pas fusionnée, cette étape attend avec elle. Go / no-go, tout doit être vrai, sinon tu ne touches à rien : cette PR est sur `main` et `fandomverse` et `kpopquiz` sont Ready sur ce commit ; le worker confirme que `bunnyverse.org/kpopdle` et `bunnyverse.org/daily` répondent 200 ; tu as joué la partie du jour sur ton téléphone jusqu'au bout ; l'étape 56 est faite ; une heure de journaux `fandomverse` sans ligne `[dle]`.
+
+Vercel, `kpopquiz` seulement, Production : la clé ci-dessous, valeur `1`. Redéploie `kpopquiz`.
+```
+NET_KPOPDLE_HOME
+```
+Vérif (worker) : RUNBOOK L3c (un seul lien vers `/kpopdle` dans le HTML de l'accueil, un seul H1, aucun nom d'idol, V1 : seule `/` change). Retour : retire la clé, redéploie `kpopquiz`.
 
 ### 62. +48 h et +72 h
 Claude 30 min, Worker 40 min. [RUNBOOK L4](RUNBOOK.md#l-after-launch)
