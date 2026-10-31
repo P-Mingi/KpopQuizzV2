@@ -82,3 +82,47 @@ describe('the Ignored Build Step', () => {
     expect(deploy(prev, head, { VERCEL_ENV: 'production', VERCEL_PROJECT_NAME: 'kpopquiz' })).toBe(1);
   });
 });
+
+describe('the Preview of main that the Microfrontends group creates', () => {
+  const on = (project: string, env: string, ref: string, prev: string, head: string): Record<string, string> => ({
+    VERCEL_ENV: env, VERCEL_PROJECT_NAME: project, VERCEL_GIT_COMMIT_REF: ref, VERCEL_GIT_PREVIOUS_SHA: prev, VERCEL_GIT_COMMIT_SHA: head,
+  });
+  /** The script as the launch-day PR leaves it (K5b): the hold is off. */
+  const afterLaunch = (env: Record<string, string>): number => {
+    const copy = path.join(repo, 'after-launch.sh');
+    const text = readFileSync(SCRIPT, 'utf8');
+    expect(text).toContain('NET_PRODUCTION_HOLD=1');
+    writeFileSync(copy, text.replace('NET_PRODUCTION_HOLD=1', 'NET_PRODUCTION_HOLD=0'));
+    return spawnSync('bash', [copy], { cwd: path.join(repo, 'apps/quiz'), env: { NODE_ENV: 'test', PATH: process.env.PATH ?? '', ...env } }).status ?? -1;
+  };
+  it('is skipped on otakuquiz and fandomverse, code change or not, first deployment or not', () => {
+    const prev = git('rev-parse', 'HEAD');
+    const head = commit({ 'apps/quiz/src/v.ts': 'v' });
+    for (const project of ['otakuquiz', 'fandomverse']) {
+      expect(run(on(project, 'preview', 'main', prev, head))).toBe(0);
+      expect(run(on(project, 'preview', 'main', '', head))).toBe(0);
+    }
+  });
+  it('leaves the test environment and the other preview branches building', () => {
+    const prev = git('rev-parse', 'HEAD');
+    const head = commit({ 'apps/quiz/src/u.ts': 'u' });
+    for (const project of ['otakuquiz', 'fandomverse']) {
+      expect(run(on(project, 'preview', 'o1/integration', prev, head))).toBe(1);
+      expect(run(on(project, 'preview', 'preview/x', prev, head))).toBe(1);
+    }
+  });
+  it('builds in doubt: another project, or no project name', () => {
+    const prev = git('rev-parse', 'HEAD');
+    const head = commit({ 'apps/quiz/src/s.ts': 's' });
+    expect(run(on('kpopquiz', 'preview', 'main', prev, head))).toBe(1);
+    expect(run({ VERCEL_ENV: 'preview', VERCEL_GIT_COMMIT_REF: 'main', VERCEL_GIT_PREVIOUS_SHA: prev, VERCEL_GIT_COMMIT_SHA: head })).toBe(1);
+  });
+  it('changes no production build: kpopquiz builds today, and all three build once the hold is off', () => {
+    const prev = git('rev-parse', 'HEAD');
+    const head = commit({ 'apps/quiz/src/r.ts': 'r' });
+    expect(run(on('kpopquiz', 'production', 'main', prev, head))).toBe(1);
+    for (const project of ['kpopquiz', 'otakuquiz', 'fandomverse']) {
+      expect(afterLaunch(on(project, 'production', 'main', prev, head))).toBe(1);
+    }
+  });
+});
