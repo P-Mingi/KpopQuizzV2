@@ -1,0 +1,122 @@
+Lot K1, 021c on a throwaway local Postgres 18 (2026-11-01). Never connected to production.
+Schema: production columns, checks, unique keys and policies of idols, groups, entity_sources. Data: the 204 idols of the 2026-10-30 snapshot used for 021a.
+
+=== 0. fresh database: production columns, checks, unique keys, policies of idols, groups, entity_sources; the 204 idols of the 2026-10-30 snapshot (synthetic birth dates)
+14 and 19 given the two dates production holds (read by the integrator); every other birth date is synthetic
+CREATE UNIQUE INDEX idols_pkey ON public.idols USING btree (id)
+CREATE UNIQUE INDEX idols_group_id_name_key ON public.idols USING btree (group_id, name)
+rows sharing a QID before 021c|9
+
+=== 1. 021c before 021a: refused
+ERROR:  021c-k1-idol-corrections: idols.debut_year is missing, apply 021a first
+
+=== 2. 021a, then the state 021c starts from
+gender|200|debut_year|153|qid|200|active|116|review|86
+debut_year|musicbrainz|131
+debut_year|wikidata|139
+gender|musicbrainz|174
+gender|wikidata|200
+signature after 021a: a7d088bc36fde68c477a126b31ff10f5
+
+=== 3. apply 021c (single transaction)
+NOTICE:  021c-k1-idol-corrections: added 4 QID(s), swapped 2 QID(s) and 2 birth date(s), filled 27 debut year(s), corrected 18 debut year(s), moved 6 source reference(s)
+gender|200|debut_year|180|qid|204|active|116|review|86
+debut_year|musicbrainz|143
+debut_year|wikidata|146
+gender|musicbrainz|174
+gender|wikidata|200
+wikidata_qid|wikidata|6
+14|Changbin|Q61100669|2018
+19|I.N|Q59831589|2018
+39|S.Coups|Q21824968|2015
+46|DK|Q21824862|2015
+48|The8|Q21824868|2015
+52|Lee Seok-min|Q21824862|2015
+53|Xu Minghao|Q21824868|2015
+54|Choi Seung-cheol|Q21824968|2015
+67|Sakura|Q869966|2012
+75|Johnny|Q47690025|2017
+142|Ruka|Q123554435|2024
+148|Ahyeon|Q123560890|2024
+175|Kai|Q10775090|2012
+179|Q10775090|Q10775090|
+years now|2012|10
+years now|2015|3
+years now|2017|1
+years now|2018|13
+years now|2022|5
+years now|2024|13
+19|birth_date|wikidata|Q59831589
+14|birth_date|wikidata|Q61100669
+14|debut_year|musicbrainz|391d07b5-43b2-4d57-9283-7b7fcf1a00eb
+19|debut_year|musicbrainz|2acf77db-be3f-431a-9f81-c35f7cd8c598
+19|gender|musicbrainz|2acf77db-be3f-431a-9f81-c35f7cd8c598
+14|gender|musicbrainz|391d07b5-43b2-4d57-9283-7b7fcf1a00eb
+14|gender|wikidata|Q61100669
+19|gender|wikidata|Q59831589
+14|wikidata_qid|wikidata|Q61100669
+19|wikidata_qid|wikidata|Q59831589
+133|musicbrainz|2844f93d-11b2-4f5c-8296-59119d87a714
+97|musicbrainz|739261bd-9334-4940-a03a-b6b0a9e5223e
+142|musicbrainz|f7fccca7-508f-4a0b-97b5-78fba2d0c508
+108|musicbrainz|8d7cb745-644c-409b-bdef-d93cc18ac1e4
+67|musicbrainz|a9cb9478-2cfd-4a51-9fea-0477f07b97ec
+175|wikidata|Q10775090
+75|wikidata|Q47690025
+birth dates|14|1999-08-11
+birth dates|19|2001-02-08
+every column a kpopquiz.org page reads from idols, birth dates of 14 and 19 apart, and which fields have a source row (the badge): identical before and after 021c
+signature after run 1: a35c1a45cdc67fbb5195525086946012
+
+=== 4. apply 021c again, single transaction and plain psql -f: nothing changes
+NOTICE:  021c-k1-idol-corrections: added 0 QID(s), swapped 0 QID(s) and 0 birth date(s), filled 0 debut year(s), corrected 0 debut year(s), moved 0 source reference(s)
+NOTICE:  021c-k1-idol-corrections: added 0 QID(s), swapped 0 QID(s) and 0 birth date(s), filled 0 debut year(s), corrected 0 debut year(s), moved 0 source reference(s)
+signature after run 2 and 3: a35c1a45cdc67fbb5195525086946012
+IDEMPOTENT: identical
+
+=== 5. 021a rerun after 021c, then 021c again: 021a does not bring back the old years or their source rows
+NOTICE:  021a-k1-idol-gender-debut: filled 0 gender and 0 debut_year; skipped (row gone, QID changed or other value kept): 2 gender, 18 debut_year
+021a rerun: identical
+NOTICE:  021c-k1-idol-corrections: added 0 QID(s), swapped 0 QID(s) and 0 birth date(s), filled 0 debut year(s), corrected 0 debut year(s), moved 0 source reference(s)
+021c rerun: identical
+
+=== 6. active and needs_review never move
+active|116|needs_review|86
+
+=== 7. guards on a fresh copy: row 12 holds a hand-set year, 13 another QID, 133 a hand-set year, 39 another QID, 46 was renamed, 53 lost its QID, 19 holds another birth date, 14 another QID
+NOTICE:  021c-k1-idol-corrections: added 1 QID(s), swapped 1 QID(s) and 1 birth date(s), filled 21 debut year(s), corrected 17 debut year(s), moved 3 source reference(s)
+NOTICE:  021c-k1-idol-corrections: year not stored for id(s) 12, 13, 14, 39, 46, 48, 133 (row gone, name or QID changed, or another value kept)
+NOTICE:  021c-k1-idol-corrections: QID not stored for id(s) 39, 46, 48 (row gone, name changed, another QID kept, or duplicate changed)
+NOTICE:  021c-k1-idol-corrections: QID not swapped for id(s) 14 (row gone, name changed, or another QID found)
+NOTICE:  021c-k1-idol-corrections: birth date not corrected for id(s) 19 (row gone, name changed, or another date found)
+12|Bang Chan|Q59670293|2019|0|1995-06-15
+13|Lee Know|Q1|null|0|1995-06-15
+14|Changbin|Q3|null|0|1999-08-11
+19|I.N|Q59831589|2018|1|2000-01-01
+39|S.Coups|Q2|null|0|
+46|Dokyeom|null|null|0|
+48|The8|null|null|0|
+133|Kim Chae-hyun|Q109108660|2020|2|1995-06-15
+
+=== 7b. rollback when a value moved after 021c: said by a notice, left as found (id 15 year, id 19 birth date), on a throwaway copy
+NOTICE:  021c-k1-idol-corrections rollback: year left as found on id(s) 15 (another value than 021c stored)
+NOTICE:  021c-k1-idol-corrections rollback: birth date left as found on id(s) 19 (neither value of 021c, or the name changed)
+15|2019|1995-06-15
+19||2000-01-01
+
+=== 8. rollback refused while the game kpopdle-idol is active (stub dle_games)
+SET
+CREATE TABLE
+INSERT 0 1
+ERROR:  021c-k1-idol-corrections rollback refused: the game kpopdle-idol is active and reads idols.debut_year
+UPDATE 1
+
+=== 9. rollback (game off): back to the signature after 021a; then rollback again
+signature after rollback: a7d088bc36fde68c477a126b31ff10f5
+ROLLBACK: identical to the state after 021a
+second rollback: identical
+
+=== 10. apply again, then rollback of 021a before 021c's: QIDs still undone by 021c's rollback
+NOTICE:  021c-k1-idol-corrections: added 4 QID(s), swapped 2 QID(s) and 2 birth date(s), filled 27 debut year(s), corrected 18 debut year(s), moved 6 source reference(s)
+QIDs on 39, 46, 48|0
+wikidata_qid source rows|0

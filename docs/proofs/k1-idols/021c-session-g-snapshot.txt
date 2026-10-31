@@ -1,0 +1,68 @@
+Lot K1, 021c, the real parts B1 to G through session.sh on production's schema copy plus the 204-idol snapshot of 2026-10-30. Local Postgres 18, 2026-11-01.
+PASS base: production's schema copy, S4 and Mission U part D, V-S4 ok
+PASS seed: the 204-idol snapshot of 2026-10-30, synthetic birth dates, 14 and 19 with the two dates production holds
+PASS B1 (run 1): exit 0, "terminée : tout est OK"
+PASS B1 (run 2): exit 0, "terminée : tout est OK"
+PASS B1 (run 2): the second run changed nothing (163 tables, same rows; same schema and grants)
+PASS B2 (run 3): exit 0, "terminée : tout est OK"
+PASS B2 (run 4): exit 0, "terminée : tout est OK"
+PASS B2 (run 4): the second run changed nothing (164 tables, same rows; same schema and grants)
+PASS B3 (run 5): exit 0, "terminée : tout est OK"
+PASS B3 (run 6): exit 0, "terminée : tout est OK"
+PASS B3 (run 6): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS D (run 7): exit 0, "terminée : tout est OK"
+PASS D (run 8): exit 0, "terminée : tout est OK"
+PASS D (run 8): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS E1 (run 9): exit 0, "terminée : tout est OK"
+PASS E1 (run 10): exit 0, "terminée : tout est OK"
+PASS E1 (run 10): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS E2 (run 11): exit 0, "terminée : tout est OK"
+PASS E2 (run 12): exit 0, "terminée : tout est OK"
+PASS E2 (run 12): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS G (run 13): exit 1, "021a-k1-idol-gender-debut.sql : fichier absent de main"
+PASS G (run 14): exit 1, "021c-k1-idol-corrections.sql : fichier absent de main"
+PASS G (run 15): exit 1, "021b-k1-idol-activate.sql : fichier absent de main"
+PASS G (run 16): exit 0, "terminée : tout est OK"
+--- first G run with real files, the K1 checks read directly:
+== V-K1a
+ok | colonne idols.gender (texte) | -
+ok | colonne idols.debut_year (entier) | -
+ok | genre : seulement female ou male | 0
+ok | année de début plausible (1990 à l'an prochain) | 0
+ok | idols assez complètes pour être cible (information) | 110
+== V-K1c
+ok | QID sur les fiches actives 39, 46, 48, 175 : fiches sans le QID du doublon | 0
+ok | doublons 52, 53, 54, 179 actifs : 0 | 0
+ok | QID de 14 et 19 encore inversés ou autres : 0 | 0
+ok | dates de naissance de 14 et 19 différentes de la vraie : 0 | 0
+ok | dates de naissance de 14 et 19 sans leur source exacte : 0 | 0
+ok | sources de 14 et 19 qui nomment l'autre personne : 0 | 0
+ok | ancienne année encore là sur les fiches corrigées : 0 | 0
+ok | années de la liste vides ou différentes : 0 | 0
+ok | années stockées sans leur source exacte : 0 | 0
+ok | années stockées avec plus d'une source : 0 | 0
+ok | années de 021c en place (information, liste de 45) | 45
+ok | QID ajoutés par 021c en place (information, liste de 4) | 4
+ok | idols assez complètes pour être cible (information) | 110
+== V-K1b
+ok | idols actives encore à relire : 0 | 0
+ok | mineurs ou sans date de naissance dans le jeu : 0 | -
+ok | idols assez complètes pour être cible (information) | 110
+genders and debut years: 200 | 180
+debut_year | musicbrainz | 143
+debut_year | wikidata | 146
+gender | musicbrainz | 174
+gender | wikidata | 200
+wikidata_qid | wikidata | 6
+active=116 needs_review=86
+the 021c idols in the game view after G (id list):
+12, 13, 14, 15, 16, 18, 19, 57, 61, 64, 67, 68, 75, 108, 113, 168, 169, 170, 171, 172, 173, 174, 176
+PASS G (run 17): exit 0, "terminée : tout est OK"
+PASS G (run 17): the second run changed nothing (194 tables, same rows; same schema and grants)
+--- a wrong value makes the check say KO: id 19 given another birth date, then put back
+KO | dates de naissance de 14 et 19 différentes de la vraie : 0 | 1
+PASS G (run 18): exit 1, "V-K1c"
+--- the date put back by hand: the part says OK again
+PASS G (run 19): exit 0, "terminée : tout est OK"
+
+fails=0

@@ -14,8 +14,8 @@
 # throwaway quiz, a deploy, a flag) do not touch the database.
 # Stops that must happen are checked too: J2 before the Team users, G and J4 on a missing K1 or A1 file (pointed at a path that does
 # not exist, so the stop stays checked once the files are on main), and a check that finds a KO.
-# A file of lots K1 (021a, 021b) or A1 runs for real as soon as it is on the branch. While it is not, the rehearsal uses a stand-in it
-# writes in its work folder (021a: the two columns of the contract, empty; 021b and A1: no change; 023 for a real L13: the contract's DDL).
+# A file of lots K1 (021a, 021c, 021b) or A1 runs for real as soon as it is on the branch. While it is not, the rehearsal uses a stand-in it
+# writes in its work folder (021a: the two columns of the contract, empty; 021c, 021b and A1: no change; 023 for a real L13: the contract's DDL).
 # Everything else is the repository's files.
 #
 # Prints PASS or FAIL per step and the parts' own output in its work folder. Exit 0 when every step passed. The cluster is stopped
@@ -74,6 +74,7 @@ cat >"$WORK/K1a-stand-in.sql" <<'EOF'
 alter table public.idols add column if not exists gender text check (gender in ('female', 'male'));
 alter table public.idols add column if not exists debut_year integer;
 EOF
+printf -- '-- Rehearsal stand-in for 021c of lot K1 (not on the branch): no change.\nselect 1;\n' >"$WORK/K1c-stand-in.sql"
 printf -- '-- Rehearsal stand-in for 021b of lot K1 (not on main yet): activates nobody.\nselect 1;\n' >"$WORK/K1b-stand-in.sql"
 printf -- '-- Rehearsal stand-in for the SQL of lot A1 (not on main yet): no change.\nselect 1;\n' >"$WORK/A1-stand-in.sql"
 
@@ -115,10 +116,12 @@ n=0
 # A stand-in only for a lot file that is not on the branch; the stops below point at a file that does not exist.
 STAND=""
 [ -f docs/pending-migrations/multisite/021a-k1-idol-gender-debut.sql ] || STAND="$STAND KPQ_K1A_SQL=$WORK/K1a-stand-in.sql"
+[ -f docs/pending-migrations/multisite/021c-k1-idol-corrections.sql ] || STAND="$STAND KPQ_K1C_SQL=$WORK/K1c-stand-in.sql"
 [ -f docs/pending-migrations/multisite/021b-k1-idol-activate.sql ] || STAND="$STAND KPQ_K1B_SQL=$WORK/K1b-stand-in.sql"
 [ -f docs/pending-migrations/multisite/launch/L13-A1-character-facts.sql ] || STAND="$STAND KPQ_A1_SQL=$WORK/A1-stand-in.sql"
 for p in B1 B2 B3 D E1 E2; do part "$p" 0 "terminée : tout est OK"; again "$p" 0 "terminée : tout est OK"; done
 part G 1 "021a-k1-idol-gender-debut.sql : fichier absent de main" "KPQ_K1A_SQL=$WORK/absent/021a-k1-idol-gender-debut.sql"
+part G 1 "021c-k1-idol-corrections.sql : fichier absent de main" $STAND "KPQ_K1C_SQL=$WORK/absent/021c-k1-idol-corrections.sql"
 part G 1 "021b-k1-idol-activate.sql : fichier absent de main" $STAND "KPQ_K1B_SQL=$WORK/absent/021b-k1-idol-activate.sql"
 part G 0 "terminée : tout est OK" $STAND; again G 0 "terminée : tout est OK" $STAND
 part J1 0 "terminée : tout est OK"; again J1 0 "terminée : tout est OK"
