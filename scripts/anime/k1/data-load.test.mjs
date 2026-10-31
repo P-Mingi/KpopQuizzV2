@@ -59,6 +59,8 @@ test('the SQL is one idempotent transaction: upserts, the anime-mix group, no de
   assert.match(sql, /commit;\n$/);
   assert.match(sql, /'anime-mix'.*on conflict \(slug\) do nothing/);
   assert.match(sql, /insert into public\.series .* on conflict \(group_id\) do update/);
+  // A replay must not touch updated_at of an unchanged series: the stamp only moves with a real change.
+  assert.match(sql, /insert into public\.series .* updated_at = now\(\) where \(series\.type, .*\) is distinct from \(excluded\.type, .*\);/);
   assert.match(sql, /insert into public\.entity_sources .* on conflict \(entity_type, entity_id, field, source\) do update/);
   assert.match(sql, /'Test ''Show'''/);
   assert.doesNotMatch(sql, /drop table|truncate|drop schema/i);

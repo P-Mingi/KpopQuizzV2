@@ -266,9 +266,12 @@ const groupId = (slug) => raw(`(select id from public.groups where slug = ${sqlT
 const num = (v) => (typeof v === 'number' ? v : null);
 const str = (v) => (typeof v === 'string' ? v : null);
 
-function upsert(table, cols, rows, conflict, setExtra = '') {
-  const update = cols.filter((c) => !conflict.includes(c)).map((c) => `${c} = excluded.${c}`).join(', ') + setExtra;
-  return rows.map((r) => `insert into public.${table} (${cols.join(', ')}) values (${r.map(lit).join(', ')}) on conflict (${conflict.join(', ')}) do update set ${update};`);
+// onlyIfChanged: an unchanged row is left alone, so that a stamp such as updated_at does not move on a second run.
+function upsert(table, cols, rows, conflict, setExtra = '', onlyIfChanged = false) {
+  const set = cols.filter((c) => !conflict.includes(c));
+  const update = set.map((c) => `${c} = excluded.${c}`).join(', ') + setExtra;
+  const guard = onlyIfChanged ? ` where (${set.map((c) => `${table}.${c}`).join(', ')}) is distinct from (${set.map((c) => `excluded.${c}`).join(', ')})` : '';
+  return rows.map((r) => `insert into public.${table} (${cols.join(', ')}) values (${r.map(lit).join(', ')}) on conflict (${conflict.join(', ')}) do update set ${update}${guard};`);
 }
 
 const SERIES_COLS = ['group_id', 'type', 'title_en', 'title_native', 'title_romaji', 'aliases', 'studios', 'director', 'authors', 'magazine', 'publisher',
@@ -320,7 +323,7 @@ export function renderDataSql(plan) {
   out.push(`insert into public.groups (name, slug, display_color, text_color, site_id) values (${sqlText(MIX_NAME)}, ${sqlText(MIX_SLUG)}, ${sqlText(PLACEHOLDER_COLORS.display)}, ${sqlText(PLACEHOLDER_COLORS.text)}, ${sqlText(SITE)}) on conflict (slug) do nothing;`);
   for (const g of plan.groups) out.push(grp(g.slug, g.name, g.display_color, g.text_color));
 
-  out.push(...upsert('series', SERIES_COLS, plan.series.map((s) => seriesCells(s.slug, s.row)), ['group_id'], ', updated_at = now()'));
+  out.push(...upsert('series', SERIES_COLS, plan.series.map((s) => seriesCells(s.slug, s.row)), ['group_id'], ', updated_at = now()', true));
 
   out.push(...upsert('arcs', ['group_id', 'ord', 'name', 'kind', 'episode_from', 'episode_to', 'chapter_from', 'chapter_to', 'manga_only', 'anime_only', 'source_url', 'status'],
     plan.arcs.map(({ slug, row: a }) => [groupId(slug), a.ord, a.name, a.kind, num(a.episode_from), num(a.episode_to), num(a.chapter_from), num(a.chapter_to), a.manga_only === true, a.anime_only === true, str(a.source_url), a.status]),
