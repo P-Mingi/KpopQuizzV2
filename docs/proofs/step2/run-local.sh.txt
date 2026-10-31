@@ -1,0 +1,149 @@
+#!/bin/bash
+# Step 2: local proof of 022-photos-admin.sql on a throwaway Postgres 18 (initdb under the scratchpad).
+set -uo pipefail
+export PATH=/opt/homebrew/opt/postgresql@18/bin:$PATH LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+WT=/Users/louis/IT/Dev/projects/KpopQuizzV2/.worktrees/step2
+HERE="$(cd "$(dirname "$0")" && pwd)"
+DATA="$HERE/data"; SOCK="$HERE/sock"; PORT=55497
+M="$WT/docs/pending-migrations/multisite"
+rm -rf "$DATA" "$SOCK"; mkdir -p "$SOCK"
+initdb -D "$DATA" -U postgres --auth=trust >/dev/null
+pg_ctl -D "$DATA" -o "-p $PORT -k '' -c listen_addresses=127.0.0.1" -l "$HERE/pg.log" -w start >/dev/null
+trap 'pg_ctl -D "$DATA" -m fast -w stop >/dev/null' EXIT
+createdb -h 127.0.0.1 -p $PORT -U postgres o1
+P() { psql -h 127.0.0.1 -p $PORT -U postgres -d o1 -X -q "$@"; }
+Q() { P -At -v ON_ERROR_STOP=1 -c "$1"; }
+# A statement that must fail: prints the error line only.
+F() { P -At -c "$1" 2>&1 | grep -E 'ERROR' | sed 's/^psql:[^E]*//'; }
+# As a browser role, in a rolled back transaction; prints the rows or the error.
+AS() { P -At -c "begin; set local role $1; $2; rollback;" 2>&1 | grep -v '^BEGIN$\|^ROLLBACK$\|^SET$\|^DETAIL\|^HINT' | sed 's/^psql:[^E]*//'; }
+FP() { Q "select md5(concat_ws('|',
+  (select string_agg(conname || pg_get_constraintdef(oid), ',' order by conname) from pg_constraint where conrelid in ('public.entity_images'::regclass, 'public.agencies'::regclass, 'public.site_assets'::regclass)),
+  (select string_agg(c.relname || coalesce(c.relacl::text, '') || c.relrowsecurity::text, ',' order by c.relname) from pg_class c where c.relnamespace = 'public'::regnamespace and c.relname in ('entity_images', 'agencies', 'site_assets', 'site_assets_public', 'entity_images_public')),
+  (select string_agg(attname || coalesce(attacl::text, ''), ',' order by attname) from pg_attribute where attrelid = 'public.entity_images'::regclass and attnum > 0),
+  pg_get_viewdef('public.site_assets_public'::regclass), pg_get_viewdef('public.entity_images_public'::regclass),
+  (select string_agg(proname || prosrc || coalesce(proacl::text, ''), ',' order by proname) from pg_proc where pronamespace = 'public'::regnamespace and proname in ('photos_touch', 'agencies_sources_ok', 'entity_images_licence_reset')),
+  (select string_agg(tgname, ',' order by tgname) from pg_trigger where not tgisinternal and tgrelid in ('public.entity_images'::regclass, 'public.agencies'::regclass, 'public.site_assets'::regclass)),
+  (select count(*)::text from pg_policy where polrelid in ('public.agencies'::regclass, 'public.site_assets'::regclass)),
+  (select string_agg(polname || pg_get_expr(polqual, polrelid), ',') from pg_policy where polrelid = 'public.entity_images'::regclass),
+  (select string_agg(id || slug || name, ',' order by id) from public.agencies)))"; }
+
+echo "Step 2: local proof of 022-photos-admin.sql on a throwaway Postgres $(postgres --version | awk '{print $3}') ($(date -u +%Y-%m-%d))."
+echo "Base: docs/o1/contracts/schema.base.sql then schema.sql (the contract shapes of 001 to 016, so groups.site_id and the anime tables), a stand-in"
+echo "for the production columns 018 to 020 read (scratchpad standin.sql: idols, group_units, groups.record_label; one stand-in group per record label"
+echo "cited in production), then the real files 018, 019 and 020. Supabase's default privileges are on (new tables granted to anon and authenticated)."
+echo
+echo "=== 0. base, 018, 019, 020"
+P -v ON_ERROR_STOP=1 -f "$WT/docs/o1/contracts/schema.base.sql" >/dev/null 2>&1 || { echo "base failed"; exit 1; }
+P -v ON_ERROR_STOP=1 -f "$WT/docs/o1/contracts/schema.sql" >/dev/null 2>&1 || { echo "schema.sql failed"; exit 1; }
+P -v ON_ERROR_STOP=1 -f "$HERE/standin.sql" >/dev/null || exit 1
+for f in 018-entity-images.sql 019-dle-core.sql 020-dle-kpop-idol.sql; do P -v ON_ERROR_STOP=1 --single-transaction -f "$M/$f" >/dev/null || { echo "$f failed"; exit 1; }; done
+Q "select 'sites', string_agg(id, ',' order by id) from public.sites" | tr '|' ' '
+Q "select 'entity_images columns', count(*) from information_schema.columns where table_name = 'entity_images'" | tr '|' ' '
+
+echo
+echo "=== 1. apply 022 (single transaction)"
+P -v ON_ERROR_STOP=1 --single-transaction -f "$M/022-photos-admin.sql" 2>&1 | sed "s#$WT/##"
+echo "exit: ${PIPESTATUS[0]}"
+Q "select 'agencies', count(*) from public.agencies" | tr '|' ' '
+Q "select string_agg(name, ', ' order by name) from public.agencies"
+Q "select relname, relrowsecurity from pg_class where oid in ('public.agencies'::regclass, 'public.site_assets'::regclass) order by 1"
+Q "select 'policies on agencies and site_assets', count(*) from pg_policies where schemaname = 'public' and tablename in ('agencies', 'site_assets')" | tr '|' ' '
+Q "select pg_get_constraintdef(oid) from pg_constraint where conname = 'entity_images_kind_check'"
+A="$(FP)"; echo "fingerprint after run 1: $A"
+
+echo
+echo "=== 2. apply 022 again, outside a transaction (plain psql -f): nothing changes"
+P -v ON_ERROR_STOP=1 -f "$M/022-photos-admin.sql" 2>&1 | sed "s#$WT/##"
+echo "exit: ${PIPESTATUS[0]}"
+B="$(FP)"; echo "fingerprint after run 2: $B"
+[ "$A" = "$B" ] && echo "IDEMPOTENT: identical" || echo "IDEMPOTENT: DIFFERENT"
+
+echo
+echo "=== 3. privileges of the browser roles (each statement in a rolled back transaction)"
+for role in anon authenticated; do
+  echo "-- $role"
+  echo "select site_assets: $(AS $role 'select count(*) from public.site_assets')"
+  echo "insert site_assets: $(AS $role "insert into public.site_assets (key, type, page, settings) values ('icon:x', 'icon', 'kpopdle', '{}')")"
+  echo "select agencies: $(AS $role 'select count(*) from public.agencies')"
+  echo "update agencies: $(AS $role "update public.agencies set official_url = 'https://example.org'")"
+  echo "select site_assets_public: $(AS $role 'select count(*) from public.site_assets_public')"
+  echo "insert site_assets_public: $(AS $role "insert into public.site_assets_public (key, type, page, settings) values ('icon:x', 'icon', 'kpopdle', '{}')")"
+  echo "select entity_images_public: $(AS $role 'select count(*) from public.entity_images_public')"
+  echo "delete entity_images_public: $(AS $role 'delete from public.entity_images_public')"
+  echo "select entity_images.license_verified: $(AS $role 'select license_verified from public.entity_images')"
+  echo "insert entity_images: $(AS $role "insert into public.entity_images (site_id, kind, slug, path, width, height, source_url, author, license) values ('kpop', 'idol', '1', 'kpop/idol/1/a.webp', 400, 500, 'https://commons.wikimedia.org/x', 'A', 'cc_by')")"
+done
+
+echo
+echo "=== 4. entity_images: the new kinds, their checks, and the reset of the check on a new file (as the service role)"
+Q "set role service_role; insert into public.entity_images (site_id, kind, slug, path, width, height, source_url, author, license, license_verified, thumb_path) values
+  ('kpop', 'idol', '1', 'kpop/idol/1/aaaa.webp', 400, 500, 'https://commons.wikimedia.org/wiki/File:A.jpg', 'Author A', 'cc_by_sa', true, 'kpop/idol/1/aaaa-96.webp'),
+  ('kpop', 'group', '2', 'kpop/group/2/bbbb.webp', 400, 500, 'https://commons.wikimedia.org/wiki/File:B.jpg', 'Author B', 'cc_by', false, 'kpop/group/2/bbbb-96.webp'),
+  ('kpop', 'agency', (select id::text from public.agencies where slug = 'jyp-entertainment'), 'kpop/agency/x/cccc.webp', 400, 500, 'https://commons.wikimedia.org/wiki/File:C.jpg', 'Author C', 'cc0', true, 'kpop/agency/x/cccc-96.webp'),
+  ('anime', 'series', 'series-a', 'anime/series/series-a/dddd.webp', 736, 981, 'https://commons.wikimedia.org/wiki/File:D.jpg', 'Author D', 'cc_by', true, 'anime/series/series-a/dddd-96.webp')" >/dev/null
+echo "4 rows in; the public view as anon:"
+AS anon "select kind || ' ' || slug || ' ' || coalesce(name, '-') || ' ' || license || ' ' || thumb_path from public.entity_images_public order by kind"
+echo "the table itself as anon (018's policy narrowed: the anime kinds only, verified or not): $(AS anon "select string_agg(kind || ' ' || slug, ', ' order by kind) from public.entity_images")"
+echo "the same as the service role: $(Q "set role service_role; select string_agg(kind || ' ' || slug, ', ' order by kind) from public.entity_images")"
+echo "idol slug with a '/': $(F "insert into public.entity_images (site_id, kind, slug, path, width, height, source_url, author, license) values ('kpop', 'idol', '1/2', 'k/a.webp', 1, 1, 'https://x.org', 'A', 'cc0')")"
+echo "idol on the anime site: $(F "insert into public.entity_images (site_id, kind, slug, path, width, height, source_url, author, license) values ('anime', 'idol', '9', 'k/a.webp', 1, 1, 'https://x.org', 'A', 'cc0')")"
+echo "verified with no 96 px file: $(F "insert into public.entity_images (site_id, kind, slug, path, width, height, source_url, author, license, license_verified) values ('kpop', 'idol', '2', 'k/a.webp', 1, 1, 'https://x.org', 'A', 'cc0', true)")"
+echo "a series slug as 018 wrote it still goes in: $(Q "insert into public.entity_images (site_id, kind, slug, path, width, height, source_url, author, license) values ('anime', 'character', 'series-a/hero', 'anime/character/series-a/hero/e.webp', 360, 480, 'https://x.org', 'A', 'cc0') returning kind || ' ' || slug")"
+Q "update public.entity_images set path = 'kpop/idol/1/ffff.webp' where kind = 'idol' and slug = '1'" >/dev/null
+echo "new file without a new 96 px file (the 018 route): $(Q "select 'verified=' || license_verified || ' thumb=' || coalesce(thumb_path, 'null') from public.entity_images where kind = 'idol' and slug = '1'")"
+Q "update public.entity_images set path = 'kpop/idol/1/gggg.webp', thumb_path = 'kpop/idol/1/gggg-96.webp', license_verified = true where kind = 'idol' and slug = '1'" >/dev/null
+echo "new file with its new 96 px file and the box checked (the step 2 route): $(Q "select 'verified=' || license_verified || ' thumb=' || coalesce(thumb_path, 'null') from public.entity_images where kind = 'idol' and slug = '1'")"
+echo "the view of 020 reads the 96 px file of a verified idol: $(Q "select entity_id || ' ' || coalesce(thumb_path, 'null') from public.dle_src_kpop_idol where entity_id = '1'")"
+
+echo
+echo "=== 5. site_assets: versions, schedule, retire, and the licence checks (as the service role)"
+Q "set role service_role; insert into public.site_assets (key, type, page, settings, path, mid_path, thumb_path, width, height, source_url, author, license, license_verified, published_at, created_by) values
+  ('banner:kpopdle', 'banner', 'kpopdle', '{\"focal\": {\"x\": 50, \"y\": 40}}', 'hub/banner/kpopdle/a-1920.webp', 'hub/banner/kpopdle/a-400.webp', 'hub/banner/kpopdle/a-96.webp', 1920, 600, 'https://commons.wikimedia.org/wiki/File:Old.jpg', 'Old author', 'cc_by', true, now() - interval '2 days', '00000000-0000-0000-0000-0000000000aa'),
+  ('banner:kpopdle', 'banner', 'kpopdle', '{}', 'hub/banner/kpopdle/b-1920.webp', 'hub/banner/kpopdle/b-400.webp', 'hub/banner/kpopdle/b-96.webp', 1920, 600, 'https://commons.wikimedia.org/wiki/File:New.jpg', 'New author', 'cc_by_sa', true, now() - interval '1 hour', null),
+  ('banner:kpopdle', 'banner', 'kpopdle', '{}', 'hub/banner/kpopdle/c-1920.webp', null, null, 1920, 600, 'https://commons.wikimedia.org/wiki/File:Later.jpg', 'Later author', 'cc_by', true, now() + interval '3 days', null),
+  ('banner:otakudle', 'banner', 'otakudle', '{}', 'hub/banner/otakudle/d-1920.webp', null, null, 1920, 600, 'https://commons.wikimedia.org/wiki/File:Draft.jpg', 'Draft author', 'cc_by', false, null, null),
+  ('icon:k-idol', 'icon', 'kpopdle', '{\"mode\": \"icon\", \"icon\": \"idol\", \"circle\": true, \"color\": \"k\"}', null, null, null, null, null, null, null, null, false, now(), null),
+  ('sticker:kpopdle:s1', 'sticker', 'kpopdle', '{\"side\": \"left\"}', 'hub/sticker/kpopdle/s1-400.webp', null, 'hub/sticker/kpopdle/s1-96.webp', 400, 400, null, 'Bunnyverse', 'own_photo', true, now(), null),
+  ('sticker:kpopdle:s2', 'sticker', 'kpopdle', '{\"side\": \"right\"}', 'hub/sticker/kpopdle/s2-400.webp', null, null, 400, 400, null, 'Bunnyverse', 'own_photo', true, now(), null)" >/dev/null
+Q "update public.site_assets set retired_at = now() where key = 'sticker:kpopdle:s2'" >/dev/null
+echo "the live rows as anon (the latest published per key; the scheduled, the draft and the retired one are not there):"
+AS anon "select key || ' ' || coalesce(author, '-') || ' ' || coalesce(path, 'no file') from public.site_assets_public order by key"
+echo "a picture published with its licence not verified: $(F "insert into public.site_assets (key, type, page, path, width, height, source_url, author, license, published_at) values ('banner:daily', 'banner', 'daily', 'hub/banner/daily/x.webp', 1920, 600, 'https://x.org', 'A', 'cc_by', now())")"
+echo "a picture with no credit: $(F "insert into public.site_assets (key, type, page, path, width, height) values ('banner:daily', 'banner', 'daily', 'hub/banner/daily/x.webp', 1920, 600)")"
+echo "a banner with no file: $(F "insert into public.site_assets (key, type, page) values ('banner:daily', 'banner', 'daily')")"
+echo "a CC picture with no source page: $(F "insert into public.site_assets (key, type, page, path, width, height, author, license) values ('banner:daily', 'banner', 'daily', 'hub/banner/daily/x.webp', 1920, 600, 'A', 'cc_by')")"
+echo "licence other with no note: $(F "insert into public.site_assets (key, type, page, path, width, height, source_url, author, license) values ('banner:daily', 'banner', 'daily', 'hub/banner/daily/x.webp', 1920, 600, 'https://x.org', 'A', 'other')")"
+echo "a path that climbs: $(F "insert into public.site_assets (key, type, page, path, width, height, source_url, author, license) values ('banner:daily', 'banner', 'daily', 'hub/../x.webp', 1920, 600, 'https://x.org', 'A', 'cc0')")"
+echo "an agency source that is not https: $(F "update public.agencies set sources = '{http://example.org}' where slug = 'wakeone'")"
+echo "an agency that is its own mother company: $(F "update public.agencies set parent_id = id where slug = 'wakeone'")"
+Q "update public.agencies set parent_id = (select id from public.agencies where slug = 'jyp-entertainment'), official_url = 'https://example.org/wakeone' where slug = 'wakeone'" >/dev/null
+echo "an agency with its mother company: $(Q "select a.name || ' -> ' || p.name from public.agencies a join public.agencies p on p.id = a.parent_id")"
+
+echo
+echo "=== 6. rollback refused while the owner's rows exist (one reason at a time, in the order the file checks them)"
+P -v ON_ERROR_STOP=1 --single-transaction -f "$M/022-photos-admin.rollback.sql" 2>&1 | grep ERROR | sed "s#$WT/##"
+Q "delete from public.entity_images where kind not in ('series', 'character')" >/dev/null
+echo "(the idol, group and agency pictures deleted)"
+P -v ON_ERROR_STOP=1 --single-transaction -f "$M/022-photos-admin.rollback.sql" 2>&1 | grep ERROR | sed "s#$WT/##"
+Q "delete from public.site_assets" >/dev/null
+echo "(the site_assets rows deleted)"
+P -v ON_ERROR_STOP=1 --single-transaction -f "$M/022-photos-admin.rollback.sql" 2>&1 | grep ERROR | sed "s#$WT/##"
+echo "nothing changed by the refusals: $(Q "select count(*) from public.agencies") agencies, view $(Q "select to_regclass('public.site_assets_public')")"
+echo
+
+echo "=== 7. rollback once nothing of the owner's is left, then rollback again, then 022 again"
+Q "delete from public.agencies where slug = 'wakeone'" >/dev/null
+echo "(the agency the owner edited deleted)"
+P -v ON_ERROR_STOP=1 --single-transaction -f "$M/022-photos-admin.rollback.sql" 2>&1 | sed "s#$WT/##"
+echo "exit: ${PIPESTATUS[0]}"
+Q "select to_regclass('public.site_assets'), to_regclass('public.agencies'), to_regclass('public.site_assets_public'), to_regclass('public.entity_images_public')"
+Q "select pg_get_constraintdef(oid) from pg_constraint where conname = 'entity_images_kind_check'"
+echo "019's columns kept: $(Q "select count(*) from information_schema.columns where table_name = 'entity_images' and column_name in ('license_verified', 'thumb_path')")"
+echo "018's policy back: $(Q "select pg_get_expr(polqual, polrelid) from pg_policy where polrelid = 'public.entity_images'::regclass")"
+echo "rows of 018 kept: $(Q "select string_agg(kind || ' ' || slug, ', ' order by kind) from public.entity_images")"
+P -v ON_ERROR_STOP=1 --single-transaction -f "$M/022-photos-admin.rollback.sql" >/dev/null 2>&1 && echo "second rollback: ok, nothing to do"
+P -v ON_ERROR_STOP=1 --single-transaction -f "$M/022-photos-admin.sql" >/dev/null 2>&1 && echo "022 again after the rollback: ok, agencies $(Q 'select count(*) from public.agencies')"
+C="$(FP)"; echo "fingerprint now: $C"; [ "$A" = "$C" ] && echo "same catalog and rows as run 1" || echo "DIFFERENT from run 1"
+echo
+echo "=== done"

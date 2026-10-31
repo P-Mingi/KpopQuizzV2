@@ -8,14 +8,12 @@ import { GroupQuizPage } from '@/app/(site)/[slug]/group-quiz-page';
 import { GroupTriviaPage } from '@/app/(site)/[slug]/group-trivia-page';
 import { UX_V1 } from '@/lib/ux-v1';
 import { GroupHubV11 } from '@/components/group/ux-v1/hub';
-import { CREDITS_DESCRIPTION, CREDITS_PATH, CREDITS_TITLE, CreditsPage } from '@/components/anime/credits-page';
 import { buildMixSlots, buildSeriesSlots, buildTriviaVariant } from '@/components/anime/series-hub-slots';
-import { getOwnerCharacterPictures, getOwnerCreditRows } from '@/lib/anime/entity-images-read';
+import { getOwnerCharacterPictures } from '@/lib/anime/entity-images-read';
 import { getRelatedSeries, getSeriesHub } from '@/lib/anime/series';
 import { getSeriesHubSlugs } from '@/lib/anime/directory';
 import { mixHubMetadata, seriesHubMetadata, seriesTriviaMetadata, uniqueFacts } from '@/lib/anime/series-model';
 import { ANIME_MIX_SLUG } from '@/lib/anime/types';
-import { robotsFor } from '@/lib/site/indexing';
 import { SITE } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
@@ -50,9 +48,8 @@ const RESERVED_SLUGS = [
 // DB-independent AND avoids baking a 404 for a real group that timed out at build.
 export const revalidate = 3600;
 
-// /credits (run O1, IMG): the page of the photo credits is served by this file, as the one dynamic segment of the anime build, because
-// twins.json lists no row for a new screen file. Reserved as a slug: no series can take it (a hub slug ends in -quiz or -trivia).
-const CREDITS_SLUG = CREDITS_PATH.slice(1);
+// /credits (run O1, IMG, twins row 42) is no longer served here: app/sites/[site]/credits/page.tsx serves it for OtakuQuiz and for the hub
+// (row H-11), because a static (hub)/credits beside this dynamic segment took the path from OtakuQuiz. 'credits' parses as no hub slug.
 
 function parseSlug(slug: string): { type: 'quiz' | 'trivia'; groupSlug: string } | null {
   if (RESERVED_SLUGS.includes(slug)) return null;
@@ -66,7 +63,6 @@ function parseSlug(slug: string): { type: 'quiz' | 'trivia'; groupSlug: string }
 // or unreadable series is a true 404. ?arc, ?q, ?role and ?progress never change the canonical (the clean URL).
 export async function generateMetadata({ params }: SlugPageProps): Promise<Metadata> {
   const { slug } = await params;
-  if (slug === CREDITS_SLUG) return { title: CREDITS_TITLE, description: CREDITS_DESCRIPTION, robots: robotsFor(true), alternates: { canonical: CREDITS_PATH } };
   const parsed = parseSlug(slug);
   if (!parsed) return {};
 
@@ -89,7 +85,6 @@ export async function generateMetadata({ params }: SlugPageProps): Promise<Metad
 
 export default async function SlugPage({ params }: SlugPageProps): Promise<React.ReactElement> {
   const { slug } = await params;
-  if (slug === CREDITS_SLUG) return CreditsPage({ owner: await getOwnerCreditRows() });
   const parsed = parseSlug(slug);
   if (!parsed) notFound();
   const site = { origin: SITE.url, brand: SITE.brand.name };
@@ -119,5 +114,5 @@ export default async function SlugPage({ params }: SlugPageProps): Promise<React
 // so the anime hubs are the slugs of the site's published series, read at build time (lib/anime/directory.ts).
 export async function generateStaticParams({ params }: { params?: { site?: string } } = {}): Promise<Array<Record<string, string>>> {
   if (O1_SITE_ID === 'kpop' || !params?.site) return [];
-  return [CREDITS_SLUG, ...(await getSeriesHubSlugs())].map((slug) => ({ slug, site: params.site as string }));
+  return (await getSeriesHubSlugs()).map((slug) => ({ slug, site: params.site as string }));
 }

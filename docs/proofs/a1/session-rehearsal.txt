@@ -1,0 +1,49 @@
+Lot A1, session-rehearsal.sh on a local throwaway Postgres 18 (2026-10-31). Never connected to production.
+Base: production's schema copy (schema only). Real L13 in J4, after the real L04 and L05; the two tables from the contract's DDL (023 is not on main); K1 still a stand-in on this branch.
+
+PASS base: production's schema copy, S4 and Mission U part D, V-S4 ok
+PASS B1 (run 1): exit 0, "terminée : tout est OK"
+PASS B1 (run 2): exit 0, "terminée : tout est OK"
+PASS B1 (run 2): the second run changed nothing (163 tables, same rows; same schema and grants)
+PASS B2 (run 3): exit 0, "terminée : tout est OK"
+PASS B2 (run 4): exit 0, "terminée : tout est OK"
+PASS B2 (run 4): the second run changed nothing (164 tables, same rows; same schema and grants)
+PASS B3 (run 5): exit 0, "terminée : tout est OK"
+PASS B3 (run 6): exit 0, "terminée : tout est OK"
+PASS B3 (run 6): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS D (run 7): exit 0, "terminée : tout est OK"
+PASS D (run 8): exit 0, "terminée : tout est OK"
+PASS D (run 8): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS E1 (run 9): exit 0, "terminée : tout est OK"
+PASS E1 (run 10): exit 0, "terminée : tout est OK"
+PASS E1 (run 10): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS E2 (run 11): exit 0, "terminée : tout est OK"
+PASS E2 (run 12): exit 0, "terminée : tout est OK"
+PASS E2 (run 12): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS G (run 13): exit 1, "021a-k1-idol-gender-debut.sql : fichier absent de main"
+PASS G (run 14): exit 1, "021b-k1-idol-activate.sql : fichier absent de main"
+PASS G (run 15): exit 0, "terminée : tout est OK"
+PASS G (run 16): exit 0, "terminée : tout est OK"
+PASS G (run 16): the second run changed nothing (194 tables, same rows; same schema and grants)
+PASS J1 (run 17): exit 0, "terminée : tout est OK"
+PASS J1 (run 18): exit 0, "terminée : tout est OK"
+PASS J1 (run 18): the second run changed nothing (194 tables, same rows; same schema and grants)
+PASS J2 (run 19): exit 1, "V-TEAM : une ligne KO"
+PASS step 40 simulated: 31 Team auth users
+PASS J2 (run 20): exit 0, "terminée : tout est OK"
+PASS J2 (run 21): exit 0, "terminée : tout est OK"
+PASS J2 (run 21): the second run changed nothing (194 tables, same rows; same schema and grants)
+PASS J3 (run 22): exit 0, "terminée : tout est OK"
+PASS J3 (run 23): exit 0, "terminée : tout est OK"
+PASS J3 (run 23): the second run changed nothing (194 tables, same rows; same schema and grants)
+PASS J4 (run 24): exit 1, "L13-A1-character-facts.sql : fichier absent de main"
+PASS stand-in for 023: the two tables of the contract
+PASS J4 (run 25): exit 0, "terminée : tout est OK"
+PASS J4 (run 26): exit 0, "terminée : tout est OK"
+PASS J4 (run 26): the second run changed nothing (196 tables, same rows; same schema and grants)
+PASS J4 (run 27): exit 1, "V-S4 : une des 28 fonctions"
+PASS J4 (run 28): exit 0, "terminée : tout est OK"
+PASS no e-mail or id printed by any part
+
+rehearsal: every step passed
+exit 0

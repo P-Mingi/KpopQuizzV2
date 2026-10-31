@@ -11,6 +11,7 @@ import { Segmented } from '@/components/ux-v1/segmented';
 import { UxPage } from '@/components/ux-v1/page';
 import { isAdmin } from '@/lib/admin';
 import { ADMIN_TABS, adminGate, adminTabOf } from '@/lib/anime/admin-tabs';
+import { withBasePath } from '@/lib/site/base-path';
 import { createServerClient } from '@/lib/supabase/server';
 
 import type { Metadata } from 'next';
@@ -20,14 +21,22 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-interface AdminProps { searchParams?: Promise<{ tab?: string | string[] }> }
+interface AdminProps { searchParams?: Promise<{ tab?: string | string[]; kind?: string | string[] }> }
 
 export default async function AnimeAdminPage({ searchParams }: AdminProps): Promise<React.ReactElement> {
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (adminGate(user?.id, isAdmin) === 'notfound') notFound();
 
-  const tab = adminTabOf((await searchParams)?.tab);
+  const params = await searchParams;
+  const tab = adminTabOf(params?.tab);
+  // Daily games step 2: the Photos tab is the board Admin.dc.html, with its own header (the admin's tabs as its links) and its one h1.
+  if (tab === 'photos') {
+    const nav = ADMIN_TABS.map((t) => ({ label: t.label, href: withBasePath(`/admin?tab=${t.id}`), current: t.id === tab }));
+    // Loaded only for this tab: the board's fonts (next/font) and its client code stay out of the other tabs.
+    const { PhotosAdminPage } = await import('@/components/admin/photos/photos-admin-page');
+    return PhotosAdminPage({ nav, kind: params?.kind });
+  }
   return (
     <UxPage width="wide" className="anime-adm-page">
       <h1 className="ux-h1">Admin</h1>

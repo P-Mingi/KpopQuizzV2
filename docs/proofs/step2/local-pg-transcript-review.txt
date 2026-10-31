@@ -1,0 +1,130 @@
+Step 2, review fixes: local proof of 022-photos-admin.sql on a throwaway Postgres 18.2 (2026-10-30).
+Base: docs/o1/contracts/schema.base.sql then schema.sql (the contract shapes of 001 to 016, so groups.site_id and the anime tables), a stand-in
+for the production columns 018 to 020 read (scratchpad standin.sql: idols, group_units, groups.record_label; one stand-in group per record label
+cited in production), then the real files 018, 019 and 020. Supabase's default privileges are on (new tables granted to anon and authenticated).
+
+=== 0. base, 018, 019, 020
+sites anime,hub,kpop
+entity_images columns 18
+
+=== 1. apply 022 (single transaction)
+exit: 0
+agencies 17
+Belift Lab, BPM Entertainment, Capitol Records, Columbia Records, Cube Entertainment, Geffen Records, JYP Entertainment, Lapone Entertainment, Pledis Entertainment, Rainbow Bridge World, RCA Records, Republic Records, SM Entertainment, Source Music, The Muze Entertainment, WakeOne, YG Entertainment
+agencies|t
+site_assets|t
+policies on agencies and site_assets 0
+CHECK ((kind = ANY (ARRAY['series'::text, 'character'::text, 'idol'::text, 'group'::text, 'agency'::text])))
+fingerprint after run 1: cdbc9342d32a8a2e078a8f3ab424e9ca
+
+=== 2. apply 022 again, outside a transaction (plain psql -f): nothing changes
+exit: 0
+fingerprint after run 2: cdbc9342d32a8a2e078a8f3ab424e9ca
+IDEMPOTENT: identical
+
+=== 3. privileges of the browser roles (each statement in a rolled back transaction)
+-- anon
+select site_assets: ERROR:  permission denied for table site_assets
+insert site_assets: ERROR:  permission denied for table site_assets
+select agencies: ERROR:  permission denied for table agencies
+update agencies: ERROR:  permission denied for table agencies
+select site_assets_public: 0
+insert site_assets_public: ERROR:  cannot insert into view "site_assets_public"
+select entity_images_public: 0
+delete entity_images_public: ERROR:  permission denied for view entity_images_public
+select entity_images.license_verified: ERROR:  permission denied for table entity_images
+insert entity_images: ERROR:  permission denied for table entity_images
+sequence agencies_id_seq usage, select, update: false, false, false; nextval: ERROR:  permission denied for sequence agencies_id_seq
+sequence site_assets_id_seq usage, select, update: false, false, false; nextval: ERROR:  permission denied for sequence site_assets_id_seq
+-- authenticated
+select site_assets: ERROR:  permission denied for table site_assets
+insert site_assets: ERROR:  permission denied for table site_assets
+select agencies: ERROR:  permission denied for table agencies
+update agencies: ERROR:  permission denied for table agencies
+select site_assets_public: 0
+insert site_assets_public: ERROR:  cannot insert into view "site_assets_public"
+select entity_images_public: 0
+delete entity_images_public: ERROR:  permission denied for view entity_images_public
+select entity_images.license_verified: ERROR:  permission denied for table entity_images
+insert entity_images: ERROR:  permission denied for table entity_images
+sequence agencies_id_seq usage, select, update: false, false, false; nextval: ERROR:  permission denied for sequence agencies_id_seq
+sequence site_assets_id_seq usage, select, update: false, false, false; nextval: ERROR:  permission denied for sequence site_assets_id_seq
+-- service_role keeps the sequences: t
+
+=== 4. entity_images: the new kinds, their checks, and the reset of the check on a new file (as the service role)
+4 rows in; the public view as anon:
+agency 7 JYP Entertainment cc0 kpop/agency/x/cccc-96.webp
+idol 1 Idol One cc_by_sa kpop/idol/1/aaaa-96.webp
+series series-a Series A cc_by anime/series/series-a/dddd-96.webp
+the table itself as anon (018's policy narrowed: the anime kinds only, verified or not): series series-a
+the same as the service role: agency 7, group 2, idol 1, series series-a
+idol slug with a '/': ERROR:  new row for relation "entity_images" violates check constraint "entity_images_slug_check"
+idol on the anime site: ERROR:  new row for relation "entity_images" violates check constraint "entity_images_kind_site_check"
+verified with no 96 px file: ERROR:  new row for relation "entity_images" violates check constraint "entity_images_verified_thumb_check"
+a series slug as 018 wrote it still goes in: character series-a/hero
+new file without a new 96 px file (the 018 route): verified=false thumb=null
+new file with its new 96 px file and the box checked (the step 2 route): verified=true thumb=kpop/idol/1/gggg-96.webp
+the view of 020 reads the 96 px file of a verified idol: 1 kpop/idol/1/gggg-96.webp
+
+--- 4b. review finding 3: a change of file, licence or credit leaves the picture unverified, unless the same statement checks the box
+a new file with its new 96 px file, box not named (the case of the review) [set path = 'kpop/idol/1/h1.webp', thumb_path = 'kpop/idol/1/h1-96.webp']: verified=false thumb=kpop/idol/1/h1-96.webp
+a new author [set author = 'Author B']: verified=false thumb=kpop/idol/1/h1-96.webp
+a new licence [set license = 'cc_by']: verified=false thumb=kpop/idol/1/h1-96.webp
+a new source page [set source_url = 'https://commons.wikimedia.org/wiki/File:A2.jpg']: verified=false thumb=kpop/idol/1/h1-96.webp
+a new licence note [set license_note = 'cropped']: verified=false thumb=kpop/idol/1/h1-96.webp
+a new 96 px file alone [set thumb_path = 'kpop/idol/1/h2-96.webp']: verified=false thumb=kpop/idol/1/h2-96.webp
+a new credit and the box checked in the same statement [set author = 'Author C', license_verified = true]: verified=true thumb=kpop/idol/1/h2-96.webp
+a new file and 96 px file and the box checked (savePhoto) [set path = 'kpop/idol/1/h3.webp', thumb_path = 'kpop/idol/1/h3-96.webp', license_verified = true]: verified=true thumb=kpop/idol/1/h3-96.webp
+the focal point only [set focal_x = 20, focal_y = 30]: verified=true thumb=kpop/idol/1/h3-96.webp
+the box unchecked by hand [set license_verified = false]: verified=false thumb=kpop/idol/1/h3-96.webp
+a new file without a new 96 px file, even with the box checked: verified=false thumb=null
+the box checked by one statement, the credit changed by the next one of the same transaction: verified=false thumb=kpop/idol/1/h4-96.webp
+two rows in one statement, the credit changed without the box: agency verified=false, idol verified=false
+
+--- 4c. review finding 6: only https source pages reach the public view; a kpop picture refuses an http page
+a verified series with an http source page (018 allows it): in the table 1, in the view as anon: 0
+the view as anon now: agency 7, idol 1, series series-a
+an idol picture with an http source page: ERROR:  new row for relation "entity_images" violates check constraint "entity_images_kpop_source_check"
+an idol picture moved to an http source page: ERROR:  new row for relation "entity_images" violates check constraint "entity_images_kpop_source_check"
+so the view of 020 shows only pictures credited with an https page: 0 with another source
+
+=== 5. site_assets: versions, schedule, retire, and the licence checks (as the service role)
+the live rows as anon (the latest published per key; the scheduled, the draft and the retired one are not there):
+banner:kpopdle New author hub/banner/kpopdle/b-1920.webp
+icon:k-idol - no file
+sticker:kpopdle:s1 Bunnyverse hub/sticker/kpopdle/s1-400.webp
+a picture published with its licence not verified: ERROR:  new row for relation "site_assets" violates check constraint "site_assets_published_check"
+a picture with no credit: ERROR:  new row for relation "site_assets" violates check constraint "site_assets_credit_check"
+a banner with no file: ERROR:  new row for relation "site_assets" violates check constraint "site_assets_file_check"
+a CC picture with no source page: ERROR:  new row for relation "site_assets" violates check constraint "site_assets_credit_check"
+licence other with no note: ERROR:  new row for relation "site_assets" violates check constraint "site_assets_other_note_check"
+a path that climbs: ERROR:  new row for relation "site_assets" violates check constraint "site_assets_path_check"
+review finding 5, a sticker under CC BY: ERROR:  new row for relation "site_assets" violates check constraint "site_assets_small_license_check"
+review finding 5, an icon PNG under CC0: ERROR:  new row for relation "site_assets" violates check constraint "site_assets_small_license_check"
+review finding 5, a sticker under a written permission: sticker:kpopdle:s4 licensed
+an agency source that is not https: ERROR:  new row for relation "agencies" violates check constraint "agencies_sources_check"
+an agency that is its own mother company: ERROR:  new row for relation "agencies" violates check constraint "agencies_parent_self_check"
+an agency with its mother company: WakeOne -> JYP Entertainment
+
+=== 6. rollback refused while the owner's rows exist (one reason at a time, in the order the file checks them)
+psql:docs/pending-migrations/multisite/022-photos-admin.rollback.sql:44: ERROR:  022-photos-admin rollback refused: 3 picture(s) of an idol, a group or an agency exist in entity_images
+(the idol, group and agency pictures deleted)
+psql:docs/pending-migrations/multisite/022-photos-admin.rollback.sql:44: ERROR:  022-photos-admin rollback refused: 8 site_assets row(s) exist (banners, card images, icons or stickers)
+(the site_assets rows deleted)
+psql:docs/pending-migrations/multisite/022-photos-admin.rollback.sql:44: ERROR:  022-photos-admin rollback refused: 1 agency row(s) carry what the owner typed (mother company, official site or sources)
+nothing changed by the refusals: 17 agencies, view site_assets_public
+
+=== 7. rollback once nothing of the owner's is left, then rollback again, then 022 again
+(the agency the owner edited deleted)
+exit: 0
+|||
+CHECK ((kind = ANY (ARRAY['series'::text, 'character'::text])))
+019's columns kept: 2
+018's policy back: true
+rows of 018 kept: character series-a/hero, series series-a, series series-a2
+second rollback: ok, nothing to do
+022 again after the rollback: ok, agencies 17
+fingerprint now: cdbc9342d32a8a2e078a8f3ab424e9ca
+same catalog and rows as run 1
+
+=== done

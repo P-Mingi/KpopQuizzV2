@@ -1,0 +1,6368 @@
+{
+ "lot": "A1",
+ "read_at": "2026-10-30T17:01:06Z",
+ "characters": [
+  {
+   "series": "one-piece",
+   "slug": "monkey-d-luffy",
+   "name": "Monkey D. Luffy",
+   "l04_role": "main",
+   "qid": "Q477948",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q477948",
+     "source_url": "https://www.wikidata.org/wiki/Q477948",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q477948",
+     "source_url": "https://www.wikidata.org/wiki/Q477948",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382814491",
+     "source_url": "https://en.wikipedia.org/wiki/Monkey_D._Luffy",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "main protagonist of the manga series One Piece",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1382814491",
+     "source_url": "https://en.wikipedia.org/wiki/Monkey_D._Luffy",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "One Piece chapter 1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Mayumi Tanaka",
+     "source": "wikidata",
+     "source_ref": "Q477948",
+     "source_url": "https://www.wikidata.org/wiki/Q477948",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "one-piece",
+   "slug": "roronoa-zoro",
+   "name": "Roronoa Zoro",
+   "l04_role": "main",
+   "qid": "Q858432",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q858432",
+     "source_url": "https://www.wikidata.org/wiki/Q858432",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q858432",
+     "source_url": "https://www.wikidata.org/wiki/Q858432",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1379529411",
+     "source_url": "https://en.wikipedia.org/wiki/Straw_Hats",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Roronoa Zoro",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 3",
+     "source": "wikipedia",
+     "source_ref": "1380100680",
+     "source_url": "https://en.wikipedia.org/wiki/Roronoa_Zoro",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "One Piece chapter 3",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kazuya Nakai",
+     "source": "wikipedia",
+     "source_ref": "1380100680",
+     "source_url": "https://en.wikipedia.org/wiki/Roronoa_Zoro",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Kazuya Nakai",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "one-piece",
+   "slug": "shanks",
+   "name": "Shanks",
+   "l04_role": "supporting",
+   "qid": "Q2321523",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q2321523",
+     "source_url": "https://www.wikidata.org/wiki/Q2321523",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q2321523",
+     "source_url": "https://www.wikidata.org/wiki/Q2321523",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382693583",
+     "source_url": "https://en.wikipedia.org/wiki/Four_Emperors_(One_Piece)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Shanks",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Shūichi Ikeda",
+     "source": "wikipedia",
+     "source_ref": "1382693583",
+     "source_url": "https://en.wikipedia.org/wiki/Four_Emperors_(One_Piece)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "his voice actor is Shūichi Ikeda",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "one-piece",
+   "slug": "gol-d-roger",
+   "name": "Gol D. Roger",
+   "l04_role": "other",
+   "qid": "Q2619344",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q2619344",
+     "source_url": "https://www.wikidata.org/wiki/Q2619344",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q2619344",
+     "source_url": "https://www.wikidata.org/wiki/Q2619344",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "other",
+     "source": "wikipedia",
+     "source_ref": "1379094181",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_pirates",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Gol D. Roger",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Chikao Ōtsuka",
+     "source": "wikipedia",
+     "source_ref": "1379094181",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_pirates",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Roger is originally voiced by Chikao Ōtsuka",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "one-piece",
+   "slug": "makino",
+   "name": "Makino",
+   "l04_role": "supporting",
+   "qid": "Q107659446",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q107659446",
+     "source_url": "https://www.wikidata.org/wiki/Q107659446",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q107659446",
+     "source_url": "https://www.wikidata.org/wiki/Q107659446",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381843819",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, A bartender and friend of Luffy",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Makiko Ohmoto",
+     "source": "wikipedia",
+     "source_ref": "1381843819",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_One_Piece_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Makino is voiced by Makiko Ohmoto in the original Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "one-piece",
+   "slug": "koby",
+   "name": "Koby",
+   "l04_role": "supporting",
+   "qid": "Q16569202",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q16569202",
+     "source_url": "https://www.wikidata.org/wiki/Q16569202",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q16569202",
+     "source_url": "https://www.wikidata.org/wiki/Q16569202",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1379486711",
+     "source_url": "https://en.wikipedia.org/wiki/World_Government_(One_Piece)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, is the first friend Luffy makes",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Mika Doi",
+     "source": "wikipedia",
+     "source_ref": "1379486711",
+     "source_url": "https://en.wikipedia.org/wiki/World_Government_(One_Piece)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "his voice is supplied by Mika Doi",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "naruto",
+   "slug": "naruto-uzumaki",
+   "name": "Naruto Uzumaki",
+   "l04_role": "main",
+   "qid": "Q931",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q931",
+     "source_url": "https://www.wikidata.org/wiki/Q931",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q931",
+     "source_url": "https://www.wikidata.org/wiki/Q931",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382737776",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > ''Naruto'' > Naruto Uzumaki",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1379660296",
+     "source_url": "https://en.wikipedia.org/wiki/Naruto_Uzumaki",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Naruto chapter 1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Junko Takeuchi",
+     "source": "wikidata",
+     "source_ref": "Q931",
+     "source_url": "https://www.wikidata.org/wiki/Q931",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "naruto",
+   "slug": "sasuke-uchiha",
+   "name": "Sasuke Uchiha",
+   "l04_role": "main",
+   "qid": "Q1740",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q1740",
+     "source_url": "https://www.wikidata.org/wiki/Q1740",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q1740",
+     "source_url": "https://www.wikidata.org/wiki/Q1740",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382737776",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > ''Naruto'' > Sasuke Uchiha",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 3",
+     "source": "wikipedia",
+     "source_ref": "1381841037",
+     "source_url": "https://en.wikipedia.org/wiki/Sasuke_Uchiha",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Naruto chapter 3",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Noriaki Sugiyama",
+     "source": "wikidata",
+     "source_ref": "Q1740",
+     "source_url": "https://www.wikidata.org/wiki/Q1740",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "naruto",
+   "slug": "sakura-haruno",
+   "name": "Sakura Haruno",
+   "l04_role": "main",
+   "qid": "Q203240",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q203240",
+     "source_url": "https://www.wikidata.org/wiki/Q203240",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q203240",
+     "source_url": "https://www.wikidata.org/wiki/Q203240",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382737776",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > ''Naruto'' > Sakura Haruno",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 3",
+     "source": "wikipedia",
+     "source_ref": "1379454556",
+     "source_url": "https://en.wikipedia.org/wiki/Sakura_Haruno",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Naruto chapter 3",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Chie Nakamura",
+     "source": "wikidata",
+     "source_ref": "Q203240",
+     "source_url": "https://www.wikidata.org/wiki/Q203240",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "naruto",
+   "slug": "kakashi-hatake",
+   "name": "Kakashi Hatake",
+   "l04_role": "main",
+   "qid": "Q1767",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q1767",
+     "source_url": "https://www.wikidata.org/wiki/Q1767",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q1767",
+     "source_url": "https://www.wikidata.org/wiki/Q1767",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382737776",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > ''Naruto'' > Kakashi Hatake",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 3",
+     "source": "wikipedia",
+     "source_ref": "1381191161",
+     "source_url": "https://en.wikipedia.org/wiki/Kakashi_Hatake",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Naruto chapter 3",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kazuhiko Inoue",
+     "source": "wikidata",
+     "source_ref": "Q1767",
+     "source_url": "https://www.wikidata.org/wiki/Q1767",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "naruto",
+   "slug": "iruka-umino",
+   "name": "Iruka Umino",
+   "l04_role": "supporting",
+   "qid": "Q3771200",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q3771200",
+     "source_url": "https://www.wikidata.org/wiki/Q3771200",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q3771200",
+     "source_url": "https://www.wikidata.org/wiki/Q3771200",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382737776",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Supporting characters > Iruka Umino",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Toshihiko Seki",
+     "source": "wikipedia",
+     "source_ref": "1382737776",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "his voice actor is Toshihiko Seki",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "naruto",
+   "slug": "hiruzen-sarutobi",
+   "name": "Hiruzen Sarutobi",
+   "l04_role": "supporting",
+   "qid": "Q716734",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q716734",
+     "source_url": "https://www.wikidata.org/wiki/Q716734",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q716734",
+     "source_url": "https://www.wikidata.org/wiki/Q716734",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382737776",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Supporting characters > Hokage > Hiruzen Sarutobi",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Hidekatsu Shibata",
+     "source": "wikipedia",
+     "source_ref": "1382737776",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "he is voiced by Hidekatsu Shibata",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "naruto",
+   "slug": "konohamaru-sarutobi",
+   "name": "Konohamaru Sarutobi",
+   "l04_role": "supporting",
+   "qid": "Q2353558",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q2353558",
+     "source_url": "https://www.wikidata.org/wiki/Q2353558",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q2353558",
+     "source_url": "https://www.wikidata.org/wiki/Q2353558",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382737776",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, is the grandson of the Third Hokage",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Ikue Ōtani",
+     "source": "wikipedia",
+     "source_ref": "1382737776",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Naruto_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "voiced in the Japanese anime by Ikue Ōtani",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "demon-slayer",
+   "slug": "tanjiro-kamado",
+   "name": "Tanjiro Kamado",
+   "l04_role": "main",
+   "qid": "Q85805158",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q85805158",
+     "source_url": "https://www.wikidata.org/wiki/Q85805158",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q85805158",
+     "source_url": "https://www.wikidata.org/wiki/Q85805158",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382751806",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Tanjiro Kamado",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1382124158",
+     "source_url": "https://en.wikipedia.org/wiki/Tanjiro_Kamado",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Kimetsu no Yaiba chapter 1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Natsuki Hanae",
+     "source": "wikipedia",
+     "source_ref": "1382751806",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Natsuki Hanae",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "demon-slayer",
+   "slug": "nezuko-kamado",
+   "name": "Nezuko Kamado",
+   "l04_role": "main",
+   "qid": "Q109767984",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q109767984",
+     "source_url": "https://www.wikidata.org/wiki/Q109767984",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "demon",
+     "source": "wikipedia",
+     "source_ref": "1382751806",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "is the younger sister of Tanjiro, transformed into a demon",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382751806",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Nezuko Kamado",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1379659854",
+     "source_url": "https://en.wikipedia.org/wiki/Nezuko_Kamado",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Kimetsu no Yaiba chapter 1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Akari Kitō",
+     "source": "wikipedia",
+     "source_ref": "1382751806",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Akari Kitō",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "demon-slayer",
+   "slug": "zenitsu-agatsuma",
+   "name": "Zenitsu Agatsuma",
+   "l04_role": "main",
+   "qid": "Q109321740",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q109321740",
+     "source_url": "https://www.wikidata.org/wiki/Q109321740",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q109321740",
+     "source_url": "https://www.wikidata.org/wiki/Q109321740",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382751806",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Zenitsu Agatsuma",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Hiro Shimono",
+     "source": "wikipedia",
+     "source_ref": "1382751806",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Hiro Shimono",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "demon-slayer",
+   "slug": "inosuke-hashibira",
+   "name": "Inosuke Hashibira",
+   "l04_role": "main",
+   "qid": "Q109321822",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q109321822",
+     "source_url": "https://www.wikidata.org/wiki/Q109321822",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q109321822",
+     "source_url": "https://www.wikidata.org/wiki/Q109321822",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382751806",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Inosuke Hashibira",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Yoshitsugu Matsuoka",
+     "source": "wikipedia",
+     "source_ref": "1382751806",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Yoshitsugu Matsuoka",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "demon-slayer",
+   "slug": "muzan-kibutsuji",
+   "name": "Muzan Kibutsuji",
+   "l04_role": "antagonist",
+   "qid": "Q116252649",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1382403663",
+     "source_url": "https://en.wikipedia.org/wiki/Muzan_Kibutsuji",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "He is the very first demon",
+     "inferred": false
+    },
+    "species": {
+     "value": "demon",
+     "source": "wikidata",
+     "source_ref": "Q116252649",
+     "source_url": "https://www.wikidata.org/wiki/Q116252649",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "antagonist",
+     "source": "wikipedia",
+     "source_ref": "1382751806",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Demons > Muzan Kibutsuji",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 13",
+     "source": "wikipedia",
+     "source_ref": "1382403663",
+     "source_url": "https://en.wikipedia.org/wiki/Muzan_Kibutsuji",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Kimetsu no Yaiba chapter 13",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Toshihiko Seki",
+     "source": "wikipedia",
+     "source_ref": "1382751806",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Toshihiko Seki",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "demon-slayer",
+   "slug": "giyu-tomioka",
+   "name": "Giyu Tomioka",
+   "l04_role": "supporting",
+   "qid": "Q130425850",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q130425850",
+     "source_url": "https://www.wikidata.org/wiki/Q130425850",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q130425850",
+     "source_url": "https://www.wikidata.org/wiki/Q130425850",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382751806",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, The Water Hashira",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Takahiro Sakurai",
+     "source": "wikidata",
+     "source_ref": "Q130425850",
+     "source_url": "https://www.wikidata.org/wiki/Q130425850",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "demon-slayer",
+   "slug": "sakonji-urokodaki",
+   "name": "Sakonji Urokodaki",
+   "l04_role": "supporting",
+   "qid": "Q123515828",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q123515828",
+     "source_url": "https://www.wikidata.org/wiki/Q123515828",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q123515828",
+     "source_url": "https://www.wikidata.org/wiki/Q123515828",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382751806",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Supporting characters",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Hōchū Ōtsuka",
+     "source": "wikidata",
+     "source_ref": "Q123515828",
+     "source_url": "https://www.wikidata.org/wiki/Q123515828",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "jujutsu-kaisen",
+   "slug": "yuji-itadori",
+   "name": "Yuji Itadori",
+   "l04_role": "main",
+   "qid": "Q105037387",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q105037387",
+     "source_url": "https://www.wikidata.org/wiki/Q105037387",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q105037387",
+     "source_url": "https://www.wikidata.org/wiki/Q105037387",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382451431",
+     "source_url": "https://en.wikipedia.org/wiki/Yuji_Itadori",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "the protagonist of the manga series",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1382451431",
+     "source_url": "https://en.wikipedia.org/wiki/Yuji_Itadori",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Jujutsu Kaisen #1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Junya Enoki",
+     "source": "wikipedia",
+     "source_ref": "1381319484",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Junya Enoki",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "jujutsu-kaisen",
+   "slug": "satoru-gojo",
+   "name": "Satoru Gojo",
+   "l04_role": "main",
+   "qid": "Q105037411",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q105037411",
+     "source_url": "https://www.wikidata.org/wiki/Q105037411",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q105037411",
+     "source_url": "https://www.wikidata.org/wiki/Q105037411",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1381319484",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, is a renowned Special Grade",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Jujutsu Kaisen 0, Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1381319601",
+     "source_url": "https://en.wikipedia.org/wiki/Satoru_Gojo",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Jujutsu Kaisen 0 #1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Yūichi Nakamura",
+     "source": "wikidata",
+     "source_ref": "Q105037411",
+     "source_url": "https://www.wikidata.org/wiki/Q105037411",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "jujutsu-kaisen",
+   "slug": "megumi-fushiguro",
+   "name": "Megumi Fushiguro",
+   "l04_role": "main",
+   "qid": "Q105037399",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q105037399",
+     "source_url": "https://www.wikidata.org/wiki/Q105037399",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q105037399",
+     "source_url": "https://www.wikidata.org/wiki/Q105037399",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1381319829",
+     "source_url": "https://en.wikipedia.org/wiki/Megumi_Fushiguro",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "deuteragonist",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1381319829",
+     "source_url": "https://en.wikipedia.org/wiki/Megumi_Fushiguro",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Jujutsu Kaisen #1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Yuma Uchida",
+     "source": "wikipedia",
+     "source_ref": "1381319484",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Yuma Uchida",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "jujutsu-kaisen",
+   "slug": "nobara-kugisaki",
+   "name": "Nobara Kugisaki",
+   "l04_role": "main",
+   "qid": "Q105037400",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q105037400",
+     "source_url": "https://www.wikidata.org/wiki/Q105037400",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q105037400",
+     "source_url": "https://www.wikidata.org/wiki/Q105037400",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1376731026",
+     "source_url": "https://en.wikipedia.org/wiki/Nobara_Kugisaki",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "three main characters",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 3",
+     "source": "wikipedia",
+     "source_ref": "1376731026",
+     "source_url": "https://en.wikipedia.org/wiki/Nobara_Kugisaki",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Jujutsu Kaisen #3",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Asami Seto",
+     "source": "wikipedia",
+     "source_ref": "1381319484",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Asami Seto",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "jujutsu-kaisen",
+   "slug": "ryomen-sukuna",
+   "name": "Ryomen Sukuna",
+   "l04_role": "antagonist",
+   "qid": "Q105037685",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q105037685",
+     "source_url": "https://www.wikidata.org/wiki/Q105037685",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "curse",
+     "source": "wikipedia",
+     "source_ref": "1381319484",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "vessel for the powerful Curse",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "antagonist",
+     "source": "wikipedia",
+     "source_ref": "1382280627",
+     "source_url": "https://en.wikipedia.org/wiki/Ryomen_Sukuna",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "main antagonists",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1382280627",
+     "source_url": "https://en.wikipedia.org/wiki/Ryomen_Sukuna",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Jujutsu Kaisen #1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Junichi Suwabe",
+     "source": "wikidata",
+     "source_ref": "Q105037685",
+     "source_url": "https://www.wikidata.org/wiki/Q105037685",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "jujutsu-kaisen",
+   "slug": "maki-zenin",
+   "name": "Maki Zen'in",
+   "l04_role": "supporting",
+   "qid": "Q105152624",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q105152624",
+     "source_url": "https://www.wikidata.org/wiki/Q105152624",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q105152624",
+     "source_url": "https://www.wikidata.org/wiki/Q105152624",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381319484",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, is a second-year student at Tokyo Jujutsu High",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Jujutsu Kaisen 0, Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1381319626",
+     "source_url": "https://en.wikipedia.org/wiki/Maki_Zen'in",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Jujutsu Kaisen 0 #1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Mikako Komatsu",
+     "source": "wikipedia",
+     "source_ref": "1381319484",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Mikako Komatsu",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "jujutsu-kaisen",
+   "slug": "toge-inumaki",
+   "name": "Toge Inumaki",
+   "l04_role": "supporting",
+   "qid": "Q105152625",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q105152625",
+     "source_url": "https://www.wikidata.org/wiki/Q105152625",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q105152625",
+     "source_url": "https://www.wikidata.org/wiki/Q105152625",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381319484",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, is a second-year student at Tokyo Prefectural Jujutsu High School",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Koki Uchiyama",
+     "source": "wikipedia",
+     "source_ref": "1381319484",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Koki Uchiyama",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "jujutsu-kaisen",
+   "slug": "panda",
+   "name": "Panda",
+   "l04_role": "supporting",
+   "qid": "Q105152626",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q105152626",
+     "source_url": "https://www.wikidata.org/wiki/Q105152626",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "panda",
+     "source": "wikipedia",
+     "source_ref": "1381319484",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "between panda, gorilla, and triceratops modes",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381319484",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, is a sentient Cursed Corpse",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Tomokazu Seki",
+     "source": "wikipedia",
+     "source_ref": "1381319484",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Tomokazu Seki",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "dragon-ball",
+   "slug": "goku",
+   "name": "Goku",
+   "l04_role": "main",
+   "qid": "Q2142",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q2142",
+     "source_url": "https://www.wikidata.org/wiki/Q2142",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "saiyan",
+     "source": "wikipedia",
+     "source_ref": "1379812653",
+     "source_url": "https://en.wikipedia.org/wiki/Goku",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "species = Saiyan",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1380310152",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Son Goku",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1379812653",
+     "source_url": "https://en.wikipedia.org/wiki/Goku",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "chapter #1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Masako Nozawa",
+     "source": "wikidata",
+     "source_ref": "Q2142",
+     "source_url": "https://www.wikidata.org/wiki/Q2142",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "dragon-ball",
+   "slug": "bulma",
+   "name": "Bulma",
+   "l04_role": "main",
+   "qid": "Q1614785",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q1614785",
+     "source_url": "https://www.wikidata.org/wiki/Q1614785",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q1614785",
+     "source_url": "https://www.wikidata.org/wiki/Q1614785",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1380310152",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Bulma",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1374733357",
+     "source_url": "https://en.wikipedia.org/wiki/Bulma",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "chapter #1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Hiromi Tsuru",
+     "source": "wikidata",
+     "source_ref": "Q1614785",
+     "source_url": "https://www.wikidata.org/wiki/Q1614785",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "dragon-ball",
+   "slug": "master-roshi",
+   "name": "Master Roshi",
+   "l04_role": "supporting",
+   "qid": "Q1752065",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q1752065",
+     "source_url": "https://www.wikidata.org/wiki/Q1752065",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q1752065",
+     "source_url": "https://www.wikidata.org/wiki/Q1752065",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1380310152",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Secondary characters > Master Roshi",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 3",
+     "source": "wikipedia",
+     "source_ref": "1375517144",
+     "source_url": "https://en.wikipedia.org/wiki/Master_Roshi",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "chapter 3",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kōhei Miyauchi",
+     "source": "wikidata",
+     "source_ref": "Q1752065",
+     "source_url": "https://www.wikidata.org/wiki/Q1752065",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "dragon-ball",
+   "slug": "yamcha",
+   "name": "Yamcha",
+   "l04_role": "supporting",
+   "qid": "Q843345",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q843345",
+     "source_url": "https://www.wikidata.org/wiki/Q843345",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q843345",
+     "source_url": "https://www.wikidata.org/wiki/Q843345",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1380310152",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Secondary characters > Yamcha",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 7",
+     "source": "wikipedia",
+     "source_ref": "1377094111",
+     "source_url": "https://en.wikipedia.org/wiki/Yamcha",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "chapter #7",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Tōru Furuya",
+     "source": "wikidata",
+     "source_ref": "Q843345",
+     "source_url": "https://www.wikidata.org/wiki/Q843345",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "dragon-ball",
+   "slug": "oolong",
+   "name": "Oolong",
+   "l04_role": "supporting",
+   "qid": "Q3091550",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q3091550",
+     "source_url": "https://www.wikidata.org/wiki/Q3091550",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "pig",
+     "source": "wikidata",
+     "source_ref": "Q3091550",
+     "source_url": "https://www.wikidata.org/wiki/Q3091550",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1380310152",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Supporting characters > Oolong",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Naoki Tatsuta",
+     "source": "wikipedia",
+     "source_ref": "1380310152",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "He is voiced by Naoki Tatsuta in Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "dragon-ball",
+   "slug": "chi-chi",
+   "name": "Chi-Chi",
+   "l04_role": "supporting",
+   "qid": "Q1139513",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q1139513",
+     "source_url": "https://www.wikidata.org/wiki/Q1139513",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q1139513",
+     "source_url": "https://www.wikidata.org/wiki/Q1139513",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1380310152",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Supporting characters > Chi-Chi {{anchor|Chi Chi}}",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 11",
+     "source": "wikipedia",
+     "source_ref": "1373118025",
+     "source_url": "https://en.wikipedia.org/wiki/Chi-Chi_(Dragon_Ball)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "chapter 11",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Mayumi Shō",
+     "source": "wikipedia",
+     "source_ref": "1373118025",
+     "source_url": "https://en.wikipedia.org/wiki/Chi-Chi_(Dragon_Ball)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "voiced by Mayumi Shō in the Japanese version",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "dragon-ball",
+   "slug": "emperor-pilaf",
+   "name": "Emperor Pilaf",
+   "l04_role": "antagonist",
+   "qid": "Q2481483",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q2481483",
+     "source_url": "https://www.wikidata.org/wiki/Q2481483",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "creature",
+     "source": "wikidata",
+     "source_ref": "Q2481483",
+     "source_url": "https://www.wikidata.org/wiki/Q2481483",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "antagonist",
+     "source": "wikipedia",
+     "source_ref": "1380310152",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Antagonists > Pilaf Gang",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Shigeru Chiba",
+     "source": "wikipedia",
+     "source_ref": "1380310152",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Pilaf is voiced by Shigeru Chiba in Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "eren-yeager",
+   "name": "Eren Yeager",
+   "l04_role": "main",
+   "qid": "Q18206694",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q18206694",
+     "source_url": "https://www.wikidata.org/wiki/Q18206694",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q18206694",
+     "source_url": "https://www.wikidata.org/wiki/Q18206694",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1382256626",
+     "source_url": "https://en.wikipedia.org/wiki/Eren_Yeager",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Attack on Titan chapter 1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Yūki Kaji",
+     "source": "wikidata",
+     "source_ref": "Q18206694",
+     "source_url": "https://www.wikidata.org/wiki/Q18206694",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "mikasa-ackerman",
+   "name": "Mikasa Ackerman",
+   "l04_role": "main",
+   "qid": "Q30311579",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q30311579",
+     "source_url": "https://www.wikidata.org/wiki/Q30311579",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q30311579",
+     "source_url": "https://www.wikidata.org/wiki/Q30311579",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1373655186",
+     "source_url": "https://en.wikipedia.org/wiki/Mikasa_Ackerman",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Attack on Titan chapter 1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Yui Ishikawa",
+     "source": "wikidata",
+     "source_ref": "Q30311579",
+     "source_url": "https://www.wikidata.org/wiki/Q30311579",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "armin-arlert",
+   "name": "Armin Arlert",
+   "l04_role": "main",
+   "qid": "Q63406576",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q63406576",
+     "source_url": "https://www.wikidata.org/wiki/Q63406576",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q63406576",
+     "source_url": "https://www.wikidata.org/wiki/Q63406576",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Marina Inoue",
+     "source": "wikidata",
+     "source_ref": "Q63406576",
+     "source_url": "https://www.wikidata.org/wiki/Q63406576",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "levi-ackerman",
+   "name": "Levi Ackerman",
+   "l04_role": "main",
+   "qid": "Q30311583",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q30311583",
+     "source_url": "https://www.wikidata.org/wiki/Q30311583",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q30311583",
+     "source_url": "https://www.wikidata.org/wiki/Q30311583",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1380921470",
+     "source_url": "https://en.wikipedia.org/wiki/Levi_Ackerman",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Levi is a supporting character",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Hiroshi Kamiya",
+     "source": "wikidata",
+     "source_ref": "Q30311583",
+     "source_url": "https://www.wikidata.org/wiki/Q30311583",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "erwin-smith",
+   "name": "Erwin Smith",
+   "l04_role": "supporting",
+   "qid": "Q85982428",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q85982428",
+     "source_url": "https://www.wikidata.org/wiki/Q85982428",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q85982428",
+     "source_url": "https://www.wikidata.org/wiki/Q85982428",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, The 13th Commander of the Survey Corps",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Daisuke Ono",
+     "source": "wikidata",
+     "source_ref": "Q85982428",
+     "source_url": "https://www.wikidata.org/wiki/Q85982428",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "hange-zoe",
+   "name": "Hange Zoë",
+   "l04_role": "supporting",
+   "qid": "Q97236961",
+   "values": {
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q97236961",
+     "source_url": "https://www.wikidata.org/wiki/Q97236961",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, is a bespectacled Survey Corps veteran",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Romi Park",
+     "source": "wikidata",
+     "source_ref": "Q97236961",
+     "source_url": "https://www.wikidata.org/wiki/Q97236961",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "jean-kirstein",
+   "name": "Jean Kirstein",
+   "l04_role": "supporting",
+   "qid": "Q97238407",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q97238407",
+     "source_url": "https://www.wikidata.org/wiki/Q97238407",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q97238407",
+     "source_url": "https://www.wikidata.org/wiki/Q97238407",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, A hot-headed young man who speaks his mind",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kishō Taniyama",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Kishō Taniyama in the Japanese anime",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "connie-springer",
+   "name": "Connie Springer",
+   "l04_role": "supporting",
+   "qid": "Q97238634",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q97238634",
+     "source_url": "https://www.wikidata.org/wiki/Q97238634",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q97238634",
+     "source_url": "https://www.wikidata.org/wiki/Q97238634",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Connie hails from the Ragako District",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Hiro Shimono",
+     "source": "wikidata",
+     "source_ref": "Q97238634",
+     "source_url": "https://www.wikidata.org/wiki/Q97238634",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "sasha-blouse",
+   "name": "Sasha Blouse",
+   "l04_role": "supporting",
+   "qid": "Q85980221",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q85980221",
+     "source_url": "https://www.wikidata.org/wiki/Q85980221",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q85980221",
+     "source_url": "https://www.wikidata.org/wiki/Q85980221",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Sasha is a hunter from the mountainous",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Yū Kobayashi",
+     "source": "wikidata",
+     "source_ref": "Q85980221",
+     "source_url": "https://www.wikidata.org/wiki/Q85980221",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "marco-bott",
+   "name": "Marco Bott",
+   "l04_role": "other",
+   "qid": "Q97237667",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q97237667",
+     "source_url": "https://www.wikidata.org/wiki/Q97237667",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q97237667",
+     "source_url": "https://www.wikidata.org/wiki/Q97237667",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "other",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Ranked seventh of the trainee class",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Ryōta Ōsaka",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Marco is voiced by Ryōta Ōsaka in Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "keith-shadis",
+   "name": "Keith Shadis",
+   "l04_role": "other",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "His face and head are cleanly shaven",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "The instructor who is in charge of training",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "other",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, The instructor who is in charge of training",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Tsuguo Mogami",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "he is voiced by Tsuguo Mogami",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "hannes",
+   "name": "Hannes",
+   "l04_role": "other",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "saving his own wife and family",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "A Garrison soldier who saves Eren and Mikasa",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "other",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, A Garrison soldier who saves Eren and Mikasa",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Keiji Fujiwara",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "He is voiced by Keiji Fujiwara (Season 1)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "dot-pixis",
+   "name": "Dot Pixis",
+   "l04_role": "supporting",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Dot Pixis is a man with a moustache",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Dot Pixis is a man with a moustache",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Dot Pixis is a man with a moustache",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Masahiko Tanaka",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Pixis is voiced by Masahiko Tanaka in Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "mike-zacharius",
+   "name": "Mike Zacharius",
+   "l04_role": "supporting",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "when he meets them for the first time",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "A Survey Corps squad leader who has a peculiar habit",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, A Survey Corps squad leader who has a peculiar habit",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kenta Miyake",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "He is voiced by Kenta Miyake in Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "petra-ral",
+   "name": "Petra Ral",
+   "l04_role": "supporting",
+   "qid": "Q97239737",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q97239737",
+     "source_url": "https://www.wikidata.org/wiki/Q97239737",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q97239737",
+     "source_url": "https://www.wikidata.org/wiki/Q97239737",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Petra is a skilled and experienced fighter",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Natsuki Aikawa",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "She is voiced by Natsuki Aikawa in the Japanese version",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "grisha-yeager",
+   "name": "Grisha Yeager",
+   "l04_role": "supporting",
+   "qid": "Q85974305",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q85974305",
+     "source_url": "https://www.wikidata.org/wiki/Q85974305",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q85974305",
+     "source_url": "https://www.wikidata.org/wiki/Q85974305",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, He is a renowned medical doctor",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Hiroshi Tsuchida",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Grisha is voiced by Hiroshi Tsuchida in the anime",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "attack-on-titan",
+   "slug": "carla-yeager",
+   "name": "Carla Yeager",
+   "l04_role": "other",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "the mother of Eren and the adoptive mother of Mikasa",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Carla was originally a waitress in Shiganshina",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "other",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, The second wife of Grisha",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Yoshino Takamori",
+     "source": "wikipedia",
+     "source_ref": "1381702143",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Carla is voiced by Yoshino Takamori in the Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "izuku-midoriya",
+   "name": "Izuku Midoriya",
+   "l04_role": "main",
+   "qid": "Q65037327",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q65037327",
+     "source_url": "https://www.wikidata.org/wiki/Q65037327",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q65037327",
+     "source_url": "https://www.wikidata.org/wiki/Q65037327",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1378076439",
+     "source_url": "https://en.wikipedia.org/wiki/Izuku_Midoriya",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "the main protagonist of the manga series",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1378076439",
+     "source_url": "https://en.wikipedia.org/wiki/Izuku_Midoriya",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "My Hero Academia #1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Daiki Yamashita",
+     "source": "wikidata",
+     "source_ref": "Q65037327",
+     "source_url": "https://www.wikidata.org/wiki/Q65037327",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "katsuki-bakugo",
+   "name": "Katsuki Bakugo",
+   "l04_role": "main",
+   "qid": "Q104051327",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q104051327",
+     "source_url": "https://www.wikidata.org/wiki/Q104051327",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q104051327",
+     "source_url": "https://www.wikidata.org/wiki/Q104051327",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1372210200",
+     "source_url": "https://en.wikipedia.org/wiki/Katsuki_Bakugo",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "one of the main protagonists of the manga series",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1372210200",
+     "source_url": "https://en.wikipedia.org/wiki/Katsuki_Bakugo",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "My Hero Academia #1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Nobuhiko Okamoto",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "voiced by|Nobuhiko Okamoto (Anime)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "ochaco-uraraka",
+   "name": "Ochaco Uraraka",
+   "l04_role": "main",
+   "qid": "Q112053248",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q112053248",
+     "source_url": "https://www.wikidata.org/wiki/Q112053248",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q112053248",
+     "source_url": "https://www.wikidata.org/wiki/Q112053248",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Ochaco is a bubbly and cheerful girl",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 3",
+     "source": "wikipedia",
+     "source_ref": "1381434087",
+     "source_url": "https://en.wikipedia.org/wiki/Ochaco_Uraraka",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "My Hero Academia #3",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Ayane Sakura",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Ayane Sakura",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "shoto-todoroki",
+   "name": "Shoto Todoroki",
+   "l04_role": "main",
+   "qid": "Q65152141",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q65152141",
+     "source_url": "https://www.wikidata.org/wiki/Q65152141",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q65152141",
+     "source_url": "https://www.wikidata.org/wiki/Q65152141",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1381934610",
+     "source_url": "https://en.wikipedia.org/wiki/Shoto_Todoroki",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "one of the main protagonists of the manga series",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 6",
+     "source": "wikipedia",
+     "source_ref": "1381934610",
+     "source_url": "https://en.wikipedia.org/wiki/Shoto_Todoroki",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "My Hero Academia #6",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Yūki Kaji",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "voiced by|Yūki Kaji",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "tenya-ida",
+   "name": "Tenya Ida",
+   "l04_role": "supporting",
+   "qid": "Q137204821",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q137204821",
+     "source_url": "https://www.wikidata.org/wiki/Q137204821",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q137204821",
+     "source_url": "https://www.wikidata.org/wiki/Q137204821",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Tenya Ida is the strait-laced president of Class 1-A",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kaito Ishikawa",
+     "source": "wikidata",
+     "source_ref": "Q137204821",
+     "source_url": "https://www.wikidata.org/wiki/Q137204821",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "eijiro-kirishima",
+   "name": "Eijiro Kirishima",
+   "l04_role": "supporting",
+   "qid": "Q141681675",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q141681675",
+     "source_url": "https://www.wikidata.org/wiki/Q141681675",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q141681675",
+     "source_url": "https://www.wikidata.org/wiki/Q141681675",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Eijiro Kirishima is a boisterous, chivalrous student",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Toshiki Masuda",
+     "source": "wikidata",
+     "source_ref": "Q141681675",
+     "source_url": "https://www.wikidata.org/wiki/Q141681675",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "momo-yaoyorozu",
+   "name": "Momo Yaoyorozu",
+   "l04_role": "supporting",
+   "qid": "Q141681678",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q141681678",
+     "source_url": "https://www.wikidata.org/wiki/Q141681678",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q141681678",
+     "source_url": "https://www.wikidata.org/wiki/Q141681678",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Momo Yaoyorozu is the mature and level-headed",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Marina Inoue",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "voiced by|Marina Inoue",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "tsuyu-asui",
+   "name": "Tsuyu Asui",
+   "l04_role": "supporting",
+   "qid": "Q117874849",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q117874849",
+     "source_url": "https://www.wikidata.org/wiki/Q117874849",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q117874849",
+     "source_url": "https://www.wikidata.org/wiki/Q117874849",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Tsuyu Asui is a sincere frog-like girl",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Aoi Yūki",
+     "source": "wikidata",
+     "source_ref": "Q117874849",
+     "source_url": "https://www.wikidata.org/wiki/Q117874849",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "denki-kaminari",
+   "name": "Denki Kaminari",
+   "l04_role": "supporting",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Denki Kaminari is a flirty, laid-back, and friendly boy",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Denki Kaminari is a flirty, laid-back, and friendly boy",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Denki Kaminari is a flirty, laid-back, and friendly boy",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Tasuku Hatanaka",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "voiced by|Tasuku Hatanaka",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "fumikage-tokoyami",
+   "name": "Fumikage Tokoyami",
+   "l04_role": "supporting",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Horikoshi considered him to be outstanding",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Fumikage Tokoyami is a stoic crow-head student in Class 1-A",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Fumikage Tokoyami is a stoic crow-head student",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Yoshimasa Hosoya",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "voiced by|Yoshimasa Hosoya",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "mina-ashido",
+   "name": "Mina Ashido",
+   "l04_role": "supporting",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Mina Ashido is an upbeat and outgoing girl in Class 1-A",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Mina Ashido is an upbeat and outgoing girl in Class 1-A",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Mina Ashido is an upbeat and outgoing girl",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Eri Kitamura",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "voiced by|Eri Kitamura",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "kyoka-jiro",
+   "name": "Kyoka Jiro",
+   "l04_role": "supporting",
+   "qid": "Q141610301",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Kyoka Jiro is a pragmatic, music-loving girl in Class 1-A",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Kyoka Jiro is a pragmatic, music-loving girl in Class 1-A",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Kyoka Jiro is a pragmatic, music-loving girl",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 5",
+     "source": "wikipedia",
+     "source_ref": "1382325735",
+     "source_url": "https://en.wikipedia.org/wiki/Kyoka_Jiro",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "My Hero Academia #5",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kei Shindō",
+     "source": "wikipedia",
+     "source_ref": "1382325735",
+     "source_url": "https://en.wikipedia.org/wiki/Kyoka_Jiro",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Jiro is voiced by Kei Shindō in Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "minoru-mineta",
+   "name": "Minoru Mineta",
+   "l04_role": "supporting",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Mineta Minoru is a diminutive, cowardly, and lecherous boy",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Mineta Minoru is a diminutive, cowardly, and lecherous boy",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Mineta Minoru is a diminutive",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Ryō Hirohashi",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "voiced by|Ryō Hirohashi",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "all-might",
+   "name": "All Might",
+   "l04_role": "main",
+   "qid": "Q63109256",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q63109256",
+     "source_url": "https://www.wikidata.org/wiki/Q63109256",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q63109256",
+     "source_url": "https://www.wikidata.org/wiki/Q63109256",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Toshinori Yagi is the eighth holder",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kenta Miyake",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "voiced by|Kenta Miyake (Anime)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "shota-aizawa",
+   "name": "Shota Aizawa",
+   "l04_role": "supporting",
+   "qid": "Q141681672",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q141681672",
+     "source_url": "https://www.wikidata.org/wiki/Q141681672",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q141681672",
+     "source_url": "https://www.wikidata.org/wiki/Q141681672",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Shota Aizawa is the pragmatic and lethargic homeroom teacher",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Junichi Suwabe",
+     "source": "wikidata",
+     "source_ref": "Q141681672",
+     "source_url": "https://www.wikidata.org/wiki/Q141681672",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "recovery-girl",
+   "name": "Recovery Girl",
+   "l04_role": "other",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "her words hold just as much authority",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Chiyo Shuzenji is the elderly school nurse",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "other",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Chiyo Shuzenji is the elderly school nurse",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Etsuko Kozakura",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "voiced by|Etsuko Kozakura",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "present-mic",
+   "name": "Present Mic",
+   "l04_role": "supporting",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "amplifies his voice",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Hizashi Yamada is the school's English teacher",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Hizashi Yamada is the school's English teacher",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Hiroyuki Yoshino",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "voiced by|Hiroyuki Yoshino",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "my-hero-academia",
+   "slug": "inko-midoriya",
+   "name": "Inko Midoriya",
+   "l04_role": "other",
+   "qid": "Q141681662",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q141681662",
+     "source_url": "https://www.wikidata.org/wiki/Q141681662",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q141681662",
+     "source_url": "https://www.wikidata.org/wiki/Q141681662",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "other",
+     "source": "wikipedia",
+     "source_ref": "1382115708",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Other characters > Civilians",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Aya Kawakami",
+     "source": "wikidata",
+     "source_ref": "Q141681662",
+     "source_url": "https://www.wikidata.org/wiki/Q141681662",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "bleach",
+   "slug": "ichigo-kurosaki",
+   "name": "Ichigo Kurosaki",
+   "l04_role": "main",
+   "qid": "Q719114",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q719114",
+     "source_url": "https://www.wikidata.org/wiki/Q719114",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q719114",
+     "source_url": "https://www.wikidata.org/wiki/Q719114",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Ichigo Kurosaki",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1381692247",
+     "source_url": "https://en.wikipedia.org/wiki/Ichigo_Kurosaki",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Bleach #1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Masakazu Morita",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Ichigo is voiced by Masakazu Morita in the original Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "bleach",
+   "slug": "rukia-kuchiki",
+   "name": "Rukia Kuchiki",
+   "l04_role": "main",
+   "qid": "Q728718",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q728718",
+     "source_url": "https://www.wikidata.org/wiki/Q728718",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "shinigami",
+     "source": "wikidata",
+     "source_ref": "Q728718",
+     "source_url": "https://www.wikidata.org/wiki/Q728718",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Rukia Kuchiki",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1379470791",
+     "source_url": "https://en.wikipedia.org/wiki/Rukia_Kuchiki",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Bleach #1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Fumiko Orikasa",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Rukia is voiced by Fumiko Orikasa in the original Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "bleach",
+   "slug": "orihime-inoue",
+   "name": "Orihime Inoue",
+   "l04_role": "main",
+   "qid": "Q498184",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q498184",
+     "source_url": "https://www.wikidata.org/wiki/Q498184",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q498184",
+     "source_url": "https://www.wikidata.org/wiki/Q498184",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Orihime Inoue",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 2",
+     "source": "wikipedia",
+     "source_ref": "1380606854",
+     "source_url": "https://en.wikipedia.org/wiki/Orihime_Inoue",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Bleach chapter 2",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Yuki Matsuoka",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Orihime is voiced by Yuki Matsuoka in the original Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "bleach",
+   "slug": "uryu-ishida",
+   "name": "Uryū Ishida",
+   "l04_role": "main",
+   "qid": "Q1044491",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q1044491",
+     "source_url": "https://www.wikidata.org/wiki/Q1044491",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "quincy",
+     "source": "wikidata",
+     "source_ref": "Q1044491",
+     "source_url": "https://www.wikidata.org/wiki/Q1044491",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "antagonist",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "is an early antagonist in the series",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Noriaki Sugiyama",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Uryū is voiced by Noriaki Sugiyama in the original Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "bleach",
+   "slug": "yasutora-sado",
+   "name": "Yasutora Sado",
+   "l04_role": "main",
+   "qid": "Q629768",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q629768",
+     "source_url": "https://www.wikidata.org/wiki/Q629768",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q629768",
+     "source_url": "https://www.wikidata.org/wiki/Q629768",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Yasutora \"Chad\" Sado",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 7",
+     "source": "wikipedia",
+     "source_ref": "1375517178",
+     "source_url": "https://en.wikipedia.org/wiki/Yasutora_Sado",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Bleach chapter 7",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Hiroki Yasumoto",
+     "source": "wikipedia",
+     "source_ref": "1375517178",
+     "source_url": "https://en.wikipedia.org/wiki/Yasutora_Sado",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Hiroki Yasumoto",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "bleach",
+   "slug": "kisuke-urahara",
+   "name": "Kisuke Urahara",
+   "l04_role": "supporting",
+   "qid": "Q1196931",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q1196931",
+     "source_url": "https://www.wikidata.org/wiki/Q1196931",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "is the owner of the Urahara Shop",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Supporting characters > Urahara Shop > Kisuke Urahara",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Shin-ichiro Miki",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "He is voiced by Shin-ichiro Miki in the original Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "bleach",
+   "slug": "isshin-kurosaki",
+   "name": "Isshin Kurosaki",
+   "l04_role": "supporting",
+   "qid": "Q15114254",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q15114254",
+     "source_url": "https://www.wikidata.org/wiki/Q15114254",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "the unassuming father of Ichigo",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, the unassuming father of Ichigo",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Toshiyuki Morikawa",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Isshin is voiced by Toshiyuki Morikawa in the original Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "bleach",
+   "slug": "kon",
+   "name": "Kon",
+   "l04_role": "supporting",
+   "qid": "Q2482878",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q2482878",
+     "source_url": "https://www.wikidata.org/wiki/Q2482878",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "mod-soul",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "is the first Mod-Soul to appear in Bleach",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, is the first Mod-Soul to appear in Bleach",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Mitsuaki Madono",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "He is voiced by Mitsuaki Madono in the original Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "bleach",
+   "slug": "karin-kurosaki",
+   "name": "Karin Kurosaki",
+   "l04_role": "supporting",
+   "qid": "Q3812998",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q3812998",
+     "source_url": "https://www.wikidata.org/wiki/Q3812998",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q3812998",
+     "source_url": "https://www.wikidata.org/wiki/Q3812998",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, are Ichigo's younger sisters",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Rie Kugimiya",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Karin is voiced by Rie Kugimiya in the original Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "bleach",
+   "slug": "tatsuki-arisawa",
+   "name": "Tatsuki Arisawa",
+   "l04_role": "supporting",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "She has known both since she was young",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "is a good childhood friend of Ichigo",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, is a good childhood friend of Ichigo",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Junko Noda",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Tatsuki is voiced by Junko Noda in the original Japanese",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "hunter-x-hunter",
+   "slug": "gon-freecss",
+   "name": "Gon Freecss",
+   "l04_role": "main",
+   "qid": "Q2717608",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q2717608",
+     "source_url": "https://www.wikidata.org/wiki/Q2717608",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q2717608",
+     "source_url": "https://www.wikidata.org/wiki/Q2717608",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Gon Freecss",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1381970429",
+     "source_url": "https://en.wikipedia.org/wiki/Gon_Freecss",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "manga chapter 1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Megumi Han",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Megumi Han (2011 series",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "hunter-x-hunter",
+   "slug": "killua-zoldyck",
+   "name": "Killua Zoldyck",
+   "l04_role": "main",
+   "qid": "Q2717625",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q2717625",
+     "source_url": "https://www.wikidata.org/wiki/Q2717625",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q2717625",
+     "source_url": "https://www.wikidata.org/wiki/Q2717625",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Killua Zoldyck",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 6",
+     "source": "wikipedia",
+     "source_ref": "1379853700",
+     "source_url": "https://en.wikipedia.org/wiki/Killua_Zoldyck",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "manga chapter 6",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Mariya Ise",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Mariya Ise (2011 series",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "hunter-x-hunter",
+   "slug": "kurapika",
+   "name": "Kurapika",
+   "l04_role": "main",
+   "qid": "Q2537895",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q2537895",
+     "source_url": "https://www.wikidata.org/wiki/Q2537895",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q2537895",
+     "source_url": "https://www.wikidata.org/wiki/Q2537895",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Kurapika",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 2",
+     "source": "wikipedia",
+     "source_ref": "1375516828",
+     "source_url": "https://en.wikipedia.org/wiki/Kurapika",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "manga chapter 2",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Miyuki Sawashiro",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Miyuki Sawashiro (2011 series",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "hunter-x-hunter",
+   "slug": "leorio-paradinight",
+   "name": "Leorio Paradinight",
+   "l04_role": "main",
+   "qid": "Q2611418",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q2611418",
+     "source_url": "https://www.wikidata.org/wiki/Q2611418",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q2611418",
+     "source_url": "https://www.wikidata.org/wiki/Q2611418",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Leorio Paradinight",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Keiji Fujiwara",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Keiji Fujiwara (2011 series",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "hunter-x-hunter",
+   "slug": "hisoka-morrow",
+   "name": "Hisoka Morrow",
+   "l04_role": "antagonist",
+   "qid": "Q2280812",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q2280812",
+     "source_url": "https://www.wikidata.org/wiki/Q2280812",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q2280812",
+     "source_url": "https://www.wikidata.org/wiki/Q2280812",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "antagonist",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Villains > Hisoka Morrow",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Daisuke Namikawa",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Daisuke Namikawa (2011 series",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "hunter-x-hunter",
+   "slug": "isaac-netero",
+   "name": "Isaac Netero",
+   "l04_role": "supporting",
+   "qid": "Q3874958",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q3874958",
+     "source_url": "https://www.wikidata.org/wiki/Q3874958",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q3874958",
+     "source_url": "https://www.wikidata.org/wiki/Q3874958",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Hunter Association > Isaac Netero",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Ichirō Nagai",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Ichirō Nagai (2011 series",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "hunter-x-hunter",
+   "slug": "ging-freecss",
+   "name": "Ging Freecss",
+   "l04_role": "supporting",
+   "qid": "Q20381047",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q20381047",
+     "source_url": "https://www.wikidata.org/wiki/Q20381047",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q20381047",
+     "source_url": "https://www.wikidata.org/wiki/Q20381047",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Hunter Association > Zodiacs > Ging Freecss",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Rikiya Koyama",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Rikiya Koyama (2011 series",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "hunter-x-hunter",
+   "slug": "silva-zoldyck",
+   "name": "Silva Zoldyck",
+   "l04_role": "supporting",
+   "qid": "Q124044861",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q124044861",
+     "source_url": "https://www.wikidata.org/wiki/Q124044861",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q124044861",
+     "source_url": "https://www.wikidata.org/wiki/Q124044861",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Zoldyck Family > Silva Zoldyck",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kouichi Yamadera",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Kouichi Yamadera (2011 series",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "chainsaw-man",
+   "slug": "denji",
+   "name": "Denji",
+   "l04_role": "main",
+   "qid": "Q111981867",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q111981867",
+     "source_url": "https://www.wikidata.org/wiki/Q111981867",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "hybrid",
+     "source": "wikipedia",
+     "source_ref": "1382201345",
+     "source_url": "https://en.wikipedia.org/wiki/Denji_(Chainsaw_Man)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "species = Devil-human hybrid",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1382201345",
+     "source_url": "https://en.wikipedia.org/wiki/Denji_(Chainsaw_Man)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Chainsaw Man chapter 1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kikunosuke Toya",
+     "source": "wikidata",
+     "source_ref": "Q111981867",
+     "source_url": "https://www.wikidata.org/wiki/Q111981867",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "chainsaw-man",
+   "slug": "pochita",
+   "name": "Pochita",
+   "l04_role": "main",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "He has the ability to eat a devil",
+     "inferred": false
+    },
+    "species": {
+     "value": "devil",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "The Chainsaw Devil, who merges with Denji",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Devils and Fiends",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Shiori Izawa",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Shiori Izawa",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "chainsaw-man",
+   "slug": "power",
+   "name": "Power",
+   "l04_role": "main",
+   "qid": "Q112225524",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q112225524",
+     "source_url": "https://www.wikidata.org/wiki/Q112225524",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "fiend",
+     "source": "wikidata",
+     "source_ref": "Q112225524",
+     "source_url": "https://www.wikidata.org/wiki/Q112225524",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1379660097",
+     "source_url": "https://en.wikipedia.org/wiki/Power_(Chainsaw_Man)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "working alongside the main character",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 4",
+     "source": "wikipedia",
+     "source_ref": "1379660097",
+     "source_url": "https://en.wikipedia.org/wiki/Power_(Chainsaw_Man)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Chainsaw Man chapter 4",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Fairouz Ai",
+     "source": "wikidata",
+     "source_ref": "Q112225524",
+     "source_url": "https://www.wikidata.org/wiki/Q112225524",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "chainsaw-man",
+   "slug": "aki-hayakawa",
+   "name": "Aki Hayakawa",
+   "l04_role": "main",
+   "qid": "Q136720920",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q136720920",
+     "source_url": "https://www.wikidata.org/wiki/Q136720920",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q136720920",
+     "source_url": "https://www.wikidata.org/wiki/Q136720920",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Public Safety Organization > Tokyo Special Division 4",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Shogo Sakata",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Shogo Sakata",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "chainsaw-man",
+   "slug": "kobeni-higashiyama",
+   "name": "Kobeni Higashiyama",
+   "l04_role": "supporting",
+   "qid": "Q141842149",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q141842149",
+     "source_url": "https://www.wikidata.org/wiki/Q141842149",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q141842149",
+     "source_url": "https://www.wikidata.org/wiki/Q141842149",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Public Safety Organization > Tokyo Special Division 4",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Karin Takahashi",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Karin Takahashi",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "chainsaw-man",
+   "slug": "himeno",
+   "name": "Himeno",
+   "l04_role": "supporting",
+   "qid": "Q141807872",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q141807872",
+     "source_url": "https://www.wikidata.org/wiki/Q141807872",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q141807872",
+     "source_url": "https://www.wikidata.org/wiki/Q141807872",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Public Safety Organization > Tokyo Special Division 4",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Mariya Ise",
+     "source": "wikidata",
+     "source_ref": "Q141807872",
+     "source_url": "https://www.wikidata.org/wiki/Q141807872",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "chainsaw-man",
+   "slug": "kishibe",
+   "name": "Kishibe",
+   "l04_role": "supporting",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "He maintains contracts with multiple devils",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Kishibe is a cynical veteran formerly of Tokyo Special Division 1",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Public Safety Organization > Tokyo Special Division 4",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kenjiro Tsuda",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Kenjiro Tsuda",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "chainsaw-man",
+   "slug": "angel-devil",
+   "name": "Angel Devil",
+   "l04_role": "supporting",
+   "qid": null,
+   "values": {
+    "species": {
+     "value": "devil",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Devils and Fiends > Allies of the Public Safety Organization",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Devils and Fiends > Allies of the Public Safety Organization",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Maaya Uchida",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Maaya Uchida",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "chainsaw-man",
+   "slug": "katana-man",
+   "name": "Katana Man",
+   "l04_role": "antagonist",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "grandson of the yakuza boss",
+     "inferred": false
+    },
+    "species": {
+     "value": "hybrid",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "As a human-devil hybrid containing the Katana Devil",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "antagonist",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Other groups and organizations > Japan > Yakuza",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Daiki Hamano",
+     "source": "wikipedia",
+     "source_ref": "1368604634",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Daiki Hamano",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "frieren",
+   "name": "Frieren",
+   "l04_role": "main",
+   "qid": "Q104144455",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q104144455",
+     "source_url": "https://www.wikidata.org/wiki/Q104144455",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "elf",
+     "source": "wikidata",
+     "source_ref": "Q104144455",
+     "source_url": "https://www.wikidata.org/wiki/Q104144455",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1381652818",
+     "source_url": "https://en.wikipedia.org/wiki/Frieren_(character)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "is the titular protagonist",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1381652818",
+     "source_url": "https://en.wikipedia.org/wiki/Frieren_(character)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Frieren #1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Atsumi Tanezaki",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Atsumi Tanezaki",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "fern",
+   "name": "Fern",
+   "l04_role": "main",
+   "qid": "Q121302212",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q121302212",
+     "source_url": "https://www.wikidata.org/wiki/Q121302212",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q121302212",
+     "source_url": "https://www.wikidata.org/wiki/Q121302212",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, A powerful young mage and Frieren's apprentice",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 2",
+     "source": "wikipedia",
+     "source_ref": "1366535311",
+     "source_url": "https://en.wikipedia.org/wiki/Fern_(Frieren)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Frieren #2",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kana Ichinose",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Kana Ichinose",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "stark",
+   "name": "Stark",
+   "l04_role": "main",
+   "qid": "Q121302214",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q121302214",
+     "source_url": "https://www.wikidata.org/wiki/Q121302214",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q121302214",
+     "source_url": "https://www.wikidata.org/wiki/Q121302214",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, A young warrior who Eisen raised",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 11",
+     "source": "wikipedia",
+     "source_ref": "1366535611",
+     "source_url": "https://en.wikipedia.org/wiki/Stark_(Frieren)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Frieren #11",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Chiaki Kobayashi",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Chiaki Kobayashi",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "sein",
+   "name": "Sein",
+   "l04_role": "supporting",
+   "qid": "Q122781825",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q122781825",
+     "source_url": "https://www.wikidata.org/wiki/Q122781825",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q122781825",
+     "source_url": "https://www.wikidata.org/wiki/Q122781825",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, A village priest who joins Frieren",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Yuichi Nakamura",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Yuichi Nakamura",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "himmel",
+   "name": "Himmel",
+   "l04_role": "supporting",
+   "qid": "Q120089047",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q120089047",
+     "source_url": "https://www.wikidata.org/wiki/Q120089047",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q120089047",
+     "source_url": "https://www.wikidata.org/wiki/Q120089047",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, A human member of the Hero Party. He was the hero",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Nobuhiko Okamoto",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Nobuhiko Okamoto",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "heiter",
+   "name": "Heiter",
+   "l04_role": "supporting",
+   "qid": "Q120089049",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q120089049",
+     "source_url": "https://www.wikidata.org/wiki/Q120089049",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q120089049",
+     "source_url": "https://www.wikidata.org/wiki/Q120089049",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, A human member of the Hero Party, who was an alcohol-loving priest",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Hiroki Tōchi",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Hiroki Tōchi",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "eisen",
+   "name": "Eisen",
+   "l04_role": "supporting",
+   "qid": "Q120089051",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q120089051",
+     "source_url": "https://www.wikidata.org/wiki/Q120089051",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "dwarf",
+     "source": "wikidata",
+     "source_ref": "Q120089051",
+     "source_url": "https://www.wikidata.org/wiki/Q120089051",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, A member of the Hero Party. He is a dwarf",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Yōji Ueda",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Yōji Ueda",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "qual",
+   "name": "Qual",
+   "l04_role": "antagonist",
+   "qid": "Q122781798",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q122781798",
+     "source_url": "https://www.wikidata.org/wiki/Q122781798",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "demon",
+     "source": "wikidata",
+     "source_ref": "Q122781798",
+     "source_url": "https://www.wikidata.org/wiki/Q122781798",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "antagonist",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Demons > Other demons",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Hiroki Yasumoto",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Hiroki Yasumoto",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "aura",
+   "name": "Aura",
+   "l04_role": "antagonist",
+   "qid": "Q123029593",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q123029593",
+     "source_url": "https://www.wikidata.org/wiki/Q123029593",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "demon",
+     "source": "wikidata",
+     "source_ref": "Q123029593",
+     "source_url": "https://www.wikidata.org/wiki/Q123029593",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "antagonist",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Demons > Seven Sages of Destruction",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Ayana Taketatsu",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Ayana Taketatsu",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "serie",
+   "name": "Serie",
+   "l04_role": "other",
+   "qid": "Q122781845",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q122781845",
+     "source_url": "https://www.wikidata.org/wiki/Q122781845",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "elf",
+     "source": "wikidata",
+     "source_ref": "Q122781845",
+     "source_url": "https://www.wikidata.org/wiki/Q122781845",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "other",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Serie is an ancient elf mage",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Mariya Ise",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Mariya Ise",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "denken",
+   "name": "Denken",
+   "l04_role": "supporting",
+   "qid": "Q123982662",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q123982662",
+     "source_url": "https://www.wikidata.org/wiki/Q123982662",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q123982662",
+     "source_url": "https://www.wikidata.org/wiki/Q123982662",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Denken is an elderly second-class mage",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Jiro Saito",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Jiro Saito",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "ubel",
+   "name": "Übel",
+   "l04_role": "supporting",
+   "qid": "Q123982659",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q123982659",
+     "source_url": "https://www.wikidata.org/wiki/Q123982659",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q123982659",
+     "source_url": "https://www.wikidata.org/wiki/Q123982659",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, A sadistic and violent mage",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Ikumi Hasegawa",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Ikumi Hasegawa",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "land",
+   "name": "Land",
+   "l04_role": "supporting",
+   "qid": "Q123982666",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q123982666",
+     "source_url": "https://www.wikidata.org/wiki/Q123982666",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q123982666",
+     "source_url": "https://www.wikidata.org/wiki/Q123982666",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, Land is Fern's teammate",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Shohei Komatsu",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Shohei Komatsu",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "methode",
+   "name": "Methode",
+   "l04_role": "supporting",
+   "qid": "Q124570332",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q124570332",
+     "source_url": "https://www.wikidata.org/wiki/Q124570332",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q124570332",
+     "source_url": "https://www.wikidata.org/wiki/Q124570332",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, A female mage who initially formed a party",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Reina Ueda",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Reina Ueda",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "kanne",
+   "name": "Kanne",
+   "l04_role": "supporting",
+   "qid": "Q123982584",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q123982584",
+     "source_url": "https://www.wikidata.org/wiki/Q123982584",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q123982584",
+     "source_url": "https://www.wikidata.org/wiki/Q123982584",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, A timid third-class mage who can control water",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Azumi Waki",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Azumi Waki",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "lawine",
+   "name": "Lawine",
+   "l04_role": "supporting",
+   "qid": "Q123982648",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q123982648",
+     "source_url": "https://www.wikidata.org/wiki/Q123982648",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q123982648",
+     "source_url": "https://www.wikidata.org/wiki/Q123982648",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, She is a third-class mage who can turn water into ice",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Sayumi Suzushiro",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Sayumi Suzushiro",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "frieren",
+   "slug": "wirbel",
+   "name": "Wirbel",
+   "l04_role": "supporting",
+   "qid": "Q123982655",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q123982655",
+     "source_url": "https://www.wikidata.org/wiki/Q123982655",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q123982655",
+     "source_url": "https://www.wikidata.org/wiki/Q123982655",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, A second-class mage with lots of live combat experience",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kishō Taniyama",
+     "source": "wikipedia",
+     "source_ref": "1372941223",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Kishō Taniyama",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "black-clover",
+   "slug": "asta",
+   "name": "Asta",
+   "l04_role": "main",
+   "qid": "Q108935450",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q108935450",
+     "source_url": "https://www.wikidata.org/wiki/Q108935450",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q108935450",
+     "source_url": "https://www.wikidata.org/wiki/Q108935450",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Asta",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 1",
+     "source": "wikipedia",
+     "source_ref": "1381576120",
+     "source_url": "https://en.wikipedia.org/wiki/Asta_(Black_Clover)",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Black Clover #1",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Gakuto Kajiwara",
+     "source": "wikidata",
+     "source_ref": "Q108935450",
+     "source_url": "https://www.wikidata.org/wiki/Q108935450",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P725 (Japanese)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "black-clover",
+   "slug": "yuno-grinberryall",
+   "name": "Yuno Grinberryall",
+   "l04_role": "main",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "He is later revealed to be the prince",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "a result of being the human vessel",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Yuno Grinberryall",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Nobunaga Shimazaki",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Nobunaga Shimazaki (anime)",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "black-clover",
+   "slug": "noelle-silva",
+   "name": "Noelle Silva",
+   "l04_role": "main",
+   "qid": "Q110904202",
+   "values": {
+    "gender": {
+     "value": "female",
+     "source": "wikidata",
+     "source_ref": "Q110904202",
+     "source_url": "https://www.wikidata.org/wiki/Q110904202",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q110904202",
+     "source_url": "https://www.wikidata.org/wiki/Q110904202",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "main",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "section: Main characters > Noelle Silva",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 4",
+     "source": "wikipedia",
+     "source_ref": "1376949565",
+     "source_url": "https://en.wikipedia.org/wiki/Noelle_Silva",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Black Clover #4",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kana Yūki",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Kana Yūki",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "black-clover",
+   "slug": "yami-sukehiro",
+   "name": "Yami Sukehiro",
+   "l04_role": "supporting",
+   "qid": "Q110895968",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q110895968",
+     "source_url": "https://www.wikidata.org/wiki/Q110895968",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q110895968",
+     "source_url": "https://www.wikidata.org/wiki/Q110895968",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, is the captain of the Black Bulls",
+     "inferred": false
+    },
+    "first_appearance": {
+     "value": "Chapter 2",
+     "source": "wikipedia",
+     "source_ref": "1377094125",
+     "source_url": "https://en.wikipedia.org/wiki/Yami_Sukehiro",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Black Clover #2",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Junichi Suwabe",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Junichi Suwabe",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "black-clover",
+   "slug": "finral-roulacase",
+   "name": "Finral Roulacase",
+   "l04_role": "supporting",
+   "qid": null,
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "he grows into a courageous mage",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "is a Black Bulls member specializing in Spatial Magic",
+     "inferred": true
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, is a Black Bulls member specializing in Spatial Magic",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Jun Fukuyama",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Jun Fukuyama",
+     "inferred": false
+    }
+   }
+  },
+  {
+   "series": "black-clover",
+   "slug": "magna-swing",
+   "name": "Magna Swing",
+   "l04_role": "supporting",
+   "qid": "Q123554392",
+   "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikidata",
+     "source_ref": "Q123554392",
+     "source_url": "https://www.wikidata.org/wiki/Q123554392",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P21",
+     "inferred": false
+    },
+    "species": {
+     "value": "human",
+     "source": "wikidata",
+     "source_ref": "Q123554392",
+     "source_url": "https://www.wikidata.org/wiki/Q123554392",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "P31",
+     "inferred": false
+    },
+    "role_at_debut": {
+     "value": "supporting",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "L04 role, is a fiery-tempered Black Bulls member",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Genki Muro",
+     "source": "wikipedia",
+     "source_ref": "1381757229",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Voiced by|Genki Muro",
+     "inferred": false
+    }
+   }
+  }
+ ],
+ "series": [
+  {
+   "slug": "apothecary-diaries",
+   "qid": "Q48751907",
+   "demographic": {
+    "value": "none",
+    "source": "wikidata",
+    "source_ref": "Q48751907",
+    "source_url": "https://www.wikidata.org/wiki/Q48751907",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "P31: light novel series"
+   }
+  },
+  {
+   "slug": "attack-on-titan",
+   "qid": "Q586025",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1382761288",
+    "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "black-clover",
+   "qid": "Q20638503",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1381706424",
+    "source_url": "https://en.wikipedia.org/wiki/Black_Clover",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "bleach",
+   "qid": "Q904",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1382409431",
+    "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "blue-lock",
+   "qid": "Q62414782",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1382386674",
+    "source_url": "https://en.wikipedia.org/wiki/Blue_Lock",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "bocchi-the-rock",
+   "qid": "Q65235667",
+   "demographic": {
+    "value": "seinen",
+    "source": "wikipedia",
+    "source_ref": "1381243071",
+    "source_url": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Seinen manga"
+   }
+  },
+  {
+   "slug": "chainsaw-man",
+   "qid": "Q65240543",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1382617994",
+    "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "code-geass",
+   "qid": "Q4384067",
+   "demographic": {
+    "value": "none",
+    "source": "wikidata",
+    "source_ref": "Q4384067",
+    "source_url": "https://www.wikidata.org/wiki/Q4384067",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "P31: anime television series"
+   }
+  },
+  {
+   "slug": "cowboy-bebop",
+   "qid": "Q101244908",
+   "demographic": {
+    "value": "none",
+    "source": "wikidata",
+    "source_ref": "Q101244908",
+    "source_url": "https://www.wikidata.org/wiki/Q101244908",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "P31: anime television series"
+   }
+  },
+  {
+   "slug": "dandadan",
+   "qid": "Q108069627",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1380355741",
+    "source_url": "https://en.wikipedia.org/wiki/Dandadan",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "death-note",
+   "qid": "Q1834",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1381769893",
+    "source_url": "https://en.wikipedia.org/wiki/Death_Note",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "demon-slayer",
+   "qid": "Q24862683",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1381383768",
+    "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "detective-conan",
+   "qid": "Q3853685",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1382027792",
+    "source_url": "https://en.wikipedia.org/wiki/Case_Closed",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "dr-stone",
+   "qid": "Q38275959",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1381501872",
+    "source_url": "https://en.wikipedia.org/wiki/Dr._Stone",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "dragon-ball",
+   "qid": "Q2020",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1379977626",
+    "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_(manga)",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "evangelion",
+   "qid": "Q662",
+   "demographic": {
+    "value": "none",
+    "source": "wikidata",
+    "source_ref": "Q662",
+    "source_url": "https://www.wikidata.org/wiki/Q662",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "P31: anime television series"
+   }
+  },
+  {
+   "slug": "fairy-tail",
+   "qid": "Q18796",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1381103857",
+    "source_url": "https://en.wikipedia.org/wiki/Fairy_Tail",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "frieren",
+   "qid": "Q98642652",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1381436923",
+    "source_url": "https://en.wikipedia.org/wiki/Frieren",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "fruits-basket",
+   "qid": "Q216204",
+   "demographic": {
+    "value": "shojo",
+    "source": "wikipedia",
+    "source_ref": "1379854325",
+    "source_url": "https://en.wikipedia.org/wiki/Fruits_Basket",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōjo manga"
+   }
+  },
+  {
+   "slug": "fullmetal-alchemist",
+   "qid": "Q189562",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1381770058",
+    "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "gintama",
+   "qid": "Q764135",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1380552228",
+    "source_url": "https://en.wikipedia.org/wiki/Gintama",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "haikyu",
+   "qid": "Q326642",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1381740115",
+    "source_url": "https://en.wikipedia.org/wiki/Haikyu!!",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "hunter-x-hunter",
+   "qid": "Q696071",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1381097044",
+    "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "inuyasha",
+   "qid": "Q182056",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1377936410",
+    "source_url": "https://en.wikipedia.org/wiki/Inuyasha",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "jojo",
+   "qid": "Q696918",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1382026619",
+    "source_url": "https://en.wikipedia.org/wiki/JoJo's_Bizarre_Adventure",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "originally serialized in Shueisha"
+   }
+  },
+  {
+   "slug": "jujutsu-kaisen",
+   "qid": "Q55522899",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1382023380",
+    "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "kagurabachi",
+   "qid": "Q122713274",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1382303502",
+    "source_url": "https://en.wikipedia.org/wiki/Kagurabachi",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "kaguya-sama-love-is-war",
+   "qid": "Q24867647",
+   "demographic": {
+    "value": "seinen",
+    "source": "wikipedia",
+    "source_ref": "1379440392",
+    "source_url": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Seinen manga"
+   }
+  },
+  {
+   "slug": "kaiju-no-8",
+   "qid": "Q103888159",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1382209309",
+    "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "mob-psycho-100",
+   "qid": "Q11344543",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1380373905",
+    "source_url": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "my-hero-academia",
+   "qid": "Q18047903",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1382270421",
+    "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "naruto",
+   "qid": "Q26971382",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1379758694",
+    "source_url": "https://en.wikipedia.org/wiki/Naruto",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "omniscient-readers-viewpoint",
+   "qid": "Q139567602",
+   "demographic": {
+    "value": "none",
+    "source": "wikidata",
+    "source_ref": "Q139567602",
+    "source_url": "https://www.wikidata.org/wiki/Q139567602",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "P31: manhwa series"
+   }
+  },
+  {
+   "slug": "one-piece",
+   "qid": "Q28667972",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1382387394",
+    "source_url": "https://en.wikipedia.org/wiki/One_Piece",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "one-punch-man",
+   "qid": "Q5102879",
+   "demographic": {
+    "value": "seinen",
+    "source": "wikipedia",
+    "source_ref": "1379606340",
+    "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Seinen manga"
+   }
+  },
+  {
+   "slug": "oshi-no-ko",
+   "qid": "Q97310775",
+   "demographic": {
+    "value": "seinen",
+    "source": "wikipedia",
+    "source_ref": "1377608811",
+    "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Seinen manga"
+   }
+  },
+  {
+   "slug": "re-zero",
+   "qid": "Q20718351",
+   "demographic": {
+    "value": "none",
+    "source": "wikidata",
+    "source_ref": "Q20718351",
+    "source_url": "https://www.wikidata.org/wiki/Q20718351",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "P31: light novel series"
+   }
+  },
+  {
+   "slug": "sailor-moon",
+   "qid": "Q1643098",
+   "demographic": {
+    "value": "shojo",
+    "source": "wikipedia",
+    "source_ref": "1382649382",
+    "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōjo manga"
+   }
+  },
+  {
+   "slug": "sakamoto-days",
+   "qid": "Q105087026",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1379833283",
+    "source_url": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "slam-dunk",
+   "qid": "Q714760",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1379466912",
+    "source_url": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "solo-leveling",
+   "qid": "Q65551313",
+   "demographic": {
+    "value": "none",
+    "source": "wikidata",
+    "source_ref": "Q65551313",
+    "source_url": "https://www.wikidata.org/wiki/Q65551313",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "P31: novel series"
+   }
+  },
+  {
+   "slug": "spy-x-family",
+   "qid": "Q65231576",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1378380720",
+    "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "steins-gate",
+   "qid": "Q482494",
+   "demographic": {
+    "value": "none",
+    "source": "wikidata",
+    "source_ref": "Q482494",
+    "source_url": "https://www.wikidata.org/wiki/Q482494",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "P31: video game"
+   }
+  },
+  {
+   "slug": "sword-art-online",
+   "qid": "Q27863",
+   "demographic": {
+    "value": "none",
+    "source": "wikidata",
+    "source_ref": "Q27863",
+    "source_url": "https://www.wikidata.org/wiki/Q27863",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "P31: light novel series"
+   }
+  },
+  {
+   "slug": "that-time-i-got-reincarnated-as-a-slime",
+   "qid": "Q22100530",
+   "demographic": {
+    "value": "none",
+    "source": "wikidata",
+    "source_ref": "Q22100530",
+    "source_url": "https://www.wikidata.org/wiki/Q22100530",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "P31: light novel series"
+   }
+  },
+  {
+   "slug": "tokyo-ghoul",
+   "qid": "Q11102941",
+   "demographic": {
+    "value": "seinen",
+    "source": "wikipedia",
+    "source_ref": "1382391952",
+    "source_url": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Seinen manga"
+   }
+  },
+  {
+   "slug": "tokyo-revengers",
+   "qid": "Q63981675",
+   "demographic": {
+    "value": "shonen",
+    "source": "wikipedia",
+    "source_ref": "1381964227",
+    "source_url": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Shōnen manga"
+   }
+  },
+  {
+   "slug": "tower-of-god",
+   "qid": "Q487202",
+   "demographic": {
+    "value": "none",
+    "source": "wikidata",
+    "source_ref": "Q487202",
+    "source_url": "https://www.wikidata.org/wiki/Q487202",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "P31: webtoon"
+   }
+  },
+  {
+   "slug": "vinland-saga",
+   "qid": "Q930990",
+   "demographic": {
+    "value": "seinen",
+    "source": "wikipedia",
+    "source_ref": "1381714814",
+    "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "Category:Seinen manga"
+   }
+  },
+  {
+   "slug": "violet-evergarden",
+   "qid": "Q22101190",
+   "demographic": {
+    "value": "none",
+    "source": "wikidata",
+    "source_ref": "Q22101190",
+    "source_url": "https://www.wikidata.org/wiki/Q22101190",
+    "fetched_at": "2026-10-30T17:01:06Z",
+    "evidence": "P31: light novel series"
+   }
+  }
+ ]
+}

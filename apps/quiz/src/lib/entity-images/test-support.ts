@@ -13,7 +13,8 @@ export interface FakeDb {
   readonly fail: { insert: boolean; upload: boolean };
 }
 
-export function fakeDb(seed: Partial<Record<'groups' | 'series' | 'characters' | 'entity_images', Row[]>> = {}): FakeDb {
+/** `missingColumns`: columns of the database that are not there yet (019's thumb_path before 019): a select naming one fails as PostgREST does. */
+export function fakeDb(seed: Partial<Record<'groups' | 'series' | 'characters' | 'entity_images', Row[]>> = {}, opts: { missingColumns?: readonly string[] } = {}): FakeDb {
   const tables: Record<string, Row[]> = { groups: [], series: [], characters: [], entity_images: [], ...seed };
   const files = new Map<string, Buffer>();
   const removed: string[] = [];
@@ -27,8 +28,11 @@ export function fakeDb(seed: Partial<Record<'groups' | 'series' | 'characters' |
       let payload: Row = {};
       let mode: 'many' | 'one' | 'maybe' = 'many';
       let window: [number, number] | null = null;
+      let columns = '*';
       const match = (r: Row): boolean => filters.every(([c, v]) => r[c] === v);
-      const exec = async (): Promise<{ data: unknown; error: { message: string } | null }> => {
+      const exec = async (): Promise<{ data: unknown; error: { message: string; code?: string } | null }> => {
+        const gone = columns.split(',').map((c) => c.trim()).find((c) => (opts.missingColumns ?? []).includes(c));
+        if (gone) return { data: null, error: { message: `column ${table}.${gone} does not exist`, code: '42703' } };
         const rows = (tables[table] ??= []);
         let out: Row[] = [];
         if (op === 'select') out = rows.filter(match);
@@ -54,7 +58,7 @@ export function fakeDb(seed: Partial<Record<'groups' | 'series' | 'characters' |
         return out[0] ? { data: out[0], error: null } : { data: null, error: { message: 'no rows' } };
       };
       const q: Record<string, unknown> = {
-        select: () => q,
+        select: (c?: string) => { if (typeof c === 'string') columns = c; return q; },
         eq: (c: string, v: unknown) => { filters.push([c, v]); return q; },
         order: () => q,
         range: (a: number, b: number) => { window = [a, b]; return q; },

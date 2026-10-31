@@ -1,0 +1,96 @@
+Lot K1: local proof of 021a and 021b on a throwaway Postgres 18.2 (2026-10-30).
+Schema: production columns, checks, unique keys and policies of public.idols, groups, entity_sources.
+Data: the 204 idols of the production snapshot of 2026-10-30 (ids, groups, QIDs, active, needs_review); birth dates are synthetic (adult, minor or none, as in production); no real birth date is used or printed.
+Harness: scratchpad run-local.sh (DDL and row-count lines removed below).
+
+=== 0. fresh database: production columns, checks and policies; the 204 idols of the 2026-10-30 snapshot (synthetic birth dates: adult, minor or none as in production)
+idols|204|active|116|review|86|minor|1|no birth|4
+
+=== 1. apply 021a (single transaction)
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:932: NOTICE:  021a-k1-idol-facts: filled 199 gender and 152 debut_year; skipped (row gone, QID changed or other value kept): 1 gender, 1 debut_year
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:978: NOTICE:  021a-k1-idol-facts: 4 active idol(s) have no birth date (the game never shows them; K1 does not touch them)
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:978: NOTICE:  021a-k1-idol-facts: 86 active adult idol(s) now have gender, debut_year and nationality
+gender|199|debut_year|152
+idol 3 (QID changed): gender|null|debut_year|null
+debut_year|musicbrainz|130
+debut_year|wikidata|138
+gender|musicbrainz|173
+gender|wikidata|199
+birth_date rows untouched|112
+active unchanged|116|needs_review unchanged|86
+signature after run 1: 2fc79219929d32e38a48edabd8505da9
+
+=== 2. apply 021a again, this time outside a transaction (plain psql -f): nothing changes
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:932: NOTICE:  021a-k1-idol-facts: filled 0 gender and 0 debut_year; skipped (row gone, QID changed or other value kept): 1 gender, 1 debut_year
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:978: NOTICE:  021a-k1-idol-facts: 4 active idol(s) have no birth date (the game never shows them; K1 does not touch them)
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:978: NOTICE:  021a-k1-idol-facts: 86 active adult idol(s) now have gender, debut_year and nationality
+signature after run 2: 2fc79219929d32e38a48edabd8505da9
+IDEMPOTENT: identical
+
+=== 3. a value outside the checks is refused by the table
+ERROR:  new row for relation "idols" violates check constraint "idols_gender_check"
+ERROR:  new row for relation "idols" violates check constraint "idols_debut_year_check"
+
+=== 4. rollback refused while the game kpopdle-idol is active (stub dle_games)
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.rollback.sql:28: ERROR:  021a-k1-idol-facts rollback refused: the game kpopdle-idol is active and reads idols.gender and idols.debut_year
+columns still there|2
+
+=== 5. rollback (game off): columns and K1 sources gone, other sources kept; then rollback again
+columns|0
+k1 sources|0
+birth_date rows kept|112
+second rollback: ok, nothing to do
+
+=== 6. a value set by hand before K1 is kept, never overwritten, and gets no K1 source row
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:932: NOTICE:  021a-k1-idol-facts: filled 198 gender and 152 debut_year; skipped (row gone, QID changed or other value kept): 2 gender, 1 debut_year
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:978: NOTICE:  021a-k1-idol-facts: 4 active idol(s) have no birth date (the game never shows them; K1 does not touch them)
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:978: NOTICE:  021a-k1-idol-facts: 86 active adult idol(s) now have gender, debut_year and nationality
+idol 1 gender|female|its K1 gender sources|0
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:932: NOTICE:  021a-k1-idol-facts: filled 1 gender and 0 debut_year; skipped (row gone, QID changed or other value kept): 1 gender, 1 debut_year
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:978: NOTICE:  021a-k1-idol-facts: 4 active idol(s) have no birth date (the game never shows them; K1 does not touch them)
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:978: NOTICE:  021a-k1-idol-facts: 86 active adult idol(s) now have gender, debut_year and nationality
+idol 1 gender after clearing and rerun|male
+
+=== 7. 021b as committed (empty list): refused
+psql:docs/pending-migrations/multisite/021b-k1-idol-activate.sql:74: ERROR:  021b-k1-idol-activate: the id list is empty. Fill it from K1-RELECTURE.md (rows marked oui) and run again
+
+=== 8. 021b with a minor (147) and an adult (20): refused, nothing changed
+psql:<scratchpad>/pg/021b-minor.sql:75: ERROR:  021b-k1-idol-activate refused: under 18 or without a birth date: 147 Chiquita (a minor is never active; remove the line)
+20|f|t
+147|f|t
+
+=== 9. 021b with an idol without a birth date: refused
+psql:<scratchpad>/pg/021b-nobirth.sql:74: ERROR:  021b-k1-idol-activate refused: under 18 or without a birth date: 60 Soojin (a minor is never active; remove the line)
+
+=== 10. 021b with a wrong QID, and with an inactive row that is not in review (36): refused
+psql:<scratchpad>/pg/021b-qid.sql:74: ERROR:  021b-k1-idol-activate refused: the QID differs for 20 (list Q999, row Q61100680)
+psql:<scratchpad>/pg/021b-off.sql:74: ERROR:  021b-k1-idol-activate refused: idol(s) 36 are inactive and not waiting for review (switched off on purpose, not part of K1)
+
+=== 11. 021b with adults only (20, 60, and 198 whose QID is already active on row 81): activated, notice for 198; run twice
+psql:<scratchpad>/pg/021b-ok.sql:76: NOTICE:  021b-k1-idol-activate: listed idol(s) already active on another row: 198 Haechan (same QID as active row 81)
+psql:<scratchpad>/pg/021b-ok.sql:101: NOTICE:  021b-k1-idol-activate: 3 listed idol(s) are active
+20|t|f|null
+60|t|f|null
+198|t|f|null
+psql:<scratchpad>/pg/021b-ok.sql:76: NOTICE:  021b-k1-idol-activate: listed idol(s) already active on another row: 198 Haechan (same QID as active row 81)
+psql:<scratchpad>/pg/021b-ok.sql:101: NOTICE:  021b-k1-idol-activate: 3 listed idol(s) are active
+021b IDEMPOTENT: identical
+active minors|0
+
+=== 12. 021b rollback with the same list: back in the review queue
+20|f|t|Wikidata lists this member but not in our name-all roster; confirm before activating.
+60|f|t|Wikidata lists this member but not in our name-all roster; confirm before activating.
+198|f|t|Wikidata lists this member but not in our name-all roster; confirm before activating.
+psql:docs/pending-migrations/multisite/021b-k1-idol-activate.rollback.sql:42: ERROR:  021b-k1-idol-activate rollback: the id list is empty. Paste the lines of 021b-k1-idol-activate.sql and run again
+
+=== 13. the pool: the view of 020 (run O1) on this data, with a stub entity_images
+rows in dle_src_kpop_idol|112|complete (every column has a value)|86
+
+=== 14. idol 3 gets its real QID back: a rerun of 021a fills its two values, and the pool is the full snapshot result
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:932: NOTICE:  021a-k1-idol-facts: filled 1 gender and 1 debut_year; skipped (row gone, QID changed or other value kept): 0 gender, 0 debut_year
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:978: NOTICE:  021a-k1-idol-facts: 4 active idol(s) have no birth date (the game never shows them; K1 does not touch them)
+psql:docs/pending-migrations/multisite/021a-k1-idol-facts.sql:978: NOTICE:  021a-k1-idol-facts: 87 active adult idol(s) now have gender, debut_year and nationality
+rows in dle_src_kpop_idol|112|complete (every column has a value)|87
+complete by group|(G)I-DLE 4, ATEEZ 6, BLACKPINK 4, BTS 7, ENHYPEN 5, ITZY 5, IVE 4, LE SSERAFIM 3, NCT 8, NewJeans 4, Red Velvet 4, SEVENTEEN 10, SHINee 4, Stray Kids 1, TWICE 9, TXT 5, aespa 4
+
+=== done

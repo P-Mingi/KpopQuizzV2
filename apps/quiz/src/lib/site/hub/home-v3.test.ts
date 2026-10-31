@@ -32,6 +32,7 @@ import { HOME_ASSET_KEYS, loadHomeAssets } from './home-assets';
 import { doneOf, loadHomeDone, NOTHING_DONE } from './home-done';
 
 import type { HomeToday } from './home-types';
+import type { LiveAsset } from '@/lib/photos/public-read';
 
 const today = (): HomeToday => ({
   quizzes: [
@@ -82,9 +83,28 @@ describe('the image slots', () => {
     expect(HOME_ASSET_KEYS).toEqual(['siteK', 'siteA', 'kpopdle', 'otakudle', 'qotdK', 'qotdA', 'debate', 'cross1', 'cross2', 'cross3']);
   });
 
-  it('has no image until site_assets exists, and reads nothing meanwhile', async () => {
-    expect(await loadHomeAssets()).toEqual({});
-    expect(fake.reads).toBe(0);
+  // Step 2 replaced the empty reader by the read of site_assets_public (022), as this file's header said it would: the test of "reads
+  // nothing meanwhile" became the test of the fail-closed read and of the mapping.
+  it('has no image while site_assets_public is absent, empty or failing (fail closed)', async () => {
+    expect(await loadHomeAssets(async () => [])).toEqual({});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    expect(await loadHomeAssets(async () => { throw new Error('relation "public.site_assets_public" does not exist'); })).toEqual({});
+  });
+
+  it('gives each slot of the board the file of its size at its focal point, and nothing else', async () => {
+    const live = (key: string, type: LiveAsset['type'] = 'card_image'): LiveAsset => ({
+      key, type, page: 'home', settings: { focal: { x: 30, y: 70 } }, large: `https://s/${key}-1920.webp`, mid: `https://s/${key}-400.webp`,
+      thumb: `https://s/${key}-96.webp`, width: 1920, height: 1280, sourceUrl: 'https://commons.wikimedia.org/x', author: 'A', license: 'cc_by',
+      licenseNote: null, publishedAt: '2026-10-30T00:00:00Z',
+    });
+    const assets = await loadHomeAssets(async () => [
+      live('home:site-k'), live('home:cross-2'), live('home:qotd-a'), live('banner:kpopdle', 'banner'), live('home:debate', 'icon'),
+    ]);
+    expect(assets).toEqual({
+      siteK: { src: 'https://s/home:site-k-1920.webp', position: '30% 70%' },
+      cross2: { src: 'https://s/home:cross-2-400.webp', position: '30% 70%' },
+      qotdA: { src: 'https://s/home:qotd-a-96.webp', position: '30% 70%' },
+    });
   });
 });
 

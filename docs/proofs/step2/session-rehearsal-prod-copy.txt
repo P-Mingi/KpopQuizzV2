@@ -1,0 +1,61 @@
+Step 2, O1 review point 5: docs/launch/o1/session-rehearsal.sh on a throwaway local Postgres 18.2 cluster (TCP on 127.0.0.1, removed at
+the end), built from the local copy of production's public schema (schema only, no data; never printed, never copied into the repository).
+Head 580c446 on main a835757 (#175). Date 2026-10-30. The script is O1's on the K1 part (stand-ins for 021a and 021b, KPQ_K1A_SQL and
+KPQ_K1B_SQL set only by the script itself) plus this branch's `again`: each part runs twice, and the second run is checked twice: it says
+OK, and the schema (pg_dump --schema-only, grants included) and every table's rows (count and md5 of the sorted rows; sequences left out)
+are the same before and after it.
+Result: 41 PASS, 1 FAIL. The FAIL is J2: its second run rewrites updated_at on the 50 rows of public.series (the same run with updated_at
+left out of the row hash: 42 PASS, 0 FAIL). Cause: LAUNCH/L04-K1-series.sql (on main, not changed by this branch) has 50 "updated_at = now()"
+and no "is distinct from" guard in its upserts. Left to its owner.
+Lot K1 from its real files: this script takes no outside file (its first G run must stop on the missing 021a), so a scratch copy, not in
+this repository, changed three lines (the root, STAND, the 021a of the stop on 021b) to play 021a and 021b of o1/k1-idols at 95b7156, read
+only (021b's list is empty: nobody activated). Its output is the same as below, line for line: 41 PASS, 1 FAIL, the same J2.
+Personal data: the output below holds no name, e-mail or id of a user (grep for an at sign or a uuid: 0 lines; nothing redacted).
+
+$ bash docs/launch/o1/session-rehearsal.sh --prod-copy <prod-public.sql>   (exit 1)
+PASS base: production's schema copy, S4 and Mission U part D, V-S4 ok
+PASS B1 (run 1): exit 0, "terminée : tout est OK"
+PASS B1 (run 2): exit 0, "terminée : tout est OK"
+PASS B1 (run 2): the second run changed nothing (163 tables, same rows; same schema and grants)
+PASS B2 (run 3): exit 0, "terminée : tout est OK"
+PASS B2 (run 4): exit 0, "terminée : tout est OK"
+PASS B2 (run 4): the second run changed nothing (164 tables, same rows; same schema and grants)
+PASS B3 (run 5): exit 0, "terminée : tout est OK"
+PASS B3 (run 6): exit 0, "terminée : tout est OK"
+PASS B3 (run 6): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS D (run 7): exit 0, "terminée : tout est OK"
+PASS D (run 8): exit 0, "terminée : tout est OK"
+PASS D (run 8): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS E1 (run 9): exit 0, "terminée : tout est OK"
+PASS E1 (run 10): exit 0, "terminée : tout est OK"
+PASS E1 (run 10): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS E2 (run 11): exit 0, "terminée : tout est OK"
+PASS E2 (run 12): exit 0, "terminée : tout est OK"
+PASS E2 (run 12): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS G (run 13): exit 1, "021a-k1-idol-gender-debut.sql : fichier absent de main"
+PASS G (run 14): exit 1, "021b-k1-idol-activate.sql : fichier absent de main"
+PASS G (run 15): exit 0, "terminée : tout est OK"
+PASS G (run 16): exit 0, "terminée : tout est OK"
+PASS G (run 16): the second run changed nothing (194 tables, same rows; same schema and grants)
+PASS J1 (run 17): exit 0, "terminée : tout est OK"
+PASS J1 (run 18): exit 0, "terminée : tout est OK"
+PASS J1 (run 18): the second run changed nothing (194 tables, same rows; same schema and grants)
+PASS J2 (run 19): exit 1, "V-TEAM : une ligne KO"
+PASS step 40 simulated: 31 Team auth users
+PASS J2 (run 20): exit 0, "terminée : tout est OK"
+PASS J2 (run 21): exit 0, "terminée : tout est OK"
+FAIL J2 (run 21): the second run changed the database
+    rows < public.series 50
+    rows > public.series 50
+PASS J3 (run 22): exit 0, "terminée : tout est OK"
+PASS J3 (run 23): exit 0, "terminée : tout est OK"
+PASS J3 (run 23): the second run changed nothing (194 tables, same rows; same schema and grants)
+PASS J4 (run 24): exit 1, "L13-A1-character-facts.sql : fichier absent de main"
+PASS J4 (run 25): exit 0, "terminée : tout est OK"
+PASS J4 (run 26): exit 0, "terminée : tout est OK"
+PASS J4 (run 26): the second run changed nothing (194 tables, same rows; same schema and grants)
+PASS J4 (run 27): exit 1, "V-S4 : une des 28 fonctions"
+PASS J4 (run 28): exit 0, "terminée : tout est OK"
+PASS no e-mail or id printed by any part
+
+rehearsal: 1 step(s) failed
