@@ -2,8 +2,9 @@
 --
 -- What:   puts the listed idols back in the review queue: active false, needs_review true, review_reason = the text they had
 --         before K1 ("Wikidata lists this member but not in our name-all roster; confirm before activating.").
---         Paste the SAME (id, 'QID') lines as in 021b-k1-idol-activate.sql. Refused, with nothing changed, when the list is
---         empty or a listed id is unknown or carries another QID.
+--         Paste the SAME (id, 'QID') lines as in 021b-k1-idol-activate.sql. An empty list (021b's state for launch, owner's
+--         decision of 2026-10-30) undoes nothing and passes, so the RUNBOOK's rollback of session G runs through it. Refused, with
+--         nothing changed, when a listed id is unknown or carries another QID.
 -- Why:    the rollback of the K1 activation. The idol leaves the public pages and, at the next pool refresh, Kpopdle Idol.
 -- Rows:   one update per listed idol that is active; nothing else (the K1 columns and sources stay: 021a-k1-idol-gender-debut.rollback.sql).
 -- Verify: select id, active, needs_review from public.idols where id in (<the listed ids>);   expect f, t on every row
@@ -32,7 +33,7 @@ declare
   bad text;
 begin
   if not exists (select 1 from k1_deactivate) then
-    raise exception '021b-k1-idol-activate rollback: the id list is empty. Paste the lines of 021b-k1-idol-activate.sql and run again';
+    raise notice '021b-k1-idol-activate rollback: the id list is empty, nothing to undo (021b activates nobody before launch)';
   end if;
   select string_agg(format('%s (list %s, row %s)', a.id, a.qid, coalesce(i.wikidata_qid, 'none')), ', ' order by a.id) into bad
   from k1_deactivate a left join public.idols i on i.id = a.id where i.id is null or i.wikidata_qid is distinct from a.qid;

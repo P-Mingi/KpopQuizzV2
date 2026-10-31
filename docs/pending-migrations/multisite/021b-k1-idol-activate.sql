@@ -1,9 +1,14 @@
--- 021b-k1-idol-activate.sql (lot K1, step 2: ONLY after the owner's review of docs/strategy/o1/dle/K1-RELECTURE.md)
+-- 021b-k1-idol-activate.sql (lot K1, step 2)
+--
+-- Owner's decision of 2026-10-30: this file goes to session G with an EMPTY list. Nobody is activated before launch, because
+-- activating changes the frozen group and member pages of kpopquiz.org. Activation happens after launch, in the post-launch
+-- kpopquiz PR, with the default rule: adults whose gender and debut year agree between the sources; never 52, 53, 54, 179, 198, 199,
+-- 147, 197. The 21 active idols whose sources give conflicting debut years stay out of the game for now. Keep the list below empty.
 --
 -- What:   activates exactly the idols the owner lists below, as (id, 'QID') pairs copied from the rows marked "oui" of
 --         K1-RELECTURE.md: active true, needs_review false, review_reason null (what the admin "confirm" action does).
---         An empty list (the placeholder only) activates nobody and passes, so session G can run the file before the owner's
---         decision. The whole file is refused, with nothing changed, when:
+--         An empty list (the placeholder only, the state of this file for launch) activates nobody and passes, so session G runs
+--         the file as it is. Once the post-launch PR fills the list, the whole file is refused, with nothing changed, when:
 --         - a listed id does not exist, carries another QID, is detached, or is an inactive row that is not waiting for review;
 --         - a listed idol is under 18 or has no birth date (a minor is never active, whatever the review says).
 --         A listed idol that is already active and reviewed is left as it is (a second run changes nothing).
@@ -27,7 +32,7 @@ create temp table k1_activate (id integer primary key, qid text not null);
 insert into k1_activate (id, qid)
 select l.id, l.qid from (values
   (null::integer, null::text)   -- keep this first line: it only gives the types and is ignored
-  -- OWNER: add one line per idol marked "oui" in K1-RELECTURE.md, each line starting with a comma, for example:
+  -- EMPTY FOR LAUNCH (owner's decision of 2026-10-30). Only the post-launch kpopquiz PR adds lines here, each starting with a comma, for example:
   -- , (20, 'Q61100680')
 ) as l(id, qid)
 where l.id is not null;
@@ -40,8 +45,8 @@ declare
   bad text;
 begin
   if not exists (select 1 from k1_activate) then
-    -- An empty list is the owner's choice "nobody yet" (session G runs this file in order): nothing is activated.
-    raise notice '021b-k1-idol-activate: the id list is empty, no idol is activated (fill it from K1-RELECTURE.md, rows marked oui, then run it again)';
+    -- The owner's decision of 2026-10-30: nobody before launch (session G runs this file in order): nothing is activated.
+    raise notice '021b-k1-idol-activate: the id list is empty, no idol is activated (owner''s decision: activation comes after launch)';
   end if;
   select string_agg(a.id::text, ', ' order by a.id) into bad from k1_activate a where not exists (select 1 from public.idols i where i.id = a.id);
   if bad is not null then
