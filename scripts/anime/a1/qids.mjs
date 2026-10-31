@@ -1,0 +1,15 @@
+// The Wikidata item of each pool character, checked by hand against "present in work" (P1441) of the series. No item: no key.
+export const QIDS = {
+  'one-piece': { 'monkey-d-luffy': 'Q477948', 'roronoa-zoro': 'Q858432', shanks: 'Q2321523', 'gol-d-roger': 'Q2619344', makino: 'Q107659446', koby: 'Q16569202' },
+  naruto: { 'naruto-uzumaki': 'Q931', 'sasuke-uchiha': 'Q1740', 'sakura-haruno': 'Q203240', 'kakashi-hatake': 'Q1767', 'iruka-umino': 'Q3771200', 'hiruzen-sarutobi': 'Q716734', 'konohamaru-sarutobi': 'Q2353558' },
+  'demon-slayer': { 'tanjiro-kamado': 'Q85805158', 'nezuko-kamado': 'Q109767984', 'zenitsu-agatsuma': 'Q109321740', 'inosuke-hashibira': 'Q109321822', 'muzan-kibutsuji': 'Q116252649', 'giyu-tomioka': 'Q130425850', 'sakonji-urokodaki': 'Q123515828' },
+  'jujutsu-kaisen': { 'yuji-itadori': 'Q105037387', 'satoru-gojo': 'Q105037411', 'megumi-fushiguro': 'Q105037399', 'nobara-kugisaki': 'Q105037400', 'ryomen-sukuna': 'Q105037685', 'maki-zenin': 'Q105152624', 'toge-inumaki': 'Q105152625', panda: 'Q105152626' },
+  'dragon-ball': { goku: 'Q2142', bulma: 'Q1614785', 'master-roshi': 'Q1752065', yamcha: 'Q843345', oolong: 'Q3091550', 'chi-chi': 'Q1139513', 'emperor-pilaf': 'Q2481483' },
+  'attack-on-titan': { 'eren-yeager': 'Q18206694', 'mikasa-ackerman': 'Q30311579', 'armin-arlert': 'Q63406576', 'levi-ackerman': 'Q30311583', 'erwin-smith': 'Q85982428', 'hange-zoe': 'Q97236961', 'jean-kirstein': 'Q97238407', 'connie-springer': 'Q97238634', 'sasha-blouse': 'Q85980221', 'marco-bott': 'Q97237667', 'petra-ral': 'Q97239737', 'grisha-yeager': 'Q85974305' },
+  'my-hero-academia': { 'izuku-midoriya': 'Q65037327', 'katsuki-bakugo': 'Q104051327', 'ochaco-uraraka': 'Q112053248', 'shoto-todoroki': 'Q65152141', 'tenya-ida': 'Q137204821', 'eijiro-kirishima': 'Q141681675', 'momo-yaoyorozu': 'Q141681678', 'tsuyu-asui': 'Q117874849', 'kyoka-jiro': 'Q141610301', 'all-might': 'Q63109256', 'shota-aizawa': 'Q141681672', 'inko-midoriya': 'Q141681662' },
+  bleach: { 'ichigo-kurosaki': 'Q719114', 'rukia-kuchiki': 'Q728718', 'orihime-inoue': 'Q498184', 'uryu-ishida': 'Q1044491', 'yasutora-sado': 'Q629768', 'kisuke-urahara': 'Q1196931', 'isshin-kurosaki': 'Q15114254', kon: 'Q2482878', 'karin-kurosaki': 'Q3812998' },
+  'hunter-x-hunter': { 'gon-freecss': 'Q2717608', 'killua-zoldyck': 'Q2717625', kurapika: 'Q2537895', 'leorio-paradinight': 'Q2611418', 'hisoka-morrow': 'Q2280812', 'isaac-netero': 'Q3874958', 'ging-freecss': 'Q20381047', 'silva-zoldyck': 'Q124044861' },
+  'chainsaw-man': { denji: 'Q111981867', power: 'Q112225524', 'aki-hayakawa': 'Q136720920', 'kobeni-higashiyama': 'Q141842149', himeno: 'Q141807872' },
+  frieren: { frieren: 'Q104144455', fern: 'Q121302212', stark: 'Q121302214', sein: 'Q122781825', himmel: 'Q120089047', heiter: 'Q120089049', eisen: 'Q120089051', qual: 'Q122781798', aura: 'Q123029593', serie: 'Q122781845', denken: 'Q123982662', ubel: 'Q123982659', land: 'Q123982666', methode: 'Q124570332', kanne: 'Q123982584', lawine: 'Q123982648', wirbel: 'Q123982655' },
+  'black-clover': { asta: 'Q108935450', 'noelle-silva': 'Q110904202', 'yami-sukehiro': 'Q110895968', 'magna-swing': 'Q123554392' },
+}
