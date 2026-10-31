@@ -12,10 +12,11 @@
 # of the sorted rows; sequences are left out, an insert that meets a conflict still takes a number) before and after the second run.
 # The owner's steps between parts are simulated where the database sees them (the 31 Team auth users of step 40); the others (a
 # throwaway quiz, a deploy, a flag) do not touch the database.
-# Stops that must happen are checked too: J2 before the Team users, G and J4 while the K1 and A1 files are not on main, and a
-# check that finds a KO.
-# The files of lots K1 (021a, 021b) and A1 are not on main yet: the rehearsal uses stand-ins it writes in its work folder (021a: the
-# two columns of the contract, empty; 021b and A1: no change), and says so. Everything else is the repository's files.
+# Stops that must happen are checked too: J2 before the Team users, G and J4 on a missing K1 or A1 file (pointed at a path that does
+# not exist, so the stop stays checked once the files are on main), and a check that finds a KO.
+# A file of lots K1 (021a, 021b) or A1 runs for real as soon as it is on the branch. While it is not, the rehearsal uses a stand-in it
+# writes in its work folder (021a: the two columns of the contract, empty; 021b and A1: no change; 023 for a real L13: the contract's DDL).
+# Everything else is the repository's files.
 #
 # Prints PASS or FAIL per step and the parts' own output in its work folder. Exit 0 when every step passed. The cluster is stopped
 # and its folder removed at the end, pass or fail (nothing keeps running).
@@ -111,10 +112,14 @@ again() {
   fi
 }
 n=0
-STAND="KPQ_K1A_SQL=$WORK/K1a-stand-in.sql KPQ_K1B_SQL=$WORK/K1b-stand-in.sql KPQ_A1_SQL=$WORK/A1-stand-in.sql"
+# A stand-in only for a lot file that is not on the branch; the stops below point at a file that does not exist.
+STAND=""
+[ -f docs/pending-migrations/multisite/021a-k1-idol-gender-debut.sql ] || STAND="$STAND KPQ_K1A_SQL=$WORK/K1a-stand-in.sql"
+[ -f docs/pending-migrations/multisite/021b-k1-idol-activate.sql ] || STAND="$STAND KPQ_K1B_SQL=$WORK/K1b-stand-in.sql"
+[ -f docs/pending-migrations/multisite/launch/L13-A1-character-facts.sql ] || STAND="$STAND KPQ_A1_SQL=$WORK/A1-stand-in.sql"
 for p in B1 B2 B3 D E1 E2; do part "$p" 0 "terminée : tout est OK"; again "$p" 0 "terminée : tout est OK"; done
-part G 1 "021a-k1-idol-gender-debut.sql : fichier absent de main"
-part G 1 "021b-k1-idol-activate.sql : fichier absent de main" "KPQ_K1A_SQL=$WORK/K1a-stand-in.sql"
+part G 1 "021a-k1-idol-gender-debut.sql : fichier absent de main" "KPQ_K1A_SQL=$WORK/absent/021a-k1-idol-gender-debut.sql"
+part G 1 "021b-k1-idol-activate.sql : fichier absent de main" $STAND "KPQ_K1B_SQL=$WORK/absent/021b-k1-idol-activate.sql"
 part G 0 "terminée : tout est OK" $STAND; again G 0 "terminée : tout est OK" $STAND
 part J1 0 "terminée : tout est OK"; again J1 0 "terminée : tout est OK"
 part J2 1 "V-TEAM : une ligne KO"
@@ -127,7 +132,12 @@ print("insert into auth.users (email, email_confirmed_at, aud, role) values " + 
 PY
 psql "$PROD_DB_URL" -X -q -v ON_ERROR_STOP=1 -f "$WORK/team.sql" >>"$WORK/build.log" 2>&1 && pass "step 40 simulated: $(wc -l <"$WORK/team.txt" | tr -d ' ') Team auth users" || fail "step 40 simulated"
 for p in J2 J3; do part "$p" 0 "terminée : tout est OK"; again "$p" 0 "terminée : tout est OK"; done
-part J4 1 "L13-A1-character-facts.sql : fichier absent de main"
+part J4 1 "L13-A1-character-facts.sql : fichier absent de main" "KPQ_A1_SQL=$WORK/absent/L13-A1-character-facts.sql"
+# L13 needs the two tables of O1's 023. While 023 is not on the branch, the DDL of the contract (dle-a1-characters.md, part 2) stands in for it.
+if [ -f docs/pending-migrations/multisite/launch/L13-A1-character-facts.sql ] && [ ! -f docs/pending-migrations/multisite/023-dle-otakudle.sql ]; then
+  awk '/^```sql$/{n++; next} /^```$/{if(n==1) exit} n==1' docs/o1/contracts/dle-a1-characters.md >"$WORK/023-stand-in.sql"
+  psql "$PROD_DB_URL" -X -q -v ON_ERROR_STOP=1 -f "$WORK/023-stand-in.sql" >>"$WORK/build.log" 2>&1 && pass "stand-in for 023: the two tables of the contract" || fail "stand-in for 023"
+fi
 part J4 0 "terminée : tout est OK" $STAND; again J4 0 "terminée : tout est OK" $STAND
 # A difference no file repairs stops the part: award_xp opened to anon again (an S4 function) makes V-S4 fail at the end of J4.
 reopen() { psql "$PROD_DB_URL" -X -q -c "do \$\$ declare f regprocedure; begin for f in select oid::regprocedure from pg_proc where pronamespace = 'public'::regnamespace and proname = 'award_xp' loop execute format('$1 execute on function %s $2 anon', f); end loop; end \$\$;" >/dev/null 2>&1; }
