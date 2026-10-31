@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
-import { isAdmin } from '@/lib/admin';
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { createServiceRoleClient } from '@/lib/supabase/server';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import type { NextRequest } from 'next/server';
@@ -20,9 +20,9 @@ const HAS_UPDATED_AT = new Set(['thread', 'essay', 'comment']);
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   if (!isUxV12()) return NextResponse.json({ error: 'not_found' }, { status: 404 });
-  const supa = await createServerClient();
-  const { data: { user } } = await supa.auth.getUser();
-  if (!user || !isAdmin(user.id)) return NextResponse.json({ error: 'forbidden' }, { status: 403 });
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
+  const { user } = gate;
   let body: { id?: unknown };
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
   const id = Number(body.id);
@@ -54,3 +54,11 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   await svc.from('community_autohidden').update({ restored_at: now, restored_by: user.id }).eq('id', row.id);
   return NextResponse.json({ ok: true });
 }
+
+// ADMIN-1: a method this route does not implement is the admin 404 too (Next would answer 405 and name the real ones).
+export const GET = adminNotFound;
+export const PUT = adminNotFound;
+export const PATCH = adminNotFound;
+export const DELETE = adminNotFound;
+export const HEAD = adminNotFound;
+export const OPTIONS = adminNotFound;

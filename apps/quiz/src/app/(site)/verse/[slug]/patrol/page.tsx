@@ -3,8 +3,7 @@ import { SectionHeader } from '@/components/verse/primitives/section-header';
 import { notFound, redirect } from 'next/navigation';
 
 import { getSpace } from '@/lib/verse/space';
-import { createServerClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { requireAdmin } from '@/lib/admin/guard';
 import { currentSpaceRole, roleAtLeast } from '@/lib/verse/roles';
 import { PatrolQueue } from '@/components/verse/curate/patrol-queue';
 import { BannedTerms } from '@/components/verse/curate/banned-terms';
@@ -21,8 +20,8 @@ export default async function PatrolPage({ params }: { params: Promise<{ slug: s
   const { role } = await currentSpaceRole(space.group.id);
   if (!roleAtLeast(role, 'curator')) redirect(`/verse/${slug}`);
 
-  const { data: { user } } = await (await createServerClient()).auth.getUser();
-  const globalAdmin = !!user && isAdmin(user.id);
+  // ADMIN-1: the global admin is the one requireAdmin lets through (verified, listed, aal2).
+  const globalAdmin = (await requireAdmin('check')) !== null;
 
   return (
     <div className="space-y-8">

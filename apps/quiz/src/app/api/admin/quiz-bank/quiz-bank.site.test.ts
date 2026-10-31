@@ -9,9 +9,9 @@ const state = vi.hoisted(() => ({
   bank: [] as unknown[],
 }));
 
-vi.mock('@/lib/admin', () => ({ isAdmin: () => true }));
-vi.mock('@/lib/supabase/server', () => ({
-  createServerClient: async () => ({ auth: { getUser: async () => ({ data: { user: { id: 'admin-user' } } }) } }),
+// ADMIN-1: the real guard (lib/admin/guard.ts): admin-user is the listed admin (ADMIN_USER_IDS below), its session at aal2.
+vi.mock('@/lib/supabase/server', async () => ({
+  createServerClient: async () => ({ auth: (await import('@/lib/admin/test-support')).stubAuth(() => ({ user: { id: 'admin-user' } })) }),
   createServiceRoleClient: () => ({
     from(table: string) {
       const c = { table, op: 'select', filters: [] as Array<[string, unknown]> } as { table: string; op: string; arg?: unknown; filters: Array<[string, unknown]> };
@@ -33,6 +33,7 @@ async function site(id: string): Promise<void> {
   vi.stubEnv('NEXT_PUBLIC_SITE_ID', id);
   vi.stubEnv('SITE_ID', '');
   vi.stubEnv('QOTD_ROTATION_FIX', '');
+  vi.stubEnv('ADMIN_USER_IDS', 'admin-user');
 }
 const req = (url: string, method: string, body?: unknown): NextRequest =>
   new NextRequest(`https://example.test${url}`, { method, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });

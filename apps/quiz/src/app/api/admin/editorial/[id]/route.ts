@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
+import { adminNotFound } from '@/lib/admin/guard';
 
-import { isAdmin } from '@/lib/admin';
 import { adminGate } from '@/lib/editorial/admin-api';
 import { checkDraftInput, checkSchedule } from '@/lib/editorial/drafts';
 import { approveDraft, editDraft, rejectDraft } from '@/lib/editorial/pipeline';
@@ -19,6 +19,8 @@ export const dynamic = 'force-dynamic';
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse> {
   const g = await adminGate();
   if (!g.ok) return g.res;
+  // ADMIN-1: the reviewer is the admin requireAdmin verified on this request (aal2); no other id is an admin here.
+  const isThisAdmin = (uid: string): boolean => uid === g.adminId;
   const { id: raw } = await params;
   const id = /^\d{1,12}$/.test(raw) ? Number(raw) : NaN;
   if (!Number.isSafeInteger(id) || id <= 0) return NextResponse.json({ error: 'bad_id' }, { status: 400 });
@@ -36,11 +38,11 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     if (b.action === 'approve') {
       const when = checkSchedule(b.scheduled_at);
       if (!when.ok) return NextResponse.json({ error: when.error }, { status: 400 });
-      const r = await approveDraft(g.store, id, { adminId: g.adminId, isAdmin, scheduledAt: when.value, now });
+      const r = await approveDraft(g.store, id, { adminId: g.adminId, isAdmin: isThisAdmin, scheduledAt: when.value, now });
       return r.ok ? NextResponse.json({ ok: true, draft: r.value }) : NextResponse.json({ error: r.error }, { status: r.status });
     }
     if (b.action === 'reject') {
-      const r = await rejectDraft(g.store, id, { adminId: g.adminId, isAdmin, now });
+      const r = await rejectDraft(g.store, id, { adminId: g.adminId, isAdmin: isThisAdmin, now });
       return r.ok ? NextResponse.json({ ok: true, draft: r.value }) : NextResponse.json({ error: r.error }, { status: r.status });
     }
     return NextResponse.json({ error: 'bad_action' }, { status: 400 });
@@ -49,3 +51,11 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     return NextResponse.json({ error: 'write_failed' }, { status: 500 });
   }
 }
+
+// ADMIN-1: a method this route does not implement is the admin 404 too (Next would answer 405 and name the real ones).
+export const GET = adminNotFound;
+export const POST = adminNotFound;
+export const PUT = adminNotFound;
+export const DELETE = adminNotFound;
+export const HEAD = adminNotFound;
+export const OPTIONS = adminNotFound;

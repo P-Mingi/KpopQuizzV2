@@ -253,7 +253,8 @@ describe('the route and the pages follow NEXT_PUBLIC_BT_TRACKING alone', () => {
   });
 
   it('the admin page is a 404 when the switch is off, then admin only', () => {
-    expect(admin).toMatch(/if \(!BT_TRACKING\) notFound\(\);[\s\S]*if \(!user \|\| !isAdmin\(user\.id\)\) redirect\('\/'\);/);
+    // ADMIN-1 (owner, 2026-10-30): admin only through requireAdmin (verified session, listed id, aal2; 404 for anyone else).
+    expect(admin).toMatch(/if \(!BT_TRACKING\) notFound\(\);[\s\S]*await requireAdmin\(\);/);
   });
 
   it('none of them reads the v11 or v12 flag', () => {

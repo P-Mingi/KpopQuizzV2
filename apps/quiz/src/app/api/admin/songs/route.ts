@@ -1,16 +1,15 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
+  // ADMIN-1: written with the service role, only after requireAdmin (the open write policies of blind_test_songs are closing).
+  const db = createServiceRoleClient();
 
   let body: Record<string, unknown>;
   try {
@@ -23,7 +22,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'Title, YouTube ID, and year are required' }, { status: 400 });
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await db
     .from('blind_test_songs')
     .insert({
       title: body.title,
@@ -47,3 +46,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json(data);
 }
+
+// ADMIN-1: a method this route does not implement is the admin 404 too (Next would answer 405 and name the real ones).
+export const GET = adminNotFound;
+export const PUT = adminNotFound;
+export const PATCH = adminNotFound;
+export const DELETE = adminNotFound;
+export const HEAD = adminNotFound;
+export const OPTIONS = adminNotFound;

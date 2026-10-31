@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
 import { parseMv } from '../route';
 
 import type { NextRequest } from 'next/server';
@@ -9,14 +9,9 @@ import type { NextRequest } from 'next/server';
 // Workstream T1.5: update or delete one tracked MV. Deleting cascades its
 // snapshots (mv_snapshots FK ON DELETE CASCADE).
 
-async function gate(): Promise<boolean> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  return !!user && isAdmin(user.id);
-}
-
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse> {
-  if (!(await gate())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
   const { id } = await params;
   const numId = Number(id);
   if (!Number.isInteger(numId)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 });
@@ -34,7 +29,8 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 }
 
 export async function DELETE(_request: NextRequest, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse> {
-  if (!(await gate())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
   const { id } = await params;
   const numId = Number(id);
   if (!Number.isInteger(numId)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 });
@@ -44,3 +40,10 @@ export async function DELETE(_request: NextRequest, { params }: { params: Promis
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ ok: true });
 }
+
+// ADMIN-1: a method this route does not implement is the admin 404 too (Next would answer 405 and name the real ones).
+export const GET = adminNotFound;
+export const POST = adminNotFound;
+export const PATCH = adminNotFound;
+export const HEAD = adminNotFound;
+export const OPTIONS = adminNotFound;

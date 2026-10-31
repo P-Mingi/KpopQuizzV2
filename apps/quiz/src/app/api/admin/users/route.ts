@@ -1,17 +1,13 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
 
 import type { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user || !isAdmin(user.id)) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
+  const { supabase } = gate;
 
   const { searchParams } = new URL(request.url);
   const offset = parseInt(searchParams.get('offset') ?? '0', 10);
@@ -50,3 +46,11 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   return NextResponse.json({ users: data ?? [], total: count ?? 0 });
 }
+
+// ADMIN-1: a method this route does not implement is the admin 404 too (Next would answer 405 and name the real ones).
+export const POST = adminNotFound;
+export const PUT = adminNotFound;
+export const PATCH = adminNotFound;
+export const DELETE = adminNotFound;
+export const HEAD = adminNotFound;
+export const OPTIONS = adminNotFound;

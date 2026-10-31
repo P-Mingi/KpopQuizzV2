@@ -1,8 +1,5 @@
-import { redirect } from 'next/navigation';
-
-import { createServerClient } from '@/lib/supabase/server';
 import { createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { requireAdmin } from '@/lib/admin/guard';
 
 import { AiVisibilityDashboard } from './ai-visibility-dashboard';
 
@@ -40,14 +37,7 @@ const PLATFORMS = [
 ];
 
 export default async function AiVisibilityPage(): Promise<React.ReactElement> {
-  const supabase = await createServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user || !isAdmin(user.id)) {
-    redirect('/');
-  }
+  const { user } = await requireAdmin();
 
   const serviceClient = createServiceRoleClient();
   const { data: checks } = await serviceClient

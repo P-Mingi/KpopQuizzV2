@@ -1,7 +1,7 @@
 import { redirect, notFound } from 'next/navigation';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { adminPowerFor } from '@/lib/admin/guard';
 import { QuizEditor } from '@/components/quiz/quiz-editor';
 
 import type { Metadata } from 'next';
@@ -36,7 +36,7 @@ export default async function OwnerEditQuizPage({
 
   // 404 (not 403) for non-owners so we do not leak the existence of drafts.
   if (!quiz) notFound();
-  if (quiz.creator_id !== user.id && !isAdmin(user.id)) notFound();
+  if (quiz.creator_id !== user.id && !(await adminPowerFor(user.id))) notFound();
   if (quiz.status === 'removed') notFound();
 
   return <QuizEditor quiz={quiz as Record<string, unknown>} mode="owner" />;

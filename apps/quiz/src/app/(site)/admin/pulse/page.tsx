@@ -1,7 +1,5 @@
-import { redirect } from 'next/navigation';
-
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
 
 import { PulseAdmin } from './pulse-admin';
 
@@ -30,9 +28,7 @@ function currentUtcMonth(): string {
 }
 
 export default async function PulseAdminPage(): Promise<React.ReactElement> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  await requireAdmin();
 
   const svc = createServiceRoleClient();
   // Admin sees ALL citations (including inactive), which the public RLS hides.

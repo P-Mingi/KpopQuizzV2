@@ -4,8 +4,8 @@ import { notFound, redirect } from 'next/navigation';
 
 import { getSpace } from '@/lib/verse/space';
 import { currentSpaceRole, roleAtLeast } from '@/lib/verse/roles';
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
 import { stageOf } from '@/lib/verse/stage';
 import { MemberManager } from '@/components/verse/curate/member-manager';
 import { PagesReviewQueue } from '@/components/verse/curate/pages-review-queue';
@@ -26,8 +26,8 @@ export default async function CuratePage({ params }: { params: Promise<{ slug: s
   const { role } = await currentSpaceRole(space.group.id);
   if (!roleAtLeast(role, 'curator')) redirect(`/verse/${slug}`);
   const isSpaceAdmin = role === 'space_admin';
-  const { data: { user } } = await (await createServerClient()).auth.getUser();
-  const globalAdmin = !!user && isAdmin(user.id);
+  // ADMIN-1: the global admin is the one requireAdmin lets through (verified, listed, aal2).
+  const globalAdmin = (await requireAdmin('check')) !== null;
   const stage = globalAdmin ? await stageOf(space.group.id) : 'A';
 
   // V-PAGES step 5 - pages awaiting review (service read: review status is

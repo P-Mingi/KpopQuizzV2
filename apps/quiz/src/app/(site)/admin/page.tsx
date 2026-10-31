@@ -1,18 +1,10 @@
-import { redirect } from 'next/navigation';
-
-import { createServerClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { requireAdmin } from '@/lib/admin/guard';
 import { forSite } from '@/lib/site/scope';
 import { avgScorePct } from '@/lib/quiz/scoring';
 import { AdminDashboard } from './admin-dashboard';
 
 export default async function AdminPage(): Promise<React.ReactElement> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user || !isAdmin(user.id)) {
-    redirect('/');
-  }
+  const { supabase } = await requireAdmin();
 
   const now = new Date();
   const periodStart = new Date(now.getTime() - 7 * 86400000).toISOString();

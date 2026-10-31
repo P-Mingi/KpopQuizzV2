@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+
+import { pickSongFields } from '../song-fields';
 
 import type { NextRequest } from 'next/server';
 
@@ -10,22 +12,22 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> },
 ): Promise<NextResponse> {
   const { id } = await params;
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
+  // ADMIN-1: written with the service role, only after requireAdmin (the open write policies of blind_test_songs are closing).
+  const db = createServiceRoleClient();
 
-  let body: Record<string, unknown>;
+  let body: unknown;
   try {
-    body = await request.json() as Record<string, unknown>;
+    body = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
+  if (!body || typeof body !== 'object' || Array.isArray(body)) return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
 
-  const { data, error } = await supabase
+  const { data, error } = await db
     .from('blind_test_songs')
-    .update({ ...body, updated_at: new Date().toISOString() })
+    .update({ ...pickSongFields(body as Record<string, unknown>), updated_at: new Date().toISOString() })
     .eq('id', id)
     .select()
     .single();
@@ -39,13 +41,12 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ): Promise<NextResponse> {
   const { id } = await params;
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
+  // ADMIN-1: written with the service role, only after requireAdmin (the open write policies of blind_test_songs are closing).
+  const db = createServiceRoleClient();
 
-  const { error } = await supabase
+  const { error } = await db
     .from('blind_test_songs')
     .delete()
     .eq('id', id);
@@ -53,3 +54,10 @@ export async function DELETE(
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ success: true });
 }
+
+// ADMIN-1: a method this route does not implement is the admin 404 too (Next would answer 405 and name the real ones).
+export const GET = adminNotFound;
+export const POST = adminNotFound;
+export const PATCH = adminNotFound;
+export const HEAD = adminNotFound;
+export const OPTIONS = adminNotFound;

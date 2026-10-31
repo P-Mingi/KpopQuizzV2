@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
 import { forSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
@@ -10,12 +10,8 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ): Promise<NextResponse> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user || !isAdmin(user.id)) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
 
   const { id } = await params;
 
@@ -61,12 +57,8 @@ export async function DELETE(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ): Promise<NextResponse> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user || !isAdmin(user.id)) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
 
   const { id } = await params;
   const adminDb = createServiceRoleClient();
@@ -79,3 +71,10 @@ export async function DELETE(
 
   return NextResponse.json({ success: true });
 }
+
+// ADMIN-1: a method this route does not implement is the admin 404 too (Next would answer 405 and name the real ones).
+export const GET = adminNotFound;
+export const POST = adminNotFound;
+export const PUT = adminNotFound;
+export const HEAD = adminNotFound;
+export const OPTIONS = adminNotFound;

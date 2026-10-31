@@ -1,17 +1,19 @@
 // Run O1 (ADM front): /admin of the anime build. The gate is on the server and the same for every tab: a visitor, and any account that is not
 // in ADMIN_USER_IDS, get the 404 of the site before anything is read; an admin gets the tabs, Images first.
+// ADMIN-1 (owner, 2026-10-30): the gate is requireAdmin (lib/admin/guard.ts): an admin passes at aal2 only; at aal1 the page sends them to the
+// TOTP code page (a factor exists) or the TOTP setup page (none yet), before anything is read.
 import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-const auth = vi.hoisted(() => ({ user: null as { id: string } | null, reads: 0 }));
-vi.mock('@/lib/supabase/server', () => ({
-  createServerClient: async () => ({ auth: { getUser: async () => { auth.reads += 1; return { data: { user: auth.user } }; } } }),
+const auth = vi.hoisted(() => ({ user: null as { id: string } | null, aal: undefined as 'aal1' | 'aal2' | undefined, factor: true }));
+vi.mock('@/lib/supabase/server', async () => ({
+  createServerClient: async () => ({ auth: (await import('@/lib/admin/test-support')).stubAuth(() => ({ user: auth.user, ...(auth.aal ? { aal: auth.aal } : {}), factor: auth.factor })) }),
 }));
-vi.mock('next/navigation', () => ({ notFound: () => { throw new Error('NEXT_NOT_FOUND'); }, redirect: () => { throw new Error('redirect'); }, usePathname: () => '/admin' }));
+vi.mock('next/navigation', () => ({ notFound: () => { throw new Error('NEXT_NOT_FOUND'); }, redirect: (to: string) => { throw new Error(`NEXT_REDIRECT ${to}`); }, usePathname: () => '/admin' }));
 vi.mock('@/app/(site)/admin/page', () => ({ default: () => h('div', { 'data-testid': 'dashboard' }, 'dashboard') }));
 
-beforeEach(() => { vi.stubEnv('ADMIN_USER_IDS', 'admin-1, admin-2'); auth.user = null; auth.reads = 0; });
+beforeEach(() => { vi.stubEnv('ADMIN_USER_IDS', 'admin-1, admin-2'); auth.user = null; auth.aal = undefined; auth.factor = true; });
 afterEach(() => { vi.unstubAllEnvs(); });
 
 async function open(tab?: string): Promise<string> {
@@ -28,6 +30,20 @@ describe('/admin on bunnyverse.org/anime', () => {
   it('is a 404 for a signed-in account that is not an admin', async () => {
     auth.user = { id: 'user-9' };
     for (const tab of [undefined, 'images', 'overview']) await expect(open(tab)).rejects.toThrow('NEXT_NOT_FOUND');
+  });
+
+  it('sends an admin at aal1 with a factor to the TOTP code page, on every tab, before anything is shown', async () => {
+    auth.user = { id: 'admin-1' };
+    auth.aal = 'aal1';
+    for (const tab of [undefined, 'images', 'overview', 'photos']) await expect(open(tab)).rejects.toThrow('NEXT_REDIRECT /admin/k7q2m/code');
+  });
+
+  it('sends an admin with no factor to the TOTP setup page only while enrolment is open; closed, it is the 404 of anyone', async () => {
+    auth.user = { id: 'admin-2' };
+    auth.factor = false;
+    await expect(open()).rejects.toThrow('NEXT_NOT_FOUND');
+    vi.stubEnv('ADMIN_MFA_ENROL_OPEN', '1');
+    await expect(open()).rejects.toThrow('NEXT_REDIRECT /admin/k7q2m/setup');
   });
 
   it('is a 404 when no admin is configured at all', async () => {

@@ -1,15 +1,11 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
 
 export async function GET(): Promise<NextResponse> {
-  const supabase = await createServerClient();
-
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
+  const { supabase } = gate;
 
   const [pendingRes, allGroupsRes] = await Promise.all([
     supabase
@@ -52,3 +48,11 @@ export async function GET(): Promise<NextResponse> {
 
   return NextResponse.json({ groups, all_groups: allGroups });
 }
+
+// ADMIN-1: a method this route does not implement is the admin 404 too (Next would answer 405 and name the real ones).
+export const POST = adminNotFound;
+export const PUT = adminNotFound;
+export const PATCH = adminNotFound;
+export const DELETE = adminNotFound;
+export const HEAD = adminNotFound;
+export const OPTIONS = adminNotFound;

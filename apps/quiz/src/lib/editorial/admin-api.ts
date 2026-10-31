@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { isAdmin } from '@/lib/admin';
-import { createServerClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import { editorialLive, supabaseStore } from './store';
@@ -14,7 +13,7 @@ import type { TemplateDraft } from './templates';
 
 // Shared gate of the /api/admin/editorial routes, in this order:
 //   1. flag off            404 (the route does not exist in a v11 build)
-//   2. not an admin        401 (the same gate as every /api/admin route)
+//   2. not an admin        404 (ADMIN-1: requireAdmin('api'), the gate of every /api/admin route: verified, listed, aal2)
 //   3. SQL not applied     503 not_live, BEFORE any write
 // Returns the store and the admin's id, or the response to send.
 
@@ -22,9 +21,9 @@ export type AdminGate = { ok: true; adminId: string; store: EditorialStore } | {
 
 export async function adminGate(): Promise<AdminGate> {
   if (!isUxV12()) return { ok: false, res: NextResponse.json({ error: 'not_found' }, { status: 404 }) };
-  const supa = await createServerClient();
-  const { data: { user } } = await supa.auth.getUser();
-  if (!user || !isAdmin(user.id)) return { ok: false, res: NextResponse.json({ error: 'Unauthorized' }, { status: 401 }) };
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return { ok: false, res: gate.res };
+  const { user } = gate;
   try {
     if (!(await editorialLive())) return { ok: false, res: NextResponse.json({ error: 'not_live' }, { status: 503 }) };
   } catch {

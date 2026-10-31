@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { adminPowerFor } from '@/lib/admin/guard';
 import { validatePageMeta } from '@/lib/verse/pages/validate';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
 
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const { data: pageRow } = await svc.from('verse_pages').select('id, group_id, kind, slug, title, status, infobox, created_by').eq('id', pageId).maybeSingle();
   if (!pageRow) return NextResponse.json({ error: 'No such page' }, { status: 404 });
   const page = pageRow as { id: number; kind: string; slug: string; title: string; status: string; infobox: Record<string, unknown>; created_by: string };
-  if (page.created_by !== user.id && !isAdmin(user.id)) return NextResponse.json({ error: 'Not your page' }, { status: 403 });
+  if (page.created_by !== user.id && !(await adminPowerFor(user.id))) return NextResponse.json({ error: 'Not your page' }, { status: 403 });
   if (page.status !== 'draft') return NextResponse.json({ error: 'Only drafts can be submitted' }, { status: 409 });
 
   const checked = validatePageMeta(KPOP_PAGE_REGISTRY, {

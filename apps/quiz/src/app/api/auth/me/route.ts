@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 import { getLevelInfo } from '@/lib/constants';
-import { isAdmin } from '@/lib/admin';
+import { adminPowerFor } from '@/lib/admin/guard';
 import { SITE_ID } from '@/lib/site/registry';
 
 // Returns the signed-in user's nav profile or null. Hit by the client-side
@@ -62,7 +62,8 @@ export async function GET(): Promise<NextResponse> {
       // is_admin only tells the signed-in user about THEMSELVES; the actual
       // authorization stays server-side in /api/admin/*. The mod notify button
       // uses this to decide whether to render.
-      is_admin: isAdmin(user.id),
+      // ADMIN-1: true only for the admin requireAdmin lets through (verified, listed, aal2).
+      is_admin: await adminPowerFor(user.id),
       // The signed-in user's own id, so the quiz page can tell its creator (QuizOwnerActions)
       // without loading supabase-js in the browser.
       id: user.id,

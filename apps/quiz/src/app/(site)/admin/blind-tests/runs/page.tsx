@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
-import { isAdmin } from '@/lib/admin';
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
+import { createServiceRoleClient } from '@/lib/supabase/server';
 import { BT_TRACKING } from '@/lib/tracking/bt-shared';
 import { isNotLiveError } from '@/lib/tracking/bt-server';
 
@@ -117,9 +117,7 @@ function SongsTable({ rows }: { rows: SongRow[] }): React.ReactElement {
 export default async function AdminBlindtestRunsPage({ searchParams }: { searchParams: Promise<{ days?: string }> }): Promise<React.ReactElement> {
   if (!BT_TRACKING) notFound();
 
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  await requireAdmin();
 
   const asked = Number((await searchParams).days);
   const days = (WINDOWS as readonly number[]).includes(asked) ? asked : 30;
