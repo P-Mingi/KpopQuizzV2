@@ -9,6 +9,7 @@
 // quizzes only. The anime build never loads styles/sites/hub/, and its sheets may style only anime-<lane>-* classes (tokens.md 3.3 rule 6),
 // so `prefix` names the classes: hub-h2 by default (the hub's markup, byte for byte), anime-h2 there (styles/sites/anime/h2.css). Same
 // markup, one prefix, as POLICY_CLASS does for the privacy blocks (lib/site/hub/network-page.ts).
+// kpopquiz.org home (owner, 2026-10-31, CR-015): the same block under kpop-h2 (styles/kpop/home-surprise.css), K-pop quizzes only.
 import { useState } from 'react';
 
 import { pickSurprise } from '@/lib/site/hub/data/surprise-pick';
@@ -33,8 +34,8 @@ interface HomeSurpriseProps {
   /** "Pick your side, or play both.": the line the button sits beside. */
   readonly lede: string;
   readonly labels: { readonly button: string; readonly play: string; readonly another: string };
-  /** The prefix of every class: hub-h2 (the default, the hub home) or anime-h2 (the OtakuQuiz home). */
-  readonly prefix?: 'hub-h2' | 'anime-h2';
+  /** The prefix of every class: hub-h2 (the default, the hub home), anime-h2 (the OtakuQuiz home) or kpop-h2 (the kpopquiz.org home). */
+  readonly prefix?: 'hub-h2' | 'anime-h2' | 'kpop-h2';
 }
 
 export function HomeSurprise({ pool, playedIds, lede, labels, prefix = 'hub-h2' }: HomeSurpriseProps): React.ReactElement {

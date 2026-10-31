@@ -1,0 +1,17 @@
+{
+  "cr": "CR-015",
+  "why": "Owner, 2026-10-31: Surprise me on the kpopquiz.org home, A to Z of /groups in the OtakuQuiz style. Read by scripts/o1/parity-deliberate.mjs only, for the pair that carries this change. parity.sh never reads it, and once the change is in the base no difference is left to judge.",
+  "pages": {
+    "/": {
+      "added": { "tag": "div", "class": "kpop-h2-surprise" },
+      "regionMaxLinks": 0,
+      "addedStylesheets": 1,
+      "flightForbid": ["/anime/", "otakuquiz.org", "\"site\":\"anime\""]
+    },
+    "/groups": {
+      "replaced": { "tag": "div", "class": "p3-az" },
+      "keepLinks": true,
+      "addedStylesheets": 1
+    }
+  }
+}
