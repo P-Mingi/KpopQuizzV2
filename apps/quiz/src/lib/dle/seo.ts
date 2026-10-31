@@ -34,6 +34,14 @@ export const GAME_SEO: Readonly<Partial<Record<DleGameId, { readonly title: L10n
     },
     app: { en: 'Kpopdle by Bunnyverse, a free daily K-pop idol guessing game', fr: 'Kpopdle par Bunnyverse, un jeu gratuit pour deviner l’idol K-pop du jour' },
   },
+  otakudle: {
+    title: { en: 'Otakudle: Guess the Anime Character Daily', fr: 'Otakudle : devine le perso d’anime du jour' },
+    description: {
+      en: 'Otakudle is a free daily game: guess the anime character of the day from the series, species, role, year and studio. No spoilers, new character at midnight UTC.',
+      fr: 'Otakudle est un jeu gratuit : devine le personnage d’anime du jour grâce à la série, l’espèce, le rôle, l’année et le studio. Sans spoiler, nouveau chaque jour.',
+    },
+    app: { en: 'Otakudle by Bunnyverse, a free daily anime character guessing game', fr: 'Otakudle par Bunnyverse, un jeu gratuit pour deviner le personnage d’anime du jour' },
+  },
 };
 
 /** The self-contained block under a game (rule 3.1, 40 to 60 words): what it is, one real number with its date. */
@@ -43,6 +51,11 @@ export function gameAnswerBlock(game: DleGameId, locale: DleLocale, poolSize: nu
     return locale === 'fr'
       ? `Kpopdle est un jeu quotidien gratuit de Bunnyverse pour deviner une idol K-pop. Tape une idol : chaque case compare un indice avec l’idol du jour, comme le groupe, l’agence, la nationalité, l’année de naissance, le début, la génération et le rôle. Le jeu compte ${poolSize} idols au ${day}. Nouvelle idol à minuit UTC.`
       : `Kpopdle is a free daily K-pop idol guessing game by Bunnyverse. Type an idol, and each cell compares one fact with the idol of the day: group, agency, nationality, birth year, debut, generation and role. The game holds ${poolSize} idols on ${day}. A new idol comes at midnight UTC.`;
+  }
+  if (game === 'otakudle') {
+    return locale === 'fr'
+      ? `Otakudle est un jeu quotidien gratuit de Bunnyverse pour deviner un personnage d’anime. Tape un personnage : chaque case compare un indice avec le personnage du jour, comme la série, le genre, l’espèce, le rôle, la démographie, l’année et le studio. Le jeu compte ${poolSize} personnages au ${day}. Nouveau personnage à minuit UTC.`
+      : `Otakudle is a free daily anime character guessing game by Bunnyverse. Type a character, and each cell compares one fact with the character of the day: series, gender, species, role, demographic, year and studio. The game holds ${poolSize} characters on ${day}. A new character comes at midnight UTC.`;
   }
   return GAME_SEO[game]?.description[locale] ?? '';
 }

@@ -7,6 +7,7 @@ import { fetchAllRows } from '@/lib/db/fetch-all';
 import { publicUrl } from '@/lib/entity-images/store';
 import { assetPosition, getLiveAssets, getPublicPictures, safePath } from '@/lib/photos/public-read';
 import { LICENSE_LABEL, LICENSE_URL } from '@/lib/anime/entity-images-rules';
+import { homeUrl } from '@/lib/site/hub/home-types';
 import { createPublicReadClient } from '@/lib/supabase/server';
 
 import type { LiveAsset, PublicPicture } from '@/lib/photos/public-read';
@@ -131,6 +132,28 @@ export async function getDlePictures(kind: string | null): Promise<Readonly<Reco
 export async function readKpopGroupSlugs(db: Db): Promise<Readonly<Record<string, string>>> {
   const rows = await fetchAllRows<{ name: string; slug: string }>(() => db.from('groups').select('name, slug').eq('site_id', 'kpop').order('slug', { ascending: true }));
   return Object.fromEntries(rows.map((r) => [r.name, r.slug]));
+}
+
+export async function readAnimeSeriesSlugs(db: Db): Promise<Readonly<Record<string, string>>> {
+  const rows = await fetchAllRows<{ name: string; slug: string }>(() => db.from('groups').select('name, slug').eq('site_id', 'anime').order('slug', { ascending: true }));
+  return Object.fromEntries(rows.map((r) => [r.name, r.slug]));
+}
+
+const animeSlugsCached = unstable_cache(async () => readAnimeSeriesSlugs(createPublicReadClient()), ['db:hub:dle-series-slugs:v1'], { revalidate: 3600, tags: ['dle'] });
+
+/** Series title to its slug on OtakuQuiz, for "Quiz One Piece"; {} on any failure, and a title it does not know gets no link. */
+export async function getAnimeSeriesSlugs(): Promise<Readonly<Record<string, string>>> {
+  try {
+    return await animeSlugsCached();
+  } catch (err) {
+    console.error('[dle] series read failed:', (err as Error)?.message ?? err);
+    return {};
+  }
+}
+
+/** Name to the address of its quiz, on the site of the game (kpopquiz.org or OtakuQuiz). */
+export function quizLinksOf(universe: 'kpop' | 'anime', names: readonly string[], slugs: Readonly<Record<string, string>>): Readonly<Record<string, string>> {
+  return Object.fromEntries(names.flatMap((n) => (slugs[n] ? [[n, homeUrl({ site: universe, path: `/${slugs[n]}-quiz` })]] : [])));
 }
 
 const slugsCached = unstable_cache(async () => readKpopGroupSlugs(createPublicReadClient()), ['db:hub:dle-group-slugs:v1'], { revalidate: 3600, tags: ['dle'] });

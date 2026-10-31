@@ -1,0 +1,11 @@
+-- V-L13 (run O1, session.sh J4): after L13-A1-character-facts.sql, the file of lot A1. The SQL of docs/o1/contracts/dle-a1-characters.md part 4, unchanged.
+-- Read only, in a read-only transaction. Each row is: ok or KO | what | the number found. Never a name, an e-mail or a row of a person.
+begin transaction read only;
+select case when ok is true then 'ok' else 'KO' end, what, coalesce(got, '-') from (values
+  (1, 'démographie : les 50 séries de lancement', (select count(*) = 50 from public.series_facts f join public.groups g on g.id = f.group_id where g.site_id = 'anime'), (select count(*)::text from public.series_facts)),
+  (2, 'faits de personnages hors du pool (brouillon, spoiler) : 0', (select count(*) = 0 from public.character_facts f join public.characters c on c.id = f.character_id where c.status <> 'published' or c.spoiler_level > 0 or c.identity_spoiler), null),
+  (3, 'valeurs sans source : 0', (select count(*) = 0 from public.character_facts f join public.characters c on c.id = f.character_id, lateral (values ('gender', f.gender), ('species', f.species), ('role_at_debut', f.role_at_debut)) v(field, val) where v.val is not null and not exists (select 1 from public.entity_sources s where s.entity_type = 'character' and s.entity_id = c.slug and s.field = v.field)), null),
+  (4, 'personnages avec les 7 colonnes (information)', true, (select count(*)::text from public.dle_src_anime_character s where not exists (select 1 from public.dle_attributes a where a.game_id = 'otakudle' and coalesce(cardinality(public.dle_values(s.attrs -> a.key -> 'v')), 0) = 0))),
+  (5, 'le pool atteint le minimum de otakudle', (select count(*) >= (select min_pool from public.dle_games where id = 'otakudle') from public.dle_src_anime_character s where not exists (select 1 from public.dle_attributes a where a.game_id = 'otakudle' and coalesce(cardinality(public.dle_values(s.attrs -> a.key -> 'v')), 0) = 0)), null)
+) as c(n, what, ok, got) order by n;
+rollback;

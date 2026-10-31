@@ -31,7 +31,7 @@ export async function GET(request: NextRequest): Promise<Response> {
         </div>
         <div style={{ display: 'flex', alignItems: 'flex-end', height: 200 }}>
           {v.counts.map((k, i) => (
-            <div key={i} style={{ display: 'flex', width: 44, marginRight: 14, borderRadius: 10, height: Math.max(18, Math.round((k / v.max) * 200)), background: k === v.max ? accent : '#F2C3D3' }} />
+            <div key={i} style={{ display: 'flex', width: 44, marginRight: 14, borderRadius: 10, height: Math.max(18, Math.round((k / v.max) * 200)), background: k === v.max ? accent : v.game.universe === 'kpop' ? '#F2C3D3' : '#FDBA8C' }} />
           ))}
         </div>
         <div style={{ display: 'flex', fontSize: 32, fontWeight: 700 }}>{`bunnyverse.org${v.game.path}`}</div>

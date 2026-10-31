@@ -13,6 +13,7 @@
 // - Roles differing from L04: Levi, Pochita, Power, Aki supporting; Uryu antagonist.
 // - Muzan male (Wikipedia's "he"; Wikidata says undisclosed). Hange and Angel Devil: gender empty, so not targets.
 // - Levi: first appearance empty.
+// - Stark: first appearance Chapter 10, owner's decision of 2026-11-01. The source is the chapter list (#10, "Solar Dragon", the dragon of his introduction); his own page's infobox says #11. The page that states it is the Frieren wiki (frieren.fandom.com/wiki/Chapter_10, "new character = Stark"), which entity_sources_source_check and this lot's source rule do not admit.
 // - Hunter x Hunter: the voices of the 2011 series (Madhouse), like the studio in L04, not the 1999 series.
 // - Demographics: no origin magazine means none; JoJo shonen; Vinland Saga seinen.
 export const wd = { kind: 'wd' }
@@ -152,7 +153,7 @@ export const CHARACTERS = {
   frieren: [
     R('frieren', 'female', wd, 'elf', wd, 'main', wp('Frieren (character)', 'is the titular protagonist'), 'Chapter 1', wp('Frieren (character)', 'Frieren #1'), 'Atsumi Tanezaki', vb(FR, 'Atsumi Tanezaki')),
     R('fern', 'female', wd, ...HU, 'main', l04(FR, 'A powerful young mage and Frieren\'s apprentice'), 'Chapter 2', wp('Fern (Frieren)', 'Frieren #2'), 'Kana Ichinose', vb(FR, 'Kana Ichinose')),
-    R('stark', 'male', wd, ...HU, 'main', l04(FR, 'A young warrior who Eisen raised'), 'Chapter 11', wp('Stark (Frieren)', 'Frieren #11'), 'Chiaki Kobayashi', vb(FR, 'Chiaki Kobayashi')),
+    R('stark', 'male', wd, ...HU, 'main', l04(FR, 'A young warrior who Eisen raised'), 'Chapter 10', wp('List of Frieren chapters', '"Solar Dragon"'), 'Chiaki Kobayashi', vb(FR, 'Chiaki Kobayashi')),
     R('sein', 'male', wd, ...HU, 'supporting', l04(FR, 'A village priest who joins Frieren'), null, null, 'Yuichi Nakamura', vb(FR, 'Yuichi Nakamura')),
     R('himmel', 'male', wd, ...HU, 'supporting', l04(FR, 'A human member of the Hero Party. He was the hero'), null, null, 'Nobuhiko Okamoto', vb(FR, 'Nobuhiko Okamoto')),
     R('heiter', 'male', wd, ...HU, 'supporting', l04(FR, 'A human member of the Hero Party, who was an alcohol-loving priest'), null, null, 'Hiroki Tōchi', vb(FR, 'Hiroki Tōchi')),

@@ -97,3 +97,7 @@ rollback;
 
 `session.sh J4` then runs the launch counts again (`content-verify.sql` must not move) and V-S4. Otakudle is activated on launch day after
 these files, by O1's step (never by A1's file).
+
+## 5. Changes
+
+CR-017 (`docs/o1/LEDGER.md`): the species of Goku, Nezuko and Denji by the owner's decision, the studio when `seasons` is empty, the game row of 023 written once L01 is in (session.sh J4), the pool, and the activation file L14, for Kpopdle Idol too, with session part J5.

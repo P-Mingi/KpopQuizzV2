@@ -7,7 +7,7 @@
 # The base: the platform part of docs/o1/contracts/schema.base.sql (roles, auth, storage), the auth and storage columns Supabase
 # has and the launch files write, production's schema copy (schema only, no data), the rows part of schema.base.sql, then what was
 # applied in production since the copy: S4 (2026-10-23) and Mission U part D (2026-10-27).
-# Then, in the order of OWNER-NOW.md: B1 B2 B3 D E1 E2 G J1 J2 J3 J4. Each part runs twice: the second run must change nothing and
+# Then, in the order of OWNER-NOW.md: B1 B2 B3 D E1 E2 G J1 J2 J3 J4 J5. Each part runs twice: the second run must change nothing and
 # say OK. "Nothing" is read, not assumed: the schema (pg_dump --schema-only, grants included) and every table's rows (count and md5
 # of the sorted rows; sequences are left out, an insert that meets a conflict still takes a number) before and after the second run.
 # The owner's steps between parts are simulated where the database sees them (the 31 Team auth users of step 40); the others (a
@@ -147,6 +147,24 @@ reopen() { psql "$PROD_DB_URL" -X -q -c "do \$\$ declare f regprocedure; begin f
 reopen grant to
 part J4 1 "V-S4 : une des 28 fonctions" $STAND
 reopen revoke from
+part J4 0 "terminée : tout est OK" $STAND
+# Otakudle on the real L04 and L13: 118 targets, the 4 series without seasons counted (CR-017; 88 without the studio fallback).
+part J4 0 "ok | personnages avec les 7 colonnes (information) | 118" $STAND
+# The launch-day activation, twice: the second run must leave the epoch and the bank alone. Then J4 once more: running a part again after it stays a no-op.
+# Production's schema copy has no idol row, so the real 021a stores nothing here and the real idol pool cannot be proven in this rehearsal (87 and 108 come from the production snapshot of the lots).
+# What can be proven: with no idol L14 stops and names the game, and neither game changes; then, on stand-in idols written here, the step, its check and a second run.
+part J5 1 "L14 kpopdle-idol: dle_pool_too_small: 0 targets, 40 needed"
+[ "$(psql "$PROD_DB_URL" -X -q -At -c "select count(*) from public.dle_games where active or epoch is not null")" = 0 ] && [ "$(psql "$PROD_DB_URL" -X -q -At -c "select count(*) from public.dle_schedule")" = 0 ] && pass "J5 stopped: neither game on, no epoch, no bank" || fail "J5 stopped but a game changed"
+psql "$PROD_DB_URL" -X -q -v ON_ERROR_STOP=1 >>"$WORK/build.log" 2>&1 <<'SQL' && pass "stand-in: 60 made-up adult idols, the real pool is not proven here" || fail "stand-in idols"
+insert into public.groups (name, slug, fandom_name, display_color, text_color, record_label, generation, site_id)
+select 'Stand-in ' || i, 'stand-in-' || i, 'fans ' || i, '#000000', '#FFFFFF', 'Label ' || i, '4th', 'kpop' from generate_series(1, 6) as i;
+insert into public.idols (group_id, name, name_romanized, birth_date, nationality, positions, gender, debut_year, active, needs_review, ord, origin, created_at, updated_at)
+select (select id from public.groups where slug = 'stand-in-' || (1 + i % 6)), 'Stand-in idol ' || i, 'Stand-in idol ' || i, make_date(1995 + i % 8, 3, 1), 'South Korea', '{}'::text[], case when i % 2 = 0 then 'female' else 'male' end, 2015 + i % 8, true, false, i, 'wikidata', now(), now()
+from generate_series(1, 60) as i;
+SQL
+part J5 0 "ok | otakudle : la banque tient 365 jours | 365"
+part J5 0 "ok | kpopdle-idol : la banque tient 365 jours | 365"; again J5 0 "ok | otakudle : cibles possibles, au moins le minimum du jeu | 118"
+part J5 0 "ok | dle_day kpopdle-idol répond"
 part J4 0 "terminée : tout est OK" $STAND
 leaks="$(cat "$WORK"/out-*.txt | grep -v '^Journal complet' | grep -ciE '@|[0-9a-f]{8}-[0-9a-f]{4}-' || true)"
 [ "$leaks" = 0 ] && pass "no e-mail or id printed by any part" || fail "$leaks printed line(s) hold an e-mail or an id"

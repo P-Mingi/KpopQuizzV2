@@ -3,7 +3,7 @@
 # in order with psql and ON_ERROR_STOP, runs the checks of each file right after it (VERIFY.md, as OK or KO lines), and stops
 # at the first difference. It prints OK or KO, file names and counts: never a name, an e-mail, a key or the connection string.
 #
-#     bash docs/launch/o1/session.sh B1            (the parts: B1 B2 B3 D E1 E2 G J1 J2 J3 J4; OWNER-NOW.md says when)
+#     bash docs/launch/o1/session.sh B1            (the parts: B1 B2 B3 D E1 E2 G J1 J2 J3 J4 J5; OWNER-NOW.md says when)
 #     bash docs/launch/o1/session.sh B1 --dry-run  (prints the plan of the part, touches nothing, needs no database)
 #
 # Before it: the backup line of the session (OWNER-NOW.md), in the same terminal. It exports PROD_DB_URL; this script reads it
@@ -55,8 +55,8 @@ stop() {
 # ------------------------------------------------------------------------------------------------------------------------
 # Guards
 
-usage() { say "usage: bash docs/launch/o1/session.sh B1|B2|B3|D|E1|E2|G|J1|J2|J3|J4 [--dry-run]"; exit 2; }
-case "$PART" in B1|B2|B3|D|E1|E2|G|J1|J2|J3|J4) ;; *) usage ;; esac
+usage() { say "usage: bash docs/launch/o1/session.sh B1|B2|B3|D|E1|E2|G|J1|J2|J3|J4|J5 [--dry-run]"; exit 2; }
+case "$PART" in B1|B2|B3|D|E1|E2|G|J1|J2|J3|J4|J5) ;; *) usage ;; esac
 
 utc_hm() { date -u +%H%M; }
 guard() {
@@ -150,6 +150,17 @@ PY
   printf '%s\n' "$out" | sed 's/^/     /'
   printf '%s\n' "$out" | grep -qE '^KO ' && stop "contenu : un nombre ne correspond pas à expected-counts.json."
   return 0
+}
+
+# dle_day_answers: each game of J5 answers its public function, as the browser calls it (role anon). The number of the day only; with no token there is no play and no target.
+dle_day_answers() {
+  if [ "$DRY" = 1 ]; then say "     vérif dle_day : les deux jeux répondent"; return; fi
+  local g no
+  for g in kpopdle-idol otakudle; do
+    no="$(q "set local role anon; select public.dle_day('$g') ->> 'game_no'")" || stop "dle_day $g ne répond pas ($(tail -1 "$LOG" | sed -E 's/^.*ERROR: +//' | cut -c1-160))."
+    case "$no" in ''|*[!0-9]*) stop "dle_day $g : réponse inattendue." ;; esac
+    say "     ok | dle_day $g répond : partie n° | $no"
+  done
 }
 
 # ------------------------------------------------------------------------------------------------------------------------
@@ -294,6 +305,7 @@ part_G() {
   apply single "$K1C_SQL";                  check "$C/V-K1c.sql"
   apply single "$K1B_SQL";                  check "$C/V-K1b.sql"
   apply single "$M/022-photos-admin.sql";   check "$C/V-022.sql"
+  apply single "$M/023-dle-otakudle.sql";   check "$C/V-023.sql"
   apply single "$M/012-editorial-quiz.sql"; check "$C/V-012.sql"
   apply single "$M/013-formats.sql";        check "$C/V-013.sql"
   apply single "$M/014-daily-openings.sql"; check "$C/V-014.sql"
@@ -329,9 +341,18 @@ part_J3() {
 }
 part_J4() {
   apply single "$L/L12-L1-sites-live.sql";  check "$C/V-L12.sql"
-  apply single "$A1_SQL";                   content 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+  # 023 again: the game row needs the anime site of L01, absent in session G (the file's header, CR-017). It changes nothing else.
+  apply single "$M/023-dle-otakudle.sql";   check "$C/V-023.sql"
+  apply single "$A1_SQL";                   check "$C/V-L13.sql"; content 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
   vs4
-  NEXT="toi : le quiz du jour (étape 52), puis la vraie partie (53)."
+  NEXT="J5 : Otakudle s'allume (étape 51 bis). Puis toi : le quiz du jour (étape 52), puis la vraie partie (53)."
+}
+part_J5() {
+  check "$C/V-L13.sql"
+  apply single "$L/L14-O1-dle-on.sql";      check "$C/V-L14.sql"; check "$C/V-023.sql"; check "$C/V-DLE-KEPT.sql"
+  dle_day_answers
+  vs4
+  NEXT="toi : le quiz du jour (étape 52), puis la vraie partie (53). Le drapeau dailyGuess reste éteint jusqu'à la PR du jour J (RUNBOOK K8c) : les pages répondent 404 d'ici là."
 }
 
 # ------------------------------------------------------------------------------------------------------------------------

@@ -38,6 +38,8 @@ and is not a cross-site link in this sense. On top of the rows:
 | dle-game-fr | hub | /fr/kpopdle/** | kpop, anime | /** | followed | no | (none) | CR-013; as dle-game, in French |
 | kpopdle-home | kpop | / | hub | /kpopdle | followed | no | 1 | CR-018; the Kpopdle module of the kpopquiz.org home, its Play link; flag NET_KPOPDLE_HOME with the hub's dailyGuess |
 | kpopdle-home-daily | kpop | / | hub | /daily | followed | no | 1 | CR-018; the same module, its All daily games link; same flags |
+| dle-otakudle | hub | /otakudle/** | kpop, anime | /** | followed | no | (none) | CR-017; /otakudle: yesterday's answer and the result, the quiz of the series; with the flag on |
+| dle-otakudle-fr | hub | /fr/otakudle/** | kpop, anime | /** | followed | no | (none) | CR-017; as dle-otakudle, in French |
 
 Page and href patterns: `*` any page, `/x/**` the path `/x` and everything below it, otherwise the exact path; `(none
 yet)` is `null` in the JSON (the row admits nothing until a CR names the page). The copy of each line is Q's (B01, B02,

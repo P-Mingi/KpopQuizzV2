@@ -14,7 +14,7 @@ Objectif « moins de 5 h » tenu, de justesse, si les deux étapes « si besoin 
 - Sous chaque titre : qui fait quoi, et combien de temps. Un bloc = une commande : copie-le en entier, dans le Terminal, depuis le dossier du dépôt. `read -rs` n'affiche rien pendant que tu colles : appuie sur Entrée.
 - Après chaque collage, écris dans le chat « collé n° X ». Claude (ou le worker) vérifie et répond OK avant la suite. Une sortie avec `ERROR` : ne lance rien d'autre, colle la sortie dans le chat. Chaque fichier se rejoue sans risque.
 - Heures en UTC (Paris en hiver : UTC + 1). Jamais de SQL entre 23:50 et 00:30. Une session SQL par phase, une sauvegarde au début de chaque session, les fichiers dans l'ordre de `SQL-ORDER.md`.
-- Le SQL passe par une seule commande par partie de session, `bash docs/launch/o1/session.sh <partie>` (B1, B2, B3, D, E1, E2, G, J1 à J4), dans le terminal ouvert par la sauvegarde de la session : la sauvegarde exporte la chaîne de connexion, la commande la lit. Elle applique les fichiers dans l'ordre de `SQL-ORDER.md` avec psql, lance après chacun ses vérifications, n'affiche que OK ou KO et des comptes (jamais un nom, un e-mail ni une clé), et s'arrête au premier KO. Elle se relance sans risque depuis le début de la partie : un fichier déjà appliqué ne change rien la seconde fois. Le détail complet va dans `~/kpq-launch/logs`, sur ta machine seulement. Terminal fermé en cours de session : relance seulement cette ligne, puis la commande de la partie.
+- Le SQL passe par une seule commande par partie de session, `bash docs/launch/o1/session.sh <partie>` (B1, B2, B3, D, E1, E2, G, J1 à J5), dans le terminal ouvert par la sauvegarde de la session : la sauvegarde exporte la chaîne de connexion, la commande la lit. Elle applique les fichiers dans l'ordre de `SQL-ORDER.md` avec psql, lance après chacun ses vérifications, n'affiche que OK ou KO et des comptes (jamais un nom, un e-mail ni une clé), et s'arrête au premier KO. Elle se relance sans risque depuis le début de la partie : un fichier déjà appliqué ne change rien la seconde fois. Le détail complet va dans `~/kpq-launch/logs`, sur ta machine seulement. Terminal fermé en cours de session : relance seulement cette ligne, puis la commande de la partie.
 ```
 export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL
 ```
@@ -262,10 +262,10 @@ git checkout main && git pull --ff-only
 export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
 ```
 
-### 31. G : 011, 018, 019, 020, les trois fichiers du lot K1, 022, puis 012 à 017
+### 31. G : 011, 018, 019, 020, les trois fichiers du lot K1, 022, 023, puis 012 à 017
 Moi 5 min, Claude 8 min. [RUNBOOK G1, G2](RUNBOOK.md#g-p5-011-to-017)
 
-Une commande, dans cet ordre (décision du 2026-10-30) : 011, 018, 019 et 020 (le socle des jeux du jour, éteint), les trois fichiers du lot K1 (`021a-k1-idol-gender-debut.sql` : genre et année de début des idols ; `021c-k1-idol-corrections.sql` : années de début, QID, et les dates de naissance de Changbin et I.N, seule correction visible sur kpopquiz.org ; `021b-k1-idol-activate.sql` : liste vide en session G, il n'active personne ; l'activation vient après, sur une liste que tu coches), 022 (photos et admin : les tables des agences et des images du site, fermées au navigateur), 012, 013, 014, 015, puis 016 et 017 si `admin_delete_account` existe (sinon elle s'arrête avant 016), et V-S4. Si 013 s'arrête sur un nom de `game_type` : ne touche pas au fichier, colle la sortie, Claude s'en occupe.
+Une commande, dans cet ordre (décision du 2026-10-30) : 011, 018, 019 et 020 (le socle des jeux du jour, éteint), les trois fichiers du lot K1 (`021a-k1-idol-gender-debut.sql` : genre et année de début des idols ; `021c-k1-idol-corrections.sql` : années de début, QID, et les dates de naissance de Changbin et I.N, seule correction visible sur kpopquiz.org ; `021b-k1-idol-activate.sql` : liste vide en session G, il n'active personne ; l'activation vient après, sur une liste que tu coches), 022 (photos et admin : les tables des agences et des images du site, fermées au navigateur), 023 (Otakudle : les tables des faits et la vue, fermées au navigateur, sans le jeu qui attend le site anime de L01), 012, 013, 014, 015, puis 016 et 017 si `admin_delete_account` existe (sinon elle s'arrête avant 016), et V-S4. Si 013 s'arrête sur un nom de `game_type` : ne touche pas au fichier, colle la sortie, Claude s'en occupe.
 ```
 bash docs/launch/o1/session.sh G
 ```
@@ -437,13 +437,31 @@ PASSPORT_JUMP
 https://kpopquiz.org/auth/passport/out?to=anime
 ```
 
-### 51. J4 : L12 (les sites passent en ligne), puis le SQL du lot A1
+### 51. J4 : L12 (les sites passent en ligne), 023 une seconde fois, puis le SQL du lot A1
 Moi 2 min, Claude 3 min. [RUNBOOK K8](RUNBOOK.md#k-launch-day)
 
-La commande applique L12, vérifie que `kpop`, `anime` et `hub` sont `live`, puis le fichier du lot A1 (`L13-A1-character-facts.sql` : les faits des personnages pour Otakudle, après les fichiers de lancement), revérifie tout le contenu et V-S4. Tant que le fichier du lot A1 n'est pas sur main, elle s'arrête sur lui, après L12.
+La commande applique L12, vérifie que `kpop`, `anime` et `hub` sont `live`, relance 023 (la ligne du jeu `otakudle`, éteinte : maintenant que le site anime existe), puis le fichier du lot A1 (`L13-A1-character-facts.sql` : les faits des personnages pour Otakudle, après les fichiers de lancement), lance sa vérification (dont 118 personnages avec les 7 colonnes), revérifie tout le contenu et V-S4. Tant que le fichier du lot A1 n'est pas sur main, elle s'arrête sur lui, après L12.
 ```
 bash docs/launch/o1/session.sh J4
 ```
+
+### 51 bis. J5 : Kpopdle Idol et Otakudle s'allument
+Moi 1 min, Claude 1 min. [RUNBOOK K8b](RUNBOOK.md#k-launch-day)
+
+La commande revérifie les faits, lance `dle_activate` pour les deux jeux : chacun reçoit sa date de départ et sa banque de 365 jours, une seule fois. Elle vérifie aussi que chaque jeu répond. Les nombres s'impriment, jamais un nom.
+```
+bash docs/launch/o1/session.sh J5
+```
+**La date de départ (l'epoch)**, c'est le jour de la partie n° 1 : aujourd'hui en UTC, le jour de cette commande. Elle ne bouge plus ensuite, et le numéro de chaque jour se compte depuis elle. Lance donc J5 le jour où les jeux ouvrent : si le drapeau arrive deux jours après, les premiers joueurs voient le n° 3.
+
+Si un jeu a moins de 40 cibles, la commande s'arrête, dit lequel et combien, et aucun des deux jeux ne change. Pour Kpopdle, 021c fait passer le pool de 87 à 108 d'après la photo de production : `V-L14` imprime le vrai nombre, lis-le.
+
+Les pages restent en 404 jusqu'à la PR du jour J (51 ter).
+
+### 51 ter. La PR du jour J : `dailyGuess` à true
+Moi 2 min, Claude 5 min. [RUNBOOK K8c](RUNBOOK.md#k-launch-day)
+
+C'est une constante du code : seule une PR l'allume, après J5. On y va seulement si `V-L14` est ok sur les deux jeux, si `dle_day` répond pour les deux (les deux lignes de J5) et si `/otakudle` et `/kpopdle` sont dans le build de cette PR. Sinon la PR attend : les joueurs ne voient rien de changé.
 
 ### 52. Le quiz du jour
 Moi 6 min, Worker 5 min, Claude 3 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)

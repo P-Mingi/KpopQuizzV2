@@ -260,7 +260,7 @@ describe('the bank of 365 days', () => {
       expect(await one(db, `select count(*)::int from public.dle_schedule where game_id = 'syn'`)).toBe(365);
       expect(await windowBreaks(db, 'syn', win)).toBe(0);
     }
-  }, 60_000);
+  });
 
   it('the same seed draws the same bank; another seed another one', async () => {
     const db = await freshDb();
@@ -273,7 +273,7 @@ describe('the bank of 365 days', () => {
     const a = await draw(0.3);
     expect(await draw(0.3)).toBe(a);
     expect(await draw(0.31)).not.toBe(a);
-  }, 60_000);
+  });
 
   it('a group (balance key) comes back within 14 days on at most 2 % of the days, around the cycle (a preference, not a rule)', async () => {
     const db = await freshDb();
@@ -290,7 +290,7 @@ describe('the bank of 365 days', () => {
       // Measured on nine seeds: 1 to 5 days of 365, all at the end of the last block or across the start of the cycle.
       expect(close, `seed ${seed}`).toBeLessThanOrEqual(7);
     }
-  }, 60_000);
+  });
 
   it('a target that is not complete, excluded or out of the pool is never drawn; a weight changes the odds', async () => {
     const db = await freshDb();

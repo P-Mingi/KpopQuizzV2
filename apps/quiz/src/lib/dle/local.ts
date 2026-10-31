@@ -16,6 +16,7 @@ export interface KeyStore {
 const K_TOKEN = 'dle:v1:token';
 const K_HISTORY = 'dle:v1:history';
 const K_SETTINGS = 'dle:v1:settings';
+const K_PROGRESS = 'dle:v1:progress';
 
 function readJson(store: KeyStore, key: string): unknown {
   try {
@@ -172,6 +173,25 @@ export function languageTarget(choice: LangChoice, browserLanguage: string | und
   return wanted === current ? null : wanted;
 }
 
+// ---- "How far are you?" (board Otakudle.dc.html) ----------------------------------------------------------------------------------
+
+export type DleProgress = 'anime' | 'manga' | 'beginner';
+export const DEFAULT_PROGRESS: DleProgress = 'anime';
+
+export function readProgress(store: KeyStore): DleProgress {
+  let raw: string | null = null;
+  try { raw = store.getItem(K_PROGRESS); } catch { raw = null; }
+  return raw === 'manga' || raw === 'beginner' || raw === 'anime' ? raw : DEFAULT_PROGRESS;
+}
+export function writeProgress(store: KeyStore, p: DleProgress): void {
+  write(store, K_PROGRESS, p);
+}
+
+/** May this player see this entity? attrs.seen_at (023) lists the answers that may; a game without it (Kpopdle) hides nobody. The rule is the server's, this only reads it. */
+export function seenAt(seen: unknown, p: DleProgress): boolean {
+  return !Array.isArray(seen) || seen.includes(p);
+}
+
 // ---- transfer and erase ---------------------------------------------------------------------------------------------------------
 
 /** The stats of this device as text, to paste on another device (board: "Transférer mes données"). */
@@ -193,7 +213,7 @@ export function importData(store: KeyStore, text: string): boolean {
 }
 
 export function eraseData(store: KeyStore): void {
-  for (const k of [K_HISTORY, K_SETTINGS, K_TOKEN]) {
+  for (const k of [K_HISTORY, K_SETTINGS, K_TOKEN, K_PROGRESS]) {
     try { store.removeItem(k); } catch { /* nothing to erase */ }
   }
 }

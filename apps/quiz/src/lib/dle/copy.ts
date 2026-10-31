@@ -1,6 +1,7 @@
 // Daily games step 4: every word of the Terrier and of the game pages, in the two languages (v2 section 4). The French is for the owner to read (rule 10: DLE_FR_REVIEWED in
 // seo.ts stays false until then). Names of idols, groups and songs are never translated; values of the columns are, through valueLabel. No number is typed here:
 // every count arrives as an argument, from the functions of Postgres.
+import type { DleProgress } from './local';
 import type { DleLocale } from './types';
 
 export interface DleCopy {
@@ -74,12 +75,12 @@ const EN: DleCopy = {
   streakChip: (l, n) => `${l} streak: ${n} ${n === 1 ? 'day' : 'days'}`, bars: 'Right cells on each guess', shareTitle: 'Your share, without the answer', copy: 'Copy', copied: 'Copied', share: 'Share',
   whatNow: 'What next', backToBurrow: 'Back to the Burrow', onKpopQuiz: 'On KpopQuiz', photoBy: (a, l) => `Photo: ${a}, ${l}`, source: 'Source', noPhoto: 'No licensed photo yet, so we show the initials.',
   yesterdayLine: 'Yesterday’s idol:', howTitle: 'How to play Kpopdle Idol?',
-  how1: 'Type an idol’s name and confirm. Each cell compares one clue with the idol of the day: full when right, striped when close, grey when wrong. An arrow says whether the answer’s year is more recent or older. Hints open after 5, 8 and 12 mistakes.',
+  how1: 'Type an idol’s name and confirm. Each cell compares one clue with the idol of the day: full when right, striped when close, grey when wrong. An arrow says whether the answer’s year is more recent or older. Hints open after 5 and 12 mistakes.',
   how2: 'Only adult idols of major groups are in the game. Every photo is licensed and credited; without a licence, we show the initials.',
   thCell: 'Cell', thNear: 'Close if', thSource: 'Source',
   unavailable: 'Today’s game is not available right now. Come back in a moment.', errorRate: 'Too many guesses in a minute. Wait a little and try again.', errorNetwork: 'The connection failed. Try again.', errorUnknown: 'This name is not in the game.', errorNewDay: 'A new day has started. Reload the page for the new puzzle.', errorTooMany: 'That is the most guesses a day can hold.',
   poolTitle: 'The idols in the game', poolHead: ['Group', 'Idols'],
-  dlgHow: 'How to play', dlgHow1: 'Type an idol and confirm. A row of cells appears.', dlgHow2: 'Each cell compares one clue with the idol of the day.', dlgHow3: 'Unlimited guesses. Hints open after 5, 8 and 12 mistakes.',
+  dlgHow: 'How to play', dlgHow1: 'Type an idol and confirm. A row of cells appears.', dlgHow2: 'Each cell compares one clue with the idol of the day.', dlgHow3: 'Unlimited guesses. Hints open after 5 and 12 mistakes.',
   dlgRight: 'Right. The same value.', dlgNear: 'Close. A year or two off, or the same parent.', dlgWrong: 'Wrong. Nothing in common.', dlgArrow: 'Arrow. The answer is more recent.', dlgUnknown: 'Not comparable. The data is missing.',
   dlgFoot: 'A new idol every day at midnight UTC, the same for everyone. The data comes from Wikidata, MusicBrainz and official sites.',
   dlgStats: 'Your statistics', sPlays: 'Plays', sWins: 'Wins', sAvg: 'Average guesses', sFirst: 'First try', sStreak: 'Current streak', sBest: 'Best streak', sHist: 'Guesses per win',
@@ -119,12 +120,12 @@ const FR: DleCopy = {
   streakChip: (l, n) => `Série ${l} : ${n} ${n === 1 ? 'jour' : 'jours'}`, bars: 'Cases justes à chaque essai', shareTitle: 'Ton partage, sans la réponse', copy: 'Copier', copied: 'Copié', share: 'Partager',
   whatNow: 'Et maintenant', backToBurrow: 'Retour au Terrier', onKpopQuiz: 'Sur KpopQuiz', photoBy: (a, l) => `Photo : ${a}, ${l}`, source: 'Source', noPhoto: 'Pas encore de photo sous licence : on garde les initiales.',
   yesterdayLine: 'L’idol d’hier :', howTitle: 'Comment jouer à Kpopdle Idol ?',
-  how1: 'Tape le nom d’une idol et valide. Chaque case compare un indice avec l’idol du jour : pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Une flèche indique si l’année de la réponse est plus récente ou plus ancienne. Les indices s’ouvrent après 5, 8 et 12 erreurs.',
+  how1: 'Tape le nom d’une idol et valide. Chaque case compare un indice avec l’idol du jour : pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Une flèche indique si l’année de la réponse est plus récente ou plus ancienne. Les indices s’ouvrent après 5 et 12 erreurs.',
   how2: 'Seules les idols adultes des groupes majeurs entrent dans le jeu. Les photos sont toutes sous licence et créditées ; sans licence, on affiche les initiales.',
   thCell: 'Case', thNear: 'Proche si', thSource: 'Source',
   unavailable: 'Le jeu du jour n’est pas disponible pour le moment. Reviens dans un instant.', errorRate: 'Trop d’essais en une minute. Attends un peu et réessaie.', errorNetwork: 'La connexion a échoué. Réessaie.', errorUnknown: 'Ce nom n’est pas dans le jeu.', errorNewDay: 'Un nouveau jour a commencé. Recharge la page pour la nouvelle énigme.', errorTooMany: 'C’est le maximum d’essais pour une journée.',
   poolTitle: 'Les idols du jeu', poolHead: ['Groupe', 'Idols'],
-  dlgHow: 'Comment jouer', dlgHow1: 'Tape une idol et valide. Une ligne de cases apparaît.', dlgHow2: 'Chaque case compare un indice avec l’idol du jour.', dlgHow3: 'Essais illimités. Les indices s’ouvrent après 5, 8 et 12 erreurs.',
+  dlgHow: 'Comment jouer', dlgHow1: 'Tape une idol et valide. Une ligne de cases apparaît.', dlgHow2: 'Chaque case compare un indice avec l’idol du jour.', dlgHow3: 'Essais illimités. Les indices s’ouvrent après 5 et 12 erreurs.',
   dlgRight: 'Juste. La même valeur.', dlgNear: 'Proche. Un an ou deux d’écart, ou la même maison mère.', dlgWrong: 'Faux. Rien en commun.', dlgArrow: 'Flèche. La réponse est plus récente.', dlgUnknown: 'Non comparable. La donnée est absente.',
   dlgFoot: 'Nouvelle idol chaque jour à minuit UTC, la même pour tout le monde. Les données viennent de Wikidata, MusicBrainz et des sites officiels.',
   dlgStats: 'Tes statistiques', sPlays: 'Parties', sWins: 'Victoires', sAvg: 'Essais en moyenne', sFirst: 'Du premier coup', sStreak: 'Série en cours', sBest: 'Meilleure série', sHist: 'Essais par victoire',
@@ -164,8 +165,8 @@ export const IDOL_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<string, Dl
 };
 
 export const HINT_LABELS: Readonly<Record<DleLocale, Readonly<Record<string, string>>>> = {
-  en: { fandom: 'The group’s fandom', debut_song: 'The group’s debut title', initial: 'First letter of the stage name' },
-  fr: { fandom: 'Fandom du groupe', debut_song: 'Titre de début du groupe', initial: 'Initiale du nom de scène' },
+  en: { fandom: 'The group’s fandom', initial: 'First letter of the stage name' },
+  fr: { fandom: 'Fandom du groupe', initial: 'Initiale du nom de scène' },
 };
 
 const COUNTRY_FR: Readonly<Record<string, string>> = {
@@ -173,6 +174,13 @@ const COUNTRY_FR: Readonly<Record<string, string>> = {
   'united states': 'États-Unis', usa: 'États-Unis', canada: 'Canada', 'new zealand': 'Nouvelle-Zélande', vietnam: 'Vietnam', indonesia: 'Indonésie', germany: 'Allemagne', brazil: 'Brésil',
   'hong kong': 'Hong Kong', philippines: 'Philippines', france: 'France', 'united kingdom': 'Royaume-Uni', malaysia: 'Malaisie', singapore: 'Singapour', macau: 'Macao',
 };
+
+const ROLE_FR: Readonly<Record<string, string>> = { main: 'Principal', supporting: 'Secondaire', antagonist: 'Antagoniste', other: 'Autre' };
+const SPECIES_FR: Readonly<Record<string, string>> = {
+  human: 'Humain', demon: 'Démon', curse: 'Fléau', panda: 'Panda', saiyan: 'Saiyan', pig: 'Cochon', creature: 'Créature', shinigami: 'Shinigami', quincy: 'Quincy',
+  'mod-soul': 'Âme modifiée', hybrid: 'Hybride', devil: 'Diable', fiend: 'Fiend', elf: 'Elfe', dwarf: 'Nain',
+};
+const DEMOGRAPHIC: Readonly<Record<string, string>> = { shonen: 'Shōnen', shojo: 'Shōjo', seinen: 'Seinen', josei: 'Josei', kodomo: 'Kodomo' };
 
 /** The words of one value of a column in a locale; names stay as they are. "" when the value is missing. */
 export function valueLabel(key: string, v: unknown, locale: DleLocale): string {
@@ -182,6 +190,7 @@ export function valueLabel(key: string, v: unknown, locale: DleLocale): string {
   if (key === 'gender') return s === 'female' ? (locale === 'fr' ? 'Femme' : 'Woman') : s === 'male' ? (locale === 'fr' ? 'Homme' : 'Man') : s;
   if (key === 'role') {
     if (s === 'none') return locale === 'fr' ? 'Aucun' : 'None';
+    if (locale === 'fr' && ROLE_FR[s]) return ROLE_FR[s]!;
     return s.charAt(0).toUpperCase() + s.slice(1);
   }
   if (key === 'generation') {
@@ -190,6 +199,8 @@ export function valueLabel(key: string, v: unknown, locale: DleLocale): string {
     return `${s}${n === 1 ? 'st' : n === 2 ? 'nd' : n === 3 ? 'rd' : 'th'}`;
   }
   if (key === 'nationality' && locale === 'fr') return COUNTRY_FR[s.toLowerCase()] ?? s;
+  if (key === 'species') return (locale === 'fr' ? SPECIES_FR[s] : undefined) ?? (s.charAt(0).toUpperCase() + s.slice(1)).replace(/-/g, ' ');
+  if (key === 'demographic') return s === 'none' ? (locale === 'fr' ? 'Aucune' : 'None') : DEMOGRAPHIC[s] ?? s;
   return s;
 }
 
@@ -205,6 +216,20 @@ export interface DleGameCopy {
   readonly stepsLabel: string; readonly stepDone: string; readonly yesterdayLine: string; readonly howTitle: string; readonly how1: string; readonly how2: string;
   readonly poolTitle: string; readonly poolHead: readonly [string, string];
   readonly dlgHow1: string; readonly dlgHow2: string; readonly dlgHow3: string; readonly dlgFoot: string;
+  /** The column on the second line of a suggestion, after subKey. */
+  readonly suggestSecond: string;
+  /** The language of a native name in a suggestion; null: it is not shown. */
+  readonly nativeLang: 'ko' | null;
+  /** The name before the number of the day; default: the brand and the step. */
+  readonly noLabel?: string;
+  /** "How far are you?", for a game with spoilers. */
+  readonly progress?: {
+    readonly question: string; readonly legend: string;
+    readonly options: readonly { readonly id: DleProgress; readonly label: string; readonly help: string }[];
+  };
+  readonly noPhoto?: string; readonly found?: string; readonly dlgNear?: string; readonly dlgSamples?: readonly [string, string, string]; readonly streakSr?: string;
+  /** Yesterday's answer stays closed behind this, for a game with spoilers. The name is in the HTML of the fold. */
+  readonly yesterdayShow?: string;
 }
 
 const idolWords = (locale: DleLocale): DleGameCopy => {
@@ -221,10 +246,89 @@ const idolWords = (locale: DleLocale): DleGameCopy => {
     stepsLabel: t.stepsLabel, stepDone: t.stepDone, yesterdayLine: t.yesterdayLine, howTitle: t.howTitle, how1: t.how1, how2: t.how2,
     poolTitle: t.poolTitle, poolHead: t.poolHead,
     dlgHow1: t.dlgHow1, dlgHow2: t.dlgHow2, dlgHow3: t.dlgHow3, dlgFoot: t.dlgFoot,
+    suggestSecond: 'agency', nativeLang: 'ko',
   };
 };
 
-const GAME_WORDS: Readonly<Partial<Record<string, (locale: DleLocale) => DleGameCopy>>> = { 'kpopdle-idol': idolWords };
+export const OTAKUDLE_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<string, DleColumnCopy>>>> = {
+  en: {
+    series: { label: 'Series', help: 'The series of the character', near: 'same franchise', source: 'Wikidata, Wikipedia' },
+    gender: { label: 'Gender', help: 'As the series presents them first', near: 'never', source: 'Wikidata, Wikipedia' },
+    species: { label: 'Species', help: 'As shown first, or the one everyone knows', near: 'never', source: 'Wikidata, Wikipedia' },
+    role: { label: 'Role at the start', help: 'Main, supporting, antagonist or other, at the first appearance', near: 'never', source: 'Wikidata, Wikipedia' },
+    demographic: { label: 'Demographic', help: 'The audience of the original work', near: 'never', source: 'Wikidata, Wikipedia' },
+    year: { label: 'Debut year', help: 'Year of the work, close within 2 years', near: '2 years apart at most', source: 'Wikidata, Wikipedia' },
+    studio: { label: 'Studio', help: 'Studio of the first adaptation, close if one in common', near: 'one studio in common', source: 'Wikidata, Wikipedia' },
+  },
+  fr: {
+    series: { label: 'Série', help: 'La série du personnage', near: 'même franchise', source: 'Wikidata, Wikipedia' },
+    gender: { label: 'Genre', help: 'Tel que la série le présente d’abord', near: 'jamais', source: 'Wikidata, Wikipedia' },
+    species: { label: 'Espèce', help: 'Celle montrée d’abord, ou celle que tout le monde connaît', near: 'jamais', source: 'Wikidata, Wikipedia' },
+    role: { label: 'Rôle au début', help: 'Principal, secondaire, antagoniste ou autre, à la première apparition', near: 'jamais', source: 'Wikidata, Wikipedia' },
+    demographic: { label: 'Démographie', help: 'Le public de l’œuvre d’origine', near: 'jamais', source: 'Wikidata, Wikipedia' },
+    year: { label: 'Année de début', help: 'Année de l’œuvre, proche à 2 ans', near: '2 ans d’écart au plus', source: 'Wikidata, Wikipedia' },
+    studio: { label: 'Studio', help: 'Studio de la première adaptation, proche si un en commun', near: 'un studio en commun', source: 'Wikidata, Wikipedia' },
+  },
+};
+
+const OTAKUDLE_HINTS: Readonly<Record<DleLocale, Readonly<Record<string, string>>>> = {
+  en: { first_appearance: 'First appearance', voice_actor_ja: 'Japanese voice actor', initial: 'First letter of the name' },
+  fr: { first_appearance: 'Première apparition', voice_actor_ja: 'Doubleur japonais', initial: 'Initiale du nom' },
+};
+
+const otakudleWords = (locale: DleLocale): DleGameCopy => {
+  const base = { subKey: 'series', columns: OTAKUDLE_COLUMNS[locale], hints: OTAKUDLE_HINTS[locale], suggestSecond: 'studio', nativeLang: null, noLabel: 'Otakudle' };
+  if (locale === 'fr') {
+    return {
+      ...base,
+      h1: 'Devine le personnage d’anime du jour',
+      marquee: (no) => ['PERSONNAGE DU JOUR', '今日のキャラクター', `OTAKUDLE N° ${no}`, 'MÊME PERSONNAGE POUR TOUT LE MONDE', 'SANS SPOILER', 'NOUVEAU PERSONNAGE À MINUIT UTC'],
+      proposeLabel: 'Proposer un personnage', placeholder: 'Nom, prénom ou surnom, toutes séries', rowHead: 'Personnage', tableCaption: 'Comparaison de chaque essai avec le personnage du jour',
+      empty: 'Propose un premier personnage pour voir les cases se remplir.', nextIn: 'nouveau personnage dans',
+      stepsLabel: 'Les jeux Otakudle', stepDone: 'trouvé', yesterdayLine: 'Le personnage d’hier :', howTitle: 'Comment jouer à Otakudle ?',
+      how1: 'Otakudle est un jeu quotidien : propose un personnage, chaque case compare un indice avec la réponse du jour : la série, le genre, l’espèce, le rôle, la démographie, l’année de début et le studio. Pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Les indices s’ouvrent après 5, 8 et 12 erreurs.',
+      how2: 'Les valeurs sont celles de la première apparition du personnage, sauf l’espèce de quelques personnages, donnée telle que tout le monde la connaît. Aucune colonne ne dit qui est vivant ou mort. Aucun visuel de personnage sans licence.',
+      poolTitle: 'Les personnages du jeu', poolHead: ['Série', 'Personnages'],
+      dlgHow1: 'Tape un personnage et valide. Une ligne de cases apparaît.', dlgHow2: 'Chaque case compare un indice avec le personnage du jour.', dlgHow3: 'Essais illimités. Les indices s’ouvrent après 5, 8 et 12 erreurs.',
+      dlgFoot: 'Nouveau personnage chaque jour à minuit UTC, le même pour tout le monde. Les données viennent de Wikidata et de Wikipedia.',
+      progress: {
+        question: 'Où en es-tu ?', legend: 'Où en es-tu ? Les personnages arrivés après ton avancée ne sortent ni comme réponse, ni dans la liste.',
+        options: [
+          { id: 'anime', label: 'Anime', help: 'Jusqu’au dernier épisode diffusé' },
+          { id: 'manga', label: 'Manga', help: 'Jusqu’au dernier tome paru' },
+          { id: 'beginner', label: 'Je débute', help: 'Seulement les personnages des premiers arcs' },
+        ],
+      },
+      noPhoto: 'Pas d’image du personnage : les visuels d’anime appartiennent aux studios. On en affichera seulement avec une licence écrite.',
+      found: 'Trouvé !', dlgNear: 'Proche. Deux ans d’écart au plus, un studio en commun, ou la même franchise.', dlgSamples: ['MAPPA', '2018', 'Bones'], streakSr: 'de série anime', yesterdayShow: 'Afficher, sans spoiler',
+    };
+  }
+  return {
+    ...base,
+    h1: 'Guess the anime character of the day',
+    marquee: (no) => ['CHARACTER OF THE DAY', '今日のキャラクター', `OTAKUDLE NO. ${no}`, 'THE SAME CHARACTER FOR EVERYONE', 'NO SPOILERS', 'NEW CHARACTER AT MIDNIGHT UTC'],
+    proposeLabel: 'Propose a character', placeholder: 'Name or nickname, all series', rowHead: 'Character', tableCaption: 'Each guess compared with the character of the day',
+    empty: 'Propose a first character to see the cells fill up.', nextIn: 'next character in',
+    stepsLabel: 'The Otakudle games', stepDone: 'found', yesterdayLine: 'Yesterday’s character:', howTitle: 'How to play Otakudle?',
+    how1: 'Otakudle is a daily game: propose a character, and each cell compares one clue with the answer of the day: series, gender, species, role, demographic, debut year and studio. Full when right, striped when close, grey when wrong. Hints open after 5, 8 and 12 mistakes.',
+    how2: 'The values are those of the character’s first appearance, except the species of a few characters, given as everyone knows it. No column says who is alive or dead. No character art without a licence.',
+    poolTitle: 'The characters in the game', poolHead: ['Series', 'Characters'],
+    dlgHow1: 'Type a character and confirm. A row of cells appears.', dlgHow2: 'Each cell compares one clue with the character of the day.', dlgHow3: 'Unlimited guesses. Hints open after 5, 8 and 12 mistakes.',
+    dlgFoot: 'A new character every day at midnight UTC, the same for everyone. The data comes from Wikidata and Wikipedia.',
+    progress: {
+      question: 'How far are you?', legend: 'How far are you? Characters who arrive after your progress never come up as the answer or in the list.',
+      options: [
+        { id: 'anime', label: 'Anime', help: 'Up to the latest episode aired' },
+        { id: 'manga', label: 'Manga', help: 'Up to the latest volume out' },
+        { id: 'beginner', label: 'Just starting', help: 'Only the characters of the first arcs' },
+      ],
+    },
+    noPhoto: 'No picture of the character: anime art belongs to the studios. We will show some only with a written licence.',
+    found: 'Found!', dlgNear: 'Close. Two years apart at most, one studio in common, or the same franchise.', dlgSamples: ['MAPPA', '2018', 'Bones'], streakSr: 'anime streak', yesterdayShow: 'Show, no spoilers',
+  };
+};
+
+const GAME_WORDS: Readonly<Partial<Record<string, (locale: DleLocale) => DleGameCopy>>> = { 'kpopdle-idol': idolWords, otakudle: otakudleWords };
 
 export function gameCopy(game: string, locale: DleLocale): DleGameCopy {
   const w = GAME_WORDS[game];
