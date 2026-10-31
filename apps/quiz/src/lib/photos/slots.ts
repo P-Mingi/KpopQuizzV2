@@ -124,6 +124,14 @@ export const IMAGE_SLOTS: readonly ImageSlot[] = [
   { key: 'home:cross-1', type: 'card_image', page: 'home', name: 'Crossover, vignette 1', where: 'homepage, rangée 3', bg: K_BG, accent: K_ACC, ratio: '3 / 2' },
   { key: 'home:cross-2', type: 'card_image', page: 'home', name: 'Crossover, vignette 2', where: 'homepage, rangée 3', bg: A_BG, accent: A_ACC, ratio: '3 / 2' },
   { key: 'home:cross-3', type: 'card_image', page: 'home', name: 'Crossover, vignette 3', where: 'homepage, rangée 3', bg: 'linear-gradient(120deg, #F1EFEA 0%, #FFF1E6 100%)', accent: '#1F1B17', ratio: '3 / 2' },
+  // The small image of each mode (v2 section 2 and 7.3): the round dots of the two games on the Terrier and the squares of "Your day". lib/dle/worlds.ts names them.
+  { key: 'daily:mode-idol', type: 'card_image', page: 'daily', name: 'Mode Idol du jour', where: 'Le Terrier, pastille et ligne', bg: K_BG, accent: K_ACC, ratio: '1 / 1' },
+  { key: 'daily:mode-group', type: 'card_image', page: 'daily', name: 'Mode Groupe du jour', where: 'Le Terrier, pastille et ligne', bg: K_BG, accent: K_ACC, ratio: '1 / 1' },
+  { key: 'daily:mode-song', type: 'card_image', page: 'daily', name: 'Mode Chanson du jour', where: 'Le Terrier, pastille et ligne', bg: K_BG, accent: K_ACC, ratio: '1 / 1' },
+  { key: 'daily:mode-hidden', type: 'card_image', page: 'daily', name: 'Mode Membres cachés', where: 'Le Terrier, pastille et ligne', bg: K_BG, accent: K_ACC, ratio: '1 / 1' },
+  { key: 'daily:mode-char', type: 'card_image', page: 'daily', name: 'Mode Personnage du jour', where: 'Le Terrier, pastille et ligne', bg: A_BG, accent: A_ACC, ratio: '1 / 1' },
+  { key: 'daily:mode-series', type: 'card_image', page: 'daily', name: 'Mode Série du jour', where: 'Le Terrier, pastille et ligne', bg: A_BG, accent: A_ACC, ratio: '1 / 1' },
+  { key: 'daily:mode-byseries', type: 'card_image', page: 'daily', name: 'Mode Un Otakudle par série', where: 'Le Terrier, pastille et ligne', bg: A_BG, accent: A_ACC, ratio: '1 / 1' },
 ];
 
 /** The site_assets key of each image slot of the home v3 (lib/site/hub/home-assets.ts reads them through site_assets_public). */

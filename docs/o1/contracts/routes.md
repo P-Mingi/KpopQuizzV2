@@ -209,6 +209,9 @@ BACKLOG; `/which-character/x` mirrors kpop's `/personality/x`): its page sets th
 | `/login` | `login/page.tsx` | H1 |
 | `/directory` | `directory/page.tsx` (optional, noindex, nofollow) | H1 |
 | `/credits` | `credits/page.tsx` at the root of `app/sites/[site]` (the licensed photos, daily games step 2; the same file serves OtakuQuiz's /credits and chooses by site; noindex while it lists nothing, NET_INDEXING otherwise; not in the sitemap, like OtakuQuiz's /credits) | H1 |
+| `/daily`, `/fr/daily` | `(hub)/burrow/page.tsx` (a rewrite of routing.ts: `/sites/[site]/daily` is the anime handler; `/burrow` is a 404), `(hub)/fr/daily/page.tsx`. In the route map, and reachable, only with the dailyGuess flag on (`hubRouteAllow` of registry.ts, `dleOpen`); off, a 404 | H1 |
+| `/kpopdle`, `/fr/kpopdle` | `(hub)/kpopdle/page.tsx`, `(hub)/fr/kpopdle/page.tsx`; with `?r={counts}`, `(hub)/dle-share/[locale]/[game]/[r]/page.tsx` by a rewrite on the query, canonical on the clean address (`/dle-share` is a 404). Only with the flag on; the next games join by a line in `DLE_BUILT_GAMES` of registry.ts | H1 |
+| `/fr/credits` | `(hub)/fr/credits/page.tsx`. Only with the flag on | H1 |
 | `/auth/*`, `/api/*` | shared handlers | B4, B6, B7 |
 | `/robots.txt`, `/sitemap.xml` (`/`, and `/privacy` and `/legal` once NET_INDEXING is on; while it is off they are noindex drafts, D-108, D-111), `/legal` (anime and hub; kpop only with NEXT_PUBLIC_NET_PRIVACY, `lib/route-allowlist.ts` NET_PRIVACY_ROUTES), `/llms.txt` | route handlers as on anime | H1 |
 

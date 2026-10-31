@@ -32,6 +32,10 @@ and is not a cross-site link in this sense. On top of the rows:
 | team-article | kpop | (none yet) | anime | / | followed | no | 1 | Q B17, D6; one Team article on kpopquiz.org, its path set by a CR at launch |
 | network-page | hub | / | kpop, anime | / | followed | no | 1 | Q B02, D2; fanquiz.org home (H1) |
 | directory | hub | /directory | kpop, anime | /** | nofollow | no | (none) | Q B03, D2; fanquiz.org/directory (H1, optional), noindex, follow |
+| dle-daily | hub | /daily | kpop, anime | /** | followed | no | (none) | CR-013; the Terrier: yesterday's answers, the quiz of the group; the hub's anime site in the footer; with the flag on |
+| dle-daily-fr | hub | /fr/daily | kpop, anime | /** | followed | no | (none) | CR-013; as dle-daily, in French |
+| dle-game | hub | /kpopdle/** | kpop, anime | /** | followed | no | (none) | CR-013; a game page: yesterday's answer and the result, the quiz of the group; with the flag on |
+| dle-game-fr | hub | /fr/kpopdle/** | kpop, anime | /** | followed | no | (none) | CR-013; as dle-game, in French |
 
 Page and href patterns: `*` any page, `/x/**` the path `/x` and everything below it, otherwise the exact path; `(none
 yet)` is `null` in the JSON (the row admits nothing until a CR names the page). The copy of each line is Q's (B01, B02,

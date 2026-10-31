@@ -7,8 +7,8 @@
 // - hub: the licensed photos of bunnyverse.org (daily games step 2, RAPPORT-JEUX-DU-JOUR-v2.md 7.1; components/hub/credits/hub-credits.tsx),
 //   read from the public views of migration 022 (verified pictures and live banners only; lib/photos/public-read.ts), the names of the
 //   characters as OtakuQuiz prints them (no spoiler). The footer's Credits link (shown where the route exists) appears on the hub. Noindex
-//   while it lists nothing; NET_INDEXING like every hub page otherwise (robotsFor). English only: /fr/credits waits for the French pages
-//   of the Burrow;
+//   while it lists nothing; NET_INDEXING like every hub page otherwise (robotsFor). Its French twin is (hub)/fr/credits (daily games step 4):
+//   the two carry hreflang once the flag opens that page;
 // - any other build: a 404 (TWINS.md rule 3: a file serves only the sites of its rows; kpopquiz.org has no /credits).
 // Server-rendered, ISR: the reads are cached and fail closed (no row, no error page).
 import { notFound } from 'next/navigation';
@@ -17,6 +17,8 @@ import { CREDITS_DESCRIPTION as ANIME_DESCRIPTION, CREDITS_PATH, CREDITS_TITLE a
 import { CREDITS_DESCRIPTION as HUB_DESCRIPTION, CREDITS_TITLE as HUB_TITLE, HubCreditsPage, creditSections } from '@/components/hub/credits/hub-credits';
 import { getCreditNames, getOwnerCreditRows } from '@/lib/anime/entity-images-read';
 import { getLiveAssets, getPublicPictures } from '@/lib/photos/public-read';
+import { dleAlternates } from '@/lib/dle/seo';
+import { dailyGuessOn } from '@/lib/site/hub/daily-guess';
 import { robotsFor } from '@/lib/site/indexing';
 import { SITE, SITE_ID } from '@/lib/site/registry';
 
@@ -42,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: HUB_TITLE,
     description: HUB_DESCRIPTION,
-    alternates: { canonical: CREDITS_PATH },
+    alternates: dailyGuessOn() ? dleAlternates(CREDITS_PATH, 'en') : { canonical: CREDITS_PATH },
     robots: robotsFor(listed),
     openGraph: {
       title: `${HUB_TITLE} | ${SITE.brand.name}`, description: HUB_DESCRIPTION, url: `${SITE.url}${CREDITS_PATH}`, siteName: SITE.brand.name, type: 'website',

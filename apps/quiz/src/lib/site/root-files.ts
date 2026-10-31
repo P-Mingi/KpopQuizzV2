@@ -3,6 +3,9 @@
 // The pure parts (text of a robots file, XML of a sitemap) and the list of a site's URLs live here so they can be tested
 // without a server. Every URL is on the registry origin of the site (never another site's, never a hardcoded host).
 
+import { builtGames } from '@/lib/dle/games';
+import { readDay } from '@/lib/dle/read';
+import { dleSitemapRows } from '@/lib/dle/seo';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { loadSeriesDirectory } from '@/lib/anime/directory';
@@ -142,8 +145,11 @@ export async function sitemapEntriesFor(site: SiteConfig, db: SeriesDb = createP
     const home: SitemapEntry = { path: '/', changeFrequency: 'weekly', priority: 1 };
     if (!indexingOpenFor(site.id)) return [home];
     const launch = parseLaunchDate(process.env.NET_LAUNCH_DATE);
+    // Daily games step 4: the pages of the Terrier, only with the flag on (lib/dle/seo.ts): the read of the day is not even made with it off.
+    const dle = site.features.dailyGuess ? dleSitemapRows(true, (await readDay(db, builtGames()[0]!.id).catch(() => null))?.date ?? null) : [];
     return [
       home,
+      ...dle,
       { path: '/privacy', ...(launch ? { lastModified: new Date(`${launch}T00:00:00Z`) } : {}), changeFrequency: 'yearly', priority: 0.3 },
       { path: '/legal', ...(launch ? { lastModified: new Date(`${launch}T00:00:00Z`) } : {}), changeFrequency: 'yearly', priority: 0.3 },
     ];
