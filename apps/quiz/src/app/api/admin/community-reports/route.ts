@@ -19,7 +19,7 @@ const TABLE: Record<string, string> = {
 const HAS_UPDATED_AT = new Set(['thread', 'essay', 'comment']);
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  if (!isUxV12()) return NextResponse.json({ error: 'not_found' }, { status: 404 });
+  if (!isUxV12()) return adminNotFound();
   const gate = await requireAdmin('api');
   if (!gate.ok) return gate.res;
   const { user } = gate;

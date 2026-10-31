@@ -5,7 +5,7 @@ Le détail de chaque étape (en anglais) : `RUNBOOK.md`. Le retour arrière : `R
 
 ## En bref
 
-- Moi : environ 4 h 45 en 49 étapes (4 h 55 avec les deux étapes « si besoin »). Claude : environ 7 h 30. Worker : environ 14 h 25, dont 7 h 50 à surveiller des journaux.
+- Moi : environ 4 h 50 en 49 étapes, code admin compris (5 h 05 avec les deux étapes « si besoin »). Claude : environ 7 h 30. Worker : environ 14 h 25, dont 7 h 50 à surveiller des journaux.
 - Durée : au moins 5 jours de la session B au jour J (veilles de 24 h après B, après 008 et après 010), puis 72 h de veille. Au plus tôt : B le jour 1, jour J le jour 5, fin le jour 8.
 - Je peux commencer maintenant : étapes 1 à 4 de `OWNER-NOW.md` (domaine, DNS, clé, adresses de retour). La suite attend la fusion des lanes par l'intégrateur.
 
@@ -25,7 +25,7 @@ Le 2026-10-28 :
 2. Connexion sur bunnyverse.org : Google (le client de kpopquiz.org) et Discord, pas d'e-mail. Le hub et `/anime` partagent la session. Entre kpopquiz.org et bunnyverse.org, le ticket passport reste.
 3. Logos : le lapin et « Bunnyverse », le lapin et « OtakuQuiz ».
 4. Pas de calendrier : on lance dès que tout est prêt. Veilles de 24 h après B, 008 et 010. Une sauvegarde avant chaque session SQL.
-5. Vercel par l'intégrateur en CLI (exception). Moi : la clé `service_role` en variable partagée.
+5. Vercel par l'intégrateur en CLI (exception). Moi : la clé `service_role` en variable de projet sur `fandomverse` et `otakuquiz`.
 6. Comptes Team : `<username>@team.bunnyverse.org`, un sous-domaine qui ne reçoit aucun courrier.
 7. Mes pages en français et allégées : je garde seulement ce que moi seul peux faire ; toutes les vérifications passent à Claude ou à un worker ; moins de 5 h pour moi.
 7 bis. Le 2026-10-29, le renommage ne touche que ce que le public voit (noms, domaine, logo, image de partage, e-mails, pages légales). Le projet Vercel `fandomverse`, le groupe Microfrontends `fandomverse`, le cookie `__Host-fv_oauth` et les autres noms internes restent.

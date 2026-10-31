@@ -8,7 +8,8 @@
 //   - one of the other admin call sites of ADMIN-0 (INVENTAIRE.md sections 4 and 5) stops going through the guard;
 //   - an isAdmin call, an import of the old lib/admin module or a read of ADMIN_USER_IDS remains outside lib/admin/guard.ts;
 //   - the MFA paths appear in robots, the sitemap or anywhere outside the admin lock's own files;
-//   - the middleware sends /admin to /login again.
+//   - the middleware sends /admin to /login again;
+//   - an origin check runs before the admin guard, or anything but the admin 404 is answered before it.
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -284,6 +285,63 @@ describe('no admin list outside the guard', () => {
     expect(users).toEqual(['app/api/cron/editorial-publish/route.ts']);
     const narrowing = sources.filter((f) => f !== 'lib/admin/list.ts' && /\bmayReachAdminPages\b/.test(strip(read(f))));
     expect(narrowing).toEqual(['lib/supabase/middleware.ts']);
+  });
+});
+
+// The guard comes first: an answer that depends on the Origin, given to someone the guard would refuse, tells a real route from a missing one.
+const ORIGIN_CHECK = /\bsameOrigin\(|\bforbidden\(\)|\.get\(\s*['"](?:origin|referer|sec-fetch-site|sec-fetch-mode|sec-fetch-dest)['"]\s*\)/i;
+const ANY_GUARD = /\brequireAdmin\(|\badminGate\(\)/;
+const FUNCTION_START = /^(?:export )?(?:default )?(?:async )?function\b|^(?:export )?const \w+(?:: [^=\n]+)? = (?:async )?(?:\([^)\n]*\)|\w+)(?:: [^=\n]+)? =>/gm;
+const IMAGE_ROUTES = ['delete-handler.ts', 'focal/route.ts', 'import/route.ts', 'upload/route.ts'].map((f) => `${API_ADMIN}/images/${f}`);
+const PHOTO_ROUTES = ['route.ts', 'assets/route.ts', 'fetch/route.ts'].map((f) => `${API_ADMIN}/photos/${f}`);
+
+/** The source cut at the start of each top-level function, so an order is read inside one function. */
+function functionsOf(text: string): string[] {
+  const starts = [...text.matchAll(FUNCTION_START)].map((m) => m.index);
+  return starts.map((s, i) => text.slice(s, starts[i + 1] ?? text.length));
+}
+
+/** The origin check of a function that runs with no admin guard before it, if any. */
+function originBeforeGuard(fn: string): boolean {
+  const origin = ORIGIN_CHECK.exec(fn);
+  if (!origin) return false;
+  const guard = ANY_GUARD.exec(fn);
+  return !guard || origin.index < guard.index;
+}
+
+/** A function that calls the guard and answers something before it, other than the admin 404. */
+function answersBeforeGuard(fn: string): boolean {
+  const guard = /\bawait (?:requireAdmin|adminGate)\(/.exec(fn);
+  if (!guard) return false;
+  const before = fn.slice(0, guard.index).replace(/return adminNotFound\(\);/g, '').replace(/return \{ ok: false, res: (?:adminNotFound|notFound)\(\) \};/g, '');
+  return /\breturn\b|\bthrow\b|new (?:Next)?Response\(|NextResponse\./.test(before);
+}
+
+describe('the admin guard runs before any origin check', () => {
+  const adminCode = ADMIN_TREES.filter((f) => code(f) && f.startsWith(`${API_ADMIN}/`));
+
+  it.each(adminCode)('%s: no origin check before the guard, and no origin check without one', (f) => {
+    for (const fn of functionsOf(strip(read(f)))) expect(originBeforeGuard(fn), `${f}: ${fn.slice(0, 90)}`).toBe(false);
+  });
+
+  it.each([...adminCode, 'lib/entity-images/route-kit.ts', 'lib/editorial/admin-api.ts'])('%s: nothing but the admin 404 is answered before the guard', (f) => {
+    for (const fn of functionsOf(strip(read(f)))) expect(answersBeforeGuard(fn), `${f}: ${fn.slice(0, 90)}`).toBe(false);
+  });
+
+  it('the image and photo routes, the MFA route and every other function that holds both run the guard first; only the six session doors do not', () => {
+    for (const f of [...IMAGE_ROUTES, ...PHOTO_ROUTES]) expect(strip(read(f)), f).toMatch(/const gate = await adminGate\(\);\s*if \(!gate\.ok\) return gate\.res;\s*if \(!sameOrigin\(req\)\) return forbidden\(\);/);
+    expect(strip(read(`${API_ADMIN}/${MFA_SEGMENT}/route.ts`))).toMatch(/const ctx = await requireAdmin\('mfa'\);\s*if \(!ctx\) return adminNotFound\(\);\s*if \(!sameOrigin\(req\)\) return adminNotFound\(\);/);
+    const doors = OTHER_SITES.filter(([, r]) => r === CRON_GATE).map(([f]) => f).sort();
+    const found = walk('').filter(code).filter((f) => functionsOf(strip(read(f))).some((fn) => ANY_GUARD.test(fn) && originBeforeGuard(fn)));
+    expect(found.sort()).toEqual(doors);
+    // Those six answer the admin 404 itself to a foreign origin, before the session is read (cron-door.test.ts): the same answer as the guard's.
+    for (const f of doors) expect(strip(read(f)), f).not.toMatch(/\bforbidden\(\)/);
+  });
+
+  it('sameOrigin is called only from the routes above, never from a wrapper in a lib', () => {
+    const callers = walk('').filter(code).filter((f) => f !== 'lib/entity-images/route-kit.ts' && /\bsameOrigin\(req\)/.test(strip(read(f))));
+    const doors = OTHER_SITES.filter(([, r]) => r === CRON_GATE).map(([f]) => f);
+    expect(callers.sort()).toEqual([...IMAGE_ROUTES, ...PHOTO_ROUTES, `${API_ADMIN}/${MFA_SEGMENT}/route.ts`, ...doors].sort());
   });
 });
 

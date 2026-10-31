@@ -2,11 +2,11 @@
 
 Depuis le 2026-10-30 : une commande par partie de session SQL (`session.sh`), donc moins de collages ; les durées d'attente ne changent pas.
 
-**Moi : environ 4 h 45, en 49 étapes sur 69 (4 h 55 et 51 étapes si les deux étapes « si besoin » servent). Dont 4 h jusqu'à la fin du jour J.**
+**Moi : environ 4 h 50, en 49 étapes sur 69, code admin compris (5 h 05 et 51 étapes si les deux étapes « si besoin » servent, l'étape 45 demandant alors un second code). Dont 4 h 05 jusqu'à la fin du jour J.**
 **Claude : environ 7 h 30. Worker : environ 14 h 25, dont 7 h 50 à surveiller des journaux. Ils travaillent entre mes étapes et ne changent rien en production.**
 **Durée totale : au moins 5 jours de la session B au jour J inclus (trois veilles de 24 h : après B, après 008, après 010), puis 72 h de veille. Au plus tôt : B le jour 1, jour J le jour 5, décision finale le jour 8.**
 
-Objectif « moins de 5 h » tenu, de justesse. Ce qui coûte le plus : le jour J (1 h 25), les six sauvegardes (une par session SQL, 30 min en tout) et les preuves avec un vrai compte (environ 40 min : aucun agent ne se connecte ni ne crée de compte en production).
+Objectif « moins de 5 h » tenu, de justesse, si les deux étapes « si besoin » ne servent pas. Ce qui coûte le plus : le jour J (1 h 25), les six sauvegardes (une par session SQL, 30 min en tout) et les preuves avec un vrai compte (environ 40 min : aucun agent ne se connecte ni ne crée de compte en production).
 
 ## Comment lire cette page
 
@@ -49,10 +49,10 @@ bunnyverse.org
 ```
 Vérif (worker) : A `76.76.21.21`, `www` en CNAME `cname.vercel-dns.com`, aucun MX pour `team.bunnyverse.org`.
 
-### 3. La clé service_role en variable partagée
+### 3. La clé service_role en variable de projet
 Moi 8 min, Worker 5 min. [RUNBOOK H3](RUNBOOK.md#h-domain-vercel-supabase-and-google)
 
-Supabase, Project Settings, API Keys : copie la clé `service_role` (ne la colle nulle part ailleurs). Vercel, Team Settings, Environment Variables, Shared, Add : Sensitive, Production seulement, projets `kpopquiz`, `fandomverse`, `otakuquiz`. Si Vercel refuse `kpopquiz` (il a déjà la sienne, même valeur) : garde-la et lie les deux autres. Clé :
+Supabase, Project Settings, API Keys : copie la clé `service_role` (ne la colle nulle part ailleurs). Vercel, projet `fandomverse`, puis projet `otakuquiz`, Settings, Environment Variables, Add : Sensitive, Production seulement. Pas de variable partagée d'équipe. `kpopquiz` garde la sienne, même valeur. Clé :
 ```
 SUPABASE_SERVICE_ROLE_KEY
 ```
@@ -200,7 +200,7 @@ Vérif : la commande fait V4 après 008 (seule `merge_anon_passport` change) et 
 ### 23. La veille de 24 h, à l'étape 22 plus 24 h
 Moi 8 min, Claude 15 min, Worker 20 min. [RUNBOOK D3](RUNBOOK.md#d-p2-008-write-locks)
 
-Claude : l'audit des compteurs reste au plus au niveau de base. Worker : Runtime Logs calmes sur 24 h. Toi : la même preuve qu'à l'étape 22 avec le compte jetable, puis supprime ce compte comme d'habitude (tableau de bord Supabase, ou admin : l'admin demande d'abord ton code à 6 chiffres, à mettre en place une fois avec l'interrupteur `ADMIN_MFA_ENROL_OPEN`, `docs/o1/admin/MFA-OWNER.md` section 2). Écris « fait n° 23 ». Leur « veille propre » ouvre la session E.
+Claude : l'audit des compteurs reste au plus au niveau de base. Worker : Runtime Logs calmes sur 24 h. Toi : la même preuve qu'à l'étape 22 avec le compte jetable, puis supprime ce compte depuis le tableau de bord Supabase : pas besoin de code. Depuis l'admin, il faut d'abord ton code à 6 chiffres (`docs/o1/admin/MFA-OWNER.md` section 2). Écris « fait n° 23 ». Leur « veille propre » ouvre la session E.
 
 ## Partie 5. Session E : 009, le déploiement, 010 (10 min pour moi)
 
@@ -278,7 +278,7 @@ Claude 3 min, Worker 1 h 10. [RUNBOOK G3](RUNBOOK.md#g-p5-011-to-017)
 
 La commande a fait V-S4. Worker : V1, puis 1 h de Runtime Logs.
 
-## Partie 7. Contenu et go / no-go (10 min pour moi)
+## Partie 7. Contenu et go / no-go (15 min pour moi)
 
 ### 34. Le contenu
 Claude 1 h 30. [RUNBOOK J](RUNBOOK.md#j-content)
@@ -288,10 +288,12 @@ En parallèle des parties 3 à 6. Claude relit un échantillon des paquets de `d
 ### 35. Le rapport K1, la veille du jour J
 Claude 20 min, Worker 15 min. [RUNBOOK K1](RUNBOOK.md#k-launch-day)
 
-Chaque ligne de K1 est vérifiée : veilles propres, V9, fichiers de lancement, DNS, groupe Microfrontends, adresses de retour, clé liée, `QOTD_ROTATION_FIX=1` sur `otakuquiz`. Claude dit aussi si l'étape 45 (images) sert.
+Chaque ligne de K1 est vérifiée : veilles propres, V9, fichiers de lancement, DNS, groupe Microfrontends, adresses de retour, clé en place sur `fandomverse` et `otakuquiz`, `QOTD_ROTATION_FIX=1` sur `otakuquiz`, `ADMIN_MFA_ENROL_OPEN` absent de la production. Claude dit aussi si l'étape 45 (images) sert.
 
 ### 36. Go / no-go
-Moi 10 min. [RUNBOOK K1](RUNBOOK.md#k-launch-day)
+Moi 15 min, dont 5 min une seule fois pour le code admin. [RUNBOOK K1](RUNBOOK.md#k-launch-day)
+
+Le code admin d'abord, seul toi peux le vérifier : sur kpopquiz.org, `/admin` demande les 6 chiffres et s'ouvre. Pas encore de code : `docs/o1/admin/MFA-OWNER.md` section 2, de préférence dès le jour où le verrou part en production (deux redéploiements de `kpopquiz`, donc pas le jour J).
 
 Lis le rapport. Tout est vrai et quelqu'un est libre les 72 h qui suivent le lancement : « go ». Sinon le jour J se décale.
 
@@ -366,9 +368,9 @@ bash docs/launch/o1/session.sh J3
 L10-PERS et ses 70 profils sont dans la commande de l'étape 43 : rien à coller.
 
 ### 45. Les images de l'admin, seulement si Claude l'a dit (étape 35)
-Moi (si besoin) 6 min, Claude (si besoin) 5 min. [RUNBOOK K5.3c](RUNBOOK.md#k-launch-day)
+Moi (si besoin) 6 min, plus 5 min une seule fois pour le code de la preview, Claude (si besoin) 5 min. [RUNBOOK K5.3c](RUNBOOK.md#k-launch-day)
 
-Le code admin d'abord, pour envoyer des images. Ces images s'envoient avant cette étape, depuis `/anime/admin` sur la preview. La preview a sa propre base (`o1-dev`) : le code de la production n'y marche pas, il lui faut le sien, avec l'interrupteur `ADMIN_MFA_ENROL_OPEN` sur les variables Preview de `otakuquiz` (`docs/o1/admin/MFA-OWNER.md`, sections 1, 2 et 8). Les commandes ci-dessous n'ouvrent pas l'admin : pas de code pour elles.
+Le code admin d'abord, pour envoyer des images. Ces images s'envoient avant cette étape, depuis `/anime/admin` sur la preview. Selon le RUNBOOK (section H), la preview a sa propre base (`o1-dev`) : le code de la production ne devrait pas y marcher (non testé sur une preview). Il lui faut alors le sien, avec l'interrupteur `ADMIN_MFA_ENROL_OPEN` sur les variables Preview de `otakuquiz` (`docs/o1/admin/MFA-OWNER.md`, sections 1, 2 et 8). Les commandes ci-dessous n'ouvrent pas l'admin : pas de code pour elles.
 
 La première ligne attend la clé `service_role`. La deuxième est un essai à blanc : colle sa sortie dans le chat. Au OK de Claude, la troisième copie. La dernière efface la clé.
 ```
@@ -444,11 +446,11 @@ bash docs/launch/o1/session.sh J4
 ```
 
 ### 52. Le quiz du jour
-Moi 6 min (5 min de plus si ton compte n'a pas encore de code admin), Worker 5 min, Claude 3 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
+Moi 6 min, Worker 5 min, Claude 3 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
 
 Le code admin d'abord. Sans code à 6 chiffres, la ligne ci-dessous répond 404.
 
-1. Si ton compte n'a pas encore de code : `docs/o1/admin/MFA-OWNER.md` section 2 (`ADMIN_MFA_ENROL_OPEN` = `1` sur `kpopquiz`, redéploiement, QR code, puis retirer l'interrupteur et redéployer). Mieux vaut le faire le jour où le verrou de l'admin part en production, pas le jour J.
+1. Ton compte a son code depuis l'étape 36. S'il l'a perdu : `docs/o1/admin/MFA-OWNER.md` section 4, et le jour J s'allonge de deux redéploiements de `kpopquiz`.
 2. Connecté avec ton compte admin sur `https://bunnyverse.org/anime`, ouvre `https://bunnyverse.org/anime/admin` et tape les 6 chiffres. Ce site a sa propre session : il faut les taper ici, même si tu l'as déjà fait sur kpopquiz.org.
 3. Dans le même onglet, colle cette ligne dans la console du navigateur (elle prend la date du jour toute seule). La réponse dit `scheduled: 14`. Si elle dit `not_found` : refais le point 2.
 ```

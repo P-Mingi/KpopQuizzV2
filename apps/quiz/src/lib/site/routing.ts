@@ -17,7 +17,7 @@
 // Keep this module free of `@/` imports, next/* and Node built-ins: next.config.ts and the
 // edge middleware import it.
 
-import { isKnownRouteWith } from '../route-allowlist';
+import { NOT_FOUND_REWRITE, isFilePath, isKnownRouteWith } from '../route-allowlist';
 
 import { REGISTRY, SITE_ID } from './registry';
 
@@ -316,16 +316,38 @@ export function isKnownWithoutSitesEntry(pathname: string): boolean {
  *   KNOWN_ROUTES for the build guard only, so the middleware answers these paths before the kpop
  *   branch with that branch's own unknown-route answer (a page path is rewritten to
  *   NOT_FOUND_REWRITE, a file path goes on to Next): the answer they get today. A /sites path the
- *   allowlist knows anyway (a -quiz or -trivia suffix) stays 'kpop', as today;
+ *   allowlist knows anyway (a -quiz or -trivia suffix) stays 'kpop', as today. Also, on the hub, every page path
+ *   its route map does not know (CR-016, isHubUnknownPage): the one answer of an unknown URL. [...rest] names the requested
+ *   segments in its Flight data, and the anime tree the hub compiles answers its own paths from a group
+ *   layout, so without this /admin could be told from /nimda by its bytes (the hub has no admin);
  * - 'session': a non-kpop path that needs the session refresh (the existing protected branch);
  * - 'pass': any other non-kpop path, passed straight to the rewrites (never a kpop legacy
  *   redirect, the Verse gate or the kpop unknown-route answer).
  */
 export type MiddlewareStep = 'kpop' | 'not-found' | 'session' | 'pass';
 
+/**
+ * What is not the hub's to answer as an unknown page: the framework's paths and the asset prefix of a Microfrontends child, the
+ * .well-known paths of Vercel and of the Microfrontends group, the zone of the child (/anime: the group routes it before the hub, and
+ * a direct or local request keeps the answer it always had) and the root metadata routes of Next.
+ */
+const HUB_NOT_A_PAGE = /^\/(?:_next|_vercel|\.well-known|anime)(?:\/|$)|^\/__nextjs|^\/vc-ap-|^\/(?:opengraph-image|twitter-image|icon|apple-icon|manifest)(?:\d+|-[a-z0-9]+)?$/;
+
+/**
+ * CR-016: a page path of no route of the hub. As on the kpop branch a file path goes on to Next. Next hands the middleware a .rsc request
+ * under its page path (/nimda for /nimda.rsc), so that one needs no case of its own. The rewrite's own target and the /sites paths
+ * it goes through come back here: they pass, or the middleware would loop (a 500).
+ */
+function isHubUnknownPage(pathname: string): boolean {
+  return !isFilePath(pathname) && pathname !== NOT_FOUND_REWRITE && !isSitesPath(pathname) && !HUB_NOT_A_PAGE.test(pathname)
+    && !isKnownRouteFor('hub', pathname, { v1: true, v12: true });
+}
+
 export function middlewareStep(site: SiteId, pathname: string): MiddlewareStep {
   if (site === 'kpop') return isSitesPath(pathname) && !isKnownWithoutSitesEntry(pathname) ? 'not-found' : 'kpop';
-  return isSessionPathFor(site, pathname) ? 'session' : 'pass';
+  if (isSessionPathFor(site, pathname)) return 'session';
+  if (site === 'hub' && isHubUnknownPage(pathname)) return 'not-found';
+  return 'pass';
 }
 
 /** generateStaticParams of app/sites/[site]: only the current site, nothing on kpop. */

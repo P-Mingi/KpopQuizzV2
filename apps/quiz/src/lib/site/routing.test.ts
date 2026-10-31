@@ -4,7 +4,7 @@
 // is what `next start` does with the same list.
 
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { modifyRouteRegex } from 'next/dist/lib/redirect-status';
@@ -553,23 +553,93 @@ describe('brand files of anime and hub (lane L1, owner decision D-099)', () => {
 });
 
 describe('middleware step and the sites/[site] guard', () => {
-  it('non-kpop builds pass every public path to the rewrites and refresh the session on their own protected ones', () => {
-    for (const site of ['anime', 'hub'] as const) {
-      for (const p of ['/', '/verse', '/verse/x/studio', '/blind-test/x', '/create-preview', '/unknown', '/q/x',
-        '/loginx', '/login/x', '/settingsx', '/adminx', '/sites/anime', '/page-not-found']) {
-        expect(middlewareStep(site, p), `${site} ${p}`).toBe('pass');
-      }
-      for (const p of ['/login', '/settings', '/settings/profile']) {
-        expect(middlewareStep(site, p), `${site} ${p}`).toBe('session');
-      }
-    }
-    for (const p of ['/onboarding', '/onboarding/x', '/admin', '/admin/review']) {
+  const UNKNOWN_ON_BOTH = ['/verse', '/verse/x/studio', '/blind-test/x', '/create-preview', '/unknown', '/q/x',
+    '/loginx', '/login/x', '/settingsx', '/adminx'];
+
+  it('the anime build passes every public path to the rewrites and refreshes the session on its protected ones', () => {
+    for (const p of ['/', ...UNKNOWN_ON_BOTH, '/sites/anime', '/page-not-found']) expect(middlewareStep('anime', p), `anime ${p}`).toBe('pass');
+    for (const p of ['/login', '/settings', '/settings/profile', '/onboarding', '/onboarding/x', '/admin', '/admin/review']) {
       expect(middlewareStep('anime', p), `anime ${p}`).toBe('session');
     }
-    // R F0 r1 M1: the hub has no /onboarding and no /admin, so they are its 404s, never a 307 to /login.
-    for (const p of ['/onboarding', '/onboarding/x', '/admin', '/admin/network', '/admin/review']) {
+  });
+
+  it('the hub: its routes pass, its protected ones refresh the session, and every other path is the one answer of an unknown URL (CR-016)', () => {
+    for (const p of ['/', '/privacy', '/legal', '/passport', '/u/mina_92', '/directory', '/credits', '/robots.txt', '/sitemap.xml', '/llms.txt', '/api/x', '/auth/confirm']) {
       expect(middlewareStep('hub', p), `hub ${p}`).toBe('pass');
     }
+    for (const p of ['/login', '/settings', '/settings/profile']) expect(middlewareStep('hub', p), `hub ${p}`).toBe('session');
+    for (const p of UNKNOWN_ON_BOTH) expect(middlewareStep('hub', p), `hub ${p}`).toBe('not-found');
+    // R F0 r1 M1: the hub has no /onboarding and no /admin, so they are its 404s, never a 307 to /login. CR-016: and never a 404 of their own.
+    for (const p of ['/onboarding', '/onboarding/x', '/admin', '/admin/network', '/admin/review', '/admin/k7q2m/code', '/admin/k7q2m/setup']) {
+      expect(middlewareStep('hub', p), `hub ${p}`).toBe('not-found');
+    }
+    // The rewrite's own target and the /sites paths it goes through pass, or the middleware would rewrite them again and answer a 500.
+    for (const p of ['/page-not-found', '/sites/hub/page-not-found', '/sites/anime']) expect(middlewareStep('hub', p), `hub ${p}`).toBe('pass');
+  });
+
+  describe('CR-016 takes page paths only: everything else on the hub keeps the step it had before', () => {
+    const filesUnder = (dir: string): string[] => readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? filesUnder(join(dir, e.name)) : [join(dir, e.name)]));
+
+    it('every file of public/, at any depth', () => {
+      const files = filesUnder(PUBLIC_DIR).map((f) => f.slice(PUBLIC_DIR.replace(/\/$/, '').length));
+      expect(files).toContain('/site.webmanifest');
+      const tops = readdirSync(PUBLIC_DIR, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name);
+      expect(tops.length).toBeGreaterThan(0);
+      for (const top of tops) expect(files.some((f) => f.startsWith(`/${top}/`)), top).toBe(true);
+      for (const f of files) expect(middlewareStep('hub', f), `hub ${f}`).toBe('pass');
+    });
+
+    it('every route handler of the hub tree, and the root ones it shares', () => {
+      const root = join(APP_DIR, 'sites/[site]');
+      const handlers = filesUnder(root).filter((f) => /\/route\.tsx?$/.test(f) && !f.includes('/(anime)/')).map((f) => f.slice(root.length).replace(/\/route\.tsx?$/, ''));
+      expect(handlers.sort()).toEqual(['/llms.txt', '/robots.txt', '/sitemap-hub.xml', '/sitemap.xml']);
+      const api = filesUnder(join(APP_DIR, 'api')).filter((f) => /\/route\.tsx?$/.test(f)).map((f) => f.slice(APP_DIR.length).replace(/\/route\.tsx?$/, ''));
+      expect(api.length).toBeGreaterThan(0);
+      for (const p of [...handlers, ...api, '/auth/callback', '/auth/confirm']) expect(middlewareStep('hub', p), `hub ${p}`).toBe('pass');
+    });
+
+    it('the metadata routes of Next, at the root and hashed, and any file name', () => {
+      for (const p of ['/opengraph-image', '/twitter-image', '/icon', '/icon1', '/apple-icon', '/manifest', '/opengraph-image-1a2b3c',
+        '/manifest.webmanifest', '/manifest.json', '/icon.png', '/apple-icon.png', '/opengraph-image.png', '/twitter-image.jpg', '/sitemap-hub.xml', '/x/y.woff2', '/nimda.php']) {
+        expect(middlewareStep('hub', p), `hub ${p}`).toBe('pass');
+      }
+    });
+
+    it('the .well-known paths, the Microfrontends ones first', () => {
+      for (const p of ['/.well-known/vercel/microfrontends/routing', '/.well-known/vercel/microfrontends/client-config', '/.well-known/vercel/flags',
+        '/.well-known/vercel-toolbar', '/.well-known/vercel-auth-redirect', '/.well-known/security.txt', '/.well-known/x']) {
+        expect(middlewareStep('hub', p), `hub ${p}`).toBe('pass');
+      }
+    });
+
+    it('the zone of the child and the framework\'s own paths', () => {
+      for (const p of ['/anime', '/anime/', '/anime/q/x', '/anime/admin', '/anime/_next/static/x.js', '/vc-ap-abc/_next/x', '/_next/x', '/_vercel/x', '/__nextjs_font/x']) {
+        expect(middlewareStep('hub', p), `hub ${p}`).toBe('pass');
+      }
+    });
+
+    it('none of these exceptions opens a page path of the admin, or a look-alike', () => {
+      for (const p of ['/admin', '/admin/icon', '/admin/manifest', '/admin/opengraph-image', '/admin/.well-known/x', '/admin/anime', '/animex', '/iconx', '/manifestx', '/x/icon']) {
+        expect(middlewareStep('hub', p), `hub ${p}`).toBe('not-found');
+      }
+    });
+  });
+
+  it('every page file the hub serves is a route of its map, so CR-016 never turns one into a 404', () => {
+    const root = join(dirname(MIDDLEWARE_FILE), 'app/sites/[site]');
+    const pages: string[] = [];
+    const walk = (dir: string): void => {
+      for (const name of readdirSync(dir, { withFileTypes: true })) {
+        if (name.isDirectory()) {
+          if (name.name !== '(anime)' && name.name !== '[...rest]') walk(join(dir, name.name));
+        } else if (name.name === 'page.tsx') {
+          pages.push(dir.slice(root.length).split('/').filter((s) => !/^\(.*\)$/.test(s)).map((s) => s.replace(/^\[(.*)\]$/, 'x$1')).join('/') || '/');
+        }
+      }
+    };
+    walk(root);
+    expect(pages.length).toBeGreaterThanOrEqual(9);
+    for (const p of pages) expect(middlewareStep('hub', p), `hub ${p}`).not.toBe('not-found');
   });
 
   it('a session path is a protected path of today\'s middleware and a route of the site', () => {

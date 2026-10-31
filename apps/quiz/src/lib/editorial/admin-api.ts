@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { requireAdmin } from '@/lib/admin/guard';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import { editorialLive, supabaseStore } from './store';
@@ -20,7 +20,7 @@ import type { TemplateDraft } from './templates';
 export type AdminGate = { ok: true; adminId: string; store: EditorialStore } | { ok: false; res: NextResponse };
 
 export async function adminGate(): Promise<AdminGate> {
-  if (!isUxV12()) return { ok: false, res: NextResponse.json({ error: 'not_found' }, { status: 404 }) };
+  if (!isUxV12()) return { ok: false, res: adminNotFound() };
   const gate = await requireAdmin('api');
   if (!gate.ok) return { ok: false, res: gate.res };
   const { user } = gate;

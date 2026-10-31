@@ -1454,7 +1454,7 @@
       ],
       "owner": "O1",
       "body": "shared",
-      "notes": "ADMIN-1 (owner, 2026-10-30): thin re-export of the kpop TOTP code page (requireAdmin('mfa'), 404 to anyone but a listed admin at aal1 with a factor). Admin only, never indexed, never linked."
+      "notes": "ADMIN-1 (owner, 2026-10-30): thin re-export of the kpop TOTP code page. Shows for a listed, verified admin at aal1 with a factor. 404 to anyone requireAdmin('mfa') refuses (the guard layout of row 45 answers first). A listed admin at aal2 goes to the admin home, one with no factor while ADMIN_MFA_ENROL_OPEN=1 goes to row 44. Admin only, never indexed, never linked."
     },
     {
       "id": "44",
@@ -1473,7 +1473,7 @@
       ],
       "owner": "O1",
       "body": "shared",
-      "notes": "ADMIN-1 (owner, 2026-10-30): thin re-export of the kpop TOTP setup page (requireAdmin('mfa'), 404 to anyone but a listed admin at aal1 with no factor). Admin only, never indexed, never linked."
+      "notes": "ADMIN-1 (owner, 2026-10-30): thin re-export of the kpop TOTP setup page. Shows for a listed, verified admin with no verified factor (at aal1, or at aal2 after a factor was deleted), only while ADMIN_MFA_ENROL_OPEN=1. 404 to anyone requireAdmin('mfa') refuses, so to that same admin while the switch is off (the guard layout of row 45 answers first). A listed admin at aal2 goes to the admin home, one at aal1 with a factor goes to row 43. Admin only, never indexed, never linked."
     },
     {
       "id": "45",
@@ -1483,7 +1483,7 @@
       "twin": null,
       "mustImport": [],
       "allowed": [],
-      "notes": "ADMIN-1 review (owner, 2026-10-30): technical, requireAdmin('mfa') answers notFound() before any admin page runs; renders its children and nothing of its own.",
+      "notes": "ADMIN-1 review (owner, 2026-10-30): technical, requireAdmin('mfa') answers notFound() before any admin page runs; renders its children and nothing of its own. On the hub this tree is never reached: its /admin paths take the unknown-URL answer (CR-016).",
       "renders": [
         "nothing visible: an admin guard that renders its children, or a 404"
       ],

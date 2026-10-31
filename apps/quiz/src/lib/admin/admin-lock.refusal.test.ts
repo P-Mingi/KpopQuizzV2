@@ -1,7 +1,8 @@
 // ADMIN-1 (owner, 2026-10-30): every admin page and every admin route, run for real against the local auth stand-in, in each case the
 // guard refuses. A page throws notFound() (an admin with a factor at aal1, or with none while enrolment is open, is redirected to the MFA
 // page instead); a route answers the admin 404 JSON; a generateMetadata names nothing; and nothing is read or written first (no query on the
-// user's client, no service-role client made). The flags of the gated pages are on, so the guard itself is what answers.
+// user's client, no service-role client made). The flags of the gated pages are on, so the guard itself is what answers. A route's refusal is
+// checked to the byte, with a same-origin request and with each kind of foreign origin: the origin never decides what a refused request sees.
 import { existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -80,6 +81,14 @@ afterAll(() => {
 beforeEach(() => { s.reads = []; });
 
 const props = { params: Promise.resolve({ id: '1', site: 'anime' }), searchParams: Promise.resolve({}) };
+
+/** The one answer of a refused route: the body and the two headers of adminNotFound, byte for byte the catch-all's. */
+async function expectAdminNotFound(res: Response, label: string): Promise<void> {
+  expect(res.status, label).toBe(404);
+  expect(await res.text(), label).toBe('{"error":"Not found.","code":"not_found"}');
+  expect(res.headers.get('x-robots-tag'), label).toBe('noindex, nofollow');
+  expect(res.headers.get('cache-control'), label).toBe('no-store');
+}
 
 describe('admin pages: notFound() (or the MFA page for an admin it serves), before any read, and no title from generateMetadata', () => {
   it('covers every page of both admin trees', () => {
@@ -194,10 +203,57 @@ describe('admin routes: the admin 404 JSON for every method, before any read', (
         });
         const res = await h(req, { params: Promise.resolve({ id: '1' }) });
         expect(res.status, `${method} ${f}`).toBe(404);
-        expect(await res.json(), `${method} ${f}`).toMatchObject({ error: expect.stringMatching(/^(Not found\.|not_found)$/) });
+        await expectAdminNotFound(res, `${method} ${f}`);
       }
       expect(seen, f).toBeGreaterThan(0);
       expect(s.reads).toEqual([]);
     });
   }
+});
+
+describe('admin routes: a foreign origin changes nothing for anyone the guard refuses', () => {
+  const FOREIGN: Array<[string, Record<string, string>]> = [
+    ['an Origin of another site', { host: 'localhost:3021', origin: 'https://evil.example', 'sec-fetch-site': 'cross-site' }],
+    ['a null Origin', { host: 'localhost:3021', origin: 'null', 'sec-fetch-site': 'cross-site' }],
+    ['no Origin, Sec-Fetch-Site cross-site', { host: 'localhost:3021', 'sec-fetch-site': 'cross-site' }],
+    ['no Origin and no Sec-Fetch-Site', { host: 'localhost:3021' }],
+  ];
+  for (const [who, auth, enrol] of REFUSED) {
+    for (const [from, headers] of FOREIGN) {
+      it.each(ROUTES)(`${who}, ${from}: %s`, async (f) => {
+        s.auth = auth;
+        setEnrol(enrol);
+        const mod = await import(/* @vite-ignore */ modulePath(f)) as Record<string, unknown>;
+        const url = `http://localhost:3021/${f.replace(/^app\//, '').replace(/\/route\.[a-z]+$/, '').replace(/\[id\]/g, '1').replace('[[...rest]]', 'a/b')}`;
+        for (const method of METHODS) {
+          const h = mod[method] as ((req: NextRequest, ctx: unknown) => Promise<Response>) | undefined;
+          if (!h) continue;
+          const req = new NextRequest(url, {
+            method,
+            headers: { ...headers, 'content-type': 'application/json' },
+            ...(method === 'GET' || method === 'HEAD' ? {} : { body: JSON.stringify({ action: 'verify', code: '123456', quiz_id: '1', id: 1 }) }),
+          });
+          const res = await h(req, { params: Promise.resolve({ id: '1' }) });
+          await expectAdminNotFound(res, `${method} ${f}`);
+        }
+        expect(s.reads).toEqual([]);
+      });
+    }
+  }
+});
+
+describe('admin routes behind the v12 flag: flag off is the same admin 404', () => {
+  it.each(['app/api/admin/community-reports/route.ts', 'app/api/admin/editorial/route.ts'])('%s', async (f) => {
+    s.auth = { user: null };
+    setEnrol();
+    vi.stubEnv('NEXT_PUBLIC_UX_V12', '0');
+    try {
+      const mod = await import(/* @vite-ignore */ modulePath(f)) as { POST: (req: NextRequest) => Promise<Response> };
+      const res = await mod.POST(new NextRequest('http://localhost:3021/x', { method: 'POST', headers: { host: 'localhost:3021', origin: 'http://localhost:3021', 'content-type': 'application/json' }, body: '{}' }));
+      await expectAdminNotFound(res, f);
+    } finally {
+      vi.unstubAllEnvs();
+    }
+    expect(s.reads).toEqual([]);
+  });
 });
