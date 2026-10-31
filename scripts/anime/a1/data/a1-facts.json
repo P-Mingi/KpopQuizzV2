@@ -712,12 +712,12 @@
      "inferred": false
     },
     "species": {
-     "value": "human",
+     "value": "demon",
      "source": "wikipedia",
-     "source_ref": "1379659854",
-     "source_url": "https://en.wikipedia.org/wiki/Nezuko_Kamado",
+     "source_ref": "1382751806",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
      "fetched_at": "2026-10-30T17:01:06Z",
-     "evidence": "Human<br>Demon (formerly)",
+     "evidence": "is the younger sister of Tanjiro, transformed into a demon",
      "inferred": false
     },
     "role_at_debut": {
@@ -846,6 +846,15 @@
    "l04_role": "antagonist",
    "qid": "Q116252649",
    "values": {
+    "gender": {
+     "value": "male",
+     "source": "wikipedia",
+     "source_ref": "1382403663",
+     "source_url": "https://en.wikipedia.org/wiki/Muzan_Kibutsuji",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "He is the very first demon",
+     "inferred": false
+    },
     "species": {
      "value": "demon",
      "source": "wikidata",
@@ -1359,6 +1368,15 @@
      "evidence": "P21",
      "inferred": false
     },
+    "species": {
+     "value": "panda",
+     "source": "wikipedia",
+     "source_ref": "1381319484",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "between panda, gorilla, and triceratops modes",
+     "inferred": false
+    },
     "role_at_debut": {
      "value": "supporting",
      "source": "wikipedia",
@@ -1396,12 +1414,12 @@
      "inferred": false
     },
     "species": {
-     "value": "human",
+     "value": "saiyan",
      "source": "wikipedia",
-     "source_ref": "1380310152",
-     "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters",
+     "source_ref": "1379812653",
+     "source_url": "https://en.wikipedia.org/wiki/Goku",
      "fetched_at": "2026-10-30T17:01:06Z",
-     "evidence": "Although he appears human, it is later revealed",
+     "evidence": "species = Saiyan",
      "inferred": false
     },
     "role_at_debut": {
@@ -1924,15 +1942,6 @@
      "source_url": "https://en.wikipedia.org/wiki/Levi_Ackerman",
      "fetched_at": "2026-10-30T17:01:06Z",
      "evidence": "Levi is a supporting character",
-     "inferred": false
-    },
-    "first_appearance": {
-     "value": "Side story \"Captain Levi\"",
-     "source": "wikipedia",
-     "source_ref": "1380921470",
-     "source_url": "https://en.wikipedia.org/wiki/Levi_Ackerman",
-     "fetched_at": "2026-10-30T17:01:06Z",
-     "evidence": "Sidestory: \"Captain Levi\"",
      "inferred": false
     },
     "voice_actor_ja": {
@@ -3654,6 +3663,15 @@
      "evidence": "P21",
      "inferred": false
     },
+    "species": {
+     "value": "human",
+     "source": "wikipedia",
+     "source_ref": "1382577843",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "is the owner of the Urahara Shop",
+     "inferred": true
+    },
     "role_at_debut": {
      "value": "supporting",
      "source": "wikipedia",
@@ -3896,6 +3914,15 @@
      "fetched_at": "2026-10-30T17:01:06Z",
      "evidence": "manga chapter 1",
      "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Megumi Han",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Megumi Han (2011 series",
+     "inferred": false
     }
    }
   },
@@ -3940,6 +3967,15 @@
      "source_url": "https://en.wikipedia.org/wiki/Killua_Zoldyck",
      "fetched_at": "2026-10-30T17:01:06Z",
      "evidence": "manga chapter 6",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Mariya Ise",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Mariya Ise (2011 series",
      "inferred": false
     }
    }
@@ -3986,6 +4022,15 @@
      "fetched_at": "2026-10-30T17:01:06Z",
      "evidence": "manga chapter 2",
      "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Miyuki Sawashiro",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Miyuki Sawashiro (2011 series",
+     "inferred": false
     }
    }
   },
@@ -4021,6 +4066,15 @@
      "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
      "fetched_at": "2026-10-30T17:01:06Z",
      "evidence": "section: Main characters > Leorio Paradinight",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Keiji Fujiwara",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Keiji Fujiwara (2011 series",
      "inferred": false
     }
    }
@@ -4058,6 +4112,15 @@
      "fetched_at": "2026-10-30T17:01:06Z",
      "evidence": "section: Villains > Hisoka Morrow",
      "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Daisuke Namikawa",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Daisuke Namikawa (2011 series",
+     "inferred": false
     }
    }
   },
@@ -4093,6 +4156,15 @@
      "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
      "fetched_at": "2026-10-30T17:01:06Z",
      "evidence": "section: Hunter Association > Isaac Netero",
+     "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Ichirō Nagai",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Ichirō Nagai (2011 series",
      "inferred": false
     }
    }
@@ -4130,6 +4202,15 @@
      "fetched_at": "2026-10-30T17:01:06Z",
      "evidence": "section: Hunter Association > Zodiacs > Ging Freecss",
      "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Rikiya Koyama",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Rikiya Koyama (2011 series",
+     "inferred": false
     }
    }
   },
@@ -4166,6 +4247,15 @@
      "fetched_at": "2026-10-30T17:01:06Z",
      "evidence": "section: Zoldyck Family > Silva Zoldyck",
      "inferred": false
+    },
+    "voice_actor_ja": {
+     "value": "Kouichi Yamadera",
+     "source": "wikipedia",
+     "source_ref": "1378757391",
+     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+     "fetched_at": "2026-10-30T17:01:06Z",
+     "evidence": "Kouichi Yamadera (2011 series",
+     "inferred": false
     }
    }
   },
@@ -4186,12 +4276,12 @@
      "inferred": false
     },
     "species": {
-     "value": "human",
-     "source": "wikidata",
-     "source_ref": "Q111981867",
-     "source_url": "https://www.wikidata.org/wiki/Q111981867",
+     "value": "hybrid",
+     "source": "wikipedia",
+     "source_ref": "1382201345",
+     "source_url": "https://en.wikipedia.org/wiki/Denji_(Chainsaw_Man)",
      "fetched_at": "2026-10-30T17:01:06Z",
-     "evidence": "P31",
+     "evidence": "species = Devil-human hybrid",
      "inferred": false
     },
     "role_at_debut": {

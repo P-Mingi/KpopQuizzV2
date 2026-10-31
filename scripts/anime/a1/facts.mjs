@@ -4,7 +4,17 @@
 //   wp(page, evidence)     the English Wikipedia page holds this short string (a fact to check, not text to reuse)
 //   sec(page, head, sect)  the entry of the page is listed under this section (role at the start)
 //   l04(page)              the role is the one of L04 (characters.role, same list page); the page holds the character
-// null in g, s or r: the character is not a target, and the reason goes to the Questions of the review list.
+// null in g, s or r: the character is not a target, and the reason goes to the review list.
+//
+// The owner's decisions (A1-RELECTURE.md), each still checked against its source by resolve.mjs:
+// - Species of Goku (saiyan), Nezuko (demon), Denji (hybrid): the species everyone knows. This DEPARTS from the contract
+//   (docs/o1/contracts/dle-a1-characters.md: "the species shown first") by the owner's decision; listed for O1 in the PR body.
+//   Isshin and Urahara stay human, as shown first. Uryu is quincy. Panda is panda. Rare species words accepted.
+// - Roles differing from L04: Levi, Pochita, Power, Aki supporting; Uryu antagonist.
+// - Muzan male (Wikipedia's "he"; Wikidata says undisclosed). Hange and Angel Devil: gender empty, so not targets.
+// - Levi: first appearance empty.
+// - Hunter x Hunter: the voices of the 2011 series (Madhouse), like the studio in L04, not the 1999 series.
+// - Demographics: no origin magazine means none; JoJo shonen; Vinland Saga seinen.
 export const wd = { kind: 'wd' }
 export const wp = (page, ev) => ({ kind: 'wp', page, ev })
 export const sec = (page, head, section) => ({ kind: 'sec', page, head, section })
@@ -15,6 +25,7 @@ const NA = 'List of Naruto characters', DS = 'List of Demon Slayer: Kimetsu no Y
 const DB = 'List of Dragon Ball characters', AT = 'List of Attack on Titan characters', MH = 'List of My Hero Academia characters'
 const BL = 'List of Bleach characters', HH = 'List of Hunter × Hunter characters', CS = 'List of Chainsaw Man characters', FR = 'List of Frieren characters', BC = 'List of Black Clover characters'
 const vb = (page, name) => wp(page, `Voiced by|${name}`)
+const hh11 = (name) => wp(HH, `${name} (2011 series`)
 
 // One row: [slug, gender, gender source, species, species source, role, role source, first appearance, its source, voice, its source]
 const R = (slug, g, gs, s, ss, r, rs, f, fs, v, vs) => ({ slug, g, gs, s, ss, r, rs, f, fs, v, vs })
@@ -40,10 +51,10 @@ export const CHARACTERS = {
   ],
   'demon-slayer': [
     R('tanjiro-kamado', 'male', wd, ...HU, 'main', sec(DS, 'Tanjiro Kamado', 'Main characters'), 'Chapter 1', wp('Tanjiro Kamado', 'Kimetsu no Yaiba chapter 1'), 'Natsuki Hanae', vb(DS, 'Natsuki Hanae')),
-    R('nezuko-kamado', 'female', wd, 'human', wp('Nezuko Kamado', 'Human<br>Demon (formerly)'), 'main', sec(DS, 'Nezuko Kamado', 'Main characters'), 'Chapter 1', wp('Nezuko Kamado', 'Kimetsu no Yaiba chapter 1'), 'Akari Kitō', vb(DS, 'Akari Kitō')),
+    R('nezuko-kamado', 'female', wd, 'demon', wp(DS, 'is the younger sister of Tanjiro, transformed into a demon'), 'main', sec(DS, 'Nezuko Kamado', 'Main characters'), 'Chapter 1', wp('Nezuko Kamado', 'Kimetsu no Yaiba chapter 1'), 'Akari Kitō', vb(DS, 'Akari Kitō')),
     R('zenitsu-agatsuma', 'male', wd, ...HU, 'main', sec(DS, 'Zenitsu Agatsuma', 'Main characters'), null, null, 'Hiro Shimono', vb(DS, 'Hiro Shimono')),
     R('inosuke-hashibira', 'male', wd, ...HU, 'main', sec(DS, 'Inosuke Hashibira', 'Main characters'), null, null, 'Yoshitsugu Matsuoka', vb(DS, 'Yoshitsugu Matsuoka')),
-    R('muzan-kibutsuji', null, null, 'demon', wd, 'antagonist', sec(DS, 'Muzan Kibutsuji', 'Demons'), 'Chapter 13', wp('Muzan Kibutsuji', 'Kimetsu no Yaiba chapter 13'), 'Toshihiko Seki', vb(DS, 'Toshihiko Seki')),
+    R('muzan-kibutsuji', 'male', wp('Muzan Kibutsuji', 'He is the very first demon'), 'demon', wd, 'antagonist', sec(DS, 'Muzan Kibutsuji', 'Demons'), 'Chapter 13', wp('Muzan Kibutsuji', 'Kimetsu no Yaiba chapter 13'), 'Toshihiko Seki', vb(DS, 'Toshihiko Seki')),
     R('giyu-tomioka', 'male', wd, ...HU, 'supporting', l04(DS, 'The Water Hashira'), null, null, 'Takahiro Sakurai', wd),
     R('sakonji-urokodaki', 'male', wd, ...HU, 'supporting', sec(DS, 'Urokodaki Sakonji', 'Supporting characters'), null, null, 'Hōchū Ōtsuka', wd),
   ],
@@ -55,10 +66,10 @@ export const CHARACTERS = {
     R('ryomen-sukuna', 'male', wd, 'curse', wp(JK, 'vessel for the powerful Curse'), 'antagonist', wp('Ryomen Sukuna', 'main antagonists'), 'Chapter 1', wp('Ryomen Sukuna', 'Jujutsu Kaisen #1'), 'Junichi Suwabe', wd),
     R('maki-zenin', 'female', wd, ...HU, 'supporting', l04(JK, 'is a second-year student at Tokyo Jujutsu High'), 'Jujutsu Kaisen 0, Chapter 1', wp('Maki Zen\'in', 'Jujutsu Kaisen 0 #1'), 'Mikako Komatsu', vb(JK, 'Mikako Komatsu')),
     R('toge-inumaki', 'male', wd, ...HU, 'supporting', l04(JK, 'is a second-year student at Tokyo Prefectural Jujutsu High School'), null, null, 'Koki Uchiyama', vb(JK, 'Koki Uchiyama')),
-    R('panda', 'male', wd, null, null, 'supporting', l04(JK, 'is a sentient Cursed Corpse'), null, null, 'Tomokazu Seki', vb(JK, 'Tomokazu Seki')),
+    R('panda', 'male', wd, 'panda', wp(JK, 'between panda, gorilla, and triceratops modes'), 'supporting', l04(JK, 'is a sentient Cursed Corpse'), null, null, 'Tomokazu Seki', vb(JK, 'Tomokazu Seki')),
   ],
   'dragon-ball': [
-    R('goku', 'male', wd, 'human', wp(DB, 'Although he appears human, it is later revealed'), 'main', sec(DB, 'Son Goku', 'Main characters'), 'Chapter 1', wp('Goku', 'chapter #1'), 'Masako Nozawa', wd),
+    R('goku', 'male', wd, 'saiyan', wp('Goku', 'species = Saiyan'), 'main', sec(DB, 'Son Goku', 'Main characters'), 'Chapter 1', wp('Goku', 'chapter #1'), 'Masako Nozawa', wd),
     R('bulma', 'female', wd, ...HU, 'main', sec(DB, 'Bulma', 'Main characters'), 'Chapter 1', wp('Bulma', 'chapter #1'), 'Hiromi Tsuru', wd),
     R('master-roshi', 'male', wd, ...HU, 'supporting', sec(DB, 'Master Roshi', 'Secondary characters'), 'Chapter 3', wp('Master Roshi', 'chapter 3'), 'Kōhei Miyauchi', wd),
     R('yamcha', 'male', wd, ...HU, 'supporting', sec(DB, 'Yamcha', 'Secondary characters'), 'Chapter 7', wp('Yamcha', 'chapter #7'), 'Tōru Furuya', wd),
@@ -70,7 +81,7 @@ export const CHARACTERS = {
     R('eren-yeager', 'male', wd, ...HU, 'main', sec(AT, 'Eren', 'Main characters'), 'Chapter 1', wp('Eren Yeager', 'Attack on Titan chapter 1'), 'Yūki Kaji', wd),
     R('mikasa-ackerman', 'female', wd, ...HU, 'main', sec(AT, 'Mikasa', 'Main characters'), 'Chapter 1', wp('Mikasa Ackerman', 'Attack on Titan chapter 1'), 'Yui Ishikawa', wd),
     R('armin-arlert', 'male', wd, ...HU, 'main', sec(AT, 'Armin', 'Main characters'), null, null, 'Marina Inoue', wd),
-    R('levi-ackerman', 'male', wd, ...HU, 'supporting', wp('Levi Ackerman', 'Levi is a supporting character'), 'Side story "Captain Levi"', wp('Levi Ackerman', 'Sidestory: "Captain Levi"'), 'Hiroshi Kamiya', wd),
+    R('levi-ackerman', 'male', wd, ...HU, 'supporting', wp('Levi Ackerman', 'Levi is a supporting character'), null, null, 'Hiroshi Kamiya', wd),
     R('erwin-smith', 'male', wd, ...HU, 'supporting', l04(AT, 'The 13th Commander of the Survey Corps'), null, null, 'Daisuke Ono', wd),
     R('hange-zoe', null, null, ...HU, 'supporting', l04(AT, 'is a bespectacled Survey Corps veteran'), null, null, 'Romi Park', wd),
     R('jean-kirstein', 'male', wd, ...HU, 'supporting', l04(AT, 'A hot-headed young man who speaks his mind'), null, null, 'Kishō Taniyama', wp(AT, 'Kishō Taniyama in the Japanese anime')),
@@ -111,24 +122,24 @@ export const CHARACTERS = {
     R('orihime-inoue', 'female', wd, ...HU, 'main', sec(BL, 'Orihime Inoue', 'Main characters'), 'Chapter 2', wp('Orihime Inoue', 'Bleach chapter 2'), 'Yuki Matsuoka', wp(BL, 'Orihime is voiced by Yuki Matsuoka in the original Japanese')),
     R('uryu-ishida', 'male', wd, 'quincy', wd, 'antagonist', wp(BL, 'is an early antagonist in the series'), null, null, 'Noriaki Sugiyama', wp(BL, 'Uryū is voiced by Noriaki Sugiyama in the original Japanese')),
     R('yasutora-sado', 'male', wd, ...HU, 'main', sec(BL, 'Yasutora', 'Main characters'), 'Chapter 7', wp('Yasutora Sado', 'Bleach chapter 7'), 'Hiroki Yasumoto', wp('Yasutora Sado', 'Hiroki Yasumoto')),
-    R('kisuke-urahara', 'male', wd, null, null, 'supporting', sec(BL, 'Kisuke Urahara', 'Supporting characters'), null, null, 'Shin-ichiro Miki', wp(BL, 'He is voiced by Shin-ichiro Miki in the original Japanese')),
+    R('kisuke-urahara', 'male', wd, 'human', wp(BL, 'is the owner of the Urahara Shop'), 'supporting', sec(BL, 'Kisuke Urahara', 'Supporting characters'), null, null, 'Shin-ichiro Miki', wp(BL, 'He is voiced by Shin-ichiro Miki in the original Japanese')),
     R('isshin-kurosaki', 'male', wd, 'human', wp(BL, 'the unassuming father of Ichigo'), 'supporting', l04(BL, 'the unassuming father of Ichigo'), null, null, 'Toshiyuki Morikawa', wp(BL, 'Isshin is voiced by Toshiyuki Morikawa in the original Japanese')),
     R('kon', 'male', wd, 'mod-soul', wp(BL, 'is the first Mod-Soul to appear in Bleach'), 'supporting', l04(BL, 'is the first Mod-Soul to appear in Bleach'), null, null, 'Mitsuaki Madono', wp(BL, 'He is voiced by Mitsuaki Madono in the original Japanese')),
     R('karin-kurosaki', 'female', wd, ...HU, 'supporting', l04(BL, 'are Ichigo\'s younger sisters'), null, null, 'Rie Kugimiya', wp(BL, 'Karin is voiced by Rie Kugimiya in the original Japanese')),
     R('tatsuki-arisawa', 'female', wp(BL, 'She has known both since she was young'), 'human', wp(BL, 'is a good childhood friend of Ichigo'), 'supporting', l04(BL, 'is a good childhood friend of Ichigo'), null, null, 'Junko Noda', wp(BL, 'Tatsuki is voiced by Junko Noda in the original Japanese')),
   ],
   'hunter-x-hunter': [
-    R('gon-freecss', 'male', wd, ...HU, 'main', sec(HH, 'Gon Freecss', 'Main characters'), 'Chapter 1', wp('Gon Freecss', 'manga chapter 1'), null, null),
-    R('killua-zoldyck', 'male', wd, ...HU, 'main', sec(HH, 'Killua Zoldyck', 'Main characters'), 'Chapter 6', wp('Killua Zoldyck', 'manga chapter 6'), null, null),
-    R('kurapika', 'male', wd, ...HU, 'main', sec(HH, 'Kurapika', 'Main characters'), 'Chapter 2', wp('Kurapika', 'manga chapter 2'), null, null),
-    R('leorio-paradinight', 'male', wd, ...HU, 'main', sec(HH, 'Leorio Paradinight', 'Main characters'), null, null, null, null),
-    R('hisoka-morrow', 'male', wd, ...HU, 'antagonist', sec(HH, 'Hisoka Morrow', 'Villains'), null, null, null, null),
-    R('isaac-netero', 'male', wd, ...HU, 'supporting', sec(HH, 'Isaac Netero', 'Hunter Association'), null, null, null, null),
-    R('ging-freecss', 'male', wd, ...HU, 'supporting', sec(HH, 'Ging Freecss', 'Hunter Association'), null, null, null, null),
-    R('silva-zoldyck', 'male', wd, ...HU, 'supporting', sec(HH, 'Silva Zoldyck', 'Zoldyck Family'), null, null, null, null),
+    R('gon-freecss', 'male', wd, ...HU, 'main', sec(HH, 'Gon Freecss', 'Main characters'), 'Chapter 1', wp('Gon Freecss', 'manga chapter 1'), 'Megumi Han', hh11('Megumi Han')),
+    R('killua-zoldyck', 'male', wd, ...HU, 'main', sec(HH, 'Killua Zoldyck', 'Main characters'), 'Chapter 6', wp('Killua Zoldyck', 'manga chapter 6'), 'Mariya Ise', hh11('Mariya Ise')),
+    R('kurapika', 'male', wd, ...HU, 'main', sec(HH, 'Kurapika', 'Main characters'), 'Chapter 2', wp('Kurapika', 'manga chapter 2'), 'Miyuki Sawashiro', hh11('Miyuki Sawashiro')),
+    R('leorio-paradinight', 'male', wd, ...HU, 'main', sec(HH, 'Leorio Paradinight', 'Main characters'), null, null, 'Keiji Fujiwara', hh11('Keiji Fujiwara')),
+    R('hisoka-morrow', 'male', wd, ...HU, 'antagonist', sec(HH, 'Hisoka Morrow', 'Villains'), null, null, 'Daisuke Namikawa', hh11('Daisuke Namikawa')),
+    R('isaac-netero', 'male', wd, ...HU, 'supporting', sec(HH, 'Isaac Netero', 'Hunter Association'), null, null, 'Ichirō Nagai', hh11('Ichirō Nagai')),
+    R('ging-freecss', 'male', wd, ...HU, 'supporting', sec(HH, 'Ging Freecss', 'Hunter Association'), null, null, 'Rikiya Koyama', hh11('Rikiya Koyama')),
+    R('silva-zoldyck', 'male', wd, ...HU, 'supporting', sec(HH, 'Silva Zoldyck', 'Zoldyck Family'), null, null, 'Kouichi Yamadera', hh11('Kouichi Yamadera')),
   ],
   'chainsaw-man': [
-    R('denji', 'male', wd, ...HU, 'main', sec(CS, 'Denji', 'Main characters'), 'Chapter 1', wp('Denji (Chainsaw Man)', 'Chainsaw Man chapter 1'), 'Kikunosuke Toya', wd),
+    R('denji', 'male', wd, 'hybrid', wp('Denji (Chainsaw Man)', 'species = Devil-human hybrid'), 'main', sec(CS, 'Denji', 'Main characters'), 'Chapter 1', wp('Denji (Chainsaw Man)', 'Chainsaw Man chapter 1'), 'Kikunosuke Toya', wd),
     R('pochita', 'male', wp(CS, 'He has the ability to eat a devil'), 'devil', wp(CS, 'The Chainsaw Devil, who merges with Denji'), 'supporting', sec(CS, 'ポチタ', 'Devils and Fiends'), null, null, 'Shiori Izawa', vb(CS, 'Shiori Izawa')),
     R('power', 'female', wd, 'fiend', wd, 'supporting', wp('Power (Chainsaw Man)', 'working alongside the main character'), 'Chapter 4', wp('Power (Chainsaw Man)', 'Chainsaw Man chapter 4'), 'Fairouz Ai', wd),
     R('aki-hayakawa', 'male', wd, ...HU, 'supporting', sec(CS, '早川アキ', 'Public Safety Organization'), null, null, 'Shogo Sakata', vb(CS, 'Shogo Sakata')),

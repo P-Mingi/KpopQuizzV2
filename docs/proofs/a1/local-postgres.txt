@@ -12,29 +12,29 @@ applied L05-entity-sources.sql
 
 == before L13: row fingerprints (table | rows | md5 | newest xmin)
 character_facts | 0 | d41d8cd98f00b204e9800998ecf8427e | 0
-characters | 1000 | dbb4ecf1d1036de3d2c92b5b1dacde04 | 0
+characters | 1000 | d626f19b90b2fa50ebca6892b66d2f61 | 0
 entity_sources (L13 fields) | 0 | d41d8cd98f00b204e9800998ecf8427e | 0
 entity_sources (other rows) | 4145 | a42bf3f930d13b3c233307b1cad15c62 | 760
-series | 50 | 5dad5e6e93b26bc760aa66a261015e76 | 0
+series | 50 | 17f52063a8b90095478471d07afa0859 | 0
 series_facts | 0 | d41d8cd98f00b204e9800998ecf8427e | 0
 
 == L13, first run
 applied L13-A1-character-facts.sql
-character_facts | 120 | 4b20652032214012cdc76ea46a153aec | 762
-characters | 1000 | dbb4ecf1d1036de3d2c92b5b1dacde04 | 0
-entity_sources (L13 fields) | 560 | 17f27c997c071120633bfae1e7ab0693 | 762
+character_facts | 120 | 7622a7af75829314fa9cf950d9a7378c | 762
+characters | 1000 | d626f19b90b2fa50ebca6892b66d2f61 | 0
+entity_sources (L13 fields) | 570 | 4214004b7a40cb6390356069d701f3cc | 762
 entity_sources (other rows) | 4145 | a42bf3f930d13b3c233307b1cad15c62 | 760
-series | 50 | 5dad5e6e93b26bc760aa66a261015e76 | 0
-series_facts | 50 | f39ffc4d3daf58dd58a3abb434c28d01 | 762
+series | 50 | 17f52063a8b90095478471d07afa0859 | 0
+series_facts | 50 | 84e11c626374a2c3ebf96cdfb6bf5263 | 762
 
 == L13, second run: nothing may change, not even a row version
 applied L13-A1-character-facts.sql
-character_facts | 120 | 4b20652032214012cdc76ea46a153aec | 762
-characters | 1000 | dbb4ecf1d1036de3d2c92b5b1dacde04 | 0
-entity_sources (L13 fields) | 560 | 17f27c997c071120633bfae1e7ab0693 | 762
+character_facts | 120 | 7622a7af75829314fa9cf950d9a7378c | 762
+characters | 1000 | d626f19b90b2fa50ebca6892b66d2f61 | 0
+entity_sources (L13 fields) | 570 | 4214004b7a40cb6390356069d701f3cc | 762
 entity_sources (other rows) | 4145 | a42bf3f930d13b3c233307b1cad15c62 | 760
-series | 50 | 5dad5e6e93b26bc760aa66a261015e76 | 0
-series_facts | 50 | f39ffc4d3daf58dd58a3abb434c28d01 | 762
+series | 50 | 17f52063a8b90095478471d07afa0859 | 0
+series_facts | 50 | 84e11c626374a2c3ebf96cdfb6bf5263 | 762
 PASS second run identical (content and xmin)
 PASS L13 touched no character, series or other source row
 
@@ -46,20 +46,20 @@ ok | valeurs sans source : 0 | -
 ROLLBACK
 
 == extra checks: one source row per stored value, per series counts, species words
-stored character values | 510
-character source rows | 510
+stored character values | 520
+character source rows | 520
 values with no source row of its own field (all 5 fields) | 0
 source rows with no url | 0
 source hosts | en.wikipedia.org, www.wikidata.org
 attack-on-titan | 17 | 16 | human
 black-clover | 6 | 6 | human
-bleach | 10 | 9 | human, mod-soul, quincy, shinigami
+bleach | 10 | 10 | human, mod-soul, quincy, shinigami
 chainsaw-man | 9 | 8 | devil, fiend, human, hybrid
-demon-slayer | 7 | 6 | demon, human
-dragon-ball | 7 | 7 | creature, human, pig
+demon-slayer | 7 | 7 | demon, human
+dragon-ball | 7 | 7 | creature, human, pig, saiyan
 frieren | 17 | 17 | demon, dwarf, elf, human
 hunter-x-hunter | 8 | 8 | human
-jujutsu-kaisen | 8 | 7 | curse, human
+jujutsu-kaisen | 8 | 8 | curse, human, panda
 my-hero-academia | 18 | 18 | human
 naruto | 7 | 7 | human
 one-piece | 6 | 6 | human
@@ -75,10 +75,10 @@ PASS nothing was deleted by the refused rollback
 == the rollback, twice
 applied L13-A1-character-facts.rollback.sql
 character_facts | 0 | d41d8cd98f00b204e9800998ecf8427e | 0
-characters | 1000 | dbb4ecf1d1036de3d2c92b5b1dacde04 | 0
+characters | 1000 | d626f19b90b2fa50ebca6892b66d2f61 | 0
 entity_sources (L13 fields) | 0 | d41d8cd98f00b204e9800998ecf8427e | 0
 entity_sources (other rows) | 4145 | a42bf3f930d13b3c233307b1cad15c62 | 760
-series | 50 | 5dad5e6e93b26bc760aa66a261015e76 | 0
+series | 50 | 17f52063a8b90095478471d07afa0859 | 0
 series_facts | 0 | d41d8cd98f00b204e9800998ecf8427e | 0
 applied L13-A1-character-facts.rollback.sql
 PASS back to the fingerprints before L13
@@ -86,12 +86,12 @@ PASS back to the fingerprints before L13
 == L13 again after the rollback: the same values and the same sources as the first run
 applied L13-A1-character-facts.rollback.sql
 applied L13-A1-character-facts.sql
-values | 120 | 77e6bf20fe726fd23f0372c2a236f2b7
+values | 120 | 266b72d6967f93c34a4746c9ae2d2541
 demographics | 50 | 292286d9aa7af5465f074370e58200e8
-sources | 560 | 23e1b22e66edcf2fb43a71b36a2a4a7d
+sources | 570 | 8e12a9dcd740c56893d0e00240eb0b8d
 applied L13-A1-character-facts.rollback.sql
 applied L13-A1-character-facts.sql
-values | 120 | 77e6bf20fe726fd23f0372c2a236f2b7
+values | 120 | 266b72d6967f93c34a4746c9ae2d2541
 demographics | 50 | 292286d9aa7af5465f074370e58200e8
-sources | 560 | 23e1b22e66edcf2fb43a71b36a2a4a7d
+sources | 570 | 8e12a9dcd740c56893d0e00240eb0b8d
 PASS rollback then re-apply gives the same rows
