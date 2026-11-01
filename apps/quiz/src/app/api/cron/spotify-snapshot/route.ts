@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 
 import { isCronAuthorized } from '@/lib/cron-auth';
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { sameOrigin } from '@/lib/entity-images/route-kit';
 import { fetchFollowers, hasSpotifyCreds } from '@/lib/industry/spotify';
 import { alertOps } from '@/lib/industry/alert';
 
@@ -20,12 +21,12 @@ function todayUtc(): string {
 }
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
+  // ADMIN-1: Bearer CRON_SECRET, or an admin that requireAdmin lets through (verified, listed, aal2) on a same-origin request: this GET writes,
+  // and a Lax session cookie goes along on a link from another site. Anyone else gets the admin 404.
   if (!isCronAuthorized(req)) {
-    const serverClient = await createServerClient();
-    const { data: { user } } = await serverClient.auth.getUser();
-    if (!user || !isAdmin(user.id)) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    if (!sameOrigin(req)) return adminNotFound();
+    const gate = await requireAdmin('api');
+    if (!gate.ok) return gate.res;
   }
 
   const date = todayUtc();

@@ -1,13 +1,15 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
 import { isCronAuthorized } from '@/lib/cron-auth';
 import { avgScorePct } from '@/lib/quiz/scoring';
 import { forSite, withSite } from '@/lib/site/scope';
 
 export async function POST(req: Request): Promise<NextResponse> {
-
+  // ADMIN-1: Bearer CRON_SECRET, or an admin that requireAdmin lets through (aal2); anyone else gets the admin 404.
   if (!isCronAuthorized(req)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const gate = await requireAdmin('api');
+    if (!gate.ok) return gate.res;
   }
 
   const supabase = createClient(
@@ -221,3 +223,11 @@ export async function POST(req: Request): Promise<NextResponse> {
     date: tomorrowStr,
   });
 }
+
+// ADMIN-1: a method this route does not implement is the admin 404 too (Next would answer 405 and name the real ones).
+export const GET = adminNotFound;
+export const PUT = adminNotFound;
+export const PATCH = adminNotFound;
+export const DELETE = adminNotFound;
+export const HEAD = adminNotFound;
+export const OPTIONS = adminNotFound;

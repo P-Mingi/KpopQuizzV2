@@ -1,16 +1,12 @@
-import { redirect } from 'next/navigation';
-
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
 
 import { EntityAdmin } from './entity-admin';
 
 export const dynamic = 'force-dynamic';
 
 export default async function VerseEntitiesAdminPage(): Promise<React.ReactElement> {
-  const c = await createServerClient();
-  const { data: { user } } = await c.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  await requireAdmin();
 
   const svc = createServiceRoleClient();
   const { data } = await svc.from('groups').select('id, name').order('name');

@@ -1,7 +1,8 @@
 // W4.3 - resolve the space a piece of content belongs to, and gate curator actions by
 // per-space role. Global admins pass everywhere; per-space curators pass on their space.
+// ADMIN-1: a global admin is the one requireAdmin lets through on this request (adminPowerFor: verified, listed, aal2).
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { adminPowerFor } from '@/lib/admin/guard';
 import { canCurateSpace } from '@/lib/verse/roles';
 import { canEditDirect } from '@/lib/verse/stage';
 
@@ -28,7 +29,7 @@ export async function resolveEntityGroupId(entityType: string, entityId: string)
 
 export async function canCurateEntity(userId: string | null, entityType: string, entityId: string): Promise<boolean> {
   if (!userId) return false;
-  if (isAdmin(userId)) return true;
+  if (await adminPowerFor(userId)) return true;
   const gid = await resolveEntityGroupId(entityType, entityId);
   return gid == null ? false : canCurateSpace(userId, gid);
 }
@@ -37,7 +38,7 @@ export async function canCurateEntity(userId: string | null, entityType: string,
  * Equals canCurateEntity while spaces are Stage A/B; used for content-edit gates. */
 export async function canEditEntity(userId: string | null, entityType: string, entityId: string): Promise<boolean> {
   if (!userId) return false;
-  if (isAdmin(userId)) return true;
+  if (await adminPowerFor(userId)) return true;
   const gid = await resolveEntityGroupId(entityType, entityId);
   return gid == null ? false : canEditDirect(userId, gid);
 }

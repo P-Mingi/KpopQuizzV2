@@ -1,21 +1,19 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
 
 import type { NextRequest } from 'next/server';
 
 // POST /api/admin/notifications/send
 // Body: { recipient_username | recipient_id, title, body?, link_url? }
 // Sends an admin DM to a single user. Service-role insert because the table's
-// INSERT policy is system-only. Auth + isAdmin gate on top so only the admin
+// INSERT policy is system-only. requireAdmin (ADMIN-1) on top so only the admin
 // account can reach this.
 export async function POST(request: NextRequest): Promise<NextResponse> {
-  const supabase = await createServerClient();
-  const { data: { user: sender } } = await supabase.auth.getUser();
-  if (!sender || !isAdmin(sender.id)) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
+  const { user: sender } = gate;
 
   let body: Record<string, unknown>;
   try {
@@ -88,3 +86,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     recipient: { id: targetId, username: targetUsername },
   });
 }
+
+// ADMIN-1: a method this route does not implement is the admin 404 too (Next would answer 405 and name the real ones).
+export const GET = adminNotFound;
+export const PUT = adminNotFound;
+export const PATCH = adminNotFound;
+export const DELETE = adminNotFound;
+export const HEAD = adminNotFound;
+export const OPTIONS = adminNotFound;

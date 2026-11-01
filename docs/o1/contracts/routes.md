@@ -20,14 +20,17 @@ and serves the three sites and checks every line).
    afterFilesFor(SITE_ID), fallback: fallbackFor(SITE_ID) }` from `rewrites()` and `redirectsFor(SITE_ID)` (an empty
    list) from `redirects()`. The kpop build keeps both functions exactly as today.
 4. The middleware asks `middlewareStep(SITE_ID, pathname)` first. `'kpop'` runs today's middleware unchanged.
-   `'not-found'` (kpop only, item 6) answers before the kpop branch with that branch's own unknown-route answer: a
-   page path is rewritten to `NOT_FOUND_REWRITE`, a file path goes on (`isFilePath`). `'pass'` returns
+   `'not-found'` (kpop, item 6, and the hub, CR-016) answers before the kpop branch with that branch's own unknown-route answer: a
+   page path is rewritten to `NOT_FOUND_REWRITE`, a file path goes on (`isFilePath`). On the hub it takes every page path its route map does not know. These stay `'pass'`: file paths,
+   `NOT_FOUND_REWRITE` and the `/sites` paths the rewrite goes through (or the middleware would loop), `/.well-known/**`, `/anime/**`, the framework's own and the
+   root metadata routes of Next. So the hub's
+   `/admin` and `/nimda` get the same bytes; `[...rest]`, which names the requested segments, keeps only the paths the matcher skips. `'pass'` returns
    `NextResponse.next()` at once (no Verse gate, no kpop legacy redirect, no kpop retired-feature 410, no kpop
    unknown-route answer). `'session'` falls through to today's protected branch: a path of `SESSION_PATTERNS`
    (`/login`, and `/onboarding`, `/settings`, `/admin` with what is below: today's `needsAuth()` without the Verse
    studio; routing.test.ts reads the list from middleware.ts) that the site's own route map also knows
    (`isSessionPathFor`). Anime refreshes the session on all four; the hub on `/login` and `/settings/**` only, so the
-   hub's `/admin` and `/onboarding` are its 404s, never a 307 to `/login` (R F0 r1 M1). The matcher regex is
+   hub's `/admin` and `/onboarding` are its 404s, never a 307 to `/login` (R F0 r1 M1), and since CR-016 the same 404 as any unknown URL. The matcher regex is
    unchanged.
    Redirects of the session branch (`lib/supabase/middleware.ts`, B4's) stay inside the site's route map: an
    anonymous request on a protected path goes to `/login?returnTo=<path>` (a route of anime and hub); a signed-in

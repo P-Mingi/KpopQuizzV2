@@ -43,6 +43,12 @@ const frameSelfHeaders = (): { key: string; value: string }[] => [
   { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
 ];
 const closedHeaders = (): { key: string; value: string }[] => [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }];
+// ADMIN-1 (owner, 2026-10-30): every admin page (the two MFA pages included, they live under /admin) and every /api/admin
+// answer, a 404 included, is never indexed and never stored (lib/admin/guard.ts ADMIN_RESPONSE_HEADERS, same values).
+const adminHeaders = (): { key: string; value: string }[] => [
+  { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+  { key: 'Cache-Control', value: 'no-store' },
+];
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -214,6 +220,9 @@ const nextConfig: NextConfig = {
           { key: 'Content-Security-Policy', value: 'frame-ancestors *' },
         ],
       },
+      { source: '/admin', headers: adminHeaders() },
+      { source: '/admin/:path*', headers: adminHeaders() },
+      { source: '/api/admin/:path*', headers: adminHeaders() },
       {
         // Everything EXCEPT /embed. Next applies every matching rule, so a plain
         // '/:path*' here also matched /embed and the restrictive value won: the

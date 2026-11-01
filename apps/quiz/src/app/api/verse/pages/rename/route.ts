@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { canCurateSpace } from '@/lib/verse/roles';
-import { isAdmin } from '@/lib/admin';
+import { adminPowerFor } from '@/lib/admin/guard';
 import { violatesLivingPersons } from '@/lib/verse/pages/kinds';
 import { aliasOpsOnRename } from '@/lib/verse/pages/data';
 
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const { data: pageRow } = await svc.from('verse_pages').select('id, group_id, slug').eq('id', pageId).maybeSingle();
   if (!pageRow) return NextResponse.json({ error: 'No such page' }, { status: 404 });
   const page = pageRow as { id: number; group_id: number; slug: string };
-  if (!isAdmin(user.id) && !await canCurateSpace(user.id, page.group_id)) return NextResponse.json({ error: 'Curator role required' }, { status: 403 });
+  if (!(await adminPowerFor(user.id)) && !await canCurateSpace(user.id, page.group_id)) return NextResponse.json({ error: 'Curator role required' }, { status: 403 });
   if (page.slug === newSlug) return NextResponse.json({ ok: true, slug: newSlug });
 
   // Reject a rename onto a LIVE slug with a clear error, never auto-suffix.

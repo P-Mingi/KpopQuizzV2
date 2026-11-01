@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { verseSpaceGate, verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { canCurateSpace } from '@/lib/verse/roles';
-import { isAdmin } from '@/lib/admin';
+import { adminPowerFor } from '@/lib/admin/guard';
 import { underRateCap } from '@/lib/verse/moderation';
 import { reEncode, fetchExternalImage } from '@/lib/verse/image-ingest';
 
@@ -98,7 +98,7 @@ export async function PATCH(req: Request): Promise<NextResponse> {
   const a = asset as { space_id: number; status: string } | null;
   if (!a) return NextResponse.json({ error: 'not_found' }, { status: 404 });
   const uid = await authUser();
-  if (!uid || (!isAdmin(uid) && !await canCurateSpace(uid, a.space_id))) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  if (!uid || (!(await adminPowerFor(uid)) && !await canCurateSpace(uid, a.space_id))) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   if (a.status === 'removed') return NextResponse.json({ error: 'That image was removed.' }, { status: 400 });
   await svc.from('verse_space_assets').update({ status: action === 'hide' ? 'hidden' : 'active', reviewed_by: uid, reviewed_at: new Date().toISOString() }).eq('id', id);
   return NextResponse.json({ ok: true, status: action === 'hide' ? 'hidden' : 'active' });
@@ -115,7 +115,7 @@ export async function DELETE(req: Request): Promise<NextResponse> {
   const a = asset as { space_id: number; storage_path: string } | null;
   if (!a) return NextResponse.json({ error: 'not_found' }, { status: 404 });
   const uid = await authUser();
-  if (!uid || (!isAdmin(uid) && !await canCurateSpace(uid, a.space_id))) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+  if (!uid || (!(await adminPowerFor(uid)) && !await canCurateSpace(uid, a.space_id))) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   await svc.storage.from(BUCKET).remove([a.storage_path]).catch(() => {});
   await svc.from('verse_space_assets').update({ status: 'removed', reviewed_by: uid, reviewed_at: new Date().toISOString() }).eq('id', id);
   return NextResponse.json({ ok: true });

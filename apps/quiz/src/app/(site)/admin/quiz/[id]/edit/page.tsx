@@ -1,6 +1,6 @@
-import { redirect, notFound } from 'next/navigation';
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { notFound } from 'next/navigation';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
 import { forSite } from '@/lib/site/scope';
 import { QuizEditor } from '@/components/quiz/quiz-editor';
 
@@ -11,9 +11,7 @@ export default async function EditQuizPage({
 }: {
   params: Promise<{ id: string }>;
 }): Promise<React.ReactElement> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  await requireAdmin();
 
   const { id } = await params;
   const adminDb = createServiceRoleClient();

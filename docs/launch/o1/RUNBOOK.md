@@ -73,7 +73,7 @@ Rewritten on 2026-10-28 for the owner's Bunnyverse decisions (section "Owner dec
 | 9 | L. After launch | K10 | 4 h 25 | 72 hours of watching |
 
 Total hands-on: about 22 h 50 (18 h 25 up to the end of launch day) as the kit was first written. Earliest path: B on day 1, D on day 2, E on the evening of day 3, F and G on day 4, launch day on day 5.
-`OWNER-NOW.md` lists the same work as numbered actions, who does each one, and the lines to copy: since the checks moved to Claude and a worker (2026-10-28), the owner's share is about 4 h 45.
+`OWNER-NOW.md` lists the same work as numbered actions, who does each one, and the lines to copy: since the checks moved to Claude and a worker (2026-10-28), the owner's share is about 4 h 50, the admin code included.
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -272,10 +272,9 @@ Set on 2026-10-28 by the integrator (`ENV.md` marks each one): the build and run
 Do: nothing but H3. Leave every flag of ENV 1.2 that a later step turns on unset (`PASSPORT_JUMP`, the `NEXT_PUBLIC_NET_*` flags, `NET_INDEXING`, `NET_LAUNCH_DATE`). Never a variable of ENV 1.6.
 Check: V9 (after H8). Back: delete the variable.
 
-**H3  The service role key as a team shared variable.**
-Do: Supabase dashboard, Project Settings, API Keys: reveal and copy the `service_role` key (paste it nowhere else). Vercel, Team Settings, Environment Variables (Shared), Add: key `SUPABASE_SERVICE_ROLE_KEY`, the value, Sensitive, environment Production only (Preview keeps the `o1-dev` values of `o1/integration`), linked projects `kpopquiz`, `fandomverse`, `otakuquiz`.
-If Vercel refuses `kpopquiz` because the project already has its own `SUPABASE_SERVICE_ROLE_KEY` (the same value), keep that one and link the shared variable to the other two only.
-Check: each of the three projects lists `SUPABASE_SERVICE_ROLE_KEY` for Production (shared or its own); V9 build logs name no missing variable. Back: unlink the shared variable from the project.
+**H3  The service role key, a project variable on the hub and on OtakuQuiz.**
+Do: Supabase dashboard, Project Settings, API Keys: reveal and copy the `service_role` key (paste it nowhere else). Vercel, project `fandomverse`, then project `otakuquiz`, Settings, Environment Variables, Add: key `SUPABASE_SERVICE_ROLE_KEY`, the value, Sensitive, environment Production only (Preview keeps the `o1-dev` values of `o1/integration`). Not a team shared variable. `kpopquiz` keeps its own project variable, the same value.
+Check: each of the three projects lists `SUPABASE_SERVICE_ROLE_KEY` for Production; V9 build logs name no missing variable. Back: delete the variable from the project.
 
 **H4  Supabase Auth: redirect URLs.**
 Do: Supabase dashboard, Authentication, URL Configuration: keep Site URL `https://kpopquiz.org`; add to Redirect URLs exactly `https://bunnyverse.org/auth/callback` and `https://bunnyverse.org/anime/auth/callback` (no `*`, no `?`), never a wider `https://bunnyverse.org/**` (AUTH-BUNNYVERSE.md: only the sign-in callbacks may receive a session). If you added `https://otakuquiz.org/**` or `https://fanquiz.org/**` earlier, remove them. `www.bunnyverse.org` redirects to the apex (K6), so it needs no entry.
@@ -368,7 +367,7 @@ Check: the second run changes nothing. Back: n/a (a branch).
 
 **J4  The first fourteen daily quizzes of OtakuQuiz (decided, D-099).**
 The anime daily publishes only a bank row that is `verified` or `scheduled` and dated that day (`ensure_daily_quiz_v2`, 010); L08 loads the bank as undated drafts, so K5 step 4 verifies fourteen rows and K9 dates them.
-The tool is the kpop bank tool with the site parameter: `POST /api/admin/quiz-bank/auto-schedule` and `PATCH /api/admin/quiz-bank/<id>` read and write `quiz_bank` through `forSite()`, so on the `otakuquiz` build they only touch rows of site `anime`. The screen belongs to the kpop build: you call the routes from the browser console of `https://bunnyverse.org/anime` while signed in with an id of `ADMIN_USER_IDS` (K9), under the `/anime` prefix.
+The tool is the kpop bank tool with the site parameter: `POST /api/admin/quiz-bank/auto-schedule` and `PATCH /api/admin/quiz-bank/<id>` read and write `quiz_bank` through `forSite()`, so on the `otakuquiz` build they only touch rows of site `anime`. The screen belongs to the kpop build: you call the routes from the browser console of `https://bunnyverse.org/anime` while signed in with an id of `ADMIN_USER_IDS`, its 6-digit TOTP code typed first (K9), under the `/anime` prefix.
 Auto-scheduling is on: the cron `/api/cron/ensure-daily-quiz` (`5 0 * * *`) with `QOTD_ROTATION_FIX=1` on the `otakuquiz` project (ENV.md 1.2). When no row is dated for the day the cron pulls the next open bank row to that day, else picks from the catalogue, and answers 500 when the day stays empty, so a failed cron job is the alarm. Never set it on `fandomverse`.
 
 ---------------------------------------------------------------------------------------------------------------------------------
@@ -382,11 +381,12 @@ L09 to L11 (openings, formats, crossover quiz) are not part of the launch (secti
 **K1  Go / no-go (the evening before).** Who: Claude and a worker check each line; the owner decides. All true, or the day moves:
 - V1 to V7 passed in their phases; the watches C, D3 and F are clean; V9 passes for the three projects (the hub at `/` and OtakuQuiz at `/anime` on the `fandomverse` address).
 - `ls $M/launch/` shows L01 to L08, L10-PERS and L12 with their rollbacks; J2's three checks pass; L01's header names the Bunnyverse domain (lane 2); J3 was run on these files.
-- H done: `dig +short bunnyverse.org A` answers (H6), the Microfrontends group exists (H7), the Supabase redirect URLs hold exactly the two bunnyverse.org callbacks, no wildcard (H4), the service role key is linked (H3), and Google Cloud and Discord are unchanged: no JavaScript origin, no new client (H5, AUTH-BUNNYVERSE.md).
+- H done: `dig +short bunnyverse.org A` answers (H6), the Microfrontends group exists (H7), the Supabase redirect URLs hold exactly the two bunnyverse.org callbacks, no wildcard (H4), the service role key is set on `fandomverse` and `otakuquiz` (H3), and Google Cloud and Discord are unchanged: no JavaScript origin, no new client (H5, AUTH-BUNNYVERSE.md).
 - `apps/quiz/src/lib/site/registry.ts` list `PLACEHOLDERS` for anime and hub: each item is set or accepted. Brand (owner, 2026-10-28): bunny plus "Bunnyverse" for the hub, bunny plus "OtakuQuiz" for `/anime`; the default share image of each site says its own name.
   IndexNow: the hub key at `https://bunnyverse.org/339dab142e51883ae3a2c7e4737254e4.txt`, OtakuQuiz's at `https://bunnyverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` (ENV.md 1.7). Organization mailbox: `hello@kpopquiz.org` on all three sites.
 - The hub privacy text and its controller are done (D-108, D-111, D-114); K10 checks the `privacy.controller` line.
 - The Team e-mail domain is `team.bunnyverse.org` with no mail (H6). `QOTD_ROTATION_FIX=1` is set on `otakuquiz`.
+- The owner's TOTP code is in place. The owner confirms it, since no agent signs in: on kpopquiz.org, `/admin` asks for the 6 digits and opens the admin. Every other id of `ADMIN_USER_IDS` has its code or left the list. A worker confirms `ADMIN_MFA_ENROL_OPEN` is absent from Production on the three projects (`docs/o1/admin/MFA-OWNER.md` section 2).
 - A person is free for 72 hours to watch.
 
 **K2  Morning start.** Do: A2 backup (owner); V0 again into `~/kpq-launch/v0-launch.txt` (Claude); `snap ~/kpq-launch/before` (a worker). Check: files exist. Back: n/a.
@@ -414,6 +414,7 @@ Check (Claude, read-only SQL on `auth.users`): 31 users on `team.bunnyverse.org`
 3b. **K5.3b** `sql1 $M/launch/L10-PERS-personality.sql` (the "Which character are you" quizzes of 10 series: 80 questions, 70 profiles; SQL-ORDER row 27b). After L08 and before L12. Needs L04, 002a and 013 (G1). Owner decision of 2026-10-26 (D-124): it ships at launch.
    Check: `q "select count(*) from public.personality_profiles where site_id = 'anime'"` prints 70; `content-verify.sql` against `expected-counts.json` (personality 10, personality_questions 80, personality_profiles 70) still passes. Back: `sql1 $M/launch/L10-PERS-personality.rollback.sql` (saved results stay: it never touches `personality_results`).
 3c. **K5.3c** Promote the admin images (only if you uploaded images on o1-dev, from `/anime/admin` on the preview). Needs `M/018-entity-images.sql` (G1, SQL-ORDER row 14b).
+   TOTP first, for anything done on the admin page. `/anime/admin` and its routes answer 404 to a session with no 6-digit code, and to a listed account with no code while the switch is off. The upload happens on the preview. RUNBOOK H says previews run on o1-dev, another auth database, so a code made on production should not work there (read from the docs, not tested on a preview). Before uploading: turn TOTP on in that Supabase project, set `ADMIN_MFA_ENROL_OPEN=1` on the `otakuquiz` Preview variables, redeploy the preview, enrol with an id of its Preview `ADMIN_USER_IDS`, remove the switch, redeploy (`docs/o1/admin/MFA-OWNER.md` sections 1, 2 and 8). The `promote.mjs` commands below do not open the admin. The `Back` line below does, on production: same code as K9.
    It copies the files of the bucket `entity-images` and the rows of `public.entity_images` from o1-dev to production; it never deletes anything there and a second run changes nothing. Run it before you delete the o1-dev branch (After launch). The production key is typed into your shell, never saved:
 
        read -rs PROMOTE_TARGET_SERVICE_KEY; export PROMOTE_TARGET_SERVICE_KEY
@@ -430,7 +431,7 @@ Check (Claude, read-only SQL on `auth.users`): 31 users on `team.bunnyverse.org`
 
        q "update public.quiz_bank set status='verified', verified_at=now() where id in (select id from public.quiz_bank where site_id='anime' and status='draft' and scheduled_date is null order by md5(title) limit 14) returning title"
 
-   The dating comes at K9 (it needs the signed-in admin on `/anime`); the cron then keeps going by itself (J4).
+   The dating comes at K9 (it needs the signed-in admin on `/anime`, TOTP code included); the cron then keeps going by itself (J4).
 Back: each file's rollback, in reverse (refused once data was written, ROLLBACK.md section 3).
 
 **K5b  Turn the builds on.**
@@ -463,8 +464,9 @@ Do: `sql1 $M/launch/L12-L1-sites-live.sql`, then the file of lot A1 (`L13-A1-cha
 files (owner order 2026-10-30); content-verify and V-S4 again. The command stops on the lot A1 file while it is not on main. Check: V8 (`kpop`, `anime`, `hub` all `live`). Back: `sql1 $M/launch/L12-L1-sites-live.rollback.sql`.
 
 **K9  The daily quiz and the go.**
-Do: (1) Sign in on `https://bunnyverse.org/anime` with your admin account and, in the browser console of that tab, date the verified rows from today:
-`fetch('/anime/api/admin/quiz-bank/auto-schedule', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({start_date: '<today, YYYY-MM-DD>'})}).then(r => r.json()).then(console.log)`; it answers `{scheduled: 14, ...}`.
+Do: (0) TOTP first. `/anime/api/admin/*` answers 404 to a session with no 6-digit code. K1 checked that your account has its code. If it was lost since: `docs/o1/admin/MFA-OWNER.md` section 4, which costs two redeploys of `kpopquiz` on launch day. The code also works on OtakuQuiz (same account, same database); the session does not carry over.
+(1) Sign in on `https://bunnyverse.org/anime` with your admin account, open `https://bunnyverse.org/anime/admin`, type the 6 digits (the admin home opens) and, in the browser console of that tab, date the verified rows from today:
+`fetch('/anime/api/admin/quiz-bank/auto-schedule', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({start_date: '<today, YYYY-MM-DD>'})}).then(r => r.json()).then(console.log)`; it answers `{scheduled: 14, ...}`. An answer of `{error: 'Not found.', code: 'not_found'}` means this session has no code: type the 6 digits on `/anime/admin` again, in this tab.
 (2) Publish today's quiz without waiting for 00:05: Vercel, project `otakuquiz`, Settings, Cron Jobs, `ensure-daily-quiz`, Run. (Or with the `otakuquiz` value of `CRON_SECRET`: `read -rs CRON_SECRET`, then
 `curl -sS -H "Authorization: Bearer $CRON_SECRET" https://bunnyverse.org/anime/api/cron/ensure-daily-quiz`, which answers `{"ok":true,...}`, then `unset CRON_SECRET`.) Check `https://bunnyverse.org/anime/daily` redirects to an `/anime/q/` page, and (K6b) Vercel, project `otakuquiz`, Logs shows the Run as `/anime/api/cron/ensure-daily-quiz` with 200.
 (3) V10 completely; V1 for kpop (only live numbers differ, nothing else; the NET flags are still off); on `/anime` with a real account: sign in, play a quiz, like it, check the daily page and the series page spoiler cover (the blind test is off on anime, D-120: a 404 is expected); on the hub: the network page signed out and signed in.
@@ -563,7 +565,7 @@ Taken on 2026-10-28 and 2026-10-29 and applied in this kit:
 2. Sign-in on bunnyverse.org: Google (the kpopquiz.org client) and Discord only, no email (H4, H5). kpopquiz.org unchanged. The hub and `/anime` share the session; between kpopquiz.org and bunnyverse.org the passport ticket stays (K7).
 3. Logos: bunny plus "Bunnyverse", bunny plus "OtakuQuiz".
 4. No calendar: launch as soon as everything is ready. Watches of 24 hours after B, 008 and 010; everything else chained; a backup before each SQL session (A2).
-5. Vercel, done by the integrator with the CLI on 2026-10-28 (owner exception): `fanquiz` renamed `fandomverse`; production variables of `fandomverse` and `otakuquiz`; the three shared secrets identical in Production of the three projects; `CRON_SECRET` on `fandomverse` and `otakuquiz`; no domain attached. The owner sets `SUPABASE_SERVICE_ROLE_KEY` as a team shared variable (H3).
+5. Vercel, done by the integrator with the CLI on 2026-10-28 (owner exception): `fanquiz` renamed `fandomverse`; production variables of `fandomverse` and `otakuquiz`; the three shared secrets identical in Production of the three projects; `CRON_SECRET` on `fandomverse` and `otakuquiz`; no domain attached. The owner sets `SUPABASE_SERVICE_ROLE_KEY` as a project variable on `fandomverse` and `otakuquiz` (H3).
 6. The Team accounts use `<username>@team.bunnyverse.org`, a sub-domain that receives no mail (H6, K4).
 7. The 2026-10-29 rename changes only what the public sees (names, domain, logo, share image, mails, legal pages). The Vercel project `fandomverse`, the Microfrontends group `fandomverse`, the cookie `__Host-fv_oauth` and the other internal names stay as they are.
 

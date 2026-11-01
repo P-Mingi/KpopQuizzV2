@@ -4,7 +4,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { getSpace } from '@/lib/verse/space';
 import { currentSpaceRole } from '@/lib/verse/roles';
 import { canCurateSpace } from '@/lib/verse/roles';
-import { isAdmin } from '@/lib/admin';
+import { adminPowerFor } from '@/lib/admin/guard';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { getKind } from '@/lib/verse/pages/kinds';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
@@ -35,7 +35,8 @@ export default async function EditWikiPage({ params }: { params: Promise<{ slug:
   const page = data as WikiPage;
 
   const curator = await canCurateSpace(userId, space.group.id);
-  if (page.created_by !== userId && !curator && !isAdmin(userId)) notFound();
+  const admin = await adminPowerFor(userId);
+  if (page.created_by !== userId && !curator && !admin) notFound();
 
   const def = getKind(KPOP_PAGE_REGISTRY, page.kind);
   if (!def) notFound();
@@ -76,7 +77,7 @@ export default async function EditWikiPage({ params }: { params: Promise<{ slug:
       </header>
       <PageEditor
         page={{ id: page.id, group_id: page.group_id, kind: page.kind, slug: page.slug, title: page.title, status: page.status, infobox: page.infobox }}
-        def={def} initialBody={body} canPublish={curator || isAdmin(userId)} groupSlug={space.group.slug}
+        def={def} initialBody={body} canPublish={curator || admin} groupSlug={space.group.slug}
         parentOptions={parentOptions} initialParentId={page.parent_page_id} />
     </div>
   );

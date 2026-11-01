@@ -1,8 +1,5 @@
-import { redirect } from 'next/navigation';
-
-import { createServerClient } from '@/lib/supabase/server';
 import { createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { requireAdmin } from '@/lib/admin/guard';
 import { forSite } from '@/lib/site/scope';
 import { QuizBankDashboard } from './quiz-bank-dashboard';
 
@@ -11,12 +8,7 @@ import type { QuizBankEntry } from '@/lib/quiz-bank-scheduling';
 export const metadata = { title: 'Quiz Bank | Admin' };
 
 export default async function QuizBankPage(): Promise<React.ReactElement> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user || !isAdmin(user.id)) {
-    redirect('/');
-  }
+  await requireAdmin();
 
   const adminDb = createServiceRoleClient();
 

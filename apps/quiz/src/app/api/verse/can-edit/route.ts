@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createPublicReadClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { adminPowerFor } from '@/lib/admin/guard';
 import { canEditDirect, stageOf } from '@/lib/verse/stage';
 import { getSpaceRole } from '@/lib/verse/roles';
 import { getSpaceXp, CONTRIBUTOR_XP } from '@/lib/verse/reputation';
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const slug = new URL(req.url).searchParams.get('group');
 
   if (!user) return NextResponse.json({ canEdit: false, role: 'visitor', signedIn: false, threshold: CONTRIBUTOR_XP });
-  if (isAdmin(user.id)) return NextResponse.json({ canEdit: true, role: 'admin', signedIn: true, threshold: CONTRIBUTOR_XP });
+  if (await adminPowerFor(user.id)) return NextResponse.json({ canEdit: true, role: 'admin', signedIn: true, threshold: CONTRIBUTOR_XP });
 
   if (!slug) return NextResponse.json({ canEdit: false, role: 'visitor', signedIn: true, threshold: CONTRIBUTOR_XP });
   const { data: g } = await createPublicReadClient().from('groups').select('id').eq('slug', slug).maybeSingle();

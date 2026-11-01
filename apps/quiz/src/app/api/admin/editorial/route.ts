@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { adminNotFound } from '@/lib/admin/guard';
 
 import { adminGate, generateTemplateDrafts } from '@/lib/editorial/admin-api';
 import { checkDraftInput } from '@/lib/editorial/drafts';
@@ -49,3 +50,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'write_failed' }, { status: 500 });
   }
 }
+
+// ADMIN-1: a method this route does not implement is the admin 404 too (Next would answer 405 and name the real ones).
+export const PUT = adminNotFound;
+export const PATCH = adminNotFound;
+export const DELETE = adminNotFound;
+export const HEAD = adminNotFound;
+export const OPTIONS = adminNotFound;
