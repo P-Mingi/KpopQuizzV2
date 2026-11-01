@@ -244,8 +244,7 @@ Waits for F. Additive, empty, dormant. Order of `SQL-ORDER.md` rows 14 to 19b.
 **G1  011, 018, 019, 020, 021a, 021b, 022, 012, 013, 014, 015, 016, 017, in this order (owner order 2026-10-30; 016 and 017 are G2).** (G1 to G3: `bash docs/launch/o1/session.sh G`.)
 Do: A2 backup, then for each `sql1 $M/<file>.sql`: 011-anime-series, 018-entity-images (row 14b, needed by K5.3c and the admin images), 019-dle-core and
 020-dle-kpop-idol (the daily games engine, switched off: rows 14c and 14d), the two files of lot K1 (`021a-k1-idol-gender-debut.sql`, row 14e: `idols.gender`
-and `idols.debut_year`; `021b-k1-idol-activate.sql`, row 14e bis: the idols the owner chose), 022-photos-admin (row 14f: `agencies`, `site_assets` and their two public views), 012-editorial-quiz, 013-formats, 014-daily-openings, 015-spoilers. After each, its V6 lines (019 and 020: `dle-smoke.sql`; 022: `V-022`).
-The command stops on a lot K1 file while it is not on main: G waits for that lot.
+and `idols.debut_year`; `021b-k1-idol-activate.sql`, row 14e bis: empty list in session G, activates nobody; activation comes after, on a list the owner ticks), 022-photos-admin (row 14f: `agencies`, `site_assets` and their two public views), 012-editorial-quiz, 013-formats, 014-daily-openings, 015-spoilers. After each, its V6 lines (019 and 020: `dle-smoke.sql`; 022: `V-022`).
 Check: V6 (empty tables, RLS on, functions closed to anon). 013 stops with the name of a `games.game_type` value nobody listed, if production has one: send that name to the run's lead, do not edit the file.
 Back: `sql1` the rollbacks in reverse: 015 down to 012, then 022, 021b (with the same list), 021a, 020, 019, 018 and 011.
 

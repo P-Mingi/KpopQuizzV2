@@ -8,6 +8,9 @@
 #    Redeploy from a git push, so a Redeploy of these two projects unticks "Use project's Ignore Build Step" (OWNER-NOW 8).
 # 2. A push whose changes since the branch's last deployment are all under docs/ or in .md or .sql files does not
 #    build. docs/data/ is the exception: a route serves docs/data/w5-dataset.md at runtime.
+# 3. A Preview of main on otakuquiz or fandomverse never builds: these projects have Preview variables for o1/integration only,
+#    so check:env fails. Vercel's docs say a group on Fallback Environment "Same Environment" creates these Previews.
+#    VERCEL_ENV=preview only: no production build reaches this rule, before or after launch. See docs/o1/NETTOYAGES.md.
 set -u
 
 NET_PRODUCTION_HOLD=1
@@ -17,6 +20,12 @@ say() { echo "ignore-build: $*"; }
 if [ "$NET_PRODUCTION_HOLD" = 1 ] && [ "${VERCEL_ENV:-}" = production ]; then
   case "${VERCEL_PROJECT_NAME:-}" in
     otakuquiz | fandomverse) say "$VERCEL_PROJECT_NAME production is held until launch (K5b), skip"; exit 0 ;;
+  esac
+fi
+
+if [ "${VERCEL_ENV:-}" = preview ] && [ "${VERCEL_GIT_COMMIT_REF:-}" = main ]; then
+  case "${VERCEL_PROJECT_NAME:-}" in
+    otakuquiz | fandomverse) say "$VERCEL_PROJECT_NAME Preview of main, created by the group, skip"; exit 0 ;;
   esac
 fi
 

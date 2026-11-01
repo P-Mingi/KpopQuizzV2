@@ -24,7 +24,7 @@ M="docs/pending-migrations/multisite"
 L="$M/launch"
 C="docs/launch/o1/checks"
 # The files of the two lots of the old worker (owner order 2026-10-30). The session stops with a KO while a file is not on main.
-# Lot K1 is two files (K1-RELECTURE.md): 021a stores gender and debut year with their sources, 021b activates the idols the owner chose.
+# Lot K1 is two files (K1-RELECTURE.md): 021a stores gender and debut year with their sources, 021b has an empty list in session G (activation comes after, on a list the owner ticks).
 K1A_SQL="$M/021a-k1-idol-gender-debut.sql"
 K1B_SQL="$M/021b-k1-idol-activate.sql"
 A1_SQL="$L/L13-A1-character-facts.sql"
