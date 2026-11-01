@@ -1,4 +1,4 @@
-import { SITE_ID } from '@/lib/site/registry';
+import { dleLivePaths, SITE, SITE_ID } from '@/lib/site/registry';
 import { verseHidden } from '@/lib/verse/visibility';
 
 import { UxShellLoader } from './ux-shell-loader';
@@ -17,7 +17,12 @@ import { UxShellLoader } from './ux-shell-loader';
 export function UxShell({ children }: { children: React.ReactNode }): React.ReactElement {
   return (
     // Run O1 (H2a): the hub build alone asks for the bare shell on its home (the prop is absent, not undefined, on kpop and anime).
-    <UxShellLoader showFandoms={!verseHidden()} year={new Date().getFullYear()} {...(SITE_ID === 'hub' ? { bare: true } : {})}>
+    // Daily games step 4: the pages of the Terrier too, with the flag on; off, the prop is absent and those paths get the shell of any unknown URL.
+    <UxShellLoader
+      showFandoms={!verseHidden()}
+      year={new Date().getFullYear()}
+      {...(SITE_ID === 'hub' ? { bare: true, ...(SITE.features.dailyGuess ? { barePaths: dleLivePaths() } : {}) } : {})}
+    >
       {children}
     </UxShellLoader>
   );

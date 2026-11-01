@@ -7,10 +7,42 @@ import { UxPage } from '@/components/ux-v1/page';
 import { LICENSE_LABEL, LICENSE_URL } from '@/lib/anime/entity-images-rules';
 import { REGISTRY } from '@/lib/site/registry';
 
+import type { DleLocale } from '@/lib/dle/types';
 import type { LiveAsset, PublicPicture } from '@/lib/photos/public-read';
 import type { ImageLicense } from '@/lib/photos/slots';
 
-export const CREDITS_TITLE = 'Photo credits';
+/** The words of the page in the two languages: /credits, and /fr/credits since daily games step 4 (it opens with the Burrow). */
+const WORDS: Readonly<Record<DleLocale, {
+  readonly title: string; readonly lede: string; readonly empty: string; readonly photo: string; readonly source: string; readonly character: (series: string) => string;
+  readonly sections: Readonly<Record<'idols' | 'groups' | 'agencies' | 'series' | 'characters' | 'images', string>>;
+  readonly slots: Readonly<Record<string, string>>;
+}>> = {
+  en: {
+    title: 'Photo credits',
+    lede: 'Bunnyverse shows only licensed photos: Creative Commons with credit, public domain, our own photos, or photos used with written permission. Every one is listed here with its author, its licence and a link to the page it comes from. Small pictures, like the thumbnails of the daily games, are credited on this page only.',
+    empty: 'No licensed photo is shown on Bunnyverse yet. Until one is, the daily games show initials and every image keeps the colours of its site.',
+    photo: 'Photo:', source: 'Source page', character: (s) => `A character of ${s}`,
+    sections: { idols: 'Idols', groups: 'Groups', agencies: 'Agencies', series: 'Anime series', characters: 'Anime characters', images: 'Banners and images of the site' },
+    slots: {},
+  },
+  fr: {
+    title: 'Crédits photos',
+    lede: 'Bunnyverse n\u2019affiche que des photos sous licence : Creative Commons avec crédit, domaine public, nos propres photos ou photos utilisées avec un accord écrit. Chacune est listée ici avec son auteur, sa licence et un lien vers sa page d\u2019origine. Les petites images, comme les vignettes des jeux du jour, sont créditées sur cette page seulement.',
+    empty: 'Aucune photo sous licence n\u2019est encore affichée sur Bunnyverse. En attendant, les jeux du jour montrent les initiales et chaque image garde les couleurs de son site.',
+    photo: 'Photo :', source: 'Page source', character: (s) => `Un personnage de ${s}`,
+    sections: { idols: 'Idols', groups: 'Groupes', agencies: 'Agences', series: 'Séries anime', characters: 'Personnages d\u2019anime', images: 'Bannières et images du site' },
+    slots: {
+      'banner:kpopdle': 'Bannière de Kpopdle', 'banner:otakudle': 'Bannière d\u2019Otakudle', 'banner:daily': 'Bannière du Terrier', 'banner:otakudle/one-piece': 'Bannière d\u2019Otakudle One Piece',
+      'home:kpopdle': 'Carte Kpopdle', 'home:otakudle': 'Carte Otakudle',
+      'home:qotd-k': 'Quiz K-pop du jour, page d\u2019accueil', 'home:qotd-a': 'Quiz anime du jour, page d\u2019accueil', 'home:debate': 'Débat du jour, page d\u2019accueil',
+      'home:cross-1': 'Crossover, première vignette', 'home:cross-2': 'Crossover, deuxième vignette', 'home:cross-3': 'Crossover, troisième vignette',
+      'daily:mode-idol': 'Mode Idol du jour', 'daily:mode-group': 'Mode Groupe du jour', 'daily:mode-song': 'Mode Chanson du jour', 'daily:mode-hidden': 'Mode Membres cachés',
+      'daily:mode-char': 'Mode Personnage du jour', 'daily:mode-series': 'Mode Série du jour', 'daily:mode-byseries': 'Mode Un Otakudle par série',
+    },
+  },
+};
+
+export const CREDITS_TITLE = WORDS.en.title;
 export const CREDITS_DESCRIPTION = 'Every licensed photo shown on Bunnyverse, with its author, its licence and a link to its source page: idols, groups, anime series and game banners.';
 
 /** One line of the page. */
@@ -45,6 +77,8 @@ const SLOT_NAMES: Readonly<Record<string, string>> = {
   'home:cross-1': 'Crossover, first tile',
   'home:cross-2': 'Crossover, second tile',
   'home:cross-3': 'Crossover, third tile',
+  'daily:mode-idol': 'Idol of the day mode', 'daily:mode-group': 'Group of the day mode', 'daily:mode-song': 'Song of the day mode', 'daily:mode-hidden': 'Hidden members mode',
+  'daily:mode-char': 'Character of the day mode', 'daily:mode-series': 'Series of the day mode', 'daily:mode-byseries': 'One Otakudle per series mode',
 };
 
 const byName = (a: CreditItem, b: CreditItem): number => a.name.localeCompare(b.name, 'en', { sensitivity: 'base' });
@@ -79,7 +113,9 @@ export function creditSections(
   assets: readonly LiveAsset[],
   characterNames: Readonly<Record<string, string>>,
   seriesNames: Readonly<Record<string, string>>,
+  locale: DleLocale = 'en',
 ): CreditSection[] {
+  const copy = WORDS[locale];
   const words = (slug: string): string => slug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   const line = (p: PublicPicture, name: string, locked = false): CreditItem => {
     const note = p.licenseNote && p.licenseNote.trim() ? p.licenseNote.trim() : null;
@@ -99,25 +135,25 @@ export function creditSections(
     const seriesSlug = p.slug.split('/')[0] ?? '';
     const series = seriesNames[seriesSlug] ?? words(seriesSlug);
     const own = characterNames[p.slug];
-    return own ? line(p, `${own} (${series})`) : line(p, `A character of ${series}`, true);
+    return own ? line(p, `${own} (${series})`) : line(p, copy.character(series), true);
   }).sort(byName);
   const images: CreditItem[] = assets
     .filter((a) => (a.type === 'banner' || a.type === 'card_image') && a.large && a.license && a.author && SLOT_NAMES[a.key])
     .map((a) => ({
-      key: a.key, name: SLOT_NAMES[a.key]!, thumb: a.thumb, position: '50% 50%', author: a.author!, sourceUrl: a.sourceUrl,
+      key: a.key, name: copy.slots[a.key] ?? SLOT_NAMES[a.key]!, thumb: a.thumb, position: '50% 50%', author: a.author!, sourceUrl: a.sourceUrl,
       license: a.license!, note: a.licenseNote && a.licenseNote.trim() ? a.licenseNote.trim() : null,
     }));
   return [
-    { id: 'idols', title: 'Idols', items: named('idol') },
-    { id: 'groups', title: 'Groups', items: named('group') },
-    { id: 'agencies', title: 'Agencies', items: named('agency') },
-    { id: 'series', title: 'Anime series', items: named('series') },
-    { id: 'characters', title: 'Anime characters', items: characters },
-    { id: 'images', title: 'Banners and images of the site', items: images },
+    { id: 'idols', title: copy.sections.idols, items: named('idol') },
+    { id: 'groups', title: copy.sections.groups, items: named('group') },
+    { id: 'agencies', title: copy.sections.agencies, items: named('agency') },
+    { id: 'series', title: copy.sections.series, items: named('series') },
+    { id: 'characters', title: copy.sections.characters, items: characters },
+    { id: 'images', title: copy.sections.images, items: images },
   ].filter((s) => s.items.length > 0);
 }
 
-function Credit({ item }: { item: CreditItem }): React.ReactElement {
+function Credit({ item, locale }: { item: CreditItem; locale: DleLocale }): React.ReactElement {
   const label = LICENSE_LABEL[item.license];
   const licenseUrl = LICENSE_URL[item.license];
   return (
@@ -130,35 +166,30 @@ function Credit({ item }: { item: CreditItem }): React.ReactElement {
       <div className="hub-credits-text">
         <h3 className="hub-credits-name">{item.name}</h3>
         <p>
-          Photo: {item.sourceUrl ? <a href={item.sourceUrl} rel="noopener noreferrer nofollow" target="_blank">{item.author}</a> : item.author},{' '}
+          {WORDS[locale].photo} {item.sourceUrl ? <a href={item.sourceUrl} rel="noopener noreferrer nofollow" target="_blank">{item.author}</a> : item.author},{' '}
           {licenseUrl ? <a href={licenseUrl} rel="noopener noreferrer" target="_blank">{label}</a> : label}
         </p>
         {item.note ? <p className="hub-credits-meta">{item.note}</p> : null}
-        {item.sourceUrl ? <p className="hub-credits-meta"><a href={item.sourceUrl} rel="noopener noreferrer nofollow" target="_blank">Source page</a></p> : null}
+        {item.sourceUrl ? <p className="hub-credits-meta"><a href={item.sourceUrl} rel="noopener noreferrer nofollow" target="_blank">{WORDS[locale].source}</a></p> : null}
       </div>
     </li>
   );
 }
 
-export function HubCreditsPage({ sections }: { sections: readonly CreditSection[] }): React.ReactElement {
+export function HubCreditsPage({ sections, locale = 'en' }: { sections: readonly CreditSection[]; locale?: DleLocale }): React.ReactElement {
+  const copy = WORDS[locale];
   return (
     <UxPage width="text" className="hub-credits">
-      <h1 className="ux-h1">{CREDITS_TITLE}</h1>
-      <p className="hub-credits-lede">
-        Bunnyverse shows only licensed photos: Creative Commons with credit, public domain, our own photos, or photos used with written
-        permission. Every one is listed here with its author, its licence and a link to the page it comes from. Small pictures, like the
-        thumbnails of the daily games, are credited on this page only.
-      </p>
+      <h1 className="ux-h1">{copy.title}</h1>
+      <p className="hub-credits-lede">{copy.lede}</p>
       {sections.length === 0 ? (
-        <p className="hub-credits-empty" data-testid="credits-empty">
-          No licensed photo is shown on Bunnyverse yet. Until one is, the daily games show initials and every image keeps the colours of its site.
-        </p>
+        <p className="hub-credits-empty" data-testid="credits-empty">{copy.empty}</p>
       ) : sections.map((s) => (
         <section key={s.id} className="hub-credits-section" aria-labelledby={`cr-${s.id}`}>
           <h2 id={`cr-${s.id}`} className="hub-credits-h2">{s.title}</h2>
           <ul className="hub-credits-list">
             {/* Keyed by position: a key from the record would print a locked character's slug into the page's data. */}
-            {s.items.map((i, n) => <Credit key={n} item={i} />)}
+            {s.items.map((i, n) => <Credit key={n} item={i} locale={locale} />)}
           </ul>
         </section>
       ))}

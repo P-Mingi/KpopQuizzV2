@@ -19,7 +19,7 @@
 
 import { NOT_FOUND_REWRITE, isFilePath, isKnownRouteWith } from '../route-allowlist';
 
-import { REGISTRY, SITE_ID } from './registry';
+import { DLE_BUILT_GAMES, REGISTRY, SITE_ID } from './registry';
 
 import { SITE_IDS } from './types';
 
@@ -95,6 +95,12 @@ export function keyFileBlocksFor(site: SiteId): readonly SiteRewrite[] {
   return out;
 }
 
+/** Daily games step 4: the internal folder of /daily (/sites/[site]/daily is the anime handler of the quiz of the day: one path cannot have two files) and of the shared results. */
+export const BURROW_INTERNAL = '/burrow';
+export const SHARE_INTERNAL = '/dle-share';
+/** A shared result: the right cells of each guess, at most 20 guesses (the link stays short). */
+export const SHARE_R_PATTERN = '[0-9]{1,2}(?:-[0-9]{1,2}){0,19}';
+
 /**
  * Pretty public URLs of a site that map to a different internal page (anime only today).
  * `source` is the public path; next.config receives it prefixed with /sites/<site> (see
@@ -109,7 +115,8 @@ const PRETTY_REWRITES: Readonly<Record<SiteId, readonly { source: string; intern
     // O5: Which character are you.
     { source: '/which-:series-character-are-you', internal: '/which-character/:series' },
   ],
-  hub: [],
+  // Daily games step 4: /daily of the hub is served by (hub)/burrow, because /sites/[site]/daily is the anime handler of the quiz of the day.
+  hub: [{ source: '/daily', internal: BURROW_INTERNAL }],
 };
 
 /**
@@ -120,7 +127,8 @@ const PRETTY_REWRITES: Readonly<Record<SiteId, readonly { source: string; intern
 const BLOCKED_PUBLIC: Readonly<Record<SiteId, readonly string[]>> = {
   kpop: [],
   anime: ['/blindtest'],
-  hub: [],
+  // The internal folders of the daily games: reached only through the rewrites below.
+  hub: [BURROW_INTERNAL, SHARE_INTERNAL],
 };
 
 /**
@@ -137,6 +145,20 @@ export const CATCH_ALL_PATTERN =
 export interface SiteRewrite {
   readonly source: string;
   readonly destination: string;
+  /** A Next rewrite condition: the rule applies only when the query parameter has this value. */
+  has?: { type: 'query'; key: string; value: string }[];
+}
+
+/**
+ * Daily games step 4 (v2 section 11.6): a shared result, /kpopdle?r=2-1-3, keeps the page static: the rule sends the parameter to the one
+ * internal page that draws the image of that result in its metadata; its canonical is the clean address. A bad value stays on the page.
+ */
+function dleShareRewrites(base: string): readonly SiteRewrite[] {
+  return DLE_BUILT_GAMES.flatMap((g) => (['en', 'fr'] as const).map((locale) => ({
+    source: `${base}${locale === 'fr' ? '/fr' : ''}${g.path}`,
+    has: [{ type: 'query' as const, key: 'r', value: `(?<r>${SHARE_R_PATTERN})` }],
+    destination: `${base}${SHARE_INTERNAL}/${locale}/${g.id}/:r`,
+  })));
 }
 
 /** The internal path of a public path on a non-kpop site: '/' becomes '/sites/anime'. */
@@ -177,6 +199,7 @@ export function rewritesFor(site: SiteId): readonly SiteRewrite[] {
       { source: `${base}${p}/:rest*`, destination: `${base}/gone` },
     ]),
     ...PRETTY_REWRITES[site].map((r) => ({ source: `${base}${r.source}`, destination: `${base}${r.internal}` })),
+    ...(site === 'hub' ? dleShareRewrites(base) : []),
   ];
 }
 

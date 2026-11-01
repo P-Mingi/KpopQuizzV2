@@ -14,7 +14,7 @@ import { describe, expect, it } from 'vitest';
 
 import { KNOWN_ROUTES, UX_V1_ROUTES, UX_V12_ROUTES, isKnownRouteWith } from '@/lib/route-allowlist';
 
-import { REGISTRY } from './registry';
+import { REGISTRY, hubRouteAllow } from './registry';
 import {
   INDEXNOW_KEY_FILE_RE, KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_BRAND_FILES, PER_SITE_ROOT_FILES, KPOP_ONLY_DOTTED_ROUTES,
   SESSION_PATTERNS, TWIN_SAMPLES, afterFilesFor, brandPath, compileRoutePattern, fallbackFor, indexNowKeyFile, internalPath,
@@ -639,7 +639,14 @@ describe('middleware step and the sites/[site] guard', () => {
     };
     walk(root);
     expect(pages.length).toBeGreaterThanOrEqual(9);
-    for (const p of pages) expect(middlewareStep('hub', p), `hub ${p}`).not.toBe('not-found');
+    // The daily games (CR-013) are the only pages closed by a flag. While dailyGuess is off they answer as any unknown URL; on, each public address is in the map.
+    // /burrow and /dle-share are internal folders, reached through the rewrites only.
+    const closed = new Set(['/burrow', '/dle-share/xlocale/xgame/xr', '/kpopdle', '/fr/daily', '/fr/kpopdle', '/fr/credits']);
+    for (const p of closed) expect(pages, `closed page ${p}`).toContain(p);
+    expect(REGISTRY.hub.features.dailyGuess).toBe(false);
+    for (const p of closed) expect(middlewareStep('hub', p), `hub ${p}`).toBe('not-found');
+    expect(hubRouteAllow({ dailyGuess: true })).toEqual(expect.arrayContaining(['/daily', '/kpopdle', '/fr/daily', '/fr/kpopdle', '/fr/credits']));
+    for (const p of pages.filter((q) => !closed.has(q))) expect(middlewareStep('hub', p), `hub ${p}`).not.toBe('not-found');
   });
 
   it('a session path is a protected path of today\'s middleware and a route of the site', () => {

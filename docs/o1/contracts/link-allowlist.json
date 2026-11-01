@@ -7,7 +7,11 @@
     { "id": "about-anime", "source": "Q B17, D6; otakuquiz.org/about (O1)", "from": ["anime"], "page": "/about", "to": ["kpop", "hub"], "href": "/", "rel": "followed", "query": false, "maxPerPage": 1 },
     { "id": "team-article", "source": "Q B17, D6; one Team article on kpopquiz.org, its path set by a CR at launch", "from": ["kpop"], "page": null, "to": ["anime"], "href": "/", "rel": "followed", "query": false, "maxPerPage": 1 },
     { "id": "network-page", "source": "Q B02, D2; fanquiz.org home (H1)", "from": ["hub"], "page": "/", "to": ["kpop", "anime"], "href": "/", "rel": "followed", "query": false, "maxPerPage": 1 },
-    { "id": "directory", "source": "Q B03, D2; fanquiz.org/directory (H1, optional), noindex, follow", "from": ["hub"], "page": "/directory", "to": ["kpop", "anime"], "href": "/**", "rel": "nofollow", "query": false }
+    { "id": "directory", "source": "Q B03, D2; fanquiz.org/directory (H1, optional), noindex, follow", "from": ["hub"], "page": "/directory", "to": ["kpop", "anime"], "href": "/**", "rel": "nofollow", "query": false },
+    { "id": "dle-daily", "source": "CR-013; the Terrier: yesterday's answers, the quiz of the group; the hub's anime site in the footer; with the flag on", "from": ["hub"], "page": "/daily", "to": ["kpop", "anime"], "href": "/**", "rel": "followed", "query": false },
+    { "id": "dle-daily-fr", "source": "CR-013; as dle-daily, in French", "from": ["hub"], "page": "/fr/daily", "to": ["kpop", "anime"], "href": "/**", "rel": "followed", "query": false },
+    { "id": "dle-game", "source": "CR-013; a game page: yesterday's answer and the result, the quiz of the group; with the flag on", "from": ["hub"], "page": "/kpopdle/**", "to": ["kpop", "anime"], "href": "/**", "rel": "followed", "query": false },
+    { "id": "dle-game-fr", "source": "CR-013; as dle-game, in French", "from": ["hub"], "page": "/fr/kpopdle/**", "to": ["kpop", "anime"], "href": "/**", "rel": "followed", "query": false }
   ],
   "domainText": { "anime": ["kpop"], "kpop": ["anime"] }
 }

@@ -17,7 +17,7 @@ import type { ImageLicense } from './slots';
 export const PUBLIC_TTL = 60;
 
 const SAFE_PATH = /^[a-z0-9][a-z0-9/_.-]*[.]webp$/;
-const safePath = (p: unknown): string | null => (typeof p === 'string' && SAFE_PATH.test(p) && !p.includes('..') ? p : null);
+export const safePath = (p: unknown): string | null => (typeof p === 'string' && SAFE_PATH.test(p) && !p.includes('..') ? p : null);
 const httpsOrNull = (u: unknown): string | null => {
   if (typeof u !== 'string') return null;
   try { return new URL(u).protocol === 'https:' ? u : null; } catch { return null; }
