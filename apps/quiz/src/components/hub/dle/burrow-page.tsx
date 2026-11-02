@@ -3,8 +3,7 @@
 import { burrowGamesJsonLd, breadcrumbJsonLd } from '@/lib/dle/seo';
 import { dleCopy, gameCopy } from '@/lib/dle/copy';
 import { DAILY_PATH, builtGames, localePath } from '@/lib/dle/games';
-import { getDleDay, getDleImages, getKpopGroupSlugs } from '@/lib/dle/read';
-import { homeUrl } from '@/lib/site/hub/home-types';
+import { getAnimeSeriesSlugs, getDleDay, getDleImages, getKpopGroupSlugs, quizLinksOf } from '@/lib/dle/read';
 
 import { firstValue } from './dle-avatar';
 import { BurrowBoard } from './burrow-board';
@@ -26,13 +25,13 @@ export async function burrowFacts(): Promise<Readonly<Partial<Record<DleGameId, 
 
 export async function BurrowPage({ locale }: { locale: DleLocale }): Promise<React.ReactElement> {
   const t = dleCopy(locale);
-  const [facts, images, slugs] = await Promise.all([burrowFacts(), getDleImages(), getKpopGroupSlugs()]);
+  const [facts, images, kpopSlugs, animeSlugs] = await Promise.all([burrowFacts(), getDleImages(), getKpopGroupSlugs(), getAnimeSeriesSlugs()]);
   const quizLinks: Record<string, string> = {};
   for (const g of builtGames()) {
     const a = facts[g.id]?.yesterday?.answer;
     const value = a?.attrs[gameCopy(g.id, locale).subKey];
     const group = value?.p?.[0] ?? firstValue(value?.v);
-    if (group && slugs[group]) quizLinks[group] = homeUrl({ site: 'kpop', path: `/${slugs[group]}-quiz` });
+    if (group) Object.assign(quizLinks, quizLinksOf(g.universe, [group], g.universe === 'anime' ? animeSlugs : kpopSlugs));
   }
   const label = new Intl.DateTimeFormat(locale === 'fr' ? 'fr-FR' : 'en-GB', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date());
   return (

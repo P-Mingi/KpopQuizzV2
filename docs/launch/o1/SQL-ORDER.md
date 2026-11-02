@@ -16,7 +16,7 @@ Folder names used below:
 ## 1. How a file is applied
 
 Since 2026-10-30 (owner order) the owner pastes only the session's backup line and one command per part: `bash docs/launch/o1/session.sh <part>`
-(B1 B2 B3 D E1 E2 G J1 J2 J3 J4; RUNBOOK section 0 lists what each part holds). It applies the files below in this order, in the mode of the table (psql,
+(B1 B2 B3 D E1 E2 G J1 J2 J3 J4 J5; RUNBOOK section 0 lists what each part holds). It applies the files below in this order, in the mode of the table (psql,
 ON_ERROR_STOP, `--single-transaction` for "single"), runs their checks (`docs/launch/o1/checks`, VERIFY's lines as OK or KO rows), prints counts only and
 stops at the first KO. The helpers below stay for rollbacks and one-off reads.
 
@@ -67,6 +67,7 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 | 14e ter | lot K1, corrections: `M/021c-k1-idol-corrections.sql` (applied between 14e and 14e bis) | P5, right after 021a, before 021b | single | 021a | the debut years of the list hold the rule (first official release as a member of a debuted group), each with one source row; idols 39, 46, 48, 175 carry the QID of their inactive duplicates; 14 and 19 have their QID, birth date and source references swapped back (visible on kpopquiz.org, CR-014); active and needs_review unchanged (`checks/V-K1c.sql`) | `M/021c-k1-idol-corrections.rollback.sql`, before the rollback of 021a (refused while the game kpopdle-idol is active) | V6 |
 | 14e bis | lot K1, second file: `021b-k1-idol-activate.sql` in `M` (empty list in session G: activates nobody; activation comes after, on a list the owner ticks) | P5, right after 021a | single | 021a | no active idol left to review; no minor and no idol without a birth date in the game (`checks/V-K1b.sql`) | its own rollback | V6 |
 | 14f | `M/022-photos-admin.sql` (daily games step 2, photos and admin) | P5, right after 021a, 021c and 021b (the lot K1, rows 14e, 14e ter and 14e bis) | single | 001, 002a, 018, 019 | tables `agencies` and `site_assets` with RLS on and 0 policies; views `site_assets_public` and `entity_images_public` readable by anon, the two tables and their sequences not; 17 agencies (the labels the kpop groups cite) (`checks/V-022.sql`) | `M/022-photos-admin.rollback.sql` (refused while an idol, group or agency picture, a site_assets row or an agency the owner edited exists) | V6 |
+| 14g | `M/023-dle-otakudle.sql` (Otakudle, contract `docs/o1/contracts/dle-a1-characters.md`, CR-017) | P5, right after 022; run again in J4, just before row 32: the game row needs the anime site of L01 | single | 011, 018, 019 | tables `character_facts` and `series_facts` with RLS on and 0 policies, closed to the browser roles; view `dle_src_anime_character` closed; game `otakudle` absent before L01, then switched off with 7 columns (`checks/V-023.sql`) | `M/023-dle-otakudle.rollback.sql` (refused once a play exists, and while L13's rows are there) | V6, V8 |
 | 15 | `M/012-editorial-quiz.sql` | P5 | single | 002a, 001 | `review_batches` RLS on, 0 policies | `M/012-editorial-quiz.rollback.sql` | V6 |
 | 16 | `M/013-formats.sql` | P5 | single | 011 | `games_game_type_check` validated; column `character_id` | `M/013-formats.rollback.sql` | V6 |
 | 17 | `M/014-daily-openings.sql` | P5 | single | 011, 001 | table and function present; function closed to anon | `M/014-daily-openings.rollback.sql` | V6 |
@@ -84,11 +85,12 @@ Phase names follow the manifest: P1 SQL part 1, P2 write locks, P3 daily window,
 | 27 | `LAUNCH/L08-K3-daily-bank.sql` (generated, only rows whose facts are all verified) | P7 | single | L04, 009 | `quiz_bank` rows, site anime | `LAUNCH/L08-K3-daily-bank.rollback.sql` | V8 |
 | 27b | `LAUNCH/L10-PERS-personality.sql` (generated, 10 series, by apps/quiz/e2e/o1/L1/content-sql.mjs, only the sets marked published) | PERS | single | L04, 002a, 013 | personality_questions and personality_profiles rows, site anime | `LAUNCH/L10-PERS-personality.rollback.sql` | V8 |
 | 31 | `LAUNCH/L12-L1-sites-live.sql` (generated) | P7 last | single | L01 to L08 | anime and hub `live` | `LAUNCH/L12-L1-sites-live.rollback.sql` | V8 |
-| 32 | the file of lot A1, `L13-A1-character-facts.sql` in `LAUNCH` | P7, after the launch files (owner order 2026-10-30) | single | L04, 011 | content-verify unchanged; the character facts Otakudle reads | its own rollback | V8 |
+| 32 | the file of lot A1, `L13-A1-character-facts.sql` in `LAUNCH` | P7, after the launch files (owner order 2026-10-30) | single | L04, 011, 023 | content-verify unchanged; the character facts Otakudle reads (`checks/V-L13.sql`) | its own rollback | V8 |
+| 33 | `LAUNCH/L14-O1-dle-on.sql` (written by O1; `dle_activate` for `kpopdle-idol` and `otakudle`) | P7, right after row 32 (owner decision: both games open on launch day) | single | 020, 021a, 023, L13 | both games on with their epoch, 365 days each, no target twice in the window, each pool at its minimum or more (`checks/V-L14.sql`); each game's `dle_day` answers | `LAUNCH/L14-O1-dle-on.rollback.sql` (switches both off; banks and plays stay) | V8 |
 
 Rows 28, 29 and 30 (L09 openings, L10 formats, L11 crossover quiz) are not on the launch path (owner decision D-099): see "After launch" below.
-Order of the launch files on the day: L01, L02 (after its auth users), L03, L04, L05, L06, L07, L08, L10-PERS, then the builds and the domain, then L12, then the lot A1 file.
-Order of session G (owner order 2026-10-30): 011, 018, 019, 020, 021a, 021c, 021b, 022, 012, 013, 014, 015, 016, 017.
+Order of the launch files on the day: L01, L02 (after its auth users), L03, L04, L05, L06, L07, L08, L10-PERS, then the builds and the domain, then L12, 023 again (the game row), the lot A1 file, then L14 (the two daily games on).
+Order of session G (owner order 2026-10-30): 011, 018, 019, 020, 021a, 021c, 021b, 022, 023, 012, 013, 014, 015, 016, 017.
 Before launch day, `ls docs/pending-migrations/multisite/launch/` must show L01 to L08, L10-PERS and L12, each with its rollback,
 `grep -l '^-- DRAFTS' docs/pending-migrations/multisite/launch/*.sql` must print nothing and
 `grep -c 'team.otakuquiz.org' docs/pending-migrations/multisite/launch/L02-K2-team-accounts.sql` must print 0 (RUNBOOK J2).

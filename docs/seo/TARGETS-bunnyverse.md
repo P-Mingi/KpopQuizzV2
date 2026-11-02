@@ -19,13 +19,13 @@ named gap in the plan; blank when none was recorded yet.
 | kpopdle | kpopdle, guess the kpop idol daily, kpop idol wordle | /kpopdle | guess the K-pop idol of the day from clues | en | [P] 11.1: the game's own name is the main query of the niche; "kpopdle" is also used by three small games | brand impressions "kpopdle" | built, closed until the dailyGuess flag (step 4) |
 | guess the kpop group | guess the kpop group, kpop group wordle | /kpopdle/group | guess the K-pop group of the day | en | [P] 11.2 | impressions | planned (step 6) |
 | kpop song wordle | kpop song wordle | /kpopdle/song | guess the song of the day from clues | en | [P] 11.2 | impressions | planned (step 6); never "guess the kpop song", owned by kpopquiz.org/guess-the-kpop-song |
-| otakudle | otakudle, guess the anime character daily, anime character wordle | /otakudle | guess the anime character of the day from clues | en | [P] 11.1 and 11.2; takes the intent of the dropped OtakuQuiz page /anime/guess-the-anime-character | brand impressions "otakudle" | planned (step 7) |
+| otakudle | otakudle, guess the anime character daily, anime character wordle | /otakudle | guess the anime character of the day from clues | en | [P] 11.1 and 11.2; takes the intent of the dropped OtakuQuiz page /anime/guess-the-anime-character | brand impressions "otakudle" | built, closed until the dailyGuess flag; opens with the launch (CR-017) |
 | {series} character guessing game | one piece character guessing game, guess the one piece character | /otakudle/{series} | guess the character of one series | en | [P] 11.2 and 11.4 | impressions per series | planned (step 7); indexable only with 40 reviewed characters (11.4) |
 | jeux du jour k-pop et anime | jeux du jour kpop, jeu kpop quotidien, quiz k-pop et anime | /fr | the French home | fr | [P] 11.1 (French long tail without serious competitors), owner reviews the French (rule 10) | impressions | planned (with step 4) |
 | kpopdle (fr) | kpopdle, devine l'idol k-pop du jour | /fr/kpopdle | the French Kpopdle | fr | [P] 11.14 | impressions | built, closed until the dailyGuess flag; noindex until the owner reviewed the French (step 4) |
 | jeux du jour (fr) | jeux kpop du jour, jeu kpop quotidien, jeu anime du jour | /fr/daily | le Terrier en français | fr | [P] 11.1 (French long tail) | impressions | built, closed until the dailyGuess flag; noindex until the owner reviewed the French (step 4) |
 | crédits photos (fr) | crédits photos bunnyverse | /fr/credits | trust page in French | fr | RAPPORT-JEUX-DU-JOUR-v2 section 2 | none (trust page) | built, closed until the dailyGuess flag; noindex while it lists nothing |
-| otakudle (fr) | otakudle, devine le perso d'anime du jour | /fr/otakudle | the French Otakudle | fr | [P] 11.14 | impressions | planned (step 7) |
+| otakudle (fr) | otakudle, devine le perso d'anime du jour | /fr/otakudle | the French Otakudle | fr | [P] 11.14 | impressions | built, closed until the dailyGuess flag; noindex until the owner reviewed the French (CR-017) |
 
 ## Boundaries with the sister sites
 

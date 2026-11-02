@@ -10,7 +10,7 @@ import { REGISTRY } from '@/lib/site/registry';
 import { rewritesFor } from '@/lib/site/routing';
 
 import { DleError, dleClient, errorCode, shareParam } from './client';
-import { HINT_LABELS, IDOL_COLUMNS, dleCopy, gameCopy, valueLabel } from './copy';
+import { HINT_LABELS, IDOL_COLUMNS, OTAKUDLE_COLUMNS, dleCopy, gameCopy, valueLabel } from './copy';
 import { dleGame, livePaths, localePath, SHARE_R_PATTERN } from './games';
 import { FIXTURE_POOL_SIZE, kpopdleDb, rpcAs } from './game-fixture';
 import {
@@ -25,10 +25,12 @@ import type { PGlite } from '@electric-sql/pglite';
 import type { KeyStore } from './local';
 import type { DlePlayState } from './types';
 
+// PGlite on a loaded runner: one timeout for the whole file, tests and hooks.
+vi.setConfig({ testTimeout: 60_000, hookTimeout: 60_000 });
+
 vi.mock('@/components/hub/home/home-font', () => ({ dmSans: { variable: 'dm-sans-var' }, dmMono: { variable: 'dm-mono-var' } }));
 vi.mock('@/components/hub/dle/dle-font', () => ({ dleMarquee: { variable: 'marquee-var' } }));
 
-const HEAVY = 60_000;
 const TODAY = new Date().toISOString().slice(0, 10);
 const EPOCH = new Date(Date.now() - 3 * 86_400_000).toISOString().slice(0, 10);
 
@@ -49,7 +51,7 @@ describe('the client and the reads on the real SQL', () => {
     pool = await readPool(serverDb, 'kpopdle-idol');
     const rows = await db.query<{ t: string }>(`select public.dle_target('kpopdle-idol', $1::date) as t`, [TODAY]);
     targetId = rows.rows[0]!.t;
-  }, HEAVY);
+  });
 
   it('dle_pool: 8 columns, the pool, never the target flag; a thumb path becomes a public URL, a bad one nothing', () => {
     expect(pool!.attributes.map((a) => a.key)).toEqual(['gender', 'group', 'agency', 'nationality', 'birth', 'debut', 'generation', 'role']);
@@ -68,7 +70,7 @@ describe('the client and the reads on the real SQL', () => {
     expect(day!.game_no).toBe(4);
     expect(day!.play).toBeNull();
     expect(JSON.stringify(day)).not.toContain(`"id":"${targetId}"`.replace('"id":', '"entity_id":'));
-  }, HEAVY);
+  });
 
   it('a whole play: the statuses come back, no target until it ends, hints by the server, the win recorded on the device', async () => {
     const s = store();
@@ -87,7 +89,7 @@ describe('the client and the reads on the real SQL', () => {
     expect(p2.status).toBe('won');
     expect(p2.target!.id).toBe(targetId);
     expect(p2.guesses[1]!.result.every((x) => x.status === 'correct')).toBe(true);
-  }, HEAVY);
+  });
 
   it('give up: refused before a guess, then the answer', async () => {
     const c = dleClient(anon, store());
@@ -97,7 +99,7 @@ describe('the client and the reads on the real SQL', () => {
     const over = await c.giveUp('kpopdle-idol', day.date);
     expect(over.status).toBe('given_up');
     expect(over.target!.id).toBe(targetId);
-  }, HEAVY);
+  });
 
   it('dle_token_taken: a new token, one more try, never the other account\'s play', async () => {
     const s = store();
@@ -113,7 +115,7 @@ describe('the client and the reads on the real SQL', () => {
     const dayB = await b.day('kpopdle-idol');
     expect(dayB.play).toBeNull();
     expect(s.getItem('dle:v1:token')).not.toBe(first);
-  }, HEAVY);
+  });
 
   it('errors: unknown entity, unavailable game, the rate limit, a network failure', async () => {
     const c = dleClient(anon, store());
@@ -130,13 +132,13 @@ describe('the client and the reads on the real SQL', () => {
       try { await r.day('kpopdle-idol'); } catch (e) { code = (e as DleError).code; }
     }
     expect(code).toBe('dle_rate_limited');
-  }, HEAVY);
+  });
 
   it('a game that is off: the server read throws and the page wrapper reads it as null', async () => {
     await db.exec(`update public.dle_games set active = false where id = 'kpopdle-idol'`);
     await expect(readPool(serverDb, 'kpopdle-idol')).rejects.toThrow(/dle_unavailable/);
     await db.exec(`update public.dle_games set active = true where id = 'kpopdle-idol'`);
-  }, HEAVY);
+  });
 
   it('group slugs read with the site scope', async () => {
     const rows = [{ name: 'TWICE', slug: 'twice' }];
@@ -172,8 +174,10 @@ describe('this device', () => {
     expect(gameStats(readHistory(s), 'kpopdle-idol', '2026-11-20').streak).toBe(0);
     expect(gameStats({}, 'kpopdle-idol', '2026-11-06').average).toBeNull();
     expect(universeStreak(readHistory(s), ['kpopdle-idol', 'kpopdle-group'], '2026-11-05')).toBe(1);
+    expect(gamesLeftToday(readHistory(s), '2026-11-05')).toBe(1);
+    expect(gamesLeftToday(readHistory(s), '2026-11-06')).toBe(2);
+    recordPlay(s, 'otakudle', '2026-11-05', { won: true, guesses: 2 });
     expect(gamesLeftToday(readHistory(s), '2026-11-05')).toBe(0);
-    expect(gamesLeftToday(readHistory(s), '2026-11-06')).toBe(1);
   });
 
   it('the language rule: a choice is kept; a browser in French reads French; any other language English', () => {
@@ -214,7 +218,8 @@ describe('the copy', () => {
     expect(src).not.toMatch(/[\u2013\u2014]/);
     expect(Object.keys(IDOL_COLUMNS.fr).sort()).toEqual(Object.keys(IDOL_COLUMNS.en).sort());
     expect(Object.keys(HINT_LABELS.fr).sort()).toEqual(dleGame('kpopdle-idol').hints.map((h) => h.key).sort());
-    expect(() => gameCopy('otakudle', 'fr')).toThrow(/no words/);
+    expect(() => gameCopy('kpopdle-group', 'fr')).toThrow(/no words/);
+    expect(Object.keys(OTAKUDLE_COLUMNS.fr).sort()).toEqual(Object.keys(OTAKUDLE_COLUMNS.en).sort());
   });
 
   it('values are translated, names are not', () => {
@@ -264,9 +269,9 @@ describe('SEO, section 11', () => {
     expect(dleSitemapRows(false, TODAY, true, true)).toEqual([]);
     expect(dleSitemapRows(true, TODAY, true, false)).toEqual([]);
     expect(DLE_FR_REVIEWED).toBe(false);
-    expect(dleSitemapRows(true, null, false, true).map((r) => r.path)).toEqual(['/daily', '/kpopdle']);
+    expect(dleSitemapRows(true, null, false, true).map((r) => r.path)).toEqual(['/daily', '/kpopdle', '/otakudle']);
     const all = dleSitemapRows(true, '2026-11-02', true, true);
-    expect(all.map((r) => r.path)).toEqual(['/daily', '/kpopdle', '/fr/daily', '/fr/kpopdle']);
+    expect(all.map((r) => r.path)).toEqual(['/daily', '/kpopdle', '/otakudle', '/fr/daily', '/fr/kpopdle', '/fr/otakudle']);
     expect(all[0]!.lastModified!.toISOString()).toBe('2026-11-02T00:05:00.000Z');
   });
 
@@ -283,7 +288,8 @@ describe('SEO, section 11', () => {
   it('the share image: built games only, digits only', () => {
     expect(parseShareImage('kpopdle-idol', 'fr', '2-1-8')).toMatchObject({ locale: 'fr', counts: [2, 1, 8], max: 8 });
     expect(parseShareImage('kpopdle-idol', null, 'mina')).toMatchObject({ locale: 'en', counts: [] });
-    expect(parseShareImage('otakudle', 'en', '1')).toBeNull();
+    expect(parseShareImage('kpopdle-group', 'en', '1')).toBeNull();
+    expect(parseShareImage('otakudle', 'en', '1')).toMatchObject({ counts: [1] });
     expect(parseShareImage('nope', 'en', '1')).toBeNull();
     expect(shareParam(Array.from({ length: 30 }, () => 3)).split('-')).toHaveLength(20);
     expect(new RegExp(`^${SHARE_R_PATTERN}$`).test(shareParam(Array.from({ length: 30 }, () => 8)))).toBe(true);
@@ -306,6 +312,8 @@ describe('routing', () => {
     expect(shares.map((r) => [r.source, r.destination])).toEqual([
       ['/sites/hub/kpopdle', '/sites/hub/dle-share/en/kpopdle-idol/:r'],
       ['/sites/hub/fr/kpopdle', '/sites/hub/dle-share/fr/kpopdle-idol/:r'],
+      ['/sites/hub/otakudle', '/sites/hub/dle-share/en/otakudle/:r'],
+      ['/sites/hub/fr/otakudle', '/sites/hub/dle-share/fr/otakudle/:r'],
     ]);
     expect(shares[0]!.has![0]).toMatchObject({ type: 'query', key: 'r' });
   });
@@ -317,13 +325,16 @@ describe('routing', () => {
 });
 
 describe('the games as data', () => {
-  it('Kpopdle has its page; Otakudle keeps its tile and says soon until its game is built', () => {
+  it('Kpopdle and Otakudle have their pages; a mode with no game keeps its tile and says soon', () => {
     expect(DLE_WORLDS.map((w) => w.brand)).toEqual(['Kpopdle', 'Otakudle']);
     const [k, a] = DLE_WORLDS;
     expect(liveModes(k!).map((m) => m.id)).toEqual(['idol']);
     expect(worldHref(k!, 'fr')).toBe('/fr/kpopdle');
-    expect(liveModes(a!)).toEqual([]);
-    expect(worldHref(a!, 'en')).toBeNull();
+    expect(liveModes(a!).map((m) => m.id)).toEqual(['char']);
+    expect(worldHref(a!, 'en')).toBe('/otakudle');
+    expect(worldHref(a!, 'fr')).toBe('/fr/otakudle');
+    expect(liveGame(a!.modes[1]!)).toBeNull();
+    expect(liveGame(a!.modes[2]!)).toBeNull();
     expect(a!.spoiler).toBe(true);
     expect(worldOf('otakudle').id).toBe('otakudle');
     expect(liveGame(k!.modes[1]!)).toBeNull();
@@ -373,7 +384,7 @@ describe('the screens', () => {
     expect(html).not.toContain('id="dle-guess"');
   });
 
-  it('the Terrier: two blocks, rows, the closed about in the HTML, Otakudle as a tile with no link and no image; a spoiler stays hidden', async () => {
+  it('the Terrier: two blocks, rows, the closed about in the HTML, Otakudle a real tile with no image, its modes without a page say soon; a spoiler stays hidden', async () => {
     const { BurrowBoard } = await import('@/components/hub/dle/burrow-board');
     const answer = { id: '1', name: 'Mina', attrs: { group: { v: ['TWICE'] } }, thumb: null };
     const html = renderToStaticMarkup(createElement(BurrowBoard, {
@@ -383,7 +394,9 @@ describe('the screens', () => {
     expect(html.match(/<h1/g)).toHaveLength(1);
     expect(html.match(/<article/g)).toHaveLength(2);
     expect(html).toContain('href="/kpopdle"');
-    expect(html).not.toContain('href="/otakudle"');
+    expect(html).toContain('href="/otakudle"');
+    expect(html).not.toContain('href="/otakudle/');
+    expect(html).toContain('hub-dle-row-soon');
     expect(html).toContain('오늘의 아이돌');
     expect(html).toContain('オタクドル');
     expect(html).toContain('40 fans found it today');
@@ -420,6 +433,7 @@ describe('the screens', () => {
     const loaders = [
       () => import('@/app/sites/[site]/(hub)/burrow/page'), () => import('@/app/sites/[site]/(hub)/fr/daily/page'),
       () => import('@/app/sites/[site]/(hub)/kpopdle/page'), () => import('@/app/sites/[site]/(hub)/fr/kpopdle/page'),
+      () => import('@/app/sites/[site]/(hub)/otakudle/page'), () => import('@/app/sites/[site]/(hub)/fr/otakudle/page'),
       () => import('@/app/sites/[site]/(hub)/fr/credits/page'), () => import('@/app/sites/[site]/(hub)/dle-share/[locale]/[game]/[r]/page'),
     ];
     const params = Promise.resolve({ locale: 'en', game: 'kpopdle-idol', r: '1-2' });
@@ -436,7 +450,7 @@ describe('the screens', () => {
     vi.stubEnv('NET_INDEXING', '1');
     const entries = await sitemapEntriesFor(SITE, {} as never);
     for (const p of livePaths()) expect(entries.map((e) => e.path), p).not.toContain(p);
-  }, HEAVY);
+  });
 
   it('the shell asks for the bare frame on these pages only with the flag on', () => {
     const src = readFileSync(new URL('../../components/layout/ux-v1/ux-shell.tsx', import.meta.url), 'utf8');

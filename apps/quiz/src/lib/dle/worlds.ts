@@ -1,6 +1,6 @@
 // Daily games step 4: the two games of the Terrier as data (RAPPORT-JEUX-DU-JOUR-v2.md section 2, boards Main.dc.html and Kpopdle.dc.html): the
 // brand, its colour family, the image slots of site_assets, its modes in order. Pure, no I/O. A mode links to its page only when its game
-// is built (games.ts); until then the row, the dot and the step say "soon". Otakudle is one line of DLE_BUILT_GAMES (registry.ts) away, plus its words (copy.ts), its SEO row (seo.ts) and its one page.
+// is built (games.ts); until then the row, the dot and the step say "soon". Series of the day and one Otakudle per series come after the launch: each is one game here, a line of DLE_BUILT_GAMES (registry.ts), its words (copy.ts), its SEO row (seo.ts) and its one page.
 import { DAILY_PATH, dleGame, localePath } from './games';
 
 import type { DleGameDef, DleGameId } from './games';
@@ -35,6 +35,8 @@ export interface DleWorld {
   readonly bannerSlot: string;
   /** The vertical writing of the empty cover. */
   readonly vertical: { readonly text: string; readonly lang: 'ko' | 'ja' };
+  /** A name of ICON_LIBRARY: its door at the foot of the other game's page. */
+  readonly hopIcon: string;
   readonly what: L10n;
   readonly sub: L10n;
   /** Yesterday's answer stays hidden until a click (anime spoilers). */
@@ -46,6 +48,7 @@ export const DLE_WORLDS: readonly DleWorld[] = [
   {
     id: 'kpopdle', brand: 'Kpopdle', universe: 'kpop', tone: 'k', wordmarkHead: 'Kpop', coverSlot: 'home:kpopdle', bannerSlot: 'banner:kpopdle',
     vertical: { text: '오늘의 아이돌', lang: 'ko' },
+    hopIcon: 'idol',
     what: { en: 'Guess today’s K-pop idol', fr: 'Devine l’idol K-pop du jour' },
     sub: { en: 'Unlimited guesses', fr: 'Essais illimités' },
     spoiler: false,
@@ -59,6 +62,7 @@ export const DLE_WORLDS: readonly DleWorld[] = [
   {
     id: 'otakudle', brand: 'Otakudle', universe: 'anime', tone: 'a', wordmarkHead: 'Otaku', coverSlot: 'home:otakudle', bannerSlot: 'banner:otakudle',
     vertical: { text: 'オタクドル', lang: 'ja' },
+    hopIcon: 'eye',
     what: { en: 'Guess today’s anime character', fr: 'Devine le personnage d’anime du jour' },
     sub: { en: 'Spoiler-free: tell us how far you are', fr: 'Sans spoiler : tu dis où tu en es' },
     spoiler: true,

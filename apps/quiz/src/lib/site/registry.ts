@@ -279,7 +279,7 @@ const HUB_FEATURES: SiteFeatures = { ...ALL_OFF, passportPages: true, directory:
  * Daily games step 4: the games that have a page. One line here opens a game: its routes (with the flag), its shared results, its tile and rows (lib/dle/games.ts reads it). Here and not in lib/dle, so
  * that the kpop pages, which all read this module, keep their module graph.
  */
-export const DLE_BUILT_GAMES: readonly { readonly id: string; readonly path: string }[] = [{ id: 'kpopdle-idol', path: '/kpopdle' }];
+export const DLE_BUILT_GAMES: readonly { readonly id: string; readonly path: string }[] = [{ id: 'kpopdle-idol', path: '/kpopdle' }, { id: 'otakudle', path: '/otakudle' }];
 
 /** Every page of the Terrier that exists, in both locales, the French credits with them. */
 export function dleLivePaths(): readonly string[] {

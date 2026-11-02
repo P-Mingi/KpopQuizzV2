@@ -35,10 +35,10 @@ export const DAILY_PATH = '/daily';
 const isBuilt = (id: DleGameId): boolean => DLE_BUILT_GAMES.some((g) => g.id === id);
 
 export const DLE_GAMES: readonly DleGameDef[] = [
-  { id: 'kpopdle-idol', universe: 'kpop', brand: 'Kpopdle', path: '/kpopdle', guess: { en: 'Idol of the day', fr: 'Idol du jour' }, built: isBuilt('kpopdle-idol'), hints: [{ key: 'fandom', after: 5 }, { key: 'debut_song', after: 8 }, { key: 'initial', after: 12 }], photoKind: 'idol' },
+  { id: 'kpopdle-idol', universe: 'kpop', brand: 'Kpopdle', path: '/kpopdle', guess: { en: 'Idol of the day', fr: 'Idol du jour' }, built: isBuilt('kpopdle-idol'), hints: [{ key: 'fandom', after: 5 }, { key: 'initial', after: 10 }], photoKind: 'idol' },
   { id: 'kpopdle-group', universe: 'kpop', brand: 'Kpopdle', path: '/kpopdle/group', guess: { en: 'Group of the day', fr: 'Groupe du jour' }, built: isBuilt('kpopdle-group'), hints: [], photoKind: 'group' },
   { id: 'kpopdle-song', universe: 'kpop', brand: 'Kpopdle', path: '/kpopdle/song', guess: { en: 'Song of the day', fr: 'Chanson du jour' }, built: isBuilt('kpopdle-song'), hints: [], photoKind: null },
-  { id: 'otakudle', universe: 'anime', brand: 'Otakudle', path: '/otakudle', guess: { en: 'Character of the day', fr: 'Personnage du jour' }, built: isBuilt('otakudle'), hints: [], photoKind: null },
+  { id: 'otakudle', universe: 'anime', brand: 'Otakudle', path: '/otakudle', guess: { en: 'Character of the day', fr: 'Personnage du jour' }, built: isBuilt('otakudle'), hints: [{ key: 'voice_actor_ja', after: 5 }, { key: 'initial', after: 10 }], photoKind: null },
 ];
 
 /** One Otakudle per series lives at /otakudle/{series}; these words are taken by other pages of the Terrier (v2 section 2). */

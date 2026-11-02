@@ -139,7 +139,7 @@ function Dialog({ id, title, closeLabel, open, onClose, children }: { id: string
 function HowDialog({ locale, game, open, onClose }: { locale: DleLocale; game: DleGameId; open: boolean; onClose: () => void }): React.ReactElement {
   const t = dleCopy(locale);
   const w = gameCopy(game, locale);
-  const rows: readonly [string, string, string?][] = [['hub-dle-t-correct', t.dlgRight, 'JYP'], ['hub-dle-t-near', t.dlgNear, '1998'], ['hub-dle-t-wrong', t.dlgWrong, 'SM']];
+  const rows: readonly [string, string, string?][] = [['hub-dle-t-correct', t.dlgRight, w.dlgSamples?.[0] ?? 'JYP'], ['hub-dle-t-near', w.dlgNear ?? t.dlgNear, w.dlgSamples?.[1] ?? '1998'], ['hub-dle-t-wrong', t.dlgWrong, w.dlgSamples?.[2] ?? 'SM']];
   return (
     <Dialog id="dle-how" title={t.dlgHow} closeLabel={t.close} open={open} onClose={onClose}>
       <ol className="hub-dle-howlist">
@@ -276,7 +276,7 @@ export function DleGameTools({ locale, enPath, game, universeGames }: { locale: 
   const buttons: readonly [Exclude<Open, null>, string, string][] = [['how', t.help, D.help], ['stats', t.stats, D.stats], ['settings', t.settings, D.sliders]];
   return (
     <>
-      {streak > 0 ? <span className="hub-dle-streak"><Flame className="hub-dle-flame" /><span className="hub-dle-num">{streak}</span> {t.streakDays(streak).replace(/^\d+ /, '')}<span className="hub-dle-sr"> {t.streakSr}</span></span> : null}
+      {streak > 0 ? <span className="hub-dle-streak"><Flame className="hub-dle-flame" /><span className="hub-dle-num">{streak}</span> {t.streakDays(streak).replace(/^\d+ /, '')}<span className="hub-dle-sr"> {gameCopy(game, locale).streakSr ?? t.streakSr}</span></span> : null}
       {buttons.map(([id, label, d]) => (
         <button key={id} type="button" aria-haspopup="dialog" aria-label={label} className="hub-dle-iconbtn" onClick={() => setOpen(id)}><Ic d={d} size={20} width={1.9} /></button>
       ))}

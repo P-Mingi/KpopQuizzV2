@@ -1,13 +1,12 @@
 // Daily games step 4: a game's page (board Kpopdle.dc.html, v2 sections 6 and 11.3): the banner, the marquee, the game, then the guide Google reads: yesterday's answer, how to play and the columns in a fold kept in the HTML, the answer
 // block, the pool in clear, the hop to the other game. Server component. A game with no pool (off, or a failed read) keeps the guide and says it is not available; the metadata then says noindex.
 import { jsonLdString } from '@/lib/seo/json-ld';
-import { getDleDay, getDleImages, getDlePictures, getDlePool, getKpopGroupSlugs } from '@/lib/dle/read';
+import { getAnimeSeriesSlugs, getDleDay, getDleImages, getDlePictures, getDlePool, getKpopGroupSlugs, quizLinksOf } from '@/lib/dle/read';
 import { dleCopy, gameCopy } from '@/lib/dle/copy';
 import { DAILY_PATH, dleGame, localePath } from '@/lib/dle/games';
 import { breadcrumbJsonLd, gameAnswerBlock, gameJsonLd, itemListJsonLd } from '@/lib/dle/seo';
 import { burrowHref, otherWorld, worldHref, worldOf } from '@/lib/dle/worlds';
 import { withBasePath } from '@/lib/site/base-path';
-import { homeUrl } from '@/lib/site/hub/home-types';
 import { REGISTRY } from '@/lib/site/registry';
 
 import { firstValue } from './dle-avatar';
@@ -41,13 +40,13 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
   const g = dleGame(game);
   const w = gameCopy(game, locale);
   const world = worldOf(game);
-  const [day, pool, images, pictures, slugs] = await Promise.all([getDleDay(game), getDlePool(game), getDleImages(), getDlePictures(g.photoKind), getKpopGroupSlugs()]);
+  const [day, pool, images, pictures, slugs] = await Promise.all([getDleDay(game), getDlePool(game), getDleImages(), getDlePictures(g.photoKind), world.universe === 'anime' ? getAnimeSeriesSlugs() : getKpopGroupSlugs()]);
   const banner = images[world.bannerSlot];
   const other = otherWorld(world);
   const hop = worldHref(other, locale);
   const words = w.marquee(day?.game_no ?? 0).filter((x) => day || !/\b0\b/.test(x));
   const groups = pool ? poolByGroup(pool, w.subKey) : [];
-  const quizLinks = Object.fromEntries(groups.flatMap((x) => (slugs[x.group] ? [[x.group, homeUrl({ site: 'kpop', path: `/${slugs[x.group]}-quiz` })]] : [])));
+  const quizLinks = quizLinksOf(world.universe, groups.map((x) => x.group), slugs);
   const yesterday = day?.yesterday ?? null;
   const yGroup = yesterday ? (yesterday.answer.attrs[w.subKey]?.p?.[0] ?? firstValue(yesterday.answer.attrs[w.subKey]?.v)) : '';
   const universeGames = world.modes.flatMap((m) => (m.game ? [m.game] : []));
@@ -81,15 +80,24 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
       <main id="main" tabIndex={-1} className="hub-dle-main">
         <DleGame
           locale={locale} game={game} gameNo={day?.game_no ?? null} stats={day?.stats ?? null} pool={pool} pictures={pictures}
-          quizLinks={quizLinks} kpopName={REGISTRY.kpop.brand.name}
+          quizLinks={quizLinks} kpopName={REGISTRY[world.universe].brand.name}
         />
         <section aria-label={w.howTitle} className="hub-dle-guide">
-          {yesterday ? (
+          {yesterday ? (w.yesterdayShow ? (
+            // A game with spoilers: closed until a click, and in the HTML (a native fold, v2 sections 2 and 11.3).
+            <details className="hub-dle-yfold">
+              <summary><span>{w.yesterdayLine}</span> <span className="hub-dle-yshow">{w.yesterdayShow}</span></summary>
+              <p className="hub-dle-yesterday">
+                <strong>{yesterday.answer.name}</strong>{yGroup ? ` (${yGroup})` : null}
+                {quizLinks[yGroup] ? <> · <a href={quizLinks[yGroup]}>{t.quizOf(yGroup)}</a></> : null}
+              </p>
+            </details>
+          ) : (
             <p className="hub-dle-yesterday">
               {w.yesterdayLine} <strong>{yesterday.answer.name}</strong>{yGroup ? ` (${yGroup})` : null}
               {quizLinks[yGroup] ? <> · <a href={quizLinks[yGroup]}>{t.quizOf(yGroup)}</a></> : null}
             </p>
-          ) : null}
+          )) : null}
           <details className="hub-dle-howto">
             <summary>
               <span><Ic d={D.help} size={20} /><h2>{w.howTitle}</h2></span>
@@ -127,7 +135,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
         {hop ? (
           <nav aria-label={t.gamesLabel} className="hub-dle-hopnav">
             <a href={withBasePath(hop)} className={`hub-dle-hop hub-dle-${other.tone}`}>
-              <span aria-hidden="true" className="hub-dle-hop-ic"><Ic d={libraryIcon('eye')} size={30} width={1.9} /></span>
+              <span aria-hidden="true" className="hub-dle-hop-ic"><Ic d={libraryIcon(other.hopIcon)} size={30} width={1.9} /></span>
               <strong>{other.brand}</strong>
               <small>{other.what[locale]}</small>
             </a>

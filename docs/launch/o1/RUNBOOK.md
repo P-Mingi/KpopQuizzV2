@@ -47,8 +47,8 @@ Rewritten on 2026-10-28 for the owner's Bunnyverse decisions (section "Owner dec
       q()    { psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "$1"; }
 
   Session commands (owner order 2026-10-30): every SQL step of B, D, E, G and K runs through `bash docs/launch/o1/session.sh <part>`, one command per
-  part (B1 = 001 to 002d, B2 = 003, B3 = 004 to 007, D = 008, E1 = 009, E2 = 010, G = 011, 018, 019, 020, 021a, 021c and 021b (lot K1), 022, 012 to 017, J1 = L01,
-  J2 = L02 to L04, J3 = L05 to L10-PERS and the fourteen bank rows, J4 = L12 and the lot A1 file). It reads `PROD_DB_URL` (exported by the backup line),
+  part (B1 = 001 to 002d, B2 = 003, B3 = 004 to 007, D = 008, E1 = 009, E2 = 010, G = 011, 018, 019, 020, 021a, 021c and 021b (lot K1), 022, 023, 012 to 017, J1 = L01,
+  J2 = L02 to L04, J3 = L05 to L10-PERS and the fourteen bank rows, J4 = L12, 023 again and the lot A1 file, J5 = L14, Kpopdle Idol and Otakudle on). It reads `PROD_DB_URL` (exported by the backup line),
   refuses any other database and the 23:50 to 00:30 window, applies each file with psql and ON_ERROR_STOP (single or none as below), runs the checks of
   `docs/launch/o1/checks` (VERIFY's lines as OK or KO rows) after each file, prints counts only, and stops at the first KO. A part can be run again from its
   start. `--dry-run` prints a part's plan. The parts are cut where the owner acts (OWNER-NOW.md). `session-rehearsal.sh` plays them all twice on a local copy
@@ -241,12 +241,12 @@ P4: clears Verrou 0. Who: Claude and a worker. Do: E5 in the morning, then at E4
 
 Waits for F. Additive, empty, dormant. Order of `SQL-ORDER.md` rows 14 to 19b.
 
-**G1  011, 018, 019, 020, 021a, 021c, 021b, 022, 012, 013, 014, 015, 016, 017, in this order (owner order 2026-10-30; 016 and 017 are G2).** (G1 to G3: `bash docs/launch/o1/session.sh G`.)
+**G1  011, 018, 019, 020, 021a, 021c, 021b, 022, 023, 012, 013, 014, 015, 016, 017, in this order (owner order 2026-10-30; 016 and 017 are G2).** (G1 to G3: `bash docs/launch/o1/session.sh G`.)
 Do: A2 backup, then for each `sql1 $M/<file>.sql`: 011-anime-series, 018-entity-images (row 14b, needed by K5.3c and the admin images), 019-dle-core and
 020-dle-kpop-idol (the daily games engine, switched off: rows 14c and 14d), the three files of lot K1 (`021a-k1-idol-gender-debut.sql`, row 14e: `idols.gender`
-and `idols.debut_year`; `021c-k1-idol-corrections.sql`, row 14e ter: debut years, QIDs, and the birth dates of 14 and 19, which change kpopquiz.org on purpose; `021b-k1-idol-activate.sql`, row 14e bis: empty list in session G, activates nobody; activation comes after, on a list the owner ticks), 022-photos-admin (row 14f: `agencies`, `site_assets` and their two public views), 012-editorial-quiz, 013-formats, 014-daily-openings, 015-spoilers. After each, its V6 lines (019 and 020: `dle-smoke.sql`; 022: `V-022`).
+and `idols.debut_year`; `021c-k1-idol-corrections.sql`, row 14e ter: debut years, QIDs, and the birth dates of 14 and 19, which change kpopquiz.org on purpose; `021b-k1-idol-activate.sql`, row 14e bis: empty list in session G, activates nobody; activation comes after, on a list the owner ticks), 022-photos-admin (row 14f: `agencies`, `site_assets` and their two public views), 023-dle-otakudle (row 14g: `character_facts`, `series_facts` and the view of Otakudle; the game row waits for L01, see K8), 012-editorial-quiz, 013-formats, 014-daily-openings, 015-spoilers. After each, its V6 lines (019 and 020: `dle-smoke.sql`; 022: `V-022`).
 Check: V6 (empty tables, RLS on, functions closed to anon). 013 stops with the name of a `games.game_type` value nobody listed, if production has one: send that name to the run's lead, do not edit the file.
-Back: `sql1` the rollbacks in reverse: 015 down to 012, then 022, 021b (with the same list), 021c, 021a, 020, 019, 018 and 011.
+Back: `sql1` the rollbacks in reverse: 015 down to 012, then 023, 022, 021b (with the same list), 021c, 021a, 020, 019, 018 and 011.
 
 **G2  18b check, then 016 and 017 (passport deletion).**
 Do: `q "select to_regprocedure('public.admin_delete_account(uuid,boolean,boolean)')"` is not null (Mission U part D, row 18b, applied 2026-10-27). Then `sql1 $M/016-passport-deletion.sql`, then `sql1 $M/017-deletion-kpop.sql` (row 19b).
@@ -459,8 +459,17 @@ Do: set `PASSPORT_JUMP` = `1` in `kpopquiz`, `fandomverse` and `otakuquiz`, rede
 Check: V10 "Cross-site cookie check": from a signed-in kpopquiz.org open `/auth/passport/out?to=anime`, you land on `https://bunnyverse.org/anime` signed in, and `https://bunnyverse.org` shows the same session; XP counted per site. Back: set to `0`, redeploy the three (ROLLBACK.md section 3, layer 2).
 
 **K8  L12: the sites go live, then the lot A1 file.** (`bash docs/launch/o1/session.sh J4`.)
-Do: `sql1 $M/launch/L12-L1-sites-live.sql`, then the file of lot A1 (`L13-A1-character-facts.sql` in `$M/launch`: the character facts Otakudle reads), after the launch
-files (owner order 2026-10-30); content-verify and V-S4 again. The command stops on the lot A1 file while it is not on main. Check: V8 (`kpop`, `anime`, `hub` all `live`). Back: `sql1 $M/launch/L12-L1-sites-live.rollback.sql`.
+Do: `sql1 $M/launch/L12-L1-sites-live.sql`, `sql1 $M/023-dle-otakudle.sql` again (the game row `otakudle`, switched off: `dle_games.universe` needs the anime site, which L01 added after session G; CR-017), then the file of lot A1 (`L13-A1-character-facts.sql` in `$M/launch`: the character facts Otakudle reads), after the launch
+files (owner order 2026-10-30); `docs/launch/o1/checks/V-L13.sql`, content-verify and V-S4 again. The command stops on the lot A1 file while it is not on main. Check: V8 (`kpop`, `anime`, `hub` all `live`). Back: `sql1 $M/launch/L13-A1-character-facts.rollback.sql` (refused once `otakudle` has a play), `sql1 $M/launch/L12-L1-sites-live.rollback.sql`.
+
+**K8b  L14: Kpopdle Idol and Otakudle on.** (`bash docs/launch/o1/session.sh J5`.)
+Do: `sql1 $M/launch/L14-O1-dle-on.sql`: `dle_activate` for both games, after the launch files (owner decision: both open on launch day). No fixed seed. Each bank of 365 days is drawn here, once; a second run changes nothing.
+The epoch is the date of game n. 1: today in UTC, the day this file first runs. It never moves afterwards, and the number of a day is counted from it, so run J5 on the day the games open: each day between J5 and the flag PR uses up a number (flag two days later: the first players see n. 3).
+Stop: a game under its minimum of targets (`min_pool`, 40) stops the file with its name and its count (`L14 kpopdle-idol: dle_pool_too_small: ...`) and neither game changes. Fix the pool, or decide, then run J5 again.
+The idol pool is what the 021 files leave: 021c changes it, on the production snapshot from 87 targets to 108. The rehearsal cannot prove that number (its schema copy has no idol row): `V-L14` prints the real count here, read it.
+Check: V8 (L14 rows), `dle_day` of both games. The pages stay a 404 until K8c. After J5 session G cannot run again: 020 and `V-020` require `kpopdle-idol` off. Back: `sql1 $M/launch/L14-O1-dle-on.rollback.sql` (both off; epochs, banks and plays stay).
+
+**K8c  The launch-day PR: `dailyGuess` to true, after J5.** It is a code constant (`HUB_FEATURES` in `apps/quiz/src/lib/site/registry.ts`), so a PR is the only way; there is no env flag. Go only when all three hold: `V-L14` ok on both games; `dle_day` of both games answers (the two rows of J5); `/otakudle` and `/kpopdle` are built (their pages in the hub's production build of that PR). No-go on any of them: the PR waits, nothing players see has changed. Back: revert the PR; every page of the Terrier answers 404 again.
 
 **K9  The daily quiz and the go.**
 Do: (0) TOTP first. `/anime/api/admin/*` answers 404 to a session with no 6-digit code. K1 checked that your account has its code. If it was lost since: `docs/o1/admin/MFA-OWNER.md` section 4, which costs two redeploys of `kpopquiz` on launch day. The code also works on OtakuQuiz (same account, same database); the session does not carry over.
@@ -540,6 +549,8 @@ Check: `curl -s https://kpopquiz.org/ | grep -o 'href="https://bunnyverse.org/kp
 Back: remove the variable, redeploy `kpopquiz`. The game going off on its own (`dle_unavailable`) hides the module at the next regeneration of the home, within the hour, with nothing to do.
 
 **L4  The first 72 hours.** At +1h, +24h, +48h, +72h do V11 (Claude and a worker). Keep the log. A worker watches Runtime Logs.
+
+**L6  Each morning: the kept days of the daily games.** A rebuild of a bank keeps today and the 7 days after it, so a target that leaves its pool (a character hidden or marked spoiler, an idol switched off) stays the answer of its kept day, and `dle_guess` refuses its name: that day cannot be won, players can only give up. See it: `psql "$PROD_DB_URL" -X -At -f docs/launch/o1/checks/V-DLE-KEPT.sql` (VERIFY V-DLE): 0 on each game, counts only. If a row says KO: put the entry back as it was (its status or its review flag) until the last kept day; the next nightly refresh returns it to the pool and it can be removed again on the day after. If it must go at once, for a legal or safety reason, leave it out: that day's players can only give up. Never edit `dle_schedule` or `dle_entities` by hand.
 
 **L5  Decide at +72h.** If V11 is clean for 72 hours, the launch is done: raise the DNS TTL of bunnyverse.org back to your registrar's default, keep the backup of K2 for 60 days, write the date of the last step. If anything is wrong, use the layers of `ROLLBACK.md` section 3 from the lightest.
 After that the remaining work is the backlog in `docs/o1/RAPPORT-FINAL.md` sections 4 and 5.

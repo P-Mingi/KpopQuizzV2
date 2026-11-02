@@ -641,11 +641,11 @@ describe('middleware step and the sites/[site] guard', () => {
     expect(pages.length).toBeGreaterThanOrEqual(9);
     // The daily games (CR-013) are the only pages closed by a flag. While dailyGuess is off they answer as any unknown URL; on, each public address is in the map.
     // /burrow and /dle-share are internal folders, reached through the rewrites only.
-    const closed = new Set(['/burrow', '/dle-share/xlocale/xgame/xr', '/kpopdle', '/fr/daily', '/fr/kpopdle', '/fr/credits']);
+    const closed = new Set(['/burrow', '/dle-share/xlocale/xgame/xr', '/kpopdle', '/otakudle', '/fr/daily', '/fr/kpopdle', '/fr/otakudle', '/fr/credits']);
     for (const p of closed) expect(pages, `closed page ${p}`).toContain(p);
     expect(REGISTRY.hub.features.dailyGuess).toBe(false);
     for (const p of closed) expect(middlewareStep('hub', p), `hub ${p}`).toBe('not-found');
-    expect(hubRouteAllow({ dailyGuess: true })).toEqual(expect.arrayContaining(['/daily', '/kpopdle', '/fr/daily', '/fr/kpopdle', '/fr/credits']));
+    expect(hubRouteAllow({ dailyGuess: true })).toEqual(expect.arrayContaining(['/daily', '/kpopdle', '/otakudle', '/fr/daily', '/fr/kpopdle', '/fr/otakudle', '/fr/credits']));
     for (const p of pages.filter((q) => !closed.has(q))) expect(middlewareStep('hub', p), `hub ${p}`).not.toBe('not-found');
   });
 

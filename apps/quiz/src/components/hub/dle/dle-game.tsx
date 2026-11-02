@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { DleError, shareParam } from '@/lib/dle/client';
 import { dleCopy, formatCount, gameCopy, valueLabel } from '@/lib/dle/copy';
 import { dleGame, localePath } from '@/lib/dle/games';
-import { readHistory, recordPlay, universeStreak } from '@/lib/dle/local';
+import { DEFAULT_PROGRESS, readHistory, readProgress, recordPlay, seenAt, universeStreak, writeProgress } from '@/lib/dle/local';
 import { suggest } from '@/lib/dle/search';
 import { correctCounts, shareText } from '@/lib/dle/share';
 import { utcDate } from '@/lib/dle/day';
@@ -18,6 +18,7 @@ import { clock, deviceStore, useDleClient, useResetCountdown } from './dle-hooks
 import { D, Flame, Ic, Spark, libraryIcon } from './dle-icons';
 import { Avatar, firstValue } from './dle-avatar';
 
+import type { DleProgress } from '@/lib/dle/local';
 import type { DlePicture } from '@/lib/dle/read';
 import type { DleGameId } from '@/lib/dle/games';
 import type { DleCell, DleLocale, DlePlayState, DlePool, DlePoolEntity, DlePublicEntity, DleStats } from '@/lib/dle/types';
@@ -34,14 +35,17 @@ export interface DleGameProps {
   readonly kpopName: string;
 }
 
-const CONFETTI = ['#D13A6E', '#F59BBB', '#1F1B17', '#FCE8EF', '#8A2A4C', '#FFD7C2'];
+const CONFETTI: Readonly<Record<'k' | 'a', readonly string[]>> = {
+  k: ['#D13A6E', '#F59BBB', '#1F1B17', '#FCE8EF', '#8A2A4C', '#FFD7C2'],
+  a: ['#C2410C', '#FDBA8C', '#1F1B17', '#FFF1E6', '#9A3412', '#2F6E5B'],
+};
 
-function Confetti(): React.ReactElement {
+function Confetti({ tone }: { tone: 'k' | 'a' }): React.ReactElement {
   return (
     <div aria-hidden="true" className="hub-dle-confetti">
       {Array.from({ length: 26 }, (_, i) => (
         <span key={i} className="hub-dle-cf" style={{
-          left: `${(i * 37) % 100}%`, width: 6 + ((i * 7) % 7), height: 8 + ((i * 5) % 9), background: CONFETTI[i % CONFETTI.length],
+          left: `${(i * 37) % 100}%`, width: 6 + ((i * 7) % 7), height: 8 + ((i * 5) % 9), background: CONFETTI[tone][i % CONFETTI[tone].length],
           animationDelay: `${(i * 53) % 700}ms`, borderRadius: i % 3 === 0 ? '50%' : 2,
         }} />
       ))}
@@ -87,6 +91,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   const [copied, setCopied] = useState(false);
   const [canShare, setCanShare] = useState(false);
   const [streak, setStreak] = useState(0);
+  const [progress, setProgress] = useState<DleProgress>(DEFAULT_PROGRESS);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const byId = useMemo(() => new Map((pool?.entities ?? []).map((e) => [e.id, e])), [pool]);
@@ -95,7 +100,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   const over = play ? play.status !== 'playing' : false;
   const won = play?.status === 'won';
   const errors = guesses.length - (won ? 1 : 0);
-  const sugg = useMemo(() => (open && pool ? suggest(pool.entities, query, guessed) : []), [open, pool, query, guessed]);
+  const sugg = useMemo(() => (open && pool ? suggest(pool.entities.filter((e) => seenAt(e.attrs.seen_at?.v, progress)), query, guessed) : []), [open, pool, query, guessed, progress]);
   const counts = correctCounts(guesses);
   const lastCount = counts[counts.length - 1] ?? 0;
   const lastSize = guesses[guesses.length - 1]?.result.length ?? 0;
@@ -118,6 +123,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   useEffect(() => {
     let alive = true;
     setCanShare(typeof navigator.share === 'function');
+    if (w.progress) setProgress(readProgress(deviceStore()));
     setStreak(universeStreak(readHistory(deviceStore()), world.modes.flatMap((m) => (m.game ? [m.game] : [])), utcDate(new Date())));
     if (off) return () => { alive = false; };
     client.day(game).then((d) => {
@@ -237,7 +243,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
           <li aria-hidden="true">/</li>
           <li aria-current="page">{g.brand} · {g.guess[locale]}</li>
         </ol>
-        {no !== null ? <p className="hub-dle-kicker hub-dle-num">{t.gameNo(`${g.brand} ${world.modes.find((m) => m.game === game)!.step[locale]}`, no)}</p> : null}
+        {no !== null ? <p className="hub-dle-kicker hub-dle-num">{t.gameNo(w.noLabel ?? `${g.brand} ${world.modes.find((m) => m.game === game)!.step[locale]}`, no)}</p> : null}
         <h1 id="dle-h1">{w.h1}</h1>
         <p className="hub-dle-line">
           {fans ? <><span className="hub-dle-num">{t.fansLine(fans)}</span> · </> : null}
@@ -274,12 +280,25 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
             })}
           </ol>
         </nav>
+        {w.progress ? (
+          <fieldset className="hub-dle-progress">
+            <legend className="hub-dle-sr">{w.progress.legend}</legend>
+            <span aria-hidden="true" className="hub-dle-progress-q">{w.progress.question}</span>
+            <span className="hub-dle-segs">
+              {w.progress.options.map((o) => (
+                <label key={o.id} title={o.help} className={`hub-dle-seg${progress === o.id ? ' hub-dle-seg-on' : ''}`}>
+                  <input type="radio" name="dle-progress" className="hub-dle-sr" checked={progress === o.id} onChange={() => { setProgress(o.id); writeProgress(deviceStore(), o.id); setActive(0); }} />{o.label}
+                </label>
+              ))}
+            </span>
+          </fieldset>
+        ) : null}
       </div>
 
       {g.hints.length ? (
         <section aria-labelledby="dle-hints" className="hub-dle-z2 hub-dle-hints">
           <h2 id="dle-hints"><Ic d={D.bulb} /> {t.hintsTitle}<span>{t.hintsAfter(g.hints.map((h, i) => (i === g.hints.length - 1 ? (locale === 'fr' ? `et ${h.after}` : `and ${h.after}`) : `${h.after}${i === g.hints.length - 2 ? '' : ','}`)).join(' '))}</span></h2>
-          <div className="hub-dle-hintgrid">
+          <div className={`hub-dle-hintgrid${g.hints.length === 2 ? ' hub-dle-hintgrid-2' : ''}`}>
             {g.hints.map((h) => {
               // The server opens a hint by the errors counted, also on a finished play: a hint it did not open stays closed, its value is not on this page.
               const unlocked = errors >= h.after;
@@ -325,15 +344,15 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
                 <ul id="dle-sugg" role="listbox" aria-label={t.suggestions} className="hub-dle-sugg hub-dle-drop">
                   {sugg.map((e, i) => {
                     const sub = firstValue(e.attrs[w.subKey]?.v);
-                    const agency = firstValue(e.attrs.agency?.v);
-                    const native = e.search.find((x) => /[^\u0000-ɏ]/.test(x));
+                    const second = firstValue(e.attrs[w.suggestSecond]?.v);
+                    const native = w.nativeLang ? e.search.find((x) => /[^\u0000-ɏ]/.test(x)) : undefined;
                     return (
                       <li key={e.id} id={`dle-opt-${e.id}`} role="option" aria-selected={i === active}>
                         <button type="button" tabIndex={-1} className={i === active ? 'hub-dle-opt-active' : ''} onClick={() => void send(e)}>
                           <Avatar entity={e} tone={sub} size={40} radius={10} font={13} />
                           <span className="hub-dle-sugg-text">
-                            <span className="hub-dle-sugg-name">{e.name}{native ? <span lang="ko"> {native}</span> : null}</span>
-                            <span className="hub-dle-sugg-sub">{[sub, agency].filter(Boolean).join(' · ')}</span>
+                            <span className="hub-dle-sugg-name">{e.name}{native ? <span lang={w.nativeLang ?? undefined}> {native}</span> : null}</span>
+                            <span className="hub-dle-sugg-sub">{[sub, second].filter(Boolean).join(' · ')}</span>
                           </span>
                           {i === 0 ? <span aria-hidden="true" className="hub-dle-sugg-enter">{t.enterKey}</span> : null}
                         </button>
@@ -361,7 +380,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
 
       {over && target ? (
         <section aria-labelledby="dle-win" className="hub-dle-result hub-dle-reveal">
-          {won && justOver ? <Confetti /> : null}
+          {won && justOver ? <Confetti tone={world.tone} /> : null}
           <figure className="hub-dle-photo">
             {picture ? (
               // A plain img: the file made at upload (no Vercel image optimisation); only a verified licence reaches this page.
@@ -378,12 +397,12 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
                 <>
                   {t.photoBy(picture.author, picture.license)} · <a href={picture.sourceUrl} rel="noopener noreferrer nofollow" target="_blank">{t.source}</a>
                 </>
-              ) : t.noPhoto}
+              ) : w.noPhoto ?? t.noPhoto}
             </figcaption>
           </figure>
           <div className="hub-dle-resultbody">
             <div className="hub-dle-resulthead">
-              <p className="hub-dle-eyebrow">{won ? t.found : t.answerWas}</p>
+              <p className="hub-dle-eyebrow">{won ? w.found ?? t.found : t.answerWas}</p>
               <h2 id="dle-win">{target.name}{targetGroup ? <span> {targetGroup}</span> : null}</h2>
               <p>{won ? t.wonLine(guesses.length, stats ? formatCount(stats.wins, locale) : null) : t.gaveUpLine(guesses.length, label)}</p>
             </div>

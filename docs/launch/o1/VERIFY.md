@@ -243,6 +243,7 @@ Run V-S4 (section A0) after this step: it must print `V-S4 ok`.
 Lot K1, 021a (row 14e): `idols.gender` and `idols.debut_year` exist, every gender is 'female' or 'male' (`docs/launch/o1/checks/V-K1a.sql`).
 Lot K1, 021c (row 14e ter): the debut years of the list are in place with one source each, 39, 46, 48, 175 carry their QID, 14 and 19 have the right QID, birth date and source references (`docs/launch/o1/checks/V-K1c.sql`).
 Lot K1, 021b (row 14e bis): no active idol is still to review, and no minor and no idol without a birth date is in the game (`docs/launch/o1/checks/V-K1b.sql`).
+023 (row 14g): `character_facts` and `series_facts` have RLS on and no policy and are closed to the browser roles, the view `dle_src_anime_character` is closed, the game row is absent until L01 (`docs/launch/o1/checks/V-023.sql`).
 022 (row 14f): `agencies` and `site_assets` have RLS on and no policy; the views `site_assets_public` and `entity_images_public` are readable by anon, the two tables and their sequences are not; one agency per label the kpop groups cite, 17 in production (`docs/launch/o1/checks/V-022.sql`).
 
 After the whole P5, V-S4 (section A0), V1 once more (nothing visible may have changed on kpop) and the Vercel runtime errors of `kpopquiz` for the last hour.
@@ -282,6 +283,9 @@ After L03 (the sentinels): `q "select username, id from public.profiles where id
 (plus `deleted_user` of Mission U part D when it is applied); `q "select count(*) from public.world_memberships where user_id in ('00000000-0000-0000-0000-00000000dea2', '00000000-0000-0000-0000-00000000dea3')"` is 0;
 with 016 applied `q "select public.passport_site_sentinel('anime'), public.passport_site_sentinel('hub')"` returns the two ids.
 After L06 (the badges): `q "select count(*) from public.badge_definitions where site_id <> 'kpop'"` is 6 (`anime_first_steps`, `anime_quiz_maker`, `anime_prolific_creator`, `anime_multi_stan`, `anime_dedicated_fan`, `anime_community_star`), and `q "select count(*) from public.badge_definitions where site_id = 'hub'"` is 0.
+After 023 run again in J4: `otakudle` is there, switched off, with 7 columns (`docs/launch/o1/checks/V-023.sql`).
+After L13 (the lot A1 file): 50 demographics, no fact outside the pool, no value without a source, the pool over the game's minimum; 118 characters with the 7 columns is printed as information (`docs/launch/o1/checks/V-L13.sql`).
+After L14 (Kpopdle Idol and Otakudle on), on each game: on, with its epoch; 365 days, each on a target of the pool; no target twice in the window around the cycle; the bank matches the pool; targets at the minimum or more (`docs/launch/o1/checks/V-L14.sql`). Counts only, never a target. Then `dle_day` of each game answers its number, as the browser calls it (session.sh J5).
 After L05: `q "select count(*) from public.trivia where site_id='anime' and status='published'"` equals the `published` figure in its header (every verified fact).
 
     q "select count(*) from public.editorial_accounts where site_id='anime' and active"                      # 31 (L02)
@@ -298,6 +302,12 @@ Leaks (SQL side), after L04 to L08:
     q "select count(*) from public.groups g where g.site_id='anime' and g.slug in (select slug from public.groups where site_id='kpop')"   # 0
     q "select count(*) from public.quiz_bank where site_id='anime' and scheduled_date is not null"                          # 0 until you verify and the cron schedules
     q "select count(*) from public.trivia where site_id='anime' and status='published'"                                      # equals the `published` figure in L05's header
+
+## V-DLE. The kept days of the daily games (each morning after launch, RUNBOOK L6)
+
+    psql "$PROD_DB_URL" -X -At -f docs/launch/o1/checks/V-DLE-KEPT.sql
+
+One row per active game: the kept days (today and the 7 after it) whose target has left the pool. 0 expected, `ok`. A number above 0 is `KO`: those days cannot be won, RUNBOOK L6 says what to do. Read only, counts only, never a target. It is item 4 of V12's morning check.
 
 ## V9. Vercel projects and environment (before the domain is attached)
 
@@ -390,6 +400,7 @@ The morning after (a worker, Vercel; Claude, SQL):
 1. Vercel, project `fandomverse`, Logs, search `dle_daily_maintenance`, 00:05 UTC: one line, `[ensure-daily-quiz] dle_daily_maintenance: [...]`, with `game`, `pool` and `rebuilt_days` per active game (`[]` when none is active). `not applied on this database yet` is expected only before 019. Any `failed` line is a finding, the integrator looks at it the same day: `failed for game <id>: <code> <message>` names one game (the others ran, and the line of counts lists them), `failed: <code> <message>` is the whole call. The same search on `kpopquiz` and `otakuquiz` finds nothing.
 2. `q "select game_id, game_no from public.dle_daily_stats where play_date = current_date order by 1"`: one row per active game (never select `entity_id`: it is the answer).
 3. `q "select count(*) from public.dle_salt where day < current_date - 1"`: 0.
+4. `psql "$PROD_DB_URL" -X -At -f docs/launch/o1/checks/V-DLE-KEPT.sql`: `ok` for each active game (V-DLE above, RUNBOOK L6).
 
 Each game runs alone (CR-019). A game whose targets fell under `min_pool` (`dle_pool_too_small`), or whose `epoch` is still in the future (`dle_daily_stats_game_no_check`), keeps its snapshot and its bank of the day before and fails every night until fixed; the other games and the purges still run. A statement timeout fails the whole call, purges included. Activate a game with `epoch` = the day it opens.
 
