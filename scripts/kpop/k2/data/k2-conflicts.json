@@ -7,88 +7,168 @@
       "name": "Heejin",
       "qid": "Q56259179",
       "field": "membership",
-      "kind": "conflict",
-      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended: not inserted"
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Heejin",
+      "qid": "Q56259179",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2016"
     },
     {
       "group": "loona",
       "name": "Hyunjin",
       "qid": "Q48893612",
       "field": "membership",
-      "kind": "conflict",
-      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended: not inserted"
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Hyunjin",
+      "qid": "Q48893612",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2016"
     },
     {
       "group": "loona",
       "name": "Haseul",
       "qid": "Q57318729",
       "field": "membership",
-      "kind": "conflict",
-      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended: not inserted"
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Haseul",
+      "qid": "Q57318729",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2016"
     },
     {
       "group": "loona",
       "name": "Yeojin",
       "qid": "Q56824821",
       "field": "membership",
-      "kind": "conflict",
-      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended: not inserted"
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Yeojin",
+      "qid": "Q56824821",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2017"
     },
     {
       "group": "loona",
       "name": "Vivi",
       "qid": "Q57317398",
       "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Vivi",
+      "qid": "Q57317398",
+      "field": "nationality",
       "kind": "conflict",
-      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended: not inserted"
+      "note": "sources disagree (wikidata China; wikipedia South Korea; musicbrainz birthplace South Korea): not inserted"
     },
     {
       "group": "loona",
       "name": "Kim Lip",
       "qid": "Q56816418",
       "field": "membership",
-      "kind": "conflict",
-      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended: not inserted"
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Kim Lip",
+      "qid": "Q56816418",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2017"
     },
     {
       "group": "loona",
       "name": "Jinsoul",
       "qid": "Q56825122",
       "field": "membership",
-      "kind": "conflict",
-      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended: not inserted"
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Jinsoul",
+      "qid": "Q56825122",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2017"
     },
     {
       "group": "loona",
       "name": "Choerry",
       "qid": "Q58224261",
       "field": "membership",
-      "kind": "conflict",
-      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended: not inserted"
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Choerry",
+      "qid": "Q58224261",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2017"
     },
     {
       "group": "loona",
       "name": "Yves",
       "qid": "Q58825704",
       "field": "membership",
-      "kind": "conflict",
-      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended: not inserted"
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Yves",
+      "qid": "Q58825704",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2017"
     },
     {
       "group": "loona",
       "name": "Go Won",
       "qid": "Q58825794",
       "field": "membership",
-      "kind": "conflict",
-      "note": "English Wikipedia lists a current member; MusicBrainz marks the relation ended: not inserted"
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
     },
     {
       "group": "loona",
       "name": "Olivia Hye",
       "qid": "Q58825825",
       "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "(group)",
+      "qid": "Q28025953",
+      "field": "leader",
       "kind": "conflict",
-      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended: not inserted"
+      "note": "3 members flagged leader: check by hand"
     },
     {
       "group": "got7",
@@ -103,16 +183,24 @@
       "name": "Jay B",
       "qid": "Q491048",
       "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2012, group debut year 2014, MusicBrainz member relation 2014: not inserted"
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2014; Wikidata person work period says 2012"
     },
     {
       "group": "got7",
       "name": "Jinyoung",
       "qid": "Q492313",
       "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2012, group debut year 2014, MusicBrainz member relation 2014: not inserted"
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2014; Wikidata person work period says 2012"
+    },
+    {
+      "group": "got7",
+      "name": "Jay B",
+      "qid": "Q491048",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia group page)"
     },
     {
       "group": "monsta-x",
@@ -127,8 +215,8 @@
       "name": "Sooyoung",
       "qid": "Q233385",
       "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2002, group debut year 2007, MusicBrainz member relation 2007: not inserted"
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2007; Wikidata person work period says 2002"
     },
     {
       "group": "girls-generation",
@@ -143,8 +231,8 @@
       "name": "Kim Ji-woong",
       "qid": "Q115933814",
       "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2016, group debut year 2023, MusicBrainz member relation 2023: not inserted"
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2016"
     },
     {
       "group": "zerobaseone",
@@ -183,8 +271,8 @@
       "name": "Manon Bannerman",
       "qid": "Q124692741",
       "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2021, group debut year 2024, MusicBrainz member relation 2023: not inserted"
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2024; Wikidata person work period says 2021"
     },
     {
       "group": "katseye",
@@ -279,8 +367,8 @@
       "name": "Park Jeong-woo",
       "qid": "Q97326265",
       "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2018, group debut year 2020, MusicBrainz member relation 2019: not inserted"
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2020; Wikidata person work period says 2018"
     },
     {
       "group": "treasure",
@@ -308,59 +396,19 @@
     },
     {
       "group": "dreamcatcher",
-      "name": "JiU",
-      "qid": "Q59313184",
-      "field": "debut_year",
-      "kind": "single",
-      "note": "no personal debut date and the group debut year is not agreed by two sources: not inserted"
-    },
-    {
-      "group": "dreamcatcher",
-      "name": "SuA",
-      "qid": "Q59313270",
-      "field": "debut_year",
-      "kind": "single",
-      "note": "no personal debut date and the group debut year is not agreed by two sources: not inserted"
-    },
-    {
-      "group": "dreamcatcher",
       "name": "Siyeon",
       "qid": "Q59313326",
       "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2014, group debut year unknown, MusicBrainz member relation 2016: not inserted"
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2017; Wikidata person work period says 2014"
     },
     {
       "group": "dreamcatcher",
-      "name": "Handong",
-      "qid": "Q59313384",
-      "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2017, group debut year unknown, MusicBrainz member relation 2016: not inserted"
-    },
-    {
-      "group": "dreamcatcher",
-      "name": "Yoohyeon",
-      "qid": "Q59313479",
-      "field": "debut_year",
+      "name": "JiU",
+      "qid": "Q59313184",
+      "field": "leader",
       "kind": "single",
-      "note": "no personal debut date and the group debut year is not agreed by two sources: not inserted"
-    },
-    {
-      "group": "dreamcatcher",
-      "name": "Dami",
-      "qid": "Q59313527",
-      "field": "debut_year",
-      "kind": "single",
-      "note": "no personal debut date and the group debut year is not agreed by two sources: not inserted"
-    },
-    {
-      "group": "dreamcatcher",
-      "name": "Gahyun",
-      "qid": "Q59313606",
-      "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2017, group debut year unknown, MusicBrainz member relation 2016: not inserted"
+      "note": "leader from one source only (wikipedia group page)"
     },
     {
       "group": "tws",
@@ -639,64 +687,104 @@
       "name": "Heejin",
       "qid": "Q56259179",
       "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2016, group debut year 2023, MusicBrainz member relation 2023: not inserted"
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2016"
     },
     {
       "group": "artms",
       "name": "Haseul",
       "qid": "Q57318729",
       "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2016, group debut year 2023, MusicBrainz member relation 2023: not inserted"
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2016"
     },
     {
       "group": "artms",
       "name": "Kim Lip",
       "qid": "Q56816418",
       "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2017, group debut year 2023, MusicBrainz member relation 2023: not inserted"
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2017"
     },
     {
       "group": "artms",
       "name": "Jinsoul",
       "qid": "Q56825122",
       "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2017, group debut year 2023, MusicBrainz member relation 2023: not inserted"
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2017"
     },
     {
       "group": "artms",
       "name": "Choerry",
       "qid": "Q58224261",
       "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2017, group debut year 2023, MusicBrainz member relation 2023: not inserted"
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2017"
+    },
+    {
+      "group": "artms",
+      "name": "Haseul",
+      "qid": "Q57318729",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia member page)"
+    },
+    {
+      "group": "artms",
+      "name": "Kim Lip",
+      "qid": "Q56816418",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia member page)"
     },
     {
       "group": "loossemble",
       "name": "Hyunjin",
       "qid": "Q48893612",
       "field": "membership",
-      "kind": "conflict",
-      "note": "English Wikipedia lists a current member; Wikidata has an end date: not inserted"
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loossemble",
+      "name": "Hyunjin",
+      "qid": "Q48893612",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2016"
     },
     {
       "group": "loossemble",
       "name": "Yeojin",
       "qid": "Q56824821",
       "field": "membership",
-      "kind": "conflict",
-      "note": "English Wikipedia lists a current member; Wikidata has an end date: not inserted"
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loossemble",
+      "name": "Yeojin",
+      "qid": "Q56824821",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2017"
     },
     {
       "group": "loossemble",
       "name": "Vivi",
       "qid": "Q57317398",
       "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loossemble",
+      "name": "Vivi",
+      "qid": "Q57317398",
+      "field": "nationality",
       "kind": "conflict",
-      "note": "English Wikipedia lists a current member; Wikidata has an end date: not inserted"
+      "note": "sources disagree (wikidata China; wikipedia South Korea; musicbrainz birthplace South Korea): not inserted"
     },
     {
       "group": "loossemble",
@@ -711,8 +799,16 @@
       "name": "Hyeju",
       "qid": "Q58825825",
       "field": "membership",
-      "kind": "conflict",
-      "note": "English Wikipedia lists a current member; Wikidata has an end date: not inserted"
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loossemble",
+      "name": "Hyeju",
+      "qid": "Q58825825",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2018"
     },
     {
       "group": "loossemble",
@@ -929,22 +1025,6 @@
       "field": "maknae",
       "kind": "single",
       "note": "a current member has no agreed birth date: no maknae is set"
-    },
-    {
-      "group": "akmu",
-      "name": "Lee Chan-hyuk",
-      "qid": "Q16071030",
-      "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2014, group debut year 2012, MusicBrainz member relation 2012: not inserted"
-    },
-    {
-      "group": "akmu",
-      "name": "Lee Su-hyun",
-      "qid": "Q18697707",
-      "field": "debut_year",
-      "kind": "conflict",
-      "note": "Wikidata person says 2014, group debut year 2012, MusicBrainz member relation 2012: not inserted"
     },
     {
       "group": "astro",

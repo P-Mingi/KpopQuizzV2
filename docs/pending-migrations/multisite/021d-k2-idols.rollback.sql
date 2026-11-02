@@ -1,14 +1,14 @@
 -- 021d-k2-idols.rollback.sql (lot K2): undo of 021d-k2-idols.sql.
 --
--- What:   deletes the 66 idol rows 021d inserted (matched by group slug, name AND QID, so a row someone changed is never touched) and
---         every entity_sources row of those idols; puts the 11 idols 021d activated back in the review queue (active false, needs_review
+-- What:   deletes the 91 idol rows 021d inserted (matched by group slug, name AND QID, so a row someone changed is never touched) and
+--         every entity_sources row of those idols (their idol_other_groups rows go with them, on delete cascade); puts the 11 idols 021d activated back in the review queue (active false, needs_review
 --         true, review_reason = the text they had before K1: "Wikidata lists this member but not in our name-all roster; confirm before
 --         activating."). The group rows 021d filled (record_label, generation, inception_date, empty columns only) are left as they are:
 --         the values are correct facts of the group and nothing can tell afterwards which of them were empty before.
 --         Refused, with nothing changed, while the game kpopdle-idol is active (taking idols out of a live pool is a decision for the owner)
 --         and when a listed id carries another QID.
 -- Why:    the rollback of the K2 session.
--- Rows:   up to 66 idols, their entity_sources, 11 activations undone.
+-- Rows:   up to 91 idols, their entity_sources, 11 activations undone.
 -- Verify: select count(*) from public.idols where wikidata_qid in (<the K2 QIDs>);   expect 0
 -- Undo:   021d-k2-idols.sql again.
 -- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing.
@@ -19,8 +19,20 @@ set client_min_messages = warning;
 drop table if exists pg_temp.k2_idols, pg_temp.k2_activate;
 create temp table k2_idols (group_slug text not null, name text not null, qid text primary key);
 insert into k2_idols (group_slug, name, qid) values
+  ('loona', 'Heejin', 'Q56259179'),
+  ('loona', 'Hyunjin', 'Q48893612'),
+  ('loona', 'Haseul', 'Q57318729'),
+  ('loona', 'Yeojin', 'Q56824821'),
+  ('loona', 'Kim Lip', 'Q56816418'),
+  ('loona', 'Jinsoul', 'Q56825122'),
+  ('loona', 'Choerry', 'Q58224261'),
+  ('loona', 'Yves', 'Q58825704'),
+  ('loona', 'Go Won', 'Q58825794'),
+  ('loona', 'Olivia Hye', 'Q58825825'),
   ('got7', 'Mark', 'Q16075083'),
+  ('got7', 'Jay B', 'Q491048'),
   ('got7', 'Jackson', 'Q16905948'),
+  ('got7', 'Jinyoung', 'Q492313'),
   ('got7', 'Youngjae', 'Q17500581'),
   ('got7', 'BamBam', 'Q16688282'),
   ('got7', 'Yugyeom', 'Q17500887'),
@@ -35,8 +47,10 @@ insert into k2_idols (group_slug, name, qid) values
   ('girls-generation', 'Tiffany', 'Q236355'),
   ('girls-generation', 'Hyoyeon', 'Q253619'),
   ('girls-generation', 'Yuri', 'Q276158'),
+  ('girls-generation', 'Sooyoung', 'Q233385'),
   ('girls-generation', 'Yoona', 'Q466975'),
   ('girls-generation', 'Seohyun', 'Q240082'),
+  ('zerobaseone', 'Kim Ji-woong', 'Q115933814'),
   ('zerobaseone', 'Sung Han-bin', 'Q117746200'),
   ('zerobaseone', 'Kim Tae-rae', 'Q117817675'),
   ('zerobaseone', 'Park Gun-wook', 'Q117818064'),
@@ -49,6 +63,7 @@ insert into k2_idols (group_slug, name, qid) values
   ('bigbang', 'Daesung', 'Q194798'),
   ('katseye', 'Daniela Avanzini', 'Q124692767'),
   ('katseye', 'Lara Raj', 'Q124692773'),
+  ('katseye', 'Manon Bannerman', 'Q124692741'),
   ('katseye', 'Megan Skiendiel', 'Q124692787'),
   ('katseye', 'Sophia Laforteza', 'Q124692753'),
   ('illit', 'Yunah', 'Q126923756'),
@@ -60,7 +75,15 @@ insert into k2_idols (group_slug, name, qid) values
   ('treasure', 'Yoon Jae-hyuk', 'Q98136886'),
   ('treasure', 'Doyoung', 'Q97320177'),
   ('treasure', 'Haruto', 'Q97352003'),
+  ('treasure', 'Park Jeong-woo', 'Q97326265'),
   ('treasure', 'So Jung-hwan', 'Q97352009'),
+  ('dreamcatcher', 'JiU', 'Q59313184'),
+  ('dreamcatcher', 'SuA', 'Q59313270'),
+  ('dreamcatcher', 'Siyeon', 'Q59313326'),
+  ('dreamcatcher', 'Handong', 'Q59313384'),
+  ('dreamcatcher', 'Yoohyeon', 'Q59313479'),
+  ('dreamcatcher', 'Dami', 'Q59313527'),
+  ('dreamcatcher', 'Gahyun', 'Q59313606'),
   ('tws', 'Shinyu', 'Q132041926'),
   ('tws', 'Dohoon', 'Q125865775'),
   ('tws', 'Youngjae', 'Q132041928'),
@@ -81,6 +104,8 @@ insert into k2_idols (group_slug, name, qid) values
   ('team', 'K', 'Q116226143'),
   ('team', 'Nicholas', 'Q104723121'),
   ('team', 'EJ', 'Q127427815'),
+  ('akmu', 'Lee Chan-hyuk', 'Q16071030'),
+  ('akmu', 'Lee Su-hyun', 'Q18697707'),
   ('astro', 'MJ', 'Q47673408'),
   ('astro', 'Jinjin', 'Q60991892'),
   ('astro', 'Eunwoo', 'Q21060390'),

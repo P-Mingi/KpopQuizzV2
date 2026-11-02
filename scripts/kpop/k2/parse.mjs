@@ -159,3 +159,15 @@ export function countryName(label) {
   const map = { "People's Republic of China": 'China', 'United States of America': 'United States', 'Republic of China': 'Taiwan', 'Kingdom of Thailand': 'Thailand', 'Korea': 'South Korea', 'Republic of Korea': 'South Korea' };
   return map[label] ?? label;
 }
+
+// The year the group's lead paragraph says it debuted ("debuted on January 13, 2017", "debuted in January 2014"); null when it says none.
+export function leadDebutYear(wikitext) {
+  const i = wikitext.search(/\n'{3}[^\n]*'{3}/);
+  if (i < 0) return null;
+  let lead = wikitext.slice(i, i + 5000);
+  const j = lead.search(/\n==/);
+  if (j > 0) lead = lead.slice(0, j);
+  lead = stripNoise(lead).replace(/\{\{[^{}]*\}\}/g, ' ').replace(/\[\[(?:[^\]|]*\|)?([^\]]*)\]\]/g, '$1');
+  const m = lead.match(/\bdebut(?:ed)?\b[^.]*?\b((?:19|20)\d{2})\b/i);
+  return m ? Number(m[1]) : null;
+}

@@ -1,5 +1,5 @@
 -- K2-rehearsal-fixture.sql: rows that production holds and the local rehearsal does not (session-rehearsal.sh applies it before part K2).
--- Synthetic and only for the rehearsal: the 15 target groups of 021d with no idol row and no agency, the five groups of the 021b rows, and
+-- Synthetic and only for the rehearsal: the 18 target groups of 021d with no idol row and no agency, the five groups of the 021b rows, and
 -- the 12 021b rows as 021a and 021c leave them (inactive, waiting for review, with gender and debut year). Birth dates are
 -- invented adult dates. Nothing here is a fact about a person.
 set client_min_messages = warning;
@@ -11,7 +11,8 @@ insert into public.groups (name, slug, fandom_name, display_color, text_color, r
   ('FIFTY FIFTY', 'fifty-fifty', 'fan', '#cccccc', '#111111', 'Attrakt', '4th generation')
 on conflict (slug) do nothing;
 insert into public.groups (name, slug, fandom_name, display_color, text_color, record_label) values
-  ('got7', 'got7', 'fan', '#cccccc', '#111111', 'JYP Entertainment'),
+  ('loona', 'loona', 'fan', '#cccccc', '#111111', 'Blockberry Creative'),
+  ('got7', 'got7', 'fan', '#cccccc', '#111111', null),
   ('monsta-x', 'monsta-x', 'fan', '#cccccc', '#111111', null),
   ('girls-generation', 'girls-generation', 'fan', '#cccccc', '#111111', null),
   ('zerobaseone', 'zerobaseone', 'fan', '#cccccc', '#111111', null),
@@ -20,12 +21,16 @@ insert into public.groups (name, slug, fandom_name, display_color, text_color, r
   ('katseye', 'katseye', 'fan', '#cccccc', '#111111', null),
   ('illit', 'illit', 'fan', '#cccccc', '#111111', null),
   ('treasure', 'treasure', 'fan', '#cccccc', '#111111', null),
+  ('dreamcatcher', 'dreamcatcher', 'fan', '#cccccc', '#111111', null),
   ('tws', 'tws', 'fan', '#cccccc', '#111111', null),
   ('p1harmony', 'p1harmony', 'fan', '#cccccc', '#111111', null),
   ('cortis', 'cortis', 'fan', '#cccccc', '#111111', null),
   ('hearts2hearts', 'hearts2hearts', 'fan', '#cccccc', '#111111', null),
   ('team', 'team', 'fan', '#cccccc', '#111111', null),
-  ('astro', 'astro', 'fan', '#cccccc', '#111111', null)
+  ('akmu', 'akmu', 'fan', '#cccccc', '#111111', null),
+  ('astro', 'astro', 'fan', '#cccccc', '#111111', null),
+  ('artms', 'artms', 'fan', '#cccccc', '#111111', null),
+  ('loossemble', 'loossemble', 'fan', '#cccccc', '#111111', null)
 on conflict (slug) do nothing;
 insert into public.idols (id, group_id, name, birth_date, nationality, positions, wikidata_qid, active, ord, needs_review, review_reason, origin, gender, debut_year) values
   (82, (select id from public.groups where slug = 'nct'), 'Ten', date '1994-01-10', 'South Korea', array[]::text[], 'Q26451151', false, 82, true, 'Wikidata lists this member but not in our name-all roster; confirm before activating.', 'wikidata', 'female', 2016),

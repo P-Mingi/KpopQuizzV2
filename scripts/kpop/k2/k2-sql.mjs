@@ -20,6 +20,10 @@ const act = data.activate_021b.filter((r) => r.ok);
 const held = data.activate_021b.filter((r) => !r.ok);
 const N = idols.length, M = act.length, G = groups.length;
 const slugs = groups.map((g) => g.slug);
+const otherRows = idols.flatMap((i) => (i.other_groups ?? []).map((s) => ({ qid: i.wikidata_qid, slug: s })));
+const E = otherRows.length;
+const otherSlugs = [...new Set(otherRows.map((o) => o.slug))];
+const otherPersons = new Set(otherRows.map((o) => o.qid)).size;
 const byGroup = Object.fromEntries(groups.map((g) => [g.slug, idols.filter((i) => i.group_slug === g.slug).length]));
 
 const groupRows = groups.map((g) => `  (${q(g.slug)}, ${q(g.record_label)}, ${q(g.generation)}, ${g.inception_date ? `date ${q(g.inception_date)}` : 'null::date'})`).join(',\n');
@@ -40,6 +44,9 @@ const header = `-- 021d-k2-idols.sql (lot K2, idols for Kpopdle Idol, owner brie
 --             (fields wikidata_qid, birth_date, gender, nationality, debut_year; sources wikidata with the QID, musicbrainz with the artist
 --             MBID or, for a group's first release, the release group MBID), like 021a and 021c. Only members the English Wikipedia lists as
 --             current, whom Wikidata and MusicBrainz do not contradict, and whose birth date, gender and debut year two sources agree on.
+--             Members of more than one group (${otherPersons} people: LOONA members who are now in ARTMS or Loossemble, as English Wikipedia lists them)
+--             keep one row, in their first group; ${E} rows of public.idol_other_groups (created in 020) give the game's group cell their other
+--             group (${otherSlugs.join(', ')}), so a guess of one of them is right or near by the engine's set rules, never a second idol.
 --         (b) fills, on these ${G} groups only and only where the column is empty, groups.record_label (the main agency; an existing spelling
 --             of the same label in another group is reused), groups.generation (the published rule on the debut year) and groups.inception_date
 --             (a full date only when its year is the agreed debut year): the view dle_src_kpop_idol needs an agency and a generation.
@@ -55,8 +62,8 @@ const header = `-- 021d-k2-idols.sql (lot K2, idols for Kpopdle Idol, owner brie
 --         Idempotent: a second run inserts and updates nothing.
 -- Why:    the owner wants 200 active, adult, complete, double-checked idols in Kpopdle Idol on launch day (150 at the very least); 112 were
 --         in the pool. These idols also appear on the kpopquiz.org group pages and the member counts: that is wanted (owner, 2026-11-02).
--- Rows:   up to ${N} idols, ${sourceRows.length} entity_sources, ${G} group rows (empty columns only), ${M} activations.
--- Needs:  020 (view), 021a (columns), 021c, 021b, and session G done. Run in its own small session: bash docs/launch/o1/session.sh K2,
+-- Rows:   up to ${N} idols, ${sourceRows.length} entity_sources, ${E} idol_other_groups, ${G} group rows (empty columns only), ${M} activations.
+-- Needs:  020 (view and table idol_other_groups), 021a (columns), 021c, 021b, and session G done. Run in its own small session: bash docs/launch/o1/session.sh K2,
 --         after the backup line of the session (OWNER-NOW.md).
 -- Verify: docs/launch/o1/checks/V-K2.sql (session.sh K2 runs it); the pool: select count(*) from public.dle_src_kpop_idol;
 -- Undo:   021d-k2-idols.rollback.sql (refused while the game kpopdle-idol is active).
@@ -74,6 +81,9 @@ begin
   end if;
   if (select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'idols' and column_name in ('gender', 'debut_year')) <> 2 then
     raise exception '021d-k2-idols: idols.gender or idols.debut_year is missing (apply 021a first)';
+  end if;
+  if to_regclass('public.idol_other_groups') is null then
+    raise exception '021d-k2-idols: public.idol_other_groups is missing (020-dle-kpop-idol.sql creates it: apply 020 first)';
   end if;
 end $$;
 
@@ -96,6 +106,9 @@ ${sourceRows.join(',\n')};
 create temp table k2_activate (id integer primary key, qid text not null);
 insert into k2_activate (id, qid) values
 ${actRows};
+
+create temp table k2_other (qid text not null, group_slug text not null, primary key (qid, group_slug));
+${E ? `insert into k2_other (qid, group_slug) values\n${otherRows.map((o) => `  (${q(o.qid)}, ${q(o.slug)})`).join(',\n')};` : ''}
 
 -- From here the file reports what it refuses or does.
 set client_min_messages = notice;
@@ -125,6 +138,14 @@ begin
   join public.groups g on g.id = i.group_id and g.slug <> k.group_slug;
   if bad is not null then
     raise exception '021d-k2-idols refused: QID already on a row of another group: %', bad;
+  end if;
+  select string_agg(distinct o.group_slug, ', ') into bad from k2_other o where (select count(*) from public.groups g where g.slug = o.group_slug) <> 1;
+  if bad is not null then
+    raise exception '021d-k2-idols refused: other group(s) of a member missing or not unique: %', bad;
+  end if;
+  select string_agg(o.qid, ', ') into bad from k2_other o join k2_idols k on k.qid = o.qid where k.group_slug = o.group_slug;
+  if bad is not null then
+    raise exception '021d-k2-idols refused: an idol lists its own group as an other group: %', bad;
   end if;
   select string_agg(a.id::text, ', ' order by a.id) into bad from k2_activate a where not exists (select 1 from public.idols i where i.id = a.id);
   if bad is not null then
@@ -210,6 +231,16 @@ where s.field = 'wikidata_qid'
   or (s.field = 'debut_year' and i.debut_year = k.debut_year)
 on conflict (entity_type, entity_id, field, source) do nothing;
 
+-- 4b. The other groups of the members who are in more than one (game only; the idol row stays in its first group).
+insert into public.idol_other_groups (idol_id, group_id)
+select i.id, g2.id
+from k2_other o
+join k2_idols k on k.qid = o.qid
+join public.groups g on g.slug = k.group_slug
+join public.idols i on i.group_id = g.id and i.name = k.name and i.wikidata_qid = k.qid
+join public.groups g2 on g2.slug = o.group_slug
+on conflict (idol_id, group_id) do nothing;
+
 -- 5. The unreserved yes of 021b: same update as 021b (what the admin "confirm" action does).
 do $$
 declare
@@ -240,6 +271,14 @@ begin
   if n > 0 then
     raise exception '021d-k2-idols: % listed idol(s) are not active after the update', n;
   end if;
+  select count(*) into n from k2_other o
+    join k2_idols k on k.qid = o.qid join public.groups g on g.slug = k.group_slug
+    join public.idols i on i.group_id = g.id and i.name = k.name and i.wikidata_qid = k.qid
+    join public.groups g2 on g2.slug = o.group_slug
+    where not exists (select 1 from public.idol_other_groups x where x.idol_id = i.id and x.group_id = g2.id);
+  if n > 0 then
+    raise exception '021d-k2-idols: % other-group link(s) are missing', n;
+  end if;
   select count(*) into n from k2_idols k join public.groups g on g.slug = k.group_slug
     join public.idols i on i.group_id = g.id and i.name = k.name and i.wikidata_qid = k.qid
     where not exists (select 1 from public.entity_sources e where e.entity_type = 'idol' and e.entity_id = i.id::text and e.field = 'birth_date')
@@ -269,7 +308,7 @@ notify pgrst, 'reload schema';
 const rollback = `-- 021d-k2-idols.rollback.sql (lot K2): undo of 021d-k2-idols.sql.
 --
 -- What:   deletes the ${N} idol rows 021d inserted (matched by group slug, name AND QID, so a row someone changed is never touched) and
---         every entity_sources row of those idols; puts the ${M} idols 021d activated back in the review queue (active false, needs_review
+--         every entity_sources row of those idols (their idol_other_groups rows go with them, on delete cascade); puts the ${M} idols 021d activated back in the review queue (active false, needs_review
 --         true, review_reason = the text they had before K1: "Wikidata lists this member but not in our name-all roster; confirm before
 --         activating."). The group rows 021d filled (record_label, generation, inception_date, empty columns only) are left as they are:
 --         the values are correct facts of the group and nothing can tell afterwards which of them were empty before.
@@ -367,6 +406,7 @@ select case when ok is true then 'ok' else 'KO' end, what, coalesce(got, '-') fr
   (5, 'mineurs ou sans date de naissance parmi les idols actives : 0', (select count(*) = 0 from public.idols where active and (birth_date is null or birth_date > current_date - interval '18 years')), (select count(*)::text from public.idols where active and (birth_date is null or birth_date > current_date - interval '18 years'))),
   (6, 'idols de 021b activées : ${M}', (select count(*) = ${M} from act a join public.idols i on i.id = a.id and i.wikidata_qid = a.qid where i.active and not i.needs_review), (select count(*)::text from act a join public.idols i on i.id = a.id and i.wikidata_qid = a.qid where i.active and not i.needs_review)),
   (7, 'groupes K2 avec une agence et une génération : ${G}', (select count(*) = ${G} from public.groups g where g.slug in (${slugs.map(q).join(', ')}) and nullif(btrim(g.record_label), '') is not null and nullif(btrim(g.generation), '') is not null), (select count(*)::text from public.groups g where g.slug in (${slugs.map(q).join(', ')}) and nullif(btrim(g.record_label), '') is not null and nullif(btrim(g.generation), '') is not null)),
+  (10, 'groupes supplémentaires des membres de plusieurs groupes : ${E}', (select count(*) = ${E} from public.idol_other_groups x join mine m on m.id = x.idol_id), (select count(*)::text from public.idol_other_groups x join mine m on m.id = x.idol_id)),
   (8, 'idols K2 prêtes comme cible dans la vue du jeu : ${N}', (select count(*) = ${N} from cap c join mine m on m.id::text = c.entity_id where c.missing = 0), (select count(*)::text from cap c join mine m on m.id::text = c.entity_id where c.missing = 0)),
   (9, 'idols assez complètes pour être cible, au total (information)', true, (select count(*)::text from cap where missing = 0))
 ) as c(n, what, ok, got) order by n;
@@ -386,7 +426,7 @@ insert into public.groups (name, slug, fandom_name, display_color, text_color, r
 ${[...Object.values(yesGroups)].map(([n, s, l]) => `  (${q(n)}, ${q(s)}, 'fan', '#cccccc', '#111111', ${q(l)}, '4th generation')`).join(',\n')}
 on conflict (slug) do nothing;
 insert into public.groups (name, slug, fandom_name, display_color, text_color, record_label) values
-${groups.map((g, k) => `  (${q(g.slug)}, ${q(g.slug)}, 'fan', '#cccccc', '#111111', ${k === 0 ? q(g.record_label) : 'null'})`).join(',\n')}
+${[...groups.map((g) => g.slug), ...otherSlugs.filter((s) => !groups.some((g) => g.slug === s))].map((s, k) => `  (${q(s)}, ${q(s)}, 'fan', '#cccccc', '#111111', ${k === 0 ? q(groups[0].record_label) : 'null'})`).join(',\n')}
 on conflict (slug) do nothing;
 ${(() => {
   const gmap = { 82: 'nct', 89: 'nct', 133: 'kep1er', 143: 'babymonster', 144: 'babymonster', 145: 'babymonster', 146: 'babymonster', 148: 'babymonster', 151: 'riize', 152: 'riize', 153: 'riize', 163: 'fifty-fifty' };

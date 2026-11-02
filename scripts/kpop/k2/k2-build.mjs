@@ -20,7 +20,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CACHE_DIR, adultCutoff, clean, isAdult, norm, todayIso } from './lib.mjs';
 import { GROUPS, YES_021B } from './groups.mjs';
-import { stripNoise, birthFromText, birthFromWikitext, countryName, CODE_TO_COUNTRY, genderFromIntro, infoboxField, isLeaderText, nationalityFromIntro, rosterFromInfobox, sectionEntries } from './parse.mjs';
+import { leadDebutYear, stripNoise, birthFromText, birthFromWikitext, countryName, CODE_TO_COUNTRY, genderFromIntro, infoboxField, isLeaderText, nationalityFromIntro, rosterFromInfobox, sectionEntries } from './parse.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '../../..');
@@ -71,7 +71,9 @@ function groupInfo(slug) {
   rgs.sort((a, b) => a.date.localeCompare(b.date));
   const first = rgs[0] ?? null;
   const mbYear = first ? Number(first.date.slice(0, 4)) : null;
-  const votes = agree([{ src: 'wikipedia', v: wpYear }, { src: 'wikidata', v: wdYear }, { src: 'musicbrainz', v: mbYear }]);
+  // the year the English Wikipedia lead says the group debuted (it knows the pre-debut years the infobox counts); the infobox years active only when the lead says nothing
+  const leadYear = leadDebutYear(G.wikitext);
+  const votes = agree([{ src: 'wikipedia', v: leadYear ?? wpYear }, { src: 'wikidata', v: wdYear }, { src: 'musicbrainz', v: mbYear }]);
   const wdLabels = (G.wd?.claims?.P264 ?? []).filter((c) => c.id && !c.end).map((c) => G.wd_labels?.[c.id]).filter(Boolean);
   // the main agency: the first label of the English Wikipedia infobox (it lists the main one first), checked against Wikidata P264
   const lf = infoboxField(G.wikitext, 'label');
@@ -80,7 +82,7 @@ function groupInfo(slug) {
   const labels = labelOk ? [wpLabel] : wdLabels.length ? [wdLabels[0]] : [];
   const labelNote = !labels.length ? 'no label found' : labelOk ? (wdLabels.length ? 'wikipedia + wikidata' : 'wikipedia only') : `wikipedia "${wpLabel ?? '-'}" and wikidata "${wdLabels.join(', ')}" differ: wikidata first label kept`;
   const incDate = G.wd?.claims?.P571?.[0]?.time ? dateOf(G.wd.claims.P571[0].time) : null;
-  return { G, labelNote, wpYear, wdYear, mbYear, first, year: ['agree', 'majority'].includes(votes.status) ? votes.value : null, yearStatus: votes.status, labels, incDate,
+  return { G, labelNote, leadYear, wpYear, wdYear, mbYear, first, year: ['agree', 'majority'].includes(votes.status) ? votes.value : null, yearStatus: votes.status, labels, incDate,
     inception_date: incDate && !/-00-/.test(incDate) && yearOf(incDate) === (['agree', 'majority'].includes(votes.status) ? votes.value : null) ? incDate : null };
 }
 const generationOf = (y) => (y <= 2002 ? '1st generation' : y <= 2011 ? '2nd generation' : y <= 2017 ? '3rd generation' : y <= 2022 ? '4th generation' : '5th generation');
@@ -143,6 +145,10 @@ function memberStatus(p, G) {
   return { wd, mb: mbs, wdStart: yearOf(mine.map((c) => c.start).filter(Boolean).sort()[0]) };
 }
 
+// Owner decision of 2026-11-03: LOONA's members follow the English Wikipedia list of current members, adults only, the same two-source rule for
+// birth date and gender. The two groups the same women are in now (the dispute family) follow Wikipedia the same way, so that "her current
+// group" is known: Wikidata end dates and MusicBrainz ended relations do not drop a member the Wikipedia list gives.
+const WIKIPEDIA_DECIDES = new Set(['loona', 'artms', 'loossemble']);
 const out = { generated: TODAY, adult_cutoff: CUT, groups: [], idols: [], activate_021b: [], group_updates: [] };
 const reportRows = [];
 const seenQid = new Map();   // qid -> slug of the first group that took it
@@ -202,9 +208,14 @@ async function processGroup(g) {
     // membership
     const ms = memberStatus(p, G);
     if (ms.wd === 'former' || ms.mb === 'former') {
-      bump(slug, 'status_conflict');
-      addConflict({ group: slug, name, qid: ent.qid, field: 'membership', kind: 'conflict', note: `English Wikipedia lists a current member; ${ms.wd === 'former' ? 'Wikidata has an end date' : ''}${ms.wd === 'former' && ms.mb === 'former' ? ' and ' : ''}${ms.mb === 'former' ? 'MusicBrainz marks the relation ended' : ''}: not inserted` });
-      continue;
+      if (WIKIPEDIA_DECIDES.has(slug)) {
+        bump(slug, 'membership_follows_wikipedia');
+        addConflict({ group: slug, name, qid: ent.qid, field: 'membership', kind: 'owner-decision', note: `English Wikipedia lists a current member; ${ms.wd === 'former' ? 'Wikidata has an end date' : ''}${ms.wd === 'former' && ms.mb === 'former' ? ' and ' : ''}${ms.mb === 'former' ? 'MusicBrainz marks the relation ended' : ''}; owner decision 2026-11-03: follow English Wikipedia` });
+      } else {
+        bump(slug, 'status_conflict');
+        addConflict({ group: slug, name, qid: ent.qid, field: 'membership', kind: 'conflict', note: `English Wikipedia lists a current member; ${ms.wd === 'former' ? 'Wikidata has an end date' : ''}${ms.wd === 'former' && ms.mb === 'former' ? ' and ' : ''}${ms.mb === 'former' ? 'MusicBrainz marks the relation ended' : ''}: not inserted` });
+        continue;
+      }
     }
     // birth date and age
     const bd = ent._birth;
@@ -250,17 +261,19 @@ async function processGroup(g) {
     const mbBegin = yearOf(mbRel?.begin);
     let debut = null, debutBasis = null;
     const dsrc = [];
-    if (p2031) {
-      if (gi.year && p2031 === gi.year) { debut = p2031; debutBasis = 'wikidata person = group debut year'; dsrc.push({ source: 'wikidata', ref: ent.qid }); if (gi.mbYear === gi.year && gi.first) dsrc.push({ source: 'musicbrainz', ref: gi.first.id }); }
-      else if (mbBegin && mbBegin === p2031) { debut = p2031; debutBasis = 'wikidata = musicbrainz (person)'; dsrc.push({ source: 'wikidata', ref: ent.qid }, { source: 'musicbrainz', ref: p.mb.id }); }
-      else { bump(slug, 'debut_conflict'); addConflict({ group: slug, name, qid: ent.qid, field: 'debut_year', kind: 'conflict', note: `Wikidata person says ${p2031}, group debut year ${gi.year ?? 'unknown'}, MusicBrainz member relation ${mbBegin ?? 'silent'}: not inserted` }); continue; }
+    // Owner decision of 2026-11-03: a member who debuted with the group has the group's debut year (whatever Wikidata says of an earlier
+    // project, a survival show or a pre-debut release). The source recorded is the group's: Wikidata inception, MusicBrainz first release.
+    const joinedLater = !!gi.year && ((mbBegin && mbBegin > gi.year) || (ms.wdStart && ms.wdStart > gi.year));
+    if (gi.year && !joinedLater) {
+      debut = gi.year; debutBasis = `debuted with the group: group debut year (${gi.yearStatus}: wikipedia ${gi.leadYear ?? gi.wpYear ?? '-'}, wikidata ${gi.wdYear ?? '-'}, musicbrainz first release ${gi.mbYear ?? '-'})`;
+      if (gi.wdYear === gi.year) dsrc.push({ source: 'wikidata', ref: G.qid }); else if (p2031 === gi.year) dsrc.push({ source: 'wikidata', ref: ent.qid });
+      if (gi.mbYear === gi.year && gi.first) dsrc.push({ source: 'musicbrainz', ref: gi.first.id }); else if (mbBegin === gi.year && p.mb?.id) dsrc.push({ source: 'musicbrainz', ref: p.mb.id });
+      if (p2031 && p2031 !== gi.year) addConflict({ group: slug, name, qid: ent.qid, field: 'debut_year', kind: 'owner-decision', note: `owner rule 2026-11-03: debuted with the group, so ${gi.year}; Wikidata person work period says ${p2031}` });
+    } else if (p2031 && mbBegin && p2031 === mbBegin) {
+      debut = p2031; debutBasis = 'joined after the group debut: wikidata = musicbrainz (person)'; dsrc.push({ source: 'wikidata', ref: ent.qid }, { source: 'musicbrainz', ref: p.mb.id });
     } else if (gi.year) {
-      const joinedLater = (mbBegin && mbBegin > gi.year) || (ms.wdStart && ms.wdStart > gi.year);
-      if (joinedLater) { bump(slug, 'debut_joined_later'); addConflict({ group: slug, name, qid: ent.qid, field: 'debut_year', kind: 'single', note: `joined after the group's debut year ${gi.year}, no personal debut date: not inserted` }); continue; }
-      debut = gi.year; debutBasis = `group debut year (${gi.yearStatus}: wikipedia ${gi.wpYear ?? '-'}, wikidata ${gi.wdYear ?? '-'}, musicbrainz ${gi.mbYear ?? '-'})`;
-      if (gi.wdYear === gi.year) dsrc.push({ source: 'wikidata', ref: G.qid });
-      if (gi.mbYear === gi.year && gi.first) dsrc.push({ source: 'musicbrainz', ref: gi.first.id });
-    } else { bump(slug, 'debut_unknown'); addConflict({ group: slug, name, qid: ent.qid, field: 'debut_year', kind: 'single', note: 'no personal debut date and the group debut year is not agreed by two sources: not inserted' }); continue; }
+      bump(slug, 'debut_joined_later'); addConflict({ group: slug, name, qid: ent.qid, field: 'debut_year', kind: 'conflict', note: `joined after the group's debut year ${gi.year}; own year not agreed (wikidata ${p2031 ?? '-'}, musicbrainz ${mbBegin ?? '-'}): not inserted` }); continue;
+    } else { bump(slug, 'debut_unknown'); addConflict({ group: slug, name, qid: ent.qid, field: 'debut_year', kind: 'single', note: 'the group debut year is not agreed by two sources: not inserted' }); continue; }
     if (debut < birthYear + 8 || debut > Number(TODAY.slice(0, 4)) + 1) { bump(slug, 'debut_implausible'); addConflict({ group: slug, name, qid: ent.qid, field: 'debut_year', kind: 'conflict', note: 'debut year implausible against the birth year: not inserted' }); continue; }
     // one source row per source name (entity_sources is unique on type, id, field, source)
     const dsrcUniq = []; for (const s of dsrc) if (!dsrcUniq.some((x) => x.source === s.source)) dsrcUniq.push(s);
@@ -283,7 +296,7 @@ async function processGroup(g) {
       debut_year: dsrcUniq,
     };
     cands.push({ slug, name, name_romanized: romanized ? clean(romanized) : null, name_hangul: hangul ? clean(hangul) : null, birth_date: bd.value, nationality: natValue.join(', '),
-      gender: gv.value, debut_year: debut, positions: [], wikidata_qid: ent.qid, ord: ent.order, leader: !!(leaderGroup || introLeader),
+      gender: gv.value, debut_year: debut, positions: [], other_groups: [], wikidata_qid: ent.qid, ord: ent.order, leader: !!(leaderGroup || introLeader),
       leader_sources: [leaderGroup && 'wikipedia group page', introLeader && 'wikipedia member page'].filter(Boolean),
       sources, checks: { birth_date: bd.status + ':' + bd.by.join('+'), gender: gv.status + ':' + gv.by.join('+'), nationality: natBy.join('+'), debut_year: debutBasis, membership: `wikipedia current, wikidata ${ms.wd}, musicbrainz ${ms.mb}`, name: nameAgree ? 'wikipedia + wikidata' : 'wikipedia only' } });
   }
@@ -306,6 +319,8 @@ async function processGroup(g) {
   const leaders = cands.filter((c) => c.leader);
   const flagged = roster.filter((e) => isLeaderText(e.sectionText)).length;
   for (const c of cands) {
+    // the member pages' "leader of" sentences count only when the group page flags nobody (they also name sub-unit leaders)
+    if (flagged > 0 && !c.leader_sources.includes('wikipedia group page')) { c.leader = false; c.leader_sources = []; }
     const pos = [];
     if (c.leader) pos.push('Leader');
     if (c.wikidata_qid === maknaeQid) pos.push('Maknae');
@@ -316,7 +331,8 @@ async function processGroup(g) {
   if (!allKnown) addConflict({ group: slug, name: '(group)', qid: G.qid, field: 'maknae', kind: 'single', note: 'a current member has no agreed birth date: no maknae is set' });
   if (leaders.length > 2) addConflict({ group: slug, name: '(group)', qid: G.qid, field: 'leader', kind: 'conflict', note: `${leaders.length} members flagged leader: check by hand` });
   void flagged;
-  return { slug, gi, G, cands, unresolved, rosterSize: roster.length, pastSize: past.length, rosterMismatch };
+  const rosterQids = new Set(roster.filter((e) => e.qid && raw.persons[e.qid]).filter((e) => { const m = memberStatus(raw.persons[e.qid], G); return WIKIPEDIA_DECIDES.has(slug) || (m.wd !== 'former' && m.mb !== 'former'); }).map((e) => e.qid));
+  return { slug, gi, G, rosterQids, cands, unresolved, rosterSize: roster.length, pastSize: past.length, rosterMismatch };
 }
 
 // ---------------------------------------------------------------- run
@@ -334,12 +350,17 @@ for (const { g, r } of results) {
   for (const c of cands) seenQid.set(c.wikidata_qid, g.slug);
   total += cands.length;
   if (cands.length) chosen.push({ g, r, cands });
-  reportRows.push({ slug: g.slug, status: cands.length ? 'included' : 'not inserted: no member passed the rules', added: cands.length, note: '' });
+  reportRows.push({ slug: g.slug, status: cands.length ? 'included' : r.cands.length ? 'members carried by another group' : 'not inserted: no member passed the rules', added: cands.length, note: '' });
+}
+// A person who is a current member of a second target group carries that group in the game's group cell (no second row): other_groups.
+const resultBySlug = Object.fromEntries(results.map(({ g, r }) => [g.slug, r]));
+for (const { g, cands } of chosen) {
+  for (const c of cands) c.other_groups = GROUPS.filter((x) => x.slug !== g.slug && resultBySlug[x.slug]?.rosterQids?.has(c.wikidata_qid)).map((x) => x.slug);
 }
 for (const { g, r, cands } of chosen) {
   const gi = r.gi;
   out.groups.push({ slug: g.slug, plays: g.plays, wikipedia_title: r.G.wikipedia_title, wikidata_qid: r.G.qid, musicbrainz_mbid: r.G.wd?.mbid ?? null, debut_year: gi.year,
-    debut_year_sources: { wikipedia: gi.wpYear, wikidata: gi.wdYear, musicbrainz_first_release: gi.mbYear, musicbrainz_release_group: gi.first?.id ?? null }, record_label: gi.labels[0] ?? null, record_label_check: gi.labelNote,
+    debut_year_sources: { wikipedia: gi.leadYear ?? gi.wpYear, wikidata: gi.wdYear, musicbrainz_first_release: gi.mbYear, musicbrainz_release_group: gi.first?.id ?? null }, record_label: gi.labels[0] ?? null, record_label_check: gi.labelNote,
     generation: gi.year ? generationOf(gi.year) : null, inception_date: gi.inception_date, members: cands.length });
   for (const c of cands) out.idols.push({ group_slug: c.slug, ...Object.fromEntries(Object.entries(c).filter(([k]) => k !== 'slug')) });
 }
@@ -416,21 +437,16 @@ lines.push('## Counts', '');
 lines.push(`- New idols (adult, complete, double-checked): **${out.idols.length}** in ${out.groups.length} groups (target ${TARGET}).`);
 lines.push(`- 021b activations (the unreserved yes of K1): **${out.activate_021b.filter((r) => r.ok).length}** of ${YES_021B.length}.`);
 lines.push(`- Minors excluded: **${minorsChosen}** in the included groups (${minors} counting every group read). Counted only: no name, no date is kept.`);
-lines.push(`- Conflict list: data/k2-conflicts.json, ${conflicts.length} lines (${kinds('conflict')} conflicts, ${kinds('single')} single-source, ${kinds('majority')} resolved by majority).`, '');
+lines.push(`- Conflict list: data/k2-conflicts.json, ${conflicts.length} lines (${kinds('conflict')} conflicts, ${kinds('single')} single-source, ${kinds('majority')} resolved by majority, ${kinds('owner-decision')} applied under the owner decisions of 2026-11-03).`, '');
 lines.push('## Per group', '', '| group | plays | status | idols added | excluded (reason: count) | nationality from Wikidata alone |', '|---|---|---|---|---|---|');
 for (const r of reportRows) {
   const c = counters[r.slug] ?? {};
-  const ex = Object.entries(c).filter(([k]) => k !== 'minor' && k !== 'nationality_stored_single').map(([k, v]) => `${k}: ${v}`).join(', ');
+  const ex = Object.entries(c).filter(([k]) => !['minor', 'nationality_stored_single', 'membership_follows_wikipedia'].includes(k)).map(([k, v]) => `${k}: ${v}`).concat(c.minor ? [`minors: ${c.minor}`] : []).join(', ');
   const plays = GROUPS.find((x) => x.slug === r.slug).plays;
-  lines.push(`| ${r.slug} | ${plays} | ${r.status}${r.note ? ` (${r.note})` : ''} | ${r.added ?? (r.available != null ? `0 (${r.available} available)` : 0)} | ${ex || '-'}${c.minor ? `${ex ? ', ' : ''}minors: ${c.minor}` : ''} | ${c.nationality_stored_single ?? 0} |`);
+  lines.push(`| ${r.slug} | ${plays} | ${r.status}${r.note ? ` (${r.note})` : ''} | ${r.added ?? (r.available != null ? `0 (${r.available} available)` : 0)} | ${ex || '-'} | ${c.nationality_stored_single ?? 0} |`);
 }
 // why each group that gave nothing gave nothing (this run's facts)
 const WHY = {
-  loona: 'membership unclear: English Wikipedia lists 11 current members (by consensus, hiatus), but Wikidata gives the end of each membership and MusicBrainz marks each relation ended. Under the K1 rule a member a source calls former is reserved, so none is inserted',
-  loossemble: 'membership unclear for the same reason (Wikidata end dates and MusicBrainz ended relations against the Wikipedia list)',
-  dreamcatcher: 'the group debut year is not agreed (Wikipedia 2014, Wikidata 2016, MusicBrainz 2017) and the members\' own years disagree with it: a decision for the owner',
-  artms: 'each member\'s own debut year (Wikidata 2016 or 2017, from LOONA) disagrees with the group year 2023: a decision for the owner',
-  akmu: 'Wikidata gives 2014 for each of the two, the group debut year and MusicBrainz give 2012: a decision for the owner',
   kickflip: 'no Wikidata item for the members (MusicBrainz has them, Wikipedia names them): one source for each fact, nothing double-checked',
   xikers: 'no Wikidata item for the members: one source for each fact',
   lngshot: 'no Wikidata item for the members: one source for each fact',
@@ -439,12 +455,15 @@ const WHY = {
 };
 lines.push('', '## Groups that gave no idol, and why', '');
 for (const r of reportRows) if (r.status.startsWith('not inserted') || r.status === 'skipped') lines.push(`- ${r.slug}: ${WHY[r.slug] ?? r.note ?? 'no member passed the rules'}.`);
+for (const r of reportRows) if (r.status === 'members carried by another group') lines.push(`- ${r.slug}: its current members are LOONA members; each keeps one row in LOONA and carries ${r.slug} in the group column (idol_other_groups), no second row.`);
 lines.push('- nct-127: not processed on purpose. Its members already have rows under NCT (K1); a second row for the same person would put a duplicate in the game.');
-lines.push('', '## Conflicts by field', '', '| field | conflict | single source | resolved by majority | stored from one source |', '|---|---|---|---|---|');
-for (const f of [...new Set(conflicts.map((c) => c.field))].sort()) lines.push(`| ${f} | ${conflicts.filter((c) => c.field === f && c.kind === 'conflict').length} | ${conflicts.filter((c) => c.field === f && c.kind === 'single').length} | ${conflicts.filter((c) => c.field === f && c.kind === 'majority').length} | ${conflicts.filter((c) => c.field === f && c.kind === 'single-stored').length} |`);
+lines.push('', '## Conflicts by field', '', '| field | conflict | single source | resolved by majority | owner decision | stored from one source |', '|---|---|---|---|---|---|');
+for (const f of [...new Set(conflicts.map((c) => c.field))].sort()) lines.push(`| ${f} | ${conflicts.filter((c) => c.field === f && c.kind === 'conflict').length} | ${conflicts.filter((c) => c.field === f && c.kind === 'single').length} | ${conflicts.filter((c) => c.field === f && c.kind === 'majority').length} | ${conflicts.filter((c) => c.field === f && c.kind === 'owner-decision').length} | ${conflicts.filter((c) => c.field === f && c.kind === 'single-stored').length} |`);
 const debutHeld = conflicts.filter((c) => c.field === 'debut_year' && c.kind === 'conflict').length;
-lines.push('', '## What would add idols, by decision', '', `- Debut-year conflicts: ${debutHeld} people, each with the years in data/k2-conflicts.json. A person who debuted earlier in another debuted group (K1's rule counts it) or whose Wikidata year is a survival show or a pre-debut release (K1's rule does not) needs a human choice; one line per group would settle them.`,
+lines.push('', '## What would add idols, by decision', '', `- Debut-year conflicts left: ${debutHeld} people, members who joined after their group's debut with no agreed own year (data/k2-conflicts.json).`,
   '- Birth date on one source only (Wikidata, MusicBrainz silent): not inserted, because the age would not be double-checked. Listed as "single" in the conflicts file.');
+const extraLinks = out.idols.reduce((n, i) => n + i.other_groups.length, 0);
+lines.push('', '## Members of more than one group', '', `- ${out.idols.filter((i) => i.other_groups.length).length} people carry ${extraLinks} other-group links (public.idol_other_groups, created in 020): ` + [...new Set(out.idols.flatMap((i) => i.other_groups))].join(', ') + '. One idol row each, in the first group; the game\'s group cell holds both groups.');
 const baseToday = Number(process.argv.includes('--base') ? process.argv[process.argv.indexOf('--base') + 1] : 112);
 lines.push('', '## Pool arithmetic', '', `- Kpopdle pool in production today (caller's read-only query): ${baseToday}. Plus ${out.idols.length} new plus ${out.activate_021b.filter((r) => r.ok).length} activated = **${baseToday + out.idols.length + out.activate_021b.filter((r) => r.ok).length}**, against 200 wanted (150 at the very least). Short of 200 by ${Math.max(0, 200 - (baseToday + out.idols.length + out.activate_021b.filter((r) => r.ok).length))}.`,
   '- The local rehearsal base holds no idol of production, only the fixture rows of the 12 021b ids: its own count is the K2 contribution alone (see docs/proofs/k2-idols/).');

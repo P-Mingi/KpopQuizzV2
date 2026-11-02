@@ -255,7 +255,7 @@ Check: V6 (016 lines). Back: `sql1 $M/017-deletion-kpop.rollback.sql`, then `sql
 
 **G3  After G.** V-S4 (`V-S4 ok`); V1; Runtime Logs for an hour. Nothing visible changes on any site.
 
-**G4  Lot K2, after G (own small session).** After the backup line of the session, `bash docs/launch/o1/session.sh K2` applies `021d-k2-idols.sql` (row 14e quater: 66 new idols in 15 groups and 11 activations from 021b, adults only) and runs `checks/V-K2.sql`; line 9 of that check is the size of the Kpopdle Idol pool, compared with 200. Back: `sql1 $M/021d-k2-idols.rollback.sql` (refused while the game kpopdle-idol is active).
+**G4  Lot K2, after G (own small session).** After the backup line of the session, `bash docs/launch/o1/session.sh K2` applies `021d-k2-idols.sql` (row 14e quater: 91 new idols in 18 groups, 8 extra-group links in `idol_other_groups` (table created by 020), 11 activations from 021b, adults only) and runs `checks/V-K2.sql`; line 9 of that check is the size of the Kpopdle Idol pool, compared with 200. Back: `sql1 $M/021d-k2-idols.rollback.sql` (refused while the game kpopdle-idol is active).
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
