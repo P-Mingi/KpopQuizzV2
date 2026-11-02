@@ -13,7 +13,9 @@
 --           changed) never moves today nor the 7 days after it, and a day already served keeps its target (dle_daily_stats);
 --         - dle_guess, dle_give_up, dle_day, dle_pool: the only functions granted to anon and authenticated (SECURITY DEFINER,
 --           search_path = public). The target leaves the database only once a play is over; yesterday's answer only once
---           yesterday stops being playable (03:00 UTC); day statistics stay null under 100 plays.
+--           yesterday stops being playable (03:00 UTC); day statistics stay null under 100 plays;
+--         - dle_daily_maintenance, the nightly step, game by game: a game that fails is rolled back alone and named in the result
+--           ({"game", "error", "code"}), the other games and the purges still run (CR-019).
 -- Why:    the games live on bunnyverse.org and call Postgres from the browser (v2 section 9): no Vercel function per guess.
 -- Rows:   none. No game row: 020 adds the Kpopdle Idol game, switched off.
 -- Needs:  001 (public.sites), 018 (public.entity_images). Supabase's auth.uid().
@@ -542,6 +544,9 @@ end $$;
 
 -- Every night (cron ensure-daily-quiz of the hub build, step 4): snapshot, rebuild when the targets changed, today's row,
 -- purge of the rate limit and the old salts. Returns counts only, never a target.
+-- CR-019: each game runs in its own block. A game that fails (under min_pool, epoch still in the future) keeps its state of the
+-- day before and comes back as {"game", "error", "code"}, for the cron's log; the other games and the purges still run. A
+-- statement timeout is not caught (Postgres keeps query_canceled out of OTHERS): it fails the whole call, and the cron logs that.
 create or replace function public.dle_daily_maintenance(p_now timestamptz default now()) returns jsonb
 language plpgsql
 set search_path = public
@@ -554,13 +559,17 @@ declare
   v_rebuilt integer;
 begin
   for g in select * from public.dle_games where active order by id loop
-    v_pool := public.dle_refresh_entities(g.id);
-    v_rebuilt := 0;
-    if public.dle_pool_hash(g.id) is distinct from g.pool_hash then
-      v_rebuilt := public.dle_build_bank(g.id, v_today);
-    end if;
-    perform public.dle_target(g.id, v_today);
-    v_out := v_out || jsonb_build_object('game', g.id, 'pool', v_pool, 'rebuilt_days', v_rebuilt);
+    begin
+      v_pool := public.dle_refresh_entities(g.id);
+      v_rebuilt := 0;
+      if public.dle_pool_hash(g.id) is distinct from g.pool_hash then
+        v_rebuilt := public.dle_build_bank(g.id, v_today);
+      end if;
+      perform public.dle_target(g.id, v_today);
+      v_out := v_out || jsonb_build_object('game', g.id, 'pool', v_pool, 'rebuilt_days', v_rebuilt);
+    exception when others then
+      v_out := v_out || jsonb_build_object('game', g.id, 'error', sqlerrm, 'code', sqlstate);
+    end;
   end loop;
   delete from public.dle_rate where bucket < p_now - interval '1 hour';
   delete from public.dle_salt where day < v_today - 1;

@@ -3,10 +3,13 @@
 import { readFileSync } from 'node:fs';
 
 import type { PGlite } from '@electric-sql/pglite';
-import { beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 
 import { bankDay, isPlayable } from './day';
 import { failure, freshDb, one, readMigration, rows } from './pglite-harness';
+
+// PGlite with several banks is slow on a loaded runner: the 5 s default failed a different test from one CI run to the next.
+vi.setConfig({ testTimeout: 60_000, hookTimeout: 60_000 });
 
 interface Case { name: string; kind: string; near: number | null; guess: unknown; target: unknown; expect: { status: string; arrow: string | null } }
 const CASES = (JSON.parse(readFileSync(new URL('./fixtures/compare.json', import.meta.url), 'utf8')) as { cases: Case[] }).cases;
@@ -62,7 +65,7 @@ describe('019 and 020 apply', () => {
     expect(await one(db, `select md5(string_agg(proname || prosrc, ',' order by proname)) from pg_proc where proname like 'dle\\_%'`)).toBe(before);
     expect(await one(db, `select count(*)::int from public.dle_games`)).toBe(1);
     expect(await one(db, `select count(*)::int from public.dle_attributes`)).toBe(8);
-  });
+  }, 60_000);
 
   it('019 refuses to run without 018, 020 without 019', async () => {
     const db = await freshDb([]);
@@ -580,5 +583,137 @@ describe('plays', () => {
     const g = await asRole(db, 'anon', `select public.dle_guess('syn', $1::date, $2, '1') as s`, [today, 'tok_anonanonanon0001']);
     if (today < EPOCH) expect(g.error).toMatch(/dle_bad_date/);
     else expect((g.rows![0]!.s as { guesses: unknown[] }).guesses).toHaveLength(1);
+  });
+});
+
+describe('dle_daily_maintenance through the roles of the nightly cron (the hub calls it with the service role)', () => {
+  let db: PGlite;
+
+  beforeAll(async () => {
+    db = await freshDb();
+    await syntheticGame(db, 'cron', 60);
+    await db.exec(`grant select on public.dle_src_cron to service_role`); // as 020 does for its view
+    await db.query(`select public.dle_activate('cron', '2026-11-01', 0.42)`);
+  });
+
+  it('the browser roles are refused', async () => {
+    for (const role of ['anon', 'authenticated']) {
+      expect((await asRole(db, role, `select public.dle_daily_maintenance('2026-11-02T00:05:00Z')`)).error, role).toMatch(/permission denied/);
+    }
+  });
+
+  it('the service role runs it, a second run changes nothing, and it writes the day', async () => {
+    const call = `select public.dle_daily_maintenance('2026-11-02T00:05:00Z') as out`;
+    expect((await asRole(db, 'service_role', call)).rows![0]!.out).toEqual([{ game: 'cron', pool: 60, rebuilt_days: 0 }]);
+    const day = await rows(db, `select game_no, entity_id from public.dle_daily_stats where game_id = 'cron' and play_date = '2026-11-02'`);
+    expect(day).toHaveLength(1);
+    expect((await asRole(db, 'service_role', call)).rows![0]!.out).toEqual([{ game: 'cron', pool: 60, rebuilt_days: 0 }]);
+    expect(await rows(db, `select game_no, entity_id from public.dle_daily_stats where game_id = 'cron' and play_date = '2026-11-02'`)).toEqual(day);
+  });
+
+  it('the service role can rebuild the bank when the targets changed', async () => {
+    await db.exec(`create or replace view public.dle_src_cron as
+      select x::text as entity_id, 'Entity ' || x as name, array['entity' || x] as search, jsonb_build_object('n', jsonb_build_object('v', x)) as attrs,
+        jsonb_build_object('initial', 'E') as hints, null::text as thumb_path, 'k' || (x % 27) as balance_key, true as can_be_target
+      from generate_series(1, 70) as x`);
+    const r = await asRole(db, 'service_role', `select public.dle_daily_maintenance('2026-11-03T00:05:00Z') as out`);
+    expect(r.rows![0]!.out).toEqual([{ game: 'cron', pool: 70, rebuilt_days: 357 }]);
+  });
+
+  it('the real view: without select on its source tables the nightly call fails (security_invoker), with it the view reads', async () => {
+    expect((await asRole(db, 'service_role', `select count(*) from public.dle_src_kpop_idol`)).error).toMatch(/permission denied for table (idols|groups|group_units)/);
+    await db.exec(`grant select on public.idols, public.groups, public.group_units to service_role`); // Supabase's default privileges; V12 checks it on the real database
+    expect((await asRole(db, 'service_role', `select count(*) from public.dle_src_kpop_idol`)).error).toBeUndefined();
+  });
+});
+
+describe('dle_daily_maintenance, game by game (CR-019)', () => {
+  const NIGHT = '2026-11-02T00:05:00Z';
+  const call = `select public.dle_daily_maintenance('${NIGHT}')`;
+  const dayRows = (db: PGlite) => rows(db, `select game_id, game_no, entity_id from public.dle_daily_stats where play_date = '2026-11-02' order by game_id`);
+  const shrink = (view: string) => `create or replace view public.${view} as
+    select x::text as entity_id, 'Entity ' || x as name, array['entity' || x] as search, jsonb_build_object('n', jsonb_build_object('v', x)) as attrs,
+      jsonb_build_object('initial', 'E') as hints, null::text as thumb_path, 'k' || (x % 27) as balance_key, true as can_be_target
+    from generate_series(1, 10) as x`;
+
+  /** Two games switched on; the first name sorts first, so a failure there would stop the second one without the block. */
+  async function twoGames(bad: string, good: string): Promise<PGlite> {
+    const db = await freshDb();
+    await syntheticGame(db, bad, 60);
+    await syntheticGame(db, good, 60);
+    await db.query(`select public.dle_activate($1, '2026-11-01', 0.42)`, [bad]);
+    await db.query(`select public.dle_activate($1, '2026-11-01', 0.43)`, [good]);
+    await db.exec(`insert into public.dle_rate values ('2026-01-01T00:00:00Z', 'x', 1); insert into public.dle_salt values ('2026-01-01', '\\x00')`);
+    return db;
+  }
+
+  it('a game under min_pool: named in the result, the good game gets its row, the purges run, the bad game stays as it was', async () => {
+    const db = await twoGames('aa-bad', 'zz-good');
+    await db.exec(`update public.dle_games set min_pool = 50 where id = 'aa-bad'; ${shrink('dle_src_aa_bad')}`);
+    const bank = await one(db, `select string_agg(entity_id, ',' order by bank_day) from public.dle_schedule where game_id = 'aa-bad'`);
+    const out = await one(db, call);
+    expect(out).toEqual([
+      { game: 'aa-bad', error: 'dle_pool_too_small: 10 targets, 50 needed', code: 'P0001' },
+      { game: 'zz-good', pool: 60, rebuilt_days: 0 },
+    ]);
+    expect((await dayRows(db) as { game_id: string }[]).map((r) => r.game_id)).toEqual(['zz-good']);
+    expect(await one(db, `select count(*)::int from public.dle_rate where bucket < '2026-11-01'`)).toBe(0);
+    expect(await one(db, `select count(*)::int from public.dle_salt where day < '2026-11-01'`)).toBe(0);
+    // The failed game's own work is rolled back: yesterday's snapshot and bank.
+    expect(await one(db, `select count(*)::int from public.dle_entities where game_id = 'aa-bad' and in_pool`)).toBe(60);
+    expect(await one(db, `select string_agg(entity_id, ',' order by bank_day) from public.dle_schedule where game_id = 'aa-bad'`)).toBe(bank);
+  });
+
+  it('a game whose epoch is in the future: named in the result, the good game and the purges go on', async () => {
+    const db = await twoGames('aa-early', 'zz-good');
+    await db.exec(`update public.dle_games set epoch = '2026-12-01' where id = 'aa-early'`);
+    const out = await one<Record<string, unknown>[]>(db, call);
+    expect(out[0]).toMatchObject({ game: 'aa-early', code: '23514' });
+    expect(out[0]!.error).toMatch(/dle_daily_stats_game_no_check/);
+    expect(out[1]).toEqual({ game: 'zz-good', pool: 60, rebuilt_days: 0 });
+    expect((await dayRows(db) as { game_id: string }[]).map((r) => r.game_id)).toEqual(['zz-good']);
+    expect(await one(db, `select count(*)::int from public.dle_salt where day < '2026-11-01'`)).toBe(0);
+  });
+
+  it('a failing game never prints a target', async () => {
+    const db = await twoGames('aa-bad', 'zz-good');
+    await db.exec(`update public.dle_games set min_pool = 50 where id = 'aa-bad'; ${shrink('dle_src_aa_bad')}`);
+    const out = await one<Record<string, unknown>[]>(db, call);
+    expect(Object.keys(out[0]!).sort()).toEqual(['code', 'error', 'game']);
+    expect(Object.keys(out[1]!).sort()).toEqual(['game', 'pool', 'rebuilt_days']);
+  });
+
+  it('all good: both named with their counts, both rows written', async () => {
+    const db = await twoGames('aa-good', 'zz-good');
+    expect(await one(db, call)).toEqual([{ game: 'aa-good', pool: 60, rebuilt_days: 0 }, { game: 'zz-good', pool: 60, rebuilt_days: 0 }]);
+    expect(await dayRows(db)).toHaveLength(2);
+  });
+
+  it('a second run is idempotent, with and without a bad game: same result, same rows, same banks', async () => {
+    const state = (db: PGlite) => one(db, `select md5(string_agg(game_id || bank_day || entity_id, ',' order by game_id, bank_day)) from public.dle_schedule`);
+    const good = await twoGames('aa-good', 'zz-good');
+    const first = await one(good, call);
+    const [days, bank] = [await dayRows(good), await state(good)];
+    expect(await one(good, call)).toEqual(first);
+    expect(await dayRows(good)).toEqual(days);
+    expect(await state(good)).toBe(bank);
+
+    const bad = await twoGames('aa-bad', 'zz-good');
+    await bad.exec(`update public.dle_games set min_pool = 50 where id = 'aa-bad'; ${shrink('dle_src_aa_bad')}`);
+    const firstBad = await one(bad, call);
+    const [daysBad, bankBad] = [await dayRows(bad), await state(bad)];
+    expect(await one(bad, call)).toEqual(firstBad);
+    expect(await dayRows(bad)).toEqual(daysBad);
+    expect(await state(bad)).toBe(bankBad);
+  });
+
+  it('through the service role, a failing game is reported the same way', async () => {
+    const db = await twoGames('aa-bad', 'zz-good');
+    await db.exec(`update public.dle_games set min_pool = 50 where id = 'aa-bad'; ${shrink('dle_src_aa_bad')}; grant select on public.dle_src_aa_bad, public.dle_src_zz_good to service_role`);
+    const r = await asRole(db, 'service_role', `${call} as out`);
+    expect(r.rows![0]!.out).toEqual([
+      { game: 'aa-bad', error: 'dle_pool_too_small: 10 targets, 50 needed', code: 'P0001' },
+      { game: 'zz-good', pool: 60, rebuilt_days: 0 },
+    ]);
   });
 });

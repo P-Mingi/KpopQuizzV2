@@ -546,6 +546,8 @@ Rule: only when L3 is finished (the three network flags are on and clean), the h
    Check: Vercel `fandomverse` project, Settings, Cron Jobs lists the two entries; Run `hub-xp-snapshot` there and its log shows a row count; on `otakuquiz` and `kpopquiz` the same route answers `{"skipped":true}`. Back: revert the PR (the tables stay, the blocks fall back to plays).
 4. The next morning: `q "select count(*) from public.quiz_daily_plays"` is above 0 once the hub has plays; `q "select count(*) from public.xp_daily_snapshots where day = current_date"` is above 0 once a member has XP; the hub home renders without error (it never returns a 500 because of these tables); Runtime Logs of `fandomverse` are quiet; V1 and V10 as after any flag.
 
+**L7  Daily games: the nightly maintenance (from the first night after a game is activated).** Who: a worker reads Vercel, Claude runs the SQL. `ensure-daily-quiz` on `fandomverse` also runs `dle_daily_maintenance` (hub only; never on `kpopquiz` or `otakuquiz`). Check: V12. Back: n/a (read-only; a failure leaves the quiz of the day and the games playing).
+
 ## After launch (not on the launch path, decided D-099)
 
 - **L09 openings** (K4; needs L04, 014 and Mission U part B, Deezer): the openings blind test. **L10 formats** (K3; needs L04, 013; not the personality file `L10-PERS-personality.sql`, which is K5.3b). **L11 crossover quiz** (X1; needs 002a and Mission U part C), then `NEXT_PUBLIC_NET_FACTS=1` (L3 step 4). None of these files exists yet; `L12` does not wait for them.

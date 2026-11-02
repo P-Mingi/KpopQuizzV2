@@ -1,6 +1,7 @@
 import { isCronAuthorized } from '@/lib/cron-auth';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { ensureDailyQuizRpc } from '@/lib/daily-quiz';
+import { runDleMaintenance } from '@/lib/dle/maintenance';
 import { SITE } from '@/lib/site/registry';
 import { forSite } from '@/lib/site/scope';
 import { NextResponse } from 'next/server';
@@ -34,6 +35,9 @@ import type { NextRequest } from 'next/server';
  * to today, else a catalog pick, logged in qotd_log) and a day that stays empty
  * answers 500 so the cron shows as failed. Switch OFF (the default): exactly
  * today's behaviour and response.
+ *
+ * Daily games: on the hub build only, the nightly dle_daily_maintenance of 019 runs after the quiz's work, whatever its result.
+ * It logs and never changes the response (lib/dle/maintenance.ts). 00:05 UTC is after the games' change of day (00:00 UTC).
  */
 export const dynamic = 'force-dynamic';
 
@@ -60,6 +64,14 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const supabase = createServiceRoleClient();
   const today = new Date().toISOString().split('T')[0]!;
 
+  try {
+    return await publishDailyQuiz(supabase, today);
+  } finally {
+    await runDleMaintenance(supabase);
+  }
+}
+
+async function publishDailyQuiz(supabase: ReturnType<typeof createServiceRoleClient>, today: string): Promise<NextResponse> {
   if (qotdRotationFixEnabled()) {
     try {
       const result = await rotateQotd(supabaseQotdStore(supabase, SITE.id), today);
