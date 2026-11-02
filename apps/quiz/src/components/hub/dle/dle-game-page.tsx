@@ -1,5 +1,6 @@
 // Daily games step 4: a game's page (board Kpopdle.dc.html, v2 sections 6 and 11.3): the banner, the marquee, the game, then the guide Google reads: yesterday's answer, how to play and the columns in a fold kept in the HTML, the answer
 // block, the pool in clear, the hop to the other game. Server component. A game with no pool (off, or a failed read) keeps the guide and says it is not available; the metadata then says noindex.
+import { siteHasCredits } from '@/lib/credits/site-credits';
 import { jsonLdString } from '@/lib/seo/json-ld';
 import { blindLinksOf, getAnimeSeriesSlugs, getBlindtestSlugs, getDleDay, getDleImages, getDlePictures, getDlePool, getKpopGroupSlugs, quizLinksOf } from '@/lib/dle/read';
 import { dleCopy, gameCopy, valueLabel } from '@/lib/dle/copy';
@@ -43,7 +44,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
   const g = dleGame(game);
   const w = gameCopy(game, locale);
   const world = worldOf(game);
-  const [day, pool, images, pictures, slugs, blindSlugs] = await Promise.all([getDleDay(game), getDlePool(game), getDleImages(), getDlePictures(g.photoKind), world.universe === 'anime' ? getAnimeSeriesSlugs() : getKpopGroupSlugs(), world.universe === 'kpop' ? getBlindtestSlugs() : Promise.resolve({})]);
+  const [day, pool, images, pictures, slugs, blindSlugs, showCredits] = await Promise.all([getDleDay(game), getDlePool(game), getDleImages(), getDlePictures(g.photoKind), world.universe === 'anime' ? getAnimeSeriesSlugs() : getKpopGroupSlugs(), world.universe === 'kpop' ? getBlindtestSlugs() : Promise.resolve({}), siteHasCredits()]);
   // The banner of the page's own slot when the admin has one (banner:otakudle/one-piece), else the world's.
   const banner = images[`banner:${g.path.slice(1)}`] ?? images[world.bannerSlot];
   const other = otherWorld(world);
@@ -65,7 +66,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
   const rules = Object.entries(w.columns).filter(([, c]) => c.near && c.source);
   return (
     <DleChrome
-      locale={locale} enPath={g.path} className={`hub-dle-game hub-dle-${world.tone} ${dleMarquee.variable}`}
+      locale={locale} enPath={g.path} className={`hub-dle-game hub-dle-${world.tone} ${dleMarquee.variable}`} showCredits={showCredits}
       tools={<DleGameTools locale={locale} enPath={g.path} game={game} universeGames={universeGames} />}
     >
       <DleJsonLd data={[
@@ -84,7 +85,6 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={banner.src} srcSet={banner.mid ? `${banner.mid} 400w, ${banner.src} 1920w` : undefined} sizes="100vw" alt="" fetchPriority="high" decoding="async" style={{ objectPosition: banner.position }} />
             <span aria-hidden="true" className="hub-dle-banner-fade" />
-            <figcaption>{banner.credit}</figcaption>
           </>
         ) : <span aria-hidden="true" className="hub-dle-banner-empty" />}
       </figure>

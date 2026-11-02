@@ -2,6 +2,9 @@
 // licence and a link to the page it comes from. The same credit system as OtakuQuiz's /credits (components/anime/credits-page.tsx): the
 // licence words and links of lib/anime/entity-images-rules.ts, "Photo: <author>, <licence>", a character above the spoiler floor listed
 // without its name or its picture. Only what the public views of 022 give: a picture whose licence is not verified is never here.
+// CR-021 (owner decision of 2026-11-02): the page lists the pictures that need a credit (CC BY, CC BY-SA) and no other, and the page that calls it
+// answers a 404 while there are none; no credit is printed on a page or in a game, this page is the only place. kpopquiz.org uses the same
+// component for its idols and groups (app/(site)/credits/page.tsx) with its own class prefix and words.
 // Server component, no hooks; React escapes every stored value at this sink and every link is an absolute https address (public-read.ts).
 import { UxPage } from '@/components/ux-v1/page';
 import { LICENSE_LABEL, LICENSE_URL } from '@/lib/anime/entity-images-rules';
@@ -19,7 +22,7 @@ const WORDS: Readonly<Record<DleLocale, {
 }>> = {
   en: {
     title: 'Photo credits',
-    lede: 'Bunnyverse shows only licensed photos: Creative Commons with credit, public domain, our own photos, or photos used with written permission. Every one is listed here with its author, its licence and a link to the page it comes from. Small pictures, like the thumbnails of the daily games, are credited on this page only.',
+    lede: 'Some photos on Bunnyverse are shared under a Creative Commons licence that asks for a credit. Each one is listed here with its author, its licence and a link to the page it comes from. Small pictures, like the thumbnails of the daily games, are credited on this page only.',
     empty: 'No licensed photo is shown on Bunnyverse yet. Until one is, the daily games show initials and every image keeps the colours of its site.',
     photo: 'Photo:', source: 'Source page', character: (s) => `A character of ${s}`,
     sections: { idols: 'Idols', groups: 'Groups', agencies: 'Agencies', series: 'Anime series', characters: 'Anime characters', images: 'Banners and images of the site' },
@@ -27,7 +30,7 @@ const WORDS: Readonly<Record<DleLocale, {
   },
   fr: {
     title: 'Crédits photos',
-    lede: 'Bunnyverse n\u2019affiche que des photos sous licence : Creative Commons avec crédit, domaine public, nos propres photos ou photos utilisées avec un accord écrit. Chacune est listée ici avec son auteur, sa licence et un lien vers sa page d\u2019origine. Les petites images, comme les vignettes des jeux du jour, sont créditées sur cette page seulement.',
+    lede: 'Certaines photos de Bunnyverse sont sous une licence Creative Commons qui demande un crédit. Chacune est listée ici avec son auteur, sa licence et un lien vers sa page d\u2019origine. Les petites images, comme les vignettes des jeux du jour, sont créditées sur cette page seulement.',
     empty: 'Aucune photo sous licence n\u2019est encore affichée sur Bunnyverse. En attendant, les jeux du jour montrent les initiales et chaque image garde les couleurs de son site.',
     photo: 'Photo :', source: 'Page source', character: (s) => `Un personnage de ${s}`,
     sections: { idols: 'Idols', groups: 'Groupes', agencies: 'Agences', series: 'Séries anime', characters: 'Personnages d\u2019anime', images: 'Bannières et images du site' },
@@ -56,6 +59,8 @@ export interface CreditItem {
   readonly author: string;
   readonly sourceUrl: string | null;
   readonly license: ImageLicense;
+  /** The exact licence page (Commons gives it, with the version); else the page of the licence's family (lib/anime/entity-images-rules.ts). */
+  readonly licenseUrl?: string | null;
   readonly note: string | null;
 }
 
@@ -117,19 +122,21 @@ export function creditSections(
 ): CreditSection[] {
   const copy = WORDS[locale];
   const words = (slug: string): string => slug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-  const line = (p: PublicPicture, name: string, locked = false): CreditItem => {
+  const line = (p: PublicPicture & { readonly license: ImageLicense }, name: string, locked = false): CreditItem => {
     const note = p.licenseNote && p.licenseNote.trim() ? p.licenseNote.trim() : null;
     // A locked character keeps its credit (author and licence), never its slug, picture or name. Its source page is linked only when the
     // address does not name it; otherwise the line prints the author and the licence without the link (and a note that names it goes).
     if (locked) {
       return {
-        key: null, name, thumb: null, position: p.position, author: p.author, sourceUrl: namesCharacter(p.sourceUrl, p.slug) ? null : p.sourceUrl,
-        license: p.license, note: namesCharacter(note, p.slug) ? null : note,
+        key: null, name, thumb: null, position: p.position, author: p.author ?? '', sourceUrl: namesCharacter(p.sourceUrl, p.slug) ? null : p.sourceUrl,
+        license: p.license, licenseUrl: p.licenseUrl ?? null, note: namesCharacter(note, p.slug) ? null : note,
       };
     }
-    return { key: `${p.kind}:${p.slug}`, name, thumb: p.thumb, position: p.position, author: p.author, sourceUrl: p.sourceUrl, license: p.license, note };
+    return { key: `${p.kind}:${p.slug}`, name, thumb: p.thumb, position: p.position, author: p.author ?? '', sourceUrl: p.sourceUrl, license: p.license, licenseUrl: p.licenseUrl ?? null, note };
   };
-  const of = (kind: string): PublicPicture[] => pictures.filter((p) => p.kind === kind);
+  // CR-021: the page lists the pictures that need a credit (CC BY, CC BY-SA) and no other; the view gives no credit for the rest.
+  const credited = pictures.filter((p): p is PublicPicture & { readonly license: ImageLicense } => p.needsCredit !== false && p.license !== null);
+  const of = (kind: string): (PublicPicture & { readonly license: ImageLicense })[] => credited.filter((p) => p.kind === kind);
   const named = (kind: string): CreditItem[] => of(kind).filter((p) => p.name).map((p) => line(p, p.name!)).sort(byName);
   const characters = of('character').map((p) => {
     const seriesSlug = p.slug.split('/')[0] ?? '';
@@ -138,7 +145,7 @@ export function creditSections(
     return own ? line(p, `${own} (${series})`) : line(p, copy.character(series), true);
   }).sort(byName);
   const images: CreditItem[] = assets
-    .filter((a) => (a.type === 'banner' || a.type === 'card_image') && a.large && a.license && a.author && SLOT_NAMES[a.key])
+    .filter((a) => (a.type === 'banner' || a.type === 'card_image') && a.needsCredit !== false && a.large && a.license && a.author && SLOT_NAMES[a.key])
     .map((a) => ({
       key: a.key, name: copy.slots[a.key] ?? SLOT_NAMES[a.key]!, thumb: a.thumb, position: '50% 50%', author: a.author!, sourceUrl: a.sourceUrl,
       license: a.license!, note: a.licenseNote && a.licenseNote.trim() ? a.licenseNote.trim() : null,
@@ -153,43 +160,46 @@ export function creditSections(
   ].filter((s) => s.items.length > 0);
 }
 
-function Credit({ item, locale }: { item: CreditItem; locale: DleLocale }): React.ReactElement {
+function Credit({ item, locale, prefix }: { item: CreditItem; locale: DleLocale; prefix: string }): React.ReactElement {
   const label = LICENSE_LABEL[item.license];
-  const licenseUrl = LICENSE_URL[item.license];
+  const licenseUrl = item.licenseUrl ?? LICENSE_URL[item.license];
   return (
-    <li className="hub-credits-item" data-key={item.key ?? undefined}>
+    <li className={`${prefix}-item`} data-key={item.key ?? undefined}>
       {item.thumb ? (
         // A plain img: the 96 px file made at upload (no Vercel image optimisation). Decorative: the name is printed beside it.
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={item.thumb} alt="" width={48} height={48} loading="lazy" decoding="async" className="hub-credits-thumb" style={{ objectPosition: item.position }} />
+        <img src={item.thumb} alt="" width={48} height={48} loading="lazy" decoding="async" className={`${prefix}-thumb`} style={{ objectPosition: item.position }} />
       ) : null}
-      <div className="hub-credits-text">
-        <h3 className="hub-credits-name">{item.name}</h3>
+      <div className={`${prefix}-text`}>
+        <h3 className={`${prefix}-name`}>{item.name}</h3>
         <p>
           {WORDS[locale].photo} {item.sourceUrl ? <a href={item.sourceUrl} rel="noopener noreferrer nofollow" target="_blank">{item.author}</a> : item.author},{' '}
           {licenseUrl ? <a href={licenseUrl} rel="noopener noreferrer" target="_blank">{label}</a> : label}
         </p>
-        {item.note ? <p className="hub-credits-meta">{item.note}</p> : null}
-        {item.sourceUrl ? <p className="hub-credits-meta"><a href={item.sourceUrl} rel="noopener noreferrer nofollow" target="_blank">{WORDS[locale].source}</a></p> : null}
+        {item.note ? <p className={`${prefix}-meta`}>{item.note}</p> : null}
+        {item.sourceUrl ? <p className={`${prefix}-meta`}><a href={item.sourceUrl} rel="noopener noreferrer nofollow" target="_blank">{WORDS[locale].source}</a></p> : null}
       </div>
     </li>
   );
 }
 
-export function HubCreditsPage({ sections, locale = 'en' }: { sections: readonly CreditSection[]; locale?: DleLocale }): React.ReactElement {
-  const copy = WORDS[locale];
+/** The class prefix of the hub's page (styles/sites/hub/credits.css); kpopquiz.org passes its own (styles/kpop/credits.css) and its own words. */
+export function HubCreditsPage({ sections, locale = 'en', prefix = 'hub-credits', words }: {
+  sections: readonly CreditSection[]; locale?: DleLocale; prefix?: string; words?: { readonly title: string; readonly lede: string };
+}): React.ReactElement {
+  const copy = { ...WORDS[locale], ...words };
   return (
-    <UxPage width="text" className="hub-credits">
+    <UxPage width="text" className={prefix}>
       <h1 className="ux-h1">{copy.title}</h1>
-      <p className="hub-credits-lede">{copy.lede}</p>
+      <p className={`${prefix}-lede`}>{copy.lede}</p>
       {sections.length === 0 ? (
-        <p className="hub-credits-empty" data-testid="credits-empty">{copy.empty}</p>
+        <p className={`${prefix}-empty`} data-testid="credits-empty">{copy.empty}</p>
       ) : sections.map((s) => (
-        <section key={s.id} className="hub-credits-section" aria-labelledby={`cr-${s.id}`}>
-          <h2 id={`cr-${s.id}`} className="hub-credits-h2">{s.title}</h2>
-          <ul className="hub-credits-list">
+        <section key={s.id} className={`${prefix}-section`} aria-labelledby={`cr-${s.id}`}>
+          <h2 id={`cr-${s.id}`} className={`${prefix}-h2`}>{s.title}</h2>
+          <ul className={`${prefix}-list`}>
             {/* Keyed by position: a key from the record would print a locked character's slug into the page's data. */}
-            {s.items.map((i, n) => <Credit key={n} item={i} locale={locale} />)}
+            {s.items.map((i, n) => <Credit key={n} item={i} locale={locale} prefix={prefix} />)}
           </ul>
         </section>
       ))}

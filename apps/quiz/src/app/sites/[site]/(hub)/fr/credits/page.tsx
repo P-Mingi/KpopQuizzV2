@@ -1,4 +1,4 @@
-// Daily games step 4, row 50: /fr/credits, the French twin of /credits (RAPPORT-JEUX-DU-JOUR-v2.md section 2). It opens with the flag, in the frame of the French pages of the Terrier. Noindex while it lists nothing. With the flag off: a 404, as any unknown URL.
+// Daily games step 4, row 50: /fr/credits, the French twin of /credits (RAPPORT-JEUX-DU-JOUR-v2.md section 2). It opens with the flag, in the frame of the French pages of the Terrier. CR-021: a 404 as any unknown URL while no image needs a credit. With the flag off: a 404 too.
 import { notFound } from 'next/navigation';
 
 import { HubCreditsPage, creditSections } from '@/components/hub/credits/hub-credits';
@@ -22,14 +22,17 @@ async function sections(): Promise<ReturnType<typeof creditSections>> {
 
 export async function generateMetadata(): Promise<Metadata> {
   if (!dleOpen()) notFound();
-  return { title: CREDITS_FR.title, description: CREDITS_FR.description, alternates: dleAlternates('/credits', 'fr'), robots: dleRobots('fr', (await sections()).length > 0) };
+  if ((await sections()).length === 0) notFound();
+  return { title: CREDITS_FR.title, description: CREDITS_FR.description, alternates: dleAlternates('/credits', 'fr'), robots: dleRobots('fr', true) };
 }
 
 export default async function Page(): Promise<React.ReactElement> {
   if (!dleOpen()) notFound();
+  const listed = await sections();
+  if (listed.length === 0) notFound();
   return (
     <DleChrome locale="fr" enPath="/credits">
-      <main id="main" tabIndex={-1} className="hub-dle-creditsmain"><HubCreditsPage sections={await sections()} locale="fr" /></main>
+      <main id="main" tabIndex={-1} className="hub-dle-creditsmain"><HubCreditsPage sections={listed} locale="fr" /></main>
     </DleChrome>
   );
 }

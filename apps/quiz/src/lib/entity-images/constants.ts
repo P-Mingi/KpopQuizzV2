@@ -10,7 +10,14 @@ export const IMAGE_KINDS: readonly ImageKind[] = ['series', 'character'];
 export const LICENSES = ['cc0', 'public_domain', 'cc_by', 'cc_by_sa', 'own_photo', 'licensed', 'other'] as const;
 export type ImageLicense = (typeof LICENSES)[number];
 
-/** Licences that ask for a credit line next to the image (the display layer prints it). */
+/**
+ * The licences the owner can pick for an image (owner decision of 2026-11-02, CR-021): CC0, public domain, CC BY, CC BY-SA, other free
+ * licence. 'own_photo' and 'licensed' stay valid in the database for what it already holds and for the banners, icons and stickers.
+ */
+export const FREE_LICENSES = ['cc0', 'public_domain', 'cc_by', 'cc_by_sa', 'other'] as const;
+export type FreeLicense = (typeof FREE_LICENSES)[number];
+
+/** Licences that need a credit on /credits (never on a page or in a game). The database says the same with entity_images.needs_credit. */
 export const ATTRIBUTION_LICENSES: readonly ImageLicense[] = ['cc_by', 'cc_by_sa'];
 
 export interface ImageSize { readonly w: number; readonly h: number }
@@ -90,3 +97,6 @@ export const LICENSE_LABEL: Readonly<Record<ImageLicense, string>> = {
 
 /** The display columns of public.entity_images: the column grants of the browser roles list exactly these. */
 export const DISPLAY_COLUMNS = 'site_id, kind, slug, path, width, height, focal_x, focal_y, license, author, source_url, license_note, updated_at';
+
+/** The columns the admin reads with the service role: the display ones and the two credit columns of CR-021 the browser roles cannot select. */
+export const ADMIN_COLUMNS = `${DISPLAY_COLUMNS}, license_url, commons_file`;

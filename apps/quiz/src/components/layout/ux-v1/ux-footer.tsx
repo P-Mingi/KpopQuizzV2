@@ -9,6 +9,7 @@ import { NetFooterLine } from '@/components/network/net-footer-line';
 import { SITE, SITE_ID, flagOn } from '@/lib/site/registry';
 import { isKnownRouteFor } from '@/lib/site/routing';
 
+import { UxCreditsLink } from './ux-credits-link';
 import { UxFooterTheme } from './ux-footer-controls';
 
 import type { FooterCol } from '@/lib/ux-v1/a0/nav';
@@ -82,8 +83,7 @@ function columns(showFandoms: boolean): FooterCol[] {
       ...(KPOP ? [{ label: 'Privacy', href: '/privacy' }, { label: 'Legal notice', href: '/legal' }] : [...link('Privacy', '/privacy'), ...link('Legal notice', '/legal')]),
       ...link('Terms', '/terms'),
       ...link('DMCA', '/dmca'),
-      // Run O1 (IMG): the photo credits of OtakuQuiz. Off on kpop (feature flag false), so the kpop footer stays today's.
-      ...link('Credits', '/credits', !KPOP),
+      // CR-021: the photo credits link is not here: it exists only while an image needs a credit, and UxCreditsLink (below) asks after load.
     ] },
   ].filter((c) => c.links.length > 0);
 }
@@ -125,6 +125,8 @@ export function UxFooter({ showFandoms, year }: { showFandoms: boolean; year: nu
               {c.links.map((l) => l.external
                 ? <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer">{l.label}</a>
                 : <Link key={l.label} href={l.href}>{l.label}</Link>)}
+              {/* CR-021: drawn by the browser only, when the site has an image that needs a credit (nothing on the server). */}
+              {c.title === 'Support' ? <UxCreditsLink /> : null}
             </div>
           ))}
         </div>

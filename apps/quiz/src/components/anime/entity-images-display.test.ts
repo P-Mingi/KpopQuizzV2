@@ -139,11 +139,11 @@ describe('the characters row', () => {
     expect(out).toContain(first.name);
   });
 
-  it('prints the credit line of a CC BY portrait and none for a CC0 one', () => {
+  it('prints no credit line under a portrait, whatever its licence (CR-021): /credits lists the CC BY ones', () => {
     const by = render(withPortraits(split.open, { [first.slug]: ownerPictureOf(row({ kind: 'character', slug: 'x/y', license: 'cc_by' }), BASE) }));
-    expect(by).toContain('data-testid="portrait-credit"');
-    expect(by).toContain('A. Author');
-    expect(by).toContain('CC BY</a>');
+    expect(by).toContain('character-portrait');
+    expect(by).not.toContain('portrait-credit');
+    expect(by).not.toContain('A. Author');
     const zero = render(withPortraits(split.open, { [first.slug]: ownerPictureOf(row({ kind: 'character', slug: 'x/y', license: 'cc0' }), BASE) }));
     expect(zero).not.toContain('portrait-credit');
     expect(zero).toContain('character-portrait');

@@ -4,10 +4,9 @@
 //   photo in Supabase Storage). kpopquiz.org prints no credit for these (group-photo-credits.ts: the owner handles the attribution), so
 //   none is printed here either. The file of public/idols is served by every build at the same path (the rewrites of an anime or hub
 //   build leave a file name to the filesystem, lib/site/routing.ts CATCH_ALL_PATTERN), so the hub serves the very same file.
-// - An anime quiz: its series' photo only as OtakuQuiz shows it (seriesPhotoOf of lib/anime/series-images.ts, the function its series art
-//   reads: the owner's upload first, else the bundled free photo, else none), and only when that photo asks for no credit line. OtakuQuiz
-//   prints "Photo: author, licence" beside a CC BY or CC BY-SA photo (components/anime/photo-credit.tsx); a row of this list has no room
-//   for that line, so such a series keeps its initials rather than show the photo without its credit.
+// - An anime quiz: its series' photo as OtakuQuiz shows it (seriesPhotoOf of lib/anime/series-images.ts, the function its series art reads:
+//   the owner's upload first, else the bundled free photo, else none). CR-021 (owner decision of 2026-11-02): no credit is printed on any page,
+//   whatever the licence (CC BY and CC BY-SA photos are listed on /credits), so a photo is shown whether or not its licence asks for a credit.
 // Else null: the row shows the initials of the group on the colour of its site, as before.
 
 import { seriesPhotoOf } from '@/lib/anime/series-images';
@@ -22,6 +21,5 @@ import type { HomeSite } from './home-types';
 export function groupPhotoOf(site: HomeSite, groupSlug: string | null | undefined): string | null {
   if (!groupSlug) return null;
   if (site === 'kpop') return groupPhotoUrl(groupSlug);
-  const photo = seriesPhotoOf(groupSlug);
-  return photo && !photo.attribution ? photo.file : null;
+  return seriesPhotoOf(groupSlug)?.file ?? null;
 }

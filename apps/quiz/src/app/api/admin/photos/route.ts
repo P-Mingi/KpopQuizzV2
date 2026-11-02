@@ -1,17 +1,21 @@
 import { revalidateImage } from '@/lib/entity-images/cache';
 import { MAX_OUTPUT_BYTES } from '@/lib/entity-images/constants';
 import { ImageError } from '@/lib/entity-images/errors';
+import { resolveCredit } from '@/lib/entity-images/credit';
 import { adminGate, failure, forbidden, notFoundHandler, ok, readForm, sameOrigin } from '@/lib/entity-images/route-kit';
 import { assertPhotoEntity, removePhoto, savePhoto } from '@/lib/photos/store';
-import { parseFlag, parseFocalFields, parsePhotoMeta, parsePhotoTarget } from '@/lib/photos/validate';
+import { parseFlag, parseFocalFields, parsePhotoTarget } from '@/lib/photos/validate';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { NextRequest, NextResponse } from 'next/server';
 
 // Daily games step 2: POST /api/admin/photos, multipart: kind (idol, group, agency, series, character), slug, meta (JSON: source_url, author,
-// license, license_note), verified ('1' or '0'), focal_x, focal_y, and optionally the three WebP files the admin's browser made (x1, x2,
+// license, license_note), link (the address the picture was pasted from, if any), verified ('1' or '0'), focal_x, focal_y, and optionally the three WebP files the admin's browser made (x1, x2,
 // thumb: the 1x box of the kind, twice that, the 96 px square). Without files, the stored picture keeps its files and gets the new credit,
 // box and focal point. A series or a character is saved only with its licence verified: OtakuQuiz shows its rows as soon as they exist.
+// CR-021 (owner decision of 2026-11-02): the licence is one of CC0, public domain, CC BY, CC BY-SA, other free licence (the author is required for
+// CC BY and CC BY-SA, the source page is optional). When the link or the source page is a Wikimedia Commons file, Commons is asked here, server
+// side, and its licence and author win over what was typed; a file that is not free is refused and nothing is stored.
 // action 'remove' (with kind and slug only): removes the picture, its row and its three files ("Retirer la photo"; a series or a character
 // goes back to its bundled photo or the placeholder). No action, or 'save': the save above.
 // Admin only on the anime build, the gate of the anime admin (404 otherwise); same-origin writes only.
@@ -41,8 +45,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     }
     if (action !== null && action !== 'save') throw new ImageError('bad_request', 400, 'Action inconnue.');
     let rawMeta: unknown;
-    try { rawMeta = JSON.parse(String(form.get('meta') ?? '')); } catch { throw new ImageError('bad_meta', 400, 'La source, l\'auteur et la licence sont obligatoires.'); }
-    const meta = parsePhotoMeta(rawMeta);
+    try { rawMeta = JSON.parse(String(form.get('meta') ?? '')); } catch { throw new ImageError('bad_meta', 400, 'Choisis une licence : la source et l\'auteur sont à renseigner si besoin.'); }
+    const link = form.get('link');
+    const { credit: meta } = await resolveCredit(rawMeta, typeof link === 'string' ? link : null);
     const verified = parseFlag(form.get('verified'));
     if ((kind === 'series' || kind === 'character') && !verified) {
       throw new ImageError('bad_meta', 422, 'Pour une série ou un personnage, coche « licence vérifiée » : OtakuQuiz montre l\'image dès qu\'elle est enregistrée.');

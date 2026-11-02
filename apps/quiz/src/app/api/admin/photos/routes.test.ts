@@ -2,9 +2,9 @@
 // get 404), same-origin writes only, a series refused without its licence verified, a picture stored end to end on an in-memory database and
 // bucket, the versions of a banner, and the guarded fetch that never stores anything.
 import { NextRequest } from 'next/server';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { META, photoFiles, photosFakeDb, webpOf } from '@/lib/photos/test-support';
+import { META, commonsResponse, photoFiles, photosFakeDb, webpOf } from '@/lib/photos/test-support';
 
 import type { PhotosFakeDb } from '@/lib/photos/test-support';
 
@@ -46,7 +46,11 @@ beforeEach(() => {
     characters: [], entity_images: [], site_assets: [], agencies: [],
   });
   revalidateTag.mockClear();
+  // META names a Commons page as its source (CR-021: the server asks Commons for it): the answer is stubbed, no test reaches the network.
+  vi.stubGlobal('fetch', vi.fn(async () => commonsResponse()));
 });
+
+afterEach(() => { vi.unstubAllGlobals(); });
 
 describe('the gate', () => {
   const calls = (): Array<() => Promise<Response>> => [

@@ -230,6 +230,7 @@ Run V-S4 (section A0) after this step: it must print `V-S4 ok`.
     q "select relname, relrowsecurity from pg_class where oid = 'public.entity_images'::regclass"                                  # entity_images|t
     q "select has_table_privilege('anon', 'public.entity_images', 'insert'), has_table_privilege('authenticated', 'public.entity_images', 'update'), has_column_privilege('anon', 'public.entity_images', 'created_by', 'select'), has_column_privilege('anon', 'public.entity_images', 'path', 'select')"   # f|f|f|t
     q "select id, public, file_size_limit from storage.buckets where id = 'entity-images'"                                       # entity-images|t|4194304
+    q "select has_column_privilege('anon', 'public.entity_images', 'license_url', 'select'), has_column_privilege('anon', 'public.entity_images', 'commons_file', 'select'), has_column_privilege('anon', 'public.entity_images', 'needs_credit', 'select')"   # f|f|f (CR-021: the three columns of the credit rules are closed; V-018 rows 4 and 5)
 
 016: the tables `passport.deletion_requests` and `passport.deletion_log` exist with RLS on and no policy (`select relname, relrowsecurity from pg_class where relnamespace = 'passport'::regnamespace and relname like 'deletion%' and relkind = 'r' order by 1` gives `deletion_log|t`, `deletion_requests|t`); the five functions
 `passport_request_deletion`, `passport_cancel_deletion`, `passport_run_deletion`, `passport_leave_world`, `passport_due_deletions` are executable by `service_role` only
@@ -244,7 +245,7 @@ Lot K1, 021a (row 14e): `idols.gender` and `idols.debut_year` exist, every gende
 Lot K1, 021c (row 14e ter): the debut years of the list are in place with one source each, 39, 46, 48, 175 carry their QID, 14 and 19 have the right QID, birth date and source references (`docs/launch/o1/checks/V-K1c.sql`).
 Lot K1, 021b (row 14e bis): no active idol is still to review, and no minor and no idol without a birth date is in the game (`docs/launch/o1/checks/V-K1b.sql`).
 023 (row 14g): `character_facts` and `series_facts` have RLS on and no policy and are closed to the browser roles, the view `dle_src_anime_character` is closed, the game row is absent until L01 (`docs/launch/o1/checks/V-023.sql`).
-022 (row 14f): `agencies` and `site_assets` have RLS on and no policy; the views `site_assets_public` and `entity_images_public` are readable by anon, the two tables and their sequences are not; one agency per label the kpop groups cite, 17 in production (`docs/launch/o1/checks/V-022.sql`).
+022 (row 14f): `agencies` and `site_assets` have RLS on and no policy; the views `site_assets_public` and `entity_images_public` are readable by anon, the two tables and their sequences are not; one agency per label the kpop groups cite, 17 in production (`docs/launch/o1/checks/V-022.sql`). CR-021: `entity_images_public` and `site_assets_public` fill author, licence, source and note only for a CC BY or CC BY-SA row (V-022 rows 16 and 17).
 
 After the whole P5, V-S4 (section A0), V1 once more (nothing visible may have changed on kpop) and the Vercel runtime errors of `kpopquiz` for the last hour.
 

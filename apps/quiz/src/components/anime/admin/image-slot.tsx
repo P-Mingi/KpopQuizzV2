@@ -6,7 +6,7 @@ import { Icon } from '@/components/ux-v1/icon';
 import { UxButton } from '@/components/ux-v1/button';
 import { UxField } from '@/components/ux-v1/form';
 import {
-  CENTER_FOCAL, EMPTY_META, LICENSE_CODES, LICENSE_LABEL, MAX_UPLOAD_BYTES, checkImport, checkUpload, fileProblem, focalFromPoint, nudgeFocal, objectPositionOf,
+  CENTER_FOCAL, EMPTY_META, FORM_LICENSE_CODES, LICENSE_LABEL, MAX_UPLOAD_BYTES, checkImport, checkUpload, fileProblem, focalFromPoint, nudgeFocal, objectPositionOf,
 } from '@/lib/anime/entity-images-rules';
 
 import type { AdminImage, EntityKind, Focal, ImageMeta, LicenseCode, MetaErrors } from '@/lib/anime/entity-images-rules';
@@ -268,7 +268,7 @@ export function ImageSlot({ kind, slug, title, hint, frame, image, bundled, api,
 
       {image ? (
         <p className="anime-adm-credit-line" data-testid="slot-credit">
-          <a href={image.sourceUrl} rel="noopener noreferrer" target="_blank">{image.author}</a>, {LICENSE_LABEL[image.license]}
+          {image.sourceUrl ? <a href={image.sourceUrl} rel="noopener noreferrer" target="_blank">{image.author ?? 'Unknown author'}</a> : (image.author ?? 'Unknown author')}, {LICENSE_LABEL[image.license]}
           {image.licenseNote ? ` (${image.licenseNote})` : ''}
         </p>
       ) : null}
@@ -311,7 +311,7 @@ export function ImageSlot({ kind, slug, title, hint, frame, image, bundled, api,
             <UxField label="Licence" htmlFor={id('li')} error={errors.license ?? null}>
               <select id={id('li')} className="ux-inp" value={meta.license} onChange={(e) => set('license', e.target.value as LicenseCode | '')} aria-invalid={errors.license ? true : undefined}>
                 <option value="">Choose a licence</option>
-                {LICENSE_CODES.map((c) => <option key={c} value={c}>{LICENSE_LABEL[c]}</option>)}
+                {FORM_LICENSE_CODES.map((c) => <option key={c} value={c}>{LICENSE_LABEL[c]}</option>)}
               </select>
             </UxField>
             <UxField label="Licence note" hint={meta.license === 'other' ? 'Required' : 'Optional'} htmlFor={id('no')} error={errors.license_note ?? null}>

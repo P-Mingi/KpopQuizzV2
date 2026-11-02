@@ -35,6 +35,8 @@ export interface LiveAsset {
   readonly thumb: string | null;
   readonly width: number | null;
   readonly height: number | null;
+  /** CR-021: true for a CC BY or CC BY-SA image, the only rows whose credit the view gives (and /credits lists). */
+  readonly needsCredit?: boolean;
   readonly sourceUrl: string | null;
   readonly author: string | null;
   readonly license: ImageLicense | null;
@@ -44,7 +46,7 @@ export interface LiveAsset {
 
 interface AssetRow {
   key: unknown; type: unknown; page: unknown; settings: unknown; path: unknown; mid_path: unknown; thumb_path: unknown; width: unknown; height: unknown;
-  source_url: unknown; author: unknown; license: unknown; license_note: unknown; published_at: unknown;
+  needs_credit?: unknown; source_url: unknown; author: unknown; license: unknown; license_note: unknown; published_at: unknown;
 }
 
 const TYPES = ['banner', 'card_image', 'icon', 'sticker'] as const;
@@ -53,7 +55,9 @@ export function toLiveAsset(r: AssetRow): LiveAsset | null {
   if (typeof r.key !== 'string' || typeof r.page !== 'string' || !(TYPES as readonly unknown[]).includes(r.type)) return null;
   const path = safePath(r.path);
   if (r.path !== null && r.path !== undefined && !path) return null;
-  if (path && (!isLicense(r.license) || typeof r.author !== 'string')) return null;
+  // The view gives the credit of a CC BY or CC BY-SA image only (needs_credit); any other image carries none and is drawn without one.
+  const needsCredit = r.needs_credit !== false;
+  if (path && needsCredit && (!isLicense(r.license) || typeof r.author !== 'string')) return null;
   const mid = safePath(r.mid_path);
   const thumb = safePath(r.thumb_path);
   return {
@@ -61,6 +65,7 @@ export function toLiveAsset(r: AssetRow): LiveAsset | null {
     settings: r.settings && typeof r.settings === 'object' && !Array.isArray(r.settings) ? (r.settings as Record<string, unknown>) : {},
     large: path ? publicUrl(path) : null, mid: mid ? publicUrl(mid) : null, thumb: thumb ? publicUrl(thumb) : null,
     width: typeof r.width === 'number' ? r.width : null, height: typeof r.height === 'number' ? r.height : null,
+    needsCredit: needsCredit && path !== null,
     sourceUrl: httpsOrNull(r.source_url), author: typeof r.author === 'string' ? r.author : null,
     license: isLicense(r.license) ? r.license : null, licenseNote: typeof r.license_note === 'string' ? r.license_note : null,
     publishedAt: typeof r.published_at === 'string' ? r.published_at : null,
@@ -72,7 +77,7 @@ type Db = any;
 
 export async function loadLiveAssets(db: Db): Promise<LiveAsset[]> {
   const rows = await fetchAllRows<AssetRow>(() => db.from('site_assets_public')
-    .select('key, type, page, settings, path, mid_path, thumb_path, width, height, source_url, author, license, license_note, published_at')
+    .select('key, type, page, settings, path, mid_path, thumb_path, width, height, needs_credit, source_url, author, license, license_note, published_at')
     .order('key', { ascending: true }));
   return rows.map(toLiveAsset).filter((a): a is LiveAsset => a !== null);
 }
@@ -126,46 +131,58 @@ export interface PublicPicture {
   readonly thumb: string | null;
   readonly position: string;
   readonly name: string | null;
-  readonly sourceUrl: string;
-  readonly author: string;
-  readonly license: ImageLicense;
+  /** CR-021: true for a CC BY or CC BY-SA picture, the only rows whose credit the view gives (and /credits lists). */
+  readonly needsCredit?: boolean;
+  readonly sourceUrl: string | null;
+  readonly author: string | null;
+  readonly license: ImageLicense | null;
   readonly licenseNote: string | null;
+  readonly licenseUrl?: string | null;
+  readonly commonsFile?: string | null;
   readonly updatedAt: string;
 }
 
 interface PictureRow {
-  site_id: unknown; kind: unknown; slug: unknown; path: unknown; thumb_path: unknown; focal_x: unknown; focal_y: unknown; source_url: unknown;
-  author: unknown; license: unknown; license_note: unknown; updated_at: unknown; name: unknown;
+  site_id: unknown; kind: unknown; slug: unknown; path: unknown; thumb_path: unknown; focal_x: unknown; focal_y: unknown; needs_credit?: unknown; source_url: unknown;
+  author: unknown; license: unknown; license_note: unknown; license_url?: unknown; commons_file?: unknown; updated_at: unknown; name: unknown;
 }
 
 export function toPublicPicture(r: PictureRow): PublicPicture | null {
   const path = safePath(r.path);
+  if (!path || typeof r.kind !== 'string' || typeof r.slug !== 'string' || typeof r.site_id !== 'string') return null;
+  // A row that needs no credit has none in the view; a row that does (or one with no flag, the shape before CR-021) must name its author and licence.
+  const needsCredit = r.needs_credit !== false;
   const source = httpsOrNull(r.source_url);
-  if (!path || !source || !isLicense(r.license) || typeof r.author !== 'string' || typeof r.kind !== 'string' || typeof r.slug !== 'string' || typeof r.site_id !== 'string') return null;
+  if (needsCredit && (!isLicense(r.license) || typeof r.author !== 'string')) return null;
+  // A source page that is not https never passes (the view filters it too); a missing one is fine.
+  if (r.source_url !== null && r.source_url !== undefined && !source) return null;
   const thumb = safePath(r.thumb_path);
   const f = parseFocal({ x: Number(r.focal_x), y: Number(r.focal_y) });
   return {
     site: r.site_id, kind: r.kind, slug: r.slug, url: publicUrl(path), thumb: thumb ? publicUrl(thumb) : null,
     position: `${Math.round(f.x)}% ${Math.round(f.y)}%`, name: typeof r.name === 'string' && r.name.trim() ? r.name : null,
-    sourceUrl: source, author: r.author, license: r.license, licenseNote: typeof r.license_note === 'string' ? r.license_note : null,
+    needsCredit,
+    sourceUrl: source, author: needsCredit ? (r.author as string) : null, license: needsCredit ? (r.license as ImageLicense) : null,
+    licenseNote: needsCredit && typeof r.license_note === 'string' ? r.license_note : null,
+    licenseUrl: needsCredit ? httpsOrNull(r.license_url) : null, commonsFile: needsCredit && typeof r.commons_file === 'string' ? r.commons_file : null,
     updatedAt: typeof r.updated_at === 'string' ? r.updated_at : '',
   };
 }
 
 export async function loadPublicPictures(db: Db): Promise<PublicPicture[]> {
   const rows = await fetchAllRows<PictureRow>(() => db.from('entity_images_public')
-    .select('site_id, kind, slug, path, thumb_path, focal_x, focal_y, source_url, author, license, license_note, updated_at, name')
+    .select('site_id, kind, slug, path, thumb_path, focal_x, focal_y, needs_credit, source_url, author, license, license_note, license_url, commons_file, updated_at, name')
     .order('kind', { ascending: true }).order('slug', { ascending: true }));
   return rows.map(toPublicPicture).filter((p): p is PublicPicture => p !== null);
 }
 
 const picturesCached = unstable_cache(
   async (): Promise<PublicPicture[]> => orEmptyWhenMissing(() => loadPublicPictures(createPublicReadClient())),
-  ['db:hub:entity-images-public:v1'],
+  ['db:hub:entity-images-public:v2'],
   { revalidate: PUBLIC_TTL * 5, tags: ['entity-images-public'] },
 );
 
-/** The verified pictures, or [] on any failure (never cached as a result). */
+/** The verified pictures (the credit of the CC BY and CC BY-SA ones only), or [] on any failure (never cached as a result). */
 export async function getPublicPictures(): Promise<PublicPicture[]> {
   try {
     return await picturesCached();

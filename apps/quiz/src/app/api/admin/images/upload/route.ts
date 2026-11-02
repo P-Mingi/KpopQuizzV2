@@ -3,6 +3,7 @@ import { ImageError } from '@/lib/entity-images/errors';
 import { revalidateImage } from '@/lib/entity-images/cache';
 import { processImage } from '@/lib/entity-images/process';
 import { adminGate, failure, forbidden, notFoundHandler, ok, readForm, sameOrigin } from '@/lib/entity-images/route-kit';
+import { resolveCredit } from '@/lib/entity-images/credit';
 import { assertEntity, saveImage } from '@/lib/entity-images/store';
 import { parseKind, parseMeta, parseSlug } from '@/lib/entity-images/validate';
 import { createServiceRoleClient } from '@/lib/supabase/server';
@@ -32,7 +33,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     } else {
       metaObject = { source_url: form.get('source_url'), author: form.get('author'), license: form.get('license'), license_note: form.get('license_note') };
     }
-    const meta = parseMeta(metaObject);
+    // The rules of this tab first (source, author and licence all filled), then CR-021: a Commons source page is read on Commons (a file that is
+    // not free is refused, the licence and the author come from there) and the licence is one of the free ones.
+    parseMeta(metaObject);
+    const { credit: meta } = await resolveCredit(metaObject, null);
     const db = createServiceRoleClient();
     await assertEntity(db, kind, slug);
     const image = await processImage(new Uint8Array(await file.arrayBuffer()), kind);
