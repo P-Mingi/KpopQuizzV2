@@ -14,9 +14,9 @@ O1, 2026-11-02, réécrit sur la décision du propriétaire : aucune date. Une �
 | C4 | Veille D3 : le lendemain matin, après les crons de la nuit | C3 | attend C3 |
 | C5 | Session E (009, déploiement, 010), entre 18:00 et 22:20 | C4 propre | attend C4 |
 | C6 | E5 et V7 le matin, après 00:05 | C5 | attend C5 |
-| C7 | Session G (011 à 017, 018 à 023, lot K1), veille d'1 h : crée les tables des images et des jeux | C6 vert ; #188 fusionnée | attend C6 |
-| C8 | Petite session K2 : sauvegarde, puis une commande | C7 ; fichier K2 prêt (P3) | attend C7 et P3 |
-| C9 | Images posées par le propriétaire dans l'admin | C7 ; volet images (P6) en ligne | attend C7 et P6 |
+| C7 | Session G (011 à 017, 018 à 024, lot K1), veille d'1 h : crée les tables des images et des jeux | C6 vert | attend C6 |
+| C8 | Petite session K2 : sauvegarde, puis une commande | C7 | attend C7 |
+| C9 | Images posées par le propriétaire dans l'admin | C7 | attend C7 |
 | C10 | Go ou no-go | C8, C9, P1 à P7 verts | attend tout |
 | C11 | Jour J : sessions J1 à J5, PR du jour J | C10 go | attend C10 |
 
@@ -26,12 +26,12 @@ Au plus 2 sous-agents à la fois. Les scripts de données tournent en processus 
 
 | # | Chantier | Dépend de | État |
 |---|---|---|---|
-| P1 | Maquettes des 4 pages en pointillé (Otakudle One Piece, Otakudle Dragon Ball, module « Daily games » de l'accueil OtakuQuiz, page série Dragon Ball) | | en cours |
-| P2 | Pages des deux jeux de série, en anglais et en français, table de traduction des valeurs | P1 et l'accord du propriétaire | attend P1 |
-| P3 | Données, par scripts : One Piece (100), Dragon Ball (70), idols K2 (200 actives, 150 au minimum), autres séries (582) ; comparaison des sources ; le propriétaire ne lit que les écarts | | One Piece et Dragon Ball en cours |
-| P4 | SQL : les deux jeux de série, la source `fandom` admise, la liste des 200 cibles, L04 et L13 régénérés, fichier K2 | P3 | attend P3 |
-| P5 | Passerelles : les 13 liens du tableau, en anglais et en français ; kpopquiz.org ne montre jamais l'anime | | à lancer |
-| P6 | Volet images de l'admin : téléversement ou lien, licence dans une liste, lecture Commons, refus du non libre ; `/credits` seulement si une image demande un crédit | | à lancer |
+| P1 | Maquettes des 4 pages en pointillé (Otakudle One Piece, Otakudle Dragon Ball, module « Daily games » de l'accueil OtakuQuiz, page série Dragon Ball) | | fait |
+| P2 | Pages des deux jeux de série, en anglais et en français, table de traduction des valeurs | P1 | fait (#194) |
+| P3 | Données, par scripts : One Piece (100), Dragon Ball (70), idols K2 (200 actives, 150 au minimum), autres séries (582) ; comparaison des sources ; le propriétaire ne lit que les écarts | | fait (#191, #192, #193) |
+| P4 | SQL : les deux jeux de série, la source `fandom` admise, la liste des 200 cibles, L04 et L13 régénérés, fichier K2 | P3 | fait (#191, #193) |
+| P5 | Passerelles : les 13 liens du tableau, en anglais et en français ; kpopquiz.org ne montre jamais l'anime | | fait (#195) |
+| P6 | Volet images de l'admin : téléversement ou lien, licence dans une liste, lecture Commons, refus du non libre ; `/credits` seulement si une image demande un crédit | | fait (#190) |
 | P7 | PR du jour J et répétitions des sessions, au fil de l'eau | | en continu |
 
 ## 3. Décisions prises (propriétaire, 02/11)
@@ -42,6 +42,7 @@ Au plus 2 sous-agents à la fois. Les scripts de données tournent en processus 
 - Qualité : deux sources au moins quand c'est possible (Wikidata et Wikipedia d'abord, wikis Fandom pour les faits de fiction, faits seulement). Un jeu part en relecture sous 3 % de conflits, avec 80 % de faits confirmés par deux sources dans chaque colonne.
 - One Piece : « Pas de fruit du démon » comme indice à 5 erreurs pour un personnage sans fruit.
 - ADMIN-2 après le jour J ; avant, seul le volet images, dans l'admin actuel.
+- Otakudle sans « Où en es-tu ? » (03/11) : un seul personnage du jour pour tout le monde, tiré du TOP200 (CR-026).
 
 ## Annexe : les 50 séries
 
