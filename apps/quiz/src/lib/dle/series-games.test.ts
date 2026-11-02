@@ -373,23 +373,24 @@ describe('the real launch files, L04 and L15', () => {
     await db.exec(readLaunch('L15-A2-series-games.sql'));
   });
 
-  it('the facts of the characters L04 has since its regeneration: 100 of 100 and 66 of 70 (the 4 of a GT saga wait), all in the views; 73 and 31 targets', async () => {
+  it('the facts of the characters L04 has since its regeneration: 100 of 100 and 70 of 70 (the GT sagas are arcs now), all in the views; 73 and 48 targets', async () => {
     expect(await count(`from public.character_game_facts where game_id = 'otakudle-one-piece'`)).toBe(100);
-    expect(await count(`from public.character_game_facts where game_id = 'otakudle-dragon-ball'`)).toBe(66);
+    expect(await count(`from public.character_game_facts where game_id = 'otakudle-dragon-ball'`)).toBe(70);
     expect(await count(`from public.dle_src_otakudle_one_piece`)).toBe(100);
-    expect(await count(`from public.dle_src_otakudle_dragon_ball`)).toBe(66);
+    expect(await count(`from public.dle_src_otakudle_dragon_ball`)).toBe(70);
     expect(await count(`from public.dle_src_otakudle_one_piece where can_be_target`)).toBe(73);
-    expect(await count(`from public.dle_src_otakudle_dragon_ball where can_be_target`)).toBe(31);
-    // The 5-error hint is the technique or the voice actor, never neither for a target: 16 characters have neither and none of them is a target.
-    expect(await count(`from public.dle_src_otakudle_dragon_ball where not (hints ? 'signature_technique' or hints ? 'voice_actor_ja')`)).toBe(16);
+    expect(await count(`from public.dle_src_otakudle_dragon_ball where can_be_target`)).toBe(48);
+    // The 5-error hint is the technique or the voice actor, never neither for a target: 2 characters have neither and none of them is a target.
+    expect(await count(`from public.dle_src_otakudle_dragon_ball where not (hints ? 'signature_technique' or hints ? 'voice_actor_ja')`)).toBe(2);
     expect(await count(`from public.dle_src_otakudle_dragon_ball where can_be_target and not (hints ? 'signature_technique' or hints ? 'voice_actor_ja')`)).toBe(0);
   });
 
-  it('the header says what L04 has: all 100 of One Piece, 66 of 70 of Dragon Ball, the 4 of a GT saga waiting; the voice actors are read', () => {
+  it('the header says what L04 has: all 100 of One Piece and all 70 of Dragon Ball, none waiting; the voice actors are read', () => {
     const sql = readLaunch('L15-A2-series-games.sql');
     expect(sql).toMatch(/otakudle-one-piece: 100 characters collected, 100 in L04 and loaded here .*0 waiting/);
-    expect(sql).toMatch(/otakudle-dragon-ball: 70 characters collected, 66 in L04 and loaded here .*4 waiting/);
-    expect(sql).toMatch(/waiting \(slug\): cooler, gogeta, baby, syn-shenron/);
+    expect(sql).toMatch(/otakudle-dragon-ball: 70 characters collected, 70 in L04 and loaded here .*0 waiting/);
+    expect(sql).toMatch(/waiting \(slug\): none/);
+    expect(sql).toMatch(/never a target \(2\): caulifla, kale/);
     expect(sql).toMatch(/voice actors: read from data\/all-series\.json/);
   });
 
@@ -436,9 +437,9 @@ describe('the real launch files, L04 and L15', () => {
 
   it('L14 opens a series game only when its pool is enough: under the minimum both stay off with nothing changed and the other two games open; at the minimums both open; V-L14 and V-024 are ok', async () => {
     await seedIdols(db, 45);
-    // Minimums above the pools (73 and 31 targets): both series games stay off, and neither stops the other two.
+    // Minimums above the pools (73 and 48 targets): both series games stay off, and neither stops the other two.
     await db.query(`update public.dle_games set min_pool = 80 where id = 'otakudle-one-piece'`);
-    await db.query(`update public.dle_games set min_pool = 40 where id = 'otakudle-dragon-ball'`);
+    await db.query(`update public.dle_games set min_pool = 60 where id = 'otakudle-dragon-ball'`);
     await db.exec(readActivation());
     const games = `select id, active, epoch is not null as epoch, (select count(*)::int from public.dle_schedule s where s.game_id = g.id) as days from public.dle_games g order by id`;
     expect(await rows(db, games)).toEqual([
@@ -451,7 +452,7 @@ describe('the real launch files, L04 and L15', () => {
     expect(v.filter((r) => r[0] !== 'ok')).toEqual([]);
     const info = await runCheck(db, 'V-L15.sql');
     expect(info.find((r) => r[1].startsWith('One Piece : cibles'))![2]).toBe('73 cibles, minimum 80, éteint');
-    expect(info.find((r) => r[1].startsWith('Dragon Ball : cibles'))![2]).toBe('31 cibles, minimum 40, éteint');
+    expect(info.find((r) => r[1].startsWith('Dragon Ball : cibles'))![2]).toBe('48 cibles, minimum 60, éteint');
     expect(JSON.stringify(info)).not.toMatch(/Luffy|Goku|Zoro/);
 
     // The minimums of the launch (40 and 30): both open, with a 365 day bank each.

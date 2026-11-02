@@ -12,6 +12,11 @@
 --         hint is removed for launch; character_facts.first_appearance and its L13 data stay, it is just never served).
 --         attrs.seen_at is no column: it holds the answers to "How far are you?" that may see the character (anime, manga, beginner). Only a
 --         character every answer may see can be a target, so the answer of the day never reaches past a player's choice.
+--         Who can be the target (CR-023, owner 2026-11-03): every column of the game and the voice actor hint have a value, the character is seen by
+--         every "How far are you?" answer (above), AND character_facts.featured is true. The first 365 days draw only from the 200 best known characters
+--         (TOP200 of lot A2): L13 sets featured for those 200, the bank of L14 is drawn from them, and everyone else of the pool stays guessable. A year
+--         later the owner widens the draw with one statement, update public.character_facts set featured = true, and the nightly maintenance rebuilds
+--         the bank (it keeps today and the 7 days after it, 019). No engine change: the view's can_be_target is the only place the rule lives.
 --         A licensed 96 px picture when entity_images has one; otherwise null and the client shows the initials.
 -- Why:    Otakudle opens on launch day. Owner decision of 2026-10-30.
 -- When:   session G, right after 022: the tables and the view. The game row needs the anime row of public.sites (dle_games.universe), which only
@@ -48,6 +53,7 @@ create table if not exists public.character_facts (
   role_at_debut text check (role_at_debut in ('main', 'supporting', 'antagonist', 'other')),
   first_appearance text check (char_length(first_appearance) between 1 and 80),
   voice_actor_ja text check (char_length(voice_actor_ja) between 1 and 80),
+  featured boolean not null default false,
   updated_at timestamptz not null default now()
 );
 create table if not exists public.series_facts (
@@ -81,7 +87,7 @@ with first_studio as (
   from public.series s
 ), pool as (
   select c.id, c.name, c.name_native, c.aliases, c.slug,
-    f.gender, f.species, f.role_at_debut, f.first_appearance, f.voice_actor_ja,
+    f.gender, f.species, f.role_at_debut, f.first_appearance, f.voice_actor_ja, f.featured,
     c.debut_medium is distinct from 'manga' as seen_anime,
     c.debut_medium is distinct from 'anime' as seen_manga,
     c.debut_medium is not distinct from 'both' and coalesce(c.debut_arc_ord, 99) <= 2 as seen_beginner,
@@ -117,7 +123,7 @@ select
   (select ei.thumb_path from public.entity_images ei
     where ei.site_id = 'anime' and ei.kind = 'character' and ei.slug = p.series_slug || '/' || p.slug and ei.license_verified and ei.thumb_path is not null) as thumb_path,
   p.series_slug as balance_key,
-  p.seen_anime and p.seen_manga and p.seen_beginner as can_be_target
+  p.featured and p.voice_actor_ja is not null and p.seen_anime and p.seen_manga and p.seen_beginner as can_be_target
 from pool p;
 
 -- A view is readable by anon and authenticated by default on Supabase and runs with its owner's rights unless security_invoker:

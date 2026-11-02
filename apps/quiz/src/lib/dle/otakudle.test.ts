@@ -115,6 +115,8 @@ describe('the rules of the view, on the fixtures', () => {
     expect(await target(byName('Hange Zoe').id)).toBe(false);
     expect(await target(byName('Chihiro Rokuhira').id)).toBe(false);
     expect(await target(byName('Eren Yeager').id)).toBe(true);
+    expect(await target(byName('Rukia Kuchiki').id)).toBe(false);
+    expect(await target(byName('Unfeatured Rival').id)).toBe(false);
     expect(await target(byName('Spoiler Rival').id)).toBe(true);
     expect(await target(byName('Identity Rival').id)).toBe(true);
   });
@@ -260,32 +262,35 @@ describe('the real launch files, L04 and L13', () => {
     await applyLaunchFiles(db);
   });
 
-  it('120 characters in the pool, 118 with the 7 columns, on the 12 series of lot A1; the two without a gender are the two the review named', async () => {
-    expect(await one(db, `select count(*)::int from public.dle_src_anime_character`)).toBe(120);
+  it('750 characters in the pool of the 50 series, 584 with the 7 columns, 113 targets (the TOP200, a voice actor, seen by every answer); the 3 without a gender', async () => {
+    expect(await one(db, `select count(*)::int from public.dle_src_anime_character`)).toBe(750);
     const complete = `from public.dle_src_anime_character s where not exists (select 1 from public.dle_attributes a where a.game_id = 'otakudle' and coalesce(cardinality(public.dle_values(s.attrs -> a.key -> 'v')), 0) = 0)`;
-    expect(await one(db, `select count(*)::int ${complete}`)).toBe(118);
-    expect(await one(db, `select count(*)::int ${complete} and s.can_be_target`)).toBe(118);
-    expect(await one(db, `select count(distinct balance_key)::int from public.dle_src_anime_character`)).toBe(12);
-    expect(await rows(db, `select c.slug from public.dle_src_anime_character v join public.characters c on c.id::text = v.entity_id where v.attrs -> 'gender' ->> 'v' is null order by 1`)).toEqual([{ slug: 'angel-devil' }, { slug: 'hange-zoe' }]);
+    expect(await one(db, `select count(*)::int ${complete}`)).toBe(584);
+    expect(await one(db, `select count(*)::int ${complete} and s.can_be_target`)).toBe(113);
+    expect(await one(db, `select count(distinct balance_key)::int from public.dle_src_anime_character`)).toBe(50);
+    expect(await one(db, `select count(*)::int from public.character_facts where featured`)).toBe(200);
+    // A target is featured and has a voice actor; nobody else is one.
+    expect(await one(db, `select count(*)::int from public.dle_src_anime_character v join public.characters c on c.id::text = v.entity_id join public.character_facts f on f.character_id = c.id where v.can_be_target and (not f.featured or f.voice_actor_ja is null)`)).toBe(0);
+    expect(await rows(db, `select c.slug from public.dle_src_anime_character v join public.characters c on c.id::text = v.entity_id where v.attrs -> 'gender' ->> 'v' is null order by 1`)).toEqual([{ slug: 'hange-zoe' }, { slug: 'kaiju-no-9' }, { slug: 'rimuru-tempest' }]);
   });
 
-  it('without the studio fallback there would be 88, the count of the review: the 30 of One Piece, Naruto, Dragon Ball and Bleach', async () => {
+  it('the studio fallback: the series with no season 1 studio entry (One Piece, Naruto, Dragon Ball, Bleach and others) keep their characters in the game; without it only 348 characters would have the columns', async () => {
     const without = await one<number>(db, `
       select count(*)::int from public.dle_src_anime_character v
       join public.characters c on c.id::text = v.entity_id join public.series s on s.group_id = c.group_id
       where v.attrs -> 'gender' ->> 'v' is not null and v.attrs -> 'species' ->> 'v' is not null and v.attrs -> 'role' ->> 'v' is not null
         and exists (select 1 from jsonb_array_elements(s.studios) e where (e -> 'seasons') @> '[1]'::jsonb)`);
-    expect(without).toBe(88);
+    expect(without).toBe(348);
     const series = await rows<{ slug: string }>(db, `
       select distinct g.slug from public.dle_src_anime_character v join public.characters c on c.id::text = v.entity_id join public.series s on s.group_id = c.group_id join public.groups g on g.id = s.group_id
       where not exists (select 1 from jsonb_array_elements(s.studios) e where (e -> 'seasons') @> '[1]'::jsonb) order by 1`);
-    expect(series.map((x) => x.slug)).toEqual(['bleach', 'dragon-ball', 'naruto', 'one-piece']);
+    expect(series.map((x) => x.slug)).toEqual(expect.arrayContaining(['bleach', 'dragon-ball', 'naruto', 'one-piece']));
   });
 
-  it('the owner\'s departure from the contract, in the data: Goku saiyan, Nezuko demon, Denji hybrid', async () => {
+  it('the owner\'s departure from the contract, in the data: Goku saiyan, Nezuko demon, Denji a devil-human-hybrid (the ruling of 2026-11-03)', async () => {
     expect(await attr('goku', 'species')).toBe('saiyan');
     expect(await attr('nezuko-kamado', 'species')).toBe('demon');
-    expect(await attr('denji', 'species')).toBe('hybrid');
+    expect(await attr('denji', 'species')).toBe('devil-human-hybrid');
   });
 
   it('the studio of the 4 series without seasons, and Pierrot as one studio', async () => {
@@ -296,14 +301,16 @@ describe('the real launch files, L04 and L13', () => {
     expect(await attr('eren-yeager', 'studio')).toEqual(['Wit Studio']);
   });
 
-  it('every character of the pool may be seen at every choice today', async () => {
-    expect(await one(db, `select count(*)::int from public.dle_src_anime_character where attrs -> 'seen_at' -> 'v' = '["anime", "manga", "beginner"]'::jsonb`)).toBe(120);
+  it('467 of the 750 characters may be seen at every choice (the debut arc is data: only those can be the target of the day)', async () => {
+    expect(await one(db, `select count(*)::int from public.dle_src_anime_character where attrs -> 'seen_at' -> 'v' = '["anime", "manga", "beginner"]'::jsonb`)).toBe(467);
   });
 
-  it('V-L13 is ok on every row and says 118', async () => {
+  it('V-L13 is ok on every row and says 584 with the 7 columns, 113 targets', async () => {
     const out = await runCheck(db, 'V-L13.sql');
     expect(out.filter((r) => r[0] !== 'ok')).toEqual([]);
-    expect(out.find((r) => r[1].includes('7 colonnes'))![2]).toBe('118');
+    expect(out.find((r) => r[1].includes('7 colonnes'))![2]).toBe('584');
+    expect(out.find((r) => r[1].startsWith('cibles de otakudle'))![2]).toBe('113');
+    expect(out.find((r) => r[1].startsWith('TOP200'))![2]).toBe('200');
     expect(JSON.stringify(out)).not.toMatch(/Luffy|Goku|Tanjiro/);
   });
 
@@ -326,12 +333,12 @@ describe('the real launch files, L04 and L13', () => {
     await db.exec(readActivation());
     expect(await rows(db, banks)).toEqual(bank);
     expect(await rows(db, games)).toEqual(on);
-    expect(await one(db, `select public.dle_window('otakudle')`)).toBe(82);
-    expect(await breaks(db, 82)).toBe(0);
+    expect(await one(db, `select public.dle_window('otakudle')`)).toBe(79);
+    expect(await breaks(db, 79)).toBe(0);
     const v = await runCheck(db, 'V-L14.sql');
     expect(v.filter((r) => r[0] !== 'ok')).toEqual([]);
     expect(v).toHaveLength(14);
-    expect(v.find((r) => r[1] === 'otakudle : cibles possibles, au moins le minimum du jeu')![2]).toBe('118');
+    expect(v.find((r) => r[1] === 'otakudle : cibles possibles, au moins le minimum du jeu')![2]).toBe('113');
     expect(v.find((r) => r[1] === 'kpopdle-idol : cibles possibles, au moins le minimum du jeu')![2]).toBe('45');
     expect(JSON.stringify(v)).not.toMatch(/Luffy|Goku|Tanjiro|Fixture/);
     expect((await runCheck(db, 'V-023.sql')).filter((r) => r[0] !== 'ok')).toEqual([]);

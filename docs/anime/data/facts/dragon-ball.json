@@ -4134,5 +4134,168 @@
     ],
     "status": "draft",
     "excerpt": "Porunga"
+  },
+  {
+    "id": "dragon-ball-gt-sagas-135",
+    "site": "anime",
+    "entity": {
+      "kind": "series",
+      "group_slug": "dragon-ball"
+    },
+    "field": "gt_sagas",
+    "value": [
+      "Dragon Ball GT: Black Star Dragon Ball Saga (episodes 1 to 16)",
+      "Dragon Ball GT: Baby Saga (episodes 17 to 40)",
+      "Dragon Ball GT: Super Android 17 Saga (episodes 41 to 47)",
+      "Dragon Ball GT: Shadow Dragon Saga (episodes 48 to 64)"
+    ],
+    "category": "history",
+    "load_bearing": true,
+    "spoiler": {
+      "arc": 25,
+      "scope": "anime"
+    },
+    "sources": [
+      {
+        "source": "wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_GT_episodes",
+        "ref": "1382887119",
+        "fetched_at": "2026-11-03T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Black Star Dragon Ball Saga 16 episodes, Baby Saga 24, Super Android 17 Saga 7, Shadow Dragon Saga 17"
+  },
+  {
+    "id": "dragon-ball-cooler-name-136",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "cooler"
+    },
+    "field": "name",
+    "value": "Cooler",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 27,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Cooler",
+        "ref": "2275309",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2520334",
+        "ref": "Q2520334",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Cooler"
+  },
+  {
+    "id": "dragon-ball-gogeta-name-137",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "gogeta"
+    },
+    "field": "name",
+    "value": "Gogeta",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 28,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Gogeta",
+        "ref": "2272262",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q11303567",
+        "ref": "Q11303567",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Gogeta"
+  },
+  {
+    "id": "dragon-ball-baby-name-138",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "baby"
+    },
+    "field": "name",
+    "value": "Baby",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 25,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Baby",
+        "ref": "2274075",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2700252",
+        "ref": "Q2700252",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Baby"
+  },
+  {
+    "id": "dragon-ball-syn-shenron-name-139",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "syn-shenron"
+    },
+    "field": "name",
+    "value": "Syn Shenron",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 28,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Syn_Shenron",
+        "ref": "2273546",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3013011",
+        "ref": "Q3013011",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Syn Shenron"
   }
 ]

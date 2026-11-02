@@ -1537,5 +1537,101 @@
     "status": "verified",
     "verified_at": "2026-10-25T18:52:43.000Z",
     "excerpt": "After the Chimera Ant crisis, the Hunter Association's Zodiacs, including Ging, seek a new chairman"
+  },
+  {
+    "id": "hunter-x-hunter-hisoka-morow-name-051",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "hisoka-morow"
+    },
+    "field": "name",
+    "value": "Hisoka Morow",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://hunterxhunter.fandom.com/wiki/Hisoka_Morow",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2280812",
+        "ref": "Q2280812",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Hisoka Morow"
+  },
+  {
+    "id": "hunter-x-hunter-phinks-magcub-name-052",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "phinks-magcub"
+    },
+    "field": "name",
+    "value": "Phinks Magcub",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://hunterxhunter.fandom.com/wiki/Phinks_Magcub",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q25463142",
+        "ref": "Q25463142",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Phinks Magcub"
+  },
+  {
+    "id": "hunter-x-hunter-zeno-zoldyck-name-053",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "hunter-x-hunter",
+      "ref": "zeno-zoldyck"
+    },
+    "field": "name",
+    "value": "Zeno Zoldyck",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://hunterxhunter.fandom.com/wiki/Zeno_Zoldyck",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q124044860",
+        "ref": "Q124044860",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Zeno Zoldyck"
   }
 ]

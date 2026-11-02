@@ -160,10 +160,10 @@ const sourceOf = (url) => {
 };
 
 // The entity_sources rows of one stored value: one per source (wikidata, wikipedia, fandom), the first page that backs the value.
-export function sourcesOf(field, ch) {
+export function sourcesOf(field, ch, anyPage = false) {
   const rows = new Map();
   for (const s of field.sources ?? []) {
-    if (!s.url || !supports(field.value, s.value)) continue;
+    if (!s.url || !(anyPage || supports(field.value, s.value))) continue;
     const source = sourceOf(s.url);
     if (!source || rows.has(source)) continue;
     let ref = null;

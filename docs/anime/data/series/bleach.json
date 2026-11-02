@@ -526,6 +526,71 @@
       "identity_spoiler": false,
       "ord": 20,
       "status": "published"
+    },
+    {
+      "slug": "toshiro-hitsugaya",
+      "name": "Tōshirō Hitsugaya",
+      "role": "other",
+      "affiliation": "Unknown",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "no_description": true,
+      "spoiler_level": 2,
+      "identity_spoiler": false,
+      "ord": 21,
+      "status": "published"
+    },
+    {
+      "slug": "byakuya-kuchiki",
+      "name": "Byakuya Kuchiki",
+      "role": "other",
+      "affiliation": "Unknown",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "no_description": true,
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 22,
+      "status": "published"
+    },
+    {
+      "slug": "kenpachi-zaraki",
+      "name": "Kenpachi Zaraki",
+      "role": "other",
+      "affiliation": "Unknown",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "no_description": true,
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 23,
+      "status": "published"
+    },
+    {
+      "slug": "mayuri-kurotsuchi",
+      "name": "Mayuri Kurotsuchi",
+      "role": "other",
+      "affiliation": "Unknown",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "no_description": true,
+      "spoiler_level": 2,
+      "identity_spoiler": false,
+      "ord": 24,
+      "status": "published"
+    },
+    {
+      "slug": "ulquiorra-cifer",
+      "name": "Ulquiorra Cifer",
+      "role": "other",
+      "affiliation": "Unknown",
+      "debut_arc_ord": 6,
+      "debut_medium": "both",
+      "no_description": true,
+      "spoiler_level": 6,
+      "identity_spoiler": false,
+      "ord": 25,
+      "status": "published"
     }
   ],
   "themes": [

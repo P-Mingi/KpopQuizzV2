@@ -440,7 +440,7 @@ https://kpopquiz.org/auth/passport/out?to=anime
 ### 51. J4 : L12 (les sites passent en ligne), 023 une seconde fois, puis le SQL du lot A1
 Moi 2 min, Claude 3 min. [RUNBOOK K8](RUNBOOK.md#k-launch-day)
 
-La commande applique L12, vérifie que `kpop`, `anime` et `hub` sont `live`, relance 023 (la ligne du jeu `otakudle`, éteinte : maintenant que le site anime existe), puis le fichier du lot A1 (`L13-A1-character-facts.sql` : les faits des personnages pour Otakudle, après les fichiers de lancement), lance sa vérification (dont 118 personnages avec les 7 colonnes), revérifie tout le contenu et V-S4. Tant que le fichier du lot A1 n'est pas sur main, elle s'arrête sur lui, après L12. Elle relance aussi 024 (les lignes des jeux d'une série, Otakudle One Piece et Otakudle Dragon Ball, éteintes) et applique ensuite `L15-A2-series-games.sql` (leurs faits, pour les personnages que L04 contient).
+La commande applique L12, vérifie que `kpop`, `anime` et `hub` sont `live`, relance 023 (la ligne du jeu `otakudle`, éteinte : maintenant que le site anime existe), puis le fichier du lot A1 (`L13-A1-character-facts.sql` : les faits des 750 personnages d'Otakudle, dont les 200 du TOP200 qui fournissent la première année de réponses, après les fichiers de lancement), lance sa vérification (dont 584 personnages avec les 7 colonnes et 113 cibles), revérifie tout le contenu et V-S4. Tant que le fichier du lot A1 n'est pas sur main, elle s'arrête sur lui, après L12. Elle relance aussi 024 (les lignes des jeux d'une série, Otakudle One Piece et Otakudle Dragon Ball, éteintes) et applique ensuite `L15-A2-series-games.sql` (leurs faits : les 100 personnages de One Piece et les 70 de Dragon Ball).
 ```
 bash docs/launch/o1/session.sh J4
 ```

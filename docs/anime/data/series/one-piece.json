@@ -1166,19 +1166,6 @@
       "status": "published"
     },
     {
-      "slug": "kouzuki-oden",
-      "name": "Kouzuki Oden",
-      "role": "other",
-      "affiliation": "Kouzuki Family",
-      "debut_arc_ord": 42,
-      "debut_medium": "both",
-      "no_description": true,
-      "spoiler_level": 42,
-      "identity_spoiler": false,
-      "ord": 43,
-      "status": "published"
-    },
-    {
       "slug": "silvers-rayleigh",
       "name": "Silvers Rayleigh",
       "role": "other",
@@ -1188,7 +1175,7 @@
       "no_description": true,
       "spoiler_level": 2,
       "identity_spoiler": false,
-      "ord": 44,
+      "ord": 43,
       "status": "published"
     },
     {
@@ -1201,7 +1188,7 @@
       "no_description": true,
       "spoiler_level": 41,
       "identity_spoiler": false,
-      "ord": 45,
+      "ord": 44,
       "status": "published"
     },
     {
@@ -1214,7 +1201,7 @@
       "no_description": true,
       "spoiler_level": 16,
       "identity_spoiler": false,
-      "ord": 46,
+      "ord": 45,
       "status": "published"
     },
     {
@@ -1227,7 +1214,7 @@
       "no_description": true,
       "spoiler_level": 28,
       "identity_spoiler": false,
-      "ord": 47,
+      "ord": 46,
       "status": "published"
     },
     {
@@ -1240,7 +1227,7 @@
       "no_description": true,
       "spoiler_level": 39,
       "identity_spoiler": false,
-      "ord": 48,
+      "ord": 47,
       "status": "published"
     },
     {
@@ -1253,7 +1240,7 @@
       "no_description": true,
       "spoiler_level": 41,
       "identity_spoiler": true,
-      "ord": 49,
+      "ord": 48,
       "status": "published"
     },
     {
@@ -1266,7 +1253,7 @@
       "no_description": true,
       "spoiler_level": 11,
       "identity_spoiler": false,
-      "ord": 50,
+      "ord": 49,
       "status": "published"
     },
     {
@@ -1279,7 +1266,7 @@
       "no_description": true,
       "spoiler_level": 37,
       "identity_spoiler": false,
-      "ord": 51,
+      "ord": 50,
       "status": "published"
     },
     {
@@ -1292,7 +1279,7 @@
       "no_description": true,
       "spoiler_level": 33,
       "identity_spoiler": false,
-      "ord": 52,
+      "ord": 51,
       "status": "published"
     },
     {
@@ -1305,20 +1292,7 @@
       "no_description": true,
       "spoiler_level": 35,
       "identity_spoiler": false,
-      "ord": 53,
-      "status": "published"
-    },
-    {
-      "slug": "polo-marco",
-      "name": "Polo Marco",
-      "role": "other",
-      "affiliation": "None",
-      "debut_arc_ord": 16,
-      "debut_medium": "both",
-      "no_description": true,
-      "spoiler_level": 16,
-      "identity_spoiler": false,
-      "ord": 54,
+      "ord": 52,
       "status": "published"
     },
     {
@@ -1331,7 +1305,7 @@
       "no_description": true,
       "spoiler_level": 16,
       "identity_spoiler": false,
-      "ord": 55,
+      "ord": 53,
       "status": "published"
     },
     {
@@ -1344,7 +1318,7 @@
       "no_description": true,
       "spoiler_level": 35,
       "identity_spoiler": false,
-      "ord": 56,
+      "ord": 54,
       "status": "published"
     },
     {
@@ -1357,7 +1331,7 @@
       "no_description": true,
       "spoiler_level": 28,
       "identity_spoiler": false,
-      "ord": 57,
+      "ord": 55,
       "status": "published"
     },
     {
@@ -1370,7 +1344,7 @@
       "no_description": true,
       "spoiler_level": 10,
       "identity_spoiler": false,
-      "ord": 58,
+      "ord": 56,
       "status": "published"
     },
     {
@@ -1383,7 +1357,7 @@
       "no_description": true,
       "spoiler_level": 5,
       "identity_spoiler": false,
-      "ord": 59,
+      "ord": 57,
       "status": "published"
     },
     {
@@ -1396,20 +1370,7 @@
       "no_description": true,
       "spoiler_level": 19,
       "identity_spoiler": false,
-      "ord": 60,
-      "status": "published"
-    },
-    {
-      "slug": "krieg",
-      "name": "Krieg",
-      "role": "other",
-      "affiliation": "Krieg Pirates",
-      "debut_arc_ord": 4,
-      "debut_medium": "both",
-      "no_description": true,
-      "spoiler_level": 4,
-      "identity_spoiler": false,
-      "ord": 61,
+      "ord": 58,
       "status": "published"
     },
     {
@@ -1422,7 +1383,7 @@
       "no_description": true,
       "spoiler_level": 26,
       "identity_spoiler": false,
-      "ord": 62,
+      "ord": 59,
       "status": "published"
     },
     {
@@ -1435,7 +1396,7 @@
       "no_description": true,
       "spoiler_level": 3,
       "identity_spoiler": false,
-      "ord": 63,
+      "ord": 60,
       "status": "published"
     },
     {
@@ -1448,7 +1409,7 @@
       "no_description": true,
       "spoiler_level": 33,
       "identity_spoiler": false,
-      "ord": 64,
+      "ord": 61,
       "status": "published"
     },
     {
@@ -1461,7 +1422,7 @@
       "no_description": true,
       "spoiler_level": 30,
       "identity_spoiler": false,
-      "ord": 65,
+      "ord": 62,
       "status": "published"
     },
     {
@@ -1474,7 +1435,7 @@
       "no_description": true,
       "spoiler_level": 41,
       "identity_spoiler": false,
-      "ord": 66,
+      "ord": 63,
       "status": "published"
     },
     {
@@ -1487,7 +1448,7 @@
       "no_description": true,
       "spoiler_level": 37,
       "identity_spoiler": false,
-      "ord": 67,
+      "ord": 64,
       "status": "published"
     },
     {
@@ -1500,7 +1461,7 @@
       "no_description": true,
       "spoiler_level": 41,
       "identity_spoiler": false,
-      "ord": 68,
+      "ord": 65,
       "status": "published"
     },
     {
@@ -1513,7 +1474,7 @@
       "no_description": true,
       "spoiler_level": 33,
       "identity_spoiler": false,
-      "ord": 69,
+      "ord": 66,
       "status": "published"
     },
     {
@@ -1526,7 +1487,7 @@
       "no_description": true,
       "spoiler_level": 6,
       "identity_spoiler": false,
-      "ord": 70,
+      "ord": 67,
       "status": "published"
     },
     {
@@ -1539,7 +1500,7 @@
       "no_description": true,
       "spoiler_level": 37,
       "identity_spoiler": false,
-      "ord": 71,
+      "ord": 68,
       "status": "published"
     },
     {
@@ -1552,7 +1513,7 @@
       "no_description": true,
       "spoiler_level": 22,
       "identity_spoiler": false,
-      "ord": 72,
+      "ord": 69,
       "status": "published"
     },
     {
@@ -1565,7 +1526,7 @@
       "no_description": true,
       "spoiler_level": 37,
       "identity_spoiler": false,
-      "ord": 73,
+      "ord": 70,
       "status": "published"
     },
     {
@@ -1578,7 +1539,7 @@
       "no_description": true,
       "spoiler_level": 39,
       "identity_spoiler": false,
-      "ord": 74,
+      "ord": 71,
       "status": "published"
     },
     {
@@ -1591,7 +1552,7 @@
       "no_description": true,
       "spoiler_level": 0,
       "identity_spoiler": false,
-      "ord": 75,
+      "ord": 72,
       "status": "published"
     },
     {
@@ -1604,7 +1565,7 @@
       "no_description": true,
       "spoiler_level": 41,
       "identity_spoiler": false,
-      "ord": 76,
+      "ord": 73,
       "status": "published"
     },
     {
@@ -1617,7 +1578,7 @@
       "no_description": true,
       "spoiler_level": 32,
       "identity_spoiler": false,
-      "ord": 77,
+      "ord": 74,
       "status": "published"
     },
     {
@@ -1630,7 +1591,7 @@
       "no_description": true,
       "spoiler_level": 28,
       "identity_spoiler": false,
-      "ord": 78,
+      "ord": 75,
       "status": "published"
     },
     {
@@ -1643,7 +1604,7 @@
       "no_description": true,
       "spoiler_level": 16,
       "identity_spoiler": false,
-      "ord": 79,
+      "ord": 76,
       "status": "published"
     },
     {
@@ -1656,7 +1617,7 @@
       "no_description": true,
       "spoiler_level": 37,
       "identity_spoiler": false,
-      "ord": 80,
+      "ord": 77,
       "status": "published"
     },
     {
@@ -1669,7 +1630,7 @@
       "no_description": true,
       "spoiler_level": 39,
       "identity_spoiler": false,
-      "ord": 81,
+      "ord": 78,
       "status": "published"
     },
     {
@@ -1682,7 +1643,7 @@
       "no_description": true,
       "spoiler_level": 37,
       "identity_spoiler": false,
-      "ord": 82,
+      "ord": 79,
       "status": "published"
     },
     {
@@ -1695,20 +1656,7 @@
       "no_description": true,
       "spoiler_level": 30,
       "identity_spoiler": false,
-      "ord": 83,
-      "status": "published"
-    },
-    {
-      "slug": "kouzuki-hiyori",
-      "name": "Kouzuki Hiyori",
-      "role": "other",
-      "affiliation": "Kouzuki Family",
-      "debut_arc_ord": 42,
-      "debut_medium": "both",
-      "no_description": true,
-      "spoiler_level": 42,
-      "identity_spoiler": false,
-      "ord": 84,
+      "ord": 80,
       "status": "published"
     },
     {
@@ -1721,7 +1669,7 @@
       "no_description": true,
       "spoiler_level": 28,
       "identity_spoiler": false,
-      "ord": 85,
+      "ord": 81,
       "status": "published"
     },
     {
@@ -1734,7 +1682,7 @@
       "no_description": true,
       "spoiler_level": 33,
       "identity_spoiler": false,
-      "ord": 86,
+      "ord": 82,
       "status": "published"
     },
     {
@@ -1747,7 +1695,7 @@
       "no_description": true,
       "spoiler_level": 28,
       "identity_spoiler": false,
-      "ord": 87,
+      "ord": 83,
       "status": "published"
     },
     {
@@ -1760,7 +1708,7 @@
       "no_description": true,
       "spoiler_level": 41,
       "identity_spoiler": false,
-      "ord": 88,
+      "ord": 84,
       "status": "published"
     },
     {
@@ -1773,7 +1721,7 @@
       "no_description": true,
       "spoiler_level": 37,
       "identity_spoiler": false,
-      "ord": 89,
+      "ord": 85,
       "status": "published"
     },
     {
@@ -1786,7 +1734,7 @@
       "no_description": true,
       "spoiler_level": 41,
       "identity_spoiler": false,
-      "ord": 90,
+      "ord": 86,
       "status": "published"
     },
     {
@@ -1799,7 +1747,7 @@
       "no_description": true,
       "spoiler_level": 41,
       "identity_spoiler": false,
-      "ord": 91,
+      "ord": 87,
       "status": "published"
     },
     {
@@ -1812,7 +1760,7 @@
       "no_description": true,
       "spoiler_level": 0,
       "identity_spoiler": false,
-      "ord": 92,
+      "ord": 88,
       "status": "published"
     },
     {
@@ -1825,7 +1773,7 @@
       "no_description": true,
       "spoiler_level": 37,
       "identity_spoiler": false,
-      "ord": 93,
+      "ord": 89,
       "status": "published"
     },
     {
@@ -1838,7 +1786,7 @@
       "no_description": true,
       "spoiler_level": 44,
       "identity_spoiler": false,
-      "ord": 94,
+      "ord": 90,
       "status": "published"
     },
     {
@@ -1851,7 +1799,7 @@
       "no_description": true,
       "spoiler_level": 12,
       "identity_spoiler": false,
-      "ord": 95,
+      "ord": 91,
       "status": "published"
     },
     {
@@ -1864,7 +1812,7 @@
       "no_description": true,
       "spoiler_level": 37,
       "identity_spoiler": false,
-      "ord": 96,
+      "ord": 92,
       "status": "published"
     },
     {
@@ -1877,7 +1825,7 @@
       "no_description": true,
       "spoiler_level": 37,
       "identity_spoiler": false,
-      "ord": 97,
+      "ord": 93,
       "status": "published"
     },
     {
@@ -1890,7 +1838,7 @@
       "no_description": true,
       "spoiler_level": 37,
       "identity_spoiler": false,
-      "ord": 98,
+      "ord": 94,
       "status": "published"
     },
     {
@@ -1903,7 +1851,7 @@
       "no_description": true,
       "spoiler_level": 41,
       "identity_spoiler": false,
-      "ord": 99,
+      "ord": 95,
       "status": "published"
     },
     {
@@ -1915,6 +1863,58 @@
       "debut_medium": "both",
       "no_description": true,
       "spoiler_level": 41,
+      "identity_spoiler": false,
+      "ord": 96,
+      "status": "published"
+    },
+    {
+      "slug": "kozuki-oden",
+      "name": "Kozuki Oden",
+      "role": "other",
+      "affiliation": "Kouzuki Family",
+      "debut_arc_ord": 42,
+      "debut_medium": "both",
+      "no_description": true,
+      "spoiler_level": 42,
+      "identity_spoiler": false,
+      "ord": 97,
+      "status": "published"
+    },
+    {
+      "slug": "marco",
+      "name": "Marco",
+      "role": "other",
+      "affiliation": "None",
+      "debut_arc_ord": 16,
+      "debut_medium": "both",
+      "no_description": true,
+      "spoiler_level": 16,
+      "identity_spoiler": false,
+      "ord": 98,
+      "status": "published"
+    },
+    {
+      "slug": "don-krieg",
+      "name": "Don Krieg",
+      "role": "other",
+      "affiliation": "Krieg Pirates",
+      "debut_arc_ord": 4,
+      "debut_medium": "both",
+      "no_description": true,
+      "spoiler_level": 4,
+      "identity_spoiler": false,
+      "ord": 99,
+      "status": "published"
+    },
+    {
+      "slug": "kozuki-hiyori",
+      "name": "Kozuki Hiyori",
+      "role": "other",
+      "affiliation": "Kouzuki Family",
+      "debut_arc_ord": 42,
+      "debut_medium": "both",
+      "no_description": true,
+      "spoiler_level": 42,
       "identity_spoiler": false,
       "ord": 100,
       "status": "published"

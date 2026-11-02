@@ -261,6 +261,46 @@
       "source_url": "https://en.wikipedia.org/wiki/Dragon_Ball_Daima",
       "status": "published",
       "anime_only": true
+    },
+    {
+      "ord": 25,
+      "name": "Dragon Ball GT: Black Star Dragon Ball Saga",
+      "kind": "saga",
+      "episode_from": 1,
+      "episode_to": 16,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_GT_episodes",
+      "status": "published",
+      "anime_only": true
+    },
+    {
+      "ord": 26,
+      "name": "Dragon Ball GT: Baby Saga",
+      "kind": "saga",
+      "episode_from": 17,
+      "episode_to": 40,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_GT_episodes",
+      "status": "published",
+      "anime_only": true
+    },
+    {
+      "ord": 27,
+      "name": "Dragon Ball GT: Super Android 17 Saga",
+      "kind": "saga",
+      "episode_from": 41,
+      "episode_to": 47,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_GT_episodes",
+      "status": "published",
+      "anime_only": true
+    },
+    {
+      "ord": 28,
+      "name": "Dragon Ball GT: Shadow Dragon Saga",
+      "kind": "saga",
+      "episode_from": 48,
+      "episode_to": 64,
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_GT_episodes",
+      "status": "published",
+      "anime_only": true
     }
   ],
   "characters": [
@@ -1180,6 +1220,58 @@
       "spoiler_level": 12,
       "identity_spoiler": false,
       "ord": 66,
+      "status": "published"
+    },
+    {
+      "slug": "cooler",
+      "name": "Cooler",
+      "role": "antagonist",
+      "affiliation": "Cooler Force",
+      "debut_arc_ord": 27,
+      "debut_medium": "anime",
+      "no_description": true,
+      "spoiler_level": 27,
+      "identity_spoiler": false,
+      "ord": 67,
+      "status": "published"
+    },
+    {
+      "slug": "gogeta",
+      "name": "Gogeta",
+      "role": "other",
+      "affiliation": "Dragon Team",
+      "debut_arc_ord": 28,
+      "debut_medium": "anime",
+      "no_description": true,
+      "spoiler_level": 28,
+      "identity_spoiler": false,
+      "ord": 68,
+      "status": "published"
+    },
+    {
+      "slug": "baby",
+      "name": "Baby",
+      "role": "antagonist",
+      "affiliation": "Tuffle Parasites",
+      "debut_arc_ord": 25,
+      "debut_medium": "anime",
+      "no_description": true,
+      "spoiler_level": 25,
+      "identity_spoiler": false,
+      "ord": 69,
+      "status": "published"
+    },
+    {
+      "slug": "syn-shenron",
+      "name": "Syn Shenron",
+      "role": "antagonist",
+      "affiliation": "Shadow Dragon",
+      "debut_arc_ord": 28,
+      "debut_medium": "anime",
+      "no_description": true,
+      "spoiler_level": 28,
+      "identity_spoiler": false,
+      "ord": 70,
       "status": "published"
     }
   ],

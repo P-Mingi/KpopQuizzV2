@@ -3190,39 +3190,6 @@
     "excerpt": "Arlong"
   },
   {
-    "id": "one-piece-kouzuki-oden-name-099",
-    "site": "anime",
-    "entity": {
-      "kind": "character",
-      "group_slug": "one-piece",
-      "ref": "kouzuki-oden"
-    },
-    "field": "name",
-    "value": "Kouzuki Oden",
-    "category": "members",
-    "load_bearing": false,
-    "spoiler": {
-      "arc": 42,
-      "scope": "both"
-    },
-    "sources": [
-      {
-        "source": "fandom",
-        "url": "https://onepiece.fandom.com/wiki/Kouzuki_Oden",
-        "ref": "2026324",
-        "fetched_at": "2026-11-02T00:00:00Z"
-      },
-      {
-        "source": "wikidata",
-        "url": "https://www.wikidata.org/wiki/Q105462372",
-        "ref": "Q105462372",
-        "fetched_at": "2026-11-02T00:00:00Z"
-      }
-    ],
-    "status": "draft",
-    "excerpt": "Kouzuki Oden"
-  },
-  {
     "id": "one-piece-silvers-rayleigh-name-100",
     "site": "anime",
     "entity": {
@@ -3553,39 +3520,6 @@
     "excerpt": "Vegapunk"
   },
   {
-    "id": "one-piece-polo-marco-name-110",
-    "site": "anime",
-    "entity": {
-      "kind": "character",
-      "group_slug": "one-piece",
-      "ref": "polo-marco"
-    },
-    "field": "name",
-    "value": "Polo Marco",
-    "category": "members",
-    "load_bearing": false,
-    "spoiler": {
-      "arc": 16,
-      "scope": "both"
-    },
-    "sources": [
-      {
-        "source": "fandom",
-        "url": "https://onepiece.fandom.com/wiki/Polo_Marco",
-        "ref": "2023141",
-        "fetched_at": "2026-11-02T00:00:00Z"
-      },
-      {
-        "source": "wikidata",
-        "url": "https://www.wikidata.org/wiki/Q54871031",
-        "ref": "Q54871031",
-        "fetched_at": "2026-11-02T00:00:00Z"
-      }
-    ],
-    "status": "draft",
-    "excerpt": "Polo Marco"
-  },
-  {
     "id": "one-piece-bellamy-name-111",
     "site": "anime",
     "entity": {
@@ -3782,39 +3716,6 @@
     ],
     "status": "draft",
     "excerpt": "Foxy"
-  },
-  {
-    "id": "one-piece-krieg-name-117",
-    "site": "anime",
-    "entity": {
-      "kind": "character",
-      "group_slug": "one-piece",
-      "ref": "krieg"
-    },
-    "field": "name",
-    "value": "Krieg",
-    "category": "members",
-    "load_bearing": false,
-    "spoiler": {
-      "arc": 4,
-      "scope": "both"
-    },
-    "sources": [
-      {
-        "source": "fandom",
-        "url": "https://onepiece.fandom.com/wiki/Krieg",
-        "ref": "2025613",
-        "fetched_at": "2026-11-02T00:00:00Z"
-      },
-      {
-        "source": "wikidata",
-        "url": "https://www.wikidata.org/wiki/Q6303909",
-        "ref": "Q6303909",
-        "fetched_at": "2026-11-02T00:00:00Z"
-      }
-    ],
-    "status": "draft",
-    "excerpt": "Krieg"
   },
   {
     "id": "one-piece-perona-name-118",
@@ -4543,39 +4444,6 @@
     "excerpt": "Shiki"
   },
   {
-    "id": "one-piece-kouzuki-hiyori-name-140",
-    "site": "anime",
-    "entity": {
-      "kind": "character",
-      "group_slug": "one-piece",
-      "ref": "kouzuki-hiyori"
-    },
-    "field": "name",
-    "value": "Kouzuki Hiyori",
-    "category": "members",
-    "load_bearing": false,
-    "spoiler": {
-      "arc": 42,
-      "scope": "both"
-    },
-    "sources": [
-      {
-        "source": "fandom",
-        "url": "https://onepiece.fandom.com/wiki/Kouzuki_Hiyori",
-        "ref": "2026226",
-        "fetched_at": "2026-11-02T00:00:00Z"
-      },
-      {
-        "source": "wikidata",
-        "url": "https://www.wikidata.org/wiki/Q97440812",
-        "ref": "Q97440812",
-        "fetched_at": "2026-11-02T00:00:00Z"
-      }
-    ],
-    "status": "draft",
-    "excerpt": "Kouzuki Hiyori"
-  },
-  {
     "id": "one-piece-killer-name-141",
     "site": "anime",
     "entity": {
@@ -5102,5 +4970,137 @@
     ],
     "status": "draft",
     "excerpt": "Charlotte Cracker"
+  },
+  {
+    "id": "one-piece-kozuki-oden-name-157",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "kozuki-oden"
+    },
+    "field": "name",
+    "value": "Kozuki Oden",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 42,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Kouzuki_Oden",
+        "ref": "2026324",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q105462372",
+        "ref": "Q105462372",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kouzuki Oden"
+  },
+  {
+    "id": "one-piece-marco-name-158",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "marco"
+    },
+    "field": "name",
+    "value": "Marco",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 16,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Polo_Marco",
+        "ref": "2023141",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q54871031",
+        "ref": "Q54871031",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Polo Marco"
+  },
+  {
+    "id": "one-piece-don-krieg-name-159",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "don-krieg"
+    },
+    "field": "name",
+    "value": "Don Krieg",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Krieg",
+        "ref": "2025613",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q6303909",
+        "ref": "Q6303909",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Krieg"
+  },
+  {
+    "id": "one-piece-kozuki-hiyori-name-160",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "kozuki-hiyori"
+    },
+    "field": "name",
+    "value": "Kozuki Hiyori",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 42,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Kouzuki_Hiyori",
+        "ref": "2026226",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q97440812",
+        "ref": "Q97440812",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kouzuki Hiyori"
   }
 ]

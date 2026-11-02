@@ -148,8 +148,8 @@ reopen grant to
 part J4 1 "V-S4 : une des 28 fonctions" $STAND
 reopen revoke from
 part J4 0 "terminée : tout est OK" $STAND
-# Otakudle on the real L04 and L13: 118 targets, the 4 series without seasons counted (CR-017; 88 without the studio fallback).
-part J4 0 "ok | personnages avec les 7 colonnes (information) | 118" $STAND
+# Otakudle on the real L04 and L13 (the 750 characters of the 50 series, CR-023): 584 with the 7 columns, 113 targets (the TOP200 with a voice actor, seen by every answer).
+part J4 0 "ok | personnages avec les 7 colonnes (information) | 584" $STAND
 # The launch-day activation, twice: the second run must leave the epoch and the bank alone. Then J4 once more: running a part again after it stays a no-op.
 # Production's schema copy has no idol row, so the real 021a stores nothing here and the real idol pool cannot be proven in this rehearsal (87 and 108 come from the production snapshot of the lots).
 # What can be proven: with no idol L14 stops and names the game, and neither game changes; then, on stand-in idols written here, the step, its check and a second run.
@@ -163,7 +163,7 @@ select (select id from public.groups where slug = 'stand-in-' || (1 + i % 6)), '
 from generate_series(1, 60) as i;
 SQL
 part J5 0 "ok | otakudle : la banque tient 365 jours | 365"
-part J5 0 "ok | kpopdle-idol : la banque tient 365 jours | 365"; again J5 0 "ok | otakudle : cibles possibles, au moins le minimum du jeu | 118"
+part J5 0 "ok | kpopdle-idol : la banque tient 365 jours | 365"; again J5 0 "ok | otakudle : cibles possibles, au moins le minimum du jeu | 113"
 part J5 0 "ok | dle_day kpopdle-idol répond"
 part J4 0 "terminée : tout est OK" $STAND
 leaks="$(cat "$WORK"/out-*.txt | grep -v '^Journal complet' | grep -ciE '@|[0-9a-f]{8}-[0-9a-f]{4}-' || true)"
