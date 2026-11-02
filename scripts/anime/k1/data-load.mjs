@@ -332,7 +332,7 @@ export function renderDataSql(plan) {
   out.push(...upsert('characters',
     ['group_id', 'slug', 'name', 'name_native', 'aliases', 'role', 'affiliation', 'debut_arc_ord', 'debut_medium', 'description', 'source_url', 'spoiler_level', 'identity_spoiler', 'ord', 'status'],
     plan.characters.map(({ slug, row: c }) => [groupId(slug), c.slug, c.name, str(c.name_native), textArray(c.aliases), c.role, str(c.affiliation), num(c.debut_arc_ord), str(c.debut_medium),
-      c.description, str(c.source_url), c.spoiler_level, c.identity_spoiler === true, c.ord, c.status]),
+      str(c.description), str(c.source_url), c.spoiler_level, c.identity_spoiler === true, c.ord, c.status]),
     ['group_id', 'slug']));
 
   out.push(...upsert('series_themes', ['group_id', 'kind', 'number', 'title', 'artist', 'season', 'idol_sung', 'deezer_playable', 'source_url', 'status'],

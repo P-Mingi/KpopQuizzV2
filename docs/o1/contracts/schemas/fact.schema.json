@@ -46,12 +46,13 @@
         "additionalProperties": false,
         "required": ["source", "url", "fetched_at"],
         "properties": {
-          "source": { "$comment": "entity_sources_source_check after 011. fandom (CR-023) is for the per-series daily games (facts of a fiction, L15); the host rule of sourceUrl still refuses fandom.com in a fact file.", "enum": ["wikidata", "musicbrainz", "wikipedia", "official", "fandom"] },
-          "url": { "$ref": "common.schema.json#/$defs/sourceUrl" },
+          "source": { "$comment": "entity_sources_source_check after 011. fandom (CR-023) is for the facts of a fiction: a character fact only, with a *.fandom.com address; every other source and fact keeps the strict sourceUrl (fandom.com refused).", "enum": ["wikidata", "musicbrainz", "wikipedia", "official", "fandom"] },
+          "url": { "$comment": "Checked below: a fandom source takes a *.fandom.com address (sourceUrlFandom), any other source the strict sourceUrl.", "type": "string", "maxLength": 500 },
           "ref": { "type": "string", "minLength": 1, "maxLength": 80 },
           "fetched_at": { "$ref": "common.schema.json#/$defs/isoDateTime" }
         },
         "allOf": [
+          { "if": { "properties": { "source": { "const": "fandom" } } }, "then": { "properties": { "url": { "$ref": "common.schema.json#/$defs/sourceUrlFandom" } } }, "else": { "properties": { "url": { "$ref": "common.schema.json#/$defs/sourceUrl" } } } },
           { "if": { "properties": { "source": { "const": "wikipedia" } } }, "then": { "required": ["ref"], "properties": { "ref": { "$comment": "The revision id read.", "pattern": "^[0-9]{1,12}$" } } } },
           { "if": { "properties": { "source": { "const": "wikidata" } }, "required": ["ref"] }, "then": { "properties": { "ref": { "pattern": "^Q[0-9]+$" } } } },
           { "if": { "properties": { "source": { "const": "musicbrainz" } }, "required": ["ref"] }, "then": { "properties": { "ref": { "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" } } } }
@@ -62,6 +63,7 @@
     "verified_at": { "$ref": "common.schema.json#/$defs/isoDateTime" }
   },
   "allOf": [
+    { "$comment": "CR-023: a source fandom (a Fandom wiki, for the facts of a fiction) is for the facts of a character only.", "if": { "properties": { "entity": { "properties": { "kind": { "enum": ["series", "arc", "theme", "episode"] } } } } }, "then": { "properties": { "sources": { "items": { "properties": { "source": { "not": { "const": "fandom" } } } } } } } },
     { "if": { "properties": { "status": { "const": "verified" } } }, "then": { "required": ["verified_at"] } },
     {
       "$comment": "S 2.8 and C2: a verified load-bearing fact has two sources, one of them Wikidata or official.",

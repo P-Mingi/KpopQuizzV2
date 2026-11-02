@@ -19,10 +19,10 @@
 --         (owner decision of 2026-11-03: too few heights, the column is removed). Hints: at 5 errors the signature technique when the character has one,
 --         else the Japanese voice actor (the view puts exactly one of the two keys in hints, so the hint is never empty; both keys open at 5 and the
 --         engine serves the one that is there); the initial at 10 (hint_keys {signature_technique,voice_actor_ja,initial}, hint_after {5,5,10}).
---         The pool of a view: the characters the facts table holds for the game, published, identity_spoiler false, in a published series of the
---         game (groups.slug one-piece or dragon-ball, site anime). characters.spoiler_level is NOT read (unlike 023): these games belong to
---         one series, the facts stop at the reference point of the data (One Piece: the Egghead arc, the last arc finished in the anime; Dragon
---         Ball: Daima), and spoiler_level 0 would leave only the characters of the first arc. A player picks the series game knowing the series.
+--         The pool of a view: the characters the facts table holds for the game, published, in a published series of the game (groups.slug
+--         one-piece or dragon-ball, site anime). Neither characters.spoiler_level nor identity_spoiler excludes a character (owner, 2026-11-02, CR-023:
+--         only the columns describe the character as first met). The facts stop at the reference point of the data (One Piece: the Egghead arc, the
+--         last arc finished in the anime; Dragon Ball: Daima), and a player picks the series game knowing the series.
 --         can_be_target: the flag of the facts row (the generator sets it only when every column and the 5-error hint have a value; a Dragon Ball
 --         character with neither a technique nor a voice actor is not a target) and the hint present,
 --         and the engine requires every column of dle_attributes to hold a value. A picture only when entity_images (site anime, kind character,
@@ -94,7 +94,7 @@ from public.character_game_facts f
 join public.characters c on c.id = f.character_id
 join public.groups g on g.id = c.group_id and g.site_id = 'anime' and g.slug = 'one-piece'
 join public.series s on s.group_id = g.id and s.published
-where f.game_id = 'otakudle-one-piece' and c.status = 'published' and not c.identity_spoiler;
+where f.game_id = 'otakudle-one-piece' and c.status = 'published';
 
 -- Dragon Ball. The 5-error hint: the signature technique, else the Japanese voice actor, never both (the facts may hold both).
 create or replace view public.dle_src_otakudle_dragon_ball with (security_invoker = true) as
@@ -116,20 +116,23 @@ from public.character_game_facts f
 join public.characters c on c.id = f.character_id
 join public.groups g on g.id = c.group_id and g.site_id = 'anime' and g.slug = 'dragon-ball'
 join public.series s on s.group_id = g.id and s.published
-where f.game_id = 'otakudle-dragon-ball' and c.status = 'published' and not c.identity_spoiler;
+where f.game_id = 'otakudle-dragon-ball' and c.status = 'published';
 
 -- A view is readable by anon and authenticated by default on Supabase and runs with its owner's rights unless security_invoker:
 -- only the dle functions (as their owner) and the service role read them.
 revoke all on table public.dle_src_otakudle_one_piece, public.dle_src_otakudle_dragon_ball from public, anon, authenticated;
 grant select on table public.dle_src_otakudle_one_piece, public.dle_src_otakudle_dragon_ball to service_role;
 
+-- no_repeat_days is 30 and 14 (the other games use 120): the bank of 019 draws 365 days by blocks and, when the window is close to 70 % of the
+-- targets, the draw can fail 20 times in a row (measured on PGlite: 73 targets with a window of 51, 61 with 42, 53 with 37, 31 with 21 fail
+-- more often than not). A window of 30 holds from 43 targets up, a window of 14 for every pool from 28 to 117 in the measures.
 -- The games: only once L01 added the anime site (dle_games.universe). Never touches a row that is already there, so a run after the activation changes nothing.
 insert into public.dle_games (id, universe, entity_kind, source_view, no_repeat_days, min_pool, hint_keys, hint_after, active)
-select g.id, 'anime', 'character', g.source_view, 120, g.min_pool, g.hint_keys, g.hint_after, false
+select g.id, 'anime', 'character', g.source_view, g.no_repeat_days, g.min_pool, g.hint_keys, g.hint_after, false
 from (values
-  ('otakudle-one-piece', 'dle_src_otakudle_one_piece', 40, '{devil_fruit_name,initial}'::text[], '{5,10}'::integer[]),
-  ('otakudle-dragon-ball', 'dle_src_otakudle_dragon_ball', 30, '{signature_technique,voice_actor_ja,initial}'::text[], '{5,5,10}'::integer[])
-) as g(id, source_view, min_pool, hint_keys, hint_after)
+  ('otakudle-one-piece', 'dle_src_otakudle_one_piece', 30, 40, '{devil_fruit_name,initial}'::text[], '{5,10}'::integer[]),
+  ('otakudle-dragon-ball', 'dle_src_otakudle_dragon_ball', 14, 30, '{signature_technique,voice_actor_ja,initial}'::text[], '{5,5,10}'::integer[])
+) as g(id, source_view, no_repeat_days, min_pool, hint_keys, hint_after)
 where exists (select 1 from public.sites where id = 'anime')
 on conflict (id) do nothing;
 
@@ -157,7 +160,7 @@ from (values
 where exists (select 1 from public.dle_games g where g.id = a.game_id)
 on conflict (game_id, key) do nothing;
 
--- Self-check: closed to the browser roles, the games (when they are there) complete, the pool rules in the views.
+-- Self-check: closed to the browser roles, the games (when they are there) complete, the published rule in the views.
 do $$
 declare
   n integer;
@@ -185,8 +188,9 @@ begin
       raise exception '024-dle-series-games: otakudle-dragon-ball does not have 8 columns (%)', n;
     end if;
   end if;
-  if pg_get_viewdef('public.dle_src_otakudle_one_piece'::regclass) !~ 'identity_spoiler' or pg_get_viewdef('public.dle_src_otakudle_dragon_ball'::regclass) !~ 'identity_spoiler' then
-    raise exception '024-dle-series-games: a view lost its identity_spoiler rule';
+  if pg_get_viewdef('public.dle_src_otakudle_one_piece'::regclass) !~ 'published' or pg_get_viewdef('public.dle_src_otakudle_dragon_ball'::regclass) !~ 'published'
+    or pg_get_viewdef('public.dle_src_otakudle_one_piece'::regclass) ~ 'identity_spoiler|spoiler_level' or pg_get_viewdef('public.dle_src_otakudle_dragon_ball'::regclass) ~ 'identity_spoiler|spoiler_level' then
+    raise exception '024-dle-series-games: a view lost its published rule, or filters on a spoiler';
   end if;
 end $$;
 

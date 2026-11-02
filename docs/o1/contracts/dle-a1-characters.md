@@ -58,8 +58,9 @@ Value rules:
 - `voice_actor_ja`: the Japanese voice actor of the first adaptation, as written in the credits (romanized).
 - `demographic`: the magazine's demographic of the original work; `none` for an anime original or a webtoon.
 
-Which characters: `characters.status = 'published'`, `spoiler_level = 0` and `identity_spoiler = false` only. A row for any other character is
-never read (the view leaves it out) and the check below counts it as an error.
+Which characters: `characters.status = 'published'` only (owner, 2026-11-02, CR-023: `spoiler_level` and `identity_spoiler` no longer exclude a character; the values describe
+the character as first met, and the debut arc stays as data: the "How far are you?" answers still decide which characters can be the target of the day). A row for a draft
+is never read (the view leaves it out) and the check below counts it as an error.
 
 ## 3. The file
 
@@ -88,7 +89,7 @@ Read only. Each row is ok or KO and a count, never a name.
 begin transaction read only;
 select case when ok is true then 'ok' else 'KO' end, what, coalesce(got, '-') from (values
   (1, 'démographie : les 50 séries de lancement', (select count(*) = 50 from public.series_facts f join public.groups g on g.id = f.group_id where g.site_id = 'anime'), (select count(*)::text from public.series_facts)),
-  (2, 'faits de personnages hors du pool (brouillon, spoiler) : 0', (select count(*) = 0 from public.character_facts f join public.characters c on c.id = f.character_id where c.status <> 'published' or c.spoiler_level > 0 or c.identity_spoiler), null),
+  (2, 'faits de personnages hors du pool (brouillon) : 0', (select count(*) = 0 from public.character_facts f join public.characters c on c.id = f.character_id where c.status <> 'published'), null),
   (3, 'valeurs sans source : 0', (select count(*) = 0 from public.character_facts f join public.characters c on c.id = f.character_id, lateral (values ('gender', f.gender), ('species', f.species), ('role_at_debut', f.role_at_debut)) v(field, val) where v.val is not null and not exists (select 1 from public.entity_sources s where s.entity_type = 'character' and s.entity_id = c.slug and s.field = v.field)), null),
   (4, 'personnages avec les 7 colonnes (information)', true, (select count(*)::text from public.dle_src_anime_character s where not exists (select 1 from public.dle_attributes a where a.game_id = 'otakudle' and coalesce(cardinality(public.dle_values(s.attrs -> a.key -> 'v')), 0) = 0))),
   (5, 'le pool atteint le minimum de otakudle', (select count(*) >= (select min_pool from public.dle_games where id = 'otakudle') from public.dle_src_anime_character s where not exists (select 1 from public.dle_attributes a where a.game_id = 'otakudle' and coalesce(cardinality(public.dle_values(s.attrs -> a.key -> 'v')), 0) = 0)), null)
@@ -96,7 +97,7 @@ select case when ok is true then 'ok' else 'KO' end, what, coalesce(got, '-') fr
 rollback;
 ```
 
-`session.sh J4` then runs the launch counts again (`content-verify.sql` must not move) and V-S4. Otakudle is activated on launch day after
+`session.sh J4` then runs the launch counts again (`content-verify.sql` must not move) and V-S4. (CR-023 changed row 2: only a draft is out of the pool.) Otakudle is activated on launch day after
 these files, by O1's step (never by A1's file).
 
 ## 5. Changes
@@ -129,10 +130,10 @@ Two more games on the same engine, one series each: `otakudle-one-piece` (page `
 Dragon Ball has no height (owner, 2026-11-03). Hints: One Piece, the Devil Fruit name after 5 errors ("No Devil Fruit" for a character without one, put by the view) and the
 initial after 10; Dragon Ball, after 5 errors the signature technique when the character has one, else the Japanese voice actor (the view puts exactly one of the two keys in the
 hints, so a hint is never empty), and the initial after 10. A value the data does not have is `null`: the cell reads "unknown" and the character is not a target. `can_be_target` is
-true only when every column and the 5-error hint have a value. The pool of a view: the characters of the facts table for the game, published, `identity_spoiler` false, in the
-published series; `characters.spoiler_level` is not read.
+true only when every column and the 5-error hint have a value. The pool of a view: the characters of the facts table for the game, published, in the published series
+(owner, 2026-11-02: `identity_spoiler` and `characters.spoiler_level` do not exclude a character).
 
 Sources: `entity_sources` rows with `entity_type` 'character', `entity_id` the character slug and `field` "<series>.<column>" (so the rows of part 3 keep theirs), `source` wikidata,
-wikipedia or **fandom** (a Fandom wiki states the facts of a fiction: facts only, never a text, a picture or a name taken from it; `entity_sources_source_check` knows it since CR-023), one row per
+wikipedia or **fandom** (a Fandom wiki states the facts of a fiction: facts only, never a text, a picture or a name taken from it; `entity_sources_source_check` knows it since CR-023, and a fact file may cite a `*.fandom.com` page on a `character` fact only: `fact.schema.json`), one row per
 supporting source. One Piece `height_cm` is the only column the owner accepts with one source. `L14-O1-dle-on.sql` opens a series game when its pool reaches `min_pool`
 (40 and 30); under it the game stays off and the file says so.

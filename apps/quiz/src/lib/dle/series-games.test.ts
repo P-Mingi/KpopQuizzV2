@@ -8,7 +8,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest';
 
 import { dleClient } from './client';
 import { rpcAs } from './game-fixture';
-import { afterJ4, afterSessionG, readActivation, readActivationUndo, readCheck, runCheck, seedIdols, applyLaunchFiles } from './otakudle-fixture';
+import { afterJ4, afterSessionG, readActivation, readActivationUndo, runCheck, seedIdols, applyLaunchFiles } from './otakudle-fixture';
 import { MIGRATIONS, failure, one, readMigration, rows } from './pglite-harness';
 import { parsePool } from './read';
 
@@ -117,9 +117,9 @@ describe('024 in session G and in J4', () => {
     expect((await runCheck(db, 'V-024.sql')).filter((r) => r[0] !== 'ok')).toEqual([]);
 
     await afterJ4With024(db);
-    expect(await rows(db, `select id, universe, entity_kind, source_view, min_pool, hint_keys, hint_after, active, epoch from public.dle_games where id like 'otakudle-%' order by id`)).toEqual([
-      { id: 'otakudle-dragon-ball', universe: 'anime', entity_kind: 'character', source_view: 'dle_src_otakudle_dragon_ball', min_pool: 30, hint_keys: ['signature_technique', 'voice_actor_ja', 'initial'], hint_after: [5, 5, 10], active: false, epoch: null },
-      { id: 'otakudle-one-piece', universe: 'anime', entity_kind: 'character', source_view: 'dle_src_otakudle_one_piece', min_pool: 40, hint_keys: ['devil_fruit_name', 'initial'], hint_after: [5, 10], active: false, epoch: null },
+    expect(await rows(db, `select id, universe, entity_kind, source_view, min_pool, no_repeat_days, hint_keys, hint_after, active, epoch from public.dle_games where id like 'otakudle-%' order by id`)).toEqual([
+      { id: 'otakudle-dragon-ball', universe: 'anime', entity_kind: 'character', source_view: 'dle_src_otakudle_dragon_ball', min_pool: 30, no_repeat_days: 14, hint_keys: ['signature_technique', 'voice_actor_ja', 'initial'], hint_after: [5, 5, 10], active: false, epoch: null },
+      { id: 'otakudle-one-piece', universe: 'anime', entity_kind: 'character', source_view: 'dle_src_otakudle_one_piece', min_pool: 40, no_repeat_days: 30, hint_keys: ['devil_fruit_name', 'initial'], hint_after: [5, 10], active: false, epoch: null },
     ]);
     expect(await rows(db, `select key, kind, near::int from public.dle_attributes where game_id = 'otakudle-one-piece' order by position`)).toEqual([
       { key: 'gender', kind: 'single', near: null }, { key: 'affiliation', kind: 'multi', near: null }, { key: 'devil_fruit_type', kind: 'single', near: null }, { key: 'haki', kind: 'multi', near: null },
@@ -193,13 +193,14 @@ describe('One Piece, on fixtures', () => {
     await db.query(`select public.dle_activate('${game}', '${EPOCH}', 0.5)`);
   });
 
-  it('the pool: the series, published, no hidden identity, the right game; never a draft, an identity, another game\'s facts or another series', async () => {
+  it('the pool: the series, published, the right game; never a draft, another game\'s facts or another series; a hidden identity or a spoiler level does not exclude (CR-023)', async () => {
     const names = (await rows<{ name: string }>(db, `select name from public.dle_src_otakudle_one_piece order by 1`)).map((r) => r.name);
-    expect(names).toHaveLength(OP_CHARS.length - 3);
-    for (const n of ['Draft Pirate', 'Identity Pirate', 'Facts Of Another Game', 'Goku Fx']) expect(names, n).not.toContain(n);
-    // spoiler_level is not read: every fixture character has spoiler_level 5 and is in.
+    expect(names).toHaveLength(OP_CHARS.length - 2);
+    for (const n of ['Draft Pirate', 'Facts Of Another Game', 'Goku Fx']) expect(names, n).not.toContain(n);
+    // Neither spoiler_level nor identity_spoiler is read: every fixture character has spoiler_level 5, one has a hidden identity, all are in.
     expect(names).toContain('Target Pirate');
-    expect(await one(db, `select count(*)::int from public.dle_entities where game_id = '${game}' and in_pool`)).toBe(OP_CHARS.length - 3);
+    expect(names).toContain('Identity Pirate');
+    expect(await one(db, `select count(*)::int from public.dle_entities where game_id = '${game}' and in_pool`)).toBe(OP_CHARS.length - 2);
   });
 
   it('the targets: every column and the hint; no bounty known, a fruit with no name, or a flag off is not a target; no fruit is a target with no name', async () => {
@@ -207,7 +208,8 @@ describe('One Piece, on fixtures', () => {
     expect(await target('Plain Sailor')).toBe(true);
     expect(await target('Nameless Fruit')).toBe(false);
     expect(await target('Unknown Bounty')).toBe(false);
-    expect(await one(db, `select count(*)::int from public.dle_entities where game_id = '${game}' and can_be_target and in_pool`)).toBe(2 + 12);
+    expect(await one(db, `select count(*)::int from public.dle_entities where game_id = '${game}' and can_be_target and in_pool`)).toBe(2 + 12 + 1);
+    expect(await target('Identity Pirate')).toBe(true);
   });
 
   it('dle_pool gives the 8 columns and the names, never the hints, the flag or a fruit name', async () => {
@@ -371,26 +373,28 @@ describe('the real launch files, L04 and L15', () => {
     await db.exec(readLaunch('L15-A2-series-games.sql'));
   });
 
-  it('the facts of the characters L04 has: 32 and 30; the view leaves out the hidden identities; 27 and 13 targets in the views', async () => {
-    expect(await count(`from public.character_game_facts where game_id = 'otakudle-one-piece'`)).toBe(32);
-    expect(await count(`from public.character_game_facts where game_id = 'otakudle-dragon-ball'`)).toBe(30);
-    expect(await count(`from public.dle_src_otakudle_one_piece`)).toBe(31);
-    expect(await count(`from public.dle_src_otakudle_dragon_ball`)).toBe(28);
-    expect(await count(`from public.dle_src_otakudle_one_piece where can_be_target`)).toBe(27);
-    expect(await count(`from public.dle_src_otakudle_dragon_ball where can_be_target`)).toBe(13);
-    expect(await count(`from public.dle_src_otakudle_dragon_ball where not can_be_target and hints ? 'voice_actor_ja'`)).toBe(0);
+  it('the facts of the characters L04 has since its regeneration: 100 of 100 and 66 of 70 (the 4 of a GT saga wait), all in the views; 73 and 31 targets', async () => {
+    expect(await count(`from public.character_game_facts where game_id = 'otakudle-one-piece'`)).toBe(100);
+    expect(await count(`from public.character_game_facts where game_id = 'otakudle-dragon-ball'`)).toBe(66);
+    expect(await count(`from public.dle_src_otakudle_one_piece`)).toBe(100);
+    expect(await count(`from public.dle_src_otakudle_dragon_ball`)).toBe(66);
+    expect(await count(`from public.dle_src_otakudle_one_piece where can_be_target`)).toBe(73);
+    expect(await count(`from public.dle_src_otakudle_dragon_ball where can_be_target`)).toBe(31);
+    // The 5-error hint is the technique or the voice actor, never neither for a target: 16 characters have neither and none of them is a target.
+    expect(await count(`from public.dle_src_otakudle_dragon_ball where not (hints ? 'signature_technique' or hints ? 'voice_actor_ja')`)).toBe(16);
+    expect(await count(`from public.dle_src_otakudle_dragon_ball where can_be_target and not (hints ? 'signature_technique' or hints ? 'voice_actor_ja')`)).toBe(0);
   });
 
-  it('the header lists the characters that wait for the L04 regeneration, 68 and 40', () => {
+  it('the header says what L04 has: all 100 of One Piece, 66 of 70 of Dragon Ball, the 4 of a GT saga waiting; the voice actors are read', () => {
     const sql = readLaunch('L15-A2-series-games.sql');
-    expect(sql).toMatch(/otakudle-one-piece: 100 characters collected, 32 in L04 and loaded here .*68 waiting/);
-    expect(sql).toMatch(/otakudle-dragon-ball: 70 characters collected, 30 in L04 and loaded here .*40 waiting/);
-    expect(sql).toMatch(/waiting \(slug\): jinbe,/);
-    expect(sql).toMatch(/voice actors: data\/all-series\.json is not there/);
+    expect(sql).toMatch(/otakudle-one-piece: 100 characters collected, 100 in L04 and loaded here .*0 waiting/);
+    expect(sql).toMatch(/otakudle-dragon-ball: 70 characters collected, 66 in L04 and loaded here .*4 waiting/);
+    expect(sql).toMatch(/waiting \(slug\): cooler, gogeta, baby, syn-shenron/);
+    expect(sql).toMatch(/voice actors: read from data\/all-series\.json/);
   });
 
   it('every value has its source, from Wikidata, Wikipedia or a Fandom wiki; the check knows fandom; fields are namespaced by the series', async () => {
-    expect(await count(`from public.entity_sources where source = 'fandom' and field ~ '^(one-piece|dragon-ball)[.]'`)).toBeGreaterThan(300);
+    expect(await count(`from public.entity_sources where source = 'fandom' and field ~ '^(one-piece|dragon-ball)[.]'`)).toBeGreaterThan(800);
     expect(await count(`from public.entity_sources where field ~ '^(one-piece|dragon-ball)[.]' and source not in ('wikidata', 'wikipedia', 'fandom')`)).toBe(0);
     expect(await failure(db, `insert into public.entity_sources (entity_type, entity_id, field, source, fetched_at) values ('character', 'x', 'f', 'myanimelist', now())`)).toMatch(/entity_sources_source_check/);
     expect((await runCheck(db, 'V-L15.sql')).filter((r) => r[0] !== 'ok')).toEqual([]);
@@ -402,6 +406,7 @@ describe('the real launch files, L04 and L15', () => {
   it('the values the owner chose: no bounty is 0, no haki is none, a character without a fruit says "No Devil Fruit"', async () => {
     const get = (slug: string, key: string): Promise<unknown> => one(db, `select f.attrs -> $2 from public.character_game_facts f join public.characters c on c.id = f.character_id where c.slug = $1 and f.game_id = 'otakudle-one-piece'`, [slug, key]);
     expect(await get('smoker', 'bounty')).toEqual({ v: 0, l: 'No bounty' });
+    expect(await count(`from public.entity_sources where field = 'dragon-ball.voice_actor_ja'`)).toBeGreaterThan(20);
     expect(await get('monkey-d-luffy', 'bounty')).toEqual({ v: 3_000_000_000 });
     expect(await get('monkey-d-luffy', 'haki')).toEqual({ v: ['observation', 'armament', 'conqueror'] });
     expect(await count(`from public.character_game_facts where game_id = 'otakudle-one-piece' and attrs -> 'haki' -> 'v' = '["none"]'::jsonb`)).toBeGreaterThan(0);
@@ -429,8 +434,11 @@ describe('the real launch files, L04 and L15', () => {
     expect(await failure(bare, readLaunch('L15-A2-series-games.sql'))).toMatch(/character_game_facts is missing/);
   });
 
-  it('L14 opens a series game only when its pool is enough: under the minimum both stay off with nothing changed and the other two games open; at a lower minimum One Piece opens, V-L14 and V-024 are ok', async () => {
+  it('L14 opens a series game only when its pool is enough: under the minimum both stay off with nothing changed and the other two games open; at the minimums both open; V-L14 and V-024 are ok', async () => {
     await seedIdols(db, 45);
+    // Minimums above the pools (73 and 31 targets): both series games stay off, and neither stops the other two.
+    await db.query(`update public.dle_games set min_pool = 80 where id = 'otakudle-one-piece'`);
+    await db.query(`update public.dle_games set min_pool = 40 where id = 'otakudle-dragon-ball'`);
     await db.exec(readActivation());
     const games = `select id, active, epoch is not null as epoch, (select count(*)::int from public.dle_schedule s where s.game_id = g.id) as days from public.dle_games g order by id`;
     expect(await rows(db, games)).toEqual([
@@ -442,26 +450,30 @@ describe('the real launch files, L04 and L15', () => {
     expect(v).toHaveLength(14);
     expect(v.filter((r) => r[0] !== 'ok')).toEqual([]);
     const info = await runCheck(db, 'V-L15.sql');
-    expect(info.find((r) => r[1].startsWith('One Piece : cibles'))![2]).toBe('27 cibles, minimum 40, éteint');
-    expect(info.find((r) => r[1].startsWith('Dragon Ball : cibles'))![2]).toBe('13 cibles, minimum 30, éteint');
+    expect(info.find((r) => r[1].startsWith('One Piece : cibles'))![2]).toBe('73 cibles, minimum 80, éteint');
+    expect(info.find((r) => r[1].startsWith('Dragon Ball : cibles'))![2]).toBe('31 cibles, minimum 40, éteint');
     expect(JSON.stringify(info)).not.toMatch(/Luffy|Goku|Zoro/);
 
-    await db.query(`update public.dle_games set min_pool = 20 where id = 'otakudle-one-piece'`);
+    // The minimums of the launch (40 and 30): both open, with a 365 day bank each.
+    await db.query(`update public.dle_games set min_pool = 40 where id = 'otakudle-one-piece'`);
+    await db.query(`update public.dle_games set min_pool = 30 where id = 'otakudle-dragon-ball'`);
     await db.exec(readActivation());
-    const after = await rows(db, games);
-    expect(after.find((g) => (g as { id: string }).id === 'otakudle-one-piece')).toEqual({ id: 'otakudle-one-piece', active: true, epoch: true, days: 365 });
-    expect(after.find((g) => (g as { id: string }).id === 'otakudle-dragon-ball')).toEqual({ id: 'otakudle-dragon-ball', active: false, epoch: false, days: 0 });
+    expect(await rows(db, games)).toEqual([
+      { id: 'kpopdle-idol', active: true, epoch: true, days: 365 }, { id: 'otakudle', active: true, epoch: true, days: 365 },
+      { id: 'otakudle-dragon-ball', active: true, epoch: true, days: 365 }, { id: 'otakudle-one-piece', active: true, epoch: true, days: 365 },
+    ]);
     const v2 = await runCheck(db, 'V-L14.sql');
-    expect(v2).toHaveLength(21);
+    expect(v2).toHaveLength(28);
     expect(v2.filter((r) => r[0] !== 'ok')).toEqual([]);
     expect((await runCheck(db, 'V-024.sql')).filter((r) => r[0] !== 'ok')).toEqual([]);
-    expect((await rpcAs(db, 'dle_day', { p_game: 'otakudle-one-piece' })).data).toMatchObject({ game_no: 1, play: null });
-    expect(readCheck('V-L14.sql')).toContain('otakudle-dragon-ball');
-    // A second run changes nothing; the rollback of L14 switches the three games off and keeps their banks.
+    expect((await runCheck(db, 'V-L15.sql')).filter((r) => r[0] !== 'ok')).toEqual([]);
+    for (const g of GAMES) expect((await rpcAs(db, 'dle_day', { p_game: g })).data).toMatchObject({ game_no: 1, play: null });
+    // A second run changes nothing; the rollback of L14 switches the four games off and keeps their banks.
     const bank = await rows(db, `select game_id, bank_day, entity_id from public.dle_schedule order by 1, 2`);
     await db.exec(readActivation());
     expect(await rows(db, `select game_id, bank_day, entity_id from public.dle_schedule order by 1, 2`)).toEqual(bank);
     await db.exec(readActivationUndo());
     expect((await rows<{ active: boolean }>(db, `select active from public.dle_games order by id`)).map((g) => g.active)).toEqual([false, false, false, false]);
+    expect(await rows(db, `select game_id, bank_day, entity_id from public.dle_schedule order by 1, 2`)).toEqual(bank);
   });
 });

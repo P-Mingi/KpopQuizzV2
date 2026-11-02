@@ -2858,5 +2858,2249 @@
     "status": "verified",
     "verified_at": "2026-10-26T12:30:00.000Z",
     "excerpt": "Inspired by Luffy, and with his help, Koby escapes"
+  },
+  {
+    "id": "one-piece-jinbe-name-089",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "jinbe"
+    },
+    "field": "name",
+    "value": "Jinbe",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 30,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Jinbe",
+        "ref": "2021474",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1041837",
+        "ref": "Q1041837",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Jinbe"
+  },
+  {
+    "id": "one-piece-bartholomew-kuma-name-090",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "bartholomew-kuma"
+    },
+    "field": "name",
+    "value": "Bartholomew Kuma",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 16,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Bartholomew_Kuma",
+        "ref": "2025499",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2619359",
+        "ref": "Q2619359",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Bartholomew Kuma"
+  },
+  {
+    "id": "one-piece-marshall-d-teach-name-091",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "marshall-d-teach"
+    },
+    "field": "name",
+    "value": "Marshall D. Teach",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 16,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Marshall_D._Teach",
+        "ref": "2022701",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q4991940",
+        "ref": "Q4991940",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Marshall D. Teach"
+  },
+  {
+    "id": "one-piece-monkey-d-garp-name-092",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "monkey-d-garp"
+    },
+    "field": "name",
+    "value": "Monkey D. Garp",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Monkey_D._Garp",
+        "ref": "2027092",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2327791",
+        "ref": "Q2327791",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Monkey D. Garp"
+  },
+  {
+    "id": "one-piece-kuzan-name-093",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "kuzan"
+    },
+    "field": "name",
+    "value": "Kuzan",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 19,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Kuzan",
+        "ref": "2023507",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2484654",
+        "ref": "Q2484654",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kuzan"
+  },
+  {
+    "id": "one-piece-borsalino-name-094",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "borsalino"
+    },
+    "field": "name",
+    "value": "Borsalino",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 28,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Borsalino",
+        "ref": "2026269",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2574607",
+        "ref": "Q2574607",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Borsalino"
+  },
+  {
+    "id": "one-piece-jewelry-bonney-name-095",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "jewelry-bonney"
+    },
+    "field": "name",
+    "value": "Jewelry Bonney",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 28,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Jewelry_Bonney",
+        "ref": "2025485",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q9011722",
+        "ref": "Q9011722",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Jewelry Bonney"
+  },
+  {
+    "id": "one-piece-caesar-clown-name-096",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "caesar-clown"
+    },
+    "field": "name",
+    "value": "Caesar Clown",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 35,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Caesar_Clown",
+        "ref": "2023323",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3649552",
+        "ref": "Q3649552",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Caesar Clown"
+  },
+  {
+    "id": "one-piece-gecko-moria-name-097",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "gecko-moria"
+    },
+    "field": "name",
+    "value": "Gecko Moria",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 26,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Gecko_Moria",
+        "ref": "2021695",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2619034",
+        "ref": "Q2619034",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Gecko Moria"
+  },
+  {
+    "id": "one-piece-arlong-name-098",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "arlong"
+    },
+    "field": "name",
+    "value": "Arlong",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Arlong",
+        "ref": "2025859",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q6856289",
+        "ref": "Q6856289",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Arlong"
+  },
+  {
+    "id": "one-piece-kouzuki-oden-name-099",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "kouzuki-oden"
+    },
+    "field": "name",
+    "value": "Kouzuki Oden",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 42,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Kouzuki_Oden",
+        "ref": "2026324",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q105462372",
+        "ref": "Q105462372",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kouzuki Oden"
+  },
+  {
+    "id": "one-piece-silvers-rayleigh-name-100",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "silvers-rayleigh"
+    },
+    "field": "name",
+    "value": "Silvers Rayleigh",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Silvers_Rayleigh",
+        "ref": "2027411",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q857599",
+        "ref": "Q857599",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Silvers Rayleigh"
+  },
+  {
+    "id": "one-piece-charlotte-katakuri-name-101",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "charlotte-katakuri"
+    },
+    "field": "name",
+    "value": "Charlotte Katakuri",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 41,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Charlotte_Katakuri",
+        "ref": "2023060",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q55695982",
+        "ref": "Q55695982",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Charlotte Katakuri"
+  },
+  {
+    "id": "one-piece-sengoku-name-102",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "sengoku"
+    },
+    "field": "name",
+    "value": "Sengoku",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 16,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Sengoku",
+        "ref": "2024975",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3955299",
+        "ref": "Q3955299",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Sengoku"
+  },
+  {
+    "id": "one-piece-capone-bege-name-103",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "capone-bege"
+    },
+    "field": "name",
+    "value": "Capone Bege",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 28,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Capone_Bege",
+        "ref": "2020947",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q62275206",
+        "ref": "Q62275206",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Capone Bege"
+  },
+  {
+    "id": "one-piece-carrot-name-104",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "carrot"
+    },
+    "field": "name",
+    "value": "Carrot",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 39,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Carrot",
+        "ref": "2021692",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q104632472",
+        "ref": "Q104632472",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Carrot"
+  },
+  {
+    "id": "one-piece-nerona-imu-name-105",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "nerona-imu"
+    },
+    "field": "name",
+    "value": "Nerona Imu",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 41,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Nerona_Imu",
+        "ref": "2027129",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65307365",
+        "ref": "Q65307365",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Nerona Imu"
+  },
+  {
+    "id": "one-piece-wapol-name-106",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "wapol"
+    },
+    "field": "name",
+    "value": "Wapol",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Wapol",
+        "ref": "2027413",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1403812",
+        "ref": "Q1403812",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Wapol"
+  },
+  {
+    "id": "one-piece-issho-name-107",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "issho"
+    },
+    "field": "name",
+    "value": "Issho",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 37,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Issho",
+        "ref": "2026891",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q21012363",
+        "ref": "Q21012363",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Issho"
+  },
+  {
+    "id": "one-piece-hody-jones-name-108",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "hody-jones"
+    },
+    "field": "name",
+    "value": "Hody Jones",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 33,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Hody_Jones",
+        "ref": "2026648",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3786213",
+        "ref": "Q3786213",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Hody Jones"
+  },
+  {
+    "id": "one-piece-vegapunk-name-109",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "vegapunk"
+    },
+    "field": "name",
+    "value": "Vegapunk",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 35,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Vegapunk",
+        "ref": "2027453",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65308630",
+        "ref": "Q65308630",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Vegapunk"
+  },
+  {
+    "id": "one-piece-polo-marco-name-110",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "polo-marco"
+    },
+    "field": "name",
+    "value": "Polo Marco",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 16,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Polo_Marco",
+        "ref": "2023141",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q54871031",
+        "ref": "Q54871031",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Polo Marco"
+  },
+  {
+    "id": "one-piece-bellamy-name-111",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "bellamy"
+    },
+    "field": "name",
+    "value": "Bellamy",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 16,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Bellamy",
+        "ref": "2027469",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1045234",
+        "ref": "Q1045234",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Bellamy"
+  },
+  {
+    "id": "one-piece-kin-emon-name-112",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "kin-emon"
+    },
+    "field": "name",
+    "value": "Kin'emon",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 35,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Kin'emon",
+        "ref": "2021891",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q104536974",
+        "ref": "Q104536974",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kin'emon"
+  },
+  {
+    "id": "one-piece-basil-hawkins-name-113",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "basil-hawkins"
+    },
+    "field": "name",
+    "value": "Basil Hawkins",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 28,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Basil_Hawkins",
+        "ref": "2023730",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22933307",
+        "ref": "Q22933307",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Basil Hawkins"
+  },
+  {
+    "id": "one-piece-galdino-name-114",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "galdino"
+    },
+    "field": "name",
+    "value": "Galdino",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Galdino",
+        "ref": "2023680",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3866756",
+        "ref": "Q3866756",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Galdino"
+  },
+  {
+    "id": "one-piece-hatchan-name-115",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "hatchan"
+    },
+    "field": "name",
+    "value": "Hatchan",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Hatchan",
+        "ref": "2027318",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q5644314",
+        "ref": "Q5644314",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Hatchan"
+  },
+  {
+    "id": "one-piece-foxy-name-116",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "foxy"
+    },
+    "field": "name",
+    "value": "Foxy",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 19,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Foxy",
+        "ref": "2027184",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3749172",
+        "ref": "Q3749172",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Foxy"
+  },
+  {
+    "id": "one-piece-krieg-name-117",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "krieg"
+    },
+    "field": "name",
+    "value": "Krieg",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Krieg",
+        "ref": "2025613",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q6303909",
+        "ref": "Q6303909",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Krieg"
+  },
+  {
+    "id": "one-piece-perona-name-118",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "perona"
+    },
+    "field": "name",
+    "value": "Perona",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 26,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Perona",
+        "ref": "2016942",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q9057922",
+        "ref": "Q9057922",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Perona"
+  },
+  {
+    "id": "one-piece-kuro-name-119",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "kuro"
+    },
+    "field": "name",
+    "value": "Kuro",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 3,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Kuro",
+        "ref": "2022562",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2321210",
+        "ref": "Q2321210",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kuro"
+  },
+  {
+    "id": "one-piece-shirahoshi-name-120",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "shirahoshi"
+    },
+    "field": "name",
+    "value": "Shirahoshi",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 33,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Shirahoshi",
+        "ref": "2025491",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q14944037",
+        "ref": "Q14944037",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Shirahoshi"
+  },
+  {
+    "id": "one-piece-magellan-name-121",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "magellan"
+    },
+    "field": "name",
+    "value": "Magellan",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 30,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Magellan",
+        "ref": "2027471",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3843119",
+        "ref": "Q3843119",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Magellan"
+  },
+  {
+    "id": "one-piece-charlotte-perospero-name-122",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "charlotte-perospero"
+    },
+    "field": "name",
+    "value": "Charlotte Perospero",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 41,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Charlotte_Perospero",
+        "ref": "2026123",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q104759131",
+        "ref": "Q104759131",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Charlotte Perospero"
+  },
+  {
+    "id": "one-piece-cavendish-name-123",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "cavendish"
+    },
+    "field": "name",
+    "value": "Cavendish",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 37,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Cavendish",
+        "ref": "2021250",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q25463679",
+        "ref": "Q25463679",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Cavendish"
+  },
+  {
+    "id": "one-piece-vinsmoke-judge-name-124",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "vinsmoke-judge"
+    },
+    "field": "name",
+    "value": "Vinsmoke Judge",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 41,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Vinsmoke_Judge",
+        "ref": "2025282",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q55730559",
+        "ref": "Q55730559",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Vinsmoke Judge"
+  },
+  {
+    "id": "one-piece-charlotte-pudding-name-125",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "charlotte-pudding"
+    },
+    "field": "name",
+    "value": "Charlotte Pudding",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 33,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Charlotte_Pudding",
+        "ref": "2021804",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q104759435",
+        "ref": "Q104759435",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Charlotte Pudding"
+  },
+  {
+    "id": "one-piece-tashigi-name-126",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "tashigi"
+    },
+    "field": "name",
+    "value": "Tashigi",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Tashigi",
+        "ref": "2021618",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q16612280",
+        "ref": "Q16612280",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Tashigi"
+  },
+  {
+    "id": "one-piece-bartolomeo-name-127",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "bartolomeo"
+    },
+    "field": "name",
+    "value": "Bartolomeo",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 37,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Bartolomeo",
+        "ref": "2027103",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q104770798",
+        "ref": "Q104770798",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Bartolomeo"
+  },
+  {
+    "id": "one-piece-kaku-name-128",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "kaku"
+    },
+    "field": "name",
+    "value": "Kaku",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 22,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Kaku",
+        "ref": "2025974",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q31177688",
+        "ref": "Q31177688",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kaku"
+  },
+  {
+    "id": "one-piece-kyros-name-129",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "kyros"
+    },
+    "field": "name",
+    "value": "Kyros",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 37,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Kyros",
+        "ref": "2026200",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q55735289",
+        "ref": "Q55735289",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kyros"
+  },
+  {
+    "id": "one-piece-inuarashi-name-130",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "inuarashi"
+    },
+    "field": "name",
+    "value": "Inuarashi",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 39,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Inuarashi",
+        "ref": "2021801",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q55733130",
+        "ref": "Q55733130",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Inuarashi"
+  },
+  {
+    "id": "one-piece-helmeppo-name-131",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "helmeppo"
+    },
+    "field": "name",
+    "value": "Helmeppo",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Helmeppo",
+        "ref": "2023241",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3785259",
+        "ref": "Q3785259",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Helmeppo"
+  },
+  {
+    "id": "one-piece-vinsmoke-reiju-name-132",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "vinsmoke-reiju"
+    },
+    "field": "name",
+    "value": "Vinsmoke Reiju",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 41,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Vinsmoke_Reiju",
+        "ref": "2021806",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q104923829",
+        "ref": "Q104923829",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Vinsmoke Reiju"
+  },
+  {
+    "id": "one-piece-caribou-name-133",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "caribou"
+    },
+    "field": "name",
+    "value": "Caribou",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 32,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Caribou",
+        "ref": "2021246",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q5551856",
+        "ref": "Q5551856",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Caribou"
+  },
+  {
+    "id": "one-piece-x-drake-name-134",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "x-drake"
+    },
+    "field": "name",
+    "value": "X Drake",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 28,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/X_Drake",
+        "ref": "2026227",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22933295",
+        "ref": "Q22933295",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "X Drake"
+  },
+  {
+    "id": "one-piece-jesus-burgess-name-135",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "jesus-burgess"
+    },
+    "field": "name",
+    "value": "Jesus Burgess",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 16,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Jesus_Burgess",
+        "ref": "2021473",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22933327",
+        "ref": "Q22933327",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Jesus Burgess"
+  },
+  {
+    "id": "one-piece-rebecca-name-136",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "rebecca"
+    },
+    "field": "name",
+    "value": "Rebecca",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 37,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Rebecca",
+        "ref": "2025077",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q55729402",
+        "ref": "Q55729402",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Rebecca"
+  },
+  {
+    "id": "one-piece-nekomamushi-name-137",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "nekomamushi"
+    },
+    "field": "name",
+    "value": "Nekomamushi",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 39,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Nekomamushi",
+        "ref": "2021800",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q55728756",
+        "ref": "Q55728756",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Nekomamushi"
+  },
+  {
+    "id": "one-piece-hajrudin-name-138",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "hajrudin"
+    },
+    "field": "name",
+    "value": "Hajrudin",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 37,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Hajrudin",
+        "ref": "2002189",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q55738040",
+        "ref": "Q55738040",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Hajrudin"
+  },
+  {
+    "id": "one-piece-shiki-name-139",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "shiki"
+    },
+    "field": "name",
+    "value": "Shiki",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 30,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Shiki",
+        "ref": "2027446",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3959468",
+        "ref": "Q3959468",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Shiki"
+  },
+  {
+    "id": "one-piece-kouzuki-hiyori-name-140",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "kouzuki-hiyori"
+    },
+    "field": "name",
+    "value": "Kouzuki Hiyori",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 42,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Kouzuki_Hiyori",
+        "ref": "2026226",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q97440812",
+        "ref": "Q97440812",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kouzuki Hiyori"
+  },
+  {
+    "id": "one-piece-killer-name-141",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "killer"
+    },
+    "field": "name",
+    "value": "Killer",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 28,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Killer",
+        "ref": "2024143",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q30308944",
+        "ref": "Q30308944",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Killer"
+  },
+  {
+    "id": "one-piece-neptune-name-142",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "neptune"
+    },
+    "field": "name",
+    "value": "Neptune",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 33,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Neptune",
+        "ref": "2021082",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q61093307",
+        "ref": "Q61093307",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Neptune"
+  },
+  {
+    "id": "one-piece-scratchmen-apoo-name-143",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "scratchmen-apoo"
+    },
+    "field": "name",
+    "value": "Scratchmen Apoo",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 28,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Scratchmen_Apoo",
+        "ref": "2024917",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q22933348",
+        "ref": "Q22933348",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Scratchmen Apoo"
+  },
+  {
+    "id": "one-piece-vinsmoke-niji-name-144",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "vinsmoke-niji"
+    },
+    "field": "name",
+    "value": "Vinsmoke Niji",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 41,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Vinsmoke_Niji",
+        "ref": "2021815",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q61093198",
+        "ref": "Q61093198",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Vinsmoke Niji"
+  },
+  {
+    "id": "one-piece-jack-name-145",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "jack"
+    },
+    "field": "name",
+    "value": "Jack",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 37,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Jack",
+        "ref": "2023871",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q30308947",
+        "ref": "Q30308947",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Jack"
+  },
+  {
+    "id": "one-piece-vinsmoke-yonji-name-146",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "vinsmoke-yonji"
+    },
+    "field": "name",
+    "value": "Vinsmoke Yonji",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 41,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Vinsmoke_Yonji",
+        "ref": "2021807",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q61093211",
+        "ref": "Q61093211",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Vinsmoke Yonji"
+  },
+  {
+    "id": "one-piece-vinsmoke-ichiji-name-147",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "vinsmoke-ichiji"
+    },
+    "field": "name",
+    "value": "Vinsmoke Ichiji",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 41,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Vinsmoke_Ichiji",
+        "ref": "2021814",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q61093072",
+        "ref": "Q61093072",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Vinsmoke Ichiji"
+  },
+  {
+    "id": "one-piece-alvida-name-148",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "alvida"
+    },
+    "field": "name",
+    "value": "Alvida",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Alvida",
+        "ref": "2022127",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q4749347",
+        "ref": "Q4749347",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Alvida"
+  },
+  {
+    "id": "one-piece-trebol-name-149",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "trebol"
+    },
+    "field": "name",
+    "value": "Trebol",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 37,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Trebol",
+        "ref": "2021773",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q105805466",
+        "ref": "Q105805466",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Trebol"
+  },
+  {
+    "id": "one-piece-uta-name-150",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "uta"
+    },
+    "field": "name",
+    "value": "Uta",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 44,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Uta",
+        "ref": "2021917",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q123991597",
+        "ref": "Q123991597",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Uta"
+  },
+  {
+    "id": "one-piece-daz-bonez-name-151",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "daz-bonez"
+    },
+    "field": "name",
+    "value": "Daz Bonez",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 12,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Daz_Bonez",
+        "ref": "2008125",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q8354211",
+        "ref": "Q8354211",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Daz Bonez"
+  },
+  {
+    "id": "one-piece-diamante-name-152",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "diamante"
+    },
+    "field": "name",
+    "value": "Diamante",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 37,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Diamante",
+        "ref": "2021774",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q105808244",
+        "ref": "Q105808244",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Diamante"
+  },
+  {
+    "id": "one-piece-pica-name-153",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "pica"
+    },
+    "field": "name",
+    "value": "Pica",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 37,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Pica",
+        "ref": "2020854",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q25463656",
+        "ref": "Q25463656",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Pica"
+  },
+  {
+    "id": "one-piece-viola-name-154",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "viola"
+    },
+    "field": "name",
+    "value": "Viola",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 37,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Viola",
+        "ref": "2026682",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q65249449",
+        "ref": "Q65249449",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Viola"
+  },
+  {
+    "id": "one-piece-aramaki-name-155",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "aramaki"
+    },
+    "field": "name",
+    "value": "Aramaki",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 41,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Aramaki",
+        "ref": "2024050",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q95741710",
+        "ref": "Q95741710",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Aramaki"
+  },
+  {
+    "id": "one-piece-charlotte-cracker-name-156",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "one-piece",
+      "ref": "charlotte-cracker"
+    },
+    "field": "name",
+    "value": "Charlotte Cracker",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 41,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://onepiece.fandom.com/wiki/Charlotte_Cracker",
+        "ref": "2021332",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q28715454",
+        "ref": "Q28715454",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Charlotte Cracker"
   }
 ]

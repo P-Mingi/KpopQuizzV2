@@ -71,7 +71,10 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["slug", "name", "role", "debut_arc_ord", "description", "spoiler_level", "ord", "status"],
+        "required": ["slug", "name", "role", "debut_arc_ord", "spoiler_level", "ord", "status"],
+        "allOf": [
+          { "$comment": "CR-023: a description (up to 140 characters, our own words) is required, unless the character says no_description: true (a character added from collected facts, whose prose is not written yet; nothing the public pages show reads it).", "if": { "required": ["no_description"] }, "then": { "not": { "required": ["description"] } }, "else": { "required": ["description"] } }
+        ],
         "properties": {
           "slug": { "$ref": "common.schema.json#/$defs/slug" },
           "name": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 60 },
@@ -81,6 +84,7 @@
           "debut_arc_ord": { "type": "integer", "minimum": 1 },
           "debut_medium": { "enum": ["anime", "manga", "both"] },
           "description": { "$ref": "common.schema.json#/$defs/plainText", "maxLength": 140 },
+          "no_description": { "const": true },
           "source_url": { "$ref": "common.schema.json#/$defs/sourceUrl" },
           "spoiler_level": { "type": "integer", "minimum": 0 },
           "identity_spoiler": { "type": "boolean" },

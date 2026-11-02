@@ -2946,5 +2946,1193 @@
     "status": "verified",
     "verified_at": "2026-10-25T18:46:57.000Z",
     "excerpt": "Beerus later forms another team consisting of notable fighters from Universe 7"
+  },
+  {
+    "id": "dragon-ball-android-17-name-099",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "android-17"
+    },
+    "field": "name",
+    "value": "Android 17",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 13,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Android_17",
+        "ref": "2273444",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2481465",
+        "ref": "Q2481465",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Android 17"
+  },
+  {
+    "id": "dragon-ball-bardock-name-100",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "bardock"
+    },
+    "field": "name",
+    "value": "Bardock",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 12,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Bardock",
+        "ref": "2274165",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2344528",
+        "ref": "Q2344528",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Bardock"
+  },
+  {
+    "id": "dragon-ball-pan-name-101",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "pan"
+    },
+    "field": "name",
+    "value": "Pan",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 18,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Pan",
+        "ref": "2275005",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2265967",
+        "ref": "Q2265967",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Pan"
+  },
+  {
+    "id": "dragon-ball-vegito-name-102",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "vegito"
+    },
+    "field": "name",
+    "value": "Vegito",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 18,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Vegito",
+        "ref": "2271898",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2401972",
+        "ref": "Q2401972",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Vegito"
+  },
+  {
+    "id": "dragon-ball-nappa-name-103",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "nappa"
+    },
+    "field": "name",
+    "value": "Nappa",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Nappa",
+        "ref": "2271908",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q11092520",
+        "ref": "Q11092520",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Nappa"
+  },
+  {
+    "id": "dragon-ball-gotenks-name-104",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "gotenks"
+    },
+    "field": "name",
+    "value": "Gotenks",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Gotenks",
+        "ref": "2271891",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2631336",
+        "ref": "Q2631336",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Gotenks"
+  },
+  {
+    "id": "dragon-ball-dr-gero-name-105",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "dr-gero"
+    },
+    "field": "name",
+    "value": "Dr. Gero",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 13,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Dr._Gero",
+        "ref": "2273514",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2708674",
+        "ref": "Q2708674",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Dr. Gero"
+  },
+  {
+    "id": "dragon-ball-chiaotzu-name-106",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "chiaotzu"
+    },
+    "field": "name",
+    "value": "Chiaotzu",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Chiaotzu",
+        "ref": "2275120",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2956504",
+        "ref": "Q2956504",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Chiaotzu"
+  },
+  {
+    "id": "dragon-ball-captain-ginyu-name-107",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "captain-ginyu"
+    },
+    "field": "name",
+    "value": "Captain Ginyu",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Captain_Ginyu",
+        "ref": "2274755",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q12322495",
+        "ref": "Q12322495",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Captain Ginyu"
+  },
+  {
+    "id": "dragon-ball-mercenary-tao-name-108",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "mercenary-tao"
+    },
+    "field": "name",
+    "value": "Mercenary Tao",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Mercenary_Tao",
+        "ref": "2272177",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2345108",
+        "ref": "Q2345108",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Mercenary Tao"
+  },
+  {
+    "id": "dragon-ball-shin-name-109",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "shin"
+    },
+    "field": "name",
+    "value": "Shin",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 16,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Shin",
+        "ref": "2271892",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1088114",
+        "ref": "Q1088114",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Shin"
+  },
+  {
+    "id": "dragon-ball-shenron-name-110",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "shenron"
+    },
+    "field": "name",
+    "value": "Shenron",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Shenron",
+        "ref": "2273513",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1360226",
+        "ref": "Q1360226",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Shenron"
+  },
+  {
+    "id": "dragon-ball-android-16-name-111",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "android-16"
+    },
+    "field": "name",
+    "value": "Android 16",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 13,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Android_16",
+        "ref": "2273379",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2786040",
+        "ref": "Q2786040",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Android 16"
+  },
+  {
+    "id": "dragon-ball-goku-black-name-112",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "goku-black"
+    },
+    "field": "name",
+    "value": "Goku Black",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 22,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Goku_Black",
+        "ref": "2271943",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q123507178",
+        "ref": "Q123507178",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Goku Black"
+  },
+  {
+    "id": "dragon-ball-uub-name-113",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "uub"
+    },
+    "field": "name",
+    "value": "Uub",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 18,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Uub",
+        "ref": "2272535",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q246908",
+        "ref": "Q246908",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Uub"
+  },
+  {
+    "id": "dragon-ball-launch-name-114",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "launch"
+    },
+    "field": "name",
+    "value": "Launch",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Launch",
+        "ref": "2252955",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2257841",
+        "ref": "Q2257841",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Launch"
+  },
+  {
+    "id": "dragon-ball-babidi-name-115",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "babidi"
+    },
+    "field": "name",
+    "value": "Babidi",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Babidi",
+        "ref": "2274072",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2708297",
+        "ref": "Q2708297",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Babidi"
+  },
+  {
+    "id": "dragon-ball-dabura-name-116",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "dabura"
+    },
+    "field": "name",
+    "value": "Dabura",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 17,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Dabura",
+        "ref": "2275498",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1080943",
+        "ref": "Q1080943",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Dabura"
+  },
+  {
+    "id": "dragon-ball-zarbon-name-117",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "zarbon"
+    },
+    "field": "name",
+    "value": "Zarbon",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Zarbon",
+        "ref": "2271896",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2707385",
+        "ref": "Q2707385",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Zarbon"
+  },
+  {
+    "id": "dragon-ball-yajirobe-name-118",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "yajirobe"
+    },
+    "field": "name",
+    "value": "Yajirobe",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 8,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Yajirobe",
+        "ref": "2272555",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2706838",
+        "ref": "Q2706838",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Yajirobe"
+  },
+  {
+    "id": "dragon-ball-mr-popo-name-119",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "mr-popo"
+    },
+    "field": "name",
+    "value": "Mr. Popo",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Mr._Popo",
+        "ref": "2249551",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3321112",
+        "ref": "Q3321112",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Mr. Popo"
+  },
+  {
+    "id": "dragon-ball-caulifla-name-120",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "caulifla"
+    },
+    "field": "name",
+    "value": "Caulifla",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 23,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Caulifla",
+        "ref": "2274777",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q43175921",
+        "ref": "Q43175921",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Caulifla"
+  },
+  {
+    "id": "dragon-ball-dodoria-name-121",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "dodoria"
+    },
+    "field": "name",
+    "value": "Dodoria",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Dodoria",
+        "ref": "2271895",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2707456",
+        "ref": "Q2707456",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Dodoria"
+  },
+  {
+    "id": "dragon-ball-kale-name-122",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "kale"
+    },
+    "field": "name",
+    "value": "Kale",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 23,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Kale",
+        "ref": "2271946",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q123507104",
+        "ref": "Q123507104",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kale"
+  },
+  {
+    "id": "dragon-ball-king-vegeta-name-123",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "king-vegeta"
+    },
+    "field": "name",
+    "value": "King Vegeta",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 12,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/King_Vegeta",
+        "ref": "2264792",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2605278",
+        "ref": "Q2605278",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "King Vegeta"
+  },
+  {
+    "id": "dragon-ball-king-cold-name-124",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "king-cold"
+    },
+    "field": "name",
+    "value": "King Cold",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 13,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/King_Cold",
+        "ref": "2270014",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3321749",
+        "ref": "Q3321749",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "King Cold"
+  },
+  {
+    "id": "dragon-ball-king-kai-name-125",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "king-kai"
+    },
+    "field": "name",
+    "value": "King Kai",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/King_Kai",
+        "ref": "2272747",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1953481",
+        "ref": "Q1953481",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "King Kai"
+  },
+  {
+    "id": "dragon-ball-puar-name-126",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "puar"
+    },
+    "field": "name",
+    "value": "Puar",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Puar",
+        "ref": "2271512",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2749497",
+        "ref": "Q2749497",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Puar"
+  },
+  {
+    "id": "dragon-ball-grandpa-gohan-name-127",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "grandpa-gohan"
+    },
+    "field": "name",
+    "value": "Grandpa Gohan",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 10,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Grandpa_Gohan",
+        "ref": "2265910",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2480835",
+        "ref": "Q2480835",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Grandpa Gohan"
+  },
+  {
+    "id": "dragon-ball-mai-name-128",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "mai"
+    },
+    "field": "name",
+    "value": "Mai",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Mai",
+        "ref": "2271507",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q16515145",
+        "ref": "Q16515145",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Mai"
+  },
+  {
+    "id": "dragon-ball-ox-king-name-129",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "ox-king"
+    },
+    "field": "name",
+    "value": "Ox-King",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Ox-King",
+        "ref": "2260136",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q3769818",
+        "ref": "Q3769818",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Ox-King"
+  },
+  {
+    "id": "dragon-ball-recoome-name-130",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "recoome"
+    },
+    "field": "name",
+    "value": "Recoome",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 11,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Recoome",
+        "ref": "2272980",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q15051524",
+        "ref": "Q15051524",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Recoome"
+  },
+  {
+    "id": "dragon-ball-korin-name-131",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "korin"
+    },
+    "field": "name",
+    "value": "Korin",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 5,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Korin",
+        "ref": "2261398",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2795709",
+        "ref": "Q2795709",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Korin"
+  },
+  {
+    "id": "dragon-ball-general-blue-name-132",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "general-blue"
+    },
+    "field": "name",
+    "value": "General Blue",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 4,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/General_Blue",
+        "ref": "2271893",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q28794204",
+        "ref": "Q28794204",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "General Blue"
+  },
+  {
+    "id": "dragon-ball-master-shen-name-133",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "master-shen"
+    },
+    "field": "name",
+    "value": "Master Shen",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 7,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Master_Shen",
+        "ref": "2271923",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q20492968",
+        "ref": "Q20492968",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Master Shen"
+  },
+  {
+    "id": "dragon-ball-porunga-name-134",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "dragon-ball",
+      "ref": "porunga"
+    },
+    "field": "name",
+    "value": "Porunga",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 12,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://dragonball.fandom.com/wiki/Porunga",
+        "ref": "2273512",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q2356318",
+        "ref": "Q2356318",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Porunga"
   }
 ]

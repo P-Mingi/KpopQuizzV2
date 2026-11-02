@@ -6,7 +6,8 @@
 --         One transaction: a game under its minimum of targets (min_pool, 40) stops the file, it names the game and its count, and neither game changes.
 --         The two games of one series (CR-023), otakudle-one-piece and otakudle-dragon-ball, follow in the same file: each opens when its pool reaches its
 --         min_pool; a game under it stays off, the file names it and its count in a warning and goes on (the facts of L15 are the characters L04 has; the
---         others wait for the L04 regeneration, and running this file again then opens the game). They never stop the two games above.
+--         others wait for the L04 regeneration, and running this file again then opens the game; a bank the engine could not draw in 20 tries,
+--         dle_bank_unsatisfiable, leaves the game off the same way, and a new run draws again). They never stop the two games above.
 -- Why:    owner decision: Kpopdle Idol and Otakudle open on launch day, after the launch files.
 -- Rows:   each game's row, its snapshot in dle_entities, 365 dle_schedule rows each.
 -- Needs:  020 (kpopdle-idol) and 021a; L01 to L15 (session.sh J1 to J4), with 023 and 024 run again in J4 (the otakudle rows). A series game whose row is
@@ -49,7 +50,7 @@ begin
       begin
         perform public.dle_activate(g, public.dle_utc_date(now()));
       exception when others then
-        if sqlerrm like 'dle_pool_too_small%' then
+        if sqlerrm like 'dle_pool_too_small%' or sqlerrm like 'dle_bank_unsatisfiable%' then
           raise warning 'L14 %: left off, %', g, sqlerrm;
         else
           raise exception 'L14 %: %', g, sqlerrm;

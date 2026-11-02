@@ -6,7 +6,7 @@
 --         and quizzes.spoiler_scope; widens trivia_entity_kind_check (series, character, arc, theme), adds
 --         entity_sources.source_url and widens entity_sources_entity_type_check and entity_sources_source_check (the sources:
 --         wikidata, musicbrainz, wikipedia, official and fandom: owner decision of 2026-11-02, CR-023, a Fandom wiki states the facts of a
---         fiction for the per-series daily games; facts only, never a text, a picture or a name taken from it).
+--         fiction for the per-series daily games; facts only, never a text, a picture or a name taken from it; a fact file may cite a *.fandom.com page on a character fact only).
 -- Why:    OtakuQuiz is built on series pages, spoiler-aware arcs and characters, themes (openings) and the oshi pick; the
 --         catalogue rows are loaded at launch (L04, L05), so every table here ships empty.
 -- Rows:   6 new tables, 1 new view, 3 new columns, 3 check constraints replaced by supersets; no row is inserted, no row of an

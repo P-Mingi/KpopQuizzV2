@@ -1,6 +1,6 @@
 {
   "mode": "verified",
-  "input_sha256": "8dad26b4c1a323ae4239a776008bf0bcf56bcd1dd600a95752c22f8855536b74",
+  "input_sha256": "5520e5b79cfbf649981f6096088f0e9b3ffe318f748c789f7ecba3cb82d46821",
   "files": [
     {
       "name": "L02-K2-team-accounts.sql",
@@ -12,7 +12,7 @@
     },
     {
       "name": "L04-K1-series.sql",
-      "sha256": "fa53cce19de998a1a139f9bdc5c725f80ade1b9196cb663b906b160edb858aef"
+      "sha256": "99d7fb73977455fb86ca21dac786496da26ca1632a4b2680940ef4d4d7fe49e9"
     },
     {
       "name": "L04-K1-series.rollback.sql",
@@ -28,7 +28,7 @@
     },
     {
       "name": "L07-K2-catalogue.sql",
-      "sha256": "60f6fe6eede5517bc30d122f69ec1ef4bffc6b95acdbcca1bc49c64bf8e83688"
+      "sha256": "c86bbcf770cc1121e600886d211faecfce900a961d42b9fd5a0e506342f9b6f4"
     },
     {
       "name": "L07-K2-catalogue.rollback.sql",

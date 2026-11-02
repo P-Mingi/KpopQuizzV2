@@ -3,7 +3,7 @@
 -- What:   the tables lot A1 fills (character_facts, series_facts: RLS on, no policy, closed to anon and authenticated), the view
 --         dle_src_anime_character (the facts as the 7 columns of Otakudle) and the game row otakudle with its columns, switched off (active
 --         false, no epoch, no bank). Nothing is shown to players.
---         The pool of the view: the characters lot A1 gave facts to, published, spoiler_level 0, identity_spoiler false, in a published anime
+--         The pool of the view: the characters lot A1 gave facts to, published (owner, 2026-11-02: spoiler_level and identity_spoiler no longer exclude a character, CR-023; only the columns describe the character as first met), in a published anime
 --         series. Columns: series (single; near: same franchise, read through to_jsonb because series has no such column yet, and no two
 --         launch series share one), gender, species, role (the role at the first appearance), demographic (single), year (number, near 2:
 --         manga_start_year, or anime_start_year for an anime original), studio (multi, near: one in common: the series.studios entries whose
@@ -95,7 +95,7 @@ with first_studio as (
   join public.groups g on g.id = c.group_id and g.site_id = 'anime'
   join first_studio fs on fs.group_id = s.group_id
   left join public.series_facts sf on sf.group_id = s.group_id
-  where c.status = 'published' and c.spoiler_level = 0 and not c.identity_spoiler
+  where c.status = 'published'
 )
 select
   p.id::text as entity_id,
@@ -145,7 +145,7 @@ from (values
 where exists (select 1 from public.dle_games g where g.id = a.game_id)
 on conflict (game_id, key) do nothing;
 
--- Self-check: closed to the browser roles, the game (when it is there) complete, the spoiler rule in the view.
+-- Self-check: closed to the browser roles, the game (when it is there) complete, the published rule in the view.
 do $$
 begin
   if has_table_privilege('anon', 'public.character_facts', 'select') or has_table_privilege('authenticated', 'public.character_facts', 'select')
@@ -158,8 +158,8 @@ begin
   if exists (select 1 from public.dle_games where id = 'otakudle') and (select count(*) from public.dle_attributes where game_id = 'otakudle') <> 7 then
     raise exception '023-dle-otakudle: otakudle does not have 7 columns';
   end if;
-  if pg_get_viewdef('public.dle_src_anime_character'::regclass) !~ 'spoiler_level = 0' or pg_get_viewdef('public.dle_src_anime_character'::regclass) !~ 'identity_spoiler' then
-    raise exception '023-dle-otakudle: the view lost its spoiler rule';
+  if pg_get_viewdef('public.dle_src_anime_character'::regclass) !~ 'published' or pg_get_viewdef('public.dle_src_anime_character'::regclass) ~ '(spoiler_level = 0|NOT c.identity_spoiler|not c.identity_spoiler)' then
+    raise exception '023-dle-otakudle: the view lost its published rule, or filters on a spoiler again';
   end if;
 end $$;
 

@@ -1699,6 +1699,32 @@ describe('content formats (formats.md, schemas/)', () => {
     }
   });
 
+  it('fandom.com is accepted for the facts of a character and nowhere else (CR-023); every other source rule is as strict as before', () => {
+    const fact = (over: Record<string, unknown> = {}, source: Record<string, unknown> = {}): Record<string, unknown> => ({
+      id: 'test-series-hair-001', site: 'anime', entity: { kind: 'character', group_slug: 'test-series', ref: 'test-1' }, field: 'height_cm',
+      value: 170, category: 'members', load_bearing: false, spoiler: { arc: 0, scope: 'both' },
+      sources: [{ source: 'fandom', url: 'https://test.fandom.com/wiki/Test_One', ref: '2026683', fetched_at: at, ...source }], status: 'draft', ...over,
+    });
+    // A character fact with a Fandom page is good.
+    expect(v('fact', fact())).toEqual([]);
+    expect(v('fact', fact({ sources: [{ source: 'fandom', url: 'https://test.fandom.com/wiki/Test_One', fetched_at: at }, { source: 'wikidata', url: 'https://www.wikidata.org/wiki/Q1', ref: 'Q1', fetched_at: at }] }))).toEqual([]);
+    // The same source on a fact of a series, an arc, a theme or an episode is refused.
+    for (const entity of [{ kind: 'series', group_slug: 'test-series' }, { kind: 'arc', group_slug: 'test-series', ref: '3' }, { kind: 'theme', group_slug: 'test-series', ref: 'op-1' }, { kind: 'episode', group_slug: 'test-series', ref: '3' }]) {
+      const e = v('fact', fact({ entity }));
+      expect(e.length, entity.kind).toBeGreaterThan(0);
+    }
+    // A fandom source takes a Fandom address and nothing else; another source never takes one.
+    expect(v('fact', fact({}, { url: 'https://en.wikipedia.org/wiki/Test' })).join(';')).toMatch(/does not match/);
+    expect(v('fact', fact({}, { url: 'http://test.fandom.com/wiki/Test_One' })).join(';')).toMatch(/does not match/);
+    expect(v('fact', fact({}, { url: 'https://fandom.com.example.org/wiki/Test_One' })).join(';')).toMatch(/does not match/);
+    expect(v('fact', fact({}, { source: 'wikipedia', ref: '123456' })).join(';')).toMatch(/does not match/);
+    expect(v('fact', fact({}, { source: 'official' })).join(';')).toMatch(/does not match/);
+    // The other banned hosts stay banned on a character fact.
+    for (const host of ['myanimelist.net', 'jikan.moe', 'animethemes.moe', 'kprofiles.com', 'anilist.co', 'sporcle.com']) {
+      expect(v('fact', fact({}, { source: 'official', url: `https://${host}/x` })).join(';'), host).toMatch(/does not match/);
+    }
+  });
+
   it('every data file of a lane named <name>.<format>.json follows its format', () => {
     const files: string[] = [];
     const skip = new Set(['node_modules', '.next', '.git', 'graphify-out', 'public', 'test-results', 'playwright-report']);

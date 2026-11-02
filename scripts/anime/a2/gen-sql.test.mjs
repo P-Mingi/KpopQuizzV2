@@ -29,10 +29,14 @@ test('dropping or adding a column of 024 is all it takes: the data follows', () 
   assert.ok(run().sql.includes('"height_cm"'));
 });
 
-test('only the characters L04 has are loaded, the others are listed as waiting', () => {
+test('only the characters L04 has are loaded (all but 4 GT characters), the others are listed as waiting', () => {
   const r = run();
-  assert.deepEqual(r.games.map((g) => [g.id, g.loaded, g.waiting]), [['otakudle-one-piece', 32, 68], ['otakudle-dragon-ball', 30, 40]]);
-  assert.match(r.sql, /waiting \(slug\): jinbe,/);
+  assert.deepEqual(r.games.map((g) => [g.id, g.loaded, g.waiting]), [['otakudle-one-piece', 100, 0], ['otakudle-dragon-ball', 66, 4]]);
+  assert.match(r.sql, /waiting \(slug\): cooler, gogeta, baby, syn-shenron/);
+  // A character L04 does not have is skipped and listed.
+  const none = run({ l04: new Set() });
+  assert.deepEqual(none.games.map((g) => [g.loaded, g.waiting]), [[0, 100], [0, 70]]);
+  assert.match(none.sql, /waiting \(slug\): monkey-d-luffy,/);
 });
 
 test('same input, same output; --targets none flags nobody; complete flags only a character with every column and the hint', () => {

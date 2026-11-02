@@ -139,7 +139,8 @@ const norm = (v) => {
   if (Array.isArray(v)) return v.flatMap(norm);
   if (typeof v === 'object') return norm(v.code ?? v.ord ?? v.order);
   const s = String(v).trim().toLowerCase();
-  return s === '' || s === 'unknown' ? [] : [s];
+  // A source may list several names ("A / B", a voice actor kept as the first): the value is backed when it is one of them.
+  return s === '' || s === 'unknown' ? [] : s.split(/\s+\/\s+/);
 };
 // Does a source back the value kept? Two empty lists agree (no haki); otherwise they share one element.
 const supports = (kept, got) => {

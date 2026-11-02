@@ -72,13 +72,15 @@ export const CHARACTERS: readonly FixtureCharacter[] = [
   // Never a target: no studio known; or a character arriving after a choice of "How far are you?".
   c('kagurabachi', 'chihiro', 'Chihiro Rokuhira'),
   c('one-piece', 'late-arc', 'Late Arc Rival', { arc: 5 }), c('one-piece', 'manga-only', 'Manga Only Rival', { medium: 'manga' }), c('one-piece', 'anime-only', 'Anime Only Rival', { medium: 'anime' }),
+  // In the pool and targets like the others: a spoiler_level or a hidden identity no longer excludes a character (owner, 2026-11-02, CR-023).
+  c('one-piece', 'spoiler', 'Spoiler Rival', { spoiler: 1 }), c('one-piece', 'identity', 'Identity Rival', { identity: true }),
   // Never in the pool.
-  c('one-piece', 'draft', 'Draft Rival', { status: 'draft' }), c('one-piece', 'spoiler', 'Spoiler Rival', { spoiler: 1 }), c('one-piece', 'identity', 'Identity Rival', { identity: true }),
+  c('one-piece', 'draft', 'Draft Rival', { status: 'draft' }),
   c('hidden-series', 'hidden', 'Hidden Rival'), c('one-piece', 'no-facts', 'No Facts Rival', { facts: false }),
 ];
 
-/** The pool as the view must read it: every character above but the last five. */
-export const FIXTURE_IN_POOL = CHARACTERS.length - 5;
+/** The pool as the view must read it: every character above but the last three (a draft, a hidden series, no facts). */
+export const FIXTURE_IN_POOL = CHARACTERS.length - 3;
 /** The targets: in the pool, every column known, seen at every choice. */
 export const FIXTURE_TARGETS = FIXTURE_IN_POOL - 5;
 

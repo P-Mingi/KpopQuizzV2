@@ -104,9 +104,10 @@ describe('the rules of the view, on the fixtures', () => {
     pool = (await readPool({ rpc: (fn: string, args: Record<string, unknown>) => rpcAs(db, fn, args) }, 'otakudle'))!.entities as DlePoolEntity[];
   });
 
-  it('the pool: facts, published, no spoiler, a published series; never a draft, a spoiler, a hidden identity, a hidden series or a character without facts', () => {
+  it('the pool: facts, published, a published series; never a draft, a hidden series or a character without facts; a spoiler level or a hidden identity does not exclude (CR-023)', () => {
     expect(pool).toHaveLength(FIXTURE_IN_POOL);
-    for (const name of ['Draft Rival', 'Spoiler Rival', 'Identity Rival', 'Hidden Rival', 'No Facts Rival']) expect(pool.map((e) => e.name), name).not.toContain(name);
+    for (const name of ['Draft Rival', 'Hidden Rival', 'No Facts Rival']) expect(pool.map((e) => e.name), name).not.toContain(name);
+    for (const name of ['Spoiler Rival', 'Identity Rival']) expect(pool.map((e) => e.name), name).toContain(name);
   });
 
   it('the targets: every column known and seen at every choice; a null gender or no studio stays guessable, never a target', async () => {
@@ -114,6 +115,8 @@ describe('the rules of the view, on the fixtures', () => {
     expect(await target(byName('Hange Zoe').id)).toBe(false);
     expect(await target(byName('Chihiro Rokuhira').id)).toBe(false);
     expect(await target(byName('Eren Yeager').id)).toBe(true);
+    expect(await target(byName('Spoiler Rival').id)).toBe(true);
+    expect(await target(byName('Identity Rival').id)).toBe(true);
   });
 
   it('dle_pool gives the columns and the names, never the hints or the target flag', async () => {
