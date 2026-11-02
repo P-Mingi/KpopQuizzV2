@@ -227,8 +227,10 @@ describe('the copy', () => {
   });
 
   it('values are translated, names are not', () => {
-    expect(valueLabel('gender', 'female', 'fr')).toBe('Femme');
-    expect(valueLabel('gender', 'male', 'en')).toBe('Man');
+    // Owner decision 2026-11-03: Male / Female in English, Masculin / Féminin in French, in every game (was Man / Woman, Homme / Femme).
+    expect(valueLabel('gender', 'female', 'fr')).toBe('Féminin');
+    expect(valueLabel('gender', 'male', 'en')).toBe('Male');
+    expect(valueLabel('gender', 'female', 'en')).toBe('Female');
     expect(valueLabel('role', 'none', 'fr')).toBe('Aucun');
     expect(valueLabel('generation', 3, 'fr')).toBe('3e');
     expect(valueLabel('generation', 3, 'en')).toBe('3rd');

@@ -4,10 +4,13 @@ import { seriesPhotoOf } from '@/lib/anime/series-images';
 import { kindEyebrow, kindName } from '@/lib/anime/manhwa';
 import { SERIES_TRIVIA_MIN, groupQuizzesByArc, hubEyebrow, hubIntro, openingRows, quizLevels, safeUrl, seriesFaqs, shieldArcs, splitCharacters, storyMap, uniqueFacts, withPortraits, HUB_FACT_LIMIT } from '@/lib/anime/series-model';
 
+import { seriesDailyGame } from '@/lib/passerelles/series';
+
 import { CharacterTiles } from './character-tiles';
 import { OpeningsTable } from './openings-table';
 import { PhotoCredit } from './photo-credit';
 import { SeriesFactList } from './series-fact-list';
+import { SeriesDailyCard } from './series-daily-card';
 import { SeriesFacts } from './series-facts';
 import { StoryMap } from './story-map';
 import { TitleCard } from './title-card';
@@ -51,6 +54,9 @@ export function buildSeriesSlots(hub: SeriesHub, related: readonly RelatedSeries
   const split = splitCharacters(hub.characters, hub.oshiCounts);
   // The owner's portraits go on the characters a reader may see; a locked character never gets one (its name is not in the page either).
   const characters = { open: withPortraits(split.open, portraits), lockedCount: split.lockedCount };
+  const dailyGame = seriesDailyGame(group.slug);
+  const shield = <SpoilerShieldIsland seriesSlug={group.slug} groupId={group.id} arcs={shieldArcs(hub.arcs)} />;
+  const storyMapEl = <StoryMap nodes={storyMap(hub.arcs, hub.quizzes)} />;
   return {
     origin: site.origin,
     brand: site.brand,
@@ -67,10 +73,17 @@ export function buildSeriesSlots(hub: SeriesHub, related: readonly RelatedSeries
     ),
     blindtest: null,
     triviaAvailable: facts.length >= SERIES_TRIVIA_MIN,
-    beforeQuizzes: (
+    // P5 (CR-025), links 11 and 12: with the hub's dailyGuess on, the card of the series' daily game comes first; off, the same two children as ever.
+    beforeQuizzes: dailyGame ? (
       <>
-        <SpoilerShieldIsland seriesSlug={group.slug} groupId={group.id} arcs={shieldArcs(hub.arcs)} />
-        <StoryMap nodes={storyMap(hub.arcs, hub.quizzes)} />
+        <SeriesDailyCard game={dailyGame} />
+        {shield}
+        {storyMapEl}
+      </>
+    ) : (
+      <>
+        {shield}
+        {storyMapEl}
       </>
     ),
     grouping: {

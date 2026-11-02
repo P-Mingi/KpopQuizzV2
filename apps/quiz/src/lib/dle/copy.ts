@@ -22,7 +22,7 @@ export interface DleCopy {
   readonly foundIn: (n: number) => string; readonly gaveUp: string; readonly inProgress: (n: number) => string;
   readonly fansFound: (n: string) => string; readonly allFound: string; readonly modesDone: (done: number, total: number, next: string) => string;
   readonly gameNo: (kind: string, n: number) => string; readonly burrowStreak: (label: string, n: number) => string; readonly kpopLabel: string; readonly animeLabel: string;
-  readonly show: string; readonly hiddenAnswer: string; readonly quizOf: (group: string) => string;
+  readonly show: string; readonly hiddenAnswer: string; readonly quizOf: (group: string) => string; readonly blindOf: (group: string) => string;
   readonly aboutTitle: string; readonly about1: string; readonly about2: string;
   // the tiles of the Otakudle page to the games of one series
   readonly seriesTilesTitle: string; readonly seriesTilesLabel: string;
@@ -70,7 +70,7 @@ const EN: DleCopy = {
   foundIn: (n) => `found in ${n}`, gaveUp: 'gave up', inProgress: (n) => `in progress · ${n}`,
   fansFound: (n) => `${n} fans found it today`, allFound: 'all found', modesDone: (d, t, next) => `${d} of ${t} · ${next}`,
   gameNo: (k, n) => `${k} no. ${n}`, burrowStreak: (l, n) => `${l}: ${n} ${n === 1 ? 'day' : 'days'}`, kpopLabel: 'K-pop', animeLabel: 'Anime',
-  show: 'Show', hiddenAnswer: 'Hidden, no spoilers', quizOf: (g) => `${g} quiz`,
+  show: 'Show', hiddenAnswer: 'Hidden, no spoilers', quizOf: (g) => `${g} quiz`, blindOf: (g) => `${g} blind test`,
   aboutTitle: 'What is the Burrow?',
   about1: 'The Burrow gathers the Bunnyverse daily games. Kpopdle: guess today’s K-pop idol, then the group, the song and the hidden members. Otakudle: guess today’s anime character, across all series or one series, spoiler-free.',
   about2: 'Unlimited guesses, a new puzzle at midnight UTC.',
@@ -116,7 +116,7 @@ const FR: DleCopy = {
   foundIn: (n) => `trouvé en ${n}`, gaveUp: 'abandon', inProgress: (n) => `en cours · ${n}`,
   fansFound: (n) => `${n} fans ont trouvé aujourd’hui`, allFound: 'tout trouvé', modesDone: (d, t, next) => `${d} sur ${t} · ${next}`,
   gameNo: (k, n) => `${k} n° ${n}`, burrowStreak: (l, n) => `${l} : ${n} ${n === 1 ? 'jour' : 'jours'}`, kpopLabel: 'K-pop', animeLabel: 'Anime',
-  show: 'Afficher', hiddenAnswer: 'Masqué, sans spoiler', quizOf: (g) => `Quiz ${g}`,
+  show: 'Afficher', hiddenAnswer: 'Masqué, sans spoiler', quizOf: (g) => `Quiz ${g}`, blindOf: (g) => `Blind test ${g}`,
   aboutTitle: 'C’est quoi, le Terrier ?',
   about1: 'Le Terrier réunit les jeux quotidiens de Bunnyverse. Kpopdle : devine l’idol K-pop du jour, puis le groupe, la chanson et les membres cachés. Otakudle : devine le personnage d’anime du jour, toutes séries ou une seule, sans spoiler.',
   about2: 'Essais illimités, nouvelle énigme à minuit UTC (1 h à Paris en hiver).',
@@ -155,7 +155,7 @@ export interface DleColumnCopy { readonly label: string; readonly help: string; 
 
 export const IDOL_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<string, DleColumnCopy>>>> = {
   en: {
-    gender: { label: 'Gender', help: 'Woman or man' },
+    gender: { label: 'Gender', help: 'Female or male' },
     group: { label: 'Group', help: 'Main group' },
     agency: { label: 'Agency', help: 'Close if same parent company', near: 'same parent company', source: 'Wikidata, official site' },
     nationality: { label: 'Nationality', help: 'Country of nationality' },
@@ -165,7 +165,7 @@ export const IDOL_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<string, Dl
     role: { label: 'Role', help: 'Official leader or maknae', near: 'official leader or maknae', source: 'official site, Wikipedia' },
   },
   fr: {
-    gender: { label: 'Genre', help: 'Femme ou homme' },
+    gender: { label: 'Genre', help: 'Féminin ou masculin' },
     group: { label: 'Groupe', help: 'Groupe principal' },
     agency: { label: 'Agence', help: 'Proche si même maison mère', near: 'même maison mère', source: 'Wikidata, site officiel' },
     nationality: { label: 'Nationalité', help: 'Pays de nationalité' },
@@ -207,7 +207,7 @@ export function valueLabel(key: string, v: unknown, locale: DleLocale, opts?: { 
     if (x !== null) return x;
   }
   if (key === 'series') return locale === 'fr' ? VALUE_FR[s] ?? s : s;
-  if (key === 'gender') return s === 'female' ? (locale === 'fr' ? 'Femme' : 'Woman') : s === 'male' ? (locale === 'fr' ? 'Homme' : 'Man') : s;
+  if (key === 'gender') return s === 'female' ? (locale === 'fr' ? 'Féminin' : 'Female') : s === 'male' ? (locale === 'fr' ? 'Masculin' : 'Male') : s;
   if (key === 'role') {
     if (s === 'none') return locale === 'fr' ? 'Aucun' : 'None';
     if (locale === 'fr' && ROLE_FR[s]) return ROLE_FR[s]!;
@@ -377,7 +377,7 @@ export const ONE_PIECE_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<strin
     debut_arc: ['Debut arc', 'The arc of the first appearance, an arrow says earlier or later', 'never, arrow only', SRC.en.all],
   }),
   fr: cols({
-    gender: ['Genre', 'Homme ou femme', 'jamais', SRC.fr.all],
+    gender: ['Genre', 'Masculin ou féminin', 'jamais', SRC.fr.all],
     affiliation: ['Affiliation', 'Équipages et organisations, proche si une en commun', 'un équipage ou une organisation en commun', SRC.fr.all],
     devil_fruit_type: ['Fruit du démon', 'Paramecia, Zoan, Logia ou aucun', 'jamais', SRC.fr.all],
     haki: ['Haki', 'Observation, armement, rois ou aucun, proche si un en commun', 'un Haki en commun', SRC.fr.all],
@@ -400,7 +400,7 @@ export const DRAGON_BALL_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<str
     alignment_at_debut: ['Good or evil', 'Good or evil at the first appearance', 'never', SRC.en.all],
   }),
   fr: cols({
-    gender: ['Genre', 'Homme ou femme', 'jamais', SRC.fr.all],
+    gender: ['Genre', 'Masculin ou féminin', 'jamais', SRC.fr.all],
     race: ['Race', 'Saiyan, Humain, Namekien et les autres', 'jamais', SRC.fr.all],
     affiliation: ['Affiliation', 'Équipes et organisations, proche si une en commun', 'une équipe ou une organisation en commun', SRC.fr.all],
     home_planet: ['Planète d’origine', 'D’où ils viennent', 'jamais', SRC.fr.all],

@@ -1913,7 +1913,7 @@ describe('link allowlist (link-allowlist.md, link-allowlist.json)', () => {
       for (const s of l.to) expect(l.from, l.id).not.toContain(s);
       expect(['followed', 'nofollow'], l.id).toContain(l.rel);
       expect(l.query, l.id).toBe(false);
-      expect(l.page === null || l.page === '*' || /^\/[a-z0-9/-]*(\/\*\*)?$/.test(l.page), l.id).toBe(true);
+      expect(l.page === null || l.page === '*' || /^\/[a-z0-9/-]*(\/\*\*)?$/.test(l.page) || /^\/\*-[a-z0-9-]+$/.test(l.page), l.id).toBe(true);
       expect(l.href, l.id).toMatch(/^\/([a-z0-9/-]*)(\/?\*\*)?$/);
     }
     const ids = json.links.map((l) => l.id);

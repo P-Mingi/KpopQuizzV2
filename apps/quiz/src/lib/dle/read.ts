@@ -3,6 +3,7 @@
 // of the day is never read here: dle_day gives it only inside a finished play, and these calls have no token.
 import { unstable_cache } from 'next/cache';
 
+import { ROUND_SIZE } from '@/lib/blind-test-playlists';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { publicUrl } from '@/lib/entity-images/store';
 import { assetPosition, getLiveAssets, getPublicPictures, safePath } from '@/lib/photos/public-read';
@@ -166,4 +167,38 @@ export async function getKpopGroupSlugs(): Promise<Readonly<Record<string, strin
     console.error('[dle] groups read failed:', (err as Error)?.message ?? err);
     return {};
   }
+}
+
+// ---- the blind test of a group (P5, CR-025, link 3) ---------------------------------------------------------------------------------
+
+/**
+ * Group name to its slug, for the groups of KpopQuiz whose blind test can be played: the rule of /blindtest/group-{slug} (lib/blind-test-playlists.ts, THE rule), a group with at least ROUND_SIZE clean
+ * active songs. Paged past the 1000-row cap. A group under the floor gets no entry, so the result screen never links a page that answers 404.
+ */
+export async function readBlindtestSlugs(db: Db): Promise<Readonly<Record<string, string>>> {
+  const [songs, groups] = await Promise.all([
+    fetchAllRows<{ group_id: number }>(() => db.from('songs').select('id, group_id').eq('site_id', 'kpop').eq('status', 'active').not('group_id', 'is', null)
+      .not('title', 'ilike', '%remix%').not('title', 'ilike', '%instrumental%').not('title', 'ilike', '%inst.%').not('title', 'ilike', '%karaoke%').order('id', { ascending: true })),
+    fetchAllRows<{ id: number; name: string; slug: string }>(() => db.from('groups').select('id, name, slug').eq('site_id', 'kpop').order('slug', { ascending: true })),
+  ]);
+  const playable = new Map<number, number>();
+  for (const r of songs) playable.set(r.group_id, (playable.get(r.group_id) ?? 0) + 1);
+  return Object.fromEntries(groups.filter((g) => (playable.get(g.id) ?? 0) >= ROUND_SIZE).map((g) => [g.name, g.slug]));
+}
+
+const blindSlugsCached = unstable_cache(async () => readBlindtestSlugs(createPublicReadClient()), ['db:hub:dle-blindtest-slugs:v1'], { revalidate: 3600, tags: ['dle'] });
+
+/** Group name to its slug when its blind test is playable, for "Blind test TWICE"; {} on any failure (a name it does not know gets no link, no dead door). */
+export async function getBlindtestSlugs(): Promise<Readonly<Record<string, string>>> {
+  try {
+    return await blindSlugsCached();
+  } catch (err) {
+    console.error('[dle] blind test groups read failed:', (err as Error)?.message ?? err);
+    return {};
+  }
+}
+
+/** Name to the address of its blind test on KpopQuiz. */
+export function blindLinksOf(names: readonly string[], slugs: Readonly<Record<string, string>>): Readonly<Record<string, string>> {
+  return Object.fromEntries(names.flatMap((n) => (slugs[n] ? [[n, homeUrl({ site: 'kpop', path: `/blindtest/group-${slugs[n]}` })]] : [])));
 }

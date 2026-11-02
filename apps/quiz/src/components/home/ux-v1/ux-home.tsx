@@ -9,6 +9,7 @@ import { SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 import { getHomeBand, getHomeCommunity, getHomeGroups, getHomeLists, getHomeQotd } from '@/lib/ux-v1/p1/home-data';
 import { IS_KPOP, titleCase } from '@/lib/site/genre';
 import { SITE } from '@/lib/site/registry';
+import { loadAnimeDailyHome } from '@/lib/ux-v1/p1/anime-daily-home';
 import { loadKpopdleHome } from '@/lib/ux-v1/p1/kpopdle-home';
 import { RenderHealth, settleRender } from '@/lib/ux-v1/p1/render-health';
 
@@ -49,7 +50,8 @@ export async function UxHome({ head, afterHeader }: {
   // stays), at build it is kept for 30 s only.
   await settleRender(health);
   // Not a health.read: a Kpopdle that is down hides its module, it never costs the home its cache (CR-018).
-  const kpopdle = await loadKpopdleHome();
+  // P5 (CR-025), link 10: on the OtakuQuiz build the same place holds the Daily games module instead (the two loaders are closed on the other site, so each build gets at most one).
+  const kpopdle = (await loadKpopdleHome()) ?? (await loadAnimeDailyHome());
   const qotdRow = qotd ? <QotdRow qotd={qotd} /> : null;
 
   return (

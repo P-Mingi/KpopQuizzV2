@@ -1,7 +1,7 @@
 // Daily games step 4: a game's page (board Kpopdle.dc.html, v2 sections 6 and 11.3): the banner, the marquee, the game, then the guide Google reads: yesterday's answer, how to play and the columns in a fold kept in the HTML, the answer
 // block, the pool in clear, the hop to the other game. Server component. A game with no pool (off, or a failed read) keeps the guide and says it is not available; the metadata then says noindex.
 import { jsonLdString } from '@/lib/seo/json-ld';
-import { getAnimeSeriesSlugs, getDleDay, getDleImages, getDlePictures, getDlePool, getKpopGroupSlugs, quizLinksOf } from '@/lib/dle/read';
+import { blindLinksOf, getAnimeSeriesSlugs, getBlindtestSlugs, getDleDay, getDleImages, getDlePictures, getDlePool, getKpopGroupSlugs, quizLinksOf } from '@/lib/dle/read';
 import { dleCopy, gameCopy, valueLabel } from '@/lib/dle/copy';
 import { DAILY_PATH, builtGames, dleGame, localePath } from '@/lib/dle/games';
 import { breadcrumbJsonLd, gameAnswerBlock, gameJsonLd, itemListJsonLd } from '@/lib/dle/seo';
@@ -43,7 +43,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
   const g = dleGame(game);
   const w = gameCopy(game, locale);
   const world = worldOf(game);
-  const [day, pool, images, pictures, slugs] = await Promise.all([getDleDay(game), getDlePool(game), getDleImages(), getDlePictures(g.photoKind), world.universe === 'anime' ? getAnimeSeriesSlugs() : getKpopGroupSlugs()]);
+  const [day, pool, images, pictures, slugs, blindSlugs] = await Promise.all([getDleDay(game), getDlePool(game), getDleImages(), getDlePictures(g.photoKind), world.universe === 'anime' ? getAnimeSeriesSlugs() : getKpopGroupSlugs(), world.universe === 'kpop' ? getBlindtestSlugs() : Promise.resolve({})]);
   // The banner of the page's own slot when the admin has one (banner:otakudle/one-piece), else the world's.
   const banner = images[`banner:${g.path.slice(1)}`] ?? images[world.bannerSlot];
   const other = otherWorld(world);
@@ -54,6 +54,8 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
   const groupNames = pool ? poolByGroup(pool, w.subKey).map((x) => x.group) : [];
   // A game of one series knows its series and its slug: no read of the series titles decides whether its quiz link exists.
   const quizLinks = g.series ? quizLinksOf('anime', [g.series.name], { [g.series.name]: g.series.slug }) : quizLinksOf(world.universe, groupNames, slugs);
+  // P5 (CR-025), link 3: "TWICE blind test" next to "TWICE quiz" after a win, only for a K-pop group whose playlist can be played (otherwise no link).
+  const blindLinks = world.universe === 'kpop' ? blindLinksOf(groupNames, blindSlugs) : {};
   const yesterday = day?.yesterday ?? null;
   const yGroup = yesterday ? parentName(g, w.subKey, yesterday.answer.attrs) : '';
   const yShown = g.series ? yGroup : valueLabel(w.subKey, yGroup, locale);
@@ -94,7 +96,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
       <main id="main" tabIndex={-1} className="hub-dle-main">
         <DleGame
           locale={locale} game={game} gameNo={day?.game_no ?? null} stats={day?.stats ?? null} pool={pool} pictures={pictures}
-          quizLinks={quizLinks} kpopName={REGISTRY[world.universe].brand.name}
+          quizLinks={quizLinks} blindLinks={blindLinks} kpopName={REGISTRY[world.universe].brand.name}
         />
         {seriesGames.length ? (
           <nav aria-labelledby="dle-series-h" className="hub-dle-seriesnav">

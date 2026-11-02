@@ -592,6 +592,20 @@ NET_KPOPDLE_HOME
 ```
 Vérif (worker) : RUNBOOK L3c (un seul lien vers `/kpopdle` dans le HTML de l'accueil, un seul H1, aucun nom d'idol, V1 : seule `/` change). Retour : retire la clé, redéploie `kpopquiz`.
 
+### 61 ter. La ligne Kpopdle en fin de quiz et la carte sur les pages de groupe, le jour J
+Moi 3 min, Worker 10 min. [RUNBOOK L3d](RUNBOOK.md#l-after-launch)
+
+Après l'étape 61 bis, quand elle est stable depuis un jour. Même go / no-go. Les liens d'OtakuQuiz vers ses trois jeux (accueil, séries One Piece et Dragon Ball, fin d'un quiz anime) n'ont pas de clé : ils s'allument avec la PR du jour J qui met `dailyGuess` à true.
+
+Vercel, `kpopquiz` seulement, Production : les deux clés ci-dessous, valeur `1` (chacune peut partir seule). Redéploie `kpopquiz`.
+```
+NET_KPOPDLE_QUIZEND
+```
+```
+NET_KPOPDLE_GROUP
+```
+Vérif (worker) : RUNBOOK L3d (un seul lien vers `/kpopdle` sur une page de groupe qui a des membres dans le jeu, aucun sur une page de groupe qui n'en a pas, un seul H1, V1 : seules les pages de groupe changent). Retour : retire la clé, redéploie `kpopquiz`.
+
 ### 62. +48 h et +72 h
 Claude 30 min, Worker 40 min. [RUNBOOK L4](RUNBOOK.md#l-after-launch)
 

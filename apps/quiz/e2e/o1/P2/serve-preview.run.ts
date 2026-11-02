@@ -6,11 +6,13 @@
 //   cd apps/quiz && npx tsx e2e/o1/P2/serve-preview.run.ts [port]      (default port 54399)
 import { createServer } from 'node:http';
 
-import { rpcAs } from '../../../src/lib/dle/game-fixture';
+import { rpcAs, seedFixtureIdols } from '../../../src/lib/dle/game-fixture';
 import { afterJ4, afterSessionG, applyLaunchFiles } from '../../../src/lib/dle/otakudle-fixture';
 import { MIGRATIONS, readMigration } from '../../../src/lib/dle/pglite-harness';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+
+import { Fixtures } from '../P5/rest-fixtures';
 
 const PORT = Number(process.argv[2] ?? 54399);
 const EPOCH = new Date(Date.now() - 3 * 86_400_000).toISOString().slice(0, 10);
@@ -22,9 +24,16 @@ await db.exec(readMigration('024-dle-series-games.sql'));
 await applyLaunchFiles(db);
 await db.exec(readFileSync(path.join(MIGRATIONS, 'launch', 'L15-A2-series-games.sql'), 'utf8'));
 await db.exec(`update public.dle_games set min_pool = 10 where id in ('otakudle', 'otakudle-one-piece', 'otakudle-dragon-ball')`);
-for (const g of ['otakudle', 'otakudle-one-piece', 'otakudle-dragon-ball']) await db.query(`select public.dle_activate($1, $2::date, 0.5)`, [g, EPOCH]);
+// P5 (CR-025): Kpopdle Idol is on too, for the pages that link to it (its result, the kpopquiz.org home, the group pages, the end of a K-pop quiz).
+await seedFixtureIdols(db);
+await db.exec(`update public.dle_games set min_pool = 2, no_repeat_days = 5 where id = 'kpopdle-idol'`);
+for (const g of ['kpopdle-idol', 'otakudle', 'otakudle-one-piece', 'otakudle-dragon-ball']) await db.query(`select public.dle_activate($1, $2::date, 0.5)`, [g, EPOCH]);
 await db.exec('grant select on public.groups to anon, authenticated');
-console.log('preview database ready; epoch', EPOCH);
+// P5 (CR-025): the rows of the K-pop and anime pages (groups, quizzes, songs, series) for the screenshots of kpopquiz.org and OtakuQuiz, from e2e/o1/P5/rest-fixtures.ts.
+const poolOf = (await rpcAs(db, 'dle_pool', { p_game: 'kpopdle-idol' })).data as { entities: { name: string; attrs: Record<string, { v?: unknown; p?: string[] }> }[] };
+const animeNames = (await db.query<{ name: string }>(`select name from public.groups where site_id = 'anime' order by slug`)).rows.map((r) => r.name);
+const fixtures = new Fixtures(poolOf.entities, animeNames);
+console.log('preview database ready; epoch', EPOCH, '; K-pop groups', fixtures.kpopGroups.length, '; anime series', animeNames.join(', '));
 
 const CORS = {
   'access-control-allow-origin': '*',
@@ -39,6 +48,7 @@ createServer((req, res) => {
     res.writeHead(status, { 'content-type': 'application/json', ...CORS, ...extra });
     res.end(JSON.stringify(body));
   };
+  if (process.env.P5_LOG_REQUESTS) console.log(req.method, req.url);
   if (req.method === 'OPTIONS') { res.writeHead(204, CORS); res.end(); return; }
   let raw = '';
   req.on('data', (c) => { raw += c; });
@@ -50,9 +60,18 @@ createServer((req, res) => {
         const r = await rpcAs(db, fn, raw ? (JSON.parse(raw) as Record<string, unknown>) : {});
         return r.error ? send(400, { message: r.error.message, code: 'P0001', details: null, hint: null }) : send(200, r.data);
       }
-      if (url.pathname === '/rest/v1/groups') {
-        const { rows } = await db.query(`select name, slug from public.groups where site_id = 'anime' order by slug`);
-        return send(200, rows, { 'content-range': `0-${Math.max(0, rows.length - 1)}/${rows.length}` });
+      if (url.pathname === '/__seen') return send(200, Object.fromEntries(fixtures.seen));
+      if (url.pathname.startsWith('/rest/v1/') && !url.pathname.startsWith('/rest/v1/rpc/')) {
+        const rows = fixtures.rows(url.pathname.slice('/rest/v1/'.length), url.searchParams);
+        if (rows) {
+          const range = /^(\d+)-(\d+)$/.exec(String(req.headers.range ?? ''));
+          const page = range ? rows.slice(Number(range[1]), Number(range[2]) + 1) : rows;
+          const cr = { 'content-range': `${page.length ? `${range ? range[1] : 0}-${(range ? Number(range[1]) : 0) + page.length - 1}` : '*'}/${rows.length}` };
+          if (/pgrst\.object/.test(String(req.headers.accept ?? ''))) {
+            return page.length === 1 ? send(200, page[0], cr) : send(406, { code: 'PGRST116', details: `The result contains ${page.length} rows`, hint: null, message: 'JSON object requested, multiple (or no) rows returned' }, cr);
+          }
+          return req.method === 'HEAD' ? (res.writeHead(200, { ...CORS, ...cr }), res.end()) : send(200, page, cr);
+        }
       }
       if (url.pathname === '/__target') {
         const game = url.searchParams.get('game') ?? '';

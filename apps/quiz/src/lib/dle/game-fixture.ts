@@ -27,6 +27,21 @@ const IDOLS: readonly Row[] = [
 
 export const FIXTURE_POOL_SIZE = IDOLS.length;
 
+/** The fixture's groups and idols into a database that already has the dle tables (the local preview of lot P5: the groups of KpopQuiz are the ones named in the pool). */
+export async function seedFixtureIdols(db: PGlite): Promise<void> {
+  await db.exec(`alter table public.idols add column if not exists gender text, add column if not exists debut_year integer`);
+  for (const [name, slug, fandom, generation, inception, label] of GROUPS) {
+    await db.query('insert into public.groups (name, slug, fandom_name, generation, inception_date, record_label) values ($1, $2, $3, $4, $5, $6) on conflict (slug) do nothing', [name, slug, fandom, generation, inception, label]);
+  }
+  for (const [name, hangul, group, nationality, gender, birth, debut, positions] of IDOLS) {
+    await db.query(
+      `insert into public.idols (group_id, name, name_romanized, name_hangul, birth_date, nationality, positions, gender, debut_year)
+       values ((select id from public.groups where name = $1 and site_id = 'kpop'), $2, $2, $3, make_date($4::int, 3, 1), $5, $6, $7, $8)`,
+      [group, name, hangul, birth, nationality, positions, gender, debut],
+    );
+  }
+}
+
 /** A database with the fixture's idols and kpopdle-idol active since `epoch`. */
 export async function kpopdleDb(epoch: string, seed = 0.5): Promise<PGlite> {
   const db = await freshDb();

@@ -261,10 +261,12 @@ export function linkTarget(href, pageUrl, site, contract = FALLBACK_CONTRACT) {
   return { kind: 'external', url: u };
 }
 
-/** Page pattern of the allowlist: '*' any page, '/x/**' the subtree, otherwise the exact path. */
+/** Page pattern of the allowlist: '*' any page, '/x/**' the subtree, '/*-suffix' one segment that ends with the suffix (P5, CR-025: a group hub, /{group}-quiz), otherwise the exact path. */
 export function pageMatches(pattern, path) {
   if (pattern === null || pattern === undefined) return false;
   if (pattern === '*') return true;
+  const tail = /^\/\*(-[a-z0-9-]+)$/.exec(pattern);
+  if (tail) return new RegExp(`^/[a-z0-9]+(?:-[a-z0-9]+)*${tail[1]}$`).test(path);
   if (pattern.endsWith('/**')) {
     const base = pattern.slice(0, -3);
     return path === base || path.startsWith(`${base}/`) || (base === '' && path.startsWith('/'));
