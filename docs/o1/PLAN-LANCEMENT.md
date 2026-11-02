@@ -1,66 +1,47 @@
-# Plan jusqu'au jour J (mardi 1er décembre 2026)
+# Plan du lancement : les étapes
 
-O1, 2026-11-02. Périmètre validé par le propriétaire le 02/11 : quatre jeux prêts au jour J (Kpopdle Idol, Otakudle toutes séries, Otakudle One Piece, Otakudle Dragon Ball), pools d'environ 750 personnages et 200 idols, images posées par le propriétaire dans l'admin, passerelles du tableau `Plan.dc.html`. Si les quatre jeux et leurs données vérifiées ne sont pas prêts, c'est la date du jour J qui bouge : O1 prévient dès qu'il le voit venir.
+O1, 2026-11-02, réécrit sur la décision du propriétaire : aucune date. Une étape finie, la suivante commence. Le jour J arrive dès que tout est vert, et le go ou no-go se décide à ce moment-là.
 
-## 1. Les chantiers
+États : **fait**, **en cours**, **attend X**.
 
-| Chantier | Contenu | Qui | Charge estimée |
+## 1. Chemin critique
+
+| # | Étape | Dépend de | État |
 |---|---|---|---|
-| D1 One Piece et Dragon Ball | scripts de collecte (Wikidata, Wikipedia, wikis Fandom), comparaison, liste d'écarts | sous-agent Sonnet | 2 jours |
-| D2 Idols K2 | membres des groupes les plus joués sans idols, plus les « oui » de 021b ; 200 actives, adultes, complètes | sous-agent Sonnet | 2 jours |
-| D3 Autres séries | Otakudle toutes séries : 10 séries d'Otakudle d'abord, puis les 38 autres | sous-agent Sonnet | 2 à 3 jours |
-| S1 SQL des jeux | deux jeux de série (colonnes propres, flèches), la source `fandom` admise, la liste des 200 cibles, L04 et L13 régénérés, K2 | O1 | 3 jours |
-| A1 Pages des jeux | `/otakudle/one-piece`, `/otakudle/dragon-ball`, en anglais et en français, table de traduction des valeurs | sous-agent Sonnet, après les maquettes | 3 jours |
-| A2 Passerelles | les 13 liens du tableau, en anglais et en français ; kpopquiz.org ne montre jamais l'anime | sous-agent Sonnet | 2 jours |
-| A3 Images | admin : téléversement ou lien, licence dans une liste, lecture Commons, refus du non libre ; `/credits` seulement si une image demande un crédit | sous-agent Sonnet | 2 à 3 jours |
-| P Preuves | tests ciblés, suite complète avant chaque push, répétition de session, comparaison de 60 pages pour les PR qui touchent kpopquiz.org | O1 | continu |
+| C1 | Session B (001 à 007, `SITE_SCOPE=1`, veille d'1 h) | le propriétaire devant son Mac : bascule du dossier principal, sauvegarde | attend le propriétaire |
+| C2 | Veille C : le lendemain matin, après les crons de la nuit | C1 | attend C1 |
+| C3 | Session D (008) | C2 propre | attend C2 |
+| C4 | Veille D3 : le lendemain matin, après les crons de la nuit | C3 | attend C3 |
+| C5 | Session E (009, déploiement, 010), entre 18:00 et 22:20 | C4 propre | attend C4 |
+| C6 | E5 et V7 le matin, après 00:05 | C5 | attend C5 |
+| C7 | Session G (011 à 017, 018 à 023, lot K1), veille d'1 h : crée les tables des images et des jeux | C6 vert ; #188 fusionnée | attend C6 |
+| C8 | Petite session K2 : sauvegarde, puis une commande | C7 ; fichier K2 prêt (P3) | attend C7 et P3 |
+| C9 | Images posées par le propriétaire dans l'admin | C7 ; volet images (P6) en ligne | attend C7 et P6 |
+| C10 | Go ou no-go | C8, C9, P1 à P7 verts | attend tout |
+| C11 | Jour J : sessions J1 à J5, PR du jour J | C10 go | attend C10 |
 
-Total : environ 18 à 21 jours de travail, sur 4 semaines, avec au plus 2 sous-agents en même temps. Marge : 3 à 4 jours. Ce qui peut la manger : les écarts des données One Piece et Dragon Ball, le temps de relecture du propriétaire, la lecture des licences Commons.
+## 2. En parallèle, dès maintenant
 
-## 2. Jour par jour
+Au plus 2 sous-agents à la fois. Les scripts de données tournent en processus de fond et ne comptent pas dans cette limite.
 
-Les sessions SQL suivent la chaîne courte proposée en section 3 ; si le propriétaire garde les veilles de 24 h, D, E et G glissent d'un jour chacune.
-
-| Date | Sessions et veilles | En parallèle (au plus 2 sous-agents) | Propriétaire |
+| # | Chantier | Dépend de | État |
 |---|---|---|---|
-| lun 2 | session B, veille d'1 h | maquettes ; D1 One Piece et Dragon Ball | session B ; les questions |
-| mar 3 | fin de la veille C le matin (après les crons de la nuit) ; session D le soir | D1 suite ; D2 idols | session D ; les maquettes |
-| mer 4 | fin de D3 le matin ; session E entre 18:00 et 22:20 | D2 suite ; D3 les 10 séries d'Otakudle | session E ; écarts One Piece et Dragon Ball |
-| jeu 5 | E5 et V7 le matin, après 00:05 | D3 les 38 autres séries ; S1 commence | écarts idols |
-| ven 6 | | A1 pages des jeux ; D3 suite | liste des 200 personnages |
-| sam 7 et dim 8 | | A1 suite ; S1 (L04, L13, K2, jeux de série) | écarts des séries |
-| lun 9 | répétition complète de G avec K2 | A3 images ; S1 fin | |
-| mar 10 | session G (avec K2), veille d'1 h | A3 suite ; A2 passerelles | session G |
-| mer 11 au ven 13 | | A2 et A3 ; tests | images dans l'admin (preview) |
-| lun 16 au ven 20 | | intégration des 4 jeux sur o1-dev ; contenu | images ; relecture des pages en français |
-| lun 23 au ven 27 | | PR du jour J ; répétition des sessions J1 à J5 ; corrections | go / no-go le vendredi 27 |
-| lun 30 | | marge | |
-| mar 1er déc. | jour J | | jour J |
+| P1 | Maquettes des 4 pages en pointillé (Otakudle One Piece, Otakudle Dragon Ball, module « Daily games » de l'accueil OtakuQuiz, page série Dragon Ball) | | en cours |
+| P2 | Pages des deux jeux de série, en anglais et en français, table de traduction des valeurs | P1 et l'accord du propriétaire | attend P1 |
+| P3 | Données, par scripts : One Piece (100), Dragon Ball (70), idols K2 (200 actives, 150 au minimum), autres séries (582) ; comparaison des sources ; le propriétaire ne lit que les écarts | | One Piece et Dragon Ball en cours |
+| P4 | SQL : les deux jeux de série, la source `fandom` admise, la liste des 200 cibles, L04 et L13 régénérés, fichier K2 | P3 | attend P3 |
+| P5 | Passerelles : les 13 liens du tableau, en anglais et en français ; kpopquiz.org ne montre jamais l'anime | | à lancer |
+| P6 | Volet images de l'admin : téléversement ou lien, licence dans une liste, lecture Commons, refus du non libre ; `/credits` seulement si une image demande un crédit | | à lancer |
+| P7 | PR du jour J et répétitions des sessions, au fil de l'eau | | en continu |
 
-## 3. La chaîne des sessions SQL et ses veilles
+## 3. Décisions prises (propriétaire, 02/11)
 
-| Veille | Aujourd'hui | Proposition | Pourquoi |
-|---|---|---|---|
-| B, 1 h après `SITE_SCOPE=1` | 1 h | garder 1 h | elle précède 003, dangereux : il faut voir du vrai trafic sur le nouveau build |
-| C, après B | 24 h | jusqu'au lendemain matin, après les crons de 00:05 et de 03:30 à 05:00 | ce qu'elle contrôle (parties et inscriptions qui arrivent, compteurs, journaux) se voit après une nuit avec ses crons ; moins de trafic vu qu'en 24 h |
-| D3, après 008 | 24 h | pareil, le lendemain matin | les verrous d'écriture touchent XP et compteurs : il faut une nuit de crons, pas forcément 24 h |
-| F, après 010 | 24 h | V7 le matin même de E5, après 00:05 | les six conditions de V7 se lisent dès que le quiz du jour de 00:05 est passé ; avant 00:05, impossible |
-| G | 1 h | garder 1 h | |
-
-Ce qui ne se raccourcit pas : toute veille qui doit voir passer le cron de 00:05 (E5, F) attend 00:05.
-
-## 4. Pools
-
-- Personnages, par classe : One Piece 100, Dragon Ball 70, grosses séries 25, moyennes 12, courtes 5. La table des 50 séries est en annexe. Total : 752, dont 118 personnages à ajouter aux données du site (ils apparaissent aussi sur les pages publiques d'OtakuQuiz).
-- Ordre : One Piece et Dragon Ball, puis les 10 autres séries d'Otakudle, puis le reste.
-- Personnage du jour d'Otakudle toutes séries : les 365 premiers jours, une liste d'environ 200 parmi les plus connus ; tout le pool reste devinable.
-- Idols : 200 actives, adultes, complètes, dans Kpopdle Idol au jour J (150 au minimum).
-
-## 5. Qualité des données
-
-Chaque fait vient de deux sources au moins quand c'est possible : Wikidata et Wikipedia d'abord, wikis Fandom pour les faits de fiction (faits seulement, jamais de texte ni d'image), cités dans `entity_sources`. Un script compare ; un agent ne regarde que les écarts ; le propriétaire ne lit que la liste des écarts restants.
-
-Seuil proposé : un jeu part en relecture quand ses conflits sont sous 3 % des faits et que chaque colonne de jeu a au moins 80 % de faits confirmés par deux sources. Au-delà, le script est corrigé avant toute relecture.
+- Veilles : C et D3 s'arrêtent le lendemain matin, après les crons de la nuit ; V7 se lit le matin, après 00:05 ; on garde 1 h après `SITE_SCOPE` et 1 h après G. Toute veille qui doit voir passer 00:05 l'attend.
+- G dès que V7 est vert ; K2 vient ensuite, dans sa propre petite session.
+- Pools : 752 personnages (table en annexe), dont 118 ajoutés aux données du site et visibles sur OtakuQuiz. L'identité n'exclut plus un personnage : seules les colonnes décrivent son état au début. Les 365 premiers jours, le personnage du jour d'Otakudle vient d'une liste d'environ 200 parmi les plus connus.
+- Qualité : deux sources au moins quand c'est possible (Wikidata et Wikipedia d'abord, wikis Fandom pour les faits de fiction, faits seulement). Un jeu part en relecture sous 3 % de conflits, avec 80 % de faits confirmés par deux sources dans chaque colonne.
+- One Piece : « Pas de fruit du démon » comme indice à 5 erreurs pour un personnage sans fruit.
+- ADMIN-2 après le jour J ; avant, seul le volet images, dans l'admin actuel.
 
 ## Annexe : les 50 séries
 
