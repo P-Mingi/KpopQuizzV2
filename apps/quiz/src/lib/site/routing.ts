@@ -102,6 +102,20 @@ export const SHARE_INTERNAL = '/dle-share';
 export const SHARE_R_PATTERN = '[0-9]{1,2}(?:-[0-9]{1,2}){0,19}';
 
 /**
+ * The icons of kpopquiz.org at their root addresses, answered from public/brand/kpop/ (owner, 2026-11-01: the white rabbit on a full pink
+ * square, the icon Google shows). The root files of public/ stay as they are: routing.test.ts holds them equal to the copies of anime and
+ * hub (D-099), and those two sites keep their icons. next.config.ts adds these on the kpop build only; rewritesFor('kpop') stays empty.
+ */
+export const KPOP_ICON_FILES: readonly string[] = [
+  '/favicon.ico', '/favicon.svg', '/favicon-16x16.png', '/favicon-32x32.png', '/apple-touch-icon.png',
+  '/android-chrome-192x192.png', '/android-chrome-512x512.png',
+];
+
+export function kpopIconRewrites(): readonly SiteRewrite[] {
+  return KPOP_ICON_FILES.map((f) => ({ source: f, destination: brandPath('kpop', f) }));
+}
+
+/**
  * Pretty public URLs of a site that map to a different internal page (anime only today).
  * `source` is the public path; next.config receives it prefixed with /sites/<site> (see
  * rewritesFor). Path-to-regexp syntax: `:name` is one lazy segment chunk.

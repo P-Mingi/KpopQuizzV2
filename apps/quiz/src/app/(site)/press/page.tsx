@@ -47,7 +47,7 @@ const COVERAGE: ReadonlyArray<{ outlet: string; title: string; url: string; date
 
 /** Brand files that exist in public/ today. */
 const LOGOS: ReadonlyArray<{ src: string; label: string; size: string }> = [
-  { src: '/android-chrome-512x512.png', label: 'The rabbit mark on cream, the site icon', size: '512 x 512 PNG' },
+  { src: '/android-chrome-512x512.png', label: 'The white rabbit on pink, the site icon', size: '512 x 512 PNG' },
   { src: '/mascot/mascot-default.png', label: 'The rabbit mark, transparent background, as in the site header', size: '128 x 128 PNG' },
   { src: '/logo-512.png', label: 'The square logo used in our structured data', size: '512 x 512 PNG' },
 ];
