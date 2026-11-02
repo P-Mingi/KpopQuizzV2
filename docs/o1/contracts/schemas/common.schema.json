@@ -21,6 +21,12 @@
       "maxLength": 500,
       "pattern": "^https://(?!(?:[a-z0-9-]+\\.)*(?:myanimelist\\.net|jikan\\.moe|fandom\\.com|animethemes\\.moe|kprofiles\\.com|anilist\\.co|sporcle\\.com)(?:[:/?#]|$))[a-z0-9.-]+(?::[0-9]{1,5})?(?:[/?#][^\\s]*)?$"
     },
+    "sourceUrlFandom": {
+      "$comment": "CR-023: a Fandom wiki page, https, lowercase host *.fandom.com. Only fact.schema.json uses it, only for a source fandom of a character fact (the facts of a fiction); every other use of fandom.com is refused by sourceUrl.",
+      "type": "string",
+      "maxLength": 500,
+      "pattern": "^https://[a-z0-9-]+\\.fandom\\.com(?:[/?#][^\\s]*)?$"
+    },
     "isoDate": { "type": "string", "pattern": "^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])$" },
     "isoDateTime": { "type": "string", "pattern": "^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])T(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\\.[0-9]{1,6})?(?:Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])$" },
     "difficulty": { "$comment": "quizzes difficulty_valid.", "enum": ["easy", "medium", "hard"] },

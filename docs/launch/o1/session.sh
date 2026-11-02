@@ -154,9 +154,13 @@ PY
 
 # dle_day_answers: each game of J5 answers its public function, as the browser calls it (role anon). The number of the day only; with no token there is no play and no target.
 dle_day_answers() {
-  if [ "$DRY" = 1 ]; then say "     vérif dle_day : les deux jeux répondent"; return; fi
-  local g no
-  for g in kpopdle-idol otakudle; do
+  if [ "$DRY" = 1 ]; then say "     vérif dle_day : les deux jeux répondent, et les jeux d'une série allumés"; return; fi
+  local g no games="kpopdle-idol otakudle"
+  # The games of one series (CR-023) answer only once L14 switched them on (under their minimum they stay off, V-L15 says so).
+  for g in otakudle-one-piece otakudle-dragon-ball; do
+    [ "$(q "select count(*) from public.dle_games where id = '$g' and active")" = 1 ] && games="$games $g"
+  done
+  for g in $games; do
     no="$(q "set local role anon; select public.dle_day('$g') ->> 'game_no'")" || stop "dle_day $g ne répond pas ($(tail -1 "$LOG" | sed -E 's/^.*ERROR: +//' | cut -c1-160))."
     case "$no" in ''|*[!0-9]*) stop "dle_day $g : réponse inattendue." ;; esac
     say "     ok | dle_day $g répond : partie n° | $no"
@@ -306,6 +310,7 @@ part_G() {
   apply single "$K1B_SQL";                  check "$C/V-K1b.sql"
   apply single "$M/022-photos-admin.sql";   check "$C/V-022.sql"
   apply single "$M/023-dle-otakudle.sql";   check "$C/V-023.sql"
+  apply single "$M/024-dle-series-games.sql"; check "$C/V-024.sql"
   apply single "$M/012-editorial-quiz.sql"; check "$C/V-012.sql"
   apply single "$M/013-formats.sql";        check "$C/V-013.sql"
   apply single "$M/014-daily-openings.sql"; check "$C/V-014.sql"
@@ -343,13 +348,16 @@ part_J4() {
   apply single "$L/L12-L1-sites-live.sql";  check "$C/V-L12.sql"
   # 023 again: the game row needs the anime site of L01, absent in session G (the file's header, CR-017). It changes nothing else.
   apply single "$M/023-dle-otakudle.sql";   check "$C/V-023.sql"
+  # 024 again, for the same reason: the two game rows of one series (CR-023) need the anime site. Then their facts, after the lot A1 file.
+  apply single "$M/024-dle-series-games.sql"; check "$C/V-024.sql"
   apply single "$A1_SQL";                   check "$C/V-L13.sql"; content 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+  apply single "$L/L15-A2-series-games.sql"; check "$C/V-L15.sql"; content 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
   vs4
   NEXT="J5 : Otakudle s'allume (étape 51 bis). Puis toi : le quiz du jour (étape 52), puis la vraie partie (53)."
 }
 part_J5() {
-  check "$C/V-L13.sql"
-  apply single "$L/L14-O1-dle-on.sql";      check "$C/V-L14.sql"; check "$C/V-023.sql"; check "$C/V-DLE-KEPT.sql"
+  check "$C/V-L13.sql"; check "$C/V-L15.sql"
+  apply single "$L/L14-O1-dle-on.sql";      check "$C/V-L14.sql"; check "$C/V-023.sql"; check "$C/V-024.sql"; check "$C/V-L15.sql"; check "$C/V-DLE-KEPT.sql"
   dle_day_answers
   vs4
   NEXT="toi : le quiz du jour (étape 52), puis la vraie partie (53). Le drapeau dailyGuess reste éteint jusqu'à la PR du jour J (RUNBOOK K8c) : les pages répondent 404 d'ici là."

@@ -3,7 +3,7 @@
 -- What:   the tables lot A1 fills (character_facts, series_facts: RLS on, no policy, closed to anon and authenticated), the view
 --         dle_src_anime_character (the facts as the 7 columns of Otakudle) and the game row otakudle with its columns, switched off (active
 --         false, no epoch, no bank). Nothing is shown to players.
---         The pool of the view: the characters lot A1 gave facts to, published, spoiler_level 0, identity_spoiler false, in a published anime
+--         The pool of the view: the characters lot A1 gave facts to, published (owner, 2026-11-02: spoiler_level and identity_spoiler no longer exclude a character, CR-023; only the columns describe the character as first met), in a published anime
 --         series. Columns: series (single; near: same franchise, read through to_jsonb because series has no such column yet, and no two
 --         launch series share one), gender, species, role (the role at the first appearance), demographic (single), year (number, near 2:
 --         manga_start_year, or anime_start_year for an anime original), studio (multi, near: one in common: the series.studios entries whose
@@ -12,6 +12,11 @@
 --         hint is removed for launch; character_facts.first_appearance and its L13 data stay, it is just never served).
 --         attrs.seen_at is no column: it holds the answers to "How far are you?" that may see the character (anime, manga, beginner). Only a
 --         character every answer may see can be a target, so the answer of the day never reaches past a player's choice.
+--         Who can be the target (CR-023, owner 2026-11-03): every column of the game and the voice actor hint have a value, the character is seen by
+--         every "How far are you?" answer (above), AND character_facts.featured is true. The first 365 days draw only from the 200 best known characters
+--         (TOP200 of lot A2): L13 sets featured for those 200, the bank of L14 is drawn from them, and everyone else of the pool stays guessable. A year
+--         later the owner widens the draw with one statement, update public.character_facts set featured = true, and the nightly maintenance rebuilds
+--         the bank (it keeps today and the 7 days after it, 019). No engine change: the view's can_be_target is the only place the rule lives.
 --         A licensed 96 px picture when entity_images has one; otherwise null and the client shows the initials.
 -- Why:    Otakudle opens on launch day. Owner decision of 2026-10-30.
 -- When:   session G, right after 022: the tables and the view. The game row needs the anime row of public.sites (dle_games.universe), which only
@@ -48,6 +53,7 @@ create table if not exists public.character_facts (
   role_at_debut text check (role_at_debut in ('main', 'supporting', 'antagonist', 'other')),
   first_appearance text check (char_length(first_appearance) between 1 and 80),
   voice_actor_ja text check (char_length(voice_actor_ja) between 1 and 80),
+  featured boolean not null default false,
   updated_at timestamptz not null default now()
 );
 create table if not exists public.series_facts (
@@ -81,7 +87,7 @@ with first_studio as (
   from public.series s
 ), pool as (
   select c.id, c.name, c.name_native, c.aliases, c.slug,
-    f.gender, f.species, f.role_at_debut, f.first_appearance, f.voice_actor_ja,
+    f.gender, f.species, f.role_at_debut, f.first_appearance, f.voice_actor_ja, f.featured,
     c.debut_medium is distinct from 'manga' as seen_anime,
     c.debut_medium is distinct from 'anime' as seen_manga,
     c.debut_medium is not distinct from 'both' and coalesce(c.debut_arc_ord, 99) <= 2 as seen_beginner,
@@ -95,7 +101,7 @@ with first_studio as (
   join public.groups g on g.id = c.group_id and g.site_id = 'anime'
   join first_studio fs on fs.group_id = s.group_id
   left join public.series_facts sf on sf.group_id = s.group_id
-  where c.status = 'published' and c.spoiler_level = 0 and not c.identity_spoiler
+  where c.status = 'published'
 )
 select
   p.id::text as entity_id,
@@ -117,7 +123,7 @@ select
   (select ei.thumb_path from public.entity_images ei
     where ei.site_id = 'anime' and ei.kind = 'character' and ei.slug = p.series_slug || '/' || p.slug and ei.license_verified and ei.thumb_path is not null) as thumb_path,
   p.series_slug as balance_key,
-  p.seen_anime and p.seen_manga and p.seen_beginner as can_be_target
+  p.featured and p.voice_actor_ja is not null and p.seen_anime and p.seen_manga and p.seen_beginner as can_be_target
 from pool p;
 
 -- A view is readable by anon and authenticated by default on Supabase and runs with its owner's rights unless security_invoker:
@@ -145,7 +151,7 @@ from (values
 where exists (select 1 from public.dle_games g where g.id = a.game_id)
 on conflict (game_id, key) do nothing;
 
--- Self-check: closed to the browser roles, the game (when it is there) complete, the spoiler rule in the view.
+-- Self-check: closed to the browser roles, the game (when it is there) complete, the published rule in the view.
 do $$
 begin
   if has_table_privilege('anon', 'public.character_facts', 'select') or has_table_privilege('authenticated', 'public.character_facts', 'select')
@@ -158,8 +164,8 @@ begin
   if exists (select 1 from public.dle_games where id = 'otakudle') and (select count(*) from public.dle_attributes where game_id = 'otakudle') <> 7 then
     raise exception '023-dle-otakudle: otakudle does not have 7 columns';
   end if;
-  if pg_get_viewdef('public.dle_src_anime_character'::regclass) !~ 'spoiler_level = 0' or pg_get_viewdef('public.dle_src_anime_character'::regclass) !~ 'identity_spoiler' then
-    raise exception '023-dle-otakudle: the view lost its spoiler rule';
+  if pg_get_viewdef('public.dle_src_anime_character'::regclass) !~ 'published' or pg_get_viewdef('public.dle_src_anime_character'::regclass) ~ '(spoiler_level = 0|NOT c.identity_spoiler|not c.identity_spoiler)' then
+    raise exception '023-dle-otakudle: the view lost its published rule, or filters on a spoiler again';
   end if;
 end $$;
 

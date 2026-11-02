@@ -36,7 +36,7 @@ export interface SeriesQuizRow {
 /** One `entity_sources` row of the series (entity_type 'series', entity_id the group slug: formats.md 3). */
 export interface SeriesSourceRow {
   readonly field: string;
-  readonly source: 'wikidata' | 'musicbrainz' | 'wikipedia' | 'official';
+  readonly source: 'wikidata' | 'musicbrainz' | 'wikipedia' | 'official' | 'fandom';
   readonly source_ref: string | null;
   readonly source_url: string | null;
   readonly fetched_at: string;

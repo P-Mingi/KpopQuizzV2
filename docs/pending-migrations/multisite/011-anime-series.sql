@@ -4,7 +4,9 @@
 --         and the two per-user tables series_progress and favourite_characters, each with its checks, keys, indexes, RLS and
 --         policies; the view favourite_character_counts (owner rights, counts from 30 picks only); adds quizzes.spoiler_arc_ord
 --         and quizzes.spoiler_scope; widens trivia_entity_kind_check (series, character, arc, theme), adds
---         entity_sources.source_url and widens entity_sources_entity_type_check and entity_sources_source_check.
+--         entity_sources.source_url and widens entity_sources_entity_type_check and entity_sources_source_check (the sources:
+--         wikidata, musicbrainz, wikipedia, official and fandom: owner decision of 2026-11-02, CR-023, a Fandom wiki states the facts of a
+--         fiction for the per-series daily games; facts only, never a text, a picture or a name taken from it; a fact file may cite a *.fandom.com page on a character fact only).
 -- Why:    OtakuQuiz is built on series pages, spoiler-aware arcs and characters, themes (openings) and the oshi pick; the
 --         catalogue rows are loaded at launch (L04, L05), so every table here ships empty.
 -- Rows:   6 new tables, 1 new view, 3 new columns, 3 check constraints replaced by supersets; no row is inserted, no row of an
@@ -22,6 +24,7 @@
 --         select tablename, policyname, cmd from pg_policies where schemaname = 'public' and tablename in ('series', 'arcs', 'characters', 'episodes', 'series_themes', 'series_progress', 'favourite_characters') order by 1, 2;   expect 5 select-published/public policies and 8 own-rows policies
 --         select count(*) from public.series;   expect 0
 --         select pg_get_constraintdef(oid) from pg_constraint where conname = 'trivia_entity_kind_check';   expect the ten kinds
+--         select pg_get_constraintdef(oid) from pg_constraint where conname = 'entity_sources_source_check';   expect wikidata, musicbrainz, wikipedia, official, fandom
 -- Undo:   011-anime-series.rollback.sql (refused while any catalogue or user row, any spoiler column value or any widened
 --         value exists).
 -- Needs:  002a (groups.site_id and the other base tables), 001.
@@ -252,4 +255,4 @@ alter table public.entity_sources add constraint entity_sources_entity_type_chec
   ('group', 'group_unit', 'idol', 'album', 'album_track', 'song', 'series', 'character', 'arc', 'episode', 'series_theme'));
 alter table public.entity_sources drop constraint if exists entity_sources_source_check;
 alter table public.entity_sources add constraint entity_sources_source_check check (source in
-  ('wikidata', 'musicbrainz', 'wikipedia', 'official'));
+  ('wikidata', 'musicbrainz', 'wikipedia', 'official', 'fandom'));

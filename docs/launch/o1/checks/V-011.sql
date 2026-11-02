@@ -5,6 +5,7 @@ begin transaction read only;
 select case when ok is true then 'ok' else 'KO' end, what, coalesce(got, '-') from (values
   (1, 'les 7 tables anime avec RLS', (select count(*) = 7 from pg_class where relnamespace = 'public'::regnamespace and relname in ('series', 'arcs', 'characters', 'episodes', 'series_themes', 'series_progress', 'favourite_characters') and relrowsecurity), (select count(*)::text from pg_class where relnamespace = 'public'::regnamespace and relname in ('series', 'arcs', 'characters', 'episodes', 'series_themes', 'series_progress', 'favourite_characters') and relrowsecurity)),
   (2, 'series vide avant le jour J', (select count(*) = 0 from public.series), (select count(*)::text from public.series)),
-  (3, 'trivia_entity_kind_check validée', (select convalidated from pg_constraint where conname = 'trivia_entity_kind_check'), null)
+  (3, 'trivia_entity_kind_check validée', (select convalidated from pg_constraint where conname = 'trivia_entity_kind_check'), null),
+  (4, 'entity_sources_source_check validée, avec les cinq sources dont fandom (CR-023)', (select convalidated and pg_get_constraintdef(oid) ~ 'wikidata.*musicbrainz.*wikipedia.*official.*fandom' from pg_constraint where conname = 'entity_sources_source_check'), null)
 ) as c(n, what, ok, got) order by n;
 rollback;

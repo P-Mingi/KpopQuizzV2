@@ -37,7 +37,7 @@ export interface FixtureSeries { readonly slug: string; readonly title: string; 
 export interface FixtureCharacter {
   readonly series: string; readonly slug: string; readonly name: string; readonly gender?: string | null; readonly species?: string | null; readonly role?: string | null;
   readonly first?: string | null; readonly voice?: string | null; readonly status?: string; readonly spoiler?: number; readonly identity?: boolean; readonly arc?: number | null; readonly medium?: string | null;
-  readonly aliases?: readonly string[]; readonly native?: string | null; readonly facts?: boolean;
+  readonly aliases?: readonly string[]; readonly native?: string | null; readonly facts?: boolean; readonly featured?: boolean;
 }
 
 // The shapes of L04: a season list (Attack on Titan), no seasons (One Piece, Bleach as 'Pierrot', Naruto as 'Studio Pierrot'), a mix (Fruits Basket), two studios and no seasons (Spy x Family),
@@ -72,15 +72,19 @@ export const CHARACTERS: readonly FixtureCharacter[] = [
   // Never a target: no studio known; or a character arriving after a choice of "How far are you?".
   c('kagurabachi', 'chihiro', 'Chihiro Rokuhira'),
   c('one-piece', 'late-arc', 'Late Arc Rival', { arc: 5 }), c('one-piece', 'manga-only', 'Manga Only Rival', { medium: 'manga' }), c('one-piece', 'anime-only', 'Anime Only Rival', { medium: 'anime' }),
+  // In the pool, guessable, never a target: not in the TOP200 (featured false).
+  c('one-piece', 'unfeatured', 'Unfeatured Rival', { featured: false }),
+  // In the pool and targets like the others: a spoiler_level or a hidden identity no longer excludes a character (owner, 2026-11-02, CR-023).
+  c('one-piece', 'spoiler', 'Spoiler Rival', { spoiler: 1 }), c('one-piece', 'identity', 'Identity Rival', { identity: true }),
   // Never in the pool.
-  c('one-piece', 'draft', 'Draft Rival', { status: 'draft' }), c('one-piece', 'spoiler', 'Spoiler Rival', { spoiler: 1 }), c('one-piece', 'identity', 'Identity Rival', { identity: true }),
+  c('one-piece', 'draft', 'Draft Rival', { status: 'draft' }),
   c('hidden-series', 'hidden', 'Hidden Rival'), c('one-piece', 'no-facts', 'No Facts Rival', { facts: false }),
 ];
 
-/** The pool as the view must read it: every character above but the last five. */
-export const FIXTURE_IN_POOL = CHARACTERS.length - 5;
-/** The targets: in the pool, every column known, seen at every choice. */
-export const FIXTURE_TARGETS = FIXTURE_IN_POOL - 5;
+/** The pool as the view must read it: every character above but the last three (a draft, a hidden series, no facts). */
+export const FIXTURE_IN_POOL = CHARACTERS.length - 3;
+/** The targets: in the pool, every column known, a voice actor, featured, seen at every choice (not Hange: no gender; Chihiro: no studio; Rukia: no voice actor; Unfeatured Rival: not in the TOP200; the three arriving late or on one medium). */
+export const FIXTURE_TARGETS = FIXTURE_IN_POOL - 7;
 
 export async function seedOtakudle(db: PGlite, series: readonly FixtureSeries[] = SERIES, characters: readonly FixtureCharacter[] = CHARACTERS): Promise<void> {
   for (const s of series) {
@@ -100,9 +104,9 @@ export async function seedOtakudle(db: PGlite, series: readonly FixtureSeries[] 
     );
     if (x.facts === false) continue;
     await db.query(
-      `insert into public.character_facts (character_id, gender, species, role_at_debut, first_appearance, voice_actor_ja)
-       values ((select c.id from public.characters c join public.groups g on g.id = c.group_id where g.slug = $1 and c.slug = $2), $3, $4, $5, $6, $7)`,
-      [x.series, x.slug, x.gender ?? null, x.species ?? null, x.role ?? null, x.first ?? null, x.voice ?? null],
+      `insert into public.character_facts (character_id, gender, species, role_at_debut, first_appearance, voice_actor_ja, featured)
+       values ((select c.id from public.characters c join public.groups g on g.id = c.group_id where g.slug = $1 and c.slug = $2), $3, $4, $5, $6, $7, $8)`,
+      [x.series, x.slug, x.gender ?? null, x.species ?? null, x.role ?? null, x.first ?? null, x.voice ?? null, x.featured ?? true],
     );
   }
 }

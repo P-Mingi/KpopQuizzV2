@@ -399,6 +399,45 @@
       "identity_spoiler": true,
       "ord": 20,
       "status": "published"
+    },
+    {
+      "slug": "hisoka-morow",
+      "name": "Hisoka Morow",
+      "role": "antagonist",
+      "affiliation": "Unknown",
+      "debut_arc_ord": 1,
+      "debut_medium": "both",
+      "no_description": true,
+      "spoiler_level": 0,
+      "identity_spoiler": false,
+      "ord": 21,
+      "status": "published"
+    },
+    {
+      "slug": "phinks-magcub",
+      "name": "Phinks Magcub",
+      "role": "antagonist",
+      "affiliation": "Unknown",
+      "debut_arc_ord": 3,
+      "debut_medium": "both",
+      "no_description": true,
+      "spoiler_level": 3,
+      "identity_spoiler": false,
+      "ord": 22,
+      "status": "published"
+    },
+    {
+      "slug": "zeno-zoldyck",
+      "name": "Zeno Zoldyck",
+      "role": "other",
+      "affiliation": "Unknown",
+      "debut_arc_ord": 2,
+      "debut_medium": "both",
+      "no_description": true,
+      "spoiler_level": 2,
+      "identity_spoiler": false,
+      "ord": 23,
+      "status": "published"
     }
   ],
   "themes": [

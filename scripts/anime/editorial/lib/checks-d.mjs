@@ -27,7 +27,10 @@ export function c10(item, ctx) {
     if (!(looksLikeUrl(s) || URL_KEYS.has(key))) return;
     const host = hostOf(s);
     if (!/^https:\/\//i.test(s)) { r.fail(path, `the link ${s} is not https`); return; }
-    if (BANNED_HOSTS.some((b) => hostIs(host, b))) { r.fail(path, `${host} is a banned source`); return; }
+    // CR-023: a Fandom wiki states the facts of a fiction. The one exception to the ban: a source of kind fandom on a fact about a character.
+    const fm = /^\/facts\/([0-9]+)\/sources\/([0-9]+)\/url$/.exec(path);
+    const fandomFact = fm !== null && item.kind === 'facts' && view.facts?.[Number(fm[1])]?.entity?.kind === 'character' && view.facts[Number(fm[1])].sources?.[Number(fm[2])]?.source === 'fandom' && hostIs(host, 'fandom.com');
+    if (BANNED_HOSTS.some((b) => hostIs(host, b) && !(fandomFact && b === 'fandom.com'))) { r.fail(path, `${host} is a banned source`); return; }
     const inFactSource = /^\/facts\/[0-9]+\/sources\/[0-9]+\/url$/.test(path);
     if (!inFactSource && !allowed(host)) r.fail(path, `${host} is not Wikipedia, Wikidata, MusicBrainz, Oricon, Anime News Network or an official site cited by the facts`);
   });

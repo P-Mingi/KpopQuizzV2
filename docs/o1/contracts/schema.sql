@@ -747,7 +747,7 @@ alter table public.entity_sources add constraint entity_sources_entity_type_chec
   ('group', 'group_unit', 'idol', 'album', 'album_track', 'song', 'series', 'character', 'arc', 'episode', 'series_theme'));
 alter table public.entity_sources drop constraint entity_sources_source_check;
 alter table public.entity_sources add constraint entity_sources_source_check check (source in
-  ('wikidata', 'musicbrainz', 'wikipedia', 'official'));
+  ('wikidata', 'musicbrainz', 'wikipedia', 'official', 'fandom'));
 
 -- =============================================================================================================
 -- @file 012-editorial-quiz
