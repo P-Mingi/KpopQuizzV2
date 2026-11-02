@@ -36,6 +36,8 @@ and is not a cross-site link in this sense. On top of the rows:
 | dle-daily-fr | hub | /fr/daily | kpop, anime | /** | followed | no | (none) | CR-013; as dle-daily, in French |
 | dle-game | hub | /kpopdle/** | kpop, anime | /** | followed | no | (none) | CR-013; a game page: yesterday's answer and the result, the quiz of the group; with the flag on |
 | dle-game-fr | hub | /fr/kpopdle/** | kpop, anime | /** | followed | no | (none) | CR-013; as dle-game, in French |
+| kpopdle-home | kpop | / | hub | /kpopdle | followed | no | 1 | CR-018; the Kpopdle module of the kpopquiz.org home, its Play link; flag NET_KPOPDLE_HOME with the hub's dailyGuess |
+| kpopdle-home-daily | kpop | / | hub | /daily | followed | no | 1 | CR-018; the same module, its All daily games link; same flags |
 
 Page and href patterns: `*` any page, `/x/**` the path `/x` and everything below it, otherwise the exact path; `(none
 yet)` is `null` in the JSON (the row admits nothing until a CR names the page). The copy of each line is Q's (B01, B02,
@@ -56,5 +58,5 @@ B23's Cup page (later bridges, not in the run).
 | Q0a | `check-network-links.mts` and the link leak suite read `link-allowlist.json` |
 | B6 | the footer line (`footer`), the Organization `parentOrganization` and the llms.txt line |
 | O1 | the anime About line (`about-anime`) and the footer through B6's component |
-| H1 | the network page (`network-page`) and the optional directory (`directory`) |
+| H1 | the network page (`network-page`), the optional directory (`directory`), and the Kpopdle module of the kpopquiz.org home (`kpopdle-home`, `kpopdle-home-daily`, CR-018), drawn only when the hub serves both pages |
 | X1 | the kpop About line and the Team article (`about-kpop`, `team-article`); every crossover link stays a signed-in jump link (`CrossoverLink`), never a row here |

@@ -11,7 +11,9 @@
     { "id": "dle-daily", "source": "CR-013; the Terrier: yesterday's answers, the quiz of the group; the hub's anime site in the footer; with the flag on", "from": ["hub"], "page": "/daily", "to": ["kpop", "anime"], "href": "/**", "rel": "followed", "query": false },
     { "id": "dle-daily-fr", "source": "CR-013; as dle-daily, in French", "from": ["hub"], "page": "/fr/daily", "to": ["kpop", "anime"], "href": "/**", "rel": "followed", "query": false },
     { "id": "dle-game", "source": "CR-013; a game page: yesterday's answer and the result, the quiz of the group; with the flag on", "from": ["hub"], "page": "/kpopdle/**", "to": ["kpop", "anime"], "href": "/**", "rel": "followed", "query": false },
-    { "id": "dle-game-fr", "source": "CR-013; as dle-game, in French", "from": ["hub"], "page": "/fr/kpopdle/**", "to": ["kpop", "anime"], "href": "/**", "rel": "followed", "query": false }
+    { "id": "dle-game-fr", "source": "CR-013; as dle-game, in French", "from": ["hub"], "page": "/fr/kpopdle/**", "to": ["kpop", "anime"], "href": "/**", "rel": "followed", "query": false },
+    { "id": "kpopdle-home", "source": "CR-018; the Kpopdle module of the kpopquiz.org home, its Play link; flag NET_KPOPDLE_HOME with the hub's dailyGuess", "from": ["kpop"], "page": "/", "to": ["hub"], "href": "/kpopdle", "rel": "followed", "query": false, "maxPerPage": 1 },
+    { "id": "kpopdle-home-daily", "source": "CR-018; the same module, its All daily games link; same flags", "from": ["kpop"], "page": "/", "to": ["hub"], "href": "/daily", "rel": "followed", "query": false, "maxPerPage": 1 }
   ],
   "domainText": { "anime": ["kpop"], "kpop": ["anime"] }
 }
