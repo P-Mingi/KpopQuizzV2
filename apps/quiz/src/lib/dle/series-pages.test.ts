@@ -165,7 +165,7 @@ describe('the words, in English and French', () => {
           expect([k, c.label, c.help, c.near, c.source].every(Boolean), `${id} ${l} ${k}`).toBe(true);
         }
         for (const h of dleGame(id).hints) for (const key of h.or ?? [h.key]) expect(w.hints[key], `${id} ${l} ${key}`).toBeTruthy();
-        expect(w.progress, 'a game of one series has no "How far are you?"').toBeUndefined();
+        expect(w, `${id} ${l}: no "How far are you?" (Otakudle has none either since CR-026)`).not.toHaveProperty('progress');
         expect(w.h1).toContain(dleGame(id).series!.name);
         expect(w.how1).toMatch(/5 (and|et) 10/);
         expect(w.dlgHow3).toMatch(/5 (and|et) 10/);

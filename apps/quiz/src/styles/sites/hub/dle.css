@@ -174,12 +174,6 @@ html.ux-v1.dark[data-site="hub"] .hub-dle-a.hub-dle-game { --hub-dle-near-1: #3A
 html.ux-v1[data-site="hub"] .hub-dle-a .hub-dle-keys, html.ux-v1[data-site="hub"] .hub-dle-a .hub-dle-cbdemo { --hub-dle-c: var(--hub-a); }
 html.ux-v1[data-site="hub"] .hub-dle-a .hub-dle-brand-name span { color: var(--hub-a); }
 html.ux-v1[data-site="hub"] .hub-dle-a .hub-dle-center { flex-direction: column; align-items: center; gap: 16px; }
-html.ux-v1[data-site="hub"] .hub-dle-progress { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; }
-html.ux-v1[data-site="hub"] .hub-dle-progress-q { font-size: 13px; font-weight: 700; color: var(--hub-dle-muted); }
-html.ux-v1[data-site="hub"] .hub-dle-segs { display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; background: var(--hub-dle-line); }
-html.ux-v1[data-site="hub"] .hub-dle-seg { display: inline-flex; align-items: center; min-height: 34px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 700; color: var(--hub-ink-2); cursor: pointer; transition: background-color .15s ease; }
-html.ux-v1[data-site="hub"] .hub-dle-seg-on { background: var(--hub-dle-card); color: var(--hub-dle-ink); box-shadow: 0 1px 2px rgba(31, 27, 23, .1); }
-html.ux-v1[data-site="hub"] .hub-dle-seg:focus-within { outline: 2px solid var(--ux-ink); outline-offset: 1px; }
 html.ux-v1[data-site="hub"] .hub-dle-steps { list-style: none; margin: 0; padding: 0; display: flex; align-items: flex-start; justify-content: center; }
 html.ux-v1[data-site="hub"] .hub-dle-steps li { display: flex; align-items: flex-start; }
 html.ux-v1[data-site="hub"] .hub-dle-stepline { display: block; width: 36px; height: 2px; margin-top: 28px; border-radius: 2px; background: var(--hub-dle-line-2); }

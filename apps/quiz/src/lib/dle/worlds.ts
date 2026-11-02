@@ -64,7 +64,7 @@ export const DLE_WORLDS: readonly DleWorld[] = [
     vertical: { text: 'オタクドル', lang: 'ja' },
     hopIcon: 'eye',
     what: { en: 'Guess today’s anime character', fr: 'Devine le personnage d’anime du jour' },
-    sub: { en: 'Spoiler-free: tell us how far you are', fr: 'Sans spoiler : tu dis où tu en es' },
+    sub: { en: 'One anime character a day, the same for everyone', fr: 'Un personnage d’anime par jour, le même pour tout le monde' },
     spoiler: true,
     modes: [
       { id: 'char', game: 'otakudle', icon: 'char', slot: 'daily:mode-char', name: { en: 'Character of the day', fr: 'Personnage du jour' }, step: { en: 'Character', fr: 'Personnage' } },

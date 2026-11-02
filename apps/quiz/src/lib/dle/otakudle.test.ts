@@ -8,7 +8,7 @@ import { dleClient } from './client';
 import { dleCopy, gameCopy, valueLabel } from './copy';
 import { dleGame } from './games';
 import { rpcAs } from './game-fixture';
-import { DEFAULT_PROGRESS, eraseData, readProgress, seenAt, writeProgress } from './local';
+import { eraseData } from './local';
 import { FIXTURE_IN_POOL, FIXTURE_TARGETS, afterJ4, afterSessionG, applyLaunchFiles, readActivation, readActivationUndo, runCheck, seedIdols, seedOtakudle } from './otakudle-fixture';
 import { one, readMigration, rows, failure } from './pglite-harness';
 import { parsePool, readAnimeSeriesSlugs, readPool, quizLinksOf } from './read';
@@ -110,7 +110,7 @@ describe('the rules of the view, on the fixtures', () => {
     for (const name of ['Spoiler Rival', 'Identity Rival']) expect(pool.map((e) => e.name), name).toContain(name);
   });
 
-  it('the targets: every column known and seen at every choice; a null gender or no studio stays guessable, never a target', async () => {
+  it('the targets: featured, every column known and a voice actor, whatever the debut arc or medium; a null gender, no studio, no voice actor or not featured stays guessable, never a target', async () => {
     expect(await one(db, `select count(*)::int from public.dle_entities where game_id = 'otakudle' and can_be_target and in_pool`)).toBe(FIXTURE_TARGETS);
     expect(await target(byName('Hange Zoe').id)).toBe(false);
     expect(await target(byName('Chihiro Rokuhira').id)).toBe(false);
@@ -119,6 +119,15 @@ describe('the rules of the view, on the fixtures', () => {
     expect(await target(byName('Unfeatured Rival').id)).toBe(false);
     expect(await target(byName('Spoiler Rival').id)).toBe(true);
     expect(await target(byName('Identity Rival').id)).toBe(true);
+    // CR-026 (owner, 2026-11-03: no "How far are you?"): a character who debuts late or on one medium only is a target like the others.
+    for (const name of ['Late Arc Rival', 'Manga Only Rival', 'Anime Only Rival']) expect(await target(byName(name).id), name).toBe(true);
+  });
+
+  it('the view has no progress rule: no seen_at in the attrs of the pool, none in the definition of the view, and the pool carries the same attrs for everyone', async () => {
+    expect(await one(db, `select count(*)::int from public.dle_src_anime_character where attrs ? 'seen_at'`)).toBe(0);
+    expect(await one(db, `select count(*)::int from public.dle_entities where game_id = 'otakudle' and attrs ? 'seen_at'`)).toBe(0);
+    expect(await one(db, `select pg_get_viewdef('public.dle_src_anime_character'::regclass) ~ 'seen_'`)).toBe(false);
+    expect(JSON.stringify((await rpcAs(db, 'dle_pool', { p_game: 'otakudle' })).data)).not.toContain('seen_at');
   });
 
   it('dle_pool gives the columns and the names, never the hints or the target flag', async () => {
@@ -262,11 +271,11 @@ describe('the real launch files, L04 and L13', () => {
     await applyLaunchFiles(db);
   });
 
-  it('750 characters in the pool of the 50 series, 584 with the 7 columns, 113 targets (the TOP200, a voice actor, seen by every answer); the 3 without a gender', async () => {
+  it('750 characters in the pool of the 50 series, 584 with the 7 columns, 178 targets (the TOP200 with the 7 columns and a voice actor, whatever the debut arc; 197 have a voice actor, 19 of them lack a column, among them 7 with no year: Sword Art Online, Re:Zero, Steins;Gate, Mob Psycho 100); the 3 without a gender', async () => {
     expect(await one(db, `select count(*)::int from public.dle_src_anime_character`)).toBe(750);
     const complete = `from public.dle_src_anime_character s where not exists (select 1 from public.dle_attributes a where a.game_id = 'otakudle' and coalesce(cardinality(public.dle_values(s.attrs -> a.key -> 'v')), 0) = 0)`;
     expect(await one(db, `select count(*)::int ${complete}`)).toBe(584);
-    expect(await one(db, `select count(*)::int ${complete} and s.can_be_target`)).toBe(113);
+    expect(await one(db, `select count(*)::int ${complete} and s.can_be_target`)).toBe(178);
     expect(await one(db, `select count(distinct balance_key)::int from public.dle_src_anime_character`)).toBe(50);
     expect(await one(db, `select count(*)::int from public.character_facts where featured`)).toBe(200);
     // A target is featured and has a voice actor; nobody else is one.
@@ -301,15 +310,17 @@ describe('the real launch files, L04 and L13', () => {
     expect(await attr('eren-yeager', 'studio')).toEqual(['Wit Studio']);
   });
 
-  it('467 of the 750 characters may be seen at every choice (the debut arc is data: only those can be the target of the day)', async () => {
-    expect(await one(db, `select count(*)::int from public.dle_src_anime_character where attrs -> 'seen_at' -> 'v' = '["anime", "manga", "beginner"]'::jsonb`)).toBe(467);
+  it('the debut arc and medium are data, not a rule: no character of the pool carries a seen_at, and every featured character with every column and a voice actor is a target (CR-026)', async () => {
+    expect(await one(db, `select count(*)::int from public.dle_src_anime_character where attrs ? 'seen_at'`)).toBe(0);
+    expect(await one(db, `select count(*)::int from public.dle_src_anime_character v join public.characters c on c.id::text = v.entity_id join public.character_facts f on f.character_id = c.id
+      where f.featured and f.voice_actor_ja is not null and not v.can_be_target`)).toBe(0);
   });
 
-  it('V-L13 is ok on every row and says 584 with the 7 columns, 113 targets', async () => {
+  it('V-L13 is ok on every row and says 584 with the 7 columns, 178 targets', async () => {
     const out = await runCheck(db, 'V-L13.sql');
     expect(out.filter((r) => r[0] !== 'ok')).toEqual([]);
     expect(out.find((r) => r[1].includes('7 colonnes'))![2]).toBe('584');
-    expect(out.find((r) => r[1].startsWith('cibles de otakudle'))![2]).toBe('113');
+    expect(out.find((r) => r[1].startsWith('cibles de otakudle'))![2]).toBe('178');
     expect(out.find((r) => r[1].startsWith('TOP200'))![2]).toBe('200');
     expect(JSON.stringify(out)).not.toMatch(/Luffy|Goku|Tanjiro/);
   });
@@ -333,12 +344,12 @@ describe('the real launch files, L04 and L13', () => {
     await db.exec(readActivation());
     expect(await rows(db, banks)).toEqual(bank);
     expect(await rows(db, games)).toEqual(on);
-    expect(await one(db, `select public.dle_window('otakudle')`)).toBe(79);
-    expect(await breaks(db, 79)).toBe(0);
+    expect(await one(db, `select public.dle_window('otakudle')`)).toBe(120);
+    expect(await breaks(db, 120)).toBe(0);
     const v = await runCheck(db, 'V-L14.sql');
     expect(v.filter((r) => r[0] !== 'ok')).toEqual([]);
     expect(v).toHaveLength(14);
-    expect(v.find((r) => r[1] === 'otakudle : cibles possibles, au moins le minimum du jeu')![2]).toBe('113');
+    expect(v.find((r) => r[1] === 'otakudle : cibles possibles, au moins le minimum du jeu')![2]).toBe('178');
     expect(v.find((r) => r[1] === 'kpopdle-idol : cibles possibles, au moins le minimum du jeu')![2]).toBe('45');
     expect(JSON.stringify(v)).not.toMatch(/Luffy|Goku|Tanjiro|Fixture/);
     expect((await runCheck(db, 'V-023.sql')).filter((r) => r[0] !== 'ok')).toEqual([]);
@@ -379,26 +390,14 @@ describe('the real launch files, L04 and L13', () => {
   });
 });
 
-describe('"How far are you?" on this device', () => {
-  it('anime by default, kept, garbage ignored, erased with the rest, a storage that throws is survived', () => {
+describe('the choice of "How far are you?" is gone from this device (CR-026)', () => {
+  it('the old key is erased with the rest, and a storage that throws is survived', () => {
     const s = store();
-    expect(readProgress(s)).toBe(DEFAULT_PROGRESS);
-    writeProgress(s, 'beginner');
-    expect(readProgress(s)).toBe('beginner');
-    s.setItem('dle:v1:progress', 'nonsense');
-    expect(readProgress(s)).toBe('anime');
-    writeProgress(s, 'manga');
+    s.setItem('dle:v1:progress', 'manga');
     eraseData(s);
-    expect(readProgress(s)).toBe('anime');
+    expect(s.getItem('dle:v1:progress')).toBeNull();
     const bad: KeyStore = { getItem: () => { throw new Error('blocked'); }, setItem: () => { throw new Error('blocked'); }, removeItem: () => { throw new Error('blocked'); } };
-    expect(readProgress(bad)).toBe('anime');
-    expect(() => writeProgress(bad, 'manga')).not.toThrow();
-  });
-
-  it('the list follows the server rule; a game without the rule hides nobody', () => {
-    expect(seenAt(['anime', 'manga'], 'beginner')).toBe(false);
-    expect(seenAt(['anime', 'manga'], 'manga')).toBe(true);
-    expect(seenAt(undefined, 'beginner')).toBe(true);
+    expect(() => eraseData(bad)).not.toThrow();
   });
 });
 
@@ -463,7 +462,7 @@ describe('the words and the SEO of /otakudle', () => {
       const w = gameCopy('otakudle', l);
       expect(Object.keys(w.columns)).toEqual(['series', 'gender', 'species', 'role', 'demographic', 'year', 'studio']);
       for (const h of dleGame('otakudle').hints) expect(w.hints[h.key], h.key).toBeTruthy();
-      expect(w.progress!.options.map((o) => o.id)).toEqual(['anime', 'manga', 'beginner']);
+      expect(w, l).not.toHaveProperty('progress');
     }
     expect(dleGame('otakudle').hints).toEqual([{ key: 'voice_actor_ja', after: 5 }, { key: 'initial', after: 10 }]);
     for (const l of ['en', 'fr'] as const) {
@@ -495,16 +494,14 @@ describe('the screen drawn on the server', () => {
     entities: [{ id: '1', name: 'Eren Yeager', search: ['Eren Yeager', 'エレン'], attrs: { series: { v: 'Attack on Titan' }, studio: { v: ['Wit Studio'] } }, thumb: null }],
   };
 
-  it('one H1, "How far are you?" with its three choices and its legend in the HTML, the steps that have no page say soon, no target; Kpopdle has no such choice', async () => {
+  it('one H1, no "How far are you?" (no selector, no radio, no legend), the steps that have no page say soon, no target; Kpopdle has none either', async () => {
     const { DleGame } = await import('@/components/hub/dle/dle-game');
     for (const locale of ['en', 'fr'] as const) {
       const w = gameCopy('otakudle', locale);
       const html = renderToStaticMarkup(createElement(DleGame, { locale, game: 'otakudle', gameNo: 4, stats: null, pool: POOL, pictures: {}, quizLinks: {}, kpopName: 'OtakuQuiz' }));
       expect(html.match(/<h1/g)).toHaveLength(1);
       expect(html).toContain(w.h1);
-      expect(html).toContain(w.progress!.legend);
-      for (const o of w.progress!.options) expect(html).toContain(o.label);
-      expect(html.match(/type="radio"/g)).toHaveLength(3);
+      expect(html).not.toMatch(/How far are you|Où en es-tu|<fieldset|<legend|type="radio"|hub-dle-seg|hub-dle-progress/);
       // CR-024: "One Otakudle per series" became the two games of One Piece and Dragon Ball, both built: only "Series of the day" is still soon.
       expect(html.match(/hub-dle-stepstate-soon/g)).toHaveLength(1);
       expect(html).toContain(dleCopy(locale).soon);
