@@ -118,8 +118,8 @@ describe('024 in session G and in J4', () => {
 
     await afterJ4With024(db);
     expect(await rows(db, `select id, universe, entity_kind, source_view, min_pool, no_repeat_days, hint_keys, hint_after, active, epoch from public.dle_games where id like 'otakudle-%' order by id`)).toEqual([
-      { id: 'otakudle-dragon-ball', universe: 'anime', entity_kind: 'character', source_view: 'dle_src_otakudle_dragon_ball', min_pool: 30, no_repeat_days: 14, hint_keys: ['signature_technique', 'voice_actor_ja', 'initial'], hint_after: [5, 5, 10], active: false, epoch: null },
-      { id: 'otakudle-one-piece', universe: 'anime', entity_kind: 'character', source_view: 'dle_src_otakudle_one_piece', min_pool: 40, no_repeat_days: 30, hint_keys: ['devil_fruit_name', 'initial'], hint_after: [5, 10], active: false, epoch: null },
+      { id: 'otakudle-dragon-ball', universe: 'anime', entity_kind: 'character', source_view: 'dle_src_otakudle_dragon_ball', min_pool: 30, no_repeat_days: 120, hint_keys: ['signature_technique', 'voice_actor_ja', 'initial'], hint_after: [5, 5, 10], active: false, epoch: null },
+      { id: 'otakudle-one-piece', universe: 'anime', entity_kind: 'character', source_view: 'dle_src_otakudle_one_piece', min_pool: 40, no_repeat_days: 120, hint_keys: ['devil_fruit_name', 'initial'], hint_after: [5, 10], active: false, epoch: null },
     ]);
     expect(await rows(db, `select key, kind, near::int from public.dle_attributes where game_id = 'otakudle-one-piece' order by position`)).toEqual([
       { key: 'gender', kind: 'single', near: null }, { key: 'affiliation', kind: 'multi', near: null }, { key: 'devil_fruit_type', kind: 'single', near: null }, { key: 'haki', kind: 'multi', near: null },

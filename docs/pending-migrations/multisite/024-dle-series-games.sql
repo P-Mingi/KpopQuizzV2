@@ -123,15 +123,14 @@ where f.game_id = 'otakudle-dragon-ball' and c.status = 'published';
 revoke all on table public.dle_src_otakudle_one_piece, public.dle_src_otakudle_dragon_ball from public, anon, authenticated;
 grant select on table public.dle_src_otakudle_one_piece, public.dle_src_otakudle_dragon_ball to service_role;
 
--- no_repeat_days is 30 and 14 (the other games use 120): the bank of 019 draws 365 days by blocks and, when the window is close to 70 % of the
--- targets, the draw can fail 20 times in a row (measured on PGlite: 73 targets with a window of 51, 61 with 42, 53 with 37, 31 with 21 fail
--- more often than not). A window of 30 holds from 43 targets up, a window of 14 for every pool from 28 to 117 in the measures.
+-- no_repeat_days is 120, the standard of the other games (CR-019: the bank of 019 now builds for every pool size, so the 30 and 14 that avoided
+-- its random failures are gone; the window is min(120, 70 % of the targets), 21 days at the minimum pool of 30).
 -- The games: only once L01 added the anime site (dle_games.universe). Never touches a row that is already there, so a run after the activation changes nothing.
 insert into public.dle_games (id, universe, entity_kind, source_view, no_repeat_days, min_pool, hint_keys, hint_after, active)
 select g.id, 'anime', 'character', g.source_view, g.no_repeat_days, g.min_pool, g.hint_keys, g.hint_after, false
 from (values
-  ('otakudle-one-piece', 'dle_src_otakudle_one_piece', 30, 40, '{devil_fruit_name,initial}'::text[], '{5,10}'::integer[]),
-  ('otakudle-dragon-ball', 'dle_src_otakudle_dragon_ball', 14, 30, '{signature_technique,voice_actor_ja,initial}'::text[], '{5,5,10}'::integer[])
+  ('otakudle-one-piece', 'dle_src_otakudle_one_piece', 120, 40, '{devil_fruit_name,initial}'::text[], '{5,10}'::integer[]),
+  ('otakudle-dragon-ball', 'dle_src_otakudle_dragon_ball', 120, 30, '{signature_technique,voice_actor_ja,initial}'::text[], '{5,5,10}'::integer[])
 ) as g(id, source_view, no_repeat_days, min_pool, hint_keys, hint_after)
 where exists (select 1 from public.sites where id = 'anime')
 on conflict (id) do nothing;
