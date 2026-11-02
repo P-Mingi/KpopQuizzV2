@@ -1,0 +1,6371 @@
+{
+  "generated": "2026-11-02",
+  "adult_cutoff": "2008-11-02",
+  "groups": [
+    {
+      "slug": "loona",
+      "plays": 200,
+      "wikipedia_title": "Loona",
+      "wikidata_qid": "Q28025953",
+      "musicbrainz_mbid": "de4feabc-cd21-4568-a09c-2086bfebe2f4",
+      "debut_year": 2018,
+      "debut_year_sources": {
+        "wikipedia": 2018,
+        "wikidata": 2018,
+        "musicbrainz_first_release": 2016,
+        "musicbrainz_release_group": "8e9a8c27-efba-4c06-8447-495b5e700f34"
+      },
+      "record_label": "Blockberry Creative",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "4th generation",
+      "inception_date": null,
+      "members": 10
+    },
+    {
+      "slug": "got7",
+      "plays": 137,
+      "wikipedia_title": "Got7",
+      "wikidata_qid": "Q23772001",
+      "musicbrainz_mbid": "9f6a8346-15f3-4ec4-a632-f5270b0945a3",
+      "debut_year": 2014,
+      "debut_year_sources": {
+        "wikipedia": 2014,
+        "wikidata": 2014,
+        "musicbrainz_first_release": 2014,
+        "musicbrainz_release_group": "506745bd-d3e9-4844-a274-99974bef21b2"
+      },
+      "record_label": "JYP Entertainment",
+      "record_label_check": "wikipedia only",
+      "generation": "3rd generation",
+      "inception_date": null,
+      "members": 7
+    },
+    {
+      "slug": "monsta-x",
+      "plays": 214,
+      "wikipedia_title": "Monsta X",
+      "wikidata_qid": "Q19855151",
+      "musicbrainz_mbid": "b6b21b0c-a706-4b46-a929-bd4d21b06cad",
+      "debut_year": 2015,
+      "debut_year_sources": {
+        "wikipedia": 2015,
+        "wikidata": 2015,
+        "musicbrainz_first_release": 2015,
+        "musicbrainz_release_group": "766951af-4c35-4ecf-a6ee-6001e9a263e6"
+      },
+      "record_label": "Starship Entertainment",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "3rd generation",
+      "inception_date": null,
+      "members": 6
+    },
+    {
+      "slug": "girls-generation",
+      "plays": 564,
+      "wikipedia_title": "Girls' Generation",
+      "wikidata_qid": "Q20153",
+      "musicbrainz_mbid": "b7442f18-d9be-4185-8b51-482510046156",
+      "debut_year": 2007,
+      "debut_year_sources": {
+        "wikipedia": 2007,
+        "wikidata": 2007,
+        "musicbrainz_first_release": 2007,
+        "musicbrainz_release_group": "385e406a-4f46-4836-b8d0-776c63ace34f"
+      },
+      "record_label": "SM Entertainment",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "2nd generation",
+      "inception_date": null,
+      "members": 8
+    },
+    {
+      "slug": "zerobaseone",
+      "plays": 32,
+      "wikipedia_title": "Zerobaseone",
+      "wikidata_qid": "Q117808633",
+      "musicbrainz_mbid": "fe038151-1099-4de8-901b-39be66d6e493",
+      "debut_year": 2023,
+      "debut_year_sources": {
+        "wikipedia": 2023,
+        "wikidata": null,
+        "musicbrainz_first_release": 2023,
+        "musicbrainz_release_group": "011bd598-d711-42d1-9f23-0ca2ec5ea59a"
+      },
+      "record_label": "WakeOne",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "5th generation",
+      "inception_date": null,
+      "members": 4
+    },
+    {
+      "slug": "mamamoo",
+      "plays": 31,
+      "wikipedia_title": "Mamamoo",
+      "wikidata_qid": "Q17278068",
+      "musicbrainz_mbid": "fb588f59-af1a-493a-9508-ed487caa2a11",
+      "debut_year": 2014,
+      "debut_year_sources": {
+        "wikipedia": 2014,
+        "wikidata": 2014,
+        "musicbrainz_first_release": 2014,
+        "musicbrainz_release_group": "fd474ee0-1b3b-49f2-a8d6-0d840c54074e"
+      },
+      "record_label": "Rainbow Bridge World",
+      "record_label_check": "wikipedia \"RBW\" and wikidata \"Rainbow Bridge World, Kakao M, Victor Entertainment\" differ: wikidata first label kept",
+      "generation": "3rd generation",
+      "inception_date": "2014-06-18",
+      "members": 4
+    },
+    {
+      "slug": "bigbang",
+      "plays": 239,
+      "wikipedia_title": "BigBang (South Korean band)",
+      "wikidata_qid": "Q282104",
+      "musicbrainz_mbid": "ec2bcb77-b9a1-49e2-bfe7-419586bbef48",
+      "debut_year": 2006,
+      "debut_year_sources": {
+        "wikipedia": 2006,
+        "wikidata": 2006,
+        "musicbrainz_first_release": 2006,
+        "musicbrainz_release_group": "97d1c5b1-0be8-4ec7-b99d-68be81c0315f"
+      },
+      "record_label": "YG Entertainment",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "2nd generation",
+      "inception_date": null,
+      "members": 3
+    },
+    {
+      "slug": "katseye",
+      "plays": 802,
+      "wikipedia_title": "Katseye",
+      "wikidata_qid": "Q123480242",
+      "musicbrainz_mbid": "abbf7d85-9a7f-4a6c-80bd-bf71f2c7d520",
+      "debut_year": 2024,
+      "debut_year_sources": {
+        "wikipedia": 2024,
+        "wikidata": null,
+        "musicbrainz_first_release": 2024,
+        "musicbrainz_release_group": "b8b3e910-6c1a-4fd4-a4e6-d2d13d2836c9"
+      },
+      "record_label": "Hybe UMG",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "5th generation",
+      "inception_date": null,
+      "members": 5
+    },
+    {
+      "slug": "illit",
+      "plays": 3477,
+      "wikipedia_title": "Illit",
+      "wikidata_qid": "Q122179261",
+      "musicbrainz_mbid": "6b128dd7-e998-4edb-a4f5-400fef190445",
+      "debut_year": 2024,
+      "debut_year_sources": {
+        "wikipedia": 2024,
+        "wikidata": 2024,
+        "musicbrainz_first_release": 2024,
+        "musicbrainz_release_group": "529f87a1-1081-48a4-8ee1-3c08de229858"
+      },
+      "record_label": "Belift Lab",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "5th generation",
+      "inception_date": "2024-03-25",
+      "members": 4
+    },
+    {
+      "slug": "treasure",
+      "plays": 23,
+      "wikipedia_title": "Treasure (band)",
+      "wikidata_qid": "Q61057550",
+      "musicbrainz_mbid": "6a64307a-1806-428c-9bee-4afb13b27042",
+      "debut_year": 2020,
+      "debut_year_sources": {
+        "wikipedia": 2020,
+        "wikidata": null,
+        "musicbrainz_first_release": 2020,
+        "musicbrainz_release_group": "e9ad3659-1efa-48d1-9510-2743663cfea2"
+      },
+      "record_label": "YG Entertainment",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "4th generation",
+      "inception_date": null,
+      "members": 7
+    },
+    {
+      "slug": "dreamcatcher",
+      "plays": 14,
+      "wikipedia_title": "Dreamcatcher (group)",
+      "wikidata_qid": "Q20684822",
+      "musicbrainz_mbid": "a97f393a-13a7-4645-8bba-f10bd22d7228",
+      "debut_year": 2017,
+      "debut_year_sources": {
+        "wikipedia": 2017,
+        "wikidata": 2016,
+        "musicbrainz_first_release": 2017,
+        "musicbrainz_release_group": "51dd3424-23f9-4f6b-bc7b-1218c9ebf3de"
+      },
+      "record_label": "Dreamcatcher Company",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "3rd generation",
+      "inception_date": null,
+      "members": 7
+    },
+    {
+      "slug": "tws",
+      "plays": 48,
+      "wikipedia_title": "TWS (group)",
+      "wikidata_qid": "Q124091148",
+      "musicbrainz_mbid": "f68e8675-5ad8-47eb-b7ec-da9cc210e0b4",
+      "debut_year": 2024,
+      "debut_year_sources": {
+        "wikipedia": 2024,
+        "wikidata": 2024,
+        "musicbrainz_first_release": 2024,
+        "musicbrainz_release_group": "fe4df9dd-09ab-407d-9d50-3656a9441294"
+      },
+      "record_label": "Pledis Entertainment",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "5th generation",
+      "inception_date": "2024-01-22",
+      "members": 6
+    },
+    {
+      "slug": "p1harmony",
+      "plays": 12,
+      "wikipedia_title": "P1Harmony",
+      "wikidata_qid": "Q101529383",
+      "musicbrainz_mbid": "d03d8ba8-065c-41d9-a804-d6c05a949194",
+      "debut_year": 2020,
+      "debut_year_sources": {
+        "wikipedia": 2020,
+        "wikidata": null,
+        "musicbrainz_first_release": 2020,
+        "musicbrainz_release_group": "3cb93ab1-3bb7-46df-ad1b-a84000dae0f2"
+      },
+      "record_label": "FNC Entertainment",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "4th generation",
+      "inception_date": null,
+      "members": 5
+    },
+    {
+      "slug": "cortis",
+      "plays": 3402,
+      "wikipedia_title": "Cortis",
+      "wikidata_qid": "Q135668928",
+      "musicbrainz_mbid": "d27808c8-d3a6-4bbe-acc2-22d5e19f3bca",
+      "debut_year": 2025,
+      "debut_year_sources": {
+        "wikipedia": 2025,
+        "wikidata": 2025,
+        "musicbrainz_first_release": 2025,
+        "musicbrainz_release_group": "4a297ef7-7782-4c18-8d48-dcf58fc5e953"
+      },
+      "record_label": "BigHit Music",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "5th generation",
+      "inception_date": "2025-08-18",
+      "members": 3
+    },
+    {
+      "slug": "hearts2hearts",
+      "plays": 128,
+      "wikipedia_title": "Hearts2Hearts",
+      "wikidata_qid": "Q131746784",
+      "musicbrainz_mbid": "066080a4-84c7-46c6-91d3-dc10d572749b",
+      "debut_year": 2025,
+      "debut_year_sources": {
+        "wikipedia": 2025,
+        "wikidata": 2025,
+        "musicbrainz_first_release": 2025,
+        "musicbrainz_release_group": "4447961b-bea2-441b-b52a-c2fdc9460a36"
+      },
+      "record_label": "SM Entertainment",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "5th generation",
+      "inception_date": "2025-02-24",
+      "members": 3
+    },
+    {
+      "slug": "team",
+      "plays": 48,
+      "wikipedia_title": "&Team",
+      "wikidata_qid": "Q112834233",
+      "musicbrainz_mbid": "bba737dc-7ec8-482d-b79f-68d949ef2c7f",
+      "debut_year": 2022,
+      "debut_year_sources": {
+        "wikipedia": 2022,
+        "wikidata": 2022,
+        "musicbrainz_first_release": 2022,
+        "musicbrainz_release_group": "92ea703e-4f6b-425f-8111-a77834220820"
+      },
+      "record_label": "YX LABELS",
+      "record_label_check": "wikipedia \"Hybe Corporation\" and wikidata \"YX LABELS\" differ: wikidata first label kept",
+      "generation": "4th generation",
+      "inception_date": "2022-09-03",
+      "members": 3
+    },
+    {
+      "slug": "akmu",
+      "plays": 17,
+      "wikipedia_title": "AKMU",
+      "wikidata_qid": "Q10728972",
+      "musicbrainz_mbid": "a1eba844-8c3e-4c61-8f54-f5e086b58c01",
+      "debut_year": 2014,
+      "debut_year_sources": {
+        "wikipedia": 2014,
+        "wikidata": 2014,
+        "musicbrainz_first_release": 2012,
+        "musicbrainz_release_group": "4a2c1ea8-6d92-44f4-ba05-5950bc6489b1"
+      },
+      "record_label": "YG Entertainment",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "3rd generation",
+      "inception_date": null,
+      "members": 2
+    },
+    {
+      "slug": "astro",
+      "plays": 13,
+      "wikipedia_title": "Astro (South Korean band)",
+      "wikidata_qid": "Q23004252",
+      "musicbrainz_mbid": "5098186e-721e-4a01-b50f-1b274e01715e",
+      "debut_year": 2016,
+      "debut_year_sources": {
+        "wikipedia": 2016,
+        "wikidata": 2016,
+        "musicbrainz_first_release": 2016,
+        "musicbrainz_release_group": "9cd615ad-5540-40e5-819c-cbfc79216377"
+      },
+      "record_label": "Fantagio",
+      "record_label_check": "wikipedia + wikidata",
+      "generation": "3rd generation",
+      "inception_date": "2016-01-01",
+      "members": 4
+    }
+  ],
+  "idols": [
+    {
+      "group_slug": "loona",
+      "name": "Heejin",
+      "name_romanized": null,
+      "name_hangul": "전희진",
+      "birth_date": "2000-10-19",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2018,
+      "positions": [],
+      "other_groups": [
+        "artms"
+      ],
+      "wikidata_qid": "Q56259179",
+      "ord": 1,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q56259179"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "9fbbbcc3-f2af-4f03-a0b1-844ee5aec94f"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q56259179"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "9fbbbcc3-f2af-4f03-a0b1-844ee5aec94f"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q56259179"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "9fbbbcc3-f2af-4f03-a0b1-844ee5aec94f"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q28025953"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2018, wikidata 2018, musicbrainz first release 2016)",
+        "membership": "wikipedia current, wikidata former, musicbrainz former",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "loona",
+      "name": "Hyunjin",
+      "name_romanized": "Kim Hyunjin",
+      "name_hangul": "김현진",
+      "birth_date": "2000-11-15",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2018,
+      "positions": [],
+      "other_groups": [
+        "loossemble"
+      ],
+      "wikidata_qid": "Q48893612",
+      "ord": 2,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q48893612"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "be5226fb-2cd4-459d-9dea-2821fa93841c"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q48893612"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "be5226fb-2cd4-459d-9dea-2821fa93841c"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q48893612"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "be5226fb-2cd4-459d-9dea-2821fa93841c"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q28025953"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2018, wikidata 2018, musicbrainz first release 2016)",
+        "membership": "wikipedia current, wikidata former, musicbrainz former",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "loona",
+      "name": "Haseul",
+      "name_romanized": null,
+      "name_hangul": "조하슬",
+      "birth_date": "1997-08-18",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2018,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [
+        "artms"
+      ],
+      "wikidata_qid": "Q57318729",
+      "ord": 3,
+      "leader_sources": [
+        "wikipedia group page",
+        "wikipedia member page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q57318729"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "16e12893-150a-41d7-aaf3-5ad23fc76b39"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q57318729"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "16e12893-150a-41d7-aaf3-5ad23fc76b39"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q57318729"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "16e12893-150a-41d7-aaf3-5ad23fc76b39"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q28025953"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2018, wikidata 2018, musicbrainz first release 2016)",
+        "membership": "wikipedia current, wikidata former, musicbrainz former",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "loona",
+      "name": "Yeojin",
+      "name_romanized": null,
+      "name_hangul": "임여진",
+      "birth_date": "2002-11-11",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2018,
+      "positions": [
+        "Maknae"
+      ],
+      "other_groups": [
+        "loossemble"
+      ],
+      "wikidata_qid": "Q56824821",
+      "ord": 4,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q56824821"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f92fe7a1-3429-4d6c-8dd3-4e8b6d8c11be"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q56824821"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f92fe7a1-3429-4d6c-8dd3-4e8b6d8c11be"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q56824821"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f92fe7a1-3429-4d6c-8dd3-4e8b6d8c11be"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q28025953"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2018, wikidata 2018, musicbrainz first release 2016)",
+        "membership": "wikipedia current, wikidata former, musicbrainz former",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "loona",
+      "name": "Kim Lip",
+      "name_romanized": null,
+      "name_hangul": "김정은",
+      "birth_date": "1999-02-10",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2018,
+      "positions": [],
+      "other_groups": [
+        "artms"
+      ],
+      "wikidata_qid": "Q56816418",
+      "ord": 6,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q56816418"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e52cff7d-d20e-4d1c-ba2c-4b3ec15726cd"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q56816418"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e52cff7d-d20e-4d1c-ba2c-4b3ec15726cd"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q56816418"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e52cff7d-d20e-4d1c-ba2c-4b3ec15726cd"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q28025953"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2018, wikidata 2018, musicbrainz first release 2016)",
+        "membership": "wikipedia current, wikidata former, musicbrainz former",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "loona",
+      "name": "Jinsoul",
+      "name_romanized": null,
+      "name_hangul": "정진솔",
+      "birth_date": "1997-06-13",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2018,
+      "positions": [],
+      "other_groups": [
+        "artms"
+      ],
+      "wikidata_qid": "Q56825122",
+      "ord": 7,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q56825122"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "dd776077-27c3-4f12-a838-456815ec8066"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q56825122"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "dd776077-27c3-4f12-a838-456815ec8066"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q56825122"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "dd776077-27c3-4f12-a838-456815ec8066"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q28025953"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2018, wikidata 2018, musicbrainz first release 2016)",
+        "membership": "wikipedia current, wikidata former, musicbrainz former",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "loona",
+      "name": "Choerry",
+      "name_romanized": null,
+      "name_hangul": "최예림",
+      "birth_date": "2001-06-04",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2018,
+      "positions": [],
+      "other_groups": [
+        "artms"
+      ],
+      "wikidata_qid": "Q58224261",
+      "ord": 8,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q58224261"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "da37f5a2-3436-4825-b7dd-1a6e9a82ee33"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q58224261"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "da37f5a2-3436-4825-b7dd-1a6e9a82ee33"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q58224261"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "da37f5a2-3436-4825-b7dd-1a6e9a82ee33"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q28025953"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2018, wikidata 2018, musicbrainz first release 2016)",
+        "membership": "wikipedia current, wikidata former, musicbrainz former",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "loona",
+      "name": "Yves",
+      "name_romanized": null,
+      "name_hangul": "하수영",
+      "birth_date": "1997-05-24",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2018,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q58825704",
+      "ord": 9,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q58825704"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8339c0c3-7a04-4b19-8ca3-b149e0d09222"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q58825704"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8339c0c3-7a04-4b19-8ca3-b149e0d09222"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q58825704"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8339c0c3-7a04-4b19-8ca3-b149e0d09222"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q28025953"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2018, wikidata 2018, musicbrainz first release 2016)",
+        "membership": "wikipedia current, wikidata former, musicbrainz former",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "loona",
+      "name": "Go Won",
+      "name_romanized": null,
+      "name_hangul": "고원",
+      "birth_date": "2000-11-19",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2018,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q58825794",
+      "ord": 10,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q58825794"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "55783d92-0646-4204-a638-a740e5f6d4dd"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q58825794"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "55783d92-0646-4204-a638-a740e5f6d4dd"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q58825794"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "55783d92-0646-4204-a638-a740e5f6d4dd"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q28025953"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "55783d92-0646-4204-a638-a740e5f6d4dd"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2018, wikidata 2018, musicbrainz first release 2016)",
+        "membership": "wikipedia current, wikidata member, musicbrainz former",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "loona",
+      "name": "Olivia Hye",
+      "name_romanized": "Hyeju",
+      "name_hangul": "손혜주",
+      "birth_date": "2001-11-13",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2018,
+      "positions": [],
+      "other_groups": [
+        "loossemble"
+      ],
+      "wikidata_qid": "Q58825825",
+      "ord": 11,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q58825825"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "68c9cff6-f48a-4248-9691-6784983d791d"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q58825825"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "68c9cff6-f48a-4248-9691-6784983d791d"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q58825825"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "68c9cff6-f48a-4248-9691-6784983d791d"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q28025953"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "68c9cff6-f48a-4248-9691-6784983d791d"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2018, wikidata 2018, musicbrainz first release 2016)",
+        "membership": "wikipedia current, wikidata former, musicbrainz former",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "got7",
+      "name": "Mark",
+      "name_romanized": "Mark Tuan",
+      "name_hangul": "마크",
+      "birth_date": "1993-09-04",
+      "nationality": "United States",
+      "gender": "male",
+      "debut_year": 2014,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q16075083",
+      "ord": 1,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q16075083"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "bdd935a3-9f19-4b3d-ab39-0953ea3e37b2"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q16075083"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "bdd935a3-9f19-4b3d-ab39-0953ea3e37b2"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q16075083"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q23772001"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "506745bd-d3e9-4844-a274-99974bef21b2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2014, wikidata 2014, musicbrainz first release 2014)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia only"
+      }
+    },
+    {
+      "group_slug": "got7",
+      "name": "Jay B",
+      "name_romanized": null,
+      "name_hangul": "제이비",
+      "birth_date": "1994-01-06",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2014,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q491048",
+      "ord": 2,
+      "leader_sources": [
+        "wikipedia group page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q491048"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "5946df9e-3008-4e50-8fe5-11b2db1a789d"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q491048"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "5946df9e-3008-4e50-8fe5-11b2db1a789d"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q491048"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "5946df9e-3008-4e50-8fe5-11b2db1a789d"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q23772001"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "506745bd-d3e9-4844-a274-99974bef21b2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2014, wikidata 2014, musicbrainz first release 2014)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "got7",
+      "name": "Jackson",
+      "name_romanized": "Jackson Wang",
+      "name_hangul": "잭슨",
+      "birth_date": "1994-03-28",
+      "nationality": "China",
+      "gender": "male",
+      "debut_year": 2014,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q16905948",
+      "ord": 3,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q16905948"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "993b5a29-a8f1-49d7-9ef3-e05233041454"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q16905948"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "993b5a29-a8f1-49d7-9ef3-e05233041454"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q16905948"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q23772001"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "506745bd-d3e9-4844-a274-99974bef21b2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2014, wikidata 2014, musicbrainz first release 2014)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "got7",
+      "name": "Jinyoung",
+      "name_romanized": "Park Jin-young",
+      "name_hangul": "박진영",
+      "birth_date": "1994-09-22",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2014,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q492313",
+      "ord": 4,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q492313"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "77cb0d7a-c6b9-4cf2-a36c-34b1246b9ea3"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q492313"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "77cb0d7a-c6b9-4cf2-a36c-34b1246b9ea3"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q492313"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "77cb0d7a-c6b9-4cf2-a36c-34b1246b9ea3"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q23772001"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "506745bd-d3e9-4844-a274-99974bef21b2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2014, wikidata 2014, musicbrainz first release 2014)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "got7",
+      "name": "Youngjae",
+      "name_romanized": "Choi Young-jae",
+      "name_hangul": "영재",
+      "birth_date": "1996-09-17",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2014,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q17500581",
+      "ord": 5,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q17500581"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "91dfde5c-1d9a-4ab0-a345-02af722ba0f8"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q17500581"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "91dfde5c-1d9a-4ab0-a345-02af722ba0f8"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q17500581"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "91dfde5c-1d9a-4ab0-a345-02af722ba0f8"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q23772001"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "506745bd-d3e9-4844-a274-99974bef21b2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2014, wikidata 2014, musicbrainz first release 2014)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "got7",
+      "name": "BamBam",
+      "name_romanized": null,
+      "name_hangul": "뱀뱀",
+      "birth_date": "1997-05-02",
+      "nationality": "Thailand",
+      "gender": "male",
+      "debut_year": 2014,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q16688282",
+      "ord": 6,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q16688282"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "69d7da17-96ab-403c-a0a0-be872220aa51"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q16688282"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "69d7da17-96ab-403c-a0a0-be872220aa51"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q16688282"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q23772001"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "506745bd-d3e9-4844-a274-99974bef21b2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2014, wikidata 2014, musicbrainz first release 2014)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "got7",
+      "name": "Yugyeom",
+      "name_romanized": "Kim Yu-gyeom",
+      "name_hangul": "유겸",
+      "birth_date": "1997-11-17",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2014,
+      "positions": [
+        "Maknae"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q17500887",
+      "ord": 7,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q17500887"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "b53ca3f2-33f9-4565-bfc3-7323063ae0da"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q17500887"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "b53ca3f2-33f9-4565-bfc3-7323063ae0da"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q17500887"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "b53ca3f2-33f9-4565-bfc3-7323063ae0da"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q23772001"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "506745bd-d3e9-4844-a274-99974bef21b2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2014, wikidata 2014, musicbrainz first release 2014)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "monsta-x",
+      "name": "Shownu",
+      "name_romanized": null,
+      "name_hangul": "셔누",
+      "birth_date": "1992-06-18",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2015,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q24834621",
+      "ord": 1,
+      "leader_sources": [
+        "wikipedia group page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q24834621"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e8cbcb43-6fef-4789-86c1-1aafb7c27ed6"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q24834621"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e8cbcb43-6fef-4789-86c1-1aafb7c27ed6"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q24834621"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e8cbcb43-6fef-4789-86c1-1aafb7c27ed6"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q19855151"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "766951af-4c35-4ecf-a6ee-6001e9a263e6"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2015, wikidata 2015, musicbrainz first release 2015)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "monsta-x",
+      "name": "Minhyuk",
+      "name_romanized": null,
+      "name_hangul": "민혁",
+      "birth_date": "1993-11-03",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2015,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q28746303",
+      "ord": 2,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q28746303"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "46584aa3-de4f-4f43-b630-3129868c14ea"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q28746303"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "46584aa3-de4f-4f43-b630-3129868c14ea"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q28746303"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "46584aa3-de4f-4f43-b630-3129868c14ea"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q19855151"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "766951af-4c35-4ecf-a6ee-6001e9a263e6"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2015, wikidata 2015, musicbrainz first release 2015)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "monsta-x",
+      "name": "Kihyun",
+      "name_romanized": null,
+      "name_hangul": "기현",
+      "birth_date": "1993-11-22",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2015,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q27951584",
+      "ord": 3,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q27951584"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "4cbe196f-025f-4b7e-9cb2-eaac0b6ec01b"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q27951584"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "4cbe196f-025f-4b7e-9cb2-eaac0b6ec01b"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q27951584"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "4cbe196f-025f-4b7e-9cb2-eaac0b6ec01b"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q19855151"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "766951af-4c35-4ecf-a6ee-6001e9a263e6"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2015, wikidata 2015, musicbrainz first release 2015)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "monsta-x",
+      "name": "Hyungwon",
+      "name_romanized": null,
+      "name_hangul": "형원",
+      "birth_date": "1994-01-15",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2015,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q28549791",
+      "ord": 4,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q28549791"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "5eb88fce-7fc1-4a5b-bd5b-8619c8c91a6b"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q28549791"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "5eb88fce-7fc1-4a5b-bd5b-8619c8c91a6b"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q28549791"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "5eb88fce-7fc1-4a5b-bd5b-8619c8c91a6b"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q19855151"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "766951af-4c35-4ecf-a6ee-6001e9a263e6"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2015, wikidata 2015, musicbrainz first release 2015)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "monsta-x",
+      "name": "Joohoney",
+      "name_romanized": "Lee Jooheon",
+      "name_hangul": "이주헌",
+      "birth_date": "1994-10-06",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2015,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q23008017",
+      "ord": 5,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q23008017"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "0931b6d2-c469-4203-ab70-00d8222e6bdd"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q23008017"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "0931b6d2-c469-4203-ab70-00d8222e6bdd"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q23008017"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "0931b6d2-c469-4203-ab70-00d8222e6bdd"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q19855151"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "766951af-4c35-4ecf-a6ee-6001e9a263e6"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2015, wikidata 2015, musicbrainz first release 2015)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "monsta-x",
+      "name": "I.M",
+      "name_romanized": null,
+      "name_hangul": "아이엠",
+      "birth_date": "1996-01-26",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2015,
+      "positions": [
+        "Maknae"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q28549782",
+      "ord": 6,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q28549782"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e32e7d66-3d1f-4f8a-b339-90c02ebfe465"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q28549782"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e32e7d66-3d1f-4f8a-b339-90c02ebfe465"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q28549782"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e32e7d66-3d1f-4f8a-b339-90c02ebfe465"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q19855151"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "766951af-4c35-4ecf-a6ee-6001e9a263e6"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2015, wikidata 2015, musicbrainz first release 2015)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "girls-generation",
+      "name": "Taeyeon",
+      "name_romanized": null,
+      "name_hangul": "태연",
+      "birth_date": "1989-03-09",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2007,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q233371",
+      "ord": 1,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q233371"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "2b786fb3-a116-4163-9b65-cf56f03c8a7f"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q233371"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "2b786fb3-a116-4163-9b65-cf56f03c8a7f"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q233371"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "2b786fb3-a116-4163-9b65-cf56f03c8a7f"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q20153"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "385e406a-4f46-4836-b8d0-776c63ace34f"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2007, wikidata 2007, musicbrainz first release 2007)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "girls-generation",
+      "name": "Sunny",
+      "name_romanized": null,
+      "name_hangul": "써니",
+      "birth_date": "1989-05-15",
+      "nationality": "South Korea, United States",
+      "gender": "female",
+      "debut_year": 2007,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q233894",
+      "ord": 2,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q233894"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "3c59eca2-15d4-425f-8b5d-043470c83635"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q233894"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "3c59eca2-15d4-425f-8b5d-043470c83635"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q233894"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "3c59eca2-15d4-425f-8b5d-043470c83635"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q20153"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "385e406a-4f46-4836-b8d0-776c63ace34f"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2007, wikidata 2007, musicbrainz first release 2007)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "girls-generation",
+      "name": "Tiffany",
+      "name_romanized": "Tiffany Young",
+      "name_hangul": "황미영",
+      "birth_date": "1989-08-01",
+      "nationality": "South Korea, United States",
+      "gender": "female",
+      "debut_year": 2007,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q236355",
+      "ord": 3,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q236355"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "908fa819-3af6-4373-a051-75e4827605cf"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q236355"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "908fa819-3af6-4373-a051-75e4827605cf"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q236355"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "908fa819-3af6-4373-a051-75e4827605cf"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q20153"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "385e406a-4f46-4836-b8d0-776c63ace34f"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2007, wikidata 2007, musicbrainz first release 2007)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "girls-generation",
+      "name": "Hyoyeon",
+      "name_romanized": "Kim Hyo-yeon",
+      "name_hangul": "김효연",
+      "birth_date": "1989-09-22",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2007,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q253619",
+      "ord": 4,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q253619"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f2911ba4-9eaf-4ae2-b7a2-0f27b7a955be"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q253619"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f2911ba4-9eaf-4ae2-b7a2-0f27b7a955be"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q253619"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f2911ba4-9eaf-4ae2-b7a2-0f27b7a955be"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q20153"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "385e406a-4f46-4836-b8d0-776c63ace34f"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2007, wikidata 2007, musicbrainz first release 2007)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "girls-generation",
+      "name": "Yuri",
+      "name_romanized": "Kwon Yu-ri",
+      "name_hangul": "유리",
+      "birth_date": "1989-12-05",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2007,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q276158",
+      "ord": 5,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q276158"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "2dbc4ab5-45b5-450c-a85f-4e3a83204b1c"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q276158"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "2dbc4ab5-45b5-450c-a85f-4e3a83204b1c"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q276158"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "2dbc4ab5-45b5-450c-a85f-4e3a83204b1c"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q20153"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "385e406a-4f46-4836-b8d0-776c63ace34f"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2007, wikidata 2007, musicbrainz first release 2007)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "girls-generation",
+      "name": "Sooyoung",
+      "name_romanized": null,
+      "name_hangul": "수영",
+      "birth_date": "1990-02-10",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2007,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q233385",
+      "ord": 6,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q233385"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "0341e982-8db8-4daa-a974-c7b6f27b2e66"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q233385"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "0341e982-8db8-4daa-a974-c7b6f27b2e66"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q233385"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "0341e982-8db8-4daa-a974-c7b6f27b2e66"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q20153"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "385e406a-4f46-4836-b8d0-776c63ace34f"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2007, wikidata 2007, musicbrainz first release 2007)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "girls-generation",
+      "name": "Yoona",
+      "name_romanized": "Lim Yoona",
+      "name_hangul": "임윤아",
+      "birth_date": "1990-05-30",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2007,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q466975",
+      "ord": 7,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q466975"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q466975"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "13b8076d-532c-4692-b896-6ecac9d9d8f4"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q466975"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "13b8076d-532c-4692-b896-6ecac9d9d8f4"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q20153"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "385e406a-4f46-4836-b8d0-776c63ace34f"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "majority:wikidata+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2007, wikidata 2007, musicbrainz first release 2007)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "girls-generation",
+      "name": "Seohyun",
+      "name_romanized": "Seo Joo-hyun",
+      "name_hangul": "서현",
+      "birth_date": "1991-06-28",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2007,
+      "positions": [
+        "Maknae"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q240082",
+      "ord": 8,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q240082"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "4c76ba5a-281b-4785-b99f-0c0146f1bac3"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q240082"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "4c76ba5a-281b-4785-b99f-0c0146f1bac3"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q240082"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "4c76ba5a-281b-4785-b99f-0c0146f1bac3"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q20153"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "385e406a-4f46-4836-b8d0-776c63ace34f"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2007, wikidata 2007, musicbrainz first release 2007)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "zerobaseone",
+      "name": "Kim Ji-woong",
+      "name_romanized": null,
+      "name_hangul": "김지웅",
+      "birth_date": "1998-12-14",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2023,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q115933814",
+      "ord": 1,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q115933814"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f7b7dbbb-56e2-4da7-91c1-b1b26c11c399"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q115933814"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f7b7dbbb-56e2-4da7-91c1-b1b26c11c399"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q115933814"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f7b7dbbb-56e2-4da7-91c1-b1b26c11c399"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "011bd598-d711-42d1-9f23-0ca2ec5ea59a"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2023, wikidata -, musicbrainz first release 2023)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "zerobaseone",
+      "name": "Sung Han-bin",
+      "name_romanized": null,
+      "name_hangul": "성한빈",
+      "birth_date": "2001-06-13",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2023,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q117746200",
+      "ord": 2,
+      "leader_sources": [
+        "wikipedia group page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q117746200"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "106573ab-00df-48fe-a022-7cced047923e"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q117746200"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "106573ab-00df-48fe-a022-7cced047923e"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q117746200"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "106573ab-00df-48fe-a022-7cced047923e"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q117746200"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "011bd598-d711-42d1-9f23-0ca2ec5ea59a"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2023, wikidata -, musicbrainz first release 2023)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "zerobaseone",
+      "name": "Kim Tae-rae",
+      "name_romanized": null,
+      "name_hangul": "김태래",
+      "birth_date": "2002-07-14",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2023,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q117817675",
+      "ord": 4,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q117817675"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "3ee96b6f-e2fe-461f-a035-8db7a224e74d"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q117817675"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "3ee96b6f-e2fe-461f-a035-8db7a224e74d"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q117817675"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "3ee96b6f-e2fe-461f-a035-8db7a224e74d"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "011bd598-d711-42d1-9f23-0ca2ec5ea59a"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2023, wikidata -, musicbrainz first release 2023)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "zerobaseone",
+      "name": "Park Gun-wook",
+      "name_romanized": null,
+      "name_hangul": "박건욱",
+      "birth_date": "2005-01-10",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2023,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q117818064",
+      "ord": 5,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q117818064"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "00d00be3-34eb-4e44-89ca-e13ed23b51b5"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q117818064"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "00d00be3-34eb-4e44-89ca-e13ed23b51b5"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q117818064"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "00d00be3-34eb-4e44-89ca-e13ed23b51b5"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "011bd598-d711-42d1-9f23-0ca2ec5ea59a"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2023, wikidata -, musicbrainz first release 2023)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "mamamoo",
+      "name": "Solar",
+      "name_romanized": null,
+      "name_hangul": "김용선",
+      "birth_date": "1991-02-21",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2014,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q19483969",
+      "ord": 1,
+      "leader_sources": [
+        "wikipedia member page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q19483969"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8377538d-c3c9-4588-a9e5-29a7de6d9cd1"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q19483969"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8377538d-c3c9-4588-a9e5-29a7de6d9cd1"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q19483969"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8377538d-c3c9-4588-a9e5-29a7de6d9cd1"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q17278068"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fd474ee0-1b3b-49f2-a8d6-0d840c54074e"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2014, wikidata 2014, musicbrainz first release 2014)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "mamamoo",
+      "name": "Moonbyul",
+      "name_romanized": null,
+      "name_hangul": "문별이",
+      "birth_date": "1992-12-22",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2014,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q19483782",
+      "ord": 2,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q19483782"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "1478adcd-e96c-441b-b5db-89d66ff456f7"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q19483782"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "1478adcd-e96c-441b-b5db-89d66ff456f7"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q19483782"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "1478adcd-e96c-441b-b5db-89d66ff456f7"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q17278068"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fd474ee0-1b3b-49f2-a8d6-0d840c54074e"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2014, wikidata 2014, musicbrainz first release 2014)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "mamamoo",
+      "name": "Wheein",
+      "name_romanized": null,
+      "name_hangul": "휘인",
+      "birth_date": "1995-04-17",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2014,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q19603930",
+      "ord": 3,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q19603930"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "3651544b-372b-436e-99a0-ffc43f477a1c"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q19603930"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "3651544b-372b-436e-99a0-ffc43f477a1c"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q19603930"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "3651544b-372b-436e-99a0-ffc43f477a1c"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q17278068"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fd474ee0-1b3b-49f2-a8d6-0d840c54074e"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2014, wikidata 2014, musicbrainz first release 2014)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "mamamoo",
+      "name": "Hwasa",
+      "name_romanized": null,
+      "name_hangul": "화사",
+      "birth_date": "1995-07-23",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2014,
+      "positions": [
+        "Maknae"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q19603912",
+      "ord": 4,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q19603912"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "9c750319-8267-493a-aaaf-305e1c6bcc21"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q19603912"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "9c750319-8267-493a-aaaf-305e1c6bcc21"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q19603912"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "9c750319-8267-493a-aaaf-305e1c6bcc21"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q17278068"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fd474ee0-1b3b-49f2-a8d6-0d840c54074e"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2014, wikidata 2014, musicbrainz first release 2014)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "bigbang",
+      "name": "Taeyang",
+      "name_romanized": null,
+      "name_hangul": "동영배",
+      "birth_date": "1988-05-18",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2006,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q482991",
+      "ord": 1,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q482991"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "d84e5667-3cbe-4556-b551-9d7e4be95d71"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q482991"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "d84e5667-3cbe-4556-b551-9d7e4be95d71"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q482991"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "d84e5667-3cbe-4556-b551-9d7e4be95d71"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q282104"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "97d1c5b1-0be8-4ec7-b99d-68be81c0315f"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2006, wikidata 2006, musicbrainz first release 2006)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "bigbang",
+      "name": "G-Dragon",
+      "name_romanized": null,
+      "name_hangul": "지드래곤",
+      "birth_date": "1988-08-18",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2006,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q495577",
+      "ord": 2,
+      "leader_sources": [
+        "wikipedia group page",
+        "wikipedia member page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q495577"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "b4f66d7f-3282-404e-a682-97374d63b5ab"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q495577"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "b4f66d7f-3282-404e-a682-97374d63b5ab"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q495577"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "b4f66d7f-3282-404e-a682-97374d63b5ab"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q282104"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "97d1c5b1-0be8-4ec7-b99d-68be81c0315f"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2006, wikidata 2006, musicbrainz first release 2006)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "bigbang",
+      "name": "Daesung",
+      "name_romanized": null,
+      "name_hangul": "대성",
+      "birth_date": "1989-04-26",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2006,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q194798",
+      "ord": 3,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q194798"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "268b782c-b6c7-41a4-b2ef-36cddd76b6ad"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q194798"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "268b782c-b6c7-41a4-b2ef-36cddd76b6ad"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q194798"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "268b782c-b6c7-41a4-b2ef-36cddd76b6ad"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q282104"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "97d1c5b1-0be8-4ec7-b99d-68be81c0315f"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2006, wikidata 2006, musicbrainz first release 2006)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "katseye",
+      "name": "Daniela Avanzini",
+      "name_romanized": null,
+      "name_hangul": "다니엘라",
+      "birth_date": "2004-07-01",
+      "nationality": "United States",
+      "gender": "female",
+      "debut_year": 2024,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q124692767",
+      "ord": 1,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692767"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "136f98b4-9730-409c-a361-374e72b3830c"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692767"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "136f98b4-9730-409c-a361-374e72b3830c"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692767"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "136f98b4-9730-409c-a361-374e72b3830c"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692767"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "b8b3e910-6c1a-4fd4-a4e6-d2d13d2836c9"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata -, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "katseye",
+      "name": "Lara Raj",
+      "name_romanized": null,
+      "name_hangul": "라라",
+      "birth_date": "2005-11-03",
+      "nationality": "United States",
+      "gender": "female",
+      "debut_year": 2024,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q124692773",
+      "ord": 2,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692773"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "97760d94-e84e-4daa-90c8-5ccf80f3fb86"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692773"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "97760d94-e84e-4daa-90c8-5ccf80f3fb86"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692773"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "97760d94-e84e-4daa-90c8-5ccf80f3fb86"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692773"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "b8b3e910-6c1a-4fd4-a4e6-d2d13d2836c9"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata -, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "katseye",
+      "name": "Manon Bannerman",
+      "name_romanized": null,
+      "name_hangul": "마농 배너맨",
+      "birth_date": "2002-06-26",
+      "nationality": "Switzerland",
+      "gender": "female",
+      "debut_year": 2024,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q124692741",
+      "ord": 3,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692741"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "22ff5fa0-eab6-4782-9989-a96b9a938786"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692741"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "22ff5fa0-eab6-4782-9989-a96b9a938786"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692741"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "22ff5fa0-eab6-4782-9989-a96b9a938786"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "b8b3e910-6c1a-4fd4-a4e6-d2d13d2836c9"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata -, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "katseye",
+      "name": "Megan Skiendiel",
+      "name_romanized": null,
+      "name_hangul": "메간",
+      "birth_date": "2006-02-10",
+      "nationality": "United States",
+      "gender": "female",
+      "debut_year": 2024,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q124692787",
+      "ord": 4,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692787"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "884d5bf2-8af4-47d1-b43c-5bf4dbd490f5"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692787"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "884d5bf2-8af4-47d1-b43c-5bf4dbd490f5"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692787"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "884d5bf2-8af4-47d1-b43c-5bf4dbd490f5"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692787"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "b8b3e910-6c1a-4fd4-a4e6-d2d13d2836c9"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata -, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "katseye",
+      "name": "Sophia Laforteza",
+      "name_romanized": null,
+      "name_hangul": "소피아",
+      "birth_date": "2002-12-31",
+      "nationality": "Philippines, United States",
+      "gender": "female",
+      "debut_year": 2024,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q124692753",
+      "ord": 5,
+      "leader_sources": [
+        "wikipedia group page",
+        "wikipedia member page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692753"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "557e2afa-96c5-4830-aed7-bab18faf4cb1"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692753"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "557e2afa-96c5-4830-aed7-bab18faf4cb1"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692753"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "557e2afa-96c5-4830-aed7-bab18faf4cb1"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q124692753"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "b8b3e910-6c1a-4fd4-a4e6-d2d13d2836c9"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata -, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "illit",
+      "name": "Yunah",
+      "name_romanized": null,
+      "name_hangul": "노윤아",
+      "birth_date": "2004-01-15",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2024,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q126923756",
+      "ord": 1,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q126923756"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "148210fe-0112-4e69-baf7-796b4c7a3988"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q126923756"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "148210fe-0112-4e69-baf7-796b4c7a3988"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q126923756"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "148210fe-0112-4e69-baf7-796b4c7a3988"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q122179261"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "529f87a1-1081-48a4-8ee1-3c08de229858"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata 2024, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "illit",
+      "name": "Minju",
+      "name_romanized": null,
+      "name_hangul": "박민주",
+      "birth_date": "2004-05-11",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2024,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q126923757",
+      "ord": 2,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q126923757"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "19687944-a17a-480b-b8e6-721b475ca283"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q126923757"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "19687944-a17a-480b-b8e6-721b475ca283"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q126923757"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "19687944-a17a-480b-b8e6-721b475ca283"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q122179261"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "529f87a1-1081-48a4-8ee1-3c08de229858"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata 2024, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "illit",
+      "name": "Wonhee",
+      "name_romanized": null,
+      "name_hangul": "이원희",
+      "birth_date": "2007-06-26",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2024,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q126923760",
+      "ord": 4,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q126923760"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "bb1944bb-4be6-44b4-b330-cd0c66a7e10f"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q126923760"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "bb1944bb-4be6-44b4-b330-cd0c66a7e10f"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q126923760"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "bb1944bb-4be6-44b4-b330-cd0c66a7e10f"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q122179261"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "529f87a1-1081-48a4-8ee1-3c08de229858"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata 2024, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "illit",
+      "name": "Iroha",
+      "name_romanized": null,
+      "name_hangul": "이로하",
+      "birth_date": "2008-02-04",
+      "nationality": "Japan",
+      "gender": "female",
+      "debut_year": 2024,
+      "positions": [
+        "Maknae"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q126923761",
+      "ord": 5,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q126923761"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f3079b7a-333e-4369-b7f7-5319003d720c"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q126923761"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f3079b7a-333e-4369-b7f7-5319003d720c"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q126923761"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q122179261"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "529f87a1-1081-48a4-8ee1-3c08de229858"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata 2024, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "treasure",
+      "name": "Choi Hyun-suk",
+      "name_romanized": null,
+      "name_hangul": "최현석",
+      "birth_date": "1999-04-21",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2020,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q63850969",
+      "ord": 1,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q63850969"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "2e0fdf9f-9ac1-4230-a795-90ad0df3ef52"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q63850969"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "2e0fdf9f-9ac1-4230-a795-90ad0df3ef52"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q63850969"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "2e0fdf9f-9ac1-4230-a795-90ad0df3ef52"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q63850969"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e9ad3659-1efa-48d1-9510-2743663cfea2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2020, wikidata -, musicbrainz first release 2020)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "treasure",
+      "name": "Junkyu",
+      "name_romanized": "Kim Jun-kyu",
+      "name_hangul": "김준규",
+      "birth_date": "2000-09-09",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2020,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q97319986",
+      "ord": 4,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q97319986"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e3b47c66-097b-4676-b12e-e047d81ca3b1"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q97319986"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e3b47c66-097b-4676-b12e-e047d81ca3b1"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q97319986"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e3b47c66-097b-4676-b12e-e047d81ca3b1"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q97319986"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e9ad3659-1efa-48d1-9510-2743663cfea2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2020, wikidata -, musicbrainz first release 2020)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia only"
+      }
+    },
+    {
+      "group_slug": "treasure",
+      "name": "Yoon Jae-hyuk",
+      "name_romanized": null,
+      "name_hangul": "윤재혁",
+      "birth_date": "2001-07-23",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2020,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q98136886",
+      "ord": 5,
+      "leader_sources": [
+        "wikipedia group page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q98136886"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8a248619-1a0c-42a4-beb5-8455d51a5341"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q98136886"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8a248619-1a0c-42a4-beb5-8455d51a5341"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q98136886"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8a248619-1a0c-42a4-beb5-8455d51a5341"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q98136886"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e9ad3659-1efa-48d1-9510-2743663cfea2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2020, wikidata -, musicbrainz first release 2020)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "treasure",
+      "name": "Doyoung",
+      "name_romanized": "Kim Do-young",
+      "name_hangul": "김도영",
+      "birth_date": "2003-12-04",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2020,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q97320177",
+      "ord": 7,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q97320177"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "64f7928f-2a27-40ff-901d-3ddb1f54edaa"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q97320177"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "64f7928f-2a27-40ff-901d-3ddb1f54edaa"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q97320177"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "64f7928f-2a27-40ff-901d-3ddb1f54edaa"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q97320177"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e9ad3659-1efa-48d1-9510-2743663cfea2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2020, wikidata -, musicbrainz first release 2020)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia only"
+      }
+    },
+    {
+      "group_slug": "treasure",
+      "name": "Haruto",
+      "name_romanized": "Watanabe Haruto",
+      "name_hangul": "하루토",
+      "birth_date": "2004-04-05",
+      "nationality": "Japan",
+      "gender": "male",
+      "debut_year": 2020,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q97352003",
+      "ord": 8,
+      "leader_sources": [
+        "wikipedia group page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q97352003"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "1c9e545f-6316-4910-9589-dab038c36906"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q97352003"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "1c9e545f-6316-4910-9589-dab038c36906"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q97352003"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q97352003"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e9ad3659-1efa-48d1-9510-2743663cfea2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2020, wikidata -, musicbrainz first release 2020)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia only"
+      }
+    },
+    {
+      "group_slug": "treasure",
+      "name": "Park Jeong-woo",
+      "name_romanized": null,
+      "name_hangul": "박정우",
+      "birth_date": "2004-09-28",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2020,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q97326265",
+      "ord": 9,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q97326265"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "c858acb1-6147-4b6f-9751-677eabbc95fa"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q97326265"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "c858acb1-6147-4b6f-9751-677eabbc95fa"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q97326265"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "c858acb1-6147-4b6f-9751-677eabbc95fa"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "e9ad3659-1efa-48d1-9510-2743663cfea2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2020, wikidata -, musicbrainz first release 2020)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "treasure",
+      "name": "So Jung-hwan",
+      "name_romanized": null,
+      "name_hangul": "소정환",
+      "birth_date": "2005-02-18",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2020,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q97352009",
+      "ord": 10,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q97352009"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fec07f01-e5f0-4f95-88a2-97b81f9990ca"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q97352009"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fec07f01-e5f0-4f95-88a2-97b81f9990ca"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q97352009"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fec07f01-e5f0-4f95-88a2-97b81f9990ca"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q97352009"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e9ad3659-1efa-48d1-9510-2743663cfea2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2020, wikidata -, musicbrainz first release 2020)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "dreamcatcher",
+      "name": "JiU",
+      "name_romanized": null,
+      "name_hangul": "김민지",
+      "birth_date": "1994-05-17",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2017,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q59313184",
+      "ord": 1,
+      "leader_sources": [
+        "wikipedia group page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313184"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "d5163b9c-500b-4f82-b828-580908b785a9"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313184"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "d5163b9c-500b-4f82-b828-580908b785a9"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313184"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "d5163b9c-500b-4f82-b828-580908b785a9"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "51dd3424-23f9-4f6b-bc7b-1218c9ebf3de"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2017, wikidata 2016, musicbrainz first release 2017)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "dreamcatcher",
+      "name": "SuA",
+      "name_romanized": null,
+      "name_hangul": "수아",
+      "birth_date": "1994-08-10",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2017,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q59313270",
+      "ord": 2,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313270"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "6d556ee8-8493-4c9d-931d-6ff3bd0018cc"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313270"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "6d556ee8-8493-4c9d-931d-6ff3bd0018cc"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313270"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "6d556ee8-8493-4c9d-931d-6ff3bd0018cc"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "51dd3424-23f9-4f6b-bc7b-1218c9ebf3de"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2017, wikidata 2016, musicbrainz first release 2017)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "dreamcatcher",
+      "name": "Siyeon",
+      "name_romanized": null,
+      "name_hangul": "시연",
+      "birth_date": "1995-10-01",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2017,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q59313326",
+      "ord": 3,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313326"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "c7ef5451-e0f3-4b6f-b4e0-cd54ed7ac924"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313326"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "c7ef5451-e0f3-4b6f-b4e0-cd54ed7ac924"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313326"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "c7ef5451-e0f3-4b6f-b4e0-cd54ed7ac924"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "51dd3424-23f9-4f6b-bc7b-1218c9ebf3de"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2017, wikidata 2016, musicbrainz first release 2017)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "dreamcatcher",
+      "name": "Handong",
+      "name_romanized": null,
+      "name_hangul": "한동",
+      "birth_date": "1996-03-26",
+      "nationality": "China",
+      "gender": "female",
+      "debut_year": 2017,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q59313384",
+      "ord": 4,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313384"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "299e74fa-cf2f-432c-a4bb-8e0db57c2698"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313384"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "299e74fa-cf2f-432c-a4bb-8e0db57c2698"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313384"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "299e74fa-cf2f-432c-a4bb-8e0db57c2698"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313384"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "51dd3424-23f9-4f6b-bc7b-1218c9ebf3de"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2017, wikidata 2016, musicbrainz first release 2017)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "dreamcatcher",
+      "name": "Yoohyeon",
+      "name_romanized": null,
+      "name_hangul": "유현",
+      "birth_date": "1997-01-07",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2017,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q59313479",
+      "ord": 5,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313479"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "c5b133c1-259e-47cd-922d-3e73c17ac5fa"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313479"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "c5b133c1-259e-47cd-922d-3e73c17ac5fa"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313479"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "c5b133c1-259e-47cd-922d-3e73c17ac5fa"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "51dd3424-23f9-4f6b-bc7b-1218c9ebf3de"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2017, wikidata 2016, musicbrainz first release 2017)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "dreamcatcher",
+      "name": "Dami",
+      "name_romanized": null,
+      "name_hangul": "이유빈",
+      "birth_date": "1997-03-07",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2017,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q59313527",
+      "ord": 6,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313527"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f8061b6b-6863-4aa1-8163-8e5ce9b408be"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313527"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f8061b6b-6863-4aa1-8163-8e5ce9b408be"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313527"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f8061b6b-6863-4aa1-8163-8e5ce9b408be"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "51dd3424-23f9-4f6b-bc7b-1218c9ebf3de"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2017, wikidata 2016, musicbrainz first release 2017)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "dreamcatcher",
+      "name": "Gahyun",
+      "name_romanized": null,
+      "name_hangul": "가현",
+      "birth_date": "1999-02-03",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2017,
+      "positions": [
+        "Maknae"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q59313606",
+      "ord": 7,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313606"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "3b0b4634-2450-41e7-8ba2-24f4af3f0dd2"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313606"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "3b0b4634-2450-41e7-8ba2-24f4af3f0dd2"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313606"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "3b0b4634-2450-41e7-8ba2-24f4af3f0dd2"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q59313606"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "51dd3424-23f9-4f6b-bc7b-1218c9ebf3de"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2017, wikidata 2016, musicbrainz first release 2017)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "tws",
+      "name": "Shinyu",
+      "name_romanized": null,
+      "name_hangul": "신정환",
+      "birth_date": "2003-11-07",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2024,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q132041926",
+      "ord": 1,
+      "leader_sources": [
+        "wikipedia group page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q132041926"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "a7125425-668e-48ae-ba39-b88786bea147"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q132041926"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "a7125425-668e-48ae-ba39-b88786bea147"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q132041926"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "a7125425-668e-48ae-ba39-b88786bea147"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q124091148"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fe4df9dd-09ab-407d-9d50-3656a9441294"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata 2024, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "tws",
+      "name": "Dohoon",
+      "name_romanized": null,
+      "name_hangul": "김도훈",
+      "birth_date": "2005-01-30",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2024,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q125865775",
+      "ord": 2,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q125865775"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "34efa47c-a48a-4ec7-aa34-dc06a20eeaef"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q125865775"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "34efa47c-a48a-4ec7-aa34-dc06a20eeaef"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q125865775"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "34efa47c-a48a-4ec7-aa34-dc06a20eeaef"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q124091148"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fe4df9dd-09ab-407d-9d50-3656a9441294"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata 2024, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "tws",
+      "name": "Youngjae",
+      "name_romanized": null,
+      "name_hangul": "최영재",
+      "birth_date": "2005-05-31",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2024,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q132041928",
+      "ord": 3,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q132041928"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8b0aada1-a470-411b-9ac3-a335d1691746"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q132041928"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8b0aada1-a470-411b-9ac3-a335d1691746"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q132041928"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8b0aada1-a470-411b-9ac3-a335d1691746"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q124091148"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fe4df9dd-09ab-407d-9d50-3656a9441294"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata 2024, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "tws",
+      "name": "Hanjin",
+      "name_romanized": null,
+      "name_hangul": "한진",
+      "birth_date": "2006-01-05",
+      "nationality": "China",
+      "gender": "male",
+      "debut_year": 2024,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q132041929",
+      "ord": 4,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q132041929"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "36d924e8-0bc5-4e80-871b-3f014487705f"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q132041929"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "36d924e8-0bc5-4e80-871b-3f014487705f"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q132041929"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q124091148"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fe4df9dd-09ab-407d-9d50-3656a9441294"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata 2024, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "tws",
+      "name": "Jihoon",
+      "name_romanized": "Han Jihoon",
+      "name_hangul": "한지훈",
+      "birth_date": "2006-03-28",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2024,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q124091988",
+      "ord": 5,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q124091988"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "d9a8a6e2-5436-4863-aea8-f617d3d6579a"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q124091988"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "d9a8a6e2-5436-4863-aea8-f617d3d6579a"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q124091988"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "d9a8a6e2-5436-4863-aea8-f617d3d6579a"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q124091148"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fe4df9dd-09ab-407d-9d50-3656a9441294"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata 2024, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "tws",
+      "name": "Kyungmin",
+      "name_romanized": null,
+      "name_hangul": "이경민",
+      "birth_date": "2007-10-02",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2024,
+      "positions": [
+        "Maknae"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q132041931",
+      "ord": 6,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q132041931"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8d125e54-f478-4d5c-ab54-287dfdca1db3"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q132041931"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8d125e54-f478-4d5c-ab54-287dfdca1db3"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q132041931"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8d125e54-f478-4d5c-ab54-287dfdca1db3"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q124091148"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fe4df9dd-09ab-407d-9d50-3656a9441294"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2024, wikidata 2024, musicbrainz first release 2024)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "p1harmony",
+      "name": "Keeho",
+      "name_romanized": "Yoon Kee-ho",
+      "name_hangul": "기호",
+      "birth_date": "2001-09-27",
+      "nationality": "Canada",
+      "gender": "male",
+      "debut_year": 2020,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q114690500",
+      "ord": 1,
+      "leader_sources": [
+        "wikipedia group page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q114690500"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e77c277f-6c29-4bcd-b541-4dcf47ac775a"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q114690500"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e77c277f-6c29-4bcd-b541-4dcf47ac775a"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q114690500"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "3cb93ab1-3bb7-46df-ad1b-a84000dae0f2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2020, wikidata -, musicbrainz first release 2020)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "p1harmony",
+      "name": "Theo",
+      "name_romanized": null,
+      "name_hangul": "최태양",
+      "birth_date": "2001-07-01",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2020,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q121579075",
+      "ord": 2,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q121579075"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "461a77a1-8797-4367-88be-55c3a85a62be"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q121579075"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "461a77a1-8797-4367-88be-55c3a85a62be"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q121579075"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "461a77a1-8797-4367-88be-55c3a85a62be"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "3cb93ab1-3bb7-46df-ad1b-a84000dae0f2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2020, wikidata -, musicbrainz first release 2020)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "p1harmony",
+      "name": "Jiung",
+      "name_romanized": "Choi Ji-ung",
+      "name_hangul": "최지웅",
+      "birth_date": "2001-10-07",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2020,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q121579089",
+      "ord": 3,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q121579089"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "cafe729b-f9b1-4e57-a7ff-2e79ad3d9868"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q121579089"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "cafe729b-f9b1-4e57-a7ff-2e79ad3d9868"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q121579089"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "cafe729b-f9b1-4e57-a7ff-2e79ad3d9868"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "3cb93ab1-3bb7-46df-ad1b-a84000dae0f2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2020, wikidata -, musicbrainz first release 2020)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia only"
+      }
+    },
+    {
+      "group_slug": "p1harmony",
+      "name": "Soul",
+      "name_romanized": "Haku Shota",
+      "name_hangul": "하쿠 쇼타",
+      "birth_date": "2005-02-01",
+      "nationality": "Japan, South Korea",
+      "gender": "male",
+      "debut_year": 2020,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q121579375",
+      "ord": 5,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q121579375"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "928053e8-3dac-4557-ae8c-8cee9862d72f"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q121579375"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "928053e8-3dac-4557-ae8c-8cee9862d72f"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q121579375"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "928053e8-3dac-4557-ae8c-8cee9862d72f"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "3cb93ab1-3bb7-46df-ad1b-a84000dae0f2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2020, wikidata -, musicbrainz first release 2020)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "p1harmony",
+      "name": "Jongseob",
+      "name_romanized": null,
+      "name_hangul": "김종섭",
+      "birth_date": "2005-11-19",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2020,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q30006465",
+      "ord": 6,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q30006465"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "5139d541-5d2c-4e4a-804d-b4437d985be0"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q30006465"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "5139d541-5d2c-4e4a-804d-b4437d985be0"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q30006465"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "5139d541-5d2c-4e4a-804d-b4437d985be0"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "musicbrainz",
+            "ref": "3cb93ab1-3bb7-46df-ad1b-a84000dae0f2"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2020, wikidata -, musicbrainz first release 2020)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "cortis",
+      "name": "James",
+      "name_romanized": "Chao James",
+      "name_hangul": "제임스",
+      "birth_date": "2005-10-14",
+      "nationality": "China, Thailand",
+      "gender": "male",
+      "debut_year": 2025,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q135963716",
+      "ord": 1,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q135963716"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "40e38901-911c-4b01-a83e-da5409c3a57c"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q135963716"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "40e38901-911c-4b01-a83e-da5409c3a57c"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q135963716"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q135668928"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "4a297ef7-7782-4c18-8d48-dcf58fc5e953"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2025, wikidata 2025, musicbrainz first release 2025)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia only"
+      }
+    },
+    {
+      "group_slug": "cortis",
+      "name": "Juhoon",
+      "name_romanized": null,
+      "name_hangul": "김주훈",
+      "birth_date": "2008-01-03",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2025,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q135963733",
+      "ord": 2,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q135963733"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8585a06a-ac50-4bb9-9fe4-a1f769612709"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q135963733"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8585a06a-ac50-4bb9-9fe4-a1f769612709"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q135963733"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "8585a06a-ac50-4bb9-9fe4-a1f769612709"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q135668928"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "4a297ef7-7782-4c18-8d48-dcf58fc5e953"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2025, wikidata 2025, musicbrainz first release 2025)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "cortis",
+      "name": "Martin",
+      "name_romanized": null,
+      "name_hangul": "마틴",
+      "birth_date": "2008-03-20",
+      "nationality": "Canada, South Korea",
+      "gender": "male",
+      "debut_year": 2025,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q135963739",
+      "ord": 3,
+      "leader_sources": [
+        "wikipedia group page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q135963739"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fa243a39-c196-416f-b48f-8a97958380f1"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q135963739"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fa243a39-c196-416f-b48f-8a97958380f1"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q135963739"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "fa243a39-c196-416f-b48f-8a97958380f1"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q135668928"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "4a297ef7-7782-4c18-8d48-dcf58fc5e953"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2025, wikidata 2025, musicbrainz first release 2025)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "hearts2hearts",
+      "name": "Jiwoo",
+      "name_romanized": null,
+      "name_hangul": "최지우",
+      "birth_date": "2006-09-07",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2025,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q131932320",
+      "ord": 2,
+      "leader_sources": [
+        "wikipedia group page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q131932320"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f7ed13b1-5da7-4a11-91ff-ed0696d51929"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q131932320"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f7ed13b1-5da7-4a11-91ff-ed0696d51929"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q131932320"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f7ed13b1-5da7-4a11-91ff-ed0696d51929"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q131746784"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "4447961b-bea2-441b-b52a-c2fdc9460a36"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2025, wikidata 2025, musicbrainz first release 2025)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "hearts2hearts",
+      "name": "Yuha",
+      "name_romanized": null,
+      "name_hangul": "유하람",
+      "birth_date": "2007-04-12",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2025,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q131932322",
+      "ord": 3,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q131932322"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "789ae3a1-8ab5-4f83-9637-ceb950b9f75d"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q131932322"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "789ae3a1-8ab5-4f83-9637-ceb950b9f75d"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q131932322"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "789ae3a1-8ab5-4f83-9637-ceb950b9f75d"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q131746784"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "4447961b-bea2-441b-b52a-c2fdc9460a36"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2025, wikidata 2025, musicbrainz first release 2025)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "hearts2hearts",
+      "name": "Stella",
+      "name_romanized": null,
+      "name_hangul": "김다현",
+      "birth_date": "2007-06-18",
+      "nationality": "Canada, South Korea",
+      "gender": "female",
+      "debut_year": 2025,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q131932323",
+      "ord": 4,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q131932323"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e58250a3-bb1b-4c06-8e65-0cdf9433f262"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q131932323"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e58250a3-bb1b-4c06-8e65-0cdf9433f262"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q131932323"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "e58250a3-bb1b-4c06-8e65-0cdf9433f262"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q131746784"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "4447961b-bea2-441b-b52a-c2fdc9460a36"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2025, wikidata 2025, musicbrainz first release 2025)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "team",
+      "name": "K",
+      "name_romanized": null,
+      "name_hangul": "케이",
+      "birth_date": "1997-10-21",
+      "nationality": "Japan",
+      "gender": "male",
+      "debut_year": 2022,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q116226143",
+      "ord": 1,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q116226143"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "d1c2c72f-c7b9-4852-9cb1-276bf64197af"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q116226143"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "d1c2c72f-c7b9-4852-9cb1-276bf64197af"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q116226143"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "d1c2c72f-c7b9-4852-9cb1-276bf64197af"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q112834233"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "92ea703e-4f6b-425f-8111-a77834220820"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2022, wikidata 2022, musicbrainz first release 2022)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "team",
+      "name": "Nicholas",
+      "name_romanized": null,
+      "name_hangul": "왕이샹",
+      "birth_date": "2002-07-09",
+      "nationality": "Taiwan",
+      "gender": "male",
+      "debut_year": 2022,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q104723121",
+      "ord": 3,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q104723121"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "5a0daa26-c68d-40cd-b7e5-3b59f710aa1d"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q104723121"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "5a0daa26-c68d-40cd-b7e5-3b59f710aa1d"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q104723121"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q112834233"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "92ea703e-4f6b-425f-8111-a77834220820"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2022, wikidata 2022, musicbrainz first release 2022)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "team",
+      "name": "EJ",
+      "name_romanized": null,
+      "name_hangul": "의주",
+      "birth_date": "2002-09-07",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2022,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q127427815",
+      "ord": 4,
+      "leader_sources": [
+        "wikipedia group page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q127427815"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "05a02a13-4999-41a0-a329-d0e837a52bfa"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q127427815"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "05a02a13-4999-41a0-a329-d0e837a52bfa"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q127427815"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q112834233"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "92ea703e-4f6b-425f-8111-a77834220820"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2022, wikidata 2022, musicbrainz first release 2022)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "akmu",
+      "name": "Lee Chan-hyuk",
+      "name_romanized": null,
+      "name_hangul": "이찬혁",
+      "birth_date": "1996-09-12",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2014,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q16071030",
+      "ord": 1,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q16071030"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "810a4fc2-e368-4212-8494-a3934be6973d"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q16071030"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "810a4fc2-e368-4212-8494-a3934be6973d"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q16071030"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "810a4fc2-e368-4212-8494-a3934be6973d"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q10728972"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2014, wikidata 2014, musicbrainz first release 2012)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "akmu",
+      "name": "Lee Su-hyun",
+      "name_romanized": null,
+      "name_hangul": "이수현",
+      "birth_date": "1999-05-04",
+      "nationality": "South Korea",
+      "gender": "female",
+      "debut_year": 2014,
+      "positions": [
+        "Maknae"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q18697707",
+      "ord": 2,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q18697707"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f9462118-b634-4deb-b331-57f15178978c"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q18697707"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f9462118-b634-4deb-b331-57f15178978c"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q18697707"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "f9462118-b634-4deb-b331-57f15178978c"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q10728972"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (majority: wikipedia 2014, wikidata 2014, musicbrainz first release 2012)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "astro",
+      "name": "MJ",
+      "name_romanized": null,
+      "name_hangul": "엠제이",
+      "birth_date": "1994-03-05",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2016,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q47673408",
+      "ord": 1,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q47673408"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "b63d85be-ad3c-43a6-84fd-146929c57a5c"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q47673408"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "b63d85be-ad3c-43a6-84fd-146929c57a5c"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q47673408"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "b63d85be-ad3c-43a6-84fd-146929c57a5c"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q23004252"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "9cd615ad-5540-40e5-819c-cbfc79216377"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2016, wikidata 2016, musicbrainz first release 2016)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "astro",
+      "name": "Jinjin",
+      "name_romanized": null,
+      "name_hangul": "박진우",
+      "birth_date": "1996-03-15",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2016,
+      "positions": [
+        "Leader"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q60991892",
+      "ord": 2,
+      "leader_sources": [
+        "wikipedia member page"
+      ],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q60991892"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "6b3ff422-1786-409a-ade5-d3e7b131f717"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q60991892"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "6b3ff422-1786-409a-ade5-d3e7b131f717"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q60991892"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "6b3ff422-1786-409a-ade5-d3e7b131f717"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q23004252"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "9cd615ad-5540-40e5-819c-cbfc79216377"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2016, wikidata 2016, musicbrainz first release 2016)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    },
+    {
+      "group_slug": "astro",
+      "name": "Eunwoo",
+      "name_romanized": "Cha Eun-woo",
+      "name_hangul": "이동민",
+      "birth_date": "1997-03-30",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2016,
+      "positions": [],
+      "other_groups": [],
+      "wikidata_qid": "Q21060390",
+      "ord": 3,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q21060390"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "7052bd1f-539d-4f61-80eb-c77a2b7cb38d"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q21060390"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "7052bd1f-539d-4f61-80eb-c77a2b7cb38d"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q21060390"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "7052bd1f-539d-4f61-80eb-c77a2b7cb38d"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q23004252"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "9cd615ad-5540-40e5-819c-cbfc79216377"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2016, wikidata 2016, musicbrainz first release 2016)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia only"
+      }
+    },
+    {
+      "group_slug": "astro",
+      "name": "Sanha",
+      "name_romanized": "Yoon San-ha",
+      "name_hangul": "윤산하",
+      "birth_date": "2000-03-21",
+      "nationality": "South Korea",
+      "gender": "male",
+      "debut_year": 2016,
+      "positions": [
+        "Maknae"
+      ],
+      "other_groups": [],
+      "wikidata_qid": "Q56278318",
+      "ord": 4,
+      "leader_sources": [],
+      "sources": {
+        "birth_date": [
+          {
+            "source": "wikidata",
+            "ref": "Q56278318"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "6d9f8681-f2c2-4451-b512-78d48f2ab092"
+          }
+        ],
+        "gender": [
+          {
+            "source": "wikidata",
+            "ref": "Q56278318"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "6d9f8681-f2c2-4451-b512-78d48f2ab092"
+          }
+        ],
+        "nationality": [
+          {
+            "source": "wikidata",
+            "ref": "Q56278318"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "6d9f8681-f2c2-4451-b512-78d48f2ab092"
+          }
+        ],
+        "debut_year": [
+          {
+            "source": "wikidata",
+            "ref": "Q23004252"
+          },
+          {
+            "source": "musicbrainz",
+            "ref": "9cd615ad-5540-40e5-819c-cbfc79216377"
+          }
+        ]
+      },
+      "checks": {
+        "birth_date": "agree:wikidata+musicbrainz+wikipedia",
+        "gender": "agree:wikidata+musicbrainz+wikipedia",
+        "nationality": "wikidata+wikipedia+musicbrainz",
+        "debut_year": "debuted with the group: group debut year (agree: wikipedia 2016, wikidata 2016, musicbrainz first release 2016)",
+        "membership": "wikipedia current, wikidata member, musicbrainz member",
+        "name": "wikipedia + wikidata"
+      }
+    }
+  ],
+  "activate_021b": [
+    {
+      "id": 82,
+      "qid": "Q26451151",
+      "name": "Ten",
+      "group_page": "NCT (group)",
+      "checks": [
+        "adult, birth date agreed by wikidata + musicbrainz + wikipedia",
+        "Wikidata: member, no end date",
+        "Wikipedia: in the current list"
+      ],
+      "ok": true
+    },
+    {
+      "id": 89,
+      "qid": "Q60644128",
+      "name": "Qian Kun",
+      "group_page": "NCT (group)",
+      "checks": [
+        "adult, birth date agreed by wikidata + musicbrainz",
+        "Wikidata: member, no end date",
+        "Wikipedia: in the current list"
+      ],
+      "ok": true
+    },
+    {
+      "id": 133,
+      "qid": "Q109108660",
+      "name": "Kim Chae-hyun",
+      "group_page": "Kep1er",
+      "checks": [
+        "adult, birth date agreed by wikidata + musicbrainz",
+        "Wikidata: member, no end date",
+        "Wikipedia: in the current list"
+      ],
+      "ok": true
+    },
+    {
+      "id": 143,
+      "qid": "Q123554436",
+      "name": "Pharita",
+      "group_page": "Babymonster",
+      "checks": [
+        "adult, birth date agreed by wikidata + musicbrainz",
+        "Wikidata: member, no end date",
+        "Wikipedia: in the current list"
+      ],
+      "ok": true
+    },
+    {
+      "id": 144,
+      "qid": "Q123554438",
+      "name": "Asa",
+      "group_page": "Babymonster",
+      "checks": [
+        "adult, birth date agreed by wikidata + musicbrainz",
+        "Wikidata: member, no end date",
+        "Wikipedia: in the current list"
+      ],
+      "ok": true
+    },
+    {
+      "id": 145,
+      "qid": "Q123554439",
+      "name": "Rami",
+      "group_page": "Babymonster",
+      "checks": [
+        "adult, birth date agreed by wikidata + musicbrainz",
+        "Wikidata: member, no end date",
+        "Wikipedia: in the current list"
+      ],
+      "ok": true
+    },
+    {
+      "id": 146,
+      "qid": "Q123554440",
+      "name": "Rora",
+      "group_page": "Babymonster",
+      "checks": [
+        "birth date not agreed (conflict)",
+        "Wikidata: member, no end date",
+        "Wikipedia: in the current list"
+      ],
+      "ok": false
+    },
+    {
+      "id": 148,
+      "qid": "Q123560890",
+      "name": "Ahyeon",
+      "group_page": "Babymonster",
+      "checks": [
+        "adult, birth date agreed by wikidata + musicbrainz",
+        "Wikidata: member, no end date",
+        "Wikipedia: in the current list"
+      ],
+      "ok": true
+    },
+    {
+      "id": 151,
+      "qid": "Q123310101",
+      "name": "Anton Lee",
+      "group_page": "Riize",
+      "checks": [
+        "adult, birth date agreed by wikidata + musicbrainz",
+        "Wikidata: member, no end date",
+        "Wikipedia: in the current list"
+      ],
+      "ok": true
+    },
+    {
+      "id": 152,
+      "qid": "Q123528880",
+      "name": "Song Eun-seok",
+      "group_page": "Riize",
+      "checks": [
+        "adult, birth date agreed by wikidata + musicbrainz",
+        "Wikidata: member, no end date",
+        "Wikipedia: in the current list"
+      ],
+      "ok": true
+    },
+    {
+      "id": 153,
+      "qid": "Q123528897",
+      "name": "Park Won-bin",
+      "group_page": "Riize",
+      "checks": [
+        "adult, birth date agreed by wikidata + musicbrainz",
+        "Wikidata: member, no end date",
+        "Wikipedia: in the current list"
+      ],
+      "ok": true
+    },
+    {
+      "id": 163,
+      "qid": "Q117178583",
+      "name": "Keena",
+      "group_page": "Fifty Fifty (group)",
+      "checks": [
+        "adult, birth date agreed by wikidata + musicbrainz",
+        "Wikidata: member, no end date",
+        "Wikipedia: in the current list"
+      ],
+      "ok": true
+    }
+  ],
+  "group_updates": []
+}

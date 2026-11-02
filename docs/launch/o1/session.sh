@@ -28,6 +28,8 @@ C="docs/launch/o1/checks"
 K1A_SQL="$M/021a-k1-idol-gender-debut.sql"
 K1C_SQL="$M/021c-k1-idol-corrections.sql"
 K1B_SQL="$M/021b-k1-idol-activate.sql"
+# Lot K2 (owner order 2026-11-02): the idols of the groups with none, and the unreserved yes of 021b. Its own small session, after G.
+K2_SQL="$M/021d-k2-idols.sql"
 A1_SQL="$L/L13-A1-character-facts.sql"
 
 PART="${1:-}"
@@ -36,7 +38,7 @@ DRY=0
 REHEARSAL=0
 [ "${KPQ_REHEARSAL:-}" = "1" ] && REHEARSAL=1
 # A rehearsal may point the two lots at stand-in files while theirs are not on main (session-rehearsal.sh); production never can.
-[ "$REHEARSAL" = 1 ] && K1A_SQL="${KPQ_K1A_SQL:-$K1A_SQL}" && K1C_SQL="${KPQ_K1C_SQL:-$K1C_SQL}" && K1B_SQL="${KPQ_K1B_SQL:-$K1B_SQL}" && A1_SQL="${KPQ_A1_SQL:-$A1_SQL}"
+[ "$REHEARSAL" = 1 ] && K1A_SQL="${KPQ_K1A_SQL:-$K1A_SQL}" && K1C_SQL="${KPQ_K1C_SQL:-$K1C_SQL}" && K1B_SQL="${KPQ_K1B_SQL:-$K1B_SQL}" && K2_SQL="${KPQ_K2_SQL:-$K2_SQL}" && A1_SQL="${KPQ_A1_SQL:-$A1_SQL}"
 
 [ -d /opt/homebrew/opt/postgresql@18/bin ] && export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
 umask 077
@@ -55,8 +57,8 @@ stop() {
 # ------------------------------------------------------------------------------------------------------------------------
 # Guards
 
-usage() { say "usage: bash docs/launch/o1/session.sh B1|B2|B3|D|E1|E2|G|J1|J2|J3|J4|J5 [--dry-run]"; exit 2; }
-case "$PART" in B1|B2|B3|D|E1|E2|G|J1|J2|J3|J4|J5) ;; *) usage ;; esac
+usage() { say "usage: bash docs/launch/o1/session.sh B1|B2|B3|D|E1|E2|G|K2|J1|J2|J3|J4|J5 [--dry-run]"; exit 2; }
+case "$PART" in B1|B2|B3|D|E1|E2|G|K2|J1|J2|J3|J4|J5) ;; *) usage ;; esac
 
 utc_hm() { date -u +%H%M; }
 guard() {
@@ -220,6 +222,13 @@ gate_time() {   # gate_time <HHMM> <message>: refuse at or after that UTC time (
   [ "$(utc_hm)" -lt "$1" ] || stop "$2"
 }
 
+gate_k2() {   # lot K2: session G is done (the game's view and the K1 columns exist); 021d refuses the rest itself
+  [ "$DRY" = 1 ] && { say "porte K2 : la session G est faite (vue dle_src_kpop_idol, colonnes idols.gender et debut_year)"; return; }
+  [ -n "$(q "select to_regclass('public.dle_src_kpop_idol')")" ] || stop "porte K2 : la vue dle_src_kpop_idol est absente (la session G d'abord)."
+  [ "$(q "select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'idols' and column_name in ('gender', 'debut_year')")" = "2" ] || stop "porte K2 : idols.gender ou idols.debut_year est absente (021a, session G)."
+  say "OK   porte K2 : la session G est faite"
+}
+
 gate_part_d() {   # RUNBOOK G2: 016 and 017 need Mission U part D (applied 2026-10-27)
   [ "$DRY" = 1 ] && { say "porte 016 : admin_delete_account existe (Mission U partie D)"; return; }
   [ -n "$(q "select to_regprocedure('public.admin_delete_account(uuid,boolean,boolean)')")" ] || stop "porte 016 : admin_delete_account est absente (Mission U partie D) : 016 et 017 attendent."
@@ -320,6 +329,12 @@ part_G() {
   apply single "$M/017-deletion-kpop.sql";  check "$C/V-017.sql"
   vs4
   NEXT="le worker : V1, puis 1 h de journaux (étape 33)."
+}
+part_K2() {
+  say "K2 : une petite session à part, après la session G. La ligne de sauvegarde de la session (OWNER-NOW.md) d'abord, dans ce terminal."
+  gate_k2
+  apply single "$K2_SQL";                   check "$C/V-K2.sql"
+  NEXT="le worker lit la ligne 9 de V-K2 (la réserve de cibles de Kpopdle Idol) et la compare à 200. Les pages de groupe de kpopquiz.org montrent les nouveaux membres : voulu (CR-022)."
 }
 part_J1() {
   gate_launch_files

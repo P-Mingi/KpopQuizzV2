@@ -248,6 +248,66 @@ describe('dle_src_kpop_idol', () => {
   });
 });
 
+describe('dle_src_kpop_idol: a member of more than one group (CR-022, idol_other_groups)', () => {
+  let db: PGlite;
+  const cell = (id: number) => one<{ v: string[]; p: string[] }>(db, `select attrs -> 'group' from public.dle_src_kpop_idol where entity_id = '${id}'`);
+  const verdict = async (guess: number, target: number): Promise<string> => {
+    const r = await one<{ status: string }>(db, `select public.dle_compare('multi', null, g.attrs -> 'group', t.attrs -> 'group') from public.dle_src_kpop_idol g, public.dle_src_kpop_idol t where g.entity_id = '${guess}' and t.entity_id = '${target}'`);
+    return r.status;
+  };
+  beforeAll(async () => {
+    db = await freshDb();
+    await db.exec(`
+      insert into public.groups (id, name, slug, fandom_name, generation, inception_date, record_label) values
+        (10, 'LOONA', 'loona', 'orbit', null, '2018-08-19', 'BlockBerry Creative'),
+        (11, 'ARTMS', 'artms', 'fan', null, '2024-05-31', 'MODHAUS'),
+        (12, 'Loossemble', 'loossemble', 'fan', null, '2023-09-15', 'Fantagio'),
+        (13, 'GOT7', 'got7', 'IGOT7', null, '2014-01-16', 'JYP Entertainment');
+      insert into public.idols (id, group_id, name, birth_date, nationality, positions) values
+        (21, 10, 'Haseul', '1997-08-18', 'South Korea', '{Leader}'),
+        (22, 10, 'Yeojin', '2002-11-11', 'South Korea', '{Maknae}'),
+        (23, 10, 'Yves', '1997-05-24', 'South Korea', '{}'),
+        (24, 10, 'Hyeju', '2001-11-13', 'South Korea', '{}'),
+        (25, 13, 'Mark', '1993-09-04', 'United States', '{}'),
+        (26, 11, 'Soloist', '1999-01-01', 'South Korea', '{}');
+      insert into public.idol_other_groups (idol_id, group_id) values (21, 11), (24, 12), (24, 10), (24, 11);
+    `);
+  });
+
+  it('the table is closed to the browser roles: RLS on, no policy, no grant but the service role', async () => {
+    expect(await one(db, `select relrowsecurity from pg_class where oid = 'public.idol_other_groups'::regclass`)).toBe(true);
+    expect(await one(db, `select count(*)::int from pg_policies where schemaname = 'public' and tablename = 'idol_other_groups'`)).toBe(0);
+    for (const role of ['anon', 'authenticated']) {
+      expect(await one(db, `select has_table_privilege('${role}', 'public.idol_other_groups', 'select')`)).toBe(false);
+      expect(await one(db, `select has_table_privilege('${role}', 'public.idol_other_groups', 'insert')`)).toBe(false);
+      expect((await asRole(db, role, `select * from public.idol_other_groups`)).error).toMatch(/permission denied/);
+    }
+    expect(await one(db, `select has_table_privilege('service_role', 'public.idol_other_groups', 'select')`)).toBe(true);
+  });
+
+  it('the group cell holds the idol\'s own group first, then the other groups by name; her own group listed again is ignored', async () => {
+    expect(await cell(21)).toEqual({ v: ['LOONA', 'ARTMS'], p: ['LOONA', 'ARTMS'] });
+    expect(await cell(22)).toEqual({ v: ['LOONA'], p: ['LOONA'] });
+    expect(await cell(24)).toEqual({ v: ['LOONA', 'ARTMS', 'Loossemble'], p: ['LOONA', 'ARTMS', 'Loossemble'] });
+    expect((await rows(db, `select entity_id from public.dle_src_kpop_idol`)).length).toBe(6);   // one row per person, never a second row for the second group
+    expect(await one(db, `select balance_key from public.dle_src_kpop_idol where entity_id = '21'`)).toBe('loona');
+  });
+
+  it('a guess of an ARTMS member who was in LOONA, by the engine\'s set rules', async () => {
+    expect(await verdict(21, 21)).toBe('correct');             // same two groups
+    expect(await verdict(22, 21)).toBe('near');                // LOONA only against LOONA + ARTMS: one group in common
+    expect(await verdict(26, 21)).toBe('near');                // ARTMS only (no LOONA row) against LOONA + ARTMS
+    expect(await verdict(24, 21)).toBe('near');                // LOONA + ARTMS + Loossemble against LOONA + ARTMS: not equal, shares groups
+    expect(await verdict(25, 21)).toBe('wrong');               // GOT7: nothing in common
+    expect(await verdict(21, 22)).toBe('near');                // and the other way round
+  });
+
+  it('a target is still a target once complete, with the same eight columns', async () => {
+    const a = await one<Record<string, unknown>>(db, `select attrs from public.dle_src_kpop_idol where entity_id = '21'`);
+    expect(Object.keys(a).sort()).toEqual(['agency', 'birth', 'debut', 'gender', 'generation', 'group', 'nationality', 'role']);
+  });
+});
+
 describe('the bank of 365 days', () => {
   it.each([[40], [57], [81], [116], [150], [230], [365], [500]])('%i targets: 365 days, never the same target within the window, around the cycle', async (n) => {
     const db = await freshDb();
