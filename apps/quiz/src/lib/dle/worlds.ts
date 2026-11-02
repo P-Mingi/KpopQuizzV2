@@ -1,6 +1,6 @@
 // Daily games step 4: the two games of the Terrier as data (RAPPORT-JEUX-DU-JOUR-v2.md section 2, boards Main.dc.html and Kpopdle.dc.html): the
 // brand, its colour family, the image slots of site_assets, its modes in order. Pure, no I/O. A mode links to its page only when its game
-// is built (games.ts); until then the row, the dot and the step say "soon". Series of the day and one Otakudle per series come after the launch: each is one game here, a line of DLE_BUILT_GAMES (registry.ts), its words (copy.ts), its SEO row (seo.ts) and its one page.
+// is built (games.ts); until then the row, the dot and the step say "soon". Series of the day comes after the launch, the two series games of CR-024 are built: each is one game here, a line of DLE_BUILT_GAMES (registry.ts), its words (copy.ts), its SEO row (seo.ts) and its one page.
 import { DAILY_PATH, dleGame, localePath } from './games';
 
 import type { DleGameDef, DleGameId } from './games';
@@ -69,7 +69,10 @@ export const DLE_WORLDS: readonly DleWorld[] = [
     modes: [
       { id: 'char', game: 'otakudle', icon: 'char', slot: 'daily:mode-char', name: { en: 'Character of the day', fr: 'Personnage du jour' }, step: { en: 'Character', fr: 'Personnage' } },
       { id: 'series', game: null, icon: 'tv', slot: 'daily:mode-series', name: { en: 'Series of the day', fr: 'Série du jour' }, step: { en: 'Series', fr: 'Série' } },
-      { id: 'byseries', game: null, icon: 'books', slot: 'daily:mode-byseries', name: { en: 'One Otakudle per series', fr: 'Un Otakudle par série' }, step: { en: 'By series', fr: 'Par série' } },
+      // The per-series games (024, CR-024) take the place of "One Otakudle per series", in the order of the chain: Otakudle, then One Piece, then Dragon Ball (Plan.dc.html, link 8). Both use the card image of
+      // the "by series" slot: the admin has no slot of its own for them.
+      { id: 'one-piece', game: 'otakudle-one-piece', icon: 'books', slot: 'daily:mode-byseries', name: { en: 'One Piece character', fr: 'Personnage One Piece' }, step: { en: 'One Piece', fr: 'One Piece' } },
+      { id: 'dragon-ball', game: 'otakudle-dragon-ball', icon: 'sparkle', slot: 'daily:mode-byseries', name: { en: 'Dragon Ball character', fr: 'Personnage Dragon Ball' }, step: { en: 'Dragon Ball', fr: 'Dragon Ball' } },
     ],
   },
 ];
@@ -79,6 +82,12 @@ export function liveGame(mode: DleMode): DleGameDef | null {
   if (!mode.game) return null;
   const g = dleGame(mode.game);
   return g.built ? g : null;
+}
+
+/** The mode after a game in its world that has a page (the "Next game" button of the result): Otakudle, then One Piece, then Dragon Ball; null at the end of the chain. */
+export function nextLiveMode(game: DleGameId): DleMode | null {
+  const world = worldOf(game);
+  return world.modes.slice(world.modes.findIndex((m) => m.game === game) + 1).find((m) => liveGame(m)) ?? null;
 }
 
 /** The playable modes of a world. */

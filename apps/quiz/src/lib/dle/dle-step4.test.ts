@@ -174,9 +174,13 @@ describe('this device', () => {
     expect(gameStats(readHistory(s), 'kpopdle-idol', '2026-11-20').streak).toBe(0);
     expect(gameStats({}, 'kpopdle-idol', '2026-11-06').average).toBeNull();
     expect(universeStreak(readHistory(s), ['kpopdle-idol', 'kpopdle-group'], '2026-11-05')).toBe(1);
-    expect(gamesLeftToday(readHistory(s), '2026-11-05')).toBe(1);
-    expect(gamesLeftToday(readHistory(s), '2026-11-06')).toBe(2);
+    // The built games are four since CR-024: Kpopdle Idol, Otakudle, Otakudle One Piece and Otakudle Dragon Ball.
+    expect(gamesLeftToday(readHistory(s), '2026-11-05')).toBe(3);
+    expect(gamesLeftToday(readHistory(s), '2026-11-06')).toBe(4);
     recordPlay(s, 'otakudle', '2026-11-05', { won: true, guesses: 2 });
+    expect(gamesLeftToday(readHistory(s), '2026-11-05')).toBe(2);
+    recordPlay(s, 'otakudle-one-piece', '2026-11-05', { won: true, guesses: 6 });
+    recordPlay(s, 'otakudle-dragon-ball', '2026-11-05', { won: false, guesses: 9 });
     expect(gamesLeftToday(readHistory(s), '2026-11-05')).toBe(0);
   });
 
@@ -269,9 +273,12 @@ describe('SEO, section 11', () => {
     expect(dleSitemapRows(false, TODAY, true, true)).toEqual([]);
     expect(dleSitemapRows(true, TODAY, true, false)).toEqual([]);
     expect(DLE_FR_REVIEWED).toBe(false);
-    expect(dleSitemapRows(true, null, false, true).map((r) => r.path)).toEqual(['/daily', '/kpopdle', '/otakudle']);
+    expect(dleSitemapRows(true, null, false, true).map((r) => r.path)).toEqual(['/daily', '/kpopdle', '/otakudle', '/otakudle/one-piece', '/otakudle/dragon-ball']);
     const all = dleSitemapRows(true, '2026-11-02', true, true);
-    expect(all.map((r) => r.path)).toEqual(['/daily', '/kpopdle', '/otakudle', '/fr/daily', '/fr/kpopdle', '/fr/otakudle']);
+    expect(all.map((r) => r.path)).toEqual([
+      '/daily', '/kpopdle', '/otakudle', '/otakudle/one-piece', '/otakudle/dragon-ball',
+      '/fr/daily', '/fr/kpopdle', '/fr/otakudle', '/fr/otakudle/one-piece', '/fr/otakudle/dragon-ball',
+    ]);
     expect(all[0]!.lastModified!.toISOString()).toBe('2026-11-02T00:05:00.000Z');
   });
 
@@ -314,6 +321,10 @@ describe('routing', () => {
       ['/sites/hub/fr/kpopdle', '/sites/hub/dle-share/fr/kpopdle-idol/:r'],
       ['/sites/hub/otakudle', '/sites/hub/dle-share/en/otakudle/:r'],
       ['/sites/hub/fr/otakudle', '/sites/hub/dle-share/fr/otakudle/:r'],
+      ['/sites/hub/otakudle/one-piece', '/sites/hub/dle-share/en/otakudle-one-piece/:r'],
+      ['/sites/hub/fr/otakudle/one-piece', '/sites/hub/dle-share/fr/otakudle-one-piece/:r'],
+      ['/sites/hub/otakudle/dragon-ball', '/sites/hub/dle-share/en/otakudle-dragon-ball/:r'],
+      ['/sites/hub/fr/otakudle/dragon-ball', '/sites/hub/dle-share/fr/otakudle-dragon-ball/:r'],
     ]);
     expect(shares[0]!.has![0]).toMatchObject({ type: 'query', key: 'r' });
   });
@@ -330,11 +341,16 @@ describe('the games as data', () => {
     const [k, a] = DLE_WORLDS;
     expect(liveModes(k!).map((m) => m.id)).toEqual(['idol']);
     expect(worldHref(k!, 'fr')).toBe('/fr/kpopdle');
-    expect(liveModes(a!).map((m) => m.id)).toEqual(['char']);
+    // CR-024: the two games of one series take the place of "One Otakudle per series", after Otakudle, in the order of the chain.
+    expect(liveModes(a!).map((m) => m.id)).toEqual(['char', 'one-piece', 'dragon-ball']);
+    expect(a!.modes.map((m) => m.id)).toEqual(['char', 'series', 'one-piece', 'dragon-ball']);
     expect(worldHref(a!, 'en')).toBe('/otakudle');
     expect(worldHref(a!, 'fr')).toBe('/fr/otakudle');
     expect(liveGame(a!.modes[1]!)).toBeNull();
-    expect(liveGame(a!.modes[2]!)).toBeNull();
+    expect(liveGame(a!.modes[2]!)?.path).toBe('/otakudle/one-piece');
+    expect(liveGame(a!.modes[3]!)?.path).toBe('/otakudle/dragon-ball');
+    expect(worldOf('otakudle-one-piece').id).toBe('otakudle');
+    expect(worldOf('otakudle-dragon-ball').id).toBe('otakudle');
     expect(a!.spoiler).toBe(true);
     expect(worldOf('otakudle').id).toBe('otakudle');
     expect(liveGame(k!.modes[1]!)).toBeNull();
@@ -395,7 +411,9 @@ describe('the screens', () => {
     expect(html.match(/<article/g)).toHaveLength(2);
     expect(html).toContain('href="/kpopdle"');
     expect(html).toContain('href="/otakudle"');
-    expect(html).not.toContain('href="/otakudle/');
+    // The two games of one series have their rows and are links (CR-024); "Series of the day" still says soon.
+    expect(html).toContain('href="/otakudle/one-piece"');
+    expect(html).toContain('href="/otakudle/dragon-ball"');
     expect(html).toContain('hub-dle-row-soon');
     expect(html).toContain('오늘의 아이돌');
     expect(html).toContain('オタクドル');

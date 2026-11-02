@@ -20,7 +20,7 @@ const CASES = (JSON.parse(readFileSync(new URL('./fixtures/compare.json', import
 describe('addresses of the Terrier (hub, English, French under /fr with the same words)', () => {
   it('the owner list: /daily, /kpopdle, /kpopdle/group, /kpopdle/song, /otakudle, /otakudle/{series}', () => {
     expect(DAILY_PATH).toBe('/daily');
-    expect(DLE_GAMES.map((g) => g.path)).toEqual(['/kpopdle', '/kpopdle/group', '/kpopdle/song', '/otakudle']);
+    expect(DLE_GAMES.map((g) => g.path)).toEqual(['/kpopdle', '/kpopdle/group', '/kpopdle/song', '/otakudle', '/otakudle/one-piece', '/otakudle/dragon-ball']);
     expect(seriesPath('one-piece')).toBe('/otakudle/one-piece');
     expect(dlePath('kpopdle-song', 'fr')).toBe('/fr/kpopdle/song');
     expect(seriesPath('naruto', 'fr')).toBe('/fr/otakudle/naruto');
@@ -56,7 +56,10 @@ describe('addresses of the Terrier (hub, English, French under /fr with the same
   it('the flag opens exactly the pages that exist: built games, never a game with no page', () => {
     const open = hubRouteAllow({ dailyGuess: true });
     for (const p of livePaths()) expect(open, p).toContain(p);
-    expect(livePaths()).toEqual(['/daily', '/kpopdle', '/otakudle', '/fr/daily', '/fr/kpopdle', '/fr/otakudle', '/fr/credits']);
+    expect(livePaths()).toEqual([
+      '/daily', '/kpopdle', '/otakudle', '/otakudle/one-piece', '/otakudle/dragon-ball',
+      '/fr/daily', '/fr/kpopdle', '/fr/otakudle', '/fr/otakudle/one-piece', '/fr/otakudle/dragon-ball', '/fr/credits',
+    ]);
     for (const p of ['/kpopdle/group', '/kpopdle/song', '/otakudle/{series}', '/fr/otakudle/{series}']) expect(open, p).not.toContain(p);
   });
 });

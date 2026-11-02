@@ -2,14 +2,14 @@
 // block, the pool in clear, the hop to the other game. Server component. A game with no pool (off, or a failed read) keeps the guide and says it is not available; the metadata then says noindex.
 import { jsonLdString } from '@/lib/seo/json-ld';
 import { getAnimeSeriesSlugs, getDleDay, getDleImages, getDlePictures, getDlePool, getKpopGroupSlugs, quizLinksOf } from '@/lib/dle/read';
-import { dleCopy, gameCopy } from '@/lib/dle/copy';
-import { DAILY_PATH, dleGame, localePath } from '@/lib/dle/games';
+import { dleCopy, gameCopy, valueLabel } from '@/lib/dle/copy';
+import { DAILY_PATH, builtGames, dleGame, localePath } from '@/lib/dle/games';
 import { breadcrumbJsonLd, gameAnswerBlock, gameJsonLd, itemListJsonLd } from '@/lib/dle/seo';
 import { burrowHref, otherWorld, worldHref, worldOf } from '@/lib/dle/worlds';
 import { withBasePath } from '@/lib/site/base-path';
 import { REGISTRY } from '@/lib/site/registry';
 
-import { firstValue } from './dle-avatar';
+import { firstValue, parentName } from './dle-avatar';
 import { DleChrome } from './dle-chrome';
 import { dleMarquee } from './dle-font';
 import { DleGame } from './dle-game';
@@ -20,15 +20,18 @@ import type { DleGameId } from '@/lib/dle/games';
 import type { DleLocale, DlePool } from '@/lib/dle/types';
 
 /** The pool in clear, by group (v2 section 11.3): a real table, one row per group, in the HTML. */
-export function poolByGroup(pool: DlePool, subKey: string): readonly { readonly group: string; readonly names: readonly string[] }[] {
+export function poolByGroup(pool: DlePool, subKey: string, other?: string, shown: (group: string) => string = (g) => g): readonly { readonly group: string; readonly names: readonly string[] }[] {
   const groups = new Map<string, string[]>();
+  const rest: string[] = [];
   for (const e of pool.entities) {
     const v = e.attrs[subKey];
     const g = v?.p?.[0] ?? firstValue(v?.v);
-    if (!g) continue;
+    // A character with no value in the sub column (a game of one series has a few) goes to the last row when the game names one, else out of the table as it always did.
+    if (!g) { rest.push(e.name); continue; }
     groups.set(g, [...(groups.get(g) ?? []), e.name]);
   }
-  return [...groups.entries()].map(([group, names]) => ({ group, names })).sort((a, b) => a.group.localeCompare(b.group, 'en', { sensitivity: 'base' }));
+  const rows = [...groups.entries()].map(([group, names]) => ({ group: shown(group), names })).sort((a, b) => a.group.localeCompare(b.group, 'en', { sensitivity: 'base' }));
+  return other && rest.length ? [...rows, { group: other, names: rest }] : rows;
 }
 
 export function DleJsonLd({ data }: { data: readonly Record<string, unknown>[] }): React.ReactElement {
@@ -41,14 +44,21 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
   const w = gameCopy(game, locale);
   const world = worldOf(game);
   const [day, pool, images, pictures, slugs] = await Promise.all([getDleDay(game), getDlePool(game), getDleImages(), getDlePictures(g.photoKind), world.universe === 'anime' ? getAnimeSeriesSlugs() : getKpopGroupSlugs()]);
-  const banner = images[world.bannerSlot];
+  // The banner of the page's own slot when the admin has one (banner:otakudle/one-piece), else the world's.
+  const banner = images[`banner:${g.path.slice(1)}`] ?? images[world.bannerSlot];
   const other = otherWorld(world);
   const hop = worldHref(other, locale);
   const words = w.marquee(day?.game_no ?? 0).filter((x) => day || !/\b0\b/.test(x));
-  const groups = pool ? poolByGroup(pool, w.subKey) : [];
-  const quizLinks = quizLinksOf(world.universe, groups.map((x) => x.group), slugs);
+  const groups = pool ? poolByGroup(pool, w.subKey, w.poolOther, (x) => valueLabel(w.subKey, x, locale, g.series ? { series: true } : undefined)) : [];
+  // The quiz links are looked up by the names as stored; the table shows them in the words of the language.
+  const groupNames = pool ? poolByGroup(pool, w.subKey).map((x) => x.group) : [];
+  // A game of one series knows its series and its slug: no read of the series titles decides whether its quiz link exists.
+  const quizLinks = g.series ? quizLinksOf('anime', [g.series.name], { [g.series.name]: g.series.slug }) : quizLinksOf(world.universe, groupNames, slugs);
   const yesterday = day?.yesterday ?? null;
-  const yGroup = yesterday ? (yesterday.answer.attrs[w.subKey]?.p?.[0] ?? firstValue(yesterday.answer.attrs[w.subKey]?.v)) : '';
+  const yGroup = yesterday ? parentName(g, w.subKey, yesterday.answer.attrs) : '';
+  const yShown = g.series ? yGroup : valueLabel(w.subKey, yGroup, locale);
+  // The games of one series, offered as two tiles on the page of Otakudle across all series (Plan.dc.html, link 8).
+  const seriesGames = g.series ? [] : builtGames().filter((x) => x.series && worldOf(x.id) === world);
   const universeGames = world.modes.flatMap((m) => (m.game ? [m.game] : []));
   const rules = Object.entries(w.columns).filter(([, c]) => c.near && c.source);
   return (
@@ -58,7 +68,11 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
     >
       <DleJsonLd data={[
         gameJsonLd(game, locale),
-        breadcrumbJsonLd([{ name: t.navBurrow, path: localePath(DAILY_PATH, locale) }, { name: `${g.brand} ${g.guess[locale]}`, path: localePath(g.path, locale) }]),
+        breadcrumbJsonLd([
+          { name: t.navBurrow, path: localePath(DAILY_PATH, locale) },
+          ...(g.series ? [{ name: g.brand, path: localePath(dleGame('otakudle').path, locale) }] : []),
+          { name: `${g.brand} ${g.guess[locale]}`, path: localePath(g.path, locale) },
+        ]),
         ...(pool ? [itemListJsonLd(w.poolTitle, pool.entities.map((e) => ({ name: e.name })))] : []),
       ]} />
       <figure className={`hub-dle-banner${banner ? ' hub-dle-banner-img' : ''}`}>
@@ -82,20 +96,36 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
           locale={locale} game={game} gameNo={day?.game_no ?? null} stats={day?.stats ?? null} pool={pool} pictures={pictures}
           quizLinks={quizLinks} kpopName={REGISTRY[world.universe].brand.name}
         />
+        {seriesGames.length ? (
+          <nav aria-labelledby="dle-series-h" className="hub-dle-seriesnav">
+            <h2 id="dle-series-h">{t.seriesTilesTitle}</h2>
+            <ul>
+              {seriesGames.map((x) => (
+                <li key={x.id}>
+                  <a href={withBasePath(localePath(x.path, locale))} className="hub-dle-seriestile">
+                    <span aria-hidden="true" className="hub-dle-seriestile-ic"><Ic d={libraryIcon(world.modes.find((m) => m.game === x.id)?.icon ?? 'star')} size={28} width={1.9} /></span>
+                    <span className="hub-dle-seriestile-text"><strong>{x.series!.name}</strong><small>{x.guess[locale]}</small></span>
+                    <Ic d={D.arrowRight} size={20} width={2.2} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ) : null}
         <section aria-label={w.howTitle} className="hub-dle-guide">
           {yesterday ? (w.yesterdayShow ? (
             // A game with spoilers: closed until a click, and in the HTML (a native fold, v2 sections 2 and 11.3).
             <details className="hub-dle-yfold">
               <summary><span>{w.yesterdayLine}</span> <span className="hub-dle-yshow">{w.yesterdayShow}</span></summary>
               <p className="hub-dle-yesterday">
-                <strong>{yesterday.answer.name}</strong>{yGroup ? ` (${yGroup})` : null}
-                {quizLinks[yGroup] ? <> · <a href={quizLinks[yGroup]}>{t.quizOf(yGroup)}</a></> : null}
+                <strong>{yesterday.answer.name}</strong>{yShown ? ` (${yShown})` : null}
+                {quizLinks[yGroup] ? <> · <a href={quizLinks[yGroup]}>{t.quizOf(yShown)}</a></> : null}
               </p>
             </details>
           ) : (
             <p className="hub-dle-yesterday">
-              {w.yesterdayLine} <strong>{yesterday.answer.name}</strong>{yGroup ? ` (${yGroup})` : null}
-              {quizLinks[yGroup] ? <> · <a href={quizLinks[yGroup]}>{t.quizOf(yGroup)}</a></> : null}
+              {w.yesterdayLine} <strong>{yesterday.answer.name}</strong>{yShown ? ` (${yShown})` : null}
+              {quizLinks[yGroup] ? <> · <a href={quizLinks[yGroup]}>{t.quizOf(yShown)}</a></> : null}
             </p>
           )) : null}
           <details className="hub-dle-howto">

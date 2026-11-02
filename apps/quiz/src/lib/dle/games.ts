@@ -10,7 +10,13 @@ import type { SiteId } from '@/lib/site/types';
 
 import type { DleLocale } from './types';
 
-export type DleGameId = 'kpopdle-idol' | 'kpopdle-group' | 'kpopdle-song' | 'otakudle';
+export type DleGameId = 'kpopdle-idol' | 'kpopdle-group' | 'kpopdle-song' | 'otakudle' | 'otakudle-one-piece' | 'otakudle-dragon-ball';
+
+/** One hint slot: the key that opens it and the errors it takes. `or` lists keys the server may serve in the same slot (024: Dragon Ball serves the signature technique, else the Japanese voice actor, never both). */
+export interface DleHintDef { readonly key: string; readonly after: number; readonly or?: readonly string[] }
+
+/** The series of a per-series game (024): its slug on OtakuQuiz and the title shown next to a character's name. */
+export interface DleSeriesDef { readonly slug: string; readonly name: string }
 
 export interface DleGameDef {
   readonly id: DleGameId;
@@ -24,9 +30,11 @@ export interface DleGameDef {
   /** Its page exists (DLE_BUILT_GAMES of registry.ts): its routes open with the flag, its tile and rows link to it. */
   readonly built: boolean;
   /** The hints of the game in order, with the errors that open each one (dle_games.hint_keys and hint_after of its migration). */
-  readonly hints: readonly { readonly key: string; readonly after: number }[];
+  readonly hints: readonly DleHintDef[];
   /** The kind of its pictures in entity_images_public (never used as a clue). */
   readonly photoKind: 'idol' | 'group' | 'character' | null;
+  /** A game of one series (/otakudle/one-piece): the series it belongs to; absent for the games across all series. */
+  readonly series?: DleSeriesDef;
 }
 
 /** The Terrier (The Burrow): every daily game of the day. */
@@ -39,6 +47,14 @@ export const DLE_GAMES: readonly DleGameDef[] = [
   { id: 'kpopdle-group', universe: 'kpop', brand: 'Kpopdle', path: '/kpopdle/group', guess: { en: 'Group of the day', fr: 'Groupe du jour' }, built: isBuilt('kpopdle-group'), hints: [], photoKind: 'group' },
   { id: 'kpopdle-song', universe: 'kpop', brand: 'Kpopdle', path: '/kpopdle/song', guess: { en: 'Song of the day', fr: 'Chanson du jour' }, built: isBuilt('kpopdle-song'), hints: [], photoKind: null },
   { id: 'otakudle', universe: 'anime', brand: 'Otakudle', path: '/otakudle', guess: { en: 'Character of the day', fr: 'Personnage du jour' }, built: isBuilt('otakudle'), hints: [{ key: 'voice_actor_ja', after: 5 }, { key: 'initial', after: 10 }], photoKind: null },
+  {
+    id: 'otakudle-one-piece', universe: 'anime', brand: 'Otakudle', path: '/otakudle/one-piece', guess: { en: 'One Piece character of the day', fr: 'Le personnage One Piece du jour' },
+    built: isBuilt('otakudle-one-piece'), hints: [{ key: 'devil_fruit_name', after: 5 }, { key: 'initial', after: 10 }], photoKind: null, series: { slug: 'one-piece', name: 'One Piece' },
+  },
+  {
+    id: 'otakudle-dragon-ball', universe: 'anime', brand: 'Otakudle', path: '/otakudle/dragon-ball', guess: { en: 'Dragon Ball character of the day', fr: 'Le personnage Dragon Ball du jour' },
+    built: isBuilt('otakudle-dragon-ball'), hints: [{ key: 'signature_technique', or: ['signature_technique', 'voice_actor_ja'], after: 5 }, { key: 'initial', after: 10 }], photoKind: null, series: { slug: 'dragon-ball', name: 'Dragon Ball' },
+  },
 ];
 
 /** One Otakudle per series lives at /otakudle/{series}; these words are taken by other pages of the Terrier (v2 section 2). */

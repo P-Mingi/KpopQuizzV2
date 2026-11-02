@@ -5,7 +5,7 @@ import { dleCopy, gameCopy } from '@/lib/dle/copy';
 import { DAILY_PATH, builtGames, localePath } from '@/lib/dle/games';
 import { getAnimeSeriesSlugs, getDleDay, getDleImages, getKpopGroupSlugs, quizLinksOf } from '@/lib/dle/read';
 
-import { firstValue } from './dle-avatar';
+import { parentName } from './dle-avatar';
 import { BurrowBoard } from './burrow-board';
 import { DleChrome } from './dle-chrome';
 import { DleJsonLd } from './dle-game-page';
@@ -29,9 +29,9 @@ export async function BurrowPage({ locale }: { locale: DleLocale }): Promise<Rea
   const quizLinks: Record<string, string> = {};
   for (const g of builtGames()) {
     const a = facts[g.id]?.yesterday?.answer;
-    const value = a?.attrs[gameCopy(g.id, locale).subKey];
-    const group = value?.p?.[0] ?? firstValue(value?.v);
-    if (group) Object.assign(quizLinks, quizLinksOf(g.universe, [group], g.universe === 'anime' ? animeSlugs : kpopSlugs));
+    const group = a ? parentName(g, gameCopy(g.id, locale).subKey, a.attrs) : '';
+    // A game of one series knows its slug: its quiz link never waits for the read of the series titles.
+    if (group) Object.assign(quizLinks, quizLinksOf(g.universe, [group], g.series ? { [group]: g.series.slug } : g.universe === 'anime' ? animeSlugs : kpopSlugs));
   }
   const label = new Intl.DateTimeFormat(locale === 'fr' ? 'fr-FR' : 'en-GB', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date());
   return (

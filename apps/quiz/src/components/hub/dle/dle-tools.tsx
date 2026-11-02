@@ -147,7 +147,7 @@ function HowDialog({ locale, game, open, onClose }: { locale: DleLocale; game: D
       </ol>
       <div className="hub-dle-card hub-dle-keys">
         {rows.map(([c, text, v]) => <div key={c}><span aria-hidden="true" className={`hub-dle-keytile ${c}`}>{v}</span><span>{text}</span></div>)}
-        <div><span aria-hidden="true" className="hub-dle-keytile hub-dle-t-wrong hub-dle-keytile-col">2013<Ic d={D.up} size={14} width={3} /></span><span>{t.dlgArrow}</span></div>
+        <div><span aria-hidden="true" className="hub-dle-keytile hub-dle-t-wrong hub-dle-keytile-col">{w.dlgArrowSample ?? '2013'}<Ic d={D.up} size={14} width={3} /></span><span>{w.dlgArrow ?? t.dlgArrow}</span></div>
         <div><span aria-hidden="true" className="hub-dle-keytile hub-dle-t-unknown">?</span><span>{t.dlgUnknown}</span></div>
       </div>
       <p className="hub-dle-note">{w.dlgFoot}</p>
