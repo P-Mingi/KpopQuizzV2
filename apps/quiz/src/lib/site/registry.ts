@@ -11,7 +11,7 @@
 // middleware (edge) read it through lib/site/routing.ts.
 
 import { SITE_IDS } from './types';
-import type { SiteConfig, SiteFeatures, SiteId, ThemeTokens, NetworkConfig } from './types';
+import type { RoutePattern, SiteConfig, SiteFeatures, SiteId, ThemeTokens, NetworkConfig } from './types';
 
 /** The network umbrella (BACKLOG 5.1). */
 export const NETWORK: NetworkConfig = { name: 'Bunnyverse', url: 'https://bunnyverse.org' };
@@ -272,6 +272,35 @@ const ANIME: SiteConfig = {
   copy: { namespace: 'anime' },
 };
 
+// The owner's switch of the daily games: false on every site until the launch (RAPPORT-JEUX-DU-JOUR-v2.md section 12, step 4).
+const HUB_FEATURES: SiteFeatures = { ...ALL_OFF, passportPages: true, directory: false, dailyGuess: false };
+
+/**
+ * Daily games step 4: the games that have a page. One line here opens a game: its routes (with the flag), its shared results, its tile and rows (lib/dle/games.ts reads it). Here and not in lib/dle, so
+ * that the kpop pages, which all read this module, keep their module graph.
+ */
+export const DLE_BUILT_GAMES: readonly { readonly id: string; readonly path: string }[] = [
+  { id: 'kpopdle-idol', path: '/kpopdle' }, { id: 'otakudle', path: '/otakudle' },
+  { id: 'otakudle-one-piece', path: '/otakudle/one-piece' }, { id: 'otakudle-dragon-ball', path: '/otakudle/dragon-ball' },
+];
+
+/** Every page of the Terrier that exists, in both locales, the French credits with them. */
+export function dleLivePaths(): readonly string[] {
+  const en = ['/daily', ...DLE_BUILT_GAMES.map((g) => g.path)];
+  return [...en, ...en.map((p) => `/fr${p}`), '/fr/credits'];
+}
+
+/**
+ * The route map of the hub. Daily games step 2: /credits, the licensed photos of the site (the footer's Credits link appears where the
+ * route exists). Daily games step 4: the pages of the Terrier join it only with the flag on; with it off, the map is the one it always was.
+ */
+export function hubRouteAllow(features: Pick<SiteFeatures, 'dailyGuess'>): readonly RoutePattern[] {
+  return [
+    '/', '/privacy', '/legal', '/passport', '/u/{username}', '/settings/**', '/login', '/directory', '/credits',
+    ...(features.dailyGuess === true ? dleLivePaths() : []),
+  ];
+}
+
 const HUB: SiteConfig = {
   id: 'hub',
   kind: 'hub',
@@ -296,11 +325,8 @@ const HUB: SiteConfig = {
       topicEntityType: 'site', pickEntityType: 'site',
     },
   },
-  features: { ...ALL_OFF, passportPages: true, directory: false },
-  routes: {
-    // Daily games step 2: /credits, the licensed photos of the site (the footer's Credits link appears where the route exists).
-    allow: ['/', '/privacy', '/legal', '/passport', '/u/{username}', '/settings/**', '/login', '/directory', '/credits'],
-  },
+  features: HUB_FEATURES,
+  routes: { allow: hubRouteAllow(HUB_FEATURES) },
   seo: {
     titleTemplate: '%s | Bunnyverse',
     // The key of public/339dab142e51883ae3a2c7e4737254e4.txt (RUNBOOK ENV.md 1.7), served by the hub build (bunnyverse.org) only.
@@ -425,6 +451,9 @@ export const O1_FLAGS: readonly O1Flag[] = [
   { name: 'NET_INDEXING', scope: 'server', lane: 'L1', reserved: false },
   { name: 'NEXT_PUBLIC_NET_PRIVACY', scope: 'public', lane: 'H1', reserved: false },
   { name: 'NEXT_PUBLIC_NET_DELETION', scope: 'public', lane: 'B7', reserved: false },
+  { name: 'NET_KPOPDLE_HOME', scope: 'server', lane: 'H1', reserved: false },
+  { name: 'NET_KPOPDLE_QUIZEND', scope: 'server', lane: 'H1', reserved: false },
+  { name: 'NET_KPOPDLE_GROUP', scope: 'server', lane: 'H1', reserved: false },
 ];
 
 /** Existing switches the run never changes (BACKLOG 5.1 "untouched"). */

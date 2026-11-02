@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { canCurateSpace } from '@/lib/verse/roles';
-import { isAdmin } from '@/lib/admin';
+import { adminPowerFor } from '@/lib/admin/guard';
 import { validatePageMeta } from '@/lib/verse/pages/validate';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
 import { extractPageRefs, syncPageLinks, resolveWantedTo } from '@/lib/verse/pages/links';
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (!pageRow) return NextResponse.json({ error: 'No such page' }, { status: 404 });
   const page = pageRow as { id: number; group_id: number; kind: string; slug: string; title: string; status: string; infobox: Record<string, unknown>; created_by: string; published_at: string | null };
 
-  if (!isAdmin(user.id) && !await canCurateSpace(user.id, page.group_id)) {
+  if (!(await adminPowerFor(user.id)) && !await canCurateSpace(user.id, page.group_id)) {
     return NextResponse.json({ error: 'Curator role required' }, { status: 403 });
   }
 

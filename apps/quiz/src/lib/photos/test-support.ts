@@ -107,3 +107,23 @@ export async function photoFiles(w: number, h: number): Promise<{ x1: Uint8Array
 }
 
 export const META = { source_url: 'https://commons.wikimedia.org/wiki/File:A.jpg', author: 'Jane Doe', license: 'cc_by_sa', license_note: null } as const;
+
+/**
+ * The answer of the Commons API (CR-021) for one file, as the admin's server code reads it. Tests only: no test reaches the network, so each one
+ * that saves a picture whose source page is a Commons page (META above) stubs `fetch` with this.
+ */
+export function commonsResponse(over: { license?: string; short?: string; artist?: string; nonFree?: boolean; missing?: boolean; title?: string } = {}): Response {
+  const title = over.title ?? 'File:A.jpg';
+  const value = (v: string): { value: string } => ({ value: v });
+  if (over.missing) return new Response(JSON.stringify({ query: { pages: { '-1': { title, missing: '' } } } }), { status: 200 });
+  const extmetadata: Record<string, { value: string }> = {
+    License: value(over.license ?? 'cc-by-sa-4.0'), LicenseShortName: value(over.short ?? 'CC BY-SA 4.0'),
+    LicenseUrl: value('https://creativecommons.org/licenses/by-sa/4.0'), Artist: value(over.artist ?? '<a href="//commons.wikimedia.org/wiki/User:J">Jane Doe</a>'),
+  };
+  if (over.nonFree) extmetadata.NonFree = value('true');
+  const name = title.replace(/^File:/, '').replace(/ /g, '_');
+  const info = {
+    url: `https://upload.wikimedia.org/wikipedia/commons/a/ab/${name}`, descriptionurl: `https://commons.wikimedia.org/wiki/${title.replace(/ /g, '_')}`, extmetadata,
+  };
+  return new Response(JSON.stringify({ query: { pages: { '42': { pageid: 42, title, imageinfo: [info] } } } }), { status: 200 });
+}

@@ -47,8 +47,8 @@ Rewritten on 2026-10-28 for the owner's Bunnyverse decisions (section "Owner dec
       q()    { psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "$1"; }
 
   Session commands (owner order 2026-10-30): every SQL step of B, D, E, G and K runs through `bash docs/launch/o1/session.sh <part>`, one command per
-  part (B1 = 001 to 002d, B2 = 003, B3 = 004 to 007, D = 008, E1 = 009, E2 = 010, G = 011, 018, 019, 020, 021a and 021b (lot K1), 022, 012 to 017, J1 = L01,
-  J2 = L02 to L04, J3 = L05 to L10-PERS and the fourteen bank rows, J4 = L12 and the lot A1 file). It reads `PROD_DB_URL` (exported by the backup line),
+  part (B1 = 001 to 002d, B2 = 003, B3 = 004 to 007, D = 008, E1 = 009, E2 = 010, G = 011, 018, 019, 020, 021a, 021c and 021b (lot K1), 022, 023, 024, 012 to 017, J1 = L01,
+  J2 = L02 to L04, J3 = L05 to L10-PERS and the fourteen bank rows, J4 = L12, 023 and 024 again, the lot A1 file and L15, J5 = L14, Kpopdle Idol and Otakudle on, and the two games of one series when their pool is enough). It reads `PROD_DB_URL` (exported by the backup line),
   refuses any other database and the 23:50 to 00:30 window, applies each file with psql and ON_ERROR_STOP (single or none as below), runs the checks of
   `docs/launch/o1/checks` (VERIFY's lines as OK or KO rows) after each file, prints counts only, and stops at the first KO. A part can be run again from its
   start. `--dry-run` prints a part's plan. The parts are cut where the owner acts (OWNER-NOW.md). `session-rehearsal.sh` plays them all twice on a local copy
@@ -73,7 +73,7 @@ Rewritten on 2026-10-28 for the owner's Bunnyverse decisions (section "Owner dec
 | 9 | L. After launch | K10 | 4 h 25 | 72 hours of watching |
 
 Total hands-on: about 22 h 50 (18 h 25 up to the end of launch day) as the kit was first written. Earliest path: B on day 1, D on day 2, E on the evening of day 3, F and G on day 4, launch day on day 5.
-`OWNER-NOW.md` lists the same work as numbered actions, who does each one, and the lines to copy: since the checks moved to Claude and a worker (2026-10-28), the owner's share is about 4 h 45.
+`OWNER-NOW.md` lists the same work as numbered actions, who does each one, and the lines to copy: since the checks moved to Claude and a worker (2026-10-28), the owner's share is about 4 h 50, the admin code included.
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -241,13 +241,12 @@ P4: clears Verrou 0. Who: Claude and a worker. Do: E5 in the morning, then at E4
 
 Waits for F. Additive, empty, dormant. Order of `SQL-ORDER.md` rows 14 to 19b.
 
-**G1  011, 018, 019, 020, 021a, 021b, 022, 012, 013, 014, 015, 016, 017, in this order (owner order 2026-10-30; 016 and 017 are G2).** (G1 to G3: `bash docs/launch/o1/session.sh G`.)
+**G1  011, 018, 019, 020, 021a, 021c, 021b, 022, 023, 024, 012, 013, 014, 015, 016, 017, in this order (owner order 2026-10-30; 016 and 017 are G2).** (G1 to G3: `bash docs/launch/o1/session.sh G`.)
 Do: A2 backup, then for each `sql1 $M/<file>.sql`: 011-anime-series, 018-entity-images (row 14b, needed by K5.3c and the admin images), 019-dle-core and
-020-dle-kpop-idol (the daily games engine, switched off: rows 14c and 14d), the two files of lot K1 (`021a-k1-idol-gender-debut.sql`, row 14e: `idols.gender`
-and `idols.debut_year`; `021b-k1-idol-activate.sql`, row 14e bis: the idols the owner chose), 022-photos-admin (row 14f: `agencies`, `site_assets` and their two public views), 012-editorial-quiz, 013-formats, 014-daily-openings, 015-spoilers. After each, its V6 lines (019 and 020: `dle-smoke.sql`; 022: `V-022`).
-The command stops on a lot K1 file while it is not on main: G waits for that lot.
+020-dle-kpop-idol (the daily games engine, switched off: rows 14c and 14d), the three files of lot K1 (`021a-k1-idol-gender-debut.sql`, row 14e: `idols.gender`
+and `idols.debut_year`; `021c-k1-idol-corrections.sql`, row 14e ter: debut years, QIDs, and the birth dates of 14 and 19, which change kpopquiz.org on purpose; `021b-k1-idol-activate.sql`, row 14e bis: empty list in session G, activates nobody; activation comes after, on a list the owner ticks), 022-photos-admin (row 14f: `agencies`, `site_assets` and their two public views), 023-dle-otakudle (row 14g: `character_facts`, `series_facts` and the view of Otakudle; the game row waits for L01, see K8), 024-dle-series-games (row 14h: `character_game_facts` and the views of Otakudle One Piece and Otakudle Dragon Ball; their game rows wait for L01 too; `V-024`), 012-editorial-quiz, 013-formats, 014-daily-openings, 015-spoilers. After each, its V6 lines (019 and 020: `dle-smoke.sql`; 022: `V-022`).
 Check: V6 (empty tables, RLS on, functions closed to anon). 013 stops with the name of a `games.game_type` value nobody listed, if production has one: send that name to the run's lead, do not edit the file.
-Back: `sql1` the rollbacks in reverse: 015 down to 012, then 022, 021b (with the same list), 021a, 020, 019, 018 and 011.
+Back: `sql1` the rollbacks in reverse: 015 down to 012, then 024, 023, 022, 021b (with the same list), 021c, 021a, 020, 019, 018 and 011.
 
 **G2  18b check, then 016 and 017 (passport deletion).**
 Do: `q "select to_regprocedure('public.admin_delete_account(uuid,boolean,boolean)')"` is not null (Mission U part D, row 18b, applied 2026-10-27). Then `sql1 $M/016-passport-deletion.sql`, then `sql1 $M/017-deletion-kpop.sql` (row 19b).
@@ -255,6 +254,8 @@ If the query is null, skip both, write "016 waits for part D" in your log, and g
 Check: V6 (016 lines). Back: `sql1 $M/017-deletion-kpop.rollback.sql`, then `sql1 $M/016-passport-deletion.rollback.sql` (refused while a request is pending or a real run is logged).
 
 **G3  After G.** V-S4 (`V-S4 ok`); V1; Runtime Logs for an hour. Nothing visible changes on any site.
+
+**G4  Lot K2, after G (own small session).** After the backup line of the session, `bash docs/launch/o1/session.sh K2` applies `021d-k2-idols.sql` (row 14e quater: 91 new idols in 18 groups, 8 extra-group links in `idol_other_groups` (table created by 020), 11 activations from 021b, adults only) and runs `checks/V-K2.sql`; line 9 of that check is the size of the Kpopdle Idol pool, compared with 200. Back: `sql1 $M/021d-k2-idols.rollback.sql` (refused while the game kpopdle-idol is active).
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -272,10 +273,9 @@ Set on 2026-10-28 by the integrator (`ENV.md` marks each one): the build and run
 Do: nothing but H3. Leave every flag of ENV 1.2 that a later step turns on unset (`PASSPORT_JUMP`, the `NEXT_PUBLIC_NET_*` flags, `NET_INDEXING`, `NET_LAUNCH_DATE`). Never a variable of ENV 1.6.
 Check: V9 (after H8). Back: delete the variable.
 
-**H3  The service role key as a team shared variable.**
-Do: Supabase dashboard, Project Settings, API Keys: reveal and copy the `service_role` key (paste it nowhere else). Vercel, Team Settings, Environment Variables (Shared), Add: key `SUPABASE_SERVICE_ROLE_KEY`, the value, Sensitive, environment Production only (Preview keeps the `o1-dev` values of `o1/integration`), linked projects `kpopquiz`, `fandomverse`, `otakuquiz`.
-If Vercel refuses `kpopquiz` because the project already has its own `SUPABASE_SERVICE_ROLE_KEY` (the same value), keep that one and link the shared variable to the other two only.
-Check: each of the three projects lists `SUPABASE_SERVICE_ROLE_KEY` for Production (shared or its own); V9 build logs name no missing variable. Back: unlink the shared variable from the project.
+**H3  The service role key, a project variable on the hub and on OtakuQuiz.**
+Do: Supabase dashboard, Project Settings, API Keys: reveal and copy the `service_role` key (paste it nowhere else). Vercel, project `fandomverse`, then project `otakuquiz`, Settings, Environment Variables, Add: key `SUPABASE_SERVICE_ROLE_KEY`, the value, Sensitive, environment Production only (Preview keeps the `o1-dev` values of `o1/integration`). Not a team shared variable. `kpopquiz` keeps its own project variable, the same value.
+Check: each of the three projects lists `SUPABASE_SERVICE_ROLE_KEY` for Production; V9 build logs name no missing variable. Back: delete the variable from the project.
 
 **H4  Supabase Auth: redirect URLs.**
 Do: Supabase dashboard, Authentication, URL Configuration: keep Site URL `https://kpopquiz.org`; add to Redirect URLs exactly `https://bunnyverse.org/auth/callback` and `https://bunnyverse.org/anime/auth/callback` (no `*`, no `?`), never a wider `https://bunnyverse.org/**` (AUTH-BUNNYVERSE.md: only the sign-in callbacks may receive a session). If you added `https://otakuquiz.org/**` or `https://fanquiz.org/**` earlier, remove them. `www.bunnyverse.org` redirects to the apex (K6), so it needs no entry.
@@ -368,7 +368,7 @@ Check: the second run changes nothing. Back: n/a (a branch).
 
 **J4  The first fourteen daily quizzes of OtakuQuiz (decided, D-099).**
 The anime daily publishes only a bank row that is `verified` or `scheduled` and dated that day (`ensure_daily_quiz_v2`, 010); L08 loads the bank as undated drafts, so K5 step 4 verifies fourteen rows and K9 dates them.
-The tool is the kpop bank tool with the site parameter: `POST /api/admin/quiz-bank/auto-schedule` and `PATCH /api/admin/quiz-bank/<id>` read and write `quiz_bank` through `forSite()`, so on the `otakuquiz` build they only touch rows of site `anime`. The screen belongs to the kpop build: you call the routes from the browser console of `https://bunnyverse.org/anime` while signed in with an id of `ADMIN_USER_IDS` (K9), under the `/anime` prefix.
+The tool is the kpop bank tool with the site parameter: `POST /api/admin/quiz-bank/auto-schedule` and `PATCH /api/admin/quiz-bank/<id>` read and write `quiz_bank` through `forSite()`, so on the `otakuquiz` build they only touch rows of site `anime`. The screen belongs to the kpop build: you call the routes from the browser console of `https://bunnyverse.org/anime` while signed in with an id of `ADMIN_USER_IDS`, its 6-digit TOTP code typed first (K9), under the `/anime` prefix.
 Auto-scheduling is on: the cron `/api/cron/ensure-daily-quiz` (`5 0 * * *`) with `QOTD_ROTATION_FIX=1` on the `otakuquiz` project (ENV.md 1.2). When no row is dated for the day the cron pulls the next open bank row to that day, else picks from the catalogue, and answers 500 when the day stays empty, so a failed cron job is the alarm. Never set it on `fandomverse`.
 
 ---------------------------------------------------------------------------------------------------------------------------------
@@ -382,11 +382,12 @@ L09 to L11 (openings, formats, crossover quiz) are not part of the launch (secti
 **K1  Go / no-go (the evening before).** Who: Claude and a worker check each line; the owner decides. All true, or the day moves:
 - V1 to V7 passed in their phases; the watches C, D3 and F are clean; V9 passes for the three projects (the hub at `/` and OtakuQuiz at `/anime` on the `fandomverse` address).
 - `ls $M/launch/` shows L01 to L08, L10-PERS and L12 with their rollbacks; J2's three checks pass; L01's header names the Bunnyverse domain (lane 2); J3 was run on these files.
-- H done: `dig +short bunnyverse.org A` answers (H6), the Microfrontends group exists (H7), the Supabase redirect URLs hold exactly the two bunnyverse.org callbacks, no wildcard (H4), the service role key is linked (H3), and Google Cloud and Discord are unchanged: no JavaScript origin, no new client (H5, AUTH-BUNNYVERSE.md).
+- H done: `dig +short bunnyverse.org A` answers (H6), the Microfrontends group exists (H7), the Supabase redirect URLs hold exactly the two bunnyverse.org callbacks, no wildcard (H4), the service role key is set on `fandomverse` and `otakuquiz` (H3), and Google Cloud and Discord are unchanged: no JavaScript origin, no new client (H5, AUTH-BUNNYVERSE.md).
 - `apps/quiz/src/lib/site/registry.ts` list `PLACEHOLDERS` for anime and hub: each item is set or accepted. Brand (owner, 2026-10-28): bunny plus "Bunnyverse" for the hub, bunny plus "OtakuQuiz" for `/anime`; the default share image of each site says its own name.
   IndexNow: the hub key at `https://bunnyverse.org/339dab142e51883ae3a2c7e4737254e4.txt`, OtakuQuiz's at `https://bunnyverse.org/anime/760f9a9459d4db0bd8a08f13a0f1ec6e.txt` (ENV.md 1.7). Organization mailbox: `hello@kpopquiz.org` on all three sites.
 - The hub privacy text and its controller are done (D-108, D-111, D-114); K10 checks the `privacy.controller` line.
 - The Team e-mail domain is `team.bunnyverse.org` with no mail (H6). `QOTD_ROTATION_FIX=1` is set on `otakuquiz`.
+- The owner's TOTP code is in place. The owner confirms it, since no agent signs in: on kpopquiz.org, `/admin` asks for the 6 digits and opens the admin. Every other id of `ADMIN_USER_IDS` has its code or left the list. A worker confirms `ADMIN_MFA_ENROL_OPEN` is absent from Production on the three projects (`docs/o1/admin/MFA-OWNER.md` section 2).
 - A person is free for 72 hours to watch.
 
 **K2  Morning start.** Do: A2 backup (owner); V0 again into `~/kpq-launch/v0-launch.txt` (Claude); `snap ~/kpq-launch/before` (a worker). Check: files exist. Back: n/a.
@@ -414,6 +415,7 @@ Check (Claude, read-only SQL on `auth.users`): 31 users on `team.bunnyverse.org`
 3b. **K5.3b** `sql1 $M/launch/L10-PERS-personality.sql` (the "Which character are you" quizzes of 10 series: 80 questions, 70 profiles; SQL-ORDER row 27b). After L08 and before L12. Needs L04, 002a and 013 (G1). Owner decision of 2026-10-26 (D-124): it ships at launch.
    Check: `q "select count(*) from public.personality_profiles where site_id = 'anime'"` prints 70; `content-verify.sql` against `expected-counts.json` (personality 10, personality_questions 80, personality_profiles 70) still passes. Back: `sql1 $M/launch/L10-PERS-personality.rollback.sql` (saved results stay: it never touches `personality_results`).
 3c. **K5.3c** Promote the admin images (only if you uploaded images on o1-dev, from `/anime/admin` on the preview). Needs `M/018-entity-images.sql` (G1, SQL-ORDER row 14b).
+   TOTP first, for anything done on the admin page. `/anime/admin` and its routes answer 404 to a session with no 6-digit code, and to a listed account with no code while the switch is off. The upload happens on the preview. RUNBOOK H says previews run on o1-dev, another auth database, so a code made on production should not work there (read from the docs, not tested on a preview). Before uploading: turn TOTP on in that Supabase project, set `ADMIN_MFA_ENROL_OPEN=1` on the `otakuquiz` Preview variables, redeploy the preview, enrol with an id of its Preview `ADMIN_USER_IDS`, remove the switch, redeploy (`docs/o1/admin/MFA-OWNER.md` sections 1, 2 and 8). The `promote.mjs` commands below do not open the admin. The `Back` line below does, on production: same code as K9.
    It copies the files of the bucket `entity-images` and the rows of `public.entity_images` from o1-dev to production; it never deletes anything there and a second run changes nothing. Run it before you delete the o1-dev branch (After launch). The production key is typed into your shell, never saved:
 
        read -rs PROMOTE_TARGET_SERVICE_KEY; export PROMOTE_TARGET_SERVICE_KEY
@@ -430,7 +432,7 @@ Check (Claude, read-only SQL on `auth.users`): 31 users on `team.bunnyverse.org`
 
        q "update public.quiz_bank set status='verified', verified_at=now() where id in (select id from public.quiz_bank where site_id='anime' and status='draft' and scheduled_date is null order by md5(title) limit 14) returning title"
 
-   The dating comes at K9 (it needs the signed-in admin on `/anime`); the cron then keeps going by itself (J4).
+   The dating comes at K9 (it needs the signed-in admin on `/anime`, TOTP code included); the cron then keeps going by itself (J4).
 Back: each file's rollback, in reverse (refused once data was written, ROLLBACK.md section 3).
 
 **K5b  Turn the builds on.**
@@ -459,12 +461,23 @@ Do: set `PASSPORT_JUMP` = `1` in `kpopquiz`, `fandomverse` and `otakuquiz`, rede
 Check: V10 "Cross-site cookie check": from a signed-in kpopquiz.org open `/auth/passport/out?to=anime`, you land on `https://bunnyverse.org/anime` signed in, and `https://bunnyverse.org` shows the same session; XP counted per site. Back: set to `0`, redeploy the three (ROLLBACK.md section 3, layer 2).
 
 **K8  L12: the sites go live, then the lot A1 file.** (`bash docs/launch/o1/session.sh J4`.)
-Do: `sql1 $M/launch/L12-L1-sites-live.sql`, then the file of lot A1 (`L13-A1-character-facts.sql` in `$M/launch`: the character facts Otakudle reads), after the launch
-files (owner order 2026-10-30); content-verify and V-S4 again. The command stops on the lot A1 file while it is not on main. Check: V8 (`kpop`, `anime`, `hub` all `live`). Back: `sql1 $M/launch/L12-L1-sites-live.rollback.sql`.
+Do: `sql1 $M/launch/L12-L1-sites-live.sql`, `sql1 $M/023-dle-otakudle.sql` again (the game row `otakudle`, switched off: `dle_games.universe` needs the anime site, which L01 added after session G; CR-017), `sql1 $M/024-dle-series-games.sql` again (the rows of `otakudle-one-piece` and `otakudle-dragon-ball`, switched off; CR-023), then the file of lots A1 and A2 (`L13-A1-character-facts.sql` in `$M/launch`: the facts of the 750 characters Otakudle reads; 200 of them are featured, the TOP200, and the first 365 days draw their target from those only, the rest stays guessable; one year later `update public.character_facts set featured = true` widens the draw and the nightly maintenance rebuilds the bank), after the launch
+files (owner order 2026-10-30); `docs/launch/o1/checks/V-L13.sql`, then `sql1 $M/launch/L15-A2-series-games.sql` (lot A2: the facts of the two games of one series, the 100 characters of One Piece and the 70 of Dragon Ball, `V-L15`), content-verify and V-S4 again. The command stops on the lot A1 file while it is not on main. Check: V8 (`kpop`, `anime`, `hub` all `live`). Back: `sql1 $M/launch/L15-A2-series-games.rollback.sql` (refused once a series game has a play), `sql1 $M/launch/L13-A1-character-facts.rollback.sql` (refused once `otakudle` has a play), `sql1 $M/launch/L12-L1-sites-live.rollback.sql`.
+
+**K8b  L14: Kpopdle Idol and Otakudle on.** (`bash docs/launch/o1/session.sh J5`.)
+Do: `sql1 $M/launch/L14-O1-dle-on.sql`: `dle_activate` for both games, after the launch files (owner decision: both open on launch day). No fixed seed. Each bank of 365 days is drawn here, once; a second run changes nothing.
+The epoch is the date of game n. 1: today in UTC, the day this file first runs. It never moves afterwards, and the number of a day is counted from it, so run J5 on the day the games open: each day between J5 and the flag PR uses up a number (flag two days later: the first players see n. 3).
+Stop: a game under its minimum of targets (`min_pool`, 40) stops the file with its name and its count (`L14 kpopdle-idol: dle_pool_too_small: ...`) and neither game changes. Fix the pool, or decide, then run J5 again.
+The two games of one series (`otakudle-one-piece`, minimum 40; `otakudle-dragon-ball`, minimum 30; CR-023) never stop the file: each opens when its pool reaches its minimum, otherwise it stays off and the log holds a warning with its count (`V-L15` prints the targets, the minimum and the state of each, `V-L14` checks a series game once it is on). A game that stays off opens when its pool grows (a regenerated L04, L15 generated and applied again) and J5 runs again: a game already on is left alone. Any error other than `dle_pool_too_small` stops the file (the bank of 019 builds for every pool from `min_pool` up, CR-019).
+The idol pool is what the 021 files leave: 021c changes it, on the production snapshot from 87 targets to 108. The rehearsal cannot prove that number (its schema copy has no idol row): `V-L14` prints the real count here, read it.
+Check: V8 (L14 rows), `dle_day` of both games. The pages stay a 404 until K8c. After J5 session G cannot run again: 020 and `V-020` require `kpopdle-idol` off. Back: `sql1 $M/launch/L14-O1-dle-on.rollback.sql` (both off; epochs, banks and plays stay).
+
+**K8c  The launch-day PR: `dailyGuess` to true, after J5.** It is a code constant (`HUB_FEATURES` in `apps/quiz/src/lib/site/registry.ts`), so a PR is the only way; there is no env flag. Go only when all three hold: `V-L14` ok on both games; `dle_day` of both games answers (the two rows of J5); `/otakudle` and `/kpopdle` are built (their pages in the hub's production build of that PR). No-go on any of them: the PR waits, nothing players see has changed. Back: revert the PR; every page of the Terrier answers 404 again.
 
 **K9  The daily quiz and the go.**
-Do: (1) Sign in on `https://bunnyverse.org/anime` with your admin account and, in the browser console of that tab, date the verified rows from today:
-`fetch('/anime/api/admin/quiz-bank/auto-schedule', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({start_date: '<today, YYYY-MM-DD>'})}).then(r => r.json()).then(console.log)`; it answers `{scheduled: 14, ...}`.
+Do: (0) TOTP first. `/anime/api/admin/*` answers 404 to a session with no 6-digit code. K1 checked that your account has its code. If it was lost since: `docs/o1/admin/MFA-OWNER.md` section 4, which costs two redeploys of `kpopquiz` on launch day. The code also works on OtakuQuiz (same account, same database); the session does not carry over.
+(1) Sign in on `https://bunnyverse.org/anime` with your admin account, open `https://bunnyverse.org/anime/admin`, type the 6 digits (the admin home opens) and, in the browser console of that tab, date the verified rows from today:
+`fetch('/anime/api/admin/quiz-bank/auto-schedule', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({start_date: '<today, YYYY-MM-DD>'})}).then(r => r.json()).then(console.log)`; it answers `{scheduled: 14, ...}`. An answer of `{error: 'Not found.', code: 'not_found'}` means this session has no code: type the 6 digits on `/anime/admin` again, in this tab.
 (2) Publish today's quiz without waiting for 00:05: Vercel, project `otakuquiz`, Settings, Cron Jobs, `ensure-daily-quiz`, Run. (Or with the `otakuquiz` value of `CRON_SECRET`: `read -rs CRON_SECRET`, then
 `curl -sS -H "Authorization: Bearer $CRON_SECRET" https://bunnyverse.org/anime/api/cron/ensure-daily-quiz`, which answers `{"ok":true,...}`, then `unset CRON_SECRET`.) Check `https://bunnyverse.org/anime/daily` redirects to an `/anime/q/` page, and (K6b) Vercel, project `otakuquiz`, Logs shows the Run as `/anime/api/cron/ensure-daily-quiz` with 200.
 (3) V10 completely; V1 for kpop (only live numbers differ, nothing else; the NET flags are still off); on `/anime` with a real account: sign in, play a quiz, like it, check the daily page and the series page spoiler cover (the blind test is off on anime, D-120: a 404 is expected); on the hub: the network page signed out and signed in.
@@ -531,7 +544,23 @@ MANDATORY (K6b): Vercel, project `otakuquiz`, Logs, search `/anime/api/cron/`: t
 
 **L3b  kpopquiz: privacy and deletion.** `NEXT_PUBLIC_NET_PRIVACY=1` and, once 18b, 016 and 017 are applied and the `passport-deletions` cron runs on `fandomverse`, `NEXT_PUBLIC_NET_DELETION=1`, both on `kpopquiz` only; redeploy `kpopquiz`; V1 (ENV.md 1.2, D-110, D-112). Back: remove, redeploy.
 
+**L3c  kpopquiz: the Kpopdle module, on launch day, after the game (CR-018).** The module under the quiz of the day, "Play Kpopdle", links to bunnyverse.org. One server variable on `kpopquiz` only, `NET_KPOPDLE_HOME`. It changes `/` of kpopquiz.org and no other page. It is not part of the L3 chain: it follows K10 the same day and does not wait for the +24 hours of L2. The game goes on through the launch-day PR that sets the hub's `dailyGuess` to true (`HUB_FEATURES` in `apps/quiz/src/lib/site/registry.ts`, a code constant, so a PR is the only way); if that PR waits, this step waits with it.
+Who: owner for the go and the Do; a worker for the Check.
+Go / no-go. All of these, or leave the variable unset: (1) that PR is merged on `main`, and both `fandomverse` and `kpopquiz` Production deployments are Ready on its commit; (2) `curl -s -o /dev/null -w '%{http_code}\n' https://bunnyverse.org/kpopdle` and the same for `/daily` each print 200; (3) the owner played today's game there on a phone, to the end; (4) K10 is done, so the link does not lead to a noindex page; (5) Runtime Logs of `fandomverse` show no `[dle]` error for an hour.
+Do: Vercel, project `kpopquiz`, Production, `NET_KPOPDLE_HOME` = `1`; redeploy `kpopquiz`.
+Check: `curl -s https://kpopquiz.org/ | grep -o 'href="https://bunnyverse.org/kpopdle"' | wc -l` prints 1, and `curl -s https://kpopquiz.org/ | grep -o '<h1' | wc -l` prints 1; the module shows at desktop and at 375 px, between the quiz of the day and the groups, with today's number and no idol's name; V1 shows only `/` changed. If the link is missing with the variable set, the module failed closed (the hub's switch, or `dle_day`): the home is intact, read the `[home] Kpopdle` line of the logs of `kpopquiz`.
+Back: remove the variable, redeploy `kpopquiz`. The game going off on its own (`dle_unavailable`) hides the module at the next regeneration of the home, within the hour, with nothing to do.
+
+**L3d  kpopquiz: the Kpopdle row of the quiz end and the Kpopdle card of the group pages, on launch day, after L3c (CR-025).** Two more server variables on `kpopquiz` only, one per element: `NET_KPOPDLE_QUIZEND` (a row "Kpopdle · bunnyverse.org" under "Next quiz" on the results screen of a K-pop quiz, drawn in the browser after the game) and `NET_KPOPDLE_GROUP` (on a group page, "The 9 members of TWICE are in the Kpopdle" with a Play link; only for a group that has members in the game). They change the quiz pages and the group pages of kpopquiz.org and no other page. The links of OtakuQuiz to the three anime games (its home module, the card on the One Piece and Dragon Ball series pages, the end of an anime quiz) have no variable: they go on with the launch-day PR that sets `dailyGuess` to true.
+Who: owner for the go and the Do; a worker for the Check.
+Go / no-go. All of L3c's, and L3c itself is done and stable for a day, or leave the variables unset.
+Do: Vercel, project `kpopquiz`, Production, `NET_KPOPDLE_QUIZEND` = `1` and `NET_KPOPDLE_GROUP` = `1` (each can go alone); redeploy `kpopquiz`.
+Check: `curl -s https://kpopquiz.org/twice-quiz | grep -o 'href="https://bunnyverse.org/kpopdle"' | wc -l` prints 1 for a group that has members in the game (the same command on a group with none prints 0), and `grep -o '<h1'` prints 1; play a K-pop quiz to the end on a phone: the Kpopdle row sits under "Next quiz" and opens bunnyverse.org/kpopdle; V1 shows only the group pages changed (the results screen is drawn in the browser, so the served HTML of /q/ does not move). On OtakuQuiz: `curl -s https://bunnyverse.org/anime | grep -o 'href="https://bunnyverse.org/otakudle[^"]*"' | wc -l` prints 3, and `/anime/one-piece-quiz` and `/anime/dragon-ball-quiz` each carry one link to their game.
+Back: remove the variable, redeploy `kpopquiz`. The OtakuQuiz links go with `dailyGuess`, or hide on their own when a game answers `dle_unavailable` (at the next regeneration, within the hour).
+
 **L4  The first 72 hours.** At +1h, +24h, +48h, +72h do V11 (Claude and a worker). Keep the log. A worker watches Runtime Logs.
+
+**L6  Each morning: the kept days of the daily games.** A rebuild of a bank keeps today and the 7 days after it, so a target that leaves its pool (a character hidden or marked spoiler, an idol switched off) stays the answer of its kept day, and `dle_guess` refuses its name: that day cannot be won, players can only give up. See it: `psql "$PROD_DB_URL" -X -At -f docs/launch/o1/checks/V-DLE-KEPT.sql` (VERIFY V-DLE): 0 on each game, counts only. If a row says KO: put the entry back as it was (its status or its review flag) until the last kept day; the next nightly refresh returns it to the pool and it can be removed again on the day after. If it must go at once, for a legal or safety reason, leave it out: that day's players can only give up. Never edit `dle_schedule` or `dle_entities` by hand.
 
 **L5  Decide at +72h.** If V11 is clean for 72 hours, the launch is done: raise the DNS TTL of bunnyverse.org back to your registrar's default, keep the backup of K2 for 60 days, write the date of the last step. If anything is wrong, use the layers of `ROLLBACK.md` section 3 from the lightest.
 After that the remaining work is the backlog in `docs/o1/RAPPORT-FINAL.md` sections 4 and 5.
@@ -544,6 +573,8 @@ Rule: only when L3 is finished (the three network flags are on and clean), the h
 3. The two crons. H2b wrote no route and did not touch `apps/quiz/vercel.json` (a HOT file), so this step needs a small code PR first (request 2 of H2b.md): a route `/api/cron/hub-quiz-daily-plays` that calls `select public.hub_refresh_quiz_daily(8)` and a route `/api/cron/hub-xp-snapshot` that calls `select public.hub_snapshot_xp()`, both with the service role, Bearer `CRON_SECRET`, `cronForSite(['hub'])` right after the auth check (the other two projects answer `{"skipped": true}`), and two entries in `vercel.json`: the snapshot shortly after 00:00 UTC (proposed `2 0 * * *`) and the refresh after 00:30 UTC (proposed `35 0 * * *`), both outside the 00:05 daily window of `qotd_log`. Merge the PR after the two SQL files, never before (a cron that finds no function answers 500 in the hub project's log).
    Check: Vercel `fandomverse` project, Settings, Cron Jobs lists the two entries; Run `hub-xp-snapshot` there and its log shows a row count; on `otakuquiz` and `kpopquiz` the same route answers `{"skipped":true}`. Back: revert the PR (the tables stay, the blocks fall back to plays).
 4. The next morning: `q "select count(*) from public.quiz_daily_plays"` is above 0 once the hub has plays; `q "select count(*) from public.xp_daily_snapshots where day = current_date"` is above 0 once a member has XP; the hub home renders without error (it never returns a 500 because of these tables); Runtime Logs of `fandomverse` are quiet; V1 and V10 as after any flag.
+
+**L7  Daily games: the nightly maintenance (from the first night after a game is activated).** Who: a worker reads Vercel, Claude runs the SQL. `ensure-daily-quiz` on `fandomverse` also runs `dle_daily_maintenance` (hub only; never on `kpopquiz` or `otakuquiz`). Check: V12. Back: n/a (read-only; a failure leaves the quiz of the day and the games playing).
 
 ## After launch (not on the launch path, decided D-099)
 
@@ -563,7 +594,7 @@ Taken on 2026-10-28 and 2026-10-29 and applied in this kit:
 2. Sign-in on bunnyverse.org: Google (the kpopquiz.org client) and Discord only, no email (H4, H5). kpopquiz.org unchanged. The hub and `/anime` share the session; between kpopquiz.org and bunnyverse.org the passport ticket stays (K7).
 3. Logos: bunny plus "Bunnyverse", bunny plus "OtakuQuiz".
 4. No calendar: launch as soon as everything is ready. Watches of 24 hours after B, 008 and 010; everything else chained; a backup before each SQL session (A2).
-5. Vercel, done by the integrator with the CLI on 2026-10-28 (owner exception): `fanquiz` renamed `fandomverse`; production variables of `fandomverse` and `otakuquiz`; the three shared secrets identical in Production of the three projects; `CRON_SECRET` on `fandomverse` and `otakuquiz`; no domain attached. The owner sets `SUPABASE_SERVICE_ROLE_KEY` as a team shared variable (H3).
+5. Vercel, done by the integrator with the CLI on 2026-10-28 (owner exception): `fanquiz` renamed `fandomverse`; production variables of `fandomverse` and `otakuquiz`; the three shared secrets identical in Production of the three projects; `CRON_SECRET` on `fandomverse` and `otakuquiz`; no domain attached. The owner sets `SUPABASE_SERVICE_ROLE_KEY` as a project variable on `fandomverse` and `otakuquiz` (H3).
 6. The Team accounts use `<username>@team.bunnyverse.org`, a sub-domain that receives no mail (H6, K4).
 7. The 2026-10-29 rename changes only what the public sees (names, domain, logo, share image, mails, legal pages). The Vercel project `fandomverse`, the Microfrontends group `fandomverse`, the cookie `__Host-fv_oauth` and the other internal names stay as they are.
 

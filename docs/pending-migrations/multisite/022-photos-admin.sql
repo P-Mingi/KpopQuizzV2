@@ -11,9 +11,11 @@
 --           018, which knows neither column, can never leave an old check on a new picture or a new credit. The select policy of 018 is
 --           narrowed to its own kinds: the browser roles read a picture of an idol, a group or an agency only through the view below,
 --           once verified;
---         - the view entity_images_public: the verified rows with an https source page only, their display columns, the 96 px file and the name of the entity
---           (idol, group, agency, series; a character's name is read by the app, which hides the characters under a spoiler). The
---           only way a browser role reads a verified picture; /credits reads it;
+--         - the view entity_images_public: the verified rows (no source page, or an https one), their display columns, the 96 px file, needs_credit and the
+--           name of the entity (idol, group, agency, series; a character's name is read by the app, which hides the characters under a spoiler).
+--           Owner decision of 2026-11-02 (LEDGER CR-021): its credit columns (source_url, author, license, license_note, license_url, commons_file) are
+--           filled for a row that needs a credit (CC BY, CC BY-SA: needs_credit of 018) and null for every other row. The only way a browser role
+--           reads a verified picture; the games draw it, /credits of the hub and of kpopquiz.org lists the rows that need a credit;
 --         - public.agencies: one row per agency (name, mother company for "same mother company", official site, sources), filled
 --           with the 17 record labels the kpop groups cite today (groups.record_label, names only: the mother company, the site and
 --           the sources are the owner's, in the admin). RLS on with no policy: the service role only (the admin routes);
@@ -24,7 +26,8 @@
 --           licensed: never a Creative Commons picture, which /credits would not list). RLS on with no policy: only the service role
 --           writes; the identity sequences of both tables are closed to the browser roles too;
 --         - the view site_assets_public: per key, the latest version published at or before now(), never a retired one. A row with
---           a picture can only be published with its licence verified (a check), so the view never shows an unlicensed picture.
+--           a picture can only be published with its licence verified (a check), so the view never shows an unlicensed picture. Its credit
+--           columns (source_url, author, license, license_note) are filled for a CC BY or CC BY-SA row only; needs_credit says so.
 -- Why:    v2 section 7: only licensed pictures, with their credit on /credits; the owner sets them in the admin of bunnyverse.org/anime
 --         (Photos tab). The thumbnails are made in the admin's browser (canvas, WebP), stored in the bucket entity-images of 018;
 --         no Vercel image optimisation.
@@ -34,6 +37,7 @@
 -- Verify: select relname, relrowsecurity from pg_class where oid in ('public.agencies'::regclass, 'public.site_assets'::regclass) order by 1;   expect agencies t, site_assets t
 --         select count(*) from pg_policies where schemaname = 'public' and tablename in ('agencies', 'site_assets');   expect 0
 --         select has_table_privilege('anon', 'public.site_assets', 'select'), has_table_privilege('authenticated', 'public.site_assets', 'insert'), has_table_privilege('anon', 'public.agencies', 'select'), has_table_privilege('anon', 'public.site_assets_public', 'select'), has_table_privilege('anon', 'public.entity_images_public', 'select'), has_table_privilege('anon', 'public.site_assets_public', 'insert');   expect f, f, f, t, t, f
+--         select pg_get_viewdef('public.entity_images_public'::regclass) ~ 'needs_credit THEN';   expect t (the credit columns are filled for a row that needs a credit only)
 --         select has_sequence_privilege('anon', 'public.site_assets_id_seq', 'usage'), has_sequence_privilege('authenticated', 'public.agencies_id_seq', 'usage');   expect f, f
 --         select pg_get_constraintdef(oid) from pg_constraint where conname = 'entity_images_kind_check';   expect the five kinds
 --         select count(*) from public.agencies;   expect 17 (the distinct record labels of the kpop groups)
@@ -88,14 +92,15 @@ alter table public.entity_images add constraint entity_images_verified_thumb_che
 drop policy if exists entity_images_select_display on public.entity_images;
 create policy entity_images_select_display on public.entity_images for select to anon, authenticated using (kind in ('series', 'character'));
 
--- A picture of an idol, a group or an agency names an https source page (the credit links it; the dle view of 020 shows its 96 px file
--- with the credit on /credits only). 018's check, which allows http for its own kinds, is left as it is.
+-- A picture of an idol, a group or an agency that names a source page names an https one (the credit links it; the dle view of 020 shows
+-- its 96 px file with the credit on /credits only). The source page is optional (a file uploaded from the owner's computer has none).
+-- 018's check, which allows http for its own kinds, is left as it is.
 alter table public.entity_images drop constraint if exists entity_images_kpop_source_check;
 alter table public.entity_images add constraint entity_images_kpop_source_check
-  check (kind in ('series', 'character') or source_url ~ '^https://');
+  check (kind in ('series', 'character') or source_url is null or source_url ~ '^https://');
 
 -- The check of a picture belongs to its file and its credit. An update that changes the file (path or thumb_path), the licence (license,
--- license_note) or the credit (author, source_url) leaves the row unverified, unless the same statement sets license_verified to true
+-- license_note, license_url, commons_file) or the credit (author, source_url) leaves the row unverified, unless the same statement sets license_verified to true
 -- itself. A BEFORE trigger cannot see the SET list, but a trigger declared UPDATE OF license_verified fires exactly when the statement
 -- names that column: trg_entity_images_licence_listed (BEFORE triggers of a row run in name order, so before the reset) marks the row
 -- for this transaction, and trg_entity_images_licence_reset reads and clears the mark. A new file that comes without a new 96 px file
@@ -121,8 +126,8 @@ begin
   if new.path is distinct from old.path and new.thumb_path is not distinct from old.thumb_path then
     new.thumb_path := null;
     new.license_verified := false;
-  elsif (new.path, new.thumb_path, new.license, new.license_note, new.author, new.source_url)
-      is distinct from (old.path, old.thumb_path, old.license, old.license_note, old.author, old.source_url)
+  elsif (new.path, new.thumb_path, new.license, new.license_note, new.license_url, new.commons_file, new.author, new.source_url)
+      is distinct from (old.path, old.thumb_path, old.license, old.license_note, old.license_url, old.commons_file, old.author, old.source_url)
     and not (listed and new.license_verified) then
     new.license_verified := false;
   end if;
@@ -267,10 +272,17 @@ revoke all on sequence public.site_assets_id_seq from public, anon, authenticate
 --    and give only what is public)
 -- ---------------------------------------------------------------------------------------------------------------------------
 
+-- Credit columns: filled for a CC BY or CC BY-SA row only (the rows /credits lists); null for every other licence, so a page that reads the
+-- view never gets an author or a licence it has no use for.
 create or replace view public.site_assets_public as
 select distinct on (a.key)
   a.key, a.type, a.page, a.settings, a.path, a.mid_path, a.thumb_path, a.width, a.height,
-  a.source_url, a.author, a.license, a.license_note, a.published_at
+  coalesce(a.license in ('cc_by', 'cc_by_sa'), false) as needs_credit,
+  case when a.license in ('cc_by', 'cc_by_sa') then a.source_url end as source_url,
+  case when a.license in ('cc_by', 'cc_by_sa') then a.author end as author,
+  case when a.license in ('cc_by', 'cc_by_sa') then a.license end as license,
+  case when a.license in ('cc_by', 'cc_by_sa') then a.license_note end as license_note,
+  a.published_at
 from public.site_assets a
 where a.retired_at is null and a.published_at is not null and a.published_at <= now() and (a.path is null or a.license_verified)
 order by a.key, a.published_at desc, a.id desc;
@@ -278,9 +290,17 @@ order by a.key, a.published_at desc, a.id desc;
 revoke all on table public.site_assets_public from public, anon, authenticated;
 grant select on table public.site_assets_public to anon, authenticated, service_role;
 
+-- The verified pictures. The credit columns are filled for a row that needs a credit (CC BY, CC BY-SA) and null for every other row: a page
+-- that reads the view never gets an author or a licence it has no use for, and /credits lists the rows with needs_credit.
 create or replace view public.entity_images_public as
-select e.site_id, e.kind, e.slug, e.path, e.thumb_path, e.width, e.height, e.focal_x, e.focal_y,
-  e.source_url, e.author, e.license, e.license_note, e.updated_at,
+select e.site_id, e.kind, e.slug, e.path, e.thumb_path, e.width, e.height, e.focal_x, e.focal_y, e.needs_credit,
+  case when e.needs_credit then e.source_url end as source_url,
+  case when e.needs_credit then e.author end as author,
+  case when e.needs_credit then e.license end as license,
+  case when e.needs_credit then e.license_note end as license_note,
+  case when e.needs_credit then e.license_url end as license_url,
+  case when e.needs_credit then e.commons_file end as commons_file,
+  e.updated_at,
   case e.kind
     when 'idol' then (select i.name from public.idols i where i.id::text = e.slug)
     when 'group' then (select g.name from public.groups g where g.id::text = e.slug and g.site_id = 'kpop')
@@ -288,9 +308,8 @@ select e.site_id, e.kind, e.slug, e.path, e.thumb_path, e.width, e.height, e.foc
     when 'series' then (select g.name from public.groups g where g.slug = e.slug and g.site_id = e.site_id)
   end as name
 from public.entity_images e
--- Only an https source page is passed on (018 allows http for series and characters); source_url is never null in 018, so a row with
--- no source page cannot occur here.
-where e.license_verified and e.thumb_path is not null and e.source_url ~ '^https://';
+-- Only an https source page, or none, is passed on (018 allows http for series and characters); source_url is optional since CR-021.
+where e.license_verified and e.thumb_path is not null and (e.source_url is null or e.source_url ~ '^https://');
 
 revoke all on table public.entity_images_public from public, anon, authenticated;
 grant select on table public.entity_images_public to anon, authenticated, service_role;
@@ -340,6 +359,9 @@ begin
   end if;
   if pg_get_viewdef('public.entity_images_public'::regclass) !~ 'https' then
     raise exception '022-photos-admin: entity_images_public passes on a source page that is not https';
+  end if;
+  if pg_get_viewdef('public.entity_images_public'::regclass) !~ 'needs_credit' or pg_get_viewdef('public.site_assets_public'::regclass) !~ 'cc_by_sa' then
+    raise exception '022-photos-admin: the credit columns of the public views are not limited to the rows that need a credit';
   end if;
   foreach t in array array['public.agencies_id_seq', 'public.site_assets_id_seq'] loop
     if has_sequence_privilege('anon', t, 'usage') or has_sequence_privilege('authenticated', t, 'usage')

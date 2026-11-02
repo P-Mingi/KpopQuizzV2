@@ -1,34 +1,30 @@
-// Run O1 (ADM back): what every admin image route shares. The gate (a user in ADMIN_USER_IDS on the anime build, else 404), the
+// Run O1 (ADM back): what every admin image route shares. The gate (requireAdmin on the anime build, else 404), the
 // same-origin check of writes, a capped body reader and the answers { ok: true, ... } or { error, code }.
 import { NextResponse } from 'next/server';
 
-import { isAdmin } from '@/lib/admin';
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
 import { SITE_ID } from '@/lib/site/registry';
-import { createServerClient } from '@/lib/supabase/server';
 
 import { IMAGE_SITE } from './constants';
 import { ImageError } from './errors';
 
 import type { NextRequest } from 'next/server';
 
-export const notFound = (): NextResponse => NextResponse.json({ error: 'Not found.', code: 'not_found' }, { status: 404 });
+// ADMIN-1: the same 404 JSON as every admin route (lib/admin/guard.ts adminNotFound: noindex, no-store).
+export const notFound = (): NextResponse => adminNotFound();
 
 export type Gate = { readonly ok: true; readonly userId: string } | { readonly ok: false; readonly res: NextResponse };
 
 /**
- * 404 unless the build is the anime site AND the signed-in user is in ADMIN_USER_IDS (checked on the server from the session).
- * A visitor, a signed-in non-admin and a kpop build cannot tell this route from a missing one.
+ * 404 unless the build is the anime site AND requireAdmin('api') lets the request through (ADMIN-1: the session verified by the
+ * auth server, an id in ADMIN_USER_IDS, assurance level aal2). A visitor, a signed-in non-admin, an admin at aal1 and a kpop
+ * build cannot tell this route from a missing one.
  */
 export async function adminGate(): Promise<Gate> {
   if (SITE_ID !== IMAGE_SITE) return { ok: false, res: notFound() };
-  try {
-    const client = await createServerClient();
-    const { data: { user } } = await client.auth.getUser();
-    if (!user?.id || !isAdmin(user.id)) return { ok: false, res: notFound() };
-    return { ok: true, userId: user.id };
-  } catch {
-    return { ok: false, res: notFound() };
-  }
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return { ok: false, res: gate.res };
+  return { ok: true, userId: gate.user.id };
 }
 
 /**

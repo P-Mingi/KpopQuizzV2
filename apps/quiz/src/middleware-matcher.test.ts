@@ -20,7 +20,7 @@ import { isKnownRoute, isKnownRouteWith, UX_V12_ROUTES } from '@/lib/route-allow
 // stays excluded: /g/[slug] (blind test) is a kept cached page.
 
 const MATCHER =
-  '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|q/|g/|s/|u/|quiz/|group/|embed/|(?:quizzes|blindtest|leaderboard|trivia|articles|data|groups|trending|new|most-liked|build|search|profile|me|notifications|news|stats|create|guess-the-kpop-idol|kpop-true-or-false|easy-kpop-quizzes|hard-kpop-quizzes|kpop-quiz-2026|terms|privacy|legal|dmca|about|faq|contact|daily)(?:/|$)|[^/]+-(?:quiz|trivia)(?:/|$)|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt)$|$).*)';
+  '/((?!api/|_next/static|_next/image|_next/data|favicon.ico|apple-touch-icon.png|sitemap.xml|robots.txt|q/|g/|s/|u/|quiz/|group/|embed/|(?:quizzes|blindtest|leaderboard|trivia|articles|data|groups|trending|new|most-liked|build|search|profile|me|notifications|news|stats|create|guess-the-kpop-idol|kpop-true-or-false|easy-kpop-quizzes|hard-kpop-quizzes|kpop-quiz-2026|terms|privacy|legal|dmca|about|faq|contact|daily)(?:/|$)|[^/]+-(?:quiz|trivia)(?:/|$)|(?!admin/).*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt)$|$).*)';
 
 // Next compiles the matcher string into a regex that tests the pathname.
 const re = new RegExp('^' + MATCHER + '$');
@@ -37,6 +37,7 @@ describe('middleware matcher (drift guard)', () => {
     expect(src).toContain('q/|g/|s/|u/|quiz/|group/|embed/|(?:quizzes|blindtest|leaderboard|trivia');
     expect(src).toContain('|create|guess-the-kpop-idol|kpop-true-or-false');
     expect(src).toContain('[^/]+-(?:quiz|trivia)(?:/|$)');
+    expect(src).toContain('|(?!admin/).*');
     // The killed prefixes must NOT reappear as matcher exclusions.
     expect(src).not.toContain('|games|');
     expect(src).not.toContain('tier-list|');
@@ -64,6 +65,15 @@ describe('middleware matcher: excluded (skipped) cached page prefixes', () => {
   ];
   for (const p of skip) {
     it(`skips ${p}`, () => expect(runsMiddleware(p)).toBe(false));
+  }
+});
+
+describe('middleware matcher: a file extension under /admin/ is no way around the lock (ADMIN-1)', () => {
+  for (const p of ['/admin/songs/x.png', '/admin/x.txt', '/admin/a.b/c.ico', '/admin/k7q2m/code.svg']) {
+    it(`runs ${p}`, () => expect(runsMiddleware(p)).toBe(true));
+  }
+  for (const p of ['/og-default.png', '/brand/kpop/logo.svg', '/x/admin/y.png', '/administrator/x.png', '/admin.png']) {
+    it(`still skips ${p}`, () => expect(runsMiddleware(p)).toBe(false));
   }
 });
 

@@ -1,13 +1,14 @@
 import { SpoilerShieldIsland } from '@/components/spoilers/spoiler-shield';
 import { t, VOCAB_VARS } from '@/lib/anime/copy';
-import { seriesPhotoOf } from '@/lib/anime/series-images';
 import { kindEyebrow, kindName } from '@/lib/anime/manhwa';
 import { SERIES_TRIVIA_MIN, groupQuizzesByArc, hubEyebrow, hubIntro, openingRows, quizLevels, safeUrl, seriesFaqs, shieldArcs, splitCharacters, storyMap, uniqueFacts, withPortraits, HUB_FACT_LIMIT } from '@/lib/anime/series-model';
 
+import { seriesDailyGame } from '@/lib/passerelles/series';
+
 import { CharacterTiles } from './character-tiles';
 import { OpeningsTable } from './openings-table';
-import { PhotoCredit } from './photo-credit';
 import { SeriesFactList } from './series-fact-list';
+import { SeriesDailyCard } from './series-daily-card';
 import { SeriesFacts } from './series-facts';
 import { StoryMap } from './story-map';
 import { TitleCard } from './title-card';
@@ -21,9 +22,6 @@ import type { Group } from '@/lib/db/types';
 
 /** The site the slots are for: its origin and brand name (the page passes SITE.url and SITE.brand.name). */
 export interface SlotSite { readonly origin: string; readonly brand: string }
-
-/** True when the photo of this slug asks for a credit line (CC BY, CC BY-SA); false for a title card or any other licence. */
-const photoCreditOf = (slug: string): boolean => Boolean(seriesPhotoOf(slug)?.attribution);
 
 /** The words of the growth blocks of the hub (ways to play, "be the first"), from the vocabulary of the anime site. */
 const growthWords = (): GrowthWords => {
@@ -51,6 +49,9 @@ export function buildSeriesSlots(hub: SeriesHub, related: readonly RelatedSeries
   const split = splitCharacters(hub.characters, hub.oshiCounts);
   // The owner's portraits go on the characters a reader may see; a locked character never gets one (its name is not in the page either).
   const characters = { open: withPortraits(split.open, portraits), lockedCount: split.lockedCount };
+  const dailyGame = seriesDailyGame(group.slug);
+  const shield = <SpoilerShieldIsland seriesSlug={group.slug} groupId={group.id} arcs={shieldArcs(hub.arcs)} />;
+  const storyMapEl = <StoryMap nodes={storyMap(hub.arcs, hub.quizzes)} />;
   return {
     origin: site.origin,
     brand: site.brand,
@@ -59,18 +60,20 @@ export function buildSeriesSlots(hub: SeriesHub, related: readonly RelatedSeries
     intro: hubIntro(group.name, published, group.seo_intro),
     startLabel: t('hub.start'),
     heroArt: <TitleCard title={group.name} slug={group.slug} />,
-    heroFacts: (
-      <>
-        <SeriesFacts series={series} sources={hub.sources} name={group.name} />
-        <PhotoCredit slug={group.slug} />
-      </>
-    ),
+    heroFacts: <SeriesFacts series={series} sources={hub.sources} name={group.name} />,
     blindtest: null,
     triviaAvailable: facts.length >= SERIES_TRIVIA_MIN,
-    beforeQuizzes: (
+    // P5 (CR-025), links 11 and 12: with the hub's dailyGuess on, the card of the series' daily game comes first; off, the same two children as ever.
+    beforeQuizzes: dailyGame ? (
       <>
-        <SpoilerShieldIsland seriesSlug={group.slug} groupId={group.id} arcs={shieldArcs(hub.arcs)} />
-        <StoryMap nodes={storyMap(hub.arcs, hub.quizzes)} />
+        <SeriesDailyCard game={dailyGame} />
+        {shield}
+        {storyMapEl}
+      </>
+    ) : (
+      <>
+        {shield}
+        {storyMapEl}
       </>
     ),
     grouping: {
@@ -105,8 +108,6 @@ export function buildMixSlots(group: Group, site: SlotSite): HubSlots {
     intro: t('mix.lede', { brand: site.brand }),
     startLabel: t('hub.start'),
     heroArt: <TitleCard title={group.name} slug={group.slug} />,
-    // The credit of the picture of the whole catalog (the same mechanism as a series); nothing without a photo that asks for one.
-    ...(photoCreditOf(group.slug) ? { heroFacts: <PhotoCredit slug={group.slug} /> } : {}),
     blindtest: null,
     triviaAvailable: false,
     faqs: [],
@@ -138,10 +139,7 @@ export function buildTriviaVariant(hub: SeriesHub, site: SlotSite): TriviaVarian
     ctaText: t('trivia.cta', { name }),
     ctaLink: t('trivia.play', { name }),
     sourcesTitle: t('trivia.sourcesTitle'),
-    // The photo of a CC BY series carries its credit line here too, under the picture (the hero logo box is a row, so a column wraps both).
-    logo: photoCreditOf(hub.group.slug)
-      ? <span className="anime-o2-photo-stack"><TitleCard title={name} slug={hub.group.slug} /><PhotoCredit slug={hub.group.slug} /></span>
-      : <TitleCard title={name} slug={hub.group.slug} />,
+    logo: <TitleCard title={name} slug={hub.group.slug} />,
     aboutType: 'TVSeries',
   };
 }

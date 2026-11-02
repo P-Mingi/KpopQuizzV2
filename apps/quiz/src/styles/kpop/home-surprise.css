@@ -1,0 +1,43 @@
+/* Surprise me on the kpopquiz.org home (owner, 2026-10-31, CR-015), right under the hero buttons. The hub's block (components/hub/home/
+   home-surprise.tsx) with the kpop-h2 class prefix; the rules are those of styles/sites/anime/h2.css in the kpop tokens. Imported by
+   app/(site)/page.tsx alone: the UX sheet is linked by every page, so a rule added there would change all of them. */
+
+html.ux-v1 .kpop-h2-surprise { display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 560px; margin: -20px auto 44px; }
+html.ux-v1 .kpop-h2-lede-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px 12px; }
+html.ux-v1 .kpop-h2-lede { margin: 0; font-size: 15px; line-height: 1.5; color: var(--ux-muted); }
+html.ux-v1 .kpop-h2-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--ux-edge); background: transparent; color: var(--ux-ink); font-family: inherit; font-weight: 600; font-size: 15px; line-height: 1; white-space: nowrap; cursor: pointer; }
+html.ux-v1 .kpop-h2-ghost:hover { background: var(--ux-surface); border-color: var(--ux-input); }
+html.ux-v1 .kpop-h2-btn { transition: background-color .15s, border-color .15s, transform .12s var(--ux-ease); }
+html.ux-v1 .kpop-h2-btn:active { transform: scale(.98); }
+
+/* The pick: one row, the colours of the site from its class (the hub's --hub-s family, here the K-pop accent). */
+html.ux-v1 .kpop-h2-s-k { --kpop-s: var(--ux-pink-fill); --kpop-s-soft: var(--ux-pink-soft); --kpop-s-ink: var(--ux-pink-soft-ink); }
+html.ux-v1 .kpop-h2-pick { box-sizing: border-box; width: 100%; max-width: 520px; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 16px; background: var(--ux-raised); border: 1px solid var(--ux-line); text-align: left; }
+html.ux-v1 .kpop-h2-th { flex: none; display: grid; place-items: center; overflow: hidden; font-weight: 800; background: var(--kpop-s-soft); color: var(--kpop-s-ink); }
+html.ux-v1 .kpop-h2-pick-tile { width: 42px; height: 42px; border-radius: 11px; font-size: 13px; }
+html.ux-v1 .kpop-h2-pick-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+html.ux-v1 .kpop-h2-pick-k { font-size: 12px; font-weight: 700; color: var(--kpop-s-ink); }
+html.ux-v1 .kpop-h2-pick-t { font-size: 15px; font-weight: 700; color: var(--ux-ink); }
+html.ux-v1 .kpop-h2-clamp { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+html.ux-v1 .kpop-h2-pick-play { display: inline-flex; align-items: center; min-height: 38px; padding: 0 14px; border-radius: 999px; background: var(--kpop-s); color: var(--ux-on-accent); text-decoration: none; font-weight: 700; font-size: 14px; }
+html.ux-v1 .kpop-h2-pick-again { min-height: 38px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--ux-line); background: var(--ux-raised); color: var(--ux-ink); font-family: inherit; font-weight: 600; font-size: 14px; cursor: pointer; }
+html.ux-v1 .kpop-h2-rise { animation: kpop-h2-rise .4s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes kpop-h2-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 760px) {
+  html.ux-v1 .kpop-h2-surprise { margin: -12px auto 28px; }
+}
+
+/* Phones: the pick takes two lines, the tile and the text first (the title on up to two lines), then Play and Another under the text. */
+@media (max-width: 520px) {
+  html.ux-v1 .kpop-h2-pick { flex-wrap: wrap; row-gap: 10px; }
+  html.ux-v1 .kpop-h2-pick-body { flex-basis: calc(100% - 54px); }
+  html.ux-v1 .kpop-h2-pick-t.kpop-h2-clamp { display: -webkit-box; white-space: normal; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; }
+  html.ux-v1 .kpop-h2-pick-play { margin-left: 54px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.ux-v1 .kpop-h2-btn { transition: none; }
+  html.ux-v1 .kpop-h2-btn:active { transform: none; }
+  html.ux-v1 .kpop-h2-rise { animation: none; }
+}

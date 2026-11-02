@@ -4,7 +4,7 @@
 // the icon of the library, the licence fields, the live version of a slot.
 import { useRef, useState } from 'react';
 
-import { ICON_COLORS, ICON_LIBRARY } from '@/lib/photos/slots';
+import { ICON_COLORS, ICON_LIBRARY, isFreeLicense } from '@/lib/photos/slots';
 
 import s from './photos-admin.module.css';
 
@@ -115,6 +115,27 @@ export function metaProblem(m: MetaState, sourceOptional = false): string | null
   if (!m.author.trim()) return 'Indique l\'auteur ou le crédit, tel qu\'il doit s\'afficher.';
   if (m.author.trim().length > 200) return 'Le crédit est trop long (200 caractères au plus).';
   if (!m.license) return 'Choisis la licence.';
+  if (m.license === 'other' && !m.note.trim()) return 'Précise la licence (obligatoire pour Autre).';
+  return null;
+}
+
+/**
+ * The credit of a picture of an entity (CR-021): the licence is one of the free ones, the author is required for CC BY and CC BY-SA, the source
+ * page is optional (https when given), "other" needs the licence's name. Commons overrides all of it at save time, server side.
+ */
+export function photoMetaProblem(m: MetaState): string | null {
+  const src = m.source.trim();
+  if (src) {
+    try {
+      if (new URL(src).protocol !== 'https:') return 'La page source doit commencer par https://.';
+    } catch {
+      return 'La page source doit être une adresse web complète (https://).';
+    }
+  }
+  if (!m.license || !isFreeLicense(m.license)) return 'Choisis la licence.';
+  const author = m.author.trim();
+  if (!author && (m.license === 'cc_by' || m.license === 'cc_by_sa')) return 'L\'auteur est obligatoire pour CC BY et CC BY-SA.';
+  if (author.length > 200) return 'Le crédit est trop long (200 caractères au plus).';
   if (m.license === 'other' && !m.note.trim()) return 'Précise la licence (obligatoire pour Autre).';
   return null;
 }

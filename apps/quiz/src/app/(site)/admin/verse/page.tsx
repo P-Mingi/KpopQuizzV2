@@ -1,7 +1,5 @@
-import { redirect } from 'next/navigation';
-
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
 import { findConflicts } from '@/lib/verse/overrides';
 
 import { VerseAdmin } from './verse-admin';
@@ -36,9 +34,7 @@ async function headCount(svc: SupabaseClient, table: string, notNull?: string): 
 }
 
 export default async function VerseAdminPage(): Promise<React.ReactElement> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  await requireAdmin();
 
   const svc = createServiceRoleClient();
 

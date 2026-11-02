@@ -1,0 +1,1070 @@
+{
+  "generated": "2026-11-02",
+  "note": "No birth date and no minor is listed. kind: conflict = sources disagree (nothing stored); single = fewer than two sources (nothing stored); majority = stored, 2 against 1.",
+  "conflicts": [
+    {
+      "group": "loona",
+      "name": "Heejin",
+      "qid": "Q56259179",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Heejin",
+      "qid": "Q56259179",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2016"
+    },
+    {
+      "group": "loona",
+      "name": "Hyunjin",
+      "qid": "Q48893612",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Hyunjin",
+      "qid": "Q48893612",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2016"
+    },
+    {
+      "group": "loona",
+      "name": "Haseul",
+      "qid": "Q57318729",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Haseul",
+      "qid": "Q57318729",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2016"
+    },
+    {
+      "group": "loona",
+      "name": "Yeojin",
+      "qid": "Q56824821",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Yeojin",
+      "qid": "Q56824821",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2017"
+    },
+    {
+      "group": "loona",
+      "name": "Vivi",
+      "qid": "Q57317398",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Vivi",
+      "qid": "Q57317398",
+      "field": "nationality",
+      "kind": "conflict",
+      "note": "sources disagree (wikidata China; wikipedia South Korea; musicbrainz birthplace South Korea): not inserted"
+    },
+    {
+      "group": "loona",
+      "name": "Kim Lip",
+      "qid": "Q56816418",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Kim Lip",
+      "qid": "Q56816418",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2017"
+    },
+    {
+      "group": "loona",
+      "name": "Jinsoul",
+      "qid": "Q56825122",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Jinsoul",
+      "qid": "Q56825122",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2017"
+    },
+    {
+      "group": "loona",
+      "name": "Choerry",
+      "qid": "Q58224261",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Choerry",
+      "qid": "Q58224261",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2017"
+    },
+    {
+      "group": "loona",
+      "name": "Yves",
+      "qid": "Q58825704",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Yves",
+      "qid": "Q58825704",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2018; Wikidata person work period says 2017"
+    },
+    {
+      "group": "loona",
+      "name": "Go Won",
+      "qid": "Q58825794",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "Olivia Hye",
+      "qid": "Q58825825",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date and MusicBrainz marks the relation ended; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loona",
+      "name": "(group)",
+      "qid": "Q28025953",
+      "field": "leader",
+      "kind": "conflict",
+      "note": "3 members flagged leader: check by hand"
+    },
+    {
+      "group": "got7",
+      "name": "Mark",
+      "qid": "Q16075083",
+      "field": "name",
+      "kind": "single",
+      "note": "stage name taken from the English Wikipedia list; Wikidata label \"Mark Tuan\" does not match it (kept: the Wikipedia name)"
+    },
+    {
+      "group": "got7",
+      "name": "Jay B",
+      "qid": "Q491048",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2014; Wikidata person work period says 2012"
+    },
+    {
+      "group": "got7",
+      "name": "Jinyoung",
+      "qid": "Q492313",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2014; Wikidata person work period says 2012"
+    },
+    {
+      "group": "got7",
+      "name": "Jay B",
+      "qid": "Q491048",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia group page)"
+    },
+    {
+      "group": "monsta-x",
+      "name": "Shownu",
+      "qid": "Q24834621",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia group page)"
+    },
+    {
+      "group": "girls-generation",
+      "name": "Sooyoung",
+      "qid": "Q233385",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2007; Wikidata person work period says 2002"
+    },
+    {
+      "group": "girls-generation",
+      "name": "Yoona",
+      "qid": "Q466975",
+      "field": "birth_date",
+      "kind": "majority",
+      "note": "resolved by majority (wikidata + wikipedia against musicbrainz)"
+    },
+    {
+      "group": "zerobaseone",
+      "name": "Kim Ji-woong",
+      "qid": "Q115933814",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2016"
+    },
+    {
+      "group": "zerobaseone",
+      "name": "Seok Matthew",
+      "qid": "Q117818045",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (wikidata): not inserted"
+    },
+    {
+      "group": "zerobaseone",
+      "name": "Sung Han-bin",
+      "qid": "Q117746200",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia group page)"
+    },
+    {
+      "group": "zerobaseone",
+      "name": "(group)",
+      "qid": "Q117808633",
+      "field": "maknae",
+      "kind": "single",
+      "note": "a current member has no agreed birth date: no maknae is set"
+    },
+    {
+      "group": "mamamoo",
+      "name": "Solar",
+      "qid": "Q19483969",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia member page)"
+    },
+    {
+      "group": "katseye",
+      "name": "Manon Bannerman",
+      "qid": "Q124692741",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2024; Wikidata person work period says 2021"
+    },
+    {
+      "group": "katseye",
+      "name": "Yoonchae Jeung",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "katseye",
+      "name": "(group)",
+      "qid": "Q123480242",
+      "field": "maknae",
+      "kind": "single",
+      "note": "a current member has no agreed birth date: no maknae is set"
+    },
+    {
+      "group": "illit",
+      "name": "Moka",
+      "qid": "Q126923758",
+      "field": "nationality",
+      "kind": "conflict",
+      "note": "sources disagree (wikidata Japan; wikipedia South Korea; musicbrainz birthplace South Korea): not inserted"
+    },
+    {
+      "group": "illit",
+      "name": "Iroha",
+      "qid": "Q126923761",
+      "field": "nationality",
+      "kind": "single-stored",
+      "note": "Wikidata only (Japan); English Wikipedia silent, MusicBrainz birthplace South Korea is not a nationality: stored"
+    },
+    {
+      "group": "treasure",
+      "name": "Jihoon",
+      "qid": "Q97352001",
+      "field": "gender",
+      "kind": "single",
+      "note": "fewer than two sources (wikidata): not inserted"
+    },
+    {
+      "group": "treasure",
+      "name": "Yoshi",
+      "qid": "Q98136892",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (wikidata): not inserted"
+    },
+    {
+      "group": "treasure",
+      "name": "Junkyu",
+      "qid": "Q97319986",
+      "field": "name",
+      "kind": "single",
+      "note": "stage name taken from the English Wikipedia list; Wikidata label \"Kim Jun-kyu\" does not match it (kept: the Wikipedia name)"
+    },
+    {
+      "group": "treasure",
+      "name": "Asahi",
+      "qid": "Q97352000",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (wikidata): not inserted"
+    },
+    {
+      "group": "treasure",
+      "name": "Doyoung",
+      "qid": "Q97320177",
+      "field": "name",
+      "kind": "single",
+      "note": "stage name taken from the English Wikipedia list; Wikidata label \"Kim Do-young\" does not match it (kept: the Wikipedia name)"
+    },
+    {
+      "group": "treasure",
+      "name": "Haruto",
+      "qid": "Q97352003",
+      "field": "nationality",
+      "kind": "single-stored",
+      "note": "Wikidata only (Japan); English Wikipedia silent, MusicBrainz birthplace South Korea is not a nationality: stored"
+    },
+    {
+      "group": "treasure",
+      "name": "Haruto",
+      "qid": "Q97352003",
+      "field": "name",
+      "kind": "single",
+      "note": "stage name taken from the English Wikipedia list; Wikidata label \"Watanabe Haruto\" does not match it (kept: the Wikipedia name)"
+    },
+    {
+      "group": "treasure",
+      "name": "Park Jeong-woo",
+      "qid": "Q97326265",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2020; Wikidata person work period says 2018"
+    },
+    {
+      "group": "treasure",
+      "name": "Yoon Jae-hyuk",
+      "qid": "Q98136886",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia group page)"
+    },
+    {
+      "group": "treasure",
+      "name": "Haruto",
+      "qid": "Q97352003",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia group page)"
+    },
+    {
+      "group": "treasure",
+      "name": "(group)",
+      "qid": "Q61057550",
+      "field": "maknae",
+      "kind": "single",
+      "note": "a current member has no agreed birth date: no maknae is set"
+    },
+    {
+      "group": "dreamcatcher",
+      "name": "Siyeon",
+      "qid": "Q59313326",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2017; Wikidata person work period says 2014"
+    },
+    {
+      "group": "dreamcatcher",
+      "name": "JiU",
+      "qid": "Q59313184",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia group page)"
+    },
+    {
+      "group": "tws",
+      "name": "Hanjin",
+      "qid": "Q132041929",
+      "field": "nationality",
+      "kind": "single-stored",
+      "note": "Wikidata only (China); English Wikipedia silent, MusicBrainz birthplace South Korea is not a nationality: stored"
+    },
+    {
+      "group": "tws",
+      "name": "Shinyu",
+      "qid": "Q132041926",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia group page)"
+    },
+    {
+      "group": "p1harmony",
+      "name": "Keeho",
+      "qid": "Q114690500",
+      "field": "nationality",
+      "kind": "single-stored",
+      "note": "Wikidata only (Canada); English Wikipedia silent, MusicBrainz birthplace South Korea is not a nationality: stored"
+    },
+    {
+      "group": "p1harmony",
+      "name": "Jiung",
+      "qid": "Q121579089",
+      "field": "name",
+      "kind": "single",
+      "note": "stage name taken from the English Wikipedia list; Wikidata label \"Choi Ji-ung\" does not match it (kept: the Wikipedia name)"
+    },
+    {
+      "group": "p1harmony",
+      "name": "Intak",
+      "qid": "Q121579095",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (musicbrainz): not inserted"
+    },
+    {
+      "group": "p1harmony",
+      "name": "Keeho",
+      "qid": "Q114690500",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia group page)"
+    },
+    {
+      "group": "p1harmony",
+      "name": "(group)",
+      "qid": "Q101529383",
+      "field": "maknae",
+      "kind": "single",
+      "note": "a current member has no agreed birth date: no maknae is set"
+    },
+    {
+      "group": "cortis",
+      "name": "James",
+      "qid": "Q135963716",
+      "field": "nationality",
+      "kind": "single-stored",
+      "note": "Wikidata only (China/Thailand); English Wikipedia silent, MusicBrainz birthplace South Korea is not a nationality: stored"
+    },
+    {
+      "group": "cortis",
+      "name": "James",
+      "qid": "Q135963716",
+      "field": "name",
+      "kind": "single",
+      "note": "stage name taken from the English Wikipedia list; Wikidata label \"Chao James\" does not match it (kept: the Wikipedia name)"
+    },
+    {
+      "group": "cortis",
+      "name": "Martin",
+      "qid": "Q135963739",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia group page)"
+    },
+    {
+      "group": "cortis",
+      "name": "(group)",
+      "qid": "Q135668928",
+      "field": "maknae",
+      "kind": "single",
+      "note": "a current member has no agreed birth date: no maknae is set"
+    },
+    {
+      "group": "hearts2hearts",
+      "name": "Carmen",
+      "qid": "Q131932321",
+      "field": "nationality",
+      "kind": "conflict",
+      "note": "sources disagree (wikidata Indonesia; wikipedia South Korea; musicbrainz birthplace South Korea): not inserted"
+    },
+    {
+      "group": "hearts2hearts",
+      "name": "Jiwoo",
+      "qid": "Q131932320",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia group page)"
+    },
+    {
+      "group": "kickflip",
+      "name": "Kyehoon",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "kickflip",
+      "name": "Amaru",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "kickflip",
+      "name": "Donghwa",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "kickflip",
+      "name": "Juwang",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "kickflip",
+      "name": "Minje",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "kickflip",
+      "name": "Keiju",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "kickflip",
+      "name": "Donghyeon",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "kickflip",
+      "name": "(group)",
+      "qid": "Q131722593",
+      "field": "maknae",
+      "kind": "single",
+      "note": "a current member has no agreed birth date: no maknae is set"
+    },
+    {
+      "group": "tuide",
+      "name": "Seohee",
+      "qid": "Q141030875",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (none): not inserted"
+    },
+    {
+      "group": "tuide",
+      "name": "Seoyeon",
+      "qid": "Q141030878",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (none): not inserted"
+    },
+    {
+      "group": "tuide",
+      "name": "Elena",
+      "qid": "Q141030881",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (none): not inserted"
+    },
+    {
+      "group": "tuide",
+      "name": "Jia",
+      "qid": "Q141030884",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (none): not inserted"
+    },
+    {
+      "group": "tuide",
+      "name": "Saki",
+      "qid": "Q141030888",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (none): not inserted"
+    },
+    {
+      "group": "tuide",
+      "name": "Seah",
+      "qid": "Q141030892",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (none): not inserted"
+    },
+    {
+      "group": "tuide",
+      "name": "Yi Hani",
+      "qid": "Q141030895",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (none): not inserted"
+    },
+    {
+      "group": "tuide",
+      "name": "(group)",
+      "qid": "Q141030335",
+      "field": "maknae",
+      "kind": "single",
+      "note": "a current member has no agreed birth date: no maknae is set"
+    },
+    {
+      "group": "lngshot",
+      "name": "Louis",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "lngshot",
+      "name": "Woojin",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "lngshot",
+      "name": "Ryul",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "lngshot",
+      "name": "Ohyul",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "lngshot",
+      "name": "(group)",
+      "qid": "Q137800046",
+      "field": "maknae",
+      "kind": "single",
+      "note": "a current member has no agreed birth date: no maknae is set"
+    },
+    {
+      "group": "artms",
+      "name": "Heejin",
+      "qid": "Q56259179",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2016"
+    },
+    {
+      "group": "artms",
+      "name": "Haseul",
+      "qid": "Q57318729",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2016"
+    },
+    {
+      "group": "artms",
+      "name": "Kim Lip",
+      "qid": "Q56816418",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2017"
+    },
+    {
+      "group": "artms",
+      "name": "Jinsoul",
+      "qid": "Q56825122",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2017"
+    },
+    {
+      "group": "artms",
+      "name": "Choerry",
+      "qid": "Q58224261",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2017"
+    },
+    {
+      "group": "artms",
+      "name": "Haseul",
+      "qid": "Q57318729",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia member page)"
+    },
+    {
+      "group": "artms",
+      "name": "Kim Lip",
+      "qid": "Q56816418",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia member page)"
+    },
+    {
+      "group": "loossemble",
+      "name": "Hyunjin",
+      "qid": "Q48893612",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loossemble",
+      "name": "Hyunjin",
+      "qid": "Q48893612",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2016"
+    },
+    {
+      "group": "loossemble",
+      "name": "Yeojin",
+      "qid": "Q56824821",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loossemble",
+      "name": "Yeojin",
+      "qid": "Q56824821",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2017"
+    },
+    {
+      "group": "loossemble",
+      "name": "Vivi",
+      "qid": "Q57317398",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loossemble",
+      "name": "Vivi",
+      "qid": "Q57317398",
+      "field": "nationality",
+      "kind": "conflict",
+      "note": "sources disagree (wikidata China; wikipedia South Korea; musicbrainz birthplace South Korea): not inserted"
+    },
+    {
+      "group": "loossemble",
+      "name": "Go Won",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "loossemble",
+      "name": "Hyeju",
+      "qid": "Q58825825",
+      "field": "membership",
+      "kind": "owner-decision",
+      "note": "English Wikipedia lists a current member; Wikidata has an end date; owner decision 2026-11-03: follow English Wikipedia"
+    },
+    {
+      "group": "loossemble",
+      "name": "Hyeju",
+      "qid": "Q58825825",
+      "field": "debut_year",
+      "kind": "owner-decision",
+      "note": "owner rule 2026-11-03: debuted with the group, so 2023; Wikidata person work period says 2018"
+    },
+    {
+      "group": "loossemble",
+      "name": "(group)",
+      "qid": "Q121975741",
+      "field": "maknae",
+      "kind": "single",
+      "note": "a current member has no agreed birth date: no maknae is set"
+    },
+    {
+      "group": "team",
+      "name": "Fuma",
+      "qid": "Q116226147",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (musicbrainz): not inserted"
+    },
+    {
+      "group": "team",
+      "name": "Nicholas",
+      "qid": "Q104723121",
+      "field": "nationality",
+      "kind": "single-stored",
+      "note": "Wikidata only (Taiwan); English Wikipedia silent, MusicBrainz birthplace Japan is not a nationality: stored"
+    },
+    {
+      "group": "team",
+      "name": "EJ",
+      "qid": "Q127427815",
+      "field": "nationality",
+      "kind": "single-stored",
+      "note": "Wikidata only (South Korea); English Wikipedia silent, MusicBrainz birthplace Japan is not a nationality: stored"
+    },
+    {
+      "group": "team",
+      "name": "Yuma",
+      "qid": "Q116226148",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (musicbrainz): not inserted"
+    },
+    {
+      "group": "team",
+      "name": "Jo",
+      "qid": "Q116226149",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (musicbrainz): not inserted"
+    },
+    {
+      "group": "team",
+      "name": "Harua",
+      "qid": "Q117746551",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (musicbrainz): not inserted"
+    },
+    {
+      "group": "team",
+      "name": "Taki",
+      "qid": "Q120696543",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (musicbrainz): not inserted"
+    },
+    {
+      "group": "team",
+      "name": "Maki",
+      "qid": "Q116226150",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (musicbrainz): not inserted"
+    },
+    {
+      "group": "team",
+      "name": "EJ",
+      "qid": "Q127427815",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia group page)"
+    },
+    {
+      "group": "team",
+      "name": "(group)",
+      "qid": "Q112834233",
+      "field": "maknae",
+      "kind": "single",
+      "note": "a current member has no agreed birth date: no maknae is set"
+    },
+    {
+      "group": "kiiikiii",
+      "name": "Leesol",
+      "qid": "Q133828175",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (wikidata): not inserted"
+    },
+    {
+      "group": "kiiikiii",
+      "name": "Sui",
+      "qid": "Q133828176",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (wikidata): not inserted"
+    },
+    {
+      "group": "kiiikiii",
+      "name": "Jiyu",
+      "qid": "Q133828174",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (wikidata): not inserted"
+    },
+    {
+      "group": "kiiikiii",
+      "name": "Haum",
+      "qid": "Q133828177",
+      "field": "birth_date",
+      "kind": "single",
+      "note": "fewer than two sources (wikidata): not inserted"
+    },
+    {
+      "group": "kiiikiii",
+      "name": "(group)",
+      "qid": "Q132526762",
+      "field": "maknae",
+      "kind": "single",
+      "note": "a current member has no agreed birth date: no maknae is set"
+    },
+    {
+      "group": "xikers",
+      "name": "Minjae",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "xikers",
+      "name": "Junmin",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "xikers",
+      "name": "Sumin",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "xikers",
+      "name": "Jinsik",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "xikers",
+      "name": "Hyunwoo",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "xikers",
+      "name": "Junghoon",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "xikers",
+      "name": "Seeun",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "xikers",
+      "name": "Yujun",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "xikers",
+      "name": "Hunter",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "xikers",
+      "name": "Yechan",
+      "qid": null,
+      "field": "identity",
+      "kind": "single",
+      "note": "listed by English Wikipedia as a current member, no Wikidata item found for the name: not inserted"
+    },
+    {
+      "group": "xikers",
+      "name": "(group)",
+      "qid": "Q117191573",
+      "field": "maknae",
+      "kind": "single",
+      "note": "a current member has no agreed birth date: no maknae is set"
+    },
+    {
+      "group": "astro",
+      "name": "Eunwoo",
+      "qid": "Q21060390",
+      "field": "name",
+      "kind": "single",
+      "note": "stage name taken from the English Wikipedia list; Wikidata label \"Cha Eun-woo\" does not match it (kept: the Wikipedia name)"
+    },
+    {
+      "group": "astro",
+      "name": "Jinjin",
+      "qid": "Q60991892",
+      "field": "leader",
+      "kind": "single",
+      "note": "leader from one source only (wikipedia member page)"
+    },
+    {
+      "group": "mamamoo",
+      "name": "(group)",
+      "qid": "Q17278068",
+      "field": "record_label",
+      "kind": "conflict",
+      "note": "wikipedia \"RBW\" and wikidata \"Rainbow Bridge World, Kakao M, Victor Entertainment\" differ: wikidata first label kept"
+    },
+    {
+      "group": "team",
+      "name": "(group)",
+      "qid": "Q112834233",
+      "field": "record_label",
+      "kind": "conflict",
+      "note": "wikipedia \"Hybe Corporation\" and wikidata \"YX LABELS\" differ: wikidata first label kept"
+    },
+    {
+      "group": "Babymonster",
+      "name": "Rora",
+      "qid": "Q123554440",
+      "field": "activation (021b)",
+      "kind": "conflict",
+      "note": "held back from the 021b yes list today: birth date not agreed (conflict); Wikidata: member, no end date"
+    }
+  ]
+}

@@ -1,8 +1,6 @@
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
-import { createServerClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { requireAdmin } from '@/lib/admin/guard';
 import { computeQuality } from '@/lib/verse/quality';
 
 export const dynamic = 'force-dynamic';
@@ -13,9 +11,7 @@ function Pct({ n, d }: { n: number; d: number }): React.ReactElement {
 }
 
 export default async function VerseQualityPage(): Promise<React.ReactElement> {
-  const c = await createServerClient();
-  const { data: { user } } = await c.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  await requireAdmin();
 
   const { summary, groups, wanted } = await computeQuality();
   const dot = (on: boolean): React.ReactElement => <span className={`inline-block h-2.5 w-2.5 rounded-full ${on ? 'bg-green-500' : 'bg-neutral-300'}`} aria-label={on ? 'yes' : 'no'} />;

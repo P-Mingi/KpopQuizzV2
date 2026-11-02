@@ -25,8 +25,9 @@ export interface AdminImage {
   readonly thumbUrl: string | null;
   readonly focalX: number;
   readonly focalY: number;
-  readonly sourceUrl: string;
-  readonly author: string;
+  /** Optional since CR-021 (the owner may leave the source page and, except for CC BY and CC BY-SA, the author out). */
+  readonly sourceUrl: string | null;
+  readonly author: string | null;
   readonly license: string;
   readonly licenseNote: string | null;
   readonly verified: boolean;
@@ -74,7 +75,7 @@ export interface PhotosAdminData {
 
 interface ImageRow {
   site_id: string; kind: string; slug: string; path: string; focal_x: number | string; focal_y: number | string;
-  source_url: string; author: string; license: string; license_note: string | null; license_verified?: boolean; thumb_path?: string | null;
+  source_url: string | null; author: string | null; license: string; license_note: string | null; license_verified?: boolean; thumb_path?: string | null;
 }
 
 /** The catch-all kpop group (general K-pop quizzes), never a real group. */

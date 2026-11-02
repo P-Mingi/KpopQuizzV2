@@ -10,10 +10,10 @@ vi.mock('@supabase/supabase-js', () => ({
     rpc: async (fn: string, args: unknown) => { state.rpcs.push({ fn, args }); return { data: state.data, error: null }; },
   }),
 }));
-vi.mock('@/lib/supabase/server', () => ({
-  createServerClient: async () => ({ auth: { getUser: async () => ({ data: { user: { id: 'admin-user' } } }) } }),
+// ADMIN-1: the real guard (lib/admin/guard.ts): admin-user is the listed admin (ADMIN_USER_IDS below), its session at aal2.
+vi.mock('@/lib/supabase/server', async () => ({
+  createServerClient: async () => ({ auth: (await import('@/lib/admin/test-support')).stubAuth(() => ({ user: { id: 'admin-user' } })) }),
 }));
-vi.mock('@/lib/admin', () => ({ isAdmin: (id: string) => id === 'admin-user' }));
 
 async function get(site: string): Promise<Response> {
   vi.resetModules();
@@ -22,8 +22,9 @@ async function get(site: string): Promise<Response> {
   vi.stubEnv('QOTD_ROTATION_FIX', '');
   vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
   vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'not-a-credential-unit-test-placeholder');
+  vi.stubEnv('ADMIN_USER_IDS', 'admin-user');
   const { GET } = await import('./route');
-  return GET(new NextRequest('https://example.test/api/qotd/publish?date=2026-10-01'));
+  return GET(new NextRequest('https://example.test/api/qotd/publish?date=2026-10-01', { headers: { 'sec-fetch-site': 'same-origin' } }));
 }
 
 beforeEach(() => { state.rpcs = []; state.data = 'quiz-of-the-day-id'; });

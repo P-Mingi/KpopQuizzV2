@@ -161,7 +161,7 @@
       ],
       "owner": "O1",
       "body": "shared",
-      "notes": "The series rail shows title cards (A7); the blind test band becomes the openings band through V. No A5 on the home (D-020). The community section renders as the shared component does with zero rows (D-020). The file is shared with row H-1 and dispatches on the site. Surprise me (A8) sits under the hero buttons, before the quiz of the day (UxHome's afterHeader slot; kpop passes none)."
+      "notes": "The series rail shows title cards (A7); the blind test band becomes the openings band through V. No A5 on the home (D-020). The community section renders as the shared component does with zero rows (D-020). The file is shared with row H-1 and dispatches on the site. Surprise me (A8) sits under the hero buttons, before the quiz of the day (UxHome's afterHeader slot; kpop passes its own block since CR-015, with its own prefix and pool)."
     },
     {
       "id": "2",
@@ -1438,6 +1438,59 @@
       "notes": "The series photo credits (IMG, owner rules 2026-10-26): OtakuQuiz only, no kpop twin page, so the twin is the kpop [slug] page of rows 3 to 5. Served by the one /credits file of app/sites/[site], shared with row H-11, which dispatches on the site as the legal notice of rows 26d and H-10 does (daily games step 2 review: a static (hub)/credits beside the dynamic [slug] took the path from OtakuQuiz, so the file left [slug]). Page-local body, plain English text, no K-pop text. Links the footer of row 28."
     },
     {
+      "id": "43",
+      "site": "anime",
+      "route": "/admin/k7q2m/code",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/admin/k7q2m/code/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/admin/k7q2m/code/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "app/(site)/admin/k7q2m/code/page.tsx",
+        "components/admin/mfa/mfa-page.tsx"
+      ],
+      "allowed": [
+        "T",
+        "C"
+      ],
+      "owner": "O1",
+      "body": "shared",
+      "notes": "ADMIN-1 (owner, 2026-10-30): thin re-export of the kpop TOTP code page. Shows for a listed, verified admin at aal1 with a factor. 404 to anyone requireAdmin('mfa') refuses (the guard layout of row 45 answers first). A listed admin at aal2 goes to the admin home, one with no factor while ADMIN_MFA_ENROL_OPEN=1 goes to row 44. Admin only, never indexed, never linked."
+    },
+    {
+      "id": "44",
+      "site": "anime",
+      "route": "/admin/k7q2m/setup",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/admin/k7q2m/setup/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/admin/k7q2m/setup/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "app/(site)/admin/k7q2m/setup/page.tsx",
+        "components/admin/mfa/mfa-page.tsx"
+      ],
+      "allowed": [
+        "T",
+        "C"
+      ],
+      "owner": "O1",
+      "body": "shared",
+      "notes": "ADMIN-1 (owner, 2026-10-30): thin re-export of the kpop TOTP setup page. Shows for a listed, verified admin with no verified factor (at aal1, or at aal2 after a factor was deleted), only while ADMIN_MFA_ENROL_OPEN=1. 404 to anyone requireAdmin('mfa') refuses, so to that same admin while the switch is off (the guard layout of row 45 answers first). A listed admin at aal2 goes to the admin home, one at aal1 with a factor goes to row 43. Admin only, never indexed, never linked."
+    },
+    {
+      "id": "45",
+      "site": "anime",
+      "route": "guard layout of the anime admin tree",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/admin/layout.tsx",
+      "twin": null,
+      "mustImport": [],
+      "allowed": [],
+      "notes": "ADMIN-1 review (owner, 2026-10-30): technical, requireAdmin('mfa') answers notFound() before any admin page runs; renders its children and nothing of its own. On the hub this tree is never reached: its /admin paths take the unknown-URL answer (CR-016).",
+      "renders": [
+        "nothing visible: an admin guard that renders its children, or a 404"
+      ],
+      "owner": "O1",
+      "body": "none"
+    },
+    {
       "id": "H-0",
       "site": "hub",
       "route": "shell: nav, tab bar, footer",
@@ -1680,6 +1733,245 @@
       "owner": "H1",
       "body": "local",
       "notes": "The licensed photo credits of bunnyverse.org (daily games step 2, RAPPORT-JEUX-DU-JOUR-v2.md 7.1): Bunnyverse only, no kpop twin page, so the twin is the kpop [slug] page, as for row 42. The same file as row 42, at the root of app/sites/[site] (not in the (hub) group: one path cannot have two files, and a static file there took /credits from OtakuQuiz). Page-local body, plain English text, the credit system of row 42 (the licence words and links of lib/anime/entity-images-rules.ts). Linked from the footer of row H-0 (its Credits link shows where the route exists)."
+    },
+    {
+      "id": "46",
+      "site": "hub",
+      "route": "/daily (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/burrow/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/burrow-page.tsx",
+        "components/hub/dle/burrow-board.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The Terrier of the daily games (board Main.dc.html, v2 section 2): no kpop twin page, so the twin is the kpop [slug] page, as for H-11. In the (hub) group under the folder burrow: /sites/[site]/daily is the anime handler of row 10, so routing.ts rewrites /daily to it, and a request to /burrow is the 404. A 404 with the dailyGuess flag off, as any unknown URL (CR-013)."
+    },
+    {
+      "id": "47",
+      "site": "hub",
+      "route": "/fr/daily (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/fr/daily/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/burrow-page.tsx",
+        "components/hub/dle/burrow-board.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The French Terrier, same components as row 46. Noindex until the owner reviewed the French (DLE_FR_REVIEWED). A 404 with the flag off (CR-013)."
+    },
+    {
+      "id": "48",
+      "site": "hub",
+      "route": "/kpopdle (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/kpopdle/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/dle-game-page.tsx",
+        "components/hub/dle/dle-game.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "Kpopdle Idol (board Kpopdle.dc.html, v2 section 6), wired on dle_day, dle_guess, dle_give_up and dle_pool: no kpop twin page, so the twin is the kpop [slug] page. A 404 with the flag off (CR-013)."
+    },
+    {
+      "id": "49",
+      "site": "hub",
+      "route": "/fr/kpopdle (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/fr/kpopdle/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/dle-game-page.tsx",
+        "components/hub/dle/dle-game.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The French Kpopdle Idol, same components as row 48. Noindex until the owner reviewed the French. A 404 with the flag off (CR-013)."
+    },
+    {
+      "id": "50",
+      "site": "hub",
+      "route": "/fr/credits (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/fr/credits/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/credits/hub-credits.tsx",
+        "components/hub/dle/dle-chrome.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The French twin of /credits (row H-11), in the frame of the French pages. Noindex while it lists nothing and until the owner reviewed the French. A 404 with the flag off (CR-013)."
+    },
+    {
+      "id": "51",
+      "site": "hub",
+      "route": "a shared result, /kpopdle?r={counts}, /otakudle?r={counts} or /otakudle/{series}?r={counts} (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/dle-share/[locale]/[game]/[r]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/dle-game-page.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The same page as row 48, 49, 52, 53, 54, 55, 56 or 57 with the share image of the result (v2 section 11.6), canonical on the clean address. Reached only through the rewrite of routing.ts, on the query parameter, so that /kpopdle stays static; /dle-share is a 404. A 404 with the flag off (CR-013)."
+    },
+    {
+      "id": "52",
+      "site": "hub",
+      "route": "/otakudle (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/otakudle/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/dle-game-page.tsx",
+        "components/hub/dle/dle-game.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "Otakudle, the character of the day across all series (board Otakudle.dc.html, v2 sections 5.5 and 6), wired on dle_day, dle_guess, dle_give_up and dle_pool, with \"How far are you?\": no kpop twin page, so the twin is the kpop [slug] page. Series of the day and one Otakudle per series come after the launch: their steps say soon. A 404 with the flag off (CR-017)."
+    },
+    {
+      "id": "53",
+      "site": "hub",
+      "route": "/fr/otakudle (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/fr/otakudle/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/dle-game-page.tsx",
+        "components/hub/dle/dle-game.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The French Otakudle, same components as row 52. Noindex until the owner reviewed the French. A 404 with the flag off (CR-017)."
+    },
+    {
+      "id": "54",
+      "site": "hub",
+      "route": "/otakudle/one-piece (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/otakudle/one-piece/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/dle-game-page.tsx",
+        "components/hub/dle/dle-game.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "Otakudle One Piece, the One Piece character of the day (board Otakudle.dc.html, owner 2026-11-03, CR-024): the games of one series on the daily games engine, 8 columns, wired on dle_day, dle_guess, dle_give_up and dle_pool, no \"How far are you?\". Same components as row 52, with the hint slot that follows the key served, the chain Otakudle, One Piece, Dragon Ball and the table of French values. No kpop twin page, so the twin is the kpop [slug] page. A 404 with the flag off."
+    },
+    {
+      "id": "55",
+      "site": "hub",
+      "route": "/fr/otakudle/one-piece (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/fr/otakudle/one-piece/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/dle-game-page.tsx",
+        "components/hub/dle/dle-game.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The French Otakudle One Piece, same components as row 54. Noindex until the owner reviewed the French. A 404 with the flag off (CR-024)."
+    },
+    {
+      "id": "56",
+      "site": "hub",
+      "route": "/otakudle/dragon-ball (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/otakudle/dragon-ball/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/dle-game-page.tsx",
+        "components/hub/dle/dle-game.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "Otakudle Dragon Ball, the Dragon Ball character of the day (board Otakudle.dc.html, owner 2026-11-03, CR-024): the games of one series on the daily games engine, 8 columns, wired on dle_day, dle_guess, dle_give_up and dle_pool, no \"How far are you?\". Same components as row 52, with the hint slot that follows the key served, the chain Otakudle, One Piece, Dragon Ball and the table of French values. No kpop twin page, so the twin is the kpop [slug] page. A 404 with the flag off."
+    },
+    {
+      "id": "57",
+      "site": "hub",
+      "route": "/fr/otakudle/dragon-ball (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/fr/otakudle/dragon-ball/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/dle-game-page.tsx",
+        "components/hub/dle/dle-game.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The French Otakudle Dragon Ball, same components as row 56. Noindex until the owner reviewed the French. A 404 with the flag off (CR-024)."
     }
   ]
 }

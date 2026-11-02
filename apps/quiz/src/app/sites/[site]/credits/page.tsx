@@ -7,16 +7,21 @@
 // - hub: the licensed photos of bunnyverse.org (daily games step 2, RAPPORT-JEUX-DU-JOUR-v2.md 7.1; components/hub/credits/hub-credits.tsx),
 //   read from the public views of migration 022 (verified pictures and live banners only; lib/photos/public-read.ts), the names of the
 //   characters as OtakuQuiz prints them (no spoiler). The footer's Credits link (shown where the route exists) appears on the hub. Noindex
-//   while it lists nothing; NET_INDEXING like every hub page otherwise (robotsFor). English only: /fr/credits waits for the French pages
-//   of the Burrow;
-// - any other build: a 404 (TWINS.md rule 3: a file serves only the sites of its rows; kpopquiz.org has no /credits).
+//   while it lists nothing; NET_INDEXING like every hub page otherwise (robotsFor). Its French twin is (hub)/fr/credits (daily games step 4):
+//   the two carry hreflang once the flag opens that page;
+// - any other build: a 404 (TWINS.md rule 3: a file serves only the sites of its rows; kpopquiz.org has its own app/(site)/credits/page.tsx, CR-021).
+// CR-021 (owner decision of 2026-11-02): on both sites the page lists only the images that need a credit (CC BY, CC BY-SA), filled from the stored rows,
+// and it exists only if there is at least one: with none, it is a 404 like any unknown URL (and the footer's link is gone, lib/credits/site-credits.ts).
 // Server-rendered, ISR: the reads are cached and fail closed (no row, no error page).
 import { notFound } from 'next/navigation';
 
 import { CREDITS_DESCRIPTION as ANIME_DESCRIPTION, CREDITS_PATH, CREDITS_TITLE as ANIME_TITLE, CreditsPage } from '@/components/anime/credits-page';
 import { CREDITS_DESCRIPTION as HUB_DESCRIPTION, CREDITS_TITLE as HUB_TITLE, HubCreditsPage, creditSections } from '@/components/hub/credits/hub-credits';
 import { getCreditNames, getOwnerCreditRows } from '@/lib/anime/entity-images-read';
+import { SERIES_IMAGE_CREDITS } from '@/lib/anime/series-images.generated';
 import { getLiveAssets, getPublicPictures } from '@/lib/photos/public-read';
+import { dleAlternates } from '@/lib/dle/seo';
+import { dailyGuessOn } from '@/lib/site/hub/daily-guess';
 import { robotsFor } from '@/lib/site/indexing';
 import { SITE, SITE_ID } from '@/lib/site/registry';
 
@@ -35,14 +40,28 @@ async function hubSections(): Promise<ReturnType<typeof creditSections>> {
   return creditSections(pictures, assets, names.character, names.series);
 }
 
+/** What OtakuQuiz's page lists: the owner's images that need a credit, and the bundled photos that do and that he has not replaced. Both empty: no page. */
+async function animeCredits(): Promise<{ owner: Awaited<ReturnType<typeof getOwnerCreditRows>>; credits: typeof SERIES_IMAGE_CREDITS }> {
+  const all = await getOwnerCreditRows();
+  const owner = all.filter((o) => o.credited);
+  const replaced = new Set(all.filter((o) => o.kind === 'series').map((o) => o.slug));
+  const credits = Object.fromEntries(Object.entries(SERIES_IMAGE_CREDITS).filter(([slug, c]) => c.attributionRequired && !replaced.has(slug)));
+  if (owner.length === 0 && Object.keys(credits).length === 0) notFound();
+  return { owner, credits };
+}
+
 export async function generateMetadata(): Promise<Metadata> {
-  if (SITE_ID === 'anime') return { title: ANIME_TITLE, description: ANIME_DESCRIPTION, robots: robotsFor(true), alternates: { canonical: CREDITS_PATH } };
+  if (SITE_ID === 'anime') {
+    await animeCredits();
+    return { title: ANIME_TITLE, description: ANIME_DESCRIPTION, robots: robotsFor(true), alternates: { canonical: CREDITS_PATH } };
+  }
   if (SITE_ID !== 'hub') notFound();
   const listed = (await hubSections()).length > 0;
+  if (!listed) notFound();
   return {
     title: HUB_TITLE,
     description: HUB_DESCRIPTION,
-    alternates: { canonical: CREDITS_PATH },
+    alternates: dailyGuessOn() ? dleAlternates(CREDITS_PATH, 'en') : { canonical: CREDITS_PATH },
     robots: robotsFor(listed),
     openGraph: {
       title: `${HUB_TITLE} | ${SITE.brand.name}`, description: HUB_DESCRIPTION, url: `${SITE.url}${CREDITS_PATH}`, siteName: SITE.brand.name, type: 'website',
@@ -52,7 +71,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Credits(): Promise<React.ReactElement> {
-  if (SITE_ID === 'anime') return CreditsPage({ owner: await getOwnerCreditRows() });
+  if (SITE_ID === 'anime') return CreditsPage(await animeCredits());
   if (SITE_ID !== 'hub') notFound();
-  return <HubCreditsPage sections={await hubSections()} />;
+  const sections = await hubSections();
+  if (sections.length === 0) notFound();
+  return <HubCreditsPage sections={sections} />;
 }

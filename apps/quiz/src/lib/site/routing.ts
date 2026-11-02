@@ -17,9 +17,9 @@
 // Keep this module free of `@/` imports, next/* and Node built-ins: next.config.ts and the
 // edge middleware import it.
 
-import { isKnownRouteWith } from '../route-allowlist';
+import { NOT_FOUND_REWRITE, isFilePath, isKnownRouteWith } from '../route-allowlist';
 
-import { REGISTRY, SITE_ID } from './registry';
+import { DLE_BUILT_GAMES, REGISTRY, SITE_ID } from './registry';
 
 import { SITE_IDS } from './types';
 
@@ -95,6 +95,26 @@ export function keyFileBlocksFor(site: SiteId): readonly SiteRewrite[] {
   return out;
 }
 
+/** Daily games step 4: the internal folder of /daily (/sites/[site]/daily is the anime handler of the quiz of the day: one path cannot have two files) and of the shared results. */
+export const BURROW_INTERNAL = '/burrow';
+export const SHARE_INTERNAL = '/dle-share';
+/** A shared result: the right cells of each guess, at most 20 guesses (the link stays short). */
+export const SHARE_R_PATTERN = '[0-9]{1,2}(?:-[0-9]{1,2}){0,19}';
+
+/**
+ * The icons of kpopquiz.org at their root addresses, answered from public/brand/kpop/ (owner, 2026-11-01: the white rabbit on a full pink
+ * square, the icon Google shows). The root files of public/ stay as they are: routing.test.ts holds them equal to the copies of anime and
+ * hub (D-099), and those two sites keep their icons. next.config.ts adds these on the kpop build only; rewritesFor('kpop') stays empty.
+ */
+export const KPOP_ICON_FILES: readonly string[] = [
+  '/favicon.ico', '/favicon.svg', '/favicon-16x16.png', '/favicon-32x32.png', '/apple-touch-icon.png',
+  '/android-chrome-192x192.png', '/android-chrome-512x512.png',
+];
+
+export function kpopIconRewrites(): readonly SiteRewrite[] {
+  return KPOP_ICON_FILES.map((f) => ({ source: f, destination: brandPath('kpop', f) }));
+}
+
 /**
  * Pretty public URLs of a site that map to a different internal page (anime only today).
  * `source` is the public path; next.config receives it prefixed with /sites/<site> (see
@@ -109,7 +129,8 @@ const PRETTY_REWRITES: Readonly<Record<SiteId, readonly { source: string; intern
     // O5: Which character are you.
     { source: '/which-:series-character-are-you', internal: '/which-character/:series' },
   ],
-  hub: [],
+  // Daily games step 4: /daily of the hub is served by (hub)/burrow, because /sites/[site]/daily is the anime handler of the quiz of the day.
+  hub: [{ source: '/daily', internal: BURROW_INTERNAL }],
 };
 
 /**
@@ -120,7 +141,8 @@ const PRETTY_REWRITES: Readonly<Record<SiteId, readonly { source: string; intern
 const BLOCKED_PUBLIC: Readonly<Record<SiteId, readonly string[]>> = {
   kpop: [],
   anime: ['/blindtest'],
-  hub: [],
+  // The internal folders of the daily games: reached only through the rewrites below.
+  hub: [BURROW_INTERNAL, SHARE_INTERNAL],
 };
 
 /**
@@ -137,6 +159,20 @@ export const CATCH_ALL_PATTERN =
 export interface SiteRewrite {
   readonly source: string;
   readonly destination: string;
+  /** A Next rewrite condition: the rule applies only when the query parameter has this value. */
+  has?: { type: 'query'; key: string; value: string }[];
+}
+
+/**
+ * Daily games step 4 (v2 section 11.6): a shared result, /kpopdle?r=2-1-3, keeps the page static: the rule sends the parameter to the one
+ * internal page that draws the image of that result in its metadata; its canonical is the clean address. A bad value stays on the page.
+ */
+function dleShareRewrites(base: string): readonly SiteRewrite[] {
+  return DLE_BUILT_GAMES.flatMap((g) => (['en', 'fr'] as const).map((locale) => ({
+    source: `${base}${locale === 'fr' ? '/fr' : ''}${g.path}`,
+    has: [{ type: 'query' as const, key: 'r', value: `(?<r>${SHARE_R_PATTERN})` }],
+    destination: `${base}${SHARE_INTERNAL}/${locale}/${g.id}/:r`,
+  })));
 }
 
 /** The internal path of a public path on a non-kpop site: '/' becomes '/sites/anime'. */
@@ -177,6 +213,7 @@ export function rewritesFor(site: SiteId): readonly SiteRewrite[] {
       { source: `${base}${p}/:rest*`, destination: `${base}/gone` },
     ]),
     ...PRETTY_REWRITES[site].map((r) => ({ source: `${base}${r.source}`, destination: `${base}${r.internal}` })),
+    ...(site === 'hub' ? dleShareRewrites(base) : []),
   ];
 }
 
@@ -316,16 +353,38 @@ export function isKnownWithoutSitesEntry(pathname: string): boolean {
  *   KNOWN_ROUTES for the build guard only, so the middleware answers these paths before the kpop
  *   branch with that branch's own unknown-route answer (a page path is rewritten to
  *   NOT_FOUND_REWRITE, a file path goes on to Next): the answer they get today. A /sites path the
- *   allowlist knows anyway (a -quiz or -trivia suffix) stays 'kpop', as today;
+ *   allowlist knows anyway (a -quiz or -trivia suffix) stays 'kpop', as today. Also, on the hub, every page path
+ *   its route map does not know (CR-016, isHubUnknownPage): the one answer of an unknown URL. [...rest] names the requested
+ *   segments in its Flight data, and the anime tree the hub compiles answers its own paths from a group
+ *   layout, so without this /admin could be told from /nimda by its bytes (the hub has no admin);
  * - 'session': a non-kpop path that needs the session refresh (the existing protected branch);
  * - 'pass': any other non-kpop path, passed straight to the rewrites (never a kpop legacy
  *   redirect, the Verse gate or the kpop unknown-route answer).
  */
 export type MiddlewareStep = 'kpop' | 'not-found' | 'session' | 'pass';
 
+/**
+ * What is not the hub's to answer as an unknown page: the framework's paths and the asset prefix of a Microfrontends child, the
+ * .well-known paths of Vercel and of the Microfrontends group, the zone of the child (/anime: the group routes it before the hub, and
+ * a direct or local request keeps the answer it always had) and the root metadata routes of Next.
+ */
+const HUB_NOT_A_PAGE = /^\/(?:_next|_vercel|\.well-known|anime)(?:\/|$)|^\/__nextjs|^\/vc-ap-|^\/(?:opengraph-image|twitter-image|icon|apple-icon|manifest)(?:\d+|-[a-z0-9]+)?$/;
+
+/**
+ * CR-016: a page path of no route of the hub. As on the kpop branch a file path goes on to Next. Next hands the middleware a .rsc request
+ * under its page path (/nimda for /nimda.rsc), so that one needs no case of its own. The rewrite's own target and the /sites paths
+ * it goes through come back here: they pass, or the middleware would loop (a 500).
+ */
+function isHubUnknownPage(pathname: string): boolean {
+  return !isFilePath(pathname) && pathname !== NOT_FOUND_REWRITE && !isSitesPath(pathname) && !HUB_NOT_A_PAGE.test(pathname)
+    && !isKnownRouteFor('hub', pathname, { v1: true, v12: true });
+}
+
 export function middlewareStep(site: SiteId, pathname: string): MiddlewareStep {
   if (site === 'kpop') return isSitesPath(pathname) && !isKnownWithoutSitesEntry(pathname) ? 'not-found' : 'kpop';
-  return isSessionPathFor(site, pathname) ? 'session' : 'pass';
+  if (isSessionPathFor(site, pathname)) return 'session';
+  if (site === 'hub' && isHubUnknownPage(pathname)) return 'not-found';
+  return 'pass';
 }
 
 /** generateStaticParams of app/sites/[site]: only the current site, nothing on kpop. */

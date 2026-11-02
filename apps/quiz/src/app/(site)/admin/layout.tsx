@@ -1,20 +1,29 @@
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 import type { Metadata } from 'next';
 
+import { requireAdmin } from '@/lib/admin/guard';
 import { BT_TRACKING } from '@/lib/tracking/bt-shared';
 import { isUxV12 } from '@/lib/ux-v12';
 
-export const metadata: Metadata = {
-  title: 'Admin | KpopQuiz',
-  robots: { index: false, follow: true },
-};
+// ADMIN-1 (owner, 2026-10-30): the 404 of a refused visitor must say nothing about the admin. A notFound() thrown by a page renders
+// inside this layout, so this layout answers first: its nav and its title exist only for a listed admin whose session the auth server
+// verifies (the nav only at aal2); anyone else gets the site's 404 from above this layout. Each page keeps its own requireAdmin:
+// a layout is not re-run on a client navigation.
+export async function generateMetadata(): Promise<Metadata> {
+  const admin = await requireAdmin('check');
+  return admin ? { title: 'Admin', robots: { index: false, follow: false } } : { robots: { index: false, follow: false } };
+}
 
 interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
-export default function AdminLayout({ children }: AdminLayoutProps): React.ReactElement {
+export default async function AdminLayout({ children }: AdminLayoutProps): Promise<React.ReactElement> {
+  const admin = await requireAdmin('mfa');
+  if (!admin) notFound();
+  if (admin.level !== 'pass') return <div className="px-4">{children}</div>;
   return (
     <div
       className="relative px-4"

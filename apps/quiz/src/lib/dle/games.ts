@@ -1,13 +1,22 @@
 // Daily games (step 1): the games of the Terrier and their future addresses on bunnyverse.org. Pure, no I/O.
 //
 // The games live in the hub (app/sites/[site]/(hub)/..., v2 section 9), English addresses, French under /fr with the same
-// words (v2 section 2): the names of the games are brands and are never translated. No page exists yet: step 4 adds the
-// pages, their patterns in the hub's route map (registry.ts) and switches the hub's dailyGuess flag on.
+// words (v2 section 2): the names of the games are brands and are never translated. Step 4 adds the first pages (/daily, /kpopdle and
+// their French twins, /fr/credits). A game has a page when DLE_BUILT_GAMES of registry.ts lists it: that one line opens its routes in the hub's route map, its
+// tile and its rows, so a new game is that line, its data and one page. Everything stays closed while the hub's dailyGuess flag is off.
+import { DLE_BUILT_GAMES, dleLivePaths } from '@/lib/site/registry';
+
 import type { SiteId } from '@/lib/site/types';
 
 import type { DleLocale } from './types';
 
-export type DleGameId = 'kpopdle-idol' | 'kpopdle-group' | 'kpopdle-song' | 'otakudle';
+export type DleGameId = 'kpopdle-idol' | 'kpopdle-group' | 'kpopdle-song' | 'otakudle' | 'otakudle-one-piece' | 'otakudle-dragon-ball';
+
+/** One hint slot: the key that opens it and the errors it takes. `or` lists keys the server may serve in the same slot (024: Dragon Ball serves the signature technique, else the Japanese voice actor, never both). */
+export interface DleHintDef { readonly key: string; readonly after: number; readonly or?: readonly string[] }
+
+/** The series of a per-series game (024): its slug on OtakuQuiz and the title shown next to a character's name. */
+export interface DleSeriesDef { readonly slug: string; readonly name: string }
 
 export interface DleGameDef {
   readonly id: DleGameId;
@@ -18,16 +27,34 @@ export interface DleGameDef {
   readonly path: string;
   /** What the player guesses, per locale. */
   readonly guess: Readonly<Record<DleLocale, string>>;
+  /** Its page exists (DLE_BUILT_GAMES of registry.ts): its routes open with the flag, its tile and rows link to it. */
+  readonly built: boolean;
+  /** The hints of the game in order, with the errors that open each one (dle_games.hint_keys and hint_after of its migration). */
+  readonly hints: readonly DleHintDef[];
+  /** The kind of its pictures in entity_images_public (never used as a clue). */
+  readonly photoKind: 'idol' | 'group' | 'character' | null;
+  /** A game of one series (/otakudle/one-piece): the series it belongs to; absent for the games across all series. */
+  readonly series?: DleSeriesDef;
 }
 
 /** The Terrier (The Burrow): every daily game of the day. */
 export const DAILY_PATH = '/daily';
 
+const isBuilt = (id: DleGameId): boolean => DLE_BUILT_GAMES.some((g) => g.id === id);
+
 export const DLE_GAMES: readonly DleGameDef[] = [
-  { id: 'kpopdle-idol', universe: 'kpop', brand: 'Kpopdle', path: '/kpopdle', guess: { en: 'Idol of the day', fr: 'Idol du jour' } },
-  { id: 'kpopdle-group', universe: 'kpop', brand: 'Kpopdle', path: '/kpopdle/group', guess: { en: 'Group of the day', fr: 'Groupe du jour' } },
-  { id: 'kpopdle-song', universe: 'kpop', brand: 'Kpopdle', path: '/kpopdle/song', guess: { en: 'Song of the day', fr: 'Chanson du jour' } },
-  { id: 'otakudle', universe: 'anime', brand: 'Otakudle', path: '/otakudle', guess: { en: 'Character of the day', fr: 'Personnage du jour' } },
+  { id: 'kpopdle-idol', universe: 'kpop', brand: 'Kpopdle', path: '/kpopdle', guess: { en: 'Idol of the day', fr: 'Idol du jour' }, built: isBuilt('kpopdle-idol'), hints: [{ key: 'fandom', after: 5 }, { key: 'initial', after: 10 }], photoKind: 'idol' },
+  { id: 'kpopdle-group', universe: 'kpop', brand: 'Kpopdle', path: '/kpopdle/group', guess: { en: 'Group of the day', fr: 'Groupe du jour' }, built: isBuilt('kpopdle-group'), hints: [], photoKind: 'group' },
+  { id: 'kpopdle-song', universe: 'kpop', brand: 'Kpopdle', path: '/kpopdle/song', guess: { en: 'Song of the day', fr: 'Chanson du jour' }, built: isBuilt('kpopdle-song'), hints: [], photoKind: null },
+  { id: 'otakudle', universe: 'anime', brand: 'Otakudle', path: '/otakudle', guess: { en: 'Character of the day', fr: 'Personnage du jour' }, built: isBuilt('otakudle'), hints: [{ key: 'voice_actor_ja', after: 5 }, { key: 'initial', after: 10 }], photoKind: null },
+  {
+    id: 'otakudle-one-piece', universe: 'anime', brand: 'Otakudle', path: '/otakudle/one-piece', guess: { en: 'One Piece character of the day', fr: 'Le personnage One Piece du jour' },
+    built: isBuilt('otakudle-one-piece'), hints: [{ key: 'devil_fruit_name', after: 5 }, { key: 'initial', after: 10 }], photoKind: null, series: { slug: 'one-piece', name: 'One Piece' },
+  },
+  {
+    id: 'otakudle-dragon-ball', universe: 'anime', brand: 'Otakudle', path: '/otakudle/dragon-ball', guess: { en: 'Dragon Ball character of the day', fr: 'Le personnage Dragon Ball du jour' },
+    built: isBuilt('otakudle-dragon-ball'), hints: [{ key: 'signature_technique', or: ['signature_technique', 'voice_actor_ja'], after: 5 }, { key: 'initial', after: 10 }], photoKind: null, series: { slug: 'dragon-ball', name: 'Dragon Ball' },
+  },
 ];
 
 /** One Otakudle per series lives at /otakudle/{series}; these words are taken by other pages of the Terrier (v2 section 2). */
@@ -62,3 +89,17 @@ export function futurePaths(): readonly string[] {
   const en = [DAILY_PATH, ...DLE_GAMES.map((g) => g.path), '/otakudle/{series}'];
   return [...en, ...en.map((p) => localePath(p, 'fr'))];
 }
+
+/** The French twin of /credits: it opens with the Burrow (v2 section 2). */
+export const FR_CREDITS_PATH = '/fr/credits';
+
+export { BURROW_INTERNAL, SHARE_INTERNAL, SHARE_R_PATTERN } from '@/lib/site/routing';
+
+/** The games that have a page. */
+export function builtGames(): readonly DleGameDef[] {
+  return DLE_GAMES.filter((g) => g.built);
+}
+
+/** Every page of the Terrier that exists, in both locales. The hub's route map adds these with the flag on (registry.ts), and only then. */
+export const livePaths = dleLivePaths;
+

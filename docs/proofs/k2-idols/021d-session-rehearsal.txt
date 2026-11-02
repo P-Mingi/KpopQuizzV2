@@ -1,0 +1,60 @@
+Lot K2, 021d: session-rehearsal.sh --prod-copy on the local branch o1/k2-idols (base main da55541) with the real 020, 021a, 021c, 021b and 021d, TMPDIR under $HOME/kpq-o1. Local Postgres 18, 2026-11-03.
+51 PASS, 0 FAIL: the 44 of main plus 7 for part K2 (stop on a missing file, fixture, refusal of a stray idol in a target group, refusal of a minor in the list, two runs, the second changes nothing).
+The base holds no idol of production: the K2 part runs on docs/launch/o1/K2-rehearsal-fixture.sql (synthetic groups and 021b rows). The pool line below is therefore the K2 contribution alone: 91 new + 11 activated = 102, all complete. Production adds its own pool (112 read by the caller): 112 + 102 = 214.
+
+PASS base: production's schema copy, S4 and Mission U part D, V-S4 ok
+PASS B1 (run 1): exit 0, "terminée : tout est OK"
+PASS B1 (run 2): exit 0, "terminée : tout est OK"
+PASS B1 (run 2): the second run changed nothing (163 tables, same rows; same schema and grants)
+PASS B2 (run 3): exit 0, "terminée : tout est OK"
+PASS B2 (run 4): exit 0, "terminée : tout est OK"
+PASS B2 (run 4): the second run changed nothing (164 tables, same rows; same schema and grants)
+PASS B3 (run 5): exit 0, "terminée : tout est OK"
+PASS B3 (run 6): exit 0, "terminée : tout est OK"
+PASS B3 (run 6): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS D (run 7): exit 0, "terminée : tout est OK"
+PASS D (run 8): exit 0, "terminée : tout est OK"
+PASS D (run 8): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS E1 (run 9): exit 0, "terminée : tout est OK"
+PASS E1 (run 10): exit 0, "terminée : tout est OK"
+PASS E1 (run 10): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS E2 (run 11): exit 0, "terminée : tout est OK"
+PASS E2 (run 12): exit 0, "terminée : tout est OK"
+PASS E2 (run 12): the second run changed nothing (170 tables, same rows; same schema and grants)
+PASS G (run 13): exit 1, "021a-k1-idol-gender-debut.sql : fichier absent de main"
+PASS G (run 14): exit 1, "021c-k1-idol-corrections.sql : fichier absent de main"
+PASS G (run 15): exit 1, "021b-k1-idol-activate.sql : fichier absent de main"
+PASS G (run 16): exit 0, "terminée : tout est OK"
+PASS G (run 17): exit 0, "terminée : tout est OK"
+PASS G (run 17): the second run changed nothing (195 tables, same rows; same schema and grants)
+PASS J1 (run 18): exit 0, "terminée : tout est OK"
+PASS J1 (run 19): exit 0, "terminée : tout est OK"
+PASS J1 (run 19): the second run changed nothing (195 tables, same rows; same schema and grants)
+PASS J2 (run 20): exit 1, "V-TEAM : une ligne KO"
+PASS step 40 simulated: 31 Team auth users
+PASS J2 (run 21): exit 0, "terminée : tout est OK"
+PASS J2 (run 22): exit 0, "terminée : tout est OK"
+PASS J2 (run 22): the second run changed nothing (195 tables, same rows; same schema and grants)
+PASS J3 (run 23): exit 0, "terminée : tout est OK"
+PASS J3 (run 24): exit 0, "terminée : tout est OK"
+PASS J3 (run 24): the second run changed nothing (195 tables, same rows; same schema and grants)
+PASS J4 (run 25): exit 1, "L13-A1-character-facts.sql : fichier absent de main"
+PASS stand-in for 023: the two tables of the contract
+PASS J4 (run 26): exit 0, "terminée : tout est OK"
+PASS J4 (run 27): exit 0, "terminée : tout est OK"
+PASS J4 (run 27): the second run changed nothing (197 tables, same rows; same schema and grants)
+PASS J4 (run 28): exit 1, "V-S4 : une des 28 fonctions"
+PASS J4 (run 29): exit 0, "terminée : tout est OK"
+PASS K2 (run 30): exit 1, "021d-k2-idols.sql : fichier absent de main"
+PASS K2 fixture: the target groups and the 021b rows
+PASS K2 (run 31): exit 1, "refused: target group(s) already hold idol rows"
+PASS K2 (run 32): exit 1, "under 18 on the day of the run"
+PASS K2 (run 33): exit 0, "terminée : tout est OK"
+PASS K2 (run 34): exit 0, "terminée : tout est OK"
+PASS K2 (run 34): the second run changed nothing (197 tables, same rows; same schema and grants)
+INFO K2 pool on this base: ok | idols assez complètes pour être cible, au total (information) | 102
+INFO K2 rows present: 102 active wikidata idols, 102 rows in dle_src_kpop_idol
+PASS no e-mail or id printed by any part
+
+rehearsal: every step passed
+exit 0

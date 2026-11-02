@@ -3,29 +3,34 @@
 // Daily games step 2: the "Ajouter une photo" panel of the board (Admin.dc.html, right column of the photo tabs). The picture comes from a
 // file, a pasted address, or the picture the site already had (an idol's file, a group's logo, a series' bundled photo); the 4:5 crop
 // follows the focal point the owner clicks; the browser makes the WebP files (lib/photos/resize.ts) and the route stores them.
+// CR-021 (owner decision of 2026-11-02): the licence is picked from CC0, domaine public, CC BY, CC BY-SA, autre licence libre; the author is
+// required for CC BY and CC BY-SA, the source page is optional. A Wikimedia Commons address is read by the server (licence, author, page), the form
+// is filled with it and the save reads it again; a file that is not free is refused. No credit is shown on the pages: only /credits lists it.
 import { useEffect, useMemo, useState } from 'react';
 
 import { decode, makePhotoFiles } from '@/lib/photos/resize';
-import { PHOTO_BOX, PHOTO_LICENSE_OPTIONS, isLicense } from '@/lib/photos/slots';
+import { PHOTO_BOX, PHOTO_LICENSE_OPTIONS, isFreeLicense } from '@/lib/photos/slots';
 
-import { PHOTO_API, fetchPicture, postForm } from './api';
-import { DropZone, FocalFrame, metaPayload, metaProblem } from './ui';
+import { PHOTO_API, fetchPicture, lookupCommons, postForm } from './api';
+import { DropZone, FocalFrame, metaPayload, photoMetaProblem } from './ui';
 import s from './photos-admin.module.css';
 
 import type { AdminRow } from '@/lib/photos/admin-data';
 import type { Focal, PhotoKind } from '@/lib/photos/slots';
+import type { CommonsInfo } from './api';
 import type { MetaState } from './ui';
 
 /** Where a picture of each kind is shown, in true words (only what exists or is built in the daily games plan). */
 const WHERE: Readonly<Record<PhotoKind, string>> = {
-  idol: 'Suggestions et lignes d\'essais du Kpopdle, écran de résultat. Le crédit apparaît au résultat et sur la page Crédits.',
-  group: 'Kpopdle Groupe et Membres cachés, quand ils ouvriront. Le crédit apparaît au résultat et sur la page Crédits.',
-  agency: 'Les jeux du jour qui montrent l\'agence. Le crédit apparaît sur la page Crédits.',
-  character: 'Pages du personnage et de sa série sur OtakuQuiz dès l\'enregistrement, Otakudle quand il ouvrira. Le crédit apparaît sous l\'image et sur la page Crédits.',
-  series: 'Page de la série sur OtakuQuiz dès l\'enregistrement, Série du jour quand elle ouvrira. Le crédit apparaît sous l\'image et sur la page Crédits.',
+  idol: 'Suggestions et lignes d\'essais du Kpopdle, écran de résultat. Aucun crédit affiché : la page Crédits liste l\'image seulement si sa licence en demande un (CC BY, CC BY-SA).',
+  group: 'Kpopdle Groupe et Membres cachés, quand ils ouvriront. Aucun crédit affiché : la page Crédits liste l\'image seulement si sa licence en demande un (CC BY, CC BY-SA).',
+  agency: 'Les jeux du jour qui montrent l\'agence. Aucun crédit affiché : la page Crédits liste l\'image seulement si sa licence en demande un (CC BY, CC BY-SA).',
+  character: 'Pages du personnage et de sa série sur OtakuQuiz dès l\'enregistrement, Otakudle quand il ouvrira. Aucun crédit affiché : la page Crédits liste l\'image seulement si sa licence en demande un (CC BY, CC BY-SA).',
+  series: 'Page de la série sur OtakuQuiz dès l\'enregistrement, Série du jour quand elle ouvrira. Aucun crédit affiché : la page Crédits liste l\'image seulement si sa licence en demande un (CC BY, CC BY-SA).',
 };
 
-const EMPTY_META: MetaState = { source: '', author: '', license: 'cc_by', note: '' };
+// No licence is chosen for the owner: he picks it, or Commons gives it.
+const EMPTY_META: MetaState = { source: '', author: '', license: '', note: '' };
 
 export function PhotoDrawer({ row, kind, blocked, onSaved, onSkip }: {
   row: AdminRow | null; kind: PhotoKind; blocked: string | null; onSaved: (message: string) => void; onSkip: () => void;
@@ -35,6 +40,8 @@ export function PhotoDrawer({ row, kind, blocked, onSaved, onSkip }: {
   const [address, setAddress] = useState('');
   const [meta, setMeta] = useState<MetaState>(EMPTY_META);
   const [verified, setVerified] = useState(false);
+  // What the server read on Wikimedia Commons for the pasted address (the licence and the author are then its words, and the save reads them again).
+  const [commons, setCommons] = useState<CommonsInfo | null>(null);
   const [focal, setFocal] = useState<Focal>({ x: 50, y: 38 });
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -43,10 +50,11 @@ export function PhotoDrawer({ row, kind, blocked, onSaved, onSkip }: {
   useEffect(() => {
     setFile(null);
     setAddress('');
+    setCommons(null);
     setError(null);
     const img = row?.image;
     if (img) {
-      setMeta({ source: img.sourceUrl, author: img.author, license: isLicense(img.license) ? img.license : '', note: img.licenseNote ?? '' });
+      setMeta({ source: img.sourceUrl ?? '', author: img.author ?? '', license: isFreeLicense(img.license) ? img.license : '', note: img.licenseNote ?? '' });
       setVerified(img.verified);
       setFocal({ x: img.focalX, y: img.focalY });
       setPreview(img.url);
@@ -68,10 +76,26 @@ export function PhotoDrawer({ row, kind, blocked, onSaved, onSkip }: {
     const url = address.trim();
     if (!url) return;
     setBusy(true);
-    try { take(await fetchPicture(url)); } catch (e) { setError((e as Error).message); } finally { setBusy(false); }
+    try {
+      // A Wikimedia Commons address: the server reads the licence and the author there, and refuses a file that is not free (nothing is downloaded then).
+      const found = await lookupCommons(url);
+      setCommons(found);
+      if (found) {
+        setMeta({ source: found.pageUrl, author: found.author ?? meta.author, license: found.license, note: found.note ?? '' });
+        setVerified(true);
+      }
+      take(await fetchPicture(url));
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
   };
 
-  const problem = useMemo(() => metaProblem(meta), [meta]);
+  const problem = useMemo(() => {
+    if (!commons) return photoMetaProblem(meta);
+    return !commons.author && !meta.author.trim() && (commons.license === 'cc_by' || commons.license === 'cc_by_sa') ? 'Commons ne donne pas l\'auteur de ce fichier : indique-le.' : null;
+  }, [meta, commons]);
 
   // "Retirer la photo": the row and its three files go (the files leave the public bucket); the record shows the picture the site had, or none.
   const remove = async (): Promise<void> => {
@@ -105,6 +129,8 @@ export function PhotoDrawer({ row, kind, blocked, onSaved, onSkip }: {
       form.set('kind', kind);
       form.set('slug', row.slug);
       form.set('meta', metaPayload(meta));
+      // The address the picture came from: if it is a Commons address, the server reads Commons again and its licence and author win.
+      if (address.trim()) form.set('link', address.trim());
       form.set('verified', verified ? '1' : '0');
       form.set('focal_x', String(focal.x));
       form.set('focal_y', String(focal.y));
@@ -150,27 +176,33 @@ export function PhotoDrawer({ row, kind, blocked, onSaved, onSkip }: {
       </div>
       <div className={s.fld}>
         <label htmlFor="u">Ou colle l&apos;adresse de l&apos;image</label>
-        <input id="u" type="url" placeholder="https://" value={address} onChange={(e) => setAddress(e.target.value)}
+        <input id="u" type="url" placeholder="https://" value={address} onChange={(e) => { setAddress(e.target.value); setCommons(null); }}
           onBlur={() => { void fromAddress(); }} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); void fromAddress(); } }} />
       </div>
+      {commons ? (
+        <p className={s.notice} data-testid="commons-read">
+          Lu sur Wikimedia Commons : {commons.licenseLabel}{commons.author ? `, auteur ${commons.author}` : ''}. Le serveur relit Commons à l&apos;enregistrement et refuse un fichier qui n&apos;est pas libre.
+        </p>
+      ) : null}
       <div className={s.fld}>
-        <label htmlFor="src">Page source</label>
-        <input id="src" type="url" placeholder="Page où l'image est publiée" value={meta.source} onChange={(e) => setMeta({ ...meta, source: e.target.value })} />
+        <label htmlFor="src">Page source (facultatif)</label>
+        <input id="src" type="url" placeholder="Page où l'image est publiée" value={meta.source} onChange={(e) => setMeta({ ...meta, source: e.target.value })} disabled={Boolean(commons)} />
       </div>
       <div className={s.fld}>
-        <label htmlFor="au">Auteur ou crédit</label>
-        <input id="au" type="text" placeholder="Tel qu'il doit s'afficher" value={meta.author} onChange={(e) => setMeta({ ...meta, author: e.target.value })} />
+        <label htmlFor="au">Auteur (obligatoire pour CC BY et CC BY-SA)</label>
+        <input id="au" type="text" placeholder="Tel qu'il doit apparaître sur la page Crédits" value={meta.author} onChange={(e) => setMeta({ ...meta, author: e.target.value })} />
       </div>
       <div className={s.fld}>
         <label htmlFor="lic">Licence</label>
-        <select id="lic" value={meta.license} onChange={(e) => setMeta({ ...meta, license: isLicense(e.target.value) ? e.target.value : '' })}>
+        <select id="lic" value={meta.license} disabled={Boolean(commons)} onChange={(e) => setMeta({ ...meta, license: isFreeLicense(e.target.value) ? e.target.value : '' })}>
+          <option value="">Choisis la licence</option>
           {PHOTO_LICENSE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
       </div>
       {meta.license === 'other' ? (
         <div className={s.fld}>
           <label htmlFor="note">Précise la licence</label>
-          <input id="note" type="text" placeholder="Obligatoire pour Autre" value={meta.note} onChange={(e) => setMeta({ ...meta, note: e.target.value })} />
+          <input id="note" type="text" placeholder="Obligatoire pour Autre" value={meta.note} onChange={(e) => setMeta({ ...meta, note: e.target.value })} disabled={Boolean(commons)} />
         </div>
       ) : null}
       <div className={s.where}>

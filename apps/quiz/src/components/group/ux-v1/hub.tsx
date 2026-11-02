@@ -28,6 +28,7 @@ import { GENERAL_THEMES } from '@/lib/hubs/general-themes';
 import { themeCounts, topicList } from '@/lib/hubs/theme-view';
 import { monthYear, pooledScore, rankByMeasuredScore } from '@/lib/hubs/hub-scores';
 import { getTitleForLevel } from '@/lib/level-titles';
+import { loadKpopdleGroup } from '@/lib/passerelles/group-line';
 import { joinSiteUrl } from '@/lib/site/base-path';
 import { RELATED_GROUPS } from '@/lib/related-groups';
 import { buildAnswerChunks, buildAnswerFirst } from '@/lib/seo/answer-first';
@@ -152,6 +153,8 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
   const comments = ok(got.comments, []);
 
   const memberCount = nameAllGame?.count ?? null;
+  // P5 (CR-025), link 3: the Kpopdle card of the group (kpopquiz.org only, NET_KPOPDLE_GROUP, off by default). Not a health read: a Kpopdle that is down hides the card, never costs the page.
+  const kpopdleCard = slots || category ? null : await loadKpopdleGroup(g, memberCount);
   // The full published list (read fail-closed): its length is the real count.
   const published = quizzes.length;
   // SEO phase 1 (PR 15): the category hub links its 10 theme pages, each with its count of listed quizzes.
@@ -422,6 +425,13 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
             <div className="p3-low-main">
               {slots.main}
               {aboutSection}
+              {faqSection}
+            </div>
+          ) : kpopdleCard ? (
+            // With the Kpopdle card (P5, off by default) the three share this one place of the tree, so a page without it keeps the two children it always had.
+            <div className="p3-low-main">
+              {aboutSection}
+              {kpopdleCard}
               {faqSection}
             </div>
           ) : (

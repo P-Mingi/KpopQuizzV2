@@ -29,6 +29,8 @@ export interface UxClientShellProps {
    * its providers (sign-in sheet, toasts), the skip link and the focus rule. Only the hub layout sets it; absent, the shell is the one it always was.
    */
   bare?: boolean;
+  /** Daily games step 4: the pages of the Terrier bring their own bar and footer too. Set only by the hub layout, only with the dailyGuess flag on. */
+  barePaths?: readonly string[];
 }
 
 /** Footer per world, like the legacy SiteFooter: none on the builder canvas, the
@@ -47,9 +49,9 @@ function Footer({ showFandoms, year }: { showFandoms: boolean; year: number }): 
  * loaded through UxShellLoader (next/dynamic) so its code ships only to pages
  * that render it (flag on). The page itself arrives as server-rendered children.
  */
-export function UxClientShell({ children, showFandoms, year, bare }: UxClientShellProps): React.ReactElement {
+export function UxClientShell({ children, showFandoms, year, bare, barePaths }: UxClientShellProps): React.ReactElement {
   const pathname = usePathname() || '/';
-  if (bare && pathname === '/') {
+  if (bare && (pathname === '/' || barePaths?.includes(pathname))) {
     return (
       <UxProviders>
         <div className="ux-app">

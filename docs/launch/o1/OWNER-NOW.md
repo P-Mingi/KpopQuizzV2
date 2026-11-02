@@ -2,11 +2,11 @@
 
 Depuis le 2026-10-30 : une commande par partie de session SQL (`session.sh`), donc moins de collages ; les durées d'attente ne changent pas.
 
-**Moi : environ 4 h 45, en 49 étapes sur 69 (4 h 55 et 51 étapes si les deux étapes « si besoin » servent). Dont 4 h jusqu'à la fin du jour J.**
+**Moi : environ 4 h 50, en 50 étapes sur 70, code admin compris (5 h 05 et 52 étapes si les deux étapes « si besoin » servent, l'étape 45 demandant alors un second code). Dont 4 h 05 jusqu'à la fin du jour J.**
 **Claude : environ 7 h 30. Worker : environ 14 h 25, dont 7 h 50 à surveiller des journaux. Ils travaillent entre mes étapes et ne changent rien en production.**
 **Durée totale : au moins 5 jours de la session B au jour J inclus (trois veilles de 24 h : après B, après 008, après 010), puis 72 h de veille. Au plus tôt : B le jour 1, jour J le jour 5, décision finale le jour 8.**
 
-Objectif « moins de 5 h » tenu, de justesse. Ce qui coûte le plus : le jour J (1 h 25), les six sauvegardes (une par session SQL, 30 min en tout) et les preuves avec un vrai compte (environ 40 min : aucun agent ne se connecte ni ne crée de compte en production).
+Objectif « moins de 5 h » tenu, de justesse, si les deux étapes « si besoin » ne servent pas. Ce qui coûte le plus : le jour J (1 h 25), les six sauvegardes (une par session SQL, 30 min en tout) et les preuves avec un vrai compte (environ 40 min : aucun agent ne se connecte ni ne crée de compte en production).
 
 ## Comment lire cette page
 
@@ -14,7 +14,7 @@ Objectif « moins de 5 h » tenu, de justesse. Ce qui coûte le plus : le jour J
 - Sous chaque titre : qui fait quoi, et combien de temps. Un bloc = une commande : copie-le en entier, dans le Terminal, depuis le dossier du dépôt. `read -rs` n'affiche rien pendant que tu colles : appuie sur Entrée.
 - Après chaque collage, écris dans le chat « collé n° X ». Claude (ou le worker) vérifie et répond OK avant la suite. Une sortie avec `ERROR` : ne lance rien d'autre, colle la sortie dans le chat. Chaque fichier se rejoue sans risque.
 - Heures en UTC (Paris en hiver : UTC + 1). Jamais de SQL entre 23:50 et 00:30. Une session SQL par phase, une sauvegarde au début de chaque session, les fichiers dans l'ordre de `SQL-ORDER.md`.
-- Le SQL passe par une seule commande par partie de session, `bash docs/launch/o1/session.sh <partie>` (B1, B2, B3, D, E1, E2, G, J1 à J4), dans le terminal ouvert par la sauvegarde de la session : la sauvegarde exporte la chaîne de connexion, la commande la lit. Elle applique les fichiers dans l'ordre de `SQL-ORDER.md` avec psql, lance après chacun ses vérifications, n'affiche que OK ou KO et des comptes (jamais un nom, un e-mail ni une clé), et s'arrête au premier KO. Elle se relance sans risque depuis le début de la partie : un fichier déjà appliqué ne change rien la seconde fois. Le détail complet va dans `~/kpq-launch/logs`, sur ta machine seulement. Terminal fermé en cours de session : relance seulement cette ligne, puis la commande de la partie.
+- Le SQL passe par une seule commande par partie de session, `bash docs/launch/o1/session.sh <partie>` (B1, B2, B3, D, E1, E2, G, J1 à J5), dans le terminal ouvert par la sauvegarde de la session : la sauvegarde exporte la chaîne de connexion, la commande la lit. Elle applique les fichiers dans l'ordre de `SQL-ORDER.md` avec psql, lance après chacun ses vérifications, n'affiche que OK ou KO et des comptes (jamais un nom, un e-mail ni une clé), et s'arrête au premier KO. Elle se relance sans risque depuis le début de la partie : un fichier déjà appliqué ne change rien la seconde fois. Le détail complet va dans `~/kpq-launch/logs`, sur ta machine seulement. Terminal fermé en cours de session : relance seulement cette ligne, puis la commande de la partie.
 ```
 export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL
 ```
@@ -49,10 +49,10 @@ bunnyverse.org
 ```
 Vérif (worker) : A `76.76.21.21`, `www` en CNAME `cname.vercel-dns.com`, aucun MX pour `team.bunnyverse.org`.
 
-### 3. La clé service_role en variable partagée
+### 3. La clé service_role en variable de projet
 Moi 8 min, Worker 5 min. [RUNBOOK H3](RUNBOOK.md#h-domain-vercel-supabase-and-google)
 
-Supabase, Project Settings, API Keys : copie la clé `service_role` (ne la colle nulle part ailleurs). Vercel, Team Settings, Environment Variables, Shared, Add : Sensitive, Production seulement, projets `kpopquiz`, `fandomverse`, `otakuquiz`. Si Vercel refuse `kpopquiz` (il a déjà la sienne, même valeur) : garde-la et lie les deux autres. Clé :
+Supabase, Project Settings, API Keys : copie la clé `service_role` (ne la colle nulle part ailleurs). Vercel, projet `fandomverse`, puis projet `otakuquiz`, Settings, Environment Variables, Add : Sensitive, Production seulement. Pas de variable partagée d'équipe. `kpopquiz` garde la sienne, même valeur. Clé :
 ```
 SUPABASE_SERVICE_ROLE_KEY
 ```
@@ -200,7 +200,7 @@ Vérif : la commande fait V4 après 008 (seule `merge_anon_passport` change) et 
 ### 23. La veille de 24 h, à l'étape 22 plus 24 h
 Moi 8 min, Claude 15 min, Worker 20 min. [RUNBOOK D3](RUNBOOK.md#d-p2-008-write-locks)
 
-Claude : l'audit des compteurs reste au plus au niveau de base. Worker : Runtime Logs calmes sur 24 h. Toi : la même preuve qu'à l'étape 22 avec le compte jetable, puis supprime ce compte comme d'habitude (tableau de bord Supabase ou admin). Écris « fait n° 23 ». Leur « veille propre » ouvre la session E.
+Claude : l'audit des compteurs reste au plus au niveau de base. Worker : Runtime Logs calmes sur 24 h. Toi : la même preuve qu'à l'étape 22 avec le compte jetable, puis supprime ce compte depuis le tableau de bord Supabase : pas besoin de code. Depuis l'admin, il faut d'abord ton code à 6 chiffres (`docs/o1/admin/MFA-OWNER.md` section 2). Écris « fait n° 23 ». Leur « veille propre » ouvre la session E.
 
 ## Partie 5. Session E : 009, le déploiement, 010 (10 min pour moi)
 
@@ -262,10 +262,10 @@ git checkout main && git pull --ff-only
 export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
 ```
 
-### 31. G : 011, 018, 019, 020, les deux fichiers du lot K1, 022, puis 012 à 017
+### 31. G : 011, 018, 019, 020, les trois fichiers du lot K1, 022, 023, 024, puis 012 à 017
 Moi 5 min, Claude 8 min. [RUNBOOK G1, G2](RUNBOOK.md#g-p5-011-to-017)
 
-Une commande, dans cet ordre (décision du 2026-10-30) : 011, 018, 019 et 020 (le socle des jeux du jour, éteint), les deux fichiers du lot K1 (`021a-k1-idol-gender-debut.sql` : genre et année de début des idols ; `021b-k1-idol-activate.sql` : les idols que tu as choisies dans la relecture), 022 (photos et admin : les tables des agences et des images du site, fermées au navigateur), 012, 013, 014, 015, puis 016 et 017 si `admin_delete_account` existe (sinon elle s'arrête avant 016), et V-S4. Tant qu'un fichier du lot K1 n'est pas sur main, elle s'arrête sur lui : G attend ce lot. Si 013 s'arrête sur un nom de `game_type` : ne touche pas au fichier, colle la sortie, Claude s'en occupe.
+Une commande, dans cet ordre (décision du 2026-10-30) : 011, 018, 019 et 020 (le socle des jeux du jour, éteint), les trois fichiers du lot K1 (`021a-k1-idol-gender-debut.sql` : genre et année de début des idols ; `021c-k1-idol-corrections.sql` : années de début, QID, et les dates de naissance de Changbin et I.N, seule correction visible sur kpopquiz.org ; `021b-k1-idol-activate.sql` : liste vide en session G, il n'active personne ; l'activation vient après, sur une liste que tu coches), 022 (photos et admin : les tables des agences et des images du site, fermées au navigateur), 023 (Otakudle : les tables des faits et la vue, fermées au navigateur, sans le jeu qui attend le site anime de L01), 024 (les jeux d'une série, One Piece et Dragon Ball : la table des faits et deux vues fermées au navigateur, sans les jeux, qui attendent aussi L01), 012, 013, 014, 015, puis 016 et 017 si `admin_delete_account` existe (sinon elle s'arrête avant 016), et V-S4. Si 013 s'arrête sur un nom de `game_type` : ne touche pas au fichier, colle la sortie, Claude s'en occupe.
 ```
 bash docs/launch/o1/session.sh G
 ```
@@ -278,7 +278,7 @@ Claude 3 min, Worker 1 h 10. [RUNBOOK G3](RUNBOOK.md#g-p5-011-to-017)
 
 La commande a fait V-S4. Worker : V1, puis 1 h de Runtime Logs.
 
-## Partie 7. Contenu et go / no-go (10 min pour moi)
+## Partie 7. Contenu et go / no-go (15 min pour moi)
 
 ### 34. Le contenu
 Claude 1 h 30. [RUNBOOK J](RUNBOOK.md#j-content)
@@ -288,10 +288,12 @@ En parallèle des parties 3 à 6. Claude relit un échantillon des paquets de `d
 ### 35. Le rapport K1, la veille du jour J
 Claude 20 min, Worker 15 min. [RUNBOOK K1](RUNBOOK.md#k-launch-day)
 
-Chaque ligne de K1 est vérifiée : veilles propres, V9, fichiers de lancement, DNS, groupe Microfrontends, adresses de retour, clé liée, `QOTD_ROTATION_FIX=1` sur `otakuquiz`. Claude dit aussi si l'étape 45 (images) sert.
+Chaque ligne de K1 est vérifiée : veilles propres, V9, fichiers de lancement, DNS, groupe Microfrontends, adresses de retour, clé en place sur `fandomverse` et `otakuquiz`, `QOTD_ROTATION_FIX=1` sur `otakuquiz`, `ADMIN_MFA_ENROL_OPEN` absent de la production. Claude dit aussi si l'étape 45 (images) sert.
 
 ### 36. Go / no-go
-Moi 10 min. [RUNBOOK K1](RUNBOOK.md#k-launch-day)
+Moi 15 min, dont 5 min une seule fois pour le code admin. [RUNBOOK K1](RUNBOOK.md#k-launch-day)
+
+Le code admin d'abord, seul toi peux le vérifier : sur kpopquiz.org, `/admin` demande les 6 chiffres et s'ouvre. Pas encore de code : `docs/o1/admin/MFA-OWNER.md` section 2, de préférence dès le jour où le verrou part en production (deux redéploiements de `kpopquiz`, donc pas le jour J).
 
 Lis le rapport. Tout est vrai et quelqu'un est libre les 72 h qui suivent le lancement : « go ». Sinon le jour J se décale.
 
@@ -366,7 +368,9 @@ bash docs/launch/o1/session.sh J3
 L10-PERS et ses 70 profils sont dans la commande de l'étape 43 : rien à coller.
 
 ### 45. Les images de l'admin, seulement si Claude l'a dit (étape 35)
-Moi (si besoin) 6 min, Claude (si besoin) 5 min. [RUNBOOK K5.3c](RUNBOOK.md#k-launch-day)
+Moi (si besoin) 6 min, plus 5 min une seule fois pour le code de la preview, Claude (si besoin) 5 min. [RUNBOOK K5.3c](RUNBOOK.md#k-launch-day)
+
+Le code admin d'abord, pour envoyer des images. Ces images s'envoient avant cette étape, depuis `/anime/admin` sur la preview. Selon le RUNBOOK (section H), la preview a sa propre base (`o1-dev`) : le code de la production ne devrait pas y marcher (non testé sur une preview). Il lui faut alors le sien, avec l'interrupteur `ADMIN_MFA_ENROL_OPEN` sur les variables Preview de `otakuquiz` (`docs/o1/admin/MFA-OWNER.md`, sections 1, 2 et 8). Les commandes ci-dessous n'ouvrent pas l'admin : pas de code pour elles.
 
 La première ligne attend la clé `service_role`. La deuxième est un essai à blanc : colle sa sortie dans le chat. Au OK de Claude, la troisième copie. La dernière efface la clé.
 ```
@@ -433,18 +437,40 @@ PASSPORT_JUMP
 https://kpopquiz.org/auth/passport/out?to=anime
 ```
 
-### 51. J4 : L12 (les sites passent en ligne), puis le SQL du lot A1
+### 51. J4 : L12 (les sites passent en ligne), 023 une seconde fois, puis le SQL du lot A1
 Moi 2 min, Claude 3 min. [RUNBOOK K8](RUNBOOK.md#k-launch-day)
 
-La commande applique L12, vérifie que `kpop`, `anime` et `hub` sont `live`, puis le fichier du lot A1 (`L13-A1-character-facts.sql` : les faits des personnages pour Otakudle, après les fichiers de lancement), revérifie tout le contenu et V-S4. Tant que le fichier du lot A1 n'est pas sur main, elle s'arrête sur lui, après L12.
+La commande applique L12, vérifie que `kpop`, `anime` et `hub` sont `live`, relance 023 (la ligne du jeu `otakudle`, éteinte : maintenant que le site anime existe), puis le fichier du lot A1 (`L13-A1-character-facts.sql` : les faits des 750 personnages d'Otakudle, dont les 200 du TOP200 qui fournissent la première année de réponses, après les fichiers de lancement), lance sa vérification (dont 584 personnages avec les 7 colonnes et 113 cibles), revérifie tout le contenu et V-S4. Tant que le fichier du lot A1 n'est pas sur main, elle s'arrête sur lui, après L12. Elle relance aussi 024 (les lignes des jeux d'une série, Otakudle One Piece et Otakudle Dragon Ball, éteintes) et applique ensuite `L15-A2-series-games.sql` (leurs faits : les 100 personnages de One Piece et les 70 de Dragon Ball).
 ```
 bash docs/launch/o1/session.sh J4
 ```
 
+### 51 bis. J5 : Kpopdle Idol et Otakudle s'allument
+Moi 1 min, Claude 1 min. [RUNBOOK K8b](RUNBOOK.md#k-launch-day)
+
+La commande revérifie les faits, lance `dle_activate` pour les deux jeux : chacun reçoit sa date de départ et sa banque de 365 jours, une seule fois. Elle vérifie aussi que chaque jeu répond. Les nombres s'impriment, jamais un nom.
+```
+bash docs/launch/o1/session.sh J5
+```
+**La date de départ (l'epoch)**, c'est le jour de la partie n° 1 : aujourd'hui en UTC, le jour de cette commande. Elle ne bouge plus ensuite, et le numéro de chaque jour se compte depuis elle. Lance donc J5 le jour où les jeux ouvrent : si le drapeau arrive deux jours après, les premiers joueurs voient le n° 3.
+
+Si un jeu a moins de 40 cibles, la commande s'arrête, dit lequel et combien, et aucun des deux jeux ne change. Pour Kpopdle, 021c fait passer le pool de 87 à 108 d'après la photo de production : `V-L14` imprime le vrai nombre, lis-le.
+
+Les pages restent en 404 jusqu'à la PR du jour J (51 ter).
+
+### 51 ter. La PR du jour J : `dailyGuess` à true
+Moi 2 min, Claude 5 min. [RUNBOOK K8c](RUNBOOK.md#k-launch-day)
+
+C'est une constante du code : seule une PR l'allume, après J5. On y va seulement si `V-L14` est ok sur les deux jeux, si `dle_day` répond pour les deux (les deux lignes de J5) et si `/otakudle` et `/kpopdle` sont dans le build de cette PR. Sinon la PR attend : les joueurs ne voient rien de changé.
+
 ### 52. Le quiz du jour
 Moi 6 min, Worker 5 min, Claude 3 min. [RUNBOOK K9](RUNBOOK.md#k-launch-day)
 
-Connecté avec ton compte admin sur `https://bunnyverse.org/anime`, colle cette ligne dans la console du navigateur (elle prend la date du jour toute seule). La réponse dit `scheduled: 14`.
+Le code admin d'abord. Sans code à 6 chiffres, la ligne ci-dessous répond 404.
+
+1. Ton compte a son code depuis l'étape 36. S'il l'a perdu : `docs/o1/admin/MFA-OWNER.md` section 4, et le jour J s'allonge de deux redéploiements de `kpopquiz`.
+2. Connecté avec ton compte admin sur `https://bunnyverse.org/anime`, ouvre `https://bunnyverse.org/anime/admin` et tape les 6 chiffres. Ce site a sa propre session : il faut les taper ici, même si tu l'as déjà fait sur kpopquiz.org.
+3. Dans le même onglet, colle cette ligne dans la console du navigateur (elle prend la date du jour toute seule). La réponse dit `scheduled: 14`. Si elle dit `not_found` : refais le point 2.
 ```
 fetch('/anime/api/admin/quiz-bank/auto-schedule', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({start_date: new Date().toISOString().slice(0, 10)})}).then(r => r.json()).then(console.log)
 ```
@@ -511,7 +537,7 @@ https://bunnyverse.org/anime/sitemap.xml
 ```
 Vérif (worker) : les six commandes de l'étape 55 bis n'affichent plus rien ; V10 « after K10 » (plus de noindex sur l'accueil, `/anime`, `/anime/series`, une série, un quiz ; toujours sur `/settings`, `/me`, `/anime/admin`), les deux fichiers de clé IndexNow répondent 200 sur bunnyverse.org et 404 sur kpopquiz.org.
 
-## Partie 9. Après le lancement (44 min pour moi)
+## Partie 9. Après le lancement (47 min pour moi)
 
 ### 57. Heure 0 à +1, puis +24 h
 Claude 25 min, Worker 1 h 15. [RUNBOOK L1, L2](RUNBOOK.md#l-after-launch)
@@ -554,6 +580,31 @@ NEXT_PUBLIC_NET_PRIVACY
 NEXT_PUBLIC_NET_DELETION
 ```
 Vérif (worker) : V1.
+
+### 61 bis. Le module Kpopdle sur kpopquiz.org, le jour J
+Moi 3 min, Worker 10 min. [RUNBOOK L3c](RUNBOOK.md#l-after-launch)
+
+Le jour J, après l'étape 56, sans attendre les +24 h des étapes 58 à 60. Le jeu s'allume par la PR du jour J qui met `dailyGuess` à true : si elle n'est pas fusionnée, cette étape attend avec elle. Go / no-go, tout doit être vrai, sinon tu ne touches à rien : cette PR est sur `main` et `fandomverse` et `kpopquiz` sont Ready sur ce commit ; le worker confirme que `bunnyverse.org/kpopdle` et `bunnyverse.org/daily` répondent 200 ; tu as joué la partie du jour sur ton téléphone jusqu'au bout ; l'étape 56 est faite ; une heure de journaux `fandomverse` sans ligne `[dle]`.
+
+Vercel, `kpopquiz` seulement, Production : la clé ci-dessous, valeur `1`. Redéploie `kpopquiz`.
+```
+NET_KPOPDLE_HOME
+```
+Vérif (worker) : RUNBOOK L3c (un seul lien vers `/kpopdle` dans le HTML de l'accueil, un seul H1, aucun nom d'idol, V1 : seule `/` change). Retour : retire la clé, redéploie `kpopquiz`.
+
+### 61 ter. La ligne Kpopdle en fin de quiz et la carte sur les pages de groupe, le jour J
+Moi 3 min, Worker 10 min. [RUNBOOK L3d](RUNBOOK.md#l-after-launch)
+
+Après l'étape 61 bis, quand elle est stable depuis un jour. Même go / no-go. Les liens d'OtakuQuiz vers ses trois jeux (accueil, séries One Piece et Dragon Ball, fin d'un quiz anime) n'ont pas de clé : ils s'allument avec la PR du jour J qui met `dailyGuess` à true.
+
+Vercel, `kpopquiz` seulement, Production : les deux clés ci-dessous, valeur `1` (chacune peut partir seule). Redéploie `kpopquiz`.
+```
+NET_KPOPDLE_QUIZEND
+```
+```
+NET_KPOPDLE_GROUP
+```
+Vérif (worker) : RUNBOOK L3d (un seul lien vers `/kpopdle` sur une page de groupe qui a des membres dans le jeu, aucun sur une page de groupe qui n'en a pas, un seul H1, V1 : seules les pages de groupe changent). Retour : retire la clé, redéploie `kpopquiz`.
 
 ### 62. +48 h et +72 h
 Claude 30 min, Worker 40 min. [RUNBOOK L4](RUNBOOK.md#l-after-launch)

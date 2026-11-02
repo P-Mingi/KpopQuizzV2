@@ -9,11 +9,14 @@
 --         - dle_compare, the one comparator (the app never compares: it shows the statuses it receives; the cases live in
 --           apps/quiz/src/lib/dle/fixtures/compare.json, run against this function by the SQL tests);
 --         - the bank: 365 days per game drawn ahead, replayed from day 1 after day 365 while the game number keeps growing;
---           no target twice within min(no_repeat_days, 70 % of the pool) days, around the cycle too; a rebuild (the pool
+--           no target twice within min(no_repeat_days, 70 % of the pool, the longest window 365 days hold) days, around the cycle too, every target
+--           the same number of times (1 more or less), for every pool size from min_pool up (CR-019); a rebuild (the pool
 --           changed) never moves today nor the 7 days after it, and a day already served keeps its target (dle_daily_stats);
 --         - dle_guess, dle_give_up, dle_day, dle_pool: the only functions granted to anon and authenticated (SECURITY DEFINER,
 --           search_path = public). The target leaves the database only once a play is over; yesterday's answer only once
---           yesterday stops being playable (03:00 UTC); day statistics stay null under 100 plays.
+--           yesterday stops being playable (03:00 UTC); day statistics stay null under 100 plays;
+--         - dle_daily_maintenance, the nightly step, game by game: a game that fails is rolled back alone and named in the result
+--           ({"game", "error", "code"}), the other games and the purges still run (CR-019).
 -- Why:    the games live on bunnyverse.org and call Postgres from the browser (v2 section 9): no Vercel function per guess.
 -- Rows:   none. No game row: 020 adds the Kpopdle Idol game, switched off.
 -- Needs:  001 (public.sites), 018 (public.entity_images). Supabase's auth.uid().
@@ -318,12 +321,17 @@ begin
   return n;
 end $$;
 
--- The no-repeat window: min(no_repeat_days, 70 % of the targets), at least 1.
+-- The no-repeat window: min(no_repeat_days, 70 % of the targets, floor(365 / ceil(365 / targets))), at least 1.
+-- The third term (CR-019) is the longest window 365 days can hold: a target that comes ceil(365 / targets) times in the cycle needs
+-- that many gaps of W days. It never binds for no_repeat_days up to 120 (the games' values): 70 % of the targets times
+-- ceil(365 / targets) is under 365 up to 156 targets, and 3 x 120 is under 365 above. It rules out an impossible window for a
+-- larger no_repeat_days instead of failing the bank.
 create or replace function public.dle_window(p_game text) returns integer
 language sql stable
 set search_path = public
 as $$
-  select greatest(1, least(g.no_repeat_days, floor(0.7 * count(e.entity_id))::integer))
+  select greatest(1, least(g.no_repeat_days, floor(0.7 * count(e.entity_id))::integer,
+    case when count(e.entity_id) = 0 then 1 else (365 / ((365 + count(e.entity_id) - 1) / count(e.entity_id)))::integer end))
   from public.dle_games g
   left join public.dle_entities e on e.game_id = g.id and e.can_be_target and e.in_pool
   where g.id = p_game
@@ -340,15 +348,31 @@ $$;
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 -- 6. The bank of 365 days.
---    The cycle is read from a start day: day 1 on the first build; on a rebuild (p_today given and a bank exists), today,
---    and today with the 7 days after it keep their target. The 365 days are cut into m blocks of W to P days (W the window,
---    P the targets; such an m always exists for W <= 70 % of P or W <= 120). No target twice in a block; between two blocks
---    a target waits until W days have passed; the last block also ends W days before each target's day in the first block,
---    so the cycle holds when it starts again. Blocks are filled day by day with a weighted random choice that prefers a
---    group (balance key) not set within 14 days (a preference: at the end of the last block the deadlines can leave no
---    other choice). In the last block a choice must keep enough targets for every later day (Hall's condition), else the
---    closest deadline is taken. The construction cannot dead-end before the last block; a dead end there restarts the draw
---    (20 tries), then the function fails rather than break the window.
+--    CR-019 (second change in place): the bank is built from a frame that holds the window by construction, then drawn at random
+--    inside the frame; it can no longer dead-end. The window W = dle_window (never above floor(365 / m), m = ceil(365 / targets),
+--    the most a target that comes m times can have; see dle_window).
+--    1. The frame. The cycle is read from a start day: day 1 on the first build; on a rebuild (p_today given and a bank exists),
+--       today, and today with the 7 days after it keep their target. The 365 days are cut into m arcs of floor or ceil of 365 / m
+--       days. The targets that come q + 1 times ("often", r = 365 mod targets of them) take the same place in every arc, spread
+--       along it: their gap is the length of an arc. The others come q times, in the order of one list that goes round the free
+--       places of all arcs and starts again where it ends: their gap is the length of the list plus the often places it crosses.
+--       The shortest gap of the frame, W0, is floor(365 / m) for every pool size (checked 2 to 1200), so W <= W0 holds, the
+--       cycle holds when it starts again, and every target comes q or q + 1 times: the counts differ by 1 at most.
+--    2. The targets take the places of the frame: a target kept by a rebuild its own place, the others in a random order (the
+--       curation weight makes a heavier target likelier to be an often one), each in a group (balance key) not set within 14
+--       days of its places when one is left (a preference).
+--    3. The draw. The frame is shaken: every place may move at most E = min(30, (W0 - W) / 2) days, which costs a gap 2 E at
+--       most, so every gap stays >= W. A choice is forced only when a place reaches its limit (two places never do on the same
+--       day), so the draw never dead-ends. It prefers a group not set within 14 days, then a weighted random pick.
+--    4. The polish. Two days are swapped when each target keeps its window (its other days are read, 1 to 13 of them) and the
+--       days of the same group within 14 days (around the cycle) do not become more (a sideways move lets the search leave a dead
+--       end). At most 40000 tries, and it stops after 3 sweeps with no fewer days in conflict: a pool with few groups (under 17)
+--       keeps the days it cannot spread (a preference, never a rule). The window and the counts never move.
+--    A rebuild: the kept days are written as they were. A kept target of the pool takes its own place in the frame. One that
+--    left the pool, or that the frame cannot place (a window under 8 days), is written all the same (V-DLE-KEPT names it) and
+--    the target the frame had put there comes one day less: the counts can then differ by more than 1, by the number of such days.
+--    The only impossible inputs are fewer targets than min_pool (dle_pool_too_small); dle_bank_unsatisfiable stays for a frame
+--    shorter than the window, which dle_window rules out.
 -- ---------------------------------------------------------------------------------------------------------------------------
 
 create or replace function public.dle_build_bank(p_game text, p_today date default null, p_seed double precision default null)
@@ -359,28 +383,90 @@ as $$
 declare
   g public.dle_games;
   v_ids text[];
-  v_weights numeric[];
+  v_weights double precision[];
   v_keys text[];
+  v_kid integer[];
+  v_nk integer;
   v_count integer;
   v_win integer;
-  v_m integer;
   v_fixed text[];
   v_nfixed integer := 0;
   v_b0 integer := 1;
   v_slots text[];
-  v_last jsonb;
-  v_first jsonb;
-  v_kpos jsonb;
-  v_block integer;
-  v_bstart integer;
-  v_bend integer;
+  -- the frame
+  v_q integer;
+  v_r integer;
+  v_m integer;
+  v_lmin integer;
+  v_nl integer;
+  v_len integer;
+  v_hoff integer[];
+  v_pat integer[];
+  v_nxt integer[];
+  v_lastp integer[];
+  v_firstp integer[];
+  v_w0 integer := 365;
+  v_n integer;
+  v_k integer;
+  v_off integer;
+  v_pos integer;
+  v_i integer;
+  v_e integer;
+  -- who takes which place
+  v_ord integer[];
+  v_pool integer[];
+  v_idxent integer[];
+  v_taken boolean[];
+  v_kat integer[];
+  v_stamp integer[];
+  v_st integer := 0;
+  v_hrem integer := 0;
+  v_hh integer;
+  v_lh integer;
+  v_j integer;
+  v_jend integer;
+  v_p integer;
+  v_t integer;
+  v_pick integer;
+  v_fb integer;
+  -- the draw
+  v_seq integer[];
+  v_out integer[];
+  v_placed boolean[];
+  v_lastk integer[];
+  v_firstk integer[];
+  v_lo integer;
+  v_y integer;
+  v_x integer;
+  v_c integer;
+  v_cmax integer;
+  v_shake integer;
+  v_bad integer;
+  v_best_bad integer;
+  v_best_r double precision;
+  v_r1 double precision;
+  -- the polish
+  v_kp integer[];
+  v_occ integer[];
+  v_ocn integer[];
   v_s integer;
-  v_pick text;
-  v_key text;
-  v_try integer;
+  v_att integer := 0;
+  v_conf integer;
+  v_best integer := 1000000;
+  v_stall integer := 0;
+  v_ka integer;
+  v_kb integer;
+  v_np integer;
+  v_nz integer;
+  v_oz integer;
+  v_z integer;
+  v_a integer;
+  v_b integer;
+  v_dd integer;
+  v_d2 integer;
+  v_o integer;
   v_ok boolean;
   v_drawn integer := 0;
-  i integer;
 begin
   select * into g from public.dle_games where id = p_game for update;
   if not found then
@@ -393,7 +479,7 @@ begin
     perform setseed(p_seed);
   end if;
 
-  select array_agg(e.entity_id order by e.entity_id), array_agg(coalesce(c.weight, 1) order by e.entity_id),
+  select array_agg(e.entity_id order by e.entity_id), array_agg(coalesce(c.weight, 1)::double precision order by e.entity_id),
     array_agg(coalesce(e.balance_key, '') order by e.entity_id)
   into v_ids, v_weights, v_keys
   from public.dle_entities e
@@ -404,91 +490,368 @@ begin
     raise exception 'dle_pool_too_small: % targets, % needed', v_count, g.min_pool;
   end if;
   v_win := public.dle_window(p_game);
-  v_m := ceil(365.0 / v_count)::integer;
-  while v_m * v_win > 365 loop
-    v_m := v_m - 1;
-  end loop;
-  if v_m < 1 or v_m * v_count < 365 then
-    raise exception 'dle_bank_unsatisfiable: % targets, window %', v_count, v_win;
-  end if;
 
-  -- Sequence position s (1 to 365) is bank day (v_b0 + s - 2) % 365 + 1.
-  v_fixed := array_fill(null::text, array[365]);
+  -- The group of each target as a number (0: no balance key).
+  select array_agg(coalesce(r.d, 0) order by t.i), coalesce(max(r.d), 0)
+  into v_kid, v_nk
+  from unnest(v_keys) with ordinality as t(k, i)
+  left join (select x.k, dense_rank() over (order by x.k)::integer as d from (select distinct k from unnest(v_keys) as k where k <> '') as x) r on r.k = t.k;
+
+  -- Sequence position s (1 to 365) is bank day (v_b0 + s - 2) % 365 + 1. On a rebuild the first v_nfixed positions keep their target.
+  v_fixed := array_fill(null::text, array[8]);
   if p_today is not null and exists (select 1 from public.dle_schedule where game_id = p_game) then
     v_b0 := public.dle_bank_day(g.epoch, p_today);
-    v_nfixed := 8;
-    for i in 1..v_nfixed loop
-      v_fixed[i] := (select entity_id from public.dle_schedule where game_id = p_game and bank_day = (v_b0 + i - 2) % 365 + 1);
+    for v_i in 1..8 loop
+      v_fixed[v_i] := (select entity_id from public.dle_schedule where game_id = p_game and bank_day = (v_b0 + v_i - 2) % 365 + 1);
+      exit when v_fixed[v_i] is null;
+      v_nfixed := v_i;
     end loop;
   end if;
 
-  for v_try in 1..20 loop
-    v_slots := v_fixed;
-    v_last := '{}'::jsonb;
-    v_first := '{}'::jsonb;
-    v_kpos := '{}'::jsonb;
-    v_ok := true;
-    <<blocks>>
-    for v_block in 1..v_m loop
-      v_bstart := (v_block - 1) * 365 / v_m + 1;
-      v_bend := v_block * 365 / v_m;
-      for v_s in v_bstart..v_bend loop
-        v_pick := v_slots[v_s];
-        if v_pick is null then
-          -- The targets still free for this block: rel the first day they may come back, dl the last day they may be set
-          -- (the last block only: W days before their day in the first block). A choice is safe when, for every later day t,
-          -- enough targets can still fill the days t to the end of the block (Hall's condition on the suffixes): then the
-          -- group preference and the random choice decide; the closest deadline decides only when nothing is safe.
-          with ent as materialized (
-            select c.id, c.w, c.bk, o.last_s,
-              coalesce(o.last_s + v_win, 0) as rel,
-              case when v_m > 1 and v_block = v_m and o.first_s is not null then 365 + o.first_s - v_win else 100000 end as dl
-            from unnest(v_ids, v_weights, v_keys) as c(id, w, bk)
-            cross join lateral (select (v_last ->> c.id)::integer as last_s, (v_first ->> c.id)::integer as first_s) o
-            where o.last_s is null or o.last_s < v_bstart
-          ), margin as materialized (
-            -- The margin only drops just after a deadline: it is enough to read it there (none outside the last block).
-            select t.t, (select count(*) from ent e where e.dl >= t.t and e.rel <= v_bend) - (v_bend - t.t + 1) as m
-            from (select v_s + 1 as t union select e.dl + 1 from ent e where e.dl + 1 > v_s + 1 and e.dl + 1 <= v_bend) as t(t)
-            where v_m > 1 and v_block = v_m and t.t <= v_bend
-          )
-          select c.id into v_pick
-          from ent c
-          cross join lateral (
-            select max(k0::integer) as key_s from jsonb_array_elements_text(coalesce(v_kpos -> c.bk, '[]'::jsonb)) as k0
-          ) mk
-          where c.rel <= v_s and c.dl >= v_s
-          order by
-            coalesce((select min(mg.m) from margin mg where mg.t <= least(c.dl, v_bend)), 1) < 1,
-            (c.bk <> '' and mk.key_s is not null and v_s - mk.key_s < 14),
-            c.dl,
-            -ln(1 - random()) / c.w
-          limit 1;
-          if v_pick is null then
-            v_ok := false;
-            exit blocks;
-          end if;
-          v_slots[v_s] := v_pick;
-        end if;
-        v_last := jsonb_set(v_last, array[v_pick], to_jsonb(v_s));
-        if v_block = 1 and not (v_first ? v_pick) then
-          v_first := jsonb_set(v_first, array[v_pick], to_jsonb(v_s));
-        end if;
-        v_key := coalesce(v_keys[array_position(v_ids, v_pick)], '');
-        v_kpos := jsonb_set(v_kpos, array[v_key], coalesce(v_kpos -> v_key, '[]'::jsonb) || to_jsonb(v_s));
-      end loop;
-    end loop;
-    exit when v_ok;
+  -- 1. The frame: v_pat[position] is the place (1 to v_r: the often ones; then the others) that comes on that position.
+  v_q := 365 / v_count;
+  v_r := 365 % v_count;
+  v_m := v_q + case when v_r > 0 then 1 else 0 end;
+  v_lmin := 365 / v_m;
+  v_nl := v_count - v_r;
+  v_hoff := array_fill(0, array[v_lmin]);
+  for v_i in 1..v_r loop
+    v_hoff[(v_i - 1) * v_lmin / v_r + 1] := v_i;
   end loop;
-  if not v_ok then
+  v_pat := array_fill(0, array[365]);
+  v_pos := 0;
+  v_n := 0;
+  for v_k in 1..v_m loop
+    v_len := 365 * v_k / v_m - 365 * (v_k - 1) / v_m;
+    for v_off in 1..v_len loop
+      v_pos := v_pos + 1;
+      if v_off <= v_lmin and v_hoff[v_off] > 0 then
+        v_pat[v_pos] := v_hoff[v_off];
+      else
+        v_pat[v_pos] := v_r + 1 + v_n % v_nl;
+        v_n := v_n + 1;
+      end if;
+    end loop;
+  end loop;
+  v_lastp := array_fill(0, array[v_count]);
+  v_firstp := array_fill(0, array[v_count]);
+  v_nxt := array_fill(0, array[365]);
+  for v_pos in 1..365 loop
+    v_i := v_pat[v_pos];
+    if v_lastp[v_i] = 0 then
+      v_firstp[v_i] := v_pos;
+    else
+      v_nxt[v_lastp[v_i]] := v_pos;
+      v_w0 := least(v_w0, v_pos - v_lastp[v_i]);
+    end if;
+    v_lastp[v_i] := v_pos;
+  end loop;
+  for v_i in 1..v_count loop
+    if v_lastp[v_i] > 0 then
+      v_nxt[v_lastp[v_i]] := v_firstp[v_i];
+      v_w0 := least(v_w0, 365 - v_lastp[v_i] + v_firstp[v_i]);
+    end if;
+  end loop;
+  if v_win > v_w0 then
     raise exception 'dle_bank_unsatisfiable: % targets, window %', v_count, v_win;
   end if;
+
+  -- 2. The targets take the places. A target kept by a rebuild first (its own place), then the others in a weighted random order.
+  v_idxent := array_fill(0, array[v_count]);
+  v_taken := array_fill(false, array[v_count]);
+  for v_pos in 1..v_nfixed loop
+    v_e := coalesce(array_position(v_ids, v_fixed[v_pos]), 0);
+    if v_e > 0 and not v_taken[v_e] and v_idxent[v_pat[v_pos]] = 0 then
+      v_idxent[v_pat[v_pos]] := v_e;
+      v_taken[v_e] := true;
+    end if;
+  end loop;
+  select array_agg(t.i::integer order by -ln(1 - random()) / t.w) into v_ord from unnest(v_weights) with ordinality as t(w, i);
+  v_pool := '{}';
+  for v_j in 1..v_count loop
+    if not v_taken[v_ord[v_j]] then
+      v_pool := v_pool || v_ord[v_j];
+    end if;
+  end loop;
+  for v_i in 1..v_r loop
+    if v_idxent[v_i] = 0 then
+      v_hrem := v_hrem + 1;
+    end if;
+  end loop;
+  v_hh := 1;
+  v_lh := v_hrem + 1;
+  v_kat := array_fill(0, array[365]);
+  v_stamp := array_fill(0, array[v_nk + 1]);
+  for v_pos in 1..365 loop
+    if v_idxent[v_pat[v_pos]] > 0 then
+      v_kat[v_pos] := v_kid[v_idxent[v_pat[v_pos]]];
+    end if;
+  end loop;
+  for v_pos in 1..365 loop
+    v_i := v_pat[v_pos];
+    continue when v_idxent[v_i] <> 0 or v_firstp[v_i] <> v_pos;
+    -- The groups set within 13 days of a place of this one.
+    v_st := v_st + 1;
+    v_p := v_pos;
+    loop
+      for v_j in v_p - 13..v_p + 13 loop
+        v_t := (v_j + 364) % 365 + 1;
+        if v_kat[v_t] > 0 then
+          v_stamp[v_kat[v_t]] := v_st;
+        end if;
+      end loop;
+      v_p := v_nxt[v_p];
+      exit when v_p = v_pos;
+    end loop;
+    v_pick := 0;
+    v_fb := 0;
+    if v_i <= v_r then
+      v_j := v_hh;
+      v_jend := v_hrem;
+    else
+      v_j := v_lh;
+      v_jend := cardinality(v_pool);
+    end if;
+    while v_j <= v_jend loop
+      v_e := v_pool[v_j];
+      if not v_taken[v_e] then
+        if v_kid[v_e] = 0 or v_stamp[v_kid[v_e]] <> v_st then
+          v_pick := v_e;
+          exit;
+        end if;
+        if v_fb = 0 then
+          v_fb := v_e;
+        end if;
+      end if;
+      v_j := v_j + 1;
+    end loop;
+    if v_pick = 0 then
+      v_pick := v_fb;
+    end if;
+    if v_pick = 0 then
+      raise exception 'dle_bank_unsatisfiable: % targets, window %', v_count, v_win;
+    end if;
+    v_taken[v_pick] := true;
+    v_idxent[v_i] := v_pick;
+    while v_hh <= v_hrem and v_taken[v_pool[v_hh]] loop
+      v_hh := v_hh + 1;
+    end loop;
+    while v_lh <= cardinality(v_pool) and v_taken[v_pool[v_lh]] loop
+      v_lh := v_lh + 1;
+    end loop;
+    v_p := v_pos;
+    loop
+      v_kat[v_p] := v_kid[v_pick];
+      v_p := v_nxt[v_p];
+      exit when v_p = v_pos;
+    end loop;
+  end loop;
+  v_seq := array_fill(0, array[365]);
+  for v_pos in 1..365 loop
+    v_seq[v_pos] := v_idxent[v_pat[v_pos]];
+  end loop;
+
+  -- 3. The draw: every place may move at most v_shake days. A place at its limit is taken at once (the smallest one left: two
+  --    places never reach their limit on the same day); else the choice is free among the places v_shake days ahead or less.
+  v_shake := least(30, (v_w0 - v_win) / 2);
+  v_out := array_fill(0, array[365]);
+  v_placed := array_fill(false, array[365]);
+  v_lastk := array_fill(0, array[v_nk + 1]);
+  v_firstk := array_fill(0, array[v_nk + 1]);
+  for v_y in 1..v_nfixed loop
+    v_placed[v_y] := true;
+    v_out[v_y] := v_seq[v_y];
+    v_k := v_kid[v_seq[v_y]];
+    if v_k > 0 then
+      v_lastk[v_k] := v_y;
+      if v_firstk[v_k] = 0 then
+        v_firstk[v_k] := v_y;
+      end if;
+    end if;
+  end loop;
+  v_lo := v_nfixed + 1;
+  for v_y in v_nfixed + 1..365 loop
+    while v_placed[v_lo] loop
+      v_lo := v_lo + 1;
+    end loop;
+    if v_lo <= v_y - v_shake then
+      v_x := v_lo;
+    else
+      v_x := 0;
+      v_best_bad := 2;
+      v_best_r := 0;
+      for v_c in v_lo..least(365, v_y + v_shake) loop
+        continue when v_placed[v_c];
+        v_e := v_seq[v_c];
+        v_k := v_kid[v_e];
+        v_bad := 0;
+        if v_k > 0 and ((v_lastk[v_k] > 0 and v_y - v_lastk[v_k] < 14) or (v_firstk[v_k] > 0 and 365 - v_y + v_firstk[v_k] < 14)) then
+          v_bad := 1;
+        end if;
+        if v_bad <= v_best_bad then
+          v_r1 := -ln(1 - random()) / v_weights[v_e];
+          if v_x = 0 or v_bad < v_best_bad or v_r1 < v_best_r then
+            v_x := v_c;
+            v_best_bad := v_bad;
+            v_best_r := v_r1;
+          end if;
+        end if;
+      end loop;
+    end if;
+    v_placed[v_x] := true;
+    v_out[v_y] := v_seq[v_x];
+    v_k := v_kid[v_seq[v_x]];
+    if v_k > 0 then
+      v_lastk[v_k] := v_y;
+      if v_firstk[v_k] = 0 then
+        v_firstk[v_k] := v_y;
+      end if;
+    end if;
+  end loop;
+
+  -- 4. The polish: swap two days when both targets keep their window and the days of one group within 14 days become fewer.
+  --    v_kp holds the group of each day with 13 days of the cycle's other end on each side (so a window is 27 entries).
+  if v_nk > 0 then
+    v_s := v_q + 1;
+    v_occ := array_fill(0, array[v_count * v_s]);
+    v_ocn := array_fill(0, array[v_count]);
+    v_kp := array_fill(0, array[365 + 26]);
+    for v_pos in 1..365 loop
+      v_e := v_out[v_pos];
+      v_ocn[v_e] := v_ocn[v_e] + 1;
+      v_occ[(v_e - 1) * v_s + v_ocn[v_e]] := v_pos;
+      v_kp[v_pos + 13] := v_kid[v_e];
+    end loop;
+    for v_i in 1..13 loop
+      v_kp[v_i + 378] := v_kp[v_i + 13];
+      v_kp[v_i] := v_kp[v_i + 365];
+    end loop;
+    loop
+      v_conf := 0;
+      for v_p in v_nfixed + 1..365 loop
+        exit when v_att >= 40000;
+        v_ka := v_kp[v_p + 13];
+        continue when v_ka = 0;
+        v_cmax := -1;
+        for v_t in v_p..v_p + 26 loop
+          if v_kp[v_t] = v_ka then
+            v_cmax := v_cmax + 1;
+          end if;
+        end loop;
+        continue when v_cmax <= 0;
+        v_conf := v_conf + 1;
+        for v_c in 1..30 loop
+          v_att := v_att + 1;
+          v_z := v_nfixed + 1 + floor(random() * (365 - v_nfixed))::integer;
+          continue when v_z = v_p;
+          v_kb := v_kp[v_z + 13];
+          continue when v_kb = v_ka;
+          v_a := v_out[v_p];
+          v_b := v_out[v_z];
+          v_ok := true;
+          for v_t in 1..v_ocn[v_a] loop
+            v_o := v_occ[(v_a - 1) * v_s + v_t];
+            if v_o <> v_p then
+              v_d2 := abs(v_o - v_z);
+              if least(v_d2, 365 - v_d2) < v_win then
+                v_ok := false;
+                exit;
+              end if;
+            end if;
+          end loop;
+          if v_ok then
+            for v_t in 1..v_ocn[v_b] loop
+              v_o := v_occ[(v_b - 1) * v_s + v_t];
+              if v_o <> v_z then
+                v_d2 := abs(v_o - v_p);
+                if least(v_d2, 365 - v_d2) < v_win then
+                  v_ok := false;
+                  exit;
+                end if;
+              end if;
+            end loop;
+          end if;
+          continue when not v_ok;
+          -- The days p and z now (v_cmax and v_oz) and after the swap (v_np and v_nz): groups kb at p, ka at z, the other one of
+          -- the two days no longer counted in the window of the first.
+          v_dd := abs(v_p - v_z);
+          v_dd := least(v_dd, 365 - v_dd);
+          v_np := 0;
+          v_oz := 0;
+          if v_kb > 0 then
+            for v_t in v_p..v_p + 26 loop
+              if v_kp[v_t] = v_kb then
+                v_np := v_np + 1;
+              end if;
+            end loop;
+            for v_t in v_z..v_z + 26 loop
+              if v_kp[v_t] = v_kb then
+                v_oz := v_oz + 1;
+              end if;
+            end loop;
+            v_oz := v_oz - 1;
+            if v_dd <= 13 then
+              v_np := v_np - 1;
+            end if;
+          end if;
+          v_nz := 0;
+          for v_t in v_z..v_z + 26 loop
+            if v_kp[v_t] = v_ka then
+              v_nz := v_nz + 1;
+            end if;
+          end loop;
+          if v_dd <= 13 then
+            v_nz := v_nz - 1;
+          end if;
+          -- Fewer days of one group close together, or as many (a sideways move lets the search leave a dead end).
+          continue when v_np + v_nz > v_cmax + v_oz;
+          v_out[v_p] := v_b;
+          v_out[v_z] := v_a;
+          v_kp[v_p + 13] := v_kb;
+          v_kp[v_z + 13] := v_ka;
+          if v_p <= 13 then v_kp[v_p + 378] := v_kb; end if;
+          if v_p >= 353 then v_kp[v_p - 352] := v_kb; end if;
+          if v_z <= 13 then v_kp[v_z + 378] := v_ka; end if;
+          if v_z >= 353 then v_kp[v_z - 352] := v_ka; end if;
+          for v_t in 1..v_ocn[v_a] loop
+            if v_occ[(v_a - 1) * v_s + v_t] = v_p then
+              v_occ[(v_a - 1) * v_s + v_t] := v_z;
+              exit;
+            end if;
+          end loop;
+          for v_t in 1..v_ocn[v_b] loop
+            if v_occ[(v_b - 1) * v_s + v_t] = v_z then
+              v_occ[(v_b - 1) * v_s + v_t] := v_p;
+              exit;
+            end if;
+          end loop;
+          exit;
+        end loop;
+      end loop;
+      -- Stop when no day is left in conflict, or the number of days in conflict has not fallen for 3 sweeps.
+      if v_conf < v_best then
+        v_best := v_conf;
+        v_stall := 0;
+      else
+        v_stall := v_stall + 1;
+      end if;
+      exit when v_conf = 0 or v_stall >= 3 or v_att >= 40000;
+    end loop;
+  end if;
+
+  v_slots := array_fill(null::text, array[365]);
+  for v_pos in 1..365 loop
+    v_slots[v_pos] := v_ids[v_out[v_pos]];
+  end loop;
+  for v_pos in 1..v_nfixed loop
+    v_slots[v_pos] := v_fixed[v_pos];
+  end loop;
 
   delete from public.dle_schedule s
   where s.game_id = p_game and not exists (
     select 1 from generate_series(1, v_nfixed) as f(i) where s.bank_day = (v_b0 + f.i - 2) % 365 + 1);
-  for i in v_nfixed + 1..365 loop
-    insert into public.dle_schedule (game_id, bank_day, entity_id) values (p_game, (v_b0 + i - 2) % 365 + 1, v_slots[i]);
+  for v_pos in v_nfixed + 1..365 loop
+    insert into public.dle_schedule (game_id, bank_day, entity_id) values (p_game, (v_b0 + v_pos - 2) % 365 + 1, v_slots[v_pos]);
     v_drawn := v_drawn + 1;
   end loop;
   update public.dle_games set pool_hash = public.dle_pool_hash(p_game) where id = p_game;
@@ -542,6 +905,9 @@ end $$;
 
 -- Every night (cron ensure-daily-quiz of the hub build, step 4): snapshot, rebuild when the targets changed, today's row,
 -- purge of the rate limit and the old salts. Returns counts only, never a target.
+-- CR-019: each game runs in its own block. A game that fails (under min_pool, epoch still in the future) keeps its state of the
+-- day before and comes back as {"game", "error", "code"}, for the cron's log; the other games and the purges still run. A
+-- statement timeout is not caught (Postgres keeps query_canceled out of OTHERS): it fails the whole call, and the cron logs that.
 create or replace function public.dle_daily_maintenance(p_now timestamptz default now()) returns jsonb
 language plpgsql
 set search_path = public
@@ -554,13 +920,17 @@ declare
   v_rebuilt integer;
 begin
   for g in select * from public.dle_games where active order by id loop
-    v_pool := public.dle_refresh_entities(g.id);
-    v_rebuilt := 0;
-    if public.dle_pool_hash(g.id) is distinct from g.pool_hash then
-      v_rebuilt := public.dle_build_bank(g.id, v_today);
-    end if;
-    perform public.dle_target(g.id, v_today);
-    v_out := v_out || jsonb_build_object('game', g.id, 'pool', v_pool, 'rebuilt_days', v_rebuilt);
+    begin
+      v_pool := public.dle_refresh_entities(g.id);
+      v_rebuilt := 0;
+      if public.dle_pool_hash(g.id) is distinct from g.pool_hash then
+        v_rebuilt := public.dle_build_bank(g.id, v_today);
+      end if;
+      perform public.dle_target(g.id, v_today);
+      v_out := v_out || jsonb_build_object('game', g.id, 'pool', v_pool, 'rebuilt_days', v_rebuilt);
+    exception when others then
+      v_out := v_out || jsonb_build_object('game', g.id, 'error', sqlerrm, 'code', sqlstate);
+    end;
   end loop;
   delete from public.dle_rate where bucket < p_now - interval '1 hour';
   delete from public.dle_salt where day < v_today - 1;

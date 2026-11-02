@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { canCurateSpace } from '@/lib/verse/roles';
-import { isAdmin } from '@/lib/admin';
+import { adminPowerFor } from '@/lib/admin/guard';
 import { validatePageMeta } from '@/lib/verse/pages/validate';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
 import { wouldCreateCycle } from '@/lib/verse/pages/data';
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   const isAuthor = page.created_by === user.id;
   const isCurator = await canCurateSpace(user.id, page.group_id);
-  if (!isAuthor && !isCurator && !isAdmin(user.id)) return NextResponse.json({ error: 'Not your page' }, { status: 403 });
+  if (!isAuthor && !isCurator && !(await adminPowerFor(user.id))) return NextResponse.json({ error: 'Not your page' }, { status: 403 });
 
   // Meta save (title/infobox); status unchanged here.
   if (body.title !== undefined || body.infobox !== undefined) {

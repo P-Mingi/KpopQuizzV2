@@ -2,9 +2,12 @@
 --
 -- What:   creates public.entity_images (one image per site, kind and slug: kind 'series' or 'character'; the slug of a
 --         character is '<series slug>/<character slug>' because a character slug is unique per series only), with the focal
---         point (0 to 100), the credit (source_url, author, license, license_note) and the path of the file in the Storage
---         bucket 'entity-images'; RLS on, no write policy (only the service role writes: the admin routes of the app);
+--         point (0 to 100), the credit (source_url, author, license, license_note, license_url, commons_file) and the path of the file in the
+--         Storage bucket 'entity-images'; RLS on, no write policy (only the service role writes: the admin routes of the app);
 --         anon and authenticated may SELECT only the display columns (column grants), through one select policy;
+--         owner decision of 2026-11-02 (LEDGER CR-021): the owner sets the images himself and picks the licence from a short list of free
+--         licences; the author and the source page are optional except that CC BY and CC BY-SA need an author; needs_credit (generated)
+--         says which rows /credits must list (CC BY and CC BY-SA); no credit is printed on a page or in a game;
 --         creates the Storage bucket 'entity-images' (public read, WebP only, 4 MB per file) with no insert, update or
 --         delete policy for anon or authenticated; a trigger keeps updated_at.
 -- Why:    the owner uploads the photo of each series and each character from /admin on bunnyverse.org/anime. Files are copied into
@@ -14,6 +17,8 @@
 -- Needs:  001 (public.sites). Nothing in 011 is referenced: the slug is text, so the table also works before the series exist.
 -- Verify: select relname, relrowsecurity from pg_class where oid = 'public.entity_images'::regclass;   expect entity_images t
 --         select has_table_privilege('anon', 'public.entity_images', 'insert'), has_table_privilege('authenticated', 'public.entity_images', 'update'), has_column_privilege('anon', 'public.entity_images', 'created_by', 'select'), has_column_privilege('anon', 'public.entity_images', 'path', 'select');   expect f, f, f, t
+--         select has_column_privilege('anon', 'public.entity_images', 'license_url', 'select'), has_column_privilege('anon', 'public.entity_images', 'commons_file', 'select'), has_column_privilege('anon', 'public.entity_images', 'needs_credit', 'select');   expect f, f, f
+--         select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'entity_images' and column_name in ('license_url', 'commons_file', 'needs_credit');   expect 3
 --         select id, public, file_size_limit from storage.buckets where id = 'entity-images';   expect entity-images, t, 4194304
 --         select count(*) from pg_policies where schemaname = 'storage' and tablename = 'objects' and (policyname ilike '%entity-images%' or qual ilike '%entity-images%' or with_check ilike '%entity-images%');   expect 0
 -- Undo:   018-entity-images.rollback.sql (refused while a row or a file of the bucket exists).
@@ -39,15 +44,19 @@ create table if not exists public.entity_images (
   height integer not null constraint entity_images_height_check check (height > 0),
   focal_x numeric(5, 2) not null default 50 constraint entity_images_focal_x_check check (focal_x >= 0 and focal_x <= 100),
   focal_y numeric(5, 2) not null default 50 constraint entity_images_focal_y_check check (focal_y >= 0 and focal_y <= 100),
-  source_url text not null constraint entity_images_source_url_check check (source_url ~ '^https?://' and char_length(source_url) <= 2000),
-  author text not null constraint entity_images_author_check check (char_length(btrim(author)) between 1 and 200),
+  source_url text constraint entity_images_source_url_check check (source_url is null or (source_url ~ '^https?://' and char_length(source_url) <= 2000)),
+  author text constraint entity_images_author_check check (author is null or char_length(btrim(author)) between 1 and 200),
   license text not null constraint entity_images_license_check check (license in ('cc0', 'public_domain', 'cc_by', 'cc_by_sa', 'own_photo', 'licensed', 'other')),
   license_note text constraint entity_images_license_note_check check (license_note is null or char_length(license_note) <= 500),
+  license_url text constraint entity_images_license_url_check check (license_url is null or (license_url ~ '^https://' and char_length(license_url) <= 2000)),
+  commons_file text constraint entity_images_commons_file_check check (commons_file is null or (commons_file ~ '^File:' and char_length(commons_file) <= 300)),
+  needs_credit boolean generated always as (license in ('cc_by', 'cc_by_sa')) stored,
   created_by uuid constraint entity_images_created_by_fkey references auth.users(id) on delete set null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   constraint entity_images_site_kind_slug_key unique (site_id, kind, slug),
-  constraint entity_images_other_note_check check (license <> 'other' or (license_note is not null and char_length(btrim(license_note)) > 0))
+  constraint entity_images_other_note_check check (license <> 'other' or (license_note is not null and char_length(btrim(license_note)) > 0)),
+  constraint entity_images_credit_author_check check (license not in ('cc_by', 'cc_by_sa') or author is not null)
 );
 
 create or replace function public.entity_images_touch() returns trigger
@@ -67,7 +76,9 @@ create trigger trg_entity_images_touch before update on public.entity_images
 alter table public.entity_images enable row level security;
 
 -- Browser roles: read the display columns of every row, write nothing. Supabase grants new tables to anon and authenticated by
--- default, so everything is revoked first and the column grants below are the whole list.
+-- default, so everything is revoked first and the column grants below are the whole list. The three columns of CR-021 (license_url,
+-- commons_file, needs_credit) are not in it: /credits of the hub and of kpopquiz.org reads the credit through the view
+-- entity_credits_public of 022, for the rows that need one only.
 revoke all on table public.entity_images from public, anon, authenticated;
 grant select (site_id, kind, slug, path, width, height, focal_x, focal_y, license, author, source_url, license_note, updated_at)
   on public.entity_images to anon, authenticated;

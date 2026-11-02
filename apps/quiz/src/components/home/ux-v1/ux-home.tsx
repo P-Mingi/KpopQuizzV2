@@ -9,6 +9,8 @@ import { SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 import { getHomeBand, getHomeCommunity, getHomeGroups, getHomeLists, getHomeQotd } from '@/lib/ux-v1/p1/home-data';
 import { IS_KPOP, titleCase } from '@/lib/site/genre';
 import { SITE } from '@/lib/site/registry';
+import { loadAnimeDailyHome } from '@/lib/ux-v1/p1/anime-daily-home';
+import { loadKpopdleHome } from '@/lib/ux-v1/p1/kpopdle-home';
 import { RenderHealth, settleRender } from '@/lib/ux-v1/p1/render-health';
 
 import { CommunityRows } from './community-rows';
@@ -31,8 +33,8 @@ const TOPICS_HREF = IS_KPOP ? '/groups' : '/series';
  */
 export async function UxHome({ head, afterHeader }: {
   head?: React.ReactNode;
-  /** A block right under the header, before the quiz of the day: the OtakuQuiz home passes its Surprise me there (TWINS row 1, A8);
-   *  kpopquiz.org passes nothing and renders what it rendered. */
+  /** A block right under the header, before the quiz of the day: the OtakuQuiz home passes its Surprise me there (TWINS row 1, A8),
+   *  the kpopquiz.org home its own (CR-015). */
   afterHeader?: React.ReactNode;
 }): Promise<React.ReactElement> {
   const now = new Date();
@@ -47,6 +49,9 @@ export async function UxHome({ head, afterHeader }: {
   // A render that lost a read is not cached: at runtime it throws (the cached page
   // stays), at build it is kept for 30 s only.
   await settleRender(health);
+  // Not a health.read: a Kpopdle that is down hides its module, it never costs the home its cache (CR-018).
+  // P5 (CR-025), link 10: on the OtakuQuiz build the same place holds the Daily games module instead (the two loaders are closed on the other site, so each build gets at most one).
+  const kpopdle = (await loadKpopdleHome()) ?? (await loadAnimeDailyHome());
   const qotdRow = qotd ? <QotdRow qotd={qotd} /> : null;
 
   return (
@@ -58,13 +63,13 @@ export async function UxHome({ head, afterHeader }: {
 
       <HomeHeader />
 
-      {/* The quiz of the day. With an afterHeader block, the two share this one place of the tree (a fragment), so the
-          page data of kpopquiz.org, which passes none, keeps its bytes. */}
+      {/* The quiz of the day. With an afterHeader block, the two share this one place of the tree (a fragment). */}
       {afterHeader ? <>{afterHeader}{qotdRow}</> : qotdRow}
 
       {/* Every run saved on this device shows here (C2-004), even when its quiz is
           also in a list below: it is the fan's own run, with its resume link. */}
-      <ContinuePlaying />
+      {/* With the Kpopdle module (CR-018, off by default) the two share this one place of the tree, as afterHeader above, so the page data of a home without it keeps its bytes. */}
+      {kpopdle ? <><ContinuePlaying />{kpopdle}</> : <ContinuePlaying />}
 
       {groups.groups.length > 0 ? (
         <section className="ux-sec ux-sec-lg" aria-labelledby="p1-groups-h">

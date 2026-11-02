@@ -1,15 +1,12 @@
-import { redirect } from 'next/navigation';
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
 import { forSite } from '@/lib/site/scope';
 import { QuizSearchList } from './quiz-search-list';
 
 export const metadata = { title: 'Edit Quizzes | Admin' };
 
 export default async function QuizSearchPage(): Promise<React.ReactElement> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  await requireAdmin();
 
   const adminDb = createServiceRoleClient();
   // Run O1: the build's site only (a no-op on kpop with SITE_SCOPE off).

@@ -149,6 +149,10 @@ type Rewrites = { beforeFiles: { source: string; destination: string; basePath?:
 type Headers = { source: string; has?: { type: string; value: string }[]; missing?: { type: string; value: string }[]; headers: { key: string; value: string }[] }[];
 
 const VERCEL_APP_RULE = { source: '/:path*', has: [{ type: 'host', value: VERCEL_APP_HOST }], headers: NOINDEX };
+// ADMIN-1 (owner, 2026-10-30): every admin page and every /api/admin answer is never indexed and never stored, on every build.
+const ADMIN_HEADERS = [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }, { key: 'Cache-Control', value: 'no-store' }];
+const ADMIN_RULES = ['/admin', '/admin/:path*', '/api/admin/:path*'].map((source) => ({ source, headers: ADMIN_HEADERS }));
+const isAdminRule = (x: { source: string }): boolean => ADMIN_RULES.some((r) => r.source === x.source);
 
 describe('next.config.ts', () => {
   it('kpop: today\'s object, untouched (no basePath, no asset prefix, no microfrontends keys, the same rewrites)', async () => {
@@ -174,7 +178,8 @@ describe('next.config.ts', () => {
     const h = (await c.headers!()) as Headers;
     expect(h[0]).toEqual(VERCEL_APP_RULE);
     expect(h.some((x) => x.missing)).toBe(false);
-    expect(h.filter((x) => x.headers.some((y) => y.key === 'X-Robots-Tag'))).toEqual([VERCEL_APP_RULE]);
+    expect(h.filter((x) => x.headers.some((y) => y.key === 'X-Robots-Tag') && !isAdminRule(x))).toEqual([VERCEL_APP_RULE]);
+    expect(h.filter(isAdminRule)).toEqual(ADMIN_RULES);
   });
 
   it('anime while closed: every answer says noindex (the closed rule), the vercel.app rule stays, no "every host but" rule', async () => {
@@ -253,12 +258,17 @@ describe('the home of a build gets the security headers and the noindex of every
     const c = await loadConfig('kpop', { fandomVerse: true, indexing: '' });
     expect(await c.headers!()).toEqual([
       { source: '/embed/:path*', headers: [{ key: 'Content-Security-Policy', value: 'frame-ancestors *' }] },
+      ...ADMIN_RULES,
       { source: '/((?!embed/).*)', headers: [{ key: 'Content-Security-Policy', value: "frame-ancestors 'self'" }, { key: 'X-Frame-Options', value: 'SAMEORIGIN' }] },
     ]);
-    const at = await headersAt(c, ['/', '/q/x', '/embed/x'], 'kpopquiz.org');
+    const at = await headersAt(c, ['/', '/q/x', '/embed/x', '/admin', '/admin/quiz-bank', '/admin/k7q2m/code', '/api/admin/stats', '/administrator'], 'kpopquiz.org');
     expect(at['/']).toEqual(FRAME_SELF);
     expect(at['/q/x']).toEqual(FRAME_SELF);
     expect(at['/embed/x']).toEqual({ 'Content-Security-Policy': 'frame-ancestors *' });
+    // ADMIN-1: the admin pages, the MFA pages and the admin routes get the noindex and the no-store; nothing else does.
+    for (const p of ['/admin', '/admin/quiz-bank', '/admin/k7q2m/code']) expect(at[p], p).toEqual({ ...FRAME_SELF, 'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'no-store' });
+    expect(at['/api/admin/stats']).toMatchObject({ 'X-Robots-Tag': 'noindex, nofollow', 'Cache-Control': 'no-store' });
+    expect(at['/administrator']).toEqual(FRAME_SELF);
   });
 
   it('anime closed: /anime gets X-Frame-Options, frame-ancestors \'self\' and the noindex, like /anime/q/x (it got none before)', async () => {

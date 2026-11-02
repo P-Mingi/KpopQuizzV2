@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { currentSpaceRole, roleAtLeast } from '@/lib/verse/roles';
-import { isAdmin } from '@/lib/admin';
+import { adminPowerFor } from '@/lib/admin/guard';
 import { validatePageMeta } from '@/lib/verse/pages/validate';
 import { KPOP_PAGE_REGISTRY } from '@/lib/verse/pages/kpop-kinds';
 import { aliasOpsOnCreate } from '@/lib/verse/pages/data';
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return NextResponse.json({ error: 'Sign in to create pages' }, { status: 401 });
   const { role } = await currentSpaceRole(groupId);
-  if (!isAdmin(user.id) && !roleAtLeast(role, 'contributor')) {
+  if (!(await adminPowerFor(user.id)) && !roleAtLeast(role, 'contributor')) {
     return NextResponse.json({ error: 'Contributor role required. Join the space and contribute to unlock page creation.' }, { status: 403 });
   }
 

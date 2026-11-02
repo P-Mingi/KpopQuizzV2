@@ -8,7 +8,7 @@ import type { NextConfig } from 'next';
 import { INDEXING_OPEN } from './src/lib/site/indexing';
 import { basePathOf } from './src/lib/site/base-path';
 import { SITE, SITE_ID } from './src/lib/site/registry';
-import { afterFilesFor, fallbackFor, keyFileBlocksFor, redirectsFor, rewritesFor } from './src/lib/site/routing';
+import { afterFilesFor, fallbackFor, keyFileBlocksFor, kpopIconRewrites, redirectsFor, rewritesFor } from './src/lib/site/routing';
 import { MFE_APPLICATIONS, cronPathsOf, cronProxyRewrites, deploymentHostNoindexHeaders } from './src/lib/site/zones';
 import { buildUxStylesheet, uxStylesheetVersion } from './src/lib/ux-v1/a0/stylesheet';
 
@@ -43,6 +43,12 @@ const frameSelfHeaders = (): { key: string; value: string }[] => [
   { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
 ];
 const closedHeaders = (): { key: string; value: string }[] => [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }];
+// ADMIN-1 (owner, 2026-10-30): every admin page (the two MFA pages included, they live under /admin) and every /api/admin
+// answer, a 404 included, is never indexed and never stored (lib/admin/guard.ts ADMIN_RESPONSE_HEADERS, same values).
+const adminHeaders = (): { key: string; value: string }[] => [
+  { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+  { key: 'Cache-Control', value: 'no-store' },
+];
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -140,7 +146,8 @@ const nextConfig: NextConfig = {
       },
       { source: `/which-:group(${WMA})-member-are-you`, destination: '/personality/:group' },
     ];
-    return { beforeFiles: indexNowBlocks, afterFiles: v12Rewrites };
+    // Its icons are its own (public/brand/kpop/), at the same addresses; the root files stay the bytes anime and hub copy.
+    return { beforeFiles: [...indexNowBlocks, ...kpopIconRewrites()], afterFiles: v12Rewrites };
   },
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -214,6 +221,9 @@ const nextConfig: NextConfig = {
           { key: 'Content-Security-Policy', value: 'frame-ancestors *' },
         ],
       },
+      { source: '/admin', headers: adminHeaders() },
+      { source: '/admin/:path*', headers: adminHeaders() },
+      { source: '/api/admin/:path*', headers: adminHeaders() },
       {
         // Everything EXCEPT /embed. Next applies every matching rule, so a plain
         // '/:path*' here also matched /embed and the restrictive value won: the

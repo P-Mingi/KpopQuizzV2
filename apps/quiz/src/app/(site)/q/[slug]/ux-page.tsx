@@ -5,6 +5,7 @@ import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { averagePct } from '@/lib/ux-v1/p4/engine';
 import { parseResultLevels } from '@/lib/quiz/result-levels';
+import { quizEndBridge } from '@/lib/passerelles/quiz-end';
 import {
   getP4Creator, getP4GroupPlaylist, getP4GroupQuizCount, getP4HallOfFame, relaxedRunsLive,
 } from '@/lib/ux-v1/p4/queries';
@@ -73,6 +74,8 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
     .slice(0, 3)
     .map((s) => (s.length > MAX_PROMPT ? `${s.slice(0, MAX_PROMPT - 3).trimEnd()}...` : s));
 
+  // P5 (CR-025): the daily game row of the results screen. Null while its switch is off: then the key is left out and the props are today's.
+  const bridge = quizEndBridge();
   const run: P4RunQuiz = {
     id: quiz.id,
     slug: quiz.slug,
@@ -101,6 +104,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
     // SEO Mission 2: a level-result quiz (the Team "BTS ARMY level test"); null for every other quiz.
     resultLevels: parseResultLevels(quiz.settings),
     attempts: quiz.total_completions ?? 0,
+    ...(bridge ? { bridge } : {}),
   };
 
   const breadcrumbJsonLd = {

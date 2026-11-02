@@ -2,8 +2,11 @@
 //   visitor (no membership) -> member -> contributor -> curator -> space_admin.
 // Global ADMIN_USER_IDS admins resolve to space_admin in every space (super-users),
 // so the owner's dev account can exercise all curator/reviewer flows.
+// ADMIN-1 (owner, 2026-10-30): that super-user power goes through requireAdmin (lib/admin/guard.ts): only the admin the
+// guard lets through on this request (session verified by the auth server, listed id, aal2) is a super-user. A curator who
+// is not the site admin stays a curator; an admin at aal1 has only the roles of their own membership rows.
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { adminPowerFor, requireAdmin } from '@/lib/admin/guard';
 
 export type SpaceRole = 'visitor' | 'member' | 'contributor' | 'curator' | 'space_admin';
 
@@ -16,7 +19,7 @@ export function roleAtLeast(role: SpaceRole, min: SpaceRole): boolean {
 /** Effective role of a user in a space. Global admins are space_admin everywhere. */
 export async function getSpaceRole(userId: string | null, groupId: number): Promise<SpaceRole> {
   if (!userId) return 'visitor';
-  if (isAdmin(userId)) return 'space_admin';
+  if (await adminPowerFor(userId)) return 'space_admin';
   const db = createServiceRoleClient(); // read own row incl. status, bypassing the active-only policy
   const { data } = await db.from('space_members').select('role, status').eq('group_id', groupId).eq('user_id', userId).maybeSingle();
   const row = data as { role: SpaceRole; status: string } | null;
@@ -44,7 +47,7 @@ export async function isVersePrivileged(): Promise<boolean> {
   const supa = await createServerClient();
   const { data: { user } } = await supa.auth.getUser();
   if (!user) return false;
-  if (isAdmin(user.id)) return true;
+  if (await adminPowerFor(user.id)) return true;
   const db = createServiceRoleClient(); // bypass the active-only policy to read the caller's own roles
   const { data } = await db.from('space_members').select('role').eq('user_id', user.id).in('role', ['curator', 'space_admin']).neq('status', 'blocked').limit(1);
   return !!(data && data.length);
@@ -54,7 +57,5 @@ export async function isVersePrivileged(): Promise<boolean> {
  *  tightens to ADMIN ONLY - curators lose the pre-launch peek and get the teaser/404 like
  *  everyone else, until relaunch. isVersePrivileged stays for the relaunch (curator) gates. */
 export async function isVerseAdmin(): Promise<boolean> {
-  const supa = await createServerClient();
-  const { data: { user } } = await supa.auth.getUser();
-  return !!user && isAdmin(user.id);
+  return (await requireAdmin('check')) !== null;
 }

@@ -2,6 +2,7 @@ import { revalidateImage } from '@/lib/entity-images/cache';
 import { fetchRemoteImage } from '@/lib/entity-images/fetch-remote';
 import { processImage } from '@/lib/entity-images/process';
 import { adminGate, failure, forbidden, notFoundHandler, ok, readJson, sameOrigin } from '@/lib/entity-images/route-kit';
+import { linkIsCommons, resolveCredit } from '@/lib/entity-images/credit';
 import { assertEntity, saveImage } from '@/lib/entity-images/store';
 import { parseKind, parseMeta, parseSlug } from '@/lib/entity-images/validate';
 import { ImageError } from '@/lib/entity-images/errors';
@@ -24,10 +25,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const kind = parseKind(body.kind);
     const slug = parseSlug(kind, body.slug);
     if (typeof body.url !== 'string' || !body.url.trim()) throw new ImageError('bad_url', 400, 'Paste the address of a picture.');
-    const meta = parseMeta(body.meta);
+    // The rules of this tab first, then CR-021: a Commons link (the address pasted or the source page) is read on Commons before any download.
+    parseMeta(body.meta);
+    const { credit: meta, file } = await resolveCredit(body.meta, body.url);
     const db = createServiceRoleClient();
     await assertEntity(db, kind, slug);
-    const bytes = await fetchRemoteImage(body.url);
+    const bytes = await fetchRemoteImage(file && linkIsCommons(body.url) ? file.imageUrl : body.url);
     const image = await processImage(bytes, kind);
     return ok({ image: await saveImage(db, { kind, slug, image, meta, userId: gate.userId }, revalidateImage) });
   } catch (e) {

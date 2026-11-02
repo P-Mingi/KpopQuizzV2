@@ -20,14 +20,17 @@ and serves the three sites and checks every line).
    afterFilesFor(SITE_ID), fallback: fallbackFor(SITE_ID) }` from `rewrites()` and `redirectsFor(SITE_ID)` (an empty
    list) from `redirects()`. The kpop build keeps both functions exactly as today.
 4. The middleware asks `middlewareStep(SITE_ID, pathname)` first. `'kpop'` runs today's middleware unchanged.
-   `'not-found'` (kpop only, item 6) answers before the kpop branch with that branch's own unknown-route answer: a
-   page path is rewritten to `NOT_FOUND_REWRITE`, a file path goes on (`isFilePath`). `'pass'` returns
+   `'not-found'` (kpop, item 6, and the hub, CR-016) answers before the kpop branch with that branch's own unknown-route answer: a
+   page path is rewritten to `NOT_FOUND_REWRITE`, a file path goes on (`isFilePath`). On the hub it takes every page path its route map does not know. These stay `'pass'`: file paths,
+   `NOT_FOUND_REWRITE` and the `/sites` paths the rewrite goes through (or the middleware would loop), `/.well-known/**`, `/anime/**`, the framework's own and the
+   root metadata routes of Next. So the hub's
+   `/admin` and `/nimda` get the same bytes; `[...rest]`, which names the requested segments, keeps only the paths the matcher skips. `'pass'` returns
    `NextResponse.next()` at once (no Verse gate, no kpop legacy redirect, no kpop retired-feature 410, no kpop
    unknown-route answer). `'session'` falls through to today's protected branch: a path of `SESSION_PATTERNS`
    (`/login`, and `/onboarding`, `/settings`, `/admin` with what is below: today's `needsAuth()` without the Verse
    studio; routing.test.ts reads the list from middleware.ts) that the site's own route map also knows
    (`isSessionPathFor`). Anime refreshes the session on all four; the hub on `/login` and `/settings/**` only, so the
-   hub's `/admin` and `/onboarding` are its 404s, never a 307 to `/login` (R F0 r1 M1). The matcher regex is
+   hub's `/admin` and `/onboarding` are its 404s, never a 307 to `/login` (R F0 r1 M1), and since CR-016 the same 404 as any unknown URL. The matcher regex is
    unchanged.
    Redirects of the session branch (`lib/supabase/middleware.ts`, B4's) stay inside the site's route map: an
    anonymous request on a protected path goes to `/login?returnTo=<path>` (a route of anime and hub); a signed-in
@@ -205,7 +208,12 @@ BACKLOG; `/which-character/x` mirrors kpop's `/personality/x`): its page sets th
 | `/settings/**` | `settings/...` (W4) | H1 |
 | `/login` | `login/page.tsx` | H1 |
 | `/directory` | `directory/page.tsx` (optional, noindex, nofollow) | H1 |
-| `/credits` | `credits/page.tsx` at the root of `app/sites/[site]` (the licensed photos, daily games step 2; the same file serves OtakuQuiz's /credits and chooses by site; noindex while it lists nothing, NET_INDEXING otherwise; not in the sitemap, like OtakuQuiz's /credits) | H1 |
+| `/credits` | `credits/page.tsx` at the root of `app/sites/[site]` (the licensed photos, daily games step 2; the same file serves OtakuQuiz's /credits and chooses by site; NET_INDEXING; not in the sitemap, like OtakuQuiz's /credits; CR-021: a 404 like any unknown URL while no image in use needs a credit, so it exists only with a CC BY or CC BY-SA image; kpopquiz.org has its own `app/(site)/credits/page.tsx`, noindex, for idols and groups) | H1 |
+| `/daily`, `/fr/daily` | `(hub)/burrow/page.tsx` (a rewrite of routing.ts: `/sites/[site]/daily` is the anime handler; `/burrow` is a 404), `(hub)/fr/daily/page.tsx`. In the route map, and reachable, only with the dailyGuess flag on (`hubRouteAllow` of registry.ts, `dleOpen`); off, a 404 | H1 |
+| `/kpopdle`, `/fr/kpopdle` | `(hub)/kpopdle/page.tsx`, `(hub)/fr/kpopdle/page.tsx`; with `?r={counts}`, `(hub)/dle-share/[locale]/[game]/[r]/page.tsx` by a rewrite on the query, canonical on the clean address (`/dle-share` is a 404). Only with the flag on; the next games join by a line in `DLE_BUILT_GAMES` of registry.ts | H1 |
+| `/otakudle`, `/fr/otakudle` | `(hub)/otakudle/page.tsx`, `(hub)/fr/otakudle/page.tsx`; with `?r={counts}`, the same shared-result page. Only with the flag on (CR-017). `/otakudle/{series}` stays free for the post-launch per-series games (`RESERVED_SERIES_SLUGS` of lib/dle/games.ts) | H1 |
+| `/otakudle/one-piece`, `/otakudle/dragon-ball`, `/fr/otakudle/one-piece`, `/fr/otakudle/dragon-ball` | `(hub)/otakudle/one-piece/page.tsx`, `(hub)/otakudle/dragon-ball/page.tsx` and their `(hub)/fr/...` twins; with `?r={counts}`, the shared-result page (a rewrite per built game). Only with the flag on (CR-024); the other `/otakudle/{series}` stay free | H1 |
+| `/fr/credits` | `(hub)/fr/credits/page.tsx`. Only with the flag on | H1 |
 | `/auth/*`, `/api/*` | shared handlers | B4, B6, B7 |
 | `/robots.txt`, `/sitemap.xml` (`/`, and `/privacy` and `/legal` once NET_INDEXING is on; while it is off they are noindex drafts, D-108, D-111), `/legal` (anime and hub; kpop only with NEXT_PUBLIC_NET_PRIVACY, `lib/route-allowlist.ts` NET_PRIVACY_ROUTES), `/llms.txt` | route handlers as on anime | H1 |
 

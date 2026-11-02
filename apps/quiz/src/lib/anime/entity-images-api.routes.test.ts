@@ -30,8 +30,9 @@ vi.mock('next/cache', () => ({
   revalidateTag,
   unstable_cache: (fn: unknown, keys: string[], opts?: { tags?: string[] }) => { state.caches.push({ keys, tags: opts?.tags ?? [] }); return fn; },
 }));
-vi.mock('@/lib/supabase/server', () => ({
-  createServerClient: async () => ({ auth: { getUser: async () => ({ data: { user: state.user } }) } }),
+// ADMIN-1: the auth stand-in of lib/admin/test-support.ts (getSession, getUser, the assurance level: aal2 by default).
+vi.mock('@/lib/supabase/server', async () => ({
+  createServerClient: async () => ({ auth: (await import('@/lib/admin/test-support')).stubAuth(() => ({ user: state.user })) }),
   createServiceRoleClient: () => state.db,
   createPublicReadClient: () => state.db,
 }));

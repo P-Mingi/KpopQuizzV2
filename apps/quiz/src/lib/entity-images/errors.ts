@@ -4,7 +4,8 @@ export type ImageErrorCode =
   | 'bad_request' | 'bad_kind' | 'bad_slug' | 'bad_meta' | 'bad_focal' | 'unknown_entity' | 'no_image'
   | 'too_large' | 'unsupported_type' | 'invalid_image' | 'image_too_small'
   | 'bad_url' | 'blocked_address' | 'dns_failed' | 'too_many_redirects' | 'timeout' | 'fetch_failed'
-  | 'storage_failed' | 'db_failed' | 'server_error' | 'forbidden';
+  | 'storage_failed' | 'db_failed' | 'server_error' | 'forbidden'
+  | 'not_free' | 'commons_missing' | 'commons_failed';
 
 export class ImageError extends Error {
   readonly code: ImageErrorCode;

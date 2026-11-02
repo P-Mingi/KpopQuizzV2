@@ -106,18 +106,22 @@ describe('the page', () => {
     expect(html).toContain('No licensed photo is shown on Bunnyverse yet.');
   });
 
-  it('is noindex while it lists nothing, and asks for indexing (closed until NET_INDEXING) once it lists a photo', async () => {
+  it('is a 404 like any unknown URL while it lists nothing (CR-021), and asks for indexing (closed until NET_INDEXING) once it lists a photo', async () => {
     const page = await import('@/app/sites/[site]/credits/page');
     reads.site = 'hub';
     reads.pictures = [];
     reads.assets = [];
-    const empty = await page.generateMetadata();
-    expect((empty.robots as { index: boolean }).index).toBe(false);
-    expect(empty.alternates).toEqual({ canonical: '/credits' });
-    expect(empty.description).toBe(CREDITS_DESCRIPTION);
+    await expect(page.generateMetadata()).rejects.toThrow(/NEXT_HTTP_ERROR_FALLBACK;404|NEXT_NOT_FOUND/);
+    await expect(page.default()).rejects.toThrow(/NEXT_HTTP_ERROR_FALLBACK;404|NEXT_NOT_FOUND/);
+    // A picture whose licence asks for no credit (its view row carries none) is not a reason for the page to exist.
+    reads.pictures = [pic('idol', '1', 'Ana', { needsCredit: false, author: null, license: null, sourceUrl: null })];
+    await expect(page.generateMetadata()).rejects.toThrow(/NEXT_HTTP_ERROR_FALLBACK;404|NEXT_NOT_FOUND/);
+    reads.pictures = [pic('series', 'one-piece', 'One Piece')];
+    const listedMeta = await page.generateMetadata();
+    expect(listedMeta.alternates).toEqual({ canonical: '/credits' });
+    expect(listedMeta.description).toBe(CREDITS_DESCRIPTION);
     expect(CREDITS_DESCRIPTION.length).toBeGreaterThanOrEqual(120);
     expect(CREDITS_DESCRIPTION.length).toBeLessThanOrEqual(160);
-    reads.pictures = [pic('series', 'one-piece', 'One Piece')];
     // On a closed build (NET_INDEXING off) robotsFor closes every page anyway; open (kpop in tests), the listed page asks for index.
     expect((await page.generateMetadata()).robots).toEqual(robotsFor(true));
     const html = renderToStaticMarkup(await page.default());

@@ -50,9 +50,10 @@ describe('an anime quiz', () => {
     expect(groupPhotoOf('anime', 'frieren')).toBe('https://sb.example.supabase.co/storage/v1/object/public/entity-images/series/frieren.webp?v=2');
   });
 
-  it('keeps the initials for a photo OtakuQuiz shows with a credit line (CC BY, CC BY-SA): a row has no room for the credit', () => {
-    setOwnerSeriesPictures({ frieren: owner({ credit: { author: 'A. Photographer', license: 'CC BY', licenseUrl: 'https://creativecommons.org/share-your-work/cclicenses/', sourceUrl: 'https://example.org/p' } }) });
-    expect(groupPhotoOf('anime', 'frieren')).toBeNull();
+  it('shows a CC BY or CC BY-SA photo too (CR-021): no credit is printed anywhere, /credits lists it, so a row needs no room for one', () => {
+    const src = 'https://sb.example.supabase.co/storage/v1/object/public/entity-images/series/frieren.webp?v=2';
+    setOwnerSeriesPictures({ frieren: owner({ src, credit: { author: 'A. Photographer', license: 'CC BY', licenseUrl: 'https://creativecommons.org/share-your-work/cclicenses/', sourceUrl: 'https://example.org/p' } }) });
+    expect(groupPhotoOf('anime', 'frieren')).toBe(src);
   });
 
   it('keeps the initials for a series with no photo, and never reads a K-pop group photo', () => {

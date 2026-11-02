@@ -9,6 +9,28 @@ export const PHOTO_API = {
   fetch: `${BASE_PATH}/api/admin/photos/fetch`,
 } as const;
 
+/** What the server read on Wikimedia Commons for a pasted address (CR-021): to pre-fill the form; the save asks Commons again. */
+export interface CommonsInfo {
+  readonly file: string;
+  readonly pageUrl: string;
+  readonly license: 'cc0' | 'public_domain' | 'cc_by' | 'cc_by_sa' | 'other';
+  readonly licenseLabel: string;
+  readonly licenseUrl: string | null;
+  readonly author: string | null;
+  readonly note: string | null;
+}
+
+/**
+ * Asks the server about a pasted address. `null`: not a Commons address, the owner picks the licence. Throws with the server's words when the file
+ * is not free (it is refused) or Commons does not answer.
+ */
+export async function lookupCommons(url: string): Promise<CommonsInfo | null> {
+  const res = await fetch(PHOTO_API.fetch, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url, info: true }) });
+  const body = (await res.json().catch(() => null)) as { ok?: boolean; error?: string; commons?: CommonsInfo | null } | null;
+  if (!res.ok || !body || body.ok !== true) throw new Error(body?.error ?? 'Wikimedia Commons n\'a pas pu être interrogé. Réessaie.');
+  return body.commons ?? null;
+}
+
 /** A path of the build's public folder, with the base path (a mascot, an idol's file). */
 export const withBase = (path: string): string => (path.startsWith('/') && BASE_PATH && !path.startsWith(`${BASE_PATH}/`) ? `${BASE_PATH}${path}` : path);
 

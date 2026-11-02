@@ -27,17 +27,17 @@ export function spaceUnpublished(slug: string): boolean {
 
 // The two routes that stay public even while hidden: the teaser and the covenant.
 // "We hide the product, never the promises." Everything else under the Verse surface
-// (spaces, members, community, the builder, the verse admin queues) is gated.
+// (spaces, members, community, the builder) is gated. ADMIN-1 (owner, 2026-10-30): the verse
+// admin queues (/admin/space-images, /admin/member-review, /admin/verse) left this list: they
+// answer the 404 of every admin page (requireAdmin), never a redirect.
 const VERSE_ALLOWLIST = new Set(['/verse', '/verse/promises']);
-const VERSE_ADMIN_PREFIXES = ['/admin/space-images', '/admin/member-review', '/admin/verse'];
 
 /** True when this path is part of the gated Verse surface (hidden from anonymous visitors
  *  while VERSE_PUBLIC is off). The /verse teaser + /verse/promises are never gated. */
 export function isGatedVersePath(pathname: string): boolean {
   if (VERSE_ALLOWLIST.has(pathname)) return false;
   if (pathname === '/build' || pathname.startsWith('/build/')) return true;
-  if (pathname.startsWith('/verse/')) return true;
-  return VERSE_ADMIN_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+  return pathname.startsWith('/verse/');
 }
 
 // The Supabase SSR session cookie is `sb-<project-ref>-auth-token` (chunked into `.0`/`.1`

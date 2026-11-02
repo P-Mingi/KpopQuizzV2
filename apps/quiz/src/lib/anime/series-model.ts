@@ -119,7 +119,7 @@ export interface SourceLink {
 }
 
 const SOURCE_LABEL: Record<SeriesSourceRow['source'], string> = {
-  wikipedia: 'Wikipedia', wikidata: 'Wikidata', musicbrainz: 'MusicBrainz', official: 'Official site',
+  wikipedia: 'Wikipedia', wikidata: 'Wikidata', musicbrainz: 'MusicBrainz', official: 'Official site', fandom: 'Fandom wiki',
 };
 
 /** "Sources (i)": one entry per source and URL, with the fields it backs; a row with no valid URL has no link. */

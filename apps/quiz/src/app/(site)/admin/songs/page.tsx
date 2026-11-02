@@ -1,14 +1,10 @@
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
 
-import { createServerClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { requireAdmin } from '@/lib/admin/guard';
 import { SongTable } from './song-table';
 
 export default async function AdminSongsPage(): Promise<React.ReactElement> {
-  const supabase = await createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  const { supabase } = await requireAdmin();
 
   const { data: songs } = await supabase
     .from('blind_test_songs')

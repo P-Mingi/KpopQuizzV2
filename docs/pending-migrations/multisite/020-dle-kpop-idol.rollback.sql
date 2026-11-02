@@ -1,6 +1,7 @@
 -- 020-dle-kpop-idol.rollback.sql (run O1, daily games step 1): undoes 020-dle-kpop-idol.sql.
 --
--- What:   deletes the kpopdle-idol game (its columns, snapshot, bank and day rows go with it) and drops dle_src_kpop_idol.
+-- What:   deletes the kpopdle-idol game (its columns, snapshot, bank and day rows go with it), drops dle_src_kpop_idol and the table idol_other_groups
+--         (its rows are the groups 021d-k2-idols.sql added; roll 021d back first).
 -- Refused once the game has a play: a played game is switched off (active false), never deleted.
 -- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing.
 
@@ -24,5 +25,6 @@ begin
 end $$;
 
 drop view if exists public.dle_src_kpop_idol;
+drop table if exists public.idol_other_groups;
 
 notify pgrst, 'reload schema';

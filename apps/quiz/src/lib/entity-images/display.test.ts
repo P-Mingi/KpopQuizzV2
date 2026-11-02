@@ -56,8 +56,10 @@ describe('the series image: owner image, else bundled photo, else null', () => {
     expect(img).toMatchObject({ source: 'bundled', url: '/series/one-piece.webp', url2x: null, alt: 'A ship on the sea', focalX: 50, focalY: 35, width: 736, height: 981 });
   });
 
-  it('a bundled photo under CC BY keeps its attribution', async () => {
-    expect((await getSeriesImage('bleach'))!.attribution).toEqual({ author: 'Ann', license: 'CC BY 4.0', sourceUrl: 'https://s' });
+  it('a bundled photo under CC BY carries no attribution to print any more (CR-021: /credits lists it), but keeps its author for that page', async () => {
+    const img = (await getSeriesImage('bleach'))!;
+    expect(img.attribution).toBeNull();
+    expect(img).toMatchObject({ author: 'Ann', sourceUrl: 'https://s' });
   });
 
   it('with neither, null (the neutral placeholder)', async () => {
@@ -100,10 +102,9 @@ describe('the cache', () => {
 });
 
 describe('attribution', () => {
-  it('only CC BY and CC BY-SA uploads print a credit line', () => {
-    expect(displayFromRow(row({ license: 'cc_by' })).attribution).toEqual({ author: 'Jane', license: 'CC BY', sourceUrl: 'https://src.test/p' });
-    expect(displayFromRow(row({ license: 'cc_by_sa' })).attribution?.license).toBe('CC BY-SA');
-    for (const license of ['cc0', 'public_domain', 'own_photo', 'licensed', 'other'] as const) expect(displayFromRow(row({ license })).attribution).toBeNull();
+  it('no upload prints a credit line, whatever its licence (CR-021): the author and the licence stay for /credits', () => {
+    expect(displayFromRow(row({ license: 'cc_by' }))).toMatchObject({ attribution: null, author: 'Jane', license: 'cc_by', sourceUrl: 'https://src.test/p' });
+    for (const license of ['cc0', 'public_domain', 'cc_by_sa', 'own_photo', 'licensed', 'other'] as const) expect(displayFromRow(row({ license })).attribution).toBeNull();
   });
 
   it('bundledSeriesImage is null for a series with no photo', () => {

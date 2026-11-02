@@ -136,7 +136,8 @@ describe('R1 second pass: admin pages that call a protected route from the brows
     expect([...called].sort()).toEqual(['cron/mv-snapshot', 'cron/pulse-generate', 'cron/spotify-snapshot', 'qotd/publish']);
     for (const route of called) {
       const src = files.find((f) => f.path === `app/api/${route}/route.ts`)!.text;
-      expect(src, route).toMatch(/if \(!isCronAuthorized\(req\)\) \{[\s\S]{0,260}isAdmin\(user\.id\)/);
+      // ADMIN-1 (owner, 2026-10-30): the signed-in admin door is requireAdmin('api') (verified session, listed id, aal2).
+      expect(src, route).toMatch(/if \(!isCronAuthorized\(req\)\) \{[\s\S]{0,260}requireAdmin\('api'\)/);
     }
   });
 });

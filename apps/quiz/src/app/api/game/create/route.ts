@@ -1,18 +1,19 @@
 import { NextResponse } from 'next/server';
 
-import { createServerClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { requireAdmin } from '@/lib/admin/guard';
 import { generateSlug } from '@/lib/utils';
 import { calculateDifficulty } from '@/lib/blind-test-utils';
 
 import type { NextRequest } from 'next/server';
+import type { AdminClient } from '@/lib/admin/guard';
 import type { BlindTestSong } from '@/lib/db/types';
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
-  const supabase = await createServerClient();
-
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  // ADMIN-1: the one game type of this route (blind_test) is the admin's: requireAdmin first (verified, listed, aal2);
+  // anyone else gets the admin 404, before the body is read.
+  const gate = await requireAdmin('api');
+  if (!gate.ok) return gate.res;
+  const { supabase, user } = gate;
 
   let body: Record<string, unknown>;
   try {
@@ -24,10 +25,6 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const gameType = body.game_type as string;
 
   if (gameType === 'blind_test') {
-    // Admin-only for blind tests
-    if (!isAdmin(user.id)) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
-    }
     return createBlindTest(supabase, user.id, body);
   }
 
@@ -35,7 +32,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 }
 
 async function createBlindTest(
-  supabase: Awaited<ReturnType<typeof createServerClient>>,
+  supabase: AdminClient,
   userId: string,
   body: Record<string, unknown>,
 ): Promise<NextResponse> {

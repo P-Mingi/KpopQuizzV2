@@ -230,6 +230,7 @@ Run V-S4 (section A0) after this step: it must print `V-S4 ok`.
     q "select relname, relrowsecurity from pg_class where oid = 'public.entity_images'::regclass"                                  # entity_images|t
     q "select has_table_privilege('anon', 'public.entity_images', 'insert'), has_table_privilege('authenticated', 'public.entity_images', 'update'), has_column_privilege('anon', 'public.entity_images', 'created_by', 'select'), has_column_privilege('anon', 'public.entity_images', 'path', 'select')"   # f|f|f|t
     q "select id, public, file_size_limit from storage.buckets where id = 'entity-images'"                                       # entity-images|t|4194304
+    q "select has_column_privilege('anon', 'public.entity_images', 'license_url', 'select'), has_column_privilege('anon', 'public.entity_images', 'commons_file', 'select'), has_column_privilege('anon', 'public.entity_images', 'needs_credit', 'select')"   # f|f|f (CR-021: the three columns of the credit rules are closed; V-018 rows 4 and 5)
 
 016: the tables `passport.deletion_requests` and `passport.deletion_log` exist with RLS on and no policy (`select relname, relrowsecurity from pg_class where relnamespace = 'passport'::regnamespace and relname like 'deletion%' and relkind = 'r' order by 1` gives `deletion_log|t`, `deletion_requests|t`); the five functions
 `passport_request_deletion`, `passport_cancel_deletion`, `passport_run_deletion`, `passport_leave_world`, `passport_due_deletions` are executable by `service_role` only
@@ -241,8 +242,11 @@ Run V-S4 (section A0) after this step: it must print `V-S4 ok`.
 
 019 and 020 (SQL-ORDER rows 14c and 14d): `psql "$PROD_DB_URL" -X -At -f $M/dle-smoke.sql` prints `ok` on its ten rows (three more are information).
 Lot K1, 021a (row 14e): `idols.gender` and `idols.debut_year` exist, every gender is 'female' or 'male' (`docs/launch/o1/checks/V-K1a.sql`).
+Lot K1, 021c (row 14e ter): the debut years of the list are in place with one source each, 39, 46, 48, 175 carry their QID, 14 and 19 have the right QID, birth date and source references (`docs/launch/o1/checks/V-K1c.sql`).
 Lot K1, 021b (row 14e bis): no active idol is still to review, and no minor and no idol without a birth date is in the game (`docs/launch/o1/checks/V-K1b.sql`).
-022 (row 14f): `agencies` and `site_assets` have RLS on and no policy; the views `site_assets_public` and `entity_images_public` are readable by anon, the two tables and their sequences are not; one agency per label the kpop groups cite, 17 in production (`docs/launch/o1/checks/V-022.sql`).
+023 (row 14g): `character_facts` and `series_facts` have RLS on and no policy and are closed to the browser roles, the view `dle_src_anime_character` is closed, the game row is absent until L01 (`docs/launch/o1/checks/V-023.sql`).
+Lot K2, 021d (row 14e quater): 91 new idols present, active, reviewed and complete with their sources; 8 other-group links; 11 idols of the 021b list active; the 18 groups have an agency and a generation; no minor or idol without a birth date is active; the pool size is printed (`docs/launch/o1/checks/V-K2.sql`).
+022 (row 14f): `agencies` and `site_assets` have RLS on and no policy; the views `site_assets_public` and `entity_images_public` are readable by anon, the two tables and their sequences are not; one agency per label the kpop groups cite, 17 in production (`docs/launch/o1/checks/V-022.sql`). CR-021: `entity_images_public` and `site_assets_public` fill author, licence, source and note only for a CC BY or CC BY-SA row (V-022 rows 16 and 17).
 
 After the whole P5, V-S4 (section A0), V1 once more (nothing visible may have changed on kpop) and the Vercel runtime errors of `kpopquiz` for the last hour.
 
@@ -281,6 +285,10 @@ After L03 (the sentinels): `q "select username, id from public.profiles where id
 (plus `deleted_user` of Mission U part D when it is applied); `q "select count(*) from public.world_memberships where user_id in ('00000000-0000-0000-0000-00000000dea2', '00000000-0000-0000-0000-00000000dea3')"` is 0;
 with 016 applied `q "select public.passport_site_sentinel('anime'), public.passport_site_sentinel('hub')"` returns the two ids.
 After L06 (the badges): `q "select count(*) from public.badge_definitions where site_id <> 'kpop'"` is 6 (`anime_first_steps`, `anime_quiz_maker`, `anime_prolific_creator`, `anime_multi_stan`, `anime_dedicated_fan`, `anime_community_star`), and `q "select count(*) from public.badge_definitions where site_id = 'hub'"` is 0.
+After 023 run again in J4: `otakudle` is there, switched off, with 7 columns (`docs/launch/o1/checks/V-023.sql`).
+024 (row 14h) and again in J4: `character_game_facts` has RLS on and no policy and is closed to the browser roles, the two views `dle_src_otakudle_one_piece` and `dle_src_otakudle_dragon_ball` are closed, the two games are absent until L01 and then there, switched off or whole, with 8 columns each and no Dragon Ball height (`docs/launch/o1/checks/V-024.sql`). After L15 (J4): every stored value and every hint has its source, a target has every column and its 5-error hint (`docs/launch/o1/checks/V-L15.sql`); the counts of targets against the minimums are information.
+After L13 (the facts of the 750 characters of the pool, lots A1 and A2): 50 demographics, no fact outside the pool, no value without a source (the role of the site data itself counts), the targets over the game's minimum, 200 characters featured (the TOP200); 584 characters with the 7 columns and 113 targets are printed as information (`docs/launch/o1/checks/V-L13.sql`).
+After L14 (Kpopdle Idol and Otakudle on), on each game: on, with its epoch; 365 days, each on a target of the pool; no target twice in the window around the cycle; the bank matches the pool; targets at the minimum or more (`docs/launch/o1/checks/V-L14.sql`). Counts only, never a target. Then `dle_day` of each game answers its number, as the browser calls it (session.sh J5).
 After L05: `q "select count(*) from public.trivia where site_id='anime' and status='published'"` equals the `published` figure in its header (every verified fact).
 
     q "select count(*) from public.editorial_accounts where site_id='anime' and active"                      # 31 (L02)
@@ -297,6 +305,12 @@ Leaks (SQL side), after L04 to L08:
     q "select count(*) from public.groups g where g.site_id='anime' and g.slug in (select slug from public.groups where site_id='kpop')"   # 0
     q "select count(*) from public.quiz_bank where site_id='anime' and scheduled_date is not null"                          # 0 until you verify and the cron schedules
     q "select count(*) from public.trivia where site_id='anime' and status='published'"                                      # equals the `published` figure in L05's header
+
+## V-DLE. The kept days of the daily games (each morning after launch, RUNBOOK L6)
+
+    psql "$PROD_DB_URL" -X -At -f docs/launch/o1/checks/V-DLE-KEPT.sql
+
+One row per active game: the kept days (today and the 7 after it) whose target has left the pool. 0 expected, `ok`. A number above 0 is `KO`: those days cannot be won, RUNBOOK L6 says what to do. Read only, counts only, never a target. It is item 4 of V12's morning check.
 
 ## V9. Vercel projects and environment (before the domain is attached)
 
@@ -372,3 +386,127 @@ Each time:
 7. Supabase dashboard: Auth logs (no burst of failed Google or Discord sign-ins), Database advisors (no new security finding about the new tables); Resend bounce rate under 2 percent once the hook is on.
 8. Search Console for kpopquiz.org and bunnyverse.org: the sitemaps submitted (on bunnyverse.org the hub's and `/anime`'s), no new "blocked by robots" or "noindex" on kpopquiz.org URLs.
 At +72h write down the numbers of step 5 and 3 and decide whether to leave everything on (RUNBOOK L5).
+
+## V12. Daily games: the nightly maintenance on the hub (before a game is switched on, then each morning after)
+
+`ensure-daily-quiz` (00:05 UTC, shared `apps/quiz/vercel.json`) runs `dle_daily_maintenance` on the hub build only, after the quiz's work (`apps/quiz/src/lib/dle/maintenance.ts`). Its answer does not change, so read the log, not the response.
+
+Before a game is switched on (Claude, read-only, after 019 and 020):
+
+    q "select rolname, rolconfig from pg_roles where rolname in ('authenticator', 'service_role')"
+    q "select has_table_privilege('service_role', 'public.idols', 'select'), has_table_privilege('service_role', 'public.groups', 'select'), has_table_privilege('service_role', 'public.group_units', 'select'), has_table_privilege('service_role', 'public.entity_images', 'select'), has_table_privilege('service_role', 'public.dle_src_kpop_idol', 'select'), has_function_privilege('service_role', 'public.dle_daily_maintenance(timestamptz)', 'execute'), has_function_privilege('anon', 'public.dle_daily_maintenance(timestamptz)', 'execute')"
+
+Expect `t|t|t|t|t|t|f`: the view is `security_invoker`, so the cron's role needs the source tables (`psql` as the owner does not prove it). Any game's own source view gets the same check. A `statement_timeout` under 10 seconds on either role: tell the integrator (a rebuild took up to 3.6 s for 3000 targets on PGlite, one game; never measured on real Postgres).
+
+The morning after (a worker, Vercel; Claude, SQL):
+
+1. Vercel, project `fandomverse`, Logs, search `dle_daily_maintenance`, 00:05 UTC: one line, `[ensure-daily-quiz] dle_daily_maintenance: [...]`, with `game`, `pool` and `rebuilt_days` per active game (`[]` when none is active). `not applied on this database yet` is expected only before 019. Any `failed` line is a finding, the integrator looks at it the same day: `failed for game <id>: <code> <message>` names one game (the others ran, and the line of counts lists them), `failed: <code> <message>` is the whole call. The same search on `kpopquiz` and `otakuquiz` finds nothing.
+2. `q "select game_id, game_no from public.dle_daily_stats where play_date = current_date order by 1"`: one row per active game (never select `entity_id`: it is the answer).
+3. `q "select count(*) from public.dle_salt where day < current_date - 1"`: 0.
+4. `psql "$PROD_DB_URL" -X -At -f docs/launch/o1/checks/V-DLE-KEPT.sql`: `ok` for each active game (V-DLE above, RUNBOOK L6).
+
+Each game runs alone (CR-019). A game whose targets fell under `min_pool` (`dle_pool_too_small`), or whose `epoch` is still in the future (`dle_daily_stats_game_no_check`), keeps its snapshot and its bank of the day before and fails every night until fixed; the other games and the purges still run. A statement timeout fails the whole call, purges included. Activate a game with `epoch` = the day it opens.
+
+On o1-dev, before that (cron schedules never fire on a preview, so it is called by hand; a worker, with the `CRON_SECRET` of the preview and access to the protected preview): after the merge into `o1/integration`, `curl -sS -H "Authorization: Bearer $CRON_SECRET" https://fandomverse-git-o1-integration-p-mingis-projects.vercel.app/api/cron/ensure-daily-quiz`, then point 1 on the Preview logs of `fandomverse`.
+
+## H9. dle_rate_hit: the address it really sees (o1-dev, before a game is switched on)
+
+`dle_rate_hit` (019) reads `cf-connecting-ip`, else the last address of `x-forwarded-for`, from PostgREST's `request.headers`. If neither is there it does not limit at all, and if the value is the same for every player, all of them share 40 calls a minute. PGlite cannot prove this: only the real Supabase edge can. Not run yet.
+
+**Vercel is not on this path.** The games call Postgres from the browser (019, header), straight to `<ref>.supabase.co`; `apps/quiz/next.config.ts` has no rewrite to Supabase and no game client exists yet. So the headers to check are Supabase's, and the preview only supplies the real origin and the o1-dev keys (`scripts/o1-tools/vercel-preview-env.sh`). No new build, no repository route and no Vercel change is needed. If a server render or a route ever calls `dle_day`, `dle_guess` or `dle_give_up`, Supabase sees Vercel's outgoing address and every visitor shares one count: such a call must not be added without a new check.
+
+| Step | Who | Needs |
+|---|---|---|
+| 1, 6 | orchestrator | SQL on o1-dev, `scripts/o1/env.sh dev`; an exception to "only `migrate-dev.sh` writes to dev", his call |
+| 2, 3, 5 | a worker | a browser signed in to Vercel (preview protection), a terminal, the o1-dev URL and anon key from the orchestrator (the anon key is public, it ships in the preview's pages) |
+| 4 | a worker with a second network, else the owner on a phone | a phone hotspot, or the phone's browser |
+| decision on a fail | owner, on the integrator's proposal | |
+
+**1. Create the probes (orchestrator).** Check 019 first: `select to_regprocedure('public.dle_rate_hit(timestamptz)')`. `docs/o1/migration-log.md` records no 018 or 019 on o1-dev, and `scripts/o1/migrate-dev.sh` refuses them on dev: they are not in `docs/o1/contracts/manifest.md`. So when it prints null, either add them to the manifest and apply them, or do steps 2 to 4 with `h9_probe` alone and step 5 once 019 is there. Note the time, then:
+
+```sql
+-- H9-PROBE-BEGIN
+create or replace function public.h9_probe() returns jsonb
+language sql volatile security definer set search_path = public
+as $$
+  with h as (select nullif(current_setting('request.headers', true), '')::jsonb as j)
+  select jsonb_build_object(
+    'header_names', (select jsonb_agg(k order by k) from jsonb_object_keys(h.j) as k),
+    'cf_connecting_ip', h.j ->> 'cf-connecting-ip',
+    'x_forwarded_for', h.j ->> 'x-forwarded-for',
+    'x_real_ip', h.j ->> 'x-real-ip',
+    'true_client_ip', h.j ->> 'true-client-ip',
+    'derived', nullif(btrim(coalesce(h.j ->> 'cf-connecting-ip', (regexp_split_to_array(h.j ->> 'x-forwarded-for', '\s*,\s*'))[
+      cardinality(regexp_split_to_array(h.j ->> 'x-forwarded-for', '\s*,\s*'))])), ''))
+  from h
+$$;
+revoke all on function public.h9_probe() from public, anon, authenticated;
+grant execute on function public.h9_probe() to anon;
+-- H9-PROBE-END
+-- H9-HIT-BEGIN
+create or replace function public.h9_hit() returns text
+language plpgsql volatile security definer set search_path = public
+as $$
+begin
+  perform public.dle_rate_hit(now());
+  return 'counted';
+end $$;
+revoke all on function public.h9_hit() from public, anon, authenticated;
+grant execute on function public.h9_hit() to anon;
+-- H9-HIT-END
+notify pgrst, 'reload schema';
+```
+
+`h9_probe` returns header names, and values only for the four address headers: never `authorization`, `apikey` or `cookie`. `derived` is the expression of `dle_rate_hit`, copied. Create `h9_hit` only when 019 is there.
+
+**2. From the preview, as a game will call it (worker).** Open `https://fandomverse-git-o1-integration-p-mingis-projects.vercel.app`, then the browser console, with the URL and the anon key in `U` and `K`:
+
+    const U = '...', K = '...';
+    const call = (fn) => fetch(`${U}/rest/v1/rpc/${fn}`, { method: 'POST', headers: { apikey: K, authorization: `Bearer ${K}`, 'content-type': 'application/json' }, body: '{}' }).then(async (r) => ({ status: r.status, body: await r.json() }));
+    console.log(JSON.stringify(await call('h9_probe'), null, 1));
+    console.log(await fetch('https://www.cloudflare.com/cdn-cgi/trace').then((r) => r.text()));
+
+Note `derived`, and the `ip=` line of the second print: the worker's own address as seen from outside.
+
+**3. A client cannot choose its address (worker, same machine, in a terminal).** With `U` and `K` exported:
+
+    p() { curl -sS -X POST "$U/rest/v1/rpc/$1" -H "apikey: $K" -H "authorization: Bearer $K" -H 'content-type: application/json' -d '{}' "${@:2}"; echo; }
+    curl -sS https://www.cloudflare.com/cdn-cgi/trace | grep '^ip='
+    p h9_probe
+    p h9_probe -H 'cf-connecting-ip: 203.0.113.7' -H 'x-forwarded-for: 203.0.113.8' -H 'x-real-ip: 203.0.113.9' -H 'true-client-ip: 203.0.113.10'
+
+**4. Another network gives another address.** Repeat the call of step 2 or the first `p h9_probe` from a phone hotspot. Note `derived`.
+
+**5. The limit counts per address (worker, needs `h9_hit`).** From the first network, in one go right after the start of a minute:
+
+    for i in $(seq 1 45); do curl -sS -o /dev/null -w '%{http_code} ' -X POST "$U/rest/v1/rpc/h9_hit" -H "apikey: $K" -H "authorization: Bearer $K" -H 'content-type: application/json' -d '{}'; done; echo
+
+Then, at once, one `h9_hit` from the second network. If the minute turned during the loop, wait and run it again. Orchestrator, with the time of step 1: `select count(distinct ip_hash), max(calls) from public.dle_rate where bucket >= '<time>'`.
+
+**6. Remove everything (orchestrator).**
+
+    drop function if exists public.h9_hit();
+    drop function if exists public.h9_probe();
+    delete from public.dle_rate where bucket >= '<time>';
+    notify pgrst, 'reload schema';
+
+Check: `select to_regprocedure('public.h9_probe()'), to_regprocedure('public.h9_hit()')` prints two nulls.
+
+**Pass, all of:**
+- steps 2 and 3: `derived` is the worker's `ip=` (browser against browser, terminal against terminal: one can be IPv6 and the other IPv4);
+- step 3: the second call gives the same `derived`, with none of the `203.0.113.x` values in it;
+- step 4: `derived` differs from the first network;
+- step 5: 40 times `200`, then `400` on each further call (body `dle_rate_limited`), the second network still `200`; the query prints `2|40`.
+
+**Fail, and what to change.** Always the one expression of `dle_rate_hit` (`docs/pending-migrations/multisite/019-dle-core.sql`, section 7) and its copy in `h9_probe`:
+
+| Seen | Means | Change |
+|---|---|---|
+| no `cf-connecting-ip`, the last `x-forwarded-for` is the worker's address, and a sent value stays to its left | works as written | nothing; write down that the fallback is the one in use |
+| a sent `cf-connecting-ip` comes back as `derived` | anyone can pick their count: the limit is void | stop reading that header; use the last `x-forwarded-for` if the other lines pass |
+| the last `x-forwarded-for` is private or the same on both networks, the real address further left, no `cf-connecting-ip` | every player shares 40 calls a minute: the games stop for everybody under load | take the last address that is not private, or the header `header_names` shows carrying the address once it passes the spoof line |
+| `derived` is null, step 5 all `200`, no row | the limit is silently off | the header `header_names` shows carrying the address, under the same spoof line |
+
+Any of the last three blocks the switch-on. While 019 is not in production: change 019 in place, change the rate limit tests of `apps/quiz/src/lib/dle/sql.test.ts` forward with the real header shape, a new CR in `docs/o1/LEDGER.md`, apply it again on o1-dev, run H9 again. Once 019 is in production: a new file that replaces `dle_rate_hit` alone, same tests and same kind of CR.
+
+**Not covered:** o1-dev is a Supabase branch; that production's edge behaves the same is an assumption. After the switch-on, Claude on production (read-only): `select bucket, count(distinct ip_hash), max(calls) from public.dle_rate group by 1 order by 1 desc limit 5`: several addresses per busy minute. One address with a high count on every minute is the shared-count failure above.

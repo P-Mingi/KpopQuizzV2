@@ -8,6 +8,7 @@ select case when ok is true then 'ok' else 'KO' end, what, coalesce(got, '-') fr
   (3, 'kpopdle-idol : 8 colonnes', (select count(*) = 8 from public.dle_attributes where game_id = 'kpopdle-idol'), (select count(*)::text from public.dle_attributes where game_id = 'kpopdle-idol')),
   (4, 'banque vide avant l''activation', (select count(*) = 0 from public.dle_schedule), (select count(*)::text from public.dle_schedule)),
   (5, 'la vue ne lit ni height_cm, ni mbti, ni blood_type', (select pg_get_viewdef('public.dle_src_kpop_idol'::regclass) !~ '(height_cm|mbti|blood_type)'), null),
-  (6, 'idols dans la vue (information)', true, (select count(*)::text from public.dle_src_kpop_idol))
+  (6, 'table idol_other_groups : RLS active, aucune politique, fermée au navigateur', (select relrowsecurity and not has_table_privilege('anon', oid, 'select') and not has_table_privilege('authenticated', oid, 'select') and not has_table_privilege('authenticated', oid, 'insert') and not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'idol_other_groups') from pg_class where oid = 'public.idol_other_groups'::regclass), null),
+  (7, 'idols dans la vue (information)', true, (select count(*)::text from public.dle_src_kpop_idol))
 ) as c(n, what, ok, got) order by n;
 rollback;

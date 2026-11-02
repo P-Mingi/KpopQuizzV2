@@ -4,11 +4,12 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
 import { REGISTRY } from '@/lib/site/registry';
+import { hubRouteAllow } from '@/lib/site/registry';
 import { isKnownRouteFor } from '@/lib/site/routing';
 
 import {
-  DAILY_PATH, DLE_GAMES, RESERVED_SERIES_SLUGS, addDays, bankDay, dlePath, formatCountdown, futurePaths, gameNumber, isPlayable,
-  localePath, matchRank, normalizeName, secondsUntilReset, seriesPath, shareLine, shareText, spellHangul, suggest, utcDate,
+  BURROW_INTERNAL, DAILY_PATH, DLE_GAMES, RESERVED_SERIES_SLUGS, SHARE_INTERNAL, addDays, bankDay, dlePath, formatCountdown, futurePaths, gameNumber, isPlayable,
+  livePaths, localePath, matchRank, normalizeName, secondsUntilReset, seriesPath, shareLine, shareText, spellHangul, suggest, utcDate,
 } from './index';
 import type { DleCell, DleGuess, DlePoolEntity, DleStatus } from './types';
 
@@ -19,7 +20,7 @@ const CASES = (JSON.parse(readFileSync(new URL('./fixtures/compare.json', import
 describe('addresses of the Terrier (hub, English, French under /fr with the same words)', () => {
   it('the owner list: /daily, /kpopdle, /kpopdle/group, /kpopdle/song, /otakudle, /otakudle/{series}', () => {
     expect(DAILY_PATH).toBe('/daily');
-    expect(DLE_GAMES.map((g) => g.path)).toEqual(['/kpopdle', '/kpopdle/group', '/kpopdle/song', '/otakudle']);
+    expect(DLE_GAMES.map((g) => g.path)).toEqual(['/kpopdle', '/kpopdle/group', '/kpopdle/song', '/otakudle', '/otakudle/one-piece', '/otakudle/dragon-ball']);
     expect(seriesPath('one-piece')).toBe('/otakudle/one-piece');
     expect(dlePath('kpopdle-song', 'fr')).toBe('/fr/kpopdle/song');
     expect(seriesPath('naruto', 'fr')).toBe('/fr/otakudle/naruto');
@@ -38,11 +39,28 @@ describe('addresses of the Terrier (hub, English, French under /fr with the same
     for (const g of DLE_GAMES) expect(['kpop', 'anime']).toContain(g.universe);
   });
 
-  it('no page exists yet: the hub does not route them, and the flag is off on every site', () => {
-    for (const p of futurePaths().map((x) => x.replace('{series}', 'one-piece'))) {
-      expect(isKnownRouteFor('hub', p, { v1: true, v12: true }), p).toBe(false);
-    }
+  // Step 4 replaced "no page exists yet" (the pages exist now): this asserts more. With the flag off the route map is the one it always was, every public address of the
+  // Terrier is unknown to it (and the internal folders), and each page file answers notFound() behind dleOpen in its metadata and in its body. dle-step4.test.ts renders them.
+  it('with the flag off every page of the Terrier behaves as an unknown URL, and the flag is off on every site', () => {
+    const all = [...futurePaths().map((x) => x.replace('{series}', 'one-piece')), ...livePaths(), BURROW_INTERNAL, `${SHARE_INTERNAL}/en/kpopdle-idol/1-2`];
+    for (const p of all) expect(isKnownRouteFor('hub', p, { v1: true, v12: true }), p).toBe(false);
+    expect(REGISTRY.hub.routes.allow).toEqual(hubRouteAllow({ dailyGuess: false }));
+    for (const p of livePaths()) expect(hubRouteAllow({ dailyGuess: false }), p).not.toContain(p);
     for (const s of Object.values(REGISTRY)) expect(s.features.dailyGuess, s.id).toBe(false);
+    for (const rel of ['burrow', 'fr/daily', 'kpopdle', 'fr/kpopdle', 'otakudle', 'fr/otakudle', 'fr/credits', 'dle-share/[locale]/[game]/[r]']) {
+      const src = readFileSync(new URL(`../../app/sites/[site]/(hub)/${rel}/page.tsx`, import.meta.url), 'utf8');
+      expect(src.match(/if \(!dleOpen\(\)[^)]*\) notFound\(\);/g)?.length, rel).toBe(2);
+    }
+  });
+
+  it('the flag opens exactly the pages that exist: built games, never a game with no page', () => {
+    const open = hubRouteAllow({ dailyGuess: true });
+    for (const p of livePaths()) expect(open, p).toContain(p);
+    expect(livePaths()).toEqual([
+      '/daily', '/kpopdle', '/otakudle', '/otakudle/one-piece', '/otakudle/dragon-ball',
+      '/fr/daily', '/fr/kpopdle', '/fr/otakudle', '/fr/otakudle/one-piece', '/fr/otakudle/dragon-ball', '/fr/credits',
+    ]);
+    for (const p of ['/kpopdle/group', '/kpopdle/song', '/otakudle/{series}', '/fr/otakudle/{series}']) expect(open, p).not.toContain(p);
   });
 });
 

@@ -163,11 +163,12 @@ test.describe('G9 routes and gating (GET only)', () => {
   test('v12 on: the cron and the admin API refuse an anonymous caller, the team list is empty before the SQL', async ({ page }) => {
     test.skip((await flagState(page)) !== 'v12', 'v12 is off here');
     const cron = await page.request.get('/api/cron/editorial-publish');
-    expect(cron.status(), 'cron without the secret').toBe(401);
+    // ADMIN-1 (owner, 2026-10-30): every refusal is the admin 404, never a 401 or 403.
+    expect(cron.status(), 'cron without the secret').toBe(404);
     const wrong = await page.request.get('/api/cron/editorial-publish', { headers: { authorization: 'Bearer not-the-secret' } });
-    expect(wrong.status(), 'cron with a wrong secret').toBe(401);
+    expect(wrong.status(), 'cron with a wrong secret').toBe(404);
     const admin = await page.request.get('/api/admin/editorial');
-    expect(admin.status(), 'admin API signed out').toBe(401);
+    expect(admin.status(), 'admin API signed out').toBe(404);
     const team = await page.request.get('/api/ux-v1/p11/team');
     expect(team.status()).toBe(200);
     const body = await team.json() as { usernames?: unknown };
@@ -181,9 +182,12 @@ test.describe('G9 routes and gating (GET only)', () => {
 
   test('v12 on: /admin/editorial is closed to a signed-out visitor and never in the sitemap', async ({ page }) => {
     test.skip((await flagState(page)) !== 'v12', 'v12 is off here');
+    // ADMIN-1 (owner, 2026-10-30): a 404, never a redirect to /login; never indexed, never stored.
     const res = await page.request.get('/admin/editorial', { maxRedirects: 0 });
-    expect([302, 307, 308]).toContain(res.status());
-    expect(res.headers().location ?? '').toMatch(/\/login\?returnTo=%2Fadmin%2Feditorial$|^\/$|\/$/);
+    expect(res.status()).toBe(404);
+    expect(res.headers().location ?? '').toBe('');
+    expect(res.headers()['x-robots-tag']).toBe('noindex, nofollow');
+    expect(res.headers()['cache-control']).toContain('no-store');
     const sitemap = await page.request.get('/sitemap.xml');
     expect(await sitemap.text()).not.toContain('/admin/editorial');
     const robots = await (await page.request.get('/robots.txt')).text();

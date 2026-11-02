@@ -1,6 +1,6 @@
 // Run O1 (ADM back): reads and writes of public.entity_images and of the bucket 'entity-images', through the SERVICE ROLE client
 // (the table has no write policy). Server only. The caller has already checked that the user is an admin.
-import { BUCKET, DEFAULT_FOCAL, DISPLAY_COLUMNS, IMAGE_SITE, folderOf, path2x } from './constants';
+import { ADMIN_COLUMNS, BUCKET, DEFAULT_FOCAL, IMAGE_SITE, folderOf, path2x } from './constants';
 import { ImageError } from './errors';
 
 import type { ImageKind } from './constants';
@@ -32,6 +32,8 @@ export function toDto(row: EntityImageRow): EntityImageDto {
     author: row.author,
     sourceUrl: row.source_url,
     licenseNote: row.license_note,
+    licenseUrl: row.license_url ?? null,
+    commonsFile: row.commons_file ?? null,
     updatedAt: row.updated_at,
   };
 }
@@ -69,9 +71,9 @@ const missingColumn = (error: { code?: string; message?: string } | null): boole
 
 async function rowOf(db: Db, kind: ImageKind, slug: string): Promise<StoredRow | null> {
   const read = (columns: string) => db.from('entity_images').select(columns).eq('site_id', IMAGE_SITE).eq('kind', kind).eq('slug', slug).maybeSingle();
-  let { data, error } = await read(`${DISPLAY_COLUMNS}, thumb_path`);
+  let { data, error } = await read(`${ADMIN_COLUMNS}, thumb_path`);
   // Before 019 the table has no thumb_path, so no row has a 96 px file: read the display columns alone.
-  if (missingColumn(error)) ({ data, error } = await read(DISPLAY_COLUMNS));
+  if (missingColumn(error)) ({ data, error } = await read(ADMIN_COLUMNS));
   if (error) throw new ImageError('db_failed', 500, 'The database could not be read.');
   return (data as StoredRow | null) ?? null;
 }
@@ -103,13 +105,14 @@ export async function saveImage(
     const fields: Record<string, unknown> = {
       path, width: image.width, height: image.height, focal_x: DEFAULT_FOCAL, focal_y: DEFAULT_FOCAL,
       source_url: meta.source_url, author: meta.author, license: meta.license, license_note: meta.license_note ?? null,
+      license_url: meta.license_url ?? null, commons_file: meta.commons_file ?? null,
     };
     // A new picture over a row that had a 96 px file: that file is the old picture's and goes below, so the row drops it and its check
     // (022's trigger does the same; said here so the row never points at a removed file, 022 applied or not).
     if (old?.thumb_path && oldPath !== path) Object.assign(fields, { thumb_path: null, license_verified: false });
     const res = oldPath !== null
-      ? await db.from('entity_images').update(fields).eq('site_id', IMAGE_SITE).eq('kind', kind).eq('slug', slug).select(DISPLAY_COLUMNS).single()
-      : await db.from('entity_images').insert({ site_id: IMAGE_SITE, kind, slug, created_by: a.userId, ...fields }).select(DISPLAY_COLUMNS).single();
+      ? await db.from('entity_images').update(fields).eq('site_id', IMAGE_SITE).eq('kind', kind).eq('slug', slug).select(ADMIN_COLUMNS).single()
+      : await db.from('entity_images').insert({ site_id: IMAGE_SITE, kind, slug, created_by: a.userId, ...fields }).select(ADMIN_COLUMNS).single();
     if (res.error || !res.data) throw new ImageError('db_failed', 500, 'The picture was stored but the database refused it.');
     if (old && oldPath !== path) await removeFiles(db, filesOf(old));
     revalidate(kind, slug);
@@ -122,7 +125,7 @@ export async function saveImage(
 
 export async function setFocal(db: Db, kind: ImageKind, slug: string, x: number, y: number, revalidate: Revalidate): Promise<EntityImageDto> {
   const { data, error } = await db.from('entity_images').update({ focal_x: x, focal_y: y })
-    .eq('site_id', IMAGE_SITE).eq('kind', kind).eq('slug', slug).select(DISPLAY_COLUMNS).maybeSingle();
+    .eq('site_id', IMAGE_SITE).eq('kind', kind).eq('slug', slug).select(ADMIN_COLUMNS).maybeSingle();
   if (error) throw new ImageError('db_failed', 500, 'The focal point could not be saved.');
   if (!data) throw new ImageError('no_image', 404, 'Upload or import a picture first: the bundled photo has no focal point to set.');
   revalidate(kind, slug);
@@ -144,7 +147,7 @@ export async function deleteImage(db: Db, kind: ImageKind, slug: string, revalid
 export async function allRows(db: Db): Promise<EntityImageRow[]> {
   const out: EntityImageRow[] = [];
   for (let from = 0; ; from += 1000) {
-    const { data, error } = await db.from('entity_images').select(DISPLAY_COLUMNS).eq('site_id', IMAGE_SITE).order('id', { ascending: true }).range(from, from + 999);
+    const { data, error } = await db.from('entity_images').select(ADMIN_COLUMNS).eq('site_id', IMAGE_SITE).order('id', { ascending: true }).range(from, from + 999);
     if (error) throw new ImageError('db_failed', 500, 'The pictures could not be listed.');
     const rows = (data ?? []) as EntityImageRow[];
     out.push(...rows);

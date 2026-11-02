@@ -85,14 +85,14 @@ counts for both); flags are flags-env.md 3; formats are the "written by" column 
 | K2 | L02, L07 | none | none | none | none | none | quiz draft, creator profile |
 | K3 | L08, L10 | none | none | none | none | none | daily bank row, Which character question set, Which character set, name-all set, this-or-that bracket |
 | K4 | L09 | none | none | none | none | none | playlist, crossover entry |
-| O1 | none | 1, 10, 21, 22, 23, 23b, 24, 25, 26, 26b, 26c, 27, 27b, 28, 30, 30b, 34, 35, 36, 38, 39, 40, 41, 42, H-9 | anime.o1 | none | none | none | none |
+| O1 | none | 1, 10, 21, 22, 23, 23b, 24, 25, 26, 26b, 26c, 27, 27b, 28, 30, 30b, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, H-9 | anime.o1 | none | none | none | none |
 | O2 | none | 2, 3, 4, 5, 31, 31b, 31c, 31d, 32, 32b, 32c, 33 | anime.o2 | none | none | none | none |
 | O3 | 015 | 6, 7, 8 | anime.o3 | none | computeSpoilerLevel, isSafeFor, SpoilerShield | none | none |
 | O4 | none | 9 | anime.o4 | none | none | none | none |
 | O5 | 013 | 14, 15 | anime.o5 | none | none | none | none |
 | O6 | 014 | 11, 12, 13 | anime.o6 | /api/cron/ensure-daily-opening | none | none | none |
 | P1 | none | 16, 17, 18, 19, 20 | anime.p1 | none | none | none | none |
-| H1 | none | H-0, H-1, H-2, H-3, H-4, H-5, H-6, H-7, H-8, H-10, H-11, 26d | hub.h1 | none | none | NEXT_PUBLIC_NET_PRIVACY | none |
+| H1 | none | H-0, H-1, H-2, H-3, H-4, H-5, H-6, H-7, H-8, H-10, H-11, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 26d | hub.h1 | none | none | NEXT_PUBLIC_NET_PRIVACY, NET_KPOPDLE_HOME, NET_KPOPDLE_QUIZEND, NET_KPOPDLE_GROUP | none |
 | E1b | 012 | 29 | anime.e1b | none | none | none | none |
 | X1 | L11 | none | kpop.x1, anime.x1 | none | CrossoverFact | NEXT_PUBLIC_NET_FACTS | quiz draft |
 | L1 | L12 | none | kpop.l1 | /admin/network | none | NET_INDEXING | none |

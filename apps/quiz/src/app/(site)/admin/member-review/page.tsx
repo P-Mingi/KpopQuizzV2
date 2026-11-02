@@ -1,7 +1,5 @@
-import { redirect } from 'next/navigation';
-
-import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/admin';
+import { createServiceRoleClient } from '@/lib/supabase/server';
+import { requireAdmin } from '@/lib/admin/guard';
 import { idolSlug } from '@/lib/verse/slug';
 import { CuratorIdolQueue } from '@/components/admin/curator-idol-queue';
 
@@ -9,16 +7,14 @@ import type { PendingIdol } from '@/components/admin/curator-idol-queue';
 import type { Metadata } from 'next';
 
 // V-BUILDER-3 step 4 (governance L-068): the "Idoles a valider" queue - curator-created
-// members awaiting review. Sits next to /admin/space-images on the same admin rails (isAdmin
+// members awaiting review. Sits next to /admin/space-images on the same admin rails (requireAdmin
 // gate, noindex, dense rows). A curator-created idol is inactive + 404s until an admin
 // Approves it here; Keep hidden reviews it out of the queue without publishing or deleting.
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = { title: 'Member review', robots: { index: false, follow: false } };
 
 export default async function MemberReviewPage(): Promise<React.ReactElement> {
-  const supa = await createServerClient();
-  const { data: { user } } = await supa.auth.getUser();
-  if (!user || !isAdmin(user.id)) redirect('/');
+  await requireAdmin();
 
   const svc = createServiceRoleClient();
   const { data } = await svc.from('idols')

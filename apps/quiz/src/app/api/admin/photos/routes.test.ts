@@ -2,9 +2,9 @@
 // get 404), same-origin writes only, a series refused without its licence verified, a picture stored end to end on an in-memory database and
 // bucket, the versions of a banner, and the guarded fetch that never stores anything.
 import { NextRequest } from 'next/server';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { META, photoFiles, photosFakeDb, webpOf } from '@/lib/photos/test-support';
+import { META, commonsResponse, photoFiles, photosFakeDb, webpOf } from '@/lib/photos/test-support';
 
 import type { PhotosFakeDb } from '@/lib/photos/test-support';
 
@@ -13,8 +13,9 @@ const revalidateTag = vi.hoisted(() => vi.fn());
 
 vi.mock('next/cache', () => ({ revalidateTag, unstable_cache: (fn: unknown) => fn }));
 vi.mock('@/lib/site/registry', async (orig) => ({ ...(await orig<typeof import('@/lib/site/registry')>()), get SITE_ID() { return state.site; } }));
-vi.mock('@/lib/supabase/server', () => ({
-  createServerClient: async () => ({ auth: { getUser: async () => ({ data: { user: state.user } }) } }),
+// ADMIN-1: the auth stand-in of lib/admin/test-support.ts (getSession, getUser, the assurance level: aal2 by default).
+vi.mock('@/lib/supabase/server', async () => ({
+  createServerClient: async () => ({ auth: (await import('@/lib/admin/test-support')).stubAuth(() => ({ user: state.user })) }),
   createServiceRoleClient: () => state.db,
 }));
 vi.mock('@/lib/entity-images/fetch-remote', async (orig) => ({
@@ -45,7 +46,11 @@ beforeEach(() => {
     characters: [], entity_images: [], site_assets: [], agencies: [],
   });
   revalidateTag.mockClear();
+  // META names a Commons page as its source (CR-021: the server asks Commons for it): the answer is stubbed, no test reaches the network.
+  vi.stubGlobal('fetch', vi.fn(async () => commonsResponse()));
 });
+
+afterEach(() => { vi.unstubAllGlobals(); });
 
 describe('the gate', () => {
   const calls = (): Array<() => Promise<Response>> => [

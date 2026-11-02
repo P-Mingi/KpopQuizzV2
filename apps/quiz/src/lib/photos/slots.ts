@@ -3,9 +3,9 @@
 // Tables: public.entity_images (018, 019, 022) for the pictures of the idols, groups, agencies, series and characters; public.site_assets
 // (022) for the banners, card images, icons and stickers of the pages of bunnyverse.org.
 
-import { LICENSES } from '@/lib/entity-images/constants';
+import { FREE_LICENSES, LICENSES } from '@/lib/entity-images/constants';
 
-import type { ImageLicense } from '@/lib/entity-images/constants';
+import type { FreeLicense, ImageLicense } from '@/lib/entity-images/constants';
 
 export { LICENSES };
 export type { ImageLicense };
@@ -124,6 +124,14 @@ export const IMAGE_SLOTS: readonly ImageSlot[] = [
   { key: 'home:cross-1', type: 'card_image', page: 'home', name: 'Crossover, vignette 1', where: 'homepage, rangée 3', bg: K_BG, accent: K_ACC, ratio: '3 / 2' },
   { key: 'home:cross-2', type: 'card_image', page: 'home', name: 'Crossover, vignette 2', where: 'homepage, rangée 3', bg: A_BG, accent: A_ACC, ratio: '3 / 2' },
   { key: 'home:cross-3', type: 'card_image', page: 'home', name: 'Crossover, vignette 3', where: 'homepage, rangée 3', bg: 'linear-gradient(120deg, #F1EFEA 0%, #FFF1E6 100%)', accent: '#1F1B17', ratio: '3 / 2' },
+  // The small image of each mode (v2 section 2 and 7.3): the round dots of the two games on the Terrier and the squares of "Your day". lib/dle/worlds.ts names them.
+  { key: 'daily:mode-idol', type: 'card_image', page: 'daily', name: 'Mode Idol du jour', where: 'Le Terrier, pastille et ligne', bg: K_BG, accent: K_ACC, ratio: '1 / 1' },
+  { key: 'daily:mode-group', type: 'card_image', page: 'daily', name: 'Mode Groupe du jour', where: 'Le Terrier, pastille et ligne', bg: K_BG, accent: K_ACC, ratio: '1 / 1' },
+  { key: 'daily:mode-song', type: 'card_image', page: 'daily', name: 'Mode Chanson du jour', where: 'Le Terrier, pastille et ligne', bg: K_BG, accent: K_ACC, ratio: '1 / 1' },
+  { key: 'daily:mode-hidden', type: 'card_image', page: 'daily', name: 'Mode Membres cachés', where: 'Le Terrier, pastille et ligne', bg: K_BG, accent: K_ACC, ratio: '1 / 1' },
+  { key: 'daily:mode-char', type: 'card_image', page: 'daily', name: 'Mode Personnage du jour', where: 'Le Terrier, pastille et ligne', bg: A_BG, accent: A_ACC, ratio: '1 / 1' },
+  { key: 'daily:mode-series', type: 'card_image', page: 'daily', name: 'Mode Série du jour', where: 'Le Terrier, pastille et ligne', bg: A_BG, accent: A_ACC, ratio: '1 / 1' },
+  { key: 'daily:mode-byseries', type: 'card_image', page: 'daily', name: 'Mode Un Otakudle par série', where: 'Le Terrier, pastille et ligne', bg: A_BG, accent: A_ACC, ratio: '1 / 1' },
 ];
 
 /** The site_assets key of each image slot of the home v3 (lib/site/hub/home-assets.ts reads them through site_assets_public). */
@@ -277,15 +285,16 @@ export const objectPosition = (f: Focal): string => `${Math.round(f.x)}% ${Math.
 
 // ---- licences -----------------------------------------------------------------------------------------------------------------------
 
-/** The licences the photo form offers, in the board's order and words. */
-export const PHOTO_LICENSE_OPTIONS: readonly { readonly value: ImageLicense; readonly label: string }[] = [
-  { value: 'cc_by', label: 'CC BY' },
-  { value: 'cc_by_sa', label: 'CC BY-SA' },
+/**
+ * The licences the photo form offers (owner decision of 2026-11-02, CR-021): CC0, public domain, CC BY, CC BY-SA, other free licence. The two
+ * others the database still knows (own_photo, licensed) stay for the banners, icons and stickers and for what is already stored.
+ */
+export const PHOTO_LICENSE_OPTIONS: readonly { readonly value: FreeLicense; readonly label: string }[] = [
   { value: 'cc0', label: 'CC0' },
   { value: 'public_domain', label: 'Domaine public' },
-  { value: 'own_photo', label: 'Photo personnelle' },
-  { value: 'licensed', label: 'Sous licence, accord écrit' },
-  { value: 'other', label: 'Autre, à préciser' },
+  { value: 'cc_by', label: 'CC BY' },
+  { value: 'cc_by_sa', label: 'CC BY-SA' },
+  { value: 'other', label: 'Autre licence libre, à préciser' },
 ];
 
 /** The licences the banner form offers (the board's list: no "other", no public domain). */
@@ -303,6 +312,10 @@ export const BANNER_LICENSE_OPTIONS: readonly { readonly value: ImageLicense; re
  * too, site_assets_small_license_check).
  */
 export const SMALL_ASSET_LICENSES: readonly ImageLicense[] = ['own_photo', 'licensed'];
+
+export function isFreeLicense(v: unknown): v is FreeLicense {
+  return typeof v === 'string' && (FREE_LICENSES as readonly string[]).includes(v);
+}
 
 export function isLicense(v: unknown): v is ImageLicense {
   return typeof v === 'string' && (LICENSES as readonly string[]).includes(v);

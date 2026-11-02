@@ -251,6 +251,22 @@ test('C10: Oricon and Anime News Network are allowed quiz sources (press); a loo
   assert.match(codeOf(bad, 'C10').notes.map((n) => n.message).join(' | '), /not Wikipedia, Wikidata, MusicBrainz, Oricon, Anime News Network/);
 });
 
+test('C10: a Fandom page is a source of a character fact (source fandom) and of nothing else; the other banned hosts stay banned', () => {
+  const withFact = (edit) => runWith(({ read, write }) => {
+    const f = read(REL.facts);
+    const x = structuredClone(f.facts.find((q) => q.entity.kind === 'character'));
+    x.id = 'dn-ryuk-fandom-099'; x.field = 'fandom_check'; x.sources = [{ source: 'fandom', url: 'https://deathnote.fandom.com/wiki/Ryuk', ref: '1', fetched_at: '2026-10-04T10:00:00Z' }];
+    edit(x);
+    f.facts.push(x); write(REL.facts, f);
+  }, [REL.facts]);
+  const banned = (report) => codeOf(report, 'C10').notes.filter((n) => /is a banned source/.test(n.message));
+  assert.equal(banned(withFact(() => {})).length, 0);
+  assert.equal(banned(withFact((x) => { x.entity = { kind: 'series', group_slug: 'death-note' }; })).length, 1);
+  assert.equal(banned(withFact((x) => { x.sources[0].source = 'wikipedia'; })).length, 1);
+  assert.equal(banned(withFact((x) => { x.sources[0].url = 'https://myanimelist.net/anime/1535'; })).length, 1);
+  assert.equal(banned(withFact((x) => { x.sources[0].url = 'https://deathnote.fandom.com.example.org/wiki/Ryuk'; })).length, 0);
+});
+
 test('C11: a double hyphen fails; C12: a flag emoji and a keycap fail; URLs and excerpts are not scanned for dashes', () => {
   const dash = runWith(({ read, write }) => { const q = read(REL.quiz); q.questions[0].fun_fact = 'Obata -- the artist -- drew it.'; write(REL.quiz, q); }, [REL.quiz]);
   assert.equal(codeOf(dash, 'C11').pass, false);

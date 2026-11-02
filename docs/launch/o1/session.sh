@@ -3,7 +3,7 @@
 # in order with psql and ON_ERROR_STOP, runs the checks of each file right after it (VERIFY.md, as OK or KO lines), and stops
 # at the first difference. It prints OK or KO, file names and counts: never a name, an e-mail, a key or the connection string.
 #
-#     bash docs/launch/o1/session.sh B1            (the parts: B1 B2 B3 D E1 E2 G J1 J2 J3 J4; OWNER-NOW.md says when)
+#     bash docs/launch/o1/session.sh B1            (the parts: B1 B2 B3 D E1 E2 G J1 J2 J3 J4 J5; OWNER-NOW.md says when)
 #     bash docs/launch/o1/session.sh B1 --dry-run  (prints the plan of the part, touches nothing, needs no database)
 #
 # Before it: the backup line of the session (OWNER-NOW.md), in the same terminal. It exports PROD_DB_URL; this script reads it
@@ -24,9 +24,12 @@ M="docs/pending-migrations/multisite"
 L="$M/launch"
 C="docs/launch/o1/checks"
 # The files of the two lots of the old worker (owner order 2026-10-30). The session stops with a KO while a file is not on main.
-# Lot K1 is two files (K1-RELECTURE.md): 021a stores gender and debut year with their sources, 021b activates the idols the owner chose.
+# Lot K1 is three files (K1-RELECTURE.md): 021a stores gender and debut year with their sources, 021c corrects debut years, QIDs and two birth dates, 021b has an empty list in session G (activation comes after, on a list the owner ticks).
 K1A_SQL="$M/021a-k1-idol-gender-debut.sql"
+K1C_SQL="$M/021c-k1-idol-corrections.sql"
 K1B_SQL="$M/021b-k1-idol-activate.sql"
+# Lot K2 (owner order 2026-11-02): the idols of the groups with none, and the unreserved yes of 021b. Its own small session, after G.
+K2_SQL="$M/021d-k2-idols.sql"
 A1_SQL="$L/L13-A1-character-facts.sql"
 
 PART="${1:-}"
@@ -35,7 +38,7 @@ DRY=0
 REHEARSAL=0
 [ "${KPQ_REHEARSAL:-}" = "1" ] && REHEARSAL=1
 # A rehearsal may point the two lots at stand-in files while theirs are not on main (session-rehearsal.sh); production never can.
-[ "$REHEARSAL" = 1 ] && K1A_SQL="${KPQ_K1A_SQL:-$K1A_SQL}" && K1B_SQL="${KPQ_K1B_SQL:-$K1B_SQL}" && A1_SQL="${KPQ_A1_SQL:-$A1_SQL}"
+[ "$REHEARSAL" = 1 ] && K1A_SQL="${KPQ_K1A_SQL:-$K1A_SQL}" && K1C_SQL="${KPQ_K1C_SQL:-$K1C_SQL}" && K1B_SQL="${KPQ_K1B_SQL:-$K1B_SQL}" && K2_SQL="${KPQ_K2_SQL:-$K2_SQL}" && A1_SQL="${KPQ_A1_SQL:-$A1_SQL}"
 
 [ -d /opt/homebrew/opt/postgresql@18/bin ] && export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
 umask 077
@@ -54,8 +57,8 @@ stop() {
 # ------------------------------------------------------------------------------------------------------------------------
 # Guards
 
-usage() { say "usage: bash docs/launch/o1/session.sh B1|B2|B3|D|E1|E2|G|J1|J2|J3|J4 [--dry-run]"; exit 2; }
-case "$PART" in B1|B2|B3|D|E1|E2|G|J1|J2|J3|J4) ;; *) usage ;; esac
+usage() { say "usage: bash docs/launch/o1/session.sh B1|B2|B3|D|E1|E2|G|K2|J1|J2|J3|J4|J5 [--dry-run]"; exit 2; }
+case "$PART" in B1|B2|B3|D|E1|E2|G|K2|J1|J2|J3|J4|J5) ;; *) usage ;; esac
 
 utc_hm() { date -u +%H%M; }
 guard() {
@@ -151,6 +154,21 @@ PY
   return 0
 }
 
+# dle_day_answers: each game of J5 answers its public function, as the browser calls it (role anon). The number of the day only; with no token there is no play and no target.
+dle_day_answers() {
+  if [ "$DRY" = 1 ]; then say "     vérif dle_day : les deux jeux répondent, et les jeux d'une série allumés"; return; fi
+  local g no games="kpopdle-idol otakudle"
+  # The games of one series (CR-023) answer only once L14 switched them on (under their minimum they stay off, V-L15 says so).
+  for g in otakudle-one-piece otakudle-dragon-ball; do
+    [ "$(q "select count(*) from public.dle_games where id = '$g' and active")" = 1 ] && games="$games $g"
+  done
+  for g in $games; do
+    no="$(q "set local role anon; select public.dle_day('$g') ->> 'game_no'")" || stop "dle_day $g ne répond pas ($(tail -1 "$LOG" | sed -E 's/^.*ERROR: +//' | cut -c1-160))."
+    case "$no" in ''|*[!0-9]*) stop "dle_day $g : réponse inattendue." ;; esac
+    say "     ok | dle_day $g répond : partie n° | $no"
+  done
+}
+
 # ------------------------------------------------------------------------------------------------------------------------
 # Gates
 
@@ -202,6 +220,13 @@ gate_time() {   # gate_time <HHMM> <message>: refuse at or after that UTC time (
   [ "$DRY" = 1 ] && { say "porte horaire : avant $1 UTC"; return; }
   [ "$REHEARSAL" = 1 ] && return
   [ "$(utc_hm)" -lt "$1" ] || stop "$2"
+}
+
+gate_k2() {   # lot K2: session G is done (the game's view and the K1 columns exist); 021d refuses the rest itself
+  [ "$DRY" = 1 ] && { say "porte K2 : la session G est faite (vue dle_src_kpop_idol, colonnes idols.gender et debut_year)"; return; }
+  [ -n "$(q "select to_regclass('public.dle_src_kpop_idol')")" ] || stop "porte K2 : la vue dle_src_kpop_idol est absente (la session G d'abord)."
+  [ "$(q "select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'idols' and column_name in ('gender', 'debut_year')")" = "2" ] || stop "porte K2 : idols.gender ou idols.debut_year est absente (021a, session G)."
+  say "OK   porte K2 : la session G est faite"
 }
 
 gate_part_d() {   # RUNBOOK G2: 016 and 017 need Mission U part D (applied 2026-10-27)
@@ -290,8 +315,11 @@ part_G() {
   apply single "$M/019-dle-core.sql";       check "$C/V-019.sql"
   apply single "$M/020-dle-kpop-idol.sql";  check "$C/V-020.sql"
   apply single "$K1A_SQL";                  check "$C/V-K1a.sql"
+  apply single "$K1C_SQL";                  check "$C/V-K1c.sql"
   apply single "$K1B_SQL";                  check "$C/V-K1b.sql"
   apply single "$M/022-photos-admin.sql";   check "$C/V-022.sql"
+  apply single "$M/023-dle-otakudle.sql";   check "$C/V-023.sql"
+  apply single "$M/024-dle-series-games.sql"; check "$C/V-024.sql"
   apply single "$M/012-editorial-quiz.sql"; check "$C/V-012.sql"
   apply single "$M/013-formats.sql";        check "$C/V-013.sql"
   apply single "$M/014-daily-openings.sql"; check "$C/V-014.sql"
@@ -301,6 +329,12 @@ part_G() {
   apply single "$M/017-deletion-kpop.sql";  check "$C/V-017.sql"
   vs4
   NEXT="le worker : V1, puis 1 h de journaux (étape 33)."
+}
+part_K2() {
+  say "K2 : une petite session à part, après la session G. La ligne de sauvegarde de la session (OWNER-NOW.md) d'abord, dans ce terminal."
+  gate_k2
+  apply single "$K2_SQL";                   check "$C/V-K2.sql"
+  NEXT="le worker lit la ligne 9 de V-K2 (la réserve de cibles de Kpopdle Idol) et la compare à 200. Les pages de groupe de kpopquiz.org montrent les nouveaux membres : voulu (CR-022)."
 }
 part_J1() {
   gate_launch_files
@@ -327,9 +361,21 @@ part_J3() {
 }
 part_J4() {
   apply single "$L/L12-L1-sites-live.sql";  check "$C/V-L12.sql"
-  apply single "$A1_SQL";                   content 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+  # 023 again: the game row needs the anime site of L01, absent in session G (the file's header, CR-017). It changes nothing else.
+  apply single "$M/023-dle-otakudle.sql";   check "$C/V-023.sql"
+  # 024 again, for the same reason: the two game rows of one series (CR-023) need the anime site. Then their facts, after the lot A1 file.
+  apply single "$M/024-dle-series-games.sql"; check "$C/V-024.sql"
+  apply single "$A1_SQL";                   check "$C/V-L13.sql"; content 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+  apply single "$L/L15-A2-series-games.sql"; check "$C/V-L15.sql"; content 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
   vs4
-  NEXT="toi : le quiz du jour (étape 52), puis la vraie partie (53)."
+  NEXT="J5 : Otakudle s'allume (étape 51 bis). Puis toi : le quiz du jour (étape 52), puis la vraie partie (53)."
+}
+part_J5() {
+  check "$C/V-L13.sql"; check "$C/V-L15.sql"
+  apply single "$L/L14-O1-dle-on.sql";      check "$C/V-L14.sql"; check "$C/V-023.sql"; check "$C/V-024.sql"; check "$C/V-L15.sql"; check "$C/V-DLE-KEPT.sql"
+  dle_day_answers
+  vs4
+  NEXT="toi : le quiz du jour (étape 52), puis la vraie partie (53). Le drapeau dailyGuess reste éteint jusqu'à la PR du jour J (RUNBOOK K8c) : les pages répondent 404 d'ici là."
 }
 
 # ------------------------------------------------------------------------------------------------------------------------

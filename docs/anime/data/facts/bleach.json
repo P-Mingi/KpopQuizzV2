@@ -2042,5 +2042,165 @@
     "status": "verified",
     "verified_at": "2026-10-25T18:46:23.000Z",
     "excerpt": "is a pair of Zanpakutō owned by Shunsui Kyōraku"
+  },
+  {
+    "id": "bleach-toshiro-hitsugaya-name-083",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "toshiro-hitsugaya"
+    },
+    "field": "name",
+    "value": "Tōshirō Hitsugaya",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://bleach.fandom.com/wiki/T%C5%8Dshir%C5%8D_Hitsugaya",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q845059",
+        "ref": "Q845059",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Tōshirō Hitsugaya"
+  },
+  {
+    "id": "bleach-byakuya-kuchiki-name-084",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "byakuya-kuchiki"
+    },
+    "field": "name",
+    "value": "Byakuya Kuchiki",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://bleach.fandom.com/wiki/Byakuya_Kuchiki",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q755181",
+        "ref": "Q755181",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Byakuya Kuchiki"
+  },
+  {
+    "id": "bleach-kenpachi-zaraki-name-085",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "kenpachi-zaraki"
+    },
+    "field": "name",
+    "value": "Kenpachi Zaraki",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 0,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://bleach.fandom.com/wiki/Kenpachi_Zaraki",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1200966",
+        "ref": "Q1200966",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Kenpachi Zaraki"
+  },
+  {
+    "id": "bleach-mayuri-kurotsuchi-name-086",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "mayuri-kurotsuchi"
+    },
+    "field": "name",
+    "value": "Mayuri Kurotsuchi",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 2,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://bleach.fandom.com/wiki/Mayuri_Kurotsuchi",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1200960",
+        "ref": "Q1200960",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Mayuri Kurotsuchi"
+  },
+  {
+    "id": "bleach-ulquiorra-cifer-name-087",
+    "site": "anime",
+    "entity": {
+      "kind": "character",
+      "group_slug": "bleach",
+      "ref": "ulquiorra-cifer"
+    },
+    "field": "name",
+    "value": "Ulquiorra Cifer",
+    "category": "members",
+    "load_bearing": false,
+    "spoiler": {
+      "arc": 6,
+      "scope": "both"
+    },
+    "sources": [
+      {
+        "source": "fandom",
+        "url": "https://bleach.fandom.com/wiki/Ulquiorra_Cifer",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      },
+      {
+        "source": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q1341182",
+        "ref": "Q1341182",
+        "fetched_at": "2026-11-02T00:00:00Z"
+      }
+    ],
+    "status": "draft",
+    "excerpt": "Ulquiorra Cifer"
   }
 ]
