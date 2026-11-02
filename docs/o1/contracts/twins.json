@@ -161,7 +161,7 @@
       ],
       "owner": "O1",
       "body": "shared",
-      "notes": "The series rail shows title cards (A7); the blind test band becomes the openings band through V. No A5 on the home (D-020). The community section renders as the shared component does with zero rows (D-020). The file is shared with row H-1 and dispatches on the site. Surprise me (A8) sits under the hero buttons, before the quiz of the day (UxHome's afterHeader slot; kpop passes none)."
+      "notes": "The series rail shows title cards (A7); the blind test band becomes the openings band through V. No A5 on the home (D-020). The community section renders as the shared component does with zero rows (D-020). The file is shared with row H-1 and dispatches on the site. Surprise me (A8) sits under the hero buttons, before the quiz of the day (UxHome's afterHeader slot; kpop passes its own block since CR-015, with its own prefix and pool)."
     },
     {
       "id": "2",

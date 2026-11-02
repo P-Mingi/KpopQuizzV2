@@ -1,6 +1,6 @@
 // Surprise me on the OtakuQuiz home (owner, 2026-10-29 and 2026-10-30; TWINS row 1, code A8): the hub's component with the anime-h2 prefix,
 // drawing from the anime quizzes only (lib/site/hub/data/surprise.ts getSiteSurprisePool, tested in catalog-blocks.test.ts), right under the
-// hero buttons and before the quiz of the day. kpopquiz.org's home keeps its tree: no block, and the same entries in the same places.
+// hero buttons and before the quiz of the day. With no block, UxHome keeps its tree: the same entries in the same places.
 import { createElement as h, isValidElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -102,7 +102,7 @@ describe('its place on the home', () => {
     expect(at('class="p1-qotd"')).toBeGreaterThan(at('class="anime-h2-surprise"'));
   });
 
-  it('kpopquiz.org passes none: no block, and the same ten entries in the page, the quiz of the day fourth (its page data keeps its bytes)', async () => {
+  it('with none passed: no block, and the same ten entries in the page, the quiz of the day fourth (its page data keeps its bytes)', async () => {
     vi.stubEnv('NEXT_PUBLIC_SITE_ID', '');
     const kpop = await home();
     const html = renderToStaticMarkup(kpop);

@@ -16,7 +16,7 @@ export const SURPRISE_PER_SITE = 100;
 const MAX_PLAYED = 5000;
 
 /** The share of one site in the pool: its 100 best quizzes by quality, as cards linked to their canonical page. */
-function sitePool(site: HubSite, rows: readonly QuizRow[], tiers: ReadonlyMap<number, string>, origins: HubOrigins, now: Date): HubSurpriseCard[] {
+export function sitePool(site: HubSite, rows: readonly QuizRow[], tiers: ReadonlyMap<number, string>, origins: HubOrigins, now: Date): HubSurpriseCard[] {
   return rankByQuality(rows, tiers).slice(0, SURPRISE_PER_SITE).map((q) => {
     const c = toCard(q, origins, now);
     return { id: c.id, site, siteName: siteName(site), tile: c.tile, title: c.title, group: c.group, href: c.href };

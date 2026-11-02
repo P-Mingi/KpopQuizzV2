@@ -18,10 +18,14 @@ import { ScrollRow } from '@/components/ui/scroll-row';
 import { VerseHomeStrip } from '@/components/verse/verse-home-strip';
 import { QuizCard } from '@/components/ui/quiz-card';
 import { WorldHomeRedirect } from '@/components/layout/world-home-redirect';
+import { KpopHomeSurprise } from '@/components/home/ux-v1/kpop-home-surprise';
 import { UxHome } from '@/components/home/ux-v1/ux-home';
 import { UX_V1 } from '@/lib/ux-v1';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
+
+// Imported here, not added to the UX sheet: every page links that one sheet, and this block belongs to this page (CR-015).
+import '@/styles/kpop/home-surprise.css';
 
 import type { Metadata } from 'next';
 
@@ -295,6 +299,7 @@ export default function HomePage(): React.ReactElement {
             </Suspense>
           </>
         )}
+        afterHeader={<KpopHomeSurprise />}
       />
     );
   }

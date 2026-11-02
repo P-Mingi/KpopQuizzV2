@@ -32,8 +32,8 @@ const TOPICS_HREF = IS_KPOP ? '/groups' : '/series';
  */
 export async function UxHome({ head, afterHeader }: {
   head?: React.ReactNode;
-  /** A block right under the header, before the quiz of the day: the OtakuQuiz home passes its Surprise me there (TWINS row 1, A8);
-   *  kpopquiz.org passes nothing and renders what it rendered. */
+  /** A block right under the header, before the quiz of the day: the OtakuQuiz home passes its Surprise me there (TWINS row 1, A8),
+   *  the kpopquiz.org home its own (CR-015). */
   afterHeader?: React.ReactNode;
 }): Promise<React.ReactElement> {
   const now = new Date();
@@ -61,8 +61,7 @@ export async function UxHome({ head, afterHeader }: {
 
       <HomeHeader />
 
-      {/* The quiz of the day. With an afterHeader block, the two share this one place of the tree (a fragment), so the
-          page data of kpopquiz.org, which passes none, keeps its bytes. */}
+      {/* The quiz of the day. With an afterHeader block, the two share this one place of the tree (a fragment). */}
       {afterHeader ? <>{afterHeader}{qotdRow}</> : qotdRow}
 
       {/* Every run saved on this device shows here (C2-004), even when its quiz is

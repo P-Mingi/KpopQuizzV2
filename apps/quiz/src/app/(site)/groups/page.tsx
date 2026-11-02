@@ -9,6 +9,9 @@ import { UX_V1 } from '@/lib/ux-v1';
 import { GroupsIndexV11 } from '@/components/group/ux-v1/groups-index';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
+// Imported here, not added to the UX sheet: every page links that one sheet, and this A to Z belongs to this page (CR-015).
+import '@/styles/kpop/groups-az.css';
+
 import type { Metadata } from 'next';
 import type { DirectoryGroup } from '@/lib/db/queries/group-directory';
 
