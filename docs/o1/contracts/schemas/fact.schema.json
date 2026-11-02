@@ -46,7 +46,7 @@
         "additionalProperties": false,
         "required": ["source", "url", "fetched_at"],
         "properties": {
-          "source": { "$comment": "entity_sources_source_check after 011.", "enum": ["wikidata", "musicbrainz", "wikipedia", "official"] },
+          "source": { "$comment": "entity_sources_source_check after 011. fandom (CR-023) is for the per-series daily games (facts of a fiction, L15); the host rule of sourceUrl still refuses fandom.com in a fact file.", "enum": ["wikidata", "musicbrainz", "wikipedia", "official", "fandom"] },
           "url": { "$ref": "common.schema.json#/$defs/sourceUrl" },
           "ref": { "type": "string", "minLength": 1, "maxLength": 80 },
           "fetched_at": { "$ref": "common.schema.json#/$defs/isoDateTime" }

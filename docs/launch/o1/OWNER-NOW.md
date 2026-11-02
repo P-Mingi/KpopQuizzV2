@@ -262,10 +262,10 @@ git checkout main && git pull --ff-only
 export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
 ```
 
-### 31. G : 011, 018, 019, 020, les trois fichiers du lot K1, 022, 023, puis 012 à 017
+### 31. G : 011, 018, 019, 020, les trois fichiers du lot K1, 022, 023, 024, puis 012 à 017
 Moi 5 min, Claude 8 min. [RUNBOOK G1, G2](RUNBOOK.md#g-p5-011-to-017)
 
-Une commande, dans cet ordre (décision du 2026-10-30) : 011, 018, 019 et 020 (le socle des jeux du jour, éteint), les trois fichiers du lot K1 (`021a-k1-idol-gender-debut.sql` : genre et année de début des idols ; `021c-k1-idol-corrections.sql` : années de début, QID, et les dates de naissance de Changbin et I.N, seule correction visible sur kpopquiz.org ; `021b-k1-idol-activate.sql` : liste vide en session G, il n'active personne ; l'activation vient après, sur une liste que tu coches), 022 (photos et admin : les tables des agences et des images du site, fermées au navigateur), 023 (Otakudle : les tables des faits et la vue, fermées au navigateur, sans le jeu qui attend le site anime de L01), 012, 013, 014, 015, puis 016 et 017 si `admin_delete_account` existe (sinon elle s'arrête avant 016), et V-S4. Si 013 s'arrête sur un nom de `game_type` : ne touche pas au fichier, colle la sortie, Claude s'en occupe.
+Une commande, dans cet ordre (décision du 2026-10-30) : 011, 018, 019 et 020 (le socle des jeux du jour, éteint), les trois fichiers du lot K1 (`021a-k1-idol-gender-debut.sql` : genre et année de début des idols ; `021c-k1-idol-corrections.sql` : années de début, QID, et les dates de naissance de Changbin et I.N, seule correction visible sur kpopquiz.org ; `021b-k1-idol-activate.sql` : liste vide en session G, il n'active personne ; l'activation vient après, sur une liste que tu coches), 022 (photos et admin : les tables des agences et des images du site, fermées au navigateur), 023 (Otakudle : les tables des faits et la vue, fermées au navigateur, sans le jeu qui attend le site anime de L01), 024 (les jeux d'une série, One Piece et Dragon Ball : la table des faits et deux vues fermées au navigateur, sans les jeux, qui attendent aussi L01), 012, 013, 014, 015, puis 016 et 017 si `admin_delete_account` existe (sinon elle s'arrête avant 016), et V-S4. Si 013 s'arrête sur un nom de `game_type` : ne touche pas au fichier, colle la sortie, Claude s'en occupe.
 ```
 bash docs/launch/o1/session.sh G
 ```
@@ -440,7 +440,7 @@ https://kpopquiz.org/auth/passport/out?to=anime
 ### 51. J4 : L12 (les sites passent en ligne), 023 une seconde fois, puis le SQL du lot A1
 Moi 2 min, Claude 3 min. [RUNBOOK K8](RUNBOOK.md#k-launch-day)
 
-La commande applique L12, vérifie que `kpop`, `anime` et `hub` sont `live`, relance 023 (la ligne du jeu `otakudle`, éteinte : maintenant que le site anime existe), puis le fichier du lot A1 (`L13-A1-character-facts.sql` : les faits des personnages pour Otakudle, après les fichiers de lancement), lance sa vérification (dont 118 personnages avec les 7 colonnes), revérifie tout le contenu et V-S4. Tant que le fichier du lot A1 n'est pas sur main, elle s'arrête sur lui, après L12.
+La commande applique L12, vérifie que `kpop`, `anime` et `hub` sont `live`, relance 023 (la ligne du jeu `otakudle`, éteinte : maintenant que le site anime existe), puis le fichier du lot A1 (`L13-A1-character-facts.sql` : les faits des personnages pour Otakudle, après les fichiers de lancement), lance sa vérification (dont 118 personnages avec les 7 colonnes), revérifie tout le contenu et V-S4. Tant que le fichier du lot A1 n'est pas sur main, elle s'arrête sur lui, après L12. Elle relance aussi 024 (les lignes des jeux d'une série, Otakudle One Piece et Otakudle Dragon Ball, éteintes) et applique ensuite `L15-A2-series-games.sql` (leurs faits, pour les personnages que L04 contient).
 ```
 bash docs/launch/o1/session.sh J4
 ```

@@ -170,7 +170,7 @@ delete from public.favourite_characters;
 select pg_temp.chk('011 widened checks: trivia kinds series/character/arc/theme and entity_sources types accept; bad values refused',
   (select pg_get_constraintdef(oid) like '%series%character%arc%theme%' from pg_constraint where conname = 'trivia_entity_kind_check' and conrelid = 'public.trivia'::regclass)
   and (select pg_get_constraintdef(oid) like '%series_theme%' from pg_constraint where conname = 'entity_sources_entity_type_check')
-  and (select pg_get_constraintdef(oid) like '%wikipedia%official%' from pg_constraint where conname = 'entity_sources_source_check')
+  and (select pg_get_constraintdef(oid) like '%wikipedia%official%fandom%' from pg_constraint where conname = 'entity_sources_source_check')
   and pg_temp.raises($q$insert into public.trivia (entity_kind, entity_id, fact) values ('bogus', 1, 'x')$q$));
 select pg_temp.chk('011 quizzes spoiler_arc_ord and spoiler_scope exist with their checks',
   (select count(*) from pg_attribute where attrelid = 'public.quizzes'::regclass and attname in ('spoiler_arc_ord', 'spoiler_scope', 'spoiler_cover_until') and not attisdropped) = 3
