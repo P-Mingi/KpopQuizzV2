@@ -14,6 +14,9 @@
 # throwaway quiz, a deploy, a flag) do not touch the database.
 # Stops that must happen are checked too: J2 before the Team users, G and J4 on a missing K1 or A1 file (pointed at a path that does
 # not exist, so the stop stays checked once the files are on main), and a check that finds a KO.
+# Lot K2 (021d) is its own small session after G: the rehearsal runs it last, on a fixture of the rows production holds and this base does not
+# (docs/launch/o1/K2-rehearsal-fixture.sql: the target groups, the 021b rows), checks two refusals (a stray idol in a target group, a minor in
+# the list), runs it twice and reads the size of the Kpopdle pool from V-K2.
 # A file of lots K1 (021a, 021c, 021b) or A1 runs for real as soon as it is on the branch. While it is not, the rehearsal uses a stand-in it
 # writes in its work folder (021a: the two columns of the contract, empty; 021c, 021b and A1: no change; 023 for a real L13: the contract's DDL).
 # Everything else is the repository's files.
@@ -166,6 +169,31 @@ part J5 0 "ok | otakudle : la banque tient 365 jours | 365"
 part J5 0 "ok | kpopdle-idol : la banque tient 365 jours | 365"; again J5 0 "ok | otakudle : cibles possibles, au moins le minimum du jeu | 113"
 part J5 0 "ok | dle_day kpopdle-idol répond"
 part J4 0 "terminée : tout est OK" $STAND
+# ---- Lot K2 (owner order 2026-11-02): 021d, its own small session after G -------------------------------------------------------------
+K2F=docs/pending-migrations/multisite/021d-k2-idols.sql
+printf -- '-- Rehearsal stand-in for 021d of lot K2 (not on the branch): no change.\nselect 1;\n' >"$WORK/K2-stand-in.sql"
+K2STAND=""
+[ -f "$K2F" ] || K2STAND="KPQ_K2_SQL=$WORK/K2-stand-in.sql"
+part K2 1 "021d-k2-idols.sql : fichier absent de main" "KPQ_K2_SQL=$WORK/absent/021d-k2-idols.sql"
+psql "$PROD_DB_URL" -X -q -v ON_ERROR_STOP=1 -f docs/launch/o1/K2-rehearsal-fixture.sql >>"$WORK/build.log" 2>&1 && pass "K2 fixture: the target groups and the 021b rows" || fail "K2 fixture"
+if [ -f "$K2F" ]; then
+  K2G="$(grep -m1 -A1 'insert into k2_groups' "$K2F" | tail -1 | sed -E "s/^ *\('([^']*)'.*/\1/")"
+  psql "$PROD_DB_URL" -X -q -v ON_ERROR_STOP=1 -c "insert into public.idols (group_id, name, positions, birth_date, origin) select id, 'Stray', '{}', date '1990-01-01', 'curator' from public.groups where slug = '$K2G'" >>"$WORK/build.log" 2>&1
+  part K2 1 "refused: target group(s) already hold idol rows" ; : # a stray idol in a target group stops the file
+  psql "$PROD_DB_URL" -X -q -v ON_ERROR_STOP=1 -c "delete from public.idols where name = 'Stray'" >>"$WORK/build.log" 2>&1
+  python3 - "$K2F" "$WORK/K2-minor.sql" <<'PY'
+import re, sys
+t = open(sys.argv[1], encoding='utf8').read()
+i = t.index('insert into k2_idols')
+j = t.index("date '", i)
+open(sys.argv[2], 'w', encoding='utf8').write(t[:j] + "date '2015-06-01'" + t[t.index("'", j + 6) + 1:])
+PY
+  part K2 1 "under 18 on the day of the run" "KPQ_K2_SQL=$WORK/K2-minor.sql"   # a minor in the list stops the file, nothing written
+fi
+part K2 0 "terminée : tout est OK" $K2STAND; again K2 0 "terminée : tout est OK" $K2STAND
+K2POOL="$(grep -h 'au total' "$WORK/out-K2-$n.txt" | sed -E 's/^ *//')"
+echo "INFO K2 pool on this base: $K2POOL"
+echo "INFO K2 rows present: $(psql "$PROD_DB_URL" -X -q -At -c "select count(*) filter (where origin = 'wikidata' and active) from public.idols") active wikidata idols, $(psql "$PROD_DB_URL" -X -q -At -c "select count(*) from public.dle_src_kpop_idol") rows in dle_src_kpop_idol"
 leaks="$(cat "$WORK"/out-*.txt | grep -v '^Journal complet' | grep -ciE '@|[0-9a-f]{8}-[0-9a-f]{4}-' || true)"
 [ "$leaks" = 0 ] && pass "no e-mail or id printed by any part" || fail "$leaks printed line(s) hold an e-mail or an id"
 

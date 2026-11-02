@@ -1,0 +1,72 @@
+Lot K2: local proof of 021d on a throwaway Postgres 18.2, 2026-11-02. Production's schema copy (tables, checks, keys), 021a applied, then the rehearsal fixture (docs/launch/o1/K2-rehearsal-fixture.sql, synthetic rows). No real row of production is used.
+
+=== 0. base: groups, idols, active
+20|12|0
+
+=== 1. refusals, each on the base, nothing written (idols signature before and after)
+-- 1a. a target group already holds an idol this file does not know
+021d-k2-idols.sql:790: ERROR:  021d-k2-idols refused: target group(s) already hold idol rows this file does not know: got7 (1 row(s)) (the groups must have no idol row, or only these rows)
+CONTEXT:  PL/pgSQL function inline_code_block line 18 at RAISE
+-- 1b. a listed QID already sits on a row of another group
+021d-k2-idols.sql:790: ERROR:  021d-k2-idols refused: QID already on a row of another group: Mark Q16075083
+CONTEXT:  PL/pgSQL function inline_code_block line 24 at RAISE
+-- 1b bis. a 021b id carries another QID than the list
+021d-k2-idols.sql:790: ERROR:  021d-k2-idols refused: the QID differs for 82 (list Q26451151, row Q26451151_other)
+CONTEXT:  PL/pgSQL function inline_code_block line 33 at RAISE
+-- 1c. a target group is missing
+021d-k2-idols.sql:790: ERROR:  021d-k2-idols refused: target group(s) missing or not unique: got7
+CONTEXT:  PL/pgSQL function inline_code_block line 11 at RAISE
+-- 1d. a 021b id switched off on purpose (inactive and not waiting for review)
+021d-k2-idols.sql:790: ERROR:  021d-k2-idols refused: idol(s) 143 are inactive and not waiting for review (switched off on purpose)
+CONTEXT:  PL/pgSQL function inline_code_block line 41 at RAISE
+-- 1e. a minor in the list (first birth date replaced by 2015-06-01)
+k2-minor-local.sql:790: ERROR:  021d-k2-idols refused: under 18 on the day of the run: Mark (got7) (a minor is never inserted)
+CONTEXT:  PL/pgSQL function inline_code_block line 7 at RAISE
+idols unchanged by the six refusals: identical
+
+=== 2. first run (single transaction)
+021d-k2-idols.sql:813: NOTICE:  021d-k2-idols: group rows filled where empty: 14 record_label, 15 generation, 7 inception_date
+021d-k2-idols.sql:827: NOTICE:  021d-k2-idols: 66 new idol row(s) inserted
+021d-k2-idols.sql:855: NOTICE:  021d-k2-idols: 11 idol(s) activated from the 021b list
+021d-k2-idols.sql:892: NOTICE:  021d-k2-idols: 0 active idol(s) before, 77 now
+active and reviewed|77
+active under 18|0
+idols without gender or debut year, among active|0
+entity_sources of idols|576
+fields and sources:
+birth_date|musicbrainz|65
+birth_date|wikidata|66
+debut_year|musicbrainz|66
+debut_year|wikidata|59
+gender|musicbrainz|66
+gender|wikidata|66
+nationality|musicbrainz|56
+nationality|wikidata|66
+wikidata_qid|wikidata|66
+signature after run 1: 909fd920e231a60a150db318b530dbef
+
+=== 3. second run, and a third outside any transaction: nothing changes
+021d-k2-idols.sql:813: NOTICE:  021d-k2-idols: group rows filled where empty: 0 record_label, 0 generation, 0 inception_date
+021d-k2-idols.sql:827: NOTICE:  021d-k2-idols: 0 new idol row(s) inserted
+021d-k2-idols.sql:855: NOTICE:  021d-k2-idols: 0 idol(s) activated from the 021b list
+021d-k2-idols.sql:892: NOTICE:  021d-k2-idols: 77 active idol(s) before, 77 now
+signature after run 3: 909fd920e231a60a150db318b530dbef
+IDEMPOTENT: identical
+
+=== 4. existing group values are never overwritten (got7 had a label in the fixture, the others had none)
+bigbang|YG Entertainment|2nd generation
+got7|JYP Entertainment|3rd generation
+treasure|YG Entertainment|4th generation
+
+=== 5. rollback, then rollback again, then 021d again
+idols left|12|active|0|waiting for review|12
+sources left|0
+(second rollback: no output = nothing to do)
+021d-k2-idols.sql:827: NOTICE:  021d-k2-idols: 66 new idol row(s) inserted
+021d-k2-idols.sql:855: NOTICE:  021d-k2-idols: 11 idol(s) activated from the 021b list
+021d-k2-idols.sql:892: NOTICE:  021d-k2-idols: 0 active idol(s) before, 77 now
+
+=== 6. rollback refused while the game is active (stub table)
+021d-k2-idols.rollback.sql:120: ERROR:  021d-k2-idols rollback refused: the game kpopdle-idol is active (switch it off first)
+CONTEXT:  PL/pgSQL function inline_code_block line 10 at RAISE
+77
