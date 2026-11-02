@@ -1,0 +1,102 @@
+Lot K1, 021c: who reads idols.wikidata_qid, idols.debut_year, idols.birth_date and the source rows (grep on the branch, base origin/main 3c10df8, 2026-11-01). This is reading the code; no page was rendered.
+
+== RESULT
+Birth dates of 14 and 19: visible change on kpopquiz.org, on purpose, CR-014, reaches the site when session G runs and each page revalidates (revalidate = 3600 on the Verse pages below).
+Everything else in 021c (QIDs, debut years, source references): read by no public page. Anon can read the columns through the API (policy idols_public_read): an API change, not a page change.
+Measured in 021c-local-pg.txt: all columns the pages read, birth dates of 14 and 19 apart, and which fields have a source row are identical before and after.
+
+== who reads birth_date (tests and types left out)
+app/(site)/verse/[slug]/members/page.tsx:27:  const info = upcomingBirthday([{ name: 'x', slug: 'x', birth_date: birth }], new Date());
+app/(site)/verse/[slug]/members/page.tsx:32:  const bd = birthdayInDays(idol.birth_date);
+app/(site)/verse/[slug]/members/[idol]/page.tsx:76:        birth_date: d.birth_date, nationality: d.facts.find((f) => f.field === 'nationality')?.valu
+components/verse/space-hero.tsx:29:  const bday = celebrate ? upcomingBirthday(idols.map((i) => ({ name: i.name, slug: i.slug, birth_date: i.birth_dat
+components/verse/tree/home-rail.tsx:26:    const m = i.birth_date?.match(/^(\d{4})-(\d{2})-(\d{2})/);
+components/verse/presentation/space-home-modules.tsx:170:    space.idols.map((i) => ({ name: i.name, slug: i.slug, birth_date: i.birth_date })),
+components/verse/presentation/feature-modules.tsx:42:  const bday = upcomingBirthday(space.idols.map((i) => ({ name: i.name, slug: i.slug, birth_date:
+lib/verse/date-engines.ts:4:// (birth_date, release_date, inception) - never personal-life data.
+lib/verse/date-engines.ts:6:export interface IdolDate { name: string; slug: string; birth_date: string | null; }
+lib/verse/date-engines.ts:28:    if (!i.birth_date || i.birth_date.length < 10) continue;
+lib/verse/date-engines.ts:29:    const md = i.birth_date.slice(5, 10); // MM-DD
+lib/verse/date-engines.ts:44:    if (i.birth_date && i.birth_date.slice(5, 10) === key) {
+lib/verse/date-engines.ts:45:      const yr = Number(i.birth_date.slice(0, 4));
+lib/verse/jsonld.tsx:29:  birth_date: string | null; nationality: string | null;
+lib/verse/jsonld.tsx:36:    ...(p.birth_date ? { birthDate: p.birth_date.slice(0, 10) } : {}),
+lib/verse/allowlist.ts:20:  P569: 'birth_date',
+lib/verse/space.ts:25:  photo_url: string | null; birth_date: string | null; nationality: string | null; unit_id: number | null; ord: number;
+lib/verse/space.ts:70:    db.from('idols').select('id, name, name_hangul, positions, photo_url, birth_date, nationality, unit_id, ord').eq('group_id',
+lib/verse/space.ts:102:    const x = r as { id: number; name: string; name_hangul: string | null; positions: string[] | null; photo_url: string | null
+lib/verse/space.ts:103:    return { id: x.id, name: x.name, slug: idolSlug(x.name), name_hangul: x.name_hangul, positions: x.positions ?? [], photo_ur
+lib/verse/idol.ts:23:  positions: string[]; photo_url: string | null; birth_date: string | null; unitName: string | null;
+lib/verse/idol.ts:54:    .select('id, name, name_hangul, name_romanized, positions, photo_url, birth_date, nationality, height_cm, blood_type, mbti, u
+lib/verse/idol.ts:57:  const rows = (idols ?? []) as Array<{ id: number; name: string; name_hangul: string | null; name_romanized: string | null; posi
+lib/verse/idol.ts:76:  const born = val('birth_date', idol.birth_date);
+lib/verse/idol.ts:77:  if (born) facts.push({ field: 'birth_date', label: 'Born', value: fmtDate(born), source: badge('birth_date', false), sourceUrl:
+lib/verse/idol.ts:90:    birth_date: idol.birth_date, nationality: idol.nationality,
+lib/verse/idol.ts:139:    positions: idol.positions ?? [], photo_url: idol.photo_url, birth_date: idol.birth_date, unitName,
+lib/verse/space-data.ts:113:    db.from('idols').select('name, birth_date, group_id').eq('active', true).not('birth_date', 'is', null),
+lib/verse/space-data.ts:119:  for (const i of (idols ?? []) as { name: string; birth_date: string; group_id: number }[]) {
+lib/verse/space-data.ts:121:    if (!g || i.birth_date.length < 10) continue;
+lib/verse/space-data.ts:122:    const inDays = daysUntil(i.birth_date.slice(5, 10));
+lib/verse/fields.ts:19:    { key: 'birth_date', label: 'Born', type: 'date' },
+lib/verse/tree/factrail.ts:106:    .select('name, name_hangul, birth_date, nationality, positions, group_id')
+lib/verse/tree/factrail.ts:109:  const i = idol as { name: string; name_hangul: string | null; birth_date: string | null; nationality: string | null; 
+lib/verse/tree/factrail.ts:117:  const born = fmtDate(i.birth_date);
+lib/verse/tree/factrail.ts:118:  const age = yearsBetween(i.birth_date, now);
+lib/verse/tree/tags.ts:104:    const { data } = await svc.from('idols').select('birth_date').eq('id', page.entity_id).maybeSingle();
+lib/verse/tree/tags.ts:105:    const y = (data as { birth_date: string | null } | null)?.birth_date?.slice(0, 4);
+
+Reading, what changes for 14 and 19:
+- /verse/stray-kids/members/<member>: the Born fact (lib/verse/idol.ts) and Person birthDate in JSON-LD (lib/verse/jsonld.tsx, page.tsx line 76).
+- a wiki page of the member under /verse/stray-kids/, if it exists: Born and age in the fact rail (lib/verse/tree/factrail.ts).
+- /verse/stray-kids/members: the birthday countdown (birthdayInDays).
+- /verse/stray-kids: next birthday and the day's announcement (space-hero, home-rail, feature-modules, space-home-modules, date-engines).
+- /verse: Today in K-pop birthdays (lib/verse/space-data.ts getTodayInKpop).
+- lib/verse/tree/tags.ts writes an automatic year tag when an idol page is tagged: a tag already set stays as it is.
+- entity_overrides win at read on the idol page (lib/verse/idol.ts): an override on these two dates would hide the fix; not readable from here.
+
+== idols.wikidata_qid in apps/quiz/src, tests and types left out
+app/(site)/admin/verse/verse-admin.tsx:154:                    <td className="pr-3 text-secondary">{i.wikidata_qid}</td>
+app/(site)/admin/verse/verse-admin.tsx:179:                  <td className="pr-3 text-secondary">{s.wikidata_qid ?? '-'}</td>
+app/(site)/admin/verse/page.tsx:15:  wikidata_qid: string | null;
+app/(site)/admin/verse/page.tsx:26:export interface FlaggedIdol { id: number; group: string; name: string; wikidata_qid: string | null; review_reason:
+app/(site)/admin/verse/page.tsx:64:    .select('group_id,wikidata_qid,musicbrainz_mbid,confidence,checked_at,groups(slug,name)')
+app/(site)/admin/verse/page.tsx:66:  const seedRows: SeedRow[] = ((seeds ?? []) as unknown as Array<{ group_id: number; wikidata_qid: string | null; m
+app/(site)/admin/verse/page.tsx:71:        wikidata_qid: s.wikidata_qid, musicbrainz_mbid: s.musicbrainz_mbid, confidence: s.confidence,
+app/(site)/admin/verse/page.tsx:85:    .select('id,name,wikidata_qid,review_reason,groups(name)')
+app/(site)/admin/verse/page.tsx:88:  const flaggedIdolRows: FlaggedIdol[] = ((fIdols ?? []) as unknown as Array<{ id: number; name: string; wikidata_q
+app/(site)/admin/verse/page.tsx:89:    .map((i) => ({ id: i.id, group: i.groups?.name ?? '', name: i.name, wikidata_qid: i.wikidata_qid, review_reason
+lib/verse/refresh.ts:161:    .select('group_id,wikidata_qid,musicbrainz_mbid,updated_at,groups(slug)')
+lib/verse/refresh.ts:169:  for (const s of list as unknown as Array<{ group_id: number; wikidata_qid: string | null; musicbrainz_mbid: string | null; 
+lib/verse/refresh.ts:172:      if (s.wikidata_qid) {
+lib/verse/refresh.ts:173:        const { updated, conflicts } = await refreshGroupFields(svc, s.group_id, s.wikidata_qid);
+lib/dle/pglite-harness.ts:43:  positions text[] not null default '{}', photo_url text, wikidata_qid text, active boolean not null default true,
+
+Reading: admin/verse (behind the admin guard) lists idols with needs_review only; 39, 46, 48, 14, 19, 175 are active and not in review. verse_seed_ids (refresh.ts, admin) is another table, for groups.
+
+== debut_year or an idol's gender in apps/quiz/src, outside the types and tests
+(end of list)
+
+== schema.org sameAs: from the roster files and groups, never from idols
+app/(site)/personality/[group]/page.tsx:112:        sameAs: [roster.wikidataUrl, roster.wikipediaUrl.replace(/#.*$/, ''), ...(roster.official ? [roster.official] : [])],
+app/(site)/personality/[group]/page.tsx:113:        member: roster.members.map((m) => ({ '@type': 'Person', name: m.name, sameAs: `https://www.wikidata.org/wiki/${m.wikid
+lib/verse/jsonld.tsx:12:  const sameAs = g.official_website ? [g.official_website] : undefined;
+lib/verse/jsonld.tsx:22:    ...(sameAs ? { sameAs } : {}),
+
+== sitemap: idols by name only
+440:        svc.from('idols').select('name, groups(slug)').eq('active', true),
+
+== entity_sources on the public idol page: a badge on five named fields, by field name, the reference is not read
+77:  if (born) facts.push({ field: 'birth_date', label: 'Born', value: fmtDate(born), source: badge('birth_dat
+79:  if (nat) facts.push({ field: 'nationality', label: 'Nationality', value: nat, source: badge('nationality'
+81:  if (height) facts.push({ field: 'height_cm', label: 'Height', value: `${height} cm`, source: badge('heigh
+83:  if (blood) facts.push({ field: 'blood_type', label: 'Blood type', value: blood, source: badge('blood_type
+85:  if (mbti) facts.push({ field: 'mbti', label: 'MBTI', value: mbti, source: badge('mbti', true), sourceUrl:
+1:// Idol detail read model. Every fact carries provenance: an entity_sources row
+62:    db.from('entity_sources').select('field, source').eq('entity_type', 'idol').eq('entity_id', String(idol.id)),
+
+== the game view reads debut_year and gender, not the QID (matches: below); the game kpopdle-idol stays switched off
+0
+
+== unique keys of public.idols in production's schema copy
+5875:ALTER TABLE ONLY public.idols ADD CONSTRAINT idols_pkey PRIMARY KEY (id);
+5995:ALTER TABLE ONLY public.idols ADD CONSTRAINT idols_group_id_name_key UNIQUE (group_id, name);
