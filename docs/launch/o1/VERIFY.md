@@ -307,7 +307,7 @@ Leaks (SQL side), after L04 to L08:
 
     psql "$PROD_DB_URL" -X -At -f docs/launch/o1/checks/V-DLE-KEPT.sql
 
-One row per active game: the kept days (today and the 7 after it) whose target has left the pool. 0 expected, `ok`. A number above 0 is `KO`: those days cannot be won, RUNBOOK L6 says what to do. Read only, counts only, never a target. PR #184 adds V12 and the night cron: on merge, this query joins V12's morning check.
+One row per active game: the kept days (today and the 7 after it) whose target has left the pool. 0 expected, `ok`. A number above 0 is `KO`: those days cannot be won, RUNBOOK L6 says what to do. Read only, counts only, never a target. It is item 4 of V12's morning check.
 
 ## V9. Vercel projects and environment (before the domain is attached)
 
@@ -400,6 +400,7 @@ The morning after (a worker, Vercel; Claude, SQL):
 1. Vercel, project `fandomverse`, Logs, search `dle_daily_maintenance`, 00:05 UTC: one line, `[ensure-daily-quiz] dle_daily_maintenance: [...]`, with `game`, `pool` and `rebuilt_days` per active game (`[]` when none is active). `not applied on this database yet` is expected only before 019. Any `failed` line is a finding, the integrator looks at it the same day: `failed for game <id>: <code> <message>` names one game (the others ran, and the line of counts lists them), `failed: <code> <message>` is the whole call. The same search on `kpopquiz` and `otakuquiz` finds nothing.
 2. `q "select game_id, game_no from public.dle_daily_stats where play_date = current_date order by 1"`: one row per active game (never select `entity_id`: it is the answer).
 3. `q "select count(*) from public.dle_salt where day < current_date - 1"`: 0.
+4. `psql "$PROD_DB_URL" -X -At -f docs/launch/o1/checks/V-DLE-KEPT.sql`: `ok` for each active game (V-DLE above, RUNBOOK L6).
 
 Each game runs alone (CR-019). A game whose targets fell under `min_pool` (`dle_pool_too_small`), or whose `epoch` is still in the future (`dle_daily_stats_game_no_check`), keeps its snapshot and its bank of the day before and fails every night until fixed; the other games and the purges still run. A statement timeout fails the whole call, purges included. Activate a game with `epoch` = the day it opens.
 
