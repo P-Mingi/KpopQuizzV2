@@ -104,6 +104,7 @@ export async function savePhoto(db: Db, a: SavePhotoInput): Promise<SavedPhoto> 
   const current = (old as PhotoRow | null) ?? null;
   const fields: Record<string, unknown> = {
     source_url: a.meta.source_url, author: a.meta.author, license: a.meta.license, license_note: a.meta.license_note ?? null,
+    license_url: a.meta.license_url ?? null, commons_file: a.meta.commons_file ?? null,
     focal_x: a.focal.x, focal_y: a.focal.y, license_verified: a.verified,
   };
   if (!a.files) {

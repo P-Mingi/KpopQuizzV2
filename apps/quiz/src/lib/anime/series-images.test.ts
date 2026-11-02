@@ -53,7 +53,7 @@ const fixtureBuilt = (): ReturnType<typeof buildSeriesImages> => buildSeriesImag
 
 // /credits is one file for OtakuQuiz and the hub that chooses by SITE_ID: the resolution test below reads it as each build does, with the
 // reads it makes answered here (no database). Every other test of this file keeps the real SITE_ID.
-const credits = vi.hoisted(() => ({ site: null as string | null }));
+const credits = vi.hoisted(() => ({ site: null as string | null, pictures: [] as unknown[] }));
 vi.mock('@/lib/site/registry', async (orig) => {
   const real = await orig<typeof import('@/lib/site/registry')>();
   return { ...real, get SITE_ID() { return credits.site ?? real.SITE_ID; } };
@@ -65,7 +65,7 @@ vi.mock('@/lib/anime/entity-images-read', async (orig) => ({
 }));
 vi.mock('@/lib/photos/public-read', async (orig) => ({
   ...(await orig<typeof import('@/lib/photos/public-read')>()),
-  getPublicPictures: async () => [],
+  getPublicPictures: async () => credits.pictures,
   getLiveAssets: async () => [],
 }));
 
@@ -252,6 +252,7 @@ describe('the photo or the title card', () => {
   });
 });
 
+// CR-021 (owner decision of 2026-11-02): the component below still builds the line, but no page renders it any more (series-hub-slots.tsx).
 describe('the credit line on the series page', () => {
   it('prints "Photo: <author>, <licence>", linked to the source and the licence, for a CC BY photo', async () => {
     const { PhotoCredit } = await import('@/components/anime/photo-credit');
@@ -269,19 +270,18 @@ describe('the credit line on the series page', () => {
     expect(html(h(PhotoCredit, { slug: 'x', map: { x: { file: null, alt: null, attribution: null, fallback: 'title-card' } } }))).toBe('');
   });
 
-  it('is in the header slots of the general mix hub, as for a series, and only when the licence asks for it', async () => {
+  it('is in no header slot any more (CR-021: no credit is printed on a page, /credits lists it), whatever the licence', async () => {
     const { buildMixSlots } = await import('@/components/anime/series-hub-slots');
     const site = { origin: 'https://bunnyverse.org/anime', brand: 'OtakuQuiz' };
     const group = (slug: string): never => ({ slug, name: 'Fixture', quiz_count: 3 }) as never;
-    const withCredit = buildMixSlots(group('fixture-cc-by'), site);
-    expect(html(h('div', null, withCredit.heroFacts as React.ReactNode))).toContain('Photo: <a');
+    expect(buildMixSlots(group('fixture-cc-by'), site).heroFacts).toBeUndefined();
     expect(buildMixSlots(group('fixture-unsplash'), site).heroFacts).toBeUndefined();
     expect(buildMixSlots(group('anime-mix'), site).heroFacts).toBeUndefined();
   });
 });
 
 describe('/credits', () => {
-  it('lists every photo with its source, author, licence, date and series, the CC BY one marked', async () => {
+  it('lists every photo it is given with its source, author, licence, date and series (the page gives it the ones that need a credit only)', async () => {
     const { CreditsPage } = await import('@/components/anime/credits-page');
     const out = html(h(CreditsPage, {}));
     expect(out.match(/anime-o2-credits-item/g)?.length).toBe(2);
@@ -293,7 +293,8 @@ describe('/credits', () => {
       'https://commons.wikimedia.org/wiki/File:Fixture_one.jpg', 'Fixture Author', 'CC BY 4.0', 'https://creativecommons.org/licenses/by/4.0/',
       'https://unsplash.com/photos/fixture-two', 'Fixture Photographer', 'Unsplash License', 'https://unsplash.com/license', 'dateTime="2026-10-26"',
     ]) expect(out, needle).toContain(needle);
-    expect(out.match(/Credit shown on the series page/g)?.length).toBe(1);
+    // CR-021: no credit is printed on the series page, so the list no longer says it is.
+    expect(out).not.toContain('Credit shown');
     expect(out.match(/<h1/g)?.length).toBe(1);
     expect(out).not.toMatch(/[\u2013\u2014]|\p{Extended_Pictographic}/u);
   });
@@ -318,6 +319,8 @@ describe('/credits', () => {
     try {
       for (const site of ['anime', 'hub']) {
         credits.site = site;
+        // CR-021: the hub's page exists only with a picture that needs a credit.
+        credits.pictures = site === 'hub' ? [{ site: 'kpop', kind: 'idol', slug: '1', url: 'https://s/1.webp', thumb: null, position: '50% 50%', name: 'Ana', sourceUrl: null, author: 'Ana A', license: 'cc_by', licenseNote: null, updatedAt: '' }] : [];
         // Each route-group layout between [site] and the page renders on this build (no 404).
         for (const l of files[0]!.layouts) {
           const layout = (await import(path.join(SITE_DIR, l))) as { default: (p: { children: unknown }) => unknown };
@@ -332,7 +335,7 @@ describe('/credits', () => {
         } else {
           expect(out).toContain('hub-credits');
           expect(out).not.toContain('anime-o2-credits');
-          expect(meta).toMatchObject({ title: hub.CREDITS_TITLE, description: hub.CREDITS_DESCRIPTION, robots: robotsFor(false), alternates: { canonical: '/credits' } });
+          expect(meta).toMatchObject({ title: hub.CREDITS_TITLE, description: hub.CREDITS_DESCRIPTION, robots: robotsFor(true), alternates: { canonical: '/credits' } });
         }
       }
       credits.site = 'kpop';
@@ -340,18 +343,19 @@ describe('/credits', () => {
       await expect(page.generateMetadata()).rejects.toThrow('404');
     } finally {
       credits.site = null;
+      credits.pictures = [];
     }
     // The anime [slug] page no longer serves or prerenders credits (two files claimed /sites/anime/credits at build).
     expect(readFileSync(path.join(SITE_DIR, '(anime)/[slug]/page.tsx'), 'utf8')).not.toMatch(/credits-page|CREDITS_/);
   });
 
-  it('is a route of the anime site, linked from its footer, and of no other site', async () => {
+  it('is a route of the anime site and of the hub, and of kpopquiz.org since CR-021 (its page is a 404 while no idol or group picture needs a credit)', async () => {
     const { isKnownRouteFor } = await import('@/lib/site/routing');
     const flags = { v1: true, v12: true } as const;
     expect(isKnownRouteFor('anime', '/credits', flags)).toBe(true);
     // Daily games step 2: the hub has its own /credits now (twins row H-11, its own page and data, the footer of the hub already linked
-    // it); the anime page stays the anime build's. kpopquiz.org still has none.
+    // it); the anime page stays the anime build's. kpopquiz.org has its own page since CR-021 (app/(site)/credits/page.tsx).
     expect(isKnownRouteFor('hub', '/credits', flags)).toBe(true);
-    expect(isKnownRouteFor('kpop', '/credits', flags)).toBe(false);
+    expect(isKnownRouteFor('kpop', '/credits', flags)).toBe(true);
   });
 });

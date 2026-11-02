@@ -113,17 +113,6 @@ function Portrait({ picture }: { readonly picture: OwnerPicture }): React.ReactE
   );
 }
 
-/** The credit line of a portrait under CC BY or CC BY-SA (the others are credited on /credits). */
-function PortraitCredit({ credit }: { readonly credit: NonNullable<OwnerPicture['credit']> }): React.ReactElement {
-  return (
-    <small className="anime-adm-credit" data-testid="portrait-credit">
-      <a href={credit.sourceUrl} rel="noopener noreferrer" target="_blank">Photo: {credit.author}</a>
-      {', '}
-      <a href={credit.licenseUrl} rel="noopener noreferrer" target="_blank">{credit.license}</a>
-    </small>
-  );
-}
-
 /**
  * A3, the characters row: monogram tiles with a role shape (never an image), the oshi star, the number of picks from 30,
  * and a locked tile, without a name, for each character above the reader's progress. The server renders the spoiler-free
@@ -168,7 +157,6 @@ export function CharacterTiles({ seriesSlug, groupId, name, open, lockedCount }:
     note: (
       <>
         <small className="anime-o2-role">{ROLE_LABEL[c.role]}</small>
-        {c.image?.credit ? <PortraitCredit credit={c.image.credit} /> : null}
         {c.picks !== null && c.picks >= MIN_OSHI_PICKS ? <small className="anime-o2-picks">{t('oshi.count', { count: c.picks.toLocaleString('en-US'), name: c.name })}</small> : null}
       </>
     ),

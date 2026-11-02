@@ -60,10 +60,16 @@ describe('UxFooter', () => {
   it('hub: only the links of its route map', async () => {
     const html = await footer('hub', true);
     const hrefs = anchorHrefs(html).filter((x) => x.startsWith('/'));
-    // Daily games step 2: /credits joined the hub's route map (twins row H-11), so its footer link (shown where the route exists) appears.
-    for (const x of hrefs) expect(['/', '/privacy', '/legal', '/passport', '/login', '/directory', '/credits'], x).toContain(x);
+    // Daily games step 2: /credits joined the hub's route map (twins row H-11). CR-021: its footer link is no longer in the served HTML: it exists
+    // only while an image needs a credit, and UxCreditsLink draws it in the browser after asking /api/site-credits.
+    for (const x of hrefs) expect(['/', '/privacy', '/legal', '/passport', '/login', '/directory'], x).toContain(x);
     expect(hrefs).toContain('/privacy');
     expect(hrefs).toContain('/legal');
-    expect(hrefs).toContain('/credits');
+    expect(hrefs).not.toContain('/credits');
+  });
+
+  // CR-021: the served footer of no site names /credits, so what a page serves does not depend on whether an image needs a credit.
+  it('no site names /credits in the served footer', async () => {
+    for (const site of ['kpop', 'anime', 'hub'] as const) expect(anchorHrefs(await footer(site, true)), site).not.toContain('/credits');
   });
 });

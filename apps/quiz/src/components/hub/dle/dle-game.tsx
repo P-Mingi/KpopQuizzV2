@@ -511,13 +511,8 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
             <span aria-hidden="true" className="hub-dle-shine" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             {won ? <img src={withBasePath('/mascot/mascot-celebrate.png')} alt="" width={76} height={76} className="hub-dle-bounce hub-dle-photo-mascot" /> : null}
-            <figcaption>
-              {picture ? (
-                <>
-                  {t.photoBy(picture.author, picture.license)} · <a href={picture.sourceUrl} rel="noopener noreferrer nofollow" target="_blank">{t.source}</a>
-                </>
-              ) : w.noPhoto ?? t.noPhoto}
-            </figcaption>
+            {/* No credit here (CR-021): /credits lists the pictures that need one. */}
+            {picture ? null : <figcaption>{w.noPhoto ?? t.noPhoto}</figcaption>}
           </figure>
           <div className="hub-dle-resultbody">
             <div className="hub-dle-resulthead">

@@ -7,7 +7,7 @@ import { unstable_cache } from 'next/cache';
 import { seriesImageOf } from '@/lib/anime/series-images';
 import { createPublicReadClient } from '@/lib/supabase/server';
 
-import { DISPLAY_COLUMNS, IMAGE_SITE, LICENSE_LABEL, ATTRIBUTION_LICENSES, SIZES, imageTag, path2x } from './constants';
+import { DISPLAY_COLUMNS, IMAGE_SITE, SIZES, imageTag, path2x } from './constants';
 import { publicUrl } from './store';
 
 import type { ImageKind } from './constants';
@@ -16,9 +16,11 @@ import type { DisplayImage, EntityImageRow } from './types';
 /** The focal point of the bundled photos: horizontally centred, 35 percent down (the object-position of the photo box today). */
 const BUNDLED_FOCAL = { x: 50, y: 35 } as const;
 
-/** The image of an uploaded row, ready to show. */
+/**
+ * The image of an uploaded row, ready to show. No credit is printed on a page or in a game (CR-021): `attribution` is always null, and
+ * /credits lists the images that need one.
+ */
 export function displayFromRow(row: EntityImageRow): DisplayImage {
-  const asks = (ATTRIBUTION_LICENSES as readonly string[]).includes(row.license);
   return {
     source: 'upload',
     url: publicUrl(row.path),
@@ -28,7 +30,7 @@ export function displayFromRow(row: EntityImageRow): DisplayImage {
     focalX: Number(row.focal_x),
     focalY: Number(row.focal_y),
     alt: null,
-    attribution: asks ? { author: row.author, license: LICENSE_LABEL[row.license], sourceUrl: row.source_url } : null,
+    attribution: null,
     license: row.license,
     author: row.author,
     sourceUrl: row.source_url,
@@ -48,7 +50,7 @@ export function bundledSeriesImage(slug: string): DisplayImage | null {
     focalX: BUNDLED_FOCAL.x,
     focalY: BUNDLED_FOCAL.y,
     alt: p.alt,
-    attribution: p.attribution ? { author: p.attribution.author, license: p.attribution.license, sourceUrl: p.attribution.sourceUrl } : null,
+    attribution: null,
     license: null,
     author: p.attribution?.author ?? null,
     sourceUrl: p.attribution?.sourceUrl ?? null,

@@ -21,6 +21,9 @@ export type EntityKind = 'series' | 'character';
 export const LICENSE_CODES = ['cc0', 'public_domain', 'cc_by', 'cc_by_sa', 'own_photo', 'licensed', 'other'] as const;
 export type LicenseCode = (typeof LICENSE_CODES)[number];
 
+/** The licences the forms offer since CR-021 (owner decision of 2026-11-02): CC0, public domain, CC BY, CC BY-SA, other free licence. The rest stay valid for what is stored. */
+export const FORM_LICENSE_CODES: readonly LicenseCode[] = ['cc0', 'public_domain', 'cc_by', 'cc_by_sa', 'other'];
+
 export const LICENSE_LABEL: Readonly<Record<LicenseCode, string>> = {
   cc0: 'CC0',
   public_domain: 'Public domain',
@@ -63,10 +66,14 @@ export interface EntityImage {
   /** 0 to 100, the point of the picture to keep in view when it is cropped (object-position). */
   readonly focal_x: number;
   readonly focal_y: number;
-  readonly source_url: string;
-  readonly author: string;
+  /** Optional since CR-021 (the owner may leave the source page out). */
+  readonly source_url: string | null;
+  /** Required for CC BY and CC BY-SA, optional for the other licences (CR-021). */
+  readonly author: string | null;
   readonly license: LicenseCode;
   readonly license_note: string | null;
+  /** The exact licence page, when Commons gave it (CR-021); the browser roles cannot select it, so the display reads never carry it. */
+  readonly license_url?: string | null;
   readonly updated_at: string;
 }
 
@@ -178,6 +185,9 @@ const CODE_WORDS: Readonly<Record<ImageErrorCode | 'not_found', string>> = {
   storage_failed: 'The picture could not be stored. Try again in a moment.',
   db_failed: 'The server had a problem. Try again in a moment.',
   server_error: 'The server had a problem. Try again in a moment.',
+  not_free: 'This file is not under a free licence, so it cannot be used. Choose another file.',
+  commons_missing: 'That file does not exist on Wikimedia Commons. Check the address.',
+  commons_failed: 'Wikimedia Commons did not answer. Try again in a moment.',
 };
 
 const KNOWN_CODES = CODE_WORDS as Readonly<Record<string, string>>;
@@ -264,7 +274,7 @@ export interface OwnerPicture {
 /** The credit of an image, or null when its licence asks for none (those images are credited on /credits). */
 export function creditOf(i: Pick<EntityImage, 'license' | 'author' | 'source_url'>): SeriesImageAttribution | null {
   if (!requiresCredit(i.license) || !isLicenseCode(i.license)) return null;
-  return { author: i.author, license: LICENSE_LABEL[i.license], licenseUrl: LICENSE_URL[i.license] ?? i.source_url, sourceUrl: i.source_url };
+  return { author: i.author ?? '', license: LICENSE_LABEL[i.license], licenseUrl: LICENSE_URL[i.license] ?? i.source_url ?? '', sourceUrl: i.source_url ?? '' };
 }
 
 export function ownerPictureOf(i: EntityImage, base?: string): OwnerPicture {
@@ -358,7 +368,7 @@ export interface OwnerCreditRow {
   readonly width: number;
   readonly height: number;
   readonly position: string;
-  readonly sourceUrl: string;
+  readonly sourceUrl: string | null;
   readonly author: string;
   readonly license: string;
   readonly licenseUrl: string | null;
@@ -396,7 +406,7 @@ export function ownerCreditRows(
         height: i.height,
         position: objectPositionOf(i),
         sourceUrl: i.source_url,
-        author: i.author,
+        author: i.author ?? '',
         license: LICENSE_LABEL[i.license],
         licenseUrl: LICENSE_URL[i.license] ?? null,
         note: i.license_note && i.license_note.trim() ? i.license_note.trim() : null,

@@ -20,10 +20,10 @@ interface CreditsPageProps {
 }
 
 /**
- * /credits: every free photo shown on OtakuQuiz with its source page, its author, its licence (linked) and the day it was
- * retrieved. The photos under CC BY and CC BY-SA also carry their credit line on the series page; the others (Unsplash, Pexels,
- * CC0, public domain) are credited here only. A series without a photo shows a generated title card and is not listed.
- * Server component, no hooks.
+ * /credits: the pictures shown on OtakuQuiz under a licence that asks for a credit (CC BY, CC BY-SA), with their source page, their author,
+ * their licence (linked) and the day they were retrieved. CR-021 (owner decision of 2026-11-02): no credit is printed on a series page or
+ * anywhere else, this page is the only place, and the page that calls this component lists those pictures only and answers a 404 when there
+ * are none. A series without a photo shows a generated title card and is not listed. Server component, no hooks.
  */
 export function CreditsPage({ credits = SERIES_IMAGE_CREDITS, owner = [] }: CreditsPageProps): React.ReactElement {
   // A bundled photo that the owner replaced is no longer shown anywhere, so it is no longer listed.
@@ -33,9 +33,8 @@ export function CreditsPage({ credits = SERIES_IMAGE_CREDITS, owner = [] }: Cred
     <UxPage width="text" className="anime-o2-credits">
       <h1 className="ux-h1">{CREDITS_TITLE}</h1>
       <p className="anime-o2-credits-lede">
-        The pictures of the series on OtakuQuiz are free photos of real places and objects, never images of the works.
-        Each one is listed here with the page it comes from, who took it, its licence and the day we retrieved it.
-        Where a licence asks for a credit, the same line is printed on the page of the series.
+        Some pictures on OtakuQuiz are shared under a Creative Commons licence that asks for a credit.
+        Each one is listed here with the page it comes from, who made it, its licence and the day we retrieved it.
         {owner.length > 0 ? ' Pictures that the team added later, of series and of characters, are listed below the photos, each with its source, its author and its licence.' : ''}
       </p>
       {rows.length === 0 && owner.length === 0 ? (
@@ -51,7 +50,6 @@ export function CreditsPage({ credits = SERIES_IMAGE_CREDITS, owner = [] }: Cred
                 <p>Photo: <a href={c.sourceUrl} rel="noopener noreferrer" target="_blank">{c.author}</a>, <a href={c.licenseUrl} rel="noopener noreferrer" target="_blank">{c.license}</a></p>
                 <p className="anime-o2-credits-meta">
                   <a href={c.sourceUrl} rel="noopener noreferrer" target="_blank">Source page</a> · Retrieved <time dateTime={c.retrieved}>{c.retrieved}</time>
-                  {c.attributionRequired ? ' · Credit shown on the series page' : ''}
                 </p>
               </div>
             </li>
@@ -71,11 +69,10 @@ export function CreditsPage({ credits = SERIES_IMAGE_CREDITS, owner = [] }: Cred
                 )}
                 <div className="anime-o2-credits-text">
                   <h3 className="anime-o2-credits-name">{o.locked ? o.name : <Link href={o.href}>{o.name}</Link>}</h3>
-                  <p>Picture: <a href={o.sourceUrl} rel="noopener noreferrer" target="_blank">{o.author}</a>, {o.licenseUrl ? <a href={o.licenseUrl} rel="noopener noreferrer" target="_blank">{o.license}</a> : o.license}</p>
+                  <p>Picture: {o.sourceUrl ? <a href={o.sourceUrl} rel="noopener noreferrer" target="_blank">{o.author}</a> : o.author}, {o.licenseUrl ? <a href={o.licenseUrl} rel="noopener noreferrer" target="_blank">{o.license}</a> : o.license}</p>
                   {o.note ? <p className="anime-o2-credits-meta">{o.note}</p> : null}
                   <p className="anime-o2-credits-meta">
-                    <a href={o.sourceUrl} rel="noopener noreferrer" target="_blank">Source page</a> · Added <time dateTime={o.retrieved}>{o.retrieved}</time>
-                    {o.credited ? ' · Credit shown under the picture' : ''}
+                    {o.sourceUrl ? <><a href={o.sourceUrl} rel="noopener noreferrer" target="_blank">Source page</a> · </> : null}Added <time dateTime={o.retrieved}>{o.retrieved}</time>
                   </p>
                 </div>
               </li>

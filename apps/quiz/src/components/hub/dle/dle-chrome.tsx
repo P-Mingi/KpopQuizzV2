@@ -24,10 +24,12 @@ interface DleChromeProps {
   readonly tools?: React.ReactNode;
   /** Extra classes of the root (the game's dots, the Unbounded of the marquee). */
   readonly className?: string;
+  /** CR-021: the footer links /credits only when the site has an image that needs a credit (lib/credits/site-credits.ts); the pages pass the answer. */
+  readonly showCredits?: boolean;
   readonly children: React.ReactNode;
 }
 
-export function DleChrome({ locale, enPath, current, tools, className, children }: DleChromeProps): React.ReactElement {
+export function DleChrome({ locale, enPath, current, tools, className, showCredits = true, children }: DleChromeProps): React.ReactElement {
   const t = dleCopy(locale);
   return (
     <div lang={locale} className={`hub-dle-root ${dmSans.variable} ${dmMono.variable}${className ? ` ${className}` : ''}`}>
@@ -71,7 +73,7 @@ export function DleChrome({ locale, enPath, current, tools, className, children 
               <span className="hub-h2-foot-h">{t.footAbout}</span>
               <a href={withBasePath('/privacy')} className="hub-h2-foot-a">{t.footPrivacy}</a>
               <a href={withBasePath('/legal')} className="hub-h2-foot-a">{t.footLegal}</a>
-              <a href={withBasePath(localePath('/credits', locale))} className="hub-h2-foot-a">{t.footCredits}</a>
+              {showCredits ? <a href={withBasePath(localePath('/credits', locale))} className="hub-h2-foot-a">{t.footCredits}</a> : null}
               <span className="hub-h2-foot-mail">{HUB_EMAIL}</span>
             </div>
           </div>

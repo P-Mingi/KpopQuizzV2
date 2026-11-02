@@ -7,7 +7,6 @@ import { ROUND_SIZE } from '@/lib/blind-test-playlists';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { publicUrl } from '@/lib/entity-images/store';
 import { assetPosition, getLiveAssets, getPublicPictures, safePath } from '@/lib/photos/public-read';
-import { LICENSE_LABEL, LICENSE_URL } from '@/lib/anime/entity-images-rules';
 import { homeUrl } from '@/lib/site/hub/home-types';
 import { createPublicReadClient } from '@/lib/supabase/server';
 
@@ -84,13 +83,12 @@ export async function getDlePool(game: DleGameId): Promise<DlePool | null> {
 
 // ---- the images of the pages (site_assets) ------------------------------------------------------------------------------------------
 
-/** One image of a slot: its files by size, its focal point and its credit. */
+/** One image of a slot: its files by size and its focal point. No credit: it is never printed on a page or in a game (CR-021), /credits lists it. */
 export interface DleImage {
   readonly src: string;
   readonly small: string;
   readonly mid: string | null;
   readonly position: string;
-  readonly credit: string;
 }
 
 export type DleImages = Readonly<Record<string, DleImage>>;
@@ -99,8 +97,8 @@ export type DleImages = Readonly<Record<string, DleImage>>;
 export function imagesOf(live: readonly LiveAsset[]): DleImages {
   const out: Record<string, DleImage> = {};
   for (const a of live) {
-    if ((a.type !== 'banner' && a.type !== 'card_image') || !a.large || !a.author || !a.license) continue;
-    out[a.key] = { src: a.large, small: a.thumb ?? a.mid ?? a.large, mid: a.mid, position: assetPosition(a), credit: `${a.author}, ${LICENSE_LABEL[a.license]}` };
+    if ((a.type !== 'banner' && a.type !== 'card_image') || !a.large) continue;
+    out[a.key] = { src: a.large, small: a.thumb ?? a.mid ?? a.large, mid: a.mid, position: assetPosition(a) };
   }
   return out;
 }
@@ -111,15 +109,15 @@ export async function getDleImages(): Promise<DleImages> {
 
 // ---- the licensed photos of the entities --------------------------------------------------------------------------------------------
 
-export interface DlePicture { readonly url: string; readonly position: string; readonly author: string; readonly license: string; readonly licenseUrl: string | null; readonly sourceUrl: string }
+export interface DlePicture { readonly url: string; readonly position: string }
 
-/** The result screen's photos of a game's pool, by entity id: only what entity_images_public gives (a verified licence). */
+/** The result screen's photos of a game's pool, by entity id: only what entity_images_public gives (a verified licence), with no credit (CR-021). */
 export function picturesOf(pictures: readonly PublicPicture[], kind: string | null): Readonly<Record<string, DlePicture>> {
   const out: Record<string, DlePicture> = {};
   if (!kind) return out;
   for (const p of pictures) {
     if (p.kind !== kind) continue;
-    out[p.slug] = { url: p.url, position: p.position, author: p.author, license: LICENSE_LABEL[p.license], licenseUrl: LICENSE_URL[p.license] ?? null, sourceUrl: p.sourceUrl };
+    out[p.slug] = { url: p.url, position: p.position };
   }
   return out;
 }

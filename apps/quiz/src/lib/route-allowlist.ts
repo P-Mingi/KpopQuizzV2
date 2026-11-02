@@ -64,6 +64,9 @@ export const KNOWN_ROUTES = [
   '/sites/',
   // SEO Mission 3, part F.2: the press kit.
   '/press',
+  // CR-021 (owner decision of 2026-11-02): the photo credits of idols and groups. The page answers 404 like any unknown URL while no picture
+  // needs a credit (app/(site)/credits/page.tsx), and the footer links it only then (lib/credits/site-credits.ts).
+  '/credits',
 ];
 
 // UX v1 redesign (NEXT_PUBLIC_UX_V1, default off): routes that exist only for the new
