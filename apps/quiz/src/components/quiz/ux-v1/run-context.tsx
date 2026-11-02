@@ -41,6 +41,11 @@ export interface P4RunQuiz {
   resultLevels?: ResultLevel[] | null;
   /** Finished attempts when the page rendered (quizzes.total_completions): the percentile floor of a level quiz. */
   attempts?: number;
+  /**
+   * P5 (CR-025), links 2 and 13: the row to the daily game under "Next quiz" in "Keep playing". The key exists only while its switch is on
+   * (lib/passerelles/quiz-end.ts), so a page without it carries today's props.
+   */
+  bridge?: { kind: 'kpopdle' | 'otakudle'; href: string };
 }
 
 export interface LoadedChallenge extends ChallengePublic {

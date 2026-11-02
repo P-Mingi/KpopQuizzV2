@@ -40,8 +40,16 @@ and is not a cross-site link in this sense. On top of the rows:
 | kpopdle-home-daily | kpop | / | hub | /daily | followed | no | 1 | CR-018; the same module, its All daily games link; same flags |
 | dle-otakudle | hub | /otakudle/** | kpop, anime | /** | followed | no | (none) | CR-017; /otakudle: yesterday's answer and the result, the quiz of the series; with the flag on |
 | dle-otakudle-fr | hub | /fr/otakudle/** | kpop, anime | /** | followed | no | (none) | CR-017; as dle-otakudle, in French |
+| kpopdle-quiz-end | kpop | /q/** | hub | /kpopdle | followed | no | 1 | CR-025; link 2: the Kpopdle row in Keep playing under Next quiz, drawn after a K-pop quiz; flag NET_KPOPDLE_QUIZEND with the hub's dailyGuess |
+| kpopdle-group | kpop | /*-quiz | hub | /kpopdle | followed | no | 1 | CR-025; link 3: the Kpopdle card of a group page, /{group}-quiz; flag NET_KPOPDLE_GROUP with the hub's dailyGuess, shown only when the group has members in the game pool |
+| anime-daily-home-otakudle | anime | / | hub | /otakudle | followed | no | 1 | CR-025; link 10: the Daily games module of the OtakuQuiz home, Play Otakudle; the hub's dailyGuess |
+| anime-daily-home-one-piece | anime | / | hub | /otakudle/one-piece | followed | no | 1 | CR-025; link 10: the same module, Play One Piece; same switch |
+| anime-daily-home-dragon-ball | anime | / | hub | /otakudle/dragon-ball | followed | no | 1 | CR-025; link 10: the same module, Play Dragon Ball; same switch |
+| anime-series-one-piece | anime | /one-piece-quiz | hub | /otakudle/one-piece | followed | no | 1 | CR-025; link 11: the card The One Piece character of the day on the series page; the hub's dailyGuess |
+| anime-series-dragon-ball | anime | /dragon-ball-quiz | hub | /otakudle/dragon-ball | followed | no | 1 | CR-025; link 12: the card The Dragon Ball character of the day on the series page; the hub's dailyGuess |
+| anime-quiz-end | anime | /q/** | hub | /otakudle | followed | no | 1 | CR-025; link 13: Daily challenge, the mystery character, in Keep playing after an anime quiz; the hub's dailyGuess |
 
-Page and href patterns: `*` any page, `/x/**` the path `/x` and everything below it, otherwise the exact path; `(none
+Page and href patterns: `*` any page, `/x/**` the path `/x` and everything below it, `/*-quiz` one path segment that ends with `-quiz` (CR-025: the group hubs, `/twice-quiz`, and nothing deeper), otherwise the exact path; `(none
 yet)` is `null` in the JSON (the row admits nothing until a CR names the page). The copy of each line is Q's (B01, B02,
 B17) and lives in the lanes' copy files (copy-keys.md); the anchors are brand names, never keywords (Q 7.1).
 
@@ -60,5 +68,5 @@ B23's Cup page (later bridges, not in the run).
 | Q0a | `check-network-links.mts` and the link leak suite read `link-allowlist.json` |
 | B6 | the footer line (`footer`), the Organization `parentOrganization` and the llms.txt line |
 | O1 | the anime About line (`about-anime`) and the footer through B6's component |
-| H1 | the network page (`network-page`), the optional directory (`directory`), and the Kpopdle module of the kpopquiz.org home (`kpopdle-home`, `kpopdle-home-daily`, CR-018), drawn only when the hub serves both pages |
+| H1 | the network page (`network-page`), the optional directory (`directory`), and the Kpopdle module of the kpopquiz.org home (`kpopdle-home`, `kpopdle-home-daily`, CR-018), drawn only when the hub serves both pages ; the Kpopdle row of the quiz end and the Kpopdle card of a group page (`kpopdle-quiz-end`, `kpopdle-group`, CR-025), each behind its own flag; and the links of OtakuQuiz to the three anime games (`anime-daily-home-*`, `anime-series-*`, `anime-quiz-end`, CR-025), behind the hub's `dailyGuess` |
 | X1 | the kpop About line and the Team article (`about-kpop`, `team-article`); every crossover link stays a signed-in jump link (`CrossoverLink`), never a row here |

@@ -33,6 +33,8 @@ export interface DleGameProps {
   readonly pictures: Readonly<Record<string, DlePicture>>;
   /** Group name to its address on KpopQuiz: the result's links (a name it does not know gets none). */
   readonly quizLinks: Readonly<Record<string, string>>;
+  /** Group name to the address of its blind test on KpopQuiz (P5, link 3); empty for a game of another world. */
+  readonly blindLinks?: Readonly<Record<string, string>>;
   readonly kpopName: string;
 }
 
@@ -80,8 +82,8 @@ export function hintLabel(w: Pick<DleGameCopy, 'hints' | 'hintsPending'>, h: Dle
 }
 
 /** "What next" under a result: the next game of the chain (Otakudle, One Piece, Dragon Ball), or at its end the way back to the Burrow, with "All done today" once every game of the world is finished on this device. */
-export function DleAfter({ locale, game, quizHref, parentLabel, kpopName, allDone, clockText }: {
-  readonly locale: DleLocale; readonly game: DleGameId; readonly quizHref: string | undefined; readonly parentLabel: string; readonly kpopName: string; readonly allDone: boolean; readonly clockText: string;
+export function DleAfter({ locale, game, quizHref, blindHref, parentLabel, kpopName, allDone, clockText }: {
+  readonly locale: DleLocale; readonly game: DleGameId; readonly quizHref: string | undefined; readonly blindHref?: string | undefined; readonly parentLabel: string; readonly kpopName: string; readonly allDone: boolean; readonly clockText: string;
 }): React.ReactElement {
   const t = dleCopy(locale);
   const w = gameCopy(game, locale);
@@ -99,9 +101,10 @@ export function DleAfter({ locale, game, quizHref, parentLabel, kpopName, allDon
           <a href={withBasePath(burrowHref(locale))} className="hub-dle-nextgame">{t.backToBurrow}<Ic d={D.arrowRight} /></a>
         </>
       )}
-      {quizHref ? (
+      {quizHref || blindHref ? (
         <div className="hub-dle-gateways">
-          <a href={quizHref} className="hub-dle-gateway"><span>{t.onKpopQuiz.replace('KpopQuiz', kpopName)}</span><strong>{t.quizOf(parentLabel)}</strong></a>
+          {quizHref ? <a href={quizHref} className="hub-dle-gateway"><span>{t.onKpopQuiz.replace('KpopQuiz', kpopName)}</span><strong>{t.quizOf(parentLabel)}</strong></a> : null}
+          {blindHref ? <a href={blindHref} className="hub-dle-gateway"><span>{t.onKpopQuiz.replace('KpopQuiz', kpopName)}</span><strong>{t.blindOf(parentLabel)}</strong></a> : null}
         </div>
       ) : null}
       <span className="hub-dle-line">{w.nextIn} <span className="hub-dle-num">{clockText}</span></span>
@@ -167,7 +170,7 @@ export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words
   );
 }
 
-export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, quizLinks, kpopName }: DleGameProps): React.ReactElement {
+export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, quizLinks, blindLinks, kpopName }: DleGameProps): React.ReactElement {
   const t = dleCopy(locale);
   const g = dleGame(game);
   const w = gameCopy(game, locale);
@@ -341,6 +344,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   // The words shown for it ("L’Attaque des Titans" in French); the quiz is still looked up by the name as stored.
   const targetShown = g.series ? targetParent : valueLabel(w.subKey, targetParent, locale);
   const quizHref = targetParent ? quizLinks[targetParent] : undefined;
+  const blindHref = targetParent ? blindLinks?.[targetParent] : undefined;
   const picture = target ? pictures[target.id] : undefined;
 
   return (
@@ -540,7 +544,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
                 {canShare ? <button type="button" className="hub-dle-btn hub-dle-btn-line" onClick={() => { void navigator.share({ text: shareBody() }).catch(() => {}); }}><Ic d={D.share} />{t.share}</button> : null}
               </div>
             </div>
-            <DleAfter locale={locale} game={game} quizHref={quizHref} parentLabel={targetShown} kpopName={kpopName} allDone={allDone} clockText={clock(left)} />
+            <DleAfter locale={locale} game={game} quizHref={quizHref} blindHref={blindHref} parentLabel={targetShown} kpopName={kpopName} allDone={allDone} clockText={clock(left)} />
           </div>
         </section>
       ) : null}

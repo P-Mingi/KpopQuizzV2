@@ -66,7 +66,7 @@ export const NO_FRUIT_TYPE: Readonly<Record<DleLocale, string>> = { en: 'None', 
 
 export const GENDER: Readonly<Record<DleLocale, Readonly<Record<string, string>>>> = {
   en: { male: 'Male', female: 'Female' },
-  fr: { male: 'Homme', female: 'Femme' },
+  fr: { male: 'Masculin', female: 'Féminin' },
 };
 
 /** What a stored label (the `l` of a value) says in French; a label that is not here is shown as it is. */

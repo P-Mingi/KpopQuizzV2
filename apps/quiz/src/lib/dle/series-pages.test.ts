@@ -231,13 +231,15 @@ describe('the table of the values that change in French', () => {
     expect(hintValueLabel('No Devil Fruit', 'en')).toBe('No Devil Fruit');
     expect(hintValueLabel('Gum-Gum Fruit', 'fr')).toBe('Gum-Gum Fruit');
     expect(valueLabel('gender', 'male', 'en', { series: true })).toBe('Male');
-    expect(valueLabel('gender', 'female', 'fr', { series: true })).toBe('Femme');
-    expect(valueLabel('gender', 'male', 'fr', { series: true })).toBe('Homme');
+    expect(valueLabel('gender', 'female', 'fr', { series: true })).toBe('Féminin');
+    expect(valueLabel('gender', 'male', 'fr', { series: true })).toBe('Masculin');
     // The games across all series keep their words: a series name changes in French only when it is shown, and a role of Kpopdle is unchanged.
     expect(valueLabel('series', 'Attack on Titan', 'fr')).toBe('L’Attaque des Titans');
     expect(valueLabel('series', 'Attack on Titan', 'en')).toBe('Attack on Titan');
     expect(valueLabel('series', 'Naruto', 'fr')).toBe('Naruto');
-    expect(valueLabel('gender', 'male', 'en')).toBe('Man');
+    expect(valueLabel('gender', 'male', 'en')).toBe('Male');
+    expect(valueLabel('gender', 'female', 'en')).toBe('Female');
+    expect(valueLabel('gender', 'male', 'fr')).toBe('Masculin');
     expect(valueLabel('role', 'supporting', 'fr')).toBe('Secondaire');
   });
 
@@ -401,7 +403,7 @@ describe('the grid: 8 columns, the cells, the arrows', () => {
     expect(fr).not.toContain('Marines');
     expect(fr).toContain('Pas de prime');
     expect(fr).toContain('Aucun');
-    expect(fr).toContain('Femme');
+    expect(fr).toContain('Féminin');
     const none = render('otakudle-one-piece', 'en', OP_POOL, ZORO, []);
     expect(none).toContain('None');
     const dbEn = render('otakudle-dragon-ball', 'en', DB_POOL, GOKU, []);

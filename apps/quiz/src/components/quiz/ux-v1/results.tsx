@@ -30,6 +30,7 @@ import { isCategoryGroup } from '@/lib/ux-v1/p3/model';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import { P4Comments } from './comments';
+import { QuizEndBridge } from './quiz-end-bridge';
 import { P4ReportButton } from './report';
 
 import type { P4CommentResume } from '@/lib/ux-v1/p4/comments';
@@ -252,6 +253,8 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
             <span className="p4-go" aria-hidden="true"><Icon name="play" /></span>
           </Link>
         ) : null}
+        {/* P5 (CR-025), links 2 and 13: the daily game, right under "Next quiz". Only when the quiz page gave it. */}
+        {quiz.bridge ? <div className="ux-rows"><QuizEndBridge bridge={quiz.bridge} /></div> : null}
         <div className="ux-rows">
           {rest.map((q) => (
             <Link key={q.slug} className="ux-row" href={`/q/${q.slug}`}>

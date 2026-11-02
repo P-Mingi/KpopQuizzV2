@@ -1,0 +1,24 @@
+stand-in ready
+warm /kpopdle: 200
+warm /fr/kpopdle: 200
+hub en desktop result links: ["https://kpopquiz.org/aespa-quiz","https://kpopquiz.org/blindtest/group-aespa","https://bunnyverse.org/anime"]
+hub fr desktop result links: ["https://kpopquiz.org/aespa-quiz","https://kpopquiz.org/blindtest/group-aespa","https://bunnyverse.org/anime"]
+hub en mobile result links: ["https://kpopquiz.org/aespa-quiz","https://kpopquiz.org/blindtest/group-aespa","https://bunnyverse.org/anime"]
+hub fr mobile result links: ["https://kpopquiz.org/aespa-quiz","https://kpopquiz.org/blindtest/group-aespa","https://bunnyverse.org/anime"]
+hub capture exit: 0
+kpop desktop home links: ["https://bunnyverse.org/daily","https://bunnyverse.org/kpopdle"]
+kpop desktop group links: ["https://bunnyverse.org/kpopdle"]
+kpop desktop quiz end links: ["https://bunnyverse.org/kpopdle"]
+kpop mobile home links: ["https://bunnyverse.org/daily","https://bunnyverse.org/kpopdle"]
+kpop mobile group links: ["https://bunnyverse.org/kpopdle"]
+kpop mobile quiz end links: ["https://bunnyverse.org/kpopdle"]
+kpop capture exit: 0
+anime desktop home links: ["https://bunnyverse.org/otakudle","https://bunnyverse.org/otakudle/one-piece","https://bunnyverse.org/otakudle/dragon-ball"]
+anime desktop one-piece links: ["https://bunnyverse.org/otakudle/one-piece"]
+anime desktop dragon-ball links: ["https://bunnyverse.org/otakudle/dragon-ball"]
+anime desktop quiz end links: ["https://bunnyverse.org/otakudle"]
+anime mobile home links: ["https://bunnyverse.org/otakudle","https://bunnyverse.org/otakudle/one-piece","https://bunnyverse.org/otakudle/dragon-ball"]
+anime mobile one-piece links: ["https://bunnyverse.org/otakudle/one-piece"]
+anime mobile dragon-ball links: ["https://bunnyverse.org/otakudle/dragon-ball"]
+anime mobile quiz end links: ["https://bunnyverse.org/otakudle"]
+anime capture exit: 0

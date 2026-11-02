@@ -89,6 +89,18 @@ test('pageMatches: any page, subtree, exact, null', () => {
   assert.ok(!pageMatches(null, '/'));
 });
 
+test('pageMatches: one segment with a fixed ending (/*-quiz, P5 CR-025), nothing wider', () => {
+  assert.ok(pageMatches('/*-quiz', '/twice-quiz'));
+  assert.ok(pageMatches('/*-quiz', '/stray-kids-quiz'));
+  assert.ok(!pageMatches('/*-quiz', '/-quiz'));
+  assert.ok(!pageMatches('/*-quiz', '/quiz'));
+  assert.ok(!pageMatches('/*-quiz', '/twice-trivia'));
+  assert.ok(!pageMatches('/*-quiz', '/q/twice-quiz'));
+  assert.ok(!pageMatches('/*-quiz', '/twice-quiz/x'));
+  assert.ok(!pageMatches('/*-quiz', '/groups'));
+  assert.ok(!pageMatches('/*-quiz', '/'));
+});
+
 const ANIME_URL = 'http://127.0.0.1:4022';
 
 test('links: the footer link to bunnyverse.org passes once, twice is over the cap', () => {
