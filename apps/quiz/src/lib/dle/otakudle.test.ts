@@ -55,7 +55,7 @@ describe('023 in session G and in J4', () => {
     await db.exec(readMigration('023-dle-otakudle.sql'));
     await afterJ4(db);
     expect(await rows(db, `select universe, entity_kind, source_view, min_pool, hint_keys, hint_after, active, epoch from public.dle_games where id = 'otakudle'`)).toEqual([
-      { universe: 'anime', entity_kind: 'character', source_view: 'dle_src_anime_character', min_pool: 40, hint_keys: ['first_appearance', 'voice_actor_ja', 'initial'], hint_after: [5, 8, 12], active: false, epoch: null },
+      { universe: 'anime', entity_kind: 'character', source_view: 'dle_src_anime_character', min_pool: 40, hint_keys: ['voice_actor_ja', 'initial'], hint_after: [5, 10], active: false, epoch: null },
     ]);
     expect(await rows(db, `select key, kind, near::int from public.dle_attributes where game_id = 'otakudle' order by position`)).toEqual([
       { key: 'series', kind: 'single', near: null }, { key: 'gender', kind: 'single', near: null }, { key: 'species', kind: 'single', near: null }, { key: 'role', kind: 'single', near: null },
@@ -210,7 +210,7 @@ describe('the hints, one by one, on a real play', () => {
     await seedOtakudle(db);
     await db.query(`update public.dle_games set min_pool = 2, no_repeat_days = 5 where id = 'otakudle'`);
     await db.query(`select public.dle_activate('otakudle', '${EPOCH}', 0.5)`);
-    // The target of today is forced to the one with the three hints, so the test does not depend on the draw.
+    // The target of today is forced to the one with every fact (first appearance included), so the test does not depend on the draw.
     targetId = await one<string>(db, `select e.entity_id from public.dle_entities e where e.game_id = 'otakudle' and e.name = 'Eren Yeager'`);
     await db.query(`insert into public.dle_daily_stats (game_id, play_date, game_no, entity_id) values ('otakudle', $1, 4, $2) on conflict (game_id, play_date) do update set entity_id = excluded.entity_id`, [TODAY, targetId]);
     wrong = (await rows<{ entity_id: string }>(db, `select entity_id from public.dle_entities where game_id = 'otakudle' and in_pool and entity_id <> $1 order by entity_id`, [targetId])).map((r) => r.entity_id);
@@ -223,17 +223,21 @@ describe('the hints, one by one, on a real play', () => {
     return hints as { key: string; value: string }[];
   };
 
-  it('first appearance opens after 5 errors, not after 4', async () => {
+  it('the Japanese voice actor is the first hint: it opens after 5 errors, not after 4', async () => {
     expect(await play('hint-token-aaaaaaaaaa', 4)).toEqual([]);
-    expect(await play('hint-token-bbbbbbbbbb', 5)).toEqual([{ key: 'first_appearance', value: 'Chapter 1' }]);
+    expect(await play('hint-token-bbbbbbbbbb', 5)).toEqual([{ key: 'voice_actor_ja', value: 'Voice of Eren Yeager' }]);
   });
-  it('the Japanese voice actor opens after 8 errors, not after 7', async () => {
-    expect((await play('hint-token-cccccccccc', 7)).map((h) => h.key)).toEqual(['first_appearance']);
-    expect(await play('hint-token-dddddddddd', 8)).toEqual([{ key: 'first_appearance', value: 'Chapter 1' }, { key: 'voice_actor_ja', value: 'Voice of Eren Yeager' }]);
+  it('the initial opens after 10 errors, not after 9, from the name', async () => {
+    expect(await play('hint-token-cccccccccc', 9)).toEqual([{ key: 'voice_actor_ja', value: 'Voice of Eren Yeager' }]);
+    expect(await play('hint-token-dddddddddd', 10)).toEqual([{ key: 'voice_actor_ja', value: 'Voice of Eren Yeager' }, { key: 'initial', value: 'E' }]);
   });
-  it('the initial opens after 12 errors, not after 11, from the name', async () => {
-    expect((await play('hint-token-eeeeeeeeee', 11)).map((h) => h.key)).toEqual(['first_appearance', 'voice_actor_ja']);
-    expect((await play('hint-token-ffffffffff', 12)).at(-1)).toEqual({ key: 'initial', value: 'E' });
+  it('no first appearance hint is served, even when the fact exists (owner, for launch, CR-020)', async () => {
+    expect(await one<string>(db, `select first_appearance from public.character_facts where character_id::text = $1`, [targetId])).toBe('Chapter 1');
+    const all = await play('hint-token-eeeeeeeeee', 12);
+    expect(all.map((h) => h.key)).toEqual(['voice_actor_ja', 'initial']);
+    expect(JSON.stringify(all)).not.toMatch(/first_appearance|Chapter 1/);
+    expect(await one<unknown>(db, `select hints from public.dle_entities where game_id = 'otakudle' and entity_id = $1`, [targetId])).toEqual({ voice_actor_ja: 'Voice of Eren Yeager', initial: 'E' });
+    expect(await one(db, `select count(*)::int from public.dle_src_anime_character where hints ? 'first_appearance'`)).toBe(0);
   });
   it('a hint with no value stays out of the play: the column is null, the page says none', async () => {
     const shanks = await one<unknown>(db, `select hints from public.dle_entities where game_id = 'otakudle' and name = 'Shanks'`);
@@ -389,17 +393,19 @@ describe('"How far are you?" on this device', () => {
 });
 
 describe('Kpopdle Idol has no debut song hint (owner, for launch)', () => {
-  it('the debut_song hint is absent from the game definition, the labels, the how-to, in both languages; the migration has fandom after 5 and initial after 12', async () => {
-    expect(dleGame('kpopdle-idol').hints).toEqual([{ key: 'fandom', after: 5 }, { key: 'initial', after: 12 }]);
+  it('the debut_song hint is absent from the game definition, the labels, the how-to, in both languages; the migration has fandom after 5 and initial after 10', async () => {
+    expect(dleGame('kpopdle-idol').hints).toEqual([{ key: 'fandom', after: 5 }, { key: 'initial', after: 10 }]);
     for (const l of ['en', 'fr'] as const) {
       const w = gameCopy('kpopdle-idol', l);
       expect(Object.keys(w.hints).sort()).toEqual(['fandom', 'initial']);
-      expect(w.how1).not.toMatch(/5, 8/);
-      expect(w.dlgHow3).not.toMatch(/5, 8/);
+      expect(w.how1).not.toMatch(/5, 8|12/);
+      expect(w.dlgHow3).not.toMatch(/5, 8|12/);
+      expect(w.how1).toMatch(/5 (and|et) 10/);
+      expect(w.dlgHow3).toMatch(/5 (and|et) 10/);
       expect(JSON.stringify(w)).not.toMatch(/debut_song|debut title|Titre de début/);
     }
     const db = await afterSessionG();
-    expect(await rows(db, `select hint_keys, hint_after from public.dle_games where id = 'kpopdle-idol'`)).toEqual([{ hint_keys: ['fandom', 'initial'], hint_after: [5, 12] }]);
+    expect(await rows(db, `select hint_keys, hint_after from public.dle_games where id = 'kpopdle-idol'`)).toEqual([{ hint_keys: ['fandom', 'initial'], hint_after: [5, 10] }]);
   });
 });
 
@@ -449,7 +455,14 @@ describe('the words and the SEO of /otakudle', () => {
       for (const h of dleGame('otakudle').hints) expect(w.hints[h.key], h.key).toBeTruthy();
       expect(w.progress!.options.map((o) => o.id)).toEqual(['anime', 'manga', 'beginner']);
     }
-    expect(dleGame('otakudle').hints).toEqual([{ key: 'first_appearance', after: 5 }, { key: 'voice_actor_ja', after: 8 }, { key: 'initial', after: 12 }]);
+    expect(dleGame('otakudle').hints).toEqual([{ key: 'voice_actor_ja', after: 5 }, { key: 'initial', after: 10 }]);
+    for (const l of ['en', 'fr'] as const) {
+      const w = gameCopy('otakudle', l);
+      expect(Object.keys(w.hints).sort()).toEqual(['initial', 'voice_actor_ja']);
+      expect(w.how1).toMatch(/5 (and|et) 10/);
+      expect(w.dlgHow3).toMatch(/5 (and|et) 10/);
+      expect(`${w.how1} ${w.dlgHow3}`).not.toMatch(/5, 8|12/);
+    }
   });
 
   it('the quiz links: on the site of the game, only for a name it knows', () => {
@@ -486,7 +499,8 @@ describe('the screen drawn on the server', () => {
       expect(html).toContain(dleCopy(locale).soon);
       expect(html).not.toContain('Eren Yeager');
       expect(html).toContain(locale === 'fr' ? 'Otakudle n° 4' : 'Otakudle no. 4');
-      expect(html.match(/class="hub-dle-hint"/g)).toHaveLength(3);
+      expect(html.match(/class="hub-dle-hint"/g)).toHaveLength(2);
+      expect(html).not.toContain(locale === 'fr' ? 'Première apparition' : 'First appearance');
     }
     const idol = renderToStaticMarkup(createElement(DleGame, { locale: 'en', game: 'kpopdle-idol', gameNo: 4, stats: null, pool: { ...POOL, game: 'kpopdle-idol' }, pictures: {}, quizLinks: {}, kpopName: 'KpopQuiz' }));
     expect(idol).not.toContain('type="radio"');

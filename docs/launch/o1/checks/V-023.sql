@@ -12,7 +12,7 @@ select case when ok is true then 'ok' else 'KO' end, what, coalesce(got, '-') fr
   (7, 'otakudle : là si le site anime est là, absent avant L01', (select exists (select 1 from public.dle_games where id = 'otakudle') = exists (select 1 from public.sites where id = 'anime')), (select count(*)::text from public.dle_games where id = 'otakudle')),
   (8, 'otakudle : éteint sans date ni banque, ou allumé par L14 avec ses 365 jours', (select coalesce(bool_and((not g.active and g.epoch is null and not exists (select 1 from public.dle_schedule s where s.game_id = g.id)) or (g.active and g.epoch is not null and (select count(*) from public.dle_schedule s where s.game_id = g.id) = 365)), true) from public.dle_games g where g.id = 'otakudle'), null),
   (9, 'otakudle : 7 colonnes si le jeu est là', (select (select count(*) from public.dle_attributes where game_id = 'otakudle') = case when exists (select 1 from public.dle_games where id = 'otakudle') then 7 else 0 end), (select count(*)::text from public.dle_attributes where game_id = 'otakudle')),
-  (10, 'otakudle : indices après 5, 8 et 12 erreurs', (select coalesce(bool_and(hint_keys = '{first_appearance,voice_actor_ja,initial}' and hint_after = '{5,8,12}'), true) from public.dle_games where id = 'otakudle'), null),
+  (10, 'otakudle : indices après 5 et 10 erreurs (doubleur japonais, initiale)', (select coalesce(bool_and(hint_keys = '{voice_actor_ja,initial}' and hint_after = '{5,10}'), true) from public.dle_games where id = 'otakudle'), null),
   (11, 'personnages dans la vue (information)', true, (select count(*)::text from public.dle_src_anime_character))
 ) as c(n, what, ok, got) order by n;
 rollback;

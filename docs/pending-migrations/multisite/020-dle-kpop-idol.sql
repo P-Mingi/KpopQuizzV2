@@ -14,7 +14,7 @@
 --         near needs the mother companies of the agencies table of step 2), nationality (multi), birth year (number, near 2),
 --         debut year (number, near 1), generation (ordinal: groups.generation, else the published rule on the debut year of
 --         the group: 1st <= 2002, 2nd 2003-2011, 3rd 2012-2017, 4th 2018-2022, 5th >= 2023), role (single: leader, maknae,
---         none). Hints after 5 and 12 errors: fandom, initial. (The debut song hint is removed: no data for it, owner's decision, CR-017; edited in place, this file is applied nowhere yet.)
+--         none). Hints after 5 and 10 errors: fandom, initial (owner, 2026-11-02, CR-020: both daily games space their hints the same way). (The debut song hint is removed: no data for it, owner's decision, CR-017; edited in place, this file is applied nowhere yet.)
 -- Why:    the first game of the Terrier (step 4 switches it on).
 -- Rows:   1 dle_games row, 8 dle_attributes rows.
 -- Needs:  019-dle-core.sql.
@@ -86,7 +86,7 @@ revoke all on table public.dle_src_kpop_idol from public, anon, authenticated;
 grant select on table public.dle_src_kpop_idol to service_role;
 
 insert into public.dle_games (id, universe, entity_kind, source_view, no_repeat_days, min_pool, hint_keys, hint_after, active)
-values ('kpopdle-idol', 'kpop', 'idol', 'dle_src_kpop_idol', 120, 40, '{fandom,initial}', '{5,12}', false)
+values ('kpopdle-idol', 'kpop', 'idol', 'dle_src_kpop_idol', 120, 40, '{fandom,initial}', '{5,10}', false)
 on conflict (id) do nothing;
 
 insert into public.dle_attributes (game_id, key, kind, position, near) values

@@ -75,12 +75,12 @@ const EN: DleCopy = {
   streakChip: (l, n) => `${l} streak: ${n} ${n === 1 ? 'day' : 'days'}`, bars: 'Right cells on each guess', shareTitle: 'Your share, without the answer', copy: 'Copy', copied: 'Copied', share: 'Share',
   whatNow: 'What next', backToBurrow: 'Back to the Burrow', onKpopQuiz: 'On KpopQuiz', photoBy: (a, l) => `Photo: ${a}, ${l}`, source: 'Source', noPhoto: 'No licensed photo yet, so we show the initials.',
   yesterdayLine: 'Yesterday’s idol:', howTitle: 'How to play Kpopdle Idol?',
-  how1: 'Type an idol’s name and confirm. Each cell compares one clue with the idol of the day: full when right, striped when close, grey when wrong. An arrow says whether the answer’s year is more recent or older. Hints open after 5 and 12 mistakes.',
+  how1: 'Type an idol’s name and confirm. Each cell compares one clue with the idol of the day: full when right, striped when close, grey when wrong. An arrow says whether the answer’s year is more recent or older. Hints open after 5 and 10 mistakes.',
   how2: 'Only adult idols of major groups are in the game. Every photo is licensed and credited; without a licence, we show the initials.',
   thCell: 'Cell', thNear: 'Close if', thSource: 'Source',
   unavailable: 'Today’s game is not available right now. Come back in a moment.', errorRate: 'Too many guesses in a minute. Wait a little and try again.', errorNetwork: 'The connection failed. Try again.', errorUnknown: 'This name is not in the game.', errorNewDay: 'A new day has started. Reload the page for the new puzzle.', errorTooMany: 'That is the most guesses a day can hold.',
   poolTitle: 'The idols in the game', poolHead: ['Group', 'Idols'],
-  dlgHow: 'How to play', dlgHow1: 'Type an idol and confirm. A row of cells appears.', dlgHow2: 'Each cell compares one clue with the idol of the day.', dlgHow3: 'Unlimited guesses. Hints open after 5 and 12 mistakes.',
+  dlgHow: 'How to play', dlgHow1: 'Type an idol and confirm. A row of cells appears.', dlgHow2: 'Each cell compares one clue with the idol of the day.', dlgHow3: 'Unlimited guesses. Hints open after 5 and 10 mistakes.',
   dlgRight: 'Right. The same value.', dlgNear: 'Close. A year or two off, or the same parent.', dlgWrong: 'Wrong. Nothing in common.', dlgArrow: 'Arrow. The answer is more recent.', dlgUnknown: 'Not comparable. The data is missing.',
   dlgFoot: 'A new idol every day at midnight UTC, the same for everyone. The data comes from Wikidata, MusicBrainz and official sites.',
   dlgStats: 'Your statistics', sPlays: 'Plays', sWins: 'Wins', sAvg: 'Average guesses', sFirst: 'First try', sStreak: 'Current streak', sBest: 'Best streak', sHist: 'Guesses per win',
@@ -120,12 +120,12 @@ const FR: DleCopy = {
   streakChip: (l, n) => `Série ${l} : ${n} ${n === 1 ? 'jour' : 'jours'}`, bars: 'Cases justes à chaque essai', shareTitle: 'Ton partage, sans la réponse', copy: 'Copier', copied: 'Copié', share: 'Partager',
   whatNow: 'Et maintenant', backToBurrow: 'Retour au Terrier', onKpopQuiz: 'Sur KpopQuiz', photoBy: (a, l) => `Photo : ${a}, ${l}`, source: 'Source', noPhoto: 'Pas encore de photo sous licence : on garde les initiales.',
   yesterdayLine: 'L’idol d’hier :', howTitle: 'Comment jouer à Kpopdle Idol ?',
-  how1: 'Tape le nom d’une idol et valide. Chaque case compare un indice avec l’idol du jour : pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Une flèche indique si l’année de la réponse est plus récente ou plus ancienne. Les indices s’ouvrent après 5 et 12 erreurs.',
+  how1: 'Tape le nom d’une idol et valide. Chaque case compare un indice avec l’idol du jour : pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Une flèche indique si l’année de la réponse est plus récente ou plus ancienne. Les indices s’ouvrent après 5 et 10 erreurs.',
   how2: 'Seules les idols adultes des groupes majeurs entrent dans le jeu. Les photos sont toutes sous licence et créditées ; sans licence, on affiche les initiales.',
   thCell: 'Case', thNear: 'Proche si', thSource: 'Source',
   unavailable: 'Le jeu du jour n’est pas disponible pour le moment. Reviens dans un instant.', errorRate: 'Trop d’essais en une minute. Attends un peu et réessaie.', errorNetwork: 'La connexion a échoué. Réessaie.', errorUnknown: 'Ce nom n’est pas dans le jeu.', errorNewDay: 'Un nouveau jour a commencé. Recharge la page pour la nouvelle énigme.', errorTooMany: 'C’est le maximum d’essais pour une journée.',
   poolTitle: 'Les idols du jeu', poolHead: ['Groupe', 'Idols'],
-  dlgHow: 'Comment jouer', dlgHow1: 'Tape une idol et valide. Une ligne de cases apparaît.', dlgHow2: 'Chaque case compare un indice avec l’idol du jour.', dlgHow3: 'Essais illimités. Les indices s’ouvrent après 5 et 12 erreurs.',
+  dlgHow: 'Comment jouer', dlgHow1: 'Tape une idol et valide. Une ligne de cases apparaît.', dlgHow2: 'Chaque case compare un indice avec l’idol du jour.', dlgHow3: 'Essais illimités. Les indices s’ouvrent après 5 et 10 erreurs.',
   dlgRight: 'Juste. La même valeur.', dlgNear: 'Proche. Un an ou deux d’écart, ou la même maison mère.', dlgWrong: 'Faux. Rien en commun.', dlgArrow: 'Flèche. La réponse est plus récente.', dlgUnknown: 'Non comparable. La donnée est absente.',
   dlgFoot: 'Nouvelle idol chaque jour à minuit UTC, la même pour tout le monde. Les données viennent de Wikidata, MusicBrainz et des sites officiels.',
   dlgStats: 'Tes statistiques', sPlays: 'Parties', sWins: 'Victoires', sAvg: 'Essais en moyenne', sFirst: 'Du premier coup', sStreak: 'Série en cours', sBest: 'Meilleure série', sHist: 'Essais par victoire',
@@ -272,8 +272,8 @@ export const OTAKUDLE_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<string
 };
 
 const OTAKUDLE_HINTS: Readonly<Record<DleLocale, Readonly<Record<string, string>>>> = {
-  en: { first_appearance: 'First appearance', voice_actor_ja: 'Japanese voice actor', initial: 'First letter of the name' },
-  fr: { first_appearance: 'Première apparition', voice_actor_ja: 'Doubleur japonais', initial: 'Initiale du nom' },
+  en: { voice_actor_ja: 'Japanese voice actor', initial: 'First letter of the name' },
+  fr: { voice_actor_ja: 'Doubleur japonais', initial: 'Initiale du nom' },
 };
 
 const otakudleWords = (locale: DleLocale): DleGameCopy => {
@@ -286,10 +286,10 @@ const otakudleWords = (locale: DleLocale): DleGameCopy => {
       proposeLabel: 'Proposer un personnage', placeholder: 'Nom, prénom ou surnom, toutes séries', rowHead: 'Personnage', tableCaption: 'Comparaison de chaque essai avec le personnage du jour',
       empty: 'Propose un premier personnage pour voir les cases se remplir.', nextIn: 'nouveau personnage dans',
       stepsLabel: 'Les jeux Otakudle', stepDone: 'trouvé', yesterdayLine: 'Le personnage d’hier :', howTitle: 'Comment jouer à Otakudle ?',
-      how1: 'Otakudle est un jeu quotidien : propose un personnage, chaque case compare un indice avec la réponse du jour : la série, le genre, l’espèce, le rôle, la démographie, l’année de début et le studio. Pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Les indices s’ouvrent après 5, 8 et 12 erreurs.',
+      how1: 'Otakudle est un jeu quotidien : propose un personnage, chaque case compare un indice avec la réponse du jour : la série, le genre, l’espèce, le rôle, la démographie, l’année de début et le studio. Pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Les indices s’ouvrent après 5 et 10 erreurs.',
       how2: 'Les valeurs sont celles de la première apparition du personnage, sauf l’espèce de quelques personnages, donnée telle que tout le monde la connaît. Aucune colonne ne dit qui est vivant ou mort. Aucun visuel de personnage sans licence.',
       poolTitle: 'Les personnages du jeu', poolHead: ['Série', 'Personnages'],
-      dlgHow1: 'Tape un personnage et valide. Une ligne de cases apparaît.', dlgHow2: 'Chaque case compare un indice avec le personnage du jour.', dlgHow3: 'Essais illimités. Les indices s’ouvrent après 5, 8 et 12 erreurs.',
+      dlgHow1: 'Tape un personnage et valide. Une ligne de cases apparaît.', dlgHow2: 'Chaque case compare un indice avec le personnage du jour.', dlgHow3: 'Essais illimités. Les indices s’ouvrent après 5 et 10 erreurs.',
       dlgFoot: 'Nouveau personnage chaque jour à minuit UTC, le même pour tout le monde. Les données viennent de Wikidata et de Wikipedia.',
       progress: {
         question: 'Où en es-tu ?', legend: 'Où en es-tu ? Les personnages arrivés après ton avancée ne sortent ni comme réponse, ni dans la liste.',
@@ -310,10 +310,10 @@ const otakudleWords = (locale: DleLocale): DleGameCopy => {
     proposeLabel: 'Propose a character', placeholder: 'Name or nickname, all series', rowHead: 'Character', tableCaption: 'Each guess compared with the character of the day',
     empty: 'Propose a first character to see the cells fill up.', nextIn: 'next character in',
     stepsLabel: 'The Otakudle games', stepDone: 'found', yesterdayLine: 'Yesterday’s character:', howTitle: 'How to play Otakudle?',
-    how1: 'Otakudle is a daily game: propose a character, and each cell compares one clue with the answer of the day: series, gender, species, role, demographic, debut year and studio. Full when right, striped when close, grey when wrong. Hints open after 5, 8 and 12 mistakes.',
+    how1: 'Otakudle is a daily game: propose a character, and each cell compares one clue with the answer of the day: series, gender, species, role, demographic, debut year and studio. Full when right, striped when close, grey when wrong. Hints open after 5 and 10 mistakes.',
     how2: 'The values are those of the character’s first appearance, except the species of a few characters, given as everyone knows it. No column says who is alive or dead. No character art without a licence.',
     poolTitle: 'The characters in the game', poolHead: ['Series', 'Characters'],
-    dlgHow1: 'Type a character and confirm. A row of cells appears.', dlgHow2: 'Each cell compares one clue with the character of the day.', dlgHow3: 'Unlimited guesses. Hints open after 5, 8 and 12 mistakes.',
+    dlgHow1: 'Type a character and confirm. A row of cells appears.', dlgHow2: 'Each cell compares one clue with the character of the day.', dlgHow3: 'Unlimited guesses. Hints open after 5 and 10 mistakes.',
     dlgFoot: 'A new character every day at midnight UTC, the same for everyone. The data comes from Wikidata and Wikipedia.',
     progress: {
       question: 'How far are you?', legend: 'How far are you? Characters who arrive after your progress never come up as the answer or in the list.',

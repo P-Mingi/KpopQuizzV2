@@ -8,7 +8,8 @@
 --         launch series share one), gender, species, role (the role at the first appearance), demographic (single), year (number, near 2:
 --         manga_start_year, or anime_start_year for an anime original), studio (multi, near: one in common: the series.studios entries whose
 --         seasons contain 1; when no entry does, the entries with no seasons, which is the studio of One Piece, Naruto, Dragon Ball and Bleach.
---         'Studio Pierrot' and 'Pierrot' of L04 are one studio). Hints after 5, 8 and 12 errors: first appearance, Japanese voice actor, initial.
+--         'Studio Pierrot' and 'Pierrot' of L04 are one studio). Hints after 5 and 10 errors: Japanese voice actor, initial (owner, 2026-11-02, CR-020: the first appearance
+--         hint is removed for launch; character_facts.first_appearance and its L13 data stay, it is just never served).
 --         attrs.seen_at is no column: it holds the answers to "How far are you?" that may see the character (anime, manga, beginner). Only a
 --         character every answer may see can be a target, so the answer of the day never reaches past a player's choice.
 --         A licensed 96 px picture when entity_images has one; otherwise null and the client shows the initials.
@@ -112,7 +113,7 @@ select
       case when p.seen_anime then 'anime' end, case when p.seen_manga then 'manga' end, case when p.seen_beginner then 'beginner' end
     ], null)))
   ) as attrs,
-  jsonb_strip_nulls(jsonb_build_object('first_appearance', p.first_appearance, 'voice_actor_ja', p.voice_actor_ja, 'initial', upper(left(p.name, 1)))) as hints,
+  jsonb_strip_nulls(jsonb_build_object('voice_actor_ja', p.voice_actor_ja, 'initial', upper(left(p.name, 1)))) as hints,
   (select ei.thumb_path from public.entity_images ei
     where ei.site_id = 'anime' and ei.kind = 'character' and ei.slug = p.series_slug || '/' || p.slug and ei.license_verified and ei.thumb_path is not null) as thumb_path,
   p.series_slug as balance_key,
@@ -126,7 +127,7 @@ grant select on table public.dle_src_anime_character to service_role;
 
 -- The game: only once L01 added the anime site (dle_games.universe). Never touches a row that is already there, so a run after the activation changes nothing.
 insert into public.dle_games (id, universe, entity_kind, source_view, no_repeat_days, min_pool, hint_keys, hint_after, active)
-select 'otakudle', 'anime', 'character', 'dle_src_anime_character', 120, 40, '{first_appearance,voice_actor_ja,initial}', '{5,8,12}', false
+select 'otakudle', 'anime', 'character', 'dle_src_anime_character', 120, 40, '{voice_actor_ja,initial}', '{5,10}', false
 where exists (select 1 from public.sites where id = 'anime')
 on conflict (id) do nothing;
 

@@ -21,8 +21,9 @@ it is left out (null), and the character is simply not a target.
 | Year of the work | number | 2 years apart at most | `series` (L04): `manga_start_year`, or `anime_start_year` for an anime original |
 | Studio of the first adaptation | multi | one in common | `series.studios` (L04): the studios whose `seasons` contain 1 |
 
-Hints (optional, shown after errors): first appearance after 5 errors (**A1**: `character_facts.first_appearance`), Japanese voice actor
-after 8 (**A1**: `character_facts.voice_actor_ja`), initial after 12 (from the name).
+Hints (optional, shown after errors): Japanese voice actor after 5 errors (**A1**: `character_facts.voice_actor_ja`), initial after 10
+(from the name). The first appearance hint is removed for launch (owner, 2026-11-02, CR-020): **A1** still fills
+`character_facts.first_appearance`, the view never serves it as a hint.
 
 ## 2. The two tables (O1 creates them; A1 only writes rows)
 
