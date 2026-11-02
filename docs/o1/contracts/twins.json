@@ -1837,7 +1837,7 @@
     {
       "id": "51",
       "site": "hub",
-      "route": "a shared result, /kpopdle?r={counts} or /otakudle?r={counts} (with the flag)",
+      "route": "a shared result, /kpopdle?r={counts}, /otakudle?r={counts} or /otakudle/{series}?r={counts} (with the flag)",
       "file": "apps/quiz/src/app/sites/[site]/(hub)/dle-share/[locale]/[game]/[r]/page.tsx",
       "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
       "mustImport": [],
@@ -1851,7 +1851,7 @@
       ],
       "owner": "H1",
       "body": "local",
-      "notes": "The same page as row 48, 49, 52 or 53 with the share image of the result (v2 section 11.6), canonical on the clean address. Reached only through the rewrite of routing.ts, on the query parameter, so that /kpopdle stays static; /dle-share is a 404. A 404 with the flag off (CR-013)."
+      "notes": "The same page as row 48, 49, 52, 53, 54, 55, 56 or 57 with the share image of the result (v2 section 11.6), canonical on the clean address. Reached only through the rewrite of routing.ts, on the query parameter, so that /kpopdle stays static; /dle-share is a 404. A 404 with the flag off (CR-013)."
     },
     {
       "id": "52",
@@ -1892,6 +1892,86 @@
       "owner": "H1",
       "body": "local",
       "notes": "The French Otakudle, same components as row 52. Noindex until the owner reviewed the French. A 404 with the flag off (CR-017)."
+    },
+    {
+      "id": "54",
+      "site": "hub",
+      "route": "/otakudle/one-piece (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/otakudle/one-piece/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/dle-game-page.tsx",
+        "components/hub/dle/dle-game.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "Otakudle One Piece, the One Piece character of the day (board Otakudle.dc.html, owner 2026-11-03, CR-024): the games of one series on the daily games engine, 8 columns, wired on dle_day, dle_guess, dle_give_up and dle_pool, no \"How far are you?\". Same components as row 52, with the hint slot that follows the key served, the chain Otakudle, One Piece, Dragon Ball and the table of French values. No kpop twin page, so the twin is the kpop [slug] page. A 404 with the flag off."
+    },
+    {
+      "id": "55",
+      "site": "hub",
+      "route": "/fr/otakudle/one-piece (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/fr/otakudle/one-piece/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/dle-game-page.tsx",
+        "components/hub/dle/dle-game.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The French Otakudle One Piece, same components as row 54. Noindex until the owner reviewed the French. A 404 with the flag off (CR-024)."
+    },
+    {
+      "id": "56",
+      "site": "hub",
+      "route": "/otakudle/dragon-ball (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/otakudle/dragon-ball/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/dle-game-page.tsx",
+        "components/hub/dle/dle-game.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "Otakudle Dragon Ball, the Dragon Ball character of the day (board Otakudle.dc.html, owner 2026-11-03, CR-024): the games of one series on the daily games engine, 8 columns, wired on dle_day, dle_guess, dle_give_up and dle_pool, no \"How far are you?\". Same components as row 52, with the hint slot that follows the key served, the chain Otakudle, One Piece, Dragon Ball and the table of French values. No kpop twin page, so the twin is the kpop [slug] page. A 404 with the flag off."
+    },
+    {
+      "id": "57",
+      "site": "hub",
+      "route": "/fr/otakudle/dragon-ball (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/fr/otakudle/dragon-ball/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/hub/dle/dle-game-page.tsx",
+        "components/hub/dle/dle-game.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The French Otakudle Dragon Ball, same components as row 56. Noindex until the owner reviewed the French. A 404 with the flag off (CR-024)."
     }
   ]
 }

@@ -10,10 +10,14 @@ export type DleArrow = 'up' | 'down' | null;
 
 export type DleColumnKind = 'single' | 'multi' | 'number' | 'ordinal';
 
-/** A column value: v the value or values, p the parents (sub-unit's group, agency's mother company). */
+/**
+ * A column value: v the value or values, p the parents (sub-unit's group, agency's mother company), l the words to show when v is a number that stands for something
+ * (an arc or a saga order, a series order, "No bounty" for 0; 024). The comparison never reads l.
+ */
 export interface DleValue {
   readonly v: string | number | readonly (string | number)[] | null;
   readonly p?: readonly string[];
+  readonly l?: string;
 }
 
 export interface DleCell {

@@ -1,5 +1,6 @@
 // Daily games step 4 (v2 section 7): the picture of an entity where a name is typed. A licensed 96 px file when dle_pool gives one, else the initials on a gradient of the group's colours. Decorative: the name is beside it.
-import type { DlePublicEntity } from '@/lib/dle/types';
+import type { DleGameDef } from '@/lib/dle/games';
+import type { DlePublicEntity, DleValue } from '@/lib/dle/types';
 
 // The gradients of the board's groups, then a stable pick by the group's name: the colours of a group never depend on the day.
 const TINTS: readonly (readonly [string, string])[] = [
@@ -23,6 +24,16 @@ export function initialsOf(name: string): string {
 export function firstValue(v: unknown): string {
   const x = Array.isArray(v) ? v[0] : v;
   return x === null || x === undefined ? '' : String(x);
+}
+
+/**
+ * What stands next to a character's name and picks its quiz: the series of a game of one series ("One Piece"), else the first parent of the game's sub column (the group of an idol, the series of an
+ * Otakudle character). "" when the value is missing.
+ */
+export function parentName(game: Pick<DleGameDef, 'series'>, subKey: string, attrs: Readonly<Record<string, DleValue>>): string {
+  if (game.series) return game.series.name;
+  const v = attrs[subKey];
+  return v?.p?.[0] ?? firstValue(v?.v);
 }
 
 interface AvatarProps {

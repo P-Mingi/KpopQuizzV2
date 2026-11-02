@@ -505,7 +505,8 @@ describe('the screen drawn on the server', () => {
       expect(html).toContain(w.progress!.legend);
       for (const o of w.progress!.options) expect(html).toContain(o.label);
       expect(html.match(/type="radio"/g)).toHaveLength(3);
-      expect(html.match(/hub-dle-stepstate-soon/g)).toHaveLength(2);
+      // CR-024: "One Otakudle per series" became the two games of One Piece and Dragon Ball, both built: only "Series of the day" is still soon.
+      expect(html.match(/hub-dle-stepstate-soon/g)).toHaveLength(1);
       expect(html).toContain(dleCopy(locale).soon);
       expect(html).not.toContain('Eren Yeager');
       expect(html).toContain(locale === 'fr' ? 'Otakudle n° 4' : 'Otakudle no. 4');

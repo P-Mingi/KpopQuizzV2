@@ -1,6 +1,9 @@
 // Daily games step 4: every word of the Terrier and of the game pages, in the two languages (v2 section 4). The French is for the owner to read (rule 10: DLE_FR_REVIEWED in
 // seo.ts stays false until then). Names of idols, groups and songs are never translated; values of the columns are, through valueLabel. No number is typed here:
 // every count arrives as an argument, from the functions of Postgres.
+import { dleGame } from './games';
+import { VALUE_FR, hintValueLabel, seriesValueLabel } from './value-i18n';
+
 import type { DleProgress } from './local';
 import type { DleLocale } from './types';
 
@@ -21,6 +24,8 @@ export interface DleCopy {
   readonly gameNo: (kind: string, n: number) => string; readonly burrowStreak: (label: string, n: number) => string; readonly kpopLabel: string; readonly animeLabel: string;
   readonly show: string; readonly hiddenAnswer: string; readonly quizOf: (group: string) => string;
   readonly aboutTitle: string; readonly about1: string; readonly about2: string;
+  // the tiles of the Otakudle page to the games of one series
+  readonly seriesTilesTitle: string; readonly seriesTilesLabel: string;
   // the game
   readonly breadcrumb: string; readonly stepsLabel: string; readonly stepNow: string; readonly stepDone: string;
   readonly nextIn: string; readonly fansLine: (n: string) => string; readonly hintsTitle: string; readonly hintsAfter: (list: string) => string; readonly hintIn: (n: number) => string; readonly seeHint: string; readonly hintNone: string; readonly hintClosed: string;
@@ -31,7 +36,7 @@ export interface DleCopy {
   readonly answerUp: string; readonly answerDown: string;
   readonly found: string; readonly answerWas: string; readonly wonLine: (n: number, rank: string | null) => string; readonly gaveUpLine: (n: number, label: string) => string;
   readonly streakChip: (label: string, n: number) => string; readonly bars: string; readonly shareTitle: string; readonly copy: string; readonly copied: string; readonly share: string;
-  readonly whatNow: string; readonly backToBurrow: string; readonly onKpopQuiz: string; readonly photoBy: (author: string, license: string) => string; readonly source: string; readonly noPhoto: string;
+  readonly whatNow: string; readonly backToBurrow: string; readonly allDone: string; readonly allDoneLine: string; readonly onKpopQuiz: string; readonly photoBy: (author: string, license: string) => string; readonly source: string; readonly noPhoto: string;
   readonly yesterdayLine: string; readonly howTitle: string; readonly how1: string; readonly how2: string; readonly thCell: string; readonly thNear: string; readonly thSource: string;
   readonly unavailable: string; readonly errorRate: string; readonly errorNetwork: string; readonly errorUnknown: string; readonly errorNewDay: string; readonly errorTooMany: string;
   readonly poolTitle: string; readonly poolHead: readonly [string, string];
@@ -42,6 +47,11 @@ export interface DleCopy {
   readonly display: string; readonly colorblind: string; readonly colorblindHelp: string; readonly reduced: string; readonly reducedHelp: string;
   readonly transfer: string; readonly transferHelp: string; readonly transferCopy: string; readonly transferApply: string; readonly transferDone: string; readonly transferBad: string; readonly erase: string; readonly eraseDone: string;
 }
+
+export { hintValueLabel };
+
+/** "Group of the day" reads after a colon in lower case; a name with a capital inside ("One Piece character") is a proper noun and stays as it is. */
+const lowerFirst = (m: string): string => (/[A-Z]/.test(m.slice(1)) ? m : m.toLowerCase());
 
 const num = (n: number, locale: DleLocale): string => new Intl.NumberFormat(locale === 'fr' ? 'fr-FR' : 'en-US').format(n);
 export const formatCount = num;
@@ -56,7 +66,7 @@ const EN: DleCopy = {
   footTag: 'Quizzes and daily games for K-pop and anime fans.', footAbout: 'About', footPrivacy: 'Privacy', footLegal: 'Legal notice', footCredits: 'Photo credits',
   burrowH1: 'The Burrow', burrowLead: 'Two games, one puzzle each, the same for everyone.', nextPuzzles: 'New puzzles in', gamesLabel: 'Today’s games', day: 'Your day', yesterday: 'Yesterday’s answers',
   of: (d, t) => `${d} of ${t}`,
-  play: 'Play', continueTo: (m) => `Continue: ${m.toLowerCase()}`, seeResults: 'See my results', soon: 'soon', toPlay: 'to play',
+  play: 'Play', continueTo: (m) => `Continue: ${lowerFirst(m)}`, seeResults: 'See my results', soon: 'soon', toPlay: 'to play',
   foundIn: (n) => `found in ${n}`, gaveUp: 'gave up', inProgress: (n) => `in progress · ${n}`,
   fansFound: (n) => `${n} fans found it today`, allFound: 'all found', modesDone: (d, t, next) => `${d} of ${t} · ${next}`,
   gameNo: (k, n) => `${k} no. ${n}`, burrowStreak: (l, n) => `${l}: ${n} ${n === 1 ? 'day' : 'days'}`, kpopLabel: 'K-pop', animeLabel: 'Anime',
@@ -64,6 +74,7 @@ const EN: DleCopy = {
   aboutTitle: 'What is the Burrow?',
   about1: 'The Burrow gathers the Bunnyverse daily games. Kpopdle: guess today’s K-pop idol, then the group, the song and the hidden members. Otakudle: guess today’s anime character, across all series or one series, spoiler-free.',
   about2: 'Unlimited guesses, a new puzzle at midnight UTC.',
+  seriesTilesTitle: 'Play one series', seriesTilesLabel: 'Otakudle, one game per series',
   breadcrumb: 'Breadcrumb', stepsLabel: 'The Kpopdle games, in order', stepNow: 'playing', stepDone: 'found',
   nextIn: 'next idol in', fansLine: (n) => `${n} fans found it`, hintsTitle: 'Hints', hintsAfter: (l) => `after ${l} mistakes`, hintIn: (n) => (n === 1 ? 'in 1 guess' : `in ${n} guesses`), seeHint: 'See the hint', hintNone: 'None for today', hintClosed: 'Not opened',
   proposeLabel: 'Propose an idol', guessLabel: 'Your guess', placeholder: 'Your guess: stage name, Korean name or group', validate: 'Guess', suggestions: 'Suggestions', enterKey: 'Enter', enterHelp: 'Enter picks the first suggestion', giveUp: 'Give up',
@@ -73,7 +84,7 @@ const EN: DleCopy = {
   answerUp: 'the answer is higher', answerDown: 'the answer is lower',
   found: 'Found!', answerWas: 'The answer was', wonLine: (n, r) => `In ${n} ${n === 1 ? 'guess' : 'guesses'}.${r ? ` ${r} fans found it today.` : ''}`, gaveUpLine: (n, l) => `You gave up after ${n} ${n === 1 ? 'guess' : 'guesses'}. Your ${l} streak still holds.`,
   streakChip: (l, n) => `${l} streak: ${n} ${n === 1 ? 'day' : 'days'}`, bars: 'Right cells on each guess', shareTitle: 'Your share, without the answer', copy: 'Copy', copied: 'Copied', share: 'Share',
-  whatNow: 'What next', backToBurrow: 'Back to the Burrow', onKpopQuiz: 'On KpopQuiz', photoBy: (a, l) => `Photo: ${a}, ${l}`, source: 'Source', noPhoto: 'No licensed photo yet, so we show the initials.',
+  whatNow: 'What next', backToBurrow: 'Back to the Burrow', allDone: 'All done today', allDoneLine: 'New puzzles at midnight UTC.', onKpopQuiz: 'On KpopQuiz', photoBy: (a, l) => `Photo: ${a}, ${l}`, source: 'Source', noPhoto: 'No licensed photo yet, so we show the initials.',
   yesterdayLine: 'Yesterday’s idol:', howTitle: 'How to play Kpopdle Idol?',
   how1: 'Type an idol’s name and confirm. Each cell compares one clue with the idol of the day: full when right, striped when close, grey when wrong. An arrow says whether the answer’s year is more recent or older. Hints open after 5 and 10 mistakes.',
   how2: 'Only adult idols of major groups are in the game. Every photo is licensed and credited; without a licence, we show the initials.',
@@ -101,7 +112,7 @@ const FR: DleCopy = {
   footTag: 'Des quiz et des jeux du jour pour les fans de K-pop et d’anime.', footAbout: 'À propos', footPrivacy: 'Confidentialité', footLegal: 'Mentions légales', footCredits: 'Crédits photos',
   burrowH1: 'Le Terrier', burrowLead: 'Deux jeux, une énigme chacun, la même pour tout le monde.', nextPuzzles: 'Nouvelles énigmes dans', gamesLabel: 'Les jeux du jour', day: 'Ta journée', yesterday: 'Les réponses d’hier',
   of: (d, t) => `${d} sur ${t}`,
-  play: 'Jouer', continueTo: (m) => `Continuer : ${m.toLowerCase()}`, seeResults: 'Voir mes résultats', soon: 'bientôt', toPlay: 'à jouer',
+  play: 'Jouer', continueTo: (m) => `Continuer : ${lowerFirst(m)}`, seeResults: 'Voir mes résultats', soon: 'bientôt', toPlay: 'à jouer',
   foundIn: (n) => `trouvé en ${n}`, gaveUp: 'abandon', inProgress: (n) => `en cours · ${n}`,
   fansFound: (n) => `${n} fans ont trouvé aujourd’hui`, allFound: 'tout trouvé', modesDone: (d, t, next) => `${d} sur ${t} · ${next}`,
   gameNo: (k, n) => `${k} n° ${n}`, burrowStreak: (l, n) => `${l} : ${n} ${n === 1 ? 'jour' : 'jours'}`, kpopLabel: 'K-pop', animeLabel: 'Anime',
@@ -109,6 +120,7 @@ const FR: DleCopy = {
   aboutTitle: 'C’est quoi, le Terrier ?',
   about1: 'Le Terrier réunit les jeux quotidiens de Bunnyverse. Kpopdle : devine l’idol K-pop du jour, puis le groupe, la chanson et les membres cachés. Otakudle : devine le personnage d’anime du jour, toutes séries ou une seule, sans spoiler.',
   about2: 'Essais illimités, nouvelle énigme à minuit UTC (1 h à Paris en hiver).',
+  seriesTilesTitle: 'Joue une seule série', seriesTilesLabel: 'Otakudle, un jeu par série',
   breadcrumb: 'Fil d’Ariane', stepsLabel: 'Les jeux Kpopdle, dans l’ordre', stepNow: 'en cours', stepDone: 'trouvée',
   nextIn: 'prochaine idol dans', fansLine: (n) => `${n} fans ont trouvé`, hintsTitle: 'Indices', hintsAfter: (l) => `après ${l} erreurs`, hintIn: (n) => (n === 1 ? 'dans 1 essai' : `dans ${n} essais`), seeHint: 'Voir l’indice', hintNone: 'Aucun aujourd’hui', hintClosed: 'Pas ouvert',
   proposeLabel: 'Proposer une idol', guessLabel: 'Ton essai', placeholder: 'Ton essai : nom de scène, nom coréen ou groupe', validate: 'Valider', suggestions: 'Suggestions', enterKey: 'Entrée', enterHelp: 'Entrée choisit la première suggestion', giveUp: 'Abandonner',
@@ -118,7 +130,7 @@ const FR: DleCopy = {
   answerUp: 'la réponse est plus grande', answerDown: 'la réponse est plus petite',
   found: 'Trouvée !', answerWas: 'La réponse était', wonLine: (n, r) => `En ${n} ${n === 1 ? 'essai' : 'essais'}.${r ? ` ${r} fans ont trouvé aujourd’hui.` : ''}`, gaveUpLine: (n, l) => `Tu as abandonné après ${n} ${n === 1 ? 'essai' : 'essais'}. Ta série ${l} tient quand même.`,
   streakChip: (l, n) => `Série ${l} : ${n} ${n === 1 ? 'jour' : 'jours'}`, bars: 'Cases justes à chaque essai', shareTitle: 'Ton partage, sans la réponse', copy: 'Copier', copied: 'Copié', share: 'Partager',
-  whatNow: 'Et maintenant', backToBurrow: 'Retour au Terrier', onKpopQuiz: 'Sur KpopQuiz', photoBy: (a, l) => `Photo : ${a}, ${l}`, source: 'Source', noPhoto: 'Pas encore de photo sous licence : on garde les initiales.',
+  whatNow: 'Et maintenant', backToBurrow: 'Retour au Terrier', allDone: 'Tout est fait aujourd’hui', allDoneLine: 'Nouvelles énigmes à minuit UTC.', onKpopQuiz: 'Sur KpopQuiz', photoBy: (a, l) => `Photo : ${a}, ${l}`, source: 'Source', noPhoto: 'Pas encore de photo sous licence : on garde les initiales.',
   yesterdayLine: 'L’idol d’hier :', howTitle: 'Comment jouer à Kpopdle Idol ?',
   how1: 'Tape le nom d’une idol et valide. Chaque case compare un indice avec l’idol du jour : pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Une flèche indique si l’année de la réponse est plus récente ou plus ancienne. Les indices s’ouvrent après 5 et 10 erreurs.',
   how2: 'Seules les idols adultes des groupes majeurs entrent dans le jeu. Les photos sont toutes sous licence et créditées ; sans licence, on affiche les initiales.',
@@ -182,11 +194,19 @@ const SPECIES_FR: Readonly<Record<string, string>> = {
 };
 const DEMOGRAPHIC: Readonly<Record<string, string>> = { shonen: 'Shōnen', shojo: 'Shōjo', seinen: 'Seinen', josei: 'Josei', kodomo: 'Kodomo' };
 
-/** The words of one value of a column in a locale; names stay as they are. "" when the value is missing. */
-export function valueLabel(key: string, v: unknown, locale: DleLocale): string {
+/**
+ * The words of one value of a column in a locale; names stay as they are. "" when the value is missing. `series`: the column belongs to a game of one series (024), whose few values that
+ * change in French are in value-i18n.ts; `label` is the `l` of the stored value (an arc, a saga, "No bounty").
+ */
+export function valueLabel(key: string, v: unknown, locale: DleLocale, opts?: { readonly series?: boolean; readonly label?: string }): string {
   if (v === null || v === undefined) return '';
-  if (Array.isArray(v)) return v.map((x) => valueLabel(key, x, locale)).filter(Boolean).join(', ');
+  if (Array.isArray(v)) return v.map((x) => valueLabel(key, x, locale, opts)).filter(Boolean).join(', ');
   const s = String(v);
+  if (opts?.series) {
+    const x = seriesValueLabel(key, v as string | number, locale, opts.label);
+    if (x !== null) return x;
+  }
+  if (key === 'series') return locale === 'fr' ? VALUE_FR[s] ?? s : s;
   if (key === 'gender') return s === 'female' ? (locale === 'fr' ? 'Femme' : 'Woman') : s === 'male' ? (locale === 'fr' ? 'Homme' : 'Man') : s;
   if (key === 'role') {
     if (s === 'none') return locale === 'fr' ? 'Aucun' : 'None';
@@ -230,6 +250,12 @@ export interface DleGameCopy {
   readonly noPhoto?: string; readonly found?: string; readonly dlgNear?: string; readonly dlgSamples?: readonly [string, string, string]; readonly streakSr?: string;
   /** Yesterday's answer stays closed behind this, for a game with spoilers. The name is in the HTML of the fold. */
   readonly yesterdayShow?: string;
+  /** The arrow's words when the column is not a year (a bounty, a height, an arc): the legend, the dialog's line and the sample tile of the dialog. */
+  readonly arrowHelp?: string; readonly dlgArrow?: string; readonly dlgArrowSample?: string;
+  /** The label of a hint slot that several keys can fill, before it opens: the key served is not known until then (024: the signature technique, else the voice actor). */
+  readonly hintsPending?: Readonly<Record<string, string>>;
+  /** The row of the pool table for a character with no value in the sub column. */
+  readonly poolOther?: string;
 }
 
 const idolWords = (locale: DleLocale): DleGameCopy => {
@@ -328,7 +354,170 @@ const otakudleWords = (locale: DleLocale): DleGameCopy => {
   };
 };
 
-const GAME_WORDS: Readonly<Partial<Record<string, (locale: DleLocale) => DleGameCopy>>> = { 'kpopdle-idol': idolWords, otakudle: otakudleWords };
+// ---- the games of one series (024, CR-024): the same components, their own columns and hints. The sources of the columns: Wikidata, Wikipedia and the series wiki (facts only, entity_sources of L15).
+
+type ColSpec = readonly [label: string, help: string, near: string, source: string];
+const cols = (spec: Readonly<Record<string, ColSpec>>): Readonly<Record<string, DleColumnCopy>> =>
+  Object.fromEntries(Object.entries(spec).map(([k, [label, help, near, source]]) => [k, { label, help, near, source }]));
+
+const SRC: Readonly<Record<DleLocale, { readonly all: string; readonly wiki: string }>> = {
+  en: { all: 'Wikidata, Wikipedia, series wiki', wiki: 'series wiki' },
+  fr: { all: 'Wikidata, Wikipedia, wiki de la série', wiki: 'wiki de la série' },
+};
+
+export const ONE_PIECE_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<string, DleColumnCopy>>>> = {
+  en: cols({
+    gender: ['Gender', 'Male or female', 'never', SRC.en.all],
+    affiliation: ['Affiliation', 'Crews and organisations, close if one in common', 'one crew or organisation in common', SRC.en.all],
+    devil_fruit_type: ['Devil Fruit', 'Paramecia, Zoan, Logia or none', 'never', SRC.en.all],
+    haki: ['Haki', 'Observation, Armament, Conqueror or none, close if one in common', 'one Haki in common', SRC.en.all],
+    bounty: ['Bounty', 'The latest bounty, an arrow says higher or lower', 'never, arrow only', SRC.en.all],
+    height_cm: ['Height', 'In centimetres, an arrow says taller or shorter', 'never, arrow only', SRC.en.wiki],
+    sea_of_origin: ['Sea of origin', 'The sea they come from', 'never', SRC.en.all],
+    debut_arc: ['Debut arc', 'The arc of the first appearance, an arrow says earlier or later', 'never, arrow only', SRC.en.all],
+  }),
+  fr: cols({
+    gender: ['Genre', 'Homme ou femme', 'jamais', SRC.fr.all],
+    affiliation: ['Affiliation', 'Équipages et organisations, proche si une en commun', 'un équipage ou une organisation en commun', SRC.fr.all],
+    devil_fruit_type: ['Fruit du démon', 'Paramecia, Zoan, Logia ou aucun', 'jamais', SRC.fr.all],
+    haki: ['Haki', 'Observation, armement, rois ou aucun, proche si un en commun', 'un Haki en commun', SRC.fr.all],
+    bounty: ['Prime', 'La dernière prime, une flèche dit plus haute ou plus basse', 'jamais, flèche seulement', SRC.fr.all],
+    height_cm: ['Taille', 'En centimètres, une flèche dit plus grand ou plus petit', 'jamais, flèche seulement', SRC.fr.wiki],
+    sea_of_origin: ['Mer d’origine', 'La mer d’où ils viennent', 'jamais', SRC.fr.all],
+    debut_arc: ['Arc de début', 'L’arc de la première apparition, une flèche dit plus tôt ou plus tard', 'jamais, flèche seulement', SRC.fr.all],
+  }),
+};
+
+export const DRAGON_BALL_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<string, DleColumnCopy>>>> = {
+  en: cols({
+    gender: ['Gender', 'Male or female', 'never', SRC.en.all],
+    race: ['Race', 'Saiyan, Human, Namekian and the others', 'never', SRC.en.all],
+    affiliation: ['Affiliation', 'Teams and organisations, close if one in common', 'one team or organisation in common', SRC.en.all],
+    home_planet: ['Home planet', 'Where they come from', 'never', SRC.en.all],
+    universe: ['Universe', 'The universe of Dragon Ball Super, an arrow says higher or lower', 'never, arrow only', SRC.en.all],
+    debut_series: ['Debut series', 'Dragon Ball, Z, Super or Daima, an arrow says earlier or later', 'never, arrow only', SRC.en.all],
+    debut_saga: ['Debut saga', 'The saga of the first appearance, an arrow says earlier or later', 'never, arrow only', SRC.en.all],
+    alignment_at_debut: ['Good or evil', 'Good or evil at the first appearance', 'never', SRC.en.all],
+  }),
+  fr: cols({
+    gender: ['Genre', 'Homme ou femme', 'jamais', SRC.fr.all],
+    race: ['Race', 'Saiyan, Humain, Namekien et les autres', 'jamais', SRC.fr.all],
+    affiliation: ['Affiliation', 'Équipes et organisations, proche si une en commun', 'une équipe ou une organisation en commun', SRC.fr.all],
+    home_planet: ['Planète d’origine', 'D’où ils viennent', 'jamais', SRC.fr.all],
+    universe: ['Univers', 'L’univers de Dragon Ball Super, une flèche dit plus haut ou plus bas', 'jamais, flèche seulement', SRC.fr.all],
+    debut_series: ['Série de début', 'Dragon Ball, Z, Super ou Daima, une flèche dit plus tôt ou plus tard', 'jamais, flèche seulement', SRC.fr.all],
+    debut_saga: ['Saga de début', 'La saga de la première apparition, une flèche dit plus tôt ou plus tard', 'jamais, flèche seulement', SRC.fr.all],
+    alignment_at_debut: ['Gentil ou méchant', 'Gentil ou méchant à la première apparition', 'jamais', SRC.fr.all],
+  }),
+};
+
+const SERIES_HINTS: Readonly<Record<DleLocale, Readonly<Record<string, string>>>> = {
+  en: { devil_fruit_name: 'Devil Fruit name', signature_technique: 'Signature technique', voice_actor_ja: 'Japanese voice actor', initial: 'First letter of the name' },
+  fr: { devil_fruit_name: 'Nom du fruit du démon', signature_technique: 'Technique signature', voice_actor_ja: 'Doubleur japonais', initial: 'Initiale du nom' },
+};
+
+interface SeriesSpec {
+  readonly columns: Readonly<Record<DleLocale, Readonly<Record<string, DleColumnCopy>>>>;
+  /** The Japanese title on the marquee. */
+  readonly ja: string;
+  readonly suggestSecond: string;
+  readonly poolHead: Readonly<Record<DleLocale, readonly [string, string]>>;
+  readonly samples: readonly [string, string, string];
+  readonly arrowSample: string;
+  readonly clues: Readonly<Record<DleLocale, string>>;
+  readonly hintsLine: Readonly<Record<DleLocale, string>>;
+  readonly dataNote: Readonly<Record<DleLocale, string>>;
+  readonly near: Readonly<Record<DleLocale, string>>;
+  readonly hintsPending?: Readonly<Record<DleLocale, Readonly<Record<string, string>>>>;
+}
+
+const SERIES_SPEC: Readonly<Record<'otakudle-one-piece' | 'otakudle-dragon-ball', SeriesSpec>> = {
+  'otakudle-one-piece': {
+    columns: ONE_PIECE_COLUMNS, ja: 'ワンピース', suggestSecond: 'sea_of_origin',
+    poolHead: { en: ['Crew or organisation', 'Characters'], fr: ['Équipage ou organisation', 'Personnages'] },
+    samples: ['Zoan', 'Armament', 'Logia'], arrowSample: '174 cm',
+    clues: {
+      en: 'gender, affiliation, Devil Fruit, Haki, bounty, height, sea of origin and debut arc',
+      fr: 'le genre, l’affiliation, le fruit du démon, le Haki, la prime, la taille, la mer d’origine et l’arc de début',
+    },
+    hintsLine: {
+      en: 'The name of the Devil Fruit opens after 5 mistakes (“No Devil Fruit” for a character who has none), the first letter of the name after 10.',
+      fr: 'Le nom du fruit du démon s’ouvre après 5 erreurs (« Pas de fruit du démon » pour un personnage qui n’en a pas), l’initiale du nom après 10.',
+    },
+    dataNote: {
+      en: 'The values follow the story up to the Egghead arc, the last arc finished in the anime. No column says who is alive or dead. No character art without a licence.',
+      fr: 'Les valeurs suivent l’histoire jusqu’à l’arc d’Egghead, le dernier arc terminé dans l’anime. Aucune colonne ne dit qui est vivant ou mort. Aucun visuel de personnage sans licence.',
+    },
+    near: { en: 'Close. One crew, organisation or Haki in common.', fr: 'Proche. Un équipage, une organisation ou un Haki en commun.' },
+  },
+  'otakudle-dragon-ball': {
+    columns: DRAGON_BALL_COLUMNS, ja: 'ドラゴンボール', suggestSecond: 'race',
+    poolHead: { en: ['Affiliation', 'Characters'], fr: ['Affiliation', 'Personnages'] },
+    samples: ['Saiyan', 'Capsule Corporation', 'Earth'], arrowSample: 'Z',
+    clues: {
+      en: 'gender, race, affiliation, home planet, universe, debut series, debut saga, and whether the character is good or evil at their first appearance',
+      fr: 'le genre, la race, l’affiliation, la planète d’origine, l’univers, la série de début, la saga de début, et si le personnage est gentil ou méchant à sa première apparition',
+    },
+    hintsLine: {
+      en: 'At 5 mistakes the hint is the signature technique, or the Japanese voice actor when the character has none. The first letter of the name opens after 10.',
+      fr: 'À 5 erreurs, l’indice est la technique signature, ou le doubleur japonais quand le personnage n’en a pas. L’initiale du nom s’ouvre après 10.',
+    },
+    dataNote: {
+      en: 'The values go up to Dragon Ball Daima. No column says who is alive or dead. No character art without a licence.',
+      fr: 'Les valeurs vont jusqu’à Dragon Ball Daima. Aucune colonne ne dit qui est vivant ou mort. Aucun visuel de personnage sans licence.',
+    },
+    near: { en: 'Close. One team or organisation in common.', fr: 'Proche. Une équipe ou une organisation en commun.' },
+    hintsPending: { en: { signature_technique: 'Technique or voice actor' }, fr: { signature_technique: 'Technique ou doubleur' } },
+  },
+};
+
+const seriesWords = (game: 'otakudle-one-piece' | 'otakudle-dragon-ball', locale: DleLocale): DleGameCopy => {
+  const spec = SERIES_SPEC[game];
+  const name = dleGame(game).series!.name;
+  // The words of Otakudle, but not its "How far are you?": a game of one series has no such choice (024 does not read spoiler_level).
+  const { progress: _progress, ...o } = otakudleWords(locale);
+  void _progress;
+  const fr = locale === 'fr';
+  return {
+    ...o,
+    h1: fr ? `Devine le personnage ${name} du jour` : `Guess the ${name} character of the day`,
+    marquee: (no) => (fr
+      ? [`PERSONNAGE ${name.toUpperCase()} DU JOUR`, spec.ja, `OTAKUDLE ${name.toUpperCase()} N° ${no}`, 'MÊME PERSONNAGE POUR TOUT LE MONDE', 'ESSAIS ILLIMITÉS', 'NOUVEAU PERSONNAGE À MINUIT UTC']
+      : [`${name.toUpperCase()} CHARACTER OF THE DAY`, spec.ja, `OTAKUDLE ${name.toUpperCase()} NO. ${no}`, 'THE SAME CHARACTER FOR EVERYONE', 'UNLIMITED GUESSES', 'NEW CHARACTER AT MIDNIGHT UTC']),
+    subKey: 'affiliation', suggestSecond: spec.suggestSecond, columns: spec.columns[locale], hints: SERIES_HINTS[locale],
+    ...(spec.hintsPending ? { hintsPending: spec.hintsPending[locale] } : {}),
+    noLabel: `Otakudle ${name}`,
+    proposeLabel: fr ? `Proposer un personnage ${name}` : `Propose a ${name} character`,
+    placeholder: fr ? `Nom, prénom ou surnom, ${name} seulement` : `Name or nickname, ${name} only`,
+    rowHead: fr ? 'Personnage' : 'Character',
+    tableCaption: fr ? 'Comparaison de chaque essai avec le personnage du jour' : 'Each guess compared with the character of the day',
+    empty: fr ? 'Propose un premier personnage pour voir les cases se remplir.' : 'Propose a first character to see the cells fill up.',
+    nextIn: fr ? 'nouveau personnage dans' : 'next character in',
+    stepsLabel: fr ? 'Les jeux Otakudle' : 'The Otakudle games', stepDone: fr ? 'trouvé' : 'found',
+    yesterdayLine: fr ? `Le personnage ${name} d’hier :` : `Yesterday’s ${name} character:`,
+    howTitle: fr ? `Comment jouer à Otakudle ${name} ?` : `How to play Otakudle ${name}?`,
+    how1: fr
+      ? `Otakudle ${name} est un jeu quotidien : propose un personnage de ${name}, et chaque case compare un indice avec la réponse du jour : ${spec.clues.fr}. Pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Une flèche dit si la réponse est plus haute ou plus tardive. Les indices s’ouvrent après 5 et 10 erreurs.`
+      : `Otakudle ${name} is a daily game: propose a ${name} character, and each cell compares one clue with the answer of the day: ${spec.clues.en}. Full when right, striped when close, grey when wrong. An arrow says whether the answer is higher or later. Hints open after 5 and 10 mistakes.`,
+    how2: `${spec.hintsLine[locale]} ${spec.dataNote[locale]}`,
+    poolTitle: fr ? `Les personnages ${name} du jeu` : `The ${name} characters in the game`, poolHead: spec.poolHead[locale],
+    dlgHow1: fr ? `Tape un personnage de ${name} et valide. Une ligne de cases apparaît.` : `Type a ${name} character and confirm. A row of cells appears.`,
+    dlgHow2: fr ? 'Chaque case compare un indice avec le personnage du jour.' : 'Each cell compares one clue with the character of the day.',
+    dlgHow3: fr ? 'Essais illimités. Les indices s’ouvrent après 5 et 10 erreurs.' : 'Unlimited guesses. Hints open after 5 and 10 mistakes.',
+    dlgFoot: fr
+      ? 'Nouveau personnage chaque jour à minuit UTC, le même pour tout le monde. Les données viennent de Wikidata, de Wikipedia et du wiki de la série.'
+      : 'A new character every day at midnight UTC, the same for everyone. The data comes from Wikidata, Wikipedia and the series wiki.',
+    dlgNear: spec.near[locale], dlgSamples: spec.samples, dlgArrowSample: spec.arrowSample,
+    arrowHelp: fr ? 'La réponse est plus haute ou plus tardive' : 'The answer is higher or later',
+    dlgArrow: fr ? 'Flèche. La réponse est plus haute ou plus tardive.' : 'Arrow. The answer is higher or later.',
+    poolOther: fr ? 'Autres' : 'Other',
+  };
+};
+
+const GAME_WORDS: Readonly<Partial<Record<string, (locale: DleLocale) => DleGameCopy>>> = {
+  'kpopdle-idol': idolWords, otakudle: otakudleWords,
+  'otakudle-one-piece': (l) => seriesWords('otakudle-one-piece', l), 'otakudle-dragon-ball': (l) => seriesWords('otakudle-dragon-ball', l),
+};
 
 export function gameCopy(game: string, locale: DleLocale): DleGameCopy {
   const w = GAME_WORDS[game];

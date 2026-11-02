@@ -42,6 +42,22 @@ export const GAME_SEO: Readonly<Partial<Record<DleGameId, { readonly title: L10n
     },
     app: { en: 'Otakudle by Bunnyverse, a free daily anime character guessing game', fr: 'Otakudle par Bunnyverse, un jeu gratuit pour deviner le personnage d’anime du jour' },
   },
+  'otakudle-one-piece': {
+    title: { en: 'Otakudle One Piece: Guess the Character Daily', fr: 'Otakudle One Piece : le perso du jour' },
+    description: {
+      en: 'Otakudle One Piece is a free daily game: guess the One Piece character of the day from the crew, Devil Fruit, Haki, bounty and more. New one at midnight UTC.',
+      fr: 'Otakudle One Piece est un jeu gratuit : devine le personnage One Piece du jour grâce à l’équipage, au fruit du démon, au Haki, à la prime. Nouveau chaque jour.',
+    },
+    app: { en: 'Otakudle One Piece by Bunnyverse, a free daily One Piece character guessing game', fr: 'Otakudle One Piece par Bunnyverse, un jeu gratuit pour deviner le personnage One Piece du jour' },
+  },
+  'otakudle-dragon-ball': {
+    title: { en: 'Otakudle Dragon Ball: Guess the Character Daily', fr: 'Otakudle Dragon Ball : le perso du jour' },
+    description: {
+      en: 'Otakudle Dragon Ball is a free daily game: guess the Dragon Ball character of the day from the race, planet, universe, saga and more. New one at midnight UTC.',
+      fr: 'Otakudle Dragon Ball est un jeu gratuit : devine le personnage Dragon Ball du jour grâce à la race, à la planète, à l’univers, à la saga. Nouveau chaque jour.',
+    },
+    app: { en: 'Otakudle Dragon Ball by Bunnyverse, a free daily Dragon Ball character guessing game', fr: 'Otakudle Dragon Ball par Bunnyverse, un jeu gratuit pour deviner le personnage Dragon Ball du jour' },
+  },
 };
 
 /** The self-contained block under a game (rule 3.1, 40 to 60 words): what it is, one real number with its date. */
@@ -56,6 +72,16 @@ export function gameAnswerBlock(game: DleGameId, locale: DleLocale, poolSize: nu
     return locale === 'fr'
       ? `Otakudle est un jeu quotidien gratuit de Bunnyverse pour deviner un personnage d’anime. Tape un personnage : chaque case compare un indice avec le personnage du jour, comme la série, le genre, l’espèce, le rôle, la démographie, l’année et le studio. Le jeu compte ${poolSize} personnages au ${day}. Nouveau personnage à minuit UTC.`
       : `Otakudle is a free daily anime character guessing game by Bunnyverse. Type a character, and each cell compares one fact with the character of the day: series, gender, species, role, demographic, year and studio. The game holds ${poolSize} characters on ${day}. A new character comes at midnight UTC.`;
+  }
+  if (game === 'otakudle-one-piece') {
+    return locale === 'fr'
+      ? `Otakudle One Piece est un jeu quotidien gratuit de Bunnyverse pour deviner un personnage de One Piece. Tape un personnage : chaque case compare un indice avec le personnage du jour, comme l’affiliation, le fruit du démon, le Haki, la prime, la taille et l’arc de début. Le jeu compte ${poolSize} personnages au ${day}. Nouveau à minuit UTC.`
+      : `Otakudle One Piece is a free daily One Piece character guessing game by Bunnyverse. Type a character, and each cell compares one fact with the character of the day: affiliation, Devil Fruit, Haki, bounty, height and debut arc. The game holds ${poolSize} characters on ${day}. A new character comes at midnight UTC.`;
+  }
+  if (game === 'otakudle-dragon-ball') {
+    return locale === 'fr'
+      ? `Otakudle Dragon Ball est un jeu quotidien gratuit de Bunnyverse pour deviner un personnage de Dragon Ball. Tape un personnage : chaque case compare un indice avec le personnage du jour, comme la race, l’affiliation, la planète d’origine, l’univers, la série et la saga de début. Le jeu compte ${poolSize} personnages au ${day}. Nouveau personnage à minuit UTC.`
+      : `Otakudle Dragon Ball is a free daily Dragon Ball character guessing game by Bunnyverse. Type a character, and each cell compares one fact with the character of the day: race, affiliation, home planet, universe, debut series and debut saga. The game holds ${poolSize} characters on ${day}. A new character comes at midnight UTC.`;
   }
   return GAME_SEO[game]?.description[locale] ?? '';
 }

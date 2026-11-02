@@ -11,7 +11,7 @@ import { readHistory, recordPlay, universeStreak } from '@/lib/dle/local';
 import { DLE_WORLDS, liveGame, liveModes, worldHref } from '@/lib/dle/worlds';
 import { withBasePath } from '@/lib/site/base-path';
 
-import { Avatar, firstValue } from './dle-avatar';
+import { Avatar, firstValue, parentName } from './dle-avatar';
 import { clock, deviceStore, useDleClient, useResetCountdown } from './dle-hooks';
 import { D, Flame, Ic, libraryIcon } from './dle-icons';
 
@@ -226,14 +226,14 @@ export function BurrowBoard({ locale, dateLabel, facts, images, quizLinks }: Bur
                   const y = facts[g.id]?.yesterday;
                   if (!y) return null;
                   const sub = gameCopy(g.id, locale).subKey;
-                  const value = y.answer.attrs[sub];
-                  const group = value?.p?.[0] ?? firstValue(value?.v);
+                  const group = parentName(g, sub, y.answer.attrs);
+                  const tone = g.series ? firstValue(y.answer.attrs[sub]?.v) || group : group;
                   const hidden = w.spoiler && !shown.has(g.id);
                   const quiz = quizLinks[group];
                   return (
                     <li key={g.id}>
                       <div className={`hub-dle-row hub-dle-${w.tone}`}>
-                        {hidden ? <span aria-hidden="true" className="hub-dle-thumb hub-dle-thumb-q">?</span> : <Avatar entity={y.answer} tone={group} size={40} radius={20} font={13} />}
+                        {hidden ? <span aria-hidden="true" className="hub-dle-thumb hub-dle-thumb-q">?</span> : <Avatar entity={y.answer} tone={tone} size={40} radius={20} font={13} />}
                         <span className="hub-dle-yname">
                           <span>{hidden ? t.hiddenAnswer : y.answer.name}{!hidden && group ? <small> {group}</small> : null}</span>
                           <small>{t.gameNo(`${g.brand} ${m.step[locale]}`, y.gameNo)}</small>
