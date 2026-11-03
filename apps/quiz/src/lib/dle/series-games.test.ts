@@ -9,7 +9,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { dleClient } from './client';
 import { rpcAs } from './game-fixture';
 import { afterJ4, afterSessionG, readActivation, readActivationUndo, runCheck, seedIdols, applyLaunchFiles } from './otakudle-fixture';
-import { MIGRATIONS, failure, one, readMigration, rows } from './pglite-harness';
+import { MIGRATIONS, bankBlocks, failure, one, readMigration, rows, wantBlocks } from './pglite-harness';
 import { parsePool } from './read';
 
 import type { PGlite } from '@electric-sql/pglite';
@@ -448,7 +448,7 @@ describe('the real launch files, L04 and L15', () => {
     ]);
     expect(await count(`from public.dle_entities where game_id like 'otakudle-%'`)).toBe(0);
     const v = await runCheck(db, 'V-L14.sql');
-    expect(v).toHaveLength(14);
+    expect(v).toHaveLength(16);
     expect(v.filter((r) => r[0] !== 'ok')).toEqual([]);
     const info = await runCheck(db, 'V-L15.sql');
     expect(info.find((r) => r[1].startsWith('One Piece : cibles'))![2]).toBe('73 cibles, minimum 80, éteint');
@@ -464,8 +464,11 @@ describe('the real launch files, L04 and L15', () => {
       { id: 'otakudle-dragon-ball', active: true, epoch: true, days: 365 }, { id: 'otakudle-one-piece', active: true, epoch: true, days: 365 },
     ]);
     const v2 = await runCheck(db, 'V-L14.sql');
-    expect(v2).toHaveLength(28);
+    expect(v2).toHaveLength(32);
     expect(v2.filter((r) => r[0] !== 'ok')).toEqual([]);
+    // CR-027: the four banks are in blocks of N days from day 1 (73 and 48 targets for the two series games, 113 and 45 for the others).
+    expect(await bankBlocks(db, 'otakudle-one-piece', 73)).toEqual(wantBlocks(73));
+    expect(await bankBlocks(db, 'otakudle-dragon-ball', 48)).toEqual(wantBlocks(48));
     expect((await runCheck(db, 'V-024.sql')).filter((r) => r[0] !== 'ok')).toEqual([]);
     expect((await runCheck(db, 'V-L15.sql')).filter((r) => r[0] !== 'ok')).toEqual([]);
     for (const g of GAMES) expect((await rpcAs(db, 'dle_day', { p_game: g })).data).toMatchObject({ game_no: 1, play: null });

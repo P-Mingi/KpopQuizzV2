@@ -10,7 +10,7 @@ import { dleGame } from './games';
 import { rpcAs } from './game-fixture';
 import { DEFAULT_PROGRESS, eraseData, readProgress, seenAt, writeProgress } from './local';
 import { FIXTURE_IN_POOL, FIXTURE_TARGETS, afterJ4, afterSessionG, applyLaunchFiles, readActivation, readActivationUndo, runCheck, seedIdols, seedOtakudle } from './otakudle-fixture';
-import { one, readMigration, rows, failure } from './pglite-harness';
+import { bankBlocks, one, readMigration, rows, failure, wantBlocks } from './pglite-harness';
 import { parsePool, readAnimeSeriesSlugs, readPool, quizLinksOf } from './read';
 import { GAME_SEO, gameAnswerBlock, gameJsonLd } from './seo';
 
@@ -139,6 +139,9 @@ describe('the rules of the view, on the fixtures', () => {
     expect(await one(db, `select count(*)::int from public.dle_schedule where game_id = 'otakudle'`)).toBe(365);
     expect(await one(db, `select count(*)::int from public.dle_schedule s join public.dle_entities e on e.game_id = s.game_id and e.entity_id = s.entity_id where s.game_id = 'otakudle' and not e.can_be_target`)).toBe(0);
     expect(await breaks(db, await one<number>(db, `select public.dle_window('otakudle')`))).toBe(0);
+    // CR-027: every target once per block of N days from day 1 before any comes back, the last block with the 365 mod N targets that come once more.
+    const n = await one<number>(db, `select count(*)::int from public.dle_entities where game_id = 'otakudle' and can_be_target and in_pool`);
+    expect(await bankBlocks(db, 'otakudle', n)).toEqual(wantBlocks(n));
   });
 
   describe('the columns compare', () => {
@@ -335,9 +338,12 @@ describe('the real launch files, L04 and L13', () => {
     expect(await rows(db, games)).toEqual(on);
     expect(await one(db, `select public.dle_window('otakudle')`)).toBe(79);
     expect(await breaks(db, 79)).toBe(0);
+    expect(await bankBlocks(db, 'otakudle', 113)).toEqual(wantBlocks(113));
+    expect(await bankBlocks(db, 'kpopdle-idol', 45)).toEqual(wantBlocks(45));
     const v = await runCheck(db, 'V-L14.sql');
     expect(v.filter((r) => r[0] !== 'ok')).toEqual([]);
-    expect(v).toHaveLength(14);
+    expect(v).toHaveLength(16);
+    expect(v.filter((r) => r[1].includes('par bloc')).map((r) => r[2])).toEqual(['1', '1']);
     expect(v.find((r) => r[1] === 'otakudle : cibles possibles, au moins le minimum du jeu')![2]).toBe('113');
     expect(v.find((r) => r[1] === 'kpopdle-idol : cibles possibles, au moins le minimum du jeu')![2]).toBe('45');
     expect(JSON.stringify(v)).not.toMatch(/Luffy|Goku|Tanjiro|Fixture/);
