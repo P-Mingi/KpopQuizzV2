@@ -4,6 +4,7 @@ import { adminNotFound } from '@/lib/admin/guard';
 import { adminGate } from '@/lib/editorial/admin-api';
 import { checkDraftInput, checkSchedule } from '@/lib/editorial/drafts';
 import { approveDraft, editDraft, rejectDraft } from '@/lib/editorial/pipeline';
+import { quizPatchAction } from '@/lib/editorial/quiz/admin-api';
 
 import type { NextRequest } from 'next/server';
 
@@ -14,6 +15,8 @@ import type { NextRequest } from 'next/server';
 //   { action: 'approve', scheduled_at }     approve with a date (reviewed_by = this admin)
 //   { action: 'reject' }
 // Nothing is published here. The cron publishes approved drafts that are due.
+// A draft of kind quiz (EDITORIAL_QUIZ on, SQL 012 applied) goes to lib/editorial/quiz/admin-api.ts first: approve gives it a
+// random time in the coming days, reject takes it out. With the flag off the generic path below never sees a quiz draft.
 export const dynamic = 'force-dynamic';
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse> {
@@ -29,6 +32,8 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   const b = (body ?? {}) as { action?: unknown; draft?: unknown; scheduled_at?: unknown };
   const now = Date.now();
   try {
+    const quiz = await quizPatchAction(id, b as Record<string, unknown>, g.adminId);
+    if (quiz) return quiz;
     if (b.action === 'edit') {
       const c = checkDraftInput(b.draft);
       if (!c.ok) return NextResponse.json({ error: c.error }, { status: 400 });

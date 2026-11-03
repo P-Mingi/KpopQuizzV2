@@ -16,6 +16,11 @@ import type { EditorialAccount, EditorialDraft } from './types';
 // Run O1 (lot e, E1a): every read goes through forSite and every insert through withSite, so the queue of an
 // anime build holds only anime drafts, accounts and posts. On the kpop build with SITE_SCOPE off both are no-ops:
 // the queries and the insert payloads are today's.
+//
+// Run O1 (lot E1b): the drafts of kind 'quiz' (SQL 012) have their own store (./quiz/store.ts) and their own rules. Every draft read
+// and update here leaves them out (`kind <> 'quiz'`), so the queue, the publisher and the 3 a day of threads, debates and blogs
+// never see one, whether the quiz lane is on or not. Where no quiz draft exists (all of production until 012) the filter changes
+// no answer.
 
 type Svc = ReturnType<typeof createServiceRoleClient>;
 
@@ -44,11 +49,11 @@ export function supabaseStore(svc: Svc = createServiceRoleClient()): EditorialSt
       return (data ?? []) as EditorialAccount[];
     },
     async listDrafts(limit) {
-      const { data } = must(await forSite(svc.from('editorial_drafts').select(DRAFT_COLS)).order('created_at', { ascending: false }).limit(limit), 'drafts');
+      const { data } = must(await forSite(svc.from('editorial_drafts').select(DRAFT_COLS)).neq('kind', 'quiz').order('created_at', { ascending: false }).limit(limit), 'drafts');
       return (data ?? []) as unknown as EditorialDraft[];
     },
     async getDraft(id) {
-      const { data } = must(await forSite(svc.from('editorial_drafts').select(DRAFT_COLS)).eq('id', id).maybeSingle(), 'draft');
+      const { data } = must(await forSite(svc.from('editorial_drafts').select(DRAFT_COLS)).eq('id', id).neq('kind', 'quiz').maybeSingle(), 'draft');
       return (data as unknown as EditorialDraft | null) ?? null;
     },
     async insertDraft(row) {
@@ -64,24 +69,24 @@ export function supabaseStore(svc: Svc = createServiceRoleClient()): EditorialSt
       return data as unknown as EditorialDraft;
     },
     async updateDraft(id, patch: DraftPatch, when) {
-      let q = forSite(svc.from('editorial_drafts').update({ ...patch, updated_at: new Date().toISOString() })).eq('id', id).in('status', when.status);
+      let q = forSite(svc.from('editorial_drafts').update({ ...patch, updated_at: new Date().toISOString() })).eq('id', id).neq('kind', 'quiz').in('status', when.status);
       if (when.unclaimed) q = q.is('published_ref', null);
       const { data } = must(await q.select(DRAFT_COLS).maybeSingle(), 'update draft');
       return (data as unknown as EditorialDraft | null) ?? null;
     },
     async approvedDue(nowIso) {
-      const { data } = must(await forSite(svc.from('editorial_drafts').select(DRAFT_COLS)).eq('status', 'approved').lte('scheduled_at', nowIso)
+      const { data } = must(await forSite(svc.from('editorial_drafts').select(DRAFT_COLS)).neq('kind', 'quiz').eq('status', 'approved').lte('scheduled_at', nowIso)
         .order('scheduled_at', { ascending: true }).order('id', { ascending: true }).limit(200), 'due drafts');
       return (data ?? []) as unknown as EditorialDraft[];
     },
     async publishedCount(startIso, endIso) {
       // GET + exact count (never HEAD), limit 1: the count is exact past 1000 rows.
-      const { count } = must(await forSite(svc.from('editorial_drafts').select('id', { count: 'exact' })).eq('status', 'published')
+      const { count } = must(await forSite(svc.from('editorial_drafts').select('id', { count: 'exact' })).neq('kind', 'quiz').eq('status', 'published')
         .gte('published_at', startIso).lt('published_at', endIso).limit(1), 'published count');
       return count ?? 0;
     },
     async lastPublishedAccount() {
-      const { data } = must(await forSite(svc.from('editorial_drafts').select('account_id')).eq('status', 'published')
+      const { data } = must(await forSite(svc.from('editorial_drafts').select('account_id')).neq('kind', 'quiz').eq('status', 'published')
         .order('published_at', { ascending: false }).order('id', { ascending: false }).limit(1).maybeSingle(), 'last published');
       return (data as { account_id: string } | null)?.account_id ?? null;
     },

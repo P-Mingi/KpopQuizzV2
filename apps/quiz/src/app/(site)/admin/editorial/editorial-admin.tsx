@@ -11,6 +11,9 @@ import { draftToPost } from '@/lib/editorial/preview';
 import { DRAFT_KINDS, MAX_PER_DAY, publishedHref } from '@/lib/editorial/types';
 import { timeAgo } from '@/lib/ux-v1/p8/format';
 
+import { QuizAdmin } from './quiz-admin';
+
+import type { QuizPanel } from '@/lib/editorial/quiz/panel';
 import type { DraftInput, DraftKind, DraftStatus, EditorialAccount, EditorialDraft } from '@/lib/editorial/types';
 import type { P8Group } from '@/lib/ux-v1/p8/types';
 
@@ -30,6 +33,8 @@ interface Props {
   accounts: EditorialAccount[];
   groups: AdminGroup[];
   now: number;
+  /** The quiz lane (run O1, lot E1b): null unless EDITORIAL_QUIZ is on and SQL 012 is applied. */
+  quiz?: QuizPanel | null;
 }
 
 interface FormState {
@@ -404,5 +409,10 @@ export function EditorialAdmin({ live, failed, drafts, accounts, groups, now }: 
 
 /** The preview wrapped in the viewer context the post islands read. */
 export function EditorialAdminRoot(props: Props): React.ReactElement {
-  return <P8ViewerProvider><EditorialAdmin {...props} /></P8ViewerProvider>;
+  return (
+    <P8ViewerProvider>
+      <EditorialAdmin {...props} />
+      {props.quiz ? <QuizAdmin panel={props.quiz} accounts={props.accounts} groups={props.groups} /> : null}
+    </P8ViewerProvider>
+  );
 }
