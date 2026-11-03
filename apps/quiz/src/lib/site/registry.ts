@@ -272,8 +272,23 @@ const ANIME: SiteConfig = {
   copy: { namespace: 'anime' },
 };
 
-// The owner's switch of the daily games: false on every site until the launch (RAPPORT-JEUX-DU-JOUR-v2.md section 12, step 4).
-const HUB_FEATURES: SiteFeatures = { ...ALL_OFF, passportPages: true, directory: false, dailyGuess: false };
+/**
+ * DEV-PREVIEW (owner order, 2026-11-03): the one way to see the daily games and the links to them on a Vercel Preview of o1-dev before the
+ * launch-day PR. True only when NEXT_PUBLIC_DLE_PREVIEW is '1' or 'true' AND the deployment is not Production (VERCEL_ENV); unset, which is the
+ * state of every project today, it is false and the constant below is the launch-day switch exactly as before. Set it on the Preview environment
+ * of the three projects only, scoped to the branch o1/integration; never on Production (a Production build ignores it). Remove this function at
+ * the launch-day PR, which writes `dailyGuess: true` itself (RUNBOOK K8c). The env is passed written out in full so Next inlines the public flag.
+ */
+export function dlePreviewOn(env: { readonly NEXT_PUBLIC_DLE_PREVIEW?: string | undefined; readonly VERCEL_ENV?: string | undefined }): boolean {
+  return env.VERCEL_ENV !== 'production' && flagOn(env.NEXT_PUBLIC_DLE_PREVIEW);
+}
+
+// The owner's switch of the daily games: false on every site until the launch (RAPPORT-JEUX-DU-JOUR-v2.md section 12, step 4); on a Preview only,
+// NEXT_PUBLIC_DLE_PREVIEW=1 turns it on early (dlePreviewOn above).
+const HUB_FEATURES: SiteFeatures = {
+  ...ALL_OFF, passportPages: true, directory: false,
+  dailyGuess: dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: process.env.NEXT_PUBLIC_DLE_PREVIEW, VERCEL_ENV: process.env.VERCEL_ENV }),
+};
 
 /**
  * Daily games step 4: the games that have a page. One line here opens a game: its routes (with the flag), its shared results, its tile and rows (lib/dle/games.ts reads it). Here and not in lib/dle, so
@@ -454,6 +469,7 @@ export const O1_FLAGS: readonly O1Flag[] = [
   { name: 'NET_KPOPDLE_HOME', scope: 'server', lane: 'H1', reserved: false },
   { name: 'NET_KPOPDLE_QUIZEND', scope: 'server', lane: 'H1', reserved: false },
   { name: 'NET_KPOPDLE_GROUP', scope: 'server', lane: 'H1', reserved: false },
+  { name: 'NEXT_PUBLIC_DLE_PREVIEW', scope: 'public', lane: 'ORCH', reserved: false },
 ];
 
 /** Existing switches the run never changes (BACKLOG 5.1 "untouched"). */

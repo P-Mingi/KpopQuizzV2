@@ -52,6 +52,7 @@ Public variables (`NEXT_PUBLIC_*`) are baked in at build: changing one needs a r
 | `NET_KPOPDLE_HOME` | `1`, owner, RUNBOOK L3c, launch day, after the PR that sets `dailyGuess` to true and its go / no-go | ignored | ignored | Server flag, read when the home renders (build and ISR): redeploy kpopquiz after setting it. Unset: kpopquiz.org as today. Set while the hub's `dailyGuess` is off or `dle_day` fails: still nothing on the page. |
 | `NET_KPOPDLE_QUIZEND` | `1`, owner, RUNBOOK L3d, launch day, after L3c | ignored | ignored | Server flag, read when a quiz page renders (build and ISR): redeploy kpopquiz after setting it. Adds a Kpopdle row under Next quiz on the results screen of a K-pop quiz. Unset: the quiz pages are as today. Set while the hub's `dailyGuess` is off: still nothing on the page. |
 | `NET_KPOPDLE_GROUP` | `1`, owner, RUNBOOK L3d, launch day, after L3c | ignored | ignored | Server flag, read when a group page renders (build and ISR): redeploy kpopquiz after setting it. Adds the Kpopdle card to the group pages whose group has members in the game. Unset: the group pages are as today. Set while the hub's `dailyGuess` is off or the pool fails: still nothing on the page. |
+| `NEXT_PUBLIC_DLE_PREVIEW` | Preview only: `1` | Preview only: `1` | Preview only: `1` | Dev preview of the daily games before the launch-day PR (`docs/launch/o1/DEV-PREVIEW.md`). Public, read at build. Ignored when `VERCEL_ENV=production`. Never set it in Production: the launch-day PR sets `dailyGuess` in the registry itself (RUNBOOK K8c). |
 | `QOTD_ROTATION_FIX` | already (kpop's own, untouched) | leave unset | `1`, set 2026-10-28 by the integrator | Server switch read by the cron `ensure-daily-quiz` (00:05 UTC) and by the bank `auto-schedule` route: with `1`, an empty day is filled from the next verified or scheduled bank row of the site, else a catalogue pick, and a day that stays empty makes the cron answer 500 (RUNBOOK J4). |
 | `PASSPORT_CONTINUE`, `PASSPORT_SEED` | never | never | never | Reserved for later work; they do nothing in this run. |
 
@@ -95,6 +96,7 @@ anime blind test and `SPOTIFY_*` or `YOUTUBE_API_KEY`, O6 and Mission U part B).
 | `NEXT_PUBLIC_NET_WELCOME` | not a flag of this run (the welcome cards were refused, D-027) |
 | any `O1_*` variable (`O1_ENV`, `O1_KPQ`, `O1_BRANCH_REF`, `O1_DB_URL`, `O1_MIGRATION_LOG`, `O1_WRITE_TREE`) | run scripts and test switches; app code never reads them |
 | `RECORD_BASELINE`, `PLAYLIST_TRACE` | test and trace switches |
+| `NEXT_PUBLIC_DLE_PREVIEW` | Preview-only switch of the hub's `dailyGuess` (docs/launch/o1/DEV-PREVIEW.md); a Production build ignores it, but it must not be there |
 | `AUTH_FIXTURE_CONFIRM` | test switch (lane 3, 2026-10-28): opens `/auth/confirm` of the hub and anime on a preview for the fixture links of `scripts/o1-tools/signin-link.sh --vercel`; set it on the Preview environment only. The route refuses on `VERCEL_ENV=production` anyway, and stays closed on a deployed preview without it |
 | the dev or branch Supabase keys (`o1-dev`, `o1-scratch`) | a production project must only hold production keys; check the URL ends with the production ref |
 

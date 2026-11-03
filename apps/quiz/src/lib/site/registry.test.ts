@@ -5,7 +5,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { MAX_PER_DAY } from '@/lib/editorial/types';
 import { INDEXNOW_KEY } from '@/lib/indexnow';
@@ -15,7 +15,7 @@ import { validateSchedule, type QuizBankEntry } from '@/lib/quiz-bank-scheduling
 import { siteForOrigin } from './origin-site';
 import * as registryModule from './registry';
 import {
-  NETWORK, PLACEHOLDERS, REGISTRY, SITE, SITE_ID, flagOn, isSiteId, netOrigin, parseNetOrigins,
+  NETWORK, PLACEHOLDERS, REGISTRY, SITE, SITE_ID, dlePreviewOn, flagOn, isSiteId, netOrigin, parseNetOrigins,
   resolveSiteId, siteConfig,
 } from './registry';
 import { SITE_IDS } from './types';
@@ -350,5 +350,50 @@ describe('siteForOrigin on a shared origin', () => {
 describe('siteForOrigin lives outside the registry module', () => {
   it('registry.ts exports no siteForOrigin', () => {
     expect('siteForOrigin' in registryModule).toBe(false);
+  });
+});
+
+// DEV-PREVIEW (owner order, 2026-11-03): NEXT_PUBLIC_DLE_PREVIEW opens the daily games on a Preview only. Off by default, ignored on Production.
+describe('NEXT_PUBLIC_DLE_PREVIEW (the Preview-only switch of dailyGuess)', () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
+
+  it('is off when unset, empty, 0 or false, on for 1 and true, and never on Production', () => {
+    expect(dlePreviewOn({})).toBe(false);
+    for (const v of [undefined, '', '0', 'false', 'yes', ' 1']) expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, VERCEL_ENV: 'preview' }), String(v)).toBe(false);
+    for (const v of ['1', 'true']) {
+      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, VERCEL_ENV: 'preview' })).toBe(true);
+      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, VERCEL_ENV: 'development' })).toBe(true);
+      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v })).toBe(true);
+      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, VERCEL_ENV: 'production' })).toBe(false);
+    }
+  });
+
+  it('leaves the hub switch off in this test run, where the variable is not set', () => {
+    expect(REGISTRY.hub.features.dailyGuess).toBe(false);
+    expect(REGISTRY.hub.routes.allow).not.toContain('/kpopdle');
+  });
+
+  it('turns the hub switch and its route map on with the variable on a preview, and not on Production', async () => {
+    vi.stubEnv('NEXT_PUBLIC_DLE_PREVIEW', '1');
+    vi.stubEnv('VERCEL_ENV', 'preview');
+    vi.resetModules();
+    const on = await import('./registry');
+    expect(on.REGISTRY.hub.features.dailyGuess).toBe(true);
+    expect(on.REGISTRY.hub.routes.allow).toEqual(expect.arrayContaining(['/daily', '/kpopdle', '/otakudle', '/otakudle/one-piece', '/otakudle/dragon-ball', '/fr/otakudle']));
+    // Only the hub's switch moves: kpop and anime keep their own features.
+    expect(on.REGISTRY.kpop.features.dailyGuess).toBe(false);
+    expect(on.REGISTRY.anime.features.dailyGuess).toBe(false);
+    vi.stubEnv('VERCEL_ENV', 'production');
+    vi.resetModules();
+    const prod = await import('./registry');
+    expect(prod.REGISTRY.hub.features.dailyGuess).toBe(false);
+    expect(prod.REGISTRY.hub.routes.allow).not.toContain('/kpopdle');
+  });
+
+  it('is a public flag of the table, lane ORCH, not reserved', () => {
+    expect(registryModule.O1_FLAGS).toContainEqual({ name: 'NEXT_PUBLIC_DLE_PREVIEW', scope: 'public', lane: 'ORCH', reserved: false });
   });
 });
