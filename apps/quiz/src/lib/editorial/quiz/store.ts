@@ -99,6 +99,14 @@ export function supabaseQuizStore(svc: Svc = createServiceRoleClient()): QuizSto
       for (const q of (data ?? []) as Array<SlugOwner & { slug: string }>) out.set(q.slug, { id: q.id, creator_id: q.creator_id, title: q.title });
       return out;
     },
+    async quizTitleOwners(titles) {
+      const out = new Map<string, string[]>();
+      if (!titles.length) return out;
+      // Global like the slugs: two pages of the network never share a title (check:metadata-dupes).
+      const { data } = must(await svc.from('quizzes').select('slug, title').in('title', titles), 'title owners');
+      for (const q of (data ?? []) as Array<{ slug: string; title: string }>) out.set(q.title.toLowerCase(), [...(out.get(q.title.toLowerCase()) ?? []), q.slug]);
+      return out;
+    },
     async quizDraftSlugs(slugs) {
       const out = new Set<string>();
       if (!slugs.length) return out;

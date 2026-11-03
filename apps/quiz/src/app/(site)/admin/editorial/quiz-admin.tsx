@@ -54,6 +54,7 @@ const ERRORS: Record<string, string> = {
   hub_slug: 'The slug is the slug of a group hub (a group name followed by quiz, test or trivia).',
   slug_taken: 'Another quiz or draft already uses this slug.',
   slug_repeated: 'Another draft of this paste uses the same slug.',
+  title_taken: 'Another quiz already has this title: two pages never share a title.',
   no_room: 'No room: every day in the range already holds 10 quizzes or a quiz of that group. Pick more days.',
   title_is_hub_query: 'The title is the query of a group hub.',
   blocked_source: 'A source is a site the rulebook does not allow.',

@@ -101,6 +101,11 @@ export function memoryQuizStore(opts: { accounts?: EditorialAccount[]; groups?: 
     async slugOwners(slugs) {
       return new Map(m.quizzes.filter((q) => slugs.includes(q.slug)).map((q) => [q.slug, { id: q.id, creator_id: q.creator_id, title: q.title } as SlugOwner] as const));
     },
+    async quizTitleOwners(titles) {
+      const out = new Map<string, string[]>();
+      for (const q of m.quizzes) if (titles.includes(q.title)) out.set(q.title.toLowerCase(), [...(out.get(q.title.toLowerCase()) ?? []), q.slug]);
+      return out;
+    },
     async quizDraftSlugs(slugs) {
       return new Set(m.drafts.filter((d) => d.status !== 'rejected').map((d) => (d.payload as QuizDraftPayload).slug).filter((s) => slugs.includes(s)));
     },

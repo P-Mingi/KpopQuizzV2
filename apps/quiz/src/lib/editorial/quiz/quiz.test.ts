@@ -85,6 +85,8 @@ describe('the quiz draft (formats.md 4, kpop form)', () => {
     expect(err(q({ fun_fact: 'x'.repeat(281) }))).toBe('bad_question');
     expect(err(q({ source_url: 'https://example.org/not-in-the-draft' }))).toBe('bad_question');
     expect(err(q({ unknown: 1 }))).toBe('bad_question');
+    const twice = checkQuizPayload({ ...g, questions: [g.questions[0]!, { ...g.questions[1]!, question: 'QUESTION number 1 about the group ?' }, ...g.questions.slice(2)] });
+    expect(!twice.ok && twice.detail).toBe('Question 2 repeats question 1.');
     const r = checkQuizPayload(q({ options: ['a', 'b', 'c'] }));
     expect(!r.ok && r.detail).toContain('Question 1');
   });

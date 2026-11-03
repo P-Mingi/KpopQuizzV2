@@ -46,6 +46,8 @@ export interface QuizStore {
   publishedQuizCounts(groupIds: number[]): Promise<Map<number, number>>;
   /** The quiz that holds each of these slugs. */
   slugOwners(slugs: string[]): Promise<Map<string, SlugOwner>>;
+  /** The slugs of the quizzes that hold each of these titles (lowercase title to slugs): two pages never share a title. */
+  quizTitleOwners(titles: string[]): Promise<Map<string, string[]>>;
   /** Slugs among these that a quiz draft (not rejected) already holds. */
   quizDraftSlugs(slugs: string[]): Promise<Set<string>>;
   listQuizDrafts(limit: number, status?: DraftStatus): Promise<QuizDraft[]>;
@@ -91,11 +93,12 @@ export async function quizBlockers(store: QuizStore, drafts: readonly QuizDraft[
   const live = drafts.filter((d) => parsed.has(d.id));
   if (!live.length) return out;
   const hubGroups = [...new Set(live.map((d) => hubSlugGroup(parsed.get(d.id)!.slug)?.group).filter((g): g is string => !!g))];
-  const [accounts, groups, hubs, owners] = await Promise.all([
+  const [accounts, groups, hubs, owners, titles] = await Promise.all([
     store.accounts(),
     store.groupsByIds([...new Set(live.map((d) => d.group_id!))]),
     hubGroups.length ? store.groupsBySlug(hubGroups) : Promise.resolve(new Map<string, QuizGroup>()),
     store.slugOwners(live.map((d) => parsed.get(d.id)!.slug)),
+    store.quizTitleOwners(live.map((d) => parsed.get(d.id)!.title)),
   ]);
   const active = new Set(accounts.filter((a) => a.active).map((a) => a.user_id));
   for (const d of live) {
@@ -104,7 +107,8 @@ export async function quizBlockers(store: QuizStore, drafts: readonly QuizDraft[
     if (groups.get(d.group_id!)?.slug !== p.group_slug) { out.set(d.id, { id: d.id, error: 'group_mismatch' }); continue; }
     if (slugRefusal(p.slug, p.group_slug, (s) => hubs.has(s))) { out.set(d.id, { id: d.id, error: 'hub_slug' }); continue; }
     const owner = owners.get(p.slug);
-    if (owner && !(owner.creator_id === d.account_id && owner.title === p.title)) out.set(d.id, { id: d.id, error: 'slug_taken' });
+    if (owner && !(owner.creator_id === d.account_id && owner.title === p.title)) { out.set(d.id, { id: d.id, error: 'slug_taken' }); continue; }
+    if ((titles.get(p.title.toLowerCase()) ?? []).some((slug) => slug !== p.slug)) out.set(d.id, { id: d.id, error: 'title_taken' });
   }
   return out;
 }
@@ -131,13 +135,15 @@ export async function importQuizDrafts(store: QuizStore, items: unknown, by: { a
     valid.push({ index, p: r.value });
   });
 
-  const [accounts, byName, groups, owners, draftSlugs] = await Promise.all([
+  const [accounts, byName, groups, owners, draftSlugs, titles] = await Promise.all([
     store.accounts(),
     store.accountIdsByUsername([...new Set(valid.map((v) => v.p.account))]),
     store.groupsBySlug([...new Set(valid.map((v) => v.p.group_slug))]),
     store.slugOwners(valid.map((v) => v.p.slug)),
     store.quizDraftSlugs(valid.map((v) => v.p.slug)),
+    store.quizTitleOwners(valid.map((v) => v.p.title)),
   ]);
+  const seenTitles = new Set<string>();
   const hubParts = [...new Set(valid.map((v) => hubSlugGroup(v.p.slug)?.group).filter((g): g is string => !!g))];
   const hubs = hubParts.length ? await store.groupsBySlug(hubParts) : new Map<string, QuizGroup>();
   const active = new Set(accounts.filter((a) => a.active).map((a) => a.user_id));
@@ -152,7 +158,8 @@ export async function importQuizDrafts(store: QuizStore, items: unknown, by: { a
     else if (slugRefusal(p.slug, p.group_slug, (s) => hubs.has(s))) reject('hub_slug', 'The slug is the slug of a group hub ("{group}-quiz", "-test" or "-trivia").');
     else if (owners.has(p.slug)) reject('slug_taken', 'A quiz already has this slug.');
     else if (draftSlugs.has(p.slug)) reject('slug_taken', 'Another quiz draft already has this slug.');
-    else ok.push({ index, p, accountId, group });
+    else if ((titles.get(p.title.toLowerCase()) ?? []).length > 0 || seenTitles.has(p.title.toLowerCase())) reject('title_taken', 'Another quiz already has this title.');
+    else { seenTitles.add(p.title.toLowerCase()); ok.push({ index, p, accountId, group }); }
   }
   rejected.sort((a, b) => a.index - b.index);
   if (!ok.length) return { ok: true, value: { batch: null, created: [], rejected } };
@@ -210,7 +217,7 @@ export async function approveQuizDrafts(store: QuizStore, ids: readonly number[]
   for (const a of plan.assigned) {
     const row = await store.updateQuizDraft(a.id, {
       status: 'approved', reviewed_by: by.adminId, reviewed_at: new Date(by.now).toISOString(), scheduled_at: a.scheduled_at, published_ref: null,
-    }, { status: ['draft', 'approved', 'rejected'], unclaimed: true });
+    }, { status: ['draft', 'approved', 'rejected'] }); // not "unclaimed": approving again is how an admin frees a draft a stopped run left claimed
     if (row) approved.push({ id: a.id, scheduled_at: a.scheduled_at }); else blocked.push({ id: a.id, error: 'not_editable' });
   }
   return { ok: true, value: { approved, blocked: blocked.sort((a, b) => a.id - b.id), unplaced: plan.unplaced } };

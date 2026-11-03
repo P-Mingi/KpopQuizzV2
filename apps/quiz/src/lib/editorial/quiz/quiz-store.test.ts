@@ -73,6 +73,9 @@ describe('the drafts of the other kinds never see a quiz draft', () => {
     const owners = await supabaseQuizStore(db as never).slugOwners(['a', 'b']);
     expect([...owners.keys()]).toEqual(['a']);
     expect(db.scopedTo('quizzes', 'kpop')).toBe(false);
+    const titles = recordingDb({ quizzes: [{ slug: 's1', title: 'A Title' }, { slug: 's2', title: 'A title' }] });
+    expect(await supabaseQuizStore(titles as never).quizTitleOwners(['A Title'])).toEqual(new Map([['a title', ['s1', 's2']]]));
+    expect(titles.scopedTo('quizzes', 'kpop')).toBe(false);
   });
 });
 

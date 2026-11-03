@@ -62,6 +62,15 @@ describe('import: drafts pasted by an admin become one review batch', () => {
     expect(r.value.batch).toMatchObject({ size: 2, sample_size: 1, label: 'Quiz drafts of 2026-11-04' });
   });
 
+  it('a title another quiz already has, or another draft of the paste has, is refused (two pages never share a title)', async () => {
+    const m = memoryQuizStore();
+    m.quizzes.push({ id: 'q-old', slug: 'some-old-slug', creator_id: JAE, title: draftFor(GROUPS[0]!, 1).title, group_id: 1, status: 'published', row: quizRowFor(JAE, 1, goodPayload()) });
+    const again = { ...draftFor(GROUPS[2]!, 3), title: draftFor(GROUPS[1]!, 2).title.toUpperCase() };
+    const r = await importQuizDrafts(m, [draftFor(GROUPS[0]!, 1), draftFor(GROUPS[1]!, 2), { ...again, group_slug: 'stray-kids' }, { ...draftFor(GROUPS[1]!, 2), slug: 'bts-other-slug' }], { adminId: ADMIN, label: 'x', now: NOW });
+    expect(r.ok && r.value.created.map((d) => d.title)).toEqual([draftFor(GROUPS[1]!, 2).title]);
+    expect(r.ok && r.value.rejected.map((x) => [x.index, x.error])).toEqual([[0, 'title_taken'], [2, 'title_taken'], [3, 'title_taken']]);
+  });
+
   it('a slug a quiz or a draft already holds is refused; nothing at all is filed when nothing is valid', async () => {
     const m = memoryQuizStore();
     await importQuizDrafts(m, [draftFor(GROUPS[0]!, 1)], { adminId: ADMIN, label: 'a', now: NOW });
@@ -174,6 +183,13 @@ describe('approve and schedule', () => {
     const blockers = await quizBlockers(m, m.drafts);
     expect([...blockers.values()].map((b) => [b.id, b.error])).toEqual([[1, 'hub_slug'], [2, 'slug_taken']]);
     void ids;
+    // a title another quiz holds blocks too, but the quiz this very draft wrote does not
+    const n = memoryQuizStore();
+    await seedDrafts(n, [goodPayload({ slug: 'aespa-title-check' })]);
+    n.quizzes.push({ id: 'q2', slug: 'someone-elses-slug', creator_id: JAE, title: goodPayload().title, group_id: 1, status: 'published', row: quizRowFor(JAE, 1, goodPayload()) });
+    expect([...(await quizBlockers(n, n.drafts)).values()].map((b) => b.error)).toEqual(['title_taken']);
+    n.quizzes[0] = { ...n.quizzes[0]!, slug: 'aespa-title-check', creator_id: MINA };
+    expect((await quizBlockers(n, n.drafts)).size).toBe(0);
   });
 
   it('re-approving an approved draft moves its date; a published draft cannot be approved', async () => {
@@ -298,6 +314,23 @@ describe('the publisher: one quiz a run, written through the quiz insert', () =>
     expect(m.quizzes).toHaveLength(1);
     expect(m.inserts).toHaveLength(1);
     expect(m.drafts[0]!.status).toBe('published');
+  });
+
+  it('a run that was killed after the insert leaves the draft claimed: the admin approves it again, the next run publishes it without a second quiz', async () => {
+    const m = memoryQuizStore();
+    const [id] = await approved(m);
+    m.crashAfterInsert = true;
+    await runQuiz(m, NOW);
+    Object.assign(m.drafts[0]!, { published_ref: 'claim:dead-run' }); // the catch never ran: the claim stays
+    expect(await runQuiz(m, NOW + 15 * MIN)).toMatchObject({ published: null, skipped: [{ id, reason: 'claimed' }] });
+    const again = await approveQuizDrafts(m, [id!], { ...by, now: NOW + 20 * MIN, days: 1, rand: seeded(9) });
+    expect(again.ok && again.value.approved).toHaveLength(1);
+    expect(m.drafts[0]!.published_ref).toBeNull();
+    // scheduled again in the coming days: the run that follows its time finds the quiz it wrote and marks the draft
+    const later = Date.parse(m.drafts[0]!.scheduled_at!) + MIN;
+    expect(await runQuiz(m, later)).toMatchObject({ reason: 'ok', published: { id, quiz_id: 'quiz-1' } });
+    expect(m.quizzes).toHaveLength(1);
+    expect(m.drafts[0]).toMatchObject({ status: 'published', published_ref: 'quiz:aespa-era-check-1' });
   });
 
   it('a slug another quiz holds is skipped with its reason and never blocks the next draft', async () => {

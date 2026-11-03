@@ -166,6 +166,8 @@ export function checkQuizPayload(raw: unknown): PayloadResult {
     if (q.fun_fact !== undefined && !isPlainText(q.fun_fact, 280)) return bad('bad_question', `Question ${n}: the fun fact is one line of 280 characters at most, with no dash and no emoji.`);
     const url = sourceUrlOf(q.source_url);
     if (!url || !urls.has(url)) return bad('bad_question', `Question ${n}: its source_url must be one of the sources of the draft.`);
+    const same = questions.findIndex((x) => words(x.question) === words(q.question as string));
+    if (same !== -1) return bad('bad_question', `Question ${n} repeats question ${same + 1}.`);
     const out: QuizDraftQuestion = { question: q.question, options, correct: q.correct as number, source_url: url };
     if (q.fun_fact !== undefined) out.fun_fact = q.fun_fact as string;
     if (typeof q.kind === 'string') out.kind = q.kind;
