@@ -1,0 +1,73 @@
+PASS 019 twice: the second run changed nothing (schema and grants)
+PASS base: production's schema copy, 001, 018, 019, 020 on postgres (PostgreSQL) 18.2 (Homebrew)
+== 1. the table: the sizes asked for, 5 seeds each (11 37 57 93 50), no_repeat_days 120, min_pool 30, 27 groups; g_dle_window is the gap the bank must hold
+ targets | max_days_a_target | min_days_a_target | g_dle_window | least_gap_seen | last_first_day | first_repeat_day | failures 
+---------+-------------------+-------------------+--------------+----------------+----------------+------------------+----------
+      30 |                13 |                12 |           21 |             21 |             30 |               31 |        0
+      40 |                10 |                 9 |           28 |             28 |             40 |               41 |        0
+      48 |                 8 |                 7 |           33 |             33 |             48 |               49 |        0
+      70 |                 6 |                 5 |           49 |             49 |             70 |               71 |        0
+      73 |                 5 |                 5 |           51 |             51 |             73 |               74 |        0
+     100 |                 4 |                 3 |           70 |             70 |            100 |              101 |        0
+     112 |                 4 |                 3 |           78 |             78 |            112 |              113 |        0
+     113 |                 4 |                 3 |           79 |             79 |            113 |              114 |        0
+     178 |                 3 |                 2 |          120 |            120 |            178 |              179 |        0
+     185 |                 2 |                 1 |          120 |            120 |            185 |              186 |        0
+     200 |                 2 |                 1 |          120 |            120 |            200 |              201 |        0
+     365 |                 1 |                 1 |          120 |            365 |            365 |                  |        0
+     366 |                 1 |                 0 |          120 |            365 |            365 |                  |        0
+     400 |                 1 |                 0 |          120 |            365 |            365 |                  |        0
+     750 |                 1 |                 0 |          120 |            365 |            365 |                  |        0
+    1200 |                 1 |                 0 |          120 |            365 |            365 |                  |        0
+(16 rows)
+
+== 2. never a dead end, every size from the minimum up (2 to 420, then 450 to 1200 by 50), 3 seeds: builds, ok, slowest build in ms
+ builds |  ok  | slowest_ms 
+--------+------+------------
+   1305 | 1305 |        155
+(1 row)
+
+== 3. other settings: no balance key, 3 groups, no_repeat_days 14, 364 and 5 (every row must be ok)
+ builds | ok  
+--------+-----
+    237 | 237
+(1 row)
+
+== 4. a rebuild with kept days (from -> to targets, left = kept targets that left the pool)
+                   t_rebuild                    
+------------------------------------------------
+ rb112-130-11false left=0 anchor200=true/200 ok
+ rb112-100-37false left=2 anchor200=true/200 ok
+ rb112-60-57false left=5 anchor200=true/200 ok
+ rb53-74-93false left=0 anchor200=true/200 ok
+ rb200-230-50false left=0 anchor200=true/200 ok
+ rb178-170-20false left=0 anchor200=true/200 ok
+ rb73-73-30false left=0 anchor200=true/54 ok
+ rb40-750-40false left=0 anchor200=true/1 ok
+ rb30-3-60false left=7 anchor200=true/3 ok
+ rb113-113-70false left=0 anchor200=true/200 ok
+ rb185-150-15false left=0 anchor200=true/200 ok
+ rb48-60-25false left=0 anchor200=true/200 ok
+ rb365-366-35false left=0 anchor200=true/1 ok
+ rb366-365-45false left=0 anchor200=true/1 ok
+(14 rows)
+
+== 5. the blocks are not the same order every time (pairs that flip between block 1 and 2: 0 same order, 0.5 independent shuffles; same_pos: share of targets in the same place)
+  n  | mean_shift | flips | same_pos 
+-----+------------+-------+----------
+  30 |        4.8 | 0.225 |    0.167
+  48 |        7.5 | 0.227 |    0.083
+  73 |       13.0 | 0.242 |    0.041
+ 100 |       18.5 | 0.265 |    0.010
+ 112 |       19.3 | 0.228 |    0.036
+ 113 |       20.7 | 0.251 |    0.027
+ 150 |       33.2 | 0.289 |    0.020
+ 178 |       28.1 | 0.216 |    0.000
+(8 rows)
+
+== 6. groups: pairs of one group within 14 days of the 365 (116 targets, 27 groups), 20 seeds: least, mean, most
+ least | mean | most 
+-------+------+------
+     0 |  0.1 |    1
+(1 row)
+

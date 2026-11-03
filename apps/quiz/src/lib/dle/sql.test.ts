@@ -6,7 +6,7 @@ import type { PGlite } from '@electric-sql/pglite';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
 import { bankDay, isPlayable } from './day';
-import { failure, freshDb, one, readMigration, rows } from './pglite-harness';
+import { bankBlocks, failure, freshDb, one, readMigration, rows, wantBlocks } from './pglite-harness';
 
 // PGlite with several banks is slow on a loaded runner: the 5 s default failed a different test from one CI run to the next.
 vi.setConfig({ testTimeout: 60_000, hookTimeout: 60_000 });
@@ -309,7 +309,7 @@ describe('dle_src_kpop_idol: a member of more than one group (CR-022, idol_other
 });
 
 describe('the bank of 365 days', () => {
-  it.each([[40], [57], [81], [116], [150], [230], [365], [500]])('%i targets: 365 days, never the same target within the window, around the cycle', async (n) => {
+  it.each([[40], [57], [81], [116], [150], [230], [365], [500]])('%i targets: 365 days, never the same target within the window, around the cycle, every target once per block of N days before any returns (CR-027)', async (n) => {
     const db = await freshDb();
     await syntheticGame(db, 'syn', n);
     for (const seed of [0.1, 0.5, 0.9]) {
@@ -319,6 +319,10 @@ describe('the bank of 365 days', () => {
       expect(win).toBe(Math.max(1, Math.min(120, Math.floor(0.7 * n))));
       expect(await one(db, `select count(*)::int from public.dle_schedule where game_id = 'syn'`)).toBe(365);
       expect(await windowBreaks(db, 'syn', win)).toBe(0);
+      // Blocks of N days from day 1: every target once in each full block, the last block with the 365 mod N targets that come once more.
+      expect(await bankBlocks(db, 'syn', n), `${n} targets, seed ${seed}`).toEqual(wantBlocks(n));
+      // The gap across the turn of the cycle (last day of a target to its first day again) is the window at least.
+      expect(await one<number>(db, `select min(t)::int from (select 365 - max(bank_day) + min(bank_day) as t from public.dle_schedule where game_id = 'syn' group by entity_id) x`), `${n} targets, seed ${seed}`).toBeGreaterThanOrEqual(win);
     }
   });
 
@@ -398,6 +402,10 @@ describe('the bank of 365 days', () => {
     }
     expect(await one(db, `select public.dle_target('syn', '2027-03-09')`)).toBe(served);
     expect(await windowBreaks(db, 'syn', await one<number>(db, `select public.dle_window('syn')`))).toBe(0);
+    // CR-027: after the rebuild the blocks start on today's bank day (the 8 kept days are the first 8 days of block 1), no target twice in a block.
+    const start = await one<number>(db, `select public.dle_bank_day('${EPOCH}', '${today}'::date)`);
+    const bl = await bankBlocks(db, 'syn', 120, start);
+    expect(bl).toEqual(wantBlocks(120));
     // Nothing changed: the next night rebuilds nothing.
     expect(await one(db, `select public.dle_daily_maintenance('${at('2027-03-11', '00:05:00')}')`)).toEqual([{ game: 'syn', pool: 120, rebuilt_days: 0 }]);
   });
