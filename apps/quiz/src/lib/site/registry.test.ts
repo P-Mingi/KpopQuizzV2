@@ -360,14 +360,23 @@ describe('NEXT_PUBLIC_DLE_PREVIEW (the Preview-only switch of dailyGuess)', () =
     vi.resetModules();
   });
 
-  it('is off when unset, empty, 0 or false, on for 1 and true, and never on Production', () => {
+  it('is off when unset, empty, 0 or false, on for 1 and true, and only on a Preview', () => {
     expect(dlePreviewOn({})).toBe(false);
-    for (const v of [undefined, '', '0', 'false', 'yes', ' 1']) expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, VERCEL_ENV: 'preview' }), String(v)).toBe(false);
+    for (const v of [undefined, '', '0', 'false', 'yes', ' 1']) expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: 'preview' }), String(v)).toBe(false);
     for (const v of ['1', 'true']) {
-      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, VERCEL_ENV: 'preview' })).toBe(true);
-      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, VERCEL_ENV: 'development' })).toBe(true);
-      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v })).toBe(true);
-      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, VERCEL_ENV: 'production' })).toBe(false);
+      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: 'preview' })).toBe(true);
+      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: 'production' })).toBe(false);
+      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: 'development' })).toBe(false);
+      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: 'Preview' })).toBe(false);
+      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: '' })).toBe(false);
+    }
+  });
+
+  it('is closed by default where the deployment kind is unknown, as in a browser bundle that only has the public flag', () => {
+    // Integrator review 2026-11-03: a flag set on Production by mistake must not open the games on the client when the server keeps them closed.
+    for (const v of ['1', 'true']) {
+      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v })).toBe(false);
+      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: undefined })).toBe(false);
     }
   });
 
@@ -378,7 +387,7 @@ describe('NEXT_PUBLIC_DLE_PREVIEW (the Preview-only switch of dailyGuess)', () =
 
   it('turns the hub switch and its route map on with the variable on a preview, and not on Production', async () => {
     vi.stubEnv('NEXT_PUBLIC_DLE_PREVIEW', '1');
-    vi.stubEnv('VERCEL_ENV', 'preview');
+    vi.stubEnv('NEXT_PUBLIC_VERCEL_ENV', 'preview');
     vi.resetModules();
     const on = await import('./registry');
     expect(on.REGISTRY.hub.features.dailyGuess).toBe(true);
@@ -386,9 +395,15 @@ describe('NEXT_PUBLIC_DLE_PREVIEW (the Preview-only switch of dailyGuess)', () =
     // Only the hub's switch moves: kpop and anime keep their own features.
     expect(on.REGISTRY.kpop.features.dailyGuess).toBe(false);
     expect(on.REGISTRY.anime.features.dailyGuess).toBe(false);
-    vi.stubEnv('VERCEL_ENV', 'production');
+    vi.stubEnv('NEXT_PUBLIC_VERCEL_ENV', 'production');
     vi.resetModules();
     const prod = await import('./registry');
+    expect(prod.REGISTRY.hub.features.dailyGuess).toBe(false);
+    // The flag alone, with no deployment kind (a client bundle reads only the public values), keeps the switch closed.
+    vi.stubEnv('NEXT_PUBLIC_VERCEL_ENV', '');
+    vi.resetModules();
+    const unknown = await import('./registry');
+    expect(unknown.REGISTRY.hub.features.dailyGuess).toBe(false);
     expect(prod.REGISTRY.hub.features.dailyGuess).toBe(false);
     expect(prod.REGISTRY.hub.routes.allow).not.toContain('/kpopdle');
   });

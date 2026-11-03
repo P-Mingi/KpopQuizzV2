@@ -274,20 +274,23 @@ const ANIME: SiteConfig = {
 
 /**
  * DEV-PREVIEW (owner order, 2026-11-03): the one way to see the daily games and the links to them on a Vercel Preview of o1-dev before the
- * launch-day PR. True only when NEXT_PUBLIC_DLE_PREVIEW is '1' or 'true' AND the deployment is not Production (VERCEL_ENV); unset, which is the
- * state of every project today, it is false and the constant below is the launch-day switch exactly as before. Set it on the Preview environment
- * of the three projects only, scoped to the branch o1/integration; never on Production (a Production build ignores it). Remove this function at
- * the launch-day PR, which writes `dailyGuess: true` itself (RUNBOOK K8c). The env is passed written out in full so Next inlines the public flag.
+ * launch-day PR. Closed by default: true only when NEXT_PUBLIC_DLE_PREVIEW is '1' or 'true' AND NEXT_PUBLIC_VERCEL_ENV is exactly 'preview'.
+ * Both are public variables, so Next inlines the same two values in the server and the client bundles (VERCEL_ENV is not inlined: in the
+ * browser it is undefined, and a test on it alone would open the games client side on a Production build that carried the flag by mistake,
+ * integrator review 2026-11-03). Vercel sets NEXT_PUBLIC_VERCEL_ENV on every deployment when its system variables are exposed; a local
+ * build, a test run or Production leave the switch off. Set NEXT_PUBLIC_DLE_PREVIEW on the Preview environment of the three projects only,
+ * scoped to the branch o1/integration. Remove this function at the launch-day PR, which writes `dailyGuess: true` itself (RUNBOOK K8c).
+ * The env is passed written out in full so Next inlines both public values.
  */
-export function dlePreviewOn(env: { readonly NEXT_PUBLIC_DLE_PREVIEW?: string | undefined; readonly VERCEL_ENV?: string | undefined }): boolean {
-  return env.VERCEL_ENV !== 'production' && flagOn(env.NEXT_PUBLIC_DLE_PREVIEW);
+export function dlePreviewOn(env: { readonly NEXT_PUBLIC_DLE_PREVIEW?: string | undefined; readonly NEXT_PUBLIC_VERCEL_ENV?: string | undefined }): boolean {
+  return env.NEXT_PUBLIC_VERCEL_ENV === 'preview' && flagOn(env.NEXT_PUBLIC_DLE_PREVIEW);
 }
 
 // The owner's switch of the daily games: false on every site until the launch (RAPPORT-JEUX-DU-JOUR-v2.md section 12, step 4); on a Preview only,
 // NEXT_PUBLIC_DLE_PREVIEW=1 turns it on early (dlePreviewOn above).
 const HUB_FEATURES: SiteFeatures = {
   ...ALL_OFF, passportPages: true, directory: false,
-  dailyGuess: dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: process.env.NEXT_PUBLIC_DLE_PREVIEW, VERCEL_ENV: process.env.VERCEL_ENV }),
+  dailyGuess: dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: process.env.NEXT_PUBLIC_DLE_PREVIEW, NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV }),
 };
 
 /**
