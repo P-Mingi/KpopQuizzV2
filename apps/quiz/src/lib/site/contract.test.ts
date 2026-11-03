@@ -617,7 +617,7 @@ const FIRST_31_FILES = [
   'launch/L11-X1-crossover-quiz.sql', 'launch/L12-L1-sites-live.sql',
 ];
 /** Files whose objects the file itself declares (and dle-a1-characters.md), so they have no `-- @file` section in schema.sql. */
-const NO_SECTION = ['D01', '017', '018', '019', '020', '021a', '021b', '021c', '021d', '022', '023', '024'];
+const NO_SECTION = ['D01', 'D03', '017', '018', '019', '020', '021a', '021b', '021c', '021d', '022', '023', '024'];
 
 describe('SQL manifest (manifest.md)', () => {
   const md = read(`${CONTRACTS}manifest.md`);
@@ -661,8 +661,8 @@ describe('SQL manifest (manifest.md)', () => {
   });
 
   it('the real manifest follows the rules and every path is in section 1', () => {
-    // 31 rows until the DEV-PREVIEW lot; 47 with 017 to 024, L10-PERS, L13 to L15 and the dev-only D01 (rows are only ever added).
-    expect(rows.length).toBe(47);
+    // 31 rows until the DEV-PREVIEW lot; 47 with 017 to 024, L10-PERS, L13 to L15 and the dev-only D01; 48 with the dev-only D03 right after L14 (rows are only ever added).
+    expect(rows.length).toBe(48);
     expect(checkManifest(rows)).toEqual([]);
     // The first 20 rows are what o1-dev already holds and keep their place; the other 11 of the first 31 are all still there (L02, L03 and L07 moved to the end of the dev order).
     expect(rows.slice(0, 20).map((r) => r.file.replace(MANIFEST_DIR, ''))).toEqual(FIRST_20_FILES);
@@ -690,28 +690,53 @@ describe('SQL manifest (manifest.md)', () => {
       return ids.indexOf(id);
     };
     // 017 right after the dev catch-up; the games engine then the K1 files, the photos, the games; then the launch data in the order of J2 to J5.
-    const chain = ['016', 'D01', '017', '018', '019', '020', '021a', '021c', '021b', '022', '023', '024', 'L04', 'L05', 'L06', 'L08', 'L10-PERS', 'L13', 'L15', 'L14'];
+    const chain = ['016', 'D01', '017', '018', '019', '020', '021a', '021c', '021b', '022', '023', '024', 'L04', 'L05', 'L06', 'L08', 'L10-PERS', 'L13', 'L15', 'L14', 'D03'];
     expect(chain.map(at)).toEqual(chain.map(at).slice().sort((a, b) => a - b));
     // L02, L03, L07 and 021d (Team auth users, sentinels, Team catalogue, the K2 idols) are not applied on o1-dev: after everything it applies, before the files not written.
-    const tail = ['L14', 'L02', 'L03', 'L07', '021d', 'L09', 'L10', 'L11', 'L12'];
+    const tail = ['L14', 'D03', 'L02', 'L03', 'L07', '021d', 'L09', 'L10', 'L11', 'L12'];
     expect(tail.map(at)).toEqual(tail.map(at).slice().sort((a, b) => a - b));
+    // D03 (019 and 023 run again after L14) is the row right after L14: it needs every file above it applied and blocks nothing that the preview needs.
+    expect(at('D03')).toBe(at('L14') + 1);
     expect(at('L07')).toBeGreaterThan(at('L02'));
     expect(ids.slice(-4)).toEqual(['L09', 'L10', 'L11', 'L12']);
   });
 
   it('keeps the dev-only file out of the production paths (section 2, SQL-ORDER.md, session.sh)', () => {
     const dev = rows.filter((r) => r.phase === 'dev-only');
-    expect(dev.map((r) => r.id)).toEqual(['D01']);
+    expect(dev.map((r) => r.id)).toEqual(['D01', 'D03']);
     const section2 = md.slice(md.indexOf('## 2. Production order'), md.indexOf('## 3. What every file contains'));
-    expect(section2).not.toMatch(/D01|\/dev\/|dev-only/);
+    expect(section2).not.toMatch(/D01|D03|\/dev\/|dev-only/);
     for (const doc of ['docs/launch/o1/SQL-ORDER.md', 'docs/launch/o1/session.sh', 'docs/launch/o1/RUNBOOK.md']) {
-      expect(readFileSync(`${REPO}${doc}`, 'utf8'), doc).not.toMatch(/multisite\/dev\/|D01-dev-catchup/);
+      expect(readFileSync(`${REPO}${doc}`, 'utf8'), doc).not.toMatch(/multisite\/dev\/|D01-dev-catchup|D02-dev-rebuild|D03-dev-reapply/);
     }
     const file = readFileSync(`${REPO}docs/pending-migrations/multisite/dev/D01-dev-catchup.sql`, 'utf8');
     expect(file.split('\n')[1]).toMatch(/^-- DEV ONLY\. NEVER FOR PRODUCTION\./);
     // It refuses on a database that is not the dev branch.
     expect(file).toMatch(/> 200 then\s+raise exception 'D01-dev-catchup: refused/);
     expect(file).toMatch(/status = 'live'\) then\s+raise exception 'D01-dev-catchup: refused/);
+  });
+
+  it('keeps D03 (019 and 023 run again after L14) dev-only, in one transaction, refusing outside the dev branch, with a rollback that refuses', () => {
+    const dir = `${REPO}docs/pending-migrations/multisite/`;
+    const file = readFileSync(`${dir}dev/D03-dev-reapply-019-023.sql`, 'utf8');
+    expect(file.split('\n')[1]).toMatch(/^-- DEV ONLY\. NEVER FOR PRODUCTION\./);
+    // The same guards as D01: more than 200 profiles, a live anime or hub site.
+    expect(file).toMatch(/> 200 then\s+raise exception 'D03-dev-reapply-019-023: refused/);
+    expect(file).toMatch(/status = 'live'\) then\s+raise exception 'D03-dev-reapply-019-023: refused/);
+    // migrate-dev.sh skips a path it already applied: the two files changed in place run through \ir (relative to the dev folder), then the bank rebuild.
+    expect([...file.matchAll(/^\\ir (\S+)$/gm)].map((m) => m[1])).toEqual(['../019-dle-core.sql', '../023-dle-otakudle.sql', 'D02-dev-rebuild-banks.sql']);
+    // Everything it includes runs inside the one transaction of migrate-dev.sh: no transaction control, never the mode none.
+    for (const f of ['dev/D03-dev-reapply-019-023.sql', '019-dle-core.sql', '023-dle-otakudle.sql', 'dev/D02-dev-rebuild-banks.sql']) {
+      const t = readFileSync(`${dir}${f}`, 'utf8');
+      expect(t, f).toMatch(/^-- o1-transaction: single/m);
+      expect(t, f).not.toMatch(/^-- *o1-transaction: *none/im);
+      expect(t, f).not.toMatch(/^\s*(begin|commit|rollback|start transaction)\s*;/im);
+    }
+    // D02 is run through D03 only: it is not a manifest row, so migrate-dev.sh cannot run it alone.
+    expect(rows.some((r) => r.file.includes('D02-dev-rebuild'))).toBe(false);
+    const rollback = readFileSync(`${dir}dev/D03-dev-reapply-019-023.rollback.sql`, 'utf8');
+    expect(rollback.split('\n')[0]).toMatch(/DEV ONLY\. NEVER FOR PRODUCTION\./);
+    expect(rollback).toMatch(/raise exception 'D03-dev-reapply-019-023 has no rollback/);
   });
 });
 

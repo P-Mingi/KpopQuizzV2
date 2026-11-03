@@ -1,0 +1,65 @@
+PASS base: production's schema copy, S4 and Mission U part D
+PASS o1-dev state: rows 1 to 20, the drift, then the 19 files of f967743 (D01 first, L14 last)
+before D03:
+    kpopdle-idol on=true days=365 entities=114 targets=112
+    otakudle on=true days=365 entities=750 targets=113
+    otakudle-dragon-ball on=true days=365 entities=70 targets=48
+    otakudle-one-piece on=true days=365 entities=100 targets=73
+PASS before D03 the counts are o1-dev's (114/112, 750/113, 70/48, 100/73, 365 days each)
+PASS before D03 dle_build_bank has no marker (the CR-019 engine)
+    view columns before: entity_id,name,search,attrs,hints,thumb_path,balance_key,can_be_target
+PASS before D03 the Otakudle snapshot holds seen_at (750 rows)
+PASS nothing depends on dle_src_anime_character (pg_depend, deptype other than internal: 0)
+    dle catalogue before D03: 92 objects, md5 d77d9b31bfd76718c3bae78cd09f636f
+    before D03, V-023: KO | la vue n'a aucune règle de progression : ni seen_anime, seen_manga, seen_beginner, ni seen_at (CR-026) | -
+    before D03, V-L14: KO | kpopdle-idol : chaque cible une seule fois par bloc de N jours, avant qu'aucune ne revienne (jour de départ des blocs) | -
+    before D03, V-L14: KO | otakudle : chaque cible une seule fois par bloc de N jours, avant qu'aucune ne revienne (jour de départ des blocs) | -
+    before D03, V-L14: KO | otakudle-dragon-ball : chaque cible une seule fois par bloc de N jours, avant qu'aucune ne revienne (jour de départ des blocs) | -
+    before D03, V-L14: KO | otakudle-one-piece : chaque cible une seule fois par bloc de N jours, avant qu'aucune ne revienne (jour de départ des blocs) | -
+    D03 took 1 s
+    D03 output: psql:docs/pending-migrations/multisite/dev/D02-dev-rebuild-banks.sql:93: NOTICE:  D02: 4 bank(s) rebuilt, 0 already in blocks
+PASS D03 ran in one transaction (relative path, psql --single-transaction)
+PASS D02 (through \ir) rebuilt the 4 banks
+after D03:
+    id | active | epoch | days | targets | max_app | min_app | never_drawn | gap_asked | min_gap | all_in_pool | blocks_ok | bank_matches_pool
+    kpopdle-idol | t | t | 365 | 112 | 4 | 3 | 0 | 78 | 78 | t | t | t
+    otakudle | t | t | 365 | 178 | 3 | 2 | 0 | 120 | 120 | t | t | t
+    otakudle-dragon-ball | t | t | 365 | 48 | 8 | 7 | 0 | 33 | 33 | t | t | t
+    otakudle-one-piece | t | t | 365 | 73 | 5 | 5 | 0 | 51 | 51 | t | t | t
+    (4 rows)
+PASS the four games are on, 365 days each, every target in the pool, blocks ok, the gap held, the bank on its pool, no target left undrawn
+PASS Otakudle has 178 targets
+PASS no seen_at in any snapshot row
+PASS dle_build_bank carries the marker bank-blocks-v1
+    view columns after: entity_id,name,search,attrs,hints,thumb_path,balance_key,can_be_target
+V-L14 check 8, start of the blocks per game: kpopdle-idol=1 otakudle=1 otakudle-dragon-ball=1 otakudle-one-piece=1
+PASS dle_day answers for the four games as the browser calls it (anon), game n. 1
+PASS dle_pool('otakudle') as anon: 750 characters, no seen_at
+PASS check V-017: 2 ok, 0 KO
+PASS check V-018: 5 ok, 0 KO
+PASS check V-019: 5 ok, the only KO is check 6 (no game on), which is for a database before L14
+PASS check V-023: 13 ok, 0 KO
+PASS check V-024: 13 ok, 0 KO
+PASS check V-K1a: 5 ok, 0 KO
+PASS check V-K1b: 3 ok, 0 KO
+PASS check V-K1c: 13 ok, 0 KO
+PASS check V-L13: 7 ok, 0 KO
+PASS check V-L14: 32 ok, 0 KO
+PASS check V-L15: 9 ok, 0 KO
+PASS check V-DLE-KEPT: 4 ok, 0 KO
+    objects of the dle catalogue that differ after D03: f dle_build_bank(text,date,double precision);v dle_src_anime_character;
+PASS D03 changed two objects of the catalogue: the body of dle_build_bank and the view dle_src_anime_character; no table, column, grant, option or other function
+PASS no table, view, index, policy, trigger or grant changed in the schema dump
+    D03 second run: psql:docs/pending-migrations/multisite/dev/D02-dev-rebuild-banks.sql:93: NOTICE:  D02: 0 bank(s) rebuilt, 4 already in blocks
+PASS a second D03 changes nothing: same schema and grants, same rows of the dle tables (the refresh time of the snapshot apart), D02 says 0 rebuilt, 4 already in blocks
+PASS D03 refuses more than 200 profiles
+PASS D03 refuses a live hub site
+PASS D03 refuses a missing table (character_facts)
+PASS a view with 3 extra columns is dropped (no cascade), 023 builds the new one, the result is the same (178 targets)
+PASS a view with other columns and a dependent: D03 refuses and names the dependent
+PASS the refused run left the database as it was (no marker)
+PASS D03-dev-reapply-019-023.sql is marked DEV ONLY, NEVER FOR PRODUCTION
+PASS D03-dev-reapply-019-023.rollback.sql is marked DEV ONLY, NEVER FOR PRODUCTION
+PASS the rollback file refuses
+
+D03 rehearsal: every step passed

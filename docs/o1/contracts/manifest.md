@@ -9,14 +9,19 @@ document, and refuses to apply a file to `o1-dev` before every file listed above
 table is therefore written in a valid apply order for the dev branches. Production follows section 2.
 
 DEV-PREVIEW lot (owner order, 2026-11-03): the table now also carries 017 to 024 (with 021a, 021b, 021c, 021d), the data files
-L10-PERS, L13, L14 and L15, and one dev-only file, D01 (folder `dev/`, phase `dev-only`, never in section 2, never in `SQL-ORDER.md` or
+L10-PERS, L13, L14 and L15, and two dev-only files, D01 and D03 (folder `dev/`, phase `dev-only`, never in section 2, never in `SQL-ORDER.md` or
 `session.sh`). Rows 1 to 20 are unchanged (they are what o1-dev already holds). The rows after them are in the order the daily-games
 sessions use (SQL-ORDER.md, session G then K2 then J4 and J5), with three launch files moved to the end because o1-dev must not wait for
 them: L02 (the 31 Team auth users, which may not be created on o1-dev; the 31 fixture Team profiles and the Team catalogue are already
 there), L03 (two sentinel auth users, only the dormant deletion needs them), L07 (the Team catalogue, 284 quizzes already loaded by the
 dev fixtures; it needs L02 above it) and 021d (lot K2: it activates ten-odd inactive idols of the 021b list by id, rows o1-dev does not hold,
-and refuses while one is unknown; o1-dev's 118 active idols already give Kpopdle a pool of 114). Rows 44 to 47 are files that are not written (L09, L10-K3, L11, D-099) or that wait for them (L12):
+and refuses while one is unknown; o1-dev's 118 active idols already give Kpopdle a pool of 114). Rows 45 to 48 are files that are not written (L09, L10-K3, L11, D-099) or that wait for them (L12):
 `migrate-dev.sh` stops at the first of them, so nothing may be put after them that the preview needs.
+
+D03 (row 40, right after L14, owner order 2026-11-03): 019 and 023 changed in place on `o1/integration` after o1-dev had applied them (CR-027, the bank in blocks; CR-026,
+Otakudle without "How far are you?"), and `migrate-dev.sh` skips a path it already applied. D03 re-runs both through `\ir` in one transaction, then the dev-only
+rebuild of the four banks (D02-dev-rebuild-banks.sql, in the same folder, run only through D03: it is not a row, so `migrate-dev.sh` never runs it alone), and checks the
+result. A second run changes nothing. Its row is added after L14; the rows after it move down by one (L02 is row 41).
 
 ## 1. Files, in dev apply order
 
@@ -64,20 +69,21 @@ subfolder. Each file `X.sql` has its rollback `X.rollback.sql` beside it.
 | 37 | `docs/pending-migrations/multisite/launch/L13-A1-character-facts.sql` | `docs/pending-migrations/multisite/launch/L13-A1-character-facts.rollback.sql` | ORCH (A1, A2) | CR-017 | single | launch | L04, 011, 023 | R-CONTENT |
 | 38 | `docs/pending-migrations/multisite/launch/L15-A2-series-games.sql` | `docs/pending-migrations/multisite/launch/L15-A2-series-games.rollback.sql` | ORCH (A2) | CR-023 | single | launch | L04, 011, 024 | R-CONTENT |
 | 39 | `docs/pending-migrations/multisite/launch/L14-O1-dle-on.sql` | `docs/pending-migrations/multisite/launch/L14-O1-dle-on.rollback.sql` | ORCH (O1) | CR-017 | single | launch | 020, 021a, 023, L13, L15 | R-SQL |
-| 40 | `docs/pending-migrations/multisite/launch/L02-K2-team-accounts.sql` | `docs/pending-migrations/multisite/launch/L02-K2-team-accounts.rollback.sql` | K2 (L1 script) | 35 | single | launch | L01, 003, 009 | R-CONTENT, R-SQL |
-| 41 | `docs/pending-migrations/multisite/launch/L03-B7-sentinel.sql` | `docs/pending-migrations/multisite/launch/L03-B7-sentinel.rollback.sql` | B7 | 38 | single | launch | L01, 003 | R-SQL |
-| 42 | `docs/pending-migrations/multisite/launch/L07-K2-catalogue.sql` | `docs/pending-migrations/multisite/launch/L07-K2-catalogue.rollback.sql` | K2 | 37 | single | launch | L02, L04, 002d | R-CONTENT |
-| 43 | `docs/pending-migrations/multisite/021d-k2-idols.sql` | `docs/pending-migrations/multisite/021d-k2-idols.rollback.sql` | K2 | lot K2, CR-022 | single | pre-after-V0 | 020, 021a, 021c, 021b | R-SQL, R-CONTENT |
-| 44 | `docs/pending-migrations/multisite/launch/L09-K4-openings.sql` | `docs/pending-migrations/multisite/launch/L09-K4-openings.rollback.sql` | K4 | 37 | single | launch | L04, 014 | R-CONTENT |
-| 45 | `docs/pending-migrations/multisite/launch/L10-K3-formats.sql` | `docs/pending-migrations/multisite/launch/L10-K3-formats.rollback.sql` | K3 | 37 | single | launch | L04, 013 | R-CONTENT |
-| 46 | `docs/pending-migrations/multisite/launch/L11-X1-crossover-quiz.sql` | `docs/pending-migrations/multisite/launch/L11-X1-crossover-quiz.rollback.sql` | X1 | 39 | single | launch | 002a | R-CONTENT, R-SEO |
-| 47 | `docs/pending-migrations/multisite/launch/L12-L1-sites-live.sql` | `docs/pending-migrations/multisite/launch/L12-L1-sites-live.rollback.sql` | L1 | 40 | single | launch (last) | L01 to L11 | R-SQL |
+| 40 | `docs/pending-migrations/multisite/dev/D03-dev-reapply-019-023.sql` | `docs/pending-migrations/multisite/dev/D03-dev-reapply-019-023.rollback.sql` | ORCH (DEV-PREVIEW) | dev only | single | dev-only | 019, 023, L14 | R-SQL |
+| 41 | `docs/pending-migrations/multisite/launch/L02-K2-team-accounts.sql` | `docs/pending-migrations/multisite/launch/L02-K2-team-accounts.rollback.sql` | K2 (L1 script) | 35 | single | launch | L01, 003, 009 | R-CONTENT, R-SQL |
+| 42 | `docs/pending-migrations/multisite/launch/L03-B7-sentinel.sql` | `docs/pending-migrations/multisite/launch/L03-B7-sentinel.rollback.sql` | B7 | 38 | single | launch | L01, 003 | R-SQL |
+| 43 | `docs/pending-migrations/multisite/launch/L07-K2-catalogue.sql` | `docs/pending-migrations/multisite/launch/L07-K2-catalogue.rollback.sql` | K2 | 37 | single | launch | L02, L04, 002d | R-CONTENT |
+| 44 | `docs/pending-migrations/multisite/021d-k2-idols.sql` | `docs/pending-migrations/multisite/021d-k2-idols.rollback.sql` | K2 | lot K2, CR-022 | single | pre-after-V0 | 020, 021a, 021c, 021b | R-SQL, R-CONTENT |
+| 45 | `docs/pending-migrations/multisite/launch/L09-K4-openings.sql` | `docs/pending-migrations/multisite/launch/L09-K4-openings.rollback.sql` | K4 | 37 | single | launch | L04, 014 | R-CONTENT |
+| 46 | `docs/pending-migrations/multisite/launch/L10-K3-formats.sql` | `docs/pending-migrations/multisite/launch/L10-K3-formats.rollback.sql` | K3 | 37 | single | launch | L04, 013 | R-CONTENT |
+| 47 | `docs/pending-migrations/multisite/launch/L11-X1-crossover-quiz.sql` | `docs/pending-migrations/multisite/launch/L11-X1-crossover-quiz.rollback.sql` | X1 | 39 | single | launch | 002a | R-CONTENT, R-SEO |
+| 48 | `docs/pending-migrations/multisite/launch/L12-L1-sites-live.sql` | `docs/pending-migrations/multisite/launch/L12-L1-sites-live.rollback.sql` | L1 | 40 | single | launch (last) | L01 to L11 | R-SQL |
 
 Columns:
 - **rows**: BACKLOG 4.1 row numbers (1 to 40). Rows 19 and 31 to 33 have no SQL file (section 4).
 - **tx**: `single` = the file runs in one transaction (`psql --single-transaction`); `none` = the file's header says
   `-- o1-transaction: none` and every statement commits alone (CREATE INDEX CONCURRENTLY, VALIDATE CONSTRAINT).
-- **production phase**: `dev-only` = a file for the dev branches only, never applied to production (folder `dev/`, id `D01`, no
+- **production phase**: `dev-only` = a file for the dev branches only, never applied to production (folder `dev/`, ids `D01` and `D03`, no
   `schema.sql` section, no rollback worth running); `pre` = any time after the matching code is merged to main; `pre-T14` = by T-14 (008 first,
   then the window 009, app deploy, 010 in one owner session); `pre-after-V0` = after Verrou 0 is cleared (empty
   tables, dormant functions); `launch` = launch day only, in the order L01 to L12 (BACKLOG 4.4).
@@ -162,7 +168,7 @@ the anime daily cron) only after 008 and 010 are on the branch.
 
 `schema.sql` has one `-- @file <name>` marker per file of section 1 that declares objects: every non-launch file
 of rows 1 to 20 and `L01-B2-sites` (its rows are frozen values of the registry mirror). The other launch files hold content rows
-only and have no section. D01, 017, 018, 019, 020, 021a, 021b, 021c, 021d, 022, 023 and 024 have no section either: their objects are
+only and have no section. D01, D03, 017, 018, 019, 020, 021a, 021b, 021c, 021d, 022, 023 and 024 have no section either: their objects are
 declared by the files themselves and by `dle-a1-characters.md` (CR-013, CR-017, CR-021, CR-022, CR-023), and writing their sections is a CR
 (5.2); `contract.test.ts` lists them in `NO_SECTION`, checks that each is in the manifest and that none has a section. `contract.test.ts` checks that the markers and this table agree, in the same order, and
 that rows 1 to 40 are all accounted for.

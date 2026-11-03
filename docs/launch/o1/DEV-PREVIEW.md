@@ -35,7 +35,7 @@ committed there and the order of `docs/o1/contracts/manifest.md`, rows 21 to 39;
 L14 is the whole database switch. No other dev-only file is needed to turn the games on. Not applied on o1-dev, and listed after L14 in the manifest so they
 block nothing: `L02` (31 Team auth users, which may not be created there; the 31 fixture Team profiles and 284 published anime quizzes are already on
 o1-dev), `L03` (two sentinel auth users, only the dormant deletion reads them), `L07` (the Team catalogue, already loaded by the fixtures) and `021d`
-(lot K2: it activates idols of the 021b list by id, rows o1-dev does not hold, and refuses on the first unknown one). Rows 44 to 47 (`L09`, `L10-K3`, `L11`,
+(lot K2: it activates idols of the 021b list by id, rows o1-dev does not hold, and refuses on the first unknown one). Rows 45 to 48 (`L09`, `L10-K3`, `L11`,
 `L12`) are files that are not written or that wait for them; `L12` (sites live) is not read by the app.
 
 D01 exists because the catalogue of o1-dev, compared object by object with a local build of today's files, differed in exactly this:
@@ -97,5 +97,23 @@ Not testable on this preview, by design: the accounts of the Team (fixtures only
 
 ## 5. What the draw looks like on o1-dev
 
-Each game gets 365 bank days at `L14`. A pool smaller than 365 repeats targets: Kpopdle Idol draws from 114 idols (112 distinct targets over the year), Otakudle from 113 characters, One Piece from 73, Dragon Ball from 48. The
+Each game gets 365 bank days at `L14`. A pool smaller than 365 repeats targets: Kpopdle Idol draws from 114 idols (112 distinct targets over the year), Otakudle from 113 characters (178 after D03, section 6), One Piece from 73, Dragon Ball from 48. The
 "no target twice in the window" of the launch file is a property of a 365-target pool, which o1-dev does not have.
+
+## 6. Two files changed in place after row 39: D03 (run once, after the first apply)
+
+o1-dev applied 019 and 023 on 2026-11-03 (the sha256 of `docs/o1/migration-log.md`), then both changed in place on `o1/integration`: 019 for the bank in blocks (CR-027, merge of
+`o1/dle-draw-blocks`), 023 for Otakudle without "How far are you?" (CR-026, PR #196). `migrate-dev.sh` skips a path it already applied, so it cannot run them again.
+`dev/D03-dev-reapply-019-023.sql` (row 40 of the manifest, right after L14, dev only, never for production) is the one file to run for this:
+
+`scripts/o1/migrate-dev.sh --branch dev docs/pending-migrations/multisite/dev/D03-dev-reapply-019-023.sql`
+
+In one transaction it refuses what is not o1-dev (more than 200 profiles, a live anime or hub site, a missing table), drops the old `dle_src_anime_character` only if 023 could not replace
+it (it can: the `seen_*` of the old 023 were columns of a CTE, the view had the same 8 output columns, so nothing is dropped on o1-dev; and nothing depends on the view, `pg_depend` on o1-dev),
+runs 019 and 023 as they are now through `\ir`, then `dev/D02-dev-rebuild-banks.sql` (not a manifest row, run only through D03): the pool snapshot of each game and a bank drawn again from day 1 in blocks,
+and checks the result (no `seen_at` left, 365 days, the bank on its pool, every target once per block, the gap held). 024, L13, L15 and L14 are not run again: nothing they hold reads what changed,
+and the games stay on with their epoch. A second run changes nothing (D02 says 0 rebuilt). Expect Otakudle at 178 targets (113 before), the other three games unchanged in pool.
+
+Proof, local only, never on o1-dev: `TMPDIR=$HOME/kpq-o1/tmp-d03 bash docs/proofs/dev-reapply/rehearse.sh --prod-copy docs/strategy/o1/prod-schema/prod-public.sql` builds the state o1-dev is in with the 19 files at `f967743`
+(the dle part of its catalogue is byte-identical to o1-dev's, compared read-only), runs D03 from this tree, a second time, and its refusals. Its output is `docs/proofs/dev-reapply/rehearse.out.txt`.
+The numbers of section 5 for Otakudle become 178 targets, and each bank is in blocks of N days (every target once per block, N = the targets).

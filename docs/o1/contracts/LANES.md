@@ -66,7 +66,7 @@ counts for both); flags are flags-env.md 3; formats are the "written by" column 
 
 | lane | SQL files | TWINS rows | copy namespaces | endpoints | modules | flags | formats written |
 |---|---|---|---|---|---|---|---|
-| ORCH | D01, 018, 019, 020, 022, 023, 024, L13, L14, L15 | none | none | none | none | NEXT_PUBLIC_DLE_PREVIEW | none |
+| ORCH | D01, D03, 018, 019, 020, 022, 023, 024, L13, L14, L15 | none | none | none | none | NEXT_PUBLIC_DLE_PREVIEW | none |
 | F0 | none | none | none | none | none | none | none |
 | F0s | none | none | none | none | none | none | none |
 | Q0a | none | none | none | none | none | none | none |
