@@ -59,11 +59,11 @@ Value rules:
 - `voice_actor_ja`: the Japanese voice actor of the first adaptation, as written in the credits (romanized).
 - `demographic`: the magazine's demographic of the original work; `none` for an anime original or a webtoon.
 - `featured` (CR-023, owner 2026-11-03): true for the 200 best known characters (`scripts/anime/a2/data/TOP200.md`). A character is the target of the day only when
-  every column and the voice actor have a value, every "How far are you?" answer may see it, and it is featured: the first 365 days draw only from the TOP200, and one
+  every column and the voice actor have a value and it is featured (CR-026, owner 2026-11-03: Otakudle has no "How far are you?", so no rule of arc or medium is left): the first 365 days draw only from the TOP200, and one
   statement (`update public.character_facts set featured = true`) widens the draw a year later. Everyone else of the pool stays guessable.
 
 Which characters: `characters.status = 'published'` only (owner, 2026-11-02, CR-023: `spoiler_level` and `identity_spoiler` no longer exclude a character; the values describe
-the character as first met, and the debut arc stays as data: the "How far are you?" answers still decide which characters can be the target of the day). A row for a draft
+the character as first met, and the debut arc stays as data: it decides nothing, since CR-026 removed "How far are you?" and one character of the day is the same for everyone). A row for a draft
 is never read (the view leaves it out) and the check below counts it as an error.
 
 ## 3. The file

@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { DleError, shareParam } from '@/lib/dle/client';
 import { dleCopy, formatCount, gameCopy, hintValueLabel, valueLabel } from '@/lib/dle/copy';
 import { dleGame, localePath } from '@/lib/dle/games';
-import { DEFAULT_PROGRESS, readHistory, readProgress, recordPlay, seenAt, universeStreak, writeProgress } from '@/lib/dle/local';
+import { readHistory, recordPlay, universeStreak } from '@/lib/dle/local';
 import { suggest } from '@/lib/dle/search';
 import { correctCounts, shareText } from '@/lib/dle/share';
 import { utcDate } from '@/lib/dle/day';
@@ -18,7 +18,7 @@ import { clock, deviceStore, useDleClient, useResetCountdown } from './dle-hooks
 import { D, Flame, Ic, Spark, libraryIcon } from './dle-icons';
 import { Avatar, firstValue, parentName } from './dle-avatar';
 
-import type { DleProgress, LocalHistory } from '@/lib/dle/local';
+import type { LocalHistory } from '@/lib/dle/local';
 import type { DlePicture } from '@/lib/dle/read';
 import type { DleGameCopy } from '@/lib/dle/copy';
 import type { DleGameDef, DleGameId, DleHintDef } from '@/lib/dle/games';
@@ -196,7 +196,6 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   const [streak, setStreak] = useState(0);
   // Every live game of this world finished today on this device: the end of the chain says "All done today" only then.
   const [allDone, setAllDone] = useState(false);
-  const [progress, setProgress] = useState<DleProgress>(DEFAULT_PROGRESS);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const byId = useMemo(() => new Map((pool?.entities ?? []).map((e) => [e.id, e])), [pool]);
@@ -205,7 +204,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   const over = play ? play.status !== 'playing' : false;
   const won = play?.status === 'won';
   const errors = guesses.length - (won ? 1 : 0);
-  const sugg = useMemo(() => (open && pool ? suggest(pool.entities.filter((e) => seenAt(e.attrs.seen_at?.v, progress)), query, guessed) : []), [open, pool, query, guessed, progress]);
+  const sugg = useMemo(() => (open && pool ? suggest(pool.entities, query, guessed) : []), [open, pool, query, guessed]);
   const counts = correctCounts(guesses);
   const lastCount = counts[counts.length - 1] ?? 0;
   const lastSize = guesses[guesses.length - 1]?.result.length ?? 0;
@@ -232,7 +231,6 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   useEffect(() => {
     let alive = true;
     setCanShare(typeof navigator.share === 'function');
-    if (w.progress) setProgress(readProgress(deviceStore()));
     const history = readHistory(deviceStore());
     setStreak(universeStreak(history, worldGames, utcDate(new Date())));
     setAllDone(doneAll(history, utcDate(new Date())));
@@ -398,19 +396,6 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
             })}
           </ol>
         </nav>
-        {w.progress ? (
-          <fieldset className="hub-dle-progress">
-            <legend className="hub-dle-sr">{w.progress.legend}</legend>
-            <span aria-hidden="true" className="hub-dle-progress-q">{w.progress.question}</span>
-            <span className="hub-dle-segs">
-              {w.progress.options.map((o) => (
-                <label key={o.id} title={o.help} className={`hub-dle-seg${progress === o.id ? ' hub-dle-seg-on' : ''}`}>
-                  <input type="radio" name="dle-progress" className="hub-dle-sr" checked={progress === o.id} onChange={() => { setProgress(o.id); writeProgress(deviceStore(), o.id); setActive(0); }} />{o.label}
-                </label>
-              ))}
-            </span>
-          </fieldset>
-        ) : null}
       </div>
 
       {g.hints.length ? (

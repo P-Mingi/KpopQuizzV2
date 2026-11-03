@@ -69,8 +69,9 @@ export const CHARACTERS: readonly FixtureCharacter[] = [
   c('fruits-basket', 'tohru', 'Tohru Honda', { gender: 'female' }),
   c('spy-x-family', 'loid', 'Loid Forger'),
   c('cowboy-bebop', 'spike', 'Spike Spiegel'),
-  // Never a target: no studio known; or a character arriving after a choice of "How far are you?".
+  // Never a target: no studio known.
   c('kagurabachi', 'chihiro', 'Chihiro Rokuhira'),
+  // Targets like the others (owner, 2026-11-03, CR-026: no "How far are you?"): the debut arc and the debut medium are data, not a rule.
   c('one-piece', 'late-arc', 'Late Arc Rival', { arc: 5 }), c('one-piece', 'manga-only', 'Manga Only Rival', { medium: 'manga' }), c('one-piece', 'anime-only', 'Anime Only Rival', { medium: 'anime' }),
   // In the pool, guessable, never a target: not in the TOP200 (featured false).
   c('one-piece', 'unfeatured', 'Unfeatured Rival', { featured: false }),
@@ -83,8 +84,8 @@ export const CHARACTERS: readonly FixtureCharacter[] = [
 
 /** The pool as the view must read it: every character above but the last three (a draft, a hidden series, no facts). */
 export const FIXTURE_IN_POOL = CHARACTERS.length - 3;
-/** The targets: in the pool, every column known, a voice actor, featured, seen at every choice (not Hange: no gender; Chihiro: no studio; Rukia: no voice actor; Unfeatured Rival: not in the TOP200; the three arriving late or on one medium). */
-export const FIXTURE_TARGETS = FIXTURE_IN_POOL - 7;
+/** The targets: in the pool, every column known, a voice actor, featured (not Hange: no gender; Chihiro: no studio; Rukia: no voice actor; Unfeatured Rival: not in the TOP200). */
+export const FIXTURE_TARGETS = FIXTURE_IN_POOL - 4;
 
 export async function seedOtakudle(db: PGlite, series: readonly FixtureSeries[] = SERIES, characters: readonly FixtureCharacter[] = CHARACTERS): Promise<void> {
   for (const s of series) {

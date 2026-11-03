@@ -151,7 +151,7 @@ reopen grant to
 part J4 1 "V-S4 : une des 28 fonctions" $STAND
 reopen revoke from
 part J4 0 "terminée : tout est OK" $STAND
-# Otakudle on the real L04 and L13 (the 750 characters of the 50 series, CR-023): 584 with the 7 columns, 113 targets (the TOP200 with a voice actor, seen by every answer).
+# Otakudle on the real L04 and L13 (the 750 characters of the 50 series, CR-023): 584 with the 7 columns, 178 targets (the TOP200 with the 7 columns and a voice actor, CR-026: no "How far are you?").
 part J4 0 "ok | personnages avec les 7 colonnes (information) | 584" $STAND
 # The launch-day activation, twice: the second run must leave the epoch and the bank alone. Then J4 once more: running a part again after it stays a no-op.
 # Production's schema copy has no idol row, so the real 021a stores nothing here and the real idol pool cannot be proven in this rehearsal (87 and 108 come from the production snapshot of the lots).
@@ -166,7 +166,7 @@ select (select id from public.groups where slug = 'stand-in-' || (1 + i % 6)), '
 from generate_series(1, 60) as i;
 SQL
 part J5 0 "ok | otakudle : la banque tient 365 jours | 365"
-part J5 0 "ok | kpopdle-idol : la banque tient 365 jours | 365"; again J5 0 "ok | otakudle : cibles possibles, au moins le minimum du jeu | 113"
+part J5 0 "ok | kpopdle-idol : la banque tient 365 jours | 365"; again J5 0 "ok | otakudle : cibles possibles, au moins le minimum du jeu | 178"
 part J5 0 "ok | dle_day kpopdle-idol répond"
 part J4 0 "terminée : tout est OK" $STAND
 # ---- Lot K2 (owner order 2026-11-02): 021d, its own small session after G -------------------------------------------------------------
