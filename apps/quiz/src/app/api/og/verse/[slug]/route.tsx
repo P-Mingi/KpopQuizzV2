@@ -72,7 +72,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ slu
         <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
           {logo ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={logo} alt="" width={logoSize} height={logoSize} style={{ borderRadius: 26, border: '1px solid rgba(255,255,255,0.12)' }} />
+            <img src={logo} alt="" width={logoSize} height={logoSize} style={{ borderRadius: 26, border: '1px solid rgba(255,255,255,0.12)', objectFit: 'cover' }} />
           ) : (
             <div style={{ width: logoSize, height: logoSize, borderRadius: 26, backgroundColor: row.display_color ?? VIOLET, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 40, fontWeight: 700, color: row.text_color ?? '#fff' }}>
               {abbreviate(row.name)}
