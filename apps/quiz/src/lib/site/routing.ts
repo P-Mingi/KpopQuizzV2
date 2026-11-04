@@ -37,9 +37,11 @@ export const SHARED_PREFIXES: readonly string[] = ['/api/', '/auth/'];
 /**
  * Root files every site serves from its own route under app/sites/[site]/ (a rewrite on
  * non-kpop builds), so app/robots.ts, app/sitemap.ts and app/llms.txt stay kpop-only and
- * untouched.
+ * untouched. /sw.js (Run PWA, docs/o1/PWA-PLAN.md section 3) is the fourth: the service worker is at
+ * the root of each domain, kpop's in app/sw.js, the hub's in app/sites/[site]/sw.js (404 until
+ * NEXT_PUBLIC_NET_PWA is on, and always on the anime build, which is no app of its own).
  */
-export const PER_SITE_ROOT_FILES: readonly string[] = ['/robots.txt', '/sitemap.xml', '/llms.txt'];
+export const PER_SITE_ROOT_FILES: readonly string[] = ['/robots.txt', '/sitemap.xml', '/llms.txt', '/sw.js'];
 
 /**
  * Fusion A5: the dotted kpop routes main added (a data image). Next's filesystem check serves a dotted route before the

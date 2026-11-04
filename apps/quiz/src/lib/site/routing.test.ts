@@ -400,8 +400,8 @@ describe('the route map of anime and hub', () => {
     expect(() => compileRoutePattern('/a/**/b')).toThrow();
   });
 
-  it('per-site root files are the three files the rewrites serve', () => {
-    expect(PER_SITE_ROOT_FILES).toEqual(['/robots.txt', '/sitemap.xml', '/llms.txt']);
+  it('per-site root files are the four files the rewrites serve (Run PWA: /sw.js joined the three)', () => {
+    expect(PER_SITE_ROOT_FILES).toEqual(['/robots.txt', '/sitemap.xml', '/llms.txt', '/sw.js']);
   });
 
   it('the brand files are every root file of public/ but the IndexNow key files, which are one per site', () => {
@@ -592,7 +592,7 @@ describe('middleware step and the sites/[site] guard', () => {
     it('every route handler of the hub tree, and the root ones it shares', () => {
       const root = join(APP_DIR, 'sites/[site]');
       const handlers = filesUnder(root).filter((f) => /\/route\.tsx?$/.test(f) && !f.includes('/(anime)/')).map((f) => f.slice(root.length).replace(/\/route\.tsx?$/, ''));
-      expect(handlers.sort()).toEqual(['/llms.txt', '/robots.txt', '/sitemap-hub.xml', '/sitemap.xml']);
+      expect(handlers.sort()).toEqual(['/llms.txt', '/robots.txt', '/sitemap-hub.xml', '/sitemap.xml', '/sw.js']);
       const api = filesUnder(join(APP_DIR, 'api')).filter((f) => /\/route\.tsx?$/.test(f)).map((f) => f.slice(APP_DIR.length).replace(/\/route\.tsx?$/, ''));
       expect(api.length).toBeGreaterThan(0);
       for (const p of [...handlers, ...api, '/auth/callback', '/auth/confirm']) expect(middlewareStep('hub', p), `hub ${p}`).toBe('pass');
