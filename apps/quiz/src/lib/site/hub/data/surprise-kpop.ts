@@ -3,14 +3,13 @@
 // hub and OtakuQuiz read (and need unchanged), would both fail there.
 
 import { fetchAllRows } from '@/lib/db/fetch-all';
-import { isNextInternalError } from '@/lib/error-handling';
 import { SITE_ID } from '@/lib/site/registry';
 import { forSite } from '@/lib/site/scope';
 import { createPublicReadClient } from '@/lib/supabase/server';
 
 import { hubCached } from './cache';
 import { sitePool } from './surprise';
-import { groupLogoOf, isListable, QUIZ_SELECT, resolveOrigins } from './util';
+import { groupOf, isListable, QUIZ_SELECT, resolveOrigins } from './util';
 
 import type { Db } from './catalog';
 import type { HubOpts, HubOrigins, HubSurpriseCard } from './types';
@@ -53,42 +52,19 @@ async function loadKpopCatalog(db: Db): Promise<QuizRow[]> {
   return rows.map((q) => ({ ...q, site_id: 'kpop' })).filter(isListable);
 }
 
-/** The 100 best K-pop quizzes by quality. No tier read: a tier is an anime grade. Null when there is none. */
-export async function readKpopSurprisePool(origins: HubOrigins, now: Date, db: Db): Promise<HubSurpriseCard[] | null> {
-  const pool = sitePool('kpop', await loadKpopCatalog(db), new Map(), origins, now);
-  return pool.length > 0 ? pool : null;
-}
-
 /**
- * The pool with the picture of each group (owner, 2026-11-04: the tile of the pick shows the group's logo in place of its initials).
- * One more read, apart from the quiz read (its select and its retry on a missing site_id stay as they are): the groups table, paged past the
- * 1000 row cap, joined on the group name (groups.name is unique, and the card carries it). A group with no usable logo, or a failed read,
- * leaves the card as it was: the tile keeps the initials, and the pool is never lost for want of a picture.
+ * The 100 best K-pop quizzes by quality. No tier read: a tier is an anime grade. Null when there is none. Each card also carries the slug of
+ * its group (owner, 2026-11-04: the tile of the pick shows the group's picture, groupPhotoUrl(slug)), read from the rows already loaded:
+ * the select, its retry and the number of reads are what they were, and the cards of the hub and of OtakuQuiz (sitePool) are unchanged.
  */
-export async function withGroupLogos(pool: HubSurpriseCard[], db: Db): Promise<HubSurpriseCard[]> {
-  try {
-    const rows = await fetchAllRows<{ name: string; logo_url: string | null }>(() => db.from('groups').select('name, logo_url').order('id'));
-    const logos = new Map<string, string>();
-    for (const g of rows) {
-      const logo = groupLogoOf(g.logo_url);
-      if (logo) logos.set(g.name, logo);
-    }
-    return pool.map((c) => {
-      const logo = logos.get(c.group);
-      return logo ? { ...c, logo } : c;
-    });
-  } catch (err) {
-    if (isNextInternalError(err)) throw err;
-    console.error('[hub:surprise-kpop] group logos:', err instanceof Error ? err.message : err);
-    return pool;
-  }
+export async function readKpopSurprisePool(origins: HubOrigins, now: Date, db: Db): Promise<HubSurpriseCard[] | null> {
+  const rows = await loadKpopCatalog(db);
+  const pool = sitePool('kpop', rows, new Map(), origins, now);
+  const slugOf = new Map(rows.map((q) => [q.id, groupOf(q).slug] as const));
+  return pool.length > 0 ? pool.map((c) => ({ ...c, groupSlug: slugOf.get(c.id) ?? '' })) : null;
 }
 
-const cachedPool = hubCached('surprise-kpop', async (origins: HubOrigins) => {
-  const db = createPublicReadClient();
-  const pool = await readKpopSurprisePool(origins, new Date(), db);
-  return pool ? withGroupLogos(pool, db) : null;
-});
+const cachedPool = hubCached('surprise-kpop', (origins: HubOrigins) => readKpopSurprisePool(origins, new Date(), createPublicReadClient()));
 
 /** The pool (cached one hour, tag hub:surprise-kpop), null when there is no quiz or the read failed with nothing kept. */
 export async function getKpopSurprisePool(opts?: HubOpts): Promise<HubSurpriseCard[] | null> {

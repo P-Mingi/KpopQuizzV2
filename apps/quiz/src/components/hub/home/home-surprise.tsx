@@ -10,10 +10,10 @@
 // so `prefix` names the classes: hub-h2 by default (the hub's markup, byte for byte), anime-h2 there (styles/sites/anime/h2.css). Same
 // markup, one prefix, as POLICY_CLASS does for the privacy blocks (lib/site/hub/network-page.ts).
 // kpopquiz.org home (owner, 2026-10-31, CR-015): the same block under kpop-h2 (styles/kpop/home-surprise.css), K-pop quizzes only.
-// kpopquiz.org home (owner, 2026-11-04): a pick that carries the logo of its group shows it in the tile in place of the initials (the group
-// name is in the line next to it, so the picture is decorative: alt=""); with no logo, or a logo that fails to load, the initials stay. Drawn
-// as GroupLogo draws it (next/image on a host of next.config images.remotePatterns, checked first, onError back to the initials). The hub
-// and the OtakuQuiz home pass no logo: their markup is what it was, byte for byte.
+// kpopquiz.org home (owner, 2026-11-04): a pick that carries the picture of its group shows it in the tile in place of the initials (the group
+// name is in the line next to it, so the picture is decorative: alt=""); with no picture, or one that fails to load, the initials stay. Drawn
+// as UxQuizCard draws the same picture (next/image, a path of the site or a Storage URL, checked against next.config images.remotePatterns
+// first, onError back to the initials). The hub and the OtakuQuiz home pass no picture: their markup is what it was, byte for byte.
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -31,8 +31,8 @@ export interface SurprisePick {
   readonly site: 'kpop' | 'anime';
   /** "Random pick on KpopQuiz". */
   readonly pickLabel: string;
-  /** The group's picture (groups.logo_url), when it has a usable one: shown in the tile in place of the initials. */
-  readonly logo?: string;
+  /** The group's picture (groupPhotoUrl, or the fallback cover of General K-pop), when it has one: shown in the tile in place of the initials. */
+  readonly photo?: string;
 }
 
 interface HomeSurpriseProps {
@@ -46,20 +46,20 @@ interface HomeSurpriseProps {
   readonly prefix?: 'hub-h2' | 'anime-h2' | 'kpop-h2';
 }
 
-/** A logo next/image can be given: on a host of next.config images.remotePatterns (it throws at render for any other, and onError cannot catch that), never protocol-relative. */
-const drawable = (logo: string): boolean => !logo.startsWith('//') && isConfiguredImageHost(logo);
+/** A picture next/image can be given: on a host of next.config images.remotePatterns (it throws at render for any other, and onError cannot catch that), never protocol-relative. */
+const drawable = (src: string): boolean => !src.startsWith('//') && isConfiguredImageHost(src);
 
 /** The tile is 42 px square (the sheets); the picture is asked at that size, so next/image serves its 48 px and 96 px files. */
 const TILE_PX = 42;
 
-/** The tile of a pick with a logo: the picture, cover-fit; the initials when it fails to load. One per pick (the caller keys it). */
-export function PickLogoTile({ tile, logo, className, imgClassName }: { tile: string; logo: string; className: string; imgClassName: string }): React.ReactElement {
+/** The tile of a pick with a picture: the picture, cover-fit; the initials when it fails to load. One per pick (the caller keys it). */
+export function PickPhotoTile({ tile, photo, className, imgClassName }: { tile: string; photo: string; className: string; imgClassName: string }): React.ReactElement {
   const [failed, setFailed] = useState(false);
   return (
     <span aria-hidden="true" className={className}>
       {failed ? tile : (
         <Image
-          src={logo}
+          src={photo}
           alt=""
           width={TILE_PX}
           height={TILE_PX}
@@ -67,7 +67,6 @@ export function PickLogoTile({ tile, logo, className, imgClassName }: { tile: st
           loading="eager"
           className={imgClassName}
           onError={() => setFailed(true)}
-          unoptimized={logo.endsWith('.svg')}
         />
       )}
     </span>
@@ -91,8 +90,8 @@ export function HomeSurprise({ pool, playedIds, lede, labels, prefix = 'hub-h2' 
       </div>
       {shown ? (
         <div role="status" className={cx(`hub-h2-pick hub-h2-rise ${siteClass(shown.site)}`)}>
-          {shown.logo && drawable(shown.logo)
-            ? <PickLogoTile key={shown.id} tile={shown.tile} logo={shown.logo} className={cx('hub-h2-th hub-h2-pick-tile')} imgClassName={cx('hub-h2-th-img')} />
+          {shown.photo && drawable(shown.photo)
+            ? <PickPhotoTile key={shown.id} tile={shown.tile} photo={shown.photo} className={cx('hub-h2-th hub-h2-pick-tile')} imgClassName={cx('hub-h2-th-img')} />
             : <span aria-hidden="true" className={cx('hub-h2-th hub-h2-pick-tile')}>{shown.tile}</span>}
           <span className={cx('hub-h2-pick-body')}>
             <span className={cx('hub-h2-pick-k')}>{shown.pickLabel}</span>

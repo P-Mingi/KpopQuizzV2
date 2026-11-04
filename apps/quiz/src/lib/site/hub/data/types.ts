@@ -215,8 +215,8 @@ export interface HubSurpriseCard {
   readonly title: string;
   readonly group: string;
   readonly href: string;
-  /** The group's picture (groups.logo_url), K-pop only and only when it has a usable one: the pick shows it in place of the initials. */
-  readonly logo?: string;
+  /** The slug of the group: set on the K-pop pool only (readKpopSurprisePool), where the pick shows the group's picture (groupPhotoUrl). */
+  readonly groupSlug?: string;
 }
 
 export interface HubSurprise {
