@@ -485,6 +485,9 @@
     "docs/o1/reports/C2/**",
     "docs/pending-migrations/s4/**"
   ],
+  "logos": [
+    "docs/pending-migrations/logos/**"
+  ],
   "C3": [
     "apps/quiz/e2e/o1/C3/**",
     "docs/o1/reports/C3/**",
