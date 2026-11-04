@@ -380,6 +380,30 @@ describe('NEXT_PUBLIC_DLE_PREVIEW (the Preview-only switch of dailyGuess)', () =
     }
   });
 
+  it('does not read VERCEL_ENV: the server-only variable alone never turns the switch on, whatever its value', () => {
+    // Integrator review 2026-11-03: VERCEL_ENV is not inlined in a client bundle, so a test on it made the server and the client disagree.
+    // The param type no longer has it, so the cast is what lets the test hand it over.
+    const withServerVar = (e: Record<string, string | undefined>): boolean => dlePreviewOn(e as Parameters<typeof dlePreviewOn>[0]);
+    for (const v of ['1', 'true']) {
+      for (const vercelEnv of ['preview', 'development', 'production', '', undefined]) {
+        expect(withServerVar({ NEXT_PUBLIC_DLE_PREVIEW: v, VERCEL_ENV: vercelEnv }), `${v} / VERCEL_ENV ${String(vercelEnv)}`).toBe(false);
+      }
+      // One source of truth: the public value decides, whatever the server-only one says next to it.
+      expect(withServerVar({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: 'preview', VERCEL_ENV: 'production' })).toBe(true);
+      expect(withServerVar({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: 'production', VERCEL_ENV: 'preview' })).toBe(false);
+    }
+  });
+
+  it('passes the two public values written out in full, so Next inlines the same ones in the server and the client bundles', () => {
+    const call = /dailyGuess: dlePreviewOn\(([^\n]*)\),?\n/.exec(read(`${SRC}lib/site/registry.ts`));
+    expect(call, 'the dailyGuess line of the hub').not.toBeNull();
+    const args = call?.[1] ?? '';
+    expect(args).toContain('process.env.NEXT_PUBLIC_DLE_PREVIEW');
+    expect(args).toContain('process.env.NEXT_PUBLIC_VERCEL_ENV');
+    // Not the server-only variable, and not the env object as a whole (Next inlines `process.env.NAME` accesses only).
+    expect(args).not.toMatch(/process\.env\.VERCEL_ENV|\.\.\.process\.env|process\.env\s*[,)}]/);
+  });
+
   it('leaves the hub switch off in this test run, where the variable is not set', () => {
     expect(REGISTRY.hub.features.dailyGuess).toBe(false);
     expect(REGISTRY.hub.routes.allow).not.toContain('/kpopdle');
@@ -406,6 +430,32 @@ describe('NEXT_PUBLIC_DLE_PREVIEW (the Preview-only switch of dailyGuess)', () =
     expect(unknown.REGISTRY.hub.features.dailyGuess).toBe(false);
     expect(prod.REGISTRY.hub.features.dailyGuess).toBe(false);
     expect(prod.REGISTRY.hub.routes.allow).not.toContain('/kpopdle');
+  });
+
+  it('on the module too: only the public deployment kind "preview" with the flag opens the hub; VERCEL_ENV and the other kinds do not', async () => {
+    const hubOn = async (): Promise<boolean> => {
+      vi.resetModules();
+      return (await import('./registry')).REGISTRY.hub.features.dailyGuess;
+    };
+    // Flag on, deployment kind unset (a local build, a test run, a client bundle without system variables): closed, even with VERCEL_ENV preview.
+    vi.stubEnv('NEXT_PUBLIC_DLE_PREVIEW', '1');
+    vi.stubEnv('NEXT_PUBLIC_VERCEL_ENV', undefined);
+    vi.stubEnv('VERCEL_ENV', 'preview');
+    expect(await hubOn()).toBe(false);
+    for (const kind of ['production', 'development', '']) {
+      vi.stubEnv('NEXT_PUBLIC_VERCEL_ENV', kind);
+      expect(await hubOn(), `flag 1 / public kind "${kind}"`).toBe(false);
+    }
+    // The flag 'true' opens a Preview, and a Preview without the flag stays closed.
+    vi.stubEnv('NEXT_PUBLIC_VERCEL_ENV', 'preview');
+    vi.stubEnv('NEXT_PUBLIC_DLE_PREVIEW', 'true');
+    expect(await hubOn()).toBe(true);
+    for (const flag of ['', '0', 'false']) {
+      vi.stubEnv('NEXT_PUBLIC_DLE_PREVIEW', flag);
+      expect(await hubOn(), `preview / flag "${flag}"`).toBe(false);
+    }
+    vi.stubEnv('NEXT_PUBLIC_DLE_PREVIEW', undefined);
+    expect(await hubOn()).toBe(false);
   });
 
   it('is a public flag of the table, lane ORCH, not reserved', () => {

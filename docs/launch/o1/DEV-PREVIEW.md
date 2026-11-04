@@ -55,7 +55,7 @@ The Preview variables that already exist stay as they are. A public variable is 
 
 | variable | kpopquiz | fandomverse (hub) | otakuquiz (anime) | note |
 |---|---|---|---|---|
-| `NEXT_PUBLIC_DLE_PREVIEW` | `1` | `1` | `1` | new. Turns the hub's `dailyGuess` on for the Preview: the Burrow and the four game pages on the hub, the links on OtakuQuiz and, with the three below, on kpopquiz.org. Ignored on Production, never set it there |
+| `NEXT_PUBLIC_DLE_PREVIEW` | `1` | `1` | `1` | new. Turns the hub's `dailyGuess` on for the Preview: the Burrow and the four game pages on the hub, the links on OtakuQuiz and, with the three below, on kpopquiz.org. Closed by default: it is on only when `NEXT_PUBLIC_VERCEL_ENV` is exactly `preview` as well (Vercel sets that one itself on every deployment, if "Automatically expose System Environment Variables" is on in the project's Environment Variables settings), the same value in the server and the browser. A Production build, a local build and a project without the exposed system variables keep the games closed. Never set it on Production |
 | `NET_KPOPDLE_HOME` | `1` | not used | not used | the Kpopdle module on the kpopquiz.org home |
 | `NET_KPOPDLE_QUIZEND` | `1` | not used | not used | the Kpopdle row under "Next quiz" after a K-pop quiz |
 | `NET_KPOPDLE_GROUP` | `1` | not used | not used | the Kpopdle card on a group page |
