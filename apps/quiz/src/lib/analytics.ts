@@ -58,11 +58,26 @@ function ev(name: string, props?: Record<string, string | number | boolean>): vo
   }
 }
 
+/**
+ * Run PWA: the install banner counts the quizzes a player finishes (lib/pwa/boot.ts). One optional listener, null until that module sets
+ * it, and set only when NEXT_PUBLIC_NET_PWA is on, so with the flag off nothing here runs. It gets the game type only, nothing else.
+ */
+let finishListener: ((type: GameType) => void) | null = null;
+export function setFinishListener(fn: ((type: GameType) => void) | null): void {
+  finishListener = fn;
+}
+
 export const analytics = {
   gameStart: (type: GameType, daily = false): void => ev('game_start', { type, daily }),
 
-  gameComplete: (type: GameType, score: number, max: number, daily = false): void =>
-    ev('game_complete', { type, score, max, daily }),
+  gameComplete: (type: GameType, score: number, max: number, daily = false): void => {
+    ev('game_complete', { type, score, max, daily });
+    try {
+      finishListener?.(type);
+    } catch {
+      // A listener must never take a result screen down.
+    }
+  },
 
   // `type` also accepts 'fancard' for the F2c Fan Card share, without a new event.
   shareClick: (type: GameType | 'fancard'): void => ev('share_click', { type }),

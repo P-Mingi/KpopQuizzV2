@@ -25,6 +25,11 @@ export function ThemeInit(): null {
     if (on(process.env.NEXT_PUBLIC_NET_BEACON) || on(process.env.NEXT_PUBLIC_NET_MENU) || on(process.env.NEXT_PUBLIC_NET_FACTS)) {
       void import('@/lib/network/boot').then((m) => m.bootNetwork()).catch(() => undefined);
     }
+    // Run PWA: with NEXT_PUBLIC_NET_PWA on, the service worker is registered and the install banner may show after games (lib/pwa/boot.ts,
+    // another chunk a build with the flag off never fetches). Nothing renders: no node, no prop, no HTML.
+    if (on(process.env.NEXT_PUBLIC_NET_PWA)) {
+      void import('@/lib/pwa/boot').then((m) => m.bootPwa()).catch(() => undefined);
+    }
   }, []);
 
   useIsomorphicLayoutEffect(() => {
