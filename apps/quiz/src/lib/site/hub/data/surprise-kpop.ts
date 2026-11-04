@@ -3,13 +3,14 @@
 // hub and OtakuQuiz read (and need unchanged), would both fail there.
 
 import { fetchAllRows } from '@/lib/db/fetch-all';
+import { isNextInternalError } from '@/lib/error-handling';
 import { SITE_ID } from '@/lib/site/registry';
 import { forSite } from '@/lib/site/scope';
 import { createPublicReadClient } from '@/lib/supabase/server';
 
 import { hubCached } from './cache';
 import { sitePool } from './surprise';
-import { isListable, QUIZ_SELECT, resolveOrigins } from './util';
+import { groupLogoOf, isListable, QUIZ_SELECT, resolveOrigins } from './util';
 
 import type { Db } from './catalog';
 import type { HubOpts, HubOrigins, HubSurpriseCard } from './types';
@@ -58,7 +59,36 @@ export async function readKpopSurprisePool(origins: HubOrigins, now: Date, db: D
   return pool.length > 0 ? pool : null;
 }
 
-const cachedPool = hubCached('surprise-kpop', (origins: HubOrigins) => readKpopSurprisePool(origins, new Date(), createPublicReadClient()));
+/**
+ * The pool with the picture of each group (owner, 2026-11-04: the tile of the pick shows the group's logo in place of its initials).
+ * One more read, apart from the quiz read (its select and its retry on a missing site_id stay as they are): the groups table, paged past the
+ * 1000 row cap, joined on the group name (groups.name is unique, and the card carries it). A group with no usable logo, or a failed read,
+ * leaves the card as it was: the tile keeps the initials, and the pool is never lost for want of a picture.
+ */
+export async function withGroupLogos(pool: HubSurpriseCard[], db: Db): Promise<HubSurpriseCard[]> {
+  try {
+    const rows = await fetchAllRows<{ name: string; logo_url: string | null }>(() => db.from('groups').select('name, logo_url').order('id'));
+    const logos = new Map<string, string>();
+    for (const g of rows) {
+      const logo = groupLogoOf(g.logo_url);
+      if (logo) logos.set(g.name, logo);
+    }
+    return pool.map((c) => {
+      const logo = logos.get(c.group);
+      return logo ? { ...c, logo } : c;
+    });
+  } catch (err) {
+    if (isNextInternalError(err)) throw err;
+    console.error('[hub:surprise-kpop] group logos:', err instanceof Error ? err.message : err);
+    return pool;
+  }
+}
+
+const cachedPool = hubCached('surprise-kpop', async (origins: HubOrigins) => {
+  const db = createPublicReadClient();
+  const pool = await readKpopSurprisePool(origins, new Date(), db);
+  return pool ? withGroupLogos(pool, db) : null;
+});
 
 /** The pool (cached one hour, tag hub:surprise-kpop), null when there is no quiz or the read failed with nothing kept. */
 export async function getKpopSurprisePool(opts?: HubOpts): Promise<HubSurpriseCard[] | null> {

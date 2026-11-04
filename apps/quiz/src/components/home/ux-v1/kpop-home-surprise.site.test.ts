@@ -93,3 +93,25 @@ describe('the page and its sheet', () => {
     expect(sheet).toMatch(/@media \(prefers-reduced-motion: reduce\) \{[\s\S]*\.kpop-h2-rise \{ animation: none; \}/);
   });
 });
+
+// Owner, 2026-11-04: the tile of the pick shows the picture of its group (groups.logo_url) in place of the initials. The pool carries it
+// (lib/site/hub/data/surprise-kpop.ts withGroupLogos, tested in surprise-kpop.logos.test.ts), the pick passes it on, the component draws it
+// (components/hub/home/home-surprise.logo.test.ts). A group with no logo gives a pick with no logo at all: the tile keeps the initials.
+describe('the picks carry the logo of their group', () => {
+  const LOGO = 'https://rdkgouofytwfdpbxbzio.supabase.co/storage/v1/object/public/group-logos/loossemble.jpg';
+
+  it('a card of the pool with a logo gives a pick with it; a card without gives a pick with no logo key', async () => {
+    const { toKpopPick } = await import('@/lib/ux-v1/p1/home-surprise');
+    expect(toKpopPick({ ...card('k1', 'loossemble-quiz', 'Loossemble'), logo: LOGO })).toEqual({
+      id: 'k1', tile: 'LO', title: 'Quiz k1', href: '/q/loossemble-quiz', site: 'kpop', pickLabel: 'Random pick from Loossemble', logo: LOGO,
+    });
+    expect('logo' in toKpopPick(card('k2', 'twice-quiz', 'TWICE'))).toBe(false);
+  });
+
+  it('the block hands the logos of the pool to the component, in the order of the pool', async () => {
+    pool.value = [{ ...card('k1', 'loossemble-quiz', 'Loossemble'), logo: LOGO }, card('k2', 'twice-quiz', 'TWICE')];
+    const { KpopHomeSurprise } = await import('./kpop-home-surprise');
+    const el = (await KpopHomeSurprise()) as { props: { children: { props: { pool: Array<{ id: string; logo?: string }> } } } };
+    expect(el.props.children.props.pool.map((p) => [p.id, p.logo ?? null])).toEqual([['k1', LOGO], ['k2', null]]);
+  });
+});

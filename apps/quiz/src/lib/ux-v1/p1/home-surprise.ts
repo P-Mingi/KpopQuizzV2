@@ -9,9 +9,12 @@ import { pathOf } from '@/lib/site/hub/home-map';
 import type { SurprisePick } from '@/components/hub/home/home-surprise';
 import type { HubSurpriseCard } from '@/lib/site/hub/data/types';
 
-/** One quiz of the pool as a pick of the component: its page on this site, "Random pick from <group>". */
+/**
+ * One quiz of the pool as a pick of the component: its page on this site, "Random pick from <group>". The group's logo goes with the pick
+ * when the pool has one (owner, 2026-11-04: the tile shows it in place of the initials); with none, the pick has no logo key at all.
+ */
 export function toKpopPick(c: HubSurpriseCard): SurprisePick {
-  return { id: c.id, tile: c.tile, title: c.title, href: pathOf(c.href, 'kpop'), site: 'kpop', pickLabel: `Random pick from ${c.group}` };
+  return { id: c.id, tile: c.tile, title: c.title, href: pathOf(c.href, 'kpop'), site: 'kpop', pickLabel: `Random pick from ${c.group}`, ...(c.logo ? { logo: c.logo } : {}) };
 }
 
 /** The picks of kpopquiz.org, best first; [] when it has none or the read fails (the block then leaves the page). K-pop quizzes only. */

@@ -125,6 +125,17 @@ export function coverOf(row: Pick<QuizRow, 'site_id' | 'cover_image_url' | 'stat
   return row.site_id === 'kpop' && isListable(row) && /^https:\/\/[^/]/i.test(url) && isConfiguredImageHost(url) ? url : null;
 }
 
+/**
+ * The picture of a K-pop group (groups.logo_url) as the Surprise me tile can draw it: an absolute https URL, or a path of the site itself
+ * (a few groups keep a file of public/logos), on a host next/image accepts (isConfiguredImageHost: next/image throws at render for any
+ * other, so the check is made here and again where the tile renders). A protocol-relative "//host/x.png" is another host: refused.
+ * Null for no logo (13 groups have none), a blank value or anything else: the tile then keeps the initials.
+ */
+export function groupLogoOf(url: string | null | undefined): string | null {
+  const u = (url ?? '').trim();
+  return (/^https:\/\/[^/]/i.test(u) || /^\/(?!\/)/.test(u)) && isConfiguredImageHost(u) ? u : null;
+}
+
 /** The card of a quiz row: the canonical page on its own site, never a copy. */
 export function toCard(row: QuizRow, origins: HubOrigins, now: Date): HubQuizCard {
   const site = row.site_id as HubSite;
