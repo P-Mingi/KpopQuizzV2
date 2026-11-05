@@ -8,7 +8,10 @@
 //   3. that same verified token is at assurance level aal2 (auth.mfa.getAuthenticatorAssuranceLevel(token): currentLevel
 //      'aal2', read from the token the auth server has just verified) AND the account still has a verified factor. auth-js starts
 //      nextLevel at currentLevel and only raises it, so nextLevel alone says 'aal2' for an aal2 token whose factors were deleted
-//      in SQL: the factors of the verified user are what tell.
+//      in SQL: the factors of the verified user are what tell;
+//   4. ADMIN-2: the last TOTP code was verified no more than 12 hours ago (the dated `totp` entry of the token's amr claim, lib/admin/
+//      totp-age.ts). An older code, or no `totp` entry at all, is the 'challenge' step again, even at aal2: a page sends the admin to
+//      the code page, a route answers 404. The code page accepts a session that is already aal2 (challengeAndVerify works at aal2).
 // Every other case is a 404, never a 401, a 403 or a redirect to /login: a page calls notFound(), a route answers the 404
 // JSON of adminNotFound(). The only exceptions are for an admin (steps 1 and 2 passed): at aal1 with a verified factor, a page
 // sends them to the TOTP code page; with no verified factor (at aal1, or at aal2 after a factor was deleted), a page sends them
@@ -28,8 +31,10 @@ import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
 
+import { adminDoorOfRequest } from './door-guard';
 import { adminEnrolOpen, hasVerifiedFactor, isListedAdminId } from './list';
-import { ADMIN_MFA_CODE_PATH, ADMIN_MFA_SETUP_PATH } from './paths';
+import { ADMIN_DOOR_CODE_STEP, ADMIN_DOOR_SETUP_STEP, ADMIN_MFA_CODE_PATH, ADMIN_MFA_SETUP_PATH } from './paths';
+import { totpIsFresh } from './totp-age';
 
 import type { User } from '@supabase/supabase-js';
 
@@ -81,7 +86,10 @@ async function decideNow(): Promise<Decision> {
     const { data: aal, error: aalError } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel(token);
     if (aalError || !aal) return NONE;
     if (aal.currentLevel !== 'aal1' && aal.currentLevel !== 'aal2') return NONE;
-    if (aal.nextLevel === 'aal2' && hasVerifiedFactor(user)) return { level: aal.currentLevel === 'aal2' ? 'pass' : 'challenge', user, supabase };
+    if (aal.nextLevel === 'aal2' && hasVerifiedFactor(user)) {
+      const fresh = aal.currentLevel === 'aal2' && totpIsFresh(aal.currentAuthenticationMethods, Date.now());
+      return { level: fresh ? 'pass' : 'challenge', user, supabase };
+    }
     return adminEnrolOpen() ? { level: 'enrol', user, supabase } : NONE;
   } catch {
     return NONE;
@@ -102,9 +110,20 @@ export async function requireAdmin(mode: 'page' | 'api' | 'check' | 'mfa' = 'pag
   if (mode === 'check') return ctx;
   if (mode === 'api') return ctx ? { ok: true, ...ctx } : { ok: false, res: adminNotFound() };
   if (ctx) return ctx;
-  if (d.level === 'challenge') redirect(ADMIN_MFA_CODE_PATH);
-  if (d.level === 'enrol') redirect(ADMIN_MFA_SETUP_PATH);
+  if (d.level === 'challenge') redirect(await mfaPage('code'));
+  if (d.level === 'enrol') redirect(await mfaPage('setup'));
   notFound();
+}
+
+/**
+ * Where a page sends an admin who must type a code or set one up. Behind the secret door of the hub that is the page under the secret
+ * address (the code page also gets the address the admin asked for, validated, to come back to); on kpop and anime it is the fixed page.
+ */
+async function mfaPage(step: 'code' | 'setup'): Promise<string> {
+  const door = await adminDoorOfRequest();
+  if (!door) return step === 'code' ? ADMIN_MFA_CODE_PATH : ADMIN_MFA_SETUP_PATH;
+  const base = `${door.prefix}/${step === 'code' ? ADMIN_DOOR_CODE_STEP : ADMIN_DOOR_SETUP_STEP}`;
+  return step === 'code' && door.next ? `${base}?next=${encodeURIComponent(door.next)}` : base;
 }
 
 /**

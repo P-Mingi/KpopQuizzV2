@@ -4,7 +4,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-const s = vi.hoisted(() => ({ aal: 'aal1' as string, factors: [] as Array<{ id: string; status: string; factor_type: string }> }));
+const s = vi.hoisted(() => ({ aal: 'aal1' as string, factors: [] as Array<{ id: string; status: string; factor_type: string }>, amr: 'fresh' as 'fresh' | 'none' }));
 
 vi.mock('next/navigation', () => ({
   notFound: () => { throw new Error('NEXT_NOT_FOUND'); },
@@ -12,7 +12,9 @@ vi.mock('next/navigation', () => ({
 }));
 
 const b64 = (v: object): string => Buffer.from(JSON.stringify(v)).toString('base64url');
-const token = (): string => `${b64({ alg: 'none' })}.${b64({ sub: 'admin-1', aal: s.aal, exp: 4102444800 })}.stand-in`;
+// ADMIN-2: an aal2 token carries the dated `totp` entry of the amr claim (a code typed just now); 'none' is a token without one.
+const amr = (): Array<{ method: string; timestamp: number }> => (s.amr === 'fresh' && s.aal === 'aal2' ? [{ method: 'totp', timestamp: Math.floor(Date.now() / 1000) }] : []);
+const token = (): string => `${b64({ alg: 'none' })}.${b64({ sub: 'admin-1', aal: s.aal, exp: 4102444800, amr: amr() })}.stand-in`;
 
 function realClient(): SupabaseClient {
   const client = createClient('http://auth.stand-in.test', 'stand-in-anon', {
@@ -35,7 +37,7 @@ import { requireAdmin } from './guard';
 
 const VERIFIED = [{ id: 'f1', status: 'verified', factor_type: 'totp' }];
 
-beforeEach(() => { vi.stubEnv('ADMIN_USER_IDS', 'admin-1'); s.aal = 'aal1'; s.factors = []; });
+beforeEach(() => { vi.stubEnv('ADMIN_USER_IDS', 'admin-1'); s.aal = 'aal1'; s.factors = []; s.amr = 'fresh'; });
 afterEach(() => { vi.unstubAllEnvs(); });
 
 describe('requireAdmin on the real auth-js', () => {
@@ -59,6 +61,16 @@ describe('requireAdmin on the real auth-js', () => {
     vi.stubEnv('ADMIN_MFA_ENROL_OPEN', '1');
     expect(await requireAdmin('check')).toBeNull();
     expect((await requireAdmin('mfa'))?.level).toBe('enrol');
+  });
+
+  it('ADMIN-2: the real auth-js hands the amr entries over, and an aal2 token with no totp entry is the code step, not a pass', async () => {
+    s.aal = 'aal2';
+    s.factors = VERIFIED;
+    const { data } = await realClient().auth.mfa.getAuthenticatorAssuranceLevel(token());
+    expect(data?.currentAuthenticationMethods).toEqual([{ method: 'totp', timestamp: expect.any(Number) }]);
+    s.amr = 'none';
+    expect(await requireAdmin('check')).toBeNull();
+    expect((await requireAdmin('mfa'))?.level).toBe('challenge');
   });
 
   it('aal2 with only an unverified factor is no pass', async () => {
