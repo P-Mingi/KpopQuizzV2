@@ -124,7 +124,8 @@ export const COPY = {
   'hp.seo.caption': 'Daily games on {network}',
   'hp.seo.colGame': 'Game',
   'hp.seo.colGuess': 'What you guess',
-  'hp.seo.kpopdle': 'A K-pop idol, group or song, from its clues',
+  // Only the modes that have a page (lib/dle/games.ts): the group and the song of Kpopdle are not built, so the row does not name them (hub-seo.test.ts).
+  'hp.seo.kpopdle': 'A K-pop idol, from its clues',
   'hp.seo.otakudle': 'An anime character, all series or one series',
   'hp.seo.qotd': 'Quiz of the day',
   'hp.seo.qotdWhat': 'A new quiz on each site, every day',
