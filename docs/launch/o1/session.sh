@@ -3,7 +3,7 @@
 # in order with psql and ON_ERROR_STOP, runs the checks of each file right after it (VERIFY.md, as OK or KO lines), and stops
 # at the first difference. It prints OK or KO, file names and counts: never a name, an e-mail, a key or the connection string.
 #
-#     bash docs/launch/o1/session.sh B1            (the parts: B1 B2 B3 D E1 E2 G J1 J2 J3 J4 J5; OWNER-NOW.md says when)
+#     bash docs/launch/o1/session.sh B1            (the parts: B1 B2 B3 D E1b E1 E2 G J1 J2 J3 J4 J5; OWNER-NOW.md says when)
 #     bash docs/launch/o1/session.sh B1 --dry-run  (prints the plan of the part, touches nothing, needs no database)
 #
 # Before it: the backup line of the session (OWNER-NOW.md), in the same terminal. It exports PROD_DB_URL; this script reads it
@@ -57,8 +57,8 @@ stop() {
 # ------------------------------------------------------------------------------------------------------------------------
 # Guards
 
-usage() { say "usage: bash docs/launch/o1/session.sh B1|B2|B3|D|E1|E2|G|K2|J1|J2|J3|J4|J5 [--dry-run]"; exit 2; }
-case "$PART" in B1|B2|B3|D|E1|E2|G|K2|J1|J2|J3|J4|J5) ;; *) usage ;; esac
+usage() { say "usage: bash docs/launch/o1/session.sh B1|B2|B3|D|E1b|E1|E2|G|K2|J1|J2|J3|J4|J5 [--dry-run]"; exit 2; }
+case "$PART" in B1|B2|B3|D|E1b|E1|E2|G|K2|J1|J2|J3|J4|J5) ;; *) usage ;; esac
 
 utc_hm() { date -u +%H%M; }
 guard() {
@@ -208,6 +208,13 @@ after_008_signatures() {   # VERIFY V4 after: only merge_anon_passport changed (
   else stop "signatures après 008 : fonctions changées : ${changed:-aucune} (attendu : merge_anon_passport seulement)."; fi
 }
 
+gate_025() {   # 025 rewrites the body 008 gives notify_group_quiz_alerts (the world branch, site_id): 008 must be in (the test 025 runs itself, said sooner and in French)
+  if [ "$DRY" = 1 ]; then say "porte 025 : 008 est en production (notify_group_quiz_alerts porte la branche monde et site_id de 008)"; return; fi
+  local n; n="$(q "select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'notify_group_quiz_alerts' and pronargs = 0 and prosrc like '%v_site%'")" || stop "porte 025 : lecture de notify_group_quiz_alerts impossible."
+  [ "$n" = "1" ] || stop "porte 025 : notify_group_quiz_alerts n'a pas la forme de 008 (branche monde, site_id) : la partie D d'abord."
+  say "OK   porte 025 : 008 est là, notify_group_quiz_alerts porte sa branche monde"
+}
+
 gate_010_keys() {   # RUNBOOK E1: the two old unique keys are still there before 009 and 010
   if [ "$DRY" = 1 ]; then say "porte E1 : les deux anciennes clés uniques existent (sautée si 010 est déjà là)"; return; fi
   if is_010_in; then say "OK   porte E1 sautée : 010 est déjà appliqué"; return; fi
@@ -297,6 +304,11 @@ part_D() {
   gate_008
   apply single "$M/008-write-locks.sql";    check "$C/V-008.sql"; after_008_signatures; vs4
   NEXT="toi : avec le compte jetable, joue un quiz, like puis retire le like, crée un quiz puis supprime-le (étape 22). La veille de 24 h commence."
+}
+part_E1b() {
+  gate_025
+  apply single "$M/025-quiz-alerts-every-publish.sql"; check "$C/V-025.sql"
+  NEXT="toi : rien de plus ici, le drapeau EDITORIAL_QUIZ reste éteint (025 n'en dépend pas). Puis la session E : sauvegarde neuve, puis E1."
 }
 part_E1() {
   gate_time 2220 "il est $(date -u +%H:%M) UTC : la session E commence avant 22:20 (90 minutes avant 23:50). Reviens demain soir, dès 18:00."
