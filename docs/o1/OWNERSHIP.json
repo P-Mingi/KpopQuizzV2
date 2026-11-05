@@ -84,6 +84,7 @@
     "apps/quiz/src/lib/route-allowlist.test.ts",
     "apps/quiz/scripts/check-route-allowlist.mts",
     "docs/pending-migrations/multisite/README.md",
+    "docs/pending-migrations/multisite/026-*",
     ".claude/settings.json",
     ".claude/hooks/**",
     "apps/quiz/scripts/o1/fixtures/**"
@@ -484,9 +485,6 @@
     "apps/quiz/src/**",
     "docs/o1/reports/C2/**",
     "docs/pending-migrations/s4/**"
-  ],
-  "admin2": [
-    "docs/pending-migrations/multisite/026-*"
   ],
   "C3": [
     "apps/quiz/e2e/o1/C3/**",
