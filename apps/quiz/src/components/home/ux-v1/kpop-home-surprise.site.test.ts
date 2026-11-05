@@ -93,3 +93,40 @@ describe('the page and its sheet', () => {
     expect(sheet).toMatch(/@media \(prefers-reduced-motion: reduce\) \{[\s\S]*\.kpop-h2-rise \{ animation: none; \}/);
   });
 });
+
+// Owner, 2026-11-04: the tile of the pick shows the picture of its group in place of the initials: the one the site shows everywhere,
+// groupPhotoUrl(slug) (groups.logo_url is broken for many groups and is not used), and for General K-pop its fallback cover. The pool card carries
+// the group slug (lib/site/hub/data/surprise-kpop.ts, tested in surprise-kpop.group-slug.test.ts), the pick passes the picture on, the component
+// draws it (components/hub/home/home-surprise.photo.test.ts). A group with neither gives a pick with no photo at all: the tile keeps the initials.
+describe('the picks carry the picture of their group', () => {
+  const STORAGE = 'https://rdkgouofytwfdpbxbzio.supabase.co';
+  const withSlug = (id: string, slug: string, group: string): HubSurpriseCard => ({ ...card(id, `${slug}-quiz`, group), groupSlug: slug });
+
+  it('a group of public/idols gives its photo, a group of Storage gives its Commons photo, General K-pop gives its fallback cover', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', STORAGE);
+    const { toKpopPick } = await import('@/lib/ux-v1/p1/home-surprise');
+    const { GENERAL_KPOP_FALLBACK_COVER } = await import('@/lib/ux-v1/a0/general-kpop-cover');
+    expect(toKpopPick(withSlug('k1', 'bts', 'BTS'))).toEqual({
+      id: 'k1', tile: 'BT', title: 'Quiz k1', href: '/q/bts-quiz', site: 'kpop', pickLabel: 'Random pick from BTS', photo: '/idols/BTS.jpg',
+    });
+    expect(toKpopPick(withSlug('k2', 'loossemble', 'Loossemble')).photo).toBe(`${STORAGE}/storage/v1/object/public/images/group-photos/loossemble.jpg`);
+    expect(toKpopPick(withSlug('k3', 'general-kpop', 'General K-pop')).photo).toBe(GENERAL_KPOP_FALLBACK_COVER);
+  });
+
+  it('a group with no photo, and a card with no slug, give a pick with no photo key', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', STORAGE);
+    const { toKpopPick } = await import('@/lib/ux-v1/p1/home-surprise');
+    expect('photo' in toKpopPick(withSlug('k4', 'an-unknown-group', 'An Unknown Group'))).toBe(false);
+    expect('photo' in toKpopPick(card('k5', 'twice-quiz', 'TWICE'))).toBe(false);
+    expect('photo' in toKpopPick({ ...card('k6', 'x-quiz', 'X'), groupSlug: '' })).toBe(false);
+  });
+
+  it('the block hands the pictures of the pool to the component, in the order of the pool', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', STORAGE);
+    pool.value = [withSlug('k1', 'bts', 'BTS'), withSlug('k2', 'an-unknown-group', 'An Unknown Group'), withSlug('k3', 'general-kpop', 'General K-pop')];
+    const { KpopHomeSurprise } = await import('./kpop-home-surprise');
+    const { GENERAL_KPOP_FALLBACK_COVER } = await import('@/lib/ux-v1/a0/general-kpop-cover');
+    const el = (await KpopHomeSurprise()) as { props: { children: { props: { pool: Array<{ id: string; photo?: string }> } } } };
+    expect(el.props.children.props.pool.map((p) => [p.id, p.photo ?? null])).toEqual([['k1', '/idols/BTS.jpg'], ['k2', null], ['k3', GENERAL_KPOP_FALLBACK_COVER]]);
+  });
+});

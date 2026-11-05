@@ -9,7 +9,7 @@ import { createPublicReadClient } from '@/lib/supabase/server';
 
 import { hubCached } from './cache';
 import { sitePool } from './surprise';
-import { isListable, QUIZ_SELECT, resolveOrigins } from './util';
+import { groupOf, isListable, QUIZ_SELECT, resolveOrigins } from './util';
 
 import type { Db } from './catalog';
 import type { HubOpts, HubOrigins, HubSurpriseCard } from './types';
@@ -52,10 +52,16 @@ async function loadKpopCatalog(db: Db): Promise<QuizRow[]> {
   return rows.map((q) => ({ ...q, site_id: 'kpop' })).filter(isListable);
 }
 
-/** The 100 best K-pop quizzes by quality. No tier read: a tier is an anime grade. Null when there is none. */
+/**
+ * The 100 best K-pop quizzes by quality. No tier read: a tier is an anime grade. Null when there is none. Each card also carries the slug of
+ * its group (owner, 2026-11-04: the tile of the pick shows the group's picture, groupPhotoUrl(slug)), read from the rows already loaded:
+ * the select, its retry and the number of reads are what they were, and the cards of the hub and of OtakuQuiz (sitePool) are unchanged.
+ */
 export async function readKpopSurprisePool(origins: HubOrigins, now: Date, db: Db): Promise<HubSurpriseCard[] | null> {
-  const pool = sitePool('kpop', await loadKpopCatalog(db), new Map(), origins, now);
-  return pool.length > 0 ? pool : null;
+  const rows = await loadKpopCatalog(db);
+  const pool = sitePool('kpop', rows, new Map(), origins, now);
+  const slugOf = new Map(rows.map((q) => [q.id, groupOf(q).slug] as const));
+  return pool.length > 0 ? pool.map((c) => ({ ...c, groupSlug: slugOf.get(c.id) ?? '' })) : null;
 }
 
 const cachedPool = hubCached('surprise-kpop', (origins: HubOrigins) => readKpopSurprisePool(origins, new Date(), createPublicReadClient()));

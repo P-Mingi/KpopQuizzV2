@@ -5,13 +5,21 @@
 import { isNextInternalError } from '@/lib/error-handling';
 import { getKpopSurprisePool } from '@/lib/site/hub/data/surprise-kpop';
 import { pathOf } from '@/lib/site/hub/home-map';
+import { generalKpopFallbackCover } from '@/lib/ux-v1/a0/general-kpop-cover';
+import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 
 import type { SurprisePick } from '@/components/hub/home/home-surprise';
 import type { HubSurpriseCard } from '@/lib/site/hub/data/types';
 
-/** One quiz of the pool as a pick of the component: its page on this site, "Random pick from <group>". */
+/**
+ * One quiz of the pool as a pick of the component: its page on this site, "Random pick from <group>". The picture of its group goes with
+ * the pick (owner, 2026-11-04: the tile shows it in place of the initials): the one the site shows everywhere, groupPhotoUrl(slug) (the
+ * photos of public/idols, else the Commons photo in Storage), and for General K-pop, which has no group photo, its fallback cover. A group
+ * with neither gives a pick with no photo key at all: the tile keeps the initials. groups.logo_url is not used: it is broken for many groups.
+ */
 export function toKpopPick(c: HubSurpriseCard): SurprisePick {
-  return { id: c.id, tile: c.tile, title: c.title, href: pathOf(c.href, 'kpop'), site: 'kpop', pickLabel: `Random pick from ${c.group}` };
+  const photo = groupPhotoUrl(c.groupSlug) ?? generalKpopFallbackCover(c.groupSlug);
+  return { id: c.id, tile: c.tile, title: c.title, href: pathOf(c.href, 'kpop'), site: 'kpop', pickLabel: `Random pick from ${c.group}`, ...(photo ? { photo } : {}) };
 }
 
 /** The picks of kpopquiz.org, best first; [] when it has none or the read fails (the block then leaves the page). K-pop quizzes only. */

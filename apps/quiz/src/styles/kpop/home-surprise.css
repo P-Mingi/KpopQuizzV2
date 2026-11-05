@@ -15,6 +15,7 @@ html.ux-v1 .kpop-h2-s-k { --kpop-s: var(--ux-pink-fill); --kpop-s-soft: var(--ux
 html.ux-v1 .kpop-h2-pick { box-sizing: border-box; width: 100%; max-width: 520px; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 16px; background: var(--ux-raised); border: 1px solid var(--ux-line); text-align: left; }
 html.ux-v1 .kpop-h2-th { flex: none; display: grid; place-items: center; overflow: hidden; font-weight: 800; background: var(--kpop-s-soft); color: var(--kpop-s-ink); }
 html.ux-v1 .kpop-h2-pick-tile { width: 42px; height: 42px; border-radius: 11px; font-size: 13px; }
+html.ux-v1 .kpop-h2-th-img { display: block; width: 100%; height: 100%; object-fit: cover; }
 html.ux-v1 .kpop-h2-pick-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 html.ux-v1 .kpop-h2-pick-k { font-size: 12px; font-weight: 700; color: var(--kpop-s-ink); }
 html.ux-v1 .kpop-h2-pick-t { font-size: 15px; font-weight: 700; color: var(--ux-ink); }
