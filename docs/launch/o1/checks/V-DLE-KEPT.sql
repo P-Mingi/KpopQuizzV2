@@ -1,6 +1,7 @@
 -- V-DLE-KEPT (run O1, session.sh J5; each morning, VERIFY "V-DLE", RUNBOOK L6): a target that left the pool on a kept day of the bank.
 -- Read only, in a read-only transaction. Each row is: ok or KO | what | the number found. Never a name, a target or a row of a person.
 -- A rebuild keeps today and the 7 days after it. A kept day whose target is no longer in the pool cannot be won: dle_guess refuses that name, players can only give up.
+-- CR-027: such a day is the only thing that breaks the blocks of the bank (the target whose place it takes is missing from that block, the counts then differ by more than 1 by the number found here); the gap between two days of a target holds.
 begin transaction read only;
 select case when count(k.d) = 0 then 'ok' else 'KO' end, g.id || ' : jours gardés dont la cible a quitté le pool (0 attendu)', count(k.d)::text
 from public.dle_games g

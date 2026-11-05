@@ -8,10 +8,13 @@
 --           96 px WebP made at upload, step 2). A picture reaches a game only when license_verified is true;
 --         - dle_compare, the one comparator (the app never compares: it shows the statuses it receives; the cases live in
 --           apps/quiz/src/lib/dle/fixtures/compare.json, run against this function by the SQL tests);
---         - the bank: 365 days per game drawn ahead, replayed from day 1 after day 365 while the game number keeps growing;
---           no target twice within min(no_repeat_days, 70 % of the pool, the longest window 365 days hold) days, around the cycle too, every target
---           the same number of times (1 more or less), for every pool size from min_pool up (CR-019); a rebuild (the pool
---           changed) never moves today nor the 7 days after it, and a day already served keeps its target (dle_daily_stats);
+--         - the bank: 365 days per game drawn ahead, replayed from day 1 after day 365 while the game number keeps growing, in blocks of N days
+--           (N = the eligible targets): every target once per block, the last block with the 365 mod N targets that come once more (all
+--           different), so inside the cycle no target comes back before every target has come once, a target comes ceil(365 / N) times at
+--           most and the counts differ by 1 at most; no target twice within G = min(no_repeat_days, 70 % of the pool, the longest gap 365 days
+--           hold) days, blocks and the turn of the cycle included, for every pool size from min_pool up (CR-019, CR-027; section 6 says
+--           what holds across the wrap); a rebuild (the pool changed) reads the cycle from today, never moves today nor the 7 days after it,
+--           and a day already served keeps its target (dle_daily_stats);
 --         - dle_guess, dle_give_up, dle_day, dle_pool: the only functions granted to anon and authenticated (SECURITY DEFINER,
 --           search_path = public). The target leaves the database only once a play is over; yesterday's answer only once
 --           yesterday stops being playable (03:00 UTC); day statistics stay null under 100 plays;
@@ -321,11 +324,12 @@ begin
   return n;
 end $$;
 
--- The no-repeat window: min(no_repeat_days, 70 % of the targets, floor(365 / ceil(365 / targets))), at least 1.
--- The third term (CR-019) is the longest window 365 days can hold: a target that comes ceil(365 / targets) times in the cycle needs
--- that many gaps of W days. It never binds for no_repeat_days up to 120 (the games' values): 70 % of the targets times
--- ceil(365 / targets) is under 365 up to 156 targets, and 3 x 120 is under 365 above. It rules out an impossible window for a
--- larger no_repeat_days instead of failing the bank.
+-- The gap G (CR-027): the least number of days between two days of one target in the bank, the turn of the cycle included:
+-- max(1, min(no_repeat_days, floor(0.7 * targets), floor(365 / ceil(365 / targets)))). The third term is the longest gap 365 days can hold
+-- for a target that comes ceil(365 / targets) times (its gaps add up to 365); with 365 targets or more it is 365. It never binds for
+-- no_repeat_days up to 120 (the games' values): 70 % of the targets is under 121 up to 172 targets, and above that the third term is at
+-- least 121. It rules out an impossible gap for a larger no_repeat_days instead of failing the bank. The name stays dle_window (the window
+-- of 019 before blocks was the same number); the tests and V-L14 read it as the gap the bank must hold.
 create or replace function public.dle_window(p_game text) returns integer
 language sql stable
 set search_path = public
@@ -347,32 +351,42 @@ as $$
 $$;
 
 -- ---------------------------------------------------------------------------------------------------------------------------
--- 6. The bank of 365 days.
---    CR-019 (second change in place): the bank is built from a frame that holds the window by construction, then drawn at random
---    inside the frame; it can no longer dead-end. The window W = dle_window (never above floor(365 / m), m = ceil(365 / targets),
---    the most a target that comes m times can have; see dle_window).
---    1. The frame. The cycle is read from a start day: day 1 on the first build; on a rebuild (p_today given and a bank exists),
---       today, and today with the 7 days after it keep their target. The 365 days are cut into m arcs of floor or ceil of 365 / m
---       days. The targets that come q + 1 times ("often", r = 365 mod targets of them) take the same place in every arc, spread
---       along it: their gap is the length of an arc. The others come q times, in the order of one list that goes round the free
---       places of all arcs and starts again where it ends: their gap is the length of the list plus the often places it crosses.
---       The shortest gap of the frame, W0, is floor(365 / m) for every pool size (checked 2 to 1200), so W <= W0 holds, the
---       cycle holds when it starts again, and every target comes q or q + 1 times: the counts differ by 1 at most.
---    2. The targets take the places of the frame: a target kept by a rebuild its own place, the others in a random order (the
---       curation weight makes a heavier target likelier to be an often one), each in a group (balance key) not set within 14
---       days of its places when one is left (a preference).
---    3. The draw. The frame is shaken: every place may move at most E = min(30, (W0 - W) / 2) days, which costs a gap 2 E at
---       most, so every gap stays >= W. A choice is forced only when a place reaches its limit (two places never do on the same
---       day), so the draw never dead-ends. It prefers a group not set within 14 days, then a weighted random pick.
---    4. The polish. Two days are swapped when each target keeps its window (its other days are read, 1 to 13 of them) and the
---       days of the same group within 14 days (around the cycle) do not become more (a sideways move lets the search leave a dead
---       end). At most 40000 tries, and it stops after 3 sweeps with no fewer days in conflict: a pool with few groups (under 17)
---       keeps the days it cannot spread (a preference, never a rule). The window and the counts never move.
---    A rebuild: the kept days are written as they were. A kept target of the pool takes its own place in the frame. One that
---    left the pool, or that the frame cannot place (a window under 8 days), is written all the same (V-DLE-KEPT names it) and
---    the target the frame had put there comes one day less: the counts can then differ by more than 1, by the number of such days.
---    The only impossible inputs are fewer targets than min_pool (dle_pool_too_small); dle_bank_unsatisfiable stays for a frame
---    shorter than the window, which dle_window rules out.
+-- 6. The bank of 365 days, in blocks.
+--    CR-027 (CR-019 gave the frame, CR-027 gives the blocks). N = the targets (can_be_target and in_pool). The bank is read from its first day
+--    (bank day 1 on a first build, today's bank day on a rebuild) as blocks of N days: days 1 to N hold every target once, days N + 1 to 2N
+--    again, and so on; the last block holds the 365 mod N targets that come once more, all different. Inside the cycle no target comes back
+--    before every target has come once (read by block: no target of block 2 is drawn before block 1 holds every target; between two days of
+--    one target there are at least G - 1 other days, not N - 1); a target comes ceil(365 / N) times at most and the counts differ by 1 at most.
+--    G, the least gap between two days of one target, across the blocks and across the wrap (day 365, then day 1 again), is dle_window:
+--        G = max(1, min(no_repeat_days, floor(0.7 N), floor(365 / ceil(365 / N))))        (N >= 365: the last term is 365)
+--    Why this G, in 5 lines:
+--    1. floor(365 / ceil(365 / N)) is the most any scheme can give: a target that comes m = ceil(365 / N) times has m gaps that add up to 365.
+--       The frame below reaches it for every N from 2 to 1400 (checked), which is why the bank cannot dead-end.
+--    2. 0.7 N is the share of a block that stays free (the owner's 70 %, unchanged): a target may come up to 0.3 N places earlier in the next
+--       block, so the orders differ. Measured on 48 to 150 targets: 0.20 to 0.31 of the pairs of targets swap places between two blocks (0 is the
+--       same order every block, 0.5 two independent shuffles) and under 5 % of the targets keep their place. A larger share makes blocks alike.
+--    3. "The last g targets of a block are not among the first g of the next" gives G = g + 1 <= N / 2 + 1 and says nothing of the wrap;
+--       this scheme gives 0.7 N and holds the wrap, at the price of a frame that a mixing then shuffles.
+--    4. no_repeat_days stays the owner's cap (120 for the games): the gap asked for, cut to what the pool and the cycle can hold.
+--    5. The same G binds every state of the mixing and of a rebuild (see below), so nothing here can dead-end or be left half done.
+--    The wrap. N divides 365 only for 73 (and 5, 1, 365): the last block is then full and everything above holds around the cycle too.
+--    For every other N the last block holds r = 365 mod N targets and block 1 starts again after it: the gap G holds across that turn,
+--    but "every target before any returns" does not (the r targets of the last block come back in block 1 before the N - r others have
+--    come once since their last day in block B). N >= 365: one block of 365 targets, once each, the heaviest weights first; the others are
+--    not drawn (as in CR-019).
+--    How: 1. a frame (one place per target, 365 positions cut in blocks) that holds G by construction; 2. the targets take the places
+--    (a kept target its own, the others in a weighted random order, a group not set within 14 days of the place when one is left);
+--    3. a mixing that swaps days inside a block, keeping G, the blocks and the counts, and the days of one group 14 days apart or more.
+--    A rebuild: the cycle is read from today, so the blocks start at today's bank day; today and the 7 days after it are the first 8 days
+--    of block 1, fixed points. A kept target of the pool takes its own place in the frame and the others are built around it; nothing
+--    moves it. What a kept day can break: a kept target that left the pool is written all the same and the target whose place it takes is
+--    missing from block 1, so "every target once per block" and the counts (1 apart) fail by one per such day. The same target on two kept
+--    days (only possible when the old gap was under 8 days) breaks G for that target. G holds for every other target of the pool.
+--    A rebuild reads nothing before today (as before CR-027): G holds inside the new bank, not between the days served before today and the
+--    first days of the new bank.
+--    V-DLE-KEPT counts the kept days whose target left the pool (KO, never a name, RUNBOOK L6); V-L14 checks 3 and 8 say KO for them too.
+--    The only impossible inputs are fewer targets than min_pool (dle_pool_too_small); dle_bank_unsatisfiable stays as a guard that the
+--    frame's shortest gap is at least G, which it is for every N (so it never fires).
 -- ---------------------------------------------------------------------------------------------------------------------------
 
 create or replace function public.dle_build_bank(p_game text, p_today date default null, p_seed double precision default null)
@@ -380,6 +394,7 @@ returns integer
 language plpgsql
 set search_path = public
 as $$
+-- bank-blocks-v1 (D02-dev-rebuild-banks.sql looks for this marker)
 declare
   g public.dle_games;
   v_ids text[];
@@ -396,20 +411,20 @@ declare
   -- the frame
   v_q integer;
   v_r integer;
-  v_m integer;
-  v_lmin integer;
-  v_nl integer;
-  v_len integer;
-  v_hoff integer[];
+  v_tt integer;
+  v_olo integer;
+  v_ohi integer;
+  v_o integer;
   v_pat integer[];
   v_nxt integer[];
   v_lastp integer[];
   v_firstp integer[];
   v_w0 integer := 365;
-  v_n integer;
-  v_k integer;
-  v_off integer;
   v_pos integer;
+  v_blk integer;
+  v_bk integer;
+  v_x integer;
+  v_off integer;
   v_i integer;
   v_e integer;
   -- who takes which place
@@ -420,40 +435,30 @@ declare
   v_kat integer[];
   v_stamp integer[];
   v_st integer := 0;
-  v_hrem integer := 0;
   v_hh integer;
-  v_lh integer;
   v_j integer;
-  v_jend integer;
+  v_pass integer;
   v_p integer;
   v_t integer;
   v_pick integer;
   v_fb integer;
-  -- the draw
-  v_seq integer[];
+  -- the mixing and the polish
   v_out integer[];
-  v_placed boolean[];
-  v_lastk integer[];
-  v_firstk integer[];
-  v_lo integer;
-  v_y integer;
-  v_x integer;
-  v_c integer;
-  v_cmax integer;
-  v_shake integer;
-  v_bad integer;
-  v_best_bad integer;
-  v_best_r double precision;
-  v_r1 double precision;
-  -- the polish
   v_kp integer[];
   v_occ integer[];
   v_ocn integer[];
   v_s integer;
   v_att integer := 0;
+  v_cap integer;
   v_conf integer;
   v_best integer := 1000000;
   v_stall integer := 0;
+  v_sweep integer := 0;
+  v_lo integer;
+  v_hi integer;
+  v_c integer;
+  v_ntry integer;
+  v_cmax integer;
   v_ka integer;
   v_kb integer;
   v_np integer;
@@ -464,7 +469,8 @@ declare
   v_b integer;
   v_dd integer;
   v_d2 integer;
-  v_o integer;
+  v_o2 integer;
+  v_u integer;
   v_ok boolean;
   v_drawn integer := 0;
 begin
@@ -508,30 +514,39 @@ begin
     end loop;
   end if;
 
-  -- 1. The frame: v_pat[position] is the place (1 to v_r: the often ones; then the others) that comes on that position.
+  -- 1. The frame: the 365 positions are cut into blocks of v_count positions (v_q full blocks, then a last block of v_r positions).
+  --    v_pat[position] is the place on that position: places 1 to v_r are the ones that come once more (v_q + 1 times, the "often"
+  --    places), places v_r + 1 to v_count come v_q times. A full block holds every place once; the last block holds the often places
+  --    in their order (positions 1 to v_r). The others keep one order in every block. The often places sit in a band of v_r
+  --    positions that starts v_o positions into the first block and moves v_o / v_q positions earlier at each block until it is
+  --    the last block; the others that the band passes over jump over it (later, so their gap only grows). v_o is the middle of
+  --    the values that give every often place a gap of floor(365 / (v_q + 1)) days at least: the best a target that comes
+  --    v_q + 1 times can have. The shortest gap of the frame, v_w0, is that number (checked for 2 to 1400 targets) or v_count.
   v_q := 365 / v_count;
   v_r := 365 % v_count;
-  v_m := v_q + case when v_r > 0 then 1 else 0 end;
-  v_lmin := 365 / v_m;
-  v_nl := v_count - v_r;
-  v_hoff := array_fill(0, array[v_lmin]);
-  for v_i in 1..v_r loop
-    v_hoff[(v_i - 1) * v_lmin / v_r + 1] := v_i;
-  end loop;
+  v_o := 0;
+  if v_q > 0 and v_r > 0 then
+    v_tt := 365 / (v_q + 1);
+    v_olo := greatest(0, v_tt - v_r);
+    v_ohi := least(v_count - v_r, v_q * (v_count - v_tt));
+    v_o := (v_olo + v_ohi) / 2;
+  end if;
   v_pat := array_fill(0, array[365]);
-  v_pos := 0;
-  v_n := 0;
-  for v_k in 1..v_m loop
-    v_len := 365 * v_k / v_m - 365 * (v_k - 1) / v_m;
-    for v_off in 1..v_len loop
-      v_pos := v_pos + 1;
-      if v_off <= v_lmin and v_hoff[v_off] > 0 then
-        v_pat[v_pos] := v_hoff[v_off];
+  for v_pos in 1..365 loop
+    v_blk := (v_pos - 1) / v_count + 1;
+    v_x := v_pos - (v_blk - 1) * v_count;
+    if v_blk > v_q then
+      v_pat[v_pos] := v_x;
+    else
+      v_off := v_o * (v_q + 1 - v_blk) / v_q;
+      if v_x <= v_off then
+        v_pat[v_pos] := v_r + v_x;
+      elsif v_x <= v_off + v_r then
+        v_pat[v_pos] := v_x - v_off;
       else
-        v_pat[v_pos] := v_r + 1 + v_n % v_nl;
-        v_n := v_n + 1;
+        v_pat[v_pos] := v_x;
       end if;
-    end loop;
+    end if;
   end loop;
   v_lastp := array_fill(0, array[v_count]);
   v_firstp := array_fill(0, array[v_count]);
@@ -573,13 +588,7 @@ begin
       v_pool := v_pool || v_ord[v_j];
     end if;
   end loop;
-  for v_i in 1..v_r loop
-    if v_idxent[v_i] = 0 then
-      v_hrem := v_hrem + 1;
-    end if;
-  end loop;
   v_hh := 1;
-  v_lh := v_hrem + 1;
   v_kat := array_fill(0, array[365]);
   v_stamp := array_fill(0, array[v_nk + 1]);
   for v_pos in 1..365 loop
@@ -587,205 +596,154 @@ begin
       v_kat[v_pos] := v_kid[v_idxent[v_pat[v_pos]]];
     end if;
   end loop;
-  for v_pos in 1..365 loop
-    v_i := v_pat[v_pos];
-    continue when v_idxent[v_i] <> 0 or v_firstp[v_i] <> v_pos;
-    -- The groups set within 13 days of a place of this one.
-    v_st := v_st + 1;
-    v_p := v_pos;
-    loop
-      for v_j in v_p - 13..v_p + 13 loop
-        v_t := (v_j + 364) % 365 + 1;
-        if v_kat[v_t] > 0 then
-          v_stamp[v_kat[v_t]] := v_st;
-        end if;
+  -- The places that come once more first (they take the targets that come first in the weighted order), then the others.
+  for v_pass in 1..2 loop
+    for v_pos in 1..365 loop
+      v_i := v_pat[v_pos];
+      continue when v_idxent[v_i] <> 0 or v_firstp[v_i] <> v_pos or (v_i <= v_r) <> (v_pass = 1);
+      -- The groups set within 13 days of a place of this one.
+      v_st := v_st + 1;
+      v_p := v_pos;
+      loop
+        for v_j in v_p - 13..v_p + 13 loop
+          v_t := (v_j + 364) % 365 + 1;
+          if v_kat[v_t] > 0 then
+            v_stamp[v_kat[v_t]] := v_st;
+          end if;
+        end loop;
+        v_p := v_nxt[v_p];
+        exit when v_p = v_pos;
       end loop;
-      v_p := v_nxt[v_p];
-      exit when v_p = v_pos;
-    end loop;
-    v_pick := 0;
-    v_fb := 0;
-    if v_i <= v_r then
+      v_pick := 0;
+      v_fb := 0;
       v_j := v_hh;
-      v_jend := v_hrem;
-    else
-      v_j := v_lh;
-      v_jend := cardinality(v_pool);
-    end if;
-    while v_j <= v_jend loop
-      v_e := v_pool[v_j];
-      if not v_taken[v_e] then
-        if v_kid[v_e] = 0 or v_stamp[v_kid[v_e]] <> v_st then
-          v_pick := v_e;
-          exit;
-        end if;
-        if v_fb = 0 then
-          v_fb := v_e;
-        end if;
-      end if;
-      v_j := v_j + 1;
-    end loop;
-    if v_pick = 0 then
-      v_pick := v_fb;
-    end if;
-    if v_pick = 0 then
-      raise exception 'dle_bank_unsatisfiable: % targets, window %', v_count, v_win;
-    end if;
-    v_taken[v_pick] := true;
-    v_idxent[v_i] := v_pick;
-    while v_hh <= v_hrem and v_taken[v_pool[v_hh]] loop
-      v_hh := v_hh + 1;
-    end loop;
-    while v_lh <= cardinality(v_pool) and v_taken[v_pool[v_lh]] loop
-      v_lh := v_lh + 1;
-    end loop;
-    v_p := v_pos;
-    loop
-      v_kat[v_p] := v_kid[v_pick];
-      v_p := v_nxt[v_p];
-      exit when v_p = v_pos;
-    end loop;
-  end loop;
-  v_seq := array_fill(0, array[365]);
-  for v_pos in 1..365 loop
-    v_seq[v_pos] := v_idxent[v_pat[v_pos]];
-  end loop;
-
-  -- 3. The draw: every place may move at most v_shake days. A place at its limit is taken at once (the smallest one left: two
-  --    places never reach their limit on the same day); else the choice is free among the places v_shake days ahead or less.
-  v_shake := least(30, (v_w0 - v_win) / 2);
-  v_out := array_fill(0, array[365]);
-  v_placed := array_fill(false, array[365]);
-  v_lastk := array_fill(0, array[v_nk + 1]);
-  v_firstk := array_fill(0, array[v_nk + 1]);
-  for v_y in 1..v_nfixed loop
-    v_placed[v_y] := true;
-    v_out[v_y] := v_seq[v_y];
-    v_k := v_kid[v_seq[v_y]];
-    if v_k > 0 then
-      v_lastk[v_k] := v_y;
-      if v_firstk[v_k] = 0 then
-        v_firstk[v_k] := v_y;
-      end if;
-    end if;
-  end loop;
-  v_lo := v_nfixed + 1;
-  for v_y in v_nfixed + 1..365 loop
-    while v_placed[v_lo] loop
-      v_lo := v_lo + 1;
-    end loop;
-    if v_lo <= v_y - v_shake then
-      v_x := v_lo;
-    else
-      v_x := 0;
-      v_best_bad := 2;
-      v_best_r := 0;
-      for v_c in v_lo..least(365, v_y + v_shake) loop
-        continue when v_placed[v_c];
-        v_e := v_seq[v_c];
-        v_k := v_kid[v_e];
-        v_bad := 0;
-        if v_k > 0 and ((v_lastk[v_k] > 0 and v_y - v_lastk[v_k] < 14) or (v_firstk[v_k] > 0 and 365 - v_y + v_firstk[v_k] < 14)) then
-          v_bad := 1;
-        end if;
-        if v_bad <= v_best_bad then
-          v_r1 := -ln(1 - random()) / v_weights[v_e];
-          if v_x = 0 or v_bad < v_best_bad or v_r1 < v_best_r then
-            v_x := v_c;
-            v_best_bad := v_bad;
-            v_best_r := v_r1;
+      while v_j <= cardinality(v_pool) loop
+        v_e := v_pool[v_j];
+        if not v_taken[v_e] then
+          if v_kid[v_e] = 0 or v_stamp[v_kid[v_e]] <> v_st then
+            v_pick := v_e;
+            exit;
+          end if;
+          if v_fb = 0 then
+            v_fb := v_e;
           end if;
         end if;
+        v_j := v_j + 1;
       end loop;
-    end if;
-    v_placed[v_x] := true;
-    v_out[v_y] := v_seq[v_x];
-    v_k := v_kid[v_seq[v_x]];
-    if v_k > 0 then
-      v_lastk[v_k] := v_y;
-      if v_firstk[v_k] = 0 then
-        v_firstk[v_k] := v_y;
+      if v_pick = 0 then
+        v_pick := v_fb;
       end if;
-    end if;
+      if v_pick = 0 then
+        raise exception 'dle_bank_unsatisfiable: % targets, window %', v_count, v_win;
+      end if;
+      v_taken[v_pick] := true;
+      v_idxent[v_i] := v_pick;
+      while v_hh <= cardinality(v_pool) and v_taken[v_pool[v_hh]] loop
+        v_hh := v_hh + 1;
+      end loop;
+      v_p := v_pos;
+      loop
+        v_kat[v_p] := v_kid[v_pick];
+        v_p := v_nxt[v_p];
+        exit when v_p = v_pos;
+      end loop;
+    end loop;
+  end loop;
+  v_out := array_fill(0, array[365]);
+  for v_pos in 1..365 loop
+    v_out[v_pos] := v_idxent[v_pat[v_pos]];
   end loop;
 
-  -- 4. The polish: swap two days when both targets keep their window and the days of one group within 14 days become fewer.
-  --    v_kp holds the group of each day with 13 days of the cycle's other end on each side (so a window is 27 entries).
-  if v_nk > 0 then
-    v_s := v_q + 1;
-    v_occ := array_fill(0, array[v_count * v_s]);
-    v_ocn := array_fill(0, array[v_count]);
-    v_kp := array_fill(0, array[365 + 26]);
-    for v_pos in 1..365 loop
-      v_e := v_out[v_pos];
-      v_ocn[v_e] := v_ocn[v_e] + 1;
-      v_occ[(v_e - 1) * v_s + v_ocn[v_e]] := v_pos;
-      v_kp[v_pos + 13] := v_kid[v_e];
-    end loop;
-    for v_i in 1..13 loop
-      v_kp[v_i + 378] := v_kp[v_i + 13];
-      v_kp[v_i] := v_kp[v_i + 365];
-    end loop;
-    loop
-      v_conf := 0;
-      for v_p in v_nfixed + 1..365 loop
-        exit when v_att >= 40000;
-        v_ka := v_kp[v_p + 13];
-        continue when v_ka = 0;
+  -- 3. The mixing. The frame gives every block the same order, which a player could read. Two days of one block are swapped when
+  --    both targets keep their gap G (the other days of each, 1 to 13 of them, are read, around the cycle) and the days of the same
+  --    group within 14 days (around the cycle) do not become more. Every state the mixing passes through holds G, the blocks and
+  --    the counts, so it can be stopped at any time; the first v_nfixed days never move. 12 sweeps give each day 2 partners (the
+  --    orders have stopped changing by then: measured on 6, 12, 24, 60 and 120 sweeps); a day in conflict gets 30 partners per
+  --    sweep, and sweeps on the days in conflict go on until none is left or 3 sweeps in a row leave as many (a preference).
+  v_s := v_q + 1;
+  v_cap := 2 * 227760 / greatest(13, v_s);
+  v_occ := array_fill(0, array[v_count * v_s]);
+  v_ocn := array_fill(0, array[v_count]);
+  v_kp := array_fill(0, array[365 + 26]);
+  for v_pos in 1..365 loop
+    v_e := v_out[v_pos];
+    v_ocn[v_e] := v_ocn[v_e] + 1;
+    v_occ[(v_e - 1) * v_s + v_ocn[v_e]] := v_pos;
+    v_kp[v_pos + 13] := v_kid[v_e];
+  end loop;
+  for v_i in 1..13 loop
+    v_kp[v_i + 378] := v_kp[v_i + 13];
+    v_kp[v_i] := v_kp[v_i + 365];
+  end loop;
+  loop
+    v_sweep := v_sweep + 1;
+    v_conf := 0;
+    for v_p in v_nfixed + 1..365 loop
+      exit when v_att >= v_cap;
+      v_bk := (v_p - 1) / v_count;
+      v_lo := greatest(v_bk * v_count + 1, v_nfixed + 1);
+      v_hi := least((v_bk + 1) * v_count, 365);
+      continue when v_hi <= v_lo;
+      v_cmax := 0;
+      v_ka := v_kp[v_p + 13];
+      if v_ka > 0 then
         v_cmax := -1;
-        for v_t in v_p..v_p + 26 loop
-          if v_kp[v_t] = v_ka then
+        for v_u in v_p..v_p + 26 loop
+          if v_kp[v_u] = v_ka then
             v_cmax := v_cmax + 1;
           end if;
         end loop;
-        continue when v_cmax <= 0;
+      end if;
+      if v_cmax > 0 then
         v_conf := v_conf + 1;
-        for v_c in 1..30 loop
-          v_att := v_att + 1;
-          v_z := v_nfixed + 1 + floor(random() * (365 - v_nfixed))::integer;
-          continue when v_z = v_p;
-          v_kb := v_kp[v_z + 13];
-          continue when v_kb = v_ka;
-          v_a := v_out[v_p];
-          v_b := v_out[v_z];
-          v_ok := true;
-          for v_t in 1..v_ocn[v_a] loop
-            v_o := v_occ[(v_a - 1) * v_s + v_t];
-            if v_o <> v_p then
-              v_d2 := abs(v_o - v_z);
+      end if;
+      v_ntry := case when v_cmax > 0 then 30 when v_sweep <= 12 then 2 else 0 end;
+      for v_c in 1..v_ntry loop
+        v_att := v_att + 1;
+        v_z := v_lo + floor(random() * (v_hi - v_lo + 1))::integer;
+        continue when v_z = v_p;
+        v_a := v_out[v_p];
+        v_b := v_out[v_z];
+        v_ok := true;
+        for v_u in 1..v_ocn[v_a] loop
+          v_o2 := v_occ[(v_a - 1) * v_s + v_u];
+          if v_o2 <> v_p then
+            v_d2 := abs(v_o2 - v_z);
+            if least(v_d2, 365 - v_d2) < v_win then
+              v_ok := false;
+              exit;
+            end if;
+          end if;
+        end loop;
+        if v_ok then
+          for v_u in 1..v_ocn[v_b] loop
+            v_o2 := v_occ[(v_b - 1) * v_s + v_u];
+            if v_o2 <> v_z then
+              v_d2 := abs(v_o2 - v_p);
               if least(v_d2, 365 - v_d2) < v_win then
                 v_ok := false;
                 exit;
               end if;
             end if;
           end loop;
-          if v_ok then
-            for v_t in 1..v_ocn[v_b] loop
-              v_o := v_occ[(v_b - 1) * v_s + v_t];
-              if v_o <> v_z then
-                v_d2 := abs(v_o - v_p);
-                if least(v_d2, 365 - v_d2) < v_win then
-                  v_ok := false;
-                  exit;
-                end if;
-              end if;
-            end loop;
-          end if;
-          continue when not v_ok;
-          -- The days p and z now (v_cmax and v_oz) and after the swap (v_np and v_nz): groups kb at p, ka at z, the other one of
+        end if;
+        continue when not v_ok;
+        v_kb := v_kp[v_z + 13];
+        if v_ka <> v_kb then
+          -- The days p and z now (v_cmax and v_oz) and after the swap (v_np and v_nz): group kb at p, ka at z, the other one of
           -- the two days no longer counted in the window of the first.
           v_dd := abs(v_p - v_z);
           v_dd := least(v_dd, 365 - v_dd);
           v_np := 0;
           v_oz := 0;
           if v_kb > 0 then
-            for v_t in v_p..v_p + 26 loop
-              if v_kp[v_t] = v_kb then
+            for v_u in v_p..v_p + 26 loop
+              if v_kp[v_u] = v_kb then
                 v_np := v_np + 1;
               end if;
             end loop;
-            for v_t in v_z..v_z + 26 loop
-              if v_kp[v_t] = v_kb then
+            for v_u in v_z..v_z + 26 loop
+              if v_kp[v_u] = v_kb then
                 v_oz := v_oz + 1;
               end if;
             end loop;
@@ -795,49 +753,54 @@ begin
             end if;
           end if;
           v_nz := 0;
-          for v_t in v_z..v_z + 26 loop
-            if v_kp[v_t] = v_ka then
-              v_nz := v_nz + 1;
+          if v_ka > 0 then
+            for v_u in v_z..v_z + 26 loop
+              if v_kp[v_u] = v_ka then
+                v_nz := v_nz + 1;
+              end if;
+            end loop;
+            if v_dd <= 13 then
+              v_nz := v_nz - 1;
             end if;
-          end loop;
-          if v_dd <= 13 then
-            v_nz := v_nz - 1;
           end if;
           -- Fewer days of one group close together, or as many (a sideways move lets the search leave a dead end).
           continue when v_np + v_nz > v_cmax + v_oz;
-          v_out[v_p] := v_b;
-          v_out[v_z] := v_a;
-          v_kp[v_p + 13] := v_kb;
-          v_kp[v_z + 13] := v_ka;
-          if v_p <= 13 then v_kp[v_p + 378] := v_kb; end if;
-          if v_p >= 353 then v_kp[v_p - 352] := v_kb; end if;
-          if v_z <= 13 then v_kp[v_z + 378] := v_ka; end if;
-          if v_z >= 353 then v_kp[v_z - 352] := v_ka; end if;
-          for v_t in 1..v_ocn[v_a] loop
-            if v_occ[(v_a - 1) * v_s + v_t] = v_p then
-              v_occ[(v_a - 1) * v_s + v_t] := v_z;
-              exit;
-            end if;
-          end loop;
-          for v_t in 1..v_ocn[v_b] loop
-            if v_occ[(v_b - 1) * v_s + v_t] = v_z then
-              v_occ[(v_b - 1) * v_s + v_t] := v_p;
-              exit;
-            end if;
-          end loop;
-          exit;
+        end if;
+        v_out[v_p] := v_b;
+        v_out[v_z] := v_a;
+        v_kp[v_p + 13] := v_kb;
+        v_kp[v_z + 13] := v_ka;
+        if v_p <= 13 then v_kp[v_p + 378] := v_kb; end if;
+        if v_p >= 353 then v_kp[v_p - 352] := v_kb; end if;
+        if v_z <= 13 then v_kp[v_z + 378] := v_ka; end if;
+        if v_z >= 353 then v_kp[v_z - 352] := v_ka; end if;
+        for v_u in 1..v_ocn[v_a] loop
+          if v_occ[(v_a - 1) * v_s + v_u] = v_p then
+            v_occ[(v_a - 1) * v_s + v_u] := v_z;
+            exit;
+          end if;
         end loop;
+        for v_u in 1..v_ocn[v_b] loop
+          if v_occ[(v_b - 1) * v_s + v_u] = v_z then
+            v_occ[(v_b - 1) * v_s + v_u] := v_p;
+            exit;
+          end if;
+        end loop;
+        exit;
       end loop;
-      -- Stop when no day is left in conflict, or the number of days in conflict has not fallen for 3 sweeps.
+    end loop;
+    -- 12 sweeps of mixing, then sweeps on the days in conflict only, until none is left or 3 sweeps leave as many.
+    if v_sweep > 12 then
       if v_conf < v_best then
         v_best := v_conf;
         v_stall := 0;
       else
         v_stall := v_stall + 1;
       end if;
-      exit when v_conf = 0 or v_stall >= 3 or v_att >= 40000;
-    end loop;
-  end if;
+      exit when v_conf = 0 or v_stall >= 3;
+    end if;
+    exit when v_att >= v_cap;
+  end loop;
 
   v_slots := array_fill(null::text, array[365]);
   for v_pos in 1..365 loop

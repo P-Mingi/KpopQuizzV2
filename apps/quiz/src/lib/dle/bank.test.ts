@@ -1,9 +1,11 @@
-// Daily games, the bank of 365 days (CR-019, second change in place): the frame of 019 builds the bank for every pool size, with no
-// random dead end. PGlite on the real 018, 019 and 020 (pglite-harness.ts).
+// Daily games, the bank of 365 days (CR-019, second change in place; CR-027, third): the frame of 019 builds the bank for every pool size, with
+// no random dead end, in blocks: every target once per block of N days (N = the targets) before any comes back, the last block with the
+// 365 mod N targets that come once more, the gap G (dle_window) between two days of one target held across the blocks and the turn of the cycle.
+// PGlite on the real 018, 019 and 020 (pglite-harness.ts).
 import type { PGlite } from '@electric-sql/pglite';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { freshDb, one, rows } from './pglite-harness';
+import { bankBlocks, failure, freshDb, one, readMigration, rows, wantBlocks } from './pglite-harness';
 
 vi.setConfig({ testTimeout: 120_000, hookTimeout: 60_000 });
 
@@ -25,9 +27,10 @@ async function syntheticGame(db: PGlite, id: string, n: number, keys: number, no
   `);
 }
 
-interface Stats { days: number; distinct: number; breaks: number; min: number; max: number; outside: number }
+interface Stats { days: number; distinct: number; breaks: number; min: number; max: number; outside: number; turn: number }
 
-/** What a bank must hold: 365 days, no target twice within `win` days around the cycle, counts that differ by 1 at most. */
+/** What a bank must hold: 365 days, no target twice within `win` days around the cycle (`turn`: the shortest gap across the turn of the
+ *  cycle, last day to first day again), counts that differ by 1 at most. */
 async function stats(db: PGlite, game: string, win: number): Promise<Stats> {
   const [r] = await rows<Stats>(db, `
     select (select count(*)::int from public.dle_schedule where game_id = $1) as days,
@@ -42,7 +45,19 @@ async function stats(db: PGlite, game: string, win: number): Promise<Stats> {
         left join public.dle_schedule s on s.game_id = e.game_id and s.entity_id = e.entity_id
         where e.game_id = $1 and e.can_be_target and e.in_pool group by e.entity_id) t) as max,
       (select count(*)::int from public.dle_schedule s left join public.dle_entities e on e.game_id = s.game_id and e.entity_id = s.entity_id
-        where s.game_id = $1 and not coalesce(e.can_be_target and e.in_pool, false)) as outside`, [game, win]);
+        where s.game_id = $1 and not coalesce(e.can_be_target and e.in_pool, false)) as outside,
+      (select min(t)::int from (select 365 - max(bank_day) + min(bank_day) as t from public.dle_schedule where game_id = $1 group by entity_id) x) as turn`, [game, win]);
+  return r!;
+}
+
+/** Pairs of targets whose order flips between block 1 and block 2 (share of all pairs: 0 the same order, 0.5 independent shuffles) and the
+ *  targets that keep the same place in both, for a bank with at least two full blocks. */
+async function shuffle(db: PGlite, game: string, n: number): Promise<{ flips: number; same: number }> {
+  const [r] = await rows<{ flips: number; same: number }>(db, `
+    with p as (select a.bank_day as pa, b.bank_day - $2 as pb from public.dle_schedule a join public.dle_schedule b
+      on b.game_id = a.game_id and b.entity_id = a.entity_id and a.bank_day <= $2 and b.bank_day > $2 and b.bank_day <= 2 * $2 where a.game_id = $1)
+    select (select count(*) from p x join p y on x.pa < y.pa and x.pb > y.pb)::float8 / ($2::float8 * ($2 - 1) / 2) as flips,
+      (select count(*) from p where pa = pb)::float8 / $2 as same`, [game, n]);
   return r!;
 }
 
@@ -77,6 +92,10 @@ describe('the bank of 365 days, every pool size', () => {
         expect(s.outside, tag).toBe(0);
         expect(s.breaks, tag).toBe(0);
         expect(s.max - s.min, tag).toBeLessThanOrEqual(1);
+        // CR-027: every target before any returns (blocks of N days from day 1), at most ceil(365 / N) days a target, the gap across the turn.
+        expect(await bankBlocks(db, id, n), tag).toEqual(wantBlocks(n));
+        expect(s.max, tag).toBe(Math.ceil(365 / n));
+        expect(s.turn, tag).toBeGreaterThanOrEqual(s.win);
       }
     }
   });
@@ -90,6 +109,8 @@ describe('the bank of 365 days, every pool size', () => {
         expect(s.days, id).toBe(365);
         expect(s.breaks, id).toBe(0);
         expect(s.max - s.min, id).toBeLessThanOrEqual(1);
+        expect(await bankBlocks(db, id, n), id).toEqual(wantBlocks(n));
+        expect(s.turn, id).toBeGreaterThanOrEqual(s.win);
       }
     }
   });
@@ -102,6 +123,23 @@ describe('the bank of 365 days, every pool size', () => {
     expect(s.days).toBe(365);
     expect(s.breaks).toBe(0);
     expect(s.max - s.min).toBeLessThanOrEqual(1);
+    expect(await bankBlocks(db, 'big', 182)).toEqual(wantBlocks(182));
+    expect(s.turn).toBeGreaterThanOrEqual(121);
+  });
+
+  it('the blocks are not the same order every time: 0.15 to 0.35 of the pairs of targets flip between two blocks, few targets keep their place', async () => {
+    // Measured on these 15 builds: 0.20 to 0.31 of the pairs flip, 0 to 5 % of the targets keep their place (30 targets: 17 %).
+    for (const n of [48, 73, 112, 113, 150]) {
+      const id = `q${n}`;
+      await syntheticGame(db, id, n, 27, 120);
+      for (const seed of [0.11, 0.57, 0.93]) {
+        await build(id, n, seed, 120);
+        const sh = await shuffle(db, id, n);
+        expect(sh.flips, `${n} targets, seed ${seed}`).toBeGreaterThan(0.12);
+        expect(sh.flips, `${n} targets, seed ${seed}`).toBeLessThan(0.4);
+        expect(sh.same, `${n} targets, seed ${seed}`).toBeLessThan(0.25);
+      }
+    }
   });
 
   it('the same seed draws the same bank at the awkward sizes; another seed another one', async () => {
@@ -157,5 +195,67 @@ describe('a rebuild keeps today and the 7 days after it', () => {
     const left = await one<number>(db, `select count(*)::int from public.dle_schedule where game_id = '${id}' and entity_id::int > ${to}`);
     if (left === 0) expect(s.max - s.min).toBeLessThanOrEqual(1);
     expect(s.max - s.min).toBeLessThanOrEqual(1 + left);
+    // CR-027: the blocks start on today's bank day, the 8 kept days being the first 8 days of block 1. No target twice in a block, the blocks
+    // have the sizes of N targets, and the gap holds across the turn of the cycle (a kept target that left the pool takes one day of its block
+    // and displaces one pool target from it: that is the 1 + left above).
+    const start = await one<number>(db, `select public.dle_bank_day('${EPOCH}', '${today}'::date)`);
+    const bl = await bankBlocks(db, id, to, start);
+    for (const [days, distinct] of bl) expect(distinct).toBe(days);
+    expect(bl.map((b) => b[0])).toEqual(wantBlocks(to).map((b) => b[0]));
+    expect(s.turn).toBeGreaterThanOrEqual(win);
+  });
+});
+
+describe('D02-dev-rebuild-banks.sql (dev only, CR-027)', () => {
+  const D02 = (): string => readMigration('dev/D02-dev-rebuild-banks.sql');
+  const bank = (db: PGlite, id: string): Promise<string> => one<string>(db, `select string_agg(entity_id, ',' order by bank_day) from public.dle_schedule where game_id = '${id}'`);
+
+  it('refuses above 200 profiles and a live hub or anime site; rebuilds a bank that is not in blocks from day 1; a second run changes nothing', async () => {
+    const db = await freshDb();
+    await db.exec(`create table public.profiles (id integer primary key); insert into public.profiles select x from generate_series(1, 50) x`);
+    await syntheticGame(db, 'dev', 112, 27, 120);
+    await syntheticGame(db, 'tiny', 20, 27, 120);
+    await db.query(`select public.dle_activate('dev', '${EPOCH}', 0.4)`);
+    await db.query(`select public.dle_activate('tiny', '${EPOCH}', 0.4)`);
+    await db.exec(`update public.dle_games set min_pool = 60 where id = 'tiny'`);
+    // A bank drawn the old way: the same days read from another start, so that the blocks do not start on day 1.
+    await db.exec(`
+      create temp table old_bank as select game_id, ((bank_day + 36) % 365) + 1 as bank_day, entity_id from public.dle_schedule where game_id = 'dev';
+      delete from public.dle_schedule where game_id = 'dev';
+      insert into public.dle_schedule (game_id, bank_day, entity_id) select * from old_bank;`);
+    const rotated = await bank(db, 'dev');
+    const tiny = await bank(db, 'tiny');
+    expect(await bankBlocks(db, 'dev', 112)).not.toEqual(wantBlocks(112));
+    const games = `select id, active, epoch from public.dle_games order by id`;
+    const before = await rows(db, games);
+
+    // The guards change nothing.
+    await db.exec(`insert into public.profiles select x from generate_series(51, 201) x`);
+    expect(await failure(db, D02())).toMatch(/more than 200 profiles/);
+    await db.exec(`delete from public.profiles where id > 50; insert into public.sites (id, domain, brand, kind, status, sort) values ('hub', 'bunnyverse.org', 'Bunnyverse', 'hub', 'live', 3)`);
+    expect(await failure(db, D02())).toMatch(/anime or hub site is live/);
+    expect(await bank(db, 'dev')).toBe(rotated);
+    await db.exec(`delete from public.sites where id = 'hub'`);
+
+    // The engine of CR-019 (no marker): it stops and says what to run first.
+    const fn = await one<string>(db, `select pg_get_functiondef('public.dle_build_bank(text, date, double precision)'::regprocedure)`);
+    await db.exec(fn.replace('bank-blocks-v1', 'no-marker'));
+    expect(await failure(db, D02())).toMatch(/run 019-dle-core.sql again first/);
+    await db.exec(fn);
+
+    expect(await failure(db, D02())).toBeNull();
+    const once = await bank(db, 'dev');
+    expect(once).not.toBe(rotated);
+    expect(await bankBlocks(db, 'dev', 112)).toEqual(wantBlocks(112));
+    expect(await one(db, `select count(*)::int from public.dle_schedule where game_id = 'dev'`)).toBe(365);
+    expect(await one(db, `select public.dle_window('dev')`)).toBe(78);
+    expect(await one(db, `select count(*)::int from public.dle_schedule a join public.dle_schedule b on a.game_id = b.game_id and a.entity_id = b.entity_id and a.bank_day < b.bank_day
+      where a.game_id = 'dev' and least(b.bank_day - a.bank_day, 365 - (b.bank_day - a.bank_day)) < 78`)).toBe(0);
+    // A game under its minimum stays as it is, no game is switched on or off, no epoch moves.
+    expect(await bank(db, 'tiny')).toBe(tiny);
+    expect(await rows(db, games)).toEqual(before);
+    // A second run changes nothing.
+    expect(await failure(db, D02())).toBeNull();
+    expect(await bank(db, 'dev')).toBe(once);
   });
 });

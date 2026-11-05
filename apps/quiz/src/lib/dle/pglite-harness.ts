@@ -77,3 +77,22 @@ export async function failure(db: PGlite, sql: string, params: unknown[] = []): 
     return (e as Error).message;
   }
 }
+
+/** The blocks of N days of a bank (CR-027), read from bank day `start` (1 after a first build, the bank day of that morning after a rebuild):
+ *  [days, distinct targets] of each. A bank in blocks has the same number twice in each: no target comes back inside a block. */
+export async function bankBlocks(db: PGlite, game: string, n: number, start = 1): Promise<number[][]> {
+  const size = Math.min(n, 365);
+  const r = await rows<{ days: number; distinct: number }>(db, `
+    select count(*)::int as days, count(distinct entity_id)::int as distinct from public.dle_schedule where game_id = $1
+    group by ((bank_day - $2 + 365) % 365) / $3 order by ((bank_day - $2 + 365) % 365) / $3`, [game, start, size]);
+  return r.map((b) => [b.days, b.distinct]);
+}
+
+/** What bankBlocks must say for n targets: floor(365 / n) full blocks, then a last one of 365 mod n days (none when n divides 365). With 365
+ *  targets or more: one block of 365 days. */
+export const wantBlocks = (n: number): number[][] => {
+  const size = Math.min(n, 365);
+  const out: number[][] = Array.from({ length: Math.floor(365 / size) }, () => [size, size]);
+  if (365 % size > 0) out.push([365 % size, 365 % size]);
+  return out;
+};
