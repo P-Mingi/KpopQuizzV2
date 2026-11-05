@@ -3,6 +3,8 @@ import { revalidateTag } from 'next/cache';
 
 import { tagsOfImage } from './constants';
 
+import type { RevalidateTag } from '@/lib/admin/revalidate';
+import type { SiteId } from '@/lib/site/types';
 import type { ImageKind } from './constants';
 
 /**
@@ -18,3 +20,15 @@ export function revalidateImage(kind: ImageKind, slug: string): void {
     }
   }
 }
+
+/**
+ * ADMIN-2: what a write of a picture of `site` expires on the deployment of that site, as tags of the closed list of the cross-site call
+ * (lib/admin/revalidate.ts, sent by revalidateSite). OtakuQuiz reads its pictures as one list (IMAGES_LIST_TAG, which the closed list holds as
+ * 'entity-images:anime'); the credits pages and the games of every site read the verified pictures (entity_images_public).
+ */
+export function pictureTags(site: SiteId): RevalidateTag[] {
+  return site === 'anime' ? ['entity-images:anime', 'entity-images-public'] : ['entity-images-public'];
+}
+
+/** The live banners, icons and stickers of bunnyverse.org (site_assets_public): what a write of an asset expires on the hub. */
+export const ASSET_TAGS: readonly RevalidateTag[] = ['site-assets'];

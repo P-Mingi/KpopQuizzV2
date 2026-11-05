@@ -51,16 +51,14 @@ const NO_SITE: Readonly<Record<string, string>> = {
   [`${API}/[[...rest]]/route.ts`]: 'the 404 catch-all',
   [`${API}/k7q2m/route.ts`]: 'the TOTP step: an account event, journaled under the build\'s own site',
   [`${API}/youtube-info/route.ts`]: 'an external oEmbed lookup, no site data',
-  [`${API}/images/route.ts`]: 'entity images are OtakuQuiz\'s (adminGate: the anime build, IMAGE_SITE); site fixed',
-  [`${API}/images/delete/route.ts`]: 'same: IMAGE_SITE',
-  [`${API}/images/focal/route.ts`]: 'same: IMAGE_SITE',
-  [`${API}/images/import/route.ts`]: 'same: IMAGE_SITE',
-  [`${API}/images/list/route.ts`]: 'same: IMAGE_SITE',
-  [`${API}/images/upload/route.ts`]: 'same: IMAGE_SITE',
-  [`${API}/photos/route.ts`]: 'the photos board (adminGate: the anime build); the site follows the kind of picture and is journaled so',
-  [`${API}/photos/assets/route.ts`]: 'the banners and icons of bunnyverse.org (adminGate: the anime build); journaled under hub',
-  [`${API}/photos/fetch/route.ts`]: 'a remote download for the board; no site data',
+  [`${API}/photos/fetch/route.ts`]: 'a remote download for the Photos board; it reads and writes nothing of any site',
 };
+// The images and photos routes were on the NO_SITE list until ADMIN-2 gave them the same site as the rest. They resolve the site the admin chose
+// (the images: anime only; the photos: the site of the kind, kpop or anime; the assets: hub), journal under it, and never hard-code one.
+const PICTURE_ROUTES = routes.filter((r) => /^app\/api\/admin\/(images|photos)\//.test(r) || r === `${API}/images/route.ts`).filter((r) => !NO_SITE[r]);
+
+/** The text of a route and of the module it re-exports a write handler from (images/route.ts keeps its handler in delete-handler.ts). */
+const textOf = (route: string): string => [route, ...writeSources(route)].map((f) => strip(read(f))).join('\n');
 
 describe('every write route of app/api/admin calls the journal', () => {
   it('finds the routes', () => {
@@ -97,10 +95,23 @@ describe('every route of app/api/admin resolves the site the admin chose', () =>
   });
 
   it.each(needSite)('%s', (route) => {
-    const text = strip(read(route));
+    const text = textOf(route);
     expect(text, `${route}: no adminSiteOf / resolveAdminSite`).toMatch(/\b(adminSiteOf|resolveAdminSite)\(/);
     // The answer is used: a refusal is returned, never ignored.
     expect(text, `${route}: the site result is not checked`).toMatch(/if \(!siteResult\.ok\) return siteResult\.res;/);
+  });
+
+  it('the images and photos routes are on that list now: each resolves the site, and the journal line of each carries it (never a literal)', () => {
+    expect(PICTURE_ROUTES.map((r) => r.replace(`${API}/`, '')).sort()).toEqual([
+      'images/delete/route.ts', 'images/focal/route.ts', 'images/import/route.ts', 'images/list/route.ts', 'images/route.ts', 'images/upload/route.ts',
+      'photos/assets/route.ts', 'photos/route.ts',
+    ]);
+    for (const route of PICTURE_ROUTES) {
+      const text = textOf(route);
+      expect(text, `${route}: a hard-coded site`).not.toMatch(/\bsite:\s*(IMAGE_SITE|KIND_SITE|'hub'|'anime'|'kpop'|kind\b)/);
+      // Every journal line of a write names the site as `site` (the shorthand of siteResult.site); the list route writes nothing.
+      for (const m of text.matchAll(/logAdminAction\(\{ user: \{ id: gate\.userId \} \}, \{ ([^,]*),/g)) expect(m[1], `${route}: the journal line`).toBe('site');
+    }
   });
 
   it('no route of the tree imports forSite or withSite from lib/site/scope: the build\'s site is not the admin\'s choice', () => {

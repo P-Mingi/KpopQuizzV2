@@ -1,5 +1,6 @@
 import { adminGate, failure, notFoundHandler, ok } from '@/lib/entity-images/route-kit';
 import { adminNotFound } from '@/lib/admin/guard';
+import { adminSiteOf } from '@/lib/admin/site';
 import { IMAGE_SITE } from '@/lib/entity-images/constants';
 import { ImageError } from '@/lib/entity-images/errors';
 import { listImages } from '@/lib/entity-images/list';
@@ -8,15 +9,17 @@ import { createServiceRoleClient } from '@/lib/supabase/server';
 import type { NextRequest, NextResponse } from 'next/server';
 
 // Run O1 (ADM back): GET /api/admin/images/list?site=anime. The series of the anime site with their characters, the state of each
-// image and the counts. Admin only (404 otherwise), anime build only.
+// image and the counts. Admin only (404 otherwise), on the anime build and on the hub. ADMIN-2: the site is the admin's choice; the anime build
+// still means anime when none is sent (until step 6), the hub requires one, and any site but anime is the 400 it always was.
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const gate = await adminGate();
   if (!gate.ok) return gate.res;
   try {
-    const site = new URL(req.url).searchParams.get('site') ?? IMAGE_SITE;
-    if (site !== IMAGE_SITE) throw new ImageError('bad_request', 400, 'Only site=anime has images.');
+    const siteResult = adminSiteOf(req);
+    if (!siteResult.ok) return siteResult.res;
+    if (siteResult.site !== IMAGE_SITE) throw new ImageError('bad_request', 400, 'Only site=anime has images.');
     return ok(await listImages(createServiceRoleClient()));
   } catch (e) {
     return failure(e);

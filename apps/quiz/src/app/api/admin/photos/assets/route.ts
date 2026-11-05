@@ -1,7 +1,10 @@
 import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { cacheOutcome, revalidateSite } from '@/lib/admin/revalidate-client';
+import { adminSiteOf } from '@/lib/admin/site';
+import { ASSET_TAGS } from '@/lib/entity-images/cache';
 import { MAX_OUTPUT_BYTES } from '@/lib/entity-images/constants';
 import { ImageError } from '@/lib/entity-images/errors';
-import { adminGate, failure, forbidden, notFoundHandler, ok, readForm, sameOrigin } from '@/lib/entity-images/route-kit';
+import { adminGate, failure, forbidden, notFoundHandler, ok, ownSite, readForm, sameOrigin } from '@/lib/entity-images/route-kit';
 import { restoreAsset, retireAsset, saveAsset } from '@/lib/photos/store';
 import { parseAssetMeta, parseAssetSettings, parseAssetSlot, parseFlag, parsePublish } from '@/lib/photos/validate';
 import { createServiceRoleClient } from '@/lib/supabase/server';
@@ -14,8 +17,11 @@ import type { NextRequest, NextResponse } from 'next/server';
 //   mid for a banner or card image, thumb). Adds a version: the older ones stay as the history.
 // - retire: key. Takes every version of the key off the site (a sticker removed).
 // - restore: id. Puts an older version back (its published_at becomes now).
-// Admin only on the anime build (404 otherwise); same-origin writes only. The pages of bunnyverse.org read site_assets_public with a one
-// minute cache, so a change shows there within the minute, with no deploy.
+// Admin only on the anime build and on the hub (404 otherwise); same-origin writes only. The pages of bunnyverse.org read site_assets_public with
+// a one minute cache, so a change shows there within the minute, with no deploy.
+// ADMIN-2: the assets are bunnyverse.org's (the hub's: there is no site column), so the site is hub (site in the query or the form; another site
+// is a 400). The hub build requires it; the anime build, until step 6, means hub when none is sent. The write is journaled under hub and the
+// tag of the live assets is expired on the hub's deployment at once (the minute of the cache is only the fallback).
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
@@ -39,19 +45,24 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (!sameOrigin(req)) return forbidden();
   try {
     const form = await readForm(req, MAX_FORM);
+    const siteResult = adminSiteOf(req, { site: form.get('site') }, ownSite('hub'));
+    if (!siteResult.ok) return siteResult.res;
+    const site = siteResult.site;
     const action = form.get('action');
     const db = createServiceRoleClient();
     if (action === 'retire') {
       const slot = parseAssetSlot(form.get('key'));
       await retireAsset(db, slot.key);
-      await logAdminAction({ user: { id: gate.userId } }, { site: 'hub', action: 'asset.retire', targetType: 'site_asset', targetId: slot.key, requestId: requestIdOf(req) });
+      const cache = await revalidateSite(site, ASSET_TAGS);
+      await logAdminAction({ user: { id: gate.userId } }, { site, action: 'asset.retire', targetType: 'site_asset', targetId: slot.key, detail: { cache: cacheOutcome(cache) }, requestId: requestIdOf(req) });
       return ok({ retired: slot.key });
     }
     if (action === 'restore') {
       const id = Number(form.get('id'));
       if (!Number.isInteger(id) || id < 1) throw new ImageError('bad_request', 400, 'La version n\'est pas valide.');
       await restoreAsset(db, id);
-      await logAdminAction({ user: { id: gate.userId } }, { site: 'hub', action: 'asset.restore', targetType: 'site_asset', targetId: id, requestId: requestIdOf(req) });
+      const cache = await revalidateSite(site, ASSET_TAGS);
+      await logAdminAction({ user: { id: gate.userId } }, { site, action: 'asset.restore', targetType: 'site_asset', targetId: id, detail: { cache: cacheOutcome(cache) }, requestId: requestIdOf(req) });
       return ok({ restored: id });
     }
     if (action !== 'save') throw new ImageError('bad_request', 400, 'Action inconnue.');
@@ -66,7 +77,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const saved = await saveAsset(db, {
       slot, files: large && thumb ? { large, mid, thumb } : null, noFile, settings, meta, verified: parseFlag(form.get('verified')), publishAt, userId: gate.userId,
     });
-    await logAdminAction({ user: { id: gate.userId } }, { site: 'hub', action: 'asset.save', targetType: 'site_asset', targetId: slot.key, requestId: requestIdOf(req) });
+    const cache = await revalidateSite(site, ASSET_TAGS);
+    await logAdminAction({ user: { id: gate.userId } }, { site, action: 'asset.save', targetType: 'site_asset', targetId: slot.key, detail: { cache: cacheOutcome(cache) }, requestId: requestIdOf(req) });
     return ok({ saved: saved.id, key: slot.key });
   } catch (e) {
     return failure(e);

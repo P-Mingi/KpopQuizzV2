@@ -15,7 +15,8 @@ import type { NextRequest } from 'next/server';
 // User-Agent that names the project) and refused when the file is not free (422 not_free); the download is then the picture itself. With
 // `info: true` in the body nothing is downloaded and the answer is JSON, { ok, commons } with the licence and the author Commons gives (to pre-fill
 // the form), or { ok, commons: null } for an address that is not a Commons one. Nothing is stored here (the save route asks Commons again).
-// Admin only on the anime build (404 otherwise); same-origin only.
+// Admin only on the anime build and on the hub (404 otherwise); same-origin only. It reads and writes nothing of any site: no site to choose and
+// nothing to journal or to refresh.
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
 

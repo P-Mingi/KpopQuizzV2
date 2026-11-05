@@ -1,9 +1,12 @@
 import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
-import { revalidateImage } from '@/lib/entity-images/cache';
+import { cacheOutcome, revalidateSite } from '@/lib/admin/revalidate-client';
+import { adminSiteOf } from '@/lib/admin/site';
+import { pictureTags, revalidateImage } from '@/lib/entity-images/cache';
 import { MAX_OUTPUT_BYTES } from '@/lib/entity-images/constants';
 import { ImageError } from '@/lib/entity-images/errors';
 import { resolveCredit } from '@/lib/entity-images/credit';
-import { adminGate, failure, forbidden, notFoundHandler, ok, readForm, sameOrigin } from '@/lib/entity-images/route-kit';
+import { adminGate, failure, forbidden, notFoundHandler, ok, ownSite, readForm, sameOrigin } from '@/lib/entity-images/route-kit';
+import { KIND_SITE } from '@/lib/photos/slots';
 import { assertPhotoEntity, removePhoto, savePhoto } from '@/lib/photos/store';
 import { parseFlag, parseFocalFields, parsePhotoTarget } from '@/lib/photos/validate';
 import { createServiceRoleClient } from '@/lib/supabase/server';
@@ -19,7 +22,10 @@ import type { NextRequest, NextResponse } from 'next/server';
 // side, and its licence and author win over what was typed; a file that is not free is refused and nothing is stored.
 // action 'remove' (with kind and slug only): removes the picture, its row and its three files ("Retirer la photo"; a series or a character
 // goes back to its bundled photo or the placeholder). No action, or 'save': the save above.
-// Admin only on the anime build, the gate of the anime admin (404 otherwise); same-origin writes only.
+// Admin only on the anime build (the gate of the anime admin) and on the hub (404 otherwise); same-origin writes only.
+// ADMIN-2: the site is the admin's choice (site in the query or the form) and it is the site of the kind: kpop for an idol, a group or an agency,
+// anime for a series or a character (another site is a 400). The hub requires it; the anime build, until step 6, means the site of the kind when
+// none is sent. The write is journaled under that site and the pictures of that site's public pages are refreshed.
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
@@ -38,11 +44,15 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const form = await readForm(req, MAX_FORM);
     const { kind, slug } = parsePhotoTarget(form.get('kind'), form.get('slug'));
+    const siteResult = adminSiteOf(req, { site: form.get('site') }, ownSite(KIND_SITE[kind]));
+    if (!siteResult.ok) return siteResult.res;
+    const site = siteResult.site;
     const action = form.get('action');
     if (action === 'remove') {
       const removed = await removePhoto(createServiceRoleClient(), kind, slug);
       if (kind === 'series' || kind === 'character') revalidateImage(kind, slug);
-      await logAdminAction({ user: { id: gate.userId } }, { site: kind === 'series' || kind === 'character' ? 'anime' : 'kpop', action: 'photo.remove', targetType: kind, targetId: slug, requestId: requestIdOf(req) });
+      const cache = await revalidateSite(site, pictureTags(site));
+      await logAdminAction({ user: { id: gate.userId } }, { site, action: 'photo.remove', targetType: kind, targetId: slug, detail: { cache: cacheOutcome(cache) }, requestId: requestIdOf(req) });
       return ok({ removed });
     }
     if (action !== null && action !== 'save') throw new ImageError('bad_request', 400, 'Action inconnue.');
@@ -62,7 +72,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     await assertPhotoEntity(db, kind, slug);
     const saved = await savePhoto(db, { kind, slug, files: anyFile ? { x1: x1!, x2: x2!, thumb: thumb! } : null, meta, verified, focal, userId: gate.userId });
     if (kind === 'series' || kind === 'character') revalidateImage(kind, slug);
-    await logAdminAction({ user: { id: gate.userId } }, { site: kind === 'series' || kind === 'character' ? 'anime' : 'kpop', action: 'photo.save', targetType: kind, targetId: slug, detail: { verified, files: anyFile }, requestId: requestIdOf(req) });
+    const cache = await revalidateSite(site, pictureTags(site));
+    await logAdminAction({ user: { id: gate.userId } }, { site, action: 'photo.save', targetType: kind, targetId: slug, detail: { verified, files: anyFile, cache: cacheOutcome(cache) }, requestId: requestIdOf(req) });
     return ok({ photo: saved });
   } catch (e) {
     return failure(e);

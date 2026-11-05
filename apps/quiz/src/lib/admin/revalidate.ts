@@ -7,11 +7,18 @@
 // Authorization header, never in a URL or a log. A failed call never fails the write: the answer says `revalidated: false` and the public
 // page catches up at its own revalidate interval.
 
-/** The tags a call may expire: the tags the public pages read through unstable_cache, nothing else. Each one is a tag that exists in the code. */
-export const REVALIDATE_TAGS = ['quizzes', 'groups', 'creators', 'songs', 'editorial', 'personality', 'name-all', 'plays'] as const;
+/**
+ * The tags a call may expire: the tags the public pages read through unstable_cache, nothing else. Each one is a tag that exists in the code.
+ * The last three are the pictures: the list read of OtakuQuiz's images (lib/entity-images/constants.ts IMAGES_LIST_TAG), the verified pictures
+ * of the credits pages and of the games, and the live banners, icons and stickers of bunnyverse.org (both lib/photos/public-read.ts). The tag of
+ * ONE image (entity-image:<site>:<kind>:<slug>) is not on the list: nothing public reads it (the pages read the list).
+ */
+export const REVALIDATE_TAGS = [
+  'quizzes', 'groups', 'creators', 'songs', 'editorial', 'personality', 'name-all', 'plays', 'entity-images:anime', 'entity-images-public', 'site-assets',
+] as const;
 export type RevalidateTag = (typeof REVALIDATE_TAGS)[number];
 
-/** How many tags one call may carry (the list has eight). */
+/** How many tags one call may carry (the whole list). */
 export const REVALIDATE_MAX_TAGS = REVALIDATE_TAGS.length;
 
 /** The path of the route on every build (under the basePath of the build: /anime/api/site-revalidate on OtakuQuiz). */

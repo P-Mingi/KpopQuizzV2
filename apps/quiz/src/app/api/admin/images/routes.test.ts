@@ -1,7 +1,7 @@
 // Run O1 (ADM back): the admin image routes. The gate (a visitor, a signed-in non-admin and a kpop build all get 404), validation,
 // the upload and the import end to end on an in-memory database and bucket, focal point, delete, and the revalidation of every write.
 import { NextRequest } from 'next/server';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { GOOD_META, animeSeed, fakeDb, makeImage } from '@/lib/entity-images/test-support';
 
@@ -395,5 +395,203 @@ describe('the JSON routes take application/json only', () => {
     await upload(await form());
     const res = await focal(post('/api/admin/images/focal', 'PATCH', 'application/json; charset=utf-8', JSON.stringify({ kind: 'series', slug: 'death-note', x: 1, y: 1 })));
     expect(res.status).toBe(200);
+  });
+});
+
+// ADMIN-2: the explicit site, the journal line and the cache of that site, on the hub (the one admin) and on the anime build (until step 6).
+describe('the site the admin chose, the journal and the cache of that site', () => {
+  const SECRET = 'test-shared-secret-not-a-real-one-0123456789';
+  type Remote = { url: string; auth: string | null; tags: string[] };
+  let remote: Remote[];
+  let answer: () => Response;
+
+  const journal = (): Array<Record<string, unknown>> => (dbOf().tables.admin_actions ?? []) as Array<Record<string, unknown>>;
+  const detailOf = (i: number): Record<string, unknown> => journal()[i]!.detail as Record<string, unknown>;
+
+  /** The upload of `form()` with the site as one more field of the form. */
+  async function siteForm(over: Record<string, unknown>, site: string): Promise<NextRequest> {
+    const f = await (await form(over)).formData();
+    f.set('site', site);
+    return new NextRequest(`${BASE}/api/admin/images/upload`, { method: 'POST', body: f, headers: { origin: BASE } });
+  }
+
+  // One call per route, each with the site put where that route can read it: the query, the JSON body or the form.
+  type Put = { query?: string; site?: string };
+  const q = (p: Put): string => (p.query === undefined ? '' : `?site=${p.query}`);
+  const withSite = (p: Put, body: Record<string, unknown>): Record<string, unknown> => (p.site === undefined ? body : { ...body, site: p.site });
+  const CALLS: Array<[string, (p: Put) => Promise<Response>]> = [
+    ['GET list', async (p) => list(new NextRequest(`${BASE}/api/admin/images/list${q(p)}`))],
+    ['POST upload', async (p) => {
+      const req = await form();
+      if (p.site === undefined && p.query === undefined) return upload(req);
+      const f = await req.formData();
+      if (p.site !== undefined) f.set('site', p.site);
+      return upload(new NextRequest(`${BASE}/api/admin/images/upload${q(p)}`, { method: 'POST', body: f, headers: { origin: BASE } }));
+    }],
+    ['POST import', async (p) => importUrl(json(`/api/admin/images/import${q(p)}`, 'POST', withSite(p, { kind: 'series', slug: 'death-note', url: 'https://x.test/a.png', meta })))],
+    ['PATCH focal', async (p) => focal(json(`/api/admin/images/focal${q(p)}`, 'PATCH', withSite(p, { kind: 'series', slug: 'death-note', x: 1, y: 2 })))],
+    ['DELETE', async (p) => deleteRoot(json(`/api/admin/images${q(p)}`, 'DELETE', withSite(p, { kind: 'series', slug: 'death-note' })))],
+    ['DELETE /delete', async (p) => deleteSub(json(`/api/admin/images/delete${q(p)}`, 'DELETE', withSite(p, { kind: 'series', slug: 'death-note' })))],
+  ];
+
+  beforeEach(() => {
+    remote = [];
+    answer = () => new Response('{"ok":true}', { status: 200 });
+    vi.stubEnv('ADMIN_REVALIDATE_SECRET', SECRET);
+    vi.stubGlobal('fetch', vi.fn(async (url: unknown, init?: RequestInit) => {
+      if (!String(url).includes('/api/site-revalidate')) throw new Error(`unexpected network: ${String(url)}`);
+      remote.push({ url: String(url), auth: (init?.headers as Record<string, string>).authorization ?? null, tags: (JSON.parse(String(init?.body)) as { tags: string[] }).tags });
+      return answer();
+    }));
+    state.remote = async () => makeImage(1000, 1400, 'png');
+  });
+  afterEach(() => { vi.stubEnv('ADMIN_REVALIDATE_SECRET', ''); vi.unstubAllGlobals(); });
+
+  describe('on the hub build', () => {
+    beforeEach(() => { state.site = 'hub'; });
+
+    for (const [name, call] of CALLS) {
+      it(`${name}: a visitor and a non-admin get 404 whatever site they name`, async () => {
+        for (const user of [null, { id: 'someone-else' }]) {
+          state.user = user;
+          expect((await call({ query: 'anime' })).status).toBe(404);
+          expect((await call({ query: 'nope' })).status).toBe(404);
+        }
+        expect(journal()).toEqual([]);
+        expect(remote).toEqual([]);
+      });
+
+      it(`${name}: no site is a 400 site_required (the hub never guesses), and nothing is touched`, async () => {
+        for (const put of [{}, { query: '' }]) {
+          const res = await call(put);
+          expect(res.status).toBe(400);
+          expect((await res.json()).code).toBe('site_required');
+        }
+        expect(dbOf().tables.entity_images).toHaveLength(0);
+        expect(dbOf().files.size).toBe(0);
+        expect(journal()).toEqual([]);
+        expect(remote).toEqual([]);
+        expect(state.remoteCalls).toEqual([]);
+        expect(revalidateTag).not.toHaveBeenCalled();
+      });
+
+      it(`${name}: a site that does not exist is a 400 bad_site`, async () => {
+        const res = await call({ query: 'tiktok' });
+        expect(res.status).toBe(400);
+        expect((await res.json()).code).toBe('bad_site');
+        expect(journal()).toEqual([]);
+      });
+    }
+
+    for (const [name, call] of CALLS.slice(1)) {
+      it(`${name}: another site than anime is refused (only OtakuQuiz has images)`, async () => {
+        for (const put of [{ query: 'kpop' }, { query: 'hub' }, { site: 'kpop' }, { site: 'hub' }]) {
+          const res = await call(put);
+          expect(res.status, JSON.stringify(put)).toBe(400);
+          expect((await res.json()).code).toBe('site_unsupported');
+        }
+        expect(dbOf().tables.entity_images).toHaveLength(0);
+        expect(journal()).toEqual([]);
+        expect(remote).toEqual([]);
+      });
+    }
+
+    it('GET list: site=anime lists the series; another site is the 400 it always was', async () => {
+      const ok = await list(new NextRequest(`${BASE}/api/admin/images/list?site=anime`));
+      expect(ok.status).toBe(200);
+      expect((await ok.json()).counts).toMatchObject({ series: 2 });
+      for (const site of ['kpop', 'hub']) {
+        const res = await list(new NextRequest(`${BASE}/api/admin/images/list?site=${site}`));
+        expect(res.status).toBe(400);
+        expect((await res.json()).code).toBe('bad_request');
+      }
+      expect(journal()).toEqual([]);
+    });
+
+    it('upload, import, focal and delete, each with the site in the place its route reads it: journaled under anime, OtakuQuiz refreshed over there', async () => {
+      const [, up] = CALLS[1]!;
+      expect((await up({ site: 'anime' })).status).toBe(200);
+      expect((await CALLS[3]![1]({ site: 'anime' })).status).toBe(200);
+      state.remote = async () => makeImage(1200, 1600, 'jpeg');
+      expect((await importUrl(json('/api/admin/images/import?site=anime', 'POST', { kind: 'series', slug: 'one-piece', url: 'https://images.example.org/p.jpg', meta }))).status).toBe(200);
+      expect((await CALLS[4]![1]({ site: 'anime' })).status).toBe(200);
+      expect((await deleteSub(new NextRequest(`${BASE}/api/admin/images/delete?kind=series&slug=one-piece&site=anime`, { method: 'DELETE', headers: { origin: BASE } }))).status).toBe(200);
+      expect(journal().map((l) => [l.site_id, l.action, l.target_type, l.target_id, l.admin_id])).toEqual([
+        ['anime', 'image.upload', 'series', 'death-note', 'admin-1'],
+        ['anime', 'image.focal', 'series', 'death-note', 'admin-1'],
+        ['anime', 'image.import', 'series', 'one-piece', 'admin-1'],
+        ['anime', 'image.delete', 'series', 'death-note', 'admin-1'],
+        ['anime', 'image.delete', 'series', 'one-piece', 'admin-1'],
+      ]);
+      expect(journal().map((_l, i) => detailOf(i).cache)).toEqual(['ok', 'ok', 'ok', 'ok', 'ok']);
+      expect(remote).toHaveLength(5);
+      for (const c of remote) expect(c).toEqual({ url: 'https://bunnyverse.org/anime/api/site-revalidate', auth: `Bearer ${SECRET}`, tags: ['entity-images:anime', 'entity-images-public'] });
+      // The hub also expires its own copy of the list (its home shows the pictures of the series).
+      expect(revalidateTag).toHaveBeenCalledWith('entity-images:anime', { expire: 0 });
+      expect(dbOf().tables.entity_images).toHaveLength(0);
+    });
+
+    it('a failed write leaves no journal line and no refresh', async () => {
+      const bad = await upload(await siteForm({ slug: 'no-such-series' }, 'anime'));
+      expect(bad.status).toBe(404);
+      expect((await focal(json('/api/admin/images/focal?site=anime', 'PATCH', { kind: 'series', slug: 'one-piece', x: 5, y: 5 }))).status).toBe(404);
+      expect((await deleteRoot(json('/api/admin/images?site=anime', 'DELETE', { kind: 'series', slug: 'one-piece' }))).status).toBe(404);
+      expect(journal()).toEqual([]);
+      expect(remote).toEqual([]);
+    });
+
+    it.each([
+      ['no secret on this project', () => { vi.stubEnv('ADMIN_REVALIDATE_SECRET', ''); }, 'no_secret'],
+      ['OtakuQuiz refuses', () => { answer = () => new Response('', { status: 404 }); }, 'refused'],
+      ['OtakuQuiz is down', () => { answer = () => { throw new Error('down'); }; }, 'unreachable'],
+    ])('a cache that cannot be reached never fails the write, and the journal says why: %s', async (_n, set, outcome) => {
+      set();
+      const res = await upload(await siteForm({}, 'anime'));
+      expect(res.status).toBe(200);
+      expect(dbOf().tables.entity_images).toHaveLength(1);
+      expect(detailOf(0).cache).toBe(outcome);
+    });
+
+    it('a journal line holds ids and short codes only', async () => {
+      await (CALLS[2]![1])({ site: 'anime' });
+      const text = JSON.stringify(journal());
+      expect(text).not.toContain(meta.author);
+      expect(text).not.toContain('x.test');
+      expect(text).not.toContain(SECRET);
+    });
+  });
+
+  describe('on the anime build, until its admin goes (step 6): the admin that sends no site is served as before', () => {
+    it('every route works without a site, journals under anime and refreshes OtakuQuiz in place (no call: this build is anime)', async () => {
+      expect((await CALLS[1]![1]({})).status).toBe(200);
+      expect((await CALLS[3]![1]({})).status).toBe(200);
+      expect((await CALLS[4]![1]({})).status).toBe(200);
+      expect((await CALLS[0]![1]({})).status).toBe(200);
+      expect(journal().map((l) => [l.site_id, l.action])).toEqual([['anime', 'image.upload'], ['anime', 'image.focal'], ['anime', 'image.delete']]);
+      expect(journal().map((_l, i) => detailOf(i).cache)).toEqual(['ok', 'ok', 'ok']);
+      expect(remote).toEqual([]);
+      expect(revalidateTag).toHaveBeenCalledWith('entity-images:anime', { expire: 0 });
+    });
+
+    it('a site that is sent is checked here too', async () => {
+      for (const [name, call] of CALLS.slice(1)) {
+        const res = await call({ query: 'kpop' });
+        expect(res.status, name).toBe(400);
+        expect((await res.json()).code, name).toBe('site_unsupported');
+        expect((await call({ query: 'nope' })).status, name).toBe(400);
+      }
+      expect((await CALLS[1]![1]({ query: 'anime' })).status).toBe(200);
+      expect(journal()).toHaveLength(1);
+    });
+  });
+
+  it('the kpop build still has no images admin: 404 for an admin, with or without a site', async () => {
+    state.site = 'kpop';
+    for (const [name, call] of CALLS) {
+      expect((await call({ query: 'anime' })).status, name).toBe(404);
+      expect((await call({})).status, name).toBe(404);
+    }
+    expect(journal()).toEqual([]);
+    expect(remote).toEqual([]);
   });
 });

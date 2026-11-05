@@ -60,8 +60,9 @@ describe('the gate', () => {
     () => fetchModule.POST(new NextRequest(`${BASE}/api/admin/photos/fetch`, { method: 'POST', body: JSON.stringify({ url: 'https://x.org/a.jpg' }), headers: { 'content-type': 'application/json', origin: BASE } })),
   ];
 
-  it('is a 404 for a visitor, a non-admin, and on any build but the anime one', async () => {
-    for (const set of [() => { state.user = null; }, () => { state.user = { id: 'user-9' }; }, () => { state.site = 'hub'; }, () => { state.site = 'kpop'; }]) {
+  // ADMIN-2: the hub build serves these routes too (the one admin reaches the Photos board there), so it is no longer in this list; the kpop build still is.
+  it('is a 404 for a visitor, a non-admin, and on the kpop build', async () => {
+    for (const set of [() => { state.user = null; }, () => { state.user = { id: 'user-9' }; }, () => { state.site = 'kpop'; }, () => { state.site = 'hub'; state.user = null; }, () => { state.site = 'hub'; state.user = { id: 'user-9' }; }]) {
       set();
       for (const call of calls()) expect((await call()).status).toBe(404);
       state.site = 'anime';
@@ -69,6 +70,18 @@ describe('the gate', () => {
     }
     expect(dbOf().tables.entity_images).toEqual([]);
     expect(state.remote).toEqual([]);
+  });
+
+  it('on the hub build an admin gets through, and a call without a site is refused with 400 (the hub never guesses a site)', async () => {
+    state.site = 'hub';
+    for (const call of calls().slice(0, 3)) {
+      const res = await call();
+      expect(res.status).toBe(400);
+      expect((await res.json() as { code: string }).code).toBe('site_required');
+    }
+    expect((await calls()[3]!()).status).toBe(200);
+    expect(dbOf().tables.entity_images).toEqual([]);
+    expect(dbOf().tables.admin_actions ?? []).toEqual([]);
   });
 
   it('refuses a write from another site, and answers 404 to the other methods', async () => {
@@ -173,5 +186,191 @@ describe('POST /api/admin/photos/fetch', () => {
     expect(res.headers.get('content-type')).toBe('image/webp');
     expect(state.remote).toEqual(['https://upload.wikimedia.org/a.jpg']);
     expect(dbOf().files.size).toBe(0);
+  });
+});
+
+// ADMIN-2: the explicit site, the journal line and the cache of that site, for the Photos routes, on the hub and on the anime build.
+describe('the site the admin chose, the journal and the cache of that site', () => {
+  const SECRET = 'test-shared-secret-not-a-real-one-0123456789';
+  type Call = { url: string; auth: string | null; tags: string[] };
+  let remote: Call[];
+  let answer: (url: string) => Response | Promise<Response>;
+
+  const journal = (): Array<Record<string, unknown>> => (dbOf().tables.admin_actions ?? []) as Array<Record<string, unknown>>;
+  const lineOf = (i = 0): { site_id: unknown; action: unknown; target_type: unknown; target_id: unknown; admin_id: unknown; detail: Record<string, unknown> } =>
+    journal()[i] as never;
+  const asset = (fields: Record<string, string | Uint8Array>, path = '/api/admin/photos/assets'): Promise<Response> => assetsModule.POST(multipart(path, fields));
+  const saveIdol = async (extra: Record<string, string> = {}, path = '/api/admin/photos'): Promise<Response> => saveModule.POST(multipart(path, {
+    kind: 'idol', slug: '5', meta: JSON.stringify(META), verified: '1', focal_x: '50', focal_y: '50', ...(await photoFiles(400, 500)), ...extra,
+  }));
+  const saveSeries = async (extra: Record<string, string> = {}, path = '/api/admin/photos'): Promise<Response> => saveModule.POST(multipart(path, {
+    kind: 'series', slug: 'death-note', meta: JSON.stringify(META), verified: '1', focal_x: '50', focal_y: '50', ...(await photoFiles(736, 981)), ...extra,
+  }));
+
+  beforeEach(() => {
+    remote = [];
+    answer = () => new Response('{"ok":true}', { status: 200 });
+    vi.stubEnv('ADMIN_REVALIDATE_SECRET', SECRET);
+    // Commons answers the credit lookups of META; the revalidation route of another site answers `answer`.
+    vi.stubGlobal('fetch', vi.fn(async (url: unknown, init?: RequestInit) => {
+      if (!String(url).includes('/api/site-revalidate')) return commonsResponse();
+      remote.push({ url: String(url), auth: (init?.headers as Record<string, string>).authorization ?? null, tags: (JSON.parse(String(init?.body)) as { tags: string[] }).tags });
+      return answer(String(url));
+    }));
+  });
+  afterEach(() => { vi.stubEnv('ADMIN_REVALIDATE_SECRET', ''); });
+
+  describe('on the hub build', () => {
+    beforeEach(() => { state.site = 'hub'; });
+
+    it('a picture of an idol is kpop\'s: journaled under kpop, and the credits and games of kpopquiz.org are refreshed there', async () => {
+      const res = await saveIdol({ site: 'kpop' });
+      expect(res.status).toBe(200);
+      expect(journal()).toHaveLength(1);
+      expect(lineOf()).toMatchObject({ site_id: 'kpop', action: 'photo.save', target_type: 'idol', target_id: '5', admin_id: 'admin-1', detail: { verified: true, files: true, cache: 'ok' } });
+      expect(remote).toEqual([{ url: 'https://kpopquiz.org/api/site-revalidate', auth: `Bearer ${SECRET}`, tags: ['entity-images-public'] }]);
+      expect(revalidateTag).not.toHaveBeenCalled();
+    });
+
+    it('a picture of a series is anime\'s: journaled under anime, OtakuQuiz is refreshed over there, and the hub expires its own copy of the list', async () => {
+      const res = await saveSeries({}, '/api/admin/photos?site=anime');
+      expect(res.status).toBe(200);
+      expect(lineOf()).toMatchObject({ site_id: 'anime', action: 'photo.save', target_type: 'series', target_id: 'death-note', detail: { cache: 'ok' } });
+      expect(remote).toEqual([{ url: 'https://bunnyverse.org/anime/api/site-revalidate', auth: `Bearer ${SECRET}`, tags: ['entity-images:anime', 'entity-images-public'] }]);
+      expect(revalidateTag).toHaveBeenCalledWith('entity-image:anime:series:death-note', { expire: 0 });
+      expect(revalidateTag).toHaveBeenCalledWith('entity-images:anime', { expire: 0 });
+    });
+
+    it('the query wins over the form, as everywhere in the admin; a good site in the query rescues a bad one in the form', async () => {
+      expect((await saveIdol({ site: 'nope' }, '/api/admin/photos?site=kpop')).status).toBe(200);
+      expect(lineOf().site_id).toBe('kpop');
+    });
+
+    it('removing a picture is journaled under the site and refreshes it', async () => {
+      expect((await saveIdol({ site: 'kpop' })).status).toBe(200);
+      remote.length = 0;
+      const res = await saveModule.POST(multipart('/api/admin/photos', { action: 'remove', kind: 'idol', slug: '5', site: 'kpop' }));
+      expect(res.status).toBe(200);
+      expect(journal()).toHaveLength(2);
+      expect(lineOf(1)).toMatchObject({ site_id: 'kpop', action: 'photo.remove', target_type: 'idol', target_id: '5', detail: { cache: 'ok' } });
+      expect(remote.map((c) => c.tags)).toEqual([['entity-images-public']]);
+    });
+
+    it.each([
+      ['no site', 'idol', {}, 'site_required'],
+      ['an empty site', 'idol', { site: '' }, 'site_required'],
+      ['a site that does not exist', 'idol', { site: 'tiktok' }, 'bad_site'],
+      ['a site in the wrong case', 'idol', { site: 'Kpop' }, 'bad_site'],
+      ['an idol of anime', 'idol', { site: 'anime' }, 'site_unsupported'],
+      ['an idol of the hub', 'idol', { site: 'hub' }, 'site_unsupported'],
+      ['a series of kpop', 'series', { site: 'kpop' }, 'site_unsupported'],
+      ['a series of the hub', 'series', { site: 'hub' }, 'site_unsupported'],
+    ])('refuses %s with 400 %s, before anything is read, stored, journaled or refreshed', async (_n, kind, extra, code) => {
+      const res = await saveModule.POST(multipart('/api/admin/photos', { kind, slug: kind === 'idol' ? '5' : 'death-note', meta: JSON.stringify(META), verified: '1', focal_x: '50', focal_y: '50', ...(await photoFiles(400, 500)), ...extra }));
+      expect(res.status).toBe(400);
+      expect((await res.json() as { code: string }).code).toBe(code);
+      expect(dbOf().tables.entity_images).toEqual([]);
+      expect(dbOf().files.size).toBe(0);
+      expect(journal()).toEqual([]);
+      expect(remote).toEqual([]);
+      expect(revalidateTag).not.toHaveBeenCalled();
+    });
+
+    it('a visitor is still a 404 whatever site it names', async () => {
+      state.user = null;
+      expect((await saveIdol({ site: 'kpop' })).status).toBe(404);
+      expect((await saveIdol({ site: 'nope' })).status).toBe(404);
+      expect(journal()).toEqual([]);
+    });
+
+    it('the assets are the hub\'s: site=hub is journaled under hub and the hub expires its own live assets in place, with no call', async () => {
+      const files = { large: await webpOf(1920, 600), mid: await webpOf(400, 125), thumb: await webpOf(96, 30) };
+      const res = await asset({ action: 'save', key: 'banner:kpopdle', settings: JSON.stringify({ focal: { x: 30, y: 50 } }), meta: JSON.stringify(META), verified: '1', publish: 'now', site: 'hub', ...files });
+      expect(res.status).toBe(200);
+      expect(lineOf()).toMatchObject({ site_id: 'hub', action: 'asset.save', target_type: 'site_asset', target_id: 'banner:kpopdle', detail: { cache: 'ok' } });
+      expect(revalidateTag).toHaveBeenCalledWith('site-assets', { expire: 0 });
+      expect(remote).toEqual([]);
+      const id = (dbOf().tables.site_assets![0] as { id: number }).id;
+      expect((await asset({ action: 'restore', id: String(id), site: 'hub' })).status).toBe(200);
+      expect((await asset({ action: 'retire', key: 'banner:kpopdle', site: 'hub' })).status).toBe(200);
+      expect(journal().map((l) => l.action)).toEqual(['asset.save', 'asset.restore', 'asset.retire']);
+      expect(journal().every((l) => l.site_id === 'hub' && (l.detail as { cache: string }).cache === 'ok')).toBe(true);
+      expect(revalidateTag).toHaveBeenCalledTimes(3);
+    });
+
+    it.each([
+      ['no site', {}, 'site_required'],
+      ['kpop', { site: 'kpop' }, 'site_unsupported'],
+      ['anime', { site: 'anime' }, 'site_unsupported'],
+      ['a site that does not exist', { site: 'x' }, 'bad_site'],
+    ])('the assets refuse %s with 400 %s and change nothing', async (_n, extra, code) => {
+      for (const action of ['retire', 'restore', 'save']) {
+        const res = await asset({ action, key: 'icon:hints', id: '1', ...extra });
+        expect(res.status, action).toBe(400);
+        expect((await res.json() as { code: string }).code, action).toBe(code);
+      }
+      expect(dbOf().tables.site_assets).toEqual([]);
+      expect(journal()).toEqual([]);
+      expect(revalidateTag).not.toHaveBeenCalled();
+    });
+
+    it('the guarded fetch of the board needs no site and journals nothing (it stores nothing)', async () => {
+      const res = await fetchModule.POST(new NextRequest(`${BASE}/api/admin/photos/fetch`, { method: 'POST', body: JSON.stringify({ url: 'https://upload.wikimedia.org/a.jpg' }), headers: { 'content-type': 'application/json', origin: BASE } }));
+      expect(res.status).toBe(200);
+      expect(journal()).toEqual([]);
+    });
+  });
+
+  describe('a cache that cannot be reached never fails the write; the journal says why', () => {
+    it.each([
+      ['no secret on this project', () => { vi.stubEnv('ADMIN_REVALIDATE_SECRET', ''); }, 'no_secret'],
+      ['the other site refuses', () => { answer = () => new Response('', { status: 404 }); }, 'refused'],
+      ['the other site is down', () => { answer = () => { throw new Error('down'); }; }, 'unreachable'],
+    ])('%s', async (_n, set, outcome) => {
+      state.site = 'hub';
+      set();
+      const res = await saveIdol({ site: 'kpop' });
+      expect(res.status).toBe(200);
+      expect(dbOf().tables.entity_images).toHaveLength(1);
+      expect(lineOf().detail.cache).toBe(outcome);
+    });
+  });
+
+  describe('on the anime build, until its admin goes (step 6): nothing changes for the admin that sends no site', () => {
+    it('a picture of an idol is kpop\'s, a series is anime\'s, an asset is the hub\'s', async () => {
+      expect((await saveIdol()).status).toBe(200);
+      expect((await saveSeries()).status).toBe(200);
+      const files = { large: await webpOf(1920, 600), mid: await webpOf(400, 125), thumb: await webpOf(96, 30) };
+      expect((await asset({ action: 'save', key: 'banner:kpopdle', settings: JSON.stringify({ focal: { x: 30, y: 50 } }), meta: JSON.stringify(META), verified: '1', publish: 'now', ...files })).status).toBe(200);
+      expect(journal().map((l) => [l.site_id, l.action])).toEqual([['kpop', 'photo.save'], ['anime', 'photo.save'], ['hub', 'asset.save']]);
+    });
+
+    it('a site that is sent is checked here too: the site of the kind, or a 400', async () => {
+      expect((await saveIdol({ site: 'kpop' })).status).toBe(200);
+      for (const [res, code] of [[await saveIdol({ site: 'anime' }), 'site_unsupported'], [await saveIdol({ site: 'nope' }), 'bad_site'], [await saveSeries({ site: 'kpop' }), 'site_unsupported']] as const) {
+        expect(res.status).toBe(400);
+        expect((await res.json() as { code: string }).code).toBe(code);
+      }
+      expect((await asset({ action: 'retire', key: 'icon:hints', site: 'anime' })).status).toBe(400);
+      expect(journal()).toHaveLength(1);
+    });
+
+    it('the series of OtakuQuiz is refreshed in place (this build is anime), the idol of kpop over there (no secret here: said in the journal)', async () => {
+      vi.stubEnv('ADMIN_REVALIDATE_SECRET', '');
+      expect((await saveSeries()).status).toBe(200);
+      expect(revalidateTag).toHaveBeenCalledWith('entity-images:anime', { expire: 0 });
+      expect(revalidateTag).toHaveBeenCalledWith('entity-images-public', { expire: 0 });
+      expect((await saveIdol()).status).toBe(200);
+      expect(journal().map((l) => (l.detail as { cache: string }).cache)).toEqual(['ok', 'no_secret']);
+    });
+  });
+
+  it('a journal line holds ids, counts and short codes only', async () => {
+    state.site = 'hub';
+    await saveIdol({ site: 'kpop' });
+    const text = JSON.stringify(journal());
+    expect(text).not.toContain(META.author);
+    expect(text).not.toContain('commons.wikimedia.org');
+    expect(text).not.toContain(SECRET);
   });
 });

@@ -38,7 +38,8 @@ export function fakeDb(seed: Partial<Record<'groups' | 'series' | 'characters' |
         if (op === 'select') out = rows.filter(match);
         if (op === 'insert') {
           if (fail.insert) return { data: null, error: { message: 'insert failed' } };
-          if (rows.some((r) => r.site_id === payload.site_id && r.kind === payload.kind && r.slug === payload.slug)) return { data: null, error: { message: 'duplicate key' } };
+          // The unique key of entity_images only: the other tables a route writes (admin_actions, the journal of ADMIN-2) have none of these columns.
+          if (table === 'entity_images' && rows.some((r) => r.site_id === payload.site_id && r.kind === payload.kind && r.slug === payload.slug)) return { data: null, error: { message: 'duplicate key' } };
           const row = { id: nextId++, focal_x: 50, focal_y: 50, license_note: null, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), ...payload };
           rows.push(row);
           out = [row];

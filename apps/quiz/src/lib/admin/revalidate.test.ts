@@ -1,5 +1,8 @@
 // ADMIN-2 (PLAN-ADMIN-2 section 2): the cross-site revalidation, both halves, on stand-ins: the caller (registry address, secret in a header, closed
 // list, never throws) and the route every build serves (POST only, shared secret, closed list, the same plain 404 for every refusal).
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
 import { NextRequest } from 'next/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -7,6 +10,9 @@ const c = vi.hoisted(() => ({ tags: [] as string[], throws: false }));
 vi.mock('next/cache', () => ({
   revalidateTag: (tag: string) => { if (c.throws) throw new Error('outside a request'); c.tags.push(tag); },
 }));
+
+import { ASSET_TAGS, pictureTags } from '@/lib/entity-images/cache';
+import { IMAGES_LIST_TAG } from '@/lib/entity-images/constants';
 
 import { REVALIDATE_MAX_TAGS, REVALIDATE_PATH, REVALIDATE_TAGS, isRevalidateTag, parseRevalidateBody } from './revalidate';
 import { cacheOutcome, revalidateEverywhere, revalidateSecret, revalidateSite } from './revalidate-client';
@@ -18,15 +24,27 @@ beforeEach(() => { c.tags = []; c.throws = false; vi.stubEnv('ADMIN_REVALIDATE_S
 afterEach(() => { vi.unstubAllEnvs(); });
 
 describe('the closed list', () => {
-  it('holds eight tags, each a plain word', () => {
-    expect([...REVALIDATE_TAGS]).toEqual(['quizzes', 'groups', 'creators', 'songs', 'editorial', 'personality', 'name-all', 'plays']);
-    expect(REVALIDATE_MAX_TAGS).toBe(8);
+  it('holds eleven tags: the eight of the pages, then the three of the pictures (ADMIN-2, images and photos)', () => {
+    expect([...REVALIDATE_TAGS]).toEqual([
+      'quizzes', 'groups', 'creators', 'songs', 'editorial', 'personality', 'name-all', 'plays', 'entity-images:anime', 'entity-images-public', 'site-assets',
+    ]);
+    expect(REVALIDATE_MAX_TAGS).toBe(11);
     expect(REVALIDATE_PATH).toBe('/api/site-revalidate');
+  });
+
+  it('each tag of the pictures is a tag a public read really declares, and the tag of one image is not on the list', () => {
+    const read = (rel: string): string => readFileSync(fileURLToPath(new URL(rel, import.meta.url)), 'utf8');
+    const publicRead = read('../photos/public-read.ts');
+    expect(publicRead).toContain("tags: ['site-assets']");
+    expect(publicRead).toContain("tags: ['entity-images-public']");
+    expect(IMAGES_LIST_TAG).toBe('entity-images:anime');
+    expect(read('../anime/entity-images-read.ts')).toContain('tags: [ENTITY_IMAGES_TAG]');
+    expect(isRevalidateTag(IMAGES_LIST_TAG)).toBe(true);
   });
 
   it('knows its tags exactly', () => {
     for (const t of REVALIDATE_TAGS) expect(isRevalidateTag(t)).toBe(true);
-    for (const bad of ['', 'Quizzes', 'quizzes ', '*', 'all', 'entity-images:anime', 'entity-image:anime:series:x', '/', 'quizzes,groups', null, undefined, 3, ['quizzes']]) expect(isRevalidateTag(bad), String(bad)).toBe(false);
+    for (const bad of ['', 'Quizzes', 'quizzes ', '*', 'all', 'entity-images', 'entity-images:kpop', 'Site-Assets', 'entity-image:anime:series:x', '/', 'quizzes,groups', null, undefined, 3, ['quizzes']]) expect(isRevalidateTag(bad), String(bad)).toBe(false);
   });
 
   it('a body is accepted whole or refused whole: one tag off the list refuses the call', () => {
@@ -34,6 +52,16 @@ describe('the closed list', () => {
     for (const bad of [null, undefined, 'quizzes', [], {}, { tags: [] }, { tags: 'quizzes' }, { tags: ['quizzes', 'nope'] }, { tags: ['quizzes', 5] }, { tags: [...REVALIDATE_TAGS, 'quizzes'] }, { tag: 'quizzes' }, { tags: { 0: 'quizzes' } }]) {
       expect(parseRevalidateBody(bad), JSON.stringify(bad)).toBeNull();
     }
+  });
+});
+
+describe('what a write of pictures expires', () => {
+  it('OtakuQuiz: its list of images and the verified pictures; the others: the verified pictures; the assets: the live ones of the hub', () => {
+    expect(pictureTags('anime')).toEqual(['entity-images:anime', 'entity-images-public']);
+    expect(pictureTags('kpop')).toEqual(['entity-images-public']);
+    expect(pictureTags('hub')).toEqual(['entity-images-public']);
+    expect([...ASSET_TAGS]).toEqual(['site-assets']);
+    for (const t of [...pictureTags('anime'), ...ASSET_TAGS]) expect(isRevalidateTag(t), t).toBe(true);
   });
 });
 

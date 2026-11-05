@@ -1,7 +1,9 @@
 import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { cacheOutcome, revalidateSite } from '@/lib/admin/revalidate-client';
+import { adminSiteOf } from '@/lib/admin/site';
 import { IMAGE_SITE, MAX_SOURCE_BYTES } from '@/lib/entity-images/constants';
 import { ImageError } from '@/lib/entity-images/errors';
-import { revalidateImage } from '@/lib/entity-images/cache';
+import { pictureTags, revalidateImage } from '@/lib/entity-images/cache';
 import { processImage } from '@/lib/entity-images/process';
 import { adminGate, failure, forbidden, notFoundHandler, ok, readForm, sameOrigin } from '@/lib/entity-images/route-kit';
 import { resolveCredit } from '@/lib/entity-images/credit';
@@ -12,7 +14,9 @@ import { createServiceRoleClient } from '@/lib/supabase/server';
 import type { NextRequest, NextResponse } from 'next/server';
 
 // Run O1 (ADM back): POST /api/admin/images/upload, multipart: kind, slug, file, meta (JSON: source_url, author, license,
-// license_note). Re-encodes to WebP (EXIF stripped) at the fixed sizes of the kind and stores both files. Admin only (404 otherwise).
+// license_note). Re-encodes to WebP (EXIF stripped) at the fixed sizes of the kind and stores both files. Admin only (404 otherwise), on the
+// anime build and on the hub. ADMIN-2: the site is the admin's choice (site in the query or the form; only anime has images); the write is
+// journaled under it and the cache of that site is refreshed.
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
@@ -22,6 +26,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (!sameOrigin(req)) return forbidden();
   try {
     const form = await readForm(req, MAX_SOURCE_BYTES + 256 * 1024);
+    const siteResult = adminSiteOf(req, { site: form.get('site') }, { only: [IMAGE_SITE] });
+    if (!siteResult.ok) return siteResult.res;
+    const site = siteResult.site;
     const kind = parseKind(form.get('kind'));
     const slug = parseSlug(kind, form.get('slug'));
     const file = form.get('file');
@@ -42,7 +49,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     await assertEntity(db, kind, slug);
     const image = await processImage(new Uint8Array(await file.arrayBuffer()), kind);
     const saved = await saveImage(db, { kind, slug, image, meta, userId: gate.userId }, revalidateImage);
-    await logAdminAction({ user: { id: gate.userId } }, { site: IMAGE_SITE, action: 'image.upload', targetType: kind, targetId: slug, requestId: requestIdOf(req) });
+    const cache = await revalidateSite(site, pictureTags(site));
+    await logAdminAction({ user: { id: gate.userId } }, { site, action: 'image.upload', targetType: kind, targetId: slug, detail: { cache: cacheOutcome(cache) }, requestId: requestIdOf(req) });
     return ok({ image: saved });
   } catch (e) {
     return failure(e);

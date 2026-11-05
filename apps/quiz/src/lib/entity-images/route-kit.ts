@@ -1,4 +1,4 @@
-// Run O1 (ADM back): what every admin image route shares. The gate (requireAdmin on the anime build, else 404), the
+// Run O1 (ADM back): what every admin image route shares. The gate (requireAdmin on the anime build or the hub, else 404), the
 // same-origin check of writes, a capped body reader and the answers { ok: true, ... } or { error, code }.
 import { NextResponse } from 'next/server';
 
@@ -8,6 +8,8 @@ import { SITE_ID } from '@/lib/site/registry';
 import { IMAGE_SITE } from './constants';
 import { ImageError } from './errors';
 
+import type { AdminSiteOptions } from '@/lib/admin/site';
+import type { SiteId } from '@/lib/site/types';
 import type { NextRequest } from 'next/server';
 
 // ADMIN-1: the same 404 JSON as every admin route (lib/admin/guard.ts adminNotFound: noindex, no-store).
@@ -16,15 +18,30 @@ export const notFound = (): NextResponse => adminNotFound();
 export type Gate = { readonly ok: true; readonly userId: string } | { readonly ok: false; readonly res: NextResponse };
 
 /**
- * 404 unless the build is the anime site AND requireAdmin('api') lets the request through (ADMIN-1: the session verified by the
- * auth server, an id in ADMIN_USER_IDS, assurance level aal2). A visitor, a signed-in non-admin, an admin at aal1 and a kpop
- * build cannot tell this route from a missing one.
+ * The builds that serve the admin image routes. The anime build keeps its own admin until step 6 of PLAN-ADMIN-2; the hub build is the one
+ * admin (ADMIN-2), which must reach these routes with the site the admin chose. The kpop build has no images or photos admin: 404, as before.
+ */
+const IMAGE_ADMIN_BUILDS: readonly SiteId[] = [IMAGE_SITE, 'hub'];
+
+/**
+ * 404 unless the build is the anime site or the hub AND requireAdmin('api') lets the request through (ADMIN-1: the session verified by the
+ * auth server, an id in ADMIN_USER_IDS, assurance level aal2, a TOTP code of the last 12 hours). A visitor, a signed-in non-admin, an admin
+ * at aal1 and a kpop build cannot tell this route from a missing one.
  */
 export async function adminGate(): Promise<Gate> {
-  if (SITE_ID !== IMAGE_SITE) return { ok: false, res: notFound() };
+  if (!IMAGE_ADMIN_BUILDS.includes(SITE_ID)) return { ok: false, res: notFound() };
   const gate = await requireAdmin('api');
   if (!gate.ok) return { ok: false, res: gate.res };
   return { ok: true, userId: gate.user.id };
+}
+
+/**
+ * ADMIN-2: the options of adminSiteOf for a call whose data has ONE site of its own (a picture of an idol is kpop's, a banner is the hub's):
+ * only that site is served. The hub build never guesses (a call without a site is refused: site_required); the anime build, until its
+ * admin goes (step 6), means the site of the data when none is sent, as before.
+ */
+export function ownSite(site: SiteId): AdminSiteOptions {
+  return SITE_ID === 'hub' ? { only: [site] } : { only: [site], build: site, buildDefault: true };
 }
 
 /**
