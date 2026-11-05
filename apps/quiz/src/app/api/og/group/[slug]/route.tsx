@@ -105,7 +105,7 @@ export async function GET(
             alt=""
             width={logoSize}
             height={logoSize}
-            style={{ borderRadius: logoRadius, marginBottom: 24, border: '1px solid #E8E6E1' }}
+            style={{ borderRadius: logoRadius, marginBottom: 24, border: '1px solid #E8E6E1', objectFit: 'cover' }}
           />
         ) : (
           <div

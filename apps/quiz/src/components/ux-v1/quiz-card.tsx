@@ -3,6 +3,7 @@ import Image from 'next/image';
 
 import { formatCount } from '@/lib/utils';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
+import { generalKpopFallbackCover } from '@/lib/ux-v1/a0/general-kpop-cover';
 import { groupPhotoUrl, photoFocal, SERIES_ART } from '@/lib/ux-v1/a0/group-photos';
 import { QUIZ_TYPE_GLYPH, TYPE_GLYPHS } from '@/lib/ux-v1/a0/type-glyphs';
 
@@ -64,13 +65,17 @@ const DEFAULT_SIZES = '(max-width: 760px) 72vw, (max-width: 1100px) 33vw, 262px'
  * ink), the title (2 lines max) and the footer: difficulty bars + level on the
  * left, plays (or "New") on the right. A real crawlable <a href="/q/{slug}">.
  * Cover rule: the quiz's own cover_image_url, else the group photo from
- * public/idols, else the typographic cover (type glyph + group name). Server
- * component; in a stacked phone list use <UxQuizGrid stack>.
+ * public/idols, else (General K-pop only, owner 2026-11-04) its fallback cover
+ * (lib/ux-v1/a0/general-kpop-cover.ts), else the typographic cover (type glyph +
+ * group name). Server component; in a stacked phone list use <UxQuizGrid stack>.
  */
 export function UxQuizCard({ quiz, titleAs: T = 'h3', priority, sizes = DEFAULT_SIZES, className, preview, previewLabel }: UxQuizCardProps): React.ReactElement {
   const local = preview && quiz.cover_image_url && /^(data:image\/|blob:)/.test(quiz.cover_image_url) ? quiz.cover_image_url : null;
   const own = !local && quiz.cover_image_url && isConfiguredImageHost(quiz.cover_image_url) ? quiz.cover_image_url : null;
-  const photo = own ?? (local ? null : groupPhotoUrl(quiz.group_slug));
+  const groupPhoto = local ? null : groupPhotoUrl(quiz.group_slug);
+  // A General K-pop card with no cover and no photo would draw the typographic cover: it gets its fallback cover instead (other groups: null).
+  const general = !own && !local && !groupPhoto ? generalKpopFallbackCover(quiz.group_slug) : null;
+  const photo = own ?? groupPhoto ?? general;
   const level = levelOf(quiz.difficulty);
   const plays = quiz.play_count < NEW_QUIZ_PLAY_THRESHOLD ? 'New' : `${formatCount(quiz.play_count)} plays`;
 
@@ -88,7 +93,7 @@ export function UxQuizCard({ quiz, titleAs: T = 'h3', priority, sizes = DEFAULT_
             sizes={sizes}
             priority={priority === true}
             className="ux-qcov-img"
-            style={{ objectPosition: own ? 'center 25%' : photoFocal(quiz.title) }}
+            style={{ objectPosition: own ? 'center 25%' : general ? 'center' : photoFocal(quiz.title) }}
           />
         ) : (
           <div className="ux-qcov-fb">

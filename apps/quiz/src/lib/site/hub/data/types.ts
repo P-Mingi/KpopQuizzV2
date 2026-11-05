@@ -215,6 +215,8 @@ export interface HubSurpriseCard {
   readonly title: string;
   readonly group: string;
   readonly href: string;
+  /** The slug of the group: set on the K-pop pool only (readKpopSurprisePool), where the pick shows the group's picture (groupPhotoUrl). */
+  readonly groupSlug?: string;
 }
 
 export interface HubSurprise {

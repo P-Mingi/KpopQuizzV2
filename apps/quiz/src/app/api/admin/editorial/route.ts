@@ -4,6 +4,7 @@ import { adminNotFound } from '@/lib/admin/guard';
 import { adminGate, generateTemplateDrafts } from '@/lib/editorial/admin-api';
 import { checkDraftInput } from '@/lib/editorial/drafts';
 import { createDraft } from '@/lib/editorial/pipeline';
+import { quizPostAction } from '@/lib/editorial/quiz/admin-api';
 
 import type { NextRequest } from 'next/server';
 
@@ -12,6 +13,9 @@ import type { NextRequest } from 'next/server';
 //   GET   the queue: every draft (newest first, 200) and the editorial accounts
 //   POST  { action: 'create', draft }   a draft written by the admin
 //         { action: 'generate' }        template drafts from this week's real data
+//         { action: 'import_quizzes' | 'approve_quizzes' | 'schedule_quizzes' | 'close_review_batch' }
+//                                       the quiz lane (lib/editorial/quiz/admin-api.ts): only with EDITORIAL_QUIZ on and SQL 012
+//                                       applied (503 quiz_not_live); with the flag off they are a bad_action like any unknown one
 // A draft is never published from here: approve it with a date
 // (PATCH /api/admin/editorial/<id>), the cron publishes it.
 export const dynamic = 'force-dynamic';
@@ -44,6 +48,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       if (!r.ok) return NextResponse.json({ error: r.error }, { status: r.status });
       return NextResponse.json({ ok: true, draft: r.value });
     }
+    const quiz = await quizPostAction((body ?? {}) as Record<string, unknown>, g.adminId);
+    if (quiz) return quiz;
     return NextResponse.json({ error: 'bad_action' }, { status: 400 });
   } catch (err) {
     console.error('[admin/editorial] failed:', err instanceof Error ? err.message : err);
