@@ -77,6 +77,7 @@
     "apps/quiz/package.json",
     "apps/quiz/playwright.config.ts",
     "apps/quiz/vercel.json",
+    "apps/quiz/public/site.webmanifest",
     "apps/quiz/next.config.ts",
     "apps/quiz/src/middleware.ts",
     "apps/quiz/src/middleware-matcher.test.ts",
@@ -484,9 +485,6 @@
     "apps/quiz/src/**",
     "docs/o1/reports/C2/**",
     "docs/pending-migrations/s4/**"
-  ],
-  "pwa": [
-    "apps/quiz/public/site.webmanifest"
   ],
   "C3": [
     "apps/quiz/e2e/o1/C3/**",
