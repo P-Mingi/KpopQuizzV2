@@ -336,6 +336,7 @@
   ],
   "E1b": [
     "docs/pending-migrations/multisite/012-*",
+    "docs/pending-migrations/multisite/025-*",
     "apps/quiz/src/lib/editorial/**",
     "apps/quiz/src/app/api/cron/editorial-publish/**",
     "apps/quiz/e2e/o1/E1b/**"
