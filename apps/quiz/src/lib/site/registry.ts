@@ -454,6 +454,7 @@ export const O1_FLAGS: readonly O1Flag[] = [
   { name: 'NET_KPOPDLE_HOME', scope: 'server', lane: 'H1', reserved: false },
   { name: 'NET_KPOPDLE_QUIZEND', scope: 'server', lane: 'H1', reserved: false },
   { name: 'NET_KPOPDLE_GROUP', scope: 'server', lane: 'H1', reserved: false },
+  { name: 'EDITORIAL_QUIZ', scope: 'server', lane: 'E1b', reserved: false },
 ];
 
 /** Existing switches the run never changes (BACKLOG 5.1 "untouched"). */
