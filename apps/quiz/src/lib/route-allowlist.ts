@@ -32,6 +32,8 @@ export const KNOWN_ROUTES = [
   '/kpop-games',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
   '/sitemap.xml', '/robots.txt', '/llms.txt',
+  // Run PWA: the service worker (app/sw.js/route.ts) answers a worker with NEXT_PUBLIC_NET_PWA on and a 404 with it off; the middleware passes a file path through either way.
+  '/sw.js',
   // '/me' (the passport, where /profile redirects) and '/notifications' (the
   // bell) are real signed-in pages that were never allowlisted, so the
   // unknown-route rule 301'd them to / and made both unreachable. They guard
