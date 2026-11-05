@@ -117,6 +117,18 @@ The only IndexNow variable is `INDEXNOW_TRIGGER_TOKEN` (kpopquiz, 1.5).
 Organization mailbox (public value, `MAILBOX` in the registry, owner decision 2026-10-25): `hello@kpopquiz.org` for all three sites (`seo.organization.email`). It is the one routed mailbox (RUNBOOK H6).
 Team accounts: `<username>@team.bunnyverse.org` (owner, 2026-10-28). That sub-domain must not receive mail: no MX record and no mailbox for `team.bunnyverse.org`.
 
+### 1.8 The one admin (ADMIN-2; branch `o1/admin2`, merged after launch day, not before)
+
+| variable | kpopquiz | fandomverse | otakuquiz | value source |
+|---|---|---|---|---|
+| `ADMIN_PATH` | never | the secret address of the admin, marked **Sensitive** | never | You make it in your own terminal and paste it into Vercel only: 24 or more random lowercase letters and digits. The admin is then at `https://bunnyverse.org/<ADMIN_PATH>`. The code accepts 20 to 64 characters (letters, digits, inner dashes) and nothing else; a shorter or odd value, or none, means no admin at all (404 everywhere). Never in the repository, a log, a screenshot or a chat. Changing it and redeploying closes the old address. |
+| `ADMIN_REVALIDATE_SECRET` | the same value | the same value | the same value | secret, **Sensitive**, 24 or more random characters, one value on the three projects. The admin of the hub uses it to tell kpopquiz.org and bunnyverse.org/anime to refresh their cache after a change (`POST /api/site-revalidate`, a closed list of cache tags, nothing else). Unset on a project: that project answers 404 to the call and its public pages catch up at their own refresh interval. |
+| `ADMIN_USER_IDS` | already | **needed now** (copy kpopquiz) | already | the hub has an admin from ADMIN-2 on. |
+| `ADMIN_MFA_ENROL_OPEN` | unset | `1` only while you turn the code on there (same steps as `docs/o1/admin/MFA-OWNER.md` section 2, at `/<ADMIN_PATH>/setup`), then remove it and redeploy | unset | server switch, not a secret. The code of your account is the same one on the three sites. |
+
+Order: apply `docs/pending-migrations/multisite/026-admin-actions.sql` (check `docs/launch/o1/checks/V-026.sql`) first, then set the variables, then deploy.
+The code is asked again 12 hours after the last one, on the three admins.
+
 ## 2. Supabase
 
 ### 2.1 Edge Function `send-email` (lane B7, merged)
