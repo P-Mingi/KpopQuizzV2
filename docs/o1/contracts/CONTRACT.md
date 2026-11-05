@@ -37,7 +37,7 @@ every lane of `LANES.md`; R and the gate are named where they read the file.
 | `link-allowlist.md` + `link-allowlist.json` | cross-site links allowed in crawlable HTML (the JSON is read by Q0a's `check-network-links.mts`) | F0, Q0a, B6, O1, H1, X1, C3 | written |
 | `LANES.md` | every lane of BACKLOG section 1 (with the run's splits), the files it cites, what each file assigns it, the sections to read first | all, R | written |
 | `defaults.md` | the G0 defaults, each "confirmed by the owner (G0, 2026-10-16)" | all | written |
-| `TWINS.md` | rule 18: every anime and FanQuiz page, its kpop twin, the shared components it imports, its closed list of differences | ORCH, F0, F0s, Q0a, D0, B4, B6, B7, O1, O2, O3, O4, O5, O6, P1, H1, E1b, X1, C1, C3, R | written |
+| `TWINS.md` | rule 18: every anime and FanQuiz page, its kpop twin, the shared components it imports, its closed list of differences | ORCH, F0, F0s, Q0a, D0, B4, B6, B7, O1, O2, O3, O4, O5, O6, P1, H1, E1b, X1, L1, C1, C3, R | written |
 | `twins.json` | the machine form of `TWINS.md` (same rows), read by Q0a's `apps/quiz/scripts/o1/twins.mts` through `scripts/o1/check.sh` | ORCH, F0, F0s, Q0a, gate, R | written |
 | `spike-checks.tsv` | route checks of the routing spike (branch `o1/F0s` only) | ORCH, F0, F0s, Q0a, gate | on `o1/F0s` |
 

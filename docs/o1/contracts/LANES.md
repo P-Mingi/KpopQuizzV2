@@ -51,7 +51,7 @@ Every lane cites `CONTRACT.md`, `naming.md`, `LANES.md` and `defaults.md`. `cont
 | H1 | 2 | code | R-UX, R-SEO, R-SEC | `CONTRACT.md`, `naming.md`, `registry.md`, `routes.md`, `tokens.md`, `contract.types.ts`, `rpcs.md`, `apis.md`, `cookies.md`, `flags-env.md`, `fixtures.md`, `copy-keys.md`, `link-allowlist.md`, `LANES.md`, `defaults.md`, `TWINS.md` |
 | E1b | 2 | code | R-SEC | `CONTRACT.md`, `naming.md`, `routes.md`, `schema.sql`, `contract.types.ts`, `manifest.md`, `rpcs.md`, `apis.md`, `flags-env.md`, `formats.md`, `copy-keys.md`, `LANES.md`, `defaults.md`, `TWINS.md` |
 | X1 | 3 | code + content | R-SEO, R-CONTENT | `CONTRACT.md`, `naming.md`, `registry.md`, `schema.sql`, `manifest.md`, `rpcs.md`, `flags-env.md`, `formats.md`, `copy-keys.md`, `link-allowlist.md`, `LANES.md`, `defaults.md`, `TWINS.md` |
-| L1 | 3 | code + docs | R-ARCH | `CONTRACT.md`, `naming.md`, `routes.md`, `schema.sql`, `manifest.md`, `apis.md`, `flags-env.md`, `copy-keys.md`, `LANES.md`, `defaults.md` |
+| L1 | 3 | code + docs | R-ARCH | `CONTRACT.md`, `naming.md`, `routes.md`, `schema.sql`, `manifest.md`, `apis.md`, `flags-env.md`, `copy-keys.md`, `LANES.md`, `defaults.md`, `TWINS.md` |
 | C1 | 4 | code (checker) | n/a | `CONTRACT.md`, `naming.md`, `routes.md`, `tokens.md`, `flags-env.md`, `copy-keys.md`, `LANES.md`, `defaults.md`, `TWINS.md` |
 | C2 | 4 | checker (no build) | n/a | `CONTRACT.md`, `naming.md`, `schema.sql`, `manifest.md`, `rpcs.md`, `apis.md`, `cookies.md`, `flags-env.md`, `LANES.md`, `defaults.md` |
 | C3 | 4 | code (checker) | n/a | `CONTRACT.md`, `naming.md`, `registry.md`, `routes.md`, `flags-env.md`, `link-allowlist.md`, `LANES.md`, `defaults.md`, `TWINS.md` |
@@ -95,7 +95,7 @@ counts for both); flags are flags-env.md 3; formats are the "written by" column 
 | H1 | none | H-0, H-1, H-2, H-3, H-4, H-5, H-6, H-7, H-8, H-10, H-11, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 26d | hub.h1 | none | none | NEXT_PUBLIC_NET_PRIVACY, NET_KPOPDLE_HOME, NET_KPOPDLE_QUIZEND, NET_KPOPDLE_GROUP | none |
 | E1b | 012 | 29 | anime.e1b | none | none | none | none |
 | X1 | L11 | none | kpop.x1, anime.x1 | none | CrossoverFact | NEXT_PUBLIC_NET_FACTS | quiz draft |
-| L1 | L12 | none | kpop.l1 | /admin/network | none | NET_INDEXING | none |
+| L1 | L12 | 58, 59, 60, 61, 62, 63, 64 | kpop.l1 | /admin/network | none | NET_INDEXING | none |
 | C1 | none | none | none | none | none | none | none |
 | C2 | none | none | none | none | none | none | none |
 | C3 | none | none | none | none | none | none | none |
@@ -197,7 +197,7 @@ section numbers, and `schema.sql` is cited by its `@file` sections.
   `flags-env.md` 3 (`NEXT_PUBLIC_NET_FACTS`), `formats.md` 4 and 11, `copy-keys.md` 3, `link-allowlist.md` 2 (Team
   article, About lines), `TWINS.md` 5 (the kpop deltas) and the A4 slot of O2's rows.
 - **L1**: `routes.md` 1 and 3, `schema.sql` 001 and L01-B2-sites (L12 flips `sites.status`), `manifest.md` 2 and 4,
-  `apis.md` 7 (`/admin/network`), `flags-env.md` 3 to 5, `copy-keys.md` 3 (`kpop.l1`, pending).
+  `apis.md` 7 (`/admin/network`), `flags-env.md` 3 to 5, `copy-keys.md` 3 (`kpop.l1`, pending), `TWINS.md` rows 58 to 64 (ADMIN-2, the one admin behind the secret door).
 - **C1**: `routes.md` 3, `tokens.md` 6, `flags-env.md` 1 and 2, `copy-keys.md` 3, `TWINS.md` (every row against D0).
 - **C2**: `schema.sql` (every section), `manifest.md` 1 to 3, `rpcs.md` 2 and 5, `apis.md` 1.1, `cookies.md`,
   `flags-env.md` 5 (the secrets scan).

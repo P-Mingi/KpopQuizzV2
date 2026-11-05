@@ -1972,6 +1972,125 @@
       "owner": "H1",
       "body": "local",
       "notes": "The French Otakudle Dragon Ball, same components as row 56. Noindex until the owner reviewed the French. A 404 with the flag off (CR-024)."
+    },
+    {
+      "id": "58",
+      "site": "hub",
+      "route": "/<ADMIN_PATH> (the one admin, overview)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/admin/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/admin/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/admin/hub/admin-shell.tsx"
+      ],
+      "allowed": [
+        "C"
+      ],
+      "owner": "L1",
+      "body": "local",
+      "notes": "ADMIN-2 (owner, 2026-10-30; PLAN-ADMIN-2): the dashboard of the one admin, behind the secret door (lib/admin/door.ts). Never a public route of the hub: the middleware rewrites /<ADMIN_PATH> to it and /admin of the hub stays an unknown URL. The three sections side by side or the numbers of one site, real counts only. Admin only, never indexed, never linked. CR pending for ORCH: a hub screen with a kpop admin twin."
+    },
+    {
+      "id": "59",
+      "site": "hub",
+      "route": "/<ADMIN_PATH>/quizzes",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/admin/quizzes/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/admin/quiz/search/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/admin/hub/admin-shell.tsx",
+        "components/admin/hub/row-actions.tsx"
+      ],
+      "allowed": [
+        "C"
+      ],
+      "owner": "L1",
+      "body": "local",
+      "notes": "ADMIN-2: the quizzes of one site (?site=), with remove and restore through the shared /api/admin routes, which validate the site and filter by it."
+    },
+    {
+      "id": "60",
+      "site": "hub",
+      "route": "/<ADMIN_PATH>/reports",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/admin/reports/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/admin/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/admin/hub/admin-shell.tsx",
+        "components/admin/hub/row-actions.tsx"
+      ],
+      "allowed": [
+        "C"
+      ],
+      "owner": "L1",
+      "body": "local",
+      "notes": "ADMIN-2 (R31): the pending reports of one site (?site=), with dismiss through the shared route, scoped by site. The kpop twin shows them in its dashboard."
+    },
+    {
+      "id": "61",
+      "site": "hub",
+      "route": "/<ADMIN_PATH>/journal",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/admin/journal/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/admin/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/admin/hub/admin-shell.tsx"
+      ],
+      "allowed": [
+        "C"
+      ],
+      "owner": "L1",
+      "body": "local",
+      "notes": "ADMIN-2 (PLAN-ADMIN-2 section 4): the action journal, read only, the last 200 lines of one site or of all. New tool with no kpop page: CR pending for ORCH (the twin named is the nearest, the admin dashboard)."
+    },
+    {
+      "id": "62",
+      "site": "hub",
+      "route": "/<ADMIN_PATH>/code",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/admin/code/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/admin/k7q2m/code/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/admin/mfa/mfa-page.tsx"
+      ],
+      "allowed": [
+        "C"
+      ],
+      "owner": "L1",
+      "body": "shared",
+      "notes": "ADMIN-2: the TOTP code page of the one admin, under the secret address; the code is asked again 12 hours after the last one. The address to return to is validated on the server (an internal path under the secret address, never an external URL). 404 to anyone requireAdmin('mfa') refuses and to any request without the door."
+    },
+    {
+      "id": "63",
+      "site": "hub",
+      "route": "/<ADMIN_PATH>/setup",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/admin/setup/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/admin/k7q2m/setup/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/admin/mfa/mfa-page.tsx"
+      ],
+      "allowed": [
+        "C"
+      ],
+      "owner": "L1",
+      "body": "shared",
+      "notes": "ADMIN-2: the TOTP setup page of the one admin, under the secret address, open only while ADMIN_MFA_ENROL_OPEN=1 (as row 44)."
+    },
+    {
+      "id": "64",
+      "site": "hub",
+      "route": "guard layout of the hub admin tree",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/admin/layout.tsx",
+      "twin": null,
+      "mustImport": [],
+      "allowed": [],
+      "notes": "ADMIN-2: technical, like row 45. The door (requireAdminDoor) then requireAdmin('mfa') answer notFound() before any admin page runs; renders its children and nothing of its own.",
+      "renders": [
+        "nothing visible: an admin guard that renders its children, or a 404"
+      ],
+      "owner": "L1",
+      "body": "none"
     }
   ]
 }
